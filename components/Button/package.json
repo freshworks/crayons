@@ -1,0 +1,25 @@
+{
+  "name": "@freshworks-ui-kit/button",
+  "version": "0.1.0",
+  "svelte": "src/index.html",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "author": "Freshworks",
+  "scripts": {
+    "prepare": "yarn run build",
+    "clean": "rimraf dist && mkdir dist",
+    "build:rollup": "rollup src/button.html --config ../../rollup.config.js --environment MODULE:index.mjs,MAIN:index.js,NAME:@freshworks-ui-kit/button",
+    "build": "yarn run clean && yarn run build:rollup"
+  },
+  "keywords": [
+    "svelte"
+  ],
+  "files": [
+    "src",
+    "dist/index.mjs",
+    "dist/index.js"
+  ],
+  "peerDependencies": {
+    "svelte": "^2.15.3"
+  }
+}

@@ -1,0 +1,51 @@
+<div class="fw-alert" {...props}>
+  {#if title}
+    <div class="title">{title}</div>
+  {/if}
+	<slot></slot>
+  <div class="close" on:click="close()">&cross;</div>
+</div>
+
+<style>
+.fw-alert{
+  width: 350px;
+  border-radius: 2px;
+  position: relative;
+  padding: 10px 20px;
+  font-size: 12px;
+  color: #6F7C87;
+  background-color: #FFFFFF;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  box-shadow: inset 0 1px 1px 0 rgba(0,0,0,0.5),
+    0 0 1px 0 rgba(0,0,0,0.1),
+    0 1px 3px 0 rgba(0,0,0,0.1),
+    0 24px 19px 2px rgba(0,0,0,0.06);
+}
+.title {
+  color: #183247;
+  font-size: 14px;
+  font-weight: 600;
+  padding-bottom: 5px;
+}
+
+.close{
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+</style>
+
+<script>
+  export default {
+    tag: "fw-alert",
+    props: ["type", "title"],
+    methods: {
+      close() {
+        this.parentNode.removeChild(this);
+      },
+    }
+  };
+</script>
