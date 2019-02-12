@@ -19,14 +19,14 @@ cd freshworks-ui-kit
 yarn
 ```
 
+**To build components**
+```
+yarn build:components
+```
+
 **To Run Storybook**
 ```
 yarn dev
-```
-
-**To build components**
-```
-build:components
 ```
 
 ### TODO
