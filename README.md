@@ -29,7 +29,7 @@ yarn dev
 build:components
 ```
 
-###TODO
+### TODO
 - [ ] Create script to generate a component (Use something like PLOP for sub-project generation)
 - [ ] Create base components
 - [ ] Create distribution systems
