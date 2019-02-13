@@ -1,0 +1,55 @@
+<div>
+  <input type="text" class="fw-input" placeholder={placeholder}   {...props} />
+<slot></slot>
+</div>
+
+<style>
+.fw-input 
+ {
+  width: 200px;
+  height: 25px;
+  border-radius : 5px;
+  cursor :pointer;
+ }
+
+.fw-input::placeholder 
+ {
+  width: 176px;
+  height: 20px;
+  font-family: SFProText;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #92a2b1; 
+ } 
+.fw-input:hover
+{
+border: solid 1px #475867;
+}
+
+.fw-input:focus
+{
+ outline:none;
+border: solid 2px #2c5cc5;
+}
+.fw-input:invalid
+{
+ border : solid 1px #d72d30;
+}
+.fw-input:disabled 
+{
+  background: #cfd7df;
+  cursor : auto;
+}
+
+</style>
+
+<script>
+  export default {
+    tag: "fw-input",
+  props: ["placeholder","type"],
+  };
+</script>
