@@ -1,0 +1,303 @@
+import express from 'express';
+import https from 'https';
+import ip from 'ip';
+import favicon from 'serve-favicon';
+import path from 'path';
+import fs from 'fs-extra';
+import chalk from 'chalk';
+import { logger, colors } from '@storybook/node-logger';
+import fetch from 'node-fetch';
+import Cache from 'file-system-cache';
+import findCacheDir from 'find-cache-dir';
+import opn from 'opn';
+import boxen from 'boxen';
+import semver from 'semver';
+import { stripIndents } from 'common-tags';
+import Table from 'cli-table3';
+import prettyTime from 'pretty-hrtime';
+
+import storybook, { webpackValid } from './dev-server';
+import { getDevCli } from './cli';
+
+const defaultFavIcon = require.resolve('./public/favicon.ico');
+const cacheDir = findCacheDir({ name: 'storybook' });
+const cache = Cache({
+  basePath: cacheDir,
+  ns: 'storybook', // Optional. A grouping namespace for items.
+});
+
+const writeStats = async (name, stats) => {
+  await fs.writeFile(
+    path.join(cacheDir, `${name}-stats.json`),
+    JSON.stringify(stats.toJson(), null, 2),
+    'utf8'
+  );
+};
+
+async function getServer(app, options) {
+  if (!options.https) {
+    return app;
+  }
+
+  if (!options.sslCert) {
+    logger.error('Error: --ssl-cert is required with --https');
+    process.exit(-1);
+  }
+
+  if (!options.sslKey) {
+    logger.error('Error: --ssl-key is required with --https');
+    process.exit(-1);
+  }
+
+  const sslOptions = {
+    ca: await Promise.all((options.sslCa || []).map(ca => fs.readFile(ca, 'utf-8'))),
+    cert: await fs.readFile(options.sslCert, 'utf-8'),
+    key: await fs.readFile(options.sslKey, 'utf-8'),
+  };
+
+  return https.createServer(sslOptions, app);
+}
+
+async function applyStatic(app, options) {
+  const { staticDir } = options;
+
+  let hasCustomFavicon = false;
+
+  if (staticDir && staticDir.length) {
+    await Promise.all(
+      staticDir.map(async dir => {
+        const staticPath = path.resolve(dir);
+
+        if (await !fs.exists(staticPath)) {
+          logger.error(`Error: no such directory to load static files: ${staticPath}`);
+          process.exit(-1);
+        }
+
+        logger.info(`=> Loading static files from: ${staticPath} .`);
+        app.use(express.static(staticPath, { index: false }));
+
+        const faviconPath = path.resolve(staticPath, 'favicon.ico');
+
+        if (await fs.exists(faviconPath)) {
+          hasCustomFavicon = true;
+          app.use(favicon(faviconPath));
+        }
+      })
+    );
+  }
+
+  if (!hasCustomFavicon) {
+    app.use(favicon(defaultFavIcon));
+  }
+}
+
+const updateCheck = async version => {
+  let result;
+  const time = Date.now();
+  try {
+    const fromCache = await cache.get('lastUpdateCheck', { success: false, time: 0 });
+
+    // if last check was more then 24h ago
+    if (time - 86400000 > fromCache.time) {
+      const fromFetch = await Promise.race([
+        fetch(`https://storybook.js.org/versions.json?current=${version}`),
+        // if fetch is too slow, we won't wait for it
+        new Promise((res, rej) => global.setTimeout(rej, 1500)),
+      ]);
+      const data = await fromFetch.json();
+      result = { success: true, data, time };
+      await cache.set('lastUpdateCheck', result);
+    } else {
+      result = fromCache;
+    }
+  } catch (error) {
+    result = { success: false, error, time };
+  }
+  return result;
+};
+
+function listenToServer(server, listenAddr) {
+  let serverResolve = () => {};
+  let serverReject = () => {};
+
+  const serverListening = new Promise((resolve, reject) => {
+    serverResolve = resolve;
+    serverReject = reject;
+  });
+
+  server.listen(...listenAddr, error => {
+    if (error) {
+      serverReject(error);
+    } else {
+      serverResolve();
+    }
+  });
+
+  return serverListening;
+}
+
+function createUpdateMessage(updateInfo, version) {
+  let updateMessage;
+
+  try {
+    updateMessage =
+      updateInfo.success && semver.lt(version, updateInfo.data.latest.version)
+        ? stripIndents`
+          ${colors.orange(
+            `A new version (${chalk.bold(updateInfo.data.latest.version)}) is available!`
+          )}
+          ${chalk.gray(updateInfo.data.latest.info.plain)}
+
+          ${chalk.gray('Read full changelog here:')}
+          ${chalk.gray.underline('https://git.io/fxc61')}
+        `
+        : '';
+  } catch (e) {
+    updateMessage = '';
+  }
+  return updateMessage;
+}
+
+function outputStartupInformation(options) {
+  const {
+    updateInfo,
+    version,
+    address,
+    networkAddress,
+    managerTotalTime,
+    previewTotalTime,
+  } = options;
+
+  const updateMessage = createUpdateMessage(updateInfo, version);
+
+  const serveMessage = new Table({
+    chars: {
+      top: '',
+      'top-mid': '',
+      'top-left': '',
+      'top-right': '',
+      bottom: '',
+      'bottom-mid': '',
+      'bottom-left': '',
+      'bottom-right': '',
+      left: '',
+      'left-mid': '',
+      mid: '',
+      'mid-mid': '',
+      right: '',
+      'right-mid': '',
+      middle: '',
+    },
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+  });
+
+  serveMessage.push(
+    ['Local:', chalk.cyan(address)],
+    ['On your network:', chalk.cyan(networkAddress)]
+  );
+
+  // eslint-disable-next-line no-console
+  console.log(
+    boxen(
+      stripIndents`
+          ${colors.green(`Storybook ${chalk.bold(version)} started`)}
+          ${chalk.gray(stripIndents`
+          ${chalk.underline(prettyTime(managerTotalTime))} for manager and ${chalk.underline(
+            prettyTime(previewTotalTime)
+          )} for preview`)}
+
+          ${serveMessage.toString()}${updateMessage ? `\n\n${updateMessage}` : ''}
+        `,
+      { borderStyle: 'round', padding: 1, borderColor: '#F1618C' }
+    )
+  );
+}
+
+async function outputStats(previewStats, managerStats) {
+  await writeStats('preview', previewStats);
+  await writeStats('manager', managerStats);
+  logger.info(`stats written to => ${chalk.cyan(path.join(cacheDir, '[name].json'))}`);
+}
+
+function openInBrowser(address) {
+  opn(address).catch(() => {
+    logger.error(stripIndents`
+          Could not open ${address} inside a browser. If you're running this command inside a
+          docker container or on a CI, you need to pass the '--ci' flag to prevent opening a
+          browser by default.
+        `);
+  });
+}
+
+export async function buildDevStandalone(options) {
+  try {
+    const { port, host } = options;
+
+    // Used with `app.listen` below
+    const listenAddr = [port];
+
+    if (host) {
+      listenAddr.push(host);
+    }
+
+    const app = express();
+    const server = await getServer(app, options);
+
+    await applyStatic(app, options);
+
+    const storybookMiddleware = await storybook(options);
+
+    app.use(storybookMiddleware);
+
+    const serverListening = listenToServer(server, listenAddr);
+    const { version } = options.packageJson;
+
+    const [
+      { previewStats, managerStats, managerTotalTime, previewTotalTime },
+      updateInfo,
+    ] = await Promise.all([webpackValid, updateCheck(version), serverListening]);
+
+    const proto = options.https ? 'https' : 'http';
+    const address = `${proto}://${options.host || 'localhost'}:${port}/`;
+    const networkAddress = `${proto}://${ip.address()}:${port}/`;
+
+    outputStartupInformation({
+      updateInfo,
+      version,
+      address,
+      networkAddress,
+      managerTotalTime,
+      previewTotalTime,
+    });
+
+    if (options.smokeTest) {
+      await outputStats(previewStats, managerStats);
+
+      process.exit(previewStats.toJson().warnings.length ? 1 : 0);
+      process.exit(managerStats.toJson().warnings.length ? 1 : 0);
+    } else if (!options.ci) {
+      openInBrowser(address);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      logger.error(error);
+    }
+    if (options.smokeTest) {
+      process.exit(1);
+    }
+  }
+}
+
+export async function buildDev({ packageJson, ...loadOptions }) {
+  const cliOptions = await getDevCli(packageJson);
+
+  await buildDevStandalone({
+    ...cliOptions,
+    ...loadOptions,
+    packageJson,
+    configDir: cliOptions.configDir || './.storybook',
+  });
+}

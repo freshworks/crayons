@@ -1,0 +1,18 @@
+{
+	"description": "frame-title test",
+	"rule": "frame-title",
+	"violations": [
+		["#violation1"],
+		["#violation1", "#violation2"],
+		["#violation3"]
+	],
+	"passes": [
+		["#violation1", "#pass1"],
+		["#pass2"],
+		["#pass3"],
+		["#pass4"],
+		["#pass5"],
+		["#pass6"],
+		["#pass7"]
+	]
+}

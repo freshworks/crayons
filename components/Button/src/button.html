@@ -1,0 +1,55 @@
+<button class="fw-button" {...props} >
+	<slot></slot>
+</button>
+
+<style>
+  :host([disabled]) {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .fw-button {
+    padding: 8px 18px;
+    border: 1px solid var(--theme-color, #02b875);
+    color: #fff;
+    border-radius: 2px;
+    background-color: var(--theme-color, #02b875);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    line-height: 14px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .fw-button:hover:not([disabled]) {
+    cursor: pointer;
+    background-color: var(--theme-color, #02b875);
+    filter: brightness(90%);
+  }
+  .fw-button:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+  .fw-button[size="large"]{
+    min-width: 220px;
+  }
+  .fw-button[size="icon"]{
+    width: 30px;
+    height: 30px;
+    padding: 0;
+  }
+</style>
+
+<script>
+  export default {
+    tag: "fw-button",
+    props: ["disabled", "type", "name","size"],
+    computed: {
+      props: state => {
+        Object.keys(state).forEach(key => {
+          state[key] = state[key] === "" ? key : state[key];
+        });
+        return state;
+      }
+    }
+  };
+</script>
