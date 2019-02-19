@@ -10,21 +10,34 @@ storiesOf('Input text box', module)
   //.addDecorator(withActions('click fw-button'))
   .add('Normal input', () => 
    `
-   <fw-input placeholder="Placeholder" type="text">
+   <fw-input placeholder="Normal input"  maxlength="6" label="Normal input(Takes not more than 6 characters)" >
     `
   )
- .add('input ', () => 
+ .add('Disabled input ', () => 
     `
-    <fw-input type="text" placeholder="la" disabled/>
+    <fw-input type="text" placeholder="disabled input" disabled/>
    
     
      `
  )
-  // .add('Plain card with no title', () => 
-  //  `
-  //  <fw-alert>
-  //  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.
-  //  </fw-alert>
-  //   `
-  // )
-  
+ .add('Time input ', () => 
+ `
+ <fw-input type="time"  />
+
+ 
+  `
+)
+.add('Date input ', () => 
+ `
+ <fw-input type="date"  />
+
+ 
+  `
+)
+.add('Read only input ', () => 
+`
+<fw-input value="Read only" readonly   />
+
+
+ `
+)
