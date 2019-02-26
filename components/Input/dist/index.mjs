@@ -31,6 +31,10 @@ function createText(data) {
 	return document.createTextNode(data);
 }
 
+function createComment() {
+	return document.createComment('');
+}
+
 function setAttribute(node, attribute, value) {
 	if (value == null) node.removeAttribute(attribute);
 	else node.setAttribute(attribute, value);
@@ -234,9 +238,53 @@ function props(state) {
 }
 
 function create_main_fragment(component, ctx) {
-	var div, text0, input, text1, slot;
+	var if_block_anchor;
 
-	var if_block = (ctx.label) && create_if_block(component, ctx);
+	function select_block_type(ctx) {
+		if (ctx.type=="checkbox") return create_if_block;
+		return create_else_block;
+	}
+
+	var current_block_type = select_block_type(ctx);
+	var if_block = current_block_type(component, ctx);
+
+	return {
+		c() {
+			if_block.c();
+			if_block_anchor = createComment();
+			this.c = noop;
+		},
+
+		m(target, anchor) {
+			if_block.m(target, anchor);
+			insert(target, if_block_anchor, anchor);
+		},
+
+		p(changed, ctx) {
+			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+				if_block.p(changed, ctx);
+			} else {
+				if_block.d(1);
+				if_block = current_block_type(component, ctx);
+				if_block.c();
+				if_block.m(if_block_anchor.parentNode, if_block_anchor);
+			}
+		},
+
+		d(detach) {
+			if_block.d(detach);
+			if (detach) {
+				detachNode(if_block_anchor);
+			}
+		}
+	};
+}
+
+// (6:0) {:else}
+function create_else_block(component, ctx) {
+	var text0, input, text1, slot;
+
+	var if_block = (ctx.label) && create_if_block_1(component, ctx);
 
 	var input_levels = [
 		{ class: "fw-input" },
@@ -250,24 +298,20 @@ function create_main_fragment(component, ctx) {
 
 	return {
 		c() {
-			div = createElement("div");
 			if (if_block) if_block.c();
-			text0 = createText("\n  ");
+			text0 = createText("\n    ");
 			input = createElement("input");
-			text1 = createText("\n");
+			text1 = createText(" \n    ");
 			slot = createElement("slot");
-			this.c = noop;
 			setAttributes(input, input_data);
-			div.id = "inputapp";
 		},
 
 		m(target, anchor) {
-			insert(target, div, anchor);
-			if (if_block) if_block.m(div, null);
-			append(div, text0);
-			append(div, input);
-			append(div, text1);
-			append(div, slot);
+			if (if_block) if_block.m(target, anchor);
+			insert(target, text0, anchor);
+			insert(target, input, anchor);
+			insert(target, text1, anchor);
+			insert(target, slot, anchor);
 		},
 
 		p(changed, ctx) {
@@ -275,9 +319,9 @@ function create_main_fragment(component, ctx) {
 				if (if_block) {
 					if_block.p(changed, ctx);
 				} else {
-					if_block = create_if_block(component, ctx);
+					if_block = create_if_block_1(component, ctx);
 					if_block.c();
-					if_block.m(div, text0);
+					if_block.m(text0.parentNode, text0);
 				}
 			} else if (if_block) {
 				if_block.d(1);
@@ -291,17 +335,74 @@ function create_main_fragment(component, ctx) {
 		},
 
 		d(detach) {
+			if (if_block) if_block.d(detach);
 			if (detach) {
-				detachNode(div);
+				detachNode(text0);
+				detachNode(input);
+				detachNode(text1);
+				detachNode(slot);
 			}
-
-			if (if_block) if_block.d();
 		}
 	};
 }
 
-// (4:2) {#if label}
+// (1:0) {#if type=="checkbox"}
 function create_if_block(component, ctx) {
+	var label, text0, text1, input, text2, span;
+
+	var input_levels = [
+		{ class: "fw-input" },
+		ctx.props
+	];
+
+	var input_data = {};
+	for (var i = 0; i < input_levels.length; i += 1) {
+		input_data = assign(input_data, input_levels[i]);
+	}
+
+	return {
+		c() {
+			label = createElement("label");
+			text0 = createText(ctx.label);
+			text1 = createText("\n  ");
+			input = createElement("input");
+			text2 = createText(" \n  ");
+			span = createElement("span");
+			setAttributes(input, input_data);
+			span.className = "checkmark";
+			label.className = "container";
+		},
+
+		m(target, anchor) {
+			insert(target, label, anchor);
+			append(label, text0);
+			append(label, text1);
+			append(label, input);
+			append(label, text2);
+			append(label, span);
+		},
+
+		p(changed, ctx) {
+			if (changed.label) {
+				setData(text0, ctx.label);
+			}
+
+			setAttributes(input, getSpreadUpdate(input_levels, [
+				{ class: "fw-input" },
+				(changed.props) && ctx.props
+			]));
+		},
+
+		d(detach) {
+			if (detach) {
+				detachNode(label);
+			}
+		}
+	};
+}
+
+// (7:4) {#if label}
+function create_if_block_1(component, ctx) {
 	var label, text0, text1, br;
 
 	return {
@@ -358,7 +459,7 @@ class Input extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["max","min","pattern","readonly","required","size","step","title","value","label","disabled","maxlength","placeholder","type"];
+		return ["max","min","pattern","readonly","required","size","step","title","name","id","value","label","disabled","maxlength","placeholder","type"];
 	}
 
 	get max() {
@@ -423,6 +524,22 @@ class Input extends HTMLElement {
 
 	set title(value) {
 		this.set({ title: value });
+	}
+
+	get name() {
+		return this.get().name;
+	}
+
+	set name(value) {
+		this.set({ name: value });
+	}
+
+	get id() {
+		return this.get().id;
+	}
+
+	set id(value) {
+		this.set({ id: value });
 	}
 
 	get value() {

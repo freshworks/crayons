@@ -41,3 +41,9 @@ storiesOf('Input text box', module)
 
  `
 )
+.add('Check boxes',()=>
+`
+<fw-input type="checkbox" value="select1" label="Please select me"><br>
+
+`
+);

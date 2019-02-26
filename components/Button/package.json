@@ -8,7 +8,7 @@
   "scripts": {
     "prepare": "yarn run build",
     "clean": "rimraf dist && mkdir dist",
-    "build:rollup": "rollup src/input.html --config ../../rollup.config.js --environment MODULE:index.mjs,MAIN:index.js,NAME:@freshworks-ui-kit/button",
+    "build:rollup": "rollup src/button.html --config ../../rollup.config.js --environment MODULE:index.mjs,MAIN:index.js,NAME:@freshworks-ui-kit/button",
     "build": "yarn run clean && yarn run build:rollup"
   },
   "keywords": [

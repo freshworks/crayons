@@ -228,7 +228,7 @@ function create_main_fragment(component, ctx) {
 	var button, slot;
 
 	var button_levels = [
-		{ class: "fw-button" },
+		{ class: "class" },
 		ctx.props
 	];
 
@@ -252,7 +252,7 @@ function create_main_fragment(component, ctx) {
 
 		p(changed, ctx) {
 			setAttributes(button, getSpreadUpdate(button_levels, [
-				{ class: "fw-button" },
+				{ class: "class" },
 				(changed.props) && ctx.props
 			]));
 		},
@@ -277,8 +277,8 @@ class Button extends HTMLElement {
 		this._slotted = options.slots || {};
 
 		this.attachShadow({ mode: 'open' });
-		this.shadowRoot.innerHTML = `<style>:host([disabled]){cursor:not-allowed;pointer-events:none}.fw-button{padding:8px 18px;border:1px solid var(--theme-color, #02b875);color:#fff;border-radius:2px;background-color:var(--theme-color, #02b875);font-size:12px;font-weight:600;letter-spacing:0.5px;line-height:14px;text-align:center;text-transform:uppercase;box-shadow:inset 0 -1px 0 0 rgba(0, 0, 0, 0.12),
-		      0 0 1px 0 rgba(24, 50, 71, 0.6), 0 1px 0 0 var(--theme-color, #02b875)}.fw-button:hover:not([disabled]){cursor:pointer;background-color:var(--theme-color, #02b875);filter:brightness(90%)}.fw-button:disabled{opacity:0.2;cursor:not-allowed}.fw-button[size="large"]{min-width:220px}.fw-button[size="icon"]{width:30px;height:30px;padding:0}</style>`;
+		this.shadowRoot.innerHTML = `<style>:host([disabled]){cursor:not-allowed;pointer-events:none}.primary:not(disabled){outline:none;width:86px;height:32px;border:none;box-sizing:border-box;box-shadow:0 1px 0 0 rgba(24, 50, 71, 0.12);background-image:linear-gradient(to bottom, #12344d, #001f36);font-family:SFProText;font-size:14px;font-weight:600;line-height:1.29;color:#ffffff;border-radius:5px}.primary:hover{cursor:pointer;background:#001f36}.primary:active{outline:none;box-shadow:inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);opacity:0.9}.primary:focus{width:89px;height:34px;border-radius:5px;border:1px solid  rgba(0, 112, 227, 0.6) ;box-shadow:0px 0px 0px 1px #fff inset}.primary:disabled{background:#dadfe3;cursor:not-allowed;color:#6f7c87;opacity:0.5}.secondary{width:99px;height:32px;outline:none;border:none;box-shadow:0 1px 0 0 rgba(24, 50, 71, 0.05);border:1px solid #dadfe3;border-radius:5px;background-image:linear-gradient(to bottom, #ffffff, #f3f5f7);font-family:SFProText;font-size:14px;font-weight:600;line-height:1.38;color:#183247}.secondary:hover{width:101px;cursor:pointer;box-shadow:0 1px 0 0 rgba(24, 50, 71, 0.05);background:#f3f5f7
+		  }.secondary:active{width:101px;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.2);background-color:#f3f5f7;color:#6f7c87}.secondary:focus{width:101px;background-image:linear-gradient(to bottom, #ffffff, #f3f5f7);color:#183247;border:2px solid rgba(0, 112, 227, 0.6)}</style>`;
 
 		this._fragment = create_main_fragment(this, this._state);
 
@@ -289,7 +289,7 @@ class Button extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["disabled","type","name","size"];
+		return ["disabled","type","class","name","size"];
 	}
 
 	get disabled() {
@@ -306,6 +306,14 @@ class Button extends HTMLElement {
 
 	set type(value) {
 		this.set({ type: value });
+	}
+
+	get class() {
+		return this.get().class;
+	}
+
+	set class(value) {
+		this.set({ class: value });
 	}
 
 	get name() {
