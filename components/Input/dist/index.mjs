@@ -35,6 +35,14 @@ function createComment() {
 	return document.createComment('');
 }
 
+function addListener(node, event, handler, options) {
+	node.addEventListener(event, handler, options);
+}
+
+function removeListener(node, event, handler, options) {
+	node.removeEventListener(event, handler, options);
+}
+
 function setAttribute(node, attribute, value) {
 	if (value == null) node.removeAttribute(attribute);
 	else node.setAttribute(attribute, value);
@@ -237,6 +245,24 @@ function props(state) {
   return state;
 }
 
+var methods = {
+  inputChange : (ev)=>{
+    // console.log(ev.type)
+    // console.log("Changed");  
+    // console.log(ev.value);
+    document.querySelector("fw-input").value=ev.value;
+   // document.querySelector("fw-input").setAttribute("value",ev.value)
+  },
+  // checkboxChange : (ev)=>{
+  //   // console.log(ev);
+  //   // console.log(ev.type);
+  // // console.log(ev.checked);
+  //   //document.querySelector("fw-input").checked=ev.checked
+  //   console.log("on change")
+  //  document.querySelector("fw-input[type='checkbox']").setAttribute("checked",ev.checked)
+  // }
+};
+
 function create_main_fragment(component, ctx) {
 	var if_block_anchor;
 
@@ -282,9 +308,13 @@ function create_main_fragment(component, ctx) {
 
 // (6:0) {:else}
 function create_else_block(component, ctx) {
-	var text0, input, text1, slot;
+	var text, input;
 
 	var if_block = (ctx.label) && create_if_block_1(component, ctx);
+
+	function change_handler(event) {
+		component.inputChange(this);
+	}
 
 	var input_levels = [
 		{ class: "fw-input" },
@@ -299,19 +329,16 @@ function create_else_block(component, ctx) {
 	return {
 		c() {
 			if (if_block) if_block.c();
-			text0 = createText("\n    ");
+			text = createText("\n    ");
 			input = createElement("input");
-			text1 = createText(" \n    ");
-			slot = createElement("slot");
+			addListener(input, "change", change_handler);
 			setAttributes(input, input_data);
 		},
 
 		m(target, anchor) {
 			if (if_block) if_block.m(target, anchor);
-			insert(target, text0, anchor);
+			insert(target, text, anchor);
 			insert(target, input, anchor);
-			insert(target, text1, anchor);
-			insert(target, slot, anchor);
 		},
 
 		p(changed, ctx) {
@@ -321,7 +348,7 @@ function create_else_block(component, ctx) {
 				} else {
 					if_block = create_if_block_1(component, ctx);
 					if_block.c();
-					if_block.m(text0.parentNode, text0);
+					if_block.m(text.parentNode, text);
 				}
 			} else if (if_block) {
 				if_block.d(1);
@@ -337,11 +364,11 @@ function create_else_block(component, ctx) {
 		d(detach) {
 			if (if_block) if_block.d(detach);
 			if (detach) {
-				detachNode(text0);
+				detachNode(text);
 				detachNode(input);
-				detachNode(text1);
-				detachNode(slot);
 			}
+
+			removeListener(input, "change", change_handler);
 		}
 	};
 }
@@ -349,6 +376,10 @@ function create_else_block(component, ctx) {
 // (1:0) {#if type=="checkbox"}
 function create_if_block(component, ctx) {
 	var label, text0, text1, input, text2, span;
+
+	function change_handler(event) {
+		component.checkboxChange(this);
+	}
 
 	var input_levels = [
 		{ class: "fw-input" },
@@ -368,6 +399,7 @@ function create_if_block(component, ctx) {
 			input = createElement("input");
 			text2 = createText(" \n  ");
 			span = createElement("span");
+			addListener(input, "change", change_handler);
 			setAttributes(input, input_data);
 			span.className = "checkmark";
 			label.className = "container";
@@ -397,6 +429,8 @@ function create_if_block(component, ctx) {
 			if (detach) {
 				detachNode(label);
 			}
+
+			removeListener(input, "change", change_handler);
 		}
 	};
 }
@@ -445,10 +479,10 @@ class Input extends HTMLElement {
 		this._recompute({  }, this._state);
 		this._intro = true;
 
-		this._slotted = options.slots || {};
-
 		this.attachShadow({ mode: 'open' });
-		this.shadowRoot.innerHTML = `<style>:host{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif}label{width:64px;height:20px;font-size:12px;font-weight:600;line-height:1.67;color:#475867}.fw-input{width:200px;height:32px;box-sizing:border-box;border:none;border:#cfd7df 1px solid;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);border-radius:5px;padding:6px 12px}.fw-input::placeholder{width:176px;height:20px;font-size:14px;line-height:1.43;color:#92a2b1}input[type="search"]{background-image:url("/searchicon.png") ;background-repeat:no-repeat;background-position:7px 7px;background-size:20px 20px;padding-left:30px}.fw-input:hover{border:solid 1px #475867}.fw-input:focus{outline:none;border:solid 2px #2c5cc5}.fw-input:invalid{border:solid 1px #d72d30}.fw-input:disabled{pointer-events:none;background:#cfd7df;cursor:auto}</style>`;
+		this.shadowRoot.innerHTML = `<style>:host{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif}label{width:64px;height:20px;font-size:12px;font-weight:600;line-height:1.67;color:#475867}.fw-input{width:200px;height:32px;box-sizing:border-box;border:none;border:#cfd7df 1px solid;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);border-radius:5px;padding:6px 12px}.fw-input::placeholder{width:176px;height:20px;font-size:14px;line-height:1.43;color:#92a2b1}.fw-input:hover{border:solid 1px #475867}.fw-input:focus{outline:none;border:solid 2px #2c5cc5}.fw-input:invalid{border:solid 1px #d72d30}.fw-input:disabled{pointer-events:none;background:#cfd7df;cursor:auto}input[type="search"]{background-image:url("/searchicon.png") ;background-repeat:no-repeat;background-position:7px 7px;background-size:20px 20px;padding-left:30px}.container{display:block;position:relative;margin-bottom:12px;cursor:pointer;width:112px;height:20px;font-family:SFProText;font-size:14px;font-weight:normal;font-style:normal;font-stretch:normal;line-height:1.3;letter-spacing:normal;color:#12344d;padding-left:31px}.container input[type="checkbox"]{position:absolute;opacity:0;cursor:pointer;height:0;width:0}.checkmark{position:absolute;top:0;left:0;height:16px;width:16px;background-color:#ffffff;border:1px solid #6c7684;box-sizing:border-box;border-radius:2px}.container input[type="checkbox"]:hover~.checkmark{border:2px solid #6f7c87
+		}.container input[type="checkbox"]:focus~.checkmark{border:2px solid #2e6ed8
+		}.container input[type="checkbox"]:invalid~.checkmark{border:solid 2px #f73f3e}.container input[type="checkbox"]:checked~.checkmark{background-color:#2e6ed8;border:none;box-shadow:none}.container input[type="checkbox"]:checked:hover:not([disabled])~.checkmark{background-color:#003792;border:none}.container input[type="checkbox"]:checked:invalid:not([disabled])~.checkmark::after{border:solid 2px #f73f3e;top:2px;left:5px;width:3px;height:7px;border:solid #f73f3e;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.container input[type="checkbox"]:checked:disabled~.checkmark:after{background-color:#ebeef0;pointer-events:none;cursor:default;top:2px;left:5px;width:3px;height:7px;border:solid #6f7c87;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.container input[type="checkbox"]:disabled~.checkmark{box-shadow:inset 0 1px 2px 0 #f7f9fa;outline:solid 1px #cfd7df;background-color:#ebeef0}.checkmark:after{content:"";position:absolute;display:none}.container input[type="checkbox"]:checked~.checkmark::after{display:block}.container .checkmark::after{top:2px;left:5px;width:3px;height:7px;border:solid white;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}</style>`;
 
 		this._fragment = create_main_fragment(this, this._state);
 
@@ -459,7 +493,7 @@ class Input extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["max","min","pattern","readonly","required","size","step","title","name","id","value","label","disabled","maxlength","placeholder","type"];
+		return ["max","min","pattern","readonly","required","size","step","title","name","id","value","label","disabled","maxlength","placeholder","type","checked"];
 	}
 
 	get max() {
@@ -590,10 +624,12 @@ class Input extends HTMLElement {
 		this.set({ type: value });
 	}
 
-	connectedCallback() {
-		Object.keys(this._slotted).forEach(key => {
-			this.appendChild(this._slotted[key]);
-		});
+	get checked() {
+		return this.get().checked;
+	}
+
+	set checked(value) {
+		this.set({ checked: value });
 	}
 
 	attributeChangedCallback(attr, oldValue, newValue) {
@@ -602,6 +638,7 @@ class Input extends HTMLElement {
 }
 
 assign(Input.prototype, proto);
+assign(Input.prototype, methods);
 assign(Input.prototype, {
 	_mount(target, anchor) {
 		target.insertBefore(this, anchor);

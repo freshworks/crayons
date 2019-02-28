@@ -1,73 +1,11 @@
-{#if type=="checkbox"}
 <label class="container">{label}
-  <input class="fw-input" on:change="checkboxChange(this)" {...props} > 
+  <input type="checkbox" on:change="checkboxChange(this)" {...props} > 
   <span class="checkmark" ></span>
 </label>
-{:else}
-    {#if label}
-    <label>{label}</label> <br> {/if}
-    <input class="fw-input" on:change ="inputChange(this)"{...props} > 
- {/if}   
 <style>
 :host {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-label{
-  width: 64px;
-  height: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.67;
-  color: #475867;
-}
-
-.fw-input {
-  width: 200px;
-  height: 32px;
-  box-sizing: border-box;
-  border: none;
-  border:#cfd7df 1px solid;
-  box-shadow: inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);
-  border-radius: 5px;
-  padding: 6px 12px;
- }
-
-.fw-input::placeholder {
-  width: 176px;
-  height: 20px;
-  font-size: 14px;
-  line-height: 1.43;
-  color: #92a2b1;
- }
-
- .fw-input:hover
-{
-border: solid 1px #475867;
-}
-
-.fw-input:focus
-{
- outline:none;
-border: solid 2px #2c5cc5;
-}
-.fw-input:invalid
-{
- border : solid 1px #d72d30;
-}
-.fw-input:disabled 
-{
-  pointer-events: none;
-  background: #cfd7df;
-  cursor : auto;
-}
-/*Search box input including search icon*/
- input[type="search"]{
-  background-image: url("/searchicon.png") ;
-  background-repeat: no-repeat;
-  background-position: 7px 7px;
-  background-size: 20px 20px;
-  padding-left: 30px;
- }
  /*Customising our very own check box*/
  .container {
   display: block;
@@ -122,10 +60,10 @@ border: solid 2px #f73f3e;
   background-color: #003792;
   border: none;
 }
-/* .container input[type="checkbox"]:checked:focus:not([disabled]) ~ .checkmark{
+.container input[type="checkbox"]:checked:focus:not([disabled]) ~ .checkmark{
   border:1px solid #ffffff;
   box-shadow: 0 0 0 2pt #2e6ed8;
-  } */
+  }
   .container input[type="checkbox"]:checked:invalid:not([disabled]) ~ .checkmark::after{
   border: solid 2px #f73f3e;
   top: 2px;
@@ -182,8 +120,8 @@ border: solid 2px #f73f3e;
 
 <script>
   export default {
-  tag: "fw-input",
-  props: ["max","min","pattern","readonly","required","size","step","title","name","id","value","label","disabled","maxlength","placeholder","type","checked"],
+  tag: "fw-checkbox",
+  props:  ["label","autofocus","checked","defaultChecked","defaultValue","disabled","form","indeterminate","name","required","type"],
   computed: {
       props: state => {
       // console.log(Object);
@@ -192,24 +130,13 @@ border: solid 2px #f73f3e;
         });
         return state;
       } 
-      
     },
     methods:{
-      inputChange : (ev)=>{
-        // console.log(ev.type)
-        // console.log("Changed");  
-        // console.log(ev.value);
-        document.querySelector("fw-input").value=ev.value;
-       // document.querySelector("fw-input").setAttribute("value",ev.value)
-      },
-      // checkboxChange : (ev)=>{
-      //   // console.log(ev);
-      //   // console.log(ev.type);
-      // // console.log(ev.checked);
-      //   //document.querySelector("fw-input").checked=ev.checked
-      //   console.log("on change")
-      //  document.querySelector("fw-input[type='checkbox']").setAttribute("checked",ev.checked)
-      // }
+      checkboxChange : (ev)=>{
+        console.log("on change")
+        document.querySelector("fw-checkbox").checked = ev.checked;
+       //document.querySelector("fw-checkbox").setAttribute("checked",ev.checked)
+      }
     }
   };
 
