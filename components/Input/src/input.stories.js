@@ -10,7 +10,7 @@
     //.addDecorator(withActions('click fw-button'))
     .add('Normal input', () => 
     `
-    <fw-input placeholder="Normal input"  value="mooodu" maxlength="6" label="Normal input(Takes not more than 6 characters)" >
+    <fw-input placeholder="Normal input"  value="sample" maxlength="6" label="Normal input(Takes not more than 6 characters)" >
       `
     )
   .add('Disabled input ', () => 
@@ -41,14 +41,4 @@
 
   `
   )
-  .add('Check boxes',()=>
-  `
-  <fw-input type="checkbox" value="select1" label="Please select me" > <br>
   
-  `
-  )
-  .add('Disabled check box',()=>
-    `
-    <fw-input type="checkbox" value="disabled" label="Disabled" checked disabled>
-    `
-  )

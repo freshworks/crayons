@@ -1,16 +1,14 @@
   import { storiesOf } from '@storybook/html';
-  import { withActions } from '@storybook/addon-actions';
-
   import { withKnobs } from '@storybook/addon-knobs';
 
-  import Checkbox from '../dist/index.js'
+  import Checkbox from '../dist/'
+// <script src = "index.js"></script>
 
   storiesOf('Check box', module)
     .addDecorator(withKnobs)
-    //.addDecorator(withActions('click fw-button'))
     .add('Normal checkbox', () => 
     `
-    <fw-checkbox label= "Click Me!" >
+    <fw-checkbox label="Click Me!" checked>
       `
     )
   

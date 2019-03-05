@@ -11,6 +11,11 @@
 		return tar;
 	}
 
+	function assignTrue(tar, src) {
+		for (var k in src) tar[k] = 1;
+		return tar;
+	}
+
 	function exclude(src, prop) {
 		const tar = {};
 		for (const k in src) k === prop || (tar[k] = src[k]);
@@ -230,6 +235,39 @@
 	  return state;
 	}
 
+	function onupdate(){
+	  console.log("Update");
+	  if(this.hasAttribute("loading")){
+	  this.loading = true;
+	  this.setAttribute("loading",'');}
+	  if(this.loading)
+	  {
+	    this.textContent = "";
+	         this.innerHTML = `<div class="loader" style="margin-left:27px"></div>
+         <style> .loader{
+          border: 3px solid #ffffff;
+          border-radius: 50%;
+          border-bottom: 3px solid #001f36 ;/*var(--spinner-color);*/
+          width: 11px;
+          height: 11px;
+          -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
+          }
+          @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+          }
+
+          @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+          }</style>`;
+	  } 
+	  else { 
+	    this.removeAttribute("loading"); 
+	     this.textContent = this.value;
+	    }
+	}
 	function create_main_fragment(component, ctx) {
 		var button, slot;
 
@@ -279,14 +317,19 @@
 
 			this._recompute({  }, this._state);
 			this._intro = true;
+			this._handlers.update = [onupdate];
 
 			this._slotted = options.slots || {};
 
 			this.attachShadow({ mode: 'open' });
-			this.shadowRoot.innerHTML = `<style>:host([disabled]){cursor:not-allowed;pointer-events:none}.primary:not(disabled){outline:none;width:86px;height:32px;border:none;box-sizing:border-box;box-shadow:0 1px 0 0 rgba(24, 50, 71, 0.12);background-image:linear-gradient(to bottom, #12344d, #001f36);font-family:SFProText;font-size:14px;font-weight:600;line-height:1.29;color:#ffffff;border-radius:5px}.primary:hover{cursor:pointer;background:#001f36}.primary:active{outline:none;box-shadow:inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);opacity:0.9}.primary:focus{width:89px;height:34px;border-radius:5px;border:1px solid  rgba(0, 112, 227, 0.6) ;box-shadow:0px 0px 0px 1px #fff inset}.primary:disabled{background:#dadfe3;cursor:not-allowed;color:#6f7c87;opacity:0.5}.secondary{width:99px;height:32px;outline:none;border:none;box-shadow:0 1px 0 0 rgba(24, 50, 71, 0.05);border:1px solid #dadfe3;border-radius:5px;background-image:linear-gradient(to bottom, #ffffff, #f3f5f7);font-family:SFProText;font-size:14px;font-weight:600;line-height:1.38;color:#183247}.secondary:hover{width:101px;cursor:pointer;box-shadow:0 1px 0 0 rgba(24, 50, 71, 0.05);background:#f3f5f7
-		  }.secondary:active{width:101px;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.2);background-color:#f3f5f7;color:#6f7c87}.secondary:focus{width:101px;background-image:linear-gradient(to bottom, #ffffff, #f3f5f7);color:#183247;border:2px solid rgba(0, 112, 227, 0.6)}</style>`;
+			this.shadowRoot.innerHTML = `<style>:host([disabled]){cursor:not-allowed;pointer-events:none}.primary:not(disabled){outline:none;width:91px;height:34px;border:none;box-sizing:border-box;box-shadow:0 1px 0 0 rgba(24, 50,       71, 0.12);background-image:linear-gradient(to bottom, #12344d, #001f36);font-family:SFProText;font-size:14px;font-weight:600;line-height:1.29;color:#ffffff;border-radius:5px}.primary:hover{cursor:pointer;background:#001f36}.primary:active{outline:none;box-shadow:inset 0 1px 3px 0 rgba(0,     0, 0, 0.5);opacity:0.9}.primary:focus{width:89px;height:34px;border-radius:5px;border:1px solid #ffffff;box-shadow:0 0 0 1pt rgba(46, 129, 212, 0.6)}.primary:disabled{background:#dadfe3;cursor:not-allowed;color:#6f7c87;opacity:0.5}.secondary{width:99px;height:32px;outline:none;border:none;box-shadow:0 1px 0 0 rgba(24, 50, 71, 0.05);border:1px solid #dadfe3;border-radius:5px;background-image:linear-gradient(to bottom, #ffffff, #f3f5f7);font-family:SFProText;font-size:14px;font-weight:600;line-height:1.38;color:#183247}.secondary:hover{width:101px;cursor:pointer;box-shadow:0 1px 0 0 rgba(24, 50, 71, 0.05);background:#f3f5f7
+		    }.secondary:active{width:101px;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.2);background-color:#f3f5f7;color:#6f7c87}.secondary:focus{width:101px;background-image:linear-gradient(to bottom, #ffffff, #f3f5f7);box-shadow:none;border:2px solid #ffffff;box-shadow:0 0 0 2pt rgba(46, 129, 212, 0.6)}.secondary:disabled{opacity:0.5;background-color:#dadfe3;color:#6f7c87}.destructive{outline:none;border:none;box-sizing:border-box;cursor:pointer;border-radius:5px;font-family:SFProText;font-size:14px;font-weight:600;line-height:1.38;color:#ffffff;width:112px;height:34px;box-shadow:0 1px 0 0 rgba(247, 63, 62, 0.3no);background-image:linear-gradient(to bottom, #f73f3e, #c10000)}.destructive:hover{background:#c10000}.destructive:active{box-shadow:inset 0 1px 3px 0 rgba(0, 0, 0, 0.6);background-image:linear-gradient(to bottom, #f73f3e, #c10000);opacity:0.7}.destructive:focus{border:1px solid #ffffff;box-shadow:0 0 0 1pt rgba(46, 129, 212, 0.6);border:2px solid rgba(0, 112, 227, 0.6)}.destructive:disabled{opacity:0.3;box-shadow:0 1px 0 0 rgba(247, 63, 62, 0.3);background-image:linear-gradient(to bottom, #f73f3e, #c10000)}.loader{border:3px solid #ffffff;border-radius:50%;border-bottom:3px solid  ;width:11px;height:11px;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style>`;
 
 			this._fragment = create_main_fragment(this, this._state);
+
+			this.root._oncreate.push(() => {
+				this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
+			});
 
 			this._fragment.c();
 			this._fragment.m(this.shadowRoot, null);
@@ -295,7 +338,7 @@
 		}
 
 		static get observedAttributes() {
-			return ["disabled","type","class","name","size"];
+			return ["disabled","type","class","name","size","loading","value"];
 		}
 
 		get disabled() {
@@ -336,6 +379,22 @@
 
 		set size(value) {
 			this.set({ size: value });
+		}
+
+		get loading() {
+			return this.get().loading;
+		}
+
+		set loading(value) {
+			this.set({ loading: value });
+		}
+
+		get value() {
+			return this.get().value;
+		}
+
+		set value(value) {
+			this.set({ value: value });
 		}
 
 		connectedCallback() {
