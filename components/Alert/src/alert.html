@@ -1,4 +1,4 @@
-<div class="fw-alert" {...props}>
+<div class="fw-alert" {props}>
   {#if title}
     <div class="title">{title}</div>
   {/if}
@@ -10,6 +10,7 @@
 .fw-alert{
   width: 350px;
   border-radius: 2px;
+  word-break: break-all;
   position: relative;
   padding: 10px 20px;
   font-size: 12px;
@@ -39,13 +40,14 @@
 </style>
 
 <script>
+  
   export default {
     tag: "fw-alert",
     props: ["type", "title"],
     methods: {
       close() {
         this.parentNode.removeChild(this);
-      },
+      }
     }
   };
 </script>

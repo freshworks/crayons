@@ -1,57 +1,192 @@
-<button class="fw-button" {...props}>
-	<slot></slot>
-</button>
-
-<style>
-  :host([disabled]) {
+  <button class=class {...props}>
+          <slot></slot>
+  </button>
+  <style>
+ :host([disabled]) {
     cursor: not-allowed;
-    pointer-events: none;
-  }
-  .fw-button {
-    padding: 8px 18px;
-    border: 1px solid var(--theme-color, #02b875);
-    color: #fff;
-    border-radius: 2px;
-    background-color: var(--theme-color, #02b875);
-    font-size: 12px;
+      pointer-events: none;
+    }
+    .primary:not(disabled){
+    outline: none;
+    width: 91px;  
+    height: 34px;
+    border:none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 0 0 rgba(24, 50,       71, 0.12);
+    background-image: linear-gradient(to bottom, #12344d, #001f36);
+    font-family: SFProText;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0.5px;
-    line-height: 14px;
-    text-align: center;
-    text-transform: uppercase;
-    box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.12),
-      0 0 1px 0 rgba(24, 50, 71, 0.6), 0 1px 0 0 var(--theme-color, #02b875);
-  }
-  .fw-button:hover:not([disabled]) {
+    line-height: 1.29;
+    color: #ffffff;
+    border-radius: 5px;
+    }
+    .primary:hover {
     cursor: pointer;
-    background-color: var(--theme-color, #02b875);
-    filter: brightness(90%);
-  }
-  .fw-button:disabled {
-    opacity: 0.2;
+    background:#001f36;
+    }
+    .primary:active{
+    outline : none;
+    box-shadow: inset 0 1px 3px 0 rgba(0,     0, 0, 0.5);
+    opacity :0.9;
+    }
+    .primary:focus{
+      width: 89px;
+      height:34px;
+      border-radius: 5px;
+      border:1px solid #ffffff;
+      box-shadow: 0 0 0 1pt rgba(46, 129, 212, 0.6);
+    }
+    .primary:disabled {
+    background: #dadfe3;
     cursor: not-allowed;
-  }
-  .fw-button[size="large"]{
-    min-width: 220px;
-  }
-  .fw-button[size="icon"]{
-    width: 30px;
-    height: 30px;
-    padding: 0;
-  }
-</style>
+    color : #6f7c87;
+    opacity:0.5;
+    }
+    
+    .secondary{
+    width: 99px;
+    height: 32px;
+    outline:none; 
+    border:none;
+    box-shadow: 0 1px 0 0 rgba(24, 50, 71, 0.05);
+    border: 1px solid #dadfe3;
+    border-radius:5px;
+    background-image: linear-gradient(to bottom, #ffffff, #f3f5f7);
+    font-family: SFProText;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.38;
+    color: #183247;
+    }
+    .secondary:hover{
+      width: 101px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 0 rgba(24, 50, 71, 0.05);
+      background: #f3f5f7
+    }
+    .secondary:active{
+      width: 101px;
+      box-shadow: inset 0 1px 2px 0 rgba(24, 50, 71, 0.2);
+      background-color: #f3f5f7;
+      color: #6f7c87;
+    }
+    .secondary:focus{
+      width: 101px;
+      background-image: linear-gradient(to bottom, #ffffff, #f3f5f7);
+      box-shadow: none;
+      border:2px solid #ffffff;
+    box-shadow: 0 0 0 2pt rgba(46, 129, 212, 0.6);
+    }
+    .secondary:disabled{
+      opacity: 0.5;
+    background-color: #dadfe3;
+    color: #6f7c87;
+}
+.destructive{
+    outline:none; 
+    border:none;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius:5px;
+    font-family: SFProText;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.38;
+    color: #ffffff;
+    width: 112px;
+    height: 34px;
+    box-shadow: 0 1px 0 0 rgba(247, 63, 62, 0.3no);
+    background-image: linear-gradient(to bottom, #f73f3e, #c10000);
+    }
+ .destructive:hover{
+   background:  #c10000;
+    }
+    .destructive:active{
+      box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.6);
+      background-image: linear-gradient(to bottom, #f73f3e, #c10000);
+      opacity: 0.7;
+    }
+    .destructive:focus{
+      border:1px solid #ffffff;
+      box-shadow: 0 0 0 1pt rgba(46, 129, 212, 0.6);
+      border:2px solid rgba(0, 112, 227, 0.6);
+    }
+    .destructive:disabled{
+      opacity: 0.3;
+      box-shadow: 0 1px 0 0 rgba(247, 63, 62, 0.3);
+     background-image: linear-gradient(to bottom, #f73f3e, #c10000);
+}
+.loader{
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  border-bottom: 3px solid  ;/*var(--spinner-color);*/
+  width: 11px;
+  height: 11px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+  </style>
 
 <script>
-  export default {
-    tag: "fw-button",
-    props: ["disabled", "type", "name","size"],
-    computed: {
-      props: state => {
-        Object.keys(state).forEach(key => {
-          state[key] = state[key] === "" ? key : state[key];
-        });
-        return state;
-      }
+    export default {
+      tag: "fw-button",
+
+      props: ["disabled", "type", "class","name","size","loading","value"],
+
+      computed: {
+        props: state => {
+          Object.keys(state).forEach(key => {
+            state[key] = state[key] === "" ? key : state[key];
+          });
+          return state;
+        },
+      },
+     
+      onupdate(){
+        console.log("Update")
+        if(this.hasAttribute("loading")){
+        this.loading = true;
+        this.setAttribute("loading",'');}
+        if(this.loading)
+        {
+          this.textContent = "";
+               this.innerHTML = `<div class="loader" style="margin-left:27px"></div>
+               <style> .loader{
+                border: 3px solid #ffffff;
+                border-radius: 50%;
+                border-bottom: 3px solid #001f36 ;/*var(--spinner-color);*/
+                width: 11px;
+                height: 11px;
+                -webkit-animation: spin 1s linear infinite;
+                animation: spin 1s linear infinite;
+                }
+                @-webkit-keyframes spin {
+                0% { -webkit-transform: rotate(0deg); }
+                100% { -webkit-transform: rotate(360deg); }
+                }
+
+                @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+                }</style>`
+        } 
+  else { 
+          this.removeAttribute("loading"); 
+           this.textContent = this.value
     }
-  };
-</script>
+      },
+    }
+   
+  </script>
+
+  
