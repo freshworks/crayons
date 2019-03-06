@@ -1,11 +1,10 @@
   <slot></slot>
-  <div class="custom-select" id="custom-select" on:click="checkBoxOpen(event)"{...props}> {value}
-     <div class="selectoptions">
+  <input class="custom-select" id="custom-select" on:click="checkBoxOpen(event)" on:keyup="filterItems(event)"{...props} >
+     <div class="selectoptions" contenteditable="false">
        {#each itemNames as item}
-        <div class="items" on:click="optionClick(event)">{item.textContent}</div>
+        <a class="items" on:click="optionClick(event)" contenteditable="false" aria-selected="" aria-current="">{item.textContent}</a>
        {/each}
      </div>
-    </div>
 
 <style>
 :host {
@@ -46,7 +45,7 @@ slot {
   line-height: 20px;
   color: #12344d;
   appearance: none; 
-  cursor : pointer;
+  cursor : auto;
 }
 .custom-select::after{
   content:">";
@@ -75,10 +74,10 @@ border: solid 2px #2c5cc5;
   cursor : auto;
 }
 .selectoptions{
-  position :absolute;
+  position :inherit;
   display: none;
-  left :0px;
-  top:33px;
+  left :7px;
+  top:42px;
   width: 224px;
   height: 184px;
   box-shadow: 0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);
@@ -102,6 +101,7 @@ border: solid 2px #2c5cc5;
   font-weight: normal;
   line-height: 2.43;
   color: #12344d;
+  display: block;
 }
 .items:hover
 {
@@ -141,24 +141,56 @@ border: solid 2px #2c5cc5;
      -ms-transform: rotate(45deg); 
   transform: rotate(45deg);
  }
+ .noresults{
+  padding: 12px 30px 10px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    line-height: 1.3;
+    margin: 5px 0;
+    word-break: break-word;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid;
+    box-shadow: 0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);
+    border: solid 1px #ebeef0;
+    border-radius: 5px;
+    transition: 2s linear;
+    background-color: #ffffff;
+    width: 224px;
+    top: -5px;
+    position: relative;
+ }
+ .status-icon {
+    right: 12px;
+    content: '';
+    display: inline-block;
+    top: 2px;
+    bottom: 5px;
+    width: 5px;
+    height: 5px;
+    background-color: transparent;
+    border-style: inherit;
+    border-top: 1px solid #12344d;
+    border-right: 1px solid #12344d;
+    border-left: transparent;
+    transform: rotate(135deg);
+}
+ 
 </style>
-
 <script>
+
   export default {
-    
   tag: "fw-select",
   props: ["item","value"],
-  
   computed: {
       props: state => {
         Object.keys(state).forEach(key => {
-          // if(state[key]=="items") {
-          // items = items.split(",");
-          //   }
-          state[key] = state[key] === "" ? key : state[key];
+          state[key] = state[key] === "" ? "" : state[key];
         });
         return state;
-      } 
+      } ,
     },
     data(){
       return {
@@ -166,32 +198,74 @@ border: solid 2px #2c5cc5;
       }
     },
 
-  //   oncreate : ()=>{
-  //     console.log('Entry')
-  //   let rootEl = document.querySelector('fw-select'),
-  //   itemNames = rootEl.children,
-  //   selectOptions = rootEl.shadowRoot.children[2].children[0]
-  //   let items=""
-  //   for(let i=0;i<itemNames.length;i++)
-  //       items += `<div class="items" onclick="this.optionClick(this)">${itemNames[i].textContent}</div>`;
-  //     selectOptions.innerHTML += items;  
-  // },
+    oncreate(){
+      document.querySelector('fw-select').shadowRoot.children[3].style.display ="none";
+      document.addEventListener('click',()=>{
+        document.querySelector('fw-select').shadowRoot.children[3].style.display ="none";
+      })
+  },
 
     methods:{
       checkBoxOpen : function(ev){
-        let selectoptions = ev.target.children[0]
-        if(selectoptions.style.display==="none")
+        console.log('click')
+       if(ev.type==='keyup'&&ev.which!==13) {  ev.preventDefault(); return   }
+       else if(ev.type==="click"||ev.type=="keyup"&&ev.which===13){
+        ev.stopPropagation()
+        let selectoptions = document.querySelector('fw-select').shadowRoot.children[3]
+        
+        if(selectoptions.style.display=="none"){
         selectoptions.style.display ="block"
-        else
+        }
+        else{
         selectoptions.style.display ="none"
+        }
+       }
   },
       optionClick : function(el){
-        console.log(el.target)
+        el.stopPropagation();
+        for(let i=0;i<el.target.parentElement.children.length;i++)
+        {
+          if(document.querySelector('fw-select').value === el.target.parentElement.children[i].textContent)
+          {
+            el.target.parentElement.children[i].classList.remove('activeitem')
+            break;
+          }
+        }
+      
+        el.target.classList.add('activeitem')
+        
         let val = el.target.textContent
         document.querySelector('fw-select').setAttribute('value',val)
         document.querySelector('fw-select').value = val;
         el.target.parentElement.style.display="none"
-      }
+      },
+      filterItems:()=> {
+        let customSelect, filter, item, i,txtValue, root=document.querySelector('fw-select').shadowRoot;;
+        customSelect = root.children[2];
+        filter = customSelect.value.toUpperCase();
+        item = root.children[3].children
+        for (i = 0; i < item.length; i++) 
+              {
+            txtValue = item[i].textContent || item[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) 
+                {
+            item[i].style.display = "";
+                }
+        else     {
+          // item[i].style.display = "none";
+          root.removeChild(root.children[3])
+          let noresults =  document.createElement('div')
+          noresults.className = "noresults"
+          noresults.textContent = "No results found"
+          root.appendChild(noresults)
+          // root.innerHTML += `<div class='noresults'> No results found </div>`
+              // root.removeChild(root.children[3])
+              // let noresults =  `<div class='noresults'> No results found </div>`
+              // root.appendChild(noresults)
+         
+                 }
+              }
+          }
     }
  }
     

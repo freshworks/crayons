@@ -9,12 +9,18 @@
     .addDecorator(withKnobs)
     //.addDecorator(withActions('click fw-button'))
     .add('Select Dropdown', () => 
-    `
-    <fw-select value = "Freshworks Product">
-    <p>FreshDesk</p>
-    <p> Freshsales</p>
-    <p> Freshmarketer</p>
-    <p> FreshChat</p>
+    `<p> HI </p>
+    <p> HI </p>
+    <p> HI </p>
+    <p> HI </p>
+    <p> HI </p>
+    <fw-select value = "" a="abx">
+    <p>Open</p>
+    <p>Pending</p>
+    <p>Resolved</p>
+    <p>Closed</p>
+    <p>Waiting on customer</p>
+    <p>Waiting on third party</p>
     </fw-select>
       `
     )

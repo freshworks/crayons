@@ -11,6 +11,11 @@
 		return tar;
 	}
 
+	function assignTrue(tar, src) {
+		for (var k in src) tar[k] = 1;
+		return tar;
+	}
+
 	function exclude(src, prop) {
 		const tar = {};
 		for (const k in src) k === prop || (tar[k] = src[k]);
@@ -247,10 +252,7 @@
 
 	function props(state) {
 	  Object.keys(state).forEach(key => {
-	    // if(state[key]=="items") {
-	    // items = items.split(",");
-	    //   }
-	    state[key] = state[key] === "" ? key : state[key];
+	    state[key] = state[key] === "" ? "" : state[key];
 	  });
 	  return state;
 	}
@@ -262,23 +264,72 @@
 	}
 	var methods = {
 	  checkBoxOpen : function(ev){
-	    let selectoptions = ev.target.children[0];
-	    if(selectoptions.style.display==="none")
+	    console.log('click');
+	   if(ev.type==='keyup'&&ev.which!==13) {  ev.preventDefault(); return   }
+	   else if(ev.type==="click"||ev.type=="keyup"&&ev.which===13){
+	    ev.stopPropagation();
+	    let selectoptions = document.querySelector('fw-select').shadowRoot.children[3];
+	    
+	    if(selectoptions.style.display=="none"){
 	    selectoptions.style.display ="block";
-	    else
+	    }
+	    else{
 	    selectoptions.style.display ="none";
+	    }
+	   }
 	  },
 	  optionClick : function(el){
-	    console.log(el.target);
+	    el.stopPropagation();
+	    for(let i=0;i<el.target.parentElement.children.length;i++)
+	    {
+	      if(document.querySelector('fw-select').value === el.target.parentElement.children[i].textContent)
+	      {
+	        el.target.parentElement.children[i].classList.remove('activeitem');
+	        break;
+	      }
+	    }
+	  
+	    el.target.classList.add('activeitem');
+	    
 	    let val = el.target.textContent;
 	    document.querySelector('fw-select').setAttribute('value',val);
 	    document.querySelector('fw-select').value = val;
 	    el.target.parentElement.style.display="none";
-	    preventDefault();
-
-	  }
+	  },
+	  filterItems:()=> {
+	    let customSelect, filter, item, i,txtValue, root=document.querySelector('fw-select').shadowRoot;    customSelect = root.children[2];
+	    filter = customSelect.value.toUpperCase();
+	    item = root.children[3].children;
+	    for (i = 0; i < item.length; i++) 
+	          {
+	        txtValue = item[i].textContent || item[i].innerText;
+	    if (txtValue.toUpperCase().indexOf(filter) > -1) 
+	            {
+	        item[i].style.display = "";
+	            }
+	    else     {
+	      // item[i].style.display = "none";
+	      root.removeChild(root.children[3]);
+	      let noresults =  document.createElement('div');
+	      noresults.className = "noresults";
+	      noresults.textContent = "No results found";
+	      root.appendChild(noresults);
+	      // root.innerHTML += `<div class='noresults'> No results found </div>`
+	          // root.removeChild(root.children[3])
+	          // let noresults =  `<div class='noresults'> No results found </div>`
+	          // root.appendChild(noresults)
+	     
+	             }
+	          }
+	      }
 	};
 
+	function oncreate(){
+	  document.querySelector('fw-select').shadowRoot.children[3].style.display ="none";
+	  document.addEventListener('click',()=>{
+	    document.querySelector('fw-select').shadowRoot.children[3].style.display ="none";
+	  });
+	  }
 	function click_handler(event) {
 		const { component } = this._svelte;
 
@@ -292,7 +343,26 @@
 	}
 
 	function create_main_fragment(component, ctx) {
-		var slot, text0, div1, text1, text2, div0;
+		var slot, text0, input, text1, div;
+
+		function click_handler(event) {
+			component.checkBoxOpen(event);
+		}
+
+		function keyup_handler(event) {
+			component.filterItems(event);
+		}
+
+		var input_levels = [
+			{ class: "custom-select" },
+			{ id: "custom-select" },
+			ctx.props
+		];
+
+		var input_data = {};
+		for (var i = 0; i < input_levels.length; i += 1) {
+			input_data = assign(input_data, input_levels[i]);
+		}
 
 		var each_value = ctx.itemNames;
 
@@ -302,57 +372,44 @@
 			each_blocks[i] = create_each_block(component, get_each_context(ctx, each_value, i));
 		}
 
-		function click_handler_1(event) {
-			component.checkBoxOpen(event);
-		}
-
-		var div1_levels = [
-			{ class: "custom-select" },
-			{ id: "custom-select" },
-			ctx.props
-		];
-
-		var div1_data = {};
-		for (var i = 0; i < div1_levels.length; i += 1) {
-			div1_data = assign(div1_data, div1_levels[i]);
-		}
-
 		return {
 			c() {
 				slot = createElement("slot");
 				text0 = createText("\n  ");
-				div1 = createElement("div");
-				text1 = createText(ctx.value);
-				text2 = createText("\n     ");
-				div0 = createElement("div");
+				input = createElement("input");
+				text1 = createText("\n     ");
+				div = createElement("div");
 
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
 
 				this.c = noop;
-				div0.className = "selectoptions";
-				addListener(div1, "click", click_handler_1);
-				setAttributes(div1, div1_data);
+				addListener(input, "click", click_handler);
+				addListener(input, "keyup", keyup_handler);
+				setAttributes(input, input_data);
+				div.className = "selectoptions";
+				div.contentEditable = "false";
 			},
 
 			m(target, anchor) {
 				insert(target, slot, anchor);
 				insert(target, text0, anchor);
-				insert(target, div1, anchor);
-				append(div1, text1);
-				append(div1, text2);
-				append(div1, div0);
+				insert(target, input, anchor);
+				insert(target, text1, anchor);
+				insert(target, div, anchor);
 
 				for (var i = 0; i < each_blocks.length; i += 1) {
-					each_blocks[i].m(div0, null);
+					each_blocks[i].m(div, null);
 				}
 			},
 
 			p(changed, ctx) {
-				if (changed.value) {
-					setData(text1, ctx.value);
-				}
+				setAttributes(input, getSpreadUpdate(input_levels, [
+					{ class: "custom-select" },
+					{ id: "custom-select" },
+					(changed.props) && ctx.props
+				]));
 
 				if (changed.itemNames) {
 					each_value = ctx.itemNames;
@@ -365,7 +422,7 @@
 						} else {
 							each_blocks[i] = create_each_block(component, child_ctx);
 							each_blocks[i].c();
-							each_blocks[i].m(div0, null);
+							each_blocks[i].m(div, null);
 						}
 					}
 
@@ -374,45 +431,47 @@
 					}
 					each_blocks.length = each_value.length;
 				}
-
-				setAttributes(div1, getSpreadUpdate(div1_levels, [
-					{ class: "custom-select" },
-					{ id: "custom-select" },
-					(changed.props) && ctx.props
-				]));
 			},
 
 			d(detach) {
 				if (detach) {
 					detachNode(slot);
 					detachNode(text0);
-					detachNode(div1);
+					detachNode(input);
+				}
+
+				removeListener(input, "click", click_handler);
+				removeListener(input, "keyup", keyup_handler);
+				if (detach) {
+					detachNode(text1);
+					detachNode(div);
 				}
 
 				destroyEach(each_blocks, detach);
-
-				removeListener(div1, "click", click_handler_1);
 			}
 		};
 	}
 
 	// (4:7) {#each itemNames as item}
 	function create_each_block(component, ctx) {
-		var div, text_value = ctx.item.textContent, text;
+		var a, text_value = ctx.item.textContent, text;
 
 		return {
 			c() {
-				div = createElement("div");
+				a = createElement("a");
 				text = createText(text_value);
-				div._svelte = { component };
+				a._svelte = { component };
 
-				addListener(div, "click", click_handler);
-				div.className = "items";
+				addListener(a, "click", click_handler);
+				a.className = "items";
+				a.contentEditable = "false";
+				setAttribute(a, "aria-selected", "");
+				setAttribute(a, "aria-current", "");
 			},
 
 			m(target, anchor) {
-				insert(target, div, anchor);
-				append(div, text);
+				insert(target, a, anchor);
+				append(a, text);
 			},
 
 			p(changed, ctx) {
@@ -423,10 +482,10 @@
 
 			d(detach) {
 				if (detach) {
-					detachNode(div);
+					detachNode(a);
 				}
 
-				removeListener(div, "click", click_handler);
+				removeListener(a, "click", click_handler);
 			}
 		};
 	}
@@ -444,9 +503,14 @@
 
 			this.attachShadow({ mode: 'open' });
 			this.shadowRoot.innerHTML = `<style>:host{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif}::-webkit-scrollbar{width:8px}slot{display:none}::-webkit-scrollbar-track{display:none
-		}::-webkit-scrollbar-thumb{background:#ebeff3;border-radius:10px;height:70px}.custom-select{position:relative;width:224px;height:34px;box-sizing:border-box;border:none;border:#cfd7df 1px solid;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);border-radius:5px;padding:6px 12px;background:#ffffff;font-size:14px;font-weight:600;line-height:20px;color:#12344d;appearance:none;cursor:pointer}.custom-select::after{content:">";float:right;transform:rotate(90deg);margin-top:2px;margin-right:-4px;cursor:pointer;color:#000}.custom-select:hover{border:solid 1px #475867}.custom-select:focus{outline:none;border:solid 2px #2c5cc5}.custom-select:invalid{border:solid 1px #d72d30}.custom-select:disabled{pointer-events:none;background:#cfd7df;cursor:auto}.selectoptions{position:absolute;display:none;left:0px;top:33px;width:224px;height:184px;box-shadow:0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);border:solid 1px #ebeef0;border-radius:5px;transition:2s linear;background-color:#ffffff;overflow:auto}.items{margin-left:16px;padding-left:8px;margin-bottom:-7px;margin-top:8px;width:184px;height:32px;background-color:#ffffff;cursor:pointer;font-family:SFProText;font-size:14px;font-weight:normal;line-height:2.43;color:#12344d}.items:hover{width:184px;height:32px;border-radius:5px;margin-left:16px;margin-right:24px;background-color:#ebeff3}.activeitem{border-radius:5px;margin-left:16px;padding-left:8px;margin-bottom:-7px;margin-top:8px;width:184px;height:32px;background-color:#e5f2fd;cursor:pointer;font-family:SFProText;font-size:14px;line-height:2.43;color:#2c5cc5;font-weight:600}.activeitem::after{content:"";float:right;margin-top:11px;margin-right:12px;width:3px;height:7px;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}</style>`;
+		}::-webkit-scrollbar-thumb{background:#ebeff3;border-radius:10px;height:70px}.custom-select{position:relative;width:224px;height:34px;box-sizing:border-box;border:none;border:#cfd7df 1px solid;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);border-radius:5px;padding:6px 12px;background:#ffffff;font-size:14px;font-weight:600;line-height:20px;color:#12344d;appearance:none;cursor:auto}.custom-select::after{content:">";float:right;transform:rotate(90deg);margin-top:2px;margin-right:-4px;cursor:pointer;color:#000}.custom-select:hover{border:solid 1px #475867}.custom-select:focus{outline:none;border:solid 2px #2c5cc5}.custom-select:invalid{border:solid 1px #d72d30}.custom-select:disabled{pointer-events:none;background:#cfd7df;cursor:auto}.selectoptions{position:inherit;display:none;left:7px;top:42px;width:224px;height:184px;box-shadow:0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);border:solid 1px #ebeef0;border-radius:5px;transition:2s linear;background-color:#ffffff;overflow:auto}.items{margin-left:16px;padding-left:8px;margin-bottom:-7px;margin-top:8px;width:184px;height:32px;background-color:#ffffff;cursor:pointer;font-family:SFProText;font-size:14px;font-weight:normal;line-height:2.43;color:#12344d;display:block}.items:hover{width:184px;height:32px;border-radius:5px;margin-left:16px;margin-right:24px;background-color:#ebeff3}.activeitem{border-radius:5px;margin-left:16px;padding-left:8px;margin-bottom:-7px;margin-top:8px;width:184px;height:32px;background-color:#e5f2fd;cursor:pointer;font-family:SFProText;font-size:14px;line-height:2.43;color:#2c5cc5;font-weight:600}.activeitem::after{content:"";float:right;margin-top:11px;margin-right:12px;width:3px;height:7px;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.noresults{padding:12px 30px 10px 12px;font-size:14px;border-radius:4px;line-height:1.3;margin:5px 0;word-break:break-word;-ms-word-wrap:break-word;word-wrap:break-word;display:block;box-sizing:border-box;border:1px solid;box-shadow:0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);border:solid 1px #ebeef0;border-radius:5px;transition:2s linear;background-color:#ffffff;width:224px;top:-5px;position:relative}.status-icon{right:12px;content:'';display:inline-block;top:2px;bottom:5px;width:5px;height:5px;background-color:transparent;border-style:inherit;border-top:1px solid #12344d;border-right:1px solid #12344d;border-left:transparent;transform:rotate(135deg)}</style>`;
 
 			this._fragment = create_main_fragment(this, this._state);
+
+			this.root._oncreate.push(() => {
+				oncreate.call(this);
+				this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
+			});
 
 			this._fragment.c();
 			this._fragment.m(this.shadowRoot, null);
@@ -482,6 +546,10 @@
 
 		attributeChangedCallback(attr, oldValue, newValue) {
 			this.set({ [attr]: newValue });
+		}
+
+		connectedCallback() {
+			flush(this);
 		}
 	}
 
