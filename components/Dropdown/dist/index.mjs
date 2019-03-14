@@ -257,12 +257,11 @@ function data(){
   }
 }
 var methods = {
+ 
   checkBoxOpen : function(ev){
-    console.log('click');
-   if(ev.type==='keyup'&&ev.which!==13) {  ev.preventDefault(); return   }
-   else if(ev.type==="click"||ev.type=="keyup"&&ev.which===13){
-    ev.stopPropagation();
-    let selectoptions = document.querySelector('fw-select').shadowRoot.children[3];
+    ev.stopPropagation(); 
+    ev.target.select();
+    let selectoptions = this.refs.selectoptions;
     
     if(selectoptions.style.display=="none"){
     selectoptions.style.display ="block";
@@ -270,59 +269,119 @@ var methods = {
     else{
     selectoptions.style.display ="none";
     }
-   }
+    
   },
   optionClick : function(el){
     el.stopPropagation();
-    for(let i=0;i<el.target.parentElement.children.length;i++)
+    let items = this.refs.selectoptions.children;
+    for(let i=0;i<items.length;i++)
     {
-      if(document.querySelector('fw-select').value === el.target.parentElement.children[i].textContent)
+      if(document.querySelector('fw-select').value === items[i].textContent)
       {
-        el.target.parentElement.children[i].classList.remove('activeitem');
+        items[i].setAttribute('aria-selected',false);
         break;
       }
     }
-  
-    el.target.classList.add('activeitem');
-    
+
+    el.target.setAttribute('aria-selected',true);
+    el.target.setAttribute('aria-current',true);
+
     let val = el.target.textContent;
     document.querySelector('fw-select').setAttribute('value',val);
     document.querySelector('fw-select').value = val;
-    el.target.parentElement.style.display="none";
+    this.refs.selectoptions.style.display="none";
   },
-  filterItems:()=> {
-    let customSelect, filter, item, i,txtValue, root=document.querySelector('fw-select').shadowRoot;    customSelect = root.children[2];
+ 
+  filterItems:function(ev){
+    ev.stopPropagation();
+    console.log("tabbing entered");
+    if(ev.which===38||ev.which===40||ev.which===13) {
+      let i,current,next,prev;
+    this.refs.selectoptions.style.display="block";
+
+    let items = this.refs.selectoptions.children;
+    for( i=0;i<items.length;i++){
+      let isCurrent = items[i].getAttribute('aria-current');
+      // console.log(isCurrent,items[i])
+      if(isCurrent==true){
+        current =items[i];
+        next=items[i+1];
+        prev=items[i-1];
+        break;
+      }
+        // console.log(isCurrent,items[i])
+    }
+        current.setAttribute('aria-current',false);
+        current.blur();
+        if(ev.which===38)
+        {
+          prev.setAttribute('aria-current',true);
+          prev.focus();
+        }
+        else if(ev.which===40){
+          console.log(items[i+1]);
+          next.setAttribute('aria-current',true);
+          next.focus();
+        }
+  }
+    else if(ev.which>=65 && ev.which<=122){
+      this.refs.selectoptions.display="block";
+    let customSelect, filter, item, i,txtValue, selectoptions,root=document.querySelector('fw-select').shadowRoot;
+    customSelect = this.refs.customSelect;
+    selectoptions=this.refs.selectoptions;
     filter = customSelect.value.toUpperCase();
-    item = root.children[3].children;
+    item = selectoptions.children;
     for (i = 0; i < item.length; i++) 
           {
         txtValue = item[i].textContent || item[i].innerText;
     if (txtValue.toUpperCase().indexOf(filter) > -1) 
             {
         item[i].style.display = "";
+       
             }
     else     {
-      // item[i].style.display = "none";
-      root.removeChild(root.children[3]);
-      let noresults =  document.createElement('div');
-      noresults.className = "noresults";
-      noresults.textContent = "No results found";
-      root.appendChild(noresults);
-      // root.innerHTML += `<div class='noresults'> No results found </div>`
-          // root.removeChild(root.children[3])
-          // let noresults =  `<div class='noresults'> No results found </div>`
-          // root.appendChild(noresults)
-     
+      item[i].style.display="none";
              }
           }
+
+          let presentItems = [];
+      for (let i=0;i<item.length;i++) 
+      {
+        if(item[i].style.display!=="none")
+        presentItems.push(item[i]);
       }
+      if(presentItems.length<5) 
+      {
+        let boxHeight = 40 * presentItems.length;
+        selectoptions.style.height = `${boxHeight}px`;
+      }
+      else if (presentItems.length>=5)
+      selectoptions.style.height = "184px";
+
+  }
+},
 };
 
 function oncreate(){
-  document.querySelector('fw-select').shadowRoot.children[3].style.display ="none";
-  document.addEventListener('click',()=>{
-    document.querySelector('fw-select').shadowRoot.children[3].style.display ="none";
-  });
+
+let items = this.refs.selectoptions.children ,
+root =document.querySelector('fw-select');
+for(let i=0;i<items.length;i++)
+{
+  if(items[i].textContent===root.value){
+  items[i].setAttribute('aria-selected',true);
+  items[i].setAttribute('aria-current',true);
+  }
+  else 
+  {
+    items[i].setAttribute('aria-current',false);
+    items[i].setAttribute('aria-selected',false);
+  }
+}
+this.refs.selectoptions.style.display ="none";
+document.addEventListener('click',()=>{
+  this.refs.selectoptions.style.display = "none";
+});
   }
 function click_handler(event) {
 	const { component } = this._svelte;
@@ -366,6 +425,10 @@ function create_main_fragment(component, ctx) {
 		each_blocks[i] = create_each_block(component, get_each_context(ctx, each_value, i));
 	}
 
+	function keyup_handler_1(event) {
+		component.tabbing();
+	}
+
 	return {
 		c() {
 			slot = createElement("slot");
@@ -382,6 +445,7 @@ function create_main_fragment(component, ctx) {
 			addListener(input, "click", click_handler);
 			addListener(input, "keyup", keyup_handler);
 			setAttributes(input, input_data);
+			addListener(div, "keyup", keyup_handler_1);
 			div.className = "selectoptions";
 			div.contentEditable = "false";
 		},
@@ -390,12 +454,15 @@ function create_main_fragment(component, ctx) {
 			insert(target, slot, anchor);
 			insert(target, text0, anchor);
 			insert(target, input, anchor);
+			component.refs.customSelect = input;
 			insert(target, text1, anchor);
 			insert(target, div, anchor);
 
 			for (var i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(div, null);
 			}
+
+			component.refs.selectoptions = div;
 		},
 
 		p(changed, ctx) {
@@ -436,12 +503,16 @@ function create_main_fragment(component, ctx) {
 
 			removeListener(input, "click", click_handler);
 			removeListener(input, "keyup", keyup_handler);
+			if (component.refs.customSelect === input) component.refs.customSelect = null;
 			if (detach) {
 				detachNode(text1);
 				detachNode(div);
 			}
 
 			destroyEach(each_blocks, detach);
+
+			removeListener(div, "keyup", keyup_handler_1);
+			if (component.refs.selectoptions === div) component.refs.selectoptions = null;
 		}
 	};
 }
@@ -458,6 +529,7 @@ function create_each_block(component, ctx) {
 
 			addListener(a, "click", click_handler);
 			a.className = "items";
+			a.tabIndex = "-1";
 			a.contentEditable = "false";
 			setAttribute(a, "aria-selected", "");
 			setAttribute(a, "aria-current", "");
@@ -466,6 +538,7 @@ function create_each_block(component, ctx) {
 		m(target, anchor) {
 			insert(target, a, anchor);
 			append(a, text);
+			component.refs.items = a;
 		},
 
 		p(changed, ctx) {
@@ -480,6 +553,7 @@ function create_each_block(component, ctx) {
 			}
 
 			removeListener(a, "click", click_handler);
+			if (component.refs.items === a) component.refs.items = null;
 		}
 	};
 }
@@ -488,6 +562,7 @@ class Dropdown extends HTMLElement {
 	constructor(options = {}) {
 		super();
 		init(this, options);
+		this.refs = {};
 		this._state = assign(data(), options.data);
 
 		this._recompute({  }, this._state);
@@ -497,7 +572,7 @@ class Dropdown extends HTMLElement {
 
 		this.attachShadow({ mode: 'open' });
 		this.shadowRoot.innerHTML = `<style>:host{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif}::-webkit-scrollbar{width:8px}slot{display:none}::-webkit-scrollbar-track{display:none
-		}::-webkit-scrollbar-thumb{background:#ebeff3;border-radius:10px;height:70px}.custom-select{position:relative;width:224px;height:34px;box-sizing:border-box;border:none;border:#cfd7df 1px solid;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);border-radius:5px;padding:6px 12px;background:#ffffff;font-size:14px;font-weight:600;line-height:20px;color:#12344d;appearance:none;cursor:auto}.custom-select::after{content:">";float:right;transform:rotate(90deg);margin-top:2px;margin-right:-4px;cursor:pointer;color:#000}.custom-select:hover{border:solid 1px #475867}.custom-select:focus{outline:none;border:solid 2px #2c5cc5}.custom-select:invalid{border:solid 1px #d72d30}.custom-select:disabled{pointer-events:none;background:#cfd7df;cursor:auto}.selectoptions{position:inherit;display:none;left:7px;top:42px;width:224px;height:184px;box-shadow:0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);border:solid 1px #ebeef0;border-radius:5px;transition:2s linear;background-color:#ffffff;overflow:auto}.items{margin-left:16px;padding-left:8px;margin-bottom:-7px;margin-top:8px;width:184px;height:32px;background-color:#ffffff;cursor:pointer;font-family:SFProText;font-size:14px;font-weight:normal;line-height:2.43;color:#12344d;display:block}.items:hover{width:184px;height:32px;border-radius:5px;margin-left:16px;margin-right:24px;background-color:#ebeff3}.activeitem{border-radius:5px;margin-left:16px;padding-left:8px;margin-bottom:-7px;margin-top:8px;width:184px;height:32px;background-color:#e5f2fd;cursor:pointer;font-family:SFProText;font-size:14px;line-height:2.43;color:#2c5cc5;font-weight:600}.activeitem::after{content:"";float:right;margin-top:11px;margin-right:12px;width:3px;height:7px;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.noresults{padding:12px 30px 10px 12px;font-size:14px;border-radius:4px;line-height:1.3;margin:5px 0;word-break:break-word;-ms-word-wrap:break-word;word-wrap:break-word;display:block;box-sizing:border-box;border:1px solid;box-shadow:0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);border:solid 1px #ebeef0;border-radius:5px;transition:2s linear;background-color:#ffffff;width:224px;top:-5px;position:relative}.status-icon{right:12px;content:'';display:inline-block;top:2px;bottom:5px;width:5px;height:5px;background-color:transparent;border-style:inherit;border-top:1px solid #12344d;border-right:1px solid #12344d;border-left:transparent;transform:rotate(135deg)}</style>`;
+		}::-webkit-scrollbar-thumb{background:#ebeff3;border-radius:10px;height:70px}.custom-select{position:relative;width:224px;height:34px;box-sizing:border-box;border:none;border:#cfd7df 1px solid;box-shadow:inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);border-radius:5px;padding:6px 12px;background:#ffffff;font-size:14px;font-weight:600;line-height:20px;color:#12344d;appearance:none;cursor:auto}.custom-select::after{content:">";float:right;transform:rotate(90deg);margin-top:2px;margin-right:-4px;cursor:pointer;color:#000}.custom-select:hover{border:solid 1px #475867}.custom-select:focus{outline:none;border:solid 2px #2c5cc5}.custom-select:invalid{border:solid 1px #d72d30}.custom-select:disabled{pointer-events:none;background:#cfd7df;cursor:auto}.selectoptions{position:inherit;display:none;left:7px;top:42px;width:224px;height:184px;box-shadow:0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);border:solid 1px #ebeef0;border-radius:5px;background-color:#ffffff;overflow:auto}.items[aria-selected='false']{text-decoration:none;margin-left:16px;padding-left:8px;margin-bottom:-7px;margin-top:8px;width:184px;height:32px;background-color:#ffffff;cursor:pointer;font-family:SFProText;font-size:14px;font-weight:normal;line-height:2.43;color:#12344d;display:block}.items:hover{width:184px;height:32px;border-radius:5px;margin-left:16px;margin-right:24px;background-color:#ebeff3}.items:focus{outline:none;border:none;background-color:#e5f2fd;border-radius:5px}.items[aria-selected='true']{text-decoration:none;border-radius:5px;margin-left:16px;padding-left:8px;margin-bottom:-7px;margin-top:8px;width:184px;height:32px;background-color:#e5f2fd;cursor:pointer;font-family:SFProText;font-size:14px;line-height:2.43;color:#2c5cc5;font-weight:600;display:block}.items[aria-selected='true']::after{content:"";float:right;margin-top:11px;margin-right:12px;width:3px;height:7px;border:solid black;border-width:0 2px 2px 0;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.noresults{padding:12px 30px 10px 12px;font-size:14px;border-radius:4px;line-height:1.3;margin:5px 0;word-break:break-word;-ms-word-wrap:break-word;word-wrap:break-word;display:block;box-sizing:border-box;border:1px solid;box-shadow:0 2px 20px 0 rgba(24, 50, 71, 0.16), 0 2px 3px 0 rgba(0, 0, 0, 0.06);border:solid 1px #ebeef0;border-radius:5px;transition:2s linear;background-color:#ffffff;width:224px;top:-5px;position:relative}.status-icon{right:12px;content:'';display:inline-block;top:2px;bottom:5px;width:5px;height:5px;background-color:transparent;border-style:inherit;border-top:1px solid #12344d;border-right:1px solid #12344d;border-left:transparent;transform:rotate(135deg)}</style>`;
 
 		this._fragment = create_main_fragment(this, this._state);
 

@@ -28,3 +28,10 @@ storiesOf('Button', module)
     </fw-button>
     `
   )
+  .add('Active primary button',()=>
+    `
+    <fw-button value="Active" class="primary active">
+      Active
+    </fw-button>
+    `
+  )

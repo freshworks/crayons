@@ -57,8 +57,8 @@ border: solid 2px #f73f3e;
   border: none;
 }
 .container input[type="checkbox"]:checked:focus:not([disabled]) ~ .checkmark{
-  border:1px solid #ffffff;
-  box-shadow: 0 0 0 2pt #2e6ed8;
+  border:2px solid #ffffff;
+  box-shadow: 0 0 0 1pt #2e6ed8;
   }
   .container input[type="checkbox"]:checked:invalid:not([disabled]) ~ .checkmark::after{
   border: solid 2px #f73f3e;
@@ -76,15 +76,15 @@ border: solid 2px #f73f3e;
   background-color: #ebeef0;
   pointer-events: none;
   cursor:default;
-   top: 2px;
-    left: 5px;
-    width: 3px;
-    height: 7px;
-    border: solid #6f7c87;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+  top: 2px;
+  left: 5px;
+  width: 3px;
+  height: 7px;
+  border: solid #6f7c87;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 } 
 .container input[type="checkbox"]:disabled ~ .checkmark{
   box-shadow: inset 0 1px 2px 0 #f7f9fa;
@@ -119,7 +119,7 @@ border: solid 2px #f73f3e;
   props:  ["label","autofocus","checked","defaultChecked","defaultValue","disabled","form","indeterminate","name","required","type"],
   computed: {
       props: state => {
-       if(document.querySelector("input").hasAttribute("checked")) document.querySelector("fw-checkbox").checked=true;
+      //  if(document.querySelector("input").hasAttribute("checked")) document.querySelector("fw-checkbox").checked=true;
         Object.keys(state).forEach(key => {
           state[key] = state[key] === "" ? key : state[key];
         });
@@ -127,9 +127,11 @@ border: solid 2px #f73f3e;
       } 
     },
     methods:{
-      checkboxChange : (ev)=>
+      checkboxChange : (ev)=>{
         document.querySelector("fw-checkbox").checked = ev.checked
-    }
-  };
+        console.log( document.querySelector("fw-checkbox").checked )  
+    } 
+  },
+};
 
 </script>

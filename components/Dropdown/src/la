@@ -1,0 +1,15 @@
+ // optionsDisplay:function(){
+            
+      //     selectoptions = this.refs.selectoptions
+      //     items = selectoptions.children
+      //     let presentItems = []
+      //     for (let i=0;i<item.length;i++) 
+      //     {
+      //       if(item[i].style.display!=="none")
+      //       presentItems.push(item[i])
+      //     }
+      //     if(presentItems.length<5) 
+      //     {
+      //       selectoptions.style.height = '"'+selectoptions.height - 34*(5-presentItems.length) + 'px"'
+      //     }
+      //   },
