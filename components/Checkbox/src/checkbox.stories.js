@@ -8,8 +8,12 @@
     .addDecorator(withKnobs)
     .add('Normal checkbox', () => 
     `
+
     <fw-checkbox label="Click Me!" checked></fw-checkbox>
     <fw-checkbox label="Click Me! tooo"> </fw-checkbox>
+
+    <fw-checkbox label="Click Me!" checked>
+
       `
     )
   

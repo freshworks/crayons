@@ -25,7 +25,11 @@
   "scripts": {
     "build:components": "lerna run build",
     "release": "lerna publish",
+
     "dev": "yarn build:components && kill-port 9001 && start-storybook -p 9001 -c .storybook",
+
+    "dev": "yarn build:components && start-storybook -p 9001 -c .storybook",
+
     "build:storybook": "yarn build:components && build-storybook -c .storybook -o dist"
   }
 }

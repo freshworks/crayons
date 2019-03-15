@@ -1,6 +1,6 @@
   <button class=class {...props}> 
           <slot></slot>
-  </button>{class}
+  </button>
   <style>
  :host([disabled]) {
     cursor: not-allowed;
@@ -47,15 +47,18 @@
       width: 106px;
     }
     .primary.active::before{
-      float:left;
-      top: 2px;
-      left: 5px;
-      width: 3px;
-      height: 7px;
-      border-width: 0 2px 2px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
+    content: "";
+    position: relative;
+    float: left;
+    top: 2px;
+    left: 15px;
+    width: 3px;
+    height: 10px;
+    border: 1px solid white;
+    border-width: 0px 2px 2px 0px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
     }
     
     .secondary{

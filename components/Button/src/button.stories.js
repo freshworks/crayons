@@ -30,7 +30,7 @@ storiesOf('Button', module)
   )
   .add('Active primary button',()=>
     `
-    <fw-button value="Active" class="primary active">
+    <fw-button value="Primary" class="primary active">
       Active
     </fw-button>
     `
