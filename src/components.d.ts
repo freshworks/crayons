@@ -9,53 +9,39 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface MyComponent {
+  interface FwLabel {
     /**
-    * The first name
+    * The type of the label
     */
-    'first': string;
-    /**
-    * The last name
-    */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
+    'type': string;
+    'value': string;
   }
 }
 
 declare global {
 
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  interface HTMLFwLabelElement extends Components.FwLabel, HTMLStencilElement {}
+  var HTMLFwLabelElement: {
+    prototype: HTMLFwLabelElement;
+    new (): HTMLFwLabelElement;
   };
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'fw-label': HTMLFwLabelElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface MyComponent extends JSXBase.HTMLAttributes<HTMLMyComponentElement> {
+  interface FwLabel extends JSXBase.HTMLAttributes<HTMLFwLabelElement> {
     /**
-    * The first name
+    * The type of the label
     */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
+    'type'?: string;
+    'value'?: string;
   }
 
   interface IntrinsicElements {
-    'my-component': MyComponent;
+    'fw-label': FwLabel;
   }
 }
 

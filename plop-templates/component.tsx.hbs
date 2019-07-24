@@ -2,11 +2,11 @@ import { Component, Prop, h } from '@stencil/core';
 import { format } from '../../utils/utils';
 
 @Component({
-  tag: 'my-component',
-  styleUrl: 'my-component.css',
+  tag: 'fw-{{componentCase componentName}}',
+  styleUrl: '{{componentCase componentName}}.scss',
   shadow: true
 })
-export class MyComponent {
+export class {{pascalCase componentName}} {
   /**
    * The first name
    */
