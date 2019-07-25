@@ -1,7 +1,7 @@
 {
   "name": "freshworks-ui-kit",
   "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "description": "Freshworks UI Kit for Developer Platform",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -16,23 +16,36 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
-    "start": "stencil build --dev --watch --serve",
+    "start": "stencil build --docs --dev --watch",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "plop"
+    "generate": "plop",
+    "story": "npm-run-all --parallel start storybook",
+    "story:test": "npm run test:generate && npm run story",
+    "storybook": "start-storybook -p 9001 -c .storybook -s www"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
     "@stencil/core": "^1.0.7",
     "@stencil/postcss": "^1.0.1",
     "@stencil/sass": "^1.0.1",
+    "@storybook/addon-actions": "^5.0.3",
+    "@storybook/addon-jest": "^5.0.3",
+    "@storybook/addon-notes": "^5.0.3",
+    "@storybook/addon-viewport": "^5.0.3",
+    "@storybook/html": "^5.0.3",
     "@types/autoprefixer": "^9.5.0",
     "@types/jest": "24.0.15",
     "@types/puppeteer": "1.12.4",
     "autoprefixer": "^9.6.1",
+    "babel-loader": "^8.0.5",
+    "copy-webpack-plugin": "^5.0.1",
     "jest": "24.8.0",
     "jest-cli": "24.8.0",
     "plop": "^2.4.0",
-    "puppeteer": "1.17.0"
+    "puppeteer": "1.17.0",
+    "npm-run-all": "^4.1.5",
+    "write-file-webpack-plugin": "^4.5.0"
   },
   "license": "MIT"
 }

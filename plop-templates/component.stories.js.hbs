@@ -1,0 +1,10 @@
+import { storiesOf } from '@storybook/html';
+
+import readme from "./readme.md";
+
+storiesOf('{{pascalCase componentName}}', module)
+  .add('Default', () => '<fw-{{componentCase componentName}}></fw-{{componentCase componentName}}>', {
+    notes: {
+      markdown: readme
+    }
+  });

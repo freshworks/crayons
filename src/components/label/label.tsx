@@ -10,7 +10,10 @@ export class Label {
    * The type of the label
    */
   @Prop() type: string = 'default';
-  @Prop() value: string;
+  /**
+   * The text in the label
+   */
+  @Prop() value: string = '';
 
   render() {
     return <span class={'label ' + this.type.toLowerCase()}>{this.value}</span>;

@@ -17,6 +17,11 @@ module.exports = function (plop) {
 		},
 		{
 			type: 'add',
+			path: 'src/components/{{componentCase componentName}}/{{componentCase componentName}}.stories.js',
+			templateFile: 'plop-templates/component.stories.js.hbs'
+		},
+		{
+			type: 'add',
 			path: 'src/components/{{componentCase componentName}}/{{componentCase componentName}}.e2e.ts',
 			templateFile: 'plop-templates/component.e2e.ts.hbs'
 		},

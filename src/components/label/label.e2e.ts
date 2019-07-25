@@ -9,24 +9,16 @@ describe('fw-label', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('renders changes to the name data', async () => {
+  it('renders changes to the value data', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-label></fw-label>');
     const component = await page.find('fw-label');
     const element = await page.find('fw-label >>> div');
-    expect(element.textContent).toEqual(`Hello, World! I'm `);
+    expect(element.textContent).toEqual(``);
 
-    component.setProperty('first', 'James');
+    component.setProperty('value', 'Label');
     await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James`);
-
-    component.setProperty('last', 'Quincy');
-    await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James Quincy`);
-
-    component.setProperty('middle', 'Earl');
-    await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James Earl Quincy`);
+    expect(element.textContent).toEqual(`Label`);
   });
 });
