@@ -14,7 +14,7 @@ describe('fw-label', () => {
 
     await page.setContent('<fw-label></fw-label>');
     const component = await page.find('fw-label');
-    const element = await page.find('fw-label >>> div');
+    const element = await page.find('fw-label >>> span');
     expect(element.textContent).toEqual(``);
 
     component.setProperty('value', 'Label');

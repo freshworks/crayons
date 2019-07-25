@@ -9,20 +9,6 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface FwInput {
-    /**
-    * The first name
-    */
-    'first': string;
-    /**
-    * The last name
-    */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
-  }
   interface FwLabel {
     /**
     * The type of the label
@@ -38,38 +24,17 @@ export namespace Components {
 declare global {
 
 
-  interface HTMLFwInputElement extends Components.FwInput, HTMLStencilElement {}
-  var HTMLFwInputElement: {
-    prototype: HTMLFwInputElement;
-    new (): HTMLFwInputElement;
-  };
-
   interface HTMLFwLabelElement extends Components.FwLabel, HTMLStencilElement {}
   var HTMLFwLabelElement: {
     prototype: HTMLFwLabelElement;
     new (): HTMLFwLabelElement;
   };
   interface HTMLElementTagNameMap {
-    'fw-input': HTMLFwInputElement;
     'fw-label': HTMLFwLabelElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface FwInput extends JSXBase.HTMLAttributes<HTMLFwInputElement> {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
-  }
   interface FwLabel extends JSXBase.HTMLAttributes<HTMLFwLabelElement> {
     /**
     * The type of the label
@@ -82,7 +47,6 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
-    'fw-input': FwInput;
     'fw-label': FwLabel;
   }
 }
