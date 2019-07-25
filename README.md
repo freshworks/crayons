@@ -2,58 +2,54 @@
 
 # Freshworks UI-Kit
 
-This is a starter project for building a standalone Web Component using Stencil.
+This is a collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) that will help developers build apps faster that adheres to the UX standards set by the [Freshworks Design System](https://freshworks.invisionapp.com/dsm/freshworks/freshworks).
 
-Stencil is also great for building entire apps. For that, use the [stencil-app-starter](https://github.com/ionic-team/stencil-app-starter) instead.
+## Why?
 
-# Stencil
+Please read the following:
+ - [UI-Kit Analysis and Design](https://confluence.freshworks.com/display/MAR/UI-Kit+Analysis+and+Design)
+ - [Freshworks UI-Kit](https://confluence.freshworks.com/display/MAR/Freshworks+UI-Kit)
 
-Stencil is a compiler for building fast web apps using Web Components.
-
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
-
-Stencil components are just Web Components, so they work in any major framework or with no framework at all.
-
-## Getting Started
-
-To start building a new web component using Stencil, clone this repo to a new directory:
+## Development
 
 ```bash
-git clone https://github.com/ionic-team/stencil-component-starter.git my-component
-cd my-component
-git remote rm origin
+git clone https://github.com/freshdesk/freshworks-ui-kit
+cd freshworks-ui-kit
+yarn
 ```
 
-and run:
+and start [Storybook](https://storybook.js.org/):
 
 ```bash
-npm install
-npm start
+yarn install
+yarn story
 ```
 
-To build the component for production, run:
+To build the components for production, run:
 
 ```bash
-npm run build
+yarn build
 ```
 
 To run the unit tests for the components, run:
 
 ```bash
-npm test
+yarn test
 ```
 
-Need help? Check out our docs [here](https://stenciljs.com/docs/my-first-component).
+To generate a new component, run:
+
+```bash
+yarn generate
+```
 
 
 ## Naming Components
 
-When creating new component tags, we recommend _not_ using `stencil` in the component name (ex: `<stencil-datepicker>`). This is because the generated component has little to nothing to do with Stencil; it's just a web component!
-
-Instead, use a prefix that fits your company or any name for a group of related components. For example, all of the Ionic generated web components use the prefix `ion`.
+When generating components, the custom element tags is prefixed with `fw-` while the rest of the name is modified to support web component standards. For example, if a component is generated with the name `Label`, the component that would be generated would be `<fw-label/>`.
 
 
-## Using this component
+## Using this component (TODO)
 
 ### Script tag
 
