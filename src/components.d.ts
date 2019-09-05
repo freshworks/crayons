@@ -19,6 +19,12 @@ export namespace Components {
     */
     'value': string;
   }
+  interface FwSpinner {
+    /**
+    * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+    */
+    'size': string;
+  }
 }
 
 declare global {
@@ -29,8 +35,15 @@ declare global {
     prototype: HTMLFwLabelElement;
     new (): HTMLFwLabelElement;
   };
+
+  interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {}
+  var HTMLFwSpinnerElement: {
+    prototype: HTMLFwSpinnerElement;
+    new (): HTMLFwSpinnerElement;
+  };
   interface HTMLElementTagNameMap {
     'fw-label': HTMLFwLabelElement;
+    'fw-spinner': HTMLFwSpinnerElement;
   }
 }
 
@@ -45,9 +58,16 @@ declare namespace LocalJSX {
     */
     'value'?: string;
   }
+  interface FwSpinner extends JSXBase.HTMLAttributes<HTMLFwSpinnerElement> {
+    /**
+    * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+    */
+    'size'?: string;
+  }
 
   interface IntrinsicElements {
     'fw-label': FwLabel;
+    'fw-spinner': FwSpinner;
   }
 }
 
