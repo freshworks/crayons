@@ -10,6 +10,24 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface FwCheckbox {
+    /**
+    * Property to maintain checked state
+    */
+    'checked': boolean;
+    /**
+    * Disables the checkbox
+    */
+    'disabled': boolean;
+    /**
+    * Label for checkbox
+    */
+    'label': string;
+    /**
+    * Value of the checkbox for within a <form>
+    */
+    'value': string;
+  }
   interface FwLabel {
     /**
     * The type of the label
@@ -31,6 +49,12 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLFwCheckboxElement extends Components.FwCheckbox, HTMLStencilElement {}
+  var HTMLFwCheckboxElement: {
+    prototype: HTMLFwCheckboxElement;
+    new (): HTMLFwCheckboxElement;
+  };
+
   interface HTMLFwLabelElement extends Components.FwLabel, HTMLStencilElement {}
   const HTMLFwLabelElement: {
     prototype: HTMLFwLabelElement;
@@ -43,12 +67,46 @@ declare global {
     new (): HTMLFwSpinnerElement;
   };
   interface HTMLElementTagNameMap {
+    'fw-checkbox': HTMLFwCheckboxElement;
     'fw-label': HTMLFwLabelElement;
     'fw-spinner': HTMLFwSpinnerElement;
   }
 }
 
 declare namespace LocalJSX {
+<<<<<<< HEAD
+=======
+  interface FwCheckbox {
+    /**
+    * Property to maintain checked state
+    */
+    'checked'?: boolean;
+    /**
+    * Disables the checkbox
+    */
+    'disabled'?: boolean;
+    /**
+    * Label for checkbox
+    */
+    'label'?: string;
+    /**
+    * Emitted when the checbox loses focus.
+    */
+    'onFwBlur'?: (event: CustomEvent<void>) => void;
+    /**
+    * Emitted when the checkbox value has changed.
+    */
+    'onFwChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * Emitted when the checkbox has focus.
+    */
+    'onFwFocus'?: (event: CustomEvent<void>) => void;
+    /**
+    * Value of the checkbox for within a <form>
+    */
+    'value'?: string;
+  }
+>>>>>>> [MP-5215] - Checkbox
   interface FwLabel {
     /**
     * The type of the label
@@ -67,6 +125,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'fw-checkbox': FwCheckbox;
     'fw-label': FwLabel;
     'fw-spinner': FwSpinner;
   }
@@ -78,6 +137,10 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+<<<<<<< HEAD
+=======
+      'fw-checkbox': LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+>>>>>>> [MP-5215] - Checkbox
       'fw-label': LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
     }
