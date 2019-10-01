@@ -45,6 +45,7 @@ export class Checkbox {
 
   componentDidLoad() {
     this.checkbox.checked = this.checked;
+    this.checkbox.disabled = this.disabled;
   }
 
   @Watch('checked')
@@ -88,8 +89,7 @@ export class Checkbox {
         onBlur={() => this.onBlur()}
         >
           <input type="checkbox"
-            ref={(el) => this.checkbox = el as HTMLInputElement}
-            disabled={this.disabled}>
+            ref={(el) => this.checkbox = el as HTMLInputElement}>
           </input>
           <label>
             <span class="text"><slot/></span>

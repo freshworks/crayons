@@ -1,6 +1,7 @@
 dist/
 www/
 loader/
+coverage/
 
 *~
 *.sw[mnpcod]
@@ -24,3 +25,5 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
+
+package-lock.json
