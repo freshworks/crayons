@@ -1,36 +1,43 @@
-import { Component, Prop, h, Watch, Host, Event, EventEmitter } from '@stencil/core';
+import { Component, Prop, h, Host, Event, EventEmitter, Watch } from '@stencil/core';
 
 @Component({
-  tag: 'fw-checkbox',
-  styleUrl: 'checkbox.scss',
+  tag: 'fw-radio',
+  styleUrl: 'radio.scss',
   shadow: true
 })
-export class Checkbox {
-  /**
+export class Radio {
+   /**
    * Property to maintain checked state
    */
-  @Prop({ mutable: true }) checked: boolean = false;
+  @Prop({ mutable:true }) checked: boolean = false;
   /**
-   * Disables the checkbox
+   * Disables the radio button
    */
-  @Prop({ mutable: true }) disabled: boolean = false;
+  @Prop({ mutable:true }) disabled: boolean = false;
   /**
-   * Label for checkbox
+   * Label for radio button
    */
   @Prop() label: string;
   /**
-   * Value of the checkbox for within a <form>
+   * Value of the radio button for within a <form>
    */
   @Prop() value = '';
-
-
-  /**
-   * Emitted when the checkbox value has changed.
+   /**
+   * Value of the name for within a <form>
    */
-  @Event() fwChange!: EventEmitter;
+  @Prop() name = '';
 
   /**
-   * Emitted when the checkbox has focus.
+   * Emitted when the radio button value has changed.
+   */
+  @Event() fwSelect!: EventEmitter;
+  /**
+   * Emitted when the radio button value has changed.
+   */
+  @Event() fwDeselect!: EventEmitter;
+
+  /**
+   * Emitted when the radio button has focus.
    */
   @Event() fwFocus!: EventEmitter<void>;
 
@@ -40,28 +47,32 @@ export class Checkbox {
   @Event() fwBlur!: EventEmitter<void>;
 
   
-  private checkbox!: HTMLInputElement;
+  private radio!: HTMLInputElement;
 
 
   componentDidLoad() {
-    this.checkbox.checked = this.checked;
-    this.checkbox.disabled = this.disabled;
+    this.radio.checked = this.checked;
+    this.radio.disabled = this.disabled;
   }
 
   @Watch('checked')
   checkChanged( isChecked:boolean ) {
-    if(!this.disabled) {
-      this.checkbox.checked = isChecked;
-      this.fwChange.emit({
-        value: this.value,
-        checked: isChecked,
-      });
+    if(!this.disabled){
+      this.radio.checked = isChecked;
+      if(isChecked) {
+        this.fwSelect.emit({
+          value: this.value,
+          checked: true,
+        });
+      } else {
+        this.fwDeselect.emit();
+      }
     }
   }
 
   @Watch('disabled')
   disabledChanged( isDisabled:boolean ) {
-    this.checkbox.disabled = isDisabled;
+    this.radio.disabled = isDisabled;
   }
 
   private onFocus() {
@@ -81,17 +92,17 @@ export class Checkbox {
   render() {
     return (
       <Host
-        class="checkbox-container"
+        class="radio-container"
         onClick={() => this.toggle()}
-        role="checkbox"
+        role="radio"
         tabIndex="0"
         aria-disabled={this.disabled ? 'true' : null}
         aria-checked={`${this.checked}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
         >
-          <input type="checkbox"
-            ref={(el) => this.checkbox = el as HTMLInputElement}>
+          <input type="radio"
+            ref={(el) => this.radio = el as HTMLInputElement}>
           </input>
           <label>
             <span class="text"><slot/></span>
