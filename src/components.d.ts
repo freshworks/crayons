@@ -38,6 +38,28 @@ export namespace Components {
     */
     'value': string;
   }
+  interface FwRadio {
+    /**
+    * Property to maintain checked state
+    */
+    'checked': boolean;
+    /**
+    * Disables the radio button
+    */
+    'disabled': boolean;
+    /**
+    * Label for radio button
+    */
+    'label': string;
+    /**
+    * Value of the name for within a <form>
+    */
+    'name': string;
+    /**
+    * Value of the radio button for within a <form>
+    */
+    'value': string;
+  }
   interface FwSpinner {
     /**
     * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
@@ -61,6 +83,12 @@ declare global {
     new (): HTMLFwLabelElement;
   };
 
+  interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {}
+  var HTMLFwRadioElement: {
+    prototype: HTMLFwRadioElement;
+    new (): HTMLFwRadioElement;
+  };
+
   interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {}
   const HTMLFwSpinnerElement: {
     prototype: HTMLFwSpinnerElement;
@@ -69,6 +97,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'fw-checkbox': HTMLFwCheckboxElement;
     'fw-label': HTMLFwLabelElement;
+    'fw-radio': HTMLFwRadioElement;
     'fw-spinner': HTMLFwSpinnerElement;
   }
 }
@@ -117,6 +146,44 @@ declare namespace LocalJSX {
     */
     'value'?: string;
   }
+  interface FwRadio {
+    /**
+    * Property to maintain checked state
+    */
+    'checked'?: boolean;
+    /**
+    * Disables the radio button
+    */
+    'disabled'?: boolean;
+    /**
+    * Label for radio button
+    */
+    'label'?: string;
+    /**
+    * Value of the name for within a <form>
+    */
+    'name'?: string;
+    /**
+    * Emitted when the checbox loses focus.
+    */
+    'onFwBlur'?: (event: CustomEvent<void>) => void;
+    /**
+    * Emitted when the radio button value has changed.
+    */
+    'onFwDeselect'?: (event: CustomEvent<any>) => void;
+    /**
+    * Emitted when the radio button has focus.
+    */
+    'onFwFocus'?: (event: CustomEvent<void>) => void;
+    /**
+    * Emitted when the radio button value has changed.
+    */
+    'onFwSelect'?: (event: CustomEvent<any>) => void;
+    /**
+    * Value of the radio button for within a <form>
+    */
+    'value'?: string;
+  }
   interface FwSpinner {
     /**
     * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
@@ -127,6 +194,7 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'fw-checkbox': FwCheckbox;
     'fw-label': FwLabel;
+    'fw-radio': FwRadio;
     'fw-spinner': FwSpinner;
   }
 }
@@ -142,6 +210,7 @@ declare module "@stencil/core" {
       'fw-checkbox': LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
 >>>>>>> [MP-5215] - Checkbox
       'fw-label': LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
+      'fw-radio': LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
     }
   }
