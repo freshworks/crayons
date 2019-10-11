@@ -60,6 +60,20 @@ export namespace Components {
     */
     'value': string;
   }
+  interface FwRadioGroup {
+    /**
+    * If `true`, the radios can be deselected.
+    */
+    'allowEmpty': boolean;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name': string;
+    /**
+    * the value of the radio group.
+    */
+    'value'?: any | null;
+  }
   interface FwSpinner {
     /**
     * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
@@ -89,6 +103,12 @@ declare global {
     new (): HTMLFwRadioElement;
   };
 
+  interface HTMLFwRadioGroupElement extends Components.FwRadioGroup, HTMLStencilElement {}
+  var HTMLFwRadioGroupElement: {
+    prototype: HTMLFwRadioGroupElement;
+    new (): HTMLFwRadioGroupElement;
+  };
+
   interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {}
   const HTMLFwSpinnerElement: {
     prototype: HTMLFwSpinnerElement;
@@ -98,6 +118,7 @@ declare global {
     'fw-checkbox': HTMLFwCheckboxElement;
     'fw-label': HTMLFwLabelElement;
     'fw-radio': HTMLFwRadioElement;
+    'fw-radio-group': HTMLFwRadioGroupElement;
     'fw-spinner': HTMLFwSpinnerElement;
   }
 }
@@ -184,6 +205,24 @@ declare namespace LocalJSX {
     */
     'value'?: string;
   }
+  interface FwRadioGroup {
+    /**
+    * If `true`, the radios can be deselected.
+    */
+    'allowEmpty'?: boolean;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name'?: string;
+    /**
+    * Emitted when the value has changed.
+    */
+    'onFwChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * the value of the radio group.
+    */
+    'value'?: any | null;
+  }
   interface FwSpinner {
     /**
     * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
@@ -195,6 +234,7 @@ declare namespace LocalJSX {
     'fw-checkbox': FwCheckbox;
     'fw-label': FwLabel;
     'fw-radio': FwRadio;
+    'fw-radio-group': FwRadioGroup;
     'fw-spinner': FwSpinner;
   }
 }
@@ -211,6 +251,7 @@ declare module "@stencil/core" {
 >>>>>>> [MP-5215] - Checkbox
       'fw-label': LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
       'fw-radio': LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
+      'fw-radio-group': LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
     }
   }
