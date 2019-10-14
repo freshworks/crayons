@@ -52,6 +52,7 @@ export class RadioGroup {
     }
 
     this.mutationO = watchForOptions<HTMLFwRadioElement>(el, 'fw-radio', newOption => {
+      console.log(newOption);
       if (newOption !== undefined) {
         newOption.componentOnReady().then(() => {
           this.value = newOption.value;
@@ -119,10 +120,10 @@ export class RadioGroup {
 
   private onDeselect = (ev: Event) => {
     const selectedRadio = ev.target as HTMLFwRadioElement | null;
-    if (selectedRadio) {
-      selectedRadio.checked = false;
+    if(this.allowEmpty && selectedRadio.value == this.value) {
       this.value = undefined;
     }
+    this.updateRadios();
   }
 
   render() {
@@ -130,7 +131,7 @@ export class RadioGroup {
       <Host
         role="radiogroup"
         onFwSelect={this.onSelect}
-        onFwDeselect={this.allowEmpty ? this.onDeselect : undefined}
+        onFwDeselect={this.onDeselect}
       >
       </Host>
     );
