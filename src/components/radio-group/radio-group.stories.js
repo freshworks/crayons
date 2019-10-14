@@ -13,4 +13,15 @@ storiesOf('RadioGroup', module)
     notes: {
       markdown: readme
     }
+  })
+  .add('allow Empty', () => `
+  <h3> Is this useful? </h3>
+  <fw-radio-group allow-empty>
+    <fw-radio value="yes">Yes</fw-radio>
+    <fw-radio value="no">No</fw-radio>
+    <fw-radio value="maybe">Maybe</fw-radio>
+  </fw-radio-group>`, {
+    notes: {
+      markdown: readme
+    }
   });
