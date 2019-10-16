@@ -22,10 +22,10 @@ node {
     stage('Checkout & Setup') {
       checkoutCode(NODE_VERSION)
     }
-
-    stage('Code Sanity') {
-      doCodeSanity(NODE_VERSION)
-    }
+    // Skipping Lints as this is not completely Integrated
+    // stage('Code Sanity') {
+    //   doCodeSanity(NODE_VERSION)
+    // }
 
     // Skipping Unit Tests as this is not completely Integrated
     // stage('Unit Tests') {
