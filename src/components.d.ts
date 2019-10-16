@@ -86,7 +86,7 @@ declare global {
 
 
   interface HTMLFwCheckboxElement extends Components.FwCheckbox, HTMLStencilElement {}
-  var HTMLFwCheckboxElement: {
+  const HTMLFwCheckboxElement: {
     prototype: HTMLFwCheckboxElement;
     new (): HTMLFwCheckboxElement;
   };
@@ -98,13 +98,13 @@ declare global {
   };
 
   interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {}
-  var HTMLFwRadioElement: {
+  const HTMLFwRadioElement: {
     prototype: HTMLFwRadioElement;
     new (): HTMLFwRadioElement;
   };
 
   interface HTMLFwRadioGroupElement extends Components.FwRadioGroup, HTMLStencilElement {}
-  var HTMLFwRadioGroupElement: {
+  const HTMLFwRadioGroupElement: {
     prototype: HTMLFwRadioGroupElement;
     new (): HTMLFwRadioGroupElement;
   };
@@ -124,8 +124,6 @@ declare global {
 }
 
 declare namespace LocalJSX {
-<<<<<<< HEAD
-=======
   interface FwCheckbox {
     /**
     * Property to maintain checked state
@@ -156,7 +154,6 @@ declare namespace LocalJSX {
     */
     'value'?: string;
   }
->>>>>>> [MP-5215] - Checkbox
   interface FwLabel {
     /**
     * The type of the label
@@ -245,10 +242,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
-<<<<<<< HEAD
-=======
       'fw-checkbox': LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
->>>>>>> [MP-5215] - Checkbox
       'fw-label': LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
       'fw-radio': LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
       'fw-radio-group': LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
