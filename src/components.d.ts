@@ -80,6 +80,12 @@ export namespace Components {
     */
     'size': string;
   }
+  interface FwTimePicker {
+    /**
+    * Disabled prop
+    */
+    'disabled': boolean;
+  }
 }
 
 declare global {
@@ -114,12 +120,19 @@ declare global {
     prototype: HTMLFwSpinnerElement;
     new (): HTMLFwSpinnerElement;
   };
+
+  interface HTMLFwTimePickerElement extends Components.FwTimePicker, HTMLStencilElement {}
+  const HTMLFwTimePickerElement: {
+    prototype: HTMLFwTimePickerElement;
+    new (): HTMLFwTimePickerElement;
+  };
   interface HTMLElementTagNameMap {
     'fw-checkbox': HTMLFwCheckboxElement;
     'fw-label': HTMLFwLabelElement;
     'fw-radio': HTMLFwRadioElement;
     'fw-radio-group': HTMLFwRadioGroupElement;
     'fw-spinner': HTMLFwSpinnerElement;
+    'fw-time-picker': HTMLFwTimePickerElement;
   }
 }
 
@@ -226,6 +239,16 @@ declare namespace LocalJSX {
     */
     'size'?: string;
   }
+  interface FwTimePicker {
+    /**
+    * Disabled prop
+    */
+    'disabled'?: boolean;
+    /**
+    * Method to toggle dropdown open and close
+    */
+    'onTimeValueChanged'?: (event: CustomEvent<any>) => void;
+  }
 
   interface IntrinsicElements {
     'fw-checkbox': FwCheckbox;
@@ -233,6 +256,7 @@ declare namespace LocalJSX {
     'fw-radio': FwRadio;
     'fw-radio-group': FwRadioGroup;
     'fw-spinner': FwSpinner;
+    'fw-time-picker': FwTimePicker;
   }
 }
 
@@ -247,6 +271,7 @@ declare module "@stencil/core" {
       'fw-radio': LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
       'fw-radio-group': LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
+      'fw-time-picker': LocalJSX.FwTimePicker & JSXBase.HTMLAttributes<HTMLFwTimePickerElement>;
     }
   }
 }

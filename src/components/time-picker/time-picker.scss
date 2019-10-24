@@ -1,0 +1,129 @@
+
+* {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color: #183247;
+  }
+  
+  .time-picker {
+    border-radius: 4px;
+    border: 1px solid rgb(207, 215, 223);
+    min-height: 32px;
+    max-width: 122px;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+    margin-left: 0px;
+    text-size-adjust: 100%;
+    &:disabled {
+        background-color: #eee;
+    }
+  }
+  
+  .time-picker-drop-down {
+    margin: 0;
+    border-radius: 4px;
+    border: none;
+    max-width: 160px;
+    box-sizing: border-box;
+    height: 210px;
+    background: #fff;
+    box-shadow: 0 2px 18px 0 rgba(18, 52, 77, 0.16), 0 2px 4px 0 rgba(18, 52, 77, 0.06);
+    list-style: none;
+    padding: 8px;
+    overflow-y: auto;
+    display: none;
+  }
+  .dropdown-open {
+      transition: 0.2s;
+      display: block;
+  }
+  
+  .time-picker {
+    &:hover {
+      border: 1px solid #475867;
+      transition: .2s linear;
+    }
+  
+    &:focus {
+      outline: 0;
+      border: 2px solid #2c5cc5;
+      transition: none;
+    }
+  }
+  
+  .time-picker-text {
+    padding: 1px 2px 1px 12px;
+  
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  
+  .arrow {
+    position: relative;
+    left: -20px;
+    content: '';
+    display: inline-block;
+    bottom: 2px;
+    width: 5px;
+    height: 5px;
+    background-color: transparent;
+    border-style: inherit;
+    border-top: 1px solid #12344d;
+    border-right: 1px solid #12344d;
+    border-left: transparent;
+  }
+  .down-arrow {
+    transform: rotate(135deg);
+  }
+  .up-arrow {
+    transform: rotate(315deg);
+  }
+  
+  .time-picker-option {
+    cursor: pointer;
+    padding: 7px 30px 7px 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    line-height: 1.3;
+    word-break: break-word;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+  
+    &[aria-current=true]::before {
+      color: #2c5cc5;
+      background-color: #e5f2fd;
+      position: relative;
+      font-weight: 500;
+    }
+  
+    &[aria-selected] {
+      color: #2c5cc5;
+      background-color: #e5f2fd;
+      position: relative;
+      font-weight: 500;
+  
+      &::after {
+        position: relative;
+        float: right;
+        content: "";
+        top: 2px;
+        left: 15px;
+        width: 3px;
+        height: 9px;
+        border: solid #2c5cc5;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+  
+    &:hover {
+      background-color: #ebeff3;
+    }
+  }
+  
