@@ -7,13 +7,13 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                                   | Type      | Default     |
-| ---------- | ---------- | --------------------------------------------- | --------- | ----------- |
-| `checked`  | `checked`  | Property to maintain checked state            | `boolean` | `false`     |
-| `disabled` | `disabled` | Disables the radio button                     | `boolean` | `false`     |
-| `label`    | `label`    | Label for radio button                        | `string`  | `undefined` |
-| `name`     | `name`     | Value of the name for within a <form>         | `string`  | `''`        |
-| `value`    | `value`    | Value of the radio button for within a <form> | `string`  | `''`        |
+| Property   | Attribute  | Description                                   | Type      | Default |
+| ---------- | ---------- | --------------------------------------------- | --------- | ------- |
+| `checked`  | `checked`  | Property to maintain checked state            | `boolean` | `false` |
+| `disabled` | `disabled` | Disables the radio button                     | `boolean` | `false` |
+| `label`    | `label`    | Label for radio button                        | `string`  | `''`    |
+| `name`     | `name`     | Value of the name for within a <form>         | `string`  | `''`    |
+| `value`    | `value`    | Value of the radio button for within a <form> | `string`  | `''`    |
 
 
 ## Events

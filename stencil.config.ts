@@ -1,6 +1,6 @@
 import { Config } from '@stencil/core';
-import { sass } from '@stencil/sass';
 import { postcss } from '@stencil/postcss';
+import { sass } from '@stencil/sass';
 import autoprefixer from 'autoprefixer';
 
 export const config: Config = {
@@ -8,20 +8,20 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: '../loader'
+      esmLoaderPath: '../loader',
     },
     {
-      type: 'docs-readme'
+      type: 'docs-readme',
     },
     {
       type: 'www',
-      serviceWorker: null // disable service workers
-    }
+      serviceWorker: undefined, // disable service workers
+    },
   ],
   plugins: [
     sass(),
     postcss({
-      plugins: [autoprefixer()]
-    })
-  ]
+      plugins: [autoprefixer()],
+    }),
+  ],
 };

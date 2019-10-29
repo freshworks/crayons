@@ -1,4 +1,5 @@
-
+// This is a sample funtion for boilerplate code
+/* tslint:disable */ 
 export function format(first: string, middle: string, last: string): string {
   return (
     (first || '') +
@@ -6,7 +7,7 @@ export function format(first: string, middle: string, last: string): string {
     (last ? ` ${last}` : '')
   );
 }
-
+/* tslint:enable */
 
 export const watchForOptions = <T extends HTMLElement>(containerEl: HTMLElement, tagName: string, onChange: (el: T | undefined) => void) => {
   const mutation = new MutationObserver(mutationList => {
@@ -14,7 +15,7 @@ export const watchForOptions = <T extends HTMLElement>(containerEl: HTMLElement,
   });
   mutation.observe(containerEl, {
     childList: true,
-    subtree: true
+    subtree: true,
   });
   return mutation;
 };

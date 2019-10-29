@@ -1,28 +1,28 @@
-import { Component, Prop, h, Host, Event, EventEmitter, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-radio',
   styleUrl: 'radio.scss',
-  shadow: true
+  shadow: true,
 })
 export class Radio {
-   /**
+  /**
    * Property to maintain checked state
    */
-  @Prop({ mutable:true }) checked: boolean = false;
+  @Prop({ mutable: true }) checked = false;
   /**
    * Disables the radio button
    */
-  @Prop({ mutable:true }) disabled: boolean = false;
+  @Prop({ mutable: true }) disabled = false;
   /**
    * Label for radio button
    */
-  @Prop() label: string;
+  @Prop() label = '';
   /**
    * Value of the radio button for within a <form>
    */
   @Prop() value = '';
-   /**
+  /**
    * Value of the name for within a <form>
    */
   @Prop() name = '';
@@ -46,9 +46,7 @@ export class Radio {
    */
   @Event() fwBlur!: EventEmitter<void>;
 
-  
   private radio!: HTMLInputElement;
-
 
   componentDidLoad() {
     this.radio.checked = this.checked;
@@ -56,10 +54,10 @@ export class Radio {
   }
 
   @Watch('checked')
-  checkChanged( isChecked:boolean ) {
-    if(!this.disabled){
+  checkChanged(isChecked: boolean) {
+    if (!this.disabled) {
       this.radio.checked = isChecked;
-      if(isChecked) {
+      if (isChecked) {
         this.fwSelect.emit({
           value: this.value,
           checked: true,
@@ -71,7 +69,7 @@ export class Radio {
   }
 
   @Watch('disabled')
-  disabledChanged( isDisabled:boolean ) {
+  disabledChanged(isDisabled: boolean) {
     this.radio.disabled = isDisabled;
   }
 
@@ -83,8 +81,8 @@ export class Radio {
     this.fwBlur.emit();
   }
 
-  private toggle(){
-    if(!this.disabled) {
+  private toggle() {
+    if (!this.disabled) {
       this.checked = !this.checked;
     }
   }
@@ -96,21 +94,21 @@ export class Radio {
         onClick={() => this.toggle()}
         role="radio"
         tabIndex="0"
-        aria-disabled={this.disabled ? 'true' : null}
+        aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={`${this.checked}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
         >
           <input type="radio"
-            ref={(el) => this.radio = el as HTMLInputElement}>
+            ref={el => this.radio = el}>
           </input>
           <label>
             <span class="text"><slot/></span>
             <br/>
             {
-              this.label
-              ?<span class="label-field">{this.label}</span>
-              :''
+              this.label !== ''
+              ? <span class="label-field">{this.label}</span>
+              : ''
             }
           </label>
       </Host>

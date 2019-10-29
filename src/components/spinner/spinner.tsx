@@ -3,19 +3,19 @@ import { Component, Prop, h } from '@stencil/core';
 @Component({
   tag: 'fw-spinner',
   styleUrl: 'spinner.scss',
-  shadow: true
+  shadow: true,
 })
 export class Spinner {
   /**
    * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
    */
-  @Prop() size: string = 'default';
+  @Prop() size = 'default';
 
   sizeMap = {
     small: 12,
     default: 16,
     medium: 24,
-    large: 32
+    large: 32,
   };
 
   getSize() {
@@ -28,7 +28,7 @@ export class Spinner {
 
     return <svg
               class={`spinner ${this.size}`}
-              style={ 
+              style={
                 {
                   width: `${diameter}px`,
                   height: `${diameter}px`,
@@ -37,11 +37,11 @@ export class Spinner {
               viewBox={`0 0 ${diameter} ${diameter}`}>
             <circle
               class="path"
-              cx={diameter/2}
-              cy={diameter/2}
-              r={diameter/2 - 3}
+              cx={diameter / 2}
+              cy={diameter / 2}
+              r={diameter / 2 - 3}
               fill="none"
-              stroke-width={diameter/8}></circle>
+              stroke-width={diameter / 8}></circle>
           </svg>;
   }
 }
