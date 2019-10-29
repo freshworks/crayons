@@ -3,6 +3,7 @@
 :host {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 :host(.radio-container) {
   display: inline;
   position: relative;
@@ -12,7 +13,7 @@
 :host(:focus) {
   outline: none;
 
-  input[type='radio']+label {
+  input[type='radio'] + label {
     &::before {
       border: 1px solid transparent;
       box-shadow: 0 0 0 2px rgb(44, 92, 197);
@@ -20,7 +21,7 @@
     }
   }
 
-  input[type='radio'][disabled]+label {
+  input[type='radio'][disabled] + label {
     &::before {
       box-shadow: none;
       border: 1px solid #dadfe3;
@@ -40,15 +41,14 @@
 
 /* Hover event occurs on the root element */
 :host(:hover) {
-  input[type='radio']+label {
+  input[type='radio'] + label {
     &::before {
-      border-color: $input-hover-color;
       box-shadow: 0 0 0 5px rgb(235, 239, 243);
       border-color: darken($app-icon-color, 10%);
     }
   }
 
-  input[type='radio'][disabled]+label {
+  input[type='radio'][disabled] + label {
     cursor: not-allowed;
 
     &::before {
@@ -61,14 +61,14 @@
 input[type='radio'] {
   display: none;
 
-  &+label {
+  & + label {
     user-select: none;
     cursor: pointer;
     max-width: auto;
     margin-bottom: 0;
     vertical-align: middle;
     font-size: 12px;
-    color: #12344D;
+    color: #12344d;
     font-weight: 500;
 
     .text {
@@ -106,7 +106,7 @@ input[type='radio'] {
     }
   }
 
-  &:checked+label {
+  &:checked + label {
     &::before {
       background: $app-action-icon-bg;
       border-color: $app-primary;
@@ -121,7 +121,7 @@ input[type='radio'] {
     }
   }
 
-  &:checked:focus+label {
+  &:checked:focus + label {
     &::before {
       border-color: lighten($app-primary, 5%);
       box-shadow: 0 0 4px 1px rgba($app-primary, 0.6);
@@ -131,12 +131,13 @@ input[type='radio'] {
       background-color: lighten($app-primary, 5%);
     }
   }
+
   &[disabled] {
-    &+label {
-      color: #92A2B1;
+    & + label {
+      color: #92a2b1;
 
       .label-field {
-        color: #92A2B1;
+        color: #92a2b1;
       }
 
       &::before {
@@ -150,8 +151,8 @@ input[type='radio'] {
       }
     }
 
-    &:checked+label {
-      color: #92A2B1;
+    &:checked + label {
+      color: #92a2b1;
     }
   }
 }

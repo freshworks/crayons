@@ -1,28 +1,27 @@
-import { Component, Prop, h, Watch, Host, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
-  shadow: true
+  shadow: true,
 })
 export class Checkbox {
   /**
    * Property to maintain checked state
    */
-  @Prop({ mutable: true }) checked: boolean = false;
+  @Prop({ mutable: true }) checked = false;
   /**
    * Disables the checkbox
    */
-  @Prop({ mutable: true }) disabled: boolean = false;
+  @Prop({ mutable: true }) disabled = false;
   /**
    * Label for checkbox
    */
-  @Prop() label: string;
+  @Prop() label = '';
   /**
    * Value of the checkbox for within a <form>
    */
   @Prop() value = '';
-
 
   /**
    * Emitted when the checkbox value has changed.
@@ -39,9 +38,7 @@ export class Checkbox {
    */
   @Event() fwBlur!: EventEmitter<void>;
 
-  
   private checkbox!: HTMLInputElement;
-
 
   componentDidLoad() {
     this.checkbox.checked = this.checked;
@@ -49,8 +46,8 @@ export class Checkbox {
   }
 
   @Watch('checked')
-  checkChanged( isChecked:boolean ) {
-    if(!this.disabled) {
+  checkChanged(isChecked: boolean) {
+    if (!this.disabled) {
       this.checkbox.checked = isChecked;
       this.fwChange.emit({
         value: this.value,
@@ -60,7 +57,7 @@ export class Checkbox {
   }
 
   @Watch('disabled')
-  disabledChanged( isDisabled:boolean ) {
+  disabledChanged(isDisabled: boolean) {
     this.checkbox.disabled = isDisabled;
   }
 
@@ -72,8 +69,8 @@ export class Checkbox {
     this.fwBlur.emit();
   }
 
-  private toggle(){
-    if(!this.disabled) {
+  private toggle() {
+    if (!this.disabled) {
       this.checked = !this.checked;
     }
   }
@@ -85,21 +82,21 @@ export class Checkbox {
         onClick={() => this.toggle()}
         role="checkbox"
         tabIndex="0"
-        aria-disabled={this.disabled ? 'true' : null}
+        aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={`${this.checked}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
         >
           <input type="checkbox"
-            ref={(el) => this.checkbox = el as HTMLInputElement}>
+            ref={el => this.checkbox = el}>
           </input>
           <label>
             <span class="text"><slot/></span>
             <br/>
             {
-              this.label
-              ?<span class="label-field">{this.label}</span>
-              :''
+              this.label !== ''
+              ? <span class="label-field">{this.label}</span>
+              : ''
             }
           </label>
       </Host>

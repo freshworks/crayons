@@ -13,14 +13,14 @@
 :host(:focus) {
   outline: none;
 
-  input[type='checkbox']+label {
+  input[type='checkbox'] + label {
     &::before {
       border: 1px solid transparent;
       box-shadow: 0 0 0 2px rgb(44, 92, 197);
     }
   }
 
-  input[type='checkbox'][disabled]+label {
+  input[type='checkbox'][disabled] + label {
     &::before {
       box-shadow: none;
       border: 1px solid #dadfe3;
@@ -40,14 +40,14 @@
 
 /* Hover event occurs on the root element */
 :host(:hover) {
-  input[type='checkbox']+label {
+  input[type='checkbox'] + label {
     &::before {
       border-color: $input-hover-color;
       box-shadow: 0 0 0 5px rgb(235, 239, 243);
     }
   }
 
-  input[type='checkbox'][disabled]+label {
+  input[type='checkbox'][disabled] + label {
     cursor: not-allowed;
 
     &::before {
@@ -60,13 +60,13 @@
 input[type='checkbox'] {
   display: none;
 
-  &+label {
+  & + label {
     user-select: none;
     cursor: pointer;
     margin-bottom: 0;
     vertical-align: middle;
     font-size: 12px;
-    color: #12344D;
+    color: #12344d;
     font-weight: 500;
 
     .text {
@@ -103,9 +103,7 @@ input[type='checkbox'] {
     }
   }
 
-
-
-  &:checked+label {
+  &:checked + label {
     &::before {
       background: $checkbox-checked-color;
       border-color: $checkbox-checked-color;
@@ -120,7 +118,7 @@ input[type='checkbox'] {
     }
   }
 
-  &:checked:hover+label {
+  &:checked:hover + label {
     &::before {
       box-shadow: 0 0 0 5px rgb(235, 239, 243);
     }
@@ -133,7 +131,7 @@ input[type='checkbox'] {
     }
   }
 
-  &:checked:focus+label {
+  &:checked:focus + label {
     &::before {
       background: $checkbox-checked-color;
       border-color: $app-light-bg;
@@ -149,11 +147,11 @@ input[type='checkbox'] {
   }
 
   &[disabled] {
-    &+label {
-      color: #92A2B1;
+    & + label {
+      color: #92a2b1;
 
       .label-field {
-        color: #92A2B1;
+        color: #92a2b1;
       }
 
       &::before {
@@ -162,8 +160,8 @@ input[type='checkbox'] {
       }
     }
 
-    &:checked+label {
-      color: #92A2B1;
+    &:checked + label {
+      color: #92a2b1;
 
       &::before {
         background: $disabled-color;

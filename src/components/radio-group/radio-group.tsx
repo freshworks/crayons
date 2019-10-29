@@ -1,12 +1,12 @@
-import { Component, Prop, h, Element, Watch, Host, Event, EventEmitter } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
-import { watchForOptions, findCheckedOption} from '../../utils/utils';
+import { findCheckedOption, watchForOptions } from '../../utils/utils';
 
 @Component({
   tag: 'fw-radio-group',
 })
 export class RadioGroup {
-  
+
   private mutationO?: MutationObserver;
 
   @Element() el!: HTMLElement;
@@ -19,7 +19,7 @@ export class RadioGroup {
   /**
    * The name of the control, which is submitted with the form data.
    */
-  @Prop() name: string = '';
+  @Prop() name = '';
 
   /**
    * the value of the radio group.
@@ -27,8 +27,8 @@ export class RadioGroup {
   @Prop({ mutable: true }) value?: any | null;
 
   @Watch('value')
-  valueChanged(value: any | undefined) {
-    this.updateRadios();
+  async valueChanged(value: any | undefined) {
+    await this.updateRadios();
     this.fwChange.emit({ value });
   }
 
@@ -51,17 +51,16 @@ export class RadioGroup {
       }
     }
 
-    this.mutationO = watchForOptions<HTMLFwRadioElement>(el, 'fw-radio', newOption => {
-      console.log(newOption);
+    this.mutationO = watchForOptions<HTMLFwRadioElement>(el, 'fw-radio', async newOption => {
       if (newOption !== undefined) {
         newOption.componentOnReady().then(() => {
           this.value = newOption.value;
-        });
+        }).catch();
       } else {
-        this.updateRadios();
+        await this.updateRadios();
       }
     });
-    this.updateRadios();
+    await this.updateRadios();
   }
 
   disconnectedCallback() {
@@ -118,12 +117,12 @@ export class RadioGroup {
     }
   }
 
-  private onDeselect = (ev: Event) => {
+  private onDeselect = async (ev: Event) => {
     const selectedRadio = ev.target as HTMLFwRadioElement | null;
-    if(this.allowEmpty && selectedRadio.value == this.value) {
+    if (this.allowEmpty && selectedRadio.value === this.value) {
       this.value = undefined;
     }
-    this.updateRadios();
+    await this.updateRadios();
   }
 
   render() {
