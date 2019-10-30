@@ -27,10 +27,9 @@ node {
       doCodeSanity(NODE_VERSION)
     }
 
-    // Skipping Unit Tests as this is not completely Integrated
-    // stage('Unit Tests') {
-    //   runUnitTests(NODE_VERSION)
-    // }
+    stage('Tests') {
+      runUnitTests(NODE_VERSION)
+    }
 
     stage('Ship Baby Ship!') {
       if(!params.mergeCode) {
