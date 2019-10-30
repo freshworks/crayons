@@ -6,27 +6,24 @@ describe('fw-checkbox', () => {
 
     await page.setContent('<fw-checkbox></fw-checkbox>');
     const element = await page.find('fw-checkbox');
-    expect(element).toHaveClass('hydrated');
+    expect(element).not.toBeNull();
   });
 
-  it('renders changes to the name data', async () => {
+  it('changes state when clicked', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-checkbox></fw-checkbox>');
-    const component = await page.find('fw-checkbox');
-    const element = await page.find('fw-checkbox >>> div');
-    expect(element.textContent).toEqual(`Hello, World! I'm `);
-
-    component.setProperty('first', 'James');
+    const element = await page.find('fw-checkbox');
+    // First Click
+    element.triggerEvent('click');
     await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James`);
+    let isChecked = await element.getProperty('checked');
+    expect(isChecked).toEqual(true);
 
-    component.setProperty('last', 'Quincy');
+    // Second Click
+    element.triggerEvent('click');
     await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James Quincy`);
-
-    component.setProperty('middle', 'Earl');
-    await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James Earl Quincy`);
+    isChecked = await element.getProperty('checked');
+    expect(isChecked).toEqual(false);
   });
 });

@@ -1,6 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('fw-spinner', () => {
+describe.skip('fw-spinner', () => {
   it('renders', async () => {
     const page = await newE2EPage();
 

@@ -1,6 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('fw-radio', () => {
+describe.skip('fw-radio', () => {
   it('renders', async () => {
     const page = await newE2EPage();
 
