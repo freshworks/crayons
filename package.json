@@ -27,7 +27,7 @@
     "story": "npm-run-all --parallel start storybook",
     "story:test": "npm run test:generate && npm run story",
     "storybook": "start-storybook -p 9001 -c .storybook -s www",
-    "unit-tests": "yarn test"
+    "unit-tests": "npm run test"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

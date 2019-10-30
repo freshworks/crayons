@@ -15,7 +15,7 @@ export const config: Config = {
     },
     {
       type: 'www',
-      serviceWorker: undefined, // disable service workers
+      serviceWorker: null, // disable service workers
     },
   ],
   plugins: [
@@ -24,4 +24,18 @@ export const config: Config = {
       plugins: [autoprefixer()],
     }),
   ],
+  testing: {
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+    collectCoverageFrom: [
+      '**/*.{ts,tsx}',
+      '!**/node_modules/**',
+      '!**/dist/**',
+      '!**/www/**',
+      '!**/loader/**',
+      '!**/stencil.config.ts',
+      '!**/*.d.ts',
+      '!**/src/index.ts',
+    ],
+    coverageReporters: ['json', 'lcov', 'text', 'clover', 'text-summary'],
+  },
 };
