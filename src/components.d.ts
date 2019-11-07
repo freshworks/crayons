@@ -50,6 +50,76 @@ export namespace Components {
     */
     'value': string;
   }
+  interface FwInput {
+    /**
+    * Indicates whether the value of the control can be automatically completed by the browser.
+    */
+    'autocomplete': 'on' | 'off';
+    /**
+    * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+    */
+    'clearInput': boolean;
+    /**
+    * Disabled
+    */
+    'disabled': boolean;
+    /**
+    * Returns the native `<input>` element used under the hood.
+    */
+    'getInputElement': () => Promise<HTMLInputElement>;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'label': string;
+    /**
+    * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the maximum number of characters that the user can enter.
+    */
+    'maxlength'?: number;
+    /**
+    * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the minimum number of characters that the user can enter.
+    */
+    'minlength'?: number;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name': string;
+    /**
+    * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+    */
+    'pattern': string;
+    /**
+    * Instructional text that shows before the input has a value.
+    */
+    'placeholder'?: string | null;
+    /**
+    * If `true`, the user cannot modify the value.
+    */
+    'readonly': boolean;
+    /**
+    * If `true`, the user must fill in a value before submitting a form.
+    */
+    'required': boolean;
+    /**
+    * Sets focus on the specified `ion-input`. Use this method instead of the global `input.focus()`.
+    */
+    'setFocus': () => Promise<void>;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'state': 'normal' | 'warning' | 'error';
+    /**
+    * Hint
+    */
+    'stateText': string;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'type': string;
+    /**
+    * The value of the input.
+    */
+    'value'?: string | null;
+  }
   interface FwLabel {
     /**
     * The type of the label
@@ -119,6 +189,12 @@ declare global {
     new (): HTMLFwCheckboxElement;
   };
 
+  interface HTMLFwInputElement extends Components.FwInput, HTMLStencilElement {}
+  var HTMLFwInputElement: {
+    prototype: HTMLFwInputElement;
+    new (): HTMLFwInputElement;
+  };
+
   interface HTMLFwLabelElement extends Components.FwLabel, HTMLStencilElement {}
   var HTMLFwLabelElement: {
     prototype: HTMLFwLabelElement;
@@ -145,6 +221,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'fw-button': HTMLFwButtonElement;
     'fw-checkbox': HTMLFwCheckboxElement;
+    'fw-input': HTMLFwInputElement;
     'fw-label': HTMLFwLabelElement;
     'fw-radio': HTMLFwRadioElement;
     'fw-radio-group': HTMLFwRadioGroupElement;
@@ -216,6 +293,72 @@ declare namespace LocalJSX {
     * Value of the checkbox for within a <form>
     */
     'value'?: string;
+  }
+  interface FwInput {
+    /**
+    * Indicates whether the value of the control can be automatically completed by the browser.
+    */
+    'autocomplete'?: 'on' | 'off';
+    /**
+    * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+    */
+    'clearInput'?: boolean;
+    /**
+    * Disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'label'?: string;
+    /**
+    * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the maximum number of characters that the user can enter.
+    */
+    'maxlength'?: number;
+    /**
+    * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the minimum number of characters that the user can enter.
+    */
+    'minlength'?: number;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name'?: string;
+    'onFwBlur'?: (event: CustomEvent<void>) => void;
+    'onFwChange'?: (event: CustomEvent<any>) => void;
+    'onFwFocus'?: (event: CustomEvent<void>) => void;
+    'onFwInput'?: (event: CustomEvent<KeyboardEvent>) => void;
+    /**
+    * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+    */
+    'pattern'?: string;
+    /**
+    * Instructional text that shows before the input has a value.
+    */
+    'placeholder'?: string | null;
+    /**
+    * If `true`, the user cannot modify the value.
+    */
+    'readonly'?: boolean;
+    /**
+    * If `true`, the user must fill in a value before submitting a form.
+    */
+    'required'?: boolean;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'state'?: 'normal' | 'warning' | 'error';
+    /**
+    * Hint
+    */
+    'stateText'?: string;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'type'?: string;
+    /**
+    * The value of the input.
+    */
+    'value'?: string | null;
   }
   interface FwLabel {
     /**
@@ -293,6 +436,7 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'fw-button': FwButton;
     'fw-checkbox': FwCheckbox;
+    'fw-input': FwInput;
     'fw-label': FwLabel;
     'fw-radio': FwRadio;
     'fw-radio-group': FwRadioGroup;
@@ -308,6 +452,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'fw-button': LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
       'fw-checkbox': LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+      'fw-input': LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
       'fw-label': LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
       'fw-radio': LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
       'fw-radio-group': LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
