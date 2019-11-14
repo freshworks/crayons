@@ -10,70 +10,61 @@ export class Input {
 
   @State() hasFocus = false;
   /**
-  * Indicates whether the value of the control can be automatically completed by the browser.
-  */
-  @Prop() autocomplete: 'on' | 'off' = 'off';
-  /**
- * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
- */
-  @Prop() clearInput = false;
-  /**
-* If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
-*/
-  @Prop() pattern = '';
-  /**
-   * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the maximum number of characters that the user can enter.
+   * The type of control to display. The default type is text.
    */
-  @Prop() maxlength?: number;
+  @Prop() label = '';
   /**
-   * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the minimum number of characters that the user can enter.
+   * The value of the input.
    */
-  @Prop() minlength?: number;
-  /**
-   * Hint
-   */
-  @Prop() stateText = '';
-  /**
-   * Disabled
-   */
-  @Prop() disabled = false
-  /**
- * The name of the control, which is submitted with the form data.
- */
-  @Prop() name: string = "";
-  /**
- * Instructional text that shows before the input has a value.
- */
-  @Prop() placeholder?: string | null;
-  /**
-  * If `true`, the user cannot modify the value.
-  */
-  @Prop() readonly = false;
-  /**
- * If `true`, the user must fill in a value before submitting a form.
- */
-  @Prop() required = false;
+  @Prop({ mutable: true }) value?: string | null = '';
   /**
    * The type of control to display. The default type is text.
    */
-  @Prop() type = 'text';
+  @Prop() type: 'text' = "text";
   /**
-  * The type of control to display. The default type is text.
-  */
-  @Prop() label = '';
+   * Indicates whether the value of the control can be automatically completed by the browser.
+   */
+  @Prop() autocomplete: 'on' | 'off' = 'off';
   /**
-  * The type of control to display. The default type is text.
-  */
+   * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+   */
+  @Prop() clearInput = false;
+  /**
+   * Max length of value 
+   */
+  @Prop() maxlength?: number;
+  /**
+   * Min length of value
+   */
+  @Prop() minlength?: number;
+  /**
+   * The name of the control, which is submitted with the form data.
+   */
+  @Prop() name: string = "";
+  /**
+   * Instructional text that shows before the input has a value.
+   */
+  @Prop() placeholder?: string | null;
+  /**
+   * The state of the control. Color changes accordingly
+   */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
- * The value of the input.
- */
-  @Prop({ mutable: true }) value?: string | null = '';
-
-  @Watch('value')
-  watchHandler(newValue: string, oldValue: string) {
-    this.fwChange.emit({ value: newValue });
-  }
+   * This text will be displayed below the input box indicating the state/hint
+   */
+  @Prop() stateText = '';
+  /**
+   * If `true`, the user cannot modify the value.
+   */
+  @Prop() readonly = false;
+  /**
+   * If `true`, the user must fill in a value before submitting a form.
+   */
+  @Prop() required = false;
+  /**
+   * Indicates that this control is disabled
+   */
+  @Prop() disabled = false
 
   @Event() fwChange: EventEmitter;
 
@@ -83,6 +74,10 @@ export class Input {
 
   @Event() fwInput: EventEmitter<KeyboardEvent>;
 
+  @Watch('value')
+  watchHandler(newValue: string, oldValue: string) {
+    this.fwChange.emit({ value: newValue });
+  }
 
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
@@ -102,21 +97,40 @@ export class Input {
     this.fwBlur.emit();
   }
 
+  private clearTextInput = (ev?: Event) => {
+    if (this.clearInput && !this.readonly && !this.disabled && ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
+
+    this.value = '';
+
+    if (this.nativeInput) {
+      this.nativeInput.value = '';
+    }
+  }
+
+  private getValue(): string {
+    return this.value || '';
+  }
+
+  private hasValue(): boolean {
+    return this.getValue().length > 0;
+  }
+
   /**
- * Sets focus on the specified `ion-input`. Use this method instead of the global
- * `input.focus()`.
- */
+   * Sets focus on the specified `fw-input`. Use this method instead of the global
+   * `input.focus()`.
+   */
   @Method()
   async setFocus() {
     if (this.nativeInput) {
       this.nativeInput.focus();
     }
   }
-
   /**
    * Returns the native `<input>` element used under the hood.
    */
-  @Method()
   getInputElement(): Promise<HTMLInputElement> {
     return Promise.resolve(this.nativeInput!);
   }
@@ -125,7 +139,10 @@ export class Input {
     const value = '';
     return (
       <Host
+        aria-disabled={this.disabled ? 'true' : null}
         class={{
+          'has-value': this.hasValue(),
+          'has-focus': this.hasFocus
         }}
       >
         {this.label ? <label class={{
@@ -152,8 +169,8 @@ export class Input {
             onFocus={this.onFocus}
           />
           {this.clearInput && this.value.length > 0 ?
-            <div class="clear-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="app-icon--hover app-icon--smallsecondary"><path d="M17.992 16l8.796-8.796a1.409 1.409 0 0 0-1.992-1.992L16 14.008 7.204 5.212a1.409 1.409 0 0 0-1.992 1.992L14.008 16l-8.796 8.796a1.409 1.409 0 0 0 1.992 1.992L16 17.992l8.796 8.796a1.409 1.409 0 0 0 1.992-1.992L17.992 16z"></path></svg>
+            <div class="clear-button" onClick={e => this.clearTextInput(e)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="clear-button-img"><path d="M17.992 16l8.796-8.796a1.409 1.409 0 0 0-1.992-1.992L16 14.008 7.204 5.212a1.409 1.409 0 0 0-1.992 1.992L14.008 16l-8.796 8.796a1.409 1.409 0 0 0 1.992 1.992L16 17.992l8.796 8.796a1.409 1.409 0 0 0 1.992-1.992L17.992 16z"></path></svg>
             </div> : ''}
         </div>
         {this.stateText ?
