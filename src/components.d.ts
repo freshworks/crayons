@@ -60,33 +60,25 @@ export namespace Components {
     */
     'clearInput': boolean;
     /**
-    * Disabled
+    * Indicates that this control is disabled
     */
     'disabled': boolean;
-    /**
-    * Returns the native `<input>` element used under the hood.
-    */
-    'getInputElement': () => Promise<HTMLInputElement>;
     /**
     * The type of control to display. The default type is text.
     */
     'label': string;
     /**
-    * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the maximum number of characters that the user can enter.
+    * Max length of value
     */
     'maxlength'?: number;
     /**
-    * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the minimum number of characters that the user can enter.
+    * Min length of value
     */
     'minlength'?: number;
     /**
     * The name of the control, which is submitted with the form data.
     */
     'name': string;
-    /**
-    * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
-    */
-    'pattern': string;
     /**
     * Instructional text that shows before the input has a value.
     */
@@ -100,21 +92,21 @@ export namespace Components {
     */
     'required': boolean;
     /**
-    * Sets focus on the specified `ion-input`. Use this method instead of the global `input.focus()`.
+    * Sets focus on the specified `fw-input`. Use this method instead of the global `input.focus()`.
     */
     'setFocus': () => Promise<void>;
     /**
-    * The type of control to display. The default type is text.
+    * The state of the control. Color changes accordingly
     */
     'state': 'normal' | 'warning' | 'error';
     /**
-    * Hint
+    * This text will be displayed below the input box indicating the state/hint
     */
     'stateText': string;
     /**
     * The type of control to display. The default type is text.
     */
-    'type': string;
+    'type': 'text';
     /**
     * The value of the input.
     */
@@ -166,6 +158,66 @@ export namespace Components {
     */
     'value'?: any | null;
   }
+  interface FwSelect {
+    /**
+    * Indicates that this control is disabled
+    */
+    'disabled': boolean;
+    /**
+    * If `true`, the user must select some value. The default wont be shown
+    */
+    'forceSelect': boolean;
+    /**
+    * Label for the control
+    */
+    'label': string;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name': string;
+    /**
+    * Instructional text that shows before the selection is made
+    */
+    'placeholder'?: string | null;
+    /**
+    * If `true`, the user cannot modify the value.
+    */
+    'readonly': boolean;
+    /**
+    * If `true`, the user must fill in a value before submitting a form.
+    */
+    'required': boolean;
+    /**
+    * Set the selected key
+    */
+    'selectedKey'?: string;
+    /**
+    * The state of the control. Color changes accordingly
+    */
+    'state': 'normal' | 'warning' | 'error';
+    /**
+    * This text will be displayed below the input box indicating the state/hint
+    */
+    'stateText': string;
+    /**
+    * The value of the input. Similar to an input value
+    */
+    'value'?: string | null;
+  }
+  interface FwSelectOption {
+    /**
+    * The Key associated with this select option
+    */
+    'key': string;
+    /**
+    * Flag to indicate if the option is selected or not
+    */
+    'selected': boolean;
+    /**
+    * Text that will be shown in the select option
+    */
+    'value': string;
+  }
   interface FwSpinner {
     /**
     * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
@@ -213,6 +265,18 @@ declare global {
     new (): HTMLFwRadioGroupElement;
   };
 
+  interface HTMLFwSelectElement extends Components.FwSelect, HTMLStencilElement {}
+  var HTMLFwSelectElement: {
+    prototype: HTMLFwSelectElement;
+    new (): HTMLFwSelectElement;
+  };
+
+  interface HTMLFwSelectOptionElement extends Components.FwSelectOption, HTMLStencilElement {}
+  var HTMLFwSelectOptionElement: {
+    prototype: HTMLFwSelectOptionElement;
+    new (): HTMLFwSelectOptionElement;
+  };
+
   interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {}
   var HTMLFwSpinnerElement: {
     prototype: HTMLFwSpinnerElement;
@@ -225,6 +289,8 @@ declare global {
     'fw-label': HTMLFwLabelElement;
     'fw-radio': HTMLFwRadioElement;
     'fw-radio-group': HTMLFwRadioGroupElement;
+    'fw-select': HTMLFwSelectElement;
+    'fw-select-option': HTMLFwSelectOptionElement;
     'fw-spinner': HTMLFwSpinnerElement;
   }
 }
@@ -304,7 +370,7 @@ declare namespace LocalJSX {
     */
     'clearInput'?: boolean;
     /**
-    * Disabled
+    * Indicates that this control is disabled
     */
     'disabled'?: boolean;
     /**
@@ -312,11 +378,11 @@ declare namespace LocalJSX {
     */
     'label'?: string;
     /**
-    * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the maximum number of characters that the user can enter.
+    * Max length of value
     */
     'maxlength'?: number;
     /**
-    * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the minimum number of characters that the user can enter.
+    * Min length of value
     */
     'minlength'?: number;
     /**
@@ -327,10 +393,6 @@ declare namespace LocalJSX {
     'onFwChange'?: (event: CustomEvent<any>) => void;
     'onFwFocus'?: (event: CustomEvent<void>) => void;
     'onFwInput'?: (event: CustomEvent<KeyboardEvent>) => void;
-    /**
-    * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
-    */
-    'pattern'?: string;
     /**
     * Instructional text that shows before the input has a value.
     */
@@ -344,17 +406,17 @@ declare namespace LocalJSX {
     */
     'required'?: boolean;
     /**
-    * The type of control to display. The default type is text.
+    * The state of the control. Color changes accordingly
     */
     'state'?: 'normal' | 'warning' | 'error';
     /**
-    * Hint
+    * This text will be displayed below the input box indicating the state/hint
     */
     'stateText'?: string;
     /**
     * The type of control to display. The default type is text.
     */
-    'type'?: string;
+    'type'?: 'text';
     /**
     * The value of the input.
     */
@@ -426,6 +488,70 @@ declare namespace LocalJSX {
     */
     'value'?: any | null;
   }
+  interface FwSelect {
+    /**
+    * Indicates that this control is disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * If `true`, the user must select some value. The default wont be shown
+    */
+    'forceSelect'?: boolean;
+    /**
+    * Label for the control
+    */
+    'label'?: string;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name'?: string;
+    'onFwBlur'?: (event: CustomEvent<any>) => void;
+    'onFwChange'?: (event: CustomEvent<any>) => void;
+    'onFwFocus'?: (event: CustomEvent<any>) => void;
+    /**
+    * Instructional text that shows before the selection is made
+    */
+    'placeholder'?: string | null;
+    /**
+    * If `true`, the user cannot modify the value.
+    */
+    'readonly'?: boolean;
+    /**
+    * If `true`, the user must fill in a value before submitting a form.
+    */
+    'required'?: boolean;
+    /**
+    * Set the selected key
+    */
+    'selectedKey'?: string;
+    /**
+    * The state of the control. Color changes accordingly
+    */
+    'state'?: 'normal' | 'warning' | 'error';
+    /**
+    * This text will be displayed below the input box indicating the state/hint
+    */
+    'stateText'?: string;
+    /**
+    * The value of the input. Similar to an input value
+    */
+    'value'?: string | null;
+  }
+  interface FwSelectOption {
+    /**
+    * The Key associated with this select option
+    */
+    'key'?: string;
+    'onFwSelectOptionChosen'?: (event: CustomEvent<any>) => void;
+    /**
+    * Flag to indicate if the option is selected or not
+    */
+    'selected'?: boolean;
+    /**
+    * Text that will be shown in the select option
+    */
+    'value'?: string;
+  }
   interface FwSpinner {
     /**
     * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
@@ -440,6 +566,8 @@ declare namespace LocalJSX {
     'fw-label': FwLabel;
     'fw-radio': FwRadio;
     'fw-radio-group': FwRadioGroup;
+    'fw-select': FwSelect;
+    'fw-select-option': FwSelectOption;
     'fw-spinner': FwSpinner;
   }
 }
@@ -456,6 +584,8 @@ declare module "@stencil/core" {
       'fw-label': LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
       'fw-radio': LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
       'fw-radio-group': LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
+      'fw-select': LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
+      'fw-select-option': LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
     }
   }
