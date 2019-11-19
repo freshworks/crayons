@@ -15,7 +15,7 @@ export class SelectOption {
    */
   @Prop() value: string;
   /**
-   * Flag to indicate if the option is selected or not
+   * Flag to indicate if the option is selected or not. A tick is shown
    */
   @Prop() selected: boolean = false;
 

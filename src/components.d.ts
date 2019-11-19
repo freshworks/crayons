@@ -188,7 +188,7 @@ export namespace Components {
     */
     'key': string;
     /**
-    * Flag to indicate if the option is selected or not
+    * Flag to indicate if the option is selected or not. A tick is shown
     */
     'selected': boolean;
     /**
@@ -481,7 +481,7 @@ declare namespace LocalJSX {
     'key'?: string;
     'onFwSelectOptionChosen'?: (event: CustomEvent<any>) => void;
     /**
-    * Flag to indicate if the option is selected or not
+    * Flag to indicate if the option is selected or not. A tick is shown
     */
     'selected'?: boolean;
     /**
