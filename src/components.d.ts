@@ -86,31 +86,31 @@ declare global {
 
 
   interface HTMLFwCheckboxElement extends Components.FwCheckbox, HTMLStencilElement {}
-  const HTMLFwCheckboxElement: {
+  var HTMLFwCheckboxElement: {
     prototype: HTMLFwCheckboxElement;
     new (): HTMLFwCheckboxElement;
   };
 
   interface HTMLFwLabelElement extends Components.FwLabel, HTMLStencilElement {}
-  const HTMLFwLabelElement: {
+  var HTMLFwLabelElement: {
     prototype: HTMLFwLabelElement;
     new (): HTMLFwLabelElement;
   };
 
   interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {}
-  const HTMLFwRadioElement: {
+  var HTMLFwRadioElement: {
     prototype: HTMLFwRadioElement;
     new (): HTMLFwRadioElement;
   };
 
   interface HTMLFwRadioGroupElement extends Components.FwRadioGroup, HTMLStencilElement {}
-  const HTMLFwRadioGroupElement: {
+  var HTMLFwRadioGroupElement: {
     prototype: HTMLFwRadioGroupElement;
     new (): HTMLFwRadioGroupElement;
   };
 
   interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {}
-  const HTMLFwSpinnerElement: {
+  var HTMLFwSpinnerElement: {
     prototype: HTMLFwSpinnerElement;
     new (): HTMLFwSpinnerElement;
   };
