@@ -32,7 +32,7 @@ export class Button {
    * The size of the button,
    * Values are : `normal`, `mini`
    */
-  @Prop() size: 'normal' | 'mini' = 'mini';
+  @Prop() size: 'normal' | 'mini' = 'normal';
 
   /**
    * Emitted when the button is clicked.
