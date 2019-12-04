@@ -1,9 +1,9 @@
-import { Component, Prop, Host, h, State, Listen, Watch, Element, Event, EventEmitter } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Listen, Prop, State, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
-  shadow: true
+  shadow: true,
 })
 export class Select {
   @Element() host: HTMLElement;
@@ -25,7 +25,7 @@ export class Select {
   /**
    * The name of the control, which is submitted with the form data.
    */
-  @Prop() name: string = "";
+  @Prop() name = '';
   /**
    * Instructional text that shows before the selection is made
    */
@@ -59,7 +59,7 @@ export class Select {
    */
   @Prop() selectedValue?: string;
 
-  //Events
+  // Events
   @Event() fwChange: EventEmitter;
   @Event() fwFocus: EventEmitter;
   @Event() fwBlur: EventEmitter;
@@ -70,13 +70,13 @@ export class Select {
   }
 
   private innerOnClick = (e: Event) => {
-    this.selectList.style.display = "block";
+    this.selectList.style.display = 'block';
     this.selectList.style.width = String(this.selectInput.clientWidth) + 'px';
     this.isExpanded = true;
   }
 
   private innerOnBlur = (e: Event) => {
-    this.selectList.style.display = "none";
+    this.selectList.style.display = 'none';
     this.isExpanded = false;
     this.fwBlur.emit(e);
   }
@@ -89,29 +89,32 @@ export class Select {
     return this.getValue().length > 0;
   }
 
-  @Watch("selectedValue")
-  keyChanged(newValue: String, oldValue: String) {
+  @Watch('selectedValue')
+  keyChanged(newValue: string, oldValue: string) {
     if (oldValue !== newValue) {
-      let selectedElement = this.host.querySelector('fw-select-option[value="' + newValue + '"');
+      const selectedElement = this.host.querySelector('fw-select-option[value="' + newValue + '"');
+      // tslint:disable-next-line: no-null-keyword no-unused-expression
       selectedElement ? selectedElement.setAttribute('selected', 'true') : null;
-      let previousElement = this.host.querySelector('fw-select-option[value="' + oldValue + '"');
+      const previousElement = this.host.querySelector('fw-select-option[value="' + oldValue + '"');
+      // tslint:disable-next-line: no-null-keyword no-unused-expression
       previousElement ? previousElement.setAttribute('selected', 'false') : null;
-      this.fwChange.emit({ value: selectedElement.getAttribute("value"), text: selectedElement.textContent });
+      this.fwChange.emit({ value: selectedElement.getAttribute('value'), text: selectedElement.textContent });
     }
   }
 
   @Listen('fwSelectOptionChosen')
   fwSelectOptionChosenHandler(selectedItem) {
-    let selectedElement = this.host.querySelector('fw-select-option[value="' + selectedItem.detail.value + '"');
-    this.selectList.style.display = "none";
+    const selectedElement = this.host.querySelector('fw-select-option[value="' + selectedItem.detail.value + '"');
+    this.selectList.style.display = 'none';
     this.selectedValue = selectedItem.detail.value;
     this.value = selectedElement.textContent;
     selectedItem.stopPropagation();
   }
 
   componentDidLoad() {
+    // tslint:disable-next-line: strict-boolean-conditions
     if (this.selectedValue) {
-      let selectOption = this.host.querySelector('fw-select-option[value="' + this.selectedValue + '"');
+      const selectOption = this.host.querySelector('fw-select-option[value="' + this.selectedValue + '"');
       if (selectOption) {
         selectOption.setAttribute('selected', 'true');
         this.value = selectOption.textContent;
@@ -123,13 +126,13 @@ export class Select {
     const { value } = this;
     return (
       <Host
-        aria-disabled={this.disabled ? 'true' : null}
+        aria-disabled={this.disabled}
         class={{
           'has-value': this.hasValue(),
-          'has-focus': this.hasFocus
+          'has-focus': this.hasFocus,
         }}
       >
-        {this.label ? <label class={{
+        {this.label !== '' ? <label class={{
           'required': this.required,
         }}>{this.label}</label> : ''}
         <div
@@ -138,11 +141,11 @@ export class Select {
           <div class="input-container">
             <div class={{
               'input-container-inner': true,
-              [this.state]: true
+              [this.state]: true,
             }}>
               <input
                 ref={input => this.selectInput = input}
-                autoComplete='off'
+                autoComplete="off"
                 disabled={this.disabled}
                 name={this.name}
                 placeholder={this.placeholder || ''}
@@ -161,12 +164,12 @@ export class Select {
             tabindex="0"
             ref={ul => this.selectList = ul}
           >
-            {!this.forceSelect ? <fw-select-option value="--" >--</fw-select-option>: ''}
+            {!this.forceSelect ? <fw-select-option value="--" >--</fw-select-option> : ''}
             <slot>
             </slot>
           </ul>
-          {this.stateText ?
-            <span class='help-block'>{this.stateText}</span> : ''}
+          {this.stateText !== '' ?
+            <span class="help-block">{this.stateText}</span> : ''}
         </div>
       </Host>
     );

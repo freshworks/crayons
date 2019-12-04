@@ -1,9 +1,9 @@
-import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-select-option',
   styleUrl: 'select-option.scss',
-  shadow: true
+  shadow: true,
 })
 export class SelectOption {
   /**
@@ -13,13 +13,13 @@ export class SelectOption {
   /**
    * Flag to indicate if the option is selected or not. A tick is shown
    */
-  @Prop() selected: boolean = false;
+  @Prop() selected = false;
 
   @Event({ bubbles: true, composed: true }) fwSelectOptionChosen: EventEmitter;
 
   private onOptionSelected(e) {
-    const {value} = this;
-    this.fwSelectOptionChosen.emit({value: value });
+    const { value } = this;
+    this.fwSelectOptionChosen.emit({ value });
   }
 
   render() {

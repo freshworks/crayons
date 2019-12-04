@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop, h, Host } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',

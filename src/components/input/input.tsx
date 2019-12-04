@@ -1,9 +1,9 @@
-import { Component, Prop, Host, Event, EventEmitter, Watch, h, State, Method } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-input',
   styleUrl: 'input.scss',
-  shadow: true
+  shadow: true,
 })
 export class Input {
   private nativeInput?: HTMLInputElement;
@@ -20,7 +20,7 @@ export class Input {
   /**
    * The type of control to display. The default type is text.
    */
-  @Prop() type: 'text' = "text";
+  @Prop() type: 'text' = 'text';
   /**
    * Indicates whether the value of the control can be automatically completed by the browser.
    */
@@ -30,7 +30,7 @@ export class Input {
    */
   @Prop() clearInput = false;
   /**
-   * Max length of value 
+   * Max length of value
    */
   @Prop() maxlength?: number;
   /**
@@ -40,7 +40,7 @@ export class Input {
   /**
    * The name of the control, which is submitted with the form data.
    */
-  @Prop() name: string = "";
+  @Prop() name = '';
   /**
    * Instructional text that shows before the input has a value.
    */
@@ -64,7 +64,7 @@ export class Input {
   /**
    * Indicates that this control is disabled
    */
-  @Prop() disabled = false
+  @Prop() disabled = false;
 
   @Event() fwChange: EventEmitter;
 
@@ -75,7 +75,7 @@ export class Input {
   @Event() fwInput: EventEmitter<KeyboardEvent>;
 
   @Watch('value')
-  watchHandler(newValue: string, oldValue: string) {
+  watchHandler(newValue: string) {
     this.fwChange.emit({ value: newValue });
   }
 
@@ -128,30 +128,24 @@ export class Input {
       this.nativeInput.focus();
     }
   }
-  /**
-   * Returns the native `<input>` element used under the hood.
-   */
-  getInputElement(): Promise<HTMLInputElement> {
-    return Promise.resolve(this.nativeInput!);
-  }
 
   render() {
     const value = '';
     return (
       <Host
-        aria-disabled={this.disabled ? 'true' : null}
+        aria-disabled={this.disabled}
         class={{
           'has-value': this.hasValue(),
           'has-focus': this.hasFocus,
         }}
       >
         <div class="input-container">
-        {this.label ? <label class={{
+        {this.label !== '' ? <label class={{
           'required': this.required,
         }}>{this.label}</label> : ''}
         <div class={{
           'input-container-inner': true,
-          [this.state]: true
+          [this.state]: true,
         }}>
           <input
             ref={input => this.nativeInput = input}
@@ -165,7 +159,7 @@ export class Input {
             required={this.required}
             type={this.type}
             value={value}
-            onInput={(e) => this.onInput(e)}
+            onInput={e => this.onInput(e)}
             onBlur={this.onBlur}
             onFocus={this.onFocus}
           />
@@ -174,11 +168,10 @@ export class Input {
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="clear-button-img"><path d="M17.992 16l8.796-8.796a1.409 1.409 0 0 0-1.992-1.992L16 14.008 7.204 5.212a1.409 1.409 0 0 0-1.992 1.992L14.008 16l-8.796 8.796a1.409 1.409 0 0 0 1.992 1.992L16 17.992l8.796 8.796a1.409 1.409 0 0 0 1.992-1.992L17.992 16z"></path></svg>
             </div> : ''}
         </div>
-        {this.stateText ?
-          <span class='help-block'>{this.stateText}</span> : ''}
+        {this.stateText !== '' ?
+          <span class="help-block">{this.stateText}</span> : ''}
           </div>
       </Host>
     );
   }
 }
-

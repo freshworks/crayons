@@ -19,7 +19,6 @@ li.select-option {
 
   &.selected {
     color: #2c5cc5;
-    background-color: #e5f2fd;
     position: relative;
     font-weight: 500;
     background-color: #e5f2fd;
@@ -40,7 +39,6 @@ li.select-option {
     text-transform: none;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
     position: absolute;
     right: 10px;
     top: 10px;
@@ -49,5 +47,4 @@ li.select-option {
   &.selected::after {
     content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='12px' height='9px' viewBox='0 0 12 9' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3ECheck%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3Cpath d='M4.17095654,7.28764233 C3.74936256,6.89579049 3.08481084,6.91447629 2.68663874,7.32937825 C2.28846663,7.7442802 2.30745383,8.39828338 2.72904782,8.79013522 L5.87904631,11.7179111 C6.3006403,12.109763 6.96519201,12.0910772 7.36336412,11.6761752 L13.3133613,5.47617918 C13.7115334,5.06127722 13.6925462,4.40727405 13.2709522,4.0154222 C12.8493582,3.62357036 12.1848065,3.64225616 11.7866344,4.05715812 L6.55759159,9.50590771 L4.17095654,7.28764233 Z' id='path-1'%3E%3C/path%3E%3C/defs%3E%3Cg id='TD-with-Freddy-4-Email' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='ticket-detail--open-copy-2' transform='translate(-1054.000000, -997.000000)'%3E%3Cg id='Group-92' transform='translate(880.000000, 828.000000)'%3E%3Cg id='Group-26'%3E%3Cg id='Group-7' transform='translate(0.000000, 54.000000)'%3E%3Cg id='Group-2' transform='translate(16.000000, 104.000000)'%3E%3Cg id='Icon/new/Check' transform='translate(156.000000, 8.000000)'%3E%3Cmask id='mask-2' fill='white'%3E%3Cuse xlink:href='%23path-1'%3E%3C/use%3E%3C/mask%3E%3Cuse id='save' fill='%23000000' fill-rule='nonzero' xlink:href='%23path-1'%3E%3C/use%3E%3Cg id='Color/Blue-(Hype)' mask='url(%23mask-2)' fill='%232C5CC5' fill-rule='evenodd'%3E%3Crect id='Color---Jade' x='0' y='0' width='15.8024691' height='15.8024691'%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
-
 }

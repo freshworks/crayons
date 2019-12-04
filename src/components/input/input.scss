@@ -16,33 +16,33 @@ $input-color: $app-primary-black;
 }
 
 *,
-:after,
-:before {
+::after,
+::before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
-@mixin stateStyle($_color) {
-  &>input {
-    border-color: $_color;
-  }
+// @mixin stateStyle($_color) {
+//   & > input {
+//     border-color: $_color;
+//   }
 
-  &>input:focus {
-    box-shadow: none;
-    border-color: $_color;
-  }
+//   & > input:focus {
+//     box-shadow: none;
+//     border-color: $_color;
+//   }
 
-  &>input:hover {
-    border-color: $_color;
-  }
+//   & > input:hover {
+//     border-color: $_color;
+//   }
 
-  &+.help-block {
-    color: $_color;
-  }
-}
+//   & + .help-block {
+//     color: $_color;
+//   }
+// }
 
-.input-container{
+.input-container {
   margin-bottom: 16px;
 }
 // Label Style
@@ -55,7 +55,7 @@ label {
   padding-left: 2px;
   display: block;
 
-  &.required:after {
+  &.required::after {
     content: "*";
     position: relative;
     display: inline-block;
@@ -137,7 +137,7 @@ label {
   }
 
   //Help Block
-  &+.help-block {
+  & + .help-block {
     font-family: $label-font;
     font-size: 11px;
     margin-top: 3px;
@@ -150,13 +150,13 @@ label {
     -moz-osx-font-smoothing: grayscale;
   }
 
-  &.error {
-    @include stateStyle($error-color);
-  }
+  // &.error {
+  //   @include stateStyle($error-color);
+  // }
 
-  &.warning {
-    @include stateStyle($warning-message-marker);
-  }
+  // &.warning {
+  //   @include stateStyle($warning-message-marker);
+  // }
 }
 
 ::-webkit-input-placeholder {
