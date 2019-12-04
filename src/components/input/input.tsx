@@ -142,14 +142,15 @@ export class Input {
         aria-disabled={this.disabled ? 'true' : null}
         class={{
           'has-value': this.hasValue(),
-          'has-focus': this.hasFocus
+          'has-focus': this.hasFocus,
         }}
       >
+        <div class="input-container">
         {this.label ? <label class={{
           'required': this.required,
         }}>{this.label}</label> : ''}
         <div class={{
-          'input-container': true,
+          'input-container-inner': true,
           [this.state]: true
         }}>
           <input
@@ -175,6 +176,7 @@ export class Input {
         </div>
         {this.stateText ?
           <span class='help-block'>{this.stateText}</span> : ''}
+          </div>
       </Host>
     );
   }
