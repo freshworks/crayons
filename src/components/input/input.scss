@@ -42,6 +42,9 @@ $input-color: $app-primary-black;
   }
 }
 
+.input-container{
+  margin-bottom: 16px;
+}
 // Label Style
 label {
   font-size: 12px;
@@ -65,11 +68,10 @@ label {
 }
 
 // Input Container Style
-.input-container {
+.input-container-inner {
   display: block;
   width: 100%;
   position: relative;
-  margin-bottom: 16px;
 
   input {
     width: 100%;

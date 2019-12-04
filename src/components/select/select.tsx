@@ -136,7 +136,7 @@ export class Select {
         >
           <div class="input-container">
             <div class={{
-              'input-container': true,
+              'input-container-inner': true,
               [this.state]: true
             }}>
               <input

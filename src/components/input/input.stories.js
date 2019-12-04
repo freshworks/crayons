@@ -42,6 +42,14 @@ storiesOf('Input', module)
     notes: {
       markdown: readme
     }
+  })
+  .add('Multiple Inputs', () =>
+    `<fw-input label="First Name" maxlength="10" state-text="It has to be your first name" required="true"  placeholder="Enter your first name">
+  </fw-input>
+  <fw-input label="Last Name" maxlength="10" state-text="It has to be your last name" required="true"  placeholder="Enter your last name">
+  </fw-input>`, {
+    notes: {
+      markdown: readme
+    }
   });
 
- 
