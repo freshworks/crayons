@@ -50,6 +50,16 @@ export namespace Components {
     */
     'value': string;
   }
+  interface FwIcon {
+    /**
+    * The name of the icon
+    */
+    'name': string;
+    /**
+    * The size of the icon in pixels
+    */
+    'size': number;
+  }
   interface FwInput {
     /**
     * Indicates whether the value of the control can be automatically completed by the browser.
@@ -299,6 +309,12 @@ declare global {
     new (): HTMLFwCheckboxElement;
   };
 
+  interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {}
+  var HTMLFwIconElement: {
+    prototype: HTMLFwIconElement;
+    new (): HTMLFwIconElement;
+  };
+
   interface HTMLFwInputElement extends Components.FwInput, HTMLStencilElement {}
   var HTMLFwInputElement: {
     prototype: HTMLFwInputElement;
@@ -349,6 +365,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'fw-button': HTMLFwButtonElement;
     'fw-checkbox': HTMLFwCheckboxElement;
+    'fw-icon': HTMLFwIconElement;
     'fw-input': HTMLFwInputElement;
     'fw-label': HTMLFwLabelElement;
     'fw-radio': HTMLFwRadioElement;
@@ -424,6 +441,16 @@ declare namespace LocalJSX {
     * Value of the checkbox for within a <form>
     */
     'value'?: string;
+  }
+  interface FwIcon {
+    /**
+    * The name of the icon
+    */
+    'name'?: string;
+    /**
+    * The size of the icon in pixels
+    */
+    'size'?: number;
   }
   interface FwInput {
     /**
@@ -685,6 +712,7 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'fw-button': FwButton;
     'fw-checkbox': FwCheckbox;
+    'fw-icon': FwIcon;
     'fw-input': FwInput;
     'fw-label': FwLabel;
     'fw-radio': FwRadio;
@@ -704,6 +732,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'fw-button': LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
       'fw-checkbox': LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+      'fw-icon': LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
       'fw-input': LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
       'fw-label': LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
       'fw-radio': LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
