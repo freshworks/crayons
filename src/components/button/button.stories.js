@@ -4,7 +4,7 @@ import readme from "./readme.md";
 
 storiesOf('Button', module)
   .add('Default', () => `
-        <fw-button>Default</fw-button>
+        <fw-button onClick="alert()">Default</fw-button>
         <fw-button disabled>Disabled</fw-button>`, {
     notes: {
       markdown: readme

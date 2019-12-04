@@ -14,7 +14,7 @@ export namespace Components {
     /**
     * The theme of the button, Values are : `primary`, `secondary`, `danger`
     */
-    'color': string;
+    'color': 'primary' | 'secondary' | 'danger';
     /**
     * Sets the button as disabled when set to true.
     */
@@ -26,11 +26,11 @@ export namespace Components {
     /**
     * The size of the button, Values are : `normal`, `mini`
     */
-    'size': string;
+    'size': 'normal' | 'mini';
     /**
     * The native button type: values: `button`, `reset`, `submit`
     */
-    'type': string;
+    'type': 'button' | 'reset' | 'submit';
   }
   interface FwCheckbox {
     /**
@@ -157,7 +157,7 @@ declare namespace LocalJSX {
     /**
     * The theme of the button, Values are : `primary`, `secondary`, `danger`
     */
-    'color'?: string;
+    'color'?: 'primary' | 'secondary' | 'danger';
     /**
     * Sets the button as disabled when set to true.
     */
@@ -167,17 +167,25 @@ declare namespace LocalJSX {
     */
     'expand'?: boolean;
     /**
+    * Emitted when the checbox loses focus.
+    */
+    'onFwBlur'?: (event: CustomEvent<void>) => void;
+    /**
     * Emitted when the button is clicked.
     */
     'onFwClick'?: (event: CustomEvent<void>) => void;
     /**
+    * Emitted when the checkbox has focus.
+    */
+    'onFwFocus'?: (event: CustomEvent<void>) => void;
+    /**
     * The size of the button, Values are : `normal`, `mini`
     */
-    'size'?: string;
+    'size'?: 'normal' | 'mini';
     /**
     * The native button type: values: `button`, `reset`, `submit`
     */
-    'type'?: string;
+    'type'?: 'button' | 'reset' | 'submit';
   }
   interface FwCheckbox {
     /**
