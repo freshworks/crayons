@@ -9,10 +9,6 @@ export class SelectOption {
   /**
    * The Key associated with this select option
    */
-  @Prop() key: string;
-  /**
-   * Text that will be shown in the select option
-   */
   @Prop() value: string;
   /**
    * Flag to indicate if the option is selected or not. A tick is shown
@@ -22,14 +18,14 @@ export class SelectOption {
   @Event({ bubbles: true, composed: true }) fwSelectOptionChosen: EventEmitter;
 
   private onOptionSelected(e) {
-    const {key, value} = this;
-    this.fwSelectOptionChosen.emit({ key: key, value: value });
+    const {value} = this;
+    this.fwSelectOptionChosen.emit({value: value });
   }
 
   render() {
     return (
       <li class={{ 'select-option': true, 'selected': this.selected }} onMouseDown={e => this.onOptionSelected(e)}>
-        {this.value}
+       <slot/>
       </li>
     );
   }

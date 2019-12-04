@@ -188,9 +188,9 @@ export namespace Components {
     */
     'required': boolean;
     /**
-    * Set the selected key
+    * Set the selected Value
     */
-    'selectedKey'?: string;
+    'selectedValue'?: string;
     /**
     * The state of the control. Color changes accordingly
     */
@@ -206,15 +206,11 @@ export namespace Components {
   }
   interface FwSelectOption {
     /**
-    * The Key associated with this select option
-    */
-    'key': string;
-    /**
     * Flag to indicate if the option is selected or not. A tick is shown
     */
     'selected': boolean;
     /**
-    * Text that will be shown in the select option
+    * The Key associated with this select option
     */
     'value': string;
   }
@@ -521,9 +517,9 @@ declare namespace LocalJSX {
     */
     'required'?: boolean;
     /**
-    * Set the selected key
+    * Set the selected Value
     */
-    'selectedKey'?: string;
+    'selectedValue'?: string;
     /**
     * The state of the control. Color changes accordingly
     */
@@ -538,17 +534,13 @@ declare namespace LocalJSX {
     'value'?: string | null;
   }
   interface FwSelectOption {
-    /**
-    * The Key associated with this select option
-    */
-    'key'?: string;
     'onFwSelectOptionChosen'?: (event: CustomEvent<any>) => void;
     /**
     * Flag to indicate if the option is selected or not. A tick is shown
     */
     'selected'?: boolean;
     /**
-    * Text that will be shown in the select option
+    * The Key associated with this select option
     */
     'value'?: string;
   }

@@ -55,9 +55,9 @@ export class Select {
    */
   @Prop() disabled = false;
   /**
-   * Set the selected key
+   * Set the selected Value
    */
-  @Prop() selectedKey?: string;
+  @Prop() selectedValue?: string;
 
   //Events
   @Event() fwChange: EventEmitter;
@@ -89,31 +89,32 @@ export class Select {
     return this.getValue().length > 0;
   }
 
-  @Watch("selectedKey")
+  @Watch("selectedValue")
   keyChanged(newValue: String, oldValue: String) {
     if (oldValue !== newValue) {
-      let selectedElement = this.host.querySelector('fw-select-option[key="' + newValue + '"');
+      let selectedElement = this.host.querySelector('fw-select-option[value="' + newValue + '"');
       selectedElement ? selectedElement.setAttribute('selected', 'true') : null;
-      let previousElement = this.host.querySelector('fw-select-option[key="' + oldValue + '"');
+      let previousElement = this.host.querySelector('fw-select-option[value="' + oldValue + '"');
       previousElement ? previousElement.setAttribute('selected', 'false') : null;
-      this.fwChange.emit({ key: selectedElement.getAttribute("key"), value: selectedElement.getAttribute("value") });
+      this.fwChange.emit({ value: selectedElement.getAttribute("value"), text: selectedElement.textContent });
     }
   }
 
   @Listen('fwSelectOptionChosen')
   fwSelectOptionChosenHandler(selectedItem) {
+    let selectedElement = this.host.querySelector('fw-select-option[value="' + selectedItem.detail.value + '"');
     this.selectList.style.display = "none";
-    this.selectedKey = selectedItem.detail.key;
-    this.value = selectedItem.detail.value;
+    this.selectedValue = selectedItem.detail.value;
+    this.value = selectedElement.textContent;
     selectedItem.stopPropagation();
   }
 
   componentDidLoad() {
-    if (this.selectedKey) {
-      let selectOption = this.host.querySelector('fw-select-option[key="' + this.selectedKey + '"');
+    if (this.selectedValue) {
+      let selectOption = this.host.querySelector('fw-select-option[value="' + this.selectedValue + '"');
       if (selectOption) {
         selectOption.setAttribute('selected', 'true');
-        this.value = selectOption.getAttribute('value');
+        this.value = selectOption.textContent;
       }
     }
   }
@@ -160,7 +161,7 @@ export class Select {
             tabindex="0"
             ref={ul => this.selectList = ul}
           >
-            {!this.forceSelect ? <fw-select-option key="--" value="--" /> : ''}
+            {!this.forceSelect ? <fw-select-option value="--" >--</fw-select-option>: ''}
             <slot>
             </slot>
           </ul>
