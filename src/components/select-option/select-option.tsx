@@ -24,7 +24,7 @@ export class SelectOption {
 
   render() {
     return (
-      <li class={{ 'select-option': true, 'selected': this.selected }} onMouseDown={e => this.onOptionSelected(e)}>
+      <li class={{ 'select-option': true, 'selected': this.selected }} onMouseDown={() => this.onOptionSelected()}>
        <slot/>
       </li>
     );

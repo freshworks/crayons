@@ -154,7 +154,7 @@ export class Select {
                 type="text"
                 value={value}
                 onFocus={e => this.innerOnFocus(e)}
-                onClick={e => this.innerOnClick(e)}
+                onClick={() => this.innerOnClick()}
                 onBlur={e => this.innerOnBlur(e)}
               />
               <span class={{ 'dropdown-status-icon': true, 'expanded': this.isExpanded }}></span>
