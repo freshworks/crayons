@@ -15,13 +15,13 @@
 | `label`        | `label`        | The type of control to display. The default type is text.                                             | `string`                           | `''`        |
 | `maxlength`    | `maxlength`    | Max length of value                                                                                   | `number`                           | `undefined` |
 | `minlength`    | `minlength`    | Min length of value                                                                                   | `number`                           | `undefined` |
-| `name`         | `name`         | The name of the control, which is submitted with the form data.                                       | `string`                           | `""`        |
+| `name`         | `name`         | The name of the control, which is submitted with the form data.                                       | `string`                           | `''`        |
 | `placeholder`  | `placeholder`  | Instructional text that shows before the input has a value.                                           | `string`                           | `undefined` |
 | `readonly`     | `readonly`     | If `true`, the user cannot modify the value.                                                          | `boolean`                          | `false`     |
 | `required`     | `required`     | If `true`, the user must fill in a value before submitting a form.                                    | `boolean`                          | `false`     |
 | `state`        | `state`        | The state of the control. Color changes accordingly                                                   | `"error" \| "normal" \| "warning"` | `'normal'`  |
 | `stateText`    | `state-text`   | This text will be displayed below the input box indicating the state/hint                             | `string`                           | `''`        |
-| `type`         | `type`         | The type of control to display. The default type is text.                                             | `"text"`                           | `"text"`    |
+| `type`         | `type`         | The type of control to display. The default type is text.                                             | `"text"`                           | `'text'`    |
 | `value`        | `value`        | The value of the input.                                                                               | `string`                           | `''`        |
 
 

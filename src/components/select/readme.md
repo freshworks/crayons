@@ -12,7 +12,7 @@
 | `disabled`      | `disabled`       | Indicates that this control is disabled                                   | `boolean`                          | `false`     |
 | `forceSelect`   | `force-select`   | If `true`, the user must select some value. The default wont be shown     | `boolean`                          | `false`     |
 | `label`         | `label`          | Label for the control                                                     | `string`                           | `''`        |
-| `name`          | `name`           | The name of the control, which is submitted with the form data.           | `string`                           | `""`        |
+| `name`          | `name`           | The name of the control, which is submitted with the form data.           | `string`                           | `''`        |
 | `placeholder`   | `placeholder`    | Instructional text that shows before the selection is made                | `string`                           | `undefined` |
 | `readonly`      | `readonly`       | If `true`, the user cannot modify the value.                              | `boolean`                          | `false`     |
 | `required`      | `required`       | If `true`, the user must fill in a value before submitting a form.        | `boolean`                          | `false`     |
