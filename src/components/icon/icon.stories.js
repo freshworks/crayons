@@ -7,4 +7,12 @@ storiesOf('Icon', module)
     notes: {
       markdown: readme
     }
+  }).add('Chat', () => '<fw-icon name="freshchat" color="red" size="18"></fw-icon>', {
+    notes: {
+      markdown: readme
+    }
+  }).add('Add Note', () => '<fw-icon name="add-note" color="#3880ff" size="18"></fw-icon>', {
+    notes: {
+      markdown: readme
+    }
   });
