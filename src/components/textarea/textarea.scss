@@ -1,0 +1,174 @@
+@import "../../styles/theme";
+
+$label-font: $font-stack-sans !default;
+$placeholder-color: $muted-secondary;
+$help-color: $muted-secondary;
+$disabled-color: $input-border;
+$error-color: $app-error;
+$input-border: #cfd7df;
+$input-hover-color: #475867;
+$input-focus-color: #2c5cc5;
+$input-bg: #fff;
+$input-color: $app-primary-black;
+
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+*,
+::after,
+::before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin stateStyle($_color) {
+  & > textarea {
+    border-color: $_color;
+  }
+
+  & > textarea:focus {
+    box-shadow: none;
+    border-color: $_color;
+  }
+
+  & > textarea:hover {
+    border-color: $_color;
+  }
+
+  & + .help-block {
+    color: $_color;
+  }
+}
+
+.textarea-container {
+  margin-bottom: 16px;
+}
+// Label Style
+label {
+  font-size: 12px;
+  color: $label-default;
+  font-weight: $font-weight-semibold;
+  margin-bottom: 0;
+  padding-bottom: 4px;
+  padding-left: 2px;
+  display: block;
+
+  &.required::after {
+    content: "*";
+    position: relative;
+    display: inline-block;
+    top: 2px;
+    font-size: 14px;
+    color: $app-error;
+    padding-left: 2px;
+    font-weight: $font-weight-bold;
+  }
+}
+
+// textarea Container Style
+.textarea-container-inner {
+  display: block;
+  width: 100%;
+  position: relative;
+
+  textarea {
+    border: 0;
+    border: 1px solid $input-border;
+    margin: 5px 0 0;
+    border-radius: 4px;
+    padding: 4px 12px 5px;
+    background-color: $app-light-bg;
+    box-shadow: none;
+    min-height: 24px;
+    font-size: 12px;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0;
+    line-height: 20px;
+    color: $input-color;
+    box-sizing: border-box;
+    cursor: text;
+    display: inline-block;
+
+    &:hover {
+      border: 1px $input-hover-color solid;
+      transition: 0.2s linear;
+    }
+
+    &:focus {
+      outline: none;
+      background: $input-bg;
+      background-color: $app-light-bg;
+      border: 1px solid transparent;
+      box-shadow: 0 0 0 2px $input-focus-color;
+    }
+
+    &[disabled] {
+      color: $disabled-color;
+      background-color: $input-disabled-bg;
+      border-style: solid;
+      pointer-events: none;
+
+      &:hover {
+        border: 1px solid $input-border;
+      }
+    }
+  }
+
+  // Clear button
+  .clear-button {
+    top: 13px;
+    position: absolute;
+    right: 10px;
+    display: inline-block;
+
+    &:hover {
+      cursor: pointer;
+      pointer-events: initial;
+    }
+
+    .clear-button-img {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  //Help Block
+  & + .help-block {
+    font-family: $label-font;
+    font-size: 11px;
+    margin-top: 3px;
+    color: $help-color;
+    position: inherit;
+    margin-bottom: 0;
+    display: block;
+    padding-left: 2px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  &.error {
+    @include stateStyle($error-color);
+  }
+
+  &.warning {
+    @include stateStyle($warning-message-marker);
+  }
+}
+
+::-webkit-input-placeholder {
+  color: $muted-secondary;
+}
+
+::-moz-placeholder {
+  color: $muted-secondary;
+}
+
+:-ms-input-placeholder {
+  color: $muted-secondary;
+}
+
+:-moz-placeholder {
+  color: $muted-secondary;
+}

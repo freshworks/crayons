@@ -220,6 +220,68 @@ export namespace Components {
     */
     'size': string;
   }
+  interface FwTextarea {
+    /**
+    * Number of columns
+    */
+    'cols'?: number;
+    /**
+    * Indicates that this control is disabled
+    */
+    'disabled': boolean;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'label': string;
+    /**
+    * Max length of value
+    */
+    'maxlength'?: number;
+    /**
+    * Min length of value
+    */
+    'minlength'?: number;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name': string;
+    /**
+    * Instructional text that shows before the input has a value.
+    */
+    'placeholder'?: string | null;
+    /**
+    * If `true`, the user cannot modify the value.
+    */
+    'readonly': boolean;
+    /**
+    * If `true`, the user must fill in a value before submitting a form.
+    */
+    'required': boolean;
+    /**
+    * Number of rows
+    */
+    'rows'?: number;
+    /**
+    * Sets focus on the specified `fw-input`. Use this method instead of the global `input.focus()`.
+    */
+    'setFocus': () => Promise<void>;
+    /**
+    * The state of the control. Color changes accordingly
+    */
+    'state': 'normal' | 'warning' | 'error';
+    /**
+    * This text will be displayed below the input box indicating the state/hint
+    */
+    'stateText': string;
+    /**
+    * The value of the input.
+    */
+    'value'?: string | null;
+    /**
+    * How the text in the textarea is to be wrapped
+    */
+    'wrap': 'soft' | 'hard';
+  }
 }
 
 declare global {
@@ -278,6 +340,12 @@ declare global {
     prototype: HTMLFwSpinnerElement;
     new (): HTMLFwSpinnerElement;
   };
+
+  interface HTMLFwTextareaElement extends Components.FwTextarea, HTMLStencilElement {}
+  var HTMLFwTextareaElement: {
+    prototype: HTMLFwTextareaElement;
+    new (): HTMLFwTextareaElement;
+  };
   interface HTMLElementTagNameMap {
     'fw-button': HTMLFwButtonElement;
     'fw-checkbox': HTMLFwCheckboxElement;
@@ -288,6 +356,7 @@ declare global {
     'fw-select': HTMLFwSelectElement;
     'fw-select-option': HTMLFwSelectOptionElement;
     'fw-spinner': HTMLFwSpinnerElement;
+    'fw-textarea': HTMLFwTextareaElement;
   }
 }
 
@@ -550,6 +619,68 @@ declare namespace LocalJSX {
     */
     'size'?: string;
   }
+  interface FwTextarea {
+    /**
+    * Number of columns
+    */
+    'cols'?: number;
+    /**
+    * Indicates that this control is disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'label'?: string;
+    /**
+    * Max length of value
+    */
+    'maxlength'?: number;
+    /**
+    * Min length of value
+    */
+    'minlength'?: number;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name'?: string;
+    'onFwBlur'?: (event: CustomEvent<void>) => void;
+    'onFwChange'?: (event: CustomEvent<any>) => void;
+    'onFwFocus'?: (event: CustomEvent<void>) => void;
+    'onFwInput'?: (event: CustomEvent<KeyboardEvent>) => void;
+    /**
+    * Instructional text that shows before the input has a value.
+    */
+    'placeholder'?: string | null;
+    /**
+    * If `true`, the user cannot modify the value.
+    */
+    'readonly'?: boolean;
+    /**
+    * If `true`, the user must fill in a value before submitting a form.
+    */
+    'required'?: boolean;
+    /**
+    * Number of rows
+    */
+    'rows'?: number;
+    /**
+    * The state of the control. Color changes accordingly
+    */
+    'state'?: 'normal' | 'warning' | 'error';
+    /**
+    * This text will be displayed below the input box indicating the state/hint
+    */
+    'stateText'?: string;
+    /**
+    * The value of the input.
+    */
+    'value'?: string | null;
+    /**
+    * How the text in the textarea is to be wrapped
+    */
+    'wrap'?: 'soft' | 'hard';
+  }
 
   interface IntrinsicElements {
     'fw-button': FwButton;
@@ -561,6 +692,7 @@ declare namespace LocalJSX {
     'fw-select': FwSelect;
     'fw-select-option': FwSelectOption;
     'fw-spinner': FwSpinner;
+    'fw-textarea': FwTextarea;
   }
 }
 
@@ -579,6 +711,7 @@ declare module "@stencil/core" {
       'fw-select': LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
       'fw-select-option': LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
+      'fw-textarea': LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
     }
   }
 }
