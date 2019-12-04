@@ -1,4 +1,4 @@
-import { Component, Prop, State, getAssetPath, h } from '@stencil/core';
+import { Component, Prop, State, getAssetPath, h, Watch } from '@stencil/core';
 
 @Component({
   tag: 'fw-icon',
@@ -24,16 +24,21 @@ export class Icon {
 
   @State() svgHTML = '';
 
-  private async getSVGHTML() {
-    const response = await fetch(getAssetPath(`./assets/icons/${this.name}.svg`));
+  private async getSVGHTML(iconName: string) {
+    const response = await fetch(getAssetPath(`./assets/icons/${iconName}.svg`));
     const data = await response.text();
     return data;
   }
 
-  componentWillLoad() {
-    this.getSVGHTML().then(res => {
+  @Watch('name')
+  private setSVGState(iconName: string) {
+    this.getSVGHTML(iconName).then(res => {
       this.svgHTML = res;
     }).catch();
+  }
+
+  componentWillLoad() {
+    this.setSVGState(this.name);
   }
 
   render() {
