@@ -17,7 +17,7 @@ def STATIC_ASSETS = [
 ]
 
 node {
-  setBuildProperties()
+  // setBuildProperties()
   try {
     stage('Checkout & Setup') {
       checkoutCode(NODE_VERSION)

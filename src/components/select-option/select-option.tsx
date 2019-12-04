@@ -17,7 +17,7 @@ export class SelectOption {
 
   @Event({ bubbles: true, composed: true }) fwSelectOptionChosen: EventEmitter;
 
-  private onOptionSelected(e) {
+  private onOptionSelected() {
     const { value } = this;
     this.fwSelectOptionChosen.emit({ value });
   }

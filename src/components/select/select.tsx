@@ -69,7 +69,7 @@ export class Select {
     this.fwFocus.emit(e);
   }
 
-  private innerOnClick = (e: Event) => {
+  private innerOnClick = () => {
     this.selectList.style.display = 'block';
     this.selectList.style.width = String(this.selectInput.clientWidth) + 'px';
     this.isExpanded = true;
