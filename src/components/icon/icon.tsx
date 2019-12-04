@@ -1,4 +1,4 @@
-import { Component, Prop, getAssetPath, h } from '@stencil/core';
+import { Component, Prop, State, getAssetPath, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-icon',
@@ -17,12 +17,36 @@ export class Icon {
    */
   @Prop() size = 12;
 
+  /**
+   * The color of the icon in CSS standard color
+   */
+  @Prop() color = '#1234DD';
+
+  @State() svgHTML = '';
+
+  private async getSVGHTML() {
+    const response = await fetch(getAssetPath(`./assets/icons/${this.name}.svg`));
+    const data = await response.text();
+    return data;
+  }
+
+  componentWillLoad() {
+    this.getSVGHTML().then(res => {
+      this.svgHTML = res;
+    }).catch();
+  }
+
   render() {
     return (
-    <img
-      src={getAssetPath(`./assets/icons/${this.name}.svg`)}
-      height={this.size}
-      width={this.size}
-    ></img>);
+      <div class="icon"
+        style={
+          {
+            color: `${this.color}`,
+            height: `${this.size}px`,
+            width: `${this.size}px`,
+          }
+        }
+        innerHTML={this.svgHTML}/>
+    );
   }
 }

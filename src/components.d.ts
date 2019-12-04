@@ -52,6 +52,10 @@ export namespace Components {
   }
   interface FwIcon {
     /**
+    * The color of the icon in CSS standard color
+    */
+    'color': string;
+    /**
     * The name of the icon
     */
     'name': string;
@@ -443,6 +447,10 @@ declare namespace LocalJSX {
     'value'?: string;
   }
   interface FwIcon {
+    /**
+    * The color of the icon in CSS standard color
+    */
+    'color'?: string;
     /**
     * The name of the icon
     */
