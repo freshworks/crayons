@@ -7,44 +7,45 @@ storiesOf('Select', module)
     `
     <fw-select>
     </fw-select>
-    `, 
-  {
-    notes: {
-      markdown: readme
-    }
-  })
+    `,
+    {
+      notes: {
+        markdown: readme
+      }
+    })
   .add('With select options', () =>
     `
     <fw-select label="Select the house" required="true">
-        <fw-select-option key="1" value="Starks"></fw-select-option>
-        <fw-select-option key="2" value="Lannister"></fw-select-option>
+        <fw-select-option value="1">Starks</fw-select-option>
+        <fw-select-option value="2">Lannisters</fw-select-option>
     </fw-select>
-    `, 
-  {
-    notes: {
-      markdown: readme
-    }
-  })
+    `,
+    {
+      notes: {
+        markdown: readme
+      }
+    })
   .add('With options and selected key', () =>
     `
-    <fw-select label="Select the GOT house" state-text="Choose the house where you belong" selected-key="2" required="true">
-        <fw-select-option key="1" value="Starks"></fw-select-option>
-        <fw-select-option key="2" value="Lannisters"></fw-select-option>
-        <fw-select-option key="3" value="Sand"></fw-select-option>
-        <fw-select-option key="4" value="Greyjoys"></fw-select-option>
-        <fw-select-option key="5" value="Tyrell"></fw-select-option>
+    <fw-select label="Select the GOT house" state-text="Choose the house where you belong" selected-value="5" required="true">
+        <fw-select-option value="1">Starks</fw-select-option>
+        <fw-select-option value="2">Lannisters</fw-select-option>
+        <fw-select-option value="3">Sand</fw-select-option>
+        <fw-select-option value="4">Greyjoys</fw-select-option>
+        <fw-select-option value="5">Tyrell</fw-select-option>
     </fw-select>
 
-    <fw-select label="Select the GOT house" selected-key="2" required="true">
-        <fw-select-option key="1" value="Starks"></fw-select-option>
-        <fw-select-option key="2" value="Lannisters"></fw-select-option>
-        <fw-select-option key="3" value="Sand"></fw-select-option>
-        <fw-select-option key="4" value="Greyjoys"></fw-select-option>
-        <fw-select-option key="5" value="Tyrell"></fw-select-option>
+    <fw-select label="Select the GOT house" selected-value="2" required="true">
+      <fw-select-option value="1">Starks</fw-select-option>
+      <fw-select-option value="2">Lannisters</fw-select-option>
+      <fw-select-option value="3">Sand</fw-select-option>
+      <fw-select-option value="4">Greyjoys</fw-select-option>
+      <fw-select-option value="5">Tyrell</fw-select-option>
     </fw-select>
-    `, 
-  {
-    notes: {
-      markdown: readme
-    }
-  });
+    
+    `,
+    {
+      notes: {
+        markdown: readme
+      }
+    });
