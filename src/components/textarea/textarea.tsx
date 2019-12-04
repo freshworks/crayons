@@ -3,7 +3,7 @@ import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } f
 @Component({
   tag: 'fw-textarea',
   styleUrl: 'textarea.scss',
-  shadow: true
+  shadow: true,
 })
 export class Textarea {
   private nativeInput?: HTMLTextAreaElement;
