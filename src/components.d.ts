@@ -10,6 +10,28 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface FwButton {
+    /**
+    * The theme of the button, Values are : `primary`, `secondary`, `danger`
+    */
+    'color': 'primary' | 'secondary' | 'danger';
+    /**
+    * Sets the button as disabled when set to true.
+    */
+    'disabled': boolean;
+    /**
+    * Sets the button size to block when set to true.
+    */
+    'expand': boolean;
+    /**
+    * The size of the button, Values are : `normal`, `mini`
+    */
+    'size': 'normal' | 'mini';
+    /**
+    * The native button type: values: `button`, `reset`, `submit`
+    */
+    'type': 'button' | 'reset' | 'submit';
+  }
   interface FwCheckbox {
     /**
     * Property to maintain checked state
@@ -85,6 +107,12 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLFwButtonElement extends Components.FwButton, HTMLStencilElement {}
+  var HTMLFwButtonElement: {
+    prototype: HTMLFwButtonElement;
+    new (): HTMLFwButtonElement;
+  };
+
   interface HTMLFwCheckboxElement extends Components.FwCheckbox, HTMLStencilElement {}
   var HTMLFwCheckboxElement: {
     prototype: HTMLFwCheckboxElement;
@@ -115,6 +143,7 @@ declare global {
     new (): HTMLFwSpinnerElement;
   };
   interface HTMLElementTagNameMap {
+    'fw-button': HTMLFwButtonElement;
     'fw-checkbox': HTMLFwCheckboxElement;
     'fw-label': HTMLFwLabelElement;
     'fw-radio': HTMLFwRadioElement;
@@ -124,6 +153,40 @@ declare global {
 }
 
 declare namespace LocalJSX {
+  interface FwButton {
+    /**
+    * The theme of the button, Values are : `primary`, `secondary`, `danger`
+    */
+    'color'?: 'primary' | 'secondary' | 'danger';
+    /**
+    * Sets the button as disabled when set to true.
+    */
+    'disabled'?: boolean;
+    /**
+    * Sets the button size to block when set to true.
+    */
+    'expand'?: boolean;
+    /**
+    * Emitted when the checbox loses focus.
+    */
+    'onFwBlur'?: (event: CustomEvent<void>) => void;
+    /**
+    * Emitted when the button is clicked.
+    */
+    'onFwClick'?: (event: CustomEvent<void>) => void;
+    /**
+    * Emitted when the checkbox has focus.
+    */
+    'onFwFocus'?: (event: CustomEvent<void>) => void;
+    /**
+    * The size of the button, Values are : `normal`, `mini`
+    */
+    'size'?: 'normal' | 'mini';
+    /**
+    * The native button type: values: `button`, `reset`, `submit`
+    */
+    'type'?: 'button' | 'reset' | 'submit';
+  }
   interface FwCheckbox {
     /**
     * Property to maintain checked state
@@ -228,6 +291,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'fw-button': FwButton;
     'fw-checkbox': FwCheckbox;
     'fw-label': FwLabel;
     'fw-radio': FwRadio;
@@ -242,6 +306,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+      'fw-button': LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
       'fw-checkbox': LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
       'fw-label': LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
       'fw-radio': LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;

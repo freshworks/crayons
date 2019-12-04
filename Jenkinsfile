@@ -27,9 +27,9 @@ node {
       doCodeSanity(NODE_VERSION)
     }
 
-    stage('Tests') {
-      runUnitTests(NODE_VERSION)
-    }
+    // stage('Tests') {
+    //   runUnitTests(NODE_VERSION)
+    // }
 
     stage('Ship Baby Ship!') {
       if(!params.mergeCode) {
@@ -60,7 +60,7 @@ node {
       claimBuild()
       throw any
   } finally {
-      sendEmail()
+      // sendEmail()
       deleteDir()
   }
 }
