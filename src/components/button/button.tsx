@@ -16,7 +16,7 @@ export class Button {
    * The theme of the button,
    * Values are : `primary`, `secondary`, `danger`
    */
-  @Prop() color: 'primary' | 'secondary' | 'danger' = 'primary';
+  @Prop() color: 'primary' | 'secondary' | 'danger' = 'secondary';
 
   /**
    * Sets the button as disabled when set to true.
@@ -32,7 +32,7 @@ export class Button {
    * The size of the button,
    * Values are : `normal`, `mini`
    */
-  @Prop() size: 'normal' | 'mini' = 'normal';
+  @Prop() size: 'normal' | 'mini' | 'icon' = 'normal';
 
   /**
    * Emitted when the button is clicked.

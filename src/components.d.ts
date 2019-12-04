@@ -26,7 +26,7 @@ export namespace Components {
     /**
     * The size of the button, Values are : `normal`, `mini`
     */
-    'size': 'normal' | 'mini';
+    'size': 'normal' | 'mini' | 'icon';
     /**
     * The native button type: values: `button`, `reset`, `submit`
     */
@@ -410,7 +410,7 @@ declare namespace LocalJSX {
     /**
     * The size of the button, Values are : `normal`, `mini`
     */
-    'size'?: 'normal' | 'mini';
+    'size'?: 'normal' | 'mini' | 'icon';
     /**
     * The native button type: values: `button`, `reset`, `submit`
     */

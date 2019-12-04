@@ -45,5 +45,13 @@ module.exports = async ({ config }) => {
 
   config.plugins.push(new WriteFilePlugin());
 
+  config.module.rules.push({
+    test: /\.stories\.jsx?$/,
+    loaders: [require.resolve('@storybook/source-loader')],
+    options: { parser: 'typescript' },
+    enforce: 'pre',
+  });
+ 
+
   return config;
 };

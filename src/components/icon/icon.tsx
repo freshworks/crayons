@@ -1,4 +1,4 @@
-import { Component, Prop, State, getAssetPath, h, Watch } from '@stencil/core';
+import { Component, Prop, State, Watch, getAssetPath, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-icon',
@@ -20,7 +20,7 @@ export class Icon {
   /**
    * The color of the icon in CSS standard color
    */
-  @Prop() color = '#1234DD';
+  @Prop() color = '#12344D';
 
   @State() svgHTML = '';
 
