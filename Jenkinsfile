@@ -39,6 +39,7 @@ node {
         def s3Path = "/freshworks-ui-kit"
 
         uploadAssetsToS3('dist', "s3://${STATIC_ASSETS[BRANCH_NAME].bucketName}${s3Path}", 'us-east-1', true)
+        uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[BRANCH_NAME].bucketName}${s3Path}/docs", 'us-east-1', true)
         invalidateCDN(STATIC_ASSETS[BRANCH_NAME].cdnDistributionId, s3Path)
       }
     }

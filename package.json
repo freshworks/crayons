@@ -15,7 +15,7 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
+    "build": "stencil build --docs && yarn storybook:build",
     "code-sanity": "yarn lint",
     "lint": "yarn lint:ts && yarn lint:sass",
     "lint:ts": "tslint -c tslint.json -p tsconfig.json -t grouped -s node_modules/custom-tslint-formatters/formatters",
