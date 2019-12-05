@@ -64,10 +64,8 @@
     "tslint": "^5.20.0",
     "tslint-ionic-rules": "^0.0.21",
     "typescript": "^3.6.4",
-    "write-file-webpack-plugin": "^4.5.1"
-  },
-  "license": "MIT",
-  "dependencies": {
+    "write-file-webpack-plugin": "^4.5.1",
     "react-dom": "^16.12.0"
-  }
+  },
+  "license": "MIT"
 }
