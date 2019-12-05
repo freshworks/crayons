@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Host, Listen, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Listen, Prop, State, Watch, h, Method } from '@stencil/core';
 
 @Component({
   tag: 'fw-select',
@@ -110,7 +110,7 @@ export class Select {
     this.value = selectedElement.textContent;
     selectedItem.stopPropagation();
   }
-
+  
   componentDidLoad() {
     // tslint:disable-next-line: strict-boolean-conditions
     if (this.selectedValue) {
@@ -118,6 +118,16 @@ export class Select {
       if (selectOption) {
         selectOption.setAttribute('selected', 'true');
         this.value = selectOption.textContent;
+      }
+    }
+  }
+
+  @Method()
+  async getSelectedItem(): Promise<Object> {
+    if (this.selectedValue) {
+      const selectedElement = this.host.querySelector('fw-select-option[value="' + this.selectedValue + '"');
+      if (selectedElement) {
+        return Promise.resolve({ value: this.selectedValue, text: selectedElement.textContent });
       }
     }
   }
