@@ -98,11 +98,10 @@ export class Select {
   keyChanged(newValue: string, oldValue: string) {
     if (oldValue !== newValue) {
       const selectedElement = this.host.querySelector('fw-select-option[value="' + newValue + '"]');
+      const elements = this.host.querySelectorAll('fw-select-option');
+      Array.from(elements).map(element => element.selected = false);
       // tslint:disable-next-line: no-null-keyword no-unused-expression
       selectedElement ? selectedElement.setAttribute('selected', 'true') : null;
-      const previousElement = this.host.querySelector('fw-select-option[value="' + oldValue + '"]');
-      // tslint:disable-next-line: no-null-keyword no-unused-expression
-      previousElement ? previousElement.setAttribute('selected', 'false') : null;
       this.fwChange.emit({ value: selectedElement.getAttribute('value'), text: selectedElement.textContent });
     }
   }
