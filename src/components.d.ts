@@ -78,6 +78,14 @@ export namespace Components {
     */
     'disabled': boolean;
     /**
+    * Name of the icon for left side
+    */
+    'iconLeft': string;
+    /**
+    * Name of the icon for right side
+    */
+    'iconRight': string;
+    /**
     * The type of control to display. The default type is text.
     */
     'label': string;
@@ -485,6 +493,14 @@ declare namespace LocalJSX {
     * Indicates that this control is disabled
     */
     'disabled'?: boolean;
+    /**
+    * Name of the icon for left side
+    */
+    'iconLeft'?: string;
+    /**
+    * Name of the icon for right side
+    */
+    'iconRight'?: string;
     /**
     * The type of control to display. The default type is text.
     */

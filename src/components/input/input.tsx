@@ -66,6 +66,16 @@ export class Input {
    */
   @Prop() disabled = false;
 
+  /**
+   * Name of the icon for left side
+   */
+  @Prop() iconLeft: string = undefined;
+
+  /**
+   * Name of the icon for right side
+   */
+  @Prop() iconRight: string = undefined;
+
   @Event() fwChange: EventEmitter;
 
   @Event() fwFocus: EventEmitter<void>;
@@ -146,6 +156,8 @@ export class Input {
         <div class={{
           'input-container-inner': true,
           [this.state]: true,
+          'left-icon': this.iconLeft !== undefined,
+          'right-icon': this.iconRight !== undefined,
         }}>
           <input
             ref={input => this.nativeInput = input}
@@ -163,6 +175,12 @@ export class Input {
             onBlur={this.onBlur}
             onFocus={this.onFocus}
           />
+          {
+            this.iconLeft !== undefined ? <fw-icon class="icon left" name={this.iconLeft}></fw-icon> : ''
+          }
+          {
+            this.iconRight !== undefined ? <fw-icon class="icon right" name={this.iconRight}></fw-icon> : ''
+          }
           {this.clearInput && this.value.length > 0 ?
             <div class="clear-button" onClick={e => this.clearTextInput(e)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="clear-button-img"><path d="M17.992 16l8.796-8.796a1.409 1.409 0 0 0-1.992-1.992L16 14.008 7.204 5.212a1.409 1.409 0 0 0-1.992 1.992L14.008 16l-8.796 8.796a1.409 1.409 0 0 0 1.992 1.992L16 17.992l8.796 8.796a1.409 1.409 0 0 0 1.992-1.992L17.992 16z"></path></svg>

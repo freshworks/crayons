@@ -31,5 +31,11 @@ export const MultipleInputs = () =>
 <fw-input label="Last Name" maxlength="10" state-text="It has to be your last name" required="true"  placeholder="Enter your last name">
 </fw-input>`;
 
+export const withIcons = () =>
+  `<fw-input icon-left="add-contact" label="First Name" maxlength="10" state-text="It has to be your first name" required="true"  placeholder="Enter your first name">
+</fw-input>
+<fw-input icon-right="add-note" label="Last Name" state-text="It has to be your last name" required="true"  placeholder="Enter your last name">
+</fw-input>`;
+
 
 
