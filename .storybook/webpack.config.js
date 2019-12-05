@@ -47,7 +47,7 @@ module.exports = async ({ config }) => {
 
   config.module.rules.push({
     test: /\.stories\.jsx?$/,
-    loaders: [require.resolve('@storybook/source-loader')],
+    loaders: require.resolve('@storybook/source-loader'),
     options: { parser: 'typescript' },
     enforce: 'pre',
   });
