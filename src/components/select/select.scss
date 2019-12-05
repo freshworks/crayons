@@ -119,6 +119,8 @@ label {
 
 .select-container {
   margin-bottom: 16px;
+  width: inherit;
+  height: inherit;
 
   ul {
     max-height: 150px;
