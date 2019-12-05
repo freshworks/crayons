@@ -1,4 +1,5 @@
 dist/
+storybook-dist/
 www/
 loader/
 coverage/
