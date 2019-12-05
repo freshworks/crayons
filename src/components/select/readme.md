@@ -77,6 +77,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [fw-timepicker](../timepicker)
+
 ### Depends on
 
 - [fw-select-option](../select-option)
@@ -85,6 +89,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-select --> fw-select-option
+  fw-timepicker --> fw-select
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

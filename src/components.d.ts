@@ -316,20 +316,20 @@ export namespace Components {
     */
     'wrap': 'soft' | 'hard';
   }
-  interface FwToggle {
+  interface FwTimepicker {
     /**
-    * Is it disabled
+    * Format of the time for input and output
     */
-    'disabled': boolean;
+    'hourFormat': string;
+    'interval': number;
     /**
-    * The name of the control, which is submitted with the form data.
+    * Max time
     */
-    'name': string;
+    'maxTime'?: string;
     /**
-    * The type of control to display. The default type is text.
+    * Min  time
     */
-    'size': 'small' | 'medium' | 'large';
-    'state': boolean;
+    'minTime'?: string;
   }
 }
 
@@ -402,10 +402,10 @@ declare global {
     new (): HTMLFwTextareaElement;
   };
 
-  interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {}
-  var HTMLFwToggleElement: {
-    prototype: HTMLFwToggleElement;
-    new (): HTMLFwToggleElement;
+  interface HTMLFwTimepickerElement extends Components.FwTimepicker, HTMLStencilElement {}
+  var HTMLFwTimepickerElement: {
+    prototype: HTMLFwTimepickerElement;
+    new (): HTMLFwTimepickerElement;
   };
   interface HTMLElementTagNameMap {
     'fw-button': HTMLFwButtonElement;
@@ -419,7 +419,7 @@ declare global {
     'fw-select-option': HTMLFwSelectOptionElement;
     'fw-spinner': HTMLFwSpinnerElement;
     'fw-textarea': HTMLFwTextareaElement;
-    'fw-toggle': HTMLFwToggleElement;
+    'fw-timepicker': HTMLFwTimepickerElement;
   }
 }
 
@@ -774,21 +774,20 @@ declare namespace LocalJSX {
     */
     'wrap'?: 'soft' | 'hard';
   }
-  interface FwToggle {
+  interface FwTimepicker {
     /**
-    * Is it disabled
+    * Format of the time for input and output
     */
-    'disabled'?: boolean;
+    'hourFormat'?: string;
+    'interval'?: number;
     /**
-    * The name of the control, which is submitted with the form data.
+    * Max time
     */
-    'name'?: string;
-    'onFwChange'?: (event: CustomEvent<any>) => void;
+    'maxTime'?: string;
     /**
-    * The type of control to display. The default type is text.
+    * Min  time
     */
-    'size'?: 'small' | 'medium' | 'large';
-    'state'?: boolean;
+    'minTime'?: string;
   }
 
   interface IntrinsicElements {
@@ -803,7 +802,7 @@ declare namespace LocalJSX {
     'fw-select-option': FwSelectOption;
     'fw-spinner': FwSpinner;
     'fw-textarea': FwTextarea;
-    'fw-toggle': FwToggle;
+    'fw-timepicker': FwTimepicker;
   }
 }
 
@@ -824,7 +823,7 @@ declare module "@stencil/core" {
       'fw-select-option': LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
       'fw-textarea': LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
-      'fw-toggle': LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
+      'fw-timepicker': LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
     }
   }
 }
