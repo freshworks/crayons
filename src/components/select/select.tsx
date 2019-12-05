@@ -131,10 +131,9 @@ export class Select {
     }
 
     if (this.selectedValue !== '') {
-      if (selectOption) {
-        selectOption.setAttribute('selected', 'true');
-        this.value = selectOption.textContent;
-      }
+        const selectedElement = this.host.querySelector('fw-select-option[value="' + this.selectedValue + '"');
+        selectedElement.setAttribute('selected', 'true');
+        this.value = selectedElement.textContent;
     }
   }
 
