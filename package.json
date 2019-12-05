@@ -66,5 +66,8 @@
     "typescript": "^3.6.4",
     "write-file-webpack-plugin": "^4.5.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "react-dom": "^16.12.0"
+  }
 }

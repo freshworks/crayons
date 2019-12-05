@@ -9,11 +9,17 @@ export class SelectOption {
   /**
    * The Key associated with this select option
    */
-  @Prop() value: string;
+  @Prop({
+    reflect: true
+  })
+  value: string;
   /**
    * Flag to indicate if the option is selected or not. A tick is shown
    */
-  @Prop() selected = false;
+  @Prop({
+    reflect: true
+  })
+  selected = false;
 
   @Event({ bubbles: true, composed: true }) fwSelectOptionChosen: EventEmitter;
 
@@ -25,7 +31,7 @@ export class SelectOption {
   render() {
     return (
       <li class={{ 'select-option': true, 'selected': this.selected }} onMouseDown={() => this.onOptionSelected()}>
-       <slot/>
+        <slot />
       </li>
     );
   }

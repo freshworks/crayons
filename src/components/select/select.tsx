@@ -14,6 +14,7 @@ export class Select {
    */
   @State() isExpanded = false;
   @State() hasFocus = false;
+  @State() dynItems = [];
   /**
    * Label for the control
    */
@@ -49,7 +50,7 @@ export class Select {
   /**
    * If `true`, the user must select some value. The default wont be shown
    */
-  @Prop() forceSelect = false;
+  @Prop() forceSelect = true;
   /**
    * Indicates that this control is disabled
    */
@@ -57,7 +58,7 @@ export class Select {
   /**
    * Set the selected Value
    */
-  @Prop() selectedValue?: string;
+  @Prop() selectedValue?: string = '';
 
   // Events
   @Event() fwChange: EventEmitter;
@@ -92,10 +93,10 @@ export class Select {
   @Watch('selectedValue')
   keyChanged(newValue: string, oldValue: string) {
     if (oldValue !== newValue) {
-      const selectedElement = this.host.querySelector('fw-select-option[value="' + newValue + '"');
+      const selectedElement = this.host.querySelector('fw-select-option[value="' + newValue + '"]');
       // tslint:disable-next-line: no-null-keyword no-unused-expression
       selectedElement ? selectedElement.setAttribute('selected', 'true') : null;
-      const previousElement = this.host.querySelector('fw-select-option[value="' + oldValue + '"');
+      const previousElement = this.host.querySelector('fw-select-option[value="' + oldValue + '"]');
       // tslint:disable-next-line: no-null-keyword no-unused-expression
       previousElement ? previousElement.setAttribute('selected', 'false') : null;
       this.fwChange.emit({ value: selectedElement.getAttribute('value'), text: selectedElement.textContent });
@@ -110,9 +111,22 @@ export class Select {
     this.value = selectedElement.textContent;
     selectedItem.stopPropagation();
   }
-  
+
   componentDidLoad() {
     // tslint:disable-next-line: strict-boolean-conditions
+    const selectOption = this.host.querySelector('fw-select-option');
+    if(!selectOption) {
+      this.disabled = true;
+      return;
+    }
+    
+    if (this.forceSelect && !this.selectedValue) {
+      const selectOption = this.host.querySelector('fw-select-option');
+      selectOption.selected = true;
+      this.selectInput.value = selectOption.textContent;
+      this.selectedValue = selectOption.value;
+    }
+
     if (this.selectedValue) {
       const selectOption = this.host.querySelector('fw-select-option[value="' + this.selectedValue + '"');
       if (selectOption) {
@@ -130,6 +144,44 @@ export class Select {
         return Promise.resolve({ value: this.selectedValue, text: selectedElement.textContent });
       }
     }
+  }
+
+  @Method()
+  async setSelectedItem(value: string): Promise<void> {
+    if (value) {
+      const selectedElement = this.host.querySelector('fw-select-option[value="' + value + '"');
+      if (selectedElement) {
+        this.selectList.style.display = 'none';
+        this.selectedValue = value;
+        this.value = selectedElement.textContent;
+        return Promise.resolve();
+      } else {
+        return Promise.reject(new Error("No matching select option found"));
+      }
+    }
+  }
+
+  @Method()
+  async getItems(): Promise<Array<Object>> {
+    const selectOptions = this.host.querySelectorAll('fw-select-option');
+    const items = Array.from(selectOptions).map(function (item) {
+      return { value: item.getAttribute('value'), text: item.innerText };
+    });
+    if (items)
+      return Promise.resolve(items);
+  }
+
+  @Method()
+  async setItems(items: Array<any>): Promise<void> {
+    this.host.innerHTML = "";
+    this.selectInput.value = "";
+    this.selectedValue = "";
+    items.map((item) => {
+      const el = document.createElement('fw-select-option');
+      el.value = item.value;
+      el.innerText = item.text;
+      this.host.appendChild(el);
+    });
   }
 
   render() {
@@ -174,9 +226,8 @@ export class Select {
             tabindex="0"
             ref={ul => this.selectList = ul}
           >
-            {!this.forceSelect ? <fw-select-option value="--" >--</fw-select-option> : ''}
-            <slot>
-            </slot>
+
+            <slot />
           </ul>
           {this.stateText !== '' ?
             <span class="help-block">{this.stateText}</span> : ''}
