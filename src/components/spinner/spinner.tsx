@@ -11,6 +11,11 @@ export class Spinner {
    */
   @Prop() size = 'default';
 
+  /**
+   * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+   */
+  @Prop() color = '#4c74ce';
+
   sizeMap = {
     small: 12,
     default: 16,
@@ -35,7 +40,7 @@ export class Spinner {
                 }
               }
               viewBox={`0 0 50 50`}>
-              <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+              <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke={this.color}></circle>
           </svg>;
   }
 }

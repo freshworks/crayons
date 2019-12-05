@@ -232,6 +232,10 @@ export namespace Components {
     /**
     * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
     */
+    'color': string;
+    /**
+    * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+    */
     'size': string;
   }
   interface FwTextarea {
@@ -649,6 +653,10 @@ declare namespace LocalJSX {
     'value'?: string;
   }
   interface FwSpinner {
+    /**
+    * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+    */
+    'color'?: string;
     /**
     * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
     */
