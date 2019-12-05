@@ -44,6 +44,8 @@ $input-color: $app-primary-black;
 
 .input-container {
   margin-bottom: 16px;
+  width: inherit;
+  height: inherit;
 }
 // Label Style
 label {
