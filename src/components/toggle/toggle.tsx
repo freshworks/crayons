@@ -1,31 +1,54 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-toggle',
   styleUrl: 'toggle.scss',
-  shadow: true
+  shadow: true,
 })
 export class Toggle {
-  private toggleInner:HTMLInputElement;  
-  private toggle(e: Event){
-    console.log("clicked");
-    this.toggleInner.checked=!this.toggleInner.checked;
+
+  @Prop() state = false;
+  /**
+   * The type of control to display. The default type is text.
+   */
+  @Prop() size: 'small' | 'medium' | 'large' = 'medium';
+  /**
+   * The name of the control, which is submitted with the form data.
+   */
+  @Prop() name = '';
+  /**
+   * Is it disabled
+   */
+  @Prop() disabled = false;
+
+  @Event() fwChange: EventEmitter;
+
+  @Watch('state')
+  watchHandler(newValue: boolean) {
+    this.fwChange.emit({ state: newValue });
+  }
+
+  private toggle() {
+    this.state = !this.state;
+    this.fwChange.emit({ state: this.state });
   }
 
   render() {
     return (
-      <div class="toggle-switch" onClick={e => this.toggle(e)}>
+      <div class={{
+        'toggle-switch': true,
+        [this.size]: true,
+      }} onClick={() => this.toggle()}>
         <input
-          ref={input => this.toggleInner = input}
-          name="valuePath"
+          name={this.name}
           type="checkbox"
-          
-          checked
-          class="checkboxClass"
-          data-test-value="hintText"
-          data-test-checkbox="labelId"
-          data-test-id="testId" />
-        <span class="slider"></span>
+          disabled={this.disabled}
+          checked={this.state}
+          class="checkboxClass" />
+        <span class={{
+          'slider': true,
+          [this.size]: true,
+        }}></span>
       </div>
     );
   }
