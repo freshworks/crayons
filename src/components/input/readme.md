@@ -12,6 +12,8 @@
 | `autocomplete` | `autocomplete` | Indicates whether the value of the control can be automatically completed by the browser.             | `"off" \| "on"`                    | `'off'`     |
 | `clearInput`   | `clear-input`  | If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input. | `boolean`                          | `false`     |
 | `disabled`     | `disabled`     | Indicates that this control is disabled                                                               | `boolean`                          | `false`     |
+| `iconLeft`     | `icon-left`    | Name of the icon for left side                                                                        | `string`                           | `undefined` |
+| `iconRight`    | `icon-right`   | Name of the icon for right side                                                                       | `string`                           | `undefined` |
 | `label`        | `label`        | The type of control to display. The default type is text.                                             | `string`                           | `''`        |
 | `maxlength`    | `maxlength`    | Max length of value                                                                                   | `number`                           | `undefined` |
 | `minlength`    | `minlength`    | Min length of value                                                                                   | `number`                           | `undefined` |
@@ -48,6 +50,19 @@ Type: `Promise<void>`
 
 
 
+
+## Dependencies
+
+### Depends on
+
+- [fw-icon](../icon)
+
+### Graph
+```mermaid
+graph TD;
+  fw-input --> fw-icon
+  style fw-input fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

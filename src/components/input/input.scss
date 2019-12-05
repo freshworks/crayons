@@ -174,3 +174,62 @@ label {
 :-moz-placeholder {
   color: $muted-secondary;
 }
+
+.icon {
+  position: absolute;
+  top: 8px;
+  left: 3px;
+  width: 25px;
+  height: 25px;
+  border-radius: 3px;
+  padding: 3px 0 0 6px;
+  display: block;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #ebeff3;
+
+  &.left {
+    left: 3px;
+
+    &::after {
+      left: 28px;
+      content: "";
+      width: 1px;
+      display: block;
+      height: 20px;
+      background-color: #ebeff3;
+      position: absolute;
+      top: 3px;
+    }
+  }
+
+  &.right {
+    left: auto;
+    right: 3px;
+
+    &::before {
+      right: 28px;
+      content: "";
+      width: 1px;
+      display: block;
+      height: 20px;
+      background-color: #ebeff3;
+      position: absolute;
+      top: 3px;
+    }
+  }
+}
+
+.left-icon {
+  input {
+    padding-left: 38px;
+  }
+}
+
+.right-icon {
+  input {
+    padding-right: 38px;
+  }
+}
