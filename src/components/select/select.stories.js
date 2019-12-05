@@ -41,7 +41,7 @@ export const WithOptionsAndSelectedKey = () =>
       <fw-select-option value="5">Tyrell</fw-select-option>
     </fw-select>
 
-    <fw-select label="Select the GOT house" type="time" force-select="false" required="true">
+    <fw-select label="Select the GOT house" force-select="false" required="true">
       <fw-select-option value="02:00">02:00</fw-select-option>
       <fw-select-option value="12:15">12:15</fw-select-option>
       <fw-select-option value="12:30">12:30</fw-select-option>

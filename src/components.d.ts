@@ -189,8 +189,8 @@ export namespace Components {
     * If `true`, the user must select some value. The default wont be shown
     */
     'forceSelect': boolean;
-    'getItems': () => Promise<Object[]>;
-    'getSelectedItem': () => Promise<Object>;
+    'getItems': () => Promise<any[]>;
+    'getSelectedItem': () => Promise<any>;
     /**
     * Label for the control
     */
@@ -214,7 +214,7 @@ export namespace Components {
     /**
     * Set the selected Value
     */
-    'selectedValue'?: string;
+    'selectedValue': string;
     'setItems': (items: any[]) => Promise<void>;
     'setSelectedItem': (value: string) => Promise<void>;
     /**

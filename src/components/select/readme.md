@@ -34,23 +34,23 @@
 
 ## Methods
 
-### `getItems() => Promise<Object[]>`
+### `getItems() => Promise<any[]>`
 
 
 
 #### Returns
 
-Type: `Promise<Object[]>`
+Type: `Promise<any[]>`
 
 
 
-### `getSelectedItem() => Promise<Object>`
+### `getSelectedItem() => Promise<any>`
 
 
 
 #### Returns
 
-Type: `Promise<Object>`
+Type: `Promise<any>`
 
 
 
