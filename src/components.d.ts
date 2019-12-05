@@ -218,6 +218,10 @@ export namespace Components {
     */
     'stateText': string;
     /**
+    * The type of control to display. The default type is text.
+    */
+    'type': 'text' | 'number';
+    /**
     * The value of the input. Similar to an input value
     */
     'value'?: string | null;
@@ -640,6 +644,10 @@ declare namespace LocalJSX {
     * This text will be displayed below the input box indicating the state/hint
     */
     'stateText'?: string;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'type'?: 'text' | 'number';
     /**
     * The value of the input. Similar to an input value
     */

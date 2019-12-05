@@ -28,6 +28,10 @@ export class Select {
    */
   @Prop() name = '';
   /**
+   * The type of control to display. The default type is text.
+   */
+  @Prop() type: 'text' | 'number' = 'text';
+  /**
    * Instructional text that shows before the selection is made
    */
   @Prop() placeholder?: string | null;
@@ -213,7 +217,7 @@ export class Select {
                 placeholder={this.placeholder || ''}
                 readOnly={this.readonly}
                 required={this.required}
-                type="text"
+                type={this.type}
                 value={value}
                 onFocus={e => this.innerOnFocus(e)}
                 onClick={() => this.innerOnClick()}
