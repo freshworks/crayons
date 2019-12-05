@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Host, Listen, Prop, State, Watch, h, Method } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Listen, Method, Prop, State, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-select',
@@ -62,7 +62,7 @@ export class Select {
   /**
    * Set the selected Value
    */
-  @Prop() selectedValue?: string = '';
+  @Prop() selectedValue = '';
 
   // Events
   @Event() fwChange: EventEmitter;
@@ -119,20 +119,18 @@ export class Select {
   componentDidLoad() {
     // tslint:disable-next-line: strict-boolean-conditions
     const selectOption = this.host.querySelector('fw-select-option');
-    if(!selectOption) {
+    if (!selectOption) {
       this.disabled = true;
       return;
     }
-    
-    if (this.forceSelect && !this.selectedValue) {
-      const selectOption = this.host.querySelector('fw-select-option');
+
+    if (this.forceSelect && this.selectedValue === '') {
       selectOption.selected = true;
       this.selectInput.value = selectOption.textContent;
       this.selectedValue = selectOption.value;
     }
 
-    if (this.selectedValue) {
-      const selectOption = this.host.querySelector('fw-select-option[value="' + this.selectedValue + '"');
+    if (this.selectedValue !== '') {
       if (selectOption) {
         selectOption.setAttribute('selected', 'true');
         this.value = selectOption.textContent;
@@ -141,8 +139,8 @@ export class Select {
   }
 
   @Method()
-  async getSelectedItem(): Promise<Object> {
-    if (this.selectedValue) {
+  async getSelectedItem(): Promise<any> {
+    if (this.selectedValue !== '') {
       const selectedElement = this.host.querySelector('fw-select-option[value="' + this.selectedValue + '"');
       if (selectedElement) {
         return Promise.resolve({ value: this.selectedValue, text: selectedElement.textContent });
@@ -152,6 +150,7 @@ export class Select {
 
   @Method()
   async setSelectedItem(value: string): Promise<void> {
+    // tslint:disable-next-line: strict-boolean-conditions
     if (value) {
       const selectedElement = this.host.querySelector('fw-select-option[value="' + value + '"');
       if (selectedElement) {
@@ -160,27 +159,28 @@ export class Select {
         this.value = selectedElement.textContent;
         return Promise.resolve();
       } else {
-        return Promise.reject(new Error("No matching select option found"));
+        return Promise.reject(new Error('No matching select option found'));
       }
     }
   }
 
   @Method()
-  async getItems(): Promise<Array<Object>> {
+  async getItems(): Promise<any[]> {
     const selectOptions = this.host.querySelectorAll('fw-select-option');
-    const items = Array.from(selectOptions).map(function (item) {
+    const items = Array.from(selectOptions).map(item => {
       return { value: item.getAttribute('value'), text: item.innerText };
     });
-    if (items)
+    if (items) {
       return Promise.resolve(items);
+    }
   }
 
   @Method()
-  async setItems(items: Array<any>): Promise<void> {
-    this.host.innerHTML = "";
-    this.selectInput.value = "";
-    this.selectedValue = "";
-    items.map((item) => {
+  async setItems(items: any[]): Promise<void> {
+    this.host.innerHTML = '';
+    this.selectInput.value = '';
+    this.selectedValue = '';
+    items.map(item => {
       const el = document.createElement('fw-select-option');
       el.value = item.value;
       el.innerText = item.text;

@@ -10,14 +10,14 @@ export class SelectOption {
    * The Key associated with this select option
    */
   @Prop({
-    reflect: true
+    reflect: true,
   })
   value: string;
   /**
    * Flag to indicate if the option is selected or not. A tick is shown
    */
   @Prop({
-    reflect: true
+    reflect: true,
   })
   selected = false;
 
