@@ -300,6 +300,7 @@ export namespace Components {
     */
     'wrap': 'soft' | 'hard';
   }
+  interface FwToggle {}
 }
 
 declare global {
@@ -370,6 +371,12 @@ declare global {
     prototype: HTMLFwTextareaElement;
     new (): HTMLFwTextareaElement;
   };
+
+  interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {}
+  var HTMLFwToggleElement: {
+    prototype: HTMLFwToggleElement;
+    new (): HTMLFwToggleElement;
+  };
   interface HTMLElementTagNameMap {
     'fw-button': HTMLFwButtonElement;
     'fw-checkbox': HTMLFwCheckboxElement;
@@ -382,6 +389,7 @@ declare global {
     'fw-select-option': HTMLFwSelectOptionElement;
     'fw-spinner': HTMLFwSpinnerElement;
     'fw-textarea': HTMLFwTextareaElement;
+    'fw-toggle': HTMLFwToggleElement;
   }
 }
 
@@ -724,6 +732,7 @@ declare namespace LocalJSX {
     */
     'wrap'?: 'soft' | 'hard';
   }
+  interface FwToggle {}
 
   interface IntrinsicElements {
     'fw-button': FwButton;
@@ -737,6 +746,7 @@ declare namespace LocalJSX {
     'fw-select-option': FwSelectOption;
     'fw-spinner': FwSpinner;
     'fw-textarea': FwTextarea;
+    'fw-toggle': FwToggle;
   }
 }
 
@@ -757,6 +767,7 @@ declare module "@stencil/core" {
       'fw-select-option': LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
       'fw-textarea': LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
+      'fw-toggle': LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
     }
   }
 }
