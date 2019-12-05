@@ -25,6 +25,8 @@ export class Icon {
   @State() svgHTML = '';
 
   private async getSVGHTML(iconName: string) {
+    // tslint:disable-next-line: no-console
+    console.log(getAssetPath(`./assets/icons/${iconName}.svg`));
     const response = await fetch(getAssetPath(`./assets/icons/${iconName}.svg`));
     const data = await response.text();
     return data;
