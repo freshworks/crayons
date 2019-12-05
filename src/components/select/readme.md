@@ -19,6 +19,7 @@
 | `selectedValue` | `selected-value` | Set the selected Value                                                    | `string`                           | `''`        |
 | `state`         | `state`          | The state of the control. Color changes accordingly                       | `"error" \| "normal" \| "warning"` | `'normal'`  |
 | `stateText`     | `state-text`     | This text will be displayed below the input box indicating the state/hint | `string`                           | `''`        |
+| `type`          | `type`           | The type of control to display. The default type is text.                 | `"number" \| "text"`               | `'text'`    |
 | `value`         | `value`          | The value of the input. Similar to an input value                         | `string`                           | `''`        |
 
 

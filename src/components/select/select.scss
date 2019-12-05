@@ -81,6 +81,7 @@ label {
     box-sizing: border-box;
     cursor: default;
     display: inline-block;
+    font-family: inherit;
 
     &:hover {
       border: 1px $input-hover-color solid;
