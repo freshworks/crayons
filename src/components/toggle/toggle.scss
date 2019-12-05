@@ -1,5 +1,7 @@
 @import "../../styles/theme";
 
+$toggle-on-bg: #2c5cc5;
+
 :host {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -15,8 +17,21 @@
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 28px;
-  height: 18px;
+
+  &.small {
+    width: 28px;
+    height: 12px;
+  }
+
+  &.medium {
+    width: 36px;
+    height: 16px;
+  }
+
+  &.large {
+    width: 44px;
+    height: 20px;
+  }
 
   .slider {
     position: absolute;
@@ -45,6 +60,57 @@
     transition: 0.2s;
   }
 
+  .slider.small {
+    width: 28px;
+    height: 12px;
+
+    &::before {
+      width: 16px;
+      height: 16px;
+      left: 0;
+      bottom: -2px;
+      border: solid 1px #647a8e;
+    }
+
+    &:hover::before {
+      box-shadow: 0 0 4px 4px rgba(87, 108, 125, 0.3);
+    }
+  }
+
+  .slider.medium {
+    width: 36px;
+    height: 16px;
+
+    &::before {
+      width: 20px;
+      height: 20px;
+      left: 0;
+      bottom: -2px;
+      border: solid 1px #647a8e;
+    }
+
+    &:hover::before {
+      box-shadow: 0 0 4px 4px rgba(87, 108, 125, 0.3);
+    }
+  }
+
+  .slider.large {
+    width: 44px;
+    height: 20px;
+
+    &::before {
+      width: 24px;
+      height: 24px;
+      left: 0;
+      bottom: -2px;
+      border: solid 1px #647a8e;
+    }
+
+    &:hover::before {
+      box-shadow: 0 0 5px 5px rgba(87, 108, 125, 0.3);
+    }
+  }
+
   input {
     display: none;
   }
@@ -53,10 +119,37 @@
     background-color: $toggle-on-bg;
   }
 
-  input:checked + .slider::before {
-    -webkit-transform: translateX(8px);
-    -ms-transform: translateX(8px);
-    transform: translateX(8px);
+  input:checked + .slider.small::before {
+    -webkit-transform: translateX(12px);
+    -ms-transform: translateX(12px);
+    transform: translateX(12px);
+    border: solid 1px #2c5cc5;
+  }
+
+  input:checked + .slider.small:hover::before {
+    box-shadow: 0 0 3px 3px rgba(40, 61, 165, 0.3);
+  }
+
+  input:checked + .slider.medium::before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
+    border: solid 1px #2c5cc5;
+  }
+
+  input:checked + .slider.medium:hover::before {
+    box-shadow: 0 0 4px 4px rgba(40, 61, 165, 0.3);
+  }
+
+  input:checked + .slider.large::before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+    border: solid 1px #2c5cc5;
+  }
+
+  input:checked + .slider.large:hover::before {
+    box-shadow: 0 0 5px 5px rgba(40, 61, 165, 0.3);
   }
 
   input:disabled + .slider {

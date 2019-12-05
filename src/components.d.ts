@@ -300,7 +300,21 @@ export namespace Components {
     */
     'wrap': 'soft' | 'hard';
   }
-  interface FwToggle {}
+  interface FwToggle {
+    /**
+    * Is it disabled
+    */
+    'disabled': boolean;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name': string;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'size': 'small' | 'medium' | 'large';
+    'state': boolean;
+  }
 }
 
 declare global {
@@ -732,7 +746,22 @@ declare namespace LocalJSX {
     */
     'wrap'?: 'soft' | 'hard';
   }
-  interface FwToggle {}
+  interface FwToggle {
+    /**
+    * Is it disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name'?: string;
+    'onFwChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'size'?: 'small' | 'medium' | 'large';
+    'state'?: boolean;
+  }
 
   interface IntrinsicElements {
     'fw-button': FwButton;
