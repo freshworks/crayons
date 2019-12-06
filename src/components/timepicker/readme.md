@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property     | Attribute     | Description                             | Type     | Default                                      |
-| ------------ | ------------- | --------------------------------------- | -------- | -------------------------------------------- |
-| `hourFormat` | `hour-format` | Format of the time for input and output | `string` | `'hh:mm p'`                                  |
-| `interval`   | `interval`    |                                         | `number` | `30`                                         |
-| `maxTime`    | `max-time`    | Max time                                | `string` | `this.is12HourFormat ? '11:30 PM' : '23:30'` |
-| `minTime`    | `min-time`    | Min  time                               | `string` | `this.is12HourFormat ? '12:00 AM' : '00:00'` |
+| Property     | Attribute     | Description                             | Type     | Default                                        |
+| ------------ | ------------- | --------------------------------------- | -------- | ---------------------------------------------- |
+| `hourFormat` | `hour-format` | Format of the time for input and output | `string` | `'hh:mm p'`                                    |
+| `interval`   | `interval`    |                                         | `number` | `30`                                           |
+| `maxTime`    | `max-time`    | Max time                                | `string` | `this.isMeridianFormat ? '11:30 PM' : '23:30'` |
+| `minTime`    | `min-time`    | Min  time                               | `string` | `this.isMeridianFormat ? '12:00 AM' : '00:00'` |
+| `value`      | `value`       |                                         | `string` | `undefined`                                    |
 
 
 ## Dependencies

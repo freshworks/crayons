@@ -14,90 +14,136 @@ export class Timepicker {
   /**
    * Represent the intervals and can be a number or array of numbers representing the minute values in an hour
    */
-  @State() is12HourFormat?: boolean = this.hourFormat === 'hh:mm p';
-  @State() minTimeValue?: string;
-  @State() maxTimeValue?: string;
-  @Prop() interval = 30;
+  @State() isMeridianFormat?: boolean = this.hourFormat === 'hh:mm p';
+  
+  @State() minTimeObj;
+  @State() maxTimeObj;
+
+  @Prop() value?: string;
+
+  @Prop() interval?: number = 30;
+  
 
   /**
    * Min  time
    */
-  @Prop() minTime?: string = this.is12HourFormat ? '12:00 AM' : '00:00';
+  @Prop() minTime?: string = this.isMeridianFormat ? '12:00 AM' : '00:00';
   /**
    * Max time
    */
-  @Prop() maxTime?: string = this.is12HourFormat ? '11:30 PM' : '23:30';
+  @Prop() maxTime?: string = this.isMeridianFormat ? '11:30 PM' : '23:30';
 
-  private isPrimaryMeridian = time => time.includes('PM');
-
-  private getLabel = (currentTime) => {
-    const hours = currentTime.split(':')[0];
-    const mins = currentTime.split(':')[1];
-    let modifiedHours = hours < 10 ? `0${hours}` : `${hours}`;
-    let modifiedMins = mins < 10 ? `0${mins}` : `${mins}`;
-    if(this.is12HourFormat) {
-      const meridian = hours < 12 ? 'AM' : 'PM';
-      if(modifiedHours === '00') {
-        modifiedHours = '12'
-      } 
-      else if(Number(modifiedHours) > 12) {
-        modifiedHours = `${Number(modifiedHours) - 12}`;
-      }
-      return `${modifiedHours}:${modifiedMins} ${meridian}`;
-    }
-    return `${modifiedMins}:${modifiedMins}`;
+  private isPrimaryMeridian(time:string) {
+    return time.includes('PM');
   }
 
+  private padZeroToTime(hours:number, mins:number) {
+    let hoursStr = `${hours}`, minsStr = `${mins}`;
+    if(hours < 10) {
+      hoursStr = `0${hours}`;
+    }
 
-  private getNextTime = (currentTime) => {
-    const hours = Number(currentTime.split(':')[0]);
-    const mins = Number(currentTime.split(':')[1]);
-    const currentTimeInMins = (hours * 60) + mins;
-    const nextTimeInMins = currentTimeInMins + this.interval;
-    const nextTimeHours = Math.floor( nextTimeInMins / 60 );
-    const nextTimeMins = nextTimeInMins % 60;
-    return `${nextTimeHours}:${nextTimeMins}`;
+    if(mins < 10) {
+      minsStr = `0${mins}`;
+    }
+    return `${hoursStr}:${minsStr}`;
+  }
+
+  private getHoursMinutes(time:string) {
+    const hoursMins = time.split(':');
+    const hours = Number(hoursMins[0]);
+    const mins = Number(hoursMins[1].split(' ')[0]);
+    return {
+      hours, 
+      mins
+    }
+  }
+
+  private getTimeInMeridian(timeInMinutes:number) {
+    let hours = Math.floor(timeInMinutes / 60);
+    let mins = timeInMinutes % 60;
+    if(hours >= 12) {
+      hours = hours === 12 ? hours : (hours - 12);
+      return `${this.padZeroToTime(hours, mins)} PM`;
+    }
+
+    if(hours === 0) {
+      hours += 12;
+    }
+    return `${this.padZeroToTime(hours, mins)} AM`;
+  }
+
+  private getTimeInNonMeridian(time:string) {
+    let { hours, mins } = this.getHoursMinutes(time);
+    if(!this.isPrimaryMeridian(time)) {
+      if(hours === 12) {
+        hours -= 12;
+      }
+      return this.padZeroToTime(hours, mins);
+    }
+    else {
+      if(hours !== 12) {
+        hours += 12;
+      }
+    }
+    return this.padZeroToTime(hours, mins);
+}
+
+  private getTimeInMins(time:string) {
+    const nonMeridianTime = this.getTimeInNonMeridian(time);
+    const { hours,mins } = this.getHoursMinutes(nonMeridianTime);
+    return (hours * 60) + mins;
+  }
+
+  private setMinMaxTimeObjs() {
+
+    this.minTimeObj = {
+      timeInMinutes : this.getTimeInMins(this.minTime),
+      nonMeridianTime : this.getTimeInNonMeridian(this.minTime),
+    };
+
+    this.maxTimeObj = {
+      timeInMinutes : this.getTimeInMins(this.maxTime),
+      nonMeridianTime : this.getTimeInNonMeridian(this.maxTime),
+    };
+    
   }
 
   private setTimeValues = () => {
-    let currentTime = this.minTimeValue;
+    let currentTime = this.minTimeObj.timeInMinutes;
     do {
-      const label = this.getLabel(currentTime);
-      const value = currentTime;
-
+      const timeInMeridian = this.getTimeInMeridian(currentTime);
       this.timeValues.push({
-        label,
-        value
+        timeInMinutes: currentTime,
+        label: {
+          meridian: timeInMeridian,
+          nonMeridian: this.getTimeInNonMeridian(timeInMeridian)
+        }
       });
-      currentTime = this.getNextTime(value);
-    } while(currentTime !== this.maxTimeValue)
-    const label = this.getLabel(currentTime);
-    const value = currentTime
-    this.timeValues.push({
-      label,
-      value
-    });
+      currentTime += this.interval;
+    } while(currentTime <= this.maxTimeObj.timeInMinutes);
   }
+
+  private currentTimeLabel(time:any) {
+    return this.isMeridianFormat ? time.label.meridian : time.label.nonMeridian;
+  }
+
+  private currentTimeValue(time:any) {
+    return time.label.meridian;
+  }
+
   componentWillLoad() {
-  if (this.is12HourFormat) {
-    this.minTimeValue = this.minTime.split(' ')[0];
-    this.maxTimeValue = this.maxTime.split(' ')[0];
-      const correctedMinHours = this.isPrimaryMeridian(this.minTime) ? 
-                             Number(this.minTime.split(':')[0]) + 1 :
-                             Number(this.minTime.split(':')[0]) - 12;
-      this.minTimeValue = `${correctedMinHours}:${Number(this.minTimeValue.split(':')[1])}`;
-      const correctedMaxHours = Number(this.maxTime.split(':')[0]) + 12;
-      this.maxTimeValue = `${correctedMaxHours}:${Number(this.maxTimeValue.split(':')[1])}`;
+    this.setMinMaxTimeObjs();
+    this.setTimeValues();
+    
   }
-  this.setTimeValues();
-}
 
   render() {
     return (
-      <fw-select label="Select time">
+      <fw-select>
           {
            this.timeValues.map(time =>
-              <fw-select-option value={time.value}> { time.label } </fw-select-option>
+              <fw-select-option value = {this.currentTimeValue(time)}> { this.currentTimeLabel(time) } </fw-select-option>
             )
           }
       </fw-select>

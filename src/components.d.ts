@@ -321,7 +321,7 @@ export namespace Components {
     * Format of the time for input and output
     */
     'hourFormat': string;
-    'interval': number;
+    'interval'?: number;
     /**
     * Max time
     */
@@ -330,6 +330,22 @@ export namespace Components {
     * Min  time
     */
     'minTime'?: string;
+    'value'?: string;
+  }
+  interface FwToggle {
+    /**
+    * Is it disabled
+    */
+    'disabled': boolean;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name': string;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'size': 'small' | 'medium' | 'large';
+    'state': boolean;
   }
 }
 
@@ -407,6 +423,12 @@ declare global {
     prototype: HTMLFwTimepickerElement;
     new (): HTMLFwTimepickerElement;
   };
+
+  interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {}
+  var HTMLFwToggleElement: {
+    prototype: HTMLFwToggleElement;
+    new (): HTMLFwToggleElement;
+  };
   interface HTMLElementTagNameMap {
     'fw-button': HTMLFwButtonElement;
     'fw-checkbox': HTMLFwCheckboxElement;
@@ -420,6 +442,7 @@ declare global {
     'fw-spinner': HTMLFwSpinnerElement;
     'fw-textarea': HTMLFwTextareaElement;
     'fw-timepicker': HTMLFwTimepickerElement;
+    'fw-toggle': HTMLFwToggleElement;
   }
 }
 
@@ -788,6 +811,23 @@ declare namespace LocalJSX {
     * Min  time
     */
     'minTime'?: string;
+    'value'?: string;
+  }
+  interface FwToggle {
+    /**
+    * Is it disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * The name of the control, which is submitted with the form data.
+    */
+    'name'?: string;
+    'onFwChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * The type of control to display. The default type is text.
+    */
+    'size'?: 'small' | 'medium' | 'large';
+    'state'?: boolean;
   }
 
   interface IntrinsicElements {
@@ -803,6 +843,7 @@ declare namespace LocalJSX {
     'fw-spinner': FwSpinner;
     'fw-textarea': FwTextarea;
     'fw-timepicker': FwTimepicker;
+    'fw-toggle': FwToggle;
   }
 }
 
@@ -824,6 +865,7 @@ declare module "@stencil/core" {
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
       'fw-textarea': LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
       'fw-timepicker': LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
+      'fw-toggle': LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
     }
   }
 }
