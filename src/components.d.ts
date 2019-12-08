@@ -254,6 +254,17 @@ export namespace Components {
     */
     'size': string;
   }
+  interface FwTab {
+    /**
+    * The Message
+    */
+    'message': string;
+    /**
+    * The Title
+    */
+    'title': string;
+  }
+  interface FwTabs {}
   interface FwTextarea {
     /**
     * Number of columns
@@ -418,6 +429,18 @@ declare global {
     new (): HTMLFwSpinnerElement;
   };
 
+  interface HTMLFwTabElement extends Components.FwTab, HTMLStencilElement {}
+  var HTMLFwTabElement: {
+    prototype: HTMLFwTabElement;
+    new (): HTMLFwTabElement;
+  };
+
+  interface HTMLFwTabsElement extends Components.FwTabs, HTMLStencilElement {}
+  var HTMLFwTabsElement: {
+    prototype: HTMLFwTabsElement;
+    new (): HTMLFwTabsElement;
+  };
+
   interface HTMLFwTextareaElement extends Components.FwTextarea, HTMLStencilElement {}
   var HTMLFwTextareaElement: {
     prototype: HTMLFwTextareaElement;
@@ -446,6 +469,8 @@ declare global {
     'fw-select': HTMLFwSelectElement;
     'fw-select-option': HTMLFwSelectOptionElement;
     'fw-spinner': HTMLFwSpinnerElement;
+    'fw-tab': HTMLFwTabElement;
+    'fw-tabs': HTMLFwTabsElement;
     'fw-textarea': HTMLFwTextareaElement;
     'fw-timepicker': HTMLFwTimepickerElement;
     'fw-toggle': HTMLFwToggleElement;
@@ -741,6 +766,19 @@ declare namespace LocalJSX {
     */
     'size'?: string;
   }
+  interface FwTab {
+    /**
+    * The Message
+    */
+    'message'?: string;
+    /**
+    * The Title
+    */
+    'title'?: string;
+  }
+  interface FwTabs {
+    'onChange'?: (event: CustomEvent<any>) => void;
+  }
   interface FwTextarea {
     /**
     * Number of columns
@@ -853,6 +891,8 @@ declare namespace LocalJSX {
     'fw-select': FwSelect;
     'fw-select-option': FwSelectOption;
     'fw-spinner': FwSpinner;
+    'fw-tab': FwTab;
+    'fw-tabs': FwTabs;
     'fw-textarea': FwTextarea;
     'fw-timepicker': FwTimepicker;
     'fw-toggle': FwToggle;
@@ -875,6 +915,8 @@ declare module "@stencil/core" {
       'fw-select': LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
       'fw-select-option': LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
+      'fw-tab': LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
+      'fw-tabs': LocalJSX.FwTabs & JSXBase.HTMLAttributes<HTMLFwTabsElement>;
       'fw-textarea': LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
       'fw-timepicker': LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
       'fw-toggle': LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
