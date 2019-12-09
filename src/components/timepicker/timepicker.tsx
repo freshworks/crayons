@@ -163,7 +163,7 @@ export class Timepicker {
       <fw-select onFwChange = { this.setTimeValue }>
           {
            this.timeValues.map(time =>
-              <fw-select-option value = {this.currentTimeLabel(time)}> { this.currentTimeLabel(time) } </fw-select-option>
+              <fw-select-option value = {this.currentTimeValue(time)}> { this.currentTimeLabel(time) } </fw-select-option>
             )
           }
       </fw-select>
