@@ -316,6 +316,28 @@ export namespace Components {
     */
     'wrap': 'soft' | 'hard';
   }
+  interface FwTimepicker {
+    /**
+    * Format of the time for input and output
+    */
+    'hourFormat': string;
+    /**
+    * interval bw two time in minutes
+    */
+    'interval': number;
+    /**
+    * Max time
+    */
+    'maxTime'?: string;
+    /**
+    * Min  time
+    */
+    'minTime'?: string;
+    /**
+    * time output value
+    */
+    'timeValue'?: string;
+  }
   interface FwToggle {
     /**
     * Is it disabled
@@ -402,6 +424,12 @@ declare global {
     new (): HTMLFwTextareaElement;
   };
 
+  interface HTMLFwTimepickerElement extends Components.FwTimepicker, HTMLStencilElement {}
+  var HTMLFwTimepickerElement: {
+    prototype: HTMLFwTimepickerElement;
+    new (): HTMLFwTimepickerElement;
+  };
+
   interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {}
   var HTMLFwToggleElement: {
     prototype: HTMLFwToggleElement;
@@ -419,6 +447,7 @@ declare global {
     'fw-select-option': HTMLFwSelectOptionElement;
     'fw-spinner': HTMLFwSpinnerElement;
     'fw-textarea': HTMLFwTextareaElement;
+    'fw-timepicker': HTMLFwTimepickerElement;
     'fw-toggle': HTMLFwToggleElement;
   }
 }
@@ -774,6 +803,28 @@ declare namespace LocalJSX {
     */
     'wrap'?: 'soft' | 'hard';
   }
+  interface FwTimepicker {
+    /**
+    * Format of the time for input and output
+    */
+    'hourFormat'?: string;
+    /**
+    * interval bw two time in minutes
+    */
+    'interval'?: number;
+    /**
+    * Max time
+    */
+    'maxTime'?: string;
+    /**
+    * Min  time
+    */
+    'minTime'?: string;
+    /**
+    * time output value
+    */
+    'timeValue'?: string;
+  }
   interface FwToggle {
     /**
     * Is it disabled
@@ -803,6 +854,7 @@ declare namespace LocalJSX {
     'fw-select-option': FwSelectOption;
     'fw-spinner': FwSpinner;
     'fw-textarea': FwTextarea;
+    'fw-timepicker': FwTimepicker;
     'fw-toggle': FwToggle;
   }
 }
@@ -824,6 +876,7 @@ declare module "@stencil/core" {
       'fw-select-option': LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
       'fw-textarea': LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
+      'fw-timepicker': LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
       'fw-toggle': LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
     }
   }

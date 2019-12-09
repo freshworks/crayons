@@ -25,11 +25,13 @@
 ### Used by
 
  - [fw-select](../select)
+ - [fw-timepicker](../timepicker)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-select --> fw-select-option
+  fw-timepicker --> fw-select-option
   style fw-select-option fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
