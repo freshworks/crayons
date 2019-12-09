@@ -321,7 +321,10 @@ export namespace Components {
     * Format of the time for input and output
     */
     'hourFormat': string;
-    'interval'?: number;
+    /**
+    * interval bw two time in minutes
+    */
+    'interval': number;
     /**
     * Max time
     */
@@ -330,7 +333,10 @@ export namespace Components {
     * Min  time
     */
     'minTime'?: string;
-    'value'?: string;
+    /**
+    * time output value
+    */
+    'timeValue'?: string;
   }
   interface FwToggle {
     /**
@@ -802,6 +808,9 @@ declare namespace LocalJSX {
     * Format of the time for input and output
     */
     'hourFormat'?: string;
+    /**
+    * interval bw two time in minutes
+    */
     'interval'?: number;
     /**
     * Max time
@@ -811,7 +820,10 @@ declare namespace LocalJSX {
     * Min  time
     */
     'minTime'?: string;
-    'value'?: string;
+    /**
+    * time output value
+    */
+    'timeValue'?: string;
   }
   interface FwToggle {
     /**

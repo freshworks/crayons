@@ -8,3 +8,7 @@ export default {
 };
 
 export const Default = () => '<fw-timepicker></fw-timepicker>';
+
+export const interval = () => '<fw-timepicker interval=45></fw-timepicker>';
+
+export const startEnd = () => '<fw-timepicker min-time="04:30 AM" max-time="08:30 AM"></fw-timepicker>';
