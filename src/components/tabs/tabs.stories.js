@@ -16,7 +16,10 @@ export const Default = () =>
     </section>
   </fw-tab>
   <fw-tab title="Tab 2">
-    <p>This is sample markup for TAB 2</p>
+    <fw-button expand>Default</fw-button>
+    <fw-button color="primary" expand>Primary</fw-button>
+    <fw-button color="secondary" expand>Secondary</fw-button>
+    <fw-button color="danger" expand>Danger</fw-button>
   </fw-tab>
   <fw-tab title="Tab 3" disabled>
     <p>This is sample markup for TAB 3</p>

@@ -22,12 +22,7 @@ export class Tabs {
   tabs = Array.from(this.el.children);
 
   @State()
-  fuck : String = '<p> this better fucking work </p>';
-
-  @State()
   activeTabIndex = 0;
-
-
 
   @Event({ eventName: 'change' })
   onChange: EventEmitter;
@@ -58,7 +53,7 @@ export class Tabs {
           {this.tabs.map((tab, index) =>
             <div role="tabpanel" id={'tab-' + index} class={'tabs__content__pane tabs__content__pane--fade ' + (index === this.activeTabIndex ? 'in active' : '')}>
               <div innerHTML={tab.innerHTML}>
-                
+
               </div>
             </div>
           )}
