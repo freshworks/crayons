@@ -1,17 +1,17 @@
 import {
   Component,
   Element,
-  EventEmitter,
   Event,
-  h,
+  EventEmitter,
   Listen,
-  State
+  State,
+  h
 } from '@stencil/core';
 
 @Component({
   tag: 'fw-tabs',
   styleUrl: 'tabs.scss',
-  shadow: true
+  shadow: true,
 })
 export class Tabs {
 
@@ -42,7 +42,7 @@ export class Tabs {
       <div class="tabs">
         <ul role="tablist" class="tabs__items">
           {this.tabs.map((tab, index) =>
-            <li onClick={(event) => this.toggelLink(event, index)} class="tabs__item contacts-tab_item text--xsmall text--uppercase ember-view">
+            <li onClick={event => this.toggelLink(event, index)} class="tabs__item contacts-tab_item text--xsmall text--uppercase ember-view">
               <a href={'#tab-' + index} class={'tabs__item__nav ' + (index === this.activeTabIndex ? 'active' : '')}>
                 <span class="tab-title--tab-icon">
                   <span class="tab-title">{tab.getAttribute('title')}</span>
@@ -59,7 +59,7 @@ export class Tabs {
           )}
         </div>
       </div>
-      
+
     );
   }
 }

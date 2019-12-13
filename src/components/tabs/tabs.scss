@@ -74,12 +74,10 @@ $tab-link: $app-muted-grey;
   &__content {
     clear: both;
     float: none;
-    
 
     &__pane {
       display: none;
       padding-top: 5px;
-
 
       &.active {
         display: block;
