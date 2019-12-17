@@ -2,6 +2,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Tab',
+  component: 'fw-tab',
   parameters: {
     notes: readme,
   }

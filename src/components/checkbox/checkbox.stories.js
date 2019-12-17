@@ -2,6 +2,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Checkbox',
+  component: 'fw-checkbox',
   parameters: {
     notes: readme,
   }

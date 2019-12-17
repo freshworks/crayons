@@ -2,6 +2,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Spinner',
+  component: 'fw-spinner',
   parameters: {
     notes: readme,
   }

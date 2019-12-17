@@ -2,6 +2,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Toggle',
+  component: 'fw-toggle',
   parameters: {
     notes: readme,
   }

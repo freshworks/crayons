@@ -2,6 +2,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Select Option',
+  component: 'fw-select-option',
   parameters: {
     notes: readme,
   }
