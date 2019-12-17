@@ -3,6 +3,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Radio Group',
+  component: 'fw-radio-group',
   parameters: {
     notes: readme,
   }

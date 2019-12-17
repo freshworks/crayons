@@ -2,6 +2,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Button',
+  component: 'fw-button',
   parameters: {
     notes: readme,
   }

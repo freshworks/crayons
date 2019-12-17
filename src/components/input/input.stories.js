@@ -3,6 +3,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Input',
+  component: 'fw-input',
   parameters: {
     notes: readme,
   }

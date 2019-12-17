@@ -3,6 +3,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Label',
+  component: 'fw-label',
   parameters: {
     notes: readme,
   }

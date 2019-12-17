@@ -2,6 +2,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'Timepicker',
+  component: 'fw-timepicker',
   parameters: {
     notes: readme,
   }

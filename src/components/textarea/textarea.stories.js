@@ -2,6 +2,7 @@ import readme from "./readme.md";
 
 export default { 
   title: 'TextArea',
+  component: 'fw-textarea',
   parameters: {
     notes: readme,
   }

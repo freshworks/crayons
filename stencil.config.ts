@@ -3,6 +3,8 @@ import { postcss } from '@stencil/postcss';
 import { sass } from '@stencil/sass';
 import autoprefixer from 'autoprefixer';
 
+import { generateJsonDocs } from './customElementDocGenerator';
+
 export const config: Config = {
   namespace: 'freshworks-ui-kit',
   outputTargets: [
@@ -12,6 +14,11 @@ export const config: Config = {
     },
     {
       type: 'docs-readme',
+    },
+    {
+      type: 'custom',
+      generator: generateJsonDocs,
+      name: 'custom-element-docs',
     },
     {
       type: 'www',
