@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description           | Type     | Default     |
-| -------- | --------- | --------------------- | -------- | ----------- |
-| `type`   | `type`    | The type of the label | `string` | `'default'` |
-| `value`  | `value`   | The text in the label | `string` | `''`        |
+| Property | Attribute | Description           | Type                                                           | Default    |
+| -------- | --------- | --------------------- | -------------------------------------------------------------- | ---------- |
+| `color`  | `color`   | The type of the label | `"blue" \| "green" \| "grey" \| "normal" \| "red" \| "yellow"` | `'normal'` |
+| `value`  | `value`   | The text in the label | `string`                                                       | `''`       |
 
 
 ----------------------------------------------

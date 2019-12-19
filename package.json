@@ -37,7 +37,6 @@
     "@stencil/sass": "^1.0.1",
     "@storybook/addon-actions": "^5.2.1",
     "@storybook/addon-docs": "^5.2.8",
-    "@storybook/addon-events": "^5.2.8",
     "@storybook/addon-jest": "^5.2.1",
     "@storybook/addon-storysource": "^5.2.8",
     "@storybook/addon-viewport": "^5.2.1",

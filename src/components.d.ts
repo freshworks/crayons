@@ -14,7 +14,7 @@ export namespace Components {
     /**
     * The theme of the button, Values are : `primary`, `secondary`, `danger`
     */
-    'color': 'primary' | 'secondary' | 'danger';
+    'color': 'primary' | 'secondary' | 'danger' | 'link' | 'text';
     /**
     * Sets the button as disabled when set to true.
     */
@@ -26,7 +26,7 @@ export namespace Components {
     /**
     * The size of the button, Values are : `normal`, `mini`
     */
-    'size': 'normal' | 'mini' | 'icon';
+    'size': 'normal' | 'mini' | 'small';
     /**
     * The native button type: values: `button`, `reset`, `submit`
     */
@@ -138,7 +138,7 @@ export namespace Components {
     /**
     * The type of the label
     */
-    'type': string;
+    'color': 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'normal';
     /**
     * The text in the label
     */
@@ -246,7 +246,7 @@ export namespace Components {
   }
   interface FwSpinner {
     /**
-    * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+    * The color of the spinner
     */
     'color': string;
     /**
@@ -482,7 +482,7 @@ declare namespace LocalJSX {
     /**
     * The theme of the button, Values are : `primary`, `secondary`, `danger`
     */
-    'color'?: 'primary' | 'secondary' | 'danger';
+    'color'?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
     /**
     * Sets the button as disabled when set to true.
     */
@@ -506,7 +506,7 @@ declare namespace LocalJSX {
     /**
     * The size of the button, Values are : `normal`, `mini`
     */
-    'size'?: 'normal' | 'mini' | 'icon';
+    'size'?: 'normal' | 'mini' | 'small';
     /**
     * The native button type: values: `button`, `reset`, `submit`
     */
@@ -630,7 +630,7 @@ declare namespace LocalJSX {
     /**
     * The type of the label
     */
-    'type'?: string;
+    'color'?: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'normal';
     /**
     * The text in the label
     */
@@ -758,7 +758,7 @@ declare namespace LocalJSX {
   }
   interface FwSpinner {
     /**
-    * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+    * The color of the spinner
     */
     'color'?: string;
     /**

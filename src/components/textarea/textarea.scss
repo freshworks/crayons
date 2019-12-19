@@ -1,26 +1,16 @@
-@import "../../styles/theme";
+@import "../../styles/freshworks";
 
-$label-font: $font-stack-sans !default;
-$placeholder-color: $muted-secondary;
-$help-color: $muted-secondary;
-$disabled-color: $input-border;
-$error-color: $app-error;
-$input-border: #cfd7df;
-$input-hover-color: #475867;
-$input-focus-color: #2c5cc5;
-$input-bg: #fff;
-$input-color: $app-primary-black;
-
-:host {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-*,
-::after,
-::before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+:root {
+  --label-font: var(--font-stack);
+  --input-bg: var(--color-milk);
+  --help-color: var(--color-smoke-300);
+  --error-color: var(--color-persimmon-800);
+  --input-color: var(--color-elephant-900);
+  --input-disabled-bg: var(--color-smoke-25);
+  --input-hover-color: var(--color-smoke-700);
+  --input-focus-color: var(--color-azure-800);
+  --input-border: var(--color-smoke-100);
+  --warning-color: var(--color-casablanca-100);
 }
 
 @mixin stateStyle($_color) {
@@ -47,9 +37,9 @@ $input-color: $app-primary-black;
 }
 // Label Style
 label {
-  font-size: 12px;
-  color: $label-default;
-  font-weight: $font-weight-semibold;
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-500);
+  color: var(--color-elephant-900);
   margin-bottom: 0;
   padding-bottom: 4px;
   padding-left: 2px;
@@ -60,10 +50,9 @@ label {
     position: relative;
     display: inline-block;
     top: 2px;
-    font-size: 14px;
-    color: $app-error;
+    font-size: var(--font-size-14);
+    color: var(--error-color);
     padding-left: 2px;
-    font-weight: $font-weight-bold;
   }
 }
 
@@ -75,100 +64,73 @@ label {
 
   textarea {
     border: 0;
-    border: 1px solid $input-border;
+    border: 1px solid var(--input-border);
     margin: 5px 0 0;
     border-radius: 4px;
     padding: 4px 12px 5px;
-    background-color: $app-light-bg;
+    background-color: var(--input-bg);
     box-shadow: none;
     min-height: 24px;
-    font-size: 12px;
-    font-weight: $font-weight-semibold;
+    font-size: var(--font-size-12);
+    font-weight: var(--font-weight-500);
     letter-spacing: 0;
     line-height: 20px;
-    color: $input-color;
-    box-sizing: border-box;
     cursor: text;
     display: inline-block;
 
     &:hover {
-      border: 1px $input-hover-color solid;
+      border: 1px var(--input-hover-color) solid;
       transition: 0.2s linear;
     }
 
     &:focus {
       outline: none;
-      background: $input-bg;
-      background-color: $app-light-bg;
+      background: var(--input-bg);
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px $input-focus-color;
+      box-shadow: 0 0 0 2px var(--input-focus-color);
     }
 
     &[disabled] {
-      color: $disabled-color;
-      background-color: $input-disabled-bg;
+      color: var(--color-smoke-50);
+      background-color: var(--input-disabled-bg);
       border-style: solid;
-      pointer-events: none;
 
       &:hover {
-        border: 1px solid $input-border;
+        border: 1px solid var(--input-border);
+        cursor: not-allowed;
       }
-    }
-  }
-
-  // Clear button
-  .clear-button {
-    top: 13px;
-    position: absolute;
-    right: 10px;
-    display: inline-block;
-
-    &:hover {
-      cursor: pointer;
-      pointer-events: initial;
-    }
-
-    .clear-button-img {
-      width: 15px;
-      height: 15px;
     }
   }
 
   //Help Block
   & + .help-block {
-    font-family: $label-font;
-    font-size: 11px;
+    font-size: var(--font-size-12);
     margin-top: 3px;
-    color: $help-color;
+    color: var(--help-color);
     position: inherit;
     margin-bottom: 0;
     display: block;
     padding-left: 2px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   &.error {
-    @include stateStyle($error-color);
+    @include stateStyle(var(--error-color));
   }
 
   &.warning {
-    @include stateStyle($warning-message-marker);
+    @include stateStyle(var(--warning-color));
   }
 }
 
-::-webkit-input-placeholder {
-  color: $muted-secondary;
-}
-
-::-moz-placeholder {
-  color: $muted-secondary;
+::placeholder {
+  color: var(--color-smoke-300);
+  opacity: 1;
 }
 
 :-ms-input-placeholder {
-  color: $muted-secondary;
+  color: var(--color-smoke-300);
 }
 
-:-moz-placeholder {
-  color: $muted-secondary;
+::-ms-input-placeholder {
+  color: var(--color-smoke-300);
 }

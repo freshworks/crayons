@@ -12,9 +12,9 @@ export class Spinner {
   @Prop() size = 'default';
 
   /**
-   * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+   * The color of the spinner
    */
-  @Prop() color = '#4c74ce';
+  @Prop() color = '';
 
   sizeMap = {
     small: 12,
@@ -35,12 +35,20 @@ export class Spinner {
               class={`spinner ${this.size}`}
               style={
                 {
-                  width: `${diameter}px`,
-                  height: `${diameter}px`,
+                  'width': `${diameter}px`,
+                  'height': `${diameter}px`,
+                  '--spinner-color': `${this.color}`,
                 }
               }
               viewBox={`0 0 50 50`}>
-              <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke={this.color}></circle>
+              <circle
+                class="path"
+                cx="25"
+                cy="25"
+                r="20"
+                fill="none"
+                stroke-width="5">
+              </circle>
           </svg>;
   }
 }

@@ -20,7 +20,7 @@ export class Icon {
   /**
    * The color of the icon in CSS standard color
    */
-  @Prop() color = '#12344D';
+  @Prop() color = '';
 
   @State() svgHTML = '';
 
@@ -46,9 +46,9 @@ export class Icon {
       <div class="icon"
         style={
           {
-            color: `${this.color}`,
-            height: `${this.size}px`,
-            width: `${this.size}px`,
+            '--icon-color': `${this.color}`,
+            'height': `${this.size}px`,
+            'width': `${this.size}px`,
           }
         }
         innerHTML={this.svgHTML}/>

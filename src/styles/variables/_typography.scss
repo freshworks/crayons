@@ -1,0 +1,40 @@
+:root {
+
+  --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  //=== Font weights ===//
+  --font-weight-400: 400;
+  --font-weight-300: 300;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+  --font-weight-700: 700;
+  //=== Font weights ===//
+
+  //=== Font sizes ===//
+  --font-size-10: 10px;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+  //=== Font sizes ===//
+
+  //=== Text colors ===//
+  --text-default: var(--color-elephant-900);
+  --text-secondary: var(--color-smoke-700);
+  --text-disabled: var(--color-smoke-300);
+
+  --text-success: var(--color-jungle-800);
+  --text-info: var(--color-azure-800);
+  --text-danger: var(--color-persimmon-800);
+  --text-warning: var(--color-casablanca-700);
+
+  --text-link: var(--color-azure-800);
+  //=== Text colors ===//
+
+  //=== Icon colors ===//
+  --icon-primary: var(--color-smoke-700);
+  --icon-primary-hover: var(--color-smoke-100);
+  //=== Icon colors ===//
+}

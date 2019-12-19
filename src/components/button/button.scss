@@ -1,816 +1,154 @@
-@import "../../styles/theme";
+@import "../../styles/freshworks";
 
-button {
-  border: 0;
-  background: none;
+//=== Button Style ===//
+:root {
+  --btn-primary-color: var(--color-milk);
+  --btn-primary-bg: var(--color-elephant-800);
+  --btn-primary-bg-dark: var(--color-elephant-900);
+  --btn-primary-border: var(--color-elephant-900);
+  --btn-primary-border-active: var(--color-elephant-800);
+
+  --btn-secondary-color: var(--text-default);
+  --btn-secondary-bg: var(--color-milk);
+  --btn-secondary-bg-dark: var(--color-smoke-25);
+  --btn-secondary-border: var(--border-color);
+  --btn-secondary-border-active: var(--color-smoke-50);
+
+  --btn-danger-color: var(--color-milk);
+  --btn-danger-bg: var(--color-persimmon-800);
+  --btn-danger-bg-dark: var(--color-persimmon-900);
+  --btn-danger-border: var(--color-persimmon-900);
+
+  --btn-link-color: var(--color-azure-800);
+  --btn-link-bg: var(--color-smoke-50);
+
+  --active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  //=== Button Style===//
+}
+
+.fw-btn {
+  font-size: var(--font-size-14);
+  line-height: var(--font-size-14);
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  outline: 0;
+  color: var(--btn-primary-bg);
+  cursor: pointer;
+  transition: all 0.2s linear;
+  letter-spacing: 0.3px;
+  font-weight: var(--font-weight-500);
+  min-width: 90px;
+  height: 32px;
 
   &:focus {
+    border: 1px solid var(--color-azure-800);
+    box-shadow: 0 0 0 1px var(--color-azure-800);
     outline: none;
   }
-}
 
-@mixin size($width, $height) {
-  width: $width;
-  height: $height;
-}
-
-.btn {
-  font-size: $default-content-size;
-  padding: 4px 15px 5px;
-  border: none;
-  border-radius: 4px;
-  outline: none;
-  color: $app-btn-text-light;
-  min-width: 80px;
-  text-align: center;
-
-  &:hover:not([disabled]) {
-    cursor: pointer;
+  &:active {
+    box-shadow: var(--active-box-shadow);
   }
 
-  &:focus {
-    // transform: scale(0.98);
-    border: 1px $btn-lg-focus-border solid;
-    box-shadow: 0 0 0 1px $btn-lg-focus-border;
+  &.disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.4;
   }
 
-  &.scale-none {
-    transform: scale(1);
-  }
-
-  -webkit-font-smoothing: antialiased;
-
-  &-block {
-    .btn--primary,
-    .btn--secondary {
-      margin-left: 8px;
-    }
-  }
-
-  &.btn--primary,
-  &.btn--secondary,
-  &.btn--tertiary,
-  &.btn--danger {
-    letter-spacing: 0.3px;
-    font-weight: $font-weight-semibold;
-  }
-
-  // Primary
   &--primary {
-    background-color: $btn-lg-primary-top;
-    border: 1px $btn-lg-primary-border solid;
-    background-image:
-      linear-gradient(
-        to bottom,
-        $btn-lg-primary-top,
-        $btn-lg-primary-bottom
-      );
-
-    &:hover:not([disabled]) {
-      background-color: $btn-lg-primary-hover;
-      background-image: none;
-    }
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+    border: 1px solid var(--btn-primary-border);
+    background-image: linear-gradient(to bottom, var(--btn-primary-bg), var(--btn-primary-bg-dark));
 
     &:active {
-      transition: 0.1s linear;
-      border: 1px $btn-lg-primary-selected-border solid;
-      box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.26);
+      border: 1px solid var(--btn-primary-border-active);
     }
 
-    &:focus {
-      background-color: lighten($app-primary-btn, 5%);
-      border: 1px lighten($app-primary-btn-border, 5%) solid;
-      // transform: scale(0.98);
-      transition: 0.1s linear;
-    }
-
-    &.disabled,
-    &[disabled] {
-      cursor: not-allowed;
-      transition: 0.1s linear;
-      color: $app-secondary-btn-hover;
-      border: 1px solid $btn-lg-primary-disabled-border;
-      background-image:
-        linear-gradient(
-          to bottom,
-          $btn-lg-primary-disabled-top,
-          $btn-lg-primary-disabled-bottom
-        );
-    }
-
-    input {
-      background: none;
-      padding: 0;
-      border: none;
+    &:hover:not([disabled]) {
+      background-color: var(--btn-primary-bg-dark);
+      background-image: none;
     }
   }
 
-  // Secondary
   &--secondary {
-    background-color: $btn-lg-bottom;
-    color: $app-btn-text-dark;
-    border: 1px $app-secondary-btn-border solid;
-    background-image:
-      linear-gradient(
-        to bottom,
-        $btn-lg-top,
-        $btn-lg-bottom
-      );
-
-    &:hover {
-      background-color: $btn-lg-hover;
-      background-image: none;
-    }
+    background-color: var(--btn-secondary-bg-dark);
+    color: var(--btn-secondary-color);
+    border: 1px solid var(--btn-secondary-border);
+    background-image: linear-gradient(to bottom, var(--btn-secondary-bg), var(--btn-secondary-bg-dark));
 
     &:active {
-      box-shadow: none;
-      transition: 0.1s linear;
+      border: 1px solid var(--btn-secondary-border-active);
     }
-
-    &:focus {
-      background-color: $app-secondary-btn-hover;
-      // transform: scale(0.98);
-    }
-
-    &.disabled,
-    &[disabled] {
-      pointer-events: none;
-      cursor: default;
-      color: $btn-lg-disabled-text;
-      border: 1px $btn-lg-disabled-border solid;
-      background-image: none;
-      background-color: $btn-lg-disabled;
-    }
-  }
-
-  // Tertiary
-  &--tertiary {
-    background-color: $app-tertiary-btn;
-    color: $app-btn-text-dark;
-    border: 1px $app-border-primary solid;
-    padding: 5px 10px;
-
-    &:hover {
-      background-color: darken($app-tertiary-btn, 10%);
-    }
-
-    &:focus {
-      background-color: darken($app-tertiary-btn, 10%);
-    }
-  }
-
-  // Danger color
-  &--danger {
-    color: $app-text-light;
-    background-color: $btn-delete-top;
-    border: 1px $btn-delete-top solid;
-    background-image:
-      linear-gradient(
-        to bottom,
-        $btn-delete-top,
-        $btn-delete-bottom
-      );
 
     &:hover:not([disabled]) {
-      background-color: $btn-delete-hover;
+      background-color: var(--btn-secondary-bg-dark);
       background-image: none;
     }
-
-    &.disabled,
-    &[disabled] {
-      cursor: not-allowed;
-      transition: 0.1s linear;
-      color: $app-secondary-btn-hover;
-      border: 1px solid $btn-delete-disabled-border;
-      background-image:
-        linear-gradient(
-          to bottom,
-          $btn-delete-disabled-top,
-          $btn-delete-disabled-bottom
-        );
-    }
-
-    &:active {
-      transition: 0.1s linear;
-      background-color: $btn-delete-top;
-      box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.26);
-    }
-
-    &:focus {
-      background-color: lighten($app-primary-btn, 5%);
-      border: 1px $btn-lg-primary-top solid;
-      // transform: scale(0.98);
-      transition: 0.1s linear;
-      background-image:
-        linear-gradient(
-          to bottom,
-          $btn-delete-bottom,
-          $btn-delete-top
-        );
-    }
   }
 
-  &--capsule {
-    background-color: #fff;
-    border: solid 1px $app-border-primary;
-    padding: 2px 8px;
-    display: inline-block;
-    color: $app-primary-black;
-  }
+  &--danger {
+    color: var(--btn-danger-color);
+    background-color: var(--btn-danger-bg);
+    border: 1px solid var(--btn-danger-border);
+    background-image: linear-gradient(to bottom, var(--btn-danger-bg), var(--btn-danger-bg-dark));
 
-  // Transparent
-  &--transparent {
-    background-color: transparent;
-    background-image: none;
-    border: none;
-    color: $app-primary-black;
-    padding: 8px 5px;
-    box-shadow: none;
-  }
-
-  // large 100% button
-  &--block {
-    width: 100%;
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  &__small {
-    border-radius: 3px;
-    padding: 2px 10px;
-  }
-
-  &__oval {
-    border-radius: 14px;
-    padding: 2px 10px;
-  }
-
-  &--tag {
-    border: 1px $app-border-primary solid;
-    cursor: pointer;
-    padding: 2px;
-    margin-left: 5px;
-    display: inline-block;
-    border-radius: 2px;
-    height: 13px;
-    line-height: 0.8;
-    font-size: 10px;
-
-    .app-icon {
-      width: 8px;
+    &:hover:not([disabled]) {
+      background-color: var(--btn-danger-bg-dark);
+      background-image: none;
     }
   }
 
   &--link {
-    &:hover,
-    &:focus {
-      text-decoration: none;
-      color: $app-text-light;
-    }
-  }
-}
-
-// Tag button
-.tag {
-  border-radius: 4px;
-  padding: 2px 10px;
-  color: $tag-normal-text;
-  font-size: 12px;
-  background-color: $tag-normal;
-  font-weight: $font-weight-semibold;
-
-  &--normal {
-    font-size: 11px;
-  }
-
-  &--new {
-    background-color: $tag-new;
-    color: $tag-new-text;
-    border: 1px $tag-new-border solid;
-  }
-
-  &--customer-responded {
-    background-color: $tag-customer;
-    color: $tag-customer-text;
-    border: 1px $tag-customer-border solid;
-  }
-
-  &--overdue {
-    background-color: $tag-overdue;
-    color: $tag-overdue-text;
-    border: 1px $tag-overdue-border solid;
-  }
-
-  &--spam {
-    background-color: $tag-spam;
-    color: $tag-spam-text;
-    border: 1px $tag-spam-border solid;
-  }
-
-  &--deleted {
-    background-color: $tag-deleted;
-    color: $tag-deleted-text;
-    border: 1px $tag-deleted-border solid;
-  }
-
-  &--archived {
-    background-color: $tag-archived;
-    color: $tag-archived-text;
-    border: 1px $tag-archived-border solid;
-  }
-
-  &--closed {
-    background-color: $tag-closed;
-    border: 1px darken($tag-closed, 10%) solid;
-  }
-
-  &--elapsed {
-    background-color: $tag-overdue;
-    color: $tag-overdue-text;
-    border: 1px $tag-overdue-border solid;
-  }
-
-  &--associated {
-    background-color: #fff;
-    border: 1px solid #ccc;
-  }
-
-  &--billable {
-    background-color: $tag-billable;
-    color: $tag-billable-text;
-    border: 1px $tag-billable-border solid;
-  }
-
-  &-bullet {
-    position: relative;
-    left: 1px;
-    margin-right: 1px;
-    color: $tag-bullet-text;
-    border: 1px $app-border-primary solid;
-  }
-
-  &--grey {
-    background-color: $tag-closed;
-  }
-
-  &-inline {
-    display: inline-block;
-  }
-}
-
-// App icon button
-.btn--icon {
-  height: 32px;
-  min-width: 32px;
-  padding: 0;
-  border-radius: 4px;
-  border: 1px $btn-lg-border solid;
-  display: inline-block;
-  text-align: center;
-  color: $app-icon-actions;
-  cursor: pointer;
-  margin-right: 2px;
-  font-size: 14px;
-  vertical-align: middle;
-  -webkit-font-smoothing: antialiased;
-  transition: 0.1s ease-in;
-  // background-image:
-  //   linear-gradient(
-  //     to bottom,
-  //     $btn-lg-top,
-  //     $btn-lg-bottom
-  //   );
-
-  &:focus {
-    // transform: scale(0.98);
-    border: 1px $btn-lg-focus-border solid;
-    box-shadow: 0 0 0 1px $btn-lg-focus-border;
-  }
-
-  &:focus-within {
-    border: 1px $btn-lg-focus-border solid;
-    box-shadow: 0 0 0 1px $btn-lg-focus-border;
-  }
-
-  &:active {
-    border: 1px $btn-lg-active-border solid;
-    box-shadow: inset 0 0 4px 0 rgba(39, 49, 58, 0.26);
-  }
-
-  .app-icon {
-    @include size(14px, 14px);
-
-    fill: $app-primary-black;
-  }
-
-  &--xsmall {
-    @include size(16px, 16px);
-  }
-
-  &--small {
-    @include size(24px, 24px);
-
-    .app-icon {
-      @include size(12px, 12px);
-    }
-  }
-
-  &--large {
-    @include size(28px, 28px);
-
-    padding-top: 3px;
-
-    .app-icon {
-      @include size(21px, 21px);
-    }
-  }
-
-  &--secondary {
-    border: none;
-
-    &:hover {
-      .app-icon {
-        fill: $app-icon-color;
-      }
-    }
-  }
-
-  &--transparent {
     background-color: transparent;
     background-image: none;
-    box-shadow: none;
-    border: none;
-  }
+    border: 1px solid transparent;
+    color: var(--btn-link-color);
 
-  &:hover:not([disabled]) {
-    outline: none;
-  }
-
-  &--active {
-    border: 1px $btn-lg-active-border solid;
-    box-shadow: inset 0 0 4px 0 rgba(39, 49, 58, 0.26);
-  }
-
-  &--last {
-    margin-right: 0;
+    &:hover:not([disabled]) {
+      background-color: var(--btn-link-bg);
+      border-color: var(--btn-link-bg);
+    }
   }
 
   &--text {
-    color: $app-primary-black;
-    padding: 2px 10px 3px 8px;
-
-    a {
-      color: $app-primary-black;
-      display: inline-block;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-
-    .app-icon {
-      width: 13px;
-      vertical-align: middle;
-      display: inline-block;
-      position: relative;
-      top: -1px;
-      fill: $app-primary-black;
-      margin-right: 3px;
-    }
-  }
-
-  &--oval-left,
-  &--oval-right {
-    position: relative;
-    margin-right: 0;
-
-    .app-icon {
-      @include size(14px, 14px);
-
-      position: absolute;
-      top: 8px;
-    }
-
-    &.btn--icon--active {
-      background-color: $btn-lg-primary-hover;
-      color: $app-btn-text-light;
-
-      .app-icon {
-        fill: $app-btn-text-light;
-      }
-    }
-  }
-
-  &--oval-left {
-    right: -4.08px;
-    z-index: 2;
-    border-radius: 2px 0 0 2px;
-
-    .app-icon {
-      left: 6px;
-    }
-
-    &.btn--icon--active {
-      border-radius: 2px 0 0 2px;
-    }
-  }
-
-  &--oval-right {
-    .app-icon {
-      left: 7px;
-    }
-
-    &.btn--icon--active {
-      border-radius: 0 2px 2px 0;
-      z-index: 2;
-    }
-  }
-
-  &--split,
-  &--split:hover:not([disabled]) {
-    background-color: $side-nav-bg;
-    background-image: none;
-
-    .app-icon {
-      fill: #fff;
-    }
-  }
-
-  &-flat {
-    @include size(23px, 30px);
-
-    border-radius: 0;
-    border-right: none;
-    float: left;
-    border-left: 1px $app-border-primary solid;
-  }
-
-  &--disabled,
-  &[disabled] {
-    cursor: not-allowed;
-    color: $app-secondary-btn-disabled;
-    background-image: none;
-    background-color: $btn-lg-disabled;
-
-    .app-icon {
-      fill: $app-disabled;
-    }
-
-    &:hover:not([disabled]) {
-      border-color: $app-disabled;
-
-      .app-icon {
-        fill: $app-disabled;
-      }
-    }
-  }
-
-  &--primary {
-    border: 1px $app-primary-btn-border solid;
-    color: $app-btn-text-light;
-
-    &:hover:not([disabled]) {
-      background-color: $app-primary-btn-hover;
-    }
-  }
-}
-
-a {
-  &.btn--icon--text {
-    padding: 5px 10px 3px 8px;
-    text-decoration: none;
-    margin-right: 6px;
-
-    &:hover {
-      color: $app-icon-actions;
-    }
-  }
-}
-
-[aria-expanded="true"] {
-  .btn--icon {
-    border: 1px $btn-lg-active-border solid;
-    box-shadow: inset 0 0 4px 0 rgba(39, 49, 58, 0.26);
-  }
-
-  .btn--primary {
-    border: 1px $btn-lg-primary-selected-border solid;
-    box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.26);
-  }
-}
-
-.btn--text-transparent {
-  color: $app-link;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-
-  &:hover,
-  &:focus {
     background-color: transparent;
-    text-decoration: none;
+    background-image: none;
+    border: 1px solid transparent;
+    color: var(--btn-primary-bg);
 
-    .app-icon {
-      fill: $app-link;
+    &:hover:not([disabled]) {
+      background-color: var(--btn-link-bg);
+      border-color: var(--btn-link-bg);
     }
   }
 
-  .app-icon {
-    width: 12px;
-    vertical-align: middle;
-    display: inline-block;
-    position: relative;
-    top: -1px;
-    fill: $app-link;
+  &--block {
+    width: 100%;
+    display: block;
   }
 
-  &.btn--error {
-    color: $app-error;
-    text-transform: uppercase;
+  &--mini {
+    padding: 2px 2px;
+    font-size: var(--font-size-10);
+    line-height: var(--font-size-10);
+    min-width: 16px;
+    height: 16px;
   }
 
-  &.btn--info {
-    color: $app-info-color;
-    text-transform: uppercase;
-  }
-}
-
-.app-pagination-left {
-  border-radius: 4px 0 0 4px;
-}
-
-.app-pagination-right {
-  border-radius: 0 4px 4px 0;
-}
-// Color icons
-.color {
-  &--yellow { color: #fcd70a; }
-  &--blue { color: #4a90e2; }
-}
-
-// small icons with separators
-.small-seperators {
-  padding: 0 5px;
-
-  &__icon {
-    color: $app-info-color;
-    font-size: 16px;
-    border-left: 1px $app-border-secondary solid;
-    padding: 0 8px;
-    cursor: pointer;
-
-    &:first-child {
-      border-left: none;
-    }
-  }
-}
-
-.jar-medium {
-  @include size(20px, 20px);
-
-  position: relative;
-  top: -3px;
-}
-
-// player
-input[type=range] {
-  margin: auto;
-  outline: none;
-  padding: 0;
-  width: 108px;
-  box-sizing: border-box;
-  height: 2px;
-  position: relative;
-  top: 6px;
-  background-color: $app-border-primary;
-  background-image:
-    linear-gradient(
-      to right,
-      $input-range,
-      $input-range
-    );
-  background-size: 0;
-  background-repeat: no-repeat;
-  border-radius: 10px;
-  cursor: pointer;
-  -webkit-appearance: none;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-  box-shadow: none;
-  border: none;
-  background: transparent;
-  -webkit-appearance: none;
-}
-
-input[type=range]::-moz-range-track {
-  box-shadow: none;
-  border: none;
-  background: transparent;
-}
-
-input[type=range]::-moz-focus-outer {
-  border: 0;
-}
-
-input[type=range]::-webkit-slider-thumb {
-  width: 16px;
-  height: 16px;
-  border: 0;
-  background: $app-light-bg;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px 0 rgba(24, 50, 71, 0.25), 0 0 1px 0 rgba(24, 50, 71, 0.1);
-  -webkit-appearance: none;
-}
-
-input[type=range]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border: 0;
-  background: $app-light-bg;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px 0 rgba(24, 50, 71, 0.25), 0 0 1px 0 rgba(24, 50, 71, 0.1);
-  -webkit-appearance: none;
-}
-
-.fr-quoted-marker {
-  background-color: $app-light-bg;
-  border-radius: 6px;
-  border: 1px solid $app-primary-black;
-  height: 12px;
-  outline: none;
-  line-height: 4px;
-  bottom: 0;
-  text-align: center;
-  width: 26px;
-  padding: 2px;
-
-  &::after {
-    content: '...';
-    position: relative;
-    font-size: 21px;
-    top: -4px;
-    letter-spacing: -0.03em;
-    color: $app-primary-black;
-    height: 10px;
-    margin: 0;
+  &--small {
+    padding: 4px 6px;
+    font-size: var(--font-size-12);
+    line-height: var(--font-size-12);
+    min-width: 16px;
+    height: 24px;
   }
 
-  &--expanded {
-    background-color: #fff;
+  &--icon {
+    min-width: 32px;
+    width: 32px;
+    padding: 0;
   }
-
-  &:hover,
-  &:focus {
-    border-color: $action-icon;
-    background-color: $action-icon-hover-bg;
-  }
-}
-
-.tag-more-btn {
-  position: relative;
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 2px;
-  font-size: 11px;
-  color: $app-icon-color;
-  background-color: $app-light-bg;
-  padding: 0 3px;
-
-  &:hover {
-    color: $app-icon-color-hover;
-  }
-
-  &__item {
-    padding: 4px 8px;
-  }
-
-  .app-icon {
-    position: relative;
-    top: 1px;
-  }
-
-  .app-dropdown {
-    top: 22px;
-    right: -18px;
-  }
-}
-
-.btn-group .btn--icon {
-  margin-right: 0;
-}
-
-.btn--mini {
-  font-size: 11px;
-  padding: 5px 10px;
-  min-width: 60px;
-}
-
-.ticket-sidebar--btn {
-  margin-left: 8px;
-}
-
-.sidebar--btn {
-  margin-left: 8px;
-  margin-top: 1px;
 }

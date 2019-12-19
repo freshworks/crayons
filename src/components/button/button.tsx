@@ -16,12 +16,12 @@ export class Button {
    * The theme of the button,
    * Values are : `primary`, `secondary`, `danger`
    */
-  @Prop() color: 'primary' | 'secondary' | 'danger' = 'secondary';
+  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
 
   /**
    * Sets the button as disabled when set to true.
    */
-  @Prop() disabled = false;
+  @Prop({ reflect: true }) disabled = false;
 
   /**
    * Sets the button size to block when set to true.
@@ -32,7 +32,7 @@ export class Button {
    * The size of the button,
    * Values are : `normal`, `mini`
    */
-  @Prop() size: 'normal' | 'mini' | 'icon' = 'normal';
+  @Prop() size: 'normal' | 'mini' | 'small' = 'normal';
 
   /**
    * Emitted when the button is clicked.
@@ -70,9 +70,9 @@ export class Button {
         <button
           type = {this.type}
           class={`
-            btn btn--${this.color.toLowerCase()}
-            btn--${this.size.toLowerCase()}
-            ${this.expand ? 'btn--block' : ''}
+            fw-btn fw-btn--${this.color.toLowerCase()}
+            fw-btn--${this.size.toLowerCase()}
+            ${this.expand ? 'fw-btn--block' : ''}
             `}
           disabled = {this.disabled}>
           <slot/>

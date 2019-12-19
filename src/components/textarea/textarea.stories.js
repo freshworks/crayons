@@ -32,5 +32,10 @@ export default {
   </fw-textarea>`
   ;
 
+  export const Disabled = () => 
+  `<fw-textarea placeholder="Enter your address" cols="50" rows="5" label="Address" disabled required="true">
+  </fw-textarea>`
+  ;
+
 
   

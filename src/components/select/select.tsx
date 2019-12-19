@@ -228,7 +228,6 @@ export class Select {
             tabindex="0"
             ref={ul => this.selectList = ul}
           >
-
             <slot />
           </ul>
           {this.stateText !== '' ?

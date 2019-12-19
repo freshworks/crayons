@@ -1,45 +1,43 @@
-:host {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
+@import "../../styles/freshworks.scss";
 
 .label {
   color: #6f7c87;
   border: 1px solid #dadfe3;
-  background-color: #fff;
+  background-color: var(--color-milk);
   font-weight: 600;
-  font-size: 11px;
+  font-size: var(--font-size-12);
   padding: 0 5px;
   line-height: 1.5;
   display: inline-block;
   border-radius: 2px;
-}
 
-.primary {
-  background-color: #e5f2fd;
-  color: #2c5cc5;
-  border: 1px solid #bbdcfe;
-}
+  &--blue {
+    background-color: var(--color-azure-50);
+    color: var(--color-azure-800);
+    border: 1px solid var(--color-azure-100);
+  }
 
-.secondary {
-  background-color: #ebeff3;
-  color: #5d6972;
-  border: 1px solid #ebeff3;
-}
+  &--red {
+    background-color: var(--color-persimmon-50);
+    color: var(--color-persimmon-800);
+    border: 1px solid var(--color-persimmon-100);
+  }
 
-.success {
-  background-color: #e1f5f0;
-  color: #2a8d71;
-  border: 1px solid #d4efe9;
-}
+  &--green {
+    background-color: var(--color-jungle-50);
+    color: var(--color-jungle-800);
+    border: 1px solid var(--color-jungle-100);
+  }
 
-.warning {
-  background-color: #fef1e1;
-  color: #cc5d40;
-  border: 1px solid #fde8cf;
-}
+  &--yellow {
+    background-color: var(--color-casablanca-50);
+    color: var(--color-casablanca-700);
+    border: 1px solid var(--color-casablanca-100);
+  }
 
-.danger {
-  background-color: #ffecf0;
-  color: #c82124;
-  border: 1px solid #ffd0d6;
+  &--grey {
+    background-color: var(--color-smoke-50);
+    color: var(--color-smoke-700);
+    border: 1px solid var(--color-smoke-100);
+  }
 }

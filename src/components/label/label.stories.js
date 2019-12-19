@@ -8,9 +8,10 @@ export default {
   }
 };
 
-export const Default = () => '<fw-label value="Default"></fw-label>';
-export const Primary = () => '<fw-label value="Primary" type="primary"></fw-label>';
-export const Secondary = () => '<fw-label value="Secondary" type="secondary"></fw-label>';
-export const Success = () => '<fw-label value="Success" type="success"></fw-label>';
-export const Warning = () => '<fw-label value="Warning" type="warning"></fw-label>';
-export const Danger = () => '<fw-label value="Danger" type="danger"></fw-label>';
+export const Normal = () => '<fw-label value="Meta"></fw-label>';
+export const Blue = () => '<fw-label value="Customer Responded" color="blue"></fw-label>';
+export const Red = () => '<fw-label value="Overdue" color="red"></fw-label>';
+export const Green = () => '<fw-label value="New" color="green"></fw-label>';
+export const Yellow = () => '<fw-label value="Pending" color="yellow"></fw-label>';
+export const Grey = () => '<fw-label value="Archived" color="grey"></fw-label>';
+

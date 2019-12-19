@@ -9,13 +9,13 @@ export class Label {
   /**
    * The type of the label
    */
-  @Prop() type = 'default';
+  @Prop() color: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'normal' = 'normal';
   /**
    * The text in the label
    */
   @Prop() value = '';
 
   render() {
-    return <span class={'label ' + this.type.toLowerCase()}>{this.value}</span>;
+    return <span class={'label label--' + this.color.toLowerCase()}>{this.value}</span>;
   }
 }
