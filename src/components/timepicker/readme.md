@@ -28,6 +28,7 @@
 graph TD;
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
+  fw-select --> fw-tag
   fw-select --> fw-select-option
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```

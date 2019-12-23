@@ -23,6 +23,17 @@ export const WithSelectOptions = () =>
     </fw-select>
     `;
 
+export const MultiSelect = () =>
+    `
+    <fw-select multi label="Select the GOT house" state-text="Choose the house where you belong" required="true">
+        <fw-select-option value="1">Starks</fw-select-option>
+        <fw-select-option value="2">Lannisters</fw-select-option>
+        <fw-select-option value="3">Sand</fw-select-option>
+        <fw-select-option value="4">Greyjoys</fw-select-option>
+        <fw-select-option value="5">Tyrell</fw-select-option>
+    </fw-select>
+    `;
+
 export const WithOptionsAndSelectedKey = () =>
     `
     <fw-select label="Select the GOT house" state-text="Choose the house where you belong" required="true">

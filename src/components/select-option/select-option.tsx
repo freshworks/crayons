@@ -9,23 +9,18 @@ export class SelectOption {
   /**
    * The Key associated with this select option
    */
-  @Prop({
-    reflect: true,
-  })
-  value: string;
+  @Prop({ reflect: true }) value: string;
   /**
    * Flag to indicate if the option is selected or not. A tick is shown
    */
-  @Prop({
-    reflect: true,
-  })
-  selected = false;
+  @Prop({ reflect: true, mutable: true }) selected = false;
 
-  @Event({ bubbles: true, composed: true }) fwSelectOptionChosen: EventEmitter;
+  @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
 
   private onOptionSelected() {
-    const { value } = this;
-    this.fwSelectOptionChosen.emit({ value });
+    this.selected = !this.selected;
+    const { value, selected } = this;
+    this.fwSelected.emit({ value, selected });
   }
 
   render() {

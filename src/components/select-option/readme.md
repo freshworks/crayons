@@ -15,9 +15,9 @@
 
 ## Events
 
-| Event                  | Description | Type               |
-| ---------------------- | ----------- | ------------------ |
-| `fwSelectOptionChosen` |             | `CustomEvent<any>` |
+| Event        | Description | Type               |
+| ------------ | ----------- | ------------------ |
+| `fwSelected` |             | `CustomEvent<any>` |
 
 
 ## Dependencies

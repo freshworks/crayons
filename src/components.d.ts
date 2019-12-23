@@ -189,12 +189,15 @@ export namespace Components {
     * If `true`, the user must select some value. The default wont be shown
     */
     'forceSelect': boolean;
-    'getItems': () => Promise<any[]>;
     'getSelectedItem': () => Promise<any>;
     /**
     * Label for the control
     */
     'label': string;
+    /**
+    * Set to true for multiselect mode
+    */
+    'multi': boolean;
     /**
     * The name of the control, which is submitted with the form data.
     */
@@ -212,11 +215,9 @@ export namespace Components {
     */
     'required': boolean;
     /**
-    * Set the selected Value
+    * Set the selected text
     */
-    'selectedValue': string;
-    'setItems': (items: any[]) => Promise<void>;
-    'setSelectedItem': (value: string) => Promise<void>;
+    'selectedText': string;
     /**
     * The state of the control. Color changes accordingly
     */
@@ -232,7 +233,7 @@ export namespace Components {
     /**
     * The value of the input. Similar to an input value
     */
-    'value'?: string | null;
+    'value': any[];
   }
   interface FwSelectOption {
     /**
@@ -265,6 +266,16 @@ export namespace Components {
     'title': string;
   }
   interface FwTabs {}
+  interface FwTag {
+    /**
+    * The display text for the tag
+    */
+    'text': string;
+    /**
+    * The value of the tag
+    */
+    'value': string;
+  }
   interface FwTextarea {
     /**
     * Number of columns
@@ -441,6 +452,12 @@ declare global {
     new (): HTMLFwTabsElement;
   };
 
+  interface HTMLFwTagElement extends Components.FwTag, HTMLStencilElement {}
+  var HTMLFwTagElement: {
+    prototype: HTMLFwTagElement;
+    new (): HTMLFwTagElement;
+  };
+
   interface HTMLFwTextareaElement extends Components.FwTextarea, HTMLStencilElement {}
   var HTMLFwTextareaElement: {
     prototype: HTMLFwTextareaElement;
@@ -471,6 +488,7 @@ declare global {
     'fw-spinner': HTMLFwSpinnerElement;
     'fw-tab': HTMLFwTabElement;
     'fw-tabs': HTMLFwTabsElement;
+    'fw-tag': HTMLFwTagElement;
     'fw-textarea': HTMLFwTextareaElement;
     'fw-timepicker': HTMLFwTimepickerElement;
     'fw-toggle': HTMLFwToggleElement;
@@ -706,6 +724,10 @@ declare namespace LocalJSX {
     */
     'label'?: string;
     /**
+    * Set to true for multiselect mode
+    */
+    'multi'?: boolean;
+    /**
     * The name of the control, which is submitted with the form data.
     */
     'name'?: string;
@@ -725,9 +747,9 @@ declare namespace LocalJSX {
     */
     'required'?: boolean;
     /**
-    * Set the selected Value
+    * Set the selected text
     */
-    'selectedValue'?: string;
+    'selectedText'?: string;
     /**
     * The state of the control. Color changes accordingly
     */
@@ -743,10 +765,10 @@ declare namespace LocalJSX {
     /**
     * The value of the input. Similar to an input value
     */
-    'value'?: string | null;
+    'value'?: any[];
   }
   interface FwSelectOption {
-    'onFwSelectOptionChosen'?: (event: CustomEvent<any>) => void;
+    'onFwSelected'?: (event: CustomEvent<any>) => void;
     /**
     * Flag to indicate if the option is selected or not. A tick is shown
     */
@@ -778,6 +800,17 @@ declare namespace LocalJSX {
   }
   interface FwTabs {
     'onChange'?: (event: CustomEvent<any>) => void;
+  }
+  interface FwTag {
+    'onFwClosed'?: (event: CustomEvent<any>) => void;
+    /**
+    * The display text for the tag
+    */
+    'text'?: string;
+    /**
+    * The value of the tag
+    */
+    'value'?: string;
   }
   interface FwTextarea {
     /**
@@ -893,6 +926,7 @@ declare namespace LocalJSX {
     'fw-spinner': FwSpinner;
     'fw-tab': FwTab;
     'fw-tabs': FwTabs;
+    'fw-tag': FwTag;
     'fw-textarea': FwTextarea;
     'fw-timepicker': FwTimepicker;
     'fw-toggle': FwToggle;
@@ -917,6 +951,7 @@ declare module "@stencil/core" {
       'fw-spinner': LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
       'fw-tab': LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
       'fw-tabs': LocalJSX.FwTabs & JSXBase.HTMLAttributes<HTMLFwTabsElement>;
+      'fw-tag': LocalJSX.FwTag & JSXBase.HTMLAttributes<HTMLFwTagElement>;
       'fw-textarea': LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
       'fw-timepicker': LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
       'fw-toggle': LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
