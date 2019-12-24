@@ -17,7 +17,7 @@ export const Default = () =>
 
 export const WithSelectOptions = () =>
     `
-    <fw-select label="Select the house" required="true">
+    <fw-select label="Select the house" required="true" value="1">
         <fw-select-option value="1">Starks</fw-select-option>
         <fw-select-option value="2">Lannisters</fw-select-option>
     </fw-select>
@@ -25,7 +25,7 @@ export const WithSelectOptions = () =>
 
 export const MultiSelect = () =>
     `
-    <fw-select multi label="Select the GOT house" state-text="Choose the house where you belong" required="true">
+    <fw-select multiple label="Select the GOT house" state-text="Choose the house where you belong" required="true">
         <fw-select-option value="1">Starks</fw-select-option>
         <fw-select-option value="2">Lannisters</fw-select-option>
         <fw-select-option value="3">Sand</fw-select-option>

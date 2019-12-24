@@ -24,7 +24,7 @@ export class Select {
   /**
    * The value of the input. Similar to an input value
    */
-  @Prop({ mutable: true }) value = [];
+  @Prop({ mutable: true }) value: any;
   /**
    * The name of the control, which is submitted with the form data.
    */
@@ -62,13 +62,9 @@ export class Select {
    */
   @Prop() disabled = false;
   /**
-   * Set the selected text
+   * Set to true for multipleselect mode
    */
-  @Prop() selectedText = '';
-  /**
-   * Set to true for multiselect mode
-   */
-  @Prop() multi = false;
+  @Prop() multiple = false;
 
   // Events
   @Event() fwChange: EventEmitter;
@@ -94,9 +90,15 @@ export class Select {
   }
 
   @Watch('value')
-  keyChanged(newValue: string, oldValue: string) {
-    if (oldValue !== newValue) {
-      this.fwChange.emit({ value: this.value, text: this.selectedText });
+  keyChanged(newValue, oldValue) {
+    if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+      this.options = this.options.map(option => {
+        option.selected = Array.isArray(this.value)
+          ? this.value.includes(option.value)
+          : this.value === option.value;
+        return option;
+      });
+      this.fwChange.emit({ value: this.value });
     }
   }
 
@@ -105,16 +107,22 @@ export class Select {
     this.options = this.options.map(option => {
       if (selectedItem.detail.value === option.value) {
         option.selected = selectedItem.detail.selected;
-        this.value = this.multi ? [...this.value, option] : [option];
-        this.selectInput.value = this.multi ? '' : option.text;
-        this.selectedText = option.text;
-      } else if (!this.multi) {
+      } else if (!this.multiple) {
         option.selected = false;
       }
       return option;
     });
     this.selectList.style.display = 'none';
     selectedItem.stopPropagation();
+  }
+
+  @Watch('options')
+  optionsChangedHandler() {
+    const selectedOptions = this.options.filter(option => option.selected);
+    if (selectedOptions.length > 0) {
+      this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
+      this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
+    }
   }
 
   @Listen('fwClosed')
@@ -126,6 +134,17 @@ export class Select {
       return option;
     });
   }
+  @Listen('keydown')
+  onKeyDonw(ev) {
+    switch(ev.key) {
+      case 'ArrowDown' :
+        this.innerOnClick();
+        break;
+      case 'Escape' :
+        this.innerOnBlur(ev);
+        break;
+    }
+  }
 
   onInput() {
     const value = this.selectInput.value.toLowerCase();
@@ -135,7 +154,7 @@ export class Select {
   }
 
   renderTags() {
-    if (this.multi) {
+    if (this.multiple) {
       return this.options
         .filter(option => option.selected)
         .map(option => <fw-tag text={option.text} value={option.value}/>);
@@ -152,6 +171,8 @@ export class Select {
   }
 
   componentWillLoad() {
+    // this.value = this.value || (this. multiple ? [] : undefined);
+
     const selectOptions = Array.from(this.host.querySelectorAll('fw-select-option'));
 
     const options = selectOptions.map(option => {
@@ -193,7 +214,7 @@ export class Select {
               <input
                 ref={selectInput => this.selectInput = selectInput}
                 class={{
-                  'multi-select' : this.multi,
+                  'multiple-select' : this.multiple,
                 }}
                 autoComplete="off"
                 disabled={this.disabled}

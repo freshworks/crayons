@@ -195,9 +195,9 @@ export namespace Components {
     */
     'label': string;
     /**
-    * Set to true for multiselect mode
+    * Set to true for multipleselect mode
     */
-    'multi': boolean;
+    'multiple': boolean;
     /**
     * The name of the control, which is submitted with the form data.
     */
@@ -215,10 +215,6 @@ export namespace Components {
     */
     'required': boolean;
     /**
-    * Set the selected text
-    */
-    'selectedText': string;
-    /**
     * The state of the control. Color changes accordingly
     */
     'state': 'normal' | 'warning' | 'error';
@@ -233,7 +229,7 @@ export namespace Components {
     /**
     * The value of the input. Similar to an input value
     */
-    'value': any[];
+    'value': any;
   }
   interface FwSelectOption {
     /**
@@ -724,9 +720,9 @@ declare namespace LocalJSX {
     */
     'label'?: string;
     /**
-    * Set to true for multiselect mode
+    * Set to true for multipleselect mode
     */
-    'multi'?: boolean;
+    'multiple'?: boolean;
     /**
     * The name of the control, which is submitted with the form data.
     */
@@ -747,10 +743,6 @@ declare namespace LocalJSX {
     */
     'required'?: boolean;
     /**
-    * Set the selected text
-    */
-    'selectedText'?: string;
-    /**
     * The state of the control. Color changes accordingly
     */
     'state'?: 'normal' | 'warning' | 'error';
@@ -765,7 +757,7 @@ declare namespace LocalJSX {
     /**
     * The value of the input. Similar to an input value
     */
-    'value'?: any[];
+    'value'?: any;
   }
   interface FwSelectOption {
     'onFwSelected'?: (event: CustomEvent<any>) => void;
