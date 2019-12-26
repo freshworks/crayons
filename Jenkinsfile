@@ -40,7 +40,7 @@ node {
 
         uploadAssetsToS3('dist/freshworks-ui-kit', "s3://${STATIC_ASSETS[BRANCH_NAME].bucketName}${s3Path}", 'us-east-1', true)
         uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[BRANCH_NAME].bucketName}${s3Path}/docs", 'us-east-1', true)
-        invalidateCDN(STATIC_ASSETS[BRANCH_NAME].cdnDistributionId, s3Path)
+        invalidateCDN(STATIC_ASSETS[BRANCH_NAME].cdnDistributionId, "${s3Path}/*")
       }
     }
 
