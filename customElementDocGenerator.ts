@@ -25,6 +25,7 @@ export async function generateJsonDocs(config, compilerCtx, _buildCtx, docsData)
       attributes: cmp.props.map(prop => ({
         ...prop,
         name: prop.attr,
+        defaultValue: prop.default,
         description: prop.docs,
       })),
       methods: cmp.methods,
@@ -34,13 +35,16 @@ export async function generateJsonDocs(config, compilerCtx, _buildCtx, docsData)
         description: e.docs,
         type: e.detail,
       })),
-      styles: cmp.styles,
+      cssProperties: cmp.styles.map(style => ({
+        ...style,
+        description: style.docs,
+      })),
       slots: cmp.slots,
       dependents: cmp.dependents,
       dependencies: cmp.dependencies,
       dependencyGraph: cmp.dependencyGraph,
       deprecation: cmp.deprecation,
-    }))
+    })),
   };
   // tslint:disable-next-line: no-null-keyword
   const jsonContent = JSON.stringify(json, null, 2);

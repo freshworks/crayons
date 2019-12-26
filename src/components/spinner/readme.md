@@ -13,6 +13,13 @@
 | `size`   | `size`    | The size of the spinner - Options ['small' , 'default', 'medium', 'large'] | `string` | `'default'` |
 
 
+## CSS Custom Properties
+
+| Name              | Description          |
+| ----------------- | -------------------- |
+| `--spinner-color` | Color of the spinner |
+
+
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+Built with ❤ at Freshworks

@@ -1,22 +1,17 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-// import { html } from 'lit-html';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
-<Meta title="Icons" />
+<Meta title="Icons" component="fw-icon"/>
 
-# Badge
+# Icon
 
-Let's define a story for our `Badge` component:
+## Props
+<Props of="fw-icon"/>
 
-<Story name="Default">
-  {`<fw-icon name="agent" size="18"></fw-icon>`}
-</Story>
+## Usage
 
-We can drop it in a `Preview` to get a code snippet:
-
+### With size
 <Preview>
- <Story name="Chat">
-
-    {`<fw-icon name="freshchat" color="red" size="18"></fw-icon>`}
-
-  </Story>
+<Story name="Default">
+  {() => '<fw-icon name="agent" size="18"></fw-icon>'}
+</Story>
 </Preview>

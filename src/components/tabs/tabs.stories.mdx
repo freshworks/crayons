@@ -1,15 +1,21 @@
-import readme from "./readme.md";
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
-export default {
-  title: 'Tabs',
-  component: 'fw-tabs',
-  parameters: {
-    notes: readme,
-  }
-};
+# Tabs
+<Meta
+  title='Tabs'
+  component='fw-tabs'
+   />
 
-export const Default = () =>
-`
+## Props
+
+<Props of="fw-tabs"/>
+
+## Usage
+
+
+### Default
+<Preview>
+<Story name='Default'>{() => `
 <fw-tabs>
   <fw-tab title ="Tab 1">
     <section>
@@ -29,4 +35,5 @@ export const Default = () =>
     <p>This is sample markup for TAB 4</p>
   </fw-tab>
 </fw-tabs>
-`;
+`}</Story>
+</Preview>

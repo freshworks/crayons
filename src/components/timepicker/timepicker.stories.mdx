@@ -1,0 +1,29 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Timepicker
+<Meta
+  title='Timepicker'
+  component='fw-timepicker'
+   />
+
+## Props
+
+<Props of="fw-timepicker"/>
+
+## Usage
+
+### Default
+<Preview>
+<Story name='Default'>{() => '<fw-timepicker></fw-timepicker>'}</Story>
+</Preview>
+
+
+### Interval specified
+<Preview>
+<Story name='interval'>{() => '<fw-timepicker interval=45></fw-timepicker>'}</Story>
+</Preview>
+
+### Time Range
+<Preview>
+<Story name='startEnd'>{() => '<fw-timepicker min-time="04:30 AM" max-time="08:30 AM"></fw-timepicker>'}</Story>
+</Preview>

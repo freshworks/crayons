@@ -136,7 +136,7 @@ export class Select {
   }
   @Listen('keydown')
   onKeyDonw(ev) {
-    switch(ev.key) {
+    switch (ev.key) {
       case 'ArrowDown' :
         this.innerOnClick();
         break;
