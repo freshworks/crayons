@@ -7,7 +7,7 @@ module.exports = {
     '@storybook/addon-actions/register',
     '@storybook/addon-jest/register',
     '@storybook/addon-viewport/register',
-    '@storybook/addon-storysource/register'
+    '@storybook/addon-a11y/register'
   ],
   stories: [
     '../src/**/*.stories.(js|mdx)',

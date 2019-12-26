@@ -14,6 +14,13 @@
 | `size`   | `size`    | The size of the icon in pixels              | `number` | `12`        |
 
 
+## CSS Custom Properties
+
+| Name           | Description       |
+| -------------- | ----------------- |
+| `--icon-color` | Color of the icon |
+
+
 ## Dependencies
 
 ### Used by
@@ -29,4 +36,4 @@ graph TD;
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+Built with ❤ at Freshworks

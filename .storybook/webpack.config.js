@@ -44,7 +44,6 @@ module.exports = async ({ config }) => {
   );
 
   config.plugins.push(new WriteFilePlugin());
- 
 
   return config;
 };
