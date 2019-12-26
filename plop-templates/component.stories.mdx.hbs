@@ -1,0 +1,24 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# {{pascalCase componentName}}
+
+<Meta
+  title='{{pascalCase componentName}}'
+  component='fw-{{componentCase componentName}}'
+/>
+
+## Props 
+
+<Props of="fw-{{componentCase componentName}}"/>
+
+## Usage
+
+### Default
+<Preview>
+  <Story name='Default'>
+    {
+      () => `<fw-{{componentCase componentName}}></fw-{{componentCase componentName}}>`
+    }
+  </Story>
+</Preview>
+
