@@ -1,18 +1,22 @@
-# fw-checkbox
+# Checkbox
 
+## Usage
 
+```html live
+<fw-checkbox label="This is a subheading">Checkbox Text Here</fw-checkbox>
+```
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property   | Attribute  | Description                               | Type      | Default |
-| ---------- | ---------- | ----------------------------------------- | --------- | ------- |
-| `checked`  | `checked`  | Property to maintain checked state        | `boolean` | `false` |
-| `disabled` | `disabled` | Disables the checkbox                     | `boolean` | `false` |
-| `label`    | `label`    | Label for checkbox                        | `string`  | `''`    |
-| `value`    | `value`    | Value of the checkbox for within a <form> | `string`  | `''`    |
+| Property   | Attribute  | Description                             | Type      | Default |
+| ---------- | ---------- | --------------------------------------- | --------- | ------- |
+| `checked`  | `checked`  | Property to maintain checked state      | `boolean` | `false` |
+| `disabled` | `disabled` | Disables the checkbox                   | `boolean` | `false` |
+| `label`    | `label`    | Label for checkbox                      | `string`  | `''`    |
+| `value`    | `value`    | Value of the checkbox for within a form | `string`  | `''`    |
 
 
 ## Events

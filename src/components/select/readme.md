@@ -1,5 +1,14 @@
-# fw-select
+# Select
 
+
+## Usage
+
+```html live
+<fw-select label="Select the house" required="true" value="1">
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+</fw-select>
+```
 
 
 <!-- Auto Generated Below -->

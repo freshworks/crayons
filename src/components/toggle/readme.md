@@ -1,4 +1,25 @@
-# fw-toggle
+# Toggle
+
+## Usage
+
+Small:
+
+```html live
+<fw-toggle size="small"></fw-toggle>
+```
+
+Medium:
+
+```html live
+<fw-toggle></fw-toggle>
+```
+
+
+Large:
+
+```html live
+<fw-toggle size="large"></fw-toggle>
+```
 
 
 

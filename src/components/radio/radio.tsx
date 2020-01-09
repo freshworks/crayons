@@ -19,11 +19,11 @@ export class Radio {
    */
   @Prop() label = '';
   /**
-   * Value of the radio button for within a <form>
+   * Value of the radio button for within a form
    */
   @Prop() value = '';
   /**
-   * Value of the name for within a <form>
+   * Value of the name for within a form
    */
   @Prop() name = '';
 
