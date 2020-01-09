@@ -23,6 +23,7 @@ export const config: Config = {
     },
     {
       type: 'www',
+      dir: 'src/.vuepress/public/www/',
       serviceWorker: null, // disable service workers
     },
   ],

@@ -46,7 +46,7 @@ export namespace Components {
     */
     'label': string;
     /**
-    * Value of the checkbox for within a <form>
+    * Value of the checkbox for within a form
     */
     'value': string;
   }
@@ -158,11 +158,11 @@ export namespace Components {
     */
     'label': string;
     /**
-    * Value of the name for within a <form>
+    * Value of the name for within a form
     */
     'name': string;
     /**
-    * Value of the radio button for within a <form>
+    * Value of the radio button for within a form
     */
     'value': string;
   }
@@ -552,7 +552,7 @@ declare namespace LocalJSX {
     */
     'onFwFocus'?: (event: CustomEvent<void>) => void;
     /**
-    * Value of the checkbox for within a <form>
+    * Value of the checkbox for within a form
     */
     'value'?: string;
   }
@@ -664,7 +664,7 @@ declare namespace LocalJSX {
     */
     'label'?: string;
     /**
-    * Value of the name for within a <form>
+    * Value of the name for within a form
     */
     'name'?: string;
     /**
@@ -684,7 +684,7 @@ declare namespace LocalJSX {
     */
     'onFwSelect'?: (event: CustomEvent<any>) => void;
     /**
-    * Value of the radio button for within a <form>
+    * Value of the radio button for within a form
     */
     'value'?: string;
   }

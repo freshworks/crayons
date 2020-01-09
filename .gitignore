@@ -3,6 +3,8 @@ storybook-dist/
 www/
 loader/
 coverage/
+src/.vuepress/public/build/
+docs-dist/
 
 *~
 *.sw[mnpcod]

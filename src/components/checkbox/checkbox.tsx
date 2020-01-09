@@ -19,7 +19,7 @@ export class Checkbox {
    */
   @Prop() label = '';
   /**
-   * Value of the checkbox for within a <form>
+   * Value of the checkbox for within a form
    */
   @Prop() value = '';
 

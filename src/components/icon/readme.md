@@ -1,6 +1,10 @@
-# fw-icon
+# Icon
 
+## Usage
 
+```html live
+<fw-icon name="agent" size="18"></fw-icon>
+```
 
 <!-- Auto Generated Below -->
 

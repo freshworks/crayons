@@ -1,6 +1,17 @@
-# fw-input
+# Input
 
 
+## Usage
+
+```html live
+<fw-input
+  label="Name"
+  state-text="It has to be your name"
+  placeholder="Enter your first name"
+  required
+  clear-input>
+</fw-input>
+```
 
 <!-- Auto Generated Below -->
 
