@@ -19,7 +19,7 @@
     "build:components": "stencil build --docs",
     "code-sanity": "yarn lint",
     "docs:dev": "yarn build:components && vuepress dev src",
-    "docs:build": "yarn build:components && vuepress build src",
+    "docs:build": "vuepress build src",
     "lint": "yarn lint:ts && yarn lint:styles",
     "lint:ts": "tslint -c tslint.json -p tsconfig.json -t grouped -s node_modules/custom-tslint-formatters/formatters",
     "lint:styles": "stylelint 'src/**/*.scss'",

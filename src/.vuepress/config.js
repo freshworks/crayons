@@ -8,6 +8,7 @@ const getComponents = () => components.tags.map(({ tag }) => {
 
 module.exports = {
   title: 'Freshworks UI Kit',
+  base: '/freshworks-ui-kit/docs/',
   description: 'Use freshworks components to build apps',
   dest: 'docs-dist',
   docsDir: 'src',
