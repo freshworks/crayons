@@ -15,7 +15,7 @@
     "loader/"
   ],
   "scripts": {
-    "build": "yarn build:components && yarn storybook:build",
+    "build": "yarn build:components && yarn storybook:build && yarn docs:build",
     "build:components": "stencil build --docs",
     "code-sanity": "yarn lint",
     "docs:dev": "yarn build:components && vuepress dev src",
