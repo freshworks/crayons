@@ -1,8 +1,6 @@
 import {
   Component,
   Element,
-  Event,
-  EventEmitter,
   Listen,
   State,
   h
@@ -18,27 +16,47 @@ export class Tabs {
   @Element()
   el!: HTMLElement;
 
+  /**
+   * Child Elements/Tab Items 
+   */
   @State()
-  tabs = Array.from(this.el.children);
+  tabs = Array.from(this.el.querySelectorAll('fw-tab'));
 
+  /**
+   * Active tab indec
+   */
   @State()
   activeTabIndex = 0;
 
-  @Event({ eventName: 'change' })
-  onChange: EventEmitter;
+  /**
+   * Active class for tab container
+   */
+  @State()
+  activeChildClass: String = '';
 
+
+
+  /**
+   * Event listener to Add active class to current Tab 
+   */
   @Listen('click')
   toggelLink(event: Event, index: number) {
-
     event.stopPropagation();
     this.activeTabIndex = index;
+  }
 
+  /**
+   * Event listener to Change active class for tab container
+   */
+  @Listen('click')
+  addClassToTabContainer(event: Event) {
+    event.stopPropagation();
+    this.activeChildClass = 'in active'
   }
 
   render() {
 
     return (
-
       <div class="tabs">
         <ul role="tablist" class="tabs__items">
           {this.tabs.map((tab, index) =>
@@ -51,15 +69,11 @@ export class Tabs {
         </ul>
         <div class="tabs__content">
           {this.tabs.map((tab, index) =>
-            <div role="tabpanel" id={'tab-' + index} class={'tabs__content__pane tabs__content__pane--fade ' + (index === this.activeTabIndex ? 'in active' : '')}>
-              <div innerHTML={tab.innerHTML}>
-
-              </div>
+            <div onClick={event => this.toggelLink(event, index)} innerHTML={tab.innerHTML} role="tabpanel" id={'tab-' + index} class={'tabs__content__pane tabs__content__pane--fade ' + (index === this.activeTabIndex ? 'in active' : '') + this.activeChildClass}>
             </div>
           )}
         </div>
       </div>
-
     );
   }
 }
