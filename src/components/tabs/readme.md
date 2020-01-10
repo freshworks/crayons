@@ -56,9 +56,17 @@ A tab with UI kit components as child components
     </fw-select>
   </fw-tab>
 </fw-tabs>
-
 ```
+
+
 <!-- Auto Generated Below -->
+
+
+## Events
+
+| Event    | Description | Type               |
+| -------- | ----------- | ------------------ |
+| `change` |             | `CustomEvent<any>` |
 
 
 ----------------------------------------------
