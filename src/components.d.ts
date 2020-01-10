@@ -790,9 +790,7 @@ declare namespace LocalJSX {
     */
     'title'?: string;
   }
-  interface FwTabs {
-    'onChange'?: (event: CustomEvent<any>) => void;
-  }
+  interface FwTabs {}
   interface FwTag {
     'onFwClosed'?: (event: CustomEvent<any>) => void;
     /**
