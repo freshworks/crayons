@@ -17,7 +17,7 @@ export class Tabs {
   el!: HTMLElement;
 
   /**
-   * Child Elements/Tab Items 
+   * Child Elements/Tab Items
    */
   @State()
   tabs = Array.from(this.el.querySelectorAll('fw-tab'));
@@ -32,12 +32,10 @@ export class Tabs {
    * Active class for tab container
    */
   @State()
-  activeChildClass: String = '';
-
-
+  activeChildClass = '';
 
   /**
-   * Event listener to Add active class to current Tab 
+   * Event listener to Add active class to current Tab
    */
   @Listen('click')
   toggelLink(event: Event, index: number) {
@@ -51,7 +49,7 @@ export class Tabs {
   @Listen('click')
   addClassToTabContainer(event: Event) {
     event.stopPropagation();
-    this.activeChildClass = 'in active'
+    this.activeChildClass = 'in active';
   }
 
   render() {
