@@ -23,6 +23,7 @@
     "lint": "yarn lint:ts && yarn lint:styles",
     "lint:ts": "tslint -c tslint.json -p tsconfig.json -t grouped -s node_modules/custom-tslint-formatters/formatters",
     "lint:styles": "stylelint 'src/**/*.scss'",
+    "postinstall": "yarn build:components",
     "start": "stencil build --docs --dev --watch",
     "test": "stencil test --spec --e2e --coverage",
     "test.watch": "stencil test --spec --e2e --watchAll",
