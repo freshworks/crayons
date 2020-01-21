@@ -17,4 +17,9 @@ export class Tab {
    */
   @Prop() message: string;
 
+  render() {
+    return (
+    ``
+    )
+  }
 }
