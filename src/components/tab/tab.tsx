@@ -20,6 +20,6 @@ export class Tab {
   render() {
     return (
     ``
-    )
+    );
   }
 }
