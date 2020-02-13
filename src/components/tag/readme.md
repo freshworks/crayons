@@ -1,5 +1,5 @@
-# Tag (fw-tag)
-fw-tag provides a child component that is used to enable selecting multiple options in the Select component. 
+# Tag
+Tag is a child component that is used to enable selecting multiple options in the Select component.
 
 ## Usage
 

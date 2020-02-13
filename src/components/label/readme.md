@@ -1,5 +1,5 @@
-# Label (fw-label)
-fw-label displays an informational text component that identifies other components on the user interface. 
+# Label
+Label is an informational component that identifies content on the user interface.
 
 ## Usage
 
