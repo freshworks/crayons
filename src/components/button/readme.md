@@ -1,57 +1,39 @@
 # Button
-
+Button is a clickable input control that enables specific actions based on the type of button. A button can be labeled using text, icon, or both.
 
 ## Usage
 
-### Button Types
-
 ```html live
-<fw-button color="primary"> Primary </fw-button>
-<fw-button color="secondary"> Secondary </fw-button>
-<fw-button color="danger"> Danger </fw-button>
-<fw-button color="link"> Link </fw-button>
-<fw-button color="text"> Text </fw-button>
-```
-
-### Block Buttons
-
-```html live
-<fw-button expand>Default</fw-button>
-<fw-button color="primary" expand>Primary</fw-button>
-<fw-button color="secondary" expand>Secondary</fw-button>
-<fw-button color="danger" expand>Danger</fw-button>
-```
-
-### Small Buttons
-```html live
-<fw-button size="small">Default</fw-button>
-<fw-button color="primary" size="small">Primary</fw-button>
-<fw-button color="secondary" size="small">Secondary</fw-button>
-<fw-button color="danger" size="small">Danger</fw-button>
-```
-
-### Mini Buttons
-```html live
-<fw-button size="mini">Default</fw-button>
-<fw-button color="primary" size="mini">Primary</fw-button>
-<fw-button color="secondary" size="mini">Secondary</fw-button>
-<fw-button color="danger" size="mini">Danger</fw-button>
-```
-
-### Icon Buttons
-```html live
-<fw-button size="icon"><fw-icon name="phone" color="white"></fw-icon></fw-button>
-<fw-button color="primary" size="icon"><fw-icon color="#fefefe" name="agent"></fw-icon></fw-button>
-<fw-button color="secondary" size="icon"><fw-icon name="check"></fw-icon></fw-button>
-<fw-button color="danger" size="icon"><fw-icon color="#fefefe" name="code"></fw-icon></fw-button>
-```
-
-### Icon with text Buttons
-```html live
-<fw-button><fw-icon name="phone" color="white"></fw-icon> Call</fw-button>
-<fw-button color="primary"><fw-icon color="#fefefe" name="agent"></fw-icon> Support</fw-button>
+<section>
+<fw-label value="Try themes"></fw-label>
+<fw-button color="secondary"> OK </fw-button>
+<fw-button color="danger"> Don't Click </fw-button>
+<fw-button color="link"> Link Button </fw-button>
+<fw-button color="text"> Plain Text Button </fw-button>
+</section>
+<br>
+<section>
+<fw-label value="Try sizes"></fw-label>
+<fw-button size="small"> Small </fw-button>
+<fw-button size="mini" color="secondary"> Mini </fw-button>
+</section>
+<br>
+<section>
+<fw-label value="Try icon buttons"></fw-label>
+<fw-button size="icon"><fw-icon name="agent" color="white"></fw-icon> </fw-button>
+<fw-button size="icon" color="secondary"><fw-icon name="phone"></fw-icon> </fw-button>
+</section>
+<br>
+<section>
+<fw-label value="Try icon + text buttons"></fw-label>
 <fw-button color="secondary"><fw-icon name="delete"></fw-icon> Delete</fw-button>
-<fw-button color="danger"><fw-icon color="#fefefe" name="code"></fw-icon> See Code</fw-button>
+<fw-button color="primary"> Copy <fw-icon name="code" color="white"></fw-icon></fw-button>
+</section>
+<br>
+<section>
+<fw-label value="Try expand attribute"></fw-label>
+<fw-button size="small" color="secondary" expand>Span full-width</fw-button>
+</section>
 ```
 
 <!-- Auto Generated Below -->

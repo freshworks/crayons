@@ -4,9 +4,16 @@ Select is an input control (list or drop-down box) that enables selection of an 
 ## Usage
 
 ```html live
-<fw-select label="Select the house" required="true" value="1">
+<fw-select label="House Name" required="true" value="1" placeholder="Your choice" state-text="Select singluar option">
   <fw-select-option value="1">Starks</fw-select-option>
   <fw-select-option value="2">Lannisters</fw-select-option>
+</fw-select>
+<fw-select label="Names" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+  <fw-select-option value="1" selected>Starks</fw-select-option>
+  <fw-select-option value="2" >Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
 </fw-select>
 ```
 

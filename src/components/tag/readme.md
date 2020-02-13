@@ -1,6 +1,9 @@
 # Tag
+Tag is a child component that is used to enable selecting multiple options in the Select component.
 
+## Usage
 
+<fw-tag text="Option"></fw-tag>
 
 <!-- Auto Generated Below -->
 

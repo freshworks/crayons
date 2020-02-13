@@ -1,27 +1,13 @@
 # Toggle
 
+Toggle is an input control that enables modifying an element’s state between two settings. 
+
 ## Usage
 
-Small:
-
 ```html live
-<fw-toggle size="small"></fw-toggle>
+<fw-toggle size="small">Small not selected</fw-toggle><br><br>
+<fw-toggle size="medium" state>Mid-sized and selected</fw-toggle>
 ```
-
-Medium:
-
-```html live
-<fw-toggle></fw-toggle>
-```
-
-
-Large:
-
-```html live
-<fw-toggle size="large"></fw-toggle>
-```
-
-
 
 <!-- Auto Generated Below -->
 
