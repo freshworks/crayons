@@ -1,9 +1,9 @@
 # Icon
-
+Icon is an informational component that imparts meaning to the component it is associated with.
 ## Usage
 
 ```html live
-<fw-icon name="agent" size="18"></fw-icon>
+<fw-icon name="add-contact" size="18" color="green"></fw-icon>
 ```
 
 <!-- Auto Generated Below -->

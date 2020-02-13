@@ -1,6 +1,12 @@
 # Select Option
 
+Select option is a child element of Select and helps to populate the Select component’s list or drop-down box with values. If the Select Option is used without the value attribute, when the form data is saved, the value of the Select input control is the selected option’s text. 
 
+## Usage
+
+<fw-select-option selected="true">I am the chosen one</fw-select-option>
+<fw-select-option>Me,nein</fw-select-option>
+<fw-select-option>I am another option</fw-select-option>
 
 <!-- Auto Generated Below -->
 
