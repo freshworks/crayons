@@ -1,5 +1,5 @@
-# Button (fw-button)
-fw-button displays a button that enables specific actions based on the button type. The button’s label can be a text, icon, or both.
+# Button
+Button is a clickable input control that enables specific actions based on the type of button. A button can be labeled using text, icon, or both.
 
 ## Usage
 
@@ -35,8 +35,6 @@ fw-button displays a button that enables specific actions based on the button ty
 <fw-button size="small" color="secondary" expand>Span full-width</fw-button>
 </section>
 ```
-
-
 
 <!-- Auto Generated Below -->
 

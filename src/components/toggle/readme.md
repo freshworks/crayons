@@ -1,6 +1,6 @@
 # Toggle (fw-toggle)
 
-fw-toggle displays an input control that enables modifying an element’s state between two settings. 
+Toggle is an input control that enables modifying an element’s state between two settings. 
 
 ## Usage
 
