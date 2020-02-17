@@ -17,7 +17,7 @@ export class Tab {
    */
   @Prop() message: string;
 
-  render() {
+  render(){
     return (
     <div>
         <slot />
