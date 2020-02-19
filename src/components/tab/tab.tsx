@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-tab',
@@ -19,9 +19,11 @@ export class Tab {
 
   render() {
     return (
-    <div>
-        <slot />
-    </div>
+      <Host>
+        <div>
+          <slot />
+        </div>
+      </Host>
     );
   }
 }
