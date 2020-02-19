@@ -62,7 +62,7 @@ node {
       claimBuild()
       throw any
   } finally {
-      // sendEmail()
+      sendEmail()
       deleteDir()
   }
 }
