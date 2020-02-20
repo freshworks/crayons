@@ -140,7 +140,6 @@ export class Input {
   }
 
   render() {
-    // const value = '';
     return (
       <Host
         aria-disabled={this.disabled}
