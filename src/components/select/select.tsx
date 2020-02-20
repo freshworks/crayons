@@ -18,15 +18,15 @@ export class Select {
   @State() filteredOptions = [];
   @State() hasFocus = false;
   /**
-   * Label for the control
+   * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
   /**
-   * The value of the input. Similar to an input value
+   * Value of the option that is displayed as the default selection, in the input control.
    */
   @Prop({ mutable: true }) value: any;
   /**
-   * The name of the control, which is submitted with the form data.
+   * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
   /**
@@ -34,7 +34,7 @@ export class Select {
    */
   @Prop() type: 'text' | 'number' = 'text';
   /**
-   * Instructional text that shows before the selection is made
+   * Text displayed in the control before an option is selected.
    */
   @Prop() placeholder?: string | null;
   /**
@@ -46,15 +46,15 @@ export class Select {
    */
   @Prop() stateText = '';
   /**
-   * If `true`, the user cannot modify the value.
+   * If true, the user cannot modify the value.
    */
   @Prop() readonly = false;
   /**
-   * If `true`, the user must fill in a value before submitting a form.
+   * Specifies the input control as a mandatory field. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() required = false;
   /**
-   * If `true`, the user must select some value. The default wont be shown
+   * If true, the user must select some value. The default wont be shown
    */
   @Prop() forceSelect = true;
   /**
@@ -62,7 +62,7 @@ export class Select {
    */
   @Prop() disabled = false;
   /**
-   * Set to true for multipleselect mode
+   * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() multiple = false;
 
@@ -223,7 +223,7 @@ export class Select {
                 readOnly={this.readonly}
                 required={this.required}
                 type={this.type}
-                value=""
+                value={(!this.multiple ? this.options[this.value - 1].text : '')}
                 onInput={() => this.onInput()}
                 onFocus={e => this.innerOnFocus(e)}
                 onBlur={e => this.innerOnBlur(e)}
