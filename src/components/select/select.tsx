@@ -26,10 +26,6 @@ export class Select {
    */
   @Prop({ mutable: true }) value: any;
   /**
-   * Text to be displyed for the selected option
-   */
-  @Prop() selectedText = '';
-  /**
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
