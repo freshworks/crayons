@@ -140,7 +140,6 @@ export class Input {
   }
 
   render() {
-    const value = '';
     return (
       <Host
         aria-disabled={this.disabled}
@@ -170,7 +169,7 @@ export class Input {
             readOnly={this.readonly}
             required={this.required}
             type={this.type}
-            value={value}
+            value={this.value}
             onInput={e => this.onInput(e)}
             onBlur={this.onBlur}
             onFocus={this.onFocus}
