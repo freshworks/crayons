@@ -26,6 +26,10 @@ export class Select {
    */
   @Prop({ mutable: true }) value: any;
   /**
+   * Text to be displyed for the selected option
+   */
+  @Prop() selectedText = '';
+  /**
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
@@ -118,11 +122,8 @@ export class Select {
 
   @Watch('options')
   optionsChangedHandler() {
-    const selectedOptions = this.options.filter(option => option.selected);
-    if (selectedOptions.length > 0) {
-      this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
-      this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
-    }
+
+    this.renderInput();
   }
 
   @Listen('fwClosed')
@@ -151,6 +152,7 @@ export class Select {
     this.filteredOptions = value !== ''
       ? this.options.filter(option => option.text.toLowerCase().startsWith(value))
       : this.options;
+    this.renderInput();
   }
 
   renderTags() {
@@ -158,6 +160,14 @@ export class Select {
       return this.options
         .filter(option => option.selected)
         .map(option => <fw-tag text={option.text} value={option.value}/>);
+    }
+  }
+
+  renderInput() {
+    const selectedOptions = this.options.filter(option => option.selected);
+    if (selectedOptions.length > 0) {
+      this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
+      this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
     }
   }
 
@@ -171,7 +181,6 @@ export class Select {
   }
 
   componentWillLoad() {
-    // this.value = this.value || (this. multiple ? [] : undefined);
 
     const selectOptions = Array.from(this.host.querySelectorAll('fw-select-option'));
 
@@ -188,12 +197,17 @@ export class Select {
     this.host.innerHTML = '';
   }
 
+  componentDidLoad() {
+    this.renderInput();
+  }
+
   @Method()
   async getSelectedItem(): Promise<any> {
     return this.options.filter(option => option.selected);
   }
 
   render() {
+
     return (
       <Host
         aria-disabled={this.disabled}
@@ -223,7 +237,7 @@ export class Select {
                 readOnly={this.readonly}
                 required={this.required}
                 type={this.type}
-                value={(!this.multiple ? this.options[this.value - 1].text : '')}
+                value=""
                 onInput={() => this.onInput()}
                 onFocus={e => this.innerOnFocus(e)}
                 onBlur={e => this.innerOnBlur(e)}
