@@ -1,5 +1,5 @@
-# Checkbox (fw-checkbox)
-fw-checkbox displays a check box on the user interface and enables assigning a state (selected or deselected) to it. In the selected state, the check box displayed on the UI is highlighted and contains a check mark. 
+# Checkbox
+fw-checkbox is an input control that enables assigning a state (selected or deselected) to a component (check box). In the selected state, the check box displayed on the UI is highlighted and contains a check mark.
 ## Usage
 
 ```html live
