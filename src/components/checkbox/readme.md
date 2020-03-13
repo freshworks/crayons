@@ -1,9 +1,11 @@
 # Checkbox
-
+fw-checkbox is an input control that enables assigning a state (selected or deselected) to a component (check box). In the selected state, the check box displayed on the UI is highlighted and contains a check mark.
 ## Usage
 
 ```html live
-<fw-checkbox label="This is a subheading">Checkbox Text Here</fw-checkbox>
+<fw-checkbox checked label="Select to agree">Agree or Disagree</fw-checkbox><br><br>
+<fw-checkbox checked disabled value="dcb">Disable check box</fw-checkbox>
+
 ```
 
 <!-- Auto Generated Below -->
