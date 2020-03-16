@@ -18,7 +18,7 @@ def uploadAndInvalidate(environment) {
   uploadAssetsToS3('dist/freshworks-ui-kit', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}", 'us-east-1', true)
   uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/docs", 'us-east-1', true)
   uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/storybook", 'us-east-1', true)
-  invalidateCDN(STATIC_ASSETS[environment].cdnDistributionId, "${s3Path}/*")
+  // invalidateCDN(STATIC_ASSETS[environment].cdnDistributionId, "${s3Path}/*")
 }
 
 pipeline {
@@ -36,17 +36,17 @@ pipeline {
             }
         }
 
-        stage ('Code Sanity') {
-            steps {
-                doCodeSanity(NODE_VERSION)
-            }
-        }
+        // stage ('Code Sanity') {
+        //     steps {
+        //         doCodeSanity(NODE_VERSION)
+        //     }
+        // }
 
-        stage ('Unit Tests') {
-            steps {
-                runUnitTests(NODE_VERSION)
-            }
-        }
+        // stage ('Unit Tests') {
+        //     steps {
+        //         runUnitTests(NODE_VERSION)
+        //     }
+        // }
 
         stage ('Build') {
             steps {
