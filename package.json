@@ -1,8 +1,20 @@
 {
-  "name": "freshworks-ui-kit",
+  "name": "crayons-ui-kit",
   "engines": {
     "node": "10.x"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freshdesk/freshworks-ui-kit.git"
+  },
+  "keywords": [
+    "web-components",
+    "stenciljs",
+    "ui-kit",
+    "typescript",
+    "components"
+  ],
+  "author": "Freshworks Inc",
   "version": "0.0.1",
   "description": "Freshworks UI Kit for Developer Platform",
   "main": "dist/index.js",
