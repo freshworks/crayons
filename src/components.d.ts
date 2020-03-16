@@ -186,32 +186,32 @@ export namespace Components {
     */
     'disabled': boolean;
     /**
-    * If `true`, the user must select some value. The default wont be shown
+    * If true, the user must select some value. The default wont be shown
     */
     'forceSelect': boolean;
     'getSelectedItem': () => Promise<any>;
     /**
-    * Label for the control
+    * Label displayed on the interface, for the component.
     */
     'label': string;
     /**
-    * Set to true for multipleselect mode
+    * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
     */
     'multiple': boolean;
     /**
-    * The name of the control, which is submitted with the form data.
+    * Name of the component, saved as part of form data.
     */
     'name': string;
     /**
-    * Instructional text that shows before the selection is made
+    * Text displayed in the control before an option is selected.
     */
     'placeholder'?: string | null;
     /**
-    * If `true`, the user cannot modify the value.
+    * If true, the user cannot modify the value.
     */
     'readonly': boolean;
     /**
-    * If `true`, the user must fill in a value before submitting a form.
+    * Specifies the input control as a mandatory field. If the attribute’s value is undefined, the value is set to true.
     */
     'required': boolean;
     /**
@@ -227,7 +227,7 @@ export namespace Components {
     */
     'type': 'text' | 'number';
     /**
-    * The value of the input. Similar to an input value
+    * Value of the option that is displayed as the default selection, in the input control.
     */
     'value': any;
   }
@@ -712,34 +712,34 @@ declare namespace LocalJSX {
     */
     'disabled'?: boolean;
     /**
-    * If `true`, the user must select some value. The default wont be shown
+    * If true, the user must select some value. The default wont be shown
     */
     'forceSelect'?: boolean;
     /**
-    * Label for the control
+    * Label displayed on the interface, for the component.
     */
     'label'?: string;
     /**
-    * Set to true for multipleselect mode
+    * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
     */
     'multiple'?: boolean;
     /**
-    * The name of the control, which is submitted with the form data.
+    * Name of the component, saved as part of form data.
     */
     'name'?: string;
     'onFwBlur'?: (event: CustomEvent<any>) => void;
     'onFwChange'?: (event: CustomEvent<any>) => void;
     'onFwFocus'?: (event: CustomEvent<any>) => void;
     /**
-    * Instructional text that shows before the selection is made
+    * Text displayed in the control before an option is selected.
     */
     'placeholder'?: string | null;
     /**
-    * If `true`, the user cannot modify the value.
+    * If true, the user cannot modify the value.
     */
     'readonly'?: boolean;
     /**
-    * If `true`, the user must fill in a value before submitting a form.
+    * Specifies the input control as a mandatory field. If the attribute’s value is undefined, the value is set to true.
     */
     'required'?: boolean;
     /**
@@ -755,7 +755,7 @@ declare namespace LocalJSX {
     */
     'type'?: 'text' | 'number';
     /**
-    * The value of the input. Similar to an input value
+    * Value of the option that is displayed as the default selection, in the input control.
     */
     'value'?: any;
   }
