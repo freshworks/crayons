@@ -20,10 +20,10 @@ Label is an informational component that identifies content on the user interfac
 
 ## Properties
 
-| Property | Attribute | Description           | Type                                                           | Default    |
-| -------- | --------- | --------------------- | -------------------------------------------------------------- | ---------- |
-| `color`  | `color`   | The type of the label | `"blue" \| "green" \| "grey" \| "normal" \| "red" \| "yellow"` | `'normal'` |
-| `value`  | `value`   | The text in the label | `string`                                                       | `''`       |
+| Property | Attribute | Description                                                 | Type                                                           | Default    |
+| -------- | --------- | ----------------------------------------------------------- | -------------------------------------------------------------- | ---------- |
+| `color`  | `color`   | Identifier of the theme based on which the label is styled. | `"blue" \| "green" \| "grey" \| "normal" \| "red" \| "yellow"` | `'normal'` |
+| `value`  | `value`   | Display text in the label.                                  | `string`                                                       | `''`       |
 
 
 ----------------------------------------------

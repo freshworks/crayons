@@ -12,11 +12,18 @@ Icon is an informational component that imparts meaning to the component it is a
 
 ## Properties
 
-| Property | Attribute | Description                                 | Type     | Default     |
-| -------- | --------- | ------------------------------------------- | -------- | ----------- |
-| `color`  | `color`   | The color of the icon in CSS standard color | `string` | `''`        |
-| `name`   | `name`    | The name of the icon                        | `string` | `undefined` |
-| `size`   | `size`    | The size of the icon in pixels              | `number` | `12`        |
+| Property | Attribute | Description                                                                               | Type     | Default     |
+| -------- | --------- | ----------------------------------------------------------------------------------------- | -------- | ----------- |
+| `color`  | `color`   | Color in which the icon is displayed, specified as a standard CSS color or as a HEX code. | `string` | `''`        |
+| `name`   | `name`    | Identifier of the icon in the repo of icons.                                              | `string` | `undefined` |
+| `size`   | `size`    | Size of the icon, specified in number of  pixels.                                         | `number` | `12`        |
+
+
+## CSS Custom Properties
+
+| Name           | Description       |
+| -------------- | ----------------- |
+| `--icon-color` | Color of the icon |
 
 
 ## Dependencies

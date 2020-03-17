@@ -117,7 +117,7 @@ export class Textarea {
   }
 
   render() {
-    const value = '';
+
     return (
       <Host
         aria-disabled={this.disabled}
@@ -143,7 +143,7 @@ export class Textarea {
               maxLength={this.maxlength}
               readOnly={this.readonly}
               required={this.required}
-              value={value}
+              value={this.value}
               onInput={e => this.onInput(e)}
               onBlur={this.onBlur}
               onFocus={this.onFocus}
