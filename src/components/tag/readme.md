@@ -1,5 +1,5 @@
 # Tag
-
+Tag is a child component that is used to enable selecting multiple options in the Select component. 
 
 
 <!-- Auto Generated Below -->

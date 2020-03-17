@@ -6,35 +6,39 @@ import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/c
   shadow: true,
 })
 export class Checkbox {
+
   /**
-   * Property to maintain checked state
+   * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ mutable: true }) checked = false;
+
   /**
-   * Disables the checkbox
+   * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ mutable: true }) disabled = false;
+
   /**
-   * Label for checkbox
+   * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
+
   /**
-   * Value of the checkbox for within a form
+   * Identifier corresponding to the component, that is saved when the form data is saved.
    */
   @Prop() value = '';
 
   /**
-   * Emitted when the checkbox value has changed.
+   * Triggered when the component’s value is modified.
    */
   @Event() fwChange!: EventEmitter;
 
   /**
-   * Emitted when the checkbox has focus.
+   * Triggered when the component comes into focus.
    */
   @Event() fwFocus!: EventEmitter<void>;
 
   /**
-   * Emitted when the checbox loses focus.
+   * Triggered when the component loses focus.
    */
   @Event() fwBlur!: EventEmitter<void>;
 
