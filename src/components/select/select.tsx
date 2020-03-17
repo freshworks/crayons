@@ -42,7 +42,7 @@ export class Select {
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
-   * Descriptive or instructional text displayed below the input control. 
+   * Descriptive or instructional text displayed below the input control.
    */
   @Prop() stateText = '';
   /**
@@ -179,21 +179,21 @@ export class Select {
     }
   }
 
-  // restrictMultipleSelection() {
+  restrictMultipleSelection() {
 
-  //   this.filteredOptions.forEach((option, index) => {
-  //     let foundFirstElement = false
-  //     if (option.seleted == true && foundFirstElement == false) {
-  //       foundFirstElement = true
-  //     }
-  //     if (option.seleted == true && foundFirstElement == false) {
-  //       this.filteredOptions[index] = false
-  //     }
-  //   })
-  // }
+    this.filteredOptions.forEach((option, index) => {
+      let foundFirstElement = false;
+      if (option.seleted === true && foundFirstElement === false) {
+        foundFirstElement = true;
+      }
+      if (option.seleted === true && foundFirstElement === false) {
+        this.filteredOptions[index] = false;
+      }
+    });
+  }
 
   renderDropdown() {
-    // this.restrictMultipleSelection()
+    this.restrictMultipleSelection();
     return this.filteredOptions.map(option =>
       (<fw-select-option
         value={option.value}
