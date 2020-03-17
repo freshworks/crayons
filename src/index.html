@@ -11,5 +11,14 @@
 </head>
 <body>
 <fw-button>Hello</fw-button>
+<fw-select label="Grouping Interval" id="grouping-interval" required="true" force-select="false" state-text="Messages which come within this interval will not create separate tickets and instead will be treated as replies to the last created ticket." >
+  <fw-select-option value="1">Never</fw-select-option>
+  <fw-select-option value="3600000">1 hour</fw-select-option>
+  <fw-select-option value="10800000">3 hours</fw-select-option>
+  <fw-select-option selected value="86400000">24 hours</fw-select-option>
+  <fw-select-option value="172800000">48 hours</fw-select-option>
+</fw-select>
+
+<fw-icon  size="18" name=''> </fw-icon>
 </body>
 </html>

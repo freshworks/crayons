@@ -48,7 +48,7 @@ export class Input {
   /**
    * The state of the control. Color changes accordingly
    */
-  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  @Prop() state: string | 'normal' | 'warning' | 'error' = 'normal';
   /**
    * This text will be displayed below the input box indicating the state/hint
    */
