@@ -1,4 +1,5 @@
 # Toggle
+Toggle is an input control that enables modifying an element’s state between two settings. 
 
 ## Usage
 
@@ -28,19 +29,19 @@ Large:
 
 ## Properties
 
-| Property   | Attribute  | Description                                                     | Type                             | Default    |
-| ---------- | ---------- | --------------------------------------------------------------- | -------------------------------- | ---------- |
-| `disabled` | `disabled` | Is it disabled                                                  | `boolean`                        | `false`    |
-| `name`     | `name`     | The name of the control, which is submitted with the form data. | `string`                         | `''`       |
-| `size`     | `size`     | The type of control to display. The default type is text.       | `"large" \| "medium" \| "small"` | `'medium'` |
-| `state`    | `state`    |                                                                 | `boolean`                        | `false`    |
+| Property   | Attribute  | Description                                                                                                                             | Type                             | Default    |
+| ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ---------- |
+| `disabled` | `disabled` | Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to true.             | `boolean`                        | `false`    |
+| `name`     | `name`     | Name of the component, saved as part of the form data.                                                                                  | `string`                         | `''`       |
+| `size`     | `size`     | Size of the input control.                                                                                                              | `"large" \| "medium" \| "small"` | `'medium'` |
+| `state`    | `state`    | Specifies whether the input control is turned on in the default state. If the attribute’s value is undefined, the value is set to true. | `boolean`                        | `false`    |
 
 
 ## Events
 
-| Event      | Description | Type               |
-| ---------- | ----------- | ------------------ |
-| `fwChange` |             | `CustomEvent<any>` |
+| Event      | Description                                        | Type               |
+| ---------- | -------------------------------------------------- | ------------------ |
+| `fwChange` | Triggered when the state of the component changes. | `CustomEvent<any>` |
 
 
 ----------------------------------------------

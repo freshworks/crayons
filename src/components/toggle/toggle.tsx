@@ -7,20 +7,29 @@ import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
 })
 export class Toggle {
 
-  @Prop() state = false;
   /**
-   * The type of control to display. The default type is text.
+   * Specifies whether the input control is turned on in the default state. If the attribute’s value is undefined, the value is set to true.
+   */
+  @Prop() state = false;
+
+  /**
+   * Size of the input control.
    */
   @Prop() size: 'small' | 'medium' | 'large' = 'medium';
+
   /**
-   * The name of the control, which is submitted with the form data.
+   * Name of the component, saved as part of the form data.
    */
   @Prop() name = '';
+
   /**
-   * Is it disabled
+   * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() disabled = false;
 
+  /**
+   * Triggered when the state of the component changes.
+   */
   @Event() fwChange: EventEmitter;
 
   @Watch('state')
