@@ -1,68 +1,94 @@
 #!groovy
 
 def NODE_VERSION = 10;
-def STATIC_ASSETS = [
-  dev: [
-    bucketName: 'static-dev.freshcloud.io',
-    cdnDistributionId: 'E22F4XS4AW1DBF'
-  ],
-  staging: [
-    bucketName: 'static.freshcloud.io',
-    cdnDistributionId: 'E1NTINA3EQZS8T'
-  ],
-  release: [
-    bucketName: 'static.freshdev.io',
-    cdnDistributionId: 'E2049NOS2OZD9B'
+
+def uploadAndInvalidate(environment) {
+  def s3Path = "/freshworks-ui-kit"
+
+  def STATIC_ASSETS = [
+    staging: [
+      bucketName: 'static.freshcloud.io',
+      cdnDistributionId: 'E1NTINA3EQZS8T'
+    ],
+    release: [
+      bucketName: 'static.freshdev.io',
+      cdnDistributionId: 'E2049NOS2OZD9B'
+    ]
   ]
-]
 
-node {
-  // setBuildProperties()
-  try {
-    stage('Checkout & Setup') {
-      checkoutCode(NODE_VERSION)
-    }
-    
-    stage('Code Sanity') {
-      doCodeSanity(NODE_VERSION)
-    }
+  uploadAssetsToS3('dist/freshworks-ui-kit', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}", 'us-east-1', true)
+  uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/docs", 'us-east-1', true)
+  uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/storybook", 'us-east-1', true)
+  invalidateCDN(STATIC_ASSETS[environment].cdnDistributionId, "${s3Path}/*")
+}
 
-    stage('Tests') {
-      runUnitTests(NODE_VERSION)
+pipeline {
+
+    agent any
+
+    parameters {
+        choice(choices: 'staging\nrelease', description: 'Deploys the UI Kit to Staging or Release', name: 'deployTo')
     }
 
-    stage('Ship Baby Ship!') {
-      if(!params.mergeCode) {
-        utilObj = new Utils()
-        utilObj.runCmd('yarn build', NODE_VERSION)
+    stages {
+        stage('Checkout & Setup') {
+            steps {
+                checkoutCode(NODE_VERSION)
+            }
+        }
 
-        def s3Path = "/freshworks-ui-kit"
+        stage ('Code Sanity') {
+            steps {
+                doCodeSanity(NODE_VERSION)
+            }
+        }
 
-        uploadAssetsToS3('dist/freshworks-ui-kit', "s3://${STATIC_ASSETS[BRANCH_NAME].bucketName}${s3Path}", 'us-east-1', true)
-        uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[BRANCH_NAME].bucketName}${s3Path}/docs", 'us-east-1', true)
-        uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[BRANCH_NAME].bucketName}${s3Path}/storybook", 'us-east-1', true)
-        invalidateCDN(STATIC_ASSETS[BRANCH_NAME].cdnDistributionId, "${s3Path}/*")
-      }
+        stage ('Unit Tests') {
+            steps {
+                runUnitTests(NODE_VERSION)
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                buildProject(NODE_VERSION)
+            }
+        }
+
+        stage ('Deploy to Staging') {
+            when {
+                expression {
+                    params.deployTo == 'staging'
+                }
+            }
+            steps {
+                uploadAndInvalidate('staging')
+            }
+        }
+
+        stage ('Deploy to Release') {
+            when {
+                expression {
+                    params.deployTo == 'release'
+                }
+            }
+            steps {
+                uploadAndInvalidate('release')
+            }
+        }
+
+        stage('Publish Reports') {
+            steps {
+                publishHTMLReport()
+            }
+        }
+
     }
 
-    stage('Publish Reports') {
-      publishHTMLReport()
+    post {
+        always {
+            sendEmail()
+            deleteDir()
+        }
     }
-
-    if(BRANCH_NAME != 'release') {
-      def nextStage = (BRANCH_NAME == 'dev' ? 'Staging' : 'Release');
-      stage('Promote to ' + "$nextStage") {
-        mergeCode(NODE_VERSION);
-      }
-    }
-
-    currentBuild.result = 'SUCCESS'
-  } catch(any) {
-      currentBuild.result = 'FAILURE'
-      claimBuild()
-      throw any
-  } finally {
-      sendEmail()
-      deleteDir()
-  }
 }
