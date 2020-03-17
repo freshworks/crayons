@@ -1,4 +1,5 @@
 # Icon
+Icon is an informational component that imparts meaning to the component it is associated with. 
 
 ## Usage
 
