@@ -182,7 +182,7 @@ export namespace Components {
   }
   interface FwSelect {
     /**
-    * Indicates that this control is disabled
+    * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
     */
     'disabled': boolean;
     /**
@@ -219,11 +219,11 @@ export namespace Components {
     */
     'state': 'normal' | 'warning' | 'error';
     /**
-    * This text will be displayed below the input box indicating the state/hint
+    * Descriptive or instructional text displayed below the input control.
     */
     'stateText': string;
     /**
-    * The type of control to display. The default type is text.
+    * Type of option accepted as the input value. If an option other than the specified type is selected, the input control is not populated with the selected option.
     */
     'type': 'text' | 'number';
     /**
@@ -233,11 +233,11 @@ export namespace Components {
   }
   interface FwSelectOption {
     /**
-    * Flag to indicate if the option is selected or not. A tick is shown
+    * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
     */
     'selected': boolean;
     /**
-    * The Key associated with this select option
+    * Value corresponding to the option, that is saved  when the form data is saved.
     */
     'value': string;
   }
@@ -708,7 +708,7 @@ declare namespace LocalJSX {
   }
   interface FwSelect {
     /**
-    * Indicates that this control is disabled
+    * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
     */
     'disabled'?: boolean;
     /**
@@ -727,8 +727,17 @@ declare namespace LocalJSX {
     * Name of the component, saved as part of form data.
     */
     'name'?: string;
+    /**
+    * Triggered when the input control comes into focus.
+    */
     'onFwBlur'?: (event: CustomEvent<any>) => void;
+    /**
+    * Triggered when the input control’s value is modified.
+    */
     'onFwChange'?: (event: CustomEvent<any>) => void;
+    /**
+    * Triggered when the input control comes into focus.
+    */
     'onFwFocus'?: (event: CustomEvent<any>) => void;
     /**
     * Text displayed in the control before an option is selected.
@@ -747,11 +756,11 @@ declare namespace LocalJSX {
     */
     'state'?: 'normal' | 'warning' | 'error';
     /**
-    * This text will be displayed below the input box indicating the state/hint
+    * Descriptive or instructional text displayed below the input control.
     */
     'stateText'?: string;
     /**
-    * The type of control to display. The default type is text.
+    * Type of option accepted as the input value. If an option other than the specified type is selected, the input control is not populated with the selected option.
     */
     'type'?: 'text' | 'number';
     /**
@@ -760,13 +769,16 @@ declare namespace LocalJSX {
     'value'?: any;
   }
   interface FwSelectOption {
+    /**
+    * Triggered when an option is selected.
+    */
     'onFwSelected'?: (event: CustomEvent<any>) => void;
     /**
-    * Flag to indicate if the option is selected or not. A tick is shown
+    * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
     */
     'selected'?: boolean;
     /**
-    * The Key associated with this select option
+    * Value corresponding to the option, that is saved  when the form data is saved.
     */
     'value'?: string;
   }

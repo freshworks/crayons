@@ -30,7 +30,7 @@ export class Select {
    */
   @Prop() name = '';
   /**
-   * The type of control to display. The default type is text.
+   * Type of option accepted as the input value. If an option other than the specified type is selected, the input control is not populated with the selected option.
    */
   @Prop() type: 'text' | 'number' = 'text';
   /**
@@ -42,7 +42,7 @@ export class Select {
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
-   * This text will be displayed below the input box indicating the state/hint
+   * Descriptive or instructional text displayed below the input control. 
    */
   @Prop() stateText = '';
   /**
@@ -58,7 +58,7 @@ export class Select {
    */
   @Prop() forceSelect = true;
   /**
-   * Indicates that this control is disabled
+   * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() disabled = false;
   /**
@@ -67,8 +67,20 @@ export class Select {
   @Prop() multiple = false;
 
   // Events
+
+  /**
+   * Triggered when the input control’s value is modified.
+   */
   @Event() fwChange: EventEmitter;
+
+  /**
+   * Triggered when the input control comes into focus.
+   */
   @Event() fwFocus: EventEmitter;
+
+  /**
+   * Triggered when the input control comes into focus.
+   */
   @Event() fwBlur: EventEmitter;
 
   private innerOnFocus = (e: Event) => {
@@ -134,10 +146,10 @@ export class Select {
   @Listen('keydown')
   onKeyDonw(ev) {
     switch (ev.key) {
-      case 'ArrowDown' :
+      case 'ArrowDown':
         this.innerOnClick();
         break;
-      case 'Escape' :
+      case 'Escape':
         this.innerOnBlur(ev);
         break;
     }
@@ -155,7 +167,7 @@ export class Select {
     if (this.multiple) {
       return this.options
         .filter(option => option.selected)
-        .map(option => <fw-tag text={option.text} value={option.value}/>);
+        .map(option => <fw-tag text={option.text} value={option.value} />);
     }
   }
 
@@ -167,7 +179,21 @@ export class Select {
     }
   }
 
+  // restrictMultipleSelection() {
+
+  //   this.filteredOptions.forEach((option, index) => {
+  //     let foundFirstElement = false
+  //     if (option.seleted == true && foundFirstElement == false) {
+  //       foundFirstElement = true
+  //     }
+  //     if (option.seleted == true && foundFirstElement == false) {
+  //       this.filteredOptions[index] = false
+  //     }
+  //   })
+  // }
+
   renderDropdown() {
+    // this.restrictMultipleSelection()
     return this.filteredOptions.map(option =>
       (<fw-select-option
         value={option.value}
@@ -224,7 +250,7 @@ export class Select {
               <input
                 ref={selectInput => this.selectInput = selectInput}
                 class={{
-                  'multiple-select' : this.multiple,
+                  'multiple-select': this.multiple,
                 }}
                 autoComplete="off"
                 disabled={this.disabled}

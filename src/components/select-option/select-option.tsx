@@ -6,19 +6,24 @@ import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class SelectOption {
+
   /**
-   * The Key associated with this select option
+   * Value corresponding to the option, that is saved  when the form data is saved.
    */
   @Prop({ reflect: true }) value: string;
+
   /**
-   * Flag to indicate if the option is selected or not. A tick is shown
+   * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ reflect: true, mutable: true }) selected = false;
 
+  /**
+   * Triggered when an option is selected.
+   */
   @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
 
   private onOptionSelected() {
-    this.selected = !this.selected;
+    this.selected = true;
     const { value, selected } = this;
     this.fwSelected.emit({ value, selected });
   }
