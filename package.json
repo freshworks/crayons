@@ -31,7 +31,6 @@
   ],
   "scripts": {
     "build": "yarn build:components && yarn storybook:build && yarn docs:build",
-    "local": "stencil build --docs --serve --watch",
     "build:components": "stencil build --docs",
     "code-sanity": "yarn lint",
     "dev": "npm-run-all --parallel start storybook",
