@@ -7,45 +7,42 @@ import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 export class Button {
 
   /**
-   *  The native button type:
-   *  values: `button`, `reset`, `submit`
+   *  Button type based on which actions are performed when the button is clicked.
    */
   @Prop() type: 'button' | 'reset' | 'submit' = 'button';
 
   /**
-   * The theme of the button,
-   * Values are : `primary`, `secondary`, `danger`
+   * Identifier of  the theme based on which the button is styled. 
    */
   @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
 
   /**
-   * Sets the button as disabled when set to true.
+   * Specifies whether to disable the button on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ reflect: true }) disabled = false;
 
   /**
-   * Sets the button size to block when set to true.
+   * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() expand = false;
 
   /**
-   * The size of the button,
-   * Values are : `normal`, `mini`
+   * Size of the button.
    */
   @Prop() size: 'normal' | 'mini' | 'small' = 'normal';
 
   /**
-   * Emitted when the button is clicked.
+   * Triggered when the button is clicked.
    */
   @Event() fwClick!: EventEmitter<void>;
 
   /**
-   * Emitted when the checkbox has focus.
+   * Triggered when the button loses focus.
    */
   @Event() fwFocus!: EventEmitter<void>;
 
   /**
-   * Emitted when the checbox loses focus.
+   * Triggered when the button loses focus.
    */
   @Event() fwBlur!: EventEmitter<void>;
 

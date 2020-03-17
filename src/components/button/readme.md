@@ -1,5 +1,5 @@
 # Button
-
+Button is a clickable input control that enables specific actions based on the type of button. A button can be labeled using text, icon, or both. 
 
 ## Usage
 
