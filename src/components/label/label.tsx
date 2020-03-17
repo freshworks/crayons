@@ -6,12 +6,14 @@ import { Component, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class Label {
+  
   /**
-   * The type of the label
+   * Identifier of the theme based on which the label is styled.
    */
   @Prop() color: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'normal' = 'normal';
+
   /**
-   * The text in the label
+   * Display text in the label.
    */
   @Prop() value = '';
 

@@ -1,4 +1,6 @@
 # Label
+Label is an informational component that identifies content on the user interface.  
+
 
 ## Usage
 
