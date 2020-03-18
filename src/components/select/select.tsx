@@ -183,17 +183,19 @@ export class Select {
 
     this.filteredOptions.forEach((option, index) => {
       let foundFirstElement = false;
-      if (option.seleted === true && foundFirstElement === false) {
+      if (option.selected === true && foundFirstElement === false) {
         foundFirstElement = true;
       }
-      if (option.seleted === true && foundFirstElement === false) {
+      if (option.selected === true && foundFirstElement === false) {
         this.filteredOptions[index] = false;
       }
     });
   }
 
   renderDropdown() {
-    this.restrictMultipleSelection();
+    if (this.multiple === false) {
+      this.restrictMultipleSelection();
+    }
     return this.filteredOptions.map(option =>
       (<fw-select-option
         value={option.value}
@@ -204,8 +206,8 @@ export class Select {
 
   componentWillLoad() {
 
+    this.renderInput();
     const selectOptions = Array.from(this.host.querySelectorAll('fw-select-option'));
-
     const options = selectOptions.map(option => {
       return {
         text: option.textContent,
@@ -217,10 +219,6 @@ export class Select {
     this.options = options;
     this.filteredOptions = this.options;
     this.host.innerHTML = '';
-  }
-
-  componentDidLoad() {
-    this.renderInput();
   }
 
   @Method()
