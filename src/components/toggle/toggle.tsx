@@ -7,7 +7,7 @@ import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
 })
 export class Toggle {
 
-  @Prop() state = false;
+  @Prop() checked = false;
   /**
    * The type of control to display. The default type is text.
    */
@@ -23,14 +23,15 @@ export class Toggle {
 
   @Event() fwChange: EventEmitter;
 
-  @Watch('state')
+  @Watch('checked')
   watchHandler(newValue: boolean) {
-    this.fwChange.emit({ state: newValue });
+    this.fwChange.emit({ checked: newValue });
   }
 
   private toggle() {
-    this.state = !this.state;
-    this.fwChange.emit({ state: this.state });
+    if (!this.disabled) {
+      this.checked = !this.checked;
+    }
   }
 
   render() {
@@ -43,7 +44,7 @@ export class Toggle {
           name={this.name}
           type="checkbox"
           disabled={this.disabled}
-          checked={this.state}
+          checked={this.checked}
           class="checkboxClass" />
         <span class={{
           'slider': true,

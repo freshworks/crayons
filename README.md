@@ -13,8 +13,8 @@ Please read the following:
 ## Development
 
 ```bash
-git clone https://github.com/freshdesk/freshworks-ui-kit
-cd freshworks-ui-kit
+git clone https://github.com/freshdesk/crayons
+cd crayons
 yarn
 ```
 
@@ -22,25 +22,25 @@ and start [Storybook](https://storybook.js.org/):
 
 ```bash
 yarn install
-yarn story
+yarn run storybook
 ```
 
 To build the components for production, run:
 
 ```bash
-yarn build
+yarn run build
 ```
 
-To run the unit tests for the components, run:
+To run the tests for the components, run:
 
 ```bash
-yarn test
+yarn run test
 ```
 
 To generate a new component, run:
 
 ```bash
-yarn generate
+yarn run generate
 ```
 
 

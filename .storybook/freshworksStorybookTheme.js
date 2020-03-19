@@ -31,7 +31,7 @@ export default create({
   inputTextColor: 'black',
   inputBorderRadius: 4,
 
-  brandTitle: 'Freshworks UI Kit',
+  brandTitle: 'Crayons',
   brandUrl: 'https://freshworks.com',
   brandImage: 'https://www.freshworks.com/static-assets/images/common/company/logos/logo-fworks-black.svg',
 });

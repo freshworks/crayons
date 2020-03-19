@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const WriteFilePlugin = require("write-file-webpack-plugin");
 
 module.exports = async ({ config }) => {
-  config.entry.push(path.join(__dirname, "../dist/freshworks-ui-kit.js"));
+  config.entry.push(path.join(__dirname, "../dist/crayons.js"));
   fs.readdirSync(
     path.join(__dirname, "../dist/collection/components")
   ).map(function(file) {

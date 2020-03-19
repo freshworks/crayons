@@ -3,7 +3,7 @@
 def NODE_VERSION = 10;
 
 def uploadAndInvalidate(environment) {
-  def s3Path = "/freshworks-ui-kit"
+  def s3Path = "/crayons"
 
   def STATIC_ASSETS = [
     staging: [
@@ -16,7 +16,7 @@ def uploadAndInvalidate(environment) {
     ]
   ]
 
-  uploadAssetsToS3('dist/freshworks-ui-kit', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}", 'us-east-1', true)
+  uploadAssetsToS3('dist/crayons', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}", 'us-east-1', true)
   uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/docs", 'us-east-1', true)
   uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/storybook", 'us-east-1', true)
   invalidateCDN(STATIC_ASSETS[environment].cdnDistributionId, "${s3Path}/*")
@@ -43,7 +43,7 @@ pipeline {
             }
         }
 
-        stage ('Unit Tests') {
+        stage ('Tests') {
             steps {
                 runUnitTests(NODE_VERSION)
             }

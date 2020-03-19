@@ -26,9 +26,9 @@ Select is an input control (list or drop-down box) that enables selection of an 
 | `placeholder` | `placeholder`  | Text displayed in the control before an option is selected.                                                        | `string`                           | `undefined` |
 | `readonly`    | `readonly`     | If true, the user cannot modify the value.                                                                         | `boolean`                          | `false`     |
 | `required`    | `required`     | Specifies the input control as a mandatory field. If the attribute’s value is undefined, the value is set to true. | `boolean`                          | `false`     |
-| `state`       | `state`        | The state of the control. Color changes accordingly                                                                | `"error" \| "normal" \| "warning"` | `'normal'`  |
+| `state`       | `state`        | The state of the control. Color changes accordingly                                                                | `"error" or "normal" or "warning"` | `'normal'`  |
 | `stateText`   | `state-text`   | This text will be displayed below the input box indicating the state/hint                                          | `string`                           | `''`        |
-| `type`        | `type`         | The type of control to display. The default type is text.                                                          | `"number" \| "text"`               | `'text'`    |
+| `type`        | `type`         | The type of control to display. The default type is text.                                                          | `"number" or "text"`               | `'text'`    |
 | `value`       | `value`        | Value of the option that is displayed as the default selection, in the input control.                              | `any`                              | `undefined` |
 
 
