@@ -45,7 +45,7 @@
     "storybook:test": "npm run test:generate && npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook -s www",
     "test:watch": "stencil test --spec --e2e --watchAll",
-    "test": "stencil test --spec --e2e --coverage",
+    "test": "stencil test --spec --e2e",
     "unit-tests": "npm run test"
   },
   "devDependencies": {
