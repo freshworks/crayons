@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /freshworks-logo.png
-heroText: Freshworks UI Kit
+heroText: Crayons
 tagline: A component library for Freshworks Apps
 actionText: Get Started →
 actionLink: /components/

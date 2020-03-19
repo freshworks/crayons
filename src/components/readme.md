@@ -3,8 +3,8 @@
 Add the following scripts to your html file
 
 ```html
-<script type="module" src="https://static.freshdev.io/freshworks-ui-kit/freshworks-ui-kit.esm.js"></script>
-<script nomodule src="https://static.freshdev.io/freshworks-ui-kit/freshworks-ui-kit.js"></script>
+<script type="module" src="https://static.freshdev.io/crayons/crayons.esm.js"></script>
+<script nomodule src="https://static.freshdev.io/crayons/crayons.js"></script>
 ```
 
 Thats it!

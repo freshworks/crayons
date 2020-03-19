@@ -7,14 +7,14 @@ const getComponents = () => components.tags.map(({ tag }) => {
 });
 
 module.exports = {
-  title: 'Freshworks UI Kit',
-  base: '/freshworks-ui-kit/docs/',
+  title: 'Crayons',
+  base: '/crayons/docs/',
   description: 'Use freshworks components to build apps',
   dest: 'docs-dist',
   docsDir: 'src',
   head: [
-    ['script', { type: 'module', src: '/www/build/freshworks-ui-kit.esm.js' }],
-    ['script', {  nomodule:'', src: '/www/build/freshworks-ui-kit.js' }],
+    ['script', { type: 'module', src: '/www/build/crayons.esm.js' }],
+    ['script', {  nomodule:'', src: '/www/build/crayons.js' }],
   ],
   themeConfig: {
     lastUpdated: 'Last Updated',

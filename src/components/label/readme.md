@@ -20,7 +20,7 @@
 
 | Property | Attribute | Description           | Type                                                           | Default    |
 | -------- | --------- | --------------------- | -------------------------------------------------------------- | ---------- |
-| `color`  | `color`   | The type of the label | `"blue" \| "green" \| "grey" \| "normal" \| "red" \| "yellow"` | `'normal'` |
+| `color`  | `color`   | The type of the label | `"blue" or "green" or "grey" or "normal" or "red" or "yellow"` | `'normal'` |
 | `value`  | `value`   | The text in the label | `string`                                                       | `''`       |
 
 

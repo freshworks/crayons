@@ -19,10 +19,10 @@
 | `readonly`    | `readonly`    | If `true`, the user cannot modify the value.                              | `boolean`                          | `false`     |
 | `required`    | `required`    | If `true`, the user must fill in a value before submitting a form.        | `boolean`                          | `false`     |
 | `rows`        | `rows`        | Number of rows                                                            | `number`                           | `undefined` |
-| `state`       | `state`       | The state of the control. Color changes accordingly                       | `"error" \| "normal" \| "warning"` | `'normal'`  |
+| `state`       | `state`       | The state of the control. Color changes accordingly                       | `"error" or "normal" or "warning"` | `'normal'`  |
 | `stateText`   | `state-text`  | This text will be displayed below the input box indicating the state/hint | `string`                           | `''`        |
 | `value`       | `value`       | The value of the input.                                                   | `string`                           | `''`        |
-| `wrap`        | `wrap`        | How the text in the textarea is to be wrapped                             | `"hard" \| "soft"`                 | `'soft'`    |
+| `wrap`        | `wrap`        | How the text in the textarea is to be wrapped                             | `"hard" or "soft"`                 | `'soft'`    |
 
 
 ## Events

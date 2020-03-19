@@ -9,7 +9,7 @@ export class Spinner {
   /**
    * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
    */
-  @Prop() size = 'default';
+  @Prop() size: 'small' | 'default' | 'medium' | 'large' = 'default';
 
   /**
    * The color of the spinner

@@ -6,7 +6,7 @@ import autoprefixer from 'autoprefixer';
 import { generateJsonDocs } from './customElementDocGenerator';
 
 export const config: Config = {
-  namespace: 'freshworks-ui-kit',
+  namespace: 'crayons',
   outputTargets: [
     {
       type: 'dist',
@@ -44,6 +44,7 @@ export const config: Config = {
       '!**/stencil.config.ts',
       '!**/*.d.ts',
       '!**/src/index.ts',
+      '!**/customElementDocGenerator.ts',
     ],
     coverageReporters: ['json', 'lcov', 'text', 'clover', 'text-summary'],
   },
