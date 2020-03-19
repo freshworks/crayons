@@ -77,12 +77,6 @@ pipeline {
             }
         }
 
-        stage('Publish Reports') {
-            steps {
-                publishHTMLReport()
-            }
-        }
-
     }
 
     post {
