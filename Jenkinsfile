@@ -27,7 +27,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(choices: 'staging\nrelease', description: 'Deploys the UI Kit to Staging or Release', name: 'deployTo')
+        choice(choices: 'None\nstaging\nrelease', description: 'Deploys the UI Kit to Staging or Release', name: 'deployTo')
     }
 
     stages {
