@@ -229,15 +229,15 @@ export namespace Components {
     }
     interface FwSelectOption {
         /**
-          * if option is html
+          * Boolean saying if option is html
          */
         "html": boolean;
         /**
-          * Object containing html and text for option
+          * String containing html content for option
          */
         "htmlContent"?: string;
         /**
-          * if option is html and alternate text is needed for label
+          * If option is html and alternate text is needed for label
          */
         "optionText": string;
         /**
@@ -767,16 +767,16 @@ declare namespace LocalJSX {
     }
     interface FwSelectOption {
         /**
-          * if option is html
+          * Boolean saying if option is html
          */
         "html"?: boolean;
         /**
-          * Object containing html and text for option
+          * String containing html content for option
          */
         "htmlContent"?: string;
         "onFwSelected"?: (event: CustomEvent<any>) => void;
         /**
-          * if option is html and alternate text is needed for label
+          * If option is html and alternate text is needed for label
          */
         "optionText"?: string;
         /**

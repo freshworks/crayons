@@ -16,15 +16,15 @@ export class SelectOption {
    */
   @Prop({ reflect: true, mutable: true }) selected = false;
   /**
-   * if option is html
+   * Boolean saying if option is html
    */
   @Prop({ reflect: true, mutable: true }) html = false;
   /**
-   * if option is html and alternate text is needed for label
+   * If option is html and alternate text is needed for label
    */
   @Prop({ reflect: true }) optionText: string;
   /**
-   * Object containing html and text for option
+   * String containing html content for option
    */
   @Prop() htmlContent?: string;
 
