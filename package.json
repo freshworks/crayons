@@ -46,7 +46,8 @@
     "storybook": "start-storybook -p 9001 -c .storybook -s www",
     "test:watch": "stencil test --spec --e2e --watchAll",
     "test": "stencil test --spec --e2e",
-    "unit-tests": "npm run test"
+    "unit-tests": "npm run test",
+    "local": "stencil build --serve --dev --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

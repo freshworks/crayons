@@ -171,7 +171,10 @@ export class Select {
     return this.filteredOptions.map(option =>
       (<fw-select-option
         value={option.value}
-        selected={option.selected}>{option.text}
+        selected={option.selected}
+        html={option.isHtml}
+        htmlContent={option.htmlContent}
+        >{option.text}
       </fw-select-option>)
     );
   }
@@ -182,9 +185,11 @@ export class Select {
 
     const options = selectOptions.map(option => {
       return {
-        text: option.textContent,
+        isHtml: option.html,
+        text: option.html ? option.optionText : option.textContent,
         value: option.value,
         selected: option.selected,
+        htmlContent: option.html ? option.innerHTML : '',
       };
     });
 

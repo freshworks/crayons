@@ -6,6 +6,7 @@ import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class SelectOption {
+  private nativeLi?: HTMLLIElement;
   /**
    * The Key associated with this select option
    */
@@ -14,6 +15,18 @@ export class SelectOption {
    * Flag to indicate if the option is selected or not. A tick is shown
    */
   @Prop({ reflect: true, mutable: true }) selected = false;
+  /**
+   * if option is html
+   */
+  @Prop({ reflect: true, mutable: true }) html = false;
+  /**
+   * if option is html and alternate text is needed for label
+   */
+  @Prop({ reflect: true }) optionText: string;
+  /**
+   * Object containing html and text for option
+   */
+  @Prop() htmlContent?: string;
 
   @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
 
@@ -25,9 +38,14 @@ export class SelectOption {
 
   render() {
     return (
-      <li class={{ 'select-option': true, 'selected': this.selected }} onMouseDown={() => this.onOptionSelected()}>
-        <slot />
+      <li ref={el => this.nativeLi = el} class={{ 'select-option': true, 'selected': this.selected }} onMouseDown={() => this.onOptionSelected()}>
+        {this.html ? '' : <slot />}
       </li>
     );
+  }
+  componentDidLoad() {
+    if (this.html) {
+      this.nativeLi.innerHTML = this.htmlContent;
+    }
   }
 }
