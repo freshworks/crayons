@@ -22,7 +22,7 @@ export class Select {
    */
   @Prop() label = '';
   /**
-   * Value of the option that is displayed as the default selection, in the input control.
+   * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
   @Prop({ mutable: true }) value: any;
   /**
@@ -30,11 +30,11 @@ export class Select {
    */
   @Prop() name = '';
   /**
-   * The type of control to display. The default type is text.
+   * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
    */
   @Prop() type: 'text' | 'number' = 'text';
   /**
-   * Text displayed in the control before an option is selected.
+   * Text displayed in the list box before an option is selected.
    */
   @Prop() placeholder?: string | null;
   /**
@@ -42,23 +42,23 @@ export class Select {
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
-   * This text will be displayed below the input box indicating the state/hint
+   * Theme based on which the list box is styled.
    */
   @Prop() stateText = '';
   /**
-   * If true, the user cannot modify the value.
+   * Descriptive or instructional text displayed below the list box. 
    */
   @Prop() readonly = false;
   /**
-   * Specifies the input control as a mandatory field. If the attribute’s value is undefined, the value is set to true.
+   * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() required = false;
   /**
-   * If true, the user must select some value. The default wont be shown
+   * If true, the user must select a value. The default value is not displayed.
    */
   @Prop() forceSelect = true;
   /**
-   * Indicates that this control is disabled
+   * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() disabled = false;
   /**
@@ -66,8 +66,17 @@ export class Select {
    */
   @Prop() multiple = false;
   // Events
+  /**
+   * Triggered when a value is selected or deselected from the list box options.
+   */
   @Event() fwChange: EventEmitter;
+  /**
+   * Triggered when the list box comes into focus.
+   */
   @Event() fwFocus: EventEmitter;
+  /**
+   * Triggered when the list box loses focus.
+   */
   @Event() fwBlur: EventEmitter;
 
   private closeDropdown = () => {

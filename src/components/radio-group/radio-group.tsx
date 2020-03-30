@@ -12,17 +12,17 @@ export class RadioGroup {
   @Element() el!: HTMLElement;
 
   /**
-   * If `true`, the radios can be deselected.
+   * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() allowEmpty = false;
 
   /**
-   * The name of the control, which is submitted with the form data.
+   * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
 
   /**
-   * the value of the radio group.
+   * Default option that is selected when the radio group is displayed on the UI. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
    */
   @Prop({ mutable: true }) value?: any | null;
 
@@ -33,7 +33,7 @@ export class RadioGroup {
   }
 
   /**
-   * Emitted when the value has changed.
+   * Triggered when an option in the Radio Group is selected or deselected.
    */
   @Event() fwChange!: EventEmitter;
 

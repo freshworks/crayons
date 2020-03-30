@@ -1,5 +1,5 @@
-# Icon
-Icon is an informational component that imparts meaning to the component it is associated with.
+# Icon (fw-icon)
+fw-icon displays an icon-sized image that imparts meaning to the component it is associated with. 
 ## Usage
 
 ```html live
@@ -23,20 +23,6 @@ Icon is an informational component that imparts meaning to the component it is a
 | Name           | Description       |
 | -------------- | ----------------- |
 | `--icon-color` | Color of the icon |
-
-
-## Dependencies
-
-### Used by
-
- - [fw-input](../input)
-
-### Graph
-```mermaid
-graph TD;
-  fw-input --> fw-icon
-  style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
-```
 
 ----------------------------------------------
 

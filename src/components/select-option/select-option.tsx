@@ -8,11 +8,11 @@ import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 export class SelectOption {
   private nativeLi?: HTMLLIElement;
   /**
-   * The Key associated with this select option
+   * Value corresponding to the option, that is saved  when the form data is saved.
    */
   @Prop({ reflect: true }) value: string;
   /**
-   * Flag to indicate if the option is selected or not. A tick is shown
+   * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ reflect: true, mutable: true }) selected = false;
   /**
@@ -28,6 +28,9 @@ export class SelectOption {
    */
   @Prop() htmlContent?: string;
 
+  /**
+   * Triggered when an option is selected.
+   */
   @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
 
   private onOptionSelected() {
