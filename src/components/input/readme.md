@@ -71,7 +71,7 @@ placeholder="Enter the verification code sent to the registered email address"
 | `fwInput`  | Triggered when a value is entered in the input box.    | `CustomEvent<KeyboardEvent>` |
 
 
-## Methods
+## Method
 
 ### `setFocus() => Promise<void>`
 
