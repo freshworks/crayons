@@ -18,11 +18,18 @@ fw-icon displays an icon-sized image that imparts meaning to the component it is
 | `size`   | `size`    | Size of the icon, specified in number of  pixels.                                         | `number` | `12`        |
 
 
-## CSS Custom Properties
+## Dependencies
 
-| Name           | Description       |
-| -------------- | ----------------- |
-| `--icon-color` | Color of the icon |
+### Used by
+
+ - [fw-input](../input)
+
+### Graph
+```mermaid
+graph TD;
+  fw-input --> fw-icon
+  style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

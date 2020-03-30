@@ -36,6 +36,8 @@ fw-button displays a button that enables specific actions based on the button ty
 </section>
 ```
 
+
+
 <!-- Auto Generated Below -->
 
 
@@ -43,11 +45,11 @@ fw-button displays a button that enables specific actions based on the button ty
 
 | Property   | Attribute  | Description                                                                                                                | Type                                                       | Default     |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
-| `color`    | `color`    | Identifier of  the theme based on which the button is styled.                                                              | `"danger" or "link" or "primary" or "secondary" or "text"` | `'primary'` |
+| `color`    | `color`    | Identifier of  the theme based on which the button is styled.                                                              | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'` |
 | `disabled` | `disabled` | Specifies whether to disable the button on the interface. If the attribute’s value is undefined, the value is set to true. | `boolean`                                                  | `false`     |
 | `expand`   | `expand`   | Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to true.                    | `boolean`                                                  | `false`     |
-| `size`     | `size`     | Size of the button.                                                                                                        | `"mini" or "normal" or "small"`                            | `'normal'`  |
-| `type`     | `type`     | Button type based on which actions are performed when the button is clicked.                                               | `"button" or "reset" or "submit"`                          | `'button'`  |
+| `size`     | `size`     | Size of the button.                                                                                                        | `"mini" \| "normal" \| "small"`                            | `'normal'`  |
+| `type`     | `type`     | Button type based on which actions are performed when the button is clicked.                                               | `"button" \| "reset" \| "submit"`                          | `'button'`  |
 
 
 ## Events
