@@ -8,15 +8,17 @@ import { Component, Element, Event, EventEmitter, Prop, h } from '@stencil/core'
 export class Tag {
   @Element() host: HTMLElement;
   /**
-   * The display text for the tag
+   * Display text in the tag component.
    */
   @Prop({ reflect: true }) text: string;
 
   /**
-   * The value of the tag
+   * Value associated with the tag component, that is saved when the form data is saved.
    */
   @Prop({ reflect: true }) value: string;
-
+/**
+   * Triggered when the tag is deselected.
+   */
   @Event() fwClosed: EventEmitter;
 
   removeTag() {

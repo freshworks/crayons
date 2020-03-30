@@ -41,42 +41,41 @@ placeholder="Enter the verification code sent to the registered email address"
 
 ## Properties
 
-| Property       | Attribute      | Description                                                                                           | Type                               | Default     |
-| -------------- | -------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
-| `autocomplete` | `autocomplete` | Indicates whether the value of the control can be automatically completed by the browser.             | `"off" or "on"`                    | `'off'`     |
-| `clearInput`   | `clear-input`  | If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input. | `boolean`                          | `false`     |
-| `disabled`     | `disabled`     | Indicates that this control is disabled                                                               | `boolean`                          | `false`     |
-| `iconLeft`     | `icon-left`    | Name of the icon for left side                                                                        | `string`                           | `undefined` |
-| `iconRight`    | `icon-right`   | Name of the icon for right side                                                                       | `string`                           | `undefined` |
-| `label`        | `label`        | The type of control to display. The default type is text.                                             | `string`                           | `''`        |
-| `maxlength`    | `maxlength`    | Max length of value                                                                                   | `number`                           | `undefined` |
-| `minlength`    | `minlength`    | Min length of value                                                                                   | `number`                           | `undefined` |
-| `name`         | `name`         | The name of the control, which is submitted with the form data.                                       | `string`                           | `''`        |
-| `placeholder`  | `placeholder`  | Instructional text that shows before the input has a value.                                           | `string`                           | `undefined` |
-| `readonly`     | `readonly`     | If `true`, the user cannot modify the value.                                                          | `boolean`                          | `false`     |
-| `required`     | `required`     | If `true`, the user must fill in a value before submitting a form.                                    | `boolean`                          | `false`     |
-| `state`        | `state`        | The state of the control. Color changes accordingly                                                   | `"error" or "normal" or "warning"` | `'normal'`  |
-| `stateText`    | `state-text`   | This text will be displayed below the input box indicating the state/hint                             | `string`                           | `''`        |
-| `type`         | `type`         | The type of control to display. The default type is text.                                             | `"text"`                           | `'text'`    |
-| `value`        | `value`        | The value of the input.                                                                               | `string`                           | `''`        |
+| Property       | Attribute      | Description                                                                                                                                                                                                                                                                        | Type                               | Default     |
+| -------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `autocomplete` | `autocomplete` | Specifies whether the browser can display suggestions to autocomplete the text value.                                                                                                                                                                                              | `"off" \| "on"`                    | `'off'`     |
+| `clearInput`   | `clear-input`  | Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to true. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box. | `boolean`                          | `false`     |
+| `disabled`     | `disabled`     | Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.                                                                                                                                                     | `boolean`                          | `false`     |
+| `iconLeft`     | `icon-left`    | Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).                                                                                                                     | `string`                           | `undefined` |
+| `iconRight`    | `icon-right`   | Identifier of the icon that is displayed in the right side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).                                                                                                                    | `string`                           | `undefined` |
+| `label`        | `label`        | Label displayed on the interface, for the component.                                                                                                                                                                                                                               | `string`                           | `''`        |
+| `maxlength`    | `maxlength`    | Maximum number of characters a user can enter in the text box.                                                                                                                                                                                                                     | `number`                           | `undefined` |
+| `minlength`    | `minlength`    | Minimum number of characters a user must enter in the text box for the value to be valid.                                                                                                                                                                                          | `number`                           | `undefined` |
+| `name`         | `name`         | Name of the component, saved as part of form data.                                                                                                                                                                                                                                 | `string`                           | `''`        |
+| `placeholder`  | `placeholder`  | Text displayed in the text box before a user enters a value.                                                                                                                                                                                                                       | `string`                           | `undefined` |
+| `readonly`     | `readonly`     | If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.                                                                                                                                                          | `boolean`                          | `false`     |
+| `required`     | `required`     | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.                                                                                                                          | `boolean`                          | `false`     |
+| `state`        | `state`        | Theme based on which the text box is styled.                                                                                                                                                                                                                                       | `"error" \| "normal" \| "warning"` | `'normal'`  |
+| `stateText`    | `state-text`   | Descriptive or instructional text displayed below the text box.                                                                                                                                                                                                                    | `string`                           | `''`        |
+| `type`         | `type`         | Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.                                                                                                                                                 | `"number" \| "text"`               | `'text'`    |
+| `value`        | `value`        | Default value displayed in the input box.                                                                                                                                                                                                                                          | `string`                           | `''`        |
 
 
 ## Events
 
-| Event      | Description | Type                         |
-| ---------- | ----------- | ---------------------------- |
-| `fwBlur`   |             | `CustomEvent<void>`          |
-| `fwChange` |             | `CustomEvent<any>`           |
-| `fwFocus`  |             | `CustomEvent<void>`          |
-| `fwInput`  |             | `CustomEvent<KeyboardEvent>` |
+| Event      | Description                                            | Type                         |
+| ---------- | ------------------------------------------------------ | ---------------------------- |
+| `fwBlur`   | Triggered when the input box loses focus.              | `CustomEvent<void>`          |
+| `fwChange` | Triggered when the value in the input box is modified. | `CustomEvent<any>`           |
+| `fwFocus`  | Triggered when the input box comes into focus.         | `CustomEvent<void>`          |
+| `fwInput`  | Triggered when a value is entered in the input box.    | `CustomEvent<KeyboardEvent>` |
 
 
-## Method
+## Methods
 
 ### `setFocus() => Promise<void>`
 
-Sets focus on the specified `fw-input`. Use this method instead of the global
-`input.focus()`.
+Sets focus on a specific `fw-input`. Use this method instead of the global `input.focus()`.
 
 #### Returns
 

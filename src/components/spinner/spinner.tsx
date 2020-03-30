@@ -7,12 +7,12 @@ import { Component, Prop, h } from '@stencil/core';
 })
 export class Spinner {
   /**
-   * The size of the spinner - Options ['small' , 'default', 'medium', 'large']
+   * Size of the loader.
    */
-  @Prop() size: 'small' | 'default' | 'medium' | 'large' = 'default';
+  @Prop() size: 'small'|'medium'|'large'|'default' = 'default';
 
   /**
-   * The color of the spinner
+   * Color in which the loader is displayed, specified as a standard CSS color.
    */
   @Prop() color = '';
 

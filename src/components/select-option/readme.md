@@ -1,4 +1,4 @@
-# Select Option
+# Select Option (fw-select-option)
 
 fw-select-option provides child elements for fw-select, to populate the Select component’s list or drop-down box with values. If fw-select-option is used without the value attribute, when the form data is saved, the value of fw-select is the selected option’s text. 
 
@@ -13,20 +13,17 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 
 ## Properties
 
-| Property      | Attribute      | Description                                                        | Type      | Default     |
-| ------------- | -------------- | ------------------------------------------------------------------ | --------- | ----------- |
-| `html`        | `html`         | Boolean saying if option is html                                   | `boolean` | `false`     |
-| `htmlContent` | `html-content` | String containing html content for option                          | `string`  | `undefined` |
-| `optionText`  | `option-text`  | If option is html and alternate text is needed for label           | `string`  | `undefined` |
-| `selected`    | `selected`     | Flag to indicate if the option is selected or not. A tick is shown | `boolean` | `false`     |
-| `value`       | `value`        | The Key associated with this select option                         | `string`  | `undefined` |
+| Property   | Attribute  | Description                                                                                                                                                                             | Type      | Default     |
+| ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `selected` | `selected` | Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false`     |
+| `value`    | `value`    | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                          | `string`  | `undefined` |
 
 
 ## Events
 
-| Event        | Description | Type               |
-| ------------ | ----------- | ------------------ |
-| `fwSelected` |             | `CustomEvent<any>` |
+| Event        | Description                           | Type               |
+| ------------ | ------------------------------------- | ------------------ |
+| `fwSelected` | Triggered when an option is selected. | `CustomEvent<any>` |
 
 
 ## Dependencies
