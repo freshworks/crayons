@@ -18,9 +18,9 @@ def uploadAndInvalidate(environment) {
     ]
   ]
 
-  uploadAssetsToS3('dist/crayons', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}", 'us-east-1', true, STATIC_ASSETS[environment].profile)
-  uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/docs", 'us-east-1', true, STATIC_ASSETS[environment].profile)
-  uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/storybook", 'us-east-1', true, STATIC_ASSETS[environment].profile)
+  uploadAssetsToS3('dist/crayons', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
+  uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/docs", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
+  uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/storybook", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
   invalidateCDN(STATIC_ASSETS[environment].cdnDistributionId, "${s3Path}/*", STATIC_ASSETS[environment].profile)
 }
 
