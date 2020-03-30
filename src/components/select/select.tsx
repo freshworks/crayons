@@ -71,6 +71,11 @@ export class Select {
   @Event() fwFocus: EventEmitter;
   @Event() fwBlur: EventEmitter;
 
+  private closeDropdown = () => {
+    this.selectList.style.display = 'none';
+    this.isExpanded = false;
+  }
+
   private innerOnFocus = (e: Event) => {
     this.hasFocus = true;
     this.fwFocus.emit(e);
@@ -84,9 +89,14 @@ export class Select {
   }
 
   private innerOnBlur = (e: Event) => {
-    this.selectList.style.display = 'none';
-    this.isExpanded = false;
+    this.closeDropdown();
     this.fwBlur.emit(e);
+  }
+
+  private documentClick = (e: Event) => {
+    if (e.target !== this.host) {
+      this.closeDropdown();
+    }
   }
 
   @Watch('value')
@@ -104,6 +114,7 @@ export class Select {
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
+    this.isExpanded = false;
     this.options = this.options.map(option => {
       if (selectedItem.detail.value === option.value) {
         option.selected = selectedItem.detail.selected;
@@ -200,6 +211,11 @@ export class Select {
 
   componentDidLoad() {
     this.renderInput();
+    window.addEventListener('click', this.documentClick);
+  }
+
+  componentDidUnload() {
+    window.removeEventListener('click', this.documentClick);
   }
 
   @Method()
