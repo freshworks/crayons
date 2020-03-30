@@ -1,5 +1,5 @@
-# Button
-Button is a clickable input control that enables specific actions based on the type of button. A button can be labeled using text, icon, or both.
+# Button (fw-button)
+fw-button displays a button that enables specific actions based on the button type. The button’s label can be a text, icon, or both.
 
 ## Usage
 
