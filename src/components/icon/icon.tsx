@@ -8,17 +8,17 @@ import { Component, Prop, State, Watch, getAssetPath, h } from '@stencil/core';
 })
 export class Icon {
   /**
-   * The name of the icon
+   * Identifier of the icon in the repo of icons.
    */
   @Prop() name: string;
 
   /**
-   * The size of the icon in pixels
+   * Size of the icon, specified in number of  pixels.
    */
   @Prop() size = 12;
 
   /**
-   * The color of the icon in CSS standard color
+   * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
    */
   @Prop() color = '';
 

@@ -1,16 +1,39 @@
-# Input
-
+# Input (fw-input)
+fw-input displays a single-line input box on the user interface and enables assigning a value to it. 
 
 ## Usage
 
 ```html live
 <fw-input
   label="Name"
-  state-text="It has to be your name"
-  placeholder="Enter your first name"
+  icon-left="add-contact"
+  state-text="Do not enter your user ID"
+  state="warning"
+  placeholder="Enter your official name"
   required
   clear-input>
 </fw-input>
+<fw-input
+  label="Password"
+  state-text="Password is incorrect"
+  state="error"
+  required
+  clear-input>
+</fw-input>
+<fw-input
+  label="Verification Code"
+placeholder="Enter the verification code sent to the registered email address"
+  state="normal"
+  clear-input>
+</fw-input>
+<fw-input
+  label="Deprecated Field"
+  value="Not applicable"
+  readonly
+  state="normal"
+  clear-input>
+</fw-input>
+
 ```
 
 <!-- Auto Generated Below -->
@@ -48,7 +71,7 @@
 | `fwInput`  |             | `CustomEvent<KeyboardEvent>` |
 
 
-## Methods
+## Method
 
 ### `setFocus() => Promise<void>`
 

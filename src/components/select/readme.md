@@ -1,5 +1,5 @@
 # Select
-Select is an input control (list or drop-down box) that enables selection of an option or multiple options from an available list of values.
+fw-select displays a list or drop-down box that enables selection of an option or multiple options from an available list of values.
 
 ## Usage
 

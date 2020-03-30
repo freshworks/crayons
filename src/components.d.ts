@@ -8,181 +8,181 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface FwButton {
         /**
-          * The theme of the button, Values are : `primary`, `secondary`, `danger`
+          * Identifier of  the theme based on which the button is styled.
          */
         "color": "primary" | "secondary" | "danger" | "link" | "text";
         /**
-          * Sets the button as disabled when set to true.
+          * Specifies whether to disable the button on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
-          * Sets the button size to block when set to true.
+          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to true.
          */
         "expand": boolean;
         /**
-          * The size of the button, Values are : `normal`, `mini`
+          * Size of the button.
          */
         "size": "normal" | "mini" | "small";
         /**
-          * The native button type: values: `button`, `reset`, `submit`
+          * Button type based on which actions are performed when the button is clicked.
          */
         "type": "button" | "reset" | "submit";
     }
     interface FwCheckbox {
         /**
-          * Property to maintain checked state
+          * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
          */
         "checked": boolean;
         /**
-          * Disables the checkbox
+          * Specifies whether the check box is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
-          * Label for checkbox
+          * Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
-          * Value of the checkbox for within a form
+          * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
     }
     interface FwIcon {
         /**
-          * The color of the icon in CSS standard color
+          * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
          */
         "color": string;
         /**
-          * The name of the icon
+          * Identifier of the icon in the repo of icons.
          */
         "name": string;
         /**
-          * The size of the icon in pixels
+          * Size of the icon, specified in number of  pixels.
          */
         "size": number;
     }
     interface FwInput {
         /**
-          * Indicates whether the value of the control can be automatically completed by the browser.
+          * Specifies whether the browser can display suggestions to autocomplete the text value.
          */
         "autocomplete": "on" | "off";
         /**
-          * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+          * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to true. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput": boolean;
         /**
-          * Indicates that this control is disabled
+          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
-          * Name of the icon for left side
+          * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft": string;
         /**
-          * Name of the icon for right side
+          * Identifier of the icon that is displayed in the right side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconRight": string;
         /**
-          * The type of control to display. The default type is text.
+          * Label displayed on the interface, for the component.
          */
         "label": string;
         /**
-          * Max length of value
+          * Maximum number of characters a user can enter in the text box.
          */
         "maxlength"?: number;
         /**
-          * Min length of value
+          * Minimum number of characters a user must enter in the text box for the value to be valid.
          */
         "minlength"?: number;
         /**
-          * The name of the control, which is submitted with the form data.
+          * Name of the component, saved as part of form data.
          */
         "name": string;
         /**
-          * Instructional text that shows before the input has a value.
+          * Text displayed in the text box before a user enters a value.
          */
         "placeholder"?: string | null;
         /**
-          * If `true`, the user cannot modify the value.
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
          */
         "readonly": boolean;
         /**
-          * If `true`, the user must fill in a value before submitting a form.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
          */
         "required": boolean;
         /**
-          * Sets focus on the specified `fw-input`. Use this method instead of the global `input.focus()`.
+          * Sets focus on a specific `fw-input`. Use this method instead of the global `input.focus()`.
          */
         "setFocus": () => Promise<void>;
         /**
-          * The state of the control. Color changes accordingly
+          * Theme based on which the text box is styled.
          */
         "state": "normal" | "warning" | "error";
         /**
-          * This text will be displayed below the input box indicating the state/hint
+          * Descriptive or instructional text displayed below the text box.
          */
         "stateText": string;
         /**
-          * The type of control to display. The default type is text.
+          * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type": "text";
+        "type": "text" | "number";
         /**
-          * The value of the input.
+          * Default value displayed in the input box.
          */
         "value"?: string | null;
     }
     interface FwLabel {
         /**
-          * The type of the label
+          * Theme based on which the label is styled.
          */
         "color": "blue" | "red" | "green" | "yellow" | "grey" | "normal";
         /**
-          * The text in the label
+          * Display text in the label.
          */
         "value": string;
     }
     interface FwRadio {
         /**
-          * Property to maintain checked state
+          * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
          */
         "checked": boolean;
         /**
-          * Disables the radio button
+          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
-          * Label for radio button
+          * Label displayed on the interface, for the component.
          */
         "label": string;
         /**
-          * Value of the name for within a form
+          * Name of the component, saved as part of form data.
          */
         "name": string;
         /**
-          * Value of the radio button for within a form
+          * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
     }
     interface FwRadioGroup {
         /**
-          * If `true`, the radios can be deselected.
+          * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to true.
          */
         "allowEmpty": boolean;
         /**
-          * The name of the control, which is submitted with the form data.
+          * Name of the component, saved as part of form data.
          */
         "name": string;
         /**
-          * the value of the radio group.
+          * Default option that is selected when the radio group is displayed on the UI. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
     }
     interface FwSelect {
         /**
-          * Indicates that this control is disabled
+          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
-          * If true, the user must select some value. The default wont be shown
+          * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
@@ -199,15 +199,15 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Text displayed in the control before an option is selected.
+          * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
         /**
-          * If true, the user cannot modify the value.
+          * Descriptive or instructional text displayed below the list box.
          */
         "readonly": boolean;
         /**
-          * Specifies the input control as a mandatory field. If the attribute’s value is undefined, the value is set to true.
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
          */
         "required": boolean;
         /**
@@ -215,15 +215,15 @@ export namespace Components {
          */
         "state": "normal" | "warning" | "error";
         /**
-          * This text will be displayed below the input box indicating the state/hint
+          * Theme based on which the list box is styled.
          */
         "stateText": string;
         /**
-          * The type of control to display. The default type is text.
+          * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
         "type": "text" | "number";
         /**
-          * Value of the option that is displayed as the default selection, in the input control.
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value": any;
     }
@@ -241,11 +241,11 @@ export namespace Components {
          */
         "optionText": string;
         /**
-          * Flag to indicate if the option is selected or not. A tick is shown
+          * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
          */
         "selected": boolean;
         /**
-          * The Key associated with this select option
+          * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "value": string;
     }
@@ -500,225 +500,237 @@ declare global {
 declare namespace LocalJSX {
     interface FwButton {
         /**
-          * The theme of the button, Values are : `primary`, `secondary`, `danger`
+          * Identifier of  the theme based on which the button is styled.
          */
         "color"?: "primary" | "secondary" | "danger" | "link" | "text";
         /**
-          * Sets the button as disabled when set to true.
+          * Specifies whether to disable the button on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
-          * Sets the button size to block when set to true.
+          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to true.
          */
         "expand"?: boolean;
         /**
-          * Emitted when the checbox loses focus.
+          * Triggered when the button loses focus.
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Emitted when the button is clicked.
+          * Triggered when the button is clicked.
          */
         "onFwClick"?: (event: CustomEvent<void>) => void;
         /**
-          * Emitted when the checkbox has focus.
+          * Triggered when the button comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * The size of the button, Values are : `normal`, `mini`
+          * Size of the button.
          */
         "size"?: "normal" | "mini" | "small";
         /**
-          * The native button type: values: `button`, `reset`, `submit`
+          * Button type based on which actions are performed when the button is clicked.
          */
         "type"?: "button" | "reset" | "submit";
     }
     interface FwCheckbox {
         /**
-          * Property to maintain checked state
+          * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
          */
         "checked"?: boolean;
         /**
-          * Disables the checkbox
+          * Specifies whether the check box is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
-          * Label for checkbox
+          * Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
-          * Emitted when the checbox loses focus.
+          * Triggered when the check box loses focus.
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Emitted when the checkbox value has changed.
+          * Triggered when the check box’s value is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * Emitted when the checkbox has focus.
+          * Triggered when the check box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * Value of the checkbox for within a form
+          * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
     }
     interface FwIcon {
         /**
-          * The color of the icon in CSS standard color
+          * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
          */
         "color"?: string;
         /**
-          * The name of the icon
+          * Identifier of the icon in the repo of icons.
          */
         "name"?: string;
         /**
-          * The size of the icon in pixels
+          * Size of the icon, specified in number of  pixels.
          */
         "size"?: number;
     }
     interface FwInput {
         /**
-          * Indicates whether the value of the control can be automatically completed by the browser.
+          * Specifies whether the browser can display suggestions to autocomplete the text value.
          */
         "autocomplete"?: "on" | "off";
         /**
-          * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+          * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to true. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput"?: boolean;
         /**
-          * Indicates that this control is disabled
+          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
-          * Name of the icon for left side
+          * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft"?: string;
         /**
-          * Name of the icon for right side
+          * Identifier of the icon that is displayed in the right side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconRight"?: string;
         /**
-          * The type of control to display. The default type is text.
+          * Label displayed on the interface, for the component.
          */
         "label"?: string;
         /**
-          * Max length of value
+          * Maximum number of characters a user can enter in the text box.
          */
         "maxlength"?: number;
         /**
-          * Min length of value
+          * Minimum number of characters a user must enter in the text box for the value to be valid.
          */
         "minlength"?: number;
         /**
-          * The name of the control, which is submitted with the form data.
+          * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Triggered when the input box loses focus.
+         */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when the value in the input box is modified.
+         */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the input box comes into focus.
+         */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when a value is entered in the input box.
+         */
         "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
         /**
-          * Instructional text that shows before the input has a value.
+          * Text displayed in the text box before a user enters a value.
          */
         "placeholder"?: string | null;
         /**
-          * If `true`, the user cannot modify the value.
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
          */
         "readonly"?: boolean;
         /**
-          * If `true`, the user must fill in a value before submitting a form.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
          */
         "required"?: boolean;
         /**
-          * The state of the control. Color changes accordingly
+          * Theme based on which the text box is styled.
          */
         "state"?: "normal" | "warning" | "error";
         /**
-          * This text will be displayed below the input box indicating the state/hint
+          * Descriptive or instructional text displayed below the text box.
          */
         "stateText"?: string;
         /**
-          * The type of control to display. The default type is text.
+          * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type"?: "text";
+        "type"?: "text" | "number";
         /**
-          * The value of the input.
+          * Default value displayed in the input box.
          */
         "value"?: string | null;
     }
     interface FwLabel {
         /**
-          * The type of the label
+          * Theme based on which the label is styled.
          */
         "color"?: "blue" | "red" | "green" | "yellow" | "grey" | "normal";
         /**
-          * The text in the label
+          * Display text in the label.
          */
         "value"?: string;
     }
     interface FwRadio {
         /**
-          * Property to maintain checked state
+          * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
          */
         "checked"?: boolean;
         /**
-          * Disables the radio button
+          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
-          * Label for radio button
+          * Label displayed on the interface, for the component.
          */
         "label"?: string;
         /**
-          * Value of the name for within a form
+          * Name of the component, saved as part of form data.
          */
         "name"?: string;
         /**
-          * Emitted when the checbox loses focus.
+          * Triggered when the radio button loses focus.
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Emitted when the radio button value has changed.
+          * Triggered when the radio button in focus is cleared.
          */
         "onFwDeselect"?: (event: CustomEvent<any>) => void;
         /**
-          * Emitted when the radio button has focus.
+          * Triggered when the radio button comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * Emitted when the radio button value has changed.
+          * Triggered when the radio button in focus is selected.
          */
         "onFwSelect"?: (event: CustomEvent<any>) => void;
         /**
-          * Value of the radio button for within a form
+          * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
     }
     interface FwRadioGroup {
         /**
-          * If `true`, the radios can be deselected.
+          * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to true.
          */
         "allowEmpty"?: boolean;
         /**
-          * The name of the control, which is submitted with the form data.
+          * Name of the component, saved as part of form data.
          */
         "name"?: string;
         /**
-          * Emitted when the value has changed.
+          * Triggered when an option in the Radio Group is selected or deselected.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * the value of the radio group.
+          * Default option that is selected when the radio group is displayed on the UI. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
     }
     interface FwSelect {
         /**
-          * Indicates that this control is disabled
+          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
-          * If true, the user must select some value. The default wont be shown
+          * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
         /**
@@ -733,19 +745,28 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Triggered when the list box loses focus.
+         */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when a value is selected or deselected from the list box options.
+         */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the list box comes into focus.
+         */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
-          * Text displayed in the control before an option is selected.
+          * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
         /**
-          * If true, the user cannot modify the value.
+          * Descriptive or instructional text displayed below the list box.
          */
         "readonly"?: boolean;
         /**
-          * Specifies the input control as a mandatory field. If the attribute’s value is undefined, the value is set to true.
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
          */
         "required"?: boolean;
         /**
@@ -753,15 +774,15 @@ declare namespace LocalJSX {
          */
         "state"?: "normal" | "warning" | "error";
         /**
-          * This text will be displayed below the input box indicating the state/hint
+          * Theme based on which the list box is styled.
          */
         "stateText"?: string;
         /**
-          * The type of control to display. The default type is text.
+          * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
         "type"?: "text" | "number";
         /**
-          * Value of the option that is displayed as the default selection, in the input control.
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value"?: any;
     }
@@ -774,17 +795,20 @@ declare namespace LocalJSX {
           * String containing html content for option
          */
         "htmlContent"?: string;
+        /**
+          * Triggered when an option is selected.
+         */
         "onFwSelected"?: (event: CustomEvent<any>) => void;
         /**
           * If option is html and alternate text is needed for label
          */
         "optionText"?: string;
         /**
-          * Flag to indicate if the option is selected or not. A tick is shown
+          * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
          */
         "selected"?: boolean;
         /**
-          * The Key associated with this select option
+          * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "value"?: string;
     }

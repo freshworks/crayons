@@ -7,42 +7,42 @@ import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/c
 })
 export class Radio {
   /**
-   * Property to maintain checked state
+   * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ mutable: true }) checked = false;
   /**
-   * Disables the radio button
+   * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ mutable: true }) disabled = false;
   /**
-   * Label for radio button
+   * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
   /**
-   * Value of the radio button for within a form
+   * Identifier corresponding to the component, that is saved when the form data is saved. 
    */
   @Prop() value = '';
   /**
-   * Value of the name for within a form
+   * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
 
   /**
-   * Emitted when the radio button value has changed.
+   * Triggered when the radio button in focus is selected.
    */
   @Event() fwSelect!: EventEmitter;
   /**
-   * Emitted when the radio button value has changed.
+   * Triggered when the radio button in focus is cleared.
    */
   @Event() fwDeselect!: EventEmitter;
 
   /**
-   * Emitted when the radio button has focus.
+   * Triggered when the radio button comes into focus.
    */
   @Event() fwFocus!: EventEmitter<void>;
 
   /**
-   * Emitted when the checbox loses focus.
+   * Triggered when the radio button loses focus.
    */
   @Event() fwBlur!: EventEmitter<void>;
 

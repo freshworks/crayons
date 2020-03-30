@@ -1,6 +1,13 @@
 # Radio
 
+fw-radio displays a radio button on the UI and enables assigning a state (selected or deselected) to it. In the selected state, the button displayed on the UI is highlighted. fw-radio provides child elements for fw-radio-group, to populate the Radio Group component’s list. 
 
+## Usage
+
+```html live
+<fw-radio checked label="Select to agree">Agree or Disagree</fw-radio><br><br>
+<fw-radio checked disabled value="dr">Disable radio</fw-radio>
+```
 
 <!-- Auto Generated Below -->
 
