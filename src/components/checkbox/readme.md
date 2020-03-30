@@ -13,21 +13,21 @@ fw-checkbox displays a check box on the user interface and enables assigning a s
 
 ## Properties
 
-| Property   | Attribute  | Description                             | Type      | Default |
-| ---------- | ---------- | --------------------------------------- | --------- | ------- |
-| `checked`  | `checked`  | Property to maintain checked state      | `boolean` | `false` |
-| `disabled` | `disabled` | Disables the checkbox                   | `boolean` | `false` |
-| `label`    | `label`    | Label for checkbox                      | `string`  | `''`    |
-| `value`    | `value`    | Value of the checkbox for within a form | `string`  | `''`    |
+| Property   | Attribute  | Description                                                                                                                    | Type      | Default |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | --------- | ------- |
+| `checked`  | `checked`  | Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.                      | `boolean` | `false` |
+| `disabled` | `disabled` | Specifies whether the check box is disabled on the interface. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false` |
+| `label`    | `label`    | Label displayed on the interface, for the check box.                                                                           | `string`  | `''`    |
+| `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                                          | `string`  | `''`    |
 
 
 ## Events
 
-| Event      | Description                                  | Type                |
-| ---------- | -------------------------------------------- | ------------------- |
-| `fwBlur`   | Emitted when the checbox loses focus.        | `CustomEvent<void>` |
-| `fwChange` | Emitted when the checkbox value has changed. | `CustomEvent<any>`  |
-| `fwFocus`  | Emitted when the checkbox has focus.         | `CustomEvent<void>` |
+| Event      | Description                                       | Type                |
+| ---------- | ------------------------------------------------- | ------------------- |
+| `fwBlur`   | Triggered when the check box loses focus.         | `CustomEvent<void>` |
+| `fwChange` | Triggered when the check box’s value is modified. | `CustomEvent<any>`  |
+| `fwFocus`  | Triggered when the check box comes into focus.    | `CustomEvent<void>` |
 
 
 ----------------------------------------------

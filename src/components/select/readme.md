@@ -1,4 +1,4 @@
-# Select
+# Select (fw-select)
 fw-select displays a list or drop-down box that enables selection of an option or multiple options from an available list of values.
 
 ## Usage
@@ -23,29 +23,29 @@ fw-select displays a list or drop-down box that enables selection of an option o
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                        | Type                               | Default     |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------- | ----------- |
-| `disabled`    | `disabled`     | Indicates that this control is disabled                                                                            | `boolean`                          | `false`     |
-| `forceSelect` | `force-select` | If true, the user must select some value. The default wont be shown                                                | `boolean`                          | `true`      |
-| `label`       | `label`        | Label displayed on the interface, for the component.                                                               | `string`                           | `''`        |
-| `multiple`    | `multiple`     | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.            | `boolean`                          | `false`     |
-| `name`        | `name`         | Name of the component, saved as part of form data.                                                                 | `string`                           | `''`        |
-| `placeholder` | `placeholder`  | Text displayed in the control before an option is selected.                                                        | `string`                           | `undefined` |
-| `readonly`    | `readonly`     | If true, the user cannot modify the value.                                                                         | `boolean`                          | `false`     |
-| `required`    | `required`     | Specifies the input control as a mandatory field. If the attribute’s value is undefined, the value is set to true. | `boolean`                          | `false`     |
-| `state`       | `state`        | The state of the control. Color changes accordingly                                                                | `"error" or "normal" or "warning"` | `'normal'`  |
-| `stateText`   | `state-text`   | This text will be displayed below the input box indicating the state/hint                                          | `string`                           | `''`        |
-| `type`        | `type`         | The type of control to display. The default type is text.                                                          | `"number" or "text"`               | `'text'`    |
-| `value`       | `value`        | Value of the option that is displayed as the default selection, in the input control.                              | `any`                              | `undefined` |
+| Property      | Attribute      | Description                                                                                                                                                             | Type                               | Default     |
+| ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `disabled`    | `disabled`     | Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.                                          | `boolean`                          | `false`     |
+| `forceSelect` | `force-select` | If true, the user must select a value. The default value is not displayed.                                                                                              | `boolean`                          | `true`      |
+| `label`       | `label`        | Label displayed on the interface, for the component.                                                                                                                    | `string`                           | `''`        |
+| `multiple`    | `multiple`     | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.                                                                 | `boolean`                          | `false`     |
+| `name`        | `name`         | Name of the component, saved as part of form data.                                                                                                                      | `string`                           | `''`        |
+| `placeholder` | `placeholder`  | Text displayed in the list box before an option is selected.                                                                                                            | `string`                           | `undefined` |
+| `readonly`    | `readonly`     | Descriptive or instructional text displayed below the list box.                                                                                                         | `boolean`                          | `false`     |
+| `required`    | `required`     | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.            | `boolean`                          | `false`     |
+| `state`       | `state`        | The state of the control. Color changes accordingly                                                                                                                     | `"error" \| "normal" \| "warning"` | `'normal'`  |
+| `stateText`   | `state-text`   | Theme based on which the list box is styled.                                                                                                                            | `string`                           | `''`        |
+| `type`        | `type`         | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                | `"number" \| "text"`               | `'text'`    |
+| `value`       | `value`        | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select. | `any`                              | `undefined` |
 
 
 ## Events
 
-| Event      | Description | Type               |
-| ---------- | ----------- | ------------------ |
-| `fwBlur`   |             | `CustomEvent<any>` |
-| `fwChange` |             | `CustomEvent<any>` |
-| `fwFocus`  |             | `CustomEvent<any>` |
+| Event      | Description                                                                 | Type               |
+| ---------- | --------------------------------------------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the list box loses focus.                                    | `CustomEvent<any>` |
+| `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
+| `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
 
 ## Methods

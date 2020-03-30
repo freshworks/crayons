@@ -9,7 +9,7 @@ export class Button {
   /**
    *  Button type based on which actions are performed when the button is clicked.
    */
-  @Prop() type: 'button'| 'reset'| 'submit' = 'button';
+  @Prop() type: 'button'|'reset'|'submit' = 'button';
 
   /**
    * Identifier of  the theme based on which the button is styled. 

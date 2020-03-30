@@ -8,12 +8,12 @@ import { Component, Host, Prop, h } from '@stencil/core';
 
 export class Tab {
   /**
-   * The Title
+   * Name of the tab displayed on the UI.
    */
   @Prop() title: string;
 
   /**
-   * The Message
+   * Message that is displayed when a user navigates away from a tab.
    */
   @Prop() message: string;
 

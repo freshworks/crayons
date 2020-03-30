@@ -1,4 +1,4 @@
-# Radio Group
+# Radio Group (fw-radio-group)
 fw-radio-group displays a group of options with radio buttons and enables selection of one option from the list. 
 
 ## Usage
@@ -17,18 +17,18 @@ fw-radio-group displays a group of options with radio buttons and enables select
 
 ## Properties
 
-| Property     | Attribute     | Description                                                     | Type      | Default     |
-| ------------ | ------------- | --------------------------------------------------------------- | --------- | ----------- |
-| `allowEmpty` | `allow-empty` | If `true`, the radios can be deselected.                        | `boolean` | `false`     |
-| `name`       | `name`        | The name of the control, which is submitted with the form data. | `string`  | `''`        |
-| `value`      | `value`       | the value of the radio group.                                   | `any`     | `undefined` |
+| Property     | Attribute     | Description                                                                                                                                                                                | Type      | Default     |
+| ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ----------- |
+| `allowEmpty` | `allow-empty` | If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false`     |
+| `name`       | `name`        | Name of the component, saved as part of form data.                                                                                                                                         | `string`  | `''`        |
+| `value`      | `value`       | Default option that is selected when the radio group is displayed on the UI. Must be a valid value corresponding to the fw-radio components used in the Radio Group.                       | `any`     | `undefined` |
 
 
 ## Events
 
-| Event      | Description                         | Type               |
-| ---------- | ----------------------------------- | ------------------ |
-| `fwChange` | Emitted when the value has changed. | `CustomEvent<any>` |
+| Event      | Description                                                            | Type               |
+| ---------- | ---------------------------------------------------------------------- | ------------------ |
+| `fwChange` | Triggered when an option in the Radio Group is selected or deselected. | `CustomEvent<any>` |
 
 
 ----------------------------------------------

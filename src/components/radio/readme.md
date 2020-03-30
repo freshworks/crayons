@@ -1,4 +1,4 @@
-# Radio
+# Radio (fw-radio)
 
 fw-radio displays a radio button on the UI and enables assigning a state (selected or deselected) to it. In the selected state, the button displayed on the UI is highlighted. fw-radio provides child elements for fw-radio-group, to populate the Radio Group component’s list. 
 
@@ -14,23 +14,23 @@ fw-radio displays a radio button on the UI and enables assigning a state (select
 
 ## Properties
 
-| Property   | Attribute  | Description                                 | Type      | Default |
-| ---------- | ---------- | ------------------------------------------- | --------- | ------- |
-| `checked`  | `checked`  | Property to maintain checked state          | `boolean` | `false` |
-| `disabled` | `disabled` | Disables the radio button                   | `boolean` | `false` |
-| `label`    | `label`    | Label for radio button                      | `string`  | `''`    |
-| `name`     | `name`     | Value of the name for within a form         | `string`  | `''`    |
-| `value`    | `value`    | Value of the radio button for within a form | `string`  | `''`    |
+| Property   | Attribute  | Description                                                                                                                    | Type      | Default |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | --------- | ------- |
+| `checked`  | `checked`  | Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.                      | `boolean` | `false` |
+| `disabled` | `disabled` | Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false` |
+| `label`    | `label`    | Label displayed on the interface, for the component.                                                                           | `string`  | `''`    |
+| `name`     | `name`     | Name of the component, saved as part of form data.                                                                             | `string`  | `''`    |
+| `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                                          | `string`  | `''`    |
 
 
 ## Events
 
-| Event        | Description                                      | Type                |
-| ------------ | ------------------------------------------------ | ------------------- |
-| `fwBlur`     | Emitted when the checbox loses focus.            | `CustomEvent<void>` |
-| `fwDeselect` | Emitted when the radio button value has changed. | `CustomEvent<any>`  |
-| `fwFocus`    | Emitted when the radio button has focus.         | `CustomEvent<void>` |
-| `fwSelect`   | Emitted when the radio button value has changed. | `CustomEvent<any>`  |
+| Event        | Description                                           | Type                |
+| ------------ | ----------------------------------------------------- | ------------------- |
+| `fwBlur`     | Triggered when the radio button loses focus.          | `CustomEvent<void>` |
+| `fwDeselect` | Triggered when the radio button in focus is cleared.  | `CustomEvent<any>`  |
+| `fwFocus`    | Triggered when the radio button comes into focus.     | `CustomEvent<void>` |
+| `fwSelect`   | Triggered when the radio button in focus is selected. | `CustomEvent<any>`  |
 
 
 ----------------------------------------------
