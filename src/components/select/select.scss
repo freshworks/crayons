@@ -12,6 +12,8 @@
   --input-border: var(--color-smoke-100);
   --warning-color: var(--color-casablanca-100);
 }
+$min-height: 150px;
+$max-height: 200px;
 
 @mixin stateStyle($_color) {
   & > input {
@@ -131,7 +133,8 @@ label {
   height: inherit;
 
   ul {
-    max-height: 150px;
+    min-height: $min-height;
+    max-height: $max-height;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 8px;

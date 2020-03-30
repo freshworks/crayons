@@ -13,6 +13,13 @@
 | `size`   | `size`    | The size of the spinner - Options ['small' , 'default', 'medium', 'large'] | `"default" or "large" or "medium" or "small"` | `'default'` |
 
 
+## CSS Custom Properties
+
+| Name              | Description          |
+| ----------------- | -------------------- |
+| `--spinner-color` | Color of the spinner |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
