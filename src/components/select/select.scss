@@ -16,6 +16,8 @@
   --input-focus-color: var(--color-azure-800);
   --input-border: var(--color-smoke-100);
   --warning-color: var(--color-casablanca-100);
+  --min-height: 150px;
+  --max-height: 200px;
 }
 
 @mixin stateStyle($_color) {
