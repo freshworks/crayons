@@ -9,7 +9,7 @@ export class Label {
   /**
    * Theme based on which the label is styled.
    */
-  @Prop() color: 'blue'| 'red'| 'green'| 'yellow'| 'grey'| 'normal' = 'normal';
+  @Prop() color: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'normal' = 'normal';
   /**
    * Display text in the label.
    */

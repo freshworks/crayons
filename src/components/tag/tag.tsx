@@ -16,7 +16,7 @@ export class Tag {
    * Value associated with the tag component, that is saved when the form data is saved.
    */
   @Prop({ reflect: true }) value: string;
-/**
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;

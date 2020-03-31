@@ -9,7 +9,7 @@ export class Spinner {
   /**
    * Size of the loader.
    */
-  @Prop() size: 'small'|'medium'|'large'|'default' = 'default';
+  @Prop() size: 'small' | 'medium' | 'large' | 'default' = 'default';
 
   /**
    * Color in which the loader is displayed, specified as a standard CSS color.
