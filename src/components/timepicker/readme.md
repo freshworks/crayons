@@ -15,13 +15,13 @@ fw-timepicker displays a list or drop-down box with prepopulated time values and
 
 ## Properties
 
-| Property     | Attribute     | Description                             | Type     | Default                                        |
-| ------------ | ------------- | --------------------------------------- | -------- | ---------------------------------------------- |
-| `hourFormat` | `hour-format` | Format of the time for input and output | `string` | `'hh:mm p'`                                    |
-| `interval`   | `interval`    | interval bw two time in minutes         | `number` | `30`                                           |
-| `maxTime`    | `max-time`    | Max time                                | `string` | `this.isMeridianFormat ? '11:30 PM' : '23:30'` |
-| `minTime`    | `min-time`    | Min  time                               | `string` | `this.isMeridianFormat ? '12:00 AM' : '00:00'` |
-| `timeValue`  | `time-value`  | time output value                       | `string` | `undefined`                                    |
+| Property     | Attribute     | Description                                                                                                                                                                                    | Type     | Default                                        |
+| ------------ | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------- |
+| `hourFormat` | `hour-format` | Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. | `string` | `'hh:mm p'`                                    |
+| `interval`   | `interval`    | Time interval between the values displayed in the list, specified in minutes.                                                                                                                  | `number` | `30`                                           |
+| `maxTime`    | `max-time`    | Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.                                                         | `string` | `this.isMeridianFormat ? '11:30 PM' : '23:30'` |
+| `minTime`    | `min-time`    | Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.                                                         | `string` | `this.isMeridianFormat ? '12:00 AM' : '00:00'` |
+| `timeValue`  | `time-value`  | Time output value                                                                                                                                                                              | `string` | `undefined`                                    |
 
 
 ## Dependencies
