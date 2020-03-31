@@ -18,6 +18,13 @@ fw-icon displays an icon-sized image that imparts meaning to the component it is
 | `size`   | `size`    | Size of the icon, specified in number of  pixels.                                         | `number` | `12`        |
 
 
+## CSS Custom Properties
+
+| Name           | Description       |
+| -------------- | ----------------- |
+| `--icon-color` | Color of the icon |
+
+
 ## Dependencies
 
 ### Used by

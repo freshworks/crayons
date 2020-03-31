@@ -13,10 +13,13 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                                                                             | Type      | Default     |
-| ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `selected` | `selected` | Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false`     |
-| `value`    | `value`    | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                          | `string`  | `undefined` |
+| Property      | Attribute      | Description                                                                                                                                                                             | Type      | Default     |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `html`        | `html`         | Boolean saying if option is html                                                                                                                                                        | `boolean` | `false`     |
+| `htmlContent` | `html-content` | String containing html content for option                                                                                                                                               | `string`  | `undefined` |
+| `optionText`  | `option-text`  | If option is html and alternate text is needed for label                                                                                                                                | `string`  | `undefined` |
+| `selected`    | `selected`     | Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false`     |
+| `value`       | `value`        | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                          | `string`  | `undefined` |
 
 
 ## Events

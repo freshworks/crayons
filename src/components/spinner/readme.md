@@ -18,7 +18,7 @@ fw-spinner displays a continuous loader on the UI, to indicate that a system is 
 | Property | Attribute | Description                                                                | Type                                          | Default     |
 | -------- | --------- | -------------------------------------------------------------------------- | --------------------------------------------- | ----------- |
 | `color`  | `color`   | Color in which the loader is displayed, specified as a standard CSS color. | `string`                                      | `''`        |
-| `size`   | `size`    | Size of the loader.                                                        | `"default" \| "large" \| "medium" \| "small"` | `'default'` |
+| `size`   | `size`    | Size of the loader.                                                        | `"default" or "large" or "medium" or "small"` | `'default'` |
 
 
 ## CSS Custom Properties
