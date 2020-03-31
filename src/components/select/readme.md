@@ -21,8 +21,6 @@ Select is an input control (list or drop-down box) that enables selection of an 
 | `disabled`    | `disabled`     | Indicates that this control is disabled                                                                            | `boolean`                          | `false`     |
 | `forceSelect` | `force-select` | If true, the user must select some value. The default wont be shown                                                | `boolean`                          | `true`      |
 | `label`       | `label`        | Label displayed on the interface, for the component.                                                               | `string`                           | `''`        |
-| `maxHeight`   | `max-height`   | Maximum height of select component                                                                                 | `string`                           | `'200'`     |
-| `minHeight`   | `min-height`   | Minimum height of select component                                                                                 | `string`                           | `'150'`     |
 | `multiple`    | `multiple`     | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.            | `boolean`                          | `false`     |
 | `name`        | `name`         | Name of the component, saved as part of form data.                                                                 | `string`                           | `''`        |
 | `placeholder` | `placeholder`  | Text displayed in the control before an option is selected.                                                        | `string`                           | `undefined` |
