@@ -1,5 +1,10 @@
 @import "../../styles/freshworks";
 
+/**
+  @prop --min-height: Minimum height of the select component
+  @prop --max-height: Maximum height of the select component
+*/
+
 :host {
   --label-font: var(--font-stack);
   --input-bg: var(--color-milk);
@@ -12,8 +17,6 @@
   --input-border: var(--color-smoke-100);
   --warning-color: var(--color-casablanca-100);
 }
-$min-height: 150px;
-$max-height: 200px;
 
 @mixin stateStyle($_color) {
   & > input {
@@ -133,8 +136,8 @@ label {
   height: inherit;
 
   ul {
-    min-height: $min-height;
-    max-height: $max-height;
+    min-height: var(--min-height);
+    max-height: var(--max-height);
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 8px;

@@ -191,6 +191,14 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Maximum height of select component
+         */
+        "maxHeight": string;
+        /**
+          * Minimum height of select component
+         */
+        "minHeight": string;
+        /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
          */
         "multiple": boolean;
@@ -725,6 +733,14 @@ declare namespace LocalJSX {
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
+        /**
+          * Maximum height of select component
+         */
+        "maxHeight"?: string;
+        /**
+          * Minimum height of select component
+         */
+        "minHeight"?: string;
         /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
          */
