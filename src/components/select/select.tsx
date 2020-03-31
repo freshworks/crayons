@@ -46,7 +46,7 @@ export class Select {
    */
   @Prop() stateText = '';
   /**
-   * Descriptive or instructional text displayed below the list box. 
+   * Descriptive or instructional text displayed below the list box.
    */
   @Prop() readonly = false;
   /**

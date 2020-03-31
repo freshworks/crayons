@@ -19,7 +19,7 @@ export class Radio {
    */
   @Prop() label = '';
   /**
-   * Identifier corresponding to the component, that is saved when the form data is saved. 
+   * Identifier corresponding to the component, that is saved when the form data is saved.
    */
   @Prop() value = '';
   /**

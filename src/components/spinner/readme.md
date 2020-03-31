@@ -28,13 +28,6 @@ fw-spinner displays a continuous loader on the UI, to indicate that a system is 
 | `--spinner-color` | Color of the spinner. |
 
 
-## CSS Custom Properties
-
-| Name              | Description          |
-| ----------------- | -------------------- |
-| `--spinner-color` | Color of the spinner |
-
-
 ----------------------------------------------
 
 Built with ❤ at Freshworks

@@ -20,11 +20,11 @@ export class Input {
   /**
    * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
    */
-  @Prop() type: 'text'| 'number' = 'text';
+  @Prop() type: 'text' | 'number' = 'text';
   /**
    * Specifies whether the browser can display suggestions to autocomplete the text value.
    */
-  @Prop() autocomplete: 'on'| 'off' = 'off';
+  @Prop() autocomplete: 'on' | 'off' = 'off';
   /**
    * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to true. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
    */
@@ -48,9 +48,9 @@ export class Input {
   /**
    * Theme based on which the text box is styled.
    */
-  @Prop() state: 'normal'| 'warning'| 'error' = 'normal';
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
-   * Descriptive or instructional text displayed below the text box. 
+   * Descriptive or instructional text displayed below the text box.
    */
   @Prop() stateText = '';
   /**

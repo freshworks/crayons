@@ -9,12 +9,12 @@ export class Button {
   /**
    *  Button type based on which actions are performed when the button is clicked.
    */
-  @Prop() type: 'button'|'reset'|'submit' = 'button';
+  @Prop() type: 'button' | 'reset' | 'submit' = 'button';
 
   /**
-   * Identifier of  the theme based on which the button is styled. 
+   * Identifier of  the theme based on which the button is styled.
    */
-  @Prop() color: 'primary'| 'secondary'| 'danger'| 'link'| 'text' = 'primary';
+  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
 
   /**
    * Specifies whether to disable the button on the interface. If the attribute’s value is undefined, the value is set to true.
@@ -29,7 +29,7 @@ export class Button {
   /**
    * Size of the button.
    */
-  @Prop() size: 'normal'| 'mini'| 'small' = 'normal';
+  @Prop() size: 'normal' | 'mini' | 'small' = 'normal';
 
   /**
    * Triggered when the button is clicked.
