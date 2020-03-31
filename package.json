@@ -40,7 +40,7 @@
     "lint:styles": "stylelint 'src/**/*.scss'",
     "lint:ts": "tslint -c tslint.json -p tsconfig.json -t grouped -s node_modules/custom-tslint-formatters/formatters",
     "lint": "yarn lint:ts && yarn lint:styles",
-    "local": "stencil build --serve --dev --watch",
+    "start": "stencil build --docs --dev --watch",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "storybook:test": "npm run test:generate && npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook -s www",
