@@ -1,7 +1,15 @@
-# Timepicker
+# Timepicker (fw-timepicker)
+fw-timepicker displays a list or drop-down box with prepopulated time values and enables picking a time. The time values displayed in the list box are based on the fw-timepicker attribute values.
 
 
+## Usage
 
+```html live
+<fw-label value="An interval based picker" color="yellow"></fw-label><br/> 
+<fw-timepicker interval=45 hour-format="hh:mm p"></fw-timepicker>
+<fw-label value="A range based picker" color="yellow"></fw-label><br/>
+<fw-timepicker min-time="04:30" max-time="08:30 PM"></fw-timepicker>
+```
 <!-- Auto Generated Below -->
 
 
