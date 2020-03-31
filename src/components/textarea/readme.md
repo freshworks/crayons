@@ -36,40 +36,39 @@ placeholder="Enter landmark details"
 
 ## Properties
 
-| Property      | Attribute     | Description                                                               | Type                               | Default     |
-| ------------- | ------------- | ------------------------------------------------------------------------- | ---------------------------------- | ----------- |
-| `cols`        | `cols`        | Number of columns                                                         | `number`                           | `undefined` |
-| `disabled`    | `disabled`    | Indicates that this control is disabled                                   | `boolean`                          | `false`     |
-| `label`       | `label`       | The type of control to display. The default type is text.                 | `string`                           | `''`        |
-| `maxlength`   | `maxlength`   | Max length of value                                                       | `number`                           | `undefined` |
-| `minlength`   | `minlength`   | Min length of value                                                       | `number`                           | `undefined` |
-| `name`        | `name`        | The name of the control, which is submitted with the form data.           | `string`                           | `''`        |
-| `placeholder` | `placeholder` | Instructional text that shows before the input has a value.               | `string`                           | `undefined` |
-| `readonly`    | `readonly`    | If `true`, the user cannot modify the value.                              | `boolean`                          | `false`     |
-| `required`    | `required`    | If `true`, the user must fill in a value before submitting a form.        | `boolean`                          | `false`     |
-| `rows`        | `rows`        | Number of rows                                                            | `number`                           | `undefined` |
-| `state`       | `state`       | The state of the control. Color changes accordingly                       | `"error" or "normal" or "warning"` | `'normal'`  |
-| `stateText`   | `state-text`  | This text will be displayed below the input box indicating the state/hint | `string`                           | `''`        |
-| `value`       | `value`       | The value of the input.                                                   | `string`                           | `''`        |
-| `wrap`        | `wrap`        | How the text in the textarea is to be wrapped                             | `"hard" or "soft"`                 | `'soft'`    |
+| Property      | Attribute     | Description                                                                                                                                                                                                                                                       | Type                               | Default     |
+| ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `cols`        | `cols`        | Width of the input box, specified as number of columns.                                                                                                                                                                                                           | `number`                           | `undefined` |
+| `disabled`    | `disabled`    | Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.                                                                                                                                    | `boolean`                          | `false`     |
+| `label`       | `label`       | Label displayed on the interface, for the component.                                                                                                                                                                                                              | `string`                           | `''`        |
+| `maxlength`   | `maxlength`   | Maximum number of characters a user can enter in the input box.                                                                                                                                                                                                   | `number`                           | `undefined` |
+| `minlength`   | `minlength`   | Minimum number of characters a user must enter in the input box for the value to be valid.                                                                                                                                                                        | `number`                           | `undefined` |
+| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                                                                                                                                                | `string`                           | `''`        |
+| `placeholder` | `placeholder` | Text displayed in the input box before a user enters a value.                                                                                                                                                                                                     | `string`                           | `undefined` |
+| `readonly`    | `readonly`    | If the value is true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.                                                                                                                            | `boolean`                          | `false`     |
+| `required`    | `required`    | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.                                                                                                         | `boolean`                          | `false`     |
+| `rows`        | `rows`        | Height of the input box, specified as number of rows.                                                                                                                                                                                                             | `number`                           | `undefined` |
+| `state`       | `state`       | Theme based on which the input box is styled.                                                                                                                                                                                                                     | `"error" or "normal" or "warning"` | `'normal'`  |
+| `stateText`   | `state-text`  | Descriptive or instructional text displayed below the input box.                                                                                                                                                                                                  | `string`                           | `''`        |
+| `value`       | `value`       | Default value displayed in the input box.                                                                                                                                                                                                                         | `string`                           | `''`        |
+| `wrap`        | `wrap`        | Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved. | `"hard" or "soft"`                 | `'soft'`    |
 
 
 ## Events
 
-| Event      | Description | Type                         |
-| ---------- | ----------- | ---------------------------- |
-| `fwBlur`   |             | `CustomEvent<void>`          |
-| `fwChange` |             | `CustomEvent<any>`           |
-| `fwFocus`  |             | `CustomEvent<void>`          |
-| `fwInput`  |             | `CustomEvent<KeyboardEvent>` |
+| Event      | Description                                            | Type                         |
+| ---------- | ------------------------------------------------------ | ---------------------------- |
+| `fwBlur`   | Triggered when the input box loses focus.              | `CustomEvent<void>`          |
+| `fwChange` | Triggered when the value in the input box is modified. | `CustomEvent<any>`           |
+| `fwFocus`  | Triggered when the input box comes into focus.         | `CustomEvent<void>`          |
+| `fwInput`  | Triggered when a value is entered in the input box.    | `CustomEvent<KeyboardEvent>` |
 
 
 ## Methods
 
 ### `setFocus() => Promise<void>`
 
-Sets focus on the specified `fw-input`. Use this method instead of the global
-`input.focus()`.
+Sets focus on a specific `fw-textarea`. Use this method instead of the global `input.focus()`.
 
 #### Returns
 

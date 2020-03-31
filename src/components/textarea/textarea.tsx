@@ -26,7 +26,7 @@ export class Textarea {
    */
   @Prop() rows?: number;
   /**
-   * Maximum number of characters a user can enter in the input box. 
+   * Maximum number of characters a user can enter in the input box.
    */
   @Prop() maxlength?: number;
   /**
@@ -50,7 +50,7 @@ export class Textarea {
    */
   @Prop() wrap: 'soft' | 'hard' = 'soft';
   /**
-   * Descriptive or instructional text displayed below the input box. 
+   * Descriptive or instructional text displayed below the input box.
    */
   @Prop() stateText = '';
   /**
@@ -65,19 +65,19 @@ export class Textarea {
    * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() disabled = false;
-/**
+  /**
    * Triggered when the value in the input box is modified.
    */
   @Event() fwChange: EventEmitter;
-/**
+  /**
    * Triggered when the input box comes into focus.
    */
   @Event() fwFocus: EventEmitter<void>;
-/**
+  /**
    * Triggered when the input box loses focus.
    */
   @Event() fwBlur: EventEmitter<void>;
-/**
+  /**
    * Triggered when a value is entered in the input box.
    */
   @Event() fwInput: EventEmitter<KeyboardEvent>;

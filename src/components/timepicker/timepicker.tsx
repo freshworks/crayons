@@ -40,7 +40,7 @@ export class Timepicker {
    */
   @Prop() interval = 30;
   /**
-   * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM. 
+   * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
    */
   @Prop() minTime?: string = this.isMeridianFormat ? '12:00 AM' : '00:00';
 
