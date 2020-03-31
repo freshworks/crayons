@@ -1,5 +1,34 @@
-# Textarea
+# Textarea (fw-textarea)
+fw-textarea displays an input box on the user interface and enables assigning multi-line text value to it. The size of the input box is based on the cols and rows attributes.
 
+## Usage
+
+```html live
+<fw-textarea cols=75 rows=5 maxlength=190 minlength=5
+  label="Address"
+  state-text="Do not enter your temporary address"
+  state="warning"
+  placeholder="Enter your permanent address"
+  required>
+</fw-textarea>
+<fw-textarea cols=75 rows=5
+  label="Passcode"
+  state-text="Passcode is incorrect"
+  state="error"
+  required>
+</fw-textarea>
+<fw-textarea cols=75 rows=5
+  label="Location identifier"
+placeholder="Enter landmark details"
+  state="normal">
+</fw-textarea>
+<fw-textarea cols=75 rows=1
+  label="Plot number"
+  value="not applicable"
+   disabled
+  state="normal">
+</fw-textarea>
+```
 
 
 <!-- Auto Generated Below -->

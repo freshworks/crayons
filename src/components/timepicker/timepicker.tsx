@@ -11,7 +11,7 @@ export class Timepicker {
   @State() timeValues: any[] = [];
 
   /**
-   * Format of the time for input and output
+   * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
    */
   @Prop() hourFormat = 'hh:mm p';
 
@@ -31,21 +31,21 @@ export class Timepicker {
   @State() maxTimeObj;
 
   /**
-   * time output value
+   * Time output value
    */
   @Prop({ mutable: true }) timeValue?: string;
 
   /**
-   * interval bw two time in minutes
+   * Time interval between the values displayed in the list, specified in minutes.
    */
   @Prop() interval = 30;
   /**
-   * Min  time
+   * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM. 
    */
   @Prop() minTime?: string = this.isMeridianFormat ? '12:00 AM' : '00:00';
 
   /**
-   * Max time
+   * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
    */
   @Prop() maxTime?: string = this.isMeridianFormat ? '11:30 PM' : '23:30';
 

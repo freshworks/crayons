@@ -10,68 +10,76 @@ export class Textarea {
 
   @State() hasFocus = false;
   /**
-   * The type of control to display. The default type is text.
+   * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
   /**
-   * The value of the input.
+   * Default value displayed in the input box.
    */
   @Prop({ mutable: true }) value?: string | null = '';
   /**
-   * Number of columns
+   * Width of the input box, specified as number of columns.
    */
   @Prop() cols?: number;
   /**
-   * Number of rows
+   * Height of the input box, specified as number of rows.
    */
   @Prop() rows?: number;
   /**
-   * Max length of value
+   * Maximum number of characters a user can enter in the input box. 
    */
   @Prop() maxlength?: number;
   /**
-   * Min length of value
+   * Minimum number of characters a user must enter in the input box for the value to be valid.
    */
   @Prop() minlength?: number;
   /**
-   * The name of the control, which is submitted with the form data.
+   * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
   /**
-   * Instructional text that shows before the input has a value.
+   * Text displayed in the input box before a user enters a value.
    */
   @Prop() placeholder?: string | null;
   /**
-   * The state of the control. Color changes accordingly
+   * Theme based on which the input box is styled.
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
-   * How the text in the textarea is to be wrapped
+   * Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved.
    */
   @Prop() wrap: 'soft' | 'hard' = 'soft';
   /**
-   * This text will be displayed below the input box indicating the state/hint
+   * Descriptive or instructional text displayed below the input box. 
    */
   @Prop() stateText = '';
   /**
-   * If `true`, the user cannot modify the value.
+   * If the value is true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() readonly = false;
   /**
-   * If `true`, the user must fill in a value before submitting a form.
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() required = false;
   /**
-   * Indicates that this control is disabled
+   * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() disabled = false;
-
+/**
+   * Triggered when the value in the input box is modified.
+   */
   @Event() fwChange: EventEmitter;
-
+/**
+   * Triggered when the input box comes into focus.
+   */
   @Event() fwFocus: EventEmitter<void>;
-
+/**
+   * Triggered when the input box loses focus.
+   */
   @Event() fwBlur: EventEmitter<void>;
-
+/**
+   * Triggered when a value is entered in the input box.
+   */
   @Event() fwInput: EventEmitter<KeyboardEvent>;
 
   @Watch('value')
@@ -106,8 +114,7 @@ export class Textarea {
   }
 
   /**
-   * Sets focus on the specified `fw-input`. Use this method instead of the global
-   * `input.focus()`.
+   * Sets focus on a specific `fw-textarea`. Use this method instead of the global `input.focus()`.
    */
   @Method()
   async setFocus() {
