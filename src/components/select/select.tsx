@@ -65,6 +65,14 @@ export class Select {
    * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() multiple = false;
+  /**
+   * Minimum height of select component
+   */
+  @Prop() minHeight = '150';
+  /**
+   * Maximum height of select component
+   */
+  @Prop() maxHeight = '200';
 
   // Events
   @Event() fwChange: EventEmitter;
@@ -262,7 +270,14 @@ export class Select {
               <span class={{ 'dropdown-status-icon': true, 'expanded': this.isExpanded }}></span>
             </div>
           </div>
-          <ul tabindex="0" ref={ul => this.selectList = ul}>
+          <ul tabindex="0" ref={ul => this.selectList = ul}
+            style={
+              {
+                '--min-height': `${this.minHeight}px`,
+                '--max-height': `${this.maxHeight}px`,
+              }
+            }
+          >
             {this.renderDropdown()}
           </ul>
           {this.stateText !== '' ?
