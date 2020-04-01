@@ -67,16 +67,9 @@ export class Timepicker {
         meridianFormat: moment(currentTimeInMs).format(meridianFormat),
         nonMeridianFormat: moment(currentTimeInMs).format(nonMeridianFormat),
       });
-      const temp = moment(currentTimeInMs)
+      currentTimeInMs = moment(currentTimeInMs)
           .add(interval, 'minutes')
           .valueOf();
-      const currentTimeHrs = moment(currentTimeInMs).hours();
-      const nextTimeHrs = moment(temp).hours();
-      // Handling edge case of 23:00 -> 00:00
-      if (currentTimeHrs === 23 && nextTimeHrs === 0) {
-        break;
-      }
-      currentTimeInMs = temp;
     }
   }
 
