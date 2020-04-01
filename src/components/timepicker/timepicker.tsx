@@ -33,7 +33,7 @@ export class Timepicker {
   /**
    * Time output value
    */
-  @Prop({ mutable: true }) timeValue?: string;
+  @Prop({ mutable: true }) value?: string;
 
   /**
    * Time interval between the values displayed in the list, specified in minutes.
@@ -150,7 +150,7 @@ export class Timepicker {
 
   private setTimeValue(e: any) {
     const { value } = e.detail;
-    this.timeValue = value;
+    this.value = value;
   }
 
   componentWillLoad() {

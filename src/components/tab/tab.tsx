@@ -10,7 +10,7 @@ export class Tab {
   /**
    * Name of the tab displayed on the UI.
    */
-  @Prop() title: string;
+  @Prop() tabHeader: string;
 
   /**
    * Message that is displayed when a user navigates away from a tab.

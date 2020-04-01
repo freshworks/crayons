@@ -59,10 +59,12 @@ export class Tabs {
         <ul role="tablist" class="tabs__items">
           {this.tabs.map((tab, index) =>
             <li onClick={event => this.toggelLink(event, index)} class="tabs__item contacts-tab_item text--xsmall text--uppercase ember-view">
-              <a href={'#tab-' + index} class={'tabs__item__nav ' + (index === this.activeTabIndex ? 'active' : '')}>
+              <div id={'#tab-' + index} class={'tabs__item__nav ' + (index === this.activeTabIndex ? 'active' : '')}>
                 <span class="tab-title--tab-icon">
-                  <span class="tab-title">{tab.getAttribute('title')}</span>
-                </span> </a></li>
+                  <span class="tab-title">{tab.getAttribute('tab-header')}</span>
+                </span>
+              </div>
+            </li>
           )}
         </ul>
         <div class="tabs__content">
