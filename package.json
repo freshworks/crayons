@@ -101,7 +101,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "moment-range": "^4.0.2",
     "stencil": "^0.0.5"
   }
 }

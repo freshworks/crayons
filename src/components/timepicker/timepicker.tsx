@@ -72,6 +72,7 @@ export class Timepicker {
           .valueOf();
       const currentTimeHrs = moment(currentTimeInMs).hours();
       const nextTimeHrs = moment(temp).hours();
+      // Handling edge case of 23:00 -> 00:00
       if (currentTimeHrs === 23 && nextTimeHrs === 0) {
         break;
       }
