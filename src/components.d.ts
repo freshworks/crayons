@@ -267,7 +267,7 @@ export namespace Components {
         /**
           * Name of the tab displayed on the UI.
          */
-        "title": string;
+        "tabHeader": string;
     }
     interface FwTabs {
     }
@@ -363,7 +363,7 @@ export namespace Components {
         /**
           * Time output value
          */
-        "timeValue"?: string;
+        "value"?: string;
     }
     interface FwToggle {
         "checked": boolean;
@@ -830,7 +830,7 @@ declare namespace LocalJSX {
         /**
           * Name of the tab displayed on the UI.
          */
-        "title"?: string;
+        "tabHeader"?: string;
     }
     interface FwTabs {
     }
@@ -942,7 +942,7 @@ declare namespace LocalJSX {
         /**
           * Time output value
          */
-        "timeValue"?: string;
+        "value"?: string;
     }
     interface FwToggle {
         "checked"?: boolean;
