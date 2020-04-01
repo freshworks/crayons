@@ -5,7 +5,7 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 ## Usage
 ```html live
 <fw-select-option selected="true">I am the chosen one</fw-select-option>
-<fw-select-option>Me,nein</fw-select-option>
+<fw-select-option html html-content="<b>Me, nein</b>"></fw-select-option>
 <fw-select-option>I am another option</fw-select-option>
 ```
 

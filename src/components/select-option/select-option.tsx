@@ -12,19 +12,19 @@ export class SelectOption {
    */
   @Prop({ reflect: true }) value: string;
   /**
-   * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
+   * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ reflect: true, mutable: true }) selected = false;
   /**
-   * Boolean saying if option is html
+   * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
    */
   @Prop({ reflect: true, mutable: true }) html = false;
   /**
-   * If option is html and alternate text is needed for label
+   * Alternate text displayed on the interface, in place of the actual HTML content.
    */
   @Prop({ reflect: true }) optionText: string;
   /**
-   * String containing html content for option
+   * HTML content that is displayed as the option.
    */
   @Prop() htmlContent?: string;
 

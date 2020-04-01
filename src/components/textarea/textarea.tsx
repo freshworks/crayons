@@ -54,7 +54,7 @@ export class Textarea {
    */
   @Prop() stateText = '';
   /**
-   * If the value is true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
+   * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() readonly = false;
   /**
@@ -62,7 +62,7 @@ export class Textarea {
    */
   @Prop() required = false;
   /**
-   * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+   * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() disabled = false;
   /**

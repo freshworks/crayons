@@ -1,6 +1,6 @@
 # Radio (fw-radio)
 
-fw-radio displays a radio button on the UI and enables assigning a state (selected or deselected) to it. In the selected state, the button displayed on the UI is highlighted. fw-radio provides child elements for fw-radio-group, to populate the Radio Group component’s list. 
+fw-radio displays a radio button on the user interface and enables assigning a state (selected or deselected) to it. In the selected state, the button displayed is highlighted. fw-radio provides child elements for fw-radio-group, to populate the Radio Group component’s list. 
 
 ## Usage
 

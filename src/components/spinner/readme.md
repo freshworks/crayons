@@ -1,5 +1,5 @@
 # Spinner (fw-spinner)
-fw-spinner displays a continuous loader on the UI, to indicate that a system is processing an entity.
+fw-spinner displays a continuous loader on the user interface, to indicate that a system is processing an entity.
 
 ## Usage
 

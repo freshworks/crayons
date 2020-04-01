@@ -1,16 +1,18 @@
+# Overview
+
+Freshworks Crayons is a library of UI components that are the building blocks to help create an intuitive and uniform user interface for all your apps. Crayons leverages the custom CSS properties to provide a default theme and style for the components. The default theme is to provide uniformity across all apps built for the Freshworks Marketplace. You can customize the CSS properties to build apps that are aligned with your design needs.
+
 # Getting Started
 
-Add the following scripts to your html file
+From your app’s root directory navigate to the **app > template.html** file and add the following scripts:
 
 ```html
 <script type="module" src="https://static.freshdev.io/crayons/crayons.esm.js"></script>
 <script nomodule src="https://static.freshdev.io/crayons/crayons.js"></script>
 ```
 
-Thats it!
-
-Start using components just like any html element. For example:
+You can now use the Crayons components just like how you would use any other html element.
 
 ```html live
-<fw-button id="myButton" onClick="alert('Button Clicked')">This is a button</fw-button>
+<fw-button color="secondary" onClick="alert('Button Clicked')">Get Started</fw-button>
 ```

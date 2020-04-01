@@ -17,7 +17,7 @@ export class Button {
   @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
 
   /**
-   * Specifies whether to disable the button on the interface. If the attribute’s value is undefined, the value is set to true.
+   * Disables the button on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ reflect: true }) disabled = false;
 
