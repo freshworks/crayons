@@ -3,10 +3,11 @@
 fw-select-option provides child elements for fw-select, to populate the Select component’s list or drop-down box with values. If fw-select-option is used without the value attribute, when the form data is saved, the value of fw-select is the selected option’s text. 
 
 ## Usage
-
+```html live
 <fw-select-option selected="true">I am the chosen one</fw-select-option>
 <fw-select-option>Me,nein</fw-select-option>
 <fw-select-option>I am another option</fw-select-option>
+```
 
 <!-- Auto Generated Below -->
 

@@ -10,6 +10,7 @@ export class Select {
   private select?: HTMLDivElement;
   private selectInput?: HTMLInputElement;
   private selectList?: HTMLUListElement;
+  private overlay?: HTMLElement;
   /**
    * If the dropdown is shown or not
    */
@@ -81,6 +82,7 @@ export class Select {
 
   private closeDropdown = () => {
     this.selectList.style.display = 'none';
+    this.overlay.style.display = 'none';
     this.isExpanded = false;
   }
 
@@ -94,17 +96,12 @@ export class Select {
     this.selectList.style.display = 'block';
     this.selectList.style.width = String(this.select.clientWidth) + 'px';
     this.isExpanded = true;
+    this.overlay.style.display = 'block';
   }
 
   private innerOnBlur = (e: Event) => {
     this.closeDropdown();
     this.fwBlur.emit(e);
-  }
-
-  private documentClick = (e: Event) => {
-    if (e.target !== this.host) {
-      this.closeDropdown();
-    }
   }
 
   @Watch('value')
@@ -122,7 +119,6 @@ export class Select {
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
-    this.isExpanded = false;
     this.options = this.options.map(option => {
       if (selectedItem.detail.value === option.value) {
         option.selected = selectedItem.detail.selected;
@@ -131,7 +127,7 @@ export class Select {
       }
       return option;
     });
-    this.selectList.style.display = 'none';
+    this.closeDropdown();
     selectedItem.stopPropagation();
   }
 
@@ -219,11 +215,6 @@ export class Select {
 
   componentDidLoad() {
     this.renderInput();
-    window.addEventListener('click', this.documentClick);
-  }
-
-  componentDidUnload() {
-    window.removeEventListener('click', this.documentClick);
   }
 
   @Method()
@@ -270,12 +261,14 @@ export class Select {
               <span class={{ 'dropdown-status-icon': true, 'expanded': this.isExpanded }}></span>
             </div>
           </div>
-          <ul tabindex="0" ref={ul => this.selectList = ul}>
+          <ul tabindex="0" class="dropdown" ref={ul => this.selectList = ul}>
             {this.renderDropdown()}
           </ul>
           {this.stateText !== '' ?
             <span class="help-block">{this.stateText}</span> : ''}
         </div>
+        <div class="overlay" ref={overlay => this.overlay = overlay}
+          onClick={() => this.closeDropdown()}/>
       </Host>
     );
   }
