@@ -16,7 +16,7 @@
   --input-focus-color: var(--color-azure-800);
   --input-border: var(--color-smoke-100);
   --warning-color: var(--color-casablanca-100);
-  --min-height: 150px;
+  --min-height: 10px;
   --max-height: 200px;
 }
 
@@ -137,6 +137,10 @@ label {
   width: inherit;
   height: inherit;
 
+  .dropdown {
+    z-index: 99;
+  }
+
   ul {
     min-height: var(--min-height);
     max-height: var(--max-height);
@@ -191,6 +195,17 @@ label {
   .dropdown-status-icon.expanded {
     transform: rotate(315deg);
   }
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  background-color: transparent;
 }
 
 ::placeholder {

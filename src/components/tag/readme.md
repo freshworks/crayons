@@ -2,8 +2,9 @@
 fw-tag provides a child component that is used to enable selecting multiple options in the Select component. 
 
 ## Usage
-
+```html live
 <fw-tag text="Option"></fw-tag>
+```
 
 <!-- Auto Generated Below -->
 
