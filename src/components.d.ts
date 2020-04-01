@@ -347,7 +347,7 @@ export namespace Components {
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
-        "hourFormat": string;
+        "format": "hh:mm A" | "HH:mm";
         /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
@@ -926,7 +926,7 @@ declare namespace LocalJSX {
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
-        "hourFormat"?: string;
+        "format"?: "hh:mm A" | "HH:mm";
         /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
