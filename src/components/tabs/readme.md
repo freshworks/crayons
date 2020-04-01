@@ -6,7 +6,7 @@ fw-tabs displays a series of tabs on the UI and enables tab-style navigation. Th
 
 ```html live
 <fw-tabs>
-  <fw-tab title="Personal">
+  <fw-tab tab-header="Personal">
     <fw-input
   label="Name"
   icon-left="add-contact"
@@ -19,7 +19,7 @@ fw-tabs displays a series of tabs on the UI and enables tab-style navigation. Th
 <fw-button color="secondary">Submit</fw-button>
 <fw-button color="secondary">Save</fw-button>
   </fw-tab>
-  <fw-tab title="Official">
+  <fw-tab tab-header="Official">
     <fw-select multiple label="Select location of preference" required="true">
         <fw-select-option value="1">Chennai</fw-select-option>
         <fw-select-option value="2">Bangalore</fw-select-option>
