@@ -7,11 +7,11 @@ import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/c
 })
 export class Checkbox {
   /**
-   * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
+   * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ mutable: true }) checked = false;
   /**
-   * Specifies whether the check box is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+   * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop({ mutable: true }) disabled = false;
   /**

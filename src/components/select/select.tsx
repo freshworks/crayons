@@ -39,15 +39,15 @@ export class Select {
    */
   @Prop() placeholder?: string | null;
   /**
-   * The state of the control. Color changes accordingly
+   * Theme based on which the list box is styled.
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
-   * Theme based on which the list box is styled.
+   * Descriptive or instructional text displayed below the list box.
    */
   @Prop() stateText = '';
   /**
-   * Descriptive or instructional text displayed below the list box.
+   * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
    */
   @Prop() readonly = false;
   /**
@@ -59,7 +59,7 @@ export class Select {
    */
   @Prop() forceSelect = true;
   /**
-   * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() disabled = false;
   /**

@@ -6,7 +6,9 @@ import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
   shadow: true,
 })
 export class Toggle {
-
+  /**
+   * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to true.
+   */
   @Prop() checked = false;
   /**
    * Size of the input control.
@@ -20,7 +22,9 @@ export class Toggle {
    * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to true.
    */
   @Prop() disabled = false;
-
+  /**
+   * Triggered when the input control is selected or deselected.
+   */
   @Event() fwChange: EventEmitter;
 
   @Watch('checked')

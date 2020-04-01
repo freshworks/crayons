@@ -22,7 +22,7 @@ export class RadioGroup {
   @Prop() name = '';
 
   /**
-   * Default option that is selected when the radio group is displayed on the UI. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
+   * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
    */
   @Prop({ mutable: true }) value?: any | null;
 

@@ -1,6 +1,6 @@
 # Tabs (fw-tabs)
 
-fw-tabs displays a series of tabs on the UI and enables tab-style navigation. The component doesn’t have any attributes that impart styling; it merely functions as a container for the tabs.
+fw-tabs displays a series of tabs on the user interface and enables tab-style navigation. The component doesn’t have any attributes that impart styling; it merely functions as a container for the tabs.
 
 ## Usage
 

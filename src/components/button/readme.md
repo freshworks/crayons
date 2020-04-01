@@ -1,5 +1,5 @@
 # Button (fw-button)
-fw-button displays a button that enables specific actions based on the button type. The button’s label can be a text, icon, or both.
+fw-button displays a button on the user interface and enables performing specific actions based on the button type. The button’s label can be a text, icon, or both.
 
 ## Usage
 

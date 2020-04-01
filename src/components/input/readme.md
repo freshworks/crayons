@@ -28,11 +28,18 @@ placeholder="Enter the verification code sent to the registered email address"
 </fw-input>
 <fw-input
   label="Deprecated Field"
+  disabled
+  state="normal"
+  clear-input>
+</fw-input>
+<fw-input
+  label="Do Not Modify"
   value="Not applicable"
   readonly
   state="normal"
   clear-input>
 </fw-input>
+
 
 ```
 

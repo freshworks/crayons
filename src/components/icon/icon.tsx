@@ -8,7 +8,7 @@ import { Component, Prop, State, Watch, getAssetPath, h } from '@stencil/core';
 })
 export class Icon {
   /**
-   * Identifier of the icon in the repo of icons.
+   * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
    */
   @Prop() name: string;
 
