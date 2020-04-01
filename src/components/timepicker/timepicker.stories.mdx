@@ -17,13 +17,17 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Story name='Default'>{() => '<fw-timepicker></fw-timepicker>'}</Story>
 </Preview>
 
-
 ### Interval specified
 <Preview>
-<Story name='interval'>{() => '<fw-timepicker interval=45></fw-timepicker>'}</Story>
+<Story name='Interval specified'>{() => '<fw-timepicker interval=45></fw-timepicker>'}</Story>
 </Preview>
 
-### Time Range
+### Format specified
 <Preview>
-<Story name='startEnd'>{() => '<fw-timepicker min-time="04:30 AM" max-time="08:30 AM"></fw-timepicker>'}</Story>
+<Story name='Format specified'>{() => '<fw-timepicker format="HH:mm"></fw-timepicker>'}</Story>
+</Preview>
+
+### Time Range and relatively small interval
+<Preview>
+<Story name='Time Range and relatively small interval'>{() => '<fw-timepicker min-time="04:30 AM" max-time="08:26 AM" interval=3></fw-timepicker>'}</Story>
 </Preview>

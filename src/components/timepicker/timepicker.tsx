@@ -1,4 +1,5 @@
 import { Component, Prop, State, h } from '@stencil/core';
+import moment from 'moment';
 
 @Component({
   tag: 'fw-timepicker',
@@ -13,22 +14,12 @@ export class Timepicker {
   /**
    * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
    */
-  @Prop() hourFormat = 'hh:mm p';
+  @Prop() format: 'hh:mm A' | 'HH:mm' = 'hh:mm A';
 
   /**
    * Represent the intervals and can be a number or array of numbers representing the minute values in an hour
    */
-  @State() isMeridianFormat?: boolean = this.hourFormat === 'hh:mm p';
-
-  /**
-   * min time Object
-   */
-  @State() minTimeObj;
-
-  /**
-   * Max time obj
-   */
-  @State() maxTimeObj;
+  @State() isMeridianFormat?: boolean = this.format === 'hh:mm A';
 
   /**
    * Time output value
@@ -48,104 +39,52 @@ export class Timepicker {
    * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
    */
   @Prop() maxTime?: string = this.isMeridianFormat ? '11:30 PM' : '23:30';
+  /**
+   * Boolean representing whethere it is default end time
+   */
+  @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
 
-  private isPrimaryMeridian(time: string) {
-    return time.includes('PM');
-  }
-
-  private padZeroToTime(hours: number, mins: number) {
-    let hoursStr = `${hours}`;
-    let minsStr = `${mins}`;
-    if (hours < 10) {
-      hoursStr = `0${hours}`;
-    }
-
-    if (mins < 10) {
-      minsStr = `0${mins}`;
-    }
-    return `${hoursStr}:${minsStr}`;
-  }
-
-  private getHoursMinutes(time: string) {
-    const hoursMins = time.split(':');
-    const hours = Number(hoursMins[0]);
-    const mins = Number(hoursMins[1].split(' ')[0]);
-    return {
-      hours,
-      mins,
+  private getTimeOptionsMeta = nonMeridianFormat => {
+    const preferredFormat = this.format;
+    const timeIntervalArgs = {
+      interval: this.interval,
+      startTime: moment(this.minTime, preferredFormat).format(nonMeridianFormat),
+      endTime: moment(this.maxTime, preferredFormat).format(nonMeridianFormat),
     };
-  }
-
-  private getTimeInMeridian(timeInMinutes: number) {
-    let hours = Math.floor(timeInMinutes / 60);
-    const mins = timeInMinutes % 60;
-    if (hours >= 12) {
-      hours = hours === 12 ? hours : (hours - 12);
-      return `${this.padZeroToTime(hours, mins)} PM`;
-    }
-
-    if (hours === 0) {
-      hours += 12;
-    }
-    return `${this.padZeroToTime(hours, mins)} AM`;
-  }
-
-  private getTimeInNonMeridian(time: string) {
-    let { hours } = this.getHoursMinutes(time);
-    const { mins } = this.getHoursMinutes(time);
-    if (!this.isPrimaryMeridian(time)) {
-      if (hours === 12) {
-        hours -= 12;
-      }
-      return this.padZeroToTime(hours, mins);
-    } else {
-      if (hours !== 12) {
-        hours += 12;
-      }
-    }
-    return this.padZeroToTime(hours, mins);
-}
-
-  private getTimeInMins(time: string) {
-    const nonMeridianTime = this.getTimeInNonMeridian(time);
-    const { hours, mins } = this.getHoursMinutes(nonMeridianTime);
-    return (hours * 60) + mins;
-  }
-
-  private setMinMaxTimeObjs() {
-
-    this.minTimeObj = {
-      timeInMinutes : this.getTimeInMins(this.minTime),
-      nonMeridianTime : this.getTimeInNonMeridian(this.minTime),
-    };
-
-    this.maxTimeObj = {
-      timeInMinutes : this.getTimeInMins(this.maxTime),
-      nonMeridianTime : this.getTimeInNonMeridian(this.maxTime),
-    };
+    return timeIntervalArgs;
   }
 
   private setTimeValues = () => {
-    let currentTime = this.minTimeObj.timeInMinutes;
-    do {
-      const timeInMeridian = this.getTimeInMeridian(currentTime);
+    const meridianFormat = 'hh:mm A';
+    const nonMeridianFormat = 'HH:mm';
+    const { interval, startTime, endTime } =
+      this.getTimeOptionsMeta(nonMeridianFormat);
+    let currentTimeInMs = moment(startTime, nonMeridianFormat).valueOf();
+    const endTimeInMs = moment(endTime, nonMeridianFormat).valueOf();
+  
+    while (currentTimeInMs <= endTimeInMs) {
       this.timeValues.push({
-        timeInMinutes: currentTime,
-        label: {
-          meridian: timeInMeridian,
-          nonMeridian: this.getTimeInNonMeridian(timeInMeridian),
-        },
+        meridianFormat: moment(currentTimeInMs).format(meridianFormat),
+        nonMeridianFormat: moment(currentTimeInMs).format(nonMeridianFormat),
       });
-      currentTime += this.interval;
-    } while (currentTime <= this.maxTimeObj.timeInMinutes);
+      const temp = moment(currentTimeInMs)
+          .add(interval, 'minutes')
+          .valueOf();
+      const currentTimeHrs = moment(currentTimeInMs).hours();
+      const nextTimeHrs = moment(temp).hours();
+      if (currentTimeHrs === 23 && nextTimeHrs === 0) {
+        break;
+      }
+      currentTimeInMs = temp;
+    }
   }
 
   private currentTimeLabel(time: any) {
-    return this.isMeridianFormat ? time.label.meridian : time.label.nonMeridian;
+    return this.isMeridianFormat ? time.meridianFormat : time.nonMeridianFormat;
   }
 
   private currentTimeValue(time: any) {
-    return time.label.nonMeridian;
+    return time.nonMeridianFormat;
   }
 
   private setTimeValue(e: any) {
@@ -153,8 +92,17 @@ export class Timepicker {
     this.value = value;
   }
 
+  private setEndTime() {
+    if (this.isDefaultEndTime) {
+      this.maxTime = this.isMeridianFormat ?
+        `11:59 PM` : `23:59`;
+    }
+  }
+
   componentWillLoad() {
-    this.setMinMaxTimeObjs();
+    if (this.interval !== 30) {
+      this.setEndTime();
+    }
     this.setTimeValues();
   }
 
