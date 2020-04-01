@@ -61,7 +61,7 @@ export class Timepicker {
       this.getTimeOptionsMeta(nonMeridianFormat);
     let currentTimeInMs = moment(startTime, nonMeridianFormat).valueOf();
     const endTimeInMs = moment(endTime, nonMeridianFormat).valueOf();
-  
+
     while (currentTimeInMs <= endTimeInMs) {
       this.timeValues.push({
         meridianFormat: moment(currentTimeInMs).format(meridianFormat),
