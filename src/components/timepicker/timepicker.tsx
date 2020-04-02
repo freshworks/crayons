@@ -1,5 +1,5 @@
 import { Component, Prop, State, h } from '@stencil/core';
-import moment from 'moment';
+import moment from 'moment-mini';
 
 @Component({
   tag: 'fw-timepicker',
