@@ -13,12 +13,12 @@ fw-checkbox displays a check box on the user interface and enables assigning a s
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                    | Type      | Default |
-| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | --------- | ------- |
-| `checked`  | `checked`  | Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.                      | `boolean` | `false` |
-| `disabled` | `disabled` | Specifies whether the check box is disabled on the interface. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false` |
-| `label`    | `label`    | Label displayed on the interface, for the check box.                                                                           | `string`  | `''`    |
-| `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                                          | `string`  | `''`    |
+| Property   | Attribute  | Description                                                                                                  | Type      | Default |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------ | --------- | ------- |
+| `checked`  | `checked`  | Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false` |
+| `disabled` | `disabled` | Disables the check box on the interface. If the attribute’s value is undefined, the value is set to true.    | `boolean` | `false` |
+| `label`    | `label`    | Label displayed on the interface, for the check box.                                                         | `string`  | `''`    |
+| `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                        | `string`  | `''`    |
 
 
 ## Events

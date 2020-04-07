@@ -23,9 +23,9 @@ fw-spinner displays a continuous loader on the user interface, to indicate that 
 
 ## CSS Custom Properties
 
-| Name              | Description           |
-| ----------------- | --------------------- |
-| `--spinner-color` | Color of the spinner. |
+| Name              | Description          |
+| ----------------- | -------------------- |
+| `--spinner-color` | Color of the spinner |
 
 
 ----------------------------------------------

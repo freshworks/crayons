@@ -21,7 +21,7 @@ fw-radio-group displays a group of options with radio buttons and enables select
 | ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ----------- |
 | `allowEmpty` | `allow-empty` | If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to true. | `boolean` | `false`     |
 | `name`       | `name`        | Name of the component, saved as part of form data.                                                                                                                                         | `string`  | `''`        |
-| `value`      | `value`       | Default option that is selected when the radio group is displayed on the UI. Must be a valid value corresponding to the fw-radio components used in the Radio Group.                       | `any`     | `undefined` |
+| `value`      | `value`       | Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.                | `any`     | `undefined` |
 
 
 ## Events
