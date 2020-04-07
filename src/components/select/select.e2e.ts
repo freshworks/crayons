@@ -65,6 +65,32 @@ describe('fw-select', () => {
     expect(fwBlur).toHaveReceivedEvent();
   });
 
+  it.only('Sets html content as the select option', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`
+      <fw-select
+          label="Select App type"
+          placeholder="Choose app type">
+          <fw-select-option value="1" html option-text="LLL">
+                <div style="color: red; padding: 10px;">Lannister </div class="cls">
+                <div style="color: green; padding: 5px;">Lannisters are gods</div>
+          </fw-select-option>
+          <fw-select-option value="2">
+            Shenigans
+          </fw-select-option>
+      </fw-select>
+      `);
+
+    const element = await page.find('fw-select');
+    element.setAttribute('value', '1');
+
+    await page.waitForChanges();
+    const selectInput = await page.find('fw-select >>> input');
+    const inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('LLL');
+  });
+
   it('it emits fwChange when the value is changed in the component', async () => {
     const page = await newE2EPage();
 
