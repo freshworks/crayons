@@ -51,18 +51,21 @@ pipeline {
 
         stage ('Code Sanity') {
             steps {
+                setNVM()
                 sh "npm run code-sanity"
             }
         }
 
         stage ('Tests') {
             steps {
+                setNVM()
                 sh "npm run test"
             }
         }
 
         stage ('Build') {
             steps {
+                setNVM()
                 sh "npm run build"
             }
         }
