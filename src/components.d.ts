@@ -12,7 +12,7 @@ export namespace Components {
          */
         "color": "primary" | "secondary" | "danger" | "link" | "text";
         /**
-          * Specifies whether to disable the button on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
@@ -30,11 +30,11 @@ export namespace Components {
     }
     interface FwCheckbox {
         /**
-          * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to true.
          */
         "checked": boolean;
         /**
-          * Specifies whether the check box is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
@@ -52,7 +52,7 @@ export namespace Components {
          */
         "color": string;
         /**
-          * Identifier of the icon in the repo of icons.
+          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "name": string;
         /**
@@ -70,7 +70,7 @@ export namespace Components {
          */
         "clearInput": boolean;
         /**
-          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
@@ -142,11 +142,11 @@ export namespace Components {
     }
     interface FwRadio {
         /**
-          * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to true.
          */
         "checked": boolean;
         /**
-          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
@@ -172,13 +172,13 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Default option that is selected when the radio group is displayed on the UI. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
+          * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
     }
     interface FwSelect {
         /**
-          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
@@ -203,7 +203,7 @@ export namespace Components {
          */
         "placeholder"?: string | null;
         /**
-          * Descriptive or instructional text displayed below the list box.
+          * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
          */
         "readonly": boolean;
         /**
@@ -211,11 +211,11 @@ export namespace Components {
          */
         "required": boolean;
         /**
-          * The state of the control. Color changes accordingly
+          * Theme based on which the list box is styled.
          */
         "state": "normal" | "warning" | "error";
         /**
-          * Theme based on which the list box is styled.
+          * Descriptive or instructional text displayed below the list box.
          */
         "stateText": string;
         /**
@@ -229,19 +229,19 @@ export namespace Components {
     }
     interface FwSelectOption {
         /**
-          * Boolean saying if option is html
+          * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
          */
         "html": boolean;
         /**
-          * String containing html content for option
+          * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
         /**
-          * If option is html and alternate text is needed for label
+          * Alternate text displayed on the interface, in place of the actual HTML content.
          */
         "optionText": string;
         /**
-          * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
          */
         "selected": boolean;
         /**
@@ -287,7 +287,7 @@ export namespace Components {
          */
         "cols"?: number;
         /**
-          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled": boolean;
         /**
@@ -311,7 +311,7 @@ export namespace Components {
          */
         "placeholder"?: string | null;
         /**
-          * If the value is true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
          */
         "readonly": boolean;
         /**
@@ -366,6 +366,9 @@ export namespace Components {
         "value"?: string;
     }
     interface FwToggle {
+        /**
+          * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to true.
+         */
         "checked": boolean;
         /**
           * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to true.
@@ -504,7 +507,7 @@ declare namespace LocalJSX {
          */
         "color"?: "primary" | "secondary" | "danger" | "link" | "text";
         /**
-          * Specifies whether to disable the button on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
@@ -534,11 +537,11 @@ declare namespace LocalJSX {
     }
     interface FwCheckbox {
         /**
-          * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to true.
          */
         "checked"?: boolean;
         /**
-          * Specifies whether the check box is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
@@ -568,7 +571,7 @@ declare namespace LocalJSX {
          */
         "color"?: string;
         /**
-          * Identifier of the icon in the repo of icons.
+          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "name"?: string;
         /**
@@ -586,7 +589,7 @@ declare namespace LocalJSX {
          */
         "clearInput"?: boolean;
         /**
-          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
@@ -670,11 +673,11 @@ declare namespace LocalJSX {
     }
     interface FwRadio {
         /**
-          * Specifies whether the state is selected. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to true.
          */
         "checked"?: boolean;
         /**
-          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
@@ -720,13 +723,13 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * Default option that is selected when the radio group is displayed on the UI. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
+          * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
     }
     interface FwSelect {
         /**
-          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
@@ -762,7 +765,7 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string | null;
         /**
-          * Descriptive or instructional text displayed below the list box.
+          * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
          */
         "readonly"?: boolean;
         /**
@@ -770,11 +773,11 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
-          * The state of the control. Color changes accordingly
+          * Theme based on which the list box is styled.
          */
         "state"?: "normal" | "warning" | "error";
         /**
-          * Theme based on which the list box is styled.
+          * Descriptive or instructional text displayed below the list box.
          */
         "stateText"?: string;
         /**
@@ -788,11 +791,11 @@ declare namespace LocalJSX {
     }
     interface FwSelectOption {
         /**
-          * Boolean saying if option is html
+          * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
          */
         "html"?: boolean;
         /**
-          * String containing html content for option
+          * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
         /**
@@ -800,11 +803,11 @@ declare namespace LocalJSX {
          */
         "onFwSelected"?: (event: CustomEvent<any>) => void;
         /**
-          * If option is html and alternate text is needed for label
+          * Alternate text displayed on the interface, in place of the actual HTML content.
          */
         "optionText"?: string;
         /**
-          * Indicates whether the option is selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
          */
         "selected"?: boolean;
         /**
@@ -854,7 +857,7 @@ declare namespace LocalJSX {
          */
         "cols"?: number;
         /**
-          * Specifies whether the component is disabled on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to true.
          */
         "disabled"?: boolean;
         /**
@@ -894,7 +897,7 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string | null;
         /**
-          * If the value is true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
          */
         "readonly"?: boolean;
         /**
@@ -945,6 +948,9 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface FwToggle {
+        /**
+          * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to true.
+         */
         "checked"?: boolean;
         /**
           * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to true.
@@ -954,6 +960,9 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of the form data.
          */
         "name"?: string;
+        /**
+          * Triggered when the input control is selected or deselected.
+         */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Size of the input control.
