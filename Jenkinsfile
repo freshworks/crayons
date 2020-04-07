@@ -2,6 +2,14 @@
 
 def NODE_VERSION = 10;
 
+def setNVM() {
+    sh """#!/bin/bash --login
+        set -e
+        source /home/jenkins/.nvm/nvm.sh
+        nvm use ${NODE_VERSION}
+        """
+}
+
 def uploadAndInvalidate(environment) {
   def s3Path = "/crayons"
 
@@ -36,12 +44,8 @@ pipeline {
         stage('Checkout & Setup') {
             steps {
                 checkout scm
-                sh """#!/bin/bash --login
-                    set -e
-                    source /home/jenkins/.nvm/nvm.sh
-                    nvm use ${NODE_VERSION}
-                    npm install
-                    """
+                setNVM()
+                sh "npm install"
             }
         }
 
