@@ -35,25 +35,31 @@ pipeline {
     stages {
         stage('Checkout & Setup') {
             steps {
-                checkoutCode(NODE_VERSION)
+                checkout scm
+                sh """#!/bin/bash --login
+                    set -e
+                    source /home/jenkins/.nvm/nvm.sh
+                    nvm use ${NODE_VERSION}
+                    npm install
+                    """
             }
         }
 
         stage ('Code Sanity') {
             steps {
-                doCodeSanity(NODE_VERSION)
+                sh "npm run code-sanity"
             }
         }
 
         stage ('Tests') {
             steps {
-                runUnitTests(NODE_VERSION)
+                sh "npm run test"
             }
         }
 
         stage ('Build') {
             steps {
-                buildProject(NODE_VERSION)
+                sh "npm run build"
             }
         }
 
