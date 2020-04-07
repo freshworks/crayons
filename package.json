@@ -31,23 +31,22 @@
   ],
   "scripts": {
     "build:components": "stencil build --docs",
-    "build": "yarn build:components && yarn storybook:build && yarn docs:build",
-    "code-sanity": "yarn lint",
+    "build": "npm run build:components && npm run storybook:build && npm run docs:build",
+    "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm-run-all --parallel start storybook",
     "docs:build": "vuepress build src",
-    "docs:dev": "yarn build:components && vuepress dev src",
+    "docs:dev": "npm run build:components && vuepress dev src",
     "generate": "plop",
     "lint:styles": "stylelint 'src/**/*.scss'",
     "lint:ts": "tslint -c tslint.json -p tsconfig.json -t grouped -s node_modules/custom-tslint-formatters/formatters",
-    "lint": "yarn lint:ts && yarn lint:styles",
+    "lint": "npm run lint:ts && npm run lint:styles",
     "start": "stencil build --docs --dev --watch",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "storybook:test": "npm run test:generate && npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook -s www",
     "test:watch": "stencil test --spec --e2e --watchAll",
     "test": "stencil test --spec --e2e",
-    "unit-tests": "npm run test",
     "local": "stencil build --serve --dev --watch"
   },
   "devDependencies": {
@@ -100,8 +99,7 @@
     "vuepress": "^1.2.0",
     "vuepress-plugin-live": "^1.4.2",
     "web-component-analyzer": "^1.0.0",
-    "write-file-webpack-plugin": "^4.5.1",
-    "yarn": "^1.22.4"
+    "write-file-webpack-plugin": "^4.5.1"
   },
   "license": "MIT",
   "dependencies": {
@@ -115,6 +113,8 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run code-sanity --fix",
+      "pre-push": "npm run test",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
     }
   }
