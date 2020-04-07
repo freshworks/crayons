@@ -33,6 +33,7 @@
     "build:components": "stencil build --docs",
     "build": "yarn build:components && yarn storybook:build && yarn docs:build",
     "code-sanity": "yarn lint",
+    "commit": "git-cz",
     "dev": "npm-run-all --parallel start storybook",
     "docs:build": "vuepress build src",
     "docs:dev": "yarn build:components && vuepress dev src",
@@ -72,9 +73,12 @@
     "@vuepress/plugin-active-header-links": "^1.2.0",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
+    "commitizen": "^4.0.3",
     "copy-webpack-plugin": "^5.0.1",
     "custom-tslint-formatters": "^2.4.0",
+    "cz-conventional-changelog": "3.1.0",
     "html-to-react": "^1.4.2",
+    "husky": "^4.2.3",
     "jest": "^24.8.0",
     "jest-cli": "24.9.0",
     "lit-html": "^1.1.2",
@@ -103,5 +107,15 @@
   "dependencies": {
     "moment-mini": "^2.24.0",
     "stencil": "^0.0.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
   }
 }
