@@ -1,13 +1,10 @@
 #!groovy
 
-def NODE_VERSION = 10;
-
-def setNVM() {
-    sh """#!/bin/bash --login
-        set -e
-        source /home/jenkins/.nvm/nvm.sh
-        nvm use ${NODE_VERSION}
-        """
+def runNPM(command) {
+    def NODE_VERSION = 10;
+    utilObj = new Utils();
+    envVersion = utilObj.getEnvVersion(NODE_VERSION);
+    utilObj.runCmd(command, envVersion)
 }
 
 def uploadAndInvalidate(environment) {
@@ -44,29 +41,25 @@ pipeline {
         stage('Checkout & Setup') {
             steps {
                 checkout scm
-                setNVM()
-                sh "npm install"
+                runNPM('HUSKY_SKIP_INSTALL=1 npm install')
             }
         }
 
         stage ('Code Sanity') {
             steps {
-                setNVM()
-                sh "npm run code-sanity"
+                runNPM('npm run code-sanity')
             }
         }
 
         stage ('Tests') {
             steps {
-                setNVM()
-                sh "npm run test"
+                runNPM('npm run test')
             }
         }
 
         stage ('Build') {
             steps {
-                setNVM()
-                sh "npm run build"
+                runNPM('npm run build')
             }
         }
 
