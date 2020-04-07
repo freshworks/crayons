@@ -39,4 +39,28 @@ describe('fw-timepicker', () => {
 
     expect(fwFocus).toHaveReceivedEvent();
   });
+
+  it('it emits fwFocus when the focus is on the component', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-timepicker></fw-timepicker>`);
+    const fwFocus = await page.spyOnEvent('fwFocus');
+    const element = await page.find('fw-timepicker');
+
+    await element.click();
+    await page.keyboard.press('Tab');
+
+    await page.waitForChanges();
+
+    expect(fwFocus).toHaveReceivedEvent();
+  });
+
+  it('it sets interval as per the property provided', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-timepicker min-time="09:00 AM" interval=15></fw-timepicker>`);
+    const el = await page.find('fw-timepicker');
+    const selectEl = await page.find('fw-select');
+    expect(el.shadowRoot).toEqualHtml(`<fw-select class="hydrated"></fw-select>`);
+  });
 });
