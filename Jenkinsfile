@@ -66,7 +66,7 @@ pipeline {
         stage ('Deploy to Staging') {
             when {
                 expression {
-                    params.deployTo == 'staging'
+                    params.deployTo == 'staging' && BRANCH_NAME == 'master'
                 }
             }
             steps {
@@ -77,7 +77,7 @@ pipeline {
         stage ('Deploy to Release') {
             when {
                 expression {
-                    params.deployTo == 'release'
+                    params.deployTo == 'release' && BRANCH_NAME == 'master'
                 }
             }
             steps {
