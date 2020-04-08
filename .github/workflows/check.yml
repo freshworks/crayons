@@ -1,11 +1,11 @@
-name: Release
+name: Check Build
 
 on:
-  push:
+  pull_request:
     branches: [ master ]
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,7 +14,6 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'
-        registry-url: 'https://registry.npmjs.org'
 
     # Installs the dependencies
     - name: Install Dependencies
@@ -31,11 +30,3 @@ jobs:
     # Builds components
     - name: Builds Components
       run: npm run build:components
-    
-    # Creates Release and Publishes to NPM
-    - name: Semantic Release
-      run: npx semantic-release
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

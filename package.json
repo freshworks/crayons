@@ -5,7 +5,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/freshdesk/crayons.git"
+    "url": "https://github.com/freshdesk/crayons.git"
   },
   "keywords": [
     "web-components",
@@ -15,7 +15,7 @@
     "components"
   ],
   "author": "Freshworks Inc",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Crayons for Developer Platform",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -42,6 +42,7 @@
     "lint:ts": "tslint -c tslint.json -p tsconfig.json -t grouped -s node_modules/custom-tslint-formatters/formatters",
     "lint": "npm run lint:ts && npm run lint:styles",
     "local": "stencil build --serve --dev --watch",
+    "semantic-release": "semantic-release",
     "start": "stencil build --docs --dev --watch",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "storybook:test": "npm run test:generate && npm run storybook",
@@ -51,6 +52,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@stencil/core": "1.9.2",
     "@stencil/postcss": "^1.0.1",
     "@stencil/sass": "^1.0.1",
@@ -100,7 +103,8 @@
     "vuepress": "^1.2.0",
     "vuepress-plugin-live": "^1.4.2",
     "web-component-analyzer": "^1.0.0",
-    "write-file-webpack-plugin": "^4.5.1"
+    "write-file-webpack-plugin": "^4.5.1",
+    "semantic-release": "^17.0.4"
   },
   "license": "MIT",
   "dependencies": {
@@ -123,5 +127,12 @@
     "*.css": "stylelint --fix",
     "*.ts": "tslint -c tslint.json --fix",
     "*.tsx": "tslint -c tslint.json --fix"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/freshdesk/crayons/issues"
+  },
+  "homepage": "https://github.com/freshdesk/crayons#readme"
 }
