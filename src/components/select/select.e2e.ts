@@ -27,6 +27,18 @@ describe('fw-select', () => {
 
   });
 
+  it('Renders all the select options', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select label="Select the house" required="true">
+                                <fw-select-option value="starks">Starks</fw-select-option>
+                                <fw-select-option value="lannisters">Lannisters</fw-select-option>
+                            </fw-select>`);
+
+    const options = await page.findAll('fw-select >>> fw-select-option');
+    expect(options.length).toBe(2);
+  });
+
   it('it checks if multiple values can be set and get', async () => {
     const page = await newE2EPage();
 
@@ -65,7 +77,7 @@ describe('fw-select', () => {
     expect(fwBlur).toHaveReceivedEvent();
   });
 
-  it.only('Sets html content as the select option', async () => {
+  it('Sets html content as the select option', async () => {
     const page = await newE2EPage();
 
     await page.setContent(`
