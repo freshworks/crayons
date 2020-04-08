@@ -25,7 +25,7 @@ jobs:
     
     # Runs tests
     - name: Runs tests
-      run: npm run unit-tests
+      run: npm run test
     
     # Builds components
     - name: Builds Components
