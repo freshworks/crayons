@@ -28,7 +28,7 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 .env
 
-component.d.ts
+components.d.ts
 custom-elements.d.ts
 custom-elements.json
 yarn-lock.json
