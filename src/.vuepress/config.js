@@ -8,7 +8,7 @@ const getComponents = () => components.tags.map(({ tag }) => {
 
 module.exports = {
   title: 'Crayons',
-  base: '/crayons/docs/',
+  base: '/',
   description: 'Use freshworks components to build apps',
   dest: 'docs-dist',
   docsDir: 'src',
