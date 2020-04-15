@@ -31,7 +31,7 @@ export class Tabs {
   @State()
   activeChildClass = '';
 
-  diplayTab(index: number) {
+  displayTab(index: number) {
     this.activeTabIndex = index;
     this.tabs = this.tabs?.map((tab, i) => {
       tab.style.display = index === i ? 'block' : 'none';
@@ -41,13 +41,7 @@ export class Tabs {
 
   componentWillLoad() {
     this.tabs = Array.from(this.el.querySelectorAll('fw-tab'));
-  }
-
-  connectedCallback() {
-    const slotted = this.el.shadowRoot.querySelector('slot');
-    const children = slotted?.assignedNodes();
-    this.tabs = children?.filter((child: any) => child.tagName === 'FW-TAB');
-    this.diplayTab(0);
+    this.displayTab(0);
   }
 
   render() {
@@ -56,7 +50,7 @@ export class Tabs {
       <div class="tabs">
         <ul role="tablist" class="tabs__items">
           {this.tabs.map((tab, index) =>
-            <li onClick={() => this.diplayTab(index)} class="tabs__item">
+            <li onClick={() => this.displayTab(index)} class="tabs__item">
               <div id={'#tab-' + index} class={'tabs__item__nav ' + (index === this.activeTabIndex ? 'active' : '')}>
                 <span class="tab-title--tab-icon">
                   <span class="tab-title">{tab.tabHeader}</span>
