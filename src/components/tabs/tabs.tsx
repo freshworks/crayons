@@ -67,14 +67,6 @@ export class Tabs {
         </ul>
         <div class="tabs__content">
           <slot></slot>
-          {/* {this.tabs.map((tab, index) =>
-            <fw-tab
-              innerHTML={tab.innerHTML}
-              role="tabpanel"
-              id={'tab-' + index}
-              class={'tabs__content__pane tabs__content__pane--fade ' + (index === this.activeTabIndex ? 'in active' : '') + this.activeChildClass}>
-            </fw-tab>
-          )} */}
         </div>
       </div>
     );
