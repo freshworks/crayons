@@ -17,7 +17,7 @@ def uploadAndInvalidate(environment) {
       profile: 'default'
     ],
     release: [
-      bucketName: 'static.freshdev.io',
+      bucketName: 'crayon-freshworks',
       cdnDistributionId: 'E2049NOS2OZD9B',
       profile: 'prod'
     ]
