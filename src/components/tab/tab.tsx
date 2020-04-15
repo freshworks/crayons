@@ -19,10 +19,8 @@ export class Tab {
 
   render() {
     return (
-      <Host>
-        <div>
-          <slot />
-        </div>
+      <Host class="tab">
+        <slot/>
       </Host>
     );
   }
