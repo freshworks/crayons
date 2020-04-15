@@ -8,7 +8,6 @@ def runNPM(command) {
 }
 
 def uploadAndInvalidate(environment) {
-  def s3Path = "/crayons"
 
   def STATIC_ASSETS = [
     staging: [
@@ -18,15 +17,14 @@ def uploadAndInvalidate(environment) {
     ],
     release: [
       bucketName: 'crayon-freshworks',
-      cdnDistributionId: 'E2049NOS2OZD9B',
+      cdnDistributionId: 'E2L2PEITWYW1LM',
       profile: 'prod'
     ]
   ]
 
-  uploadAssetsToS3('dist/crayons', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
-  uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/docs", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
-  uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}${s3Path}/storybook", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
-  invalidateCDN(STATIC_ASSETS[environment].cdnDistributionId, "${s3Path}/*", STATIC_ASSETS[environment].profile)
+  uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[environment].bucketName}", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
+  uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}/storybook", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
+  invalidateCDN(STATIC_ASSETS[environment].cdnDistributionId, "/*", STATIC_ASSETS[environment].profile)
 }
 
 pipeline {
