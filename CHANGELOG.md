@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/freshdesk/crayons/compare/v1.0.0...v1.0.1) (2020-04-15)
+
+
+### Bug Fixes
+
+* **tabs:** fixes initial render for Tabs component ([7ffe365](https://github.com/freshdesk/crayons/commit/7ffe365e166455ce0bf06358da7607b517c7985a))
+
 # 1.0.0 (2020-04-15)
 
 
