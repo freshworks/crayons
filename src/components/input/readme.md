@@ -93,6 +93,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [fw-datepicker](../datepicker)
+
 ### Depends on
 
 - [fw-icon](../icon)
@@ -101,6 +105,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-input --> fw-icon
+  fw-datepicker --> fw-input
   style fw-input fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

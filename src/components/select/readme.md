@@ -61,14 +61,6 @@ Type: `Promise<any>`
 
 
 
-## CSS Custom Properties
-
-| Name           | Description                            |
-| -------------- | -------------------------------------- |
-| `--max-height` | Maximum height of the select component |
-| `--min-height` | Minimum height of the select component |
-
-
 ## Dependencies
 
 ### Used by
