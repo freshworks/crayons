@@ -32,12 +32,12 @@ export class Datepicker {
   @Event() fwChange: EventEmitter;
 
   @Listen('fwFocus')
-  private displayDatePicker() {
+  displayDatePicker() {
     this.showDatePicker = true;
   }
 
   @Listen('fwClick')
-  private handleButtonClick(e) {
+  handleButtonClick(e) {
     const isUpdateRange = e.composedPath()[0].classList.value.includes('update-range-value');
     const isUpdateDate = e.composedPath()[0].classList.value.includes('update-date-value');
     if (isUpdateRange) {
@@ -277,7 +277,7 @@ export class Datepicker {
           readonly={true}>
         </fw-input>
         {this.showSingleDatePicker() ? (
-          <div>
+          <div class="datepicker">
             <div class="mdp-container">
               {/*Head section*/}
               <div class="mdpc-head">
@@ -310,7 +310,7 @@ export class Datepicker {
         ) : ''}
 
         {this.showDateRangePicker() ? (
-          <div>
+          <div class="daterangepicker">
             <div class="mdp-range-container">
               {/*Head section*/}
               <div class="mdpc-head">
