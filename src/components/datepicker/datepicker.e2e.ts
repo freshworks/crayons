@@ -10,7 +10,7 @@ describe('fw-datepicker', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('should show the datepicker popup when click', async () => {
+  it('should show and hide the datepicker popup when click', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-datepicker></fw-datepicker>');
@@ -18,6 +18,12 @@ describe('fw-datepicker', () => {
     await element.click();
     const popup = await page.find('fw-datepicker >>> .datepicker');
     expect(popup).toBeTruthy();
+
+    const updateEle = await page.find('fw-datepicker >>> fw-button.close-date-picker');
+    await updateEle.click();
+
+    const datePickerEle = await page.find('fw-datepicker >>> .datepicker');
+    expect(datePickerEle).toBeNull();
   });
 
   it('should emit fwChange when it is updated', async () => {
@@ -56,7 +62,6 @@ describe('fw-datepicker', () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-datepicker date-format="YYYY-MM-DD"></fw-datepicker>');
-    const fwChange = await page.spyOnEvent('fwChange');
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
 

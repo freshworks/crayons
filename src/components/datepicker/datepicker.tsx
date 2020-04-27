@@ -16,15 +16,15 @@ export class Datepicker {
   @State() month: number;
   @State() todayTimestamp: any;
   @State() selectedDay: any;
-  @State() minDateFormatted: any;
-  @State() maxDateFormatted: any;
+  @State() startDateFormatted: any;
+  @State() endDateFormatted: any;
   @State() dateHovered: any;
 
   @Prop() mode: string;
-  @Prop() startDate: any;
-  @Prop() endDate: any;
   @Prop() minDate: any;
   @Prop() maxDate: any;
+  @Prop() startDate: any;
+  @Prop() endDate: any;
   @Prop() dateFormat: string;
   @Prop() dateValue: any;
   @Prop() placeholder: string;
@@ -41,12 +41,12 @@ export class Datepicker {
     const isUpdateRange = e.composedPath()[0].classList.value.includes('update-range-value');
     const isUpdateDate = e.composedPath()[0].classList.value.includes('update-date-value');
     if (isUpdateRange) {
-      this.minDateFormatted = moment(this.minDate).format(this.dateFormat);
-      this.maxDateFormatted = moment(this.maxDate).format(this.dateFormat);
-      this.dateValue = this.minDateFormatted + ' to ' + this.maxDateFormatted;
+      this.startDateFormatted = moment(this.startDate).format(this.dateFormat);
+      this.endDateFormatted = moment(this.endDate).format(this.dateFormat);
+      this.dateValue = this.startDateFormatted + ' to ' + this.endDateFormatted;
       this.fwChange.emit({
-        fromDate: this.minDateFormatted,
-        toDate: this.maxDateFormatted,
+        fromDate: this.startDateFormatted,
+        toDate: this.endDateFormatted,
       });
     } else if (isUpdateDate) {
       this.dateValue = moment(this.selectedDay).format(this.dateFormat);
@@ -62,7 +62,7 @@ export class Datepicker {
     this.nextMonthDetails = this.month === 11 ? this.getMonthDetails(this.year + 1, 0) : this.getMonthDetails(this.year, this.month + 1);
     this.todayTimestamp = moment().startOf('date').valueOf();
     this.dateFormat = this.dateFormat || 'DD-MM-YYYY';
-    this.placeholder = this.mode === 'range' ? 'Select Date Range' : 'Select Date';
+    this.placeholder = this.placeholder || (this.mode === 'range' ? 'Select Date Range' : 'Select Date');
   }
 
   getMonthStr = month => {
@@ -98,15 +98,16 @@ export class Datepicker {
     };
   }
   private _getValidDateInMonth(date, args) {
-    if (this.startDate && this.endDate) {
+    if (this.minDate && this.maxDate) {
       if (date < 0) {
         return -1;
       }
-      const fromDate = moment(this.startDate, this.dateFormat);
-      const toDate = moment(this.endDate, this.dateFormat);
+      const dateFormat = this.dateFormat || 'DD-MM-YYYY';
+      const minDate = moment(this.minDate, dateFormat);
+      const maxDate = moment(this.maxDate, dateFormat);
       const argDate = moment([args.year, args.month, date + 1]);
 
-      const isValid = fromDate.valueOf() <= argDate.valueOf() && argDate.valueOf() <= toDate.valueOf();
+      const isValid = minDate.valueOf() <= argDate.valueOf() && argDate.valueOf() <= maxDate.valueOf();
       return !isValid ? -1 : date >= args.numberOfDays ? 1 : 0;
     }
     return date < 0 ? -1 : date >= args.numberOfDays ? 1 : 0;
@@ -158,29 +159,29 @@ export class Datepicker {
   }
 
   isSelectedDay = ({ timestamp }) => {
-    return timestamp === this.selectedDay || timestamp === this.minDate || timestamp === this.maxDate;
+    return timestamp === this.selectedDay || timestamp === this.startDate || timestamp === this.endDate;
   }
 
   handleDateHover(day) {
-    if (this.minDate && !this.maxDate) {
+    if (this.startDate && !this.endDate) {
       this.dateHovered = day.timestamp;
     }
   }
 
   isInRange = ({ timestamp }) => {
-    const { maxDate } = this;
-    const { minDate } = this;
+    const { endDate } = this;
+    const { startDate } = this;
 
-    return minDate && maxDate && ((timestamp >= minDate && timestamp <= maxDate));
+    return startDate && endDate && ((timestamp >= startDate && timestamp <= endDate));
   }
 
   isHoverInRange({ timestamp }) {
 
-    const { minDate } = this;
+    const { startDate } = this;
     const { dateHovered } = this;
 
-    return minDate && dateHovered && ((timestamp <= dateHovered && timestamp >= minDate)
-      || (timestamp >= dateHovered && timestamp <= minDate));
+    return startDate && dateHovered && ((timestamp <= dateHovered && timestamp >= startDate)
+      || (timestamp >= dateHovered && timestamp <= startDate));
   }
 
   onDateClick = ({ timestamp }) => {
@@ -193,18 +194,18 @@ export class Datepicker {
   }
 
   private handleRangeSelection(timestamp) {
-    if (this.minDate && this.maxDate) {
-      this.maxDate = undefined;
-      this.minDate = timestamp;
-    } else if (this.minDate && !this.maxDate) {
-      if (timestamp > this.minDate) {
-        this.maxDate = timestamp;
-      } else if (timestamp < this.minDate) {
-        this.maxDate = this.minDate;
-        this.minDate = timestamp;
+    if (this.startDate && this.endDate) {
+      this.endDate = undefined;
+      this.startDate = timestamp;
+    } else if (this.startDate && !this.endDate) {
+      if (timestamp > this.startDate) {
+        this.endDate = timestamp;
+      } else if (timestamp < this.startDate) {
+        this.endDate = this.startDate;
+        this.startDate = timestamp;
       }
-    } else if (!this.minDate && !this.maxDate) {
-      this.minDate = timestamp;
+    } else if (!this.startDate && !this.endDate) {
+      this.startDate = timestamp;
     }
   }
 
@@ -222,16 +223,16 @@ export class Datepicker {
     if (this.isInRange(day) || this.isHoverInRange(day)) {
       cellStyle += ' highlight-range';
     }
-    if (day.timestamp === this.minDate) {
-      cellStyle += ' minday';
+    if (day.timestamp === this.startDate) {
+      cellStyle += ' start-day';
     }
-    if (day.timestamp === this.maxDate) {
-      cellStyle += ' maxday';
+    if (day.timestamp === this.endDate) {
+      cellStyle += ' end-day';
     }
-    if (this.minDate && this.dateHovered < this.minDate && day.timestamp === this.dateHovered) {
-      cellStyle += ' minday';
-    } else if (this.minDate && this.dateHovered > this.minDate && day.timestamp === this.dateHovered) {
-      cellStyle += ' maxday';
+    if (this.startDate && this.dateHovered < this.startDate && day.timestamp === this.dateHovered) {
+      cellStyle += ' start-day';
+    } else if (this.startDate && this.dateHovered > this.startDate && day.timestamp === this.dateHovered) {
+      cellStyle += ' end-day';
     }
 
     return cellStyle;
