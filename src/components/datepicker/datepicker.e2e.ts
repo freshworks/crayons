@@ -31,7 +31,7 @@ describe('fw-datepicker', () => {
     const updateEle = await page.find('fw-datepicker >>> fw-button.update-date-value');
 
     element.setProperty('selectedDay', '27-04-2020');
-    await updateEle.click()
+    await updateEle.click();
     expect(fwChange).toHaveReceivedEvent();
   });
 
@@ -48,11 +48,11 @@ describe('fw-datepicker', () => {
     const updateEle = await page.find('fw-datepicker >>> fw-button.update-range-value');
     element.setProperty('minDate', '01-04-2020');
     element.setProperty('maxDate', '27-04-2020');
-    await updateEle.click()
+    await updateEle.click();
     expect(fwChange).toHaveReceivedEvent();
-  })
+  });
 
-  it('date should be as per format', async() => {
+  it('date should be as per format', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-datepicker date-format="YYYY-MM-DD"></fw-datepicker>');
@@ -67,8 +67,8 @@ describe('fw-datepicker', () => {
     await updateEle.click();
 
     const datePicketValue = await element.getProperty('value');
-    const todayValue = await moment().format('YYYY-MM-DD');
+    const todayValue = moment().format('YYYY-MM-DD');
 
     expect(datePicketValue.toString()).toBe(todayValue.toString());
-  })
+  });
 });
