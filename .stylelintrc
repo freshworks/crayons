@@ -3,6 +3,11 @@
   "rules": {
     "no-descending-specificity": null,
     "at-rule-no-unknown": null,
-    "custom-property-empty-line-before": null
+    "custom-property-empty-line-before": null,
+    "selector-type-no-unknown": [true,
+      {
+        ignore: ["custom-elements"]
+      }
+    ]
   }
 }
