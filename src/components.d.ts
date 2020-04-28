@@ -46,6 +46,16 @@ export namespace Components {
          */
         "value": string;
     }
+    interface FwDatepicker {
+        "dateFormat": string;
+        "dateValue": any;
+        "endDate": any;
+        "maxDate": any;
+        "minDate": any;
+        "mode": string;
+        "placeholder": string;
+        "startDate": any;
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
@@ -405,6 +415,12 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwDatepickerElement extends Components.FwDatepicker, HTMLStencilElement {
+    }
+    var HTMLFwDatepickerElement: {
+        prototype: HTMLFwDatepickerElement;
+        new (): HTMLFwDatepickerElement;
+    };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
     var HTMLFwIconElement: {
@@ -492,6 +508,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "fw-button": HTMLFwButtonElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-datepicker": HTMLFwDatepickerElement;
         "fw-icon": HTMLFwIconElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
@@ -572,6 +589,17 @@ declare namespace LocalJSX {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+    }
+    interface FwDatepicker {
+        "dateFormat"?: string;
+        "dateValue"?: any;
+        "endDate"?: any;
+        "maxDate"?: any;
+        "minDate"?: any;
+        "mode"?: string;
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "placeholder"?: string;
+        "startDate"?: any;
     }
     interface FwIcon {
         /**
@@ -988,6 +1016,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "fw-button": FwButton;
         "fw-checkbox": FwCheckbox;
+        "fw-datepicker": FwDatepicker;
         "fw-icon": FwIcon;
         "fw-input": FwInput;
         "fw-label": FwLabel;
@@ -1010,6 +1039,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;

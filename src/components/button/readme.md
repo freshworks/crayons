@@ -61,6 +61,19 @@ fw-button displays a button on the user interface and enables performing specifi
 | `fwFocus` | Triggered when the button comes into focus. | `CustomEvent<void>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-datepicker](../datepicker)
+
+### Graph
+```mermaid
+graph TD;
+  fw-datepicker --> fw-button
+  style fw-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
