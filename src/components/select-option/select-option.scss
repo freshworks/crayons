@@ -3,8 +3,10 @@
 :host {
   --primary-color: var(--color-elephant-900);
   --selected-color: var(--color-azure-800);
+  --disabled-color: var(--color-smoke-300);
   --bg-color: var(--color-azure-50);
   --bg-color-hover: var(--color-smoke-50);
+  --bg-color-disabled: var(--color-smoke-25);
 }
 
 .select-option {
@@ -29,6 +31,13 @@
 
   &:hover {
     background-color: var(--bg-color-hover);
+  }
+
+  &.disabled {
+    color: var(--disabled-color);
+    position: relative;
+    cursor: not-allowed;
+    background-color: var(--bg-color-disabled);
   }
 
   &::after {

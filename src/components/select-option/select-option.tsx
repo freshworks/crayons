@@ -12,9 +12,13 @@ export class SelectOption {
    */
   @Prop({ reflect: true }) value: string;
   /**
-   * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
+   * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop({ reflect: true, mutable: true }) selected = false;
+  /**
+   * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop({ reflect: true, mutable: true }) disabled = false;
   /**
    * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
    */
@@ -34,6 +38,7 @@ export class SelectOption {
   @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
 
   private onOptionSelected() {
+    if (this.disabled) { return; }
     this.selected = !this.selected;
     const { value, selected } = this;
     this.fwSelected.emit({ value, selected });
@@ -41,8 +46,15 @@ export class SelectOption {
 
   render() {
     return (
-      <li ref={el => this.nativeLi = el} class={{ 'select-option': true, 'selected': this.selected }} onMouseDown={() => this.onOptionSelected()}>
-        {this.html ? '' : <slot />}
+      <li
+        ref={el => this.nativeLi = el}
+        class={{ 'select-option': true, 'selected': this.selected, 'disabled': this.disabled }}
+        onMouseDown={() => this.onOptionSelected()}>
+        {
+          this.html
+            ? '' :
+            <slot />
+        }
       </li>
     );
   }
