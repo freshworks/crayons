@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/freshdesk/crayons/compare/v1.0.1...v1.1.0) (2020-04-29)
+
+
+### Features
+
+* **fw-select-options, fw-select, fw-tag:** added 'disabled' state to fw-select options ([d15eb0f](https://github.com/freshdesk/crayons/commit/d15eb0fb5900f8839cd8a3887e70246d3990eef4))
+
 ## [1.0.1](https://github.com/freshdesk/crayons/compare/v1.0.0...v1.0.1) (2020-04-15)
 
 
