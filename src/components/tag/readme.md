@@ -11,10 +11,11 @@ fw-tag provides a child component that is used to enable selecting multiple opti
 
 ## Properties
 
-| Property | Attribute | Description                                                                         | Type     | Default     |
-| -------- | --------- | ----------------------------------------------------------------------------------- | -------- | ----------- |
-| `text`   | `text`    | Display text in the tag component.                                                  | `string` | `undefined` |
-| `value`  | `value`   | Value associated with the tag component, that is saved when the form data is saved. | `string` | `undefined` |
+| Property   | Attribute  | Description                                                                                                                            | Type      | Default     |
+| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `disabled` | `disabled` | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false. | `boolean` | `undefined` |
+| `text`     | `text`     | Display text in the tag component.                                                                                                     | `string`  | `undefined` |
+| `value`    | `value`    | Value associated with the tag component, that is saved when the form data is saved.                                                    | `string`  | `undefined` |
 
 
 ## Events
