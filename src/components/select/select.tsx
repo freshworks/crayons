@@ -170,7 +170,7 @@ export class Select {
     if (this.multiple) {
       return this.options
         .filter(option => option.selected)
-        .map(option => <fw-tag text={option.text} value={option.value}/>);
+        .map(option => <fw-tag text={option.text} disabled={option.disabled} value={option.value}/>);
     }
   }
 
@@ -188,6 +188,7 @@ export class Select {
         value={option.value}
         selected={option.selected}
         html={option.isHtml}
+        disabled={option.disabled}
         htmlContent={option.htmlContent}
         >{option.text}
       </fw-select-option>)
@@ -204,6 +205,7 @@ export class Select {
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
         selected: option.selected,
+        disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
       };
     });

@@ -229,6 +229,10 @@ export namespace Components {
     }
     interface FwSelectOption {
         /**
+          * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
           * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
          */
         "html": boolean;
@@ -241,7 +245,7 @@ export namespace Components {
          */
         "optionText": string;
         /**
-          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
          */
         "selected": boolean;
         /**
@@ -272,6 +276,10 @@ export namespace Components {
     interface FwTabs {
     }
     interface FwTag {
+        /**
+          * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": false;
         /**
           * Display text in the tag component.
          */
@@ -791,6 +799,10 @@ declare namespace LocalJSX {
     }
     interface FwSelectOption {
         /**
+          * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
           * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
          */
         "html"?: boolean;
@@ -807,7 +819,7 @@ declare namespace LocalJSX {
          */
         "optionText"?: string;
         /**
-          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
          */
         "selected"?: boolean;
         /**
@@ -838,6 +850,10 @@ declare namespace LocalJSX {
     interface FwTabs {
     }
     interface FwTag {
+        /**
+          * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: false;
         /**
           * Triggered when the tag is deselected.
          */
