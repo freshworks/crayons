@@ -47,4 +47,40 @@ Raise a PR to the Crayons Repository
 #### commiting changes to github 
 Cryons repo uses github pre commit hooks, follow the below steps to commit our changes to github 
 1. make your changes to the file, add the untracked files to staging area.
-2. run git  commit 
+2. run *git commit*
+3. choose one of the following based on the nature of your commit
+`
+  feat:     A new feature 
+  fix:      A bug fix 
+  docs:     Documentation only changes 
+  style:    Changes that do not affect the meaning of the code (white-space, formatting, missing      semi-colons, etc) 
+  refactor: A code change that neither fixes a bug nor adds a feature 
+  perf:     A code change that improves performance 
+  test:     Adding missing tests or correcting existing tests 
+  build:    Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm) 
+  ci:       Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs) 
+  chore:    Other changes that don't modify src or test files 
+  revert:   Reverts a previous commit 
+  `
+4. Choose the scope of the change 
+? What is the scope of this change (e.g. component or file name): (press enter to skip) 
+
+5. Give a brief description for the commit
+? Write a short, imperative tense description of the change (max 94 chars): 
+
+6. Give a long description for the 
+? Provide a longer description of the change: (press enter to skip)
+
+7. Fill in the following details when it prompts 
+? Are there any breaking changes? Yes
+? Describe the breaking changes:
+ documents
+? Does this change affect any open issues? No
+
+8. Give a commit message when it prompts. 
+
+9. Run *git push -u origin your_branch*, to push your changes to the forked repo. git hooks will run all the test before pushing the changes. if any test fails, rewrite the tests and make sure all the test passes. 
+
+
+
+
