@@ -169,7 +169,7 @@ export class Select {
     if (this.multiple) {
       return this.options
         .filter(option => option.selected)
-        .map(option => <fw-tag text={option.text} value={option.value}/>);
+        .map(option => <fw-tag text={option.text} disabled={option.disabled} value={option.value}/>);
     }
   }
 
@@ -178,6 +178,8 @@ export class Select {
     if (selectedOptions.length > 0) {
       this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
       this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
+    } else if (selectedOptions.length === 0) {
+      this.value = undefined;
     }
   }
 
@@ -186,6 +188,7 @@ export class Select {
       (<fw-select-option
         value={option.value}
         selected={option.selected}
+        disabled={option.disabled}
         html={option.isHtml}
         htmlContent={option.htmlContent}
         >{option.text}
@@ -203,6 +206,7 @@ export class Select {
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
         selected: option.selected,
+        disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
