@@ -1,10 +1,3 @@
-## [2.0.1](https://github.com/freshdesk/crayons/compare/v2.0.0...v2.0.1) (2020-05-06)
-
-
-### Bug Fixes
-
-* **select:** fixes Select bug that caused `fwChange` not to be fired for last multi-select option ([650c205](https://github.com/freshdesk/crayons/commit/650c205022a148697235594eeb223fc2b03a2ce8)), closes [#68](https://github.com/freshdesk/crayons/issues/68)
-
 # [2.0.0](https://github.com/freshdesk/crayons/compare/v1.1.0...v2.0.0) (2020-05-06)
 
 
