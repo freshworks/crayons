@@ -15,26 +15,19 @@
   --input-hover-color: var(--color-smoke-700);
   --input-focus-color: var(--color-azure-800);
   --input-border: var(--color-smoke-100);
-  --warning-color: var(--color-casablanca-100);
+  --warning-color: var(--color-casablanca-300);
   --min-height: 10px;
   --max-height: 200px;
 }
 
 @mixin stateStyle($_color) {
-  & > input {
+  border-color: $_color;
+
+  & span.dropdown-status-icon {
     border-color: $_color;
   }
 
-  & > input:focus {
-    box-shadow: none;
-    border-color: $_color;
-  }
-
-  & > input:hover {
-    border-color: $_color;
-  }
-
-  & + .help-block {
+  & ~ span.help-block {
     color: $_color;
   }
 }
@@ -84,14 +77,6 @@ label {
       width: auto;
     }
   }
-
-  &.error {
-    @include stateStyle(var(--error-color));
-  }
-
-  &.warning {
-    @include stateStyle(var(--warning-color));
-  }
 }
 
 .input-container {
@@ -109,6 +94,14 @@ label {
   &:hover {
     border: 1px var(--input-hover-color) solid;
     transition: 0.2s linear;
+  }
+
+  &.error {
+    @include stateStyle(var(--error-color));
+  }
+
+  &.warning {
+    @include stateStyle(var(--warning-color));
   }
 
   &[disabled] {
@@ -129,6 +122,18 @@ label {
     background: var(--input-bg);
     border: 1px solid transparent;
     box-shadow: 0 0 0 2px var(--input-focus-color);
+
+    &.error {
+      @include stateStyle(var(--error-color));
+
+      box-shadow: 0 0 0 1px var(--error-color);
+    }
+
+    &.warning {
+      @include stateStyle(var(--warning-color));
+
+      box-shadow: 0 0 0 1px var(--warning-color);
+    }
   }
 }
 
