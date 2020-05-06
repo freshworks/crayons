@@ -79,8 +79,9 @@ Cryons repo uses github pre commit hooks, follow the below steps to commit our c
 
 8. Give a commit message when it prompts. 
 
-9. Run *git push -u origin your_branch*, to push your changes to the forked repo. git hooks will run all the test before pushing the changes. if any test fails, rewrite the tests and make sure all the test passes. 
+9. Run *git push -u origin your_branch*, to push your changes to the forked repo. git hooks will run all the test before pushing the changes. if any test fails, rewrite the tests and make sure all the test passes before pushing again.
 
+10. Go to the forked repo in github, raise a PR to the crayons repo. wait for the pr to be approved or address comments if any. 
 
 
 
