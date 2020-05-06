@@ -43,8 +43,3 @@ check for all lint errors, if there are any fix it
 run tests for all the components 
 if the component you modify is used in another component make sure you update the tests for that component as well
 Raise a PR to the Crayons Repository
-
-#### commiting changes to github 
-Cryons repo uses github pre commit hooks, follow the below steps to commit our changes to github 
-1. make your changes to the file, add the untracked files to staging area.
-2. run git  commit 
