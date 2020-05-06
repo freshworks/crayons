@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/freshdesk/crayons/compare/v2.0.1...v2.0.2) (2020-05-06)
+
+
+### Bug Fixes
+
+* **select:** fixes error and warning css for select ([c9739fe](https://github.com/freshdesk/crayons/commit/c9739fe35e921a18ecbc660413e70a11b05dbffa)), closes [#74](https://github.com/freshdesk/crayons/issues/74)
+
 ## [2.0.1](https://github.com/freshdesk/crayons/compare/v2.0.0...v2.0.1) (2020-05-06)
 
 
