@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/freshdesk/crayons/compare/v2.0.2...v2.0.3) (2020-05-06)
+
+
+### Bug Fixes
+
+* **select:** fixes select ([93cea4f](https://github.com/freshdesk/crayons/commit/93cea4f9aed40f0d08b936eefe7f35cee4a65290))
+
 ## [2.0.2](https://github.com/freshdesk/crayons/compare/v2.0.1...v2.0.2) (2020-05-06)
 
 
