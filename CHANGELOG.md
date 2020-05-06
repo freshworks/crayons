@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/freshdesk/crayons/compare/v1.1.0...v2.0.0) (2020-05-06)
+
+
+### Documentation
+
+* documents ([42055c2](https://github.com/freshdesk/crayons/commit/42055c202ea1dc34601c9c2ffc3bf924b09dcee1))
+
+
+### BREAKING CHANGES
+
+* documents
+
 # [1.1.0](https://github.com/freshdesk/crayons/compare/v1.0.1...v1.1.0) (2020-04-29)
 
 
