@@ -37,22 +37,3 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 ``` 
 in the head of your index.html
  - Now you can use the element anywhere in your template, JSX, html etc.
-
-
-### Bleeding edge version
-
-For a bleeding edge version(highly unstable), you can use the `next` tag.
-```bash
-npm install @freshworks/crayons@next --save
-```
-or
-```html
-<script
-  type="module"
-  src="https://unpkg.com/@freshworks/crayons@next/dist/crayons/crayons.esm.js">
-</script>
-<script
-  nomodule
-  src="https://unpkg.com/@freshworks/crayons@next/dist/crayons/crayons.js">
-</script>
-``` 
