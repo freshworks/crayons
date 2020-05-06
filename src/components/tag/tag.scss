@@ -31,11 +31,5 @@
       background-color: var(--color-smoke-100);
       cursor: pointer;
     }
-
-    &.disabled {
-      color: var(--color-elephant-500);
-      background-color: var(--color-smoke-50);
-      cursor: not-allowed;
-    }
   }
 }
