@@ -169,7 +169,7 @@ export class Select {
     if (this.multiple) {
       return this.options
         .filter(option => option.selected)
-        .map(option => <fw-tag text={option.text} disabled={option.disabled} value={option.value}/>);
+        .map(option => <fw-tag text={option.text} value={option.value}/>);
     }
   }
 
@@ -178,8 +178,6 @@ export class Select {
     if (selectedOptions.length > 0) {
       this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
       this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
-    } else if (selectedOptions.length === 0) {
-      this.value = undefined;
     }
   }
 
@@ -189,7 +187,6 @@ export class Select {
         value={option.value}
         selected={option.selected}
         html={option.isHtml}
-        disabled={option.disabled}
         htmlContent={option.htmlContent}
         >{option.text}
       </fw-select-option>)
@@ -206,7 +203,6 @@ export class Select {
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
         selected: option.selected,
-        disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
@@ -236,13 +232,13 @@ export class Select {
       >
         {this.label !== '' ? <label class={{ 'required': this.required }}> {this.label} </label> : ''}
         <div class="select-container">
-          <div class="input-container"
+          <div class={{
+              'input-container': true,
+              [this.state]: true,
+            }}
             ref={select => this.select = select}
             onClick={() => this.innerOnClick()}>
-            <div class={{
-              'input-container-inner': true,
-              [this.state]: true,
-            }}>
+            <div class="input-container-inner">
               {this.renderTags()}
               <input
                 ref={selectInput => this.selectInput = selectInput}
