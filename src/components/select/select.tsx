@@ -133,7 +133,6 @@ export class Select {
 
   @Watch('options')
   optionsChangedHandler() {
-
     this.renderInput();
   }
 
@@ -179,6 +178,8 @@ export class Select {
     if (selectedOptions.length > 0) {
       this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
       this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
+    } else if (selectedOptions.length === 0) {
+      this.value = undefined;
     }
   }
 
