@@ -134,3 +134,8 @@ label {
 ::-ms-input-placeholder {
   color: var(--color-smoke-300);
 }
+
+.responsive {
+  width: 100%;
+  box-sizing: border-box;
+}

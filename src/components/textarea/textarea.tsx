@@ -142,6 +142,9 @@ export class Textarea {
             [this.state]: true,
           }}>
             <textarea
+              class={{
+                'responsive': this.cols === undefined,
+              }}
               ref={input => this.nativeInput = input}
               disabled={this.disabled}
               name={this.name}
