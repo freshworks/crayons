@@ -6,6 +6,12 @@ fw-icon displays an icon-sized image that imparts meaning to the component it is
 <fw-icon name="add-contact" size="18" color="green"></fw-icon>
 ```
 
+### Icons
+
+The following are the icons supported:
+
+<IconGallery/>
+
 <!-- Auto Generated Below -->
 
 

@@ -44,5 +44,12 @@ module.exports = {
       }
     ],
     ['@vuepress/active-header-links']
-  ]
+  ],
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@components': path.resolve(__dirname, '../components')
+      }
+    }
+  }
 }
