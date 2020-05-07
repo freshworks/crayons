@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/freshdesk/crayons/compare/v2.0.3...v2.0.4) (2020-05-07)
+
+
+### Bug Fixes
+
+* **textarea:** fixes default textarea width to be 100% ([b475c35](https://github.com/freshdesk/crayons/commit/b475c3585755a901865429afeb761bc92f99194e)), closes [#30](https://github.com/freshdesk/crayons/issues/30)
+
 ## [2.0.3](https://github.com/freshdesk/crayons/compare/v2.0.2...v2.0.3) (2020-05-06)
 
 
