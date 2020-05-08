@@ -7,11 +7,11 @@ import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/c
 })
 export class Radio {
   /**
-   * Sets the state to selected. If the attribute’s value is undefined, the value is set to true.
+   * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop({ mutable: true }) checked = false;
   /**
-   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop({ mutable: true }) disabled = false;
   /**

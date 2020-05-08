@@ -62,7 +62,7 @@ export class Input {
    */
   @Prop() required = false;
   /**
-   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() disabled = false;
 
