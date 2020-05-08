@@ -51,7 +51,7 @@ export class Select {
    */
   @Prop() readonly = false;
   /**
-   * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
+   * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() required = false;
   /**
@@ -59,11 +59,11 @@ export class Select {
    */
   @Prop() forceSelect = true;
   /**
-   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() disabled = false;
   /**
-   * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
+   * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() multiple = false;
   // Events

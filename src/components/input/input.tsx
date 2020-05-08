@@ -26,7 +26,7 @@ export class Input {
    */
   @Prop() autocomplete: 'on' | 'off' = 'off';
   /**
-   * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to true. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
+   * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
    */
   @Prop() clearInput = false;
   /**
@@ -54,11 +54,11 @@ export class Input {
    */
   @Prop() stateText = '';
   /**
-   * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
+   * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() readonly = false;
   /**
-   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() required = false;
   /**

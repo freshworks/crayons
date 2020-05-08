@@ -51,6 +51,7 @@ export default {
   height: 100px;
   margin: 10px;
   padding: 5px;
+  border-radius: 4px;
   box-shadow:
     0 1px 3px 2px rgba(217, 217, 217, 0.3),
     0 0 0 0 rgba(236, 236, 236, 0.5);
@@ -70,9 +71,10 @@ export default {
 
 .name {
   margin-top: 10px;
-  width: 50px;
+  width: 70px;
   text-align: center;
   font-size: 11px;
+  word-break: normal;
 }
 
 .copied {

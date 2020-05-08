@@ -12,11 +12,11 @@ export namespace Components {
          */
         "color": "primary" | "secondary" | "danger" | "link" | "text";
         /**
-          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to true.
+          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand": boolean;
         /**
@@ -30,11 +30,11 @@ export namespace Components {
     }
     interface FwCheckbox {
         /**
-          * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to false.
          */
         "checked": boolean;
         /**
-          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
@@ -66,7 +66,7 @@ export namespace Components {
          */
         "autocomplete": "on" | "off";
         /**
-          * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to true. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
+          * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput": boolean;
         /**
@@ -102,11 +102,11 @@ export namespace Components {
          */
         "placeholder"?: string | null;
         /**
-          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
          */
         "readonly": boolean;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
         /**
@@ -164,7 +164,7 @@ export namespace Components {
     }
     interface FwRadioGroup {
         /**
-          * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to true.
+          * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty": boolean;
         /**
@@ -178,7 +178,7 @@ export namespace Components {
     }
     interface FwSelect {
         /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
@@ -191,7 +191,7 @@ export namespace Components {
          */
         "label": string;
         /**
-          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
+          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
         "multiple": boolean;
         /**
@@ -207,7 +207,7 @@ export namespace Components {
          */
         "readonly": boolean;
         /**
-          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
         /**
@@ -295,7 +295,7 @@ export namespace Components {
          */
         "cols"?: number;
         /**
-          * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
@@ -319,11 +319,11 @@ export namespace Components {
          */
         "placeholder"?: string | null;
         /**
-          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
          */
         "readonly": boolean;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
         /**
@@ -375,11 +375,11 @@ export namespace Components {
     }
     interface FwToggle {
         /**
-          * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to true.
+          * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
          */
         "checked": boolean;
         /**
-          * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
@@ -515,11 +515,11 @@ declare namespace LocalJSX {
          */
         "color"?: "primary" | "secondary" | "danger" | "link" | "text";
         /**
-          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to true.
+          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand"?: boolean;
         /**
@@ -545,11 +545,11 @@ declare namespace LocalJSX {
     }
     interface FwCheckbox {
         /**
-          * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to false.
          */
         "checked"?: boolean;
         /**
-          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
@@ -593,7 +593,7 @@ declare namespace LocalJSX {
          */
         "autocomplete"?: "on" | "off";
         /**
-          * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to true. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
+          * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput"?: boolean;
         /**
@@ -645,11 +645,11 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string | null;
         /**
-          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
          */
         "readonly"?: boolean;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
         /**
@@ -719,7 +719,7 @@ declare namespace LocalJSX {
     }
     interface FwRadioGroup {
         /**
-          * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to true.
+          * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty"?: boolean;
         /**
@@ -737,7 +737,7 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
@@ -749,7 +749,7 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to true.
+          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
         "multiple"?: boolean;
         /**
@@ -777,7 +777,7 @@ declare namespace LocalJSX {
          */
         "readonly"?: boolean;
         /**
-          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
         /**
@@ -873,7 +873,7 @@ declare namespace LocalJSX {
          */
         "cols"?: number;
         /**
-          * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
@@ -913,11 +913,11 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string | null;
         /**
-          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to true.
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
          */
         "readonly"?: boolean;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to true.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
         /**
@@ -965,11 +965,11 @@ declare namespace LocalJSX {
     }
     interface FwToggle {
         /**
-          * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to true.
+          * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
          */
         "checked"?: boolean;
         /**
-          * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**

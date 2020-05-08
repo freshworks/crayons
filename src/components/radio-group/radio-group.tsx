@@ -12,7 +12,7 @@ export class RadioGroup {
   @Element() el!: HTMLElement;
 
   /**
-   * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to true.
+   * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() allowEmpty = false;
 

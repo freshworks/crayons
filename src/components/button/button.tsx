@@ -17,12 +17,12 @@ export class Button {
   @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
 
   /**
-   * Disables the button on the interface. If the attribute’s value is undefined, the value is set to true.
+   * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop({ reflect: true }) disabled = false;
 
   /**
-   * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to true.
+   * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() expand = false;
 
