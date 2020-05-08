@@ -70,7 +70,7 @@ export namespace Components {
          */
         "clearInput": boolean;
         /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
@@ -142,11 +142,11 @@ export namespace Components {
     }
     interface FwRadio {
         /**
-          * Sets the state to selected. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
          */
         "checked": boolean;
         /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
@@ -597,7 +597,7 @@ declare namespace LocalJSX {
          */
         "clearInput"?: boolean;
         /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
@@ -681,11 +681,11 @@ declare namespace LocalJSX {
     }
     interface FwRadio {
         /**
-          * Sets the state to selected. If the attribute’s value is undefined, the value is set to true.
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
          */
         "checked"?: boolean;
         /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to true.
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
