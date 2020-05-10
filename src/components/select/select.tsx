@@ -101,6 +101,7 @@ export class Select {
 
   private innerOnBlur = (e: Event) => {
     this.closeDropdown();
+    this.hasFocus = false;
     this.fwBlur.emit(e);
   }
 
@@ -217,6 +218,9 @@ export class Select {
   }
 
   componentDidLoad() {
+    if(this.value) {
+      this.selectInput.value = this.value;
+    }
     this.renderInput();
   }
 
