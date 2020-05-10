@@ -47,14 +47,38 @@ export namespace Components {
         "value": string;
     }
     interface FwDatepicker {
+        /**
+          * Selected Date will be retured in the given date format
+         */
         "dateFormat": string;
-        "dateValue": any;
-        "endDate": any;
-        "maxDate": any;
-        "minDate": any;
+        /**
+          * From date that is selected in the date range picker mode
+         */
+        "fromDate": string;
+        /**
+          * Maximum date that are allowed to select in the calender
+         */
+        "maxDate": string;
+        /**
+          * Minimum date that are allowed to select in the calender
+         */
+        "minDate": string;
+        /**
+          * Shows single date or date range picker based on mode
+         */
         "mode": string;
+        /**
+          * Placeholder to display in the input field
+         */
         "placeholder": string;
-        "startDate": any;
+        /**
+          * To date that is selected in the date range picker mode
+         */
+        "toDate": string;
+        /**
+          * Value selected in the single date picker mode
+         */
+        "value": any;
     }
     interface FwIcon {
         /**
@@ -591,15 +615,42 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface FwDatepicker {
+        /**
+          * Selected Date will be retured in the given date format
+         */
         "dateFormat"?: string;
-        "dateValue"?: any;
-        "endDate"?: any;
-        "maxDate"?: any;
-        "minDate"?: any;
+        /**
+          * From date that is selected in the date range picker mode
+         */
+        "fromDate"?: string;
+        /**
+          * Maximum date that are allowed to select in the calender
+         */
+        "maxDate"?: string;
+        /**
+          * Minimum date that are allowed to select in the calender
+         */
+        "minDate"?: string;
+        /**
+          * Shows single date or date range picker based on mode
+         */
         "mode"?: string;
+        /**
+          * Triggered when the update button clicked
+         */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Placeholder to display in the input field
+         */
         "placeholder"?: string;
-        "startDate"?: any;
+        /**
+          * To date that is selected in the date range picker mode
+         */
+        "toDate"?: string;
+        /**
+          * Value selected in the single date picker mode
+         */
+        "value"?: any;
     }
     interface FwIcon {
         /**

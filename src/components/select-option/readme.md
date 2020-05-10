@@ -35,12 +35,14 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 
 ### Used by
 
+ - [fw-datepicker](../datepicker)
  - [fw-select](../select)
  - [fw-timepicker](../timepicker)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-datepicker --> fw-select-option
   fw-select --> fw-select-option
   fw-timepicker --> fw-select-option
   style fw-select-option fill:#f9f,stroke:#333,stroke-width:4px
