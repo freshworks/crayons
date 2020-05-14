@@ -137,4 +137,23 @@ describe('fw-select', () => {
 
     expect(fwFocus).toHaveReceivedEvent();
   });
+
+  it('show passed default value and get selected in dropdown', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select label="Select the house" value="lannisters">
+                              <fw-select-option value="starks">Starks</fw-select-option>
+                              <fw-select-option value="lannisters">Lannisters</fw-select-option>
+                          </fw-select>`);
+
+    const selectInput = await page.find('fw-select >>> input');
+    const inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('Lannisters');
+
+    const element = await page.find('fw-select');
+    await element.click();
+    const selectOptions = await page.findAll('fw-select >>> fw-select-option');
+    const selectedOption = await selectOptions[1].getProperty('selected');
+    expect(selectedOption).toBeTruthy();
+  });
 });

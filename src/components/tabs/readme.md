@@ -35,6 +35,13 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
 <!-- Auto Generated Below -->
 
 
+## CSS Custom Properties
+
+| Name                     | Description                    |
+| ------------------------ | ------------------------------ |
+| `--tab-header-font-size` | tab-header font size in pixels |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
