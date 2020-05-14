@@ -1,7 +1,8 @@
 @import "../../styles/freshworks";
 
-.date-picker {
+:host {
   position: relative;
+
   * {
     user-select: none;
   }
@@ -19,7 +20,7 @@
   box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   overflow: hidden;
-  padding: 16.5px;
+  padding: 14px;
   z-index: 1000;
 }
 
@@ -29,7 +30,7 @@
   position: absolute;
   left: 0;
   top: 344px;
-  width: 317px;
+  width: 312px;
   padding: 8px;
   background: var(--color-smoke-25);
   border-top: 1px solid var(--color-smoke-50);
@@ -45,7 +46,7 @@
 }
 
 .mdpc-range-footer {
-  width: 617px;
+  width: 612px;
 }
 
 .mdp-range-container {
@@ -62,6 +63,8 @@
 }
 
 .body-container {
+  margin: 0 10px;
+
   .mdpc-body {
     width: 48%;
   }
@@ -79,7 +82,7 @@
 .mdpch-button,
 .mdpch-button-right {
   float: left;
-  width: 45px;
+  width: 30px;
   height: 100%;
   box-sizing: border-box;
   position: relative;
@@ -102,10 +105,14 @@
   line-height: 35px;
   text-align: center;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   margin-left: -17px;
   margin-top: -11px;
+}
+
+.mdpch-button-right .mdpchb-inner {
+  left: 75%;
 }
 
 .mdpchbi-left-arrow,
@@ -177,17 +184,14 @@
   font-size: 16px;
   color: var(--color-smoke-700);
   text-align: center;
-  margin-top: 6px;
   width: 90px;
 }
 
 .mdpchc-month {
   float: left;
-  height: 15px;
   font-size: 16px;
   color: var(--color-smoke-700);
   text-align: center;
-  margin-top: 6px;
   margin-right: 10px;
   width: 90px;
 
@@ -259,15 +263,15 @@
 
 .cdc-day span {
   width: 24px;
-  height: 24px;
+  height: 22px;
   font-size: 13px;
-  margin-top: -13px;
+  margin-top: -11px;
   margin-left: -13px;
   left: 50%;
   top: 50%;
   font-weight: 400;
   border-radius: 10%;
-  line-height: 22.5px;
+  line-height: 20px;
   color: #12344d;
 }
 

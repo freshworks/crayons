@@ -76,4 +76,27 @@ describe('fw-datepicker', () => {
 
     expect(datePicketValue.toString()).toBe(todayValue.toString());
   });
+
+  it('daterange picker calenders always should be sequential months ', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-datepicker mode="range"></fw-datepicker>');
+    const element = await page.find('fw-datepicker >>> fw-input');
+    await element.click();
+    const fromMonth = await page.find('fw-datepicker >>> fw-select.from-month-selector >>> input');
+    const fromMonthValue = await fromMonth.getProperty('value');
+    const toMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
+    const toMonthValue = await toMonth.getProperty('value');
+
+    expect(moment(fromMonthValue, 'MMMM').month() + 1).toBe(moment(toMonthValue, 'MMMM').month());
+
+    const rightArrow = await page.findAll('fw-datepicker >>> .mdpchb-inner');
+    await rightArrow[1].click();
+    const updatedFromMonth = await page.find('fw-datepicker >>> fw-select.from-month-selector >>> input');
+    const updatedFromMonthValue = await updatedFromMonth.getProperty('value');
+    const updatedToMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
+    const updateToMonthValue = await updatedToMonth.getProperty('value');
+
+    expect(moment(updatedFromMonthValue, 'MMMM').add(1, 'M').format('MMMM')).toBe(updateToMonthValue);
+  });
 });

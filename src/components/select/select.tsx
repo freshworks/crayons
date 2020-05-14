@@ -178,7 +178,9 @@ export class Select {
     const selectedOptions = this.options.filter(option => option.selected);
     if (selectedOptions.length > 0) {
       this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
-      this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
+      if (this.selectInput) {
+        this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
+      }
     } else if (selectedOptions.length === 0) {
       this.value = undefined;
     }
@@ -206,7 +208,7 @@ export class Select {
         isHtml: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
-        selected: option.selected,
+        selected: option.value === this.value || option.selected,
         disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
       };
@@ -218,9 +220,6 @@ export class Select {
   }
 
   componentDidLoad() {
-    if(this.value) {
-      this.selectInput.value = this.value;
-    }
     this.renderInput();
   }
 
