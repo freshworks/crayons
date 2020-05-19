@@ -1,3 +1,10 @@
+## [2.0.5](https://github.com/freshdesk/crayons/compare/v2.0.4...v2.0.5) (2020-05-19)
+
+
+### Bug Fixes
+
+* **tabs:** react to changes within fw-tabs ([cbd2895](https://github.com/freshdesk/crayons/commit/cbd2895c940708ddee50f7634a276b44b4478fca))
+
 ## [2.0.4](https://github.com/freshdesk/crayons/compare/v2.0.3...v2.0.4) (2020-05-07)
 
 
