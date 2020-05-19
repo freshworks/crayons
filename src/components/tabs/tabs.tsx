@@ -14,6 +14,7 @@ export class Tabs {
 
   @Element()
   el!: HTMLElement;
+  private mutationO?: MutationObserver;
 
   /**
    * Child Elements/Tab Items
@@ -31,6 +32,11 @@ export class Tabs {
   @State()
   activeChildClass = '';
 
+  init() {
+    this.tabs = Array.from(this.el.querySelectorAll('fw-tab'));
+    this.displayTab(0);
+  }
+
   displayTab(index: number) {
     this.activeTabIndex = index;
     this.tabs = this.tabs?.map((tab, i) => {
@@ -40,8 +46,21 @@ export class Tabs {
   }
 
   componentWillLoad() {
-    this.tabs = Array.from(this.el.querySelectorAll('fw-tab'));
-    this.displayTab(0);
+    this.init();
+  }
+
+  connectedCallback() {
+    this.mutationO = new MutationObserver(() => {
+      this.init();
+    });
+    this.mutationO.observe(this.el, { childList: true });
+  }
+
+  disconnectedCallback() {
+    if (this.mutationO) {
+      this.mutationO.disconnect();
+      this.mutationO = undefined;
+    }
   }
 
   render() {
