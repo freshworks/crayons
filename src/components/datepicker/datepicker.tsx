@@ -46,7 +46,7 @@ export class Datepicker {
   /**
    *   Shows single date or date range picker based on mode
    */
-  @Prop() mode: 'single date' | 'range' = 'single date';
+  @Prop() mode = 'single date';
   /**
    *   Minimum date that are allowed to select in the calender
    */
@@ -70,7 +70,7 @@ export class Datepicker {
   /**
    *   Value selected in the single date picker mode
    */
-  @Prop({ mutable: true }) value: string;
+  @Prop({ mutable: true }) value: any;
   /**
    *   Placeholder to display in the input field
    */
@@ -92,14 +92,12 @@ export class Datepicker {
     if (isUpdateRange) {
       this.startDateFormatted = moment(this.startDate).format(this.dateFormat);
       this.endDateFormatted = moment(this.endDate).format(this.dateFormat);
-      if (this.startDate && this.endDate) {
-        this.value = this.startDateFormatted + ' To ' + this.endDateFormatted;
-      }
+      this.value = this.startDateFormatted + ' To ' + this.endDateFormatted;
       this.fromDate = this.startDateFormatted;
       this.toDate = this.endDateFormatted;
       this.fwChange.emit({ fromDate: this.startDateFormatted, toDate: this.endDateFormatted });
     } else if (isUpdateDate) {
-      this.value = this.selectedDay ? moment(this.selectedDay).format(this.dateFormat) : '';
+      this.value = moment(this.selectedDay).format(this.dateFormat);
       this.fwChange.emit(this.value);
     }
     this.showDatePicker = false;
@@ -185,28 +183,15 @@ export class Datepicker {
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear = this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
     this.monthDetails = this.getMonthDetails(this.year, this.month);
-    this.todayTimestamp = moment().startOf('date').valueOf();
-    this.setInitalValues();
-  }
-
-  setInitalValues() {
     this.nextMonthDetails = this.month === 11
       ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
       : this.getMonthDetails(this.year, this.month + 1);
+    this.todayTimestamp = moment().startOf('date').valueOf();
     this.placeholder = this.placeholder || (
       this.mode === 'range'
         ? 'Select Date Range'
         : 'Select Date');
     this.supportedYears = this.getSupportedYears();
-    this.selectedDay = this.value !== undefined ? moment(this.value, this.dateFormat).valueOf() : undefined;
-    this.startDate = this.fromDate !== undefined ? moment(this.fromDate, this.dateFormat).valueOf() : undefined;
-    this.endDate = this.toDate !== undefined ? moment(this.toDate, this.dateFormat).valueOf() : undefined;
-
-    if (this.mode === 'range' && this.startDate && this.endDate) {
-      const formattedFromDate = moment(this.startDate).format(this.dateFormat);
-      const formattedToDate = moment(this.endDate).format(this.dateFormat);
-      this.value = `${formattedFromDate} To ${formattedToDate}`;
-    }
   }
 
   getDayDetails = args => {
