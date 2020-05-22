@@ -1,5 +1,5 @@
 # Icon (fw-icon)
-fw-icon displays an icon-sized image that imparts meaning to the component it is associated with.
+fw-icon displays an icon-sized image that imparts meaning to the component it is associated with. 
 ## Usage
 
 ```html live
