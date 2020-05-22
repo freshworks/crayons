@@ -1,5 +1,15 @@
-# fw-datepicker
+# Datepicker (fw-datepicker)
+fw-datepicker displays calender with prepopulated month and year and enables to picking a date or date range. The calender displaying based mode attribute to select a single date or range of dates.
 
+
+## Usage
+
+``` html live
+<fw-datepicker></fw-datepicker>
+<fw-datepicker mode="range"></fw-datepicker>
+<fw-datepicker value="22/05/2020" date-format="MM/DD/YYYY"></fw-datepicker>
+<fw-datepicker mode="range" min-date="10-05-2020" max-date="10-07-2020"></fw-datepicker>
+```
 
 
 <!-- Auto Generated Below -->
