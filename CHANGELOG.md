@@ -1,3 +1,18 @@
+# [2.1.0](https://github.com/freshdesk/crayons/compare/v2.0.4...v2.1.0) (2020-05-22)
+
+
+### Bug Fixes
+
+* **tabs:** react to changes within fw-tabs ([c1fe804](https://github.com/freshdesk/crayons/commit/c1fe804dc27b38333ebf9fa01e3b4df038425c0a))
+* month Year Dropdown ([8ac0322](https://github.com/freshdesk/crayons/commit/8ac0322895e4c91e381b9a3e425478c303f9923e))
+* select component default value fix ([7be93c5](https://github.com/freshdesk/crayons/commit/7be93c5d5f1e5e5c94604d58d4c84afd2d36260f))
+* style and default value fix ([dda833f](https://github.com/freshdesk/crayons/commit/dda833f3f5440a3fde480131f861f0d11b39f4f1))
+
+
+### Features
+
+* **datepicker:** adding Datepicker component ([9208e76](https://github.com/freshdesk/crayons/commit/9208e765ce161edbce3ca497521c8c06bc946f1f))
+
 ## [2.0.5](https://github.com/freshdesk/crayons/compare/v2.0.4...v2.0.5) (2020-05-22)
 
 
