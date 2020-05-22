@@ -21,6 +21,13 @@ fw-spinner displays a continuous loader on the user interface, to indicate that 
 | `size`   | `size`    | Size of the loader.                                                        | `"default" or "large" or "medium" or "small"` | `'default'` |
 
 
+## CSS Custom Properties
+
+| Name              | Description          |
+| ----------------- | -------------------- |
+| `--spinner-color` | Color of the spinner |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

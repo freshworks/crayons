@@ -61,11 +61,18 @@ Type: `Promise<any>`
 
 
 
+## CSS Custom Properties
+
+| Name           | Description                            |
+| -------------- | -------------------------------------- |
+| `--max-height` | Maximum height of the select component |
+| `--min-height` | Minimum height of the select component |
+
+
 ## Dependencies
 
 ### Used by
 
- - [fw-datepicker](../datepicker)
  - [fw-timepicker](../timepicker)
 
 ### Depends on
@@ -78,7 +85,6 @@ Type: `Promise<any>`
 graph TD;
   fw-select --> fw-tag
   fw-select --> fw-select-option
-  fw-datepicker --> fw-select
   fw-timepicker --> fw-select
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```

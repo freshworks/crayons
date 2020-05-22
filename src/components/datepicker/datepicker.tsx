@@ -1,92 +1,34 @@
-import {
-  Component,
-  Event,
-  EventEmitter,
-  Listen,
-  Prop,
-  State,
-  h
-} from '@stencil/core';
+import { Component, Event, EventEmitter, Listen, Prop, State, h } from '@stencil/core';
 import moment from 'moment-mini';
 
-const weekDay = [
-  'S',
-  'M',
-  'T',
-  'W',
-  'T',
-  'F',
-  'S'
-];
-const monthArr = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'June',
-  'July',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
-];
+const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
-@Component({tag: 'fw-datepicker', styleUrl: 'datepicker.scss', shadow: true})
+@Component({
+  tag: 'fw-datepicker',
+  styleUrl: 'datepicker.scss',
+  shadow: true,
+})
 export class Datepicker {
-  @State()showDatePicker: boolean;
-  @State()year: string;
-  @State()toYear: string;
-  @State()monthDetails: any;
-  @State()nextMonthDetails: any;
-  @State()month: number;
-  @State()todayTimestamp: any;
-  @State()selectedDay: any;
-  @State()startDate: any;
-  @State()endDate: any;
-  @State()startDateFormatted: any;
-  @State()endDateFormatted: any;
-  @State()dateHovered: any;
-  @State()supportedYears: any;
-  @State()toMonth: number;
+  @State() showDatePicker: boolean;
+  @State() year: number;
+  @State() monthDetails: any;
+  @State() nextMonthDetails: any;
+  @State() month: number;
+  @State() todayTimestamp: any;
+  @State() selectedDay: any;
+  @State() startDateFormatted: any;
+  @State() endDateFormatted: any;
+  @State() dateHovered: any;
 
-
-  /**
-  *   Shows single date or date range picker based on mode
-  */
-  @Prop() mode: string = 'single date';
-  /**
-  *   Minimum date that are allowed to select in the calender
-  */
-  @Prop() minDate: string;
-  /**
-  *   Maximum date that are allowed to select in the calender
-  */
-  @Prop() maxDate: string;
-  /**
-  *   From date that is selected in the date range picker mode
-  */
-  @Prop({ mutable: true }) fromDate: string;
-  /**
-  *   To date that is selected in the date range picker mode
-  */
-  @Prop({ mutable: true }) toDate: string;
-  /**
-  *   Selected Date will be retured in the given date format
-  */
-  @Prop() dateFormat: string = 'DD-MM-YYYY';
-  /**
-  *   Value selected in the single date picker mode
-  */
-  @Prop({ mutable: true }) value: any;
-  /**
-  *   Placeholder to display in the input field
-  */
+  @Prop() mode: string;
+  @Prop() minDate: any;
+  @Prop() maxDate: any;
+  @Prop() startDate: any;
+  @Prop() endDate: any;
+  @Prop() dateFormat: string;
+  @Prop() dateValue: any;
   @Prop() placeholder: string;
-  /**
-  *   Triggered when the update button clicked
-  */
+
   @Event() fwChange: EventEmitter;
 
   @Listen('fwFocus')
@@ -101,129 +43,59 @@ export class Datepicker {
     if (isUpdateRange) {
       this.startDateFormatted = moment(this.startDate).format(this.dateFormat);
       this.endDateFormatted = moment(this.endDate).format(this.dateFormat);
-      this.value = this.startDateFormatted + ' To ' + this.endDateFormatted;
-      this.fromDate = this.startDateFormatted;
-      this.toDate = this.endDateFormatted;
-      this.fwChange.emit({fromDate: this.startDateFormatted, toDate: this.endDateFormatted});
+      this.dateValue = this.startDateFormatted + ' to ' + this.endDateFormatted;
+      this.fwChange.emit({
+        fromDate: this.startDateFormatted,
+        toDate: this.endDateFormatted,
+      });
     } else if (isUpdateDate) {
-      this.value = moment(this.selectedDay).format(this.dateFormat);
-      this.fwChange.emit(this.value);
+      this.dateValue = moment(this.selectedDay).format(this.dateFormat);
+      this.fwChange.emit(this.dateValue);
     }
     this.showDatePicker = false;
   }
 
-  /* Listener to handle Month Year dropdown changes
-  */
-  @Listen('fwChange')
-  handleMonthYearDropDownSelection(e) {
-    const newValue = e.detail && e.detail.value;
-    if(!newValue) {
-      return;
-    }
-    if(this.mode === 'range') {
-      this.handleDateRangeDropDownUpdate(e, newValue);
-      this.nextMonthDetails = this.getMonthDetails(this.toYear, this.toMonth);
-    } else {
-      this.handleSingleDateDropDownUpdate(e, newValue)
-    }
-    this.monthDetails = this.getMonthDetails(this.year, this.month);
-  }
-
-  handleSingleDateDropDownUpdate(e, newValue) {
-    const isMonthUpdate = e.composedPath()[0].classList.value.includes('single-month-selector');
-    const isYearUpdate = e.composedPath()[0].classList.value.includes('single-year-selector');
-
-    if (isMonthUpdate) {
-      this.month = monthArr.indexOf(newValue);
-    } else if (isYearUpdate) {
-      this.year = newValue;
-    }
-  }
-
-  handleDateRangeDropDownUpdate(e, newValue) {
-    const isFromMonthUpdate = e.composedPath()[0].classList.value.includes('from-month-selector');
-    const isFromYearUpdate = e.composedPath()[0].classList.value.includes('from-year-selector');
-    const isToMonthUpdate = e.composedPath()[0].classList.value.includes('to-month-selector');
-    const isToYearUpdate = e.composedPath()[0].classList.value.includes('to-year-selector');
-
-    if (isFromMonthUpdate) {
-      this.month = monthArr.indexOf(newValue);
-      if (this.month === 11) {
-        this.toMonth = 0;
-        this.toYear = this.yearCalculation(this.year, 1);
-      } else {
-        this.toMonth = this.month + 1;
-      }
-    }
-    else if (isFromYearUpdate) {
-      this.year = newValue;
-      this.toYear = this.year;
-    }
-    else if (isToMonthUpdate) {
-      this.toMonth = monthArr.indexOf(newValue);
-      if (this.toMonth === 0) {
-        this.month = 11;
-        this.year = this.yearCalculation(this.toYear, -1);
-      } else {
-        this.month = this.toMonth - 1;
-      }
-    }
-    else if (isToYearUpdate) {
-      this.toYear = newValue;
-      this.year = this.toYear;
-    }
-  }
-
-  yearCalculation(year, offset) {
-    const resultYear =  Number(year) + offset;
-    return resultYear.toString();
-  }
-
-  getSupportedYears = () => {
-    let yearsArr = [];
-    let year = 1970;
-    while (year < 2050) {
-      yearsArr.push(year.toString());
-      year++;
-    }
-    return yearsArr;
-  }
-
   componentWillLoad() {
-    this.year = moment().year().toString();
+    this.year = moment().year();
     this.month = moment().month();
-    this.toMonth = this.month === 11 ? 0 : this.month+1;
-    this.toYear = this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
     this.monthDetails = this.getMonthDetails(this.year, this.month);
-    this.nextMonthDetails = this.month === 11
-      ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
-      : this.getMonthDetails(this.year, this.month + 1);
+    this.nextMonthDetails = this.month === 11 ? this.getMonthDetails(this.year + 1, 0) : this.getMonthDetails(this.year, this.month + 1);
     this.todayTimestamp = moment().startOf('date').valueOf();
-    this.placeholder = this.placeholder || (
-      this.mode === 'range'
-      ? 'Select Date Range'
-      : 'Select Date');
-    this.supportedYears = this.getSupportedYears();
+    this.dateFormat = this.dateFormat || 'DD-MM-YYYY';
+    this.placeholder = this.placeholder || (this.mode === 'range' ? 'Select Date Range' : 'Select Date');
   }
 
+  getMonthStr = month => {
+    if (month > 11) {
+      month = 0;
+    }
+    month = (month + 1).toString();
+    return moment(month).format('MMMM');
+  }
+
+  getNextMonthYear = () => {
+    return this.month === 11 ? this.year + 1 : this.year;
+  }
 
   getDayDetails = args => {
     const date = args.index - args.firstDay;
     const day = args.index % 7;
     let prevMonth = args.month - 1;
-    let prevYear = Number(args.year);
+    let prevYear = args.year;
     if (prevMonth < 0) {
       prevMonth = 11;
       prevYear--;
     }
     const prevMonthNumberOfDays = moment([prevYear, prevMonth]).daysInMonth() || 0;
-    const _date = (
-      date < 0
-      ? prevMonthNumberOfDays + date
-      : date % args.numberOfDays) + 1;
+    const _date = (date < 0 ? prevMonthNumberOfDays + date : date % args.numberOfDays) + 1;
     const month = this._getValidDateInMonth(date, args);
     const timestamp = moment([args.year, args.month, _date]).valueOf();
-    return {date: _date, day, month, timestamp};
+    return {
+      date: _date,
+      day,
+      month,
+      timestamp,
+    };
   }
   private _getValidDateInMonth(date, args) {
     if (this.minDate && this.maxDate) {
@@ -233,22 +105,12 @@ export class Datepicker {
       const dateFormat = this.dateFormat || 'DD-MM-YYYY';
       const minDate = moment(this.minDate, dateFormat);
       const maxDate = moment(this.maxDate, dateFormat);
-      const argDate = moment([
-        args.year, args.month, date + 1
-      ]);
+      const argDate = moment([args.year, args.month, date + 1]);
 
       const isValid = minDate.valueOf() <= argDate.valueOf() && argDate.valueOf() <= maxDate.valueOf();
-      return !isValid
-        ? -1
-        : date >= args.numberOfDays
-          ? 1
-          : 0;
+      return !isValid ? -1 : date >= args.numberOfDays ? 1 : 0;
     }
-    return date < 0
-      ? -1
-      : date >= args.numberOfDays
-        ? 1
-        : 0;
+    return date < 0 ? -1 : date >= args.numberOfDays ? 1 : 0;
   }
 
   private getMonthDetails = (year, month) => {
@@ -262,7 +124,13 @@ export class Datepicker {
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        currentDay = this.getDayDetails({index, numberOfDays, firstDay, year, month});
+        currentDay = this.getDayDetails({
+          index,
+          numberOfDays,
+          firstDay,
+          year,
+          month,
+        });
         monthArray.push(currentDay);
         index++;
       }
@@ -271,7 +139,7 @@ export class Datepicker {
   }
 
   setMonth = offset => {
-    let year = Number(this.year);
+    let year = this.year;
     let month = this.month + offset;
     if (month === -1) {
       month = 11;
@@ -280,21 +148,17 @@ export class Datepicker {
       month = 0;
       year++;
     }
-    this.year = year.toString();
+    this.year = year;
     this.month = month;
-    this.toMonth = this.month === 11 ? 0 : this.month+1;
-    this.toYear = this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
     this.monthDetails = this.getMonthDetails(year, month);
-    this.nextMonthDetails = this.month === 11
-      ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
-      : this.getMonthDetails(this.year, this.month + 1);
+    this.nextMonthDetails = this.month === 11 ? this.getMonthDetails(this.year + 1, 0) : this.getMonthDetails(this.year, this.month + 1);
   }
 
   isCurrentDay = day => {
     return day.timestamp === this.todayTimestamp;
   }
 
-  isSelectedDay = ({timestamp}) => {
+  isSelectedDay = ({ timestamp }) => {
     return timestamp === this.selectedDay || timestamp === this.startDate || timestamp === this.endDate;
   }
 
@@ -304,22 +168,23 @@ export class Datepicker {
     }
   }
 
-  isInRange = ({timestamp}) => {
-    const {endDate} = this;
-    const {startDate} = this;
+  isInRange = ({ timestamp }) => {
+    const { endDate } = this;
+    const { startDate } = this;
 
     return startDate && endDate && ((timestamp >= startDate && timestamp <= endDate));
   }
 
-  isHoverInRange({timestamp}) {
+  isHoverInRange({ timestamp }) {
 
-    const {startDate} = this;
-    const {dateHovered} = this;
+    const { startDate } = this;
+    const { dateHovered } = this;
 
-    return startDate && dateHovered && ((timestamp <= dateHovered && timestamp >= startDate) || (timestamp >= dateHovered && timestamp <= startDate));
+    return startDate && dateHovered && ((timestamp <= dateHovered && timestamp >= startDate)
+      || (timestamp >= dateHovered && timestamp <= startDate));
   }
 
-  onDateClick = ({timestamp}) => {
+  onDateClick = ({ timestamp }) => {
     if (this.showSingleDatePicker()) {
       this.selectedDay = timestamp;
     } else if (this.showDateRangePicker()) {
@@ -375,22 +240,27 @@ export class Datepicker {
 
   private renderCalendar(monthDetails) {
     const days = monthDetails.map((day, index) => {
-      return (<div class={this.getCellStyle(day)} key={index}>
-        <div class="cdc-day">
-          <span onClick={() => this.onDateClick(day)} onMouseOver={() => this.handleDateHover(day)}>
-            {day.date}
-          </span>
+      return (
+        <div class={this.getCellStyle(day)}
+          key={index}>
+          <div class="cdc-day">
+            <span onClick={() => this.onDateClick(day)} onMouseOver={() => this.handleDateHover(day)}>
+              {day.date}
+            </span>
+          </div>
         </div>
-      </div>);
+      );
     });
-    return (<div class="c-container">
-      <div class="cc-head">
-        {weekDay.map((day, index) => <div key={index} class="cch-name">{day}</div>)}
+    return (
+      <div class="c-container">
+        <div class="cc-head">
+          {weekDay.map((day, index) => <div key={index} class="cch-name">{day}</div>)}
+        </div>
+        <div class="cc-body">
+          {days}
+        </div>
       </div>
-      <div class="cc-body">
-        {days}
-      </div>
-    </div>);
+    );
   }
   private showSingleDatePicker() {
     return this.showDatePicker && this.mode !== 'range';
@@ -399,13 +269,18 @@ export class Datepicker {
     return this.showDatePicker && this.mode === 'range';
   }
   render() {
-    return (<div class="date-picker">
-      <fw-input value={this.value} class="date-input" placeholder={this.placeholder} readonly={true}></fw-input>
-      {
-        this.showSingleDatePicker()
-          ? (<div class="datepicker">
+    return (
+      <div class="MyDatePicker">
+        <fw-input
+          value={this.dateValue}
+          class="dateinput"
+          placeholder={this.placeholder}
+          readonly={true}>
+        </fw-input>
+        {this.showSingleDatePicker() ? (
+          <div class="datepicker">
             <div class="mdp-container">
-              {/* Head section */}
+              {/*Head section*/}
               <div class="mdpc-head">
                 <div class="mdpch-button">
                   <div class="mdpchb-inner" onClick={() => this.setMonth(-1)}>
@@ -413,27 +288,8 @@ export class Datepicker {
                   </div>
                 </div>
                 <div class="mdpch-container">
-                  <span class="mdpchc-month">
-                    <fw-select class="single-month-selector" readonly={true} value={monthArr[this.month]}>
-                      {
-                        monthArr.map((month, i) => <fw-select-option value={month} key={i}>
-                          {month}
-                        </fw-select-option>)
-                      }
-
-                    </fw-select>
-                  </span>
-
-                  <span class="mdpchc-year">
-                    <fw-select class="single-year-selector" readonly={true} value={this.year}>
-                      {
-                        this.supportedYears.map((year, i) => <fw-select-option value={year} key={i}>
-                          {year}
-                        </fw-select-option>)
-                      }
-                    </fw-select>
-                  </span>
-
+                  <span class="mdpchc-month">{this.getMonthStr(this.month)}</span>
+                  <span class="mdpchc-year">{this.year}</span>
                 </div>
                 <div class="mdpch-button">
                   <div class="mdpchb-inner" onClick={() => this.setMonth(1)}>
@@ -441,28 +297,23 @@ export class Datepicker {
                   </div>
                 </div>
               </div>
-              {/* Body Section */}
+              {/*Body Section*/}
               <div class="mdpc-body">
                 {this.renderCalendar(this.monthDetails)}
               </div>
             </div>
-            {/* Footer Section */}
+            {/*Footer Section*/}
             <div class="mdpc-footer">
-              <fw-button color="primary" class="update-date-value">
-                Update
-              </fw-button>
-              <fw-button color="secondary" class="close-date-picker">
-                Cancel</fw-button>
+              <fw-button color="primary" class="update-date-value"> Update </fw-button>
+              <fw-button color="secondary" class="close-date-picker"> Cancel</fw-button>
             </div>
-          </div>)
-          : ''
-      }
+          </div>
+        ) : ''}
 
-      {
-        this.showDateRangePicker()
-          ? (<div class="daterangepicker">
+        {this.showDateRangePicker() ? (
+          <div class="daterangepicker">
             <div class="mdp-range-container">
-              {/* Head section */}
+              {/*Head section*/}
               <div class="mdpc-head">
                 <div class="mdpch-button">
                   <div class="mdpchb-inner" onClick={() => this.setMonth(-1)}>
@@ -470,27 +321,8 @@ export class Datepicker {
                   </div>
                 </div>
                 <div class="mdpch-container">
-                  <span class="mdpchc-month">
-                    <fw-select class="from-month-selector" readonly={true} value={monthArr[this.month]}>
-                    {
-                      monthArr.map((month, i) =>
-                        <fw-select-option value={month} key={i}>
-                          {month}
-                        </fw-select-option>
-                        )
-                      }</fw-select>
-                  </span>
-                  <span class="mdpchc-year">
-                    <fw-select class="from-year-selector" readonly={true} value={this.year}>
-                      {
-                        this.supportedYears.map((year, i) =>
-                          <fw-select-option value={year} key={i} selected={year === this.year}>
-                            {year}
-                          </fw-select-option>
-                        )
-                      }
-                    </fw-select>
-                  </span>
+                  <span class="mdpchc-month">{this.getMonthStr(this.month)}</span>
+                  <span class="mdpchc-year">{this.year}</span>
                 </div>
                 <div class="mdpch-button-right">
                   <div class="mdpchb-inner" onClick={() => this.setMonth(1)}>
@@ -498,30 +330,11 @@ export class Datepicker {
                   </div>
                 </div>
                 <div class="mdpch-container-right">
-                  <span class="mdpchc-year">
-                    <fw-select class="to-year-selector" readonly={true} value={this.toYear}>
-                      {
-                        this.supportedYears.map((year, i) =>
-                          <fw-select-option value={year} key={i} selected={year === this.toYear}>
-                            {year}
-                          </fw-select-option>
-                        )
-                      }
-                    </fw-select>
-                  </span>
-                  <span class="mdpchc-month">
-                    <fw-select class="to-month-selector" readonly={true} value={monthArr[this.toMonth]}>
-                    {
-                      monthArr.map((month, i) =>
-                      <fw-select-option value={month} key={i}>
-                        {month}
-                      </fw-select-option>)
-                    }
-                    </fw-select>
-                  </span>
+                  <span class="mdpchc-year">{this.getNextMonthYear()}</span>
+                  <span class="mdpchc-month">{this.getMonthStr(this.month + 1)}</span>
                 </div>
               </div>
-              {/* Body Section */}
+              {/*Body Section*/}
               <div class="body-container">
                 <div class="mdpc-body">
                   {this.renderCalendar(this.monthDetails)}
@@ -531,18 +344,15 @@ export class Datepicker {
                 </div>
               </div>
             </div>
-            {/* Footer Section */}
+            {/*Footer Section*/}
             <div class="mdpc-range-footer">
-              <fw-button color="primary" class="update-range-value">
-                Update
-              </fw-button>
-              <fw-button color="secondary" class="close-date-picker">
-                Cancel</fw-button>
+              <fw-button color="primary" class="update-range-value"> Update </fw-button>
+              <fw-button color="secondary" class="close-date-picker"> Cancel</fw-button>
             </div>
-          </div>)
-          : ''
-      }
+          </div>
+        ) : ''}
 
-    </div>);
+      </div>
+    );
   }
 }
