@@ -66,7 +66,7 @@ export namespace Components {
         /**
           * Shows single date or date range picker based on mode
          */
-        "mode": string;
+        "mode": "single date" | "range";
         /**
           * Placeholder to display in the input field
          */
@@ -78,7 +78,7 @@ export namespace Components {
         /**
           * Value selected in the single date picker mode
          */
-        "value": any;
+        "value": string;
     }
     interface FwIcon {
         /**
@@ -634,7 +634,7 @@ declare namespace LocalJSX {
         /**
           * Shows single date or date range picker based on mode
          */
-        "mode"?: string;
+        "mode"?: "single date" | "range";
         /**
           * Triggered when the update button clicked
          */
@@ -650,7 +650,7 @@ declare namespace LocalJSX {
         /**
           * Value selected in the single date picker mode
          */
-        "value"?: any;
+        "value"?: string;
     }
     interface FwIcon {
         /**
