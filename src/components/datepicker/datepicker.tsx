@@ -9,7 +9,15 @@ import {
 } from '@stencil/core';
 import moment from 'moment-mini';
 
-const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const weekDay = [
+  'S',
+  'M',
+  'T',
+  'W',
+  'T',
+  'F',
+  'S'
+];
 const monthArr = [
   'Jan',
   'Feb',
@@ -22,62 +30,63 @@ const monthArr = [
   'Sep',
   'Oct',
   'Nov',
-  'Dec',
+  'Dec'
 ];
 
-@Component({ tag: 'fw-datepicker', styleUrl: 'datepicker.scss', shadow: true })
+@Component({tag: 'fw-datepicker', styleUrl: 'datepicker.scss', shadow: true})
 export class Datepicker {
-  @State() showDatePicker: boolean;
-  @State() year: string;
-  @State() toYear: string;
-  @State() monthDetails: any;
-  @State() nextMonthDetails: any;
-  @State() month: number;
-  @State() todayTimestamp: any;
-  @State() selectedDay: any;
-  @State() startDate: any;
-  @State() endDate: any;
-  @State() startDateFormatted: any;
-  @State() endDateFormatted: any;
-  @State() dateHovered: any;
-  @State() supportedYears: any;
-  @State() toMonth: number;
+  @State()showDatePicker: boolean;
+  @State()year: string;
+  @State()toYear: string;
+  @State()monthDetails: any;
+  @State()nextMonthDetails: any;
+  @State()month: number;
+  @State()todayTimestamp: any;
+  @State()selectedDay: any;
+  @State()startDate: any;
+  @State()endDate: any;
+  @State()startDateFormatted: any;
+  @State()endDateFormatted: any;
+  @State()dateHovered: any;
+  @State()supportedYears: any;
+  @State()toMonth: number;
+
 
   /**
-   *   Shows single date or date range picker based on mode
-   */
-  @Prop() mode = 'single date';
+  *   Shows single date or date range picker based on mode
+  */
+  @Prop() mode: string = 'single date';
   /**
-   *   Minimum date that are allowed to select in the calender
-   */
+  *   Minimum date that are allowed to select in the calender
+  */
   @Prop() minDate: string;
   /**
-   *   Maximum date that are allowed to select in the calender
-   */
+  *   Maximum date that are allowed to select in the calender
+  */
   @Prop() maxDate: string;
   /**
-   *   From date that is selected in the date range picker mode
-   */
+  *   From date that is selected in the date range picker mode
+  */
   @Prop({ mutable: true }) fromDate: string;
   /**
-   *   To date that is selected in the date range picker mode
-   */
+  *   To date that is selected in the date range picker mode
+  */
   @Prop({ mutable: true }) toDate: string;
   /**
-   *   Selected Date will be retured in the given date format
-   */
-  @Prop() dateFormat = 'DD-MM-YYYY';
+  *   Selected Date will be retured in the given date format
+  */
+  @Prop() dateFormat: string = 'DD-MM-YYYY';
   /**
-   *   Value selected in the single date picker mode
-   */
+  *   Value selected in the single date picker mode
+  */
   @Prop({ mutable: true }) value: any;
   /**
-   *   Placeholder to display in the input field
-   */
+  *   Placeholder to display in the input field
+  */
   @Prop() placeholder: string;
   /**
-   *   Triggered when the update button clicked
-   */
+  *   Triggered when the update button clicked
+  */
   @Event() fwChange: EventEmitter;
 
   @Listen('fwFocus')
@@ -95,7 +104,7 @@ export class Datepicker {
       this.value = this.startDateFormatted + ' To ' + this.endDateFormatted;
       this.fromDate = this.startDateFormatted;
       this.toDate = this.endDateFormatted;
-      this.fwChange.emit({ fromDate: this.startDateFormatted, toDate: this.endDateFormatted });
+      this.fwChange.emit({fromDate: this.startDateFormatted, toDate: this.endDateFormatted});
     } else if (isUpdateDate) {
       this.value = moment(this.selectedDay).format(this.dateFormat);
       this.fwChange.emit(this.value);
@@ -108,14 +117,14 @@ export class Datepicker {
   @Listen('fwChange')
   handleMonthYearDropDownSelection(e) {
     const newValue = e.detail && e.detail.value;
-    if (!newValue) {
+    if(!newValue) {
       return;
     }
-    if (this.mode === 'range') {
+    if(this.mode === 'range') {
       this.handleDateRangeDropDownUpdate(e, newValue);
       this.nextMonthDetails = this.getMonthDetails(this.toYear, this.toMonth);
     } else {
-      this.handleSingleDateDropDownUpdate(e, newValue);
+      this.handleSingleDateDropDownUpdate(e, newValue)
     }
     this.monthDetails = this.getMonthDetails(this.year, this.month);
   }
@@ -145,10 +154,12 @@ export class Datepicker {
       } else {
         this.toMonth = this.month + 1;
       }
-    } else if (isFromYearUpdate) {
+    }
+    else if (isFromYearUpdate) {
       this.year = newValue;
-      this.toYear = this.month === 11 ? this.yearCalculation(this.year, 1) : this.year;
-    } else if (isToMonthUpdate) {
+      this.toYear = this.year;
+    }
+    else if (isToMonthUpdate) {
       this.toMonth = monthArr.indexOf(newValue);
       if (this.toMonth === 0) {
         this.month = 11;
@@ -156,19 +167,20 @@ export class Datepicker {
       } else {
         this.month = this.toMonth - 1;
       }
-    } else if (isToYearUpdate) {
-        this.toYear = newValue;
-        this.year = this.toMonth === 0 ? this.yearCalculation(this.toYear, -1) : this.toYear;
+    }
+    else if (isToYearUpdate) {
+      this.toYear = newValue;
+      this.year = this.toYear;
     }
   }
 
   yearCalculation(year, offset) {
-    const resultYear = Number(year) + offset;
+    const resultYear =  Number(year) + offset;
     return resultYear.toString();
   }
 
   getSupportedYears = () => {
-    const yearsArr = [];
+    let yearsArr = [];
     let year = 1970;
     while (year < 2050) {
       yearsArr.push(year.toString());
@@ -180,7 +192,7 @@ export class Datepicker {
   componentWillLoad() {
     this.year = moment().year().toString();
     this.month = moment().month();
-    this.toMonth = this.month === 11 ? 0 : this.month + 1;
+    this.toMonth = this.month === 11 ? 0 : this.month+1;
     this.toYear = this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
     this.monthDetails = this.getMonthDetails(this.year, this.month);
     this.nextMonthDetails = this.month === 11
@@ -189,10 +201,11 @@ export class Datepicker {
     this.todayTimestamp = moment().startOf('date').valueOf();
     this.placeholder = this.placeholder || (
       this.mode === 'range'
-        ? 'Select Date Range'
-        : 'Select Date');
+      ? 'Select Date Range'
+      : 'Select Date');
     this.supportedYears = this.getSupportedYears();
   }
+
 
   getDayDetails = args => {
     const date = args.index - args.firstDay;
@@ -206,21 +219,23 @@ export class Datepicker {
     const prevMonthNumberOfDays = moment([prevYear, prevMonth]).daysInMonth() || 0;
     const _date = (
       date < 0
-        ? prevMonthNumberOfDays + date
-        : date % args.numberOfDays) + 1;
+      ? prevMonthNumberOfDays + date
+      : date % args.numberOfDays) + 1;
     const month = this._getValidDateInMonth(date, args);
     const timestamp = moment([args.year, args.month, _date]).valueOf();
-    return { date: _date, day, month, timestamp };
+    return {date: _date, day, month, timestamp};
   }
   private _getValidDateInMonth(date, args) {
-    if (this.minDate !== undefined && this.maxDate !== undefined) {
+    if (this.minDate && this.maxDate) {
       if (date < 0) {
         return -1;
       }
       const dateFormat = this.dateFormat || 'DD-MM-YYYY';
       const minDate = moment(this.minDate, dateFormat);
       const maxDate = moment(this.maxDate, dateFormat);
-      const argDate = moment([args.year, args.month, date + 1]);
+      const argDate = moment([
+        args.year, args.month, date + 1
+      ]);
 
       const isValid = minDate.valueOf() <= argDate.valueOf() && argDate.valueOf() <= maxDate.valueOf();
       return !isValid
@@ -247,7 +262,7 @@ export class Datepicker {
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        currentDay = this.getDayDetails({ index, numberOfDays, firstDay, year, month });
+        currentDay = this.getDayDetails({index, numberOfDays, firstDay, year, month});
         monthArray.push(currentDay);
         index++;
       }
@@ -267,7 +282,7 @@ export class Datepicker {
     }
     this.year = year.toString();
     this.month = month;
-    this.toMonth = this.month === 11 ? 0 : this.month + 1;
+    this.toMonth = this.month === 11 ? 0 : this.month+1;
     this.toYear = this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
     this.monthDetails = this.getMonthDetails(year, month);
     this.nextMonthDetails = this.month === 11
@@ -279,42 +294,32 @@ export class Datepicker {
     return day.timestamp === this.todayTimestamp;
   }
 
-  isSelectedDay = ({ timestamp }) => {
+  isSelectedDay = ({timestamp}) => {
     return timestamp === this.selectedDay || timestamp === this.startDate || timestamp === this.endDate;
   }
 
   handleDateHover(day) {
     if (this.startDate && !this.endDate) {
-      if (this.startDate > day.timestamp) {
-        this.endDate = this.startDate;
-        this.startDate = undefined;
-      }
-      this.dateHovered = day.timestamp;
-    } else if (!this.startDate && this.endDate) {
-      if (this.endDate < day.timestamp) {
-        this.startDate = this.endDate;
-        this.endDate = undefined;
-      }
       this.dateHovered = day.timestamp;
     }
   }
 
-  isInRange = ({ timestamp }) => {
-    const { endDate } = this;
-    const { startDate } = this;
+  isInRange = ({timestamp}) => {
+    const {endDate} = this;
+    const {startDate} = this;
 
     return startDate && endDate && ((timestamp >= startDate && timestamp <= endDate));
   }
 
-  isHoverInRange({ timestamp }) {
+  isHoverInRange({timestamp}) {
 
-    const { startDate, endDate, dateHovered } = this;
-    const startDateCondtion = startDate && dateHovered && (timestamp <= dateHovered && timestamp >= startDate);
-    const endDateCondition = endDate && dateHovered && (timestamp >= dateHovered && timestamp <= endDate);
-    return startDateCondtion || endDateCondition;
+    const {startDate} = this;
+    const {dateHovered} = this;
+
+    return startDate && dateHovered && ((timestamp <= dateHovered && timestamp >= startDate) || (timestamp >= dateHovered && timestamp <= startDate));
   }
 
-  onDateClick = ({ timestamp }) => {
+  onDateClick = ({timestamp}) => {
     if (this.showSingleDatePicker()) {
       this.selectedDay = timestamp;
     } else if (this.showDateRangePicker()) {
@@ -334,8 +339,6 @@ export class Datepicker {
         this.endDate = this.startDate;
         this.startDate = timestamp;
       }
-    } else if (!this.startDate && this.endDate) {
-      this.startDate = timestamp;
     } else if (!this.startDate && !this.endDate) {
       this.startDate = timestamp;
     }
@@ -362,8 +365,6 @@ export class Datepicker {
       cellStyle += ' end-day';
     }
     if (this.startDate && this.dateHovered < this.startDate && day.timestamp === this.dateHovered) {
-      cellStyle += ' start-day';
-    } else if (this.endDate && this.dateHovered < this.endDate && day.timestamp === this.dateHovered) {
       cellStyle += ' start-day';
     } else if (this.startDate && this.dateHovered > this.startDate && day.timestamp === this.dateHovered) {
       cellStyle += ' end-day';
@@ -398,7 +399,7 @@ export class Datepicker {
     return this.showDatePicker && this.mode === 'range';
   }
   render() {
-    return (<div>
+    return (<div class="date-picker">
       <fw-input value={this.value} class="date-input" placeholder={this.placeholder} readonly={true}></fw-input>
       {
         this.showSingleDatePicker()
@@ -415,11 +416,9 @@ export class Datepicker {
                   <span class="mdpchc-month">
                     <fw-select class="single-month-selector" readonly={true} value={monthArr[this.month]}>
                       {
-                        monthArr.map((month, i) =>
-                          <fw-select-option value={month} key={i} selected={month === monthArr[this.month]}>
-                            {month}
-                          </fw-select-option>
-                        )
+                        monthArr.map((month, i) => <fw-select-option value={month} key={i}>
+                          {month}
+                        </fw-select-option>)
                       }
 
                     </fw-select>
@@ -428,17 +427,15 @@ export class Datepicker {
                   <span class="mdpchc-year">
                     <fw-select class="single-year-selector" readonly={true} value={this.year}>
                       {
-                        this.supportedYears.map((year, i) =>
-                          <fw-select-option value={year} key={i} selected={year === this.year}>
-                            {year}
-                          </fw-select-option>
-                        )
+                        this.supportedYears.map((year, i) => <fw-select-option value={year} key={i}>
+                          {year}
+                        </fw-select-option>)
                       }
                     </fw-select>
                   </span>
 
                 </div>
-                <div class="mdpch-button-right">
+                <div class="mdpch-button">
                   <div class="mdpchb-inner" onClick={() => this.setMonth(1)}>
                     <span class="mdpchbi-right-arrow"></span>
                   </div>
@@ -475,11 +472,11 @@ export class Datepicker {
                 <div class="mdpch-container">
                   <span class="mdpchc-month">
                     <fw-select class="from-month-selector" readonly={true} value={monthArr[this.month]}>
-                      {
-                        monthArr.map((month, i) =>
-                          <fw-select-option value={month} key={i} selected={month === monthArr[this.month]}>
-                            {month}
-                          </fw-select-option>
+                    {
+                      monthArr.map((month, i) =>
+                        <fw-select-option value={month} key={i}>
+                          {month}
+                        </fw-select-option>
                         )
                       }</fw-select>
                   </span>
@@ -514,12 +511,12 @@ export class Datepicker {
                   </span>
                   <span class="mdpchc-month">
                     <fw-select class="to-month-selector" readonly={true} value={monthArr[this.toMonth]}>
-                      {
-                        monthArr.map((month, i) =>
-                          <fw-select-option value={month} key={i} selected={month === monthArr[this.toMonth]}>
-                            {month}
-                          </fw-select-option>)
-                      }
+                    {
+                      monthArr.map((month, i) =>
+                      <fw-select-option value={month} key={i}>
+                        {month}
+                      </fw-select-option>)
+                    }
                     </fw-select>
                   </span>
                 </div>
