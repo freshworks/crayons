@@ -65,7 +65,7 @@ describe('fw-datepicker', () => {
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
 
-    const dateEle = await page.find('fw-datepicker >>> .c-day-container.highlight span');
+    const dateEle = await page.find('fw-datepicker >>> .c-day-container.highlight:not(.disabled) span');
     await dateEle.click();
 
     const updateEle = await page.find('fw-datepicker >>> fw-button.update-date-value');
