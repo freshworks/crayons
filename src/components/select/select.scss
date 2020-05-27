@@ -55,11 +55,13 @@ label {
 
 // Input Container Style
 .input-container-inner {
-  display: block;
+  display: flex;
   width: 100%;
+  flex-wrap: wrap;
   position: relative;
 
   input {
+    flex-grow: 1;
     border: none;
     margin-top: 3px;
     font-size: var(--font-size-12);
@@ -67,8 +69,9 @@ label {
     letter-spacing: 0;
     line-height: 1.4;
     background-color: var(--input-bg);
-    width: 100%;
+    min-width: 20px;
     box-sizing: border-box;
+    overflow: hidden;
 
     &:focus {
       border: none;

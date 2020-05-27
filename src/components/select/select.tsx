@@ -128,6 +128,8 @@ export class Select {
       }
       return option;
     });
+    this.selectInput.value = '';
+    this.renderInput();
     this.closeDropdown();
     selectedItem.stopPropagation();
   }
@@ -179,7 +181,7 @@ export class Select {
     if (selectedOptions.length > 0) {
       this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
       if (this.selectInput) {
-        this.selectInput.value = this.multiple ? '' : selectedOptions[0].text || '';
+        this.selectInput.value = this.multiple ? this.selectInput.value : selectedOptions[0].text || '';
       }
     } else if (selectedOptions.length === 0) {
       this.value = undefined;
