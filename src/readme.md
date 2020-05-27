@@ -1,9 +1,14 @@
 ---
 home: true
-heroImage: /freshworks-logo.png
-heroText: Crayons
-tagline: A component library for Freshworks Apps
-actionText: Get Started →
-actionLink: /components/
-footer: MIT Licensed | Copyright © 2020 Freshworks
+search: false
+sidebarDepth: 0
+heroText: null
+tagline: null
 ---
+<LandingPage/>
+
+<style>
+    .description, .site-name {
+        display: none;
+    }
+</style>

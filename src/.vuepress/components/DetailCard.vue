@@ -1,0 +1,91 @@
+<template>
+  <a :href="cardLink"  class="link-card" :target="linkTarget"> 
+    <div class="card-container">
+        <div class="img-container">
+            <img :src="require(`../public/assets/${cardName}.png`)" :alt="cardName">
+        </div>
+        <div class="card-title">
+            {{ cardTitle }}
+        </div>
+        <div class="card-description">
+            {{ cardDescription }}
+        </div>
+        <div class="learn-more">
+            <span class="learn-more-text">Learn More &#8594;</span>
+        </div>
+    </div>
+  </a>
+</template>
+
+<script>
+export default {
+    name: 'detailCard',
+    props: {
+       cardName: String,
+       cardTitle: String,
+       cardDescription: String,
+       cardLink: String,
+    },
+    computed: {
+      linkTarget() {
+          if (this.cardName === 'get-started') {
+              return null;
+          }
+          return '_blank';
+      },
+    },
+}
+</script>
+
+<style lang="scss">
+.link-card {
+    text-decoration: none;
+    text-align: center;
+    .card-container {
+    height: 450px;
+    width: 100%;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    box-shadow: 0 5px 20px 0 rgba(57, 115, 230, 0.1);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 500ms;
+    box-sizing: border-box;
+    .img-container {
+        text-align: center;
+        align-items: center;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .card-title {
+        font-size: 18px;
+        color: #4D4D4D;
+        font-weight: 500;
+        padding-top: 15px;
+    }
+    .card-description {
+         color: #666666;
+         font-size: 14px;
+         font-weight: 300;
+         letter-spacing: 0;
+         line-height: 28px;
+         padding: 15px;
+    }
+    .learn-more {
+        margin-top: 10px;
+        .learn-more-text {
+            color: #3973E6;
+            font-size: 12px;
+            font-weight: 700;
+        }
+    }
+    &:hover {
+        transform: translateY(-25px);
+        box-shadow: 0 10px 30px 0 rgba(57, 115, 230, 0.15);
+        border-color: rgba(57, 115, 230, 0.2);
+    }
+  }
+}
+</style>
