@@ -44,35 +44,35 @@ export class Datepicker {
   @State() toMonth: number;
 
   /**
-   *   Shows single date or date range picker based on mode
+   *   Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
    */
   @Prop() mode: 'single date' | 'range' = 'single date';
   /**
-   *   Minimum date that are allowed to select in the calender
+   *   Earliest date a user can select in the calendar, if mode is range.
    */
   @Prop() minDate: string;
   /**
-   *   Maximum date that are allowed to select in the calender
+   *   Latest date a user can select in the calendar, if mode is range.
    */
   @Prop() maxDate: string;
   /**
-   *   From date that is selected in the date range picker mode
+   *   Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
    */
   @Prop({ mutable: true }) fromDate: string;
   /**
-   *   To date that is selected in the date range picker mode
+   *   Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
    */
   @Prop({ mutable: true }) toDate: string;
   /**
-   *   Selected Date will be retured in the given date format
+   *   Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
    */
   @Prop() dateFormat = 'DD-MM-YYYY';
   /**
-   *   Value selected in the single date picker mode
+   *   Date that is preselected in the calendar, if mode is single date or undefined.
    */
   @Prop({ mutable: true }) value: string;
   /**
-   *   Placeholder to display in the input field
+   *   Text displayed in the input box before a user selects a date or date range.
    */
   @Prop() placeholder: string;
   /**

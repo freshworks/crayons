@@ -48,35 +48,35 @@ export namespace Components {
     }
     interface FwDatepicker {
         /**
-          * Selected Date will be retured in the given date format
+          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
          */
         "dateFormat": string;
         /**
-          * From date that is selected in the date range picker mode
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
          */
         "fromDate": string;
         /**
-          * Maximum date that are allowed to select in the calender
+          * Latest date a user can select in the calendar, if mode is range.
          */
         "maxDate": string;
         /**
-          * Minimum date that are allowed to select in the calender
+          * Earliest date a user can select in the calendar, if mode is range.
          */
         "minDate": string;
         /**
-          * Shows single date or date range picker based on mode
+          * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
         "mode": "single date" | "range";
         /**
-          * Placeholder to display in the input field
+          * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder": string;
         /**
-          * To date that is selected in the date range picker mode
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
          */
         "toDate": string;
         /**
-          * Value selected in the single date picker mode
+          * Date that is preselected in the calendar, if mode is single date or undefined.
          */
         "value": string;
     }
@@ -616,23 +616,23 @@ declare namespace LocalJSX {
     }
     interface FwDatepicker {
         /**
-          * Selected Date will be retured in the given date format
+          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
          */
         "dateFormat"?: string;
         /**
-          * From date that is selected in the date range picker mode
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
          */
         "fromDate"?: string;
         /**
-          * Maximum date that are allowed to select in the calender
+          * Latest date a user can select in the calendar, if mode is range.
          */
         "maxDate"?: string;
         /**
-          * Minimum date that are allowed to select in the calender
+          * Earliest date a user can select in the calendar, if mode is range.
          */
         "minDate"?: string;
         /**
-          * Shows single date or date range picker based on mode
+          * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
         "mode"?: "single date" | "range";
         /**
@@ -640,15 +640,15 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * Placeholder to display in the input field
+          * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
         /**
-          * To date that is selected in the date range picker mode
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
          */
         "toDate"?: string;
         /**
-          * Value selected in the single date picker mode
+          * Date that is preselected in the calendar, if mode is single date or undefined.
          */
         "value"?: string;
     }

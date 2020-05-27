@@ -1,14 +1,14 @@
 # Datepicker (fw-datepicker)
-fw-datepicker displays calender with prepopulated month and year and enables to picking a date or date range. The calender displaying based mode attribute to select a single date or range of dates.
+fw-datepicker displays an input box with a calendar that enables selecting a date or date range. The values preselected in the input box and calendar are based on the fw-datepicker attribute values.
 
 
 ## Usage
 
 ``` html live
-<fw-datepicker></fw-datepicker>
-<fw-datepicker mode="range"></fw-datepicker>
-<fw-datepicker value="22/05/2020" date-format="MM/DD/YYYY"></fw-datepicker>
-<fw-datepicker mode="range" min-date="10-05-2020" max-date="10-07-2020"></fw-datepicker>
+<fw-label value="Single date picker" color="yellow"></fw-label><br/>
+<fw-datepicker value="22-05-2020" date-format="MM-DD-YYYY"></fw-datepicker>
+<fw-label value="A date range picker" color="yellow"></fw-label><br/>
+<fw-datepicker mode="range" min-date="10-05-2020" max-date="10-07-2020" from-date="12-05-2020" to-date="14-05-2020"></fw-datepicker>
 ```
 
 
@@ -17,16 +17,16 @@ fw-datepicker displays calender with prepopulated month and year and enables to 
 
 ## Properties
 
-| Property      | Attribute     | Description                                              | Type                       | Default         |
-| ------------- | ------------- | -------------------------------------------------------- | -------------------------- | --------------- |
-| `dateFormat`  | `date-format` | Selected Date will be retured in the given date format   | `string`                   | `'DD-MM-YYYY'`  |
-| `fromDate`    | `from-date`   | From date that is selected in the date range picker mode | `string`                   | `undefined`     |
-| `maxDate`     | `max-date`    | Maximum date that are allowed to select in the calender  | `string`                   | `undefined`     |
-| `minDate`     | `min-date`    | Minimum date that are allowed to select in the calender  | `string`                   | `undefined`     |
-| `mode`        | `mode`        | Shows single date or date range picker based on mode     | `"range" or "single date"` | `'single date'` |
-| `placeholder` | `placeholder` | Placeholder to display in the input field                | `string`                   | `undefined`     |
-| `toDate`      | `to-date`     | To date that is selected in the date range picker mode   | `string`                   | `undefined`     |
-| `value`       | `value`       | Value selected in the single date picker mode            | `string`                   | `undefined`     |
+| Property      | Attribute     | Description                                                                                                                          | Type                       | Default         |
+| ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- | --------------- |
+| `dateFormat`  | `date-format` | Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.       | `string`                   | `'DD-MM-YYYY'`  |
+| `fromDate`    | `from-date`   | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value. | `string`                   | `undefined`     |
+| `maxDate`     | `max-date`    | Latest date a user can select in the calendar, if mode is range.                                                                     | `string`                   | `undefined`     |
+| `minDate`     | `min-date`    | Earliest date a user can select in the calendar, if mode is range.                                                                   | `string`                   | `undefined`     |
+| `mode`        | `mode`        | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.              | `"range" or "single date"` | `'single date'` |
+| `placeholder` | `placeholder` | Text displayed in the input box before a user selects a date or date range.                                                          | `string`                   | `undefined`     |
+| `toDate`      | `to-date`     | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value. | `string`                   | `undefined`     |
+| `value`       | `value`       | Date that is preselected in the calendar, if mode is single date or undefined.                                                       | `string`                   | `undefined`     |
 
 
 ## Events
