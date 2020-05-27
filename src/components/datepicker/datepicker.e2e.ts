@@ -71,10 +71,10 @@ describe('fw-datepicker', () => {
     const updateEle = await page.find('fw-datepicker >>> fw-button.update-date-value');
     await updateEle.click();
 
-    const datePicketValue = await element.getProperty('value');
+    const datePickerValue = await element.getProperty('value');
     const todayValue = moment().format('YYYY-MM-DD');
 
-    expect(datePicketValue.toString()).toBe(todayValue.toString());
+    expect(datePickerValue.toString()).toBe(todayValue.toString());
   });
 
   it('daterange picker calenders always should be sequential months ', async () => {
