@@ -6,9 +6,4 @@ heroText: null
 tagline: null
 ---
 <LandingPage/>
-
-<style>
-    .description, .site-name {
-        display: none;
-    }
-</style>
+<AppFooter />

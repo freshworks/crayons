@@ -42,7 +42,7 @@ export default {
     text-decoration: none;
     text-align: center;
     .card-container {
-    height: 450px;
+    height: 420px;
     width: 100%;
     border-radius: 15px;
     background-color: #FFFFFF;
@@ -66,19 +66,19 @@ export default {
         padding-top: 15px;
     }
     .card-description {
+         font-family: National-Book;
          color: #666666;
-         font-size: 14px;
-         font-weight: 300;
+         font-size: 15px;
          letter-spacing: 0;
          line-height: 28px;
          padding: 15px;
     }
     .learn-more {
+        font-family: National-Medium;
         margin-top: 10px;
         .learn-more-text {
             color: #3973E6;
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 15px;
         }
     }
     &:hover {
