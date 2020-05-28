@@ -9,11 +9,13 @@ const getComponents = () => components.tags.map(({ tag }) => {
 module.exports = {
   title: 'Crayons',
   base: '/',
+  description: 'Use freshworks components to build apps',
   dest: 'docs-dist',
   docsDir: 'src',
   head: [
     ['script', { type: 'module', src: '/www/build/crayons.esm.js' }],
     ['script', {  nomodule:'', src: '/www/build/crayons.js' }],
+    ['link', { rel: 'icon', href: '/favicon.png' }]
   ],
   themeConfig: {
     lastUpdated: 'Last Updated',
@@ -42,7 +44,28 @@ module.exports = {
         layout: path.resolve(__dirname, "./previewLayout.vue")
       }
     ],
-    ['@vuepress/active-header-links']
+    ['@vuepress/active-header-links'],
+    [
+      '@vuepress/google-analytics',
+      {
+        'ga': '',
+      }
+    ],
+    [
+      'vuepress-plugin-seo', {
+        siteTitle: (_, $site) => $site.title,
+        title: $page => $page.title,
+        description: $page => $page.frontmatter.description,
+        author: (_, $site) => $site.themeConfig.author,
+        tags: $page => $page.frontmatter.tags,
+        twitterCard: _ => 'summary_large_image',
+        type: $page => ['articles', 'posts', 'blog'].some(folder => $page.regularPath.startsWith('/' + folder)) ? 'article' : 'website',
+        url: (_, $site, path) => ($site.themeConfig.domain || '') + path,
+        image: ($page, $site) => $page.frontmatter.image && (($site.themeConfig.domain && !$page.frontmatter.image.startsWith('http') || '') + $page.frontmatter.image),
+        publishedAt: $page => $page.frontmatter.date && new Date($page.frontmatter.date),
+        modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
+      }
+    ]
   ],
   configureWebpack: {
     resolve: {

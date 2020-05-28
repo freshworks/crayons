@@ -1,30 +1,30 @@
 <template>
-  <div class="landing-container" @scroll="handleScroll">
-    <div class="landing-header">
-      <div class="fw-logo">
-        <img src="../public/assets/logo-fworks-black.svg" alt="freshworks">
+  <div>
+    <div class="landing-container" @scroll="handleScroll">
+      <div class="landing-header">
+        <div class="fw-logo">
+          <img src="../public/assets/logo-fworks-black.svg" alt="freshworks">
+        </div>
       </div>
-    </div>
 
-    <div class="crayons-logo">
-      <img src="../public/assets/crayons.png">
-    </div>
+      <div class="crayons-logo">
+        <img src="../public/assets/crayons.png">
+      </div>
 
-    <div class="crayons-description"> 
-      A refreshed design library for the Freshworks Developers.
-    </div>
-    
-    <div class="link-cards-container">
-      <DetailCard v-for="welcomeLink in welcomeLinks"
-        :key="welcomeLink.name"
-        :card-link="welcomeLink.link"
-        :card-name="welcomeLink.name"
-        :card-title="welcomeLink.title"
-        :card-description="welcomeLink.description"
-      />
-    </div>
-    <div class="footer">
-      FOOTERR
+      <div class="crayons-description"> 
+        A refreshed design library for the Freshworks Developers.
+      </div>
+      
+      <div class="link-cards-container">
+        <DetailCard v-for="welcomeLink in welcomeLinks"
+          :key="welcomeLink.name"
+          :card-link="welcomeLink.link"
+          :card-name="welcomeLink.name"
+          :card-title="welcomeLink.title"
+          :card-description="welcomeLink.description"
+        />
+      </div>
+      <Dialogue />
     </div>
   </div>
 </template>
@@ -54,29 +54,32 @@ export default {
          link: 'https://github.com/freshdesk/crayons'
        },
      ],
-     limitPosition: 500,
      scrolled: false,
-     lastPosition: 0,
     };
   },
   methods: {
   handleScroll() {
-    debugger;
+    this.scrolled = scrollY > 40;
+    const navbarEl = document.querySelector('header');
+    if (this.scrolled) {
+      return navbarEl.classList.add('scrolled-navbar');
+    }
+    return navbarEl.classList.remove('scrolled-navbar');
   },
 },
   created() {
-    window.addEventListener("scroll", this.handleScroll);
+    document.addEventListener("scroll", this.handleScroll);
   },
   destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
-  },
-  mounted() {
-    console.log(document.querySelector('.navbar'));
+    document.removeEventListener("scroll", this.handleScroll);
   },
 }
 </script>
 
 <style lang="scss">
+  :root {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
+  }
   .theme-container {
     background: #ebf1fc;
     min-height: 100%;
@@ -91,13 +94,15 @@ export default {
     background: #ebf1fc;
     border-color: #000;
     opacity: 0.1;
-    will-change: transform;
-    transition: transform 200ms linear;
-    &.pinned {
-      transform: translateY(0%);
+    position: sticky;
+    &.scrolled-navbar {
+      background: #fff !important;
+      z-index: 999;
     }
-    &.unpinned {
-      transform: translateY(-100%);
+    .home-link { 
+      .site-name {
+        display: none;
+      }
     }
   }
   .landing-container {
@@ -105,8 +110,7 @@ export default {
       display: flex;
       justify-content: space-between;
       .fw-logo {
-        margin-top: 5%;
-        // position: fixed;
+        margin-top: 1%;
         img {
           width: 90%;
           height: 90%;
@@ -123,8 +127,9 @@ export default {
     }
 
     .crayons-description {
+      // font-family: National-Book;
       color: #666666;
-      font-size: 17px;
+      font-size: 16.5px;
       font-weight: 400;
       line-height: 28px;
       margin-top: 15px;
@@ -135,13 +140,8 @@ export default {
       margin-top: 7%;
       box-sizing: border-box;
       display: grid;
-      grid-template-columns: 350px 350px 350px;
+      grid-template-columns: 320px 320px 320px;
       grid-column-gap: 20px;
-    }
-
-    .footer {
-      width: 100%;
-      height: 100px;
     }
   }
 </style>
