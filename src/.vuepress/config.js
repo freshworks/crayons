@@ -53,11 +53,11 @@ module.exports = {
     ],
     [
       'vuepress-plugin-seo', {
-        siteTitle: (_, $site) => $site.title,
-        title: $page => $page.title,
-        description: $page => $page.frontmatter.description,
-        author: (_, $site) => $site.themeConfig.author,
-        tags: $page => $page.frontmatter.tags,
+        siteTitle: () => 'Crayons',
+        title: () => 'Crayons',
+        description: () => 'A refreshed design library for the Freshworks Developers.',
+        author: () => 'Freshworks',
+        tags: () => ['web components', 'Ui Kit', 'marketplace', 'freshworks marketplace'],
         twitterCard: _ => 'summary_large_image',
         type: $page => ['articles', 'posts', 'blog'].some(folder => $page.regularPath.startsWith('/' + folder)) ? 'article' : 'website',
         url: (_, $site, path) => ($site.themeConfig.domain || '') + path,

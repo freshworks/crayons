@@ -88,4 +88,104 @@ export default {
     }
   }
 }
+
+@media only screen and (max-width: 48rem) { 
+.link-card {
+text-decoration: none;
+text-align: center;
+.card-container {
+    height: 420px;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    margin-top: 5%;
+    box-shadow: 0 5px 20px 0 rgba(57, 115, 230, 0.1);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 500ms;
+    box-sizing: border-box;
+    .img-container {
+        text-align: center;
+        align-items: center;
+        img {
+            width: 50%;
+            height: 50%;
+        }
+    }
+    .card-title {
+        font-size: 2rem;
+        color: #4D4D4D;
+        font-weight: 500;
+        padding-top: 15px;
+    }
+    .card-description {
+         font-family: National-Book;
+         color: #666666;
+         font-size: 1.5rem;
+         letter-spacing: 0;
+         line-height: 28px;
+         padding: 15px;
+    }
+    .learn-more {
+        font-family: National-Medium;
+        margin-top: 10px;
+        .learn-more-text {
+            color: #3973E6;
+            font-size: 1.5rem;
+        }
+    }
+  }
+}
+}
+
+@media only screen and (max-width: 27rem) {
+.link-card {
+text-decoration: none;
+text-align: center;
+.card-container {
+    height: 420px;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    margin-top: 5%;
+    box-shadow: 0 5px 20px 0 rgba(57, 115, 230, 0.1);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 500ms;
+    box-sizing: border-box;
+    .img-container {
+        text-align: center;
+        align-items: center;
+        img {
+            width: 80%;
+            height: 80%;
+        }
+    }
+    .card-title {
+        font-size: 1.5rem;
+        color: #4D4D4D;
+        font-weight: 500;
+        padding-top: 15px;
+    }
+    .card-description {
+         font-family: National-Book;
+         color: #666666;
+         font-size: 1.25rem;
+         letter-spacing: 0;
+         line-height: 28px;
+         padding: 15px;
+    }
+    .learn-more {
+        font-family: National-Medium;
+        margin-top: 10px;
+        .learn-more-text {
+            color: #3973E6;
+            font-size: 1.25rem;
+        }
+    }
+  }
+}
+}  
 </style>
