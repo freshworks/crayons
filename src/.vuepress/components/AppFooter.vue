@@ -1,7 +1,6 @@
 <template>
   <footer class="footer-container">
     <div class="footer-copyrights">
-    <div class="l-page">
     <div class="copyrights-nav">
         <template v-for="items in footerCopyrights['menu-items']">
           <template v-for="(item,index) in items['menu-list']">
@@ -12,7 +11,6 @@
     </div>
     <div class="footer-copyrights-text">
         <span>{{ footerCopyrights['copyrights-text'] }}</span>
-    </div>
     </div>
   </div>
   </footer>
@@ -42,18 +40,8 @@ export default {
             'new-tab': false,
           },
           {
-            label: 'GDPR',
-            href: 'https://www.freshworks.com/gdpr/',
-            'new-tab': false,
-          },
-          {
             label: 'Security',
             href: 'https://www.freshworks.com/security/',
-            'new-tab': false,
-          },
-          {
-            label: 'Unsubscribe',
-            href: 'https://www.freshworks.com/privacy/gdpr/unsubscribe/',
             'new-tab': false,
           }],
         }],
@@ -65,30 +53,29 @@ export default {
 
 <style scoped lang="scss">
 .footer-container {
-  margin-top: 5%;
-  bottom: 0;
-  top: 0;
-  .footer-copyrights {
-        background-color: #f1f1f1;
-        border: solid 1px #e6e6e6;
-        color: #666;
-        padding: 15px 0;
-        text-align: inherit;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-  .l-page {
-  .copyrights-nav, .footer-copyrights-text {
-    a, span {
-    margin: 0 3px;
-    font-size: .75rem;
-    line-height: 1.61;
-    color: #697379;
-    text-decoration: none;
+    margin-top: 5%;
+    bottom: 0;
+    top: 0;
+    .footer-copyrights {
+    height: 20px;
+    background-color: #f1f1f1;
+    border: solid 1px #e6e6e6;
+    color: #666;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+      .copyrights-nav, .footer-copyrights-text {
+        flex: 1;
+        a, span {
+          margin: 0 3px;
+          font-size: .75rem;
+          line-height: 1.61;
+          color: #697379;
+          text-decoration: none;
+      }
     }
   }
- }
- }
 }
 </style>
