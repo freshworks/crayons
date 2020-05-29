@@ -22,7 +22,7 @@ export default {
       margin-top: 5%;
       width: 100%;
       height: 115px;
-      background: #fff;
+      background: #EBF1FC;
       border-radius: 10px;
       .dialogue-text {
           color: #4D4D4D;
@@ -39,4 +39,50 @@ export default {
           }
       }
   }
+
+  @media only screen and (max-width: 48rem) {
+    .dialogue-container {
+      margin: 5% auto;
+      width: 80%;
+      min-height: 200px;
+      background: #EBF1FC;
+      border-radius: 10px;
+      .dialogue-text {
+          color: #4D4D4D;
+          line-height: 30px;
+          color: #666666;
+          font-family: National-Book;
+          font-size: 1.5rem;
+          font-weight: 300;
+          &:before {
+            content: 'Introduction:';
+            color: #4d4d4d;
+            font-weight: 600;
+          }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 27rem) {
+    .dialogue-container {
+      margin: 5% auto;
+      width: 90%;
+      min-height: 200px;
+      background: #EBF1FC;
+      border-radius: 10px;
+      .dialogue-text {
+          color: #4D4D4D;
+          line-height: 30px;
+          color: #666666;
+          font-family: National-Book;
+          font-size: 1.25vh;
+          font-weight: 300;
+          &:before {
+            content: 'Introduction:';
+            color: #4d4d4d;
+            font-weight: 600;
+          }
+      }
+    }
+  }  
 </style>

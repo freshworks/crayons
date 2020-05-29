@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="landing-container" @scroll="handleScroll">
+    <div class="landing-container">
       <div class="landing-header">
         <div class="fw-logo">
           <img src="../public/assets/logo-fworks-black.svg" alt="freshworks">
@@ -57,22 +57,6 @@ export default {
      scrolled: false,
     };
   },
-  methods: {
-  handleScroll() {
-    this.scrolled = scrollY > 40;
-    const navbarEl = document.querySelector('header');
-    if (this.scrolled) {
-      return navbarEl.classList.add('scrolled-navbar');
-    }
-    return navbarEl.classList.remove('scrolled-navbar');
-  },
-},
-  created() {
-    document.addEventListener("scroll", this.handleScroll);
-  },
-  destroyed() {
-    document.removeEventListener("scroll", this.handleScroll);
-  },
 }
 </script>
 
@@ -106,11 +90,13 @@ export default {
     }
   }
   .landing-container {
+    width: 1000px;
+    margin: 0 auto;
     .landing-header {
       display: flex;
       justify-content: space-between;
       .fw-logo {
-        margin-top: 1%;
+        margin-top: 5%;
         img {
           width: 90%;
           height: 90%;
@@ -118,7 +104,7 @@ export default {
       }
     }
     .crayons-logo {
-      margin-top: 10%;
+      margin-top: 6%;
       text-align: center;
       img {
         width: 40%;
@@ -127,7 +113,6 @@ export default {
     }
 
     .crayons-description {
-      // font-family: National-Book;
       color: #666666;
       font-size: 16.5px;
       font-weight: 400;
@@ -144,4 +129,81 @@ export default {
       grid-column-gap: 20px;
     }
   }
+
+
+@media only screen and (max-width: 48rem) {
+  .landing-container {
+    margin: 0 auto;
+    width: 95%;
+    .landing-header {
+      display: flex;
+      justify-content: space-between;
+      .fw-logo {
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .crayons-logo {
+      margin-top: 6%;
+      text-align: center;
+      img {
+        width: 70%;
+        height: 70%;
+      }
+    }
+
+    .crayons-description {
+      color: #666666;
+      font-size: 1.75rem;
+      font-weight: 400;
+      line-height: 28px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .link-cards-container {
+      display: block;
+    }
+  }
+}
+
+@media only screen and (max-width: 27rem) {
+  .landing-container {
+    margin: 0 auto;
+    width: 100%;
+    .landing-header {
+      display: flex;
+      justify-content: space-between;
+      .fw-logo {
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .crayons-logo {
+      margin-top: 6%;
+      text-align: center;
+      img {
+        width: 70%;
+        height: 70%;
+      }
+    }
+
+    .crayons-description {
+      color: #666666;
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 28px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .link-cards-container {
+      display: block;
+    }
+  }
+}
 </style>
