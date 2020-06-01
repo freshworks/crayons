@@ -52,7 +52,7 @@ export default {
           line-height: 30px;
           color: #666666;
           font-family: National-Book;
-          font-size: 1.5rem;
+          font-size: 1.5vh;
           font-weight: 300;
           &:before {
             content: 'Introduction:';
