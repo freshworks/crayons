@@ -7,4 +7,3 @@ tagline: null
 navbar: false
 layout: HomePageLayout
 ---
-<!-- <HomePageLayout /> -->

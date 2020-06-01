@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="landing-container">
       <div class="landing-header">
         <div class="fw-logo">
@@ -8,7 +7,7 @@
       </div>
 
       <div class="crayons-logo">
-        <img src="../public/assets/crayons.png">
+        <img src="../public/assets/crayons-logo.svg">
       </div>
 
       <div class="crayons-description"> 
@@ -24,8 +23,7 @@
           :card-description="welcomeLink.description"
         />
       </div>
-      <Dialogue />
-    </div>
+    <Dialogue />
   </div>
 </template>
 
@@ -63,31 +61,6 @@ export default {
 <style lang="scss">
   :root {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
-  }
-  .theme-container {
-    background: #ebf1fc;
-    min-height: 100%;
-    overflow-y: scroll;
-  }
-  .home {
-    padding: 0; 
-    max-width: 1000px;
-  }
-  .navbar {
-    height: 2.6rem;
-    background: #ebf1fc;
-    border-color: #000;
-    opacity: 0.1;
-    position: sticky;
-    &.scrolled-navbar {
-      background: #fff !important;
-      z-index: 999;
-    }
-    .home-link { 
-      .site-name {
-        display: none;
-      }
-    }
   }
   .landing-container {
     width: 1000px;
@@ -171,6 +144,7 @@ export default {
 
 @media only screen and (max-width: 27rem) {
   .landing-container {
+
     margin: 0 auto;
     width: 100%;
     .landing-header {

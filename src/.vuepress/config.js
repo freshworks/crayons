@@ -6,6 +6,19 @@ const getComponents = () => components.tags.map(({ tag }) => {
   return `/components/${tag.substr(3)}/`;
 });
 
+const getTags = () => [
+ 'Web Components',
+ 'Ui Kit',
+ 'Marketplace',
+ 'Freshworks Marketplace',
+ 'Component Library',
+ 'FDK',
+ 'Freshworks developers',
+ 'Freshworks development',
+ 'Freshworks',
+ 'Freshworks Development Kit',
+];
+
 module.exports = {
   title: 'Crayons',
   base: '/',
@@ -57,7 +70,7 @@ module.exports = {
         title: () => 'Crayons',
         description: () => 'A refreshed design library for the Freshworks Developers.',
         author: () => 'Freshworks',
-        tags: () => ['web components', 'Ui Kit', 'marketplace', 'freshworks marketplace'],
+        tags: getTags,
         twitterCard: _ => 'summary_large_image',
         type: $page => ['articles', 'posts', 'blog'].some(folder => $page.regularPath.startsWith('/' + folder)) ? 'article' : 'website',
         url: (_, $site, path) => ($site.themeConfig.domain || '') + path,
