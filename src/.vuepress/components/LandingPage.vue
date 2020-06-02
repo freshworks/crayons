@@ -43,7 +43,7 @@ export default {
          name: 'sample-app-repo',
          title: 'Sample App Repository',
          description: 'Accelerate development by using the sample apps in the repository.',
-         link: 'https://github.com/freshdesk/marketplace-sample-apps'
+         link: 'https://github.com/freshdesk/marketplace-sample-apps/tree/master/Freshworks-Samples/App-Development-Features/crayons'
        },
        {
          name: 'build-for-crayons',
@@ -59,58 +59,65 @@ export default {
 </script>
 
 <style lang="scss">
-  :root {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
-  }
-  .landing-container {
-    width: 1000px;
-    margin: 0 auto;
-    .landing-header {
-      display: flex;
-      justify-content: space-between;
-      .fw-logo {
-        margin-top: 5%;
-        img {
-          width: 90%;
-          height: 90%;
-        }
-      }
-    }
-    .crayons-logo {
-      margin-top: 6%;
-      text-align: center;
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.landing-container {
+  width: 1000px;
+  margin: 0 auto;
+
+  .landing-header {
+    display: flex;
+    justify-content: space-between;
+
+    .fw-logo {
+      margin-top: 5%;
+
       img {
-        width: 40%;
-        height: 40%;
+        width: 90%;
+        height: 90%;
       }
-    }
-
-    .crayons-description {
-      color: #666666;
-      font-size: 16.5px;
-      font-weight: 400;
-      line-height: 28px;
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    .link-cards-container {
-      margin-top: 7%;
-      box-sizing: border-box;
-      display: grid;
-      grid-template-columns: 320px 320px 320px;
-      grid-column-gap: 20px;
     }
   }
 
+  .crayons-logo {
+    margin-top: 6%;
+    text-align: center;
+
+    img {
+      width: 40%;
+      height: 40%;
+    }
+  }
+
+  .crayons-description {
+    color: #666;
+    font-size: 16.5px;
+    font-weight: 400;
+    line-height: 28px;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .link-cards-container {
+    margin-top: 7%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 320px 320px 320px;
+    grid-column-gap: 20px;
+  }
+}
 
 @media only screen and (max-width: 48rem) {
   .landing-container {
     margin: 0 auto;
     width: 95%;
+
     .landing-header {
       display: flex;
       justify-content: space-between;
+
       .fw-logo {
         img {
           width: 100%;
@@ -118,9 +125,11 @@ export default {
         }
       }
     }
+
     .crayons-logo {
       margin-top: 6%;
       text-align: center;
+
       img {
         width: 70%;
         height: 70%;
@@ -128,7 +137,7 @@ export default {
     }
 
     .crayons-description {
-      color: #666666;
+      color: #666;
       font-size: 1.75rem;
       font-weight: 400;
       line-height: 28px;
@@ -144,12 +153,13 @@ export default {
 
 @media only screen and (max-width: 27rem) {
   .landing-container {
-
     margin: 0 auto;
     width: 100%;
+
     .landing-header {
       display: flex;
       justify-content: space-between;
+
       .fw-logo {
         img {
           width: 100%;
@@ -157,9 +167,11 @@ export default {
         }
       }
     }
+
     .crayons-logo {
       margin-top: 6%;
       text-align: center;
+
       img {
         width: 70%;
         height: 70%;
@@ -167,7 +179,7 @@ export default {
     }
 
     .crayons-description {
-      color: #666666;
+      color: #666;
       font-size: 1.25rem;
       font-weight: 400;
       line-height: 28px;
