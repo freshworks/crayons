@@ -53,10 +53,11 @@ export default {
 
 <style scoped lang="scss">
 .footer-container {
-    margin-top: 5%;
-    bottom: 0;
-    top: 0;
-    .footer-copyrights {
+  margin-top: 5%;
+  bottom: 0;
+  top: 0;
+
+  .footer-copyrights {
     height: 20px;
     background-color: #f1f1f1;
     border: solid 1px #e6e6e6;
@@ -66,14 +67,18 @@ export default {
     justify-content: center;
     align-items: center;
     text-align: center;
-      .copyrights-nav, .footer-copyrights-text {
-        flex: 1;
-        a, span {
-          margin: 0 3px;
-          font-size: .75rem;
-          line-height: 1.61;
-          color: #697379;
-          text-decoration: none;
+
+    .copyrights-nav,
+    .footer-copyrights-text {
+      flex: 1;
+
+      a,
+      span {
+        margin: 0 3px;
+        font-size: 0.75rem;
+        line-height: 1.61;
+        color: #697379;
+        text-decoration: none;
       }
     }
   }

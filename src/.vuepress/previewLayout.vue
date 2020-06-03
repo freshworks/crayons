@@ -100,6 +100,7 @@ export default {
   padding: 4px 10px;
   background: transparent;
   border-radius: 4px;
+
   &:hover {
     background: #8e44ad;
   }
