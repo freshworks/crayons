@@ -34,10 +34,12 @@ Crayons have a predefined set of components, As a developer, you can not only us
 Note : Please use npm instead of yarn
 `
 
-### Raise an issue in Crayon
+### Raise an issue
 
 If you find an issue or is you want to raise a feature request in, make sure you raise an issue in <https://github.com/freshdesk/crayons/issues>
-Fix an issue
+
+### Fix an issue
+
 Should you choose to work on a new issue or an existing issue from <https://github.com/freshdesk/crayons/issues>, please follow the steps below.
 
 ### Prepare the contribution commits
