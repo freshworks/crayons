@@ -19,10 +19,12 @@ const getTags = () => [
  'Freshworks Development Kit',
 ];
 
+const websiteUrl = 'https://crayons.freshworks.com';
+
 module.exports = {
   title: 'Crayons',
   base: '/',
-  description: 'Use freshworks components to build apps',
+  description: 'A refreshed design library for the Freshworks Developers.',
   dest: 'docs-dist',
   docsDir: 'src',
   head: [
@@ -72,9 +74,9 @@ module.exports = {
         author: () => 'Freshworks',
         tags: getTags,
         twitterCard: _ => 'summary_large_image',
-        type: $page => ['articles', 'posts', 'blog'].some(folder => $page.regularPath.startsWith('/' + folder)) ? 'article' : 'website',
-        url: (_, $site, path) => ($site.themeConfig.domain || '') + path,
-        image: ($page, $site) => $page.frontmatter.image && (($site.themeConfig.domain && !$page.frontmatter.image.startsWith('http') || '') + $page.frontmatter.image),
+        type: () => 'website',
+        url: (_, $site, path) => websiteUrl + path,
+        image: ($page, $site) => 'https://s3.amazonaws.com/static.freshcloud.io/crayons/assets/crayons.png',
         publishedAt: $page => $page.frontmatter.date && new Date($page.frontmatter.date),
         modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
       }
