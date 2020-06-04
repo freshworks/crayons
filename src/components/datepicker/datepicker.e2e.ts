@@ -96,7 +96,6 @@ describe('fw-datepicker', () => {
     const updatedFromMonthValue = await updatedFromMonth.getProperty('value');
     const updatedToMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
     const updateToMonthValue = await updatedToMonth.getProperty('value');
-
     expect(moment(updatedFromMonthValue, 'MMM').add(1, 'M').format('MMM')).toBe(updateToMonthValue);
   });
 });
