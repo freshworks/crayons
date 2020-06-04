@@ -56,6 +56,7 @@ export default {
   margin-top: 5%;
   bottom: 0;
   top: 0;
+  width: 100%;
 
   .footer-copyrights {
     height: 20px;

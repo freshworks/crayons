@@ -53,7 +53,7 @@ export default {
         line-height: 30px;
         color: #666;
         font-family: 'National-Book', sans-serif;
-        font-size: 1.5vh;
+        font-size: 3vw;
         font-weight: 300;
 
         &::before {
@@ -77,7 +77,7 @@ export default {
         line-height: 30px;
         color: #666;
         font-family: 'National-Book', sans-serif;
-        font-size: 1.25vh;
+        font-size: 3vw;
         font-weight: 300;
 
         &::before {
