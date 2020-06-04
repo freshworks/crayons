@@ -126,7 +126,7 @@ export default {
       }
 
       .card-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
         color: #4d4d4d;
         font-weight: 500;
         padding-top: 15px;
@@ -135,7 +135,7 @@ export default {
       .card-description {
         font-family: 'National-Book', sans-serif;
         color: #666;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         letter-spacing: 0;
         line-height: 28px;
         padding: 15px;
@@ -147,8 +147,14 @@ export default {
 
         .learn-more-text {
           color: #3973e6;
-          font-size: 1.5rem;
+          font-size: 1.25rem;
         }
+      }
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: none;
       }
     }
   }
@@ -183,7 +189,7 @@ export default {
       }
 
       .card-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         color: #4d4d4d;
         font-weight: 500;
         padding-top: 15px;
@@ -192,7 +198,7 @@ export default {
       .card-description {
         font-family: 'National-Book', sans-serif;
         color: #666;
-        font-size: 1.25rem;
+        font-size: 1rem;
         letter-spacing: 0;
         line-height: 28px;
         padding: 15px;
@@ -204,7 +210,7 @@ export default {
 
         .learn-more-text {
           color: #3973e6;
-          font-size: 1.25rem;
+          font-size: 1rem;
         }
       }
     }

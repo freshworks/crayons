@@ -11,5 +11,11 @@
     background: url('../public/assets/crayons-bg.svg') no-repeat;
     background-size: 100%;
   }
+
+  @media only screen and (max-width: 48rem) {
+    .home-page-container {
+      background-size: 500%;
+    }
+  }
 </style>
  
