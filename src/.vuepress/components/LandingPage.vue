@@ -126,6 +126,11 @@ export default {
 
       .fw-logo {
         margin-left: 5%;
+
+        img {
+          width: 70%;
+          height: 70%;
+        }
       }
     }
 
@@ -165,6 +170,11 @@ export default {
 
       .fw-logo {
         margin-left: 5%;
+
+        img {
+          width: 60%;
+          height: 60%;
+        }
       }
     }
 
