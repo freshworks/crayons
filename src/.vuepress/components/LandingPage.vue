@@ -2,7 +2,9 @@
     <div class="landing-container">
       <div class="landing-header">
         <div class="fw-logo">
-          <img src="../public/assets/logo-fworks-black.svg" alt="freshworks">
+          <a :href="freshworksUrl" target="_blank">
+            <img src="../public/assets/logo-fworks-black.svg" alt="freshworks">
+          </a>
         </div>
       </div>
 
@@ -28,6 +30,10 @@
 </template>
 
 <script>
+import constants from '../constants';
+
+const { urlMap } = constants;
+
 export default {
   name: 'landingPage',
   data() {
@@ -37,22 +43,22 @@ export default {
          name: 'get-started',
          title: 'Get Started',
          description: 'Craft great apps with an open-source and framework-agnostic component library.',
-         link: '/components'
+         link: urlMap.docs
        },
        {
          name: 'sample-app-repo',
          title: 'Sample App Repository',
          description: 'Accelerate development by using the sample apps in the repository.',
-         link: 'https://github.com/freshdesk/marketplace-sample-apps/tree/master/Freshworks-Samples/App-Development-Features/crayons'
+         link: urlMap.sampleApps
        },
        {
          name: 'build-for-crayons',
          title: 'Build For Crayons',
          description: 'Browse through the contributor guidelines to raise an issue or build new components.',
-         link: 'https://github.com/freshdesk/crayons'
+         link: urlMap.crayons
        },
      ],
-     scrolled: false,
+     freshworksUrl: urlMap.freshworks,
     };
   },
 }
@@ -119,7 +125,9 @@ export default {
       justify-content: space-between;
 
       .fw-logo {
-        img {
+        margin-left:
+          5%
+          img          {
           width: 100%;
           height: 100%;
         }
@@ -161,10 +169,7 @@ export default {
       justify-content: space-between;
 
       .fw-logo {
-        img {
-          width: 100%;
-          height: 100%;
-        }
+        margin-left: 5%;
       }
     }
 

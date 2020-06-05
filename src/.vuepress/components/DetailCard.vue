@@ -64,7 +64,8 @@ export default {
     }
 
     .card-title {
-      font-size: 18px;
+      font-family: 'National-Medium', sans-serif;
+      font-size: 20px;
       color: #4d4d4d;
       font-weight: 500;
       padding-top: 15px;
