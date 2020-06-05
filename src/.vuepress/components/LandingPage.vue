@@ -125,12 +125,7 @@ export default {
       justify-content: space-between;
 
       .fw-logo {
-        margin-left:
-          5%
-          img          {
-          width: 100%;
-          height: 100%;
-        }
+        margin-left: 5%;
       }
     }
 
