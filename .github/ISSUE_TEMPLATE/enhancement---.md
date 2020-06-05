@@ -1,7 +1,7 @@
 ---
 name: "Enhancement \U0001F52E"
 about: On improving existing features and adding new features.
-title: '[Enhancement] - '
+title: "[Enhancement] - "
 labels: enhancement
 assignees: ''
 

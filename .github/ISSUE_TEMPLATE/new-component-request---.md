@@ -1,8 +1,10 @@
 ---
-name: 'New Component Request \U0001F36D'
-about: You can request a new component to add to the repository from the contributors. Please make sure you have gone through the documentation completely before raising a new component request.
-title: '[Feature Request] - '
-labels: feature-request
+name: "New Component Request \U0001F36D"
+about: You can request a new component to add to the repository from the contributors.
+  Please make sure you have gone through the documentation completely before raising
+  a new component request.
+title: "[Feature Request] - "
+labels: ''
 assignees: ''
 
 ---
