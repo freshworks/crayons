@@ -36,8 +36,11 @@ describe('fw-datepicker', () => {
     const popup = await page.find('fw-datepicker >>> .datepicker .mdp-container');
     expect(popup).toBeTruthy();
 
+    const dateEle = await page.findAll('fw-datepicker >>> .c-day-container');
+    await (await dateEle[14].find('span')).click();
+
     const updateEle = await page.find('fw-datepicker >>> fw-button.update-date-value');
-    element.setProperty('selectedDay', '27-04-2020');
+    expect(updateEle).toBeTruthy();
     await updateEle.click();
     expect(fwChange).toHaveReceivedEvent();
   });
@@ -52,9 +55,12 @@ describe('fw-datepicker', () => {
     const popup = await page.find('fw-datepicker >>> .daterangepicker');
     expect(popup).toBeTruthy();
 
+    const dateEle = await page.findAll('fw-datepicker >>> .c-day-container');
+    await (await dateEle[14].find('span')).click();
+    await (await dateEle[16].find('span')).click();
+
     const updateEle = await page.find('fw-datepicker >>> fw-button.update-range-value');
-    element.setProperty('minDate', '01-04-2020');
-    element.setProperty('maxDate', '27-04-2020');
+    expect(updateEle).toBeTruthy();
     await updateEle.click();
     expect(fwChange).toHaveReceivedEvent();
   });
