@@ -33,9 +33,10 @@ describe('fw-datepicker', () => {
     const fwChange = await page.spyOnEvent('fwChange');
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
+    const popup = await page.find('fw-datepicker >>> .datepicker .mdp-container');
+    expect(popup).toBeTruthy();
 
     const updateEle = await page.find('fw-datepicker >>> fw-button.update-date-value');
-
     element.setProperty('selectedDay', '27-04-2020');
     await updateEle.click();
     expect(fwChange).toHaveReceivedEvent();
