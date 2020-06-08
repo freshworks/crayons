@@ -7,7 +7,7 @@
 - [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes.
 - [ ] All new and existing tests passed.
-- [ ] My commits have standard messages as mentioned in [Contributing Guidelines](./../CONTRIBUTING.md)
+- [ ] My commits have standard messages as mentioned in [Contributing Guidelines](./../blob/next/CONTRIBUTING.md)
  
 ## How Has This Been Tested?
 <!--- Please describe in detail how you tested your changes. -->
