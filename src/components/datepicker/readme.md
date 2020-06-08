@@ -6,7 +6,7 @@ fw-datepicker displays an input box with a calendar that enables selecting a dat
 
 ``` html live
 <fw-label value="Single date picker" color="yellow"></fw-label><br/>
-<fw-datepicker value="22-05-2020" date-format="MM-DD-YYYY"></fw-datepicker>
+<fw-datepicker value="22-05-2020" date-format="DD-MM-YYYY"></fw-datepicker>
 <fw-label value="A date range picker" color="yellow"></fw-label><br/>
 <fw-datepicker mode="range" min-date="10-05-2020" max-date="10-07-2020" from-date="12-05-2020" to-date="14-05-2020"></fw-datepicker>
 ```
