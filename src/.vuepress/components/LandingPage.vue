@@ -6,6 +6,11 @@
             <img src="../public/assets/logo-fworks-black.svg" alt="freshworks">
           </a>
         </div>
+        <div class="github-logo">
+          <a :href="repoUrl" target="_blank"> 
+            <img src="../public/assets/github-logo.svg">
+          </a>
+        </div>
       </div>
 
       <div class="crayons-logo">
@@ -59,6 +64,7 @@ export default {
        },
      ],
      freshworksUrl: urlMap.freshworks,
+     repoUrl: urlMap.crayons,
     };
   },
 }
@@ -78,11 +84,22 @@ export default {
     justify-content: space-between;
 
     .fw-logo {
-      margin-top: 5%;
+      margin-top: 2%;
 
       img {
         width: 90%;
         height: 90%;
+      }
+    }
+
+    .github-logo {
+      float: right;
+      margin-top: 3%;
+      margin-right: -8%;
+
+      img {
+        width: 45%;
+        height: 45%;
       }
     }
   }
@@ -132,6 +149,13 @@ export default {
           height: 70%;
         }
       }
+
+      .github-logo {
+        img {
+          width: 40%;
+          height: 40%;
+        }
+      }
     }
 
     .crayons-logo {
@@ -174,6 +198,13 @@ export default {
         img {
           width: 60%;
           height: 60%;
+        }
+      }
+
+      .github-logo {
+        img {
+          width: 40%;
+          height: 40%;
         }
       }
     }
