@@ -18,7 +18,7 @@
       </div>
 
       <div class="crayons-description"> 
-        A refreshed design library for the Freshworks Developers.
+        A refreshed design library for Freshworks Developers.
       </div>
       
       <div class="link-cards-container">
