@@ -84,7 +84,7 @@ export default {
     justify-content: space-between;
 
     .fw-logo {
-      margin-top: 2%;
+      margin-top: 1%;
 
       img {
         width: 90%;
@@ -94,12 +94,18 @@ export default {
 
     .github-logo {
       float: right;
+      padding: 0;
       margin-top: 3%;
-      margin-right: -8%;
 
       img {
-        width: 45%;
-        height: 45%;
+        margin-left: 70%;
+        width: 40%;
+        height: 40%;
+        opacity: 0.5;
+
+        &:hover {
+          opacity: 1;
+        }
       }
     }
   }
@@ -152,6 +158,7 @@ export default {
 
       .github-logo {
         img {
+          margin-left: 40%;
           width: 40%;
           height: 40%;
         }
@@ -203,8 +210,9 @@ export default {
 
       .github-logo {
         img {
-          width: 40%;
-          height: 40%;
+          margin-left: 60%;
+          width: 35%;
+          height: 35%;
         }
       }
     }
