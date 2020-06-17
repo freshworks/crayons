@@ -35,6 +35,29 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 </Preview>
 
 
+### Default
+<Preview>
+<Story name='With HTML Headers'>{() => `
+<fw-tabs>
+  <fw-tab tab-header-html="<i>Tab 1</i>">
+    <section>
+        <p>Tab 1 Content</P>
+    </section>
+  </fw-tab>
+  <fw-tab tab-header-html="<h2>Tab 2</h2>">
+        <p>Tab 2 Content</P>
+  </fw-tab>
+  <fw-tab tab-header-html="<h3>Tab 3</h3>" disabled>
+    <p>TAB 3 Content</p>
+  </fw-tab>
+  <fw-tab tab-header-html="<h3>Tab 4</h3>">
+    <p>TAB 4 Content</p>
+  </fw-tab>
+</fw-tabs>
+`}</Story>
+</Preview>
+
+
 ### With Child components
 <Preview>
 <Story name='With Child Components'>{() => `

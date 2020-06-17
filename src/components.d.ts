@@ -299,13 +299,17 @@ export namespace Components {
     }
     interface FwTab {
         /**
-          * Message that is displayed when a user navigates away from a tab.
+          * Disables this tab
          */
-        "message": string;
+        "disabled": boolean;
         /**
           * Name of the tab displayed on the UI.
          */
         "tabHeader": string;
+        /**
+          * HTML that can be rendered in tab header.
+         */
+        "tabHeaderHtml": string;
     }
     interface FwTabs {
     }
@@ -918,15 +922,23 @@ declare namespace LocalJSX {
     }
     interface FwTab {
         /**
-          * Message that is displayed when a user navigates away from a tab.
+          * Disables this tab
          */
-        "message"?: string;
+        "disabled"?: boolean;
         /**
           * Name of the tab displayed on the UI.
          */
         "tabHeader"?: string;
+        /**
+          * HTML that can be rendered in tab header.
+         */
+        "tabHeaderHtml"?: string;
     }
     interface FwTabs {
+        /**
+          * Triggered when a the view switches to a new tab.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
     }
     interface FwTag {
         /**

@@ -1,6 +1,8 @@
 import {
   Component,
   Element,
+  Event,
+  EventEmitter,
   State,
   h
 } from '@stencil/core';
@@ -24,7 +26,7 @@ export class Tabs {
    * Active tab indec
    */
   @State()
-  activeTabIndex = 0;
+  activeTabIndex = undefined;
 
   /**
    * Active class for tab container
@@ -32,17 +34,25 @@ export class Tabs {
   @State()
   activeChildClass = '';
 
+  /**
+   * Triggered when a the view switches to a new tab.
+   */
+  @Event() fwChange: EventEmitter;
+
   init() {
     this.tabs = Array.from(this.el.querySelectorAll('fw-tab'));
     this.displayTab(0);
   }
 
   displayTab(index: number) {
-    this.activeTabIndex = index;
-    this.tabs = this.tabs?.map((tab, i) => {
-      tab.style.display = index === i ? 'block' : 'none';
-      return tab;
-    });
+    if (index !== this.activeTabIndex) {
+      this.fwChange.emit({ tabIndex: this.activeTabIndex });
+      this.activeTabIndex = index;
+      this.tabs = this.tabs?.map((tab, i) => {
+        tab.style.display = index === i ? 'block' : 'none';
+        return tab;
+      });
+    }
   }
 
   componentWillLoad() {
@@ -72,10 +82,14 @@ export class Tabs {
       <div class="tabs">
         <ul role="tablist" class="tabs__items">
           {this.tabs.map((tab, index) =>
-            <li onClick={() => this.displayTab(index)} class="tabs__item">
-              <div id={'#tab-' + index} class={'tabs__item__nav ' + (index === this.activeTabIndex ? 'active' : '')}>
+            <li onClick={() => tab.disabled ? '' : this.displayTab(index)} class="tabs__item">
+              <div id={'#tab-' + index} class={'tabs__item__nav ' + (index === this.activeTabIndex ? 'active' : '') + (tab.disabled ? 'disabled' : '')}>
                 <span class="tab-title--tab-icon">
-                  <span class="tab-title">{tab.tabHeader}</span>
+                  {
+                    tab.tabHeaderHtml
+                    ? <span innerHTML={tab.tabHeaderHtml}></span>
+                    : <span class="tab-title">{tab.tabHeader}</span>
+                  }
                 </span>
               </div>
             </li>
