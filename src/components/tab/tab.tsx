@@ -13,9 +13,14 @@ export class Tab {
   @Prop() tabHeader: string;
 
   /**
-   * Message that is displayed when a user navigates away from a tab.
+   * HTML that can be rendered in tab header.
    */
-  @Prop() message: string;
+  @Prop() tabHeaderHtml: string;
+
+  /**
+   * Disables this tab
+   */
+  @Prop() disabled: boolean;
 
   render() {
     return (

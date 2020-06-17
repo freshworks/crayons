@@ -66,7 +66,7 @@ describe('fw-tabs', () => {
             </div>
           </li>
           <li class="tabs__item">
-            <div class="tabs__item__nav" id="#tab-2">
+            <div class="disabled tabs__item__nav" id="#tab-2">
               <span class="tab-title--tab-icon">
                 <span class="tab-title">
                   Tab 3
