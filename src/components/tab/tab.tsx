@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-tab',
@@ -21,6 +21,21 @@ export class Tab {
    * Disables this tab
    */
   @Prop() disabled: boolean;
+
+  /**
+   * Triggered when either tabHeader or tabHeaderHtml changes.
+   */
+  @Event() propChanged: EventEmitter;
+
+  @Watch('tabHeader')
+  tabHeaderHandler() {
+    this.propChanged.emit();
+  }
+
+  @Watch('tabHeaderHtml')
+  tabHeaderHtmlHandler() {
+    this.propChanged.emit();
+  }
 
   render() {
     return (

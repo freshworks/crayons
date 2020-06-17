@@ -926,6 +926,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Triggered when either tabHeader or tabHeaderHtml changes.
+         */
+        "onPropChanged"?: (event: CustomEvent<any>) => void;
+        /**
           * Name of the tab displayed on the UI.
          */
         "tabHeader"?: string;

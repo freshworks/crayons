@@ -14,6 +14,13 @@ fw-tab provides child elements for fw-tabs, to enable tab style navigation.
 | `tabHeaderHtml` | `tab-header-html` | HTML that can be rendered in tab header. | `string`  | `undefined` |
 
 
+## Events
+
+| Event         | Description                                               | Type               |
+| ------------- | --------------------------------------------------------- | ------------------ |
+| `propChanged` | Triggered when either tabHeader or tabHeaderHtml changes. | `CustomEvent<any>` |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

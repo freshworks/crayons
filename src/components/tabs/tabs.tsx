@@ -3,6 +3,7 @@ import {
   Element,
   Event,
   EventEmitter,
+  Listen,
   State,
   h
 } from '@stencil/core';
@@ -39,6 +40,7 @@ export class Tabs {
    */
   @Event() fwChange: EventEmitter;
 
+  @Listen('propChanged')
   init() {
     this.tabs = Array.from(this.el.querySelectorAll('fw-tab'));
     this.displayTab(0);
@@ -65,7 +67,6 @@ export class Tabs {
     });
     this.mutationO.observe(this.el, {
       childList: true,
-      attributes: true,
     });
   }
 
