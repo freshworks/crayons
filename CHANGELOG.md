@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/freshdesk/crayons/compare/v2.2.0...v2.2.1) (2020-06-17)
+
+
+### Bug Fixes
+
+* **tab:** fixes rendering when props of fw-tab is changed ([4d6a7f3](https://github.com/freshdesk/crayons/commit/4d6a7f3417f196101afd73fb3d7a775a3cf74ca7))
+
 # [2.2.0](https://github.com/freshdesk/crayons/compare/v2.1.1...v2.2.0) (2020-06-17)
 
 
