@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/freshdesk/crayons/compare/v2.1.1...v2.2.0) (2020-06-17)
+
+
+### Bug Fixes
+
+* **tabs:** re-render on attribute change in `fw-tab` ([cc53bd4](https://github.com/freshdesk/crayons/commit/cc53bd4ba8c385541558aad97268e1c6db8a8746))
+
+
+### Features
+
+* **tabs:** added disable and tabHeaderHtml capability ([4ec6be8](https://github.com/freshdesk/crayons/commit/4ec6be8ab60855466a09b756fabd0de181399c68))
+
 ## [2.1.1](https://github.com/freshdesk/crayons/compare/v2.1.0...v2.1.1) (2020-05-27)
 
 
