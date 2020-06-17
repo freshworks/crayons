@@ -53,7 +53,10 @@ export class Tabs {
     this.mutationO = new MutationObserver(() => {
       this.init();
     });
-    this.mutationO.observe(this.el, { childList: true });
+    this.mutationO.observe(this.el, {
+      childList: true,
+      attributes: true,
+    });
   }
 
   disconnectedCallback() {
