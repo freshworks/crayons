@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/freshdesk/crayons/compare/v2.2.1...v2.2.2) (2020-06-19)
+
+
+### Bug Fixes
+
+* **tabs:** add customizations for color ([96bfac0](https://github.com/freshdesk/crayons/commit/96bfac098fe2780d7bca9467e41985f226b28c4e))
+
 ## [2.2.1](https://github.com/freshdesk/crayons/compare/v2.2.0...v2.2.1) (2020-06-17)
 
 
