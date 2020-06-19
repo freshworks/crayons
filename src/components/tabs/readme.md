@@ -47,6 +47,7 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
 | Name                     | Description                    |
 | ------------------------ | ------------------------------ |
 | `--tab-header-font-size` | tab-header font size in pixels |
+| `--tabs-color-primary`   | tab-header font color          |
 
 
 ----------------------------------------------

@@ -2,10 +2,12 @@
 
 /**
   @prop --tab-header-font-size: tab-header font size in pixels
+  @prop --tabs-color-primary: tab-header font color
 */
 
 :host {
   --tab-header-font-size: var(--font-size-12);
+  --tabs-color-primary: var(--color-azure-800);
 }
 
 .tabs {
@@ -44,16 +46,16 @@
       }
 
       &.active {
-        color: var(--color-azure-800);
+        color: var(--tabs-color-primary);
         font-weight: var(--font-weight-600);
 
         .app-icon {
-          fill: var(--color-azure-800);
+          fill: var(--tabs-color-primary);
         }
 
         &::after {
           opacity: 1;
-          background: var(--color-azure-800);
+          background: var(--tabs-color-primary);
         }
       }
 
@@ -69,7 +71,7 @@
       left: 0;
       width: 100%;
       height: 3px;
-      background: var(--color-azure-800);
+      background: var(--tabs-color-primary);
       content: '';
       transition: height transform 0.5s;
       opacity: 0;
