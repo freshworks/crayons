@@ -1,3 +1,10 @@
+## [2.2.3](https://github.com/freshdesk/crayons/compare/v2.2.2...v2.2.3) (2020-06-22)
+
+
+### Bug Fixes
+
+* **checkbox, radio:** adds reflect property to keep sync of attributes and properties ([57bd15e](https://github.com/freshdesk/crayons/commit/57bd15ec8b21beb20c64ef5320819954907fa5f3))
+
 ## [2.2.2](https://github.com/freshdesk/crayons/compare/v2.2.1...v2.2.2) (2020-06-19)
 
 
