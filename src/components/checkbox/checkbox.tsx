@@ -9,11 +9,11 @@ export class Checkbox {
   /**
    * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop({ mutable: true }) checked = false;
+  @Prop({ mutable: true, reflect: true }) checked = false;
   /**
    * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop({ mutable: true }) disabled = false;
+  @Prop({ mutable: true, reflect: true }) disabled = false;
   /**
    * Label displayed on the interface, for the check box.
    */
