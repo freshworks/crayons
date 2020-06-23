@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/freshdesk/crayons/compare/v2.2.3...v2.2.4) (2020-06-23)
+
+
+### Bug Fixes
+
+* **tabs:** adds active index as an attribute/prop ([6f5cefb](https://github.com/freshdesk/crayons/commit/6f5cefb07183314fae1c3e16c14bb27eabaf4581))
+
 ## [2.2.3](https://github.com/freshdesk/crayons/compare/v2.2.2...v2.2.3) (2020-06-22)
 
 
