@@ -312,6 +312,10 @@ export namespace Components {
         "tabHeaderHtml": string;
     }
     interface FwTabs {
+        /**
+          * The index of the activated Tab(Starts from 0)
+         */
+        "activeTabIndex": number;
     }
     interface FwTag {
         /**
@@ -939,6 +943,10 @@ declare namespace LocalJSX {
         "tabHeaderHtml"?: string;
     }
     interface FwTabs {
+        /**
+          * The index of the activated Tab(Starts from 0)
+         */
+        "activeTabIndex"?: number;
         /**
           * Triggered when a the view switches to a new tab.
          */

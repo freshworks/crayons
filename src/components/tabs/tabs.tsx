@@ -4,7 +4,9 @@ import {
   Event,
   EventEmitter,
   Listen,
+  Prop,
   State,
+  Watch,
   h
 } from '@stencil/core';
 
@@ -24,10 +26,10 @@ export class Tabs {
    */
   @State() tabs: any[];
   /**
-   * Active tab indec
+   * The index of the activated Tab(Starts from 0)
    */
-  @State()
-  activeTabIndex = undefined;
+  @Prop({ mutable: true, reflect: true })
+  activeTabIndex = 0;
 
   /**
    * Active class for tab container
@@ -40,21 +42,28 @@ export class Tabs {
    */
   @Event() fwChange: EventEmitter;
 
+  @Watch('activeTabIndex')
+  changeIndex(newValue, oldValue) {
+    if (this.tabs[newValue]?.disabled || newValue >= this.tabs.length) {
+      this.activeTabIndex = 0;
+    } else if (newValue !== oldValue) {
+      this.displayTab(newValue);
+    }
+  }
+
   @Listen('propChanged')
   init() {
     this.tabs = Array.from(this.el.querySelectorAll('fw-tab'));
-    this.displayTab(0);
+    this.displayTab(this.activeTabIndex);
   }
 
   displayTab(index: number) {
-    if (index !== this.activeTabIndex) {
-      this.fwChange.emit({ tabIndex: this.activeTabIndex });
-      this.activeTabIndex = index;
-      this.tabs = this.tabs?.map((tab, i) => {
-        tab.style.display = index === i ? 'block' : 'none';
-        return tab;
-      });
-    }
+    this.fwChange.emit({ tabIndex: this.activeTabIndex });
+    this.activeTabIndex = index;
+    this.tabs = this.tabs?.map((tab, i) => {
+      tab.style.display = index === i ? 'block' : 'none';
+      return tab;
+    });
   }
 
   componentWillLoad() {

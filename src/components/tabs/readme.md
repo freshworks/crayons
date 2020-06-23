@@ -35,6 +35,13 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property         | Attribute          | Description                                   | Type     | Default |
+| ---------------- | ------------------ | --------------------------------------------- | -------- | ------- |
+| `activeTabIndex` | `active-tab-index` | The index of the activated Tab(Starts from 0) | `number` | `0`     |
+
+
 ## Events
 
 | Event      | Description                                      | Type               |
