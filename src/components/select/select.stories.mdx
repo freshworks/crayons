@@ -38,10 +38,11 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 <Preview>
   <Story name="MultiSelect">
     {() => `
-    <fw-select multiple label="Select the GOT house" state-text="Choose the house where you belong" required="true">
+    <fw-select multiple label="Select the GOT house" value='["1","2","3"]'
+    state-text="Choose the house where you belong" required="true">
         <fw-select-option value="1">Starks</fw-select-option>
         <fw-select-option value="2">Lannisters</fw-select-option>
-        <fw-select-option value="3" selected>Sand</fw-select-option>
+        <fw-select-option value="3">Sand</fw-select-option>
         <fw-select-option value="4">Greyjoys</fw-select-option>
         <fw-select-option value="5">Tyrell</fw-select-option>
     </fw-select>

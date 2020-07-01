@@ -39,6 +39,22 @@ describe('fw-select', () => {
     expect(options.length).toBe(2);
   });
 
+  it('sets multiple values from the array from value', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select multiple label="Select the house" required="true"
+                               value='["starks","lannisters"]'>
+                                <fw-select-option value="starks">Starks</fw-select-option>
+                                <fw-select-option value="lannisters">Lannisters</fw-select-option>
+                                <fw-select-option value="sands">Sands</fw-select-option>
+                            </fw-select>`);
+
+    const selectOptions = await page.findAll('fw-select >>> fw-select-option');
+    const selectedArray = await Promise.all(selectOptions.map(option => option.getProperty('selected')));
+
+    expect(selectedArray).toEqual([true, true, false]);
+  });
+
   it('it checks if multiple values can be set and get', async () => {
     const page = await newE2EPage();
 

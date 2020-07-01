@@ -202,7 +202,11 @@ export class Select {
   }
 
   componentWillLoad() {
-
+    let multipleSelectValue = [];
+    if (this.multiple && this.value
+       && this.value.includes('[')) {
+         multipleSelectValue = JSON.parse(this.value);
+    }
     const selectOptions = Array.from(this.host.querySelectorAll('fw-select-option'));
 
     const options = selectOptions.map(option => {
@@ -210,7 +214,8 @@ export class Select {
         isHtml: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
-        selected: option.value === this.value || option.selected,
+        selected: this.multiple ? multipleSelectValue.includes(option.value)
+         : (option.value === this.value || option.selected),
         disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
       };
