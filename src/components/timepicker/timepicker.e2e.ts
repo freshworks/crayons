@@ -74,4 +74,13 @@ describe('fw-timepicker', () => {
 
     expect(await el.getProperty('value')).toBe('09:00');
   });
+
+  it('sets the value from the attribute', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-timepicker value="00:30"></fw-timepicker>`);
+    const el = await page.find('fw-timepicker');
+
+    expect(await el.getProperty('value')).toBe('00:30');
+  });
 });
