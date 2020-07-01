@@ -1,4 +1,5 @@
 @import "../../styles/freshworks";
+@import "../../styles/theme";
 
 :host {
   --label-font: var(--font-stack);
@@ -78,6 +79,7 @@ label {
     font-family: inherit;
     cursor: text;
     display: inline-block;
+    color: $app-primary-black;
 
     &:hover {
       border: 1px var(--input-hover-color) solid;
