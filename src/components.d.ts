@@ -395,6 +395,10 @@ export namespace Components {
     }
     interface FwTimepicker {
         /**
+          * Set true to disable the element
+         */
+        "disabled": boolean;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format": "hh:mm A" | "HH:mm";
@@ -1045,6 +1049,10 @@ declare namespace LocalJSX {
         "wrap"?: "soft" | "hard";
     }
     interface FwTimepicker {
+        /**
+          * Set true to disable the element
+         */
+        "disabled"?: boolean;
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */

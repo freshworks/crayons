@@ -17,6 +17,11 @@ export class Timepicker {
   @Prop() format: 'hh:mm A' | 'HH:mm' = 'hh:mm A';
 
   /**
+   * Set true to disable the element
+   */
+  @Prop() disabled = false;
+
+  /**
    * Represent the intervals and can be a number or array of numbers representing the minute values in an hour
    */
   @State() isMeridianFormat?: boolean = this.format === 'hh:mm A';
@@ -102,7 +107,8 @@ export class Timepicker {
 
   render() {
     return (
-      <fw-select onFwChange = { e => this.setTimeValue(e) }>
+      <fw-select disabled={ this.disabled } value={ this.value }
+       onFwChange = { e => this.setTimeValue(e) }>
           {
            this.timeValues.map(time =>
               <fw-select-option value = {this.currentTimeValue(time)}>

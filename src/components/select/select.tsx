@@ -87,11 +87,18 @@ export class Select {
   }
 
   private innerOnFocus = (e: Event) => {
+    if (this.disabled) {
+      return;
+    }
     this.hasFocus = true;
     this.fwFocus.emit(e);
   }
 
   private innerOnClick = () => {
+    if (this.disabled) {
+      return;
+    }
+
     this.filteredOptions = this.options;
     this.selectList.style.display = 'block';
     this.selectList.style.width = String(this.select.clientWidth) + 'px';
@@ -100,6 +107,10 @@ export class Select {
   }
 
   private innerOnBlur = (e: Event) => {
+    if (this.disabled) {
+      return;
+    }
+
     this.closeDropdown();
     this.hasFocus = false;
     this.fwBlur.emit(e);
@@ -231,7 +242,6 @@ export class Select {
   }
 
   render() {
-
     return (
       <Host
         aria-disabled={this.disabled}
@@ -240,7 +250,7 @@ export class Select {
         }}
       >
         {this.label !== '' ? <label class={{ 'required': this.required }}> {this.label} </label> : ''}
-        <div class="select-container">
+        <div class={{ 'select-container': true, 'select-disabled': this.disabled }}>
           <div class={{
               'input-container': true,
               [this.state]: true,

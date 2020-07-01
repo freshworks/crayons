@@ -23,7 +23,7 @@ describe('fw-datepicker', () => {
     await updateEle.click();
 
     const datePickerEle = await page.find('fw-datepicker >>> .datepicker');
-    expect(datePickerEle).toBeNull();
+    expect(datePickerEle).toBeFalsy();
   });
 
   it('should emit fwChange when it is updated', async () => {

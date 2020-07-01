@@ -205,6 +205,10 @@ label {
   .dropdown-status-icon.expanded {
     transform: rotate(315deg);
   }
+
+  &.select-disabled {
+    pointer-events: none;
+  }
 }
 
 .overlay {
