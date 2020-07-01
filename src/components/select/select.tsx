@@ -205,16 +205,21 @@ export class Select {
     let multipleSelectValue = [];
     if (this.multiple && this.value
        && this.value.includes('[')) {
-         multipleSelectValue = JSON.parse(this.value);
+         try {
+            multipleSelectValue = JSON.parse(this.value);
+         } catch (er) {
+            // JSON.parse() will fail if the '[""]' is not used for value
+         }
     }
     const selectOptions = Array.from(this.host.querySelectorAll('fw-select-option'));
 
     const options = selectOptions.map(option => {
+      const hasMultipleOptions = this.multiple && multipleSelectValue.length > 0;
       return {
         isHtml: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
-        selected: this.multiple ? multipleSelectValue.includes(option.value)
+        selected: hasMultipleOptions ? multipleSelectValue.includes(option.value)
          : (option.value === this.value || option.selected),
         disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
