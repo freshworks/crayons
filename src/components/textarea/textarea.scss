@@ -79,7 +79,7 @@ label {
     font-family: inherit;
     cursor: text;
     display: inline-block;
-    color: $app-primary-black;
+    color: --input-color;
 
     &:hover {
       border: 1px var(--input-hover-color) solid;

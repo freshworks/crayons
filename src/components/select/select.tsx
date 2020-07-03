@@ -188,7 +188,6 @@ export class Select {
     const selectedOptions = this.options.filter(option => option.selected);
     if (selectedOptions.length > 0) {
       this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
-      // debugger;
       if (this.selectInput) {
         this.selectInput.value = this.multiple ? this.selectInput.value : selectedOptions[0].text || '';
       }
