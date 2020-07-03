@@ -46,6 +46,18 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
   </Story>
 </Preview>
 
+### Readonly
+<Preview>
+  <Story name="Readonly">
+    {() => `
+    <fw-select label="Select the house" required="true" value="1" readonly>
+        <fw-select-option value="1">Starks</fw-select-option>
+        <fw-select-option value="2">Lannisters</fw-select-option>
+    </fw-select>
+    `}
+  </Story>
+</Preview>
+
 ### Multi-Select Mode
 <Preview>
   <Story name="MultiSelect">
