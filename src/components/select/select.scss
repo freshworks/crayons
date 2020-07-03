@@ -81,6 +81,13 @@ label {
     &.multi-select {
       width: auto;
     }
+
+    &:disabled {
+      background-color: var(--input-disabled-bg) !important;
+      border-style: solid;
+      border-color: transparent;
+      cursor: not-allowed;
+    }
   }
 }
 
@@ -109,14 +116,14 @@ label {
     @include stateStyle(var(--warning-color));
   }
 
-  &[disabled] {
+  &.select-disabled {
     color: var(--color-smoke-50);
-    background-color: var(--input-disabled-bg);
+    background-color: var(--input-disabled-bg) !important;
     border-style: solid;
+    cursor: not-allowed;
 
     &:hover {
       border: 1px solid var(--input-border);
-      cursor: not-allowed;
     }
   }
 }
@@ -204,10 +211,6 @@ label {
 
   .dropdown-status-icon.expanded {
     transform: rotate(315deg);
-  }
-
-  &.select-disabled {
-    pointer-events: none;
   }
 }
 

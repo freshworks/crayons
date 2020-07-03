@@ -80,6 +80,8 @@ export class Select {
    */
   @Event() fwBlur: EventEmitter;
 
+  private changeEmittable = !this.readonly && !this.disabled;
+
   private closeDropdown = () => {
     this.selectList.style.display = 'none';
     this.overlay.style.display = 'none';
@@ -87,38 +89,33 @@ export class Select {
   }
 
   private innerOnFocus = (e: Event) => {
-    if (this.disabled) {
-      return;
+    if (this.changeEmittable) {
+      this.hasFocus = true;
+      this.fwFocus.emit(e);
     }
-    this.hasFocus = true;
-    this.fwFocus.emit(e);
   }
 
   private innerOnClick = () => {
-    if (this.disabled) {
-      return;
+    if (this.changeEmittable) {
+      this.filteredOptions = this.options;
+      this.selectList.style.display = 'block';
+      this.selectList.style.width = String(this.select.clientWidth) + 'px';
+      this.isExpanded = true;
+      this.overlay.style.display = 'block';
     }
-
-    this.filteredOptions = this.options;
-    this.selectList.style.display = 'block';
-    this.selectList.style.width = String(this.select.clientWidth) + 'px';
-    this.isExpanded = true;
-    this.overlay.style.display = 'block';
   }
 
   private innerOnBlur = (e: Event) => {
-    if (this.disabled) {
-      return;
+    if (this.changeEmittable) {
+      this.closeDropdown();
+      this.hasFocus = false;
+      this.fwBlur.emit(e);
     }
-
-    this.closeDropdown();
-    this.hasFocus = false;
-    this.fwBlur.emit(e);
   }
 
   @Watch('value')
   keyChanged(newValue, oldValue) {
-    if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+    if (this.changeEmittable && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
       this.options = this.options.map(option => {
         option.selected = Array.isArray(this.value)
           ? this.value.includes(option.value)
@@ -191,6 +188,7 @@ export class Select {
     const selectedOptions = this.options.filter(option => option.selected);
     if (selectedOptions.length > 0) {
       this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
+      // debugger;
       if (this.selectInput) {
         this.selectInput.value = this.multiple ? this.selectInput.value : selectedOptions[0].text || '';
       }
@@ -250,10 +248,11 @@ export class Select {
         }}
       >
         {this.label !== '' ? <label class={{ 'required': this.required }}> {this.label} </label> : ''}
-        <div class={{ 'select-container': true, 'select-disabled': this.disabled }}>
+        <div class={{ 'select-container': true }}>
           <div class={{
               'input-container': true,
               [this.state]: true,
+              'select-disabled': this.disabled,
             }}
             ref={select => this.select = select}
             onClick={() => this.innerOnClick()}>
