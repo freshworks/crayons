@@ -80,7 +80,7 @@ export class Select {
    */
   @Event() fwBlur: EventEmitter;
 
-  private changeEmittable = !this.readonly && !this.disabled;
+  private changeEmittable = () => !this.readonly && !this.disabled;
 
   private closeDropdown = () => {
     this.selectList.style.display = 'none';
@@ -89,14 +89,14 @@ export class Select {
   }
 
   private innerOnFocus = (e: Event) => {
-    if (this.changeEmittable) {
+    if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
     }
   }
 
   private innerOnClick = () => {
-    if (this.changeEmittable) {
+    if (this.changeEmittable()) {
       this.filteredOptions = this.options;
       this.selectList.style.display = 'block';
       this.selectList.style.width = String(this.select.clientWidth) + 'px';
@@ -106,7 +106,7 @@ export class Select {
   }
 
   private innerOnBlur = (e: Event) => {
-    if (this.changeEmittable) {
+    if (this.changeEmittable()) {
       this.closeDropdown();
       this.hasFocus = false;
       this.fwBlur.emit(e);
@@ -115,7 +115,7 @@ export class Select {
 
   @Watch('value')
   keyChanged(newValue, oldValue) {
-    if (this.changeEmittable && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+    if (this.changeEmittable() && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
       this.options = this.options.map(option => {
         option.selected = Array.isArray(this.value)
           ? this.value.includes(option.value)
@@ -247,7 +247,7 @@ export class Select {
         }}
       >
         {this.label !== '' ? <label class={{ 'required': this.required }}> {this.label} </label> : ''}
-        <div class={{ 'select-container': true }}>
+        <div class="select-container">
           <div class={{
               'input-container': true,
               [this.state]: true,
