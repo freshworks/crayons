@@ -84,7 +84,6 @@ label {
 
     &:disabled {
       background-color: var(--input-disabled-bg) !important;
-      border-style: solid;
       border-color: transparent;
       cursor: not-allowed;
     }
