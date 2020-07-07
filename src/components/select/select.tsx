@@ -49,10 +49,6 @@ export class Select {
   /**
    * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
    */
-  @Prop() readonly = false;
-  /**
-   * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
-   */
   @Prop() required = false;
   /**
    * If true, the user must select a value. The default value is not displayed.
@@ -80,7 +76,7 @@ export class Select {
    */
   @Event() fwBlur: EventEmitter;
 
-  private changeEmittable = () => !this.readonly && !this.disabled;
+  private changeEmittable = () => !this.disabled;
 
   private closeDropdown = () => {
     this.selectList.style.display = 'none';
@@ -115,7 +111,7 @@ export class Select {
 
   @Watch('value')
   keyChanged(newValue, oldValue) {
-    if (this.changeEmittable() && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+    if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
       this.options = this.options.map(option => {
         option.selected = Array.isArray(this.value)
           ? this.value.includes(option.value)
@@ -266,7 +262,6 @@ export class Select {
                 disabled={this.disabled}
                 name={this.name}
                 placeholder={this.placeholder || ''}
-                readOnly={this.readonly}
                 required={this.required}
                 type={this.type}
                 value=""
