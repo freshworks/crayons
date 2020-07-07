@@ -239,6 +239,10 @@ export namespace Components {
         /**
           * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
          */
+        "readonly": boolean;
+        /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
         "required": boolean;
         /**
           * Theme based on which the list box is styled.
@@ -861,6 +865,10 @@ declare namespace LocalJSX {
         "placeholder"?: string | null;
         /**
           * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+         */
+        "readonly"?: boolean;
+        /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
         /**
