@@ -1,3 +1,20 @@
+# [2.3.0](https://github.com/freshdesk/crayons/compare/v2.2.4...v2.3.0) (2020-07-14)
+
+
+### Bug Fixes
+
+* review comments ([2556171](https://github.com/freshdesk/crayons/commit/255617113413207f9d2a15540597dffa5cf97802))
+* review comments - 2 ([7dbdf98](https://github.com/freshdesk/crayons/commit/7dbdf984f55097e71a012daec56b41a722b109fb))
+
+
+### Features
+
+* style fix ([71a0794](https://github.com/freshdesk/crayons/commit/71a07943a7559d787ee699b5e5e0400a699fed0d))
+* **select:** added back readonly ([c78ae16](https://github.com/freshdesk/crayons/commit/c78ae16acac8acb5871b935daa54d9444e3dbfc4))
+* **select:** review comments  -4 ([7501ff8](https://github.com/freshdesk/crayons/commit/7501ff8891762ee561fbfedbd3c83479f57dceda))
+* **select:** review comments - 3 ([b72687e](https://github.com/freshdesk/crayons/commit/b72687ede2f8b9591e8ecb2ac0f3476470737684))
+* **textarea, timepicker, select:** improvements in textarea, select, timepicker ([ce02f62](https://github.com/freshdesk/crayons/commit/ce02f62eaebc17a6fd5777fe408ce48bb9a5a1f9))
+
 ## [2.2.4](https://github.com/freshdesk/crayons/compare/v2.2.3...v2.2.4) (2020-06-23)
 
 
