@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/freshdesk/crayons/compare/v2.3.0...v2.3.1) (2020-07-23)
+
+
+### Bug Fixes
+
+* close popup on click outside ([a88efc1](https://github.com/freshdesk/crayons/commit/a88efc18a89952a240de4b8a78d17d5f0c798a2e)), closes [#98](https://github.com/freshdesk/crayons/issues/98)
+
 # [2.3.0](https://github.com/freshdesk/crayons/compare/v2.2.4...v2.3.0) (2020-07-14)
 
 
