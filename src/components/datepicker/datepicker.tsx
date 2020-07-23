@@ -85,6 +85,14 @@ export class Datepicker {
     this.showDatePicker = true;
   }
 
+  @Listen('click', { target: 'window' })
+  closeOnClickOutSide(e) {
+    const insideEle = e.target.closest('fw-datepicker');
+    if (insideEle === null) {
+      this.showDatePicker = false;
+    }
+  }
+
   @Listen('fwClick')
   handleButtonClick(e) {
     const isUpdateRange = e.composedPath()[0].classList.value.includes('update-range-value');
