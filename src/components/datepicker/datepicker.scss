@@ -320,3 +320,16 @@
 .c-day-container.highlight-range:not(.disabled) .cdc-day {
   background: #e4f2fd;
 }
+
+.overlay-show {
+  background: transparent;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.overlay-hide {
+  display: none;
+}

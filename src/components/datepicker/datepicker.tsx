@@ -85,14 +85,6 @@ export class Datepicker {
     this.showDatePicker = true;
   }
 
-  @Listen('click', { target: 'window' })
-  closeOnClickOutSide(e) {
-    const insideEle = e.target.closest('fw-datepicker');
-    if (insideEle === null) {
-      this.showDatePicker = false;
-    }
-  }
-
   @Listen('fwClick')
   handleButtonClick(e) {
     const isUpdateRange = e.composedPath()[0].classList.value.includes('update-range-value');
@@ -422,6 +414,7 @@ export class Datepicker {
   }
   render() {
     return (<div>
+      <div onClick={() => this.showDatePicker = false} class={this.showDatePicker ? 'overlay-show' : 'overlay-hide'}></div>
       <fw-input value={this.value} class="date-input" placeholder={this.placeholder} readonly={true}></fw-input>
       {
         this.showSingleDatePicker()
