@@ -60,12 +60,9 @@ module.exports = {
       }
     ],
     ['@vuepress/active-header-links'],
-    [
-      '@vuepress/google-analytics',
-      {
-        'ga': '',
-      }
-    ],
+    ['vuepress-plugin-google-tag-manager', {
+      gtm: 'GTM-WQKBJ88'
+    }],
     [
       'vuepress-plugin-seo', {
         siteTitle: () => 'Crayons',
