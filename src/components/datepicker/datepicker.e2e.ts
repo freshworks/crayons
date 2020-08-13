@@ -84,25 +84,42 @@ describe('fw-datepicker', () => {
     expect(datePickerValue.toString()).toBe(todayValue.toString());
   });
 
-  it('daterange picker calenders always should be sequential months ', async () => {
+  it('daterange picker calenders should be sequential months ', async () => {
     const page = await newE2EPage();
-
     await page.setContent('<fw-datepicker mode="range"></fw-datepicker>');
+
+    const component = await page.find('fw-datepicker');
+    expect(component).toHaveClass('hydrated');
+
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
+
     const fromMonth = await page.find('fw-datepicker >>> fw-select.from-month-selector >>> input');
     const fromMonthValue = await fromMonth.getProperty('value');
     const toMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
     const toMonthValue = await toMonth.getProperty('value');
 
     expect(moment(fromMonthValue, 'MMM').month() + 1).toBe(moment(toMonthValue, 'MMM').month());
+  });
+
+  it('both calenders of daterange picker should update', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-datepicker mode="range"></fw-datepicker>');
+
+    const component = await page.find('fw-datepicker');
+    expect(component).toHaveClass('hydrated');
+
+    const element = await page.find('fw-datepicker >>> fw-input');
+    await element.click();
 
     const rightArrow = await page.findAll('fw-datepicker >>> .mdpchb-inner');
     await rightArrow[1].click();
+
     const updatedFromMonth = await page.find('fw-datepicker >>> fw-select.from-month-selector >>> input');
     const updatedFromMonthValue = await updatedFromMonth.getProperty('value');
     const updatedToMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
     const updateToMonthValue = await updatedToMonth.getProperty('value');
+
     expect(moment(updatedFromMonthValue, 'MMM').add(1, 'M').format('MMM')).toBe(updateToMonthValue);
   });
 });
