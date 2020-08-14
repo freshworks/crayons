@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/freshdesk/crayons/compare/v2.3.2...v2.3.3) (2020-08-14)
+
+
+### Bug Fixes
+
+* **fw-tabs:** fwChange fires twice ([0135302](https://github.com/freshdesk/crayons/commit/0135302f0964c9e64229f11fd4aa789cf232af0a)), closes [#106](https://github.com/freshdesk/crayons/issues/106)
+
 ## [2.3.2](https://github.com/freshdesk/crayons/compare/v2.3.1...v2.3.2) (2020-07-24)
 
 
