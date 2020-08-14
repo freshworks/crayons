@@ -110,8 +110,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "moment-mini": "^2.24.0",
-    "stencil": "^0.0.5"
+    "moment-mini": "^2.24.0"
   },
   "config": {
     "commitizen": {
