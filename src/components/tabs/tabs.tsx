@@ -92,7 +92,7 @@ export class Tabs {
       <div class="tabs">
         <ul role="tablist" class="tabs__items">
           {this.tabs.map((tab, index) =>
-            <li onClick={() => tab.disabled ? '' : this.displayTab(index)} class="tabs__item">
+            <li onClick={() => tab.disabled ? '' : this.activeTabIndex = index} class="tabs__item">
               <div id={'#tab-' + index} class={'tabs__item__nav ' + (index === this.activeTabIndex ? 'active' : '') + (tab.disabled ? 'disabled' : '')}>
                 <span class="tab-title--tab-icon">
                   {
