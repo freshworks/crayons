@@ -53,7 +53,7 @@ export class Tabs {
 
   @Listen('propChanged')
   init() {
-    this.tabs = Array.from(this.el.querySelectorAll('fw-tab'));
+    this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(node => node.parentNode === this.el);
     this.displayTab(this.activeTabIndex);
   }
 
