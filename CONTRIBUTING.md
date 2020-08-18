@@ -8,7 +8,7 @@ Crayons are built using StencilJS which provides all features of web component.
 
 ### Crayons Important links
 
-- [Repository](https://github.com/freshdesk/crayons)
+- [Repository](https://github.com/freshworks/crayons)
 - [Documentation](https://crayons.freshworks.com)
 
 ## How to Contribute
@@ -36,11 +36,11 @@ Note : Please use npm instead of yarn
 
 ### Raise an issue
 
-If you find an issue or is you want to raise a feature request in, make sure you raise an issue in <https://github.com/freshdesk/crayons/issues>
+If you find an issue or is you want to raise a feature request in, make sure you raise an issue in <https://github.com/freshworks/crayons/issues>
 
 ### Fix an issue
 
-Should you choose to work on a new issue or an existing issue from <https://github.com/freshdesk/crayons/issues>, please follow the steps below.
+Should you choose to work on a new issue or an existing issue from <https://github.com/freshworks/crayons/issues>, please follow the steps below.
 
 ### Prepare the contribution commits
 
