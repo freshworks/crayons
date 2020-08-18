@@ -1,3 +1,10 @@
+## [2.3.4](https://github.com/freshworks/crayons/compare/v2.3.3...v2.3.4) (2020-08-18)
+
+
+### Bug Fixes
+
+* **fw-tabs:** fixes Multi-Level Nesting in Tabs ([8e312f2](https://github.com/freshworks/crayons/commit/8e312f24bd252c89b287ca9bad3a9a2396c588ab)), closes [#109](https://github.com/freshworks/crayons/issues/109)
+
 ## [2.3.3](https://github.com/freshworks/crayons/compare/v2.3.2...v2.3.3) (2020-08-14)
 
 
