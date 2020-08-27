@@ -32,6 +32,11 @@ export class Button {
   @Prop() size: 'normal' | 'mini' | 'small' = 'normal';
 
   /**
+   *  Accepts the id of the fw-modal component to open it on click
+   */
+  @Prop() modalTriggerId = '';
+
+  /**
    * Triggered when the button is clicked.
    */
   @Event() fwClick!: EventEmitter<void>;
@@ -55,6 +60,10 @@ export class Button {
   }
 
   private handleClick() {
+    if (this.modalTriggerId !== '') {
+      const modal: any = document.getElementById(this.modalTriggerId);
+      modal.visible = true;
+    }
     this.fwClick.emit();
   }
 
