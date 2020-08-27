@@ -192,6 +192,10 @@ export namespace Components {
          */
         "description": string;
         /**
+          * Hides the footer
+         */
+        "hideFooter": boolean;
+        /**
           * The icon to be displayed with the title
          */
         "icon": string;
@@ -833,9 +837,21 @@ declare namespace LocalJSX {
          */
         "description"?: string;
         /**
+          * Hides the footer
+         */
+        "hideFooter"?: boolean;
+        /**
           * The icon to be displayed with the title
          */
         "icon"?: string;
+        /**
+          * Triggered when the default action button is clicked.
+         */
+        "onFwAction"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when modal is closed.
+         */
+        "onFwClosed"?: (event: CustomEvent<void>) => void;
         /**
           * Size of the modal
          */

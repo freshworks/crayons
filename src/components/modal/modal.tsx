@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'fw-modal',
@@ -42,9 +42,31 @@ export class Modal {
   @Prop() customFooter = false;
 
   /**
+   * Hides the footer
+   */
+  @Prop() hideFooter = false;
+
+  /**
    * Toggle the visibility of the modal
    */
   @Prop({ mutable: true, reflect: true }) visible = false;
+
+  /**
+   * Triggered when the default action button is clicked.
+   */
+  @Event() fwAction!: EventEmitter<void>;
+
+  /**
+   * Triggered when modal is closed.
+   */
+  @Event() fwClosed!: EventEmitter<void>;
+
+  @Watch('visible')
+  visibilityChange(isVisible: boolean) {
+    if (!isVisible) {
+      this.fwClosed.emit();
+    }
+  }
 
   closeModal() {
     this.visible = false;
@@ -60,7 +82,7 @@ export class Modal {
       : (
       <span>
         <fw-button color="secondary" onClick={() => this.closeModal()}>{this.cancelText}</fw-button>
-        <fw-button color="primary">{this.successText}</fw-button>
+        <fw-button color="primary" onClick={() => this.fwAction.emit()}>{this.successText}</fw-button>
       </span>
       );
   }
@@ -84,9 +106,12 @@ export class Modal {
           <div class="content">
             <slot></slot>
           </div>
-          <div class="modal-footer-container">
-            <div class="modal-footer">{this.renderFooter()}</div>
-          </div>
+          { this.hideFooter
+            ? ''
+            : (<div class="modal-footer-container">
+                <div class="modal-footer">{this.renderFooter()}</div>
+              </div>)
+          }
         </div>
       </div>
     );

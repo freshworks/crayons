@@ -41,11 +41,20 @@ Modals are used as an overlay to display information. It can also be used as con
 | `cancelText`   | `cancel-text`   | The text for the cancel button              | `string`                           | `'Cancel'`   |
 | `customFooter` | `custom-footer` | Enable custom footer                        | `boolean`                          | `false`      |
 | `description`  | `description`   | The title text to be displayed on the modal | `string`                           | `undefined`  |
+| `hideFooter`   | `hide-footer`   | Hides the footer                            | `boolean`                          | `false`      |
 | `icon`         | `icon`          | The icon to be displayed with the title     | `string`                           | `''`         |
 | `size`         | `size`          | Size of the modal                           | `"large" or "small" or "standard"` | `'standard'` |
 | `successText`  | `success-text`  | The text for the success button             | `string`                           | `'OK'`       |
 | `titleText`    | `title-text`    | The title text to be displayed on the modal | `string`                           | `undefined`  |
 | `visible`      | `visible`       | Toggle the visibility of the modal          | `boolean`                          | `false`      |
+
+
+## Events
+
+| Event      | Description                                          | Type                |
+| ---------- | ---------------------------------------------------- | ------------------- |
+| `fwAction` | Triggered when the default action button is clicked. | `CustomEvent<void>` |
+| `fwClosed` | Triggered when modal is closed.                      | `CustomEvent<void>` |
 
 
 ## Dependencies
