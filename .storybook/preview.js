@@ -25,4 +25,4 @@ addParameters({
 
 addDecorator(withA11y);
 
-addDecorator(withActions('click', 'select', 'submit', 'blur', 'focus', 'fwSelect', 'fwClick', 'fwBlur', 'fwFocus', 'fwChange'));
+addDecorator(withActions('click', 'select', 'submit', 'blur', 'focus', 'fwSelect', 'fwClick', 'fwBlur', 'fwFocus', 'fwChange', 'fwAction', 'fwInput', 'fwDeselect', 'fwSelected', 'fwClosed'));
