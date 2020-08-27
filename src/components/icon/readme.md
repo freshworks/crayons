@@ -36,11 +36,13 @@ The following are the icons supported:
 ### Used by
 
  - [fw-input](../input)
+ - [fw-modal](../modal)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-input --> fw-icon
+  fw-modal --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

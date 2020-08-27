@@ -20,6 +20,10 @@ export namespace Components {
          */
         "expand": boolean;
         /**
+          * Accepts the id of the fw-modal component to open it on click
+         */
+        "modalTriggerId": string;
+        /**
           * Size of the button.
          */
         "size": "normal" | "mini" | "small";
@@ -173,6 +177,40 @@ export namespace Components {
           * Display text in the label.
          */
         "value": string;
+    }
+    interface FwModal {
+        /**
+          * The text for the cancel button
+         */
+        "cancelText": string;
+        /**
+          * Enable custom footer
+         */
+        "customFooter": boolean;
+        /**
+          * The title text to be displayed on the modal
+         */
+        "description": string;
+        /**
+          * The icon to be displayed with the title
+         */
+        "icon": string;
+        /**
+          * Size of the modal
+         */
+        "size": "standard" | "small" | "large";
+        /**
+          * The text for the success button
+         */
+        "successText": string;
+        /**
+          * The title text to be displayed on the modal
+         */
+        "titleText": string;
+        /**
+          * Toggle the visibility of the modal
+         */
+        "visible": boolean;
     }
     interface FwRadio {
         /**
@@ -475,6 +513,12 @@ declare global {
         prototype: HTMLFwLabelElement;
         new (): HTMLFwLabelElement;
     };
+    interface HTMLFwModalElement extends Components.FwModal, HTMLStencilElement {
+    }
+    var HTMLFwModalElement: {
+        prototype: HTMLFwModalElement;
+        new (): HTMLFwModalElement;
+    };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
     var HTMLFwRadioElement: {
@@ -548,6 +592,7 @@ declare global {
         "fw-icon": HTMLFwIconElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
+        "fw-modal": HTMLFwModalElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
@@ -575,6 +620,10 @@ declare namespace LocalJSX {
           * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand"?: boolean;
+        /**
+          * Accepts the id of the fw-modal component to open it on click
+         */
+        "modalTriggerId"?: string;
         /**
           * Triggered when the button loses focus.
          */
@@ -769,6 +818,40 @@ declare namespace LocalJSX {
           * Display text in the label.
          */
         "value"?: string;
+    }
+    interface FwModal {
+        /**
+          * The text for the cancel button
+         */
+        "cancelText"?: string;
+        /**
+          * Enable custom footer
+         */
+        "customFooter"?: boolean;
+        /**
+          * The title text to be displayed on the modal
+         */
+        "description"?: string;
+        /**
+          * The icon to be displayed with the title
+         */
+        "icon"?: string;
+        /**
+          * Size of the modal
+         */
+        "size"?: "standard" | "small" | "large";
+        /**
+          * The text for the success button
+         */
+        "successText"?: string;
+        /**
+          * The title text to be displayed on the modal
+         */
+        "titleText"?: string;
+        /**
+          * Toggle the visibility of the modal
+         */
+        "visible"?: boolean;
     }
     interface FwRadio {
         /**
@@ -1103,6 +1186,7 @@ declare namespace LocalJSX {
         "fw-icon": FwIcon;
         "fw-input": FwInput;
         "fw-label": FwLabel;
+        "fw-modal": FwModal;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
@@ -1126,6 +1210,7 @@ declare module "@stencil/core" {
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
+            "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
