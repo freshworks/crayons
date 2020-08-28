@@ -102,3 +102,62 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
     <fw-button color="danger"><fw-icon color="#fefefe" name="code"></fw-icon> See Code</fw-button>`}
 </Story>
 </Preview>
+
+### Dropdown buttons
+<Preview>
+<Story name='DropdownButton'> {() => `
+    <label>Plain dropdown button</label>
+    <fw-button dropdown>
+        GOT House
+        <span id="1" value="starks">House Stark</span>
+        <span id="2" value="lannisters">House Lannister</span>
+        <span id="3" value="targaryens">House Targaryen</span>
+        <span id="4" value="baratheons">House Baratheon</span>
+        <span id="5" value="martells">House Martel</span>
+    </fw-button>
+    <label>Plain dropdown button with split</label>
+    <fw-button dropdown split>
+        GOT House
+        <span id="1" value="starks">House Stark</span>
+        <span id="2" value="lannisters">House Lannister</span>
+        <span id="3" value="targaryens">House Targaryen</span>
+        <span id="4" value="baratheons">House Baratheon</span>
+        <span id="5" value="martells">House Martel</span>
+    </fw-button>
+    <label>Secondary dropdown button with split</label>
+    <fw-button color="secondary" dropdown split>
+        GOT House
+        <span id="1" value="starks">House Stark</span>
+        <span id="2" value="lannisters">House Lannister</span>
+        <span id="3" value="targaryens">House Targaryen</span>
+        <span id="4" value="baratheons">House Baratheon</span>
+        <span id="5" value="martells">House Martel</span>
+    </fw-button>
+`}
+</Story>
+</Preview>
+
+### Searchable Dropdown buttons
+<Preview>
+<Story name='SearchableDropdownButton'> {() => `
+    <label>Searchable dropdown button</label>
+    <fw-button dropdown searchable placeholder="Choose GOT House">
+        GOT House
+        <span id="1" value="starks">House Stark</span>
+        <span id="2" value="lannisters">House Lannister</span>
+        <span id="3" value="targaryens">House Targaryen</span>
+        <span id="4" value="baratheons">House Baratheon</span>
+        <span id="5" value="martells">House Martel</span>
+    </fw-button>
+    <label>Searchable dropdown button with split</label>
+    <fw-button dropdown split searchable placeholder="Choose GOT House" >
+        GOT House
+        <span id="1" value="starks">House Stark</span>
+        <span id="2" value="lannisters">House Lannister</span>
+        <span id="3" value="targaryens">House Targaryen</span>
+        <span id="4" value="baratheons">House Baratheon</span>
+        <span id="5" value="martells">House Martel</span>
+    </fw-button>
+`}
+</Story>
+</Preview>

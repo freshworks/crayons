@@ -13,9 +13,9 @@ export class Icon {
   @Prop() name: string;
 
   /**
-   * Size of the icon, specified in number of  pixels.
+   * Size of the icon, specified in number of pixels.
    */
-  @Prop() size = 12;
+  @Prop() size: any = 12;
 
   /**
    * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.

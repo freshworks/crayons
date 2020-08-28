@@ -16,6 +16,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Displays a dropdown button
+         */
+        "dropdown": boolean;
+        /**
           * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand": boolean;
@@ -24,13 +28,29 @@ export namespace Components {
          */
         "modalTriggerId": string;
         /**
+          * Placeholder text for search input. Validated only if dropdown and searchable is true
+          */
+        "placeholder": string;
+        /**
+          * Displays a searchable dropdown button
+         */
+        "searchable": boolean;
+        /**
           * Size of the button.
          */
         "size": "normal" | "mini" | "small";
         /**
+          * Displays a split dropdown button
+         */
+        "split": boolean;
+        /**
           * Button type based on which actions are performed when the button is clicked.
          */
         "type": "button" | "reset" | "submit";
+        /**
+          * Value of the dropdown button
+         */
+        "value": any;
     }
     interface FwCheckbox {
         /**
@@ -94,9 +114,9 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Size of the icon, specified in number of  pixels.
+          * Size of the icon, specified in number of pixels.
          */
-        "size": number;
+        "size": any;
     }
     interface FwInput {
         /**
@@ -576,6 +596,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Displays a dropdown button
+         */
+        "dropdown"?: boolean;
+        /**
           * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand"?: boolean;
@@ -596,13 +620,37 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
+          * Triggered when an option is clicked
+         */
+        "onFwOptionClick"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when an option is clicked
+         */
+        "onFwOptionsAdd"?: (event: CustomEvent<void>) => void;
+        /**
+          * Placeholder text for search input. Validated only if dropdown and searchable is true
+         */
+        "placeholder"?: string;
+        /**
+          * Displays a searchable dropdown button
+         */
+        "searchable"?: boolean;
+        /**
           * Size of the button.
          */
         "size"?: "normal" | "mini" | "small";
         /**
+          * Displays a split dropdown button
+         */
+        "split"?: boolean;
+        /**
           * Button type based on which actions are performed when the button is clicked.
          */
         "type"?: "button" | "reset" | "submit";
+        /**
+          * Value of the dropdown button
+         */
+        "value"?: any;
     }
     interface FwCheckbox {
         /**
@@ -682,9 +730,9 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Size of the icon, specified in number of  pixels.
+          * Size of the icon, specified in number of pixels.
          */
-        "size"?: number;
+        "size"?: any;
     }
     interface FwInput {
         /**

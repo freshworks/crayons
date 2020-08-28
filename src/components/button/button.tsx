@@ -1,10 +1,12 @@
-import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, State, h } from '@stencil/core';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
   shadow: true,
 })
 export class Button {
+  @Element() host: HTMLElement;
+  private dropdownInput?: HTMLFwInputElement;
 
   /**
    *  Button type based on which actions are performed when the button is clicked.
@@ -36,6 +38,58 @@ export class Button {
    */
   @Prop() modalTriggerId = '';
 
+  /*
+   * Displays a dropdown button
+   */
+  @Prop() dropdown = false;
+
+  /**
+   * Displays a split dropdown button
+   */
+  @Prop() split = false;
+
+  /**
+   * Displays a searchable dropdown button
+   */
+  @Prop() searchable = false;
+
+  /**
+   * Value of the dropdown button
+   */
+  @Prop() value: any = undefined;
+
+  /**
+   * Placeholder text for search input. Validated only if dropdown and searchable is true
+   */
+  @Prop() placeholder = '';
+
+  /**
+   * Options to show in the dropdown button
+   */
+  @State() options = [];
+
+  /**
+   * Option input for searching through options
+   */
+  @State() optionInput = '';
+
+  /**
+   * Filtered options if the dropdown is searchable
+   */
+  @State() filteredOptions = [];
+
+  /**
+   * State variable to check if its valid dropdown
+   */
+  @State() isValidDropdown = this.dropdown
+   && this.size === 'normal'
+   && this.hasOptions();
+
+  /**
+   * Dropdown is open or not
+   */
+  @State() isDropdownOpen = false;
+
   /**
    * Triggered when the button is clicked.
    */
@@ -51,6 +105,16 @@ export class Button {
    */
   @Event() fwBlur!: EventEmitter<void>;
 
+  /**
+   * Triggered when an option is clicked
+   */
+  @Event() fwOptionClick: EventEmitter<void>;
+
+  /**
+   * Triggered when an option is clicked
+   */
+  @Event() fwOptionsAdd: EventEmitter<void>;
+
   private onFocus() {
     this.fwFocus.emit();
   }
@@ -63,6 +127,10 @@ export class Button {
     if (this.modalTriggerId !== '') {
       const modal: any = document.getElementById(this.modalTriggerId);
       modal.visible = true;
+    }
+
+    if (!this.split) {
+      return this.handleDropdownToggle();
     }
     this.fwClick.emit();
   }
@@ -132,21 +200,104 @@ export class Button {
   }
 
   render() {
+    const renderDropdownState = () => {
+      const dropdownStateClasses = `
+        dropdown-state
+        ${'dropdown-state--' + this.size.toLowerCase()}
+        ${'dropdown-state--' + this.color.toLowerCase()}
+        `;
+
+      return this.isValidDropdown ?
+          (
+            this.split ? <div onClick={() => this.handleDropdownToggle()} class={dropdownStateClasses}>
+              <div class="state-icon">{ this.iconComponent() }</div>
+            </div> : ''
+          )
+          : '';
+    };
+
+    const renderDropdownOptions = () => {
+      const validOptions = this.searchable ? this.filteredOptions : this.options;
+      return (
+        <ul class={`dropdown-menu ${this.isDropdownOpen ? 'dropdown-menu--open' : ''}`}>
+          { this.searchable ? renderSearchInput() : '' }
+          {
+            validOptions.map(option => {
+              const liEl = <li key={option.id || option.value} class="dropdown-item"
+                onClick={() => this.handleOptionClick(option)}> {option.label} </li>;
+
+              const checkboxEl = <fw-checkbox id={option.value}
+                checked={this.value ? this.value.includes(option.value) : false}
+                onFwChange={e => this.handleCheckboxChange(e)}></fw-checkbox>;
+
+              return this.searchable
+                ? <div class="searchable-item"> {checkboxEl} {liEl} </div>
+                : liEl;
+            })
+          }
+          { this.searchable ? renderBtnGroup() : '' }
+        </ul>
+      );
+    };
+
+    const renderSearchInput = () => {
+      return (
+        <fw-input placeholder={this.placeholder}
+          icon-left="search"
+          ref={dropdownInput => this.dropdownInput = dropdownInput}
+          onInput={() => this.setSearchInput()} />
+      );
+    };
+
+    const renderBtnGroup = () => {
+      return (
+        <div class="search-btn-grp">
+          <fw-button size="small" color="primary"
+          onClick = {() => this.handleAddClick()}> Add </fw-button>
+          <fw-button size="small" color="secondary"
+           onClick = {() => this.handleDropdownToggle()}> Cancel </fw-button>
+        </div>
+      );
+    };
+
     return (
-    <Host
-      onClick={() => this.handleClick()}
-      onFocus={() => this.onFocus()}
-      onBlur={() => this.onBlur()}>
-        <button
-          type = {this.type}
-          class={`
-            fw-btn fw-btn--${this.color.toLowerCase()}
-            fw-btn--${this.size.toLowerCase()}
-            ${this.expand ? 'fw-btn--block' : ''}
+    <Host>
+        <div class="btn-container">
+          <button
+            onClick={() => this.handleClick()}
+            onFocus={() => this.onFocus()}
+            onBlur={() => this.onBlur()}
+            type = {this.type}
+            class={`
+              fw-btn fw-btn--${this.color.toLowerCase()}
+              fw-btn--${this.size.toLowerCase()}
+              ${this.isValidDropdown && this.split ? 'dropdown-btn' : ''}
             `}
-          disabled = {this.disabled}>
-          <slot/>
-        </button>
+            disabled = {this.disabled}>
+            { this.isValidDropdown ? this.host.childNodes[0].textContent : <slot /> }
+            { this.isValidDropdown && !this.split ? <span> {this.iconComponent()} </span> : '' }
+          </button>
+          { renderDropdownState() }
+          { this.isValidDropdown ? renderDropdownOptions() : '' }
+        </div>
     </Host>);
+  }
+
+  componentWillLoad() {
+    if (this.isValidDropdown) {
+      document.addEventListener('click', e => {
+        const { target } = e;
+        const canClose = this.isDropdownOpen
+         && this.host !== target
+         && !this.host.contains(target as Element);
+
+        if (canClose) {
+          this.isDropdownOpen = false;
+        }
+
+      });
+
+      this.setDropdownOptions();
+    }
   }
 }

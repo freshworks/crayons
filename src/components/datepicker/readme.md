@@ -55,6 +55,10 @@ graph TD;
   fw-input --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-select-option
+  fw-button --> fw-icon
+  fw-button --> fw-checkbox
+  fw-button --> fw-input
+  fw-button --> fw-button
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

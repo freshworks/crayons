@@ -30,6 +30,19 @@ fw-checkbox displays a check box on the user interface and enables assigning a s
 | `fwFocus`  | Triggered when the check box comes into focus.    | `CustomEvent<void>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-button](../button)
+
+### Graph
+```mermaid
+graph TD;
+  fw-button --> fw-checkbox
+  style fw-checkbox fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

@@ -21,18 +21,20 @@ The following are the icons supported:
 | -------- | --------- | ----------------------------------------------------------------------------------------------------------- | -------- | ----------- |
 | `color`  | `color`   | Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.                   | `string` | `''`        |
 | `name`   | `name`    | Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons). | `string` | `undefined` |
-| `size`   | `size`    | Size of the icon, specified in number of  pixels.                                                           | `number` | `12`        |
+| `size`   | `size`    | Size of the icon, specified in number of pixels.                                                            | `any`    | `12`        |
 
 
 ## Dependencies
 
 ### Used by
 
+ - [fw-button](../button)
  - [fw-input](../input)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-button --> fw-icon
   fw-input --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
