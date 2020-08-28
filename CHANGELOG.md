@@ -1,3 +1,11 @@
+# [2.4.0](https://github.com/freshworks/crayons/compare/v2.3.4...v2.4.0) (2020-08-28)
+
+
+### Features
+
+* **fw-modal:** added events and `hide-footer` attribute ([a4bd59c](https://github.com/freshworks/crayons/commit/a4bd59c7b3ac79fa7e89124c69590bf81ac75fa2))
+* **fw-modal:** introduces modals to crayons ([1725f86](https://github.com/freshworks/crayons/commit/1725f864a9b246d99204b662e7c3620399728486)), closes [#113](https://github.com/freshworks/crayons/issues/113)
+
 ## [2.3.4](https://github.com/freshworks/crayons/compare/v2.3.3...v2.3.4) (2020-08-18)
 
 
