@@ -24,25 +24,16 @@ The following are the icons supported:
 | `size`   | `size`    | Size of the icon, specified in number of  pixels.                                                           | `number` | `12`        |
 
 
-## CSS Custom Properties
-
-| Name           | Description       |
-| -------------- | ----------------- |
-| `--icon-color` | Color of the icon |
-
-
 ## Dependencies
 
 ### Used by
 
  - [fw-input](../input)
- - [fw-modal](../modal)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-input --> fw-icon
-  fw-modal --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
