@@ -67,6 +67,70 @@ export class Button {
     this.fwClick.emit();
   }
 
+  private hasOptions() {
+    const spanOptions = this.host.querySelectorAll('span');
+    return spanOptions && Array.from(spanOptions).length > 0;
+  }
+
+  private setDropdownOptions() {
+    this.options = Array.from(
+      this.host.querySelectorAll('span')
+    ).map(option => ({
+      id: option.id,
+      value: option.getAttribute('value'),
+      label: option.textContent,
+    }));
+
+    if (this.searchable) {
+      this.filteredOptions = this.options;
+    }
+  }
+
+  private handleDropdownToggle() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  private handleOptionClick(option) {
+    if (this.searchable) {
+      return;
+    }
+
+    this.value = option.value;
+    this.fwOptionClick.emit(this.value);
+    this.handleDropdownToggle();
+  }
+
+  private handleAddClick() {
+    this.fwOptionsAdd.emit(this.value);
+    this.handleDropdownToggle();
+  }
+
+  private setSearchInput() {
+    this.optionInput = this.dropdownInput.value;
+
+    this.filteredOptions = this.optionInput !== ''
+      ? this.options.filter(option => option.label.toLowerCase()
+        .startsWith(this.optionInput.toLowerCase()))
+      : this.options;
+  }
+
+  private handleCheckboxChange(ev) {
+    if (ev.target.checked) {
+      this.value = [
+        ...(this.value || []),
+        this.options.find(({ value }) => value === ev.target.id).value,
+      ];
+    } else {
+      this.value = this.value.filter(val => val !== ev.target.id);
+    }
+  }
+
+  iconComponent = () => {
+    const iconColor = this.color === 'secondary' ? '#12344d' : '#fff';
+    const direction = this.isDropdownOpen ? 'up' : 'down';
+    return <fw-icon name={`chevron-${direction}`} color={iconColor} size="8"> </fw-icon>;
+  }
+
   render() {
     return (
     <Host
