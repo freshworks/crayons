@@ -123,15 +123,29 @@ export class Button {
     this.fwBlur.emit();
   }
 
-  private handleClick() {
+  private handleClick(ev) {
+    /**
+     * Handle dropdown option click
+     */
+    if (ev.path[0].nodeName === 'LI') {
+      const option = this.options.find(opt => opt.label === ev.path[0].innerText);
+      return this.handleOptionClick(option);
+    }
+
     if (this.modalTriggerId !== '') {
       const modal: any = document.getElementById(this.modalTriggerId);
       modal.visible = true;
     }
 
-    if (!this.split) {
+    /**
+     * Do not emit event if the button is
+     * a non-split dropdown button
+     */
+
+    if (this.isValidDropdown && !this.split) {
       return this.handleDropdownToggle();
     }
+
     this.fwClick.emit();
   }
 
@@ -178,7 +192,7 @@ export class Button {
 
     this.filteredOptions = this.optionInput !== ''
       ? this.options.filter(option => option.label.toLowerCase()
-        .startsWith(this.optionInput.toLowerCase()))
+        .includes(this.optionInput.toLowerCase()))
       : this.options;
   }
 
@@ -223,8 +237,8 @@ export class Button {
           { this.searchable ? renderSearchInput() : '' }
           {
             validOptions.map(option => {
-              const liEl = <li key={option.id || option.value} class="dropdown-item"
-                onClick={() => this.handleOptionClick(option)}> {option.label} </li>;
+              const liEl = <li key={option.id || option.value}
+              class="dropdown-item"> {option.label} </li>;
 
               const checkboxEl = <fw-checkbox id={option.value}
                 checked={this.value ? this.value.includes(option.value) : false}
@@ -261,12 +275,12 @@ export class Button {
     };
 
     return (
-    <Host>
+    <Host
+      onClick={ev => this.handleClick(ev)}
+      onFocus={() => this.onFocus()}
+      onBlur={() => this.onBlur()}>
         <div class="btn-container">
           <button
-            onClick={() => this.handleClick()}
-            onFocus={() => this.onFocus()}
-            onBlur={() => this.onBlur()}
             type = {this.type}
             class={`
               fw-btn fw-btn--${this.color.toLowerCase()}
@@ -275,7 +289,7 @@ export class Button {
             `}
             disabled = {this.disabled}>
             { this.isValidDropdown ? this.host.childNodes[0].textContent : <slot /> }
-            { this.isValidDropdown && !this.split ? <span> {this.iconComponent()} </span> : '' }
+            { this.isValidDropdown && !this.split ? <span> { this.iconComponent()} </span> : '' }
           </button>
           { renderDropdownState() }
           { this.isValidDropdown ? renderDropdownOptions() : '' }

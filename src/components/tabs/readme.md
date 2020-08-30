@@ -49,6 +49,14 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
 | `fwChange` | Triggered when a the view switches to a new tab. | `CustomEvent<any>` |
 
 
+## CSS Custom Properties
+
+| Name                     | Description                    |
+| ------------------------ | ------------------------------ |
+| `--tab-header-font-size` | tab-header font size in pixels |
+| `--tabs-color-primary`   | tab-header font color          |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
