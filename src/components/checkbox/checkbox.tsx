@@ -1,4 +1,12 @@
-import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Event,
+  EventEmitter,
+  Host,
+  Prop,
+  Watch,
+  h
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-checkbox',
@@ -11,11 +19,11 @@ export class Checkbox {
    */
   @Prop({ mutable: true, reflect: true }) checked = false;
   /**
-   * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
+   * Disables the checkbox on the interface. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop({ mutable: true, reflect: true }) disabled = false;
   /**
-   * Label displayed on the interface, for the check box.
+   * Label displayed on the interface for the checkbox.
    */
   @Prop() label = '';
   /**
@@ -24,17 +32,17 @@ export class Checkbox {
   @Prop() value = '';
 
   /**
-   * Triggered when the check box’s value is modified.
+   * Triggered when the checkbox’s value is modified.
    */
   @Event() fwChange!: EventEmitter;
 
   /**
-   * Triggered when the check box comes into focus.
+   * Triggered when the checkbox comes into focus.
    */
   @Event() fwFocus!: EventEmitter<void>;
 
   /**
-   * Triggered when the check box loses focus.
+   * Triggered when the checkbox loses focus.
    */
   @Event() fwBlur!: EventEmitter<void>;
 
@@ -86,19 +94,19 @@ export class Checkbox {
         aria-checked={`${this.checked}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
-        >
-          <input type="checkbox"
-            ref={el => this.checkbox = el}>
-          </input>
-          <label>
-            <span class="text"><slot/></span>
-            <br/>
-            {
-              this.label !== ''
-              ? <span class="label-field">{this.label}</span>
-              : ''
-            }
-          </label>
+      >
+        <input type="checkbox" ref={el => (this.checkbox = el)}></input>
+        <label>
+          <span class="text">
+            <slot />
+          </span>
+          <br />
+          {this.label !== '' ? (
+            <span class="label-field">{this.label}</span>
+          ) : (
+            ''
+          )}
+        </label>
       </Host>
     );
   }

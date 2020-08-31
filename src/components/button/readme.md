@@ -1,42 +1,49 @@
 # Button (fw-button)
+
 fw-button displays a button on the user interface and enables performing specific actions based on the button type. The button’s label can be a text, icon, or both.
 
 ## Usage
 
 ```html live
 <section>
-<fw-label value="Try themes"></fw-label>
-<fw-button color="secondary"> OK </fw-button>
-<fw-button color="danger"> Don't Click </fw-button>
-<fw-button color="link"> Link Button </fw-button>
-<fw-button color="text"> Plain Text Button </fw-button>
+  <fw-label value="Try themes"></fw-label>
+  <fw-button color="secondary"> OK </fw-button>
+  <fw-button color="danger"> Don't Click </fw-button>
+  <fw-button color="link"> Link Button </fw-button>
+  <fw-button color="text"> Plain Text Button </fw-button>
 </section>
-<br>
+<br />
 <section>
-<fw-label value="Try sizes"></fw-label>
-<fw-button size="small"> Small </fw-button>
-<fw-button size="mini" color="secondary"> Mini </fw-button>
+  <fw-label value="Try sizes"></fw-label>
+  <fw-button size="small"> Small </fw-button>
+  <fw-button size="mini" color="secondary"> Mini </fw-button>
 </section>
-<br>
+<br />
 <section>
-<fw-label value="Try icon buttons"></fw-label>
-<fw-button size="icon"><fw-icon name="agent" color="white"></fw-icon> </fw-button>
-<fw-button size="icon" color="secondary"><fw-icon name="phone"></fw-icon> </fw-button>
+  <fw-label value="Try icon buttons"></fw-label>
+  <fw-button size="icon"
+    ><fw-icon name="agent" color="white"></fw-icon>
+  </fw-button>
+  <fw-button size="icon" color="secondary"
+    ><fw-icon name="phone"></fw-icon>
+  </fw-button>
 </section>
-<br>
+<br />
 <section>
-<fw-label value="Try icon + text buttons"></fw-label>
-<fw-button color="secondary"><fw-icon name="delete"></fw-icon> Delete</fw-button>
-<fw-button color="primary"> Copy <fw-icon name="code" color="white"></fw-icon></fw-button>
+  <fw-label value="Try icon + text buttons"></fw-label>
+  <fw-button color="secondary"
+    ><fw-icon name="delete"></fw-icon> Delete</fw-button
+  >
+  <fw-button color="primary">
+    Copy <fw-icon name="code" color="white"></fw-icon
+  ></fw-button>
 </section>
-<br>
+<br />
 <section>
-<fw-label value="Try expand attribute"></fw-label>
-<fw-button size="small" color="secondary" expand>Span full-width</fw-button>
+  <fw-label value="Try expand attribute"></fw-label>
+  <fw-button size="small" color="secondary" expand>Span full-width</fw-button>
 </section>
 ```
-
-
 
 <!-- Auto Generated Below -->
 

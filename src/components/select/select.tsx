@@ -1,4 +1,16 @@
-import { Component, Element, Event, EventEmitter, Host, Listen, Method, Prop, State, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Host,
+  Listen,
+  Method,
+  Prop,
+  State,
+  Watch,
+  h
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-select',
@@ -19,7 +31,7 @@ export class Select {
   @State() filteredOptions = [];
   @State() hasFocus = false;
   /**
-   * Label displayed on the interface, for the component.
+   * Label displayed on the interface for the component.
    */
   @Prop() label = '';
   /**
@@ -159,10 +171,10 @@ export class Select {
   @Listen('keydown')
   onKeyDonw(ev) {
     switch (ev.key) {
-      case 'ArrowDown' :
+      case 'ArrowDown':
         this.innerOnClick();
         break;
-      case 'Escape' :
+      case 'Escape':
         this.innerOnBlur(ev);
         break;
     }
@@ -170,9 +182,12 @@ export class Select {
 
   onInput() {
     const value = this.selectInput.value.toLowerCase();
-    this.filteredOptions = value !== ''
-      ? this.options.filter(option => option.text.toLowerCase().startsWith(value))
-      : this.options;
+    this.filteredOptions =
+      value !== ''
+        ? this.options.filter(option =>
+            option.text.toLowerCase().startsWith(value)
+          )
+        : this.options;
     this.renderInput();
   }
 
@@ -180,16 +195,26 @@ export class Select {
     if (this.multiple) {
       return this.options
         .filter(option => option.selected)
-        .map(option => <fw-tag text={option.text} disabled={option.disabled} value={option.value}/>);
+        .map(option => (
+          <fw-tag
+            text={option.text}
+            disabled={option.disabled}
+            value={option.value}
+          />
+        ));
     }
   }
 
   renderInput() {
     const selectedOptions = this.options.filter(option => option.selected);
     if (selectedOptions.length > 0) {
-      this.value = this.multiple ? selectedOptions.map(option => option.value) : selectedOptions[0].value || '';
+      this.value = this.multiple
+        ? selectedOptions.map(option => option.value)
+        : selectedOptions[0].value || '';
       if (this.selectInput) {
-        this.selectInput.value = this.multiple ? this.selectInput.value : selectedOptions[0].text || '';
+        this.selectInput.value = this.multiple
+          ? this.selectInput.value
+          : selectedOptions[0].text || '';
       }
     } else if (selectedOptions.length === 0) {
       this.value = undefined;
@@ -197,21 +222,23 @@ export class Select {
   }
 
   renderDropdown() {
-    return this.filteredOptions.map(option =>
-      (<fw-select-option
+    return this.filteredOptions.map(option => (
+      <fw-select-option
         value={option.value}
         selected={option.selected}
         disabled={option.disabled}
         html={option.isHtml}
         htmlContent={option.htmlContent}
-        >{option.text}
-      </fw-select-option>)
-    );
+      >
+        {option.text}
+      </fw-select-option>
+    ));
   }
 
   componentWillLoad() {
-
-    const selectOptions = Array.from(this.host.querySelectorAll('fw-select-option'));
+    const selectOptions = Array.from(
+      this.host.querySelectorAll('fw-select-option')
+    );
 
     const options = selectOptions.map(option => {
       return {
@@ -246,21 +273,27 @@ export class Select {
           'has-focus': this.hasFocus,
         }}
       >
-        {this.label !== '' ? <label class={{ 'required': this.required }}> {this.label} </label> : ''}
+        {this.label !== '' ? (
+          <label class={{ required: this.required }}> {this.label} </label>
+        ) : (
+          ''
+        )}
         <div class="select-container">
-          <div class={{
+          <div
+            class={{
               'input-container': true,
               [this.state]: true,
               'select-disabled': this.disabled,
             }}
-            ref={select => this.select = select}
-            onClick={() => this.innerOnClick()}>
+            ref={select => (this.select = select)}
+            onClick={() => this.innerOnClick()}
+          >
             <div class="input-container-inner">
               {this.renderTags()}
               <input
-                ref={selectInput => this.selectInput = selectInput}
+                ref={selectInput => (this.selectInput = selectInput)}
                 class={{
-                  'multiple-select' : this.multiple,
+                  'multiple-select': this.multiple,
                 }}
                 autoComplete="off"
                 disabled={this.disabled}
@@ -274,17 +307,28 @@ export class Select {
                 onFocus={e => this.innerOnFocus(e)}
                 onBlur={e => this.innerOnBlur(e)}
               />
-              <span class={{ 'dropdown-status-icon': true, 'expanded': this.isExpanded }}></span>
+              <span
+                class={{
+                  'dropdown-status-icon': true,
+                  expanded: this.isExpanded,
+                }}
+              ></span>
             </div>
           </div>
-          <ul tabindex="0" class="dropdown" ref={ul => this.selectList = ul}>
+          <ul tabindex="0" class="dropdown" ref={ul => (this.selectList = ul)}>
             {this.renderDropdown()}
           </ul>
-          {this.stateText !== '' ?
-            <span class="help-block">{this.stateText}</span> : ''}
+          {this.stateText !== '' ? (
+            <span class="help-block">{this.stateText}</span>
+          ) : (
+            ''
+          )}
         </div>
-        <div class="overlay" ref={overlay => this.overlay = overlay}
-          onClick={() => this.closeDropdown()}/>
+        <div
+          class="overlay"
+          ref={overlay => (this.overlay = overlay)}
+          onClick={() => this.closeDropdown()}
+        />
       </Host>
     );
   }

@@ -1,4 +1,14 @@
-import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Event,
+  EventEmitter,
+  Host,
+  Method,
+  Prop,
+  State,
+  Watch,
+  h
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-textarea',
@@ -10,7 +20,7 @@ export class Textarea {
 
   @State() hasFocus = false;
   /**
-   * Label displayed on the interface, for the component.
+   * Label displayed on the interface for the component.
    */
   @Prop() label = '';
   /**
@@ -133,18 +143,28 @@ export class Textarea {
         }}
       >
         <div class="textarea-container">
-          {this.label !== '' ? <label class={{
-            'required': this.required,
-          }}>{this.label}</label> : ''}
-          <div class={{
-            'textarea-container-inner': true,
-            [this.state]: true,
-          }}>
+          {this.label !== '' ? (
+            <label
+              class={{
+                required: this.required,
+              }}
+            >
+              {this.label}
+            </label>
+          ) : (
+            ''
+          )}
+          <div
+            class={{
+              'textarea-container-inner': true,
+              [this.state]: true,
+            }}
+          >
             <textarea
               class={{
-                'responsive': this.cols === undefined,
+                responsive: this.cols === undefined,
               }}
-              ref={input => this.nativeInput = input}
+              ref={input => (this.nativeInput = input)}
               disabled={this.disabled}
               name={this.name}
               placeholder={this.placeholder || ''}
@@ -161,8 +181,11 @@ export class Textarea {
               wrap={this.wrap}
             />
           </div>
-          {this.stateText !== '' ?
-            <span class="help-block">{this.stateText}</span> : ''}
+          {this.stateText !== '' ? (
+            <span class="help-block">{this.stateText}</span>
+          ) : (
+            ''
+          )}
         </div>
       </Host>
     );
