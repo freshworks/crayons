@@ -19,8 +19,8 @@ fw-checkbox displays a checkbox on the user interface and enables assigning a st
 | ---------- | ---------- | ------------------------------------------------------------------------------------------------------------- | --------- | ------- |
 | `checked`  | `checked`  | Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to false. | `boolean` | `false` |
 | `disabled` | `disabled` | Disables the checkbox on the interface. If the attribute’s value is undefined, the value is set to false.     | `boolean` | `false` |
-| `label`    | `label`    | Label displayed on the interface for the checkbox.                                                            | `string`  | `""`    |
-| `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                         | `string`  | `""`    |
+| `label`    | `label`    | Label displayed on the interface for the checkbox.                                                            | `string`  | `''`    |
+| `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                         | `string`  | `''`    |
 
 
 ## Events

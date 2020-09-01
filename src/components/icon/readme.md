@@ -26,6 +26,13 @@ The following are the icons supported:
 | `size`   | `size`    | Size of the icon, specified in number of  pixels.                                                           | `number` | `12`        |
 
 
+## CSS Custom Properties
+
+| Name           | Description       |
+| -------------- | ----------------- |
+| `--icon-color` | Color of the icon |
+
+
 ## Dependencies
 
 ### Used by
