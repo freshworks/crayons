@@ -38,11 +38,11 @@ export namespace Components {
          */
         "checked": boolean;
         /**
-          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the checkbox on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * Label displayed on the interface for the checkbox.
          */
         "label": string;
         /**
@@ -120,7 +120,7 @@ export namespace Components {
          */
         "iconRight": string;
         /**
-          * Label displayed on the interface, for the component.
+          * Label displayed on the interface for the component.
          */
         "label": string;
         /**
@@ -226,7 +226,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * Label displayed on the interface for the component.
          */
         "label": string;
         /**
@@ -263,7 +263,7 @@ export namespace Components {
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
         /**
-          * Label displayed on the interface, for the component.
+          * Label displayed on the interface for the component.
          */
         "label": string;
         /**
@@ -383,7 +383,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * Label displayed on the interface for the component.
          */
         "label": string;
         /**
@@ -655,23 +655,23 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
-          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the checkbox on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * Label displayed on the interface for the checkbox.
          */
         "label"?: string;
         /**
-          * Triggered when the check box loses focus.
+          * Triggered when the checkbox loses focus.
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the check box’s value is modified.
+          * Triggered when the checkbox’s value is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * Triggered when the check box comes into focus.
+          * Triggered when the checkbox comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
@@ -753,7 +753,7 @@ declare namespace LocalJSX {
          */
         "iconRight"?: string;
         /**
-          * Label displayed on the interface, for the component.
+          * Label displayed on the interface for the component.
          */
         "label"?: string;
         /**
@@ -879,7 +879,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * Label displayed on the interface for the component.
          */
         "label"?: string;
         /**
@@ -935,7 +935,7 @@ declare namespace LocalJSX {
          */
         "forceSelect"?: boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * Label displayed on the interface for the component.
          */
         "label"?: string;
         /**
@@ -1083,7 +1083,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * Label displayed on the interface for the component.
          */
         "label"?: string;
         /**
