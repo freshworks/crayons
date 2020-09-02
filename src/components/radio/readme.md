@@ -18,7 +18,7 @@ fw-radio displays a radio button on the user interface and enables assigning a s
 | ---------- | ---------- | ---------------------------------------------------------------------------------------------------------- | --------- | ------- |
 | `checked`  | `checked`  | Sets the state to selected. If the attribute’s value is undefined, the value is set to false.              | `boolean` | `false` |
 | `disabled` | `disabled` | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false. | `boolean` | `false` |
-| `label`    | `label`    | Label displayed on the interface, for the component.                                                       | `string`  | `''`    |
+| `label`    | `label`    | Label displayed on the interface for the component.                                                        | `string`  | `''`    |
 | `name`     | `name`     | Name of the component, saved as part of form data.                                                         | `string`  | `''`    |
 | `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                      | `string`  | `''`    |
 

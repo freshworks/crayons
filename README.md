@@ -3,7 +3,7 @@
 
 
 # 🖍️ Crayons
-[Freshworks Crayons](https://crayons.freshworks.com) is a library of UI components that are the building blocks to help create an intuitive and uniform user interface for all your apps. This is a collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) that will help developers build apps faster that adheres to the UX standards set by the Freshworks Design System.
+[Freshworks Crayons](https://crayons.freshworks.com) is a library of UI components that are the building blocks to help create an intuitive and uniform user interface for all your apps. This is a collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) that will help developers build apps faster that will adhere to the UX standards set by the Freshworks Design System.
 
 ### Installation
 
