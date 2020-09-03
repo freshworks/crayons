@@ -30,15 +30,15 @@ export namespace Components {
     }
     interface FwCheckbox {
         /**
-          * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to false.
+          * Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.
          */
         "checked": boolean;
         /**
-          * Disables the checkbox on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface for the checkbox.
+          * Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -116,7 +116,7 @@ export namespace Components {
          */
         "iconRight": string;
         /**
-          * Label displayed on the interface for the component.
+          * Label displayed on the interface, for the component.
          */
         "label": string;
         /**
@@ -184,7 +184,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface for the component.
+          * Label displayed on the interface, for the component.
          */
         "label": string;
         /**
@@ -221,7 +221,7 @@ export namespace Components {
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
         /**
-          * Label displayed on the interface for the component.
+          * Label displayed on the interface, for the component.
          */
         "label": string;
         /**
@@ -341,7 +341,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface for the component.
+          * Label displayed on the interface, for the component.
          */
         "label": string;
         /**
@@ -598,27 +598,27 @@ declare namespace LocalJSX {
     }
     interface FwCheckbox {
         /**
-          * Sets the state of the checkbox to selected. If the attribute’s value is undefined, the value is set to false.
+          * Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.
          */
         "checked"?: boolean;
         /**
-          * Disables the checkbox on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface for the checkbox.
+          * Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
-          * Triggered when the checkbox loses focus.
+          * Triggered when the check box loses focus.
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the checkbox’s value is modified.
+          * Triggered when the check box’s value is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * Triggered when the checkbox comes into focus.
+          * Triggered when the check box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
@@ -700,7 +700,7 @@ declare namespace LocalJSX {
          */
         "iconRight"?: string;
         /**
-          * Label displayed on the interface for the component.
+          * Label displayed on the interface, for the component.
          */
         "label"?: string;
         /**
@@ -780,7 +780,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface for the component.
+          * Label displayed on the interface, for the component.
          */
         "label"?: string;
         /**
@@ -836,7 +836,7 @@ declare namespace LocalJSX {
          */
         "forceSelect"?: boolean;
         /**
-          * Label displayed on the interface for the component.
+          * Label displayed on the interface, for the component.
          */
         "label"?: string;
         /**
@@ -984,7 +984,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface for the component.
+          * Label displayed on the interface, for the component.
          */
         "label"?: string;
         /**
