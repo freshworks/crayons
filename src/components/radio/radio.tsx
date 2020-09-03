@@ -15,7 +15,7 @@ export class Radio {
    */
   @Prop({ mutable: true, reflect: true }) disabled = false;
   /**
-   * Label displayed on the interface for the component.
+   * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
   /**

@@ -2,9 +2,7 @@
 
 ## About Crayons
 
-Crayons is a component library based on Web Components. The goal of Crayons is to provide the developer with easy to use web components by reducing the number of lines of code while giving your app a Freshworks product like user interface.
-
-Crayons is built using StencilJS which provides all the features of a web component.
+Crayons is a component library based on Web Components. The goal of Crayons is to provide developers with easy to use web components that give apps a Freshworks product like user interface, while reducing the number of lines of code. Crayons is developed using StencilJS that helps build standard-based Web Components.
 
 ### Crayons Important links
 
@@ -13,7 +11,7 @@ Crayons is built using StencilJS which provides all the features of a web compon
 
 ## How to Contribute
 
-Crayons has a predefined set of components. As a developer, you not only can use the components in your projects but you can also contribute to Crayons, as it falls under a MIT license. We welcome all contributions, big or small.
+Crayons has a predefined set of components. As a developer, you not only can use the components in your projects but you can also contribute to Crayons, as it falls under the MIT license. We welcome all contributions, big or small.
 
 ### Contributing usually requires one or more of the following steps
 
@@ -53,9 +51,9 @@ Should you choose to work on a new issue or an existing issue from <https://gith
 
 ### Commit the changes to Github
 
-Crayons repository uses github pre commit hooks, follow the below steps to commit your changes to github
+The Crayons repository uses GitHub's pre-commit hooks. To commit your changes,
 
-1. Make your changes to the file and add the untracked files to staging area.
+1. Make your changes to the files and add the untracked files to the staging area.
 
 2. Run `git commit`.
 
@@ -93,7 +91,7 @@ Crayons repository uses github pre commit hooks, follow the below steps to commi
     ? Provide a longer description of the change: (press enter to skip)
     ```
 
-7. Fill in the following details when it prompts.
+7. Fill in the following details when prompted.
 
     ```bash
     ? Are there any breaking changes? Yes
@@ -102,11 +100,11 @@ Crayons repository uses github pre commit hooks, follow the below steps to commi
     ? Does this change affect any open issues? No
     ```
 
-8. Give a commit message when it prompts.
+8. Give a commit message when prompted.
 
-9. Run `git push -u origin <your-branch>`, to push your changes to the forked repo. git hooks will run all the test before pushing the changes. if any test fails, rewrite the tests and make sure all the tests pass before pushing again.
+9. Run `git push -u origin <your-branch>`, to push your changes to the forked repo. git hooks will run all the test before pushing the changes. if any test fails, rewrite the tests and ensure that all tests pass before pushing again.
 
-10. Go to the forked repo in github and raise a PR. Please wait for the PR to be approved. If there are any comments, address them.
+10. Go to the forked repo in github and raise a PR. If there are any comments on your PR, address them. Please wait for the PR to be approved.
 
 ## FAQ
 

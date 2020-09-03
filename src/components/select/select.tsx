@@ -19,7 +19,7 @@ export class Select {
   @State() filteredOptions = [];
   @State() hasFocus = false;
   /**
-   * Label displayed on the interface for the component.
+   * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
   /**
