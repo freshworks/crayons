@@ -8,6 +8,10 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface FwButton {
         /**
+          * Accepts the id of the fw-toast component to open it on click
+         */
+        "ToastTriggerId": string;
+        /**
           * Identifier of  the theme based on which the button is styled.
          */
         "color": "primary" | "secondary" | "danger" | "link" | "text";
@@ -473,6 +477,37 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface FwToast {
+        /**
+          * The Content of the action link
+         */
+        "actionLinkText": string;
+        /**
+          * The content to be diaplyed in toast
+         */
+        "content": string;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "pauseOnHover": boolean;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "position": "top-center" | "top-left" | "top-right";
+        /**
+          * won't close automatically
+         */
+        "sticky": boolean;
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout": number;
+        "trigger": (configs: object) => Promise<void>;
+        /**
+          * Type of the toast - success,failure, warning, inprogress
+         */
+        "type": "success" | "error" | "warning" | "inprogress";
+    }
     interface FwToggle {
         /**
           * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
@@ -595,6 +630,12 @@ declare global {
         prototype: HTMLFwTimepickerElement;
         new (): HTMLFwTimepickerElement;
     };
+    interface HTMLFwToastElement extends Components.FwToast, HTMLStencilElement {
+    }
+    var HTMLFwToastElement: {
+        prototype: HTMLFwToastElement;
+        new (): HTMLFwToastElement;
+    };
     interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {
     }
     var HTMLFwToggleElement: {
@@ -619,11 +660,16 @@ declare global {
         "fw-tag": HTMLFwTagElement;
         "fw-textarea": HTMLFwTextareaElement;
         "fw-timepicker": HTMLFwTimepickerElement;
+        "fw-toast": HTMLFwToastElement;
         "fw-toggle": HTMLFwToggleElement;
     }
 }
 declare namespace LocalJSX {
     interface FwButton {
+        /**
+          * Accepts the id of the fw-toast component to open it on click
+         */
+        "ToastTriggerId"?: string;
         /**
           * Identifier of  the theme based on which the button is styled.
          */
@@ -1197,6 +1243,40 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface FwToast {
+        /**
+          * The Content of the action link
+         */
+        "actionLinkText"?: string;
+        /**
+          * The content to be diaplyed in toast
+         */
+        "content"?: string;
+        /**
+          * Triggered when the action link clicked.
+         */
+        "onFwLinkClick"?: (event: CustomEvent<any>) => void;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "pauseOnHover"?: boolean;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "position"?: "top-center" | "top-left" | "top-right";
+        /**
+          * won't close automatically
+         */
+        "sticky"?: boolean;
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout"?: number;
+        /**
+          * Type of the toast - success,failure, warning, inprogress
+         */
+        "type"?: "success" | "error" | "warning" | "inprogress";
+    }
     interface FwToggle {
         /**
           * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
@@ -1237,6 +1317,7 @@ declare namespace LocalJSX {
         "fw-tag": FwTag;
         "fw-textarea": FwTextarea;
         "fw-timepicker": FwTimepicker;
+        "fw-toast": FwToast;
         "fw-toggle": FwToggle;
     }
 }
@@ -1261,6 +1342,7 @@ declare module "@stencil/core" {
             "fw-tag": LocalJSX.FwTag & JSXBase.HTMLAttributes<HTMLFwTagElement>;
             "fw-textarea": LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
             "fw-timepicker": LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
+            "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
         }
     }

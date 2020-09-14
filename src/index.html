@@ -40,5 +40,14 @@
   document.querySelector('fw-input').setFocus();
 </script>
 
+<br>
+<fw-toast content="Successfully triggered"></fw-toast>
+<fw-toast content="error in triggered"></fw-toast>
+<script>
+  window.addEventListener('fwLinkClick', eventHandler);
+  function eventHandler(e) {
+    console.log('action link clicked', e);
+  }
+</script>
 </body>
 </html>

@@ -1,0 +1,50 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Toast
+
+<Meta
+  title='Toast'
+  component='fw-toast'
+/>
+
+## Props 
+
+<Props of="fw-toast"/>
+
+## Usage
+
+### Default
+<Preview>
+  <Story name='Default'>
+    {() => `
+    <fw-button toast-trigger-id="default_toast">Trigger</fw-button>
+    <fw-toast id="default_toast" type="success" content="Successfullly triggered" sticky="true"></fw-toast>`}
+  </Story>
+</Preview>
+
+### Position
+<Preview>
+  <Story name='position'>
+    {() => `
+    <div style="margin-top: 100px">
+      <fw-button toast-trigger-id="topleft_toast">top left</fw-button>
+      <fw-toast id="topleft_toast" type="success" position="top-left" content="Successfullly triggered"></fw-toast>
+
+      <fw-button toast-trigger-id="topcenter_toast">top center</fw-button>
+      <fw-toast id="topcenter_toast" type="success" position="top-center" content="Successfullly triggered"></fw-toast>
+
+      <fw-button toast-trigger-id="topright_toast">top right</fw-button>
+      <fw-toast id="topright_toast" type="success" position="top-right" content="Successfullly triggered"></fw-toast>
+    </div>
+    `}
+  </Story>
+</Preview>
+
+### Action Link
+<Preview>
+  <Story name='Action Link'>
+    {() => `
+    <fw-button toast-trigger-id="actionlink_toast">Trigger</fw-button>
+    <fw-toast id="actionlink_toast" action-link-text="Undo" type="success" content="Record successfullly deleted" sticky="true"></fw-toast>`}
+  </Story>
+</Preview>
