@@ -39,7 +39,7 @@ export class Button {
   /**
    *  Accepts the id of the fw-toast component to open it on click
    */
-  @Prop() ToastTriggerId = '';
+  @Prop() toastTriggerId = '';
 
   /**
    * Triggered when the button is clicked.
@@ -68,8 +68,9 @@ export class Button {
     if (this.modalTriggerId !== '') {
       const modal: any = document.getElementById(this.modalTriggerId);
       modal.visible = true;
-    } else if (this.ToastTriggerId !== '') {
-      document.getElementById(this.ToastTriggerId).trigger({});
+    } else if (this.toastTriggerId !== '') {
+      const Toast: any = document.getElementById(this.toastTriggerId);
+      Toast.trigger({});
     }
     this.fwClick.emit();
   }

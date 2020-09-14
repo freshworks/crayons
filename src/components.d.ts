@@ -8,10 +8,6 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface FwButton {
         /**
-          * Accepts the id of the fw-toast component to open it on click
-         */
-        "ToastTriggerId": string;
-        /**
           * Identifier of  the theme based on which the button is styled.
          */
         "color": "primary" | "secondary" | "danger" | "link" | "text";
@@ -31,6 +27,10 @@ export namespace Components {
           * Size of the button.
          */
         "size": "normal" | "mini" | "small";
+        /**
+          * Accepts the id of the fw-toast component to open it on click
+         */
+        "toastTriggerId": string;
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
@@ -667,10 +667,6 @@ declare global {
 declare namespace LocalJSX {
     interface FwButton {
         /**
-          * Accepts the id of the fw-toast component to open it on click
-         */
-        "ToastTriggerId"?: string;
-        /**
           * Identifier of  the theme based on which the button is styled.
          */
         "color"?: "primary" | "secondary" | "danger" | "link" | "text";
@@ -702,6 +698,10 @@ declare namespace LocalJSX {
           * Size of the button.
          */
         "size"?: "normal" | "mini" | "small";
+        /**
+          * Accepts the id of the fw-toast component to open it on click
+         */
+        "toastTriggerId"?: string;
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
