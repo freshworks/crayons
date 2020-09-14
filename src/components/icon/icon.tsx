@@ -3,7 +3,7 @@ import { Component, Prop, State, Watch, getAssetPath, h } from '@stencil/core';
 @Component({
   tag: 'fw-icon',
   styleUrl: 'icon.scss',
-  assetsDirs: ['assets'],
+  assetsDirs: ['icon-assets'],
   shadow: true,
 })
 export class Icon {
@@ -25,7 +25,7 @@ export class Icon {
   @State() svgHTML = '';
 
   private async getSVGHTML(iconName: string) {
-    const response = await fetch(getAssetPath(`assets/icons/${iconName}.svg`));
+    const response = await fetch(getAssetPath(`icon-assets/icons/${iconName}.svg`));
     const data = await response.text();
     return data;
   }

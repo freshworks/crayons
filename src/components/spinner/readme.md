@@ -28,6 +28,19 @@ fw-spinner displays a continuous loader on the user interface, to indicate that 
 | `--spinner-color` | Color of the spinner |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-toast](../toast)
+
+### Graph
+```mermaid
+graph TD;
+  fw-toast --> fw-spinner
+  style fw-spinner fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

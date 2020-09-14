@@ -1,0 +1,109 @@
+:host {
+  display: none;
+}
+
+:host(.is-open) {
+  transform: translate();
+  display: block;
+}
+
+:host(.toast) {
+  position: fixed;
+  top: 10px;
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #ebeff3;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.toast {
+  :host(&.success) {
+    border-top: 5px solid #00a886;
+  }
+
+  :host(&.error) {
+    border-top: 5px solid #e43538;
+  }
+
+  :host(&.warning) {
+    border-top: 5px solid #f48928;
+  }
+
+  :host(&.inprogress) {
+    border-top: 5px solid #2c5cc5;
+  }
+
+  :host(&.top-center) {
+    left: calc(50% - 200px);
+  }
+
+  :host(&.top-left) {
+    left: 10px;
+  }
+
+  :host(&.top-right) {
+    right: 10px;
+  }
+}
+
+.content {
+  color: #1c3044;
+  line-height: 20px;
+  width: 85%;
+  float: left;
+  margin: 2px auto 8px;
+}
+
+.icon {
+  margin: 6px 16px 0 6px;
+  vertical-align: text-top;
+  float: left;
+}
+
+.action-link {
+  color: #2c5cc5;
+  line-height: 14px;
+  margin-left: 38px;
+  cursor: pointer;
+  float: left;
+}
+
+.cross {
+  float: right;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+@keyframes fadeOutRight {
+  100% {
+    right: -450px;
+  }
+}
+
+@keyframes fadeOutLeft {
+  100% {
+    left: -450px;
+  }
+}
+
+@keyframes fadeOutTop {
+  100% {
+    top: -600px;
+  }
+}
+
+:host(.fade-out-right) {
+  animation-duration: 1s;
+  animation-name: fadeOutRight;
+}
+
+:host(.fade-out-left) {
+  animation-duration: 1s;
+  animation-name: fadeOutLeft;
+}
+
+:host(.fade-out-top) {
+  animation-duration: 1s;
+  animation-name: fadeOutTop;
+}

@@ -37,12 +37,14 @@ The following are the icons supported:
 
  - [fw-input](../input)
  - [fw-modal](../modal)
+ - [fw-toast](../toast)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-input --> fw-icon
   fw-modal --> fw-icon
+  fw-toast --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
