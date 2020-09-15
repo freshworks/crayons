@@ -11,7 +11,7 @@
 </head>
 <body style="margin: 250px;">
 <fw-button>Hello</fw-button>
-<fw-textarea data-v-9709b616 placeholder="Describe value proposition and use cases of your app" name="description" id="description" class="hydrated has-value" value="Form_Serv1">
+<fw-input autofocus></fw-input>
 </fw-textarea>
 <fw-select
     label="Select App type"
@@ -32,5 +32,13 @@
 <fw-timepicker min-time="01:39 AM" interval=55> </fw-timepicker>
 <fw-datepicker style="float:left;"></fw-datepicker>
 <fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
+
+
+
+<script>
+  
+  document.querySelector('fw-input').setFocus();
+</script>
+
 </body>
 </html>

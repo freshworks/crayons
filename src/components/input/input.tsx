@@ -26,6 +26,10 @@ export class Input {
    */
   @Prop() autocomplete: 'on' | 'off' = 'off';
   /**
+   * Specifies whether the browser can auto focus the input field
+   */
+  @Prop() autofocus = false;
+  /**
    * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
    */
   @Prop() clearInput = false;
@@ -172,6 +176,7 @@ export class Input {
           <input
             ref={input => this.nativeInput = input}
             autoComplete={this.autocomplete}
+            autoFocus={this.autofocus}
             disabled={this.disabled}
             name={this.name}
             placeholder={this.placeholder || ''}
