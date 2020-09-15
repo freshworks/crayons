@@ -25,6 +25,7 @@ fw-select displays a list or drop-down box that enables selection of an option o
 
 | Property      | Attribute      | Description                                                                                                                                                             | Type                               | Default     |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `autofocus`   | `autofocus`    | If true, the select component is auto focused on the page                                                                                                               | `boolean`                          | `false`     |
 | `disabled`    | `disabled`     | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                              | `boolean`                          | `false`     |
 | `forceSelect` | `force-select` | If true, the user must select a value. The default value is not displayed.                                                                                              | `boolean`                          | `true`      |
 | `label`       | `label`        | Label displayed on the interface, for the component.                                                                                                                    | `string`                           | `''`        |
@@ -59,14 +60,6 @@ fw-select displays a list or drop-down box that enables selection of an option o
 Type: `Promise<any>`
 
 
-
-
-## CSS Custom Properties
-
-| Name           | Description                            |
-| -------------- | -------------------------------------- |
-| `--max-height` | Maximum height of the select component |
-| `--min-height` | Minimum height of the select component |
 
 
 ## Dependencies

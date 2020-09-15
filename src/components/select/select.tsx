@@ -51,6 +51,10 @@ export class Select {
    */
   @Prop() readonly = false;
   /**
+   * If true, the select component is auto focused on the page
+   */
+  @Prop() autofocus = false;
+  /**
    * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() required = false;
@@ -263,6 +267,7 @@ export class Select {
                   'multiple-select' : this.multiple,
                 }}
                 autoComplete="off"
+                autoFocus={this.autofocus}
                 disabled={this.disabled}
                 name={this.name}
                 placeholder={this.placeholder || ''}
