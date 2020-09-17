@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/freshworks/crayons/compare/v2.4.0...v2.5.0) (2020-09-17)
+
+
+### Features
+
+* **input select textarea:** adds new prop - autofocus ([bd88d2b](https://github.com/freshworks/crayons/commit/bd88d2b8a0ade316dd6c652442e11c409f9f0cdc)), closes [#129](https://github.com/freshworks/crayons/issues/129)
+
 # [2.4.0](https://github.com/freshworks/crayons/compare/v2.3.4...v2.4.0) (2020-08-28)
 
 
