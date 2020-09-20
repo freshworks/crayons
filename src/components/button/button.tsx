@@ -37,11 +37,6 @@ export class Button {
   @Prop() modalTriggerId = '';
 
   /**
-   *  Accepts the id of the fw-toast component to open it on click
-   */
-  @Prop() toastTriggerId = '';
-
-  /**
    * Triggered when the button is clicked.
    */
   @Event() fwClick!: EventEmitter<void>;
@@ -68,9 +63,6 @@ export class Button {
     if (this.modalTriggerId !== '') {
       const modal: any = document.getElementById(this.modalTriggerId);
       modal.visible = true;
-    } else if (this.toastTriggerId !== '') {
-      const Toast: any = document.getElementById(this.toastTriggerId);
-      Toast.trigger({});
     }
     this.fwClick.emit();
   }

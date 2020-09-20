@@ -1,11 +1,5 @@
 import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, getAssetPath, h } from '@stencil/core';
 
-const animationDirection = {
-  'top-center': 'fade-out-top',
-  'top-right': 'fade-out-right',
-  'top-left': 'fade-out-left',
-};
-
 @Component({
   tag: 'fw-toast',
   styleUrl: 'toast.scss',
@@ -132,7 +126,7 @@ export class Toast {
   render() {
     return (
       <Host
-        class={`toast ${this.position} ${this.type} ${this.open ? 'is-open' : ''} ${this.fadeOut ? animationDirection[this.position] : ''}`}
+        class={`toast ${this.position} ${this.type} ${this.open ? 'is-open' : ''} ${this.fadeOut ? 'fade-out' : ''}`}
         aria-hidden={this.open ? 'false' : 'true'}
         onmouseover={() => this.mouseHover(true)}
         onmouseout={() => this.mouseHover(false)}

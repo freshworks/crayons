@@ -1,10 +1,13 @@
+@import "../../styles/freshworks.scss";
+
 :host {
   display: none;
 }
 
 :host(.is-open) {
-  transform: translate();
   display: block;
+  animation-duration: 0.2s;
+  animation-name: fadeIn;
 }
 
 :host(.toast) {
@@ -12,26 +15,26 @@
   top: 10px;
   width: 400px;
   padding: 10px;
-  border: 1px solid #ebeff3;
+  border: 1px solid var(--color-smoke-50);
   border-radius: 4px;
-  background-color: #fff;
+  background-color: var(--color-milk);
 }
 
 .toast {
   :host(&.success) {
-    border-top: 5px solid #00a886;
+    border-top: 5px solid var(--color-jungle-500);
   }
 
   :host(&.error) {
-    border-top: 5px solid #e43538;
+    border-top: 5px solid var(--color-persimmon-800);
   }
 
   :host(&.warning) {
-    border-top: 5px solid #f48928;
+    border-top: 5px solid var(--color-casablanca-300);
   }
 
   :host(&.inprogress) {
-    border-top: 5px solid #2c5cc5;
+    border-top: 5px solid var(--color-azure-800);
   }
 
   :host(&.top-center) {
@@ -48,7 +51,7 @@
 }
 
 .content {
-  color: #1c3044;
+  color: var(--color-elephant-900);
   line-height: 20px;
   width: 85%;
   float: left;
@@ -62,7 +65,7 @@
 }
 
 .action-link {
-  color: #2c5cc5;
+  color: var(--color-azure-800);
   line-height: 14px;
   margin-left: 38px;
   cursor: pointer;
@@ -75,35 +78,23 @@
   margin-right: 6px;
 }
 
-@keyframes fadeOutRight {
-  100% {
-    right: -450px;
-  }
-}
-
-@keyframes fadeOutLeft {
-  100% {
-    left: -450px;
-  }
-}
-
-@keyframes fadeOutTop {
+@keyframes fadeOut {
   100% {
     top: -600px;
   }
 }
 
-:host(.fade-out-right) {
-  animation-duration: 1s;
-  animation-name: fadeOutRight;
+@keyframes fadeIn {
+  0% {
+    top: -600px;
+  }
+
+  100% {
+    top: 10px;
+  }
 }
 
-:host(.fade-out-left) {
+:host(.fade-out) {
   animation-duration: 1s;
-  animation-name: fadeOutLeft;
-}
-
-:host(.fade-out-top) {
-  animation-duration: 1s;
-  animation-name: fadeOutTop;
+  animation-name: fadeOut;
 }
