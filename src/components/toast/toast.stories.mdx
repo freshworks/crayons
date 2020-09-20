@@ -17,8 +17,22 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
   <Story name='Default'>
     {() => `
-    <fw-button toast-trigger-id="default_toast">Trigger</fw-button>
-    <fw-toast id="default_toast" type="success" content="Successfullly triggered" sticky="true"></fw-toast>`}
+    <fw-toast id="default_toast" type="success" content="Successfullly triggered" sticky="true"></fw-toast>
+    <fw-button onClick="document.querySelector('#default_toast').trigger({})">Trigger</fw-button>
+    `}
+  </Story>
+</Preview>
+
+### Type
+<Preview>
+  <Story name='Type'>
+    {() => `
+    <fw-toast id="type_toast" sticky=true></fw-toast>
+    <fw-button onClick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})">Success</fw-button>
+    <fw-button onClick="document.querySelector('#type_toast').trigger({type:'error', content:'something went wrong!'})">Error</fw-button>
+    <fw-button onClick="document.querySelector('#type_toast').trigger({type:'warning', content:'This is a warning!'})">Warning</fw-button>
+    <fw-button onClick="document.querySelector('#type_toast').trigger({type:'inprogress', content:'Request is in progress'})">Inprogress</fw-button>
+    `}
   </Story>
 </Preview>
 
@@ -27,11 +41,11 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   <Story name='position'>
     {() => `
     <div style="margin-top: 100px">
-      <fw-button toast-trigger-id="topleft">top left</fw-button>
+      <fw-button onClick="document.querySelector('#topleft').trigger({position: 'top-left'})">top left</fw-button>
       <fw-toast id="topleft" type="success" position="top-left" content="Successfullly triggered"></fw-toast>
-      <fw-button toast-trigger-id="topcenter">top center</fw-button>
+      <fw-button onClick="document.querySelector('#topcenter').trigger({position: 'top-center'})">top center</fw-button>
       <fw-toast id="topcenter" type="success" position="top-center" content="Successfullly triggered"></fw-toast>
-      <fw-button toast-trigger-id="topright">top right</fw-button>
+      <fw-button onClick="document.querySelector('#topright').trigger({position: 'top-right'})">top right</fw-button>
       <fw-toast id="topright" type="success" position="top-right" content="Successfullly triggered"></fw-toast>
     </div>
     `}
@@ -42,7 +56,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
   <Story name='Action Link'>
     {() => `
-    <fw-button toast-trigger-id="actionlink_toast">Trigger</fw-button>
+    <fw-button onClick="document.querySelector('#actionlink_toast').trigger({})">Trigger</fw-button>
     <fw-toast id="actionlink_toast" action-link-text="Undo" type="success" content="Record successfullly deleted" sticky="true"></fw-toast>`}
   </Story>
 </Preview>

@@ -28,10 +28,6 @@ export namespace Components {
          */
         "size": "normal" | "mini" | "small";
         /**
-          * Accepts the id of the fw-toast component to open it on click
-         */
-        "toastTriggerId": string;
-        /**
           * Button type based on which actions are performed when the button is clicked.
          */
         "type": "button" | "reset" | "submit";
@@ -698,10 +694,6 @@ declare namespace LocalJSX {
           * Size of the button.
          */
         "size"?: "normal" | "mini" | "small";
-        /**
-          * Accepts the id of the fw-toast component to open it on click
-         */
-        "toastTriggerId"?: string;
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
