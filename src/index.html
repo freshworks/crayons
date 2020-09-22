@@ -42,7 +42,7 @@
 
 <br>
 <fw-toast content="Successfully triggered"></fw-toast>
-<fw-toast content="error in triggered"></fw-toast>
+<fw-button style="float:left; clear:left" onClick="document.querySelector('fw-toast').trigger({type:'success'})">Trigger Toast</fw-button>
 <script>
   window.addEventListener('fwLinkClick', eventHandler);
   function eventHandler(e) {

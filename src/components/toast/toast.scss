@@ -53,9 +53,11 @@
 .content {
   color: var(--color-elephant-900);
   line-height: 20px;
-  width: 85%;
+  width: 83%;
   float: left;
   margin: 2px auto 8px;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-500);
 }
 
 .icon {
@@ -70,6 +72,8 @@
   margin-left: 38px;
   cursor: pointer;
   float: left;
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-600);
 }
 
 .cross {

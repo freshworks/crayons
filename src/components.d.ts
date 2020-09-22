@@ -487,7 +487,7 @@ export namespace Components {
          */
         "pauseOnHover": boolean;
         /**
-          * Pause the toast from hiding on mouse hover
+          * position of the toast notification in screen
          */
         "position": "top-center" | "top-left" | "top-right";
         /**
@@ -1253,7 +1253,7 @@ declare namespace LocalJSX {
          */
         "pauseOnHover"?: boolean;
         /**
-          * Pause the toast from hiding on mouse hover
+          * position of the toast notification in screen
          */
         "position"?: "top-center" | "top-left" | "top-right";
         /**
