@@ -8,18 +8,34 @@ import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, getAs
 })
 export class Toast {
 
-  @State() open = false;
+  /**
+   * visibility state of toast
+   */
+  @State() isOpen = false;
 
-  @State() iconName: string;
+  /**
+   * To indicate mouse hover on toast
+   */
+  @State() isMouseHovered: boolean;
 
-  @State() isMouseHover: boolean;
-
+  /**
+   * Icon svg html content
+   */
   @State() svgHTML = '';
 
-  @State() isTimeOut = false;
+  /**
+   * To indicate toast close timeout
+   */
+  @State() isTimedOut = false;
 
+  /**
+   * stored setTimeOut id to close it
+   */
   @State() timerId: any;
 
+  /**
+   * To add close animation class to toast
+   */
   @State() fadeOut = false;
 
   /**
@@ -53,7 +69,7 @@ export class Toast {
   @Prop() pauseOnHover: boolean;
 
   /**
-   *  Pause the toast from hiding on mouse hover
+   *  position of the toast notification in screen
    */
   @Prop() position: 'top-center' | 'top-left' | 'top-right' = 'top-center';
 
@@ -84,36 +100,36 @@ export class Toast {
 
   @Method()
   async trigger(configs: object) {
-    if (this.open || this.timerId) {
+    if (this.isOpen || this.timerId) {
       await this.closeToast();
     }
     Object.keys(configs).forEach(key => {
       this[key] = configs[key];
     });
     this.fadeOut = false;
-    this.open = true;
-    this.isTimeOut = false;
+    this.isOpen = true;
+    this.isTimedOut = false;
 
     this.timerId = setTimeout(async () => {
       if (!this.sticky) {
-        if (!this.pauseOnHover || this.pauseOnHover && !this.isMouseHover) {
+        if (!this.pauseOnHover || this.pauseOnHover && !this.isMouseHovered) {
           await this.closeToast();
         }
-        this.isTimeOut = true;
+        this.isTimedOut = true;
       }
     }, this.timeout);
   }
 
   async mouseHover(value = false) {
-    this.isMouseHover = value;
-    if (this.isTimeOut && !this.isMouseHover) {
+    this.isMouseHovered = value;
+    if (this.isTimedOut && !this.isMouseHovered) {
       await this.closeToast();
     }
   }
 
   closingAnimation() {
     this.fadeOut = true;
-    return new Promise(resolve => setTimeout(() => { this.open = false; resolve(); }, 500));
+    return new Promise(resolve => setTimeout(() => { this.isOpen = false; resolve(); }, 500));
   }
 
   async closeToast() {
@@ -126,12 +142,11 @@ export class Toast {
   render() {
     return (
       <Host
-        class={`toast ${this.position} ${this.type} ${this.open ? 'is-open' : ''} ${this.fadeOut ? 'fade-out' : ''}`}
-        aria-hidden={this.open ? 'false' : 'true'}
+        class={`toast ${this.position} ${this.type} ${this.isOpen ? 'is-open' : ''} ${this.fadeOut ? 'fade-out' : ''}`}
+        aria-hidden={this.isOpen ? 'false' : 'true'}
         onmouseover={() => this.mouseHover(true)}
         onmouseout={() => this.mouseHover(false)}
         >
-        {/* <div class={`toast ${this.position} ${this.type}`}> */}
         <div>
           { this.type === 'inprogress' ? (
             <fw-spinner class="icon"></fw-spinner>
@@ -142,7 +157,7 @@ export class Toast {
             ></span>
           )}
           <span class="content">{this.content}</span>
-          <fw-icon size={7} name="cross" class="cross" onClick={() => this.closeToast()}></fw-icon>
+          <fw-icon size={7} color="#000" name="cross" class="cross" onClick={() => this.closeToast()}></fw-icon>
           { this.actionLinkText.length > 0 ? (
             <div class="action-link" onClick={() => this.fwLinkClick.emit()}>{this.actionLinkText}</div>
           ) : '' }
