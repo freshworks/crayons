@@ -1,7 +1,7 @@
 <template>
   <div class="card-gallery">
     <div v-for="icon in icons" class="card" @click="copyToClipboard(icon)">
-      <img :src="require(`@components/icon/assets/icons/${icon}.svg`)"/>
+      <img :src="require(`@components/icon/icon-assets/icons/${icon}.svg`)"/>
       <span class="name">{{icon}}</span>
       <span :ref="icon" class="copied">Copied</span>
     </div>
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     getIconList() {
-      const context = require.context('@components/icon/assets/icons/', true, /\.svg$/);
+      const context = require.context('@components/icon/icon-assets/icons/', true, /\.svg$/);
       return context.keys().map(key => key.substring(2, key.length - 4));
     },
     async copyToClipboard(text) {
