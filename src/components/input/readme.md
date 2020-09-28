@@ -97,6 +97,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [fw-datepicker](../datepicker)
+ - [fw-dropdown-button](../dropdown-button)
 
 ### Depends on
 
@@ -107,6 +108,7 @@ Type: `Promise<void>`
 graph TD;
   fw-input --> fw-icon
   fw-datepicker --> fw-input
+  fw-dropdown-button --> fw-input
   style fw-input fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -84,6 +84,36 @@ export namespace Components {
          */
         "value": string;
     }
+    interface FwDropdownButton {
+        /**
+          * Dropdown Button color
+         */
+        "color": string;
+        /**
+          * Label for the dropdown button
+         */
+        "label": string;
+        /**
+          * Options to show in the dropdown button
+         */
+        "options": any[];
+        /**
+          * Placeholder text for search input. Validated only if dropdown and searchable is true
+         */
+        "placeholder": string;
+        /**
+          * Displays a searchable dropdown button
+         */
+        "searchable": boolean;
+        /**
+          * Displays a split dropdown button
+         */
+        "split": boolean;
+        /**
+          * Value of the dropdown button
+         */
+        "value": any;
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
@@ -96,7 +126,7 @@ export namespace Components {
         /**
           * Size of the icon, specified in number of  pixels.
          */
-        "size": number;
+        "size": any;
     }
     interface FwInput {
         /**
@@ -542,6 +572,12 @@ declare global {
         prototype: HTMLFwDatepickerElement;
         new (): HTMLFwDatepickerElement;
     };
+    interface HTMLFwDropdownButtonElement extends Components.FwDropdownButton, HTMLStencilElement {
+    }
+    var HTMLFwDropdownButtonElement: {
+        prototype: HTMLFwDropdownButtonElement;
+        new (): HTMLFwDropdownButtonElement;
+    };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
     var HTMLFwIconElement: {
@@ -642,6 +678,7 @@ declare global {
         "fw-button": HTMLFwButtonElement;
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-datepicker": HTMLFwDatepickerElement;
+        "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-icon": HTMLFwIconElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
@@ -767,6 +804,44 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface FwDropdownButton {
+        /**
+          * Dropdown Button color
+         */
+        "color"?: string;
+        /**
+          * Label for the dropdown button
+         */
+        "label"?: string;
+        /**
+          * Triggered when an option is clicked
+         */
+        "onFwOptionClick"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when Add button for searchable dropdown is clicked
+         */
+        "onFwOptionsAdd"?: (event: CustomEvent<any>) => void;
+        /**
+          * Options to show in the dropdown button
+         */
+        "options"?: any[];
+        /**
+          * Placeholder text for search input. Validated only if dropdown and searchable is true
+         */
+        "placeholder"?: string;
+        /**
+          * Displays a searchable dropdown button
+         */
+        "searchable"?: boolean;
+        /**
+          * Displays a split dropdown button
+         */
+        "split"?: boolean;
+        /**
+          * Value of the dropdown button
+         */
+        "value"?: any;
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
@@ -779,7 +854,7 @@ declare namespace LocalJSX {
         /**
           * Size of the icon, specified in number of  pixels.
          */
-        "size"?: number;
+        "size"?: any;
     }
     interface FwInput {
         /**
@@ -1295,6 +1370,7 @@ declare namespace LocalJSX {
         "fw-button": FwButton;
         "fw-checkbox": FwCheckbox;
         "fw-datepicker": FwDatepicker;
+        "fw-dropdown-button": FwDropdownButton;
         "fw-icon": FwIcon;
         "fw-input": FwInput;
         "fw-label": FwLabel;
@@ -1320,6 +1396,7 @@ declare module "@stencil/core" {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
+            "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
