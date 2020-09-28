@@ -1,6 +1,16 @@
-# fw-toast
+# Toast (fw-toast)
 
+Toasts are used to show pop-up messages that lasts on the screen for a while. Use them to show users alerts or messages.
 
+## Usage
+
+```html live
+<fw-toast id="type_toast"></fw-toast>
+<fw-button onClick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})">Success</fw-button>
+<fw-button onClick="document.querySelector('#type_toast').trigger({type:'error', content:'something went wrong!'})">Error</fw-button>
+<fw-button onClick="document.querySelector('#type_toast').trigger({type:'warning', content:'This is a warning!'})">Warning</fw-button>
+<fw-button onClick="document.querySelector('#type_toast').trigger({type:'inprogress', content:'Request is in progress'})">Inprogress</fw-button>
+```
 
 <!-- Auto Generated Below -->
 
@@ -14,7 +24,7 @@
 | `pauseOnHover`   | `pause-on-hover`   | Pause the toast from hiding on mouse hover               | `boolean`                                           | `undefined`    |
 | `position`       | `position`         | position of the toast notification in screen             | `"top-center" or "top-left" or "top-right"`         | `'top-center'` |
 | `sticky`         | `sticky`           | won't close automatically                                | `boolean`                                           | `false`        |
-| `timeout`        | `timeout`          | Time duration of the toast visibility                    | `number`                                            | `2000`         |
+| `timeout`        | `timeout`          | Time duration of the toast visibility                    | `number`                                            | `4000`         |
 | `type`           | `type`             | Type of the toast - success,failure, warning, inprogress | `"error" or "inprogress" or "success" or "warning"` | `'warning'`    |
 
 

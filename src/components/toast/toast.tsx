@@ -46,7 +46,7 @@ export class Toast {
   /**
    * Time duration of the toast visibility
    */
-  @Prop() timeout = 2000;
+  @Prop() timeout = 4000;
 
   /**
    * The content to be diaplyed in toast

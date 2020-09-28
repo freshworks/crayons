@@ -6,8 +6,9 @@
 
 :host(.is-open) {
   display: block;
-  animation-duration: 0.2s;
+  animation-duration: 0.5s;
   animation-name: fadeIn;
+  z-index: 999;
 }
 
 :host(.toast) {
