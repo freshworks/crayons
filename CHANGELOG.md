@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/freshworks/crayons/compare/v2.6.0...v2.6.1) (2020-09-28)
+
+
+### Bug Fixes
+
+* **toast.scss, toast.scss, readme.md:** added z-index for toast messages, increased default timeout ([99d6b9d](https://github.com/freshworks/crayons/commit/99d6b9d91655487f4c1657351bdaba3d3dd8f6b2))
+
 # [2.6.0](https://github.com/freshworks/crayons/compare/v2.5.0...v2.6.0) (2020-09-25)
 
 
