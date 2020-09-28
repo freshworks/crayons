@@ -10,7 +10,7 @@ export namespace Components {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
-        "color": "primary" | "secondary" | "danger" | "link" | "text";
+        "color": string;
         /**
           * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -26,11 +26,11 @@ export namespace Components {
         /**
           * Size of the button.
          */
-        "size": "normal" | "mini" | "small";
+        "size": string;
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type": "button" | "reset" | "submit";
+        "type": string;
     }
     interface FwCheckbox {
         /**
@@ -702,7 +702,7 @@ declare namespace LocalJSX {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
-        "color"?: "primary" | "secondary" | "danger" | "link" | "text";
+        "color"?: string;
         /**
           * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -730,11 +730,11 @@ declare namespace LocalJSX {
         /**
           * Size of the button.
          */
-        "size"?: "normal" | "mini" | "small";
+        "size"?: string;
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type"?: "button" | "reset" | "submit";
+        "type"?: string;
     }
     interface FwCheckbox {
         /**
