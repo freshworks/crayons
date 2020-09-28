@@ -21,7 +21,7 @@ The following are the icons supported:
 | -------- | --------- | ----------------------------------------------------------------------------------------------------------- | -------- | ----------- |
 | `color`  | `color`   | Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.                   | `string` | `''`        |
 | `name`   | `name`    | Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons). | `string` | `undefined` |
-| `size`   | `size`    | Size of the icon, specified in number of  pixels.                                                           | `number` | `12`        |
+| `size`   | `size`    | Size of the icon, specified in number of  pixels.                                                           | `any`    | `12`        |
 
 
 ## CSS Custom Properties
@@ -35,6 +35,7 @@ The following are the icons supported:
 
 ### Used by
 
+ - [fw-dropdown-button](../dropdown-button)
  - [fw-input](../input)
  - [fw-modal](../modal)
  - [fw-toast](../toast)
@@ -42,6 +43,7 @@ The following are the icons supported:
 ### Graph
 ```mermaid
 graph TD;
+  fw-dropdown-button --> fw-icon
   fw-input --> fw-icon
   fw-modal --> fw-icon
   fw-toast --> fw-icon
