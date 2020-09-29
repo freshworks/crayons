@@ -7,15 +7,15 @@
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                          | Type      | Default     |
-| ------------- | ------------- | ------------------------------------------------------------------------------------ | --------- | ----------- |
-| `color`       | `color`       | Dropdown Button color                                                                | `string`  | `'primary'` |
-| `label`       | `label`       | Label for the dropdown button                                                        | `string`  | `undefined` |
-| `options`     | --            | Options to show in the dropdown button                                               | `any[]`   | `[]`        |
-| `placeholder` | `placeholder` | Placeholder text for search input. Validated only if dropdown and searchable is true | `string`  | `''`        |
-| `searchable`  | `searchable`  | Displays a searchable dropdown button                                                | `boolean` | `false`     |
-| `split`       | `split`       | Displays a split dropdown button                                                     | `boolean` | `false`     |
-| `value`       | `value`       | Value of the dropdown button                                                         | `any`     | `undefined` |
+| Property      | Attribute     | Description                                                                          | Type                                                       | Default     |
+| ------------- | ------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------- | ----------- |
+| `color`       | `color`       | Dropdown Button color                                                                | `"danger" or "link" or "primary" or "secondary" or "text"` | `'primary'` |
+| `label`       | `label`       | Label for the dropdown button                                                        | `string`                                                   | `undefined` |
+| `options`     | --            | Options to show in the dropdown button                                               | `any[]`                                                    | `[]`        |
+| `placeholder` | `placeholder` | Placeholder text for search input. Validated only if dropdown and searchable is true | `string`                                                   | `''`        |
+| `searchable`  | `searchable`  | Displays a searchable dropdown button                                                | `boolean`                                                  | `false`     |
+| `split`       | `split`       | Displays a split dropdown button                                                     | `boolean`                                                  | `false`     |
+| `value`       | `value`       | Value of the dropdown button                                                         | `any`                                                      | `undefined` |
 
 
 ## Events
