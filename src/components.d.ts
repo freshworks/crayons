@@ -10,7 +10,7 @@ export namespace Components {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
-        "color": string;
+        "color": "primary" | "secondary" | "danger" | "link" | "text";
         /**
           * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -26,11 +26,11 @@ export namespace Components {
         /**
           * Size of the button.
          */
-        "size": string;
+        "size": "normal" | "mini" | "small";
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type": string;
+        "type": "button" | "reset" | "submit";
     }
     interface FwCheckbox {
         /**
@@ -88,7 +88,7 @@ export namespace Components {
         /**
           * Dropdown Button color
          */
-        "color": string;
+        "color": "primary" | "secondary" | "danger" | "link" | "text";
         /**
           * Label for the dropdown button
          */
@@ -702,7 +702,7 @@ declare namespace LocalJSX {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
-        "color"?: string;
+        "color"?: "primary" | "secondary" | "danger" | "link" | "text";
         /**
           * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -730,11 +730,11 @@ declare namespace LocalJSX {
         /**
           * Size of the button.
          */
-        "size"?: string;
+        "size"?: "normal" | "mini" | "small";
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type"?: string;
+        "type"?: "button" | "reset" | "submit";
     }
     interface FwCheckbox {
         /**
@@ -808,7 +808,7 @@ declare namespace LocalJSX {
         /**
           * Dropdown Button color
          */
-        "color"?: string;
+        "color"?: "primary" | "secondary" | "danger" | "link" | "text";
         /**
           * Label for the dropdown button
          */

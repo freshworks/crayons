@@ -17,7 +17,7 @@ export class DropdownButton {
    * Dropdown Button color
    */
 
-  @Prop() color = 'primary';
+  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
   /**
    * Displays a split dropdown button
    */

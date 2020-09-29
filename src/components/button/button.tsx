@@ -9,12 +9,12 @@ export class Button {
   /**
    *  Button type based on which actions are performed when the button is clicked.
    */
-  @Prop() type = 'button'; // 'button' | 'reset' | 'submit'
+  @Prop() type: 'button' | 'reset' | 'submit' = 'button';
 
   /**
    * Identifier of  the theme based on which the button is styled.
    */
-  @Prop() color = 'primary'; // 'primary' | 'secondary' | 'danger' | 'link' | 'text'
+  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
 
   /**
    * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
@@ -29,7 +29,7 @@ export class Button {
   /**
    * Size of the button.
    */
-  @Prop() size = 'normal'; // 'normal' | 'mini' | 'small'
+  @Prop() size: 'normal' | 'mini' | 'small' = 'normal';
 
   /**
    *  Accepts the id of the fw-modal component to open it on click
