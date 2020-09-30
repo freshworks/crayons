@@ -223,7 +223,7 @@ export class Select {
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
         selected: option.value === this.value || option.selected,
-        disabled: option.disabled,
+        disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
