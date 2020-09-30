@@ -1,3 +1,10 @@
+## [2.6.3](https://github.com/freshworks/crayons/compare/v2.6.2...v2.6.3) (2020-09-30)
+
+
+### Bug Fixes
+
+* **fw-button:** fixes CSS issues with external CSS ([ba327de](https://github.com/freshworks/crayons/commit/ba327defb0ddc2ea6358c0af69fd9e109e5c07f0)), closes [#134](https://github.com/freshworks/crayons/issues/134)
+
 ## [2.6.2](https://github.com/freshworks/crayons/compare/v2.6.1...v2.6.2) (2020-09-30)
 
 
