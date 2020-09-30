@@ -152,17 +152,18 @@ export class DropdownButton {
   private handleOptionClick(option) {
     if (!this.searchable) {
       this.value = option.value;
-      this.fwOptionClick.emit({ value: this.value });
+      this.fwOptionClick.emit({ value: this.value, label: option.label });
       this.handleDropdownToggle();
     }
   }
 
   render() {
-    const ChevronDown = () => {
+    const ChevronArrow = () => {
       const iconColor = ['secondary', 'link', 'text'].includes(this.color) ? '#12344d' : '#fff';
+      const iconSize = 8;
       const direction = this.isDropdownOpen ? 'up' : 'down';
 
-      return <fw-icon name={`chevron-${direction}`} color={iconColor} size="8" > </fw-icon>;
+      return <fw-icon name={`chevron-${direction}`} color={iconColor} size={iconSize}> </fw-icon>;
     };
 
     const DropdownMenu = () => {
@@ -212,7 +213,7 @@ export class DropdownButton {
 
     const DropdownState = () => (
       !this.split ? <span class="down-arrow">
-        <ChevronDown />
+        <ChevronArrow />
       </span> : ''
     );
 
@@ -224,7 +225,7 @@ export class DropdownButton {
       return (this.split ?
       <div onClick={() => this.handleDropdownToggle()} class={dropdownStateClasses}>
         <div class="state-icon">
-          <ChevronDown />
+          <ChevronArrow />
         </div>
       </div> : ''
       );
