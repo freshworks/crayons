@@ -88,6 +88,18 @@
   }
 }
 
+@mixin link {
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  color: var(--btn-link-color);
+
+  &:hover:not([disabled]) {
+    background-color: var(--btn-link-bg);
+    border-color: var(--btn-link-bg);
+  }
+}
+
 @keyframes dropdown-fade {
   0% {
     opacity: 0;
@@ -136,6 +148,16 @@
 
       &--danger {
         @include danger;
+      }
+
+      &:focus {
+        border: 1px solid var(--color-azure-800);
+        box-shadow: 0 0 0 1px var(--color-azure-800);
+        outline: none;
+      }
+
+      &:active {
+        box-shadow: var(--active-box-shadow);
       }
     }
 
