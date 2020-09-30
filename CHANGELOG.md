@@ -1,3 +1,10 @@
+## [2.6.2](https://github.com/freshworks/crayons/compare/v2.6.1...v2.6.2) (2020-09-30)
+
+
+### Bug Fixes
+
+* **select:** fixed tag not getting disabled ([3723830](https://github.com/freshworks/crayons/commit/37238304453ab073e0700395d8eeb8a5b2710321)), closes [#137](https://github.com/freshworks/crayons/issues/137)
+
 ## [2.6.1](https://github.com/freshworks/crayons/compare/v2.6.0...v2.6.1) (2020-09-28)
 
 
