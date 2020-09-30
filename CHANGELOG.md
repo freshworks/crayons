@@ -1,3 +1,15 @@
+# [2.7.0](https://github.com/freshworks/crayons/compare/v2.6.3...v2.7.0) (2020-09-30)
+
+
+### Features
+
+* **button:** fix type change ([429e7dc](https://github.com/freshworks/crayons/commit/429e7dca05153a25491cc15214ea92a1feba9ea5)), closes [#112](https://github.com/freshworks/crayons/issues/112)
+* **dropdown button:** add missing css prop ([36c157f](https://github.com/freshworks/crayons/commit/36c157f9b7cfff9ae6186b1dc81ed8ffec919cec)), closes [#112](https://github.com/freshworks/crayons/issues/112)
+* **dropdown button:** dropdown button adhering to Freshworks Design System ([43e8bda](https://github.com/freshworks/crayons/commit/43e8bda94a06ecc95baae72225bff8515fa7480d)), closes [#112](https://github.com/freshworks/crayons/issues/112)
+* **dropdown button:** dropdown button small fix ([003a937](https://github.com/freshworks/crayons/commit/003a9372f9ae0250c0a3d7ab9cd4a2d699e7c5c0)), closes [#122](https://github.com/freshworks/crayons/issues/122)
+* **dropdown button:** review comments ([43923cd](https://github.com/freshworks/crayons/commit/43923cd35cd90337aca023e9f2aa3945ba6d949d)), closes [#112](https://github.com/freshworks/crayons/issues/112)
+* **dropdown button:** review comments - 2 ([b8bfe71](https://github.com/freshworks/crayons/commit/b8bfe7187861973e817d6128d9df5f094a4deaf0)), closes [#112](https://github.com/freshworks/crayons/issues/112)
+
 ## [2.6.3](https://github.com/freshworks/crayons/compare/v2.6.2...v2.6.3) (2020-09-30)
 
 
