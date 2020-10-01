@@ -242,6 +242,16 @@ export class Select {
     return this.options.filter(option => option.selected);
   }
 
+  @Method()
+  setSelectedValues(values: string[]) {
+    if (this.multiple) {
+      this.options.forEach(option => {
+        option.selected = values.includes(option.value);
+      });
+      this.renderInput();
+    }
+  }
+
   render() {
     return (
       <Host

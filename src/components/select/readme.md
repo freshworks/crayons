@@ -61,6 +61,16 @@ Type: `Promise<any>`
 
 
 
+### `setSelectedValues(values: string[]) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
