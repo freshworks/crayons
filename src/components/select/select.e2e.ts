@@ -58,6 +58,24 @@ describe('fw-select', () => {
 
   });
 
+  it('it checks if multiple values set using setSelectedValues method', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<fw-select multiple label="Select the house" required="true">
+                                <fw-select-option value="starks">Starks</fw-select-option>
+                                <fw-select-option value="lannisters">Lannisters</fw-select-option>
+                                <fw-select-option value="sands">Sands</fw-select-option>
+                            </fw-select>`);
+    const element = await page.find('fw-select');
+    await element.callMethod('setSelectedValues', ['starks', 'sands']);
+    await page.waitForChanges();
+    const selectedValues = await element.callMethod('getSelectedItem');
+    const values = [];
+    selectedValues.forEach(value => {
+        values.push(value.value);
+    });
+    expect(values).toStrictEqual(['starks', 'sands']);
+  });
+
   it('it emits fwBlur when the focus is changed away from the component', async () => {
     const page = await newE2EPage();
 
