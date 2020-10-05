@@ -1,3 +1,10 @@
+## [2.7.1](https://github.com/freshworks/crayons/compare/v2.7.0...v2.7.1) (2020-10-05)
+
+
+### Bug Fixes
+
+* fix datapicker false events trigger ([318f554](https://github.com/freshworks/crayons/commit/318f55479941df2837adc06c393420ad39e1ad36))
+
 # [2.7.0](https://github.com/freshworks/crayons/compare/v2.6.3...v2.7.0) (2020-09-30)
 
 
