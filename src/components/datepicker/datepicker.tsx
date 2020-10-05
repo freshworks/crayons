@@ -109,6 +109,9 @@ export class Datepicker {
   */
   @Listen('fwChange')
   handleMonthYearDropDownSelection(e) {
+    if (e.path[0].tagName !== 'FW-DATEPICKER') {
+      e.stopPropagation();
+    }
     const newValue = e.detail && e.detail.value;
     if (!newValue) {
       return;
