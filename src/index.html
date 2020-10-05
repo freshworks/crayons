@@ -30,10 +30,15 @@
 
 <fw-timepicker min-time="11:25 AM" max-time="03:45 PM" value="11:25" interval=45> </fw-timepicker>
 <fw-timepicker min-time="01:39 AM" interval=55> </fw-timepicker>
-<fw-datepicker style="float:left;"></fw-datepicker>
-<fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
+<div style="float:left;width:100%;">
+  <fw-datepicker style="float:left;"></fw-datepicker>
+  <fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
+</div>
 
-<br>
+<fw-toast content="Successfully triggered"></fw-toast>
+<fw-button onClick="document.querySelector('fw-toast').trigger({type:'success'})">Trigger Toast</fw-button>
+
+<br><br>
 <fw-dropdown-button label="Click me" split color="danger" placeholder="efwewe">
   <div slot="dropdown-options">
     <option id="1" value="Ullu">Ullu</option>
@@ -50,16 +55,16 @@
     <option id="12" value="Yifi torrents">Yifi torrents</option>
   </div>
 </fw-dropdown-button>
-
 <br>
-<fw-toast content="Successfully triggered"></fw-toast>
-<fw-button style="float:left; clear:left" onClick="document.querySelector('fw-toast').trigger({type:'success'})">Trigger Toast</fw-button>
+
 <script>
   window.addEventListener('fwLinkClick', eventHandler);
   function eventHandler(e) {
     console.log('action link clicked', e);
   }
-
+  window.addEventListener('fwChange', function(e) {
+    console.log('datepicker fwChange triggered', e);
+  });
   document.querySelector('fw-dropdown-button')
     .addEventListener('fwOptionsAdd', (e) => console.log('Selected values are ', e.detail.value))
 
