@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/freshworks/crayons/compare/v2.7.1...v2.8.0) (2020-10-14)
+
+
+### Features
+
+* **components/select/select.tsx:** add a method to set selected values in fw-select component ([1ea13de](https://github.com/freshworks/crayons/commit/1ea13dea040316db62fdddd597ea5a6bb7bdcd1a)), closes [#132](https://github.com/freshworks/crayons/issues/132)
+
 ## [2.7.1](https://github.com/freshworks/crayons/compare/v2.7.0...v2.7.1) (2020-10-05)
 
 
