@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "build:components": "stencil build --docs",
-    "build": "npm run build:components && npm run storybook:build && npm run docs:build",
+    "build": "gulp && npm run build:components && npm run storybook:build && npm run docs:build",
     "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm-run-all --parallel start storybook",
@@ -79,6 +79,7 @@
     "copy-webpack-plugin": "^5.0.1",
     "custom-tslint-formatters": "^2.4.0",
     "cz-conventional-changelog": "3.1.0",
+    "gulp": "^4.0.2",
     "html-to-react": "^1.4.2",
     "husky": "^4.2.3",
     "jest": "^24.8.0",

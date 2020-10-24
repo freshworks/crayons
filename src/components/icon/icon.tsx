@@ -1,4 +1,7 @@
-import { Component, Prop, State, Watch, getAssetPath, h } from '@stencil/core';
+import { Component, Prop, State, Watch, h } from '@stencil/core';
+
+// Icons Object
+import icons from './icons.json';
 
 @Component({
   tag: 'fw-icon',
@@ -24,17 +27,9 @@ export class Icon {
 
   @State() svgHTML = '';
 
-  private async getSVGHTML(iconName: string) {
-    const response = await fetch(getAssetPath(`icon-assets/icons/${iconName}.svg`));
-    const data = await response.text();
-    return data;
-  }
-
   @Watch('name')
   private setSVGState(iconName: string) {
-    this.getSVGHTML(iconName).then(res => {
-      this.svgHTML = res;
-    }).catch();
+    this.svgHTML = icons[iconName];
   }
 
   componentWillLoad() {
