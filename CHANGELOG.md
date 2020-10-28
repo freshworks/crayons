@@ -1,3 +1,12 @@
+## [2.8.1](https://github.com/freshworks/crayons/compare/v2.8.0...v2.8.1) (2020-10-28)
+
+
+### Bug Fixes
+
+* **icon:** add gulp task to test ([d84eaa3](https://github.com/freshworks/crayons/commit/d84eaa3ad6c15ef0a26596ae27fd6902b0249b92)), closes [#143](https://github.com/freshworks/crayons/issues/143)
+* **icon:** fixes icon url path error ([c20bdd8](https://github.com/freshworks/crayons/commit/c20bdd8f5dc3a98f29cbd244a86853eb10cb5017)), closes [#143](https://github.com/freshworks/crayons/issues/143)
+* **icon:** minor gulp file fix ([db2d920](https://github.com/freshworks/crayons/commit/db2d920fc9ca62c52c1dd46ef939c3a7e42d190b)), closes [#143](https://github.com/freshworks/crayons/issues/143)
+
 # [2.8.0](https://github.com/freshworks/crayons/compare/v2.7.1...v2.8.0) (2020-10-14)
 
 
