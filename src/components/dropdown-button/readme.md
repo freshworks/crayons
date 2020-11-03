@@ -51,6 +51,7 @@ fw-dropdown-button displays a dropdown button on the user interface and enables 
 | Property      | Attribute     | Description                                                                          | Type                                                       | Default     |
 | ------------- | ------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------- | ----------- |
 | `color`       | `color`       | Dropdown Button color                                                                | `"danger" or "link" or "primary" or "secondary" or "text"` | `'primary'` |
+| `disabled`    | `disabled`    | Disables the dropdown button if its true                                             | `boolean`                                                  | `false`     |
 | `label`       | `label`       | Label for the dropdown button                                                        | `string`                                                   | `undefined` |
 | `options`     | --            | Options to show in the dropdown button                                               | `any[]`                                                    | `[]`        |
 | `placeholder` | `placeholder` | Placeholder text for search input. Validated only if dropdown and searchable is true | `string`                                                   | `''`        |
