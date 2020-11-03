@@ -90,6 +90,10 @@ export namespace Components {
          */
         "color": "primary" | "secondary" | "danger" | "link" | "text";
         /**
+          * Disables the dropdown button if its true
+         */
+        "disabled": boolean;
+        /**
           * Label for the dropdown button
          */
         "label": string;
@@ -810,6 +814,10 @@ declare namespace LocalJSX {
           * Dropdown Button color
          */
         "color"?: "primary" | "secondary" | "danger" | "link" | "text";
+        /**
+          * Disables the dropdown button if its true
+         */
+        "disabled"?: boolean;
         /**
           * Label for the dropdown button
          */

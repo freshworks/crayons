@@ -24,6 +24,11 @@ export class DropdownButton {
   @Prop() split = false;
 
   /**
+   * Disables the dropdown button if its true
+   */
+  @Prop() disabled = false;
+
+  /**
    * Displays a searchable dropdown button
    */
   @Prop() searchable = false;
@@ -89,7 +94,9 @@ export class DropdownButton {
    * Toggles dropdown b/w open and close
    */
   private handleDropdownToggle() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+    if (!this.disabled) {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    }
   }
 
   /**
@@ -221,6 +228,7 @@ export class DropdownButton {
       const dropdownStateClasses = `
         dropdown-state
         ${'dropdown-state--' + this.color.toLowerCase()}
+        ${this.disabled ? 'disabled' : ''}
       `;
       return (this.split ?
       <div onClick={() => this.handleDropdownToggle()} class={dropdownStateClasses}>
@@ -234,7 +242,11 @@ export class DropdownButton {
     return (
       <div class="dropdown-container">
         <div class="btn-container">
-          <fw-button color={this.color} onClick={() => this.handleDropdownToggle()}>
+          <fw-button
+            color={this.color}
+            disabled={this.disabled}
+            onClick={() => this.handleDropdownToggle()}
+          >
             {this.label}
             <DropdownState />
           </fw-button>
