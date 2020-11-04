@@ -1,3 +1,10 @@
+# [2.9.0](https://github.com/freshworks/crayons/compare/v2.8.1...v2.9.0) (2020-11-04)
+
+
+### Features
+
+* **dropdown-button:** add disabled prop ([0aeca90](https://github.com/freshworks/crayons/commit/0aeca90fa74d8b39575f832de8c2325d72d77521)), closes [#145](https://github.com/freshworks/crayons/issues/145)
+
 ## [2.8.1](https://github.com/freshworks/crayons/compare/v2.8.0...v2.8.1) (2020-10-28)
 
 
