@@ -61,13 +61,13 @@ Type: `Promise<any>`
 
 
 
-### `setSelectedValues(values: string[]) => Promise<void>`
+### `setSelectedValues(values: string[]) => Promise<any>`
 
 
 
 #### Returns
 
-Type: `Promise<void>`
+Type: `Promise<any>`
 
 
 

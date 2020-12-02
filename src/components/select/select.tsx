@@ -243,7 +243,7 @@ export class Select {
   }
 
   @Method()
-  setSelectedValues(values: string[]) {
+  async setSelectedValues(values: string[]): Promise<any> {
     if (this.multiple) {
       this.options.forEach(option => {
         option.selected = values.includes(option.value);

@@ -328,7 +328,7 @@ export namespace Components {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
-        "setSelectedValues": (values: string[]) => Promise<void>;
+        "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
          */

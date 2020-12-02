@@ -99,7 +99,7 @@ describe('fw-datepicker', () => {
     const toMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
     const toMonthValue = await toMonth.getProperty('value');
 
-    expect(moment(fromMonthValue, 'MMM').month() + 1).toBe(moment(toMonthValue, 'MMM').month());
+    expect(moment(fromMonthValue, 'MMM').add(1, 'months').month()).toBe(moment(toMonthValue, 'MMM').month());
   });
 
   it('both calenders of daterange picker should update', async () => {
