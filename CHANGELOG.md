@@ -1,3 +1,10 @@
+## [2.9.1](https://github.com/freshworks/crayons/compare/v2.9.0...v2.9.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* **search.svg:** fixes color issue in svg file ([fbd1d18](https://github.com/freshworks/crayons/commit/fbd1d188fe3deecc11cea38b1ca7106318581943)), closes [#147](https://github.com/freshworks/crayons/issues/147)
+
 # [2.9.0](https://github.com/freshworks/crayons/compare/v2.8.1...v2.9.0) (2020-11-04)
 
 
