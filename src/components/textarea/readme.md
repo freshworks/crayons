@@ -78,6 +78,13 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name            | Description                       |
+| --------------- | --------------------------------- |
+| `--input-color` | Dropdown minimum height in pixels |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

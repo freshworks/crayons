@@ -1,6 +1,10 @@
 @import "../../styles/freshworks";
 @import "../../styles/theme";
 
+/**
+  @prop --input-color: Dropdown minimum height in pixels
+**/
+
 :host {
   --label-font: var(--font-stack);
   --input-bg: var(--color-milk);
@@ -79,7 +83,7 @@ label {
     font-family: inherit;
     cursor: text;
     display: inline-block;
-    color: --input-color;
+    color: var(--input-color);
 
     &:hover {
       border: 1px var(--input-hover-color) solid;
