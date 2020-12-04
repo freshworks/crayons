@@ -80,9 +80,9 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name            | Description                       |
-| --------------- | --------------------------------- |
-| `--input-color` | Dropdown minimum height in pixels |
+| Name            | Description                 |
+| --------------- | --------------------------- |
+| `--input-color` | Color of the textarea input |
 
 
 ----------------------------------------------
