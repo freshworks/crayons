@@ -1,3 +1,11 @@
+# [2.10.0](https://github.com/freshworks/crayons/compare/v2.9.1...v2.10.0) (2020-12-07)
+
+
+### Features
+
+* **textarea:** change textarea var desc ([4ef8b78](https://github.com/freshworks/crayons/commit/4ef8b78aa1c345231e7fff6111c2ac898a45f0e8)), closes [#152](https://github.com/freshworks/crayons/issues/152)
+* **textarea:** introduced text color for textarea as scss var ([7e4af5b](https://github.com/freshworks/crayons/commit/7e4af5b7ce2bebdc2ffe325b75bbc7492188c12c)), closes [#152](https://github.com/freshworks/crayons/issues/152)
+
 ## [2.9.1](https://github.com/freshworks/crayons/compare/v2.9.0...v2.9.1) (2020-12-02)
 
 
