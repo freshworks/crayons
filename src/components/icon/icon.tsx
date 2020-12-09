@@ -1,7 +1,7 @@
 import { Component, Prop, State, Watch, h } from '@stencil/core';
 
 // Icons Object
-import icons from './icons.json';
+import icons from './icon-assets/icons.json';
 
 @Component({
   tag: 'fw-icon',
