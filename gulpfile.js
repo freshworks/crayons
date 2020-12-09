@@ -3,6 +3,7 @@ const path = require('path');
 
 const buildIconsJson = async () => {
     const iconComponentPath = './src/components/icon';
+    const iconAssetsDir = '/icon-assets';
     const iconAssetsPath = '/icon-assets/icons';
     const iconsJsonFile = 'icons.json';
 
@@ -25,7 +26,7 @@ const buildIconsJson = async () => {
 
     try {
         const iconsJson = await getIconsJson();
-        fs.writeFile(path.join(iconComponentPath, iconsJsonFile), JSON.stringify(iconsJson));
+        fs.writeFile(path.join(iconComponentPath,iconAssetsDir, iconsJsonFile), JSON.stringify(iconsJson));
         console.log(`Succesfully written ${iconsJsonFile}`);
     } catch (ex) {
         console.error(`Exception occured while building ${iconsJsonFile}: ${JSON.stringify(ex)}`);

@@ -280,7 +280,7 @@ export class Select {
                 autoFocus={this.autofocus}
                 disabled={this.disabled}
                 name={this.name}
-                placeholder={this.placeholder || ''}
+                placeholder={this.value ? '' : (this.placeholder || '')}
                 readOnly={this.readonly}
                 required={this.required}
                 type={this.type}
