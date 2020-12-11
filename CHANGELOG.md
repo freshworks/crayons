@@ -1,3 +1,10 @@
+## [2.10.1](https://github.com/freshworks/crayons/compare/v2.10.0...v2.10.1) (2020-12-11)
+
+
+### Bug Fixes
+
+* **select.tsx:** fixed placeholder problem in select ([123a15a](https://github.com/freshworks/crayons/commit/123a15abbb84d704cc23a161fa64c8da247c49af)), closes [#157](https://github.com/freshworks/crayons/issues/157)
+
 # [2.10.0](https://github.com/freshworks/crayons/compare/v2.9.1...v2.10.0) (2020-12-07)
 
 
