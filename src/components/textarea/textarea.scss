@@ -98,7 +98,7 @@ label {
     }
 
     &[disabled] {
-      color: $input-disabled-color;
+      color: var(--color-smoke-300);
       background-color: var(--input-disabled-bg);
       border-style: solid;
 
