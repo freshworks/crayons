@@ -70,6 +70,10 @@ export class Select {
    * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() multiple = false;
+  /**
+   * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
+   */
+  @Prop() max = Number.MAX_VALUE;
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -205,7 +209,7 @@ export class Select {
       (<fw-select-option
         value={option.value}
         selected={option.selected}
-        disabled={option.disabled}
+        disabled={option.disabled || (this.value?.length >= this.max)}
         html={option.isHtml}
         htmlContent={option.htmlContent}
         >{option.text}
