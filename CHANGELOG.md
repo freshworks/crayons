@@ -1,3 +1,10 @@
+# [2.11.0](https://github.com/freshworks/crayons/compare/v2.10.2...v2.11.0) (2020-12-21)
+
+
+### Features
+
+* **select.tsx:** added `max` for multselect ([e297873](https://github.com/freshworks/crayons/commit/e297873ba6ba8be53de069556b11132c6f35bc97)), closes [#156](https://github.com/freshworks/crayons/issues/156)
+
 ## [2.10.2](https://github.com/freshworks/crayons/compare/v2.10.1...v2.10.2) (2020-12-21)
 
 
