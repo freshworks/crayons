@@ -1,3 +1,12 @@
+## [2.10.2](https://github.com/freshworks/crayons/compare/v2.10.1...v2.10.2) (2020-12-21)
+
+
+### Bug Fixes
+
+* **input.scss:** hides arrows in input type number ([cb91f0d](https://github.com/freshworks/crayons/commit/cb91f0d0ba0bee542f5aadd976f6e5fd23739fb2)), closes [#150](https://github.com/freshworks/crayons/issues/150)
+* **toast:** fix toast icon not loading ([f4b69d8](https://github.com/freshworks/crayons/commit/f4b69d82c60e2e97e2c8795b4adbd04522253244)), closes [#164](https://github.com/freshworks/crayons/issues/164)
+* **toast:** review comments ([f434514](https://github.com/freshworks/crayons/commit/f4345141d75413b1ab7dfa5d368a5253a76592b8)), closes [#164](https://github.com/freshworks/crayons/issues/164)
+
 ## [2.10.1](https://github.com/freshworks/crayons/compare/v2.10.0...v2.10.1) (2020-12-11)
 
 
