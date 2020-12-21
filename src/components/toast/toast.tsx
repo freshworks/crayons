@@ -39,6 +39,11 @@ export class Toast {
   @State() fadeOut = false;
 
   /**
+   * State icon size
+   */
+  @State() stateIconSize = 14;
+
+  /**
    * Type of the toast - success,failure, warning, inprogress
    */
   @Prop() type: 'success' | 'error' | 'warning' | 'inprogress' = 'warning';
@@ -151,10 +156,11 @@ export class Toast {
           { this.type === 'inprogress' ? (
             <fw-spinner class="icon"></fw-spinner>
           ) : (
-            <span
-            class="icon"
-            innerHTML={this.svgHTML}
-            ></span>
+            <fw-icon
+              class="icon"
+              size={this.stateIconSize}
+              name={this.type}
+            />
           )}
           <span class="content">{this.content}</span>
           <fw-icon size={7} color="#000" name="cross" class="cross" onClick={() => this.closeToast()}></fw-icon>
