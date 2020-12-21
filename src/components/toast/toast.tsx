@@ -41,7 +41,7 @@ export class Toast {
   /**
    * State icon size
    */
-  @State() stateIconSize = 14;
+  @State() iconSize = 14;
 
   /**
    * Type of the toast - success,failure, warning, inprogress
@@ -158,7 +158,7 @@ export class Toast {
           ) : (
             <fw-icon
               class="icon"
-              size={this.stateIconSize}
+              size={this.iconSize}
               name={this.type}
             />
           )}
