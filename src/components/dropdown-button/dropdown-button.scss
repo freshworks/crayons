@@ -199,6 +199,11 @@
       border-bottom-right-radius: 0;
     }
 
+    .search-list {
+      overflow-y: scroll;
+      max-height: calc(var(--dropdown-max-height) - 105px);
+    }
+
     .dropdown-item {
       padding: 5px 25px 8px 10px;
       color: var(--btn-secondary-color);

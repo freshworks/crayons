@@ -198,6 +198,7 @@ export class DropdownButton {
       return (
         <ul class={`dropdown-menu ${this.isDropdownOpen ? 'dropdown-menu--open' : ''}`}>
           { this.searchable ? <SearchInput /> : '' }
+          <div class={this.searchable ? `search-list` : ''}>
           {
             validOptions.map(option => {
               const liEl = <li key={option.id || option.value}
@@ -213,6 +214,7 @@ export class DropdownButton {
                 : liEl;
             })
           }
+          </div>
           { this.searchable ? renderBtnGroup() : '' }
         </ul>
       );

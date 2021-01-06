@@ -31,6 +31,7 @@ describe('fw-dropdown-button', () => {
       </fw-button>
       </div>
       <ul class="dropdown-menu">
+      <div>
         <li class="dropdown-item">
           Ullu
         </li>
@@ -67,6 +68,7 @@ describe('fw-dropdown-button', () => {
         <li class="dropdown-item">
           Yifi torrents
         </li>
+        </div>
       </ul>
     </div>
     `;
