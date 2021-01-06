@@ -1,3 +1,10 @@
+## [2.11.1](https://github.com/freshworks/crayons/compare/v2.11.0...v2.11.1) (2021-01-06)
+
+
+### Bug Fixes
+
+* **dropdown-button:** make only list scrollable ([09ee194](https://github.com/freshworks/crayons/commit/09ee19491aadc6fc0d4953e1333bf580ee11eeb2)), closes [#168](https://github.com/freshworks/crayons/issues/168)
+
 # [2.11.0](https://github.com/freshworks/crayons/compare/v2.10.2...v2.11.0) (2020-12-21)
 
 

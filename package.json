@@ -15,7 +15,7 @@
     "components"
   ],
   "author": "Freshworks Inc",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "description": "Crayons for Developer Platform",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
