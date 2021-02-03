@@ -1,3 +1,10 @@
+# [2.12.0](https://github.com/freshworks/crayons/compare/v2.11.1...v2.12.0) (2021-02-03)
+
+
+### Features
+
+* **input, button, radio-group, textarea, datepicker, timepicker, checkbox:** added form support ([58a7d25](https://github.com/freshworks/crayons/commit/58a7d257d6c28a146cc444f81bc64ccd6cc4934d)), closes [#104](https://github.com/freshworks/crayons/issues/104) [#170](https://github.com/freshworks/crayons/issues/170)
+
 ## [2.11.1](https://github.com/freshworks/crayons/compare/v2.11.0...v2.11.1) (2021-01-06)
 
 
