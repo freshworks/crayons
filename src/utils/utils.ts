@@ -41,3 +41,15 @@ export const findCheckedOption = (el: any, tagName: string) => {
 
   return options.find((o: any) => o.checked === true);
 };
+
+export const renderHiddenField = (container: HTMLElement, name: string, value: string | null) => {
+  let input: HTMLInputElement = container.querySelector('input.hidden-input');
+  if (!input) {
+      input = container.ownerDocument.createElement('input');
+      input.type = 'hidden';
+      input.classList.add('hidden-input');
+      container.appendChild(input);
+  }
+  input.name = name;
+  input.value = value || '';
+};

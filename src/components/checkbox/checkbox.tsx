@@ -1,4 +1,6 @@
-import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+
+import { renderHiddenField } from '../../utils/utils';
 
 @Component({
   tag: 'fw-checkbox',
@@ -6,6 +8,8 @@ import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/c
   shadow: true,
 })
 export class Checkbox {
+
+  @Element() host!: HTMLElement;
   /**
    * Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.
    */
@@ -18,6 +22,10 @@ export class Checkbox {
    * Label displayed on the interface, for the check box.
    */
   @Prop() label = '';
+  /**
+   * Name of the component, saved as part of form data.
+   */
+  @Prop() name = '';
   /**
    * Identifier corresponding to the component, that is saved when the form data is saved.
    */
@@ -76,6 +84,13 @@ export class Checkbox {
   }
 
   render() {
+
+    const { host, name, value } = this;
+
+    if (this.checked) {
+      renderHiddenField(host, name, value);
+    }
+
     return (
       <Host
         class="checkbox-container"

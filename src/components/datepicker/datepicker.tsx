@@ -1,5 +1,6 @@
 import {
   Component,
+  Element,
   Event,
   EventEmitter,
   Listen,
@@ -8,6 +9,8 @@ import {
   h
 } from '@stencil/core';
 import moment from 'moment-mini';
+
+import { renderHiddenField } from '../../utils/utils';
 
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const monthArr = [
@@ -43,6 +46,8 @@ export class Datepicker {
   @State() supportedYears: any;
   @State() toMonth: number;
 
+  @Element() host: HTMLElement;
+
   /**
    *   Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
    */
@@ -71,6 +76,10 @@ export class Datepicker {
    *   Date that is preselected in the calendar, if mode is single date or undefined.
    */
   @Prop({ mutable: true }) value: string;
+  /**
+   * Name of the component, saved as part of form data.
+   */
+  @Prop() name = '';
   /**
    *   Text displayed in the input box before a user selects a date or date range.
    */
@@ -416,6 +425,11 @@ export class Datepicker {
     return this.showDatePicker && this.mode === 'range';
   }
   render() {
+
+    const { host, name, value } = this;
+
+    renderHiddenField(host, name, value);
+
     return (<div>
       <div onClick={() => this.showDatePicker = false} class={this.showDatePicker ? 'overlay-show' : 'overlay-hide'}></div>
       <fw-input value={this.value} class="date-input" placeholder={this.placeholder} readonly={true}></fw-input>

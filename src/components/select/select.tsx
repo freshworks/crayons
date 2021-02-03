@@ -1,5 +1,6 @@
 import { Component, Element, Event, EventEmitter, Host, Listen, Method, Prop, State, Watch, h } from '@stencil/core';
 
+import { renderHiddenField } from '../../utils/utils';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -257,6 +258,11 @@ export class Select {
   }
 
   render() {
+
+    const { host, name, value } = this;
+
+    renderHiddenField(host, name, value);
+
     return (
       <Host
         aria-disabled={this.disabled}

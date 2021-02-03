@@ -1,10 +1,12 @@
-import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
   shadow: true,
 })
 export class Button {
+
+  @Element() host: HTMLElement;
 
   /**
    *  Button type based on which actions are performed when the button is clicked.
@@ -59,10 +61,21 @@ export class Button {
     this.fwBlur.emit();
   }
 
-  private handleClick() {
+  private handleClick(event: Event) {
     if (this.modalTriggerId !== '') {
       const modal: any = document.getElementById(this.modalTriggerId);
       modal.visible = true;
+    } else if (this.type === 'submit') {
+      const form = this.host.closest('form');
+      if (form) {
+            event.preventDefault();
+            const fakeSubmit = document.createElement('button');
+            fakeSubmit.type = 'submit';
+            fakeSubmit.style.display = 'none';
+            form.appendChild(fakeSubmit);
+            fakeSubmit.click();
+            fakeSubmit.remove();
+        }
     }
     this.fwClick.emit();
   }
@@ -70,7 +83,7 @@ export class Button {
   render() {
     return (
     <Host
-      onClick={() => this.handleClick()}
+      onClick={(e: Event) => this.disabled ? undefined : this.handleClick(e) }
       onFocus={() => this.onFocus()}
       onBlur={() => this.onBlur()}>
         <button
