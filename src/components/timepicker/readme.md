@@ -22,6 +22,7 @@ fw-timepicker displays a list or drop-down box with prepopulated time values and
 | `interval` | `interval` | Time interval between the values displayed in the list, specified in minutes.                                                                                                                  | `number`               | `30`                                           |
 | `maxTime`  | `max-time` | Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.                                                         | `string`               | `this.isMeridianFormat ? '11:30 PM' : '23:30'` |
 | `minTime`  | `min-time` | Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.                                                         | `string`               | `this.isMeridianFormat ? '12:00 AM' : '00:00'` |
+| `name`     | `name`     | Name of the component, saved as part of form data.                                                                                                                                             | `string`               | `''`                                           |
 | `value`    | `value`    | Time output value                                                                                                                                                                              | `string`               | `undefined`                                    |
 
 

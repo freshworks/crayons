@@ -1,4 +1,6 @@
-import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+
+import { renderHiddenField } from '../../utils/utils';
 
 @Component({
   tag: 'fw-input',
@@ -6,6 +8,8 @@ import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } f
   shadow: true,
 })
 export class Input {
+
+  @Element() host!: HTMLElement;
   private nativeInput?: HTMLInputElement;
 
   @State() hasFocus = false;
@@ -155,6 +159,11 @@ export class Input {
   }
 
   render() {
+
+    const { host, name, value } = this;
+
+    renderHiddenField(host, name, value);
+
     return (
       <Host
         aria-disabled={this.disabled}

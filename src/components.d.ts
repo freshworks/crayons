@@ -46,6 +46,10 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Name of the component, saved as part of form data.
+         */
+        "name": string;
+        /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
@@ -71,6 +75,10 @@ export namespace Components {
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
         "mode": "single date" | "range";
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name": string;
         /**
           * Text displayed in the input box before a user selects a date or date range.
          */
@@ -508,6 +516,10 @@ export namespace Components {
          */
         "minTime"?: string;
         /**
+          * Name of the component, saved as part of form data.
+         */
+        "name": string;
+        /**
           * Time output value
          */
         "value"?: string;
@@ -759,6 +771,10 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Name of the component, saved as part of form data.
+         */
+        "name"?: string;
+        /**
           * Triggered when the check box loses focus.
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
@@ -796,6 +812,10 @@ declare namespace LocalJSX {
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
         "mode"?: "single date" | "range";
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name"?: string;
         /**
           * Triggered when the update button clicked
          */
@@ -1322,6 +1342,10 @@ declare namespace LocalJSX {
           * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "minTime"?: string;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name"?: string;
         /**
           * Time output value
          */

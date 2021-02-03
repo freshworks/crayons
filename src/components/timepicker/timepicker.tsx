@@ -1,11 +1,16 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Element, Prop, State, h } from '@stencil/core';
 import moment from 'moment-mini';
+
+import { renderHiddenField } from '../../utils/utils';
 
 @Component({
   tag: 'fw-timepicker',
   shadow: true,
 })
 export class Timepicker {
+
+  @Element() host: HTMLElement;
+
   /**
    * State for all the time value\s
    */
@@ -30,6 +35,11 @@ export class Timepicker {
    * Time output value
    */
   @Prop({ mutable: true }) value?: string;
+
+  /**
+   * Name of the component, saved as part of form data.
+   */
+  @Prop() name = '';
 
   /**
    * Time interval between the values displayed in the list, specified in minutes.
@@ -106,6 +116,11 @@ export class Timepicker {
   }
 
   render() {
+
+    const { host, name, value } = this;
+
+    renderHiddenField(host, name, value);
+
     return (
       <fw-select disabled={ this.disabled } value={ this.value }
        onFwChange = { e => this.setTimeValue(e) }>

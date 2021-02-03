@@ -1,6 +1,6 @@
 import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
 
-import { findCheckedOption, watchForOptions } from '../../utils/utils';
+import { findCheckedOption, renderHiddenField, watchForOptions } from '../../utils/utils';
 
 @Component({
   tag: 'fw-radio-group',
@@ -9,7 +9,7 @@ export class RadioGroup {
 
   private mutationO?: MutationObserver;
 
-  @Element() el!: HTMLElement;
+  @Element() host!: HTMLElement;
 
   /**
    * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
@@ -39,7 +39,7 @@ export class RadioGroup {
 
   async connectedCallback() {
 
-    const el = this.el;
+    const el = this.host;
 
     if (this.value === undefined) {
       const radio = findCheckedOption(el, 'fw-radio') as HTMLFwRadioElement | undefined;
@@ -105,7 +105,7 @@ export class RadioGroup {
   private getRadios() {
     return Promise.all(
       Array
-        .from(this.el.querySelectorAll('fw-radio'))
+        .from(this.host.querySelectorAll('fw-radio'))
         .map(r => r.componentOnReady())
     );
   }
@@ -126,6 +126,11 @@ export class RadioGroup {
   }
 
   render() {
+
+    const { host, name, value } = this;
+
+    renderHiddenField(host, name, value);
+
     return (
       <Host
         role="radiogroup"

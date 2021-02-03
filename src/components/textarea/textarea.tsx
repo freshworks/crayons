@@ -1,4 +1,6 @@
-import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+
+import { renderHiddenField } from '../../utils/utils';
 
 @Component({
   tag: 'fw-textarea',
@@ -6,6 +8,8 @@ import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } f
   shadow: true,
 })
 export class Textarea {
+  @Element() host: HTMLElement;
+
   private nativeInput?: HTMLTextAreaElement;
 
   @State() hasFocus = false;
@@ -128,6 +132,11 @@ export class Textarea {
   }
 
   render() {
+
+    const { host, name, value } = this;
+
+    renderHiddenField(host, name, value);
+
     return (
       <Host
         aria-disabled={this.disabled}
