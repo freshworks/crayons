@@ -1,3 +1,10 @@
+## [2.12.1](https://github.com/freshworks/crayons/compare/v2.12.0...v2.12.1) (2021-03-09)
+
+
+### Bug Fixes
+
+* **select.tsx:** fixes emitting fwChange before initialization for multiselect ([3d11ba5](https://github.com/freshworks/crayons/commit/3d11ba5d323343d7876bab185759c144abee2d28))
+
 # [2.12.0](https://github.com/freshworks/crayons/compare/v2.11.1...v2.12.0) (2021-02-03)
 
 
