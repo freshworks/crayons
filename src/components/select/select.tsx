@@ -19,6 +19,7 @@ export class Select {
   @State() options = [];
   @State() filteredOptions = [];
   @State() hasFocus = false;
+  @State() didInit = false;
   /**
    * Label displayed on the interface, for the component.
    */
@@ -131,7 +132,9 @@ export class Select {
           : this.value === option.value;
         return option;
       });
-      this.fwChange.emit({ value: this.value });
+      if (this.didInit) {
+        this.fwChange.emit({ value: this.value });
+      }
     }
   }
 
@@ -240,6 +243,7 @@ export class Select {
 
   componentDidLoad() {
     this.renderInput();
+    this.didInit = true;
   }
 
   @Method()
