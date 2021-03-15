@@ -56,12 +56,12 @@ export class Checkbox {
   @Watch('checked')
   checkChanged(isChecked: boolean) {
     if (!this.disabled) {
-      this.checkbox.checked = isChecked;
       this.fwChange.emit({
         value: this.value,
         checked: isChecked,
       });
     }
+    this.checkbox.checked = isChecked;
   }
 
   @Watch('disabled')
