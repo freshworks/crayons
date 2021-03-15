@@ -56,7 +56,6 @@ export class Radio {
   @Watch('checked')
   checkChanged(isChecked: boolean) {
     if (!this.disabled) {
-      this.radio.checked = isChecked;
       if (isChecked) {
         this.fwSelect.emit({
           value: this.value,
@@ -66,6 +65,7 @@ export class Radio {
         this.fwDeselect.emit();
       }
     }
+    this.radio.checked = isChecked;
   }
 
   @Watch('disabled')
