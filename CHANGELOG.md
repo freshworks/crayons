@@ -1,3 +1,10 @@
+## [2.12.2](https://github.com/freshworks/crayons/compare/v2.12.1...v2.12.2) (2021-03-16)
+
+
+### Bug Fixes
+
+* **radio.tsx, checkbox.tsx:** fixes checked value change to reflect in UI when disabled ([0cc6f70](https://github.com/freshworks/crayons/commit/0cc6f7087e31b2378deb3757f5b7ae513641a06a)), closes [#154](https://github.com/freshworks/crayons/issues/154)
+
 ## [2.12.1](https://github.com/freshworks/crayons/compare/v2.12.0...v2.12.1) (2021-03-09)
 
 
