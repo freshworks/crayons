@@ -25,6 +25,14 @@ fw-label displays an informational text component that identifies other componen
 | `value`  | `value`   | Display text in the label.                | `string`                                                       | `''`       |
 
 
+## CSS Custom Properties
+
+| Name                         | Description                    |
+| ---------------------------- | ------------------------------ |
+| `--label-padding-horizontal` | Left - right padding for label |
+| `--label-padding-vertical`   | Top - bottom padding for label |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

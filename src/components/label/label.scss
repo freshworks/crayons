@@ -1,12 +1,22 @@
 @import "../../styles/freshworks.scss";
 
+/**
+  @prop --label-padding-vertical: Top - bottom padding for label
+  @prop --label-padding-horizontal: Left - right padding for label
+*/
+
+:host {
+  --label-padding-vertical: 0;
+  --label-padding-horizontal: 5px;
+}
+
 .label {
   color: #6f7c87;
   border: 1px solid #dadfe3;
   background-color: var(--color-milk);
   font-weight: 600;
   font-size: var(--font-size-12);
-  padding: 0 5px;
+  padding: var(--label-padding-vertical) var(--label-padding-horizontal);
   line-height: 1.5;
   display: inline-block;
   border-radius: 2px;
