@@ -1,3 +1,10 @@
+# [2.13.0](https://github.com/freshworks/crayons/compare/v2.12.2...v2.13.0) (2021-03-18)
+
+
+### Features
+
+* **fw-label:** introduce css variables for label padding ([c7ef767](https://github.com/freshworks/crayons/commit/c7ef76723c748f455a8132822ca711ad2f24deb9)), closes [#181](https://github.com/freshworks/crayons/issues/181)
+
 ## [2.12.2](https://github.com/freshworks/crayons/compare/v2.12.1...v2.12.2) (2021-03-16)
 
 
