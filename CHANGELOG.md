@@ -1,3 +1,10 @@
+## [2.13.1](https://github.com/freshworks/crayons/compare/v2.13.0...v2.13.1) (2021-04-14)
+
+
+### Bug Fixes
+
+* **fw-input:** adds a new event for clearing input ([271a20f](https://github.com/freshworks/crayons/commit/271a20ffe8b17901815d6db512c0f81c1bdd7882)), closes [#185](https://github.com/freshworks/crayons/issues/185)
+
 # [2.13.0](https://github.com/freshworks/crayons/compare/v2.12.2...v2.13.0) (2021-03-18)
 
 
