@@ -104,6 +104,11 @@ export class Input {
    */
   @Event() fwInput: EventEmitter<KeyboardEvent>;
 
+  /**
+   * Triggered when clear icon is clicked.
+   */
+  @Event() fwInputClear: EventEmitter;
+
   @Watch('value')
   watchHandler(newValue: string) {
     this.fwChange.emit({ value: newValue });
@@ -127,16 +132,18 @@ export class Input {
     this.fwBlur.emit();
   }
 
+  private showClearButton() {
+    return this.clearInput && !this.readonly && !this.disabled && this.value.length > 0;
+  }
+
   private clearTextInput = (ev?: Event) => {
-    if (this.clearInput && !this.readonly && !this.disabled && ev) {
-      ev.preventDefault();
-      ev.stopPropagation();
-    }
+    if (!this.readonly && !this.disabled && ev) {
+      this.value = '';
 
-    this.value = '';
-
-    if (this.nativeInput) {
-      this.nativeInput.value = '';
+      if (this.nativeInput) {
+        this.nativeInput.value = '';
+      }
+      this.fwInputClear.emit();
     }
   }
 
@@ -205,10 +212,12 @@ export class Input {
           {
             this.iconRight !== undefined ? <fw-icon class="icon right" name={this.iconRight}></fw-icon> : ''
           }
-          {this.clearInput && this.value.length > 0 ?
+          {
+            this.showClearButton() ?
             <div class="clear-button" onClick={e => this.clearTextInput(e)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="clear-button-img"><path d="M17.992 16l8.796-8.796a1.409 1.409 0 0 0-1.992-1.992L16 14.008 7.204 5.212a1.409 1.409 0 0 0-1.992 1.992L14.008 16l-8.796 8.796a1.409 1.409 0 0 0 1.992 1.992L16 17.992l8.796 8.796a1.409 1.409 0 0 0 1.992-1.992L17.992 16z"></path></svg>
-            </div> : ''}
+            </div> : ''
+          }
         </div>
         {this.stateText !== '' ?
           <span class="help-block">{this.stateText}</span> : ''}

@@ -947,6 +947,10 @@ declare namespace LocalJSX {
          */
         "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
         /**
+          * Triggered when clear icon is clicked.
+         */
+        "onFwInputClear"?: (event: CustomEvent<any>) => void;
+        /**
           * Text displayed in the text box before a user enters a value.
          */
         "placeholder"?: string | null;
