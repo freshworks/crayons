@@ -1,7 +1,7 @@
 #!groovy
 
 def runNPM(command) {
-    def NODE_VERSION = 10;
+    def NODE_VERSION = 12;
     utilObj = new Utils();
     envVersion = utilObj.getEnvVersion(NODE_VERSION);
     utilObj.runCmd(command, envVersion)
