@@ -2,7 +2,6 @@ import { addParameters, addDecorator, setCustomElements } from '@storybook/web-c
 import { withA11y } from '@storybook/addon-a11y';
 import { withActions } from '@storybook/addon-actions';
 import customElements from '../src/custom-elements.json';
-import { themes } from '@storybook/theming';
 import theme from './freshworksStorybookTheme';
 
 import { Parser } from 'html-to-react';

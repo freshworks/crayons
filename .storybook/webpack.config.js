@@ -34,13 +34,13 @@ module.exports = async ({ config }) => {
   });
 
   config.plugins.push(
-    new CopyPlugin([
-      {
+    new CopyPlugin({
+      patterns: [{
         from: "**/*",
         to: "./",
         context: "dist"
-      }
-    ])
+      }]
+    })
   );
 
   config.plugins.push(new WriteFilePlugin());
