@@ -74,7 +74,7 @@
     "@vuepress/plugin-active-header-links": "^1.8.2",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.2.2",
-    "commitizen": "^4.2.3",
+    "commitizen": "4.2.4",
     "copy-webpack-plugin": "^6.4.1",
     "custom-tslint-formatters": "^2.4.0",
     "cz-conventional-changelog": "^3.3.0",
