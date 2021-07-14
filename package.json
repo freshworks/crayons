@@ -1,8 +1,5 @@
 {
   "name": "@freshworks/crayons",
-  "engines": {
-    "node": "12.x"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/freshworks/crayons.git"
