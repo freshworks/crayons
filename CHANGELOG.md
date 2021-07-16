@@ -1,3 +1,10 @@
+## [2.13.2](https://github.com/freshworks/crayons/compare/v2.13.1...v2.13.2) (2021-07-16)
+
+
+### Bug Fixes
+
+* **main.yml:** changes to upgrade remove validations ([de111ca](https://github.com/freshworks/crayons/commit/de111ca3f2ebed57a905d84436d878ed301a58fb))
+
 ## [2.13.1](https://github.com/freshworks/crayons/compare/v2.13.0...v2.13.1) (2021-04-14)
 
 
