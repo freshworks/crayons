@@ -22,10 +22,10 @@ Toasts are used to show pop-up messages that lasts on the screen for a while. Us
 | `actionLinkText` | `action-link-text` | The Content of the action link                           | `string`                                            | `''`           |
 | `content`        | `content`          | The content to be diaplyed in toast                      | `string`                                            | `undefined`    |
 | `pauseOnHover`   | `pause-on-hover`   | Pause the toast from hiding on mouse hover               | `boolean`                                           | `undefined`    |
-| `position`       | `position`         | position of the toast notification in screen             | `"top-center" or "top-left" or "top-right"`         | `'top-center'` |
+| `position`       | `position`         | position of the toast notification in screen             | `"top-center" \| "top-left" \| "top-right"`         | `'top-center'` |
 | `sticky`         | `sticky`           | won't close automatically                                | `boolean`                                           | `false`        |
 | `timeout`        | `timeout`          | Time duration of the toast visibility                    | `number`                                            | `4000`         |
-| `type`           | `type`             | Type of the toast - success,failure, warning, inprogress | `"error" or "inprogress" or "success" or "warning"` | `'warning'`    |
+| `type`           | `type`             | Type of the toast - success,failure, warning, inprogress | `"error" \| "inprogress" \| "success" \| "warning"` | `'warning'`    |
 
 
 ## Events

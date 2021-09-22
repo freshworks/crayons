@@ -5,6 +5,7 @@ loader/
 coverage/
 src/.vuepress/public/build/
 docs-dist/
+react/
 
 *~
 *.sw[mnpcod]

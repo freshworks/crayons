@@ -21,7 +21,7 @@ fw-label displays an informational text component that identifies other componen
 
 | Property | Attribute | Description                               | Type                                                           | Default    |
 | -------- | --------- | ----------------------------------------- | -------------------------------------------------------------- | ---------- |
-| `color`  | `color`   | Theme based on which the label is styled. | `"blue" or "green" or "grey" or "normal" or "red" or "yellow"` | `'normal'` |
+| `color`  | `color`   | Theme based on which the label is styled. | `"blue" \| "green" \| "grey" \| "normal" \| "red" \| "yellow"` | `'normal'` |
 | `value`  | `value`   | Display text in the label.                | `string`                                                       | `''`       |
 
 

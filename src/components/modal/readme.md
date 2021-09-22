@@ -43,7 +43,7 @@ Modals are used as an overlay to display information. It can also be used as con
 | `description`  | `description`   | The title text to be displayed on the modal | `string`                           | `undefined`  |
 | `hideFooter`   | `hide-footer`   | Hides the footer                            | `boolean`                          | `false`      |
 | `icon`         | `icon`          | The icon to be displayed with the title     | `string`                           | `''`         |
-| `size`         | `size`          | Size of the modal                           | `"large" or "small" or "standard"` | `'standard'` |
+| `size`         | `size`          | Size of the modal                           | `"large" \| "small" \| "standard"` | `'standard'` |
 | `successText`  | `success-text`  | The text for the success button             | `string`                           | `'OK'`       |
 | `titleText`    | `title-text`    | The title text to be displayed on the modal | `string`                           | `undefined`  |
 | `visible`      | `visible`       | Toggle the visibility of the modal          | `boolean`                          | `false`      |

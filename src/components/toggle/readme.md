@@ -19,7 +19,7 @@ fw-toggle displays an input control that enables modifying an element’s state 
 | `checked`  | `checked`  | Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.              | `boolean`                        | `false`    |
 | `disabled` | `disabled` | Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false. | `boolean`                        | `false`    |
 | `name`     | `name`     | Name of the component, saved as part of the form data.                                                                       | `string`                         | `''`       |
-| `size`     | `size`     | Size of the input control.                                                                                                   | `"large" or "medium" or "small"` | `'medium'` |
+| `size`     | `size`     | Size of the input control.                                                                                                   | `"large" \| "medium" \| "small"` | `'medium'` |
 
 
 ## Events

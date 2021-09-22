@@ -10,7 +10,7 @@ export namespace Components {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
-        "color": "primary" | "secondary" | "danger" | "link" | "text";
+        "color": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
           * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -26,11 +26,11 @@ export namespace Components {
         /**
           * Size of the button.
          */
-        "size": "normal" | "mini" | "small";
+        "size": 'normal' | 'mini' | 'small';
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type": "button" | "reset" | "submit";
+        "type": 'button' | 'reset' | 'submit';
     }
     interface FwCheckbox {
         /**
@@ -74,7 +74,7 @@ export namespace Components {
         /**
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
-        "mode": "single date" | "range";
+        "mode": 'single date' | 'range';
         /**
           * Name of the component, saved as part of form data.
          */
@@ -96,7 +96,7 @@ export namespace Components {
         /**
           * Dropdown Button color
          */
-        "color": "primary" | "secondary" | "danger" | "link" | "text";
+        "color": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
           * Disables the dropdown button if its true
          */
@@ -144,7 +144,7 @@ export namespace Components {
         /**
           * Specifies whether the browser can display suggestions to autocomplete the text value.
          */
-        "autocomplete": "on" | "off";
+        "autocomplete": 'on' | 'off';
         /**
           * Specifies whether the browser can auto focus the input field
          */
@@ -200,7 +200,7 @@ export namespace Components {
         /**
           * Theme based on which the text box is styled.
          */
-        "state": "normal" | "warning" | "error";
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Descriptive or instructional text displayed below the text box.
          */
@@ -208,7 +208,7 @@ export namespace Components {
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type": "text" | "number";
+        "type": 'text' | 'number';
         /**
           * Default value displayed in the input box.
          */
@@ -218,7 +218,7 @@ export namespace Components {
         /**
           * Theme based on which the label is styled.
          */
-        "color": "blue" | "red" | "green" | "yellow" | "grey" | "normal";
+        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'normal';
         /**
           * Display text in the label.
          */
@@ -248,7 +248,7 @@ export namespace Components {
         /**
           * Size of the modal
          */
-        "size": "standard" | "small" | "large";
+        "size": 'standard' | 'small' | 'large';
         /**
           * The text for the success button
          */
@@ -344,7 +344,7 @@ export namespace Components {
         /**
           * Theme based on which the list box is styled.
          */
-        "state": "normal" | "warning" | "error";
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Descriptive or instructional text displayed below the list box.
          */
@@ -352,7 +352,7 @@ export namespace Components {
         /**
           * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
-        "type": "text" | "number";
+        "type": 'text' | 'number';
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -392,7 +392,7 @@ export namespace Components {
         /**
           * Size of the loader.
          */
-        "size": "small" | "medium" | "large" | "default";
+        "size": 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
@@ -480,7 +480,7 @@ export namespace Components {
         /**
           * Theme based on which the input box is styled.
          */
-        "state": "normal" | "warning" | "error";
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Descriptive or instructional text displayed below the input box.
          */
@@ -492,7 +492,7 @@ export namespace Components {
         /**
           * Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved.
          */
-        "wrap": "soft" | "hard";
+        "wrap": 'soft' | 'hard';
     }
     interface FwTimepicker {
         /**
@@ -502,7 +502,7 @@ export namespace Components {
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
-        "format": "hh:mm A" | "HH:mm";
+        "format": 'hh:mm A' | 'HH:mm';
         /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
@@ -540,7 +540,7 @@ export namespace Components {
         /**
           * position of the toast notification in screen
          */
-        "position": "top-center" | "top-left" | "top-right";
+        "position": 'top-center' | 'top-left' | 'top-right';
         /**
           * won't close automatically
          */
@@ -553,7 +553,7 @@ export namespace Components {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type": "success" | "error" | "warning" | "inprogress";
+        "type": 'success' | 'error' | 'warning' | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -571,7 +571,7 @@ export namespace Components {
         /**
           * Size of the input control.
          */
-        "size": "small" | "medium" | "large";
+        "size": 'small' | 'medium' | 'large';
     }
 }
 declare global {
@@ -723,7 +723,7 @@ declare namespace LocalJSX {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
-        "color"?: "primary" | "secondary" | "danger" | "link" | "text";
+        "color"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
           * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -751,11 +751,11 @@ declare namespace LocalJSX {
         /**
           * Size of the button.
          */
-        "size"?: "normal" | "mini" | "small";
+        "size"?: 'normal' | 'mini' | 'small';
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type"?: "button" | "reset" | "submit";
+        "type"?: 'button' | 'reset' | 'submit';
     }
     interface FwCheckbox {
         /**
@@ -811,7 +811,7 @@ declare namespace LocalJSX {
         /**
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
-        "mode"?: "single date" | "range";
+        "mode"?: 'single date' | 'range';
         /**
           * Name of the component, saved as part of form data.
          */
@@ -837,7 +837,7 @@ declare namespace LocalJSX {
         /**
           * Dropdown Button color
          */
-        "color"?: "primary" | "secondary" | "danger" | "link" | "text";
+        "color"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
           * Disables the dropdown button if its true
          */
@@ -893,7 +893,7 @@ declare namespace LocalJSX {
         /**
           * Specifies whether the browser can display suggestions to autocomplete the text value.
          */
-        "autocomplete"?: "on" | "off";
+        "autocomplete"?: 'on' | 'off';
         /**
           * Specifies whether the browser can auto focus the input field
          */
@@ -965,7 +965,7 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the text box is styled.
          */
-        "state"?: "normal" | "warning" | "error";
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Descriptive or instructional text displayed below the text box.
          */
@@ -973,7 +973,7 @@ declare namespace LocalJSX {
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type"?: "text" | "number";
+        "type"?: 'text' | 'number';
         /**
           * Default value displayed in the input box.
          */
@@ -983,7 +983,7 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the label is styled.
          */
-        "color"?: "blue" | "red" | "green" | "yellow" | "grey" | "normal";
+        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'normal';
         /**
           * Display text in the label.
          */
@@ -1021,7 +1021,7 @@ declare namespace LocalJSX {
         /**
           * Size of the modal
          */
-        "size"?: "standard" | "small" | "large";
+        "size"?: 'standard' | 'small' | 'large';
         /**
           * The text for the success button
          */
@@ -1147,7 +1147,7 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the list box is styled.
          */
-        "state"?: "normal" | "warning" | "error";
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Descriptive or instructional text displayed below the list box.
          */
@@ -1155,7 +1155,7 @@ declare namespace LocalJSX {
         /**
           * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
-        "type"?: "text" | "number";
+        "type"?: 'text' | 'number';
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -1199,7 +1199,7 @@ declare namespace LocalJSX {
         /**
           * Size of the loader.
          */
-        "size"?: "small" | "medium" | "large" | "default";
+        "size"?: 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
@@ -1311,7 +1311,7 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the input box is styled.
          */
-        "state"?: "normal" | "warning" | "error";
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Descriptive or instructional text displayed below the input box.
          */
@@ -1323,7 +1323,7 @@ declare namespace LocalJSX {
         /**
           * Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved.
          */
-        "wrap"?: "soft" | "hard";
+        "wrap"?: 'soft' | 'hard';
     }
     interface FwTimepicker {
         /**
@@ -1333,7 +1333,7 @@ declare namespace LocalJSX {
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
-        "format"?: "hh:mm A" | "HH:mm";
+        "format"?: 'hh:mm A' | 'HH:mm';
         /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
@@ -1375,7 +1375,7 @@ declare namespace LocalJSX {
         /**
           * position of the toast notification in screen
          */
-        "position"?: "top-center" | "top-left" | "top-right";
+        "position"?: 'top-center' | 'top-left' | 'top-right';
         /**
           * won't close automatically
          */
@@ -1387,7 +1387,7 @@ declare namespace LocalJSX {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type"?: "success" | "error" | "warning" | "inprogress";
+        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -1409,7 +1409,7 @@ declare namespace LocalJSX {
         /**
           * Size of the input control.
          */
-        "size"?: "small" | "medium" | "large";
+        "size"?: 'small' | 'medium' | 'large';
     }
     interface IntrinsicElements {
         "fw-button": FwButton;

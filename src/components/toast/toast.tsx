@@ -134,7 +134,7 @@ export class Toast {
 
   closingAnimation() {
     this.fadeOut = true;
-    return new Promise(resolve => setTimeout(() => { this.isOpen = false; resolve(); }, 500));
+    return new Promise<void>(resolve => setTimeout(() => { this.isOpen = false; resolve(); }, 500));
   }
 
   async closeToast() {
