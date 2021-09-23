@@ -87,51 +87,10 @@ label {
     @media screen and (prefers-reduced-motion: reduce) {
       &:hover,
       &:focus {
-        border: 1px var(--input-hover-color) solid;
         transition: none;
       }
     }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px var(--input-hover-color) solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px var(--input-hover-color) solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px var(--input-hover-color) solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px var(--input-hover-color) solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px var(--input-hover-color) solid;
-        transition: none;
-      }
-    }@media screen and (prefers-reduced-motion: reduce) {
-&:hover, &:focus {
-      border: 1px var(--input-hover-color) solid;
-      transition: none;
-}
-}
-
+    /* stylelint-disable */
     &:hover {
       border: 1px var(--input-hover-color) solid;
       transition: 0.2s linear;

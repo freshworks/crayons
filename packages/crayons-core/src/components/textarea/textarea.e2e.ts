@@ -77,7 +77,7 @@ describe('fw-textarea', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ 'value': '2' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
   });
 
   it('auto focuses when set to true', async () => {
@@ -88,5 +88,4 @@ describe('fw-textarea', () => {
 
     expect(inputElement.getAttribute('autofocus')).toBe('');
   });
-
 });

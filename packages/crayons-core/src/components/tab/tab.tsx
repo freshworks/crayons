@@ -5,7 +5,6 @@ import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/c
   styleUrl: 'tab.scss',
   shadow: true,
 })
-
 export class Tab {
   /**
    * Name of the tab displayed on the UI.
@@ -40,7 +39,7 @@ export class Tab {
   render() {
     return (
       <Host class="tab">
-        <slot/>
+        <slot />
       </Host>
     );
   }

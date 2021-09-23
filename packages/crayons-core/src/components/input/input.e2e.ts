@@ -76,7 +76,7 @@ describe('fw-input', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ 'value': '2' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
   });
 
   it('it emits fwFocus when the focus is on the component', async () => {

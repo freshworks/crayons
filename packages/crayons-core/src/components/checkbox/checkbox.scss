@@ -73,18 +73,7 @@ input[type="checkbox"] {
     }
     @media screen and (prefers-reduced-motion: reduce) {
       &::before {
-        position: absolute;
-        left: 0;
-        top: 3px;
-        display: block;
-        content: "";
-        border: $checkbox-border-width solid $checkbox-color;
-        height: 14px;
-        width: 14px;
-        background-color: $input-bg;
         transition: none;
-        box-sizing: border-box;
-        border-radius: 2px;
       }
     }
 
@@ -102,19 +91,10 @@ input[type="checkbox"] {
       box-sizing: border-box;
       border-radius: 2px;
     }
+
     @media screen and (prefers-reduced-motion: reduce) {
       &::after {
-        position: absolute;
-        display: block;
-        content: "";
-        left: 4px;
-        top: 5px;
-        width: 5px;
-        height: 7px;
-        transform: rotate(45deg);
-        opacity: 0;
         transition: none;
-        box-sizing: border-box;
       }
     }
 

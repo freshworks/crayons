@@ -7,19 +7,10 @@
 @media screen and (prefers-reduced-motion: reduce) {
   .spinner {
     animation: none;
-    z-index: 2;
     @media screen and (prefers-reduced-motion: reduce) {
       & .path {
-        stroke: var(--spinner-color, var(--color-azure-800));
-        stroke-linecap: round;
         animation: none;
       }
-    }
-
-    & .path {
-      stroke: var(--spinner-color, var(--color-azure-800));
-      stroke-linecap: round;
-      animation: dash 1s ease-in-out infinite;
     }
   }
 }

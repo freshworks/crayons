@@ -1,4 +1,15 @@
-import { Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Host,
+  Method,
+  Prop,
+  State,
+  Watch,
+  h,
+} from '@stencil/core';
 
 import { renderHiddenField } from '../../utils/utils';
 
@@ -101,17 +112,17 @@ export class Textarea {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
-  }
+  };
 
   private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-  }
+  };
 
   private onBlur = () => {
     this.hasFocus = false;
     this.fwBlur.emit();
-  }
+  };
 
   private getValue(): string {
     return this.value || '';
@@ -132,7 +143,6 @@ export class Textarea {
   }
 
   render() {
-
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
@@ -146,18 +156,28 @@ export class Textarea {
         }}
       >
         <div class="textarea-container">
-          {this.label !== '' ? <label class={{
-            'required': this.required,
-          }}>{this.label}</label> : ''}
-          <div class={{
-            'textarea-container-inner': true,
-            [this.state]: true,
-          }}>
+          {this.label !== '' ? (
+            <label
+              class={{
+                required: this.required,
+              }}
+            >
+              {this.label}
+            </label>
+          ) : (
+            ''
+          )}
+          <div
+            class={{
+              'textarea-container-inner': true,
+              [this.state]: true,
+            }}
+          >
             <textarea
               class={{
-                'responsive': this.cols === undefined,
+                responsive: this.cols === undefined,
               }}
-              ref={input => this.nativeInput = input}
+              ref={(input) => (this.nativeInput = input)}
               disabled={this.disabled}
               name={this.name}
               placeholder={this.placeholder || ''}
@@ -167,7 +187,7 @@ export class Textarea {
               autoFocus={this.autofocus}
               required={this.required}
               value={this.value}
-              onInput={e => this.onInput(e)}
+              onInput={(e) => this.onInput(e)}
               onBlur={this.onBlur}
               onFocus={this.onFocus}
               rows={this.rows}
@@ -175,8 +195,7 @@ export class Textarea {
               wrap={this.wrap}
             />
           </div>
-          {this.stateText !== '' ?
-            <span class="help-block">{this.stateText}</span> : ''}
+          {this.stateText !== '' ? <span class="help-block">{this.stateText}</span> : ''}
         </div>
       </Host>
     );

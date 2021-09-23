@@ -24,7 +24,8 @@ describe('fw-button', () => {
 
     await page.setContent('<fw-button></fw-button>');
     const element = await page.find('fw-button');
-    expect(element.shadowRoot).toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--primary" type="button">
+    expect(element.shadowRoot)
+      .toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--primary" type="button">
         <slot></slot>
       </button>`);
   });
@@ -34,9 +35,9 @@ describe('fw-button', () => {
 
     await page.setContent('<fw-button color="secondary"</fw-button>');
     const element = await page.find('fw-button');
-    expect(element.shadowRoot).toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--secondary" type="button">
+    expect(element.shadowRoot)
+      .toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--secondary" type="button">
         <slot></slot>
       </button>`);
   });
-
 });

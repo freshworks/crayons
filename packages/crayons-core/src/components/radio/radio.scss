@@ -84,13 +84,6 @@ input[type="radio"] {
     }
     @media screen and (prefers-reduced-motion: reduce) {
       &::before {
-        left: 0;
-        border: 1px solid $app-border-primary;
-        border-radius: 50px;
-        top: 4px;
-        width: 14px;
-        height: 14px;
-        background: $app-action-icon-bg;
         transition: none;
       }
     }
@@ -107,13 +100,7 @@ input[type="radio"] {
     }
     @media screen and (prefers-reduced-motion: reduce) {
       &::after {
-        left: 3px;
-        border-radius: 100%;
-        width: 8px;
-        height: 8px;
-        opacity: 0;
         transition: none;
-        box-sizing: border-box;
       }
     }
 

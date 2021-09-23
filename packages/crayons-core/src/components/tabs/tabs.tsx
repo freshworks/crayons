@@ -7,7 +7,7 @@ import {
   Prop,
   State,
   Watch,
-  h
+  h,
 } from '@stencil/core';
 
 @Component({
@@ -16,7 +16,6 @@ import {
   shadow: true,
 })
 export class Tabs {
-
   @Element()
   el!: HTMLElement;
   private mutationO?: MutationObserver;
@@ -53,7 +52,9 @@ export class Tabs {
 
   @Listen('propChanged')
   init() {
-    this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(node => node.parentNode === this.el);
+    this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(
+      (node) => node.parentNode === this.el
+    );
     this.displayTab(this.activeTabIndex);
   }
 
@@ -87,23 +88,32 @@ export class Tabs {
   }
 
   render() {
-
     return (
       <div class="tabs">
         <ul role="tablist" class="tabs__items">
-          {this.tabs.map((tab, index) =>
-            <li onClick={() => tab.disabled ? '' : this.activeTabIndex = index} class="tabs__item">
-              <div id={'#tab-' + index} class={'tabs__item__nav ' + (index === this.activeTabIndex ? 'active' : '') + (tab.disabled ? 'disabled' : '')}>
+          {this.tabs.map((tab, index) => (
+            <li
+              onClick={() => (tab.disabled ? '' : (this.activeTabIndex = index))}
+              class="tabs__item"
+            >
+              <div
+                id={'#tab-' + index}
+                class={
+                  'tabs__item__nav ' +
+                  (index === this.activeTabIndex ? 'active' : '') +
+                  (tab.disabled ? 'disabled' : '')
+                }
+              >
                 <span class="tab-title--tab-icon">
-                  {
-                    tab.tabHeaderHtml
-                    ? <span innerHTML={tab.tabHeaderHtml}></span>
-                    : <span class="tab-title">{tab.tabHeader}</span>
-                  }
+                  {tab.tabHeaderHtml ? (
+                    <span innerHTML={tab.tabHeaderHtml}></span>
+                  ) : (
+                    <span class="tab-title">{tab.tabHeader}</span>
+                  )}
                 </span>
               </div>
             </li>
-          )}
+          ))}
         </ul>
         <div class="tabs__content">
           <slot></slot>

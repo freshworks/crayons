@@ -40,20 +40,26 @@ export class Toggle {
 
   render() {
     return (
-      <div class={{
-        'toggle-switch': true,
-        [this.size]: true,
-      }} onClick={() => this.toggle()}>
+      <div
+        class={{
+          'toggle-switch': true,
+          [this.size]: true,
+        }}
+        onClick={() => this.toggle()}
+      >
         <input
           name={this.name}
           type="checkbox"
           disabled={this.disabled}
           checked={this.checked}
-          class="checkboxClass" />
-        <span class={{
-          'slider': true,
-          [this.size]: true,
-        }}></span>
+          class="checkboxClass"
+        />
+        <span
+          class={{
+            slider: true,
+            [this.size]: true,
+          }}
+        ></span>
       </div>
     );
   }

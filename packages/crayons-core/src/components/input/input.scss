@@ -96,54 +96,13 @@ label {
     cursor: text;
     display: inline-block;
     font-family: inherit;
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px $input-hover-color solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px $input-hover-color solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px $input-hover-color solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px $input-hover-color solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px $input-hover-color solid;
-        transition: none;
-      }
-    }
-    @media screen and (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus {
-        border: 1px $input-hover-color solid;
-        transition: none;
-      }
-    }@media screen and (prefers-reduced-motion: reduce) {
-&:hover, &:focus {
-      border: 1px $input-hover-color solid;
-      transition: none;
-}
-}
 
+    @media (prefers-reduced-motion) {
+      /* stylelint-disable */
+      &:hover {
+        transition: none;
+      }
+    }
     &:hover {
       border: 1px $input-hover-color solid;
       transition: 0.2s linear;

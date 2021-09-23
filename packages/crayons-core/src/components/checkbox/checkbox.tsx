@@ -8,7 +8,6 @@ import { renderHiddenField } from '../../utils/utils';
   shadow: true,
 })
 export class Checkbox {
-
   @Element() host!: HTMLElement;
   /**
    * Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.
@@ -84,7 +83,6 @@ export class Checkbox {
   }
 
   render() {
-
     const { host, name, value } = this;
 
     if (this.checked) {
@@ -101,19 +99,15 @@ export class Checkbox {
         aria-checked={`${this.checked}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
-        >
-          <input type="checkbox"
-            ref={el => this.checkbox = el}>
-          </input>
-          <label>
-            <span class="text"><slot/></span>
-            <br/>
-            {
-              this.label !== ''
-              ? <span class="label-field">{this.label}</span>
-              : ''
-            }
-          </label>
+      >
+        <input type="checkbox" ref={(el) => (this.checkbox = el)}></input>
+        <label>
+          <span class="text">
+            <slot />
+          </span>
+          <br />
+          {this.label !== '' ? <span class="label-field">{this.label}</span> : ''}
+        </label>
       </Host>
     );
   }

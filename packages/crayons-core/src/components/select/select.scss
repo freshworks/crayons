@@ -101,55 +101,14 @@ label {
   box-shadow: none;
   min-height: 24px;
   display: inline-block;
-  @media screen and (prefers-reduced-motion: reduce) {
-    &:hover,
-    &:focus {
-      border: 1px var(--input-hover-color) solid;
-      transition: none;
-    }
-  }
-  @media screen and (prefers-reduced-motion: reduce) {
-    &:hover,
-    &:focus {
-      border: 1px var(--input-hover-color) solid;
-      transition: none;
-    }
-  }
-  @media screen and (prefers-reduced-motion: reduce) {
-    &:hover,
-    &:focus {
-      border: 1px var(--input-hover-color) solid;
-      transition: none;
-    }
-  }
-  @media screen and (prefers-reduced-motion: reduce) {
-    &:hover,
-    &:focus {
-      border: 1px var(--input-hover-color) solid;
-      transition: none;
-    }
-  }
-  @media screen and (prefers-reduced-motion: reduce) {
-    &:hover,
-    &:focus {
-      border: 1px var(--input-hover-color) solid;
-      transition: none;
-    }
-  }
-  @media screen and (prefers-reduced-motion: reduce) {
-    &:hover,
-    &:focus {
-      border: 1px var(--input-hover-color) solid;
-      transition: none;
-    }
-  }@media screen and (prefers-reduced-motion: reduce) {
-&:hover,
-  &:focus {
-    border: 1px var(--input-hover-color) solid;
-    transition: none;
-}
-}
 
+  @media (prefers-reduced-motion) {
+    &:hover,
+    &:focus {
+      transition: none;
+    }
+  }
+  /* stylelint-disable */
   &:hover,
   &:focus {
     border: 1px var(--input-hover-color) solid;
@@ -170,8 +129,7 @@ label {
     border-style: solid;
     cursor: not-allowed;
 
-    &:hover,
-    &:focus {
+    &:hover {
       border: 1px solid var(--input-border);
     }
   }
@@ -207,31 +165,6 @@ label {
   .dropdown {
     z-index: 99;
   }
-  @media screen and (prefers-reduced-motion: reduce) {
-    ul {
-      min-height: var(--min-height);
-      max-height: var(--max-height);
-      overflow-y: scroll;
-      overflow-x: hidden;
-      padding: 8px;
-      list-style: none;
-      margin: 0;
-      border-radius: 4px;
-      margin-top: 2px;
-      display: none;
-      position: absolute;
-      z-index: 1;
-      background: var(--input-bg);
-      width: 100%;
-      box-sizing: border-box;
-      outline: none;
-      box-shadow: 0 2px 18px 0 rgba(18, 52, 77, 0.16),
-        0 2px 4px 0 rgba(18, 52, 77, 0.06);
-      user-select: none;
-      animation: none;
-      will-change: auto;
-    }
-  }
 
   ul {
     min-height: var(--min-height);
@@ -255,24 +188,6 @@ label {
     user-select: none;
     animation: dropdown-fade 0.15s;
     will-change: auto;
-  }
-  @media screen and (prefers-reduced-motion: reduce) {
-    .dropdown-status-icon {
-      position: absolute;
-      display: inline-block;
-      right: 12px;
-      content: "";
-      top: 45%;
-      width: 5px;
-      height: 5px;
-      background-color: transparent;
-      border-style: inherit;
-      border-top: 1px solid #12344d;
-      border-right: 1px solid #12344d;
-      border-left: transparent;
-      transform: rotate(135deg);
-      transition: none;
-    }
   }
 
   .dropdown-status-icon {

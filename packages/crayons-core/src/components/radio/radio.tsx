@@ -98,19 +98,15 @@ export class Radio {
         aria-checked={`${this.checked}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
-        >
-          <input type="radio"
-            ref={el => this.radio = el}>
-          </input>
-          <label>
-            <span class="text"><slot/></span>
-            <br/>
-            {
-              this.label !== ''
-              ? <span class="label-field">{this.label}</span>
-              : ''
-            }
-          </label>
+      >
+        <input type="radio" ref={(el) => (this.radio = el)}></input>
+        <label>
+          <span class="text">
+            <slot />
+          </span>
+          <br />
+          {this.label !== '' ? <span class="label-field">{this.label}</span> : ''}
+        </label>
       </Host>
     );
   }

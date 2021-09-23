@@ -72,7 +72,9 @@ describe('fw-datepicker', () => {
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
 
-    const dateEle = await page.find('fw-datepicker >>> .c-day-container.highlight:not(.disabled) span');
+    const dateEle = await page.find(
+      'fw-datepicker >>> .c-day-container.highlight:not(.disabled) span'
+    );
     await dateEle.click();
 
     const updateEle = await page.find('fw-datepicker >>> fw-button.update-date-value');
@@ -99,7 +101,9 @@ describe('fw-datepicker', () => {
     const toMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
     const toMonthValue = await toMonth.getProperty('value');
 
-    expect(moment(fromMonthValue, 'MMM').add(1, 'months').month()).toBe(moment(toMonthValue, 'MMM').month());
+    expect(moment(fromMonthValue, 'MMM').add(1, 'months').month()).toBe(
+      moment(toMonthValue, 'MMM').month()
+    );
   });
 
   it('both calenders of daterange picker should update', async () => {
@@ -115,9 +119,13 @@ describe('fw-datepicker', () => {
     const rightArrow = await page.findAll('fw-datepicker >>> .mdpchb-inner');
     await rightArrow[1].click();
 
-    const updatedFromMonth = await page.find('fw-datepicker >>> fw-select.from-month-selector >>> input');
+    const updatedFromMonth = await page.find(
+      'fw-datepicker >>> fw-select.from-month-selector >>> input'
+    );
     const updatedFromMonthValue = await updatedFromMonth.getProperty('value');
-    const updatedToMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
+    const updatedToMonth = await page.find(
+      'fw-datepicker >>> fw-select.to-month-selector >>> input'
+    );
     const updateToMonthValue = await updatedToMonth.getProperty('value');
 
     expect(moment(updatedFromMonthValue, 'MMM').add(1, 'M').format('MMM')).toBe(updateToMonthValue);

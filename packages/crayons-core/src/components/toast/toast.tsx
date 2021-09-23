@@ -1,4 +1,15 @@
-import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, getAssetPath, h } from '@stencil/core';
+import {
+  Component,
+  Event,
+  EventEmitter,
+  Host,
+  Method,
+  Prop,
+  State,
+  Watch,
+  getAssetPath,
+  h,
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-toast',
@@ -7,7 +18,6 @@ import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, getAs
   shadow: true,
 })
 export class Toast {
-
   /**
    * visibility state of toast
    */
@@ -94,9 +104,11 @@ export class Toast {
     if (this.type === 'inprogress') {
       return;
     }
-    this.getSVGHTML(iconName).then(res => {
-      this.svgHTML = res;
-    }).catch();
+    this.getSVGHTML(iconName)
+      .then((res) => {
+        this.svgHTML = res;
+      })
+      .catch();
   }
 
   componentWillLoad() {
@@ -108,7 +120,7 @@ export class Toast {
     if (this.isOpen || this.timerId) {
       await this.closeToast();
     }
-    Object.keys(configs).forEach(key => {
+    Object.keys(configs).forEach((key) => {
       this[key] = configs[key];
     });
     this.fadeOut = false;
@@ -117,7 +129,7 @@ export class Toast {
 
     this.timerId = setTimeout(async () => {
       if (!this.sticky) {
-        if (!this.pauseOnHover || this.pauseOnHover && !this.isMouseHovered) {
+        if (!this.pauseOnHover || (this.pauseOnHover && !this.isMouseHovered)) {
           await this.closeToast();
         }
         this.isTimedOut = true;
@@ -134,7 +146,12 @@ export class Toast {
 
   closingAnimation() {
     this.fadeOut = true;
-    return new Promise<void>(resolve => setTimeout(() => { this.isOpen = false; resolve(); }, 500));
+    return new Promise<void>((resolve) =>
+      setTimeout(() => {
+        this.isOpen = false;
+        resolve();
+      }, 500)
+    );
   }
 
   async closeToast() {
@@ -147,26 +164,34 @@ export class Toast {
   render() {
     return (
       <Host
-        class={`toast ${this.position} ${this.type} ${this.isOpen ? 'is-open' : ''} ${this.fadeOut ? 'fade-out' : ''}`}
+        class={`toast ${this.position} ${this.type} ${this.isOpen ? 'is-open' : ''} ${
+          this.fadeOut ? 'fade-out' : ''
+        }`}
         aria-hidden={this.isOpen ? 'false' : 'true'}
         onmouseover={() => this.mouseHover(true)}
         onmouseout={() => this.mouseHover(false)}
-        >
+      >
         <div>
-          { this.type === 'inprogress' ? (
+          {this.type === 'inprogress' ? (
             <fw-spinner class="icon"></fw-spinner>
           ) : (
-            <fw-icon
-              class="icon"
-              size={this.iconSize}
-              name={this.type}
-            />
+            <fw-icon class="icon" size={this.iconSize} name={this.type} />
           )}
           <span class="content">{this.content}</span>
-          <fw-icon size={7} color="#000" name="cross" class="cross" onClick={() => this.closeToast()}></fw-icon>
-          { this.actionLinkText.length > 0 ? (
-            <div class="action-link" onClick={() => this.fwLinkClick.emit()}>{this.actionLinkText}</div>
-          ) : '' }
+          <fw-icon
+            size={7}
+            color="#000"
+            name="cross"
+            class="cross"
+            onClick={() => this.closeToast()}
+          ></fw-icon>
+          {this.actionLinkText.length > 0 ? (
+            <div class="action-link" onClick={() => this.fwLinkClick.emit()}>
+              {this.actionLinkText}
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </Host>
     );

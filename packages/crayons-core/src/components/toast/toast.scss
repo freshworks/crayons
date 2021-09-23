@@ -6,9 +6,7 @@
 
 @media screen and (prefers-reduced-motion: reduce) {
   :host(.is-open) {
-    display: block;
     animation: none;
-    z-index: 999;
   }
 }
 

@@ -6,7 +6,6 @@ import { findCheckedOption, renderHiddenField, watchForOptions } from '../../uti
   tag: 'fw-radio-group',
 })
 export class RadioGroup {
-
   private mutationO?: MutationObserver;
 
   @Element() host!: HTMLElement;
@@ -38,7 +37,6 @@ export class RadioGroup {
   @Event() fwChange!: EventEmitter;
 
   async connectedCallback() {
-
     const el = this.host;
 
     if (this.value === undefined) {
@@ -51,11 +49,14 @@ export class RadioGroup {
       }
     }
 
-    this.mutationO = watchForOptions<HTMLFwRadioElement>(el, 'fw-radio', async newOption => {
+    this.mutationO = watchForOptions<HTMLFwRadioElement>(el, 'fw-radio', async (newOption) => {
       if (newOption !== undefined) {
-        newOption.componentOnReady().then(() => {
-          this.value = newOption.value;
-        }).catch();
+        newOption
+          .componentOnReady()
+          .then(() => {
+            this.value = newOption.value;
+          })
+          .catch();
       } else {
         await this.updateRadios();
       }
@@ -104,9 +105,7 @@ export class RadioGroup {
 
   private getRadios() {
     return Promise.all(
-      Array
-        .from(this.host.querySelectorAll('fw-radio'))
-        .map(r => r.componentOnReady())
+      Array.from(this.host.querySelectorAll('fw-radio')).map((r) => r.componentOnReady())
     );
   }
 
@@ -115,7 +114,7 @@ export class RadioGroup {
     if (selectedRadio) {
       this.value = selectedRadio.value;
     }
-  }
+  };
 
   private onDeselect = async (ev: Event) => {
     const selectedRadio = ev.target as HTMLFwRadioElement | null;
@@ -123,21 +122,15 @@ export class RadioGroup {
       this.value = undefined;
     }
     await this.updateRadios();
-  }
+  };
 
   render() {
-
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
 
     return (
-      <Host
-        role="radiogroup"
-        onFwSelect={this.onSelect}
-        onFwDeselect={this.onDeselect}
-      >
-      </Host>
+      <Host role="radiogroup" onFwSelect={this.onSelect} onFwDeselect={this.onDeselect}></Host>
     );
   }
 }

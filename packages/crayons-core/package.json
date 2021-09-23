@@ -38,7 +38,7 @@
     "docs:dev": "npm run build:components && vuepress dev .",
     "generate": "plop",
     "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue' --fix",
-    "lint:ts": "eslint -c tslint.json -p tsconfig.json -t grouped -s node_modules/custom-tslint-formatters/formatters --fix",
+    "lint:ts": "eslint 'src' --fix",
     "lint": "npm run lint:ts && npm run lint:styles",
     "local": "stencil build --serve --dev --watch",
     "semantic-release": "semantic-release",

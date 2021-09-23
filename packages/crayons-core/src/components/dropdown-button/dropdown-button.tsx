@@ -105,13 +105,13 @@ export class DropdownButton {
   private setDropdownOptions() {
     // Set options if the prop is not supplied by user
     if (this.options.length === 0) {
-      this.options = Array.from(
-        this.host.querySelectorAll('[slot=dropdown-options] option')
-      ).map(option => ({
-        id: option.id,
-        value: option.getAttribute('value'),
-        label: option.textContent,
-      }));
+      this.options = Array.from(this.host.querySelectorAll('[slot=dropdown-options] option')).map(
+        (option) => ({
+          id: option.id,
+          value: option.getAttribute('value'),
+          label: option.textContent,
+        })
+      );
     }
 
     // Set filtered options to inital options for search dropdown
@@ -125,10 +125,12 @@ export class DropdownButton {
    */
   private setSearchInput() {
     this.optionInput = this.dropdownInput.value;
-    this.filteredOptions = this.optionInput !== ''
-      ? this.options.filter(option => option.label.toLowerCase()
-        .includes(this.optionInput.toLowerCase()))
-      : this.options;
+    this.filteredOptions =
+      this.optionInput !== ''
+        ? this.options.filter((option) =>
+            option.label.toLowerCase().includes(this.optionInput.toLowerCase())
+          )
+        : this.options;
   }
 
   /**
@@ -141,7 +143,7 @@ export class DropdownButton {
         this.options.find(({ value }) => value === ev.target.id).value,
       ];
     } else {
-      this.value = this.value.filter(val => val !== ev.target.id);
+      this.value = this.value.filter((val) => val !== ev.target.id);
     }
   }
 
@@ -170,26 +172,46 @@ export class DropdownButton {
       const iconSize = 8;
       const direction = this.isDropdownOpen ? 'up' : 'down';
 
-      return <fw-icon name={`chevron-${direction}`} color={iconColor} size={iconSize}> </fw-icon>;
+      return (
+        <fw-icon name={`chevron-${direction}`} color={iconColor} size={iconSize}>
+          {' '}
+        </fw-icon>
+      );
     };
 
     const DropdownMenu = () => {
       const SearchInput = () => {
         return (
-          <fw-input placeholder={this.placeholder}
+          <fw-input
+            placeholder={this.placeholder}
             icon-left="search"
-            ref={dropdownInput => this.dropdownInput = dropdownInput}
-            onInput={() => this.setSearchInput()} />
+            ref={(dropdownInput) => (this.dropdownInput = dropdownInput)}
+            onInput={() => this.setSearchInput()}
+          />
         );
       };
 
       const renderBtnGroup = () => {
         return (
           <div class="search-btn-grp">
-            <fw-button id="addBtn" size="small" color="primary"
-            onClick = {() => this.handleAddClick()}> Add </fw-button>
-            <fw-button id="cancelBtn" size="small" color="secondary"
-             onClick = {() => this.handleDropdownToggle()}> Cancel </fw-button>
+            <fw-button
+              id="addBtn"
+              size="small"
+              color="primary"
+              onClick={() => this.handleAddClick()}
+            >
+              {' '}
+              Add{' '}
+            </fw-button>
+            <fw-button
+              id="cancelBtn"
+              size="small"
+              color="secondary"
+              onClick={() => this.handleDropdownToggle()}
+            >
+              {' '}
+              Cancel{' '}
+            </fw-button>
           </div>
         );
       };
@@ -197,34 +219,51 @@ export class DropdownButton {
       const validOptions = this.searchable ? this.filteredOptions : this.options;
       return (
         <ul class={`dropdown-menu ${this.isDropdownOpen ? 'dropdown-menu--open' : ''}`}>
-          { this.searchable ? <SearchInput /> : '' }
+          {this.searchable ? <SearchInput /> : ''}
           <div class={this.searchable ? `search-list` : ''}>
-          {
-            validOptions.map(option => {
-              const liEl = <li key={option.id || option.value}
-              onClick={() => this.handleOptionClick(option)}
-              class="dropdown-item"> {option.label} </li>;
+            {validOptions.map((option) => {
+              const liEl = (
+                <li
+                  key={option.id || option.value}
+                  onClick={() => this.handleOptionClick(option)}
+                  class="dropdown-item"
+                >
+                  {' '}
+                  {option.label}{' '}
+                </li>
+              );
 
-              const checkboxEl = <fw-checkbox id={option.value}
-                checked={(this.value || []).includes(option.value)}
-                onFwChange={e => this.handleCheckboxChange(e)}></fw-checkbox>;
+              const checkboxEl = (
+                <fw-checkbox
+                  id={option.value}
+                  checked={(this.value || []).includes(option.value)}
+                  onFwChange={(e) => this.handleCheckboxChange(e)}
+                ></fw-checkbox>
+              );
 
-              return this.searchable
-                ? <div class="searchable-item"> {checkboxEl} {liEl} </div>
-                : liEl;
-            })
-          }
+              return this.searchable ? (
+                <div class="searchable-item">
+                  {' '}
+                  {checkboxEl} {liEl}{' '}
+                </div>
+              ) : (
+                liEl
+              );
+            })}
           </div>
-          { this.searchable ? renderBtnGroup() : '' }
+          {this.searchable ? renderBtnGroup() : ''}
         </ul>
       );
     };
 
-    const DropdownState = () => (
-      !this.split ? <span class="down-arrow">
-        <ChevronArrow />
-      </span> : ''
-    );
+    const DropdownState = () =>
+      !this.split ? (
+        <span class="down-arrow">
+          <ChevronArrow />
+        </span>
+      ) : (
+        ''
+      );
 
     const SplitDropdownState = () => {
       const dropdownStateClasses = `
@@ -232,12 +271,14 @@ export class DropdownButton {
         ${'dropdown-state--' + this.color.toLowerCase()}
         ${this.disabled ? 'disabled' : ''}
       `;
-      return (this.split ?
-      <div onClick={() => this.handleDropdownToggle()} class={dropdownStateClasses}>
-        <div class="state-icon">
-          <ChevronArrow />
+      return this.split ? (
+        <div onClick={() => this.handleDropdownToggle()} class={dropdownStateClasses}>
+          <div class="state-icon">
+            <ChevronArrow />
+          </div>
         </div>
-      </div> : ''
+      ) : (
+        ''
       );
     };
 
@@ -260,16 +301,14 @@ export class DropdownButton {
   }
 
   componentWillLoad() {
-    document.addEventListener('click', e => {
+    document.addEventListener('click', (e) => {
       const { target } = e;
-      const canClose = this.isDropdownOpen
-        && this.host !== target
-        && !this.host.contains(target as Element);
+      const canClose =
+        this.isDropdownOpen && this.host !== target && !this.host.contains(target as Element);
 
       if (canClose) {
         this.isDropdownOpen = false;
       }
-
     });
 
     this.setDropdownOptions();

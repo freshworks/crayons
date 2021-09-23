@@ -8,7 +8,6 @@ import { renderHiddenField } from '../../utils/utils';
   shadow: true,
 })
 export class Timepicker {
-
   @Element() host: HTMLElement;
 
   /**
@@ -59,7 +58,7 @@ export class Timepicker {
    */
   @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
 
-  private getTimeOptionsMeta = nonMeridianFormat => {
+  private getTimeOptionsMeta = (nonMeridianFormat) => {
     const preferredFormat = this.format;
     const timeIntervalArgs = {
       interval: this.interval,
@@ -67,13 +66,12 @@ export class Timepicker {
       endTime: moment(this.maxTime, preferredFormat).format(nonMeridianFormat),
     };
     return timeIntervalArgs;
-  }
+  };
 
   private setTimeValues = () => {
     const meridianFormat = 'hh:mm A';
     const nonMeridianFormat = 'HH:mm';
-    const { interval, startTime, endTime } =
-      this.getTimeOptionsMeta(nonMeridianFormat);
+    const { interval, startTime, endTime } = this.getTimeOptionsMeta(nonMeridianFormat);
     let currentTimeInMs = moment(startTime, nonMeridianFormat).valueOf();
     const endTimeInMs = moment(endTime, nonMeridianFormat).valueOf();
 
@@ -82,11 +80,9 @@ export class Timepicker {
         meridianFormat: moment(currentTimeInMs).format(meridianFormat),
         nonMeridianFormat: moment(currentTimeInMs).format(nonMeridianFormat),
       });
-      currentTimeInMs = moment(currentTimeInMs)
-          .add(interval, 'minutes')
-          .valueOf();
+      currentTimeInMs = moment(currentTimeInMs).add(interval, 'minutes').valueOf();
     }
-  }
+  };
 
   private currentTimeLabel(time: any) {
     return this.isMeridianFormat ? time.meridianFormat : time.nonMeridianFormat;
@@ -103,8 +99,7 @@ export class Timepicker {
 
   private setEndTime() {
     if (this.isDefaultEndTime) {
-      this.maxTime = this.isMeridianFormat ?
-        `11:59 PM` : `23:59`;
+      this.maxTime = this.isMeridianFormat ? `11:59 PM` : `23:59`;
     }
   }
 
@@ -116,21 +111,21 @@ export class Timepicker {
   }
 
   render() {
-
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
 
     return (
-      <fw-select disabled={ this.disabled } value={ this.value }
-       onFwChange = { e => this.setTimeValue(e) }>
-          {
-           this.timeValues.map(time =>
-              <fw-select-option value = {this.currentTimeValue(time)}>
-                { this.currentTimeLabel(time) }
-              </fw-select-option>
-            )
-          }
+      <fw-select
+        disabled={this.disabled}
+        value={this.value}
+        onFwChange={(e) => this.setTimeValue(e)}
+      >
+        {this.timeValues.map((time) => (
+          <fw-select-option value={this.currentTimeValue(time)}>
+            {this.currentTimeLabel(time)}
+          </fw-select-option>
+        ))}
       </fw-select>
     );
   }
