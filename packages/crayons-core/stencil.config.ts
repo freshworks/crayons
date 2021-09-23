@@ -2,7 +2,6 @@ import { Config } from '@stencil/core';
 import { postcss } from '@stencil/postcss';
 import { reactOutputTarget } from '@stencil/react-output-target';
 import { sass } from '@stencil/sass';
-import autoprefixer from 'autoprefixer';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
