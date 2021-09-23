@@ -4,6 +4,14 @@
   display: none;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  :host(.is-open) {
+    display: block;
+    animation: none;
+    z-index: 999;
+  }
+}
+
 :host(.is-open) {
   display: block;
   animation-duration: 0.5s;
@@ -96,6 +104,12 @@
 
   100% {
     top: 10px;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  :host(.fade-out) {
+    animation: none;
   }
 }
 

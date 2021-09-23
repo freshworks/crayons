@@ -29,7 +29,8 @@
     background-color: var(--bg-color);
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: var(--bg-color-hover);
   }
 

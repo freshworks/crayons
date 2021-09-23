@@ -12,7 +12,8 @@ $input-bg: #fff;
 $input-color: $app-primary-black;
 
 :host {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 *,
@@ -95,6 +96,53 @@ label {
     cursor: text;
     display: inline-block;
     font-family: inherit;
+    @media screen and (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:focus {
+        border: 1px $input-hover-color solid;
+        transition: none;
+      }
+    }
+    @media screen and (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:focus {
+        border: 1px $input-hover-color solid;
+        transition: none;
+      }
+    }
+    @media screen and (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:focus {
+        border: 1px $input-hover-color solid;
+        transition: none;
+      }
+    }
+    @media screen and (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:focus {
+        border: 1px $input-hover-color solid;
+        transition: none;
+      }
+    }
+    @media screen and (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:focus {
+        border: 1px $input-hover-color solid;
+        transition: none;
+      }
+    }
+    @media screen and (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:focus {
+        border: 1px $input-hover-color solid;
+        transition: none;
+      }
+    }@media screen and (prefers-reduced-motion: reduce) {
+&:hover, &:focus {
+      border: 1px $input-hover-color solid;
+      transition: none;
+}
+}
 
     &:hover {
       border: 1px $input-hover-color solid;
@@ -115,7 +163,8 @@ label {
       border-style: solid;
       pointer-events: none;
 
-      &:hover {
+      &:hover,
+      &:focus {
         border: 1px solid $input-border;
       }
     }
@@ -128,7 +177,8 @@ label {
     right: 10px;
     display: inline-block;
 
-    &:hover {
+    &:hover,
+    &:focus {
       cursor: pointer;
       pointer-events: initial;
     }

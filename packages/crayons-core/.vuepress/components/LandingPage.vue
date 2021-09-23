@@ -103,7 +103,7 @@ export default {
         height: 40%;
         opacity: 0.5;
 
-        &:hover {
+        &:hover, &:focus {
           opacity: 1;
         }
       }

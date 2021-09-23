@@ -1,5 +1,5 @@
 {
-  "name": "crayons-2",
+  "name": "crayons",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,15 +7,26 @@
     "./packages/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "boot": "lerna bootstrap",
     "build": "lerna run build --stream",
     "release": "lerna publish --no-commit-hooks --dist-tag latest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^7.18.0",
+    "prettier": "^2.4.1",
+    "stylelint": "^13.13.1",
+    "stylelint-a11y": "^1.2.3",
+    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-prettier": "^1.2.0",
+    "stylelint-scss": "^3.21.0"
+  },
   "dependencies": {
     "lerna": "^4.0.0"
   }

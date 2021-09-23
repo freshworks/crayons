@@ -1,6 +1,0 @@
-{
-  "extends": "tslint-ionic-rules/strict",
-  "linterOptions": {
-    "exclude": ["crayons-react/**", "node_modules"]
-  }
-}
