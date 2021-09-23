@@ -31,6 +31,9 @@ export const config: Config = {
     },
     {
       type: 'www',
+    },  
+    {
+      type: 'www',
       dir: '.vuepress/public/www/',
     },
     {
