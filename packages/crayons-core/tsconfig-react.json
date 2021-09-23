@@ -24,7 +24,7 @@
     "crayons-react/src/**/*.tsx",
     "crayons-react/package.json"
   ],
-  "exclude": ["**/__tests__/**", "output.js"],
+  "exclude": ["**/__tests__/**"],
   "compileOnSave": false,
   "buildOnSave": false
 }

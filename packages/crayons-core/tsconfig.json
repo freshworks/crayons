@@ -26,6 +26,7 @@
     "dist",
     "loader",
     "www",
-    "crayons-react"
+    "crayons-react",
+    ".vuepress"
   ]
 }
