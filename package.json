@@ -7,8 +7,6 @@
     "./packages/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "boot": "lerna bootstrap",
     "build": "lerna run build --stream",
     "release": "lerna publish --no-commit-hooks --dist-tag latest"
   },
