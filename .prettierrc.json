@@ -1,5 +1,4 @@
 {
-  "arrowParens": "avoid",
   "bracketSpacing": true,
   "jsxSingleQuote": false,
   "quoteProps": "consistent",
@@ -8,5 +7,6 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "useTabs": false,
-  "endOfLine": "lf"
+  "endOfLine": "auto",
+  "printWidth": 80
 }
