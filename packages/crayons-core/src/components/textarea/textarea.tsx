@@ -155,7 +155,7 @@ export class Textarea {
           'has-focus': this.hasFocus,
         }}
       >
-        <div class="textarea-container">
+        <div class='textarea-container'>
           {this.label !== '' ? (
             <label
               class={{
@@ -195,7 +195,11 @@ export class Textarea {
               wrap={this.wrap}
             />
           </div>
-          {this.stateText !== '' ? <span class="help-block">{this.stateText}</span> : ''}
+          {this.stateText !== '' ? (
+            <span class='help-block'>{this.stateText}</span>
+          ) : (
+            ''
+          )}
         </div>
       </Host>
     );

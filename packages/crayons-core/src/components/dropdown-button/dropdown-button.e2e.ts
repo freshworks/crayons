@@ -95,7 +95,9 @@ describe('fw-dropdown-button', () => {
 
     await page.setContent(splitDropdown);
     const element = await page.find('fw-dropdown-button');
-    expect(element.shadowRoot).toString().includes('<div class="dropdown-state">');
+    expect(element.shadowRoot)
+      .toString()
+      .includes('<div class="dropdown-state">');
   });
 
   it('emits value if the option is selected', async () => {
@@ -154,7 +156,9 @@ describe('fw-dropdown-button', () => {
     const addButton = await page.find('fw-dropdown-button >>> #addBtn');
 
     // Check 1st and 3rd option
-    const dropdownCheckboxes = await page.findAll('fw-dropdown-button >>> fw-checkbox');
+    const dropdownCheckboxes = await page.findAll(
+      'fw-dropdown-button >>> fw-checkbox'
+    );
     dropdownCheckboxes[0].setProperty('checked', true);
     dropdownCheckboxes[2].setProperty('checked', true);
 

@@ -1,4 +1,4 @@
-@import "../../styles/freshworks.scss";
+@import '../../styles/freshworks.scss';
 
 @media (prefers-reduced-motion) {
   .modal-container {
@@ -33,7 +33,7 @@
   display: flex;
   z-index: 999;
   flex-direction: column;
-  animation: "modal-entry" 0.5s 1;
+  animation: 'modal-entry' 0.5s 1;
 
   @media (prefers-reduced-motion) {
     .modal-header-container {

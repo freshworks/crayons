@@ -143,7 +143,12 @@ export class Input {
   };
 
   private showClearButton() {
-    return this.clearInput && !this.readonly && !this.disabled && this.value.length > 0;
+    return (
+      this.clearInput &&
+      !this.readonly &&
+      !this.disabled &&
+      this.value.length > 0
+    );
   }
 
   private clearTextInput = (ev?: Event) => {
@@ -188,7 +193,7 @@ export class Input {
           'has-focus': this.hasFocus,
         }}
       >
-        <div class="input-container">
+        <div class='input-container'>
           {this.label !== '' ? (
             <label
               class={{
@@ -226,32 +231,36 @@ export class Input {
               onFocus={this.onFocus}
             />
             {this.iconLeft !== undefined ? (
-              <fw-icon class="icon left" name={this.iconLeft}></fw-icon>
+              <fw-icon class='icon left' name={this.iconLeft}></fw-icon>
             ) : (
               ''
             )}
             {this.iconRight !== undefined ? (
-              <fw-icon class="icon right" name={this.iconRight}></fw-icon>
+              <fw-icon class='icon right' name={this.iconRight}></fw-icon>
             ) : (
               ''
             )}
             {this.showClearButton() ? (
-              <div class="clear-button" onClick={(e) => this.clearTextInput(e)}>
+              <div class='clear-button' onClick={(e) => this.clearTextInput(e)}>
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  class="clear-button-img"
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='32'
+                  height='32'
+                  viewBox='0 0 32 32'
+                  class='clear-button-img'
                 >
-                  <path d="M17.992 16l8.796-8.796a1.409 1.409 0 0 0-1.992-1.992L16 14.008 7.204 5.212a1.409 1.409 0 0 0-1.992 1.992L14.008 16l-8.796 8.796a1.409 1.409 0 0 0 1.992 1.992L16 17.992l8.796 8.796a1.409 1.409 0 0 0 1.992-1.992L17.992 16z"></path>
+                  <path d='M17.992 16l8.796-8.796a1.409 1.409 0 0 0-1.992-1.992L16 14.008 7.204 5.212a1.409 1.409 0 0 0-1.992 1.992L14.008 16l-8.796 8.796a1.409 1.409 0 0 0 1.992 1.992L16 17.992l8.796 8.796a1.409 1.409 0 0 0 1.992-1.992L17.992 16z'></path>
                 </svg>
               </div>
             ) : (
               ''
             )}
           </div>
-          {this.stateText !== '' ? <span class="help-block">{this.stateText}</span> : ''}
+          {this.stateText !== '' ? (
+            <span class='help-block'>{this.stateText}</span>
+          ) : (
+            ''
+          )}
         </div>
       </Host>
     );

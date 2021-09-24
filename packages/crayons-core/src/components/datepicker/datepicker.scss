@@ -1,4 +1,4 @@
-@import "../../styles/freshworks";
+@import '../../styles/freshworks';
 
 :host {
   position: relative;
@@ -150,7 +150,7 @@
 
 .mdpchbi-left-arrows::after,
 .mdpchbi-right-arrows::after {
-  content: "";
+  content: '';
   left: 3px;
   top: -5px;
 }

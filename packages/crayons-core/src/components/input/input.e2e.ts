@@ -12,7 +12,9 @@ describe('fw-input', () => {
   it('it checks if the input value can be read', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-input value="tyrion lannister" disabled="true"></fw-input>');
+    await page.setContent(
+      '<fw-input value="tyrion lannister" disabled="true"></fw-input>'
+    );
     const element = await page.find('fw-input');
     const value = await element.getProperty('value');
     expect(value).toBe('tyrion lannister');

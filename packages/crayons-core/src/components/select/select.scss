@@ -1,4 +1,4 @@
-@import "../../styles/freshworks";
+@import '../../styles/freshworks';
 
 /**
   @prop --min-height: Minimum height of the select component
@@ -43,7 +43,7 @@ label {
   display: block;
 
   &.required::after {
-    content: "*";
+    content: '*';
     position: relative;
     display: inline-block;
     top: 2px;
@@ -194,7 +194,7 @@ label {
     position: absolute;
     display: inline-block;
     right: 12px;
-    content: "";
+    content: '';
     top: 45%;
     width: 5px;
     height: 5px;

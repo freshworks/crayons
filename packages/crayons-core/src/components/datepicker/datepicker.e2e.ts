@@ -19,7 +19,9 @@ describe('fw-datepicker', () => {
     const popup = await page.find('fw-datepicker >>> .datepicker');
     expect(popup).toBeTruthy();
 
-    const updateEle = await page.find('fw-datepicker >>> fw-button.close-date-picker');
+    const updateEle = await page.find(
+      'fw-datepicker >>> fw-button.close-date-picker'
+    );
     await updateEle.click();
 
     const datePickerEle = await page.find('fw-datepicker >>> .datepicker');
@@ -33,13 +35,17 @@ describe('fw-datepicker', () => {
     const fwChange = await page.spyOnEvent('fwChange');
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
-    const popup = await page.find('fw-datepicker >>> .datepicker .mdp-container');
+    const popup = await page.find(
+      'fw-datepicker >>> .datepicker .mdp-container'
+    );
     expect(popup).toBeTruthy();
 
     const dateEle = await page.findAll('fw-datepicker >>> .c-day-container');
     await (await dateEle[14].find('span')).click();
 
-    const updateEle = await page.find('fw-datepicker >>> fw-button.update-date-value');
+    const updateEle = await page.find(
+      'fw-datepicker >>> fw-button.update-date-value'
+    );
     expect(updateEle).toBeTruthy();
     await updateEle.click();
     expect(fwChange).toHaveReceivedEvent();
@@ -59,7 +65,9 @@ describe('fw-datepicker', () => {
     await (await dateEle[14].find('span')).click();
     await (await dateEle[16].find('span')).click();
 
-    const updateEle = await page.find('fw-datepicker >>> fw-button.update-range-value');
+    const updateEle = await page.find(
+      'fw-datepicker >>> fw-button.update-range-value'
+    );
     expect(updateEle).toBeTruthy();
     await updateEle.click();
     expect(fwChange).toHaveReceivedEvent();
@@ -68,7 +76,9 @@ describe('fw-datepicker', () => {
   it('date should be as per format', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-datepicker date-format="YYYY-MM-DD"></fw-datepicker>');
+    await page.setContent(
+      '<fw-datepicker date-format="YYYY-MM-DD"></fw-datepicker>'
+    );
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
 
@@ -77,7 +87,9 @@ describe('fw-datepicker', () => {
     );
     await dateEle.click();
 
-    const updateEle = await page.find('fw-datepicker >>> fw-button.update-date-value');
+    const updateEle = await page.find(
+      'fw-datepicker >>> fw-button.update-date-value'
+    );
     await updateEle.click();
 
     const datePickerValue = await element.getProperty('value');
@@ -96,9 +108,13 @@ describe('fw-datepicker', () => {
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
 
-    const fromMonth = await page.find('fw-datepicker >>> fw-select.from-month-selector >>> input');
+    const fromMonth = await page.find(
+      'fw-datepicker >>> fw-select.from-month-selector >>> input'
+    );
     const fromMonthValue = await fromMonth.getProperty('value');
-    const toMonth = await page.find('fw-datepicker >>> fw-select.to-month-selector >>> input');
+    const toMonth = await page.find(
+      'fw-datepicker >>> fw-select.to-month-selector >>> input'
+    );
     const toMonthValue = await toMonth.getProperty('value');
 
     expect(moment(fromMonthValue, 'MMM').add(1, 'months').month()).toBe(
@@ -128,6 +144,8 @@ describe('fw-datepicker', () => {
     );
     const updateToMonthValue = await updatedToMonth.getProperty('value');
 
-    expect(moment(updatedFromMonthValue, 'MMM').add(1, 'M').format('MMM')).toBe(updateToMonthValue);
+    expect(moment(updatedFromMonthValue, 'MMM').add(1, 'M').format('MMM')).toBe(
+      updateToMonthValue
+    );
   });
 });

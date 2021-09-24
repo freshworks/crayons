@@ -1,6 +1,6 @@
 {
   "bracketSpacing": true,
-  "jsxSingleQuote": false,
+  "jsxSingleQuote": true,
   "quoteProps": "consistent",
   "semi": true,
   "singleQuote": true,

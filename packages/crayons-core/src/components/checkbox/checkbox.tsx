@@ -1,4 +1,13 @@
-import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Host,
+  Prop,
+  Watch,
+  h,
+} from '@stencil/core';
 
 import { renderHiddenField } from '../../utils/utils';
 
@@ -91,22 +100,26 @@ export class Checkbox {
 
     return (
       <Host
-        class="checkbox-container"
+        class='checkbox-container'
         onClick={() => this.toggle()}
-        role="checkbox"
-        tabIndex="0"
+        role='checkbox'
+        tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={`${this.checked}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >
-        <input type="checkbox" ref={(el) => (this.checkbox = el)}></input>
+        <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
         <label>
-          <span class="text">
+          <span class='text'>
             <slot />
           </span>
           <br />
-          {this.label !== '' ? <span class="label-field">{this.label}</span> : ''}
+          {this.label !== '' ? (
+            <span class='label-field'>{this.label}</span>
+          ) : (
+            ''
+          )}
         </label>
       </Host>
     );

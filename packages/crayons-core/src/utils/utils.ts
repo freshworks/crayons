@@ -1,7 +1,9 @@
 // This is a sample funtion for boilerplate code
 /* tslint:disable */
 export function format(first: string, middle: string, last: string): string {
-  return (first || '') + (middle ? ` ${middle}` : '') + (last ? ` ${last}` : '');
+  return (
+    (first || '') + (middle ? ` ${middle}` : '') + (last ? ` ${last}` : '')
+  );
 }
 /* tslint:enable */
 
@@ -39,12 +41,18 @@ export const findCheckedOption = (el: any, tagName: string) => {
     return undefined;
   }
   const options: HTMLElement[] =
-    el.tagName === tagName.toUpperCase() ? [el] : Array.from(el.querySelectorAll(tagName));
+    el.tagName === tagName.toUpperCase()
+      ? [el]
+      : Array.from(el.querySelectorAll(tagName));
 
   return options.find((o: any) => o.checked === true);
 };
 
-export const renderHiddenField = (container: HTMLElement, name: string, value: string | null) => {
+export const renderHiddenField = (
+  container: HTMLElement,
+  name: string,
+  value: string | null
+) => {
   let input: HTMLInputElement = container.querySelector('input.hidden-input');
   if (!input) {
     input = container.ownerDocument.createElement('input');

@@ -62,7 +62,9 @@ export class Timepicker {
     const preferredFormat = this.format;
     const timeIntervalArgs = {
       interval: this.interval,
-      startTime: moment(this.minTime, preferredFormat).format(nonMeridianFormat),
+      startTime: moment(this.minTime, preferredFormat).format(
+        nonMeridianFormat
+      ),
       endTime: moment(this.maxTime, preferredFormat).format(nonMeridianFormat),
     };
     return timeIntervalArgs;
@@ -71,7 +73,8 @@ export class Timepicker {
   private setTimeValues = () => {
     const meridianFormat = 'hh:mm A';
     const nonMeridianFormat = 'HH:mm';
-    const { interval, startTime, endTime } = this.getTimeOptionsMeta(nonMeridianFormat);
+    const { interval, startTime, endTime } =
+      this.getTimeOptionsMeta(nonMeridianFormat);
     let currentTimeInMs = moment(startTime, nonMeridianFormat).valueOf();
     const endTimeInMs = moment(endTime, nonMeridianFormat).valueOf();
 
@@ -80,7 +83,9 @@ export class Timepicker {
         meridianFormat: moment(currentTimeInMs).format(meridianFormat),
         nonMeridianFormat: moment(currentTimeInMs).format(nonMeridianFormat),
       });
-      currentTimeInMs = moment(currentTimeInMs).add(interval, 'minutes').valueOf();
+      currentTimeInMs = moment(currentTimeInMs)
+        .add(interval, 'minutes')
+        .valueOf();
     }
   };
 

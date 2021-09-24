@@ -49,10 +49,10 @@ export class Toggle {
       >
         <input
           name={this.name}
-          type="checkbox"
+          type='checkbox'
           disabled={this.disabled}
           checked={this.checked}
-          class="checkboxClass"
+          class='checkboxClass'
         />
         <span
           class={{

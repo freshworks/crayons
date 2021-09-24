@@ -94,7 +94,9 @@ export class Toast {
   @Event() fwLinkClick: EventEmitter;
 
   private async getSVGHTML(iconName: string) {
-    const response = await fetch(getAssetPath(`toast-assets/icons/${iconName}.svg`));
+    const response = await fetch(
+      getAssetPath(`toast-assets/icons/${iconName}.svg`)
+    );
     const data = await response.text();
     return data;
   }
@@ -116,7 +118,7 @@ export class Toast {
   }
 
   @Method()
-  async trigger(configs: object) {
+  async trigger(configs: any) {
     if (this.isOpen || this.timerId) {
       await this.closeToast();
     }
@@ -164,29 +166,29 @@ export class Toast {
   render() {
     return (
       <Host
-        class={`toast ${this.position} ${this.type} ${this.isOpen ? 'is-open' : ''} ${
-          this.fadeOut ? 'fade-out' : ''
-        }`}
+        class={`toast ${this.position} ${this.type} ${
+          this.isOpen ? 'is-open' : ''
+        } ${this.fadeOut ? 'fade-out' : ''}`}
         aria-hidden={this.isOpen ? 'false' : 'true'}
         onmouseover={() => this.mouseHover(true)}
         onmouseout={() => this.mouseHover(false)}
       >
         <div>
           {this.type === 'inprogress' ? (
-            <fw-spinner class="icon"></fw-spinner>
+            <fw-spinner class='icon'></fw-spinner>
           ) : (
-            <fw-icon class="icon" size={this.iconSize} name={this.type} />
+            <fw-icon class='icon' size={this.iconSize} name={this.type} />
           )}
-          <span class="content">{this.content}</span>
+          <span class='content'>{this.content}</span>
           <fw-icon
             size={7}
-            color="#000"
-            name="cross"
-            class="cross"
+            color='#000'
+            name='cross'
+            class='cross'
             onClick={() => this.closeToast()}
           ></fw-icon>
           {this.actionLinkText.length > 0 ? (
-            <div class="action-link" onClick={() => this.fwLinkClick.emit()}>
+            <div class='action-link' onClick={() => this.fwLinkClick.emit()}>
               {this.actionLinkText}
             </div>
           ) : (

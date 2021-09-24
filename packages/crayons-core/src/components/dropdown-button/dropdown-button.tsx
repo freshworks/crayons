@@ -1,4 +1,13 @@
-import { Component, Element, Event, EventEmitter, Prop, State, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Prop,
+  State,
+  Watch,
+  h,
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-dropdown-button',
@@ -17,7 +26,8 @@ export class DropdownButton {
    * Dropdown Button color
    */
 
-  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
+  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' =
+    'primary';
   /**
    * Displays a split dropdown button
    */
@@ -105,13 +115,13 @@ export class DropdownButton {
   private setDropdownOptions() {
     // Set options if the prop is not supplied by user
     if (this.options.length === 0) {
-      this.options = Array.from(this.host.querySelectorAll('[slot=dropdown-options] option')).map(
-        (option) => ({
-          id: option.id,
-          value: option.getAttribute('value'),
-          label: option.textContent,
-        })
-      );
+      this.options = Array.from(
+        this.host.querySelectorAll('[slot=dropdown-options] option')
+      ).map((option) => ({
+        id: option.id,
+        value: option.getAttribute('value'),
+        label: option.textContent,
+      }));
     }
 
     // Set filtered options to inital options for search dropdown
@@ -168,12 +178,18 @@ export class DropdownButton {
 
   render() {
     const ChevronArrow = () => {
-      const iconColor = ['secondary', 'link', 'text'].includes(this.color) ? '#12344d' : '#fff';
+      const iconColor = ['secondary', 'link', 'text'].includes(this.color)
+        ? '#12344d'
+        : '#fff';
       const iconSize = 8;
       const direction = this.isDropdownOpen ? 'up' : 'down';
 
       return (
-        <fw-icon name={`chevron-${direction}`} color={iconColor} size={iconSize}>
+        <fw-icon
+          name={`chevron-${direction}`}
+          color={iconColor}
+          size={iconSize}
+        >
           {' '}
         </fw-icon>
       );
@@ -184,7 +200,7 @@ export class DropdownButton {
         return (
           <fw-input
             placeholder={this.placeholder}
-            icon-left="search"
+            icon-left='search'
             ref={(dropdownInput) => (this.dropdownInput = dropdownInput)}
             onInput={() => this.setSearchInput()}
           />
@@ -193,20 +209,20 @@ export class DropdownButton {
 
       const renderBtnGroup = () => {
         return (
-          <div class="search-btn-grp">
+          <div class='search-btn-grp'>
             <fw-button
-              id="addBtn"
-              size="small"
-              color="primary"
+              id='addBtn'
+              size='small'
+              color='primary'
               onClick={() => this.handleAddClick()}
             >
               {' '}
               Add{' '}
             </fw-button>
             <fw-button
-              id="cancelBtn"
-              size="small"
-              color="secondary"
+              id='cancelBtn'
+              size='small'
+              color='secondary'
               onClick={() => this.handleDropdownToggle()}
             >
               {' '}
@@ -216,9 +232,15 @@ export class DropdownButton {
         );
       };
 
-      const validOptions = this.searchable ? this.filteredOptions : this.options;
+      const validOptions = this.searchable
+        ? this.filteredOptions
+        : this.options;
       return (
-        <ul class={`dropdown-menu ${this.isDropdownOpen ? 'dropdown-menu--open' : ''}`}>
+        <ul
+          class={`dropdown-menu ${
+            this.isDropdownOpen ? 'dropdown-menu--open' : ''
+          }`}
+        >
           {this.searchable ? <SearchInput /> : ''}
           <div class={this.searchable ? `search-list` : ''}>
             {validOptions.map((option) => {
@@ -226,7 +248,7 @@ export class DropdownButton {
                 <li
                   key={option.id || option.value}
                   onClick={() => this.handleOptionClick(option)}
-                  class="dropdown-item"
+                  class='dropdown-item'
                 >
                   {' '}
                   {option.label}{' '}
@@ -242,7 +264,7 @@ export class DropdownButton {
               );
 
               return this.searchable ? (
-                <div class="searchable-item">
+                <div class='searchable-item'>
                   {' '}
                   {checkboxEl} {liEl}{' '}
                 </div>
@@ -258,7 +280,7 @@ export class DropdownButton {
 
     const DropdownState = () =>
       !this.split ? (
-        <span class="down-arrow">
+        <span class='down-arrow'>
           <ChevronArrow />
         </span>
       ) : (
@@ -272,8 +294,11 @@ export class DropdownButton {
         ${this.disabled ? 'disabled' : ''}
       `;
       return this.split ? (
-        <div onClick={() => this.handleDropdownToggle()} class={dropdownStateClasses}>
-          <div class="state-icon">
+        <div
+          onClick={() => this.handleDropdownToggle()}
+          class={dropdownStateClasses}
+        >
+          <div class='state-icon'>
             <ChevronArrow />
           </div>
         </div>
@@ -283,8 +308,8 @@ export class DropdownButton {
     };
 
     return (
-      <div class="dropdown-container">
-        <div class="btn-container">
+      <div class='dropdown-container'>
+        <div class='btn-container'>
           <fw-button
             color={this.color}
             disabled={this.disabled}
@@ -304,7 +329,9 @@ export class DropdownButton {
     document.addEventListener('click', (e) => {
       const { target } = e;
       const canClose =
-        this.isDropdownOpen && this.host !== target && !this.host.contains(target as Element);
+        this.isDropdownOpen &&
+        this.host !== target &&
+        !this.host.contains(target as Element);
 
       if (canClose) {
         this.isDropdownOpen = false;

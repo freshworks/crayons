@@ -50,7 +50,11 @@ export class SelectOption {
     return (
       <li
         ref={(el) => (this.nativeLi = el)}
-        class={{ 'select-option': true, selected: this.selected, disabled: this.disabled }}
+        class={{
+          'select-option': true,
+          'selected': this.selected,
+          'disabled': this.disabled,
+        }}
         onMouseDown={() => this.onOptionSelected()}
       >
         {this.html ? '' : <slot />}

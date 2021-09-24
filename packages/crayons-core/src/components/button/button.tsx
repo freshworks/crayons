@@ -1,4 +1,12 @@
-import { Component, Element, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Host,
+  Prop,
+  h,
+} from '@stencil/core';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
@@ -15,7 +23,8 @@ export class Button {
   /**
    * Identifier of  the theme based on which the button is styled.
    */
-  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
+  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' =
+    'primary';
 
   /**
    * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
@@ -82,7 +91,9 @@ export class Button {
   render() {
     return (
       <Host
-        onClick={(e: Event) => (this.disabled ? undefined : this.handleClick(e))}
+        onClick={(e: Event) =>
+          this.disabled ? undefined : this.handleClick(e)
+        }
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >

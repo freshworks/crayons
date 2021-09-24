@@ -89,12 +89,14 @@ export class Tabs {
 
   render() {
     return (
-      <div class="tabs">
-        <ul role="tablist" class="tabs__items">
+      <div class='tabs'>
+        <ul role='tablist' class='tabs__items'>
           {this.tabs.map((tab, index) => (
             <li
-              onClick={() => (tab.disabled ? '' : (this.activeTabIndex = index))}
-              class="tabs__item"
+              onClick={() =>
+                tab.disabled ? '' : (this.activeTabIndex = index)
+              }
+              class='tabs__item'
             >
               <div
                 id={'#tab-' + index}
@@ -104,18 +106,18 @@ export class Tabs {
                   (tab.disabled ? 'disabled' : '')
                 }
               >
-                <span class="tab-title--tab-icon">
+                <span class='tab-title--tab-icon'>
                   {tab.tabHeaderHtml ? (
                     <span innerHTML={tab.tabHeaderHtml}></span>
                   ) : (
-                    <span class="tab-title">{tab.tabHeader}</span>
+                    <span class='tab-title'>{tab.tabHeader}</span>
                   )}
                 </span>
               </div>
             </li>
           ))}
         </ul>
-        <div class="tabs__content">
+        <div class='tabs__content'>
           <slot></slot>
         </div>
       </div>

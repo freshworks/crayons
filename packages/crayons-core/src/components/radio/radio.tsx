@@ -1,4 +1,12 @@
-import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Event,
+  EventEmitter,
+  Host,
+  Prop,
+  Watch,
+  h,
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-radio',
@@ -90,22 +98,26 @@ export class Radio {
   render() {
     return (
       <Host
-        class="radio-container"
+        class='radio-container'
         onClick={() => this.toggle()}
-        role="radio"
-        tabIndex="0"
+        role='radio'
+        tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={`${this.checked}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >
-        <input type="radio" ref={(el) => (this.radio = el)}></input>
+        <input type='radio' ref={(el) => (this.radio = el)}></input>
         <label>
-          <span class="text">
+          <span class='text'>
             <slot />
           </span>
           <br />
-          {this.label !== '' ? <span class="label-field">{this.label}</span> : ''}
+          {this.label !== '' ? (
+            <span class='label-field'>{this.label}</span>
+          ) : (
+            ''
+          )}
         </label>
       </Host>
     );

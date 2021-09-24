@@ -196,7 +196,9 @@ export class Select {
     const value = this.selectInput.value.toLowerCase();
     this.filteredOptions =
       value !== ''
-        ? this.options.filter((option) => option.text.toLowerCase().startsWith(value))
+        ? this.options.filter((option) =>
+            option.text.toLowerCase().startsWith(value)
+          )
         : this.options;
     this.renderInput();
   }
@@ -206,7 +208,11 @@ export class Select {
       return this.options
         .filter((option) => option.selected)
         .map((option) => (
-          <fw-tag text={option.text} disabled={option.disabled} value={option.value} />
+          <fw-tag
+            text={option.text}
+            disabled={option.disabled}
+            value={option.value}
+          />
         ));
     }
   }
@@ -242,7 +248,9 @@ export class Select {
   }
 
   componentWillLoad() {
-    const selectOptions = Array.from(this.host.querySelectorAll('fw-select-option'));
+    const selectOptions = Array.from(
+      this.host.querySelectorAll('fw-select-option')
+    );
 
     const options = selectOptions.map((option) => {
       return {
@@ -292,8 +300,12 @@ export class Select {
           'has-focus': this.hasFocus,
         }}
       >
-        {this.label !== '' ? <label class={{ required: this.required }}> {this.label} </label> : ''}
-        <div class="select-container">
+        {this.label !== '' ? (
+          <label class={{ required: this.required }}> {this.label} </label>
+        ) : (
+          ''
+        )}
+        <div class='select-container'>
           <div
             class={{
               'input-container': true,
@@ -303,14 +315,14 @@ export class Select {
             ref={(select) => (this.select = select)}
             onClick={() => this.innerOnClick()}
           >
-            <div class="input-container-inner">
+            <div class='input-container-inner'>
               {this.renderTags()}
               <input
                 ref={(selectInput) => (this.selectInput = selectInput)}
                 class={{
                   'multiple-select': this.multiple,
                 }}
-                autoComplete="off"
+                autoComplete='off'
                 autoFocus={this.autofocus}
                 disabled={this.disabled}
                 name={this.name}
@@ -318,21 +330,34 @@ export class Select {
                 readOnly={this.readonly}
                 required={this.required}
                 type={this.type}
-                value=""
+                value=''
                 onInput={() => this.onInput()}
                 onFocus={(e) => this.innerOnFocus(e)}
                 onBlur={(e) => this.innerOnBlur(e)}
               />
-              <span class={{ 'dropdown-status-icon': true, expanded: this.isExpanded }}></span>
+              <span
+                class={{
+                  'dropdown-status-icon': true,
+                  'expanded': this.isExpanded,
+                }}
+              ></span>
             </div>
           </div>
-          <ul tabindex="0" class="dropdown" ref={(ul) => (this.selectList = ul)}>
+          <ul
+            tabindex='0'
+            class='dropdown'
+            ref={(ul) => (this.selectList = ul)}
+          >
             {this.renderDropdown()}
           </ul>
-          {this.stateText !== '' ? <span class="help-block">{this.stateText}</span> : ''}
+          {this.stateText !== '' ? (
+            <span class='help-block'>{this.stateText}</span>
+          ) : (
+            ''
+          )}
         </div>
         <div
-          class="overlay"
+          class='overlay'
           ref={(overlay) => (this.overlay = overlay)}
           onClick={() => this.closeDropdown()}
         />

@@ -73,18 +73,18 @@ export class Modal {
   }
 
   renderIcon() {
-    return <fw-icon class="icon" name={this.icon} size={16}></fw-icon>;
+    return <fw-icon class='icon' name={this.icon} size={16}></fw-icon>;
   }
 
   renderFooter() {
     return this.customFooter ? (
-      <slot name="footer" />
+      <slot name='footer' />
     ) : (
       <span>
-        <fw-button color="secondary" onClick={() => this.closeModal()}>
+        <fw-button color='secondary' onClick={() => this.closeModal()}>
           {this.cancelText}
         </fw-button>
-        <fw-button color="primary" onClick={() => this.fwAction.emit()}>
+        <fw-button color='primary' onClick={() => this.fwAction.emit()}>
           {this.successText}
         </fw-button>
       </span>
@@ -93,28 +93,28 @@ export class Modal {
 
   render() {
     return (
-      <div class={{ 'modal-container': true, visible: this.visible }}>
+      <div class={{ 'modal-container': true, 'visible': this.visible }}>
         <div class={{ modal: true, [this.size]: true }}>
-          <div class="modal-header-container">
-            <div class="modal-header">
+          <div class='modal-header-container'>
+            <div class='modal-header'>
               {this.icon !== '' ? this.renderIcon() : ''}
               <div>
                 {this.titleText}
-                <div class="description">{this.description}</div>
+                <div class='description'>{this.description}</div>
               </div>
             </div>
-            <button class="close-btn" onClick={() => this.closeModal()}>
-              <fw-icon name="cross-big" />
+            <button class='close-btn' onClick={() => this.closeModal()}>
+              <fw-icon name='cross-big' />
             </button>
           </div>
-          <div class="content">
+          <div class='content'>
             <slot></slot>
           </div>
           {this.hideFooter ? (
             ''
           ) : (
-            <div class="modal-footer-container">
-              <div class="modal-footer">{this.renderFooter()}</div>
+            <div class='modal-footer-container'>
+              <div class='modal-footer'>{this.renderFooter()}</div>
             </div>
           )}
         </div>
