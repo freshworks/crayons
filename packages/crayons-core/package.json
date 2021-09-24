@@ -29,8 +29,12 @@
     "react"
   ],
   "scripts": {
-    "build:components": "stencil build --docs",
+    "build:components": "stencil build --docs && npm run build:style",
     "build": "gulp && npm run add:react && npm run build:components && npm run build:react && npm run storybook:build && npm run docs:build",
+    "build:style": "npm run build:scss && npm run build:autoprefix && npm run build:min",
+    "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive src/styles/global/ -o dist/css",
+    "build:autoprefix": "postcss dist/css/*.css --use autoprefixer --dir  dist/css/",
+    "build:min": "cleancss -b dist/css/*.css dist/css/",
     "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm-run-all --parallel start storybook",
@@ -53,13 +57,10 @@
     "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react"
   },
   "devDependencies": {
-    "@types/react": "^17.0.22",
-    "@types/react-dom": "^17.0.9",
     "@babel/core": "^7.13.16",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@stencil/core": "2.8",
-    "@stencil/postcss": "2.0",
     "@stencil/react-output-target": "^0.1.0",
     "@stencil/sass": "^1.4.1",
     "@storybook/addon-a11y": "^6.2.9",
@@ -75,10 +76,13 @@
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.41",
     "@types/puppeteer": "^5.4.3",
+    "@types/react": "^17.0.22",
+    "@types/react-dom": "^17.0.9",
     "@vue/babel-preset-app": "^4.5.12",
     "@vuepress/plugin-active-header-links": "^1.8.2",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.2.2",
+    "clean-css-cli": "^5.3.3",
     "commitizen": "^4.2.4",
     "copy-webpack-plugin": "^6.4.1",
     "custom-tslint-formatters": "^2.4.0",
@@ -93,6 +97,8 @@
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "plop": "^2.7.4",
+    "postcss": "^8.3.7",
+    "postcss-cli": "^8.3.1",
     "puppeteer": "5.2.1",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
@@ -107,8 +113,8 @@
     "vuepress-plugin-live": "^1.6.2",
     "vuepress-plugin-seo": "^0.1.4",
     "web-component-analyzer": "^1.1.6",
-    "write-file-webpack-plugin": "^4.5.1",
-    "workbox-build": "^4.3.1"
+    "workbox-build": "^4.3.1",
+    "write-file-webpack-plugin": "^4.5.1"
   },
   "license": "MIT",
   "dependencies": {

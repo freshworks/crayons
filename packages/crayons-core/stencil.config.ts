@@ -1,5 +1,4 @@
 import { Config } from '@stencil/core';
-import { postcss } from '@stencil/postcss';
 import { reactOutputTarget } from '@stencil/react-output-target';
 import { sass } from '@stencil/sass';
 import autoprefixer from 'autoprefixer';
@@ -54,11 +53,12 @@ export const config: Config = {
     }),
   ],
   plugins: [
-    sass(),
-    postcss({
-      plugins: [autoprefixer()],
+    sass({
+      injectGlobalPaths: ['src/styles/index.scss'],
     }),
   ],
+  globalStyle: 'src/styles/global/crayons.scss',
+ 
   testing: {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     collectCoverageFrom: [
