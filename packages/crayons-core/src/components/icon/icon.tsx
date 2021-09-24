@@ -38,15 +38,15 @@ export class Icon {
 
   render() {
     return (
-      <div class="icon"
-        style={
-          {
-            '--icon-color': `${this.color}`,
-            'height': `${this.size}px`,
-            'width': `${this.size}px`,
-          }
-        }
-        innerHTML={this.svgHTML}/>
+      <div
+        class='icon'
+        style={{
+          '--icon-color': `${this.color}`,
+          'height': `${this.size}px`,
+          'width': `${this.size}px`,
+        }}
+        innerHTML={this.svgHTML}
+      />
     );
   }
 }

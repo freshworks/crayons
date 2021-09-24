@@ -1,9 +1,8 @@
-@import "../../styles/theme";
-
 $toggle-on-bg: #2c5cc5;
 
 :host {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 *,
@@ -32,6 +31,11 @@ $toggle-on-bg: #2c5cc5;
     width: 44px;
     height: 20px;
   }
+  @media screen and (prefers-reduced-motion: reduce) {
+    .slider {
+      transition: none;
+    }
+  }
 
   .slider {
     position: absolute;
@@ -45,10 +49,15 @@ $toggle-on-bg: #2c5cc5;
     -webkit-transition: 0.2s;
     transition: 0.2s;
   }
+  @media screen and (prefers-reduced-motion: reduce) {
+    .slider::before {
+      transition: none;
+    }
+  }
 
   .slider::before {
     position: absolute;
-    content: "";
+    content: '';
     width: 45%;
     height: 65%;
     left: 4px;
@@ -72,7 +81,8 @@ $toggle-on-bg: #2c5cc5;
       border: solid 1px #647a8e;
     }
 
-    &:hover::before {
+    &:hover::before,
+    &:focus::before {
       box-shadow: 0 0 4px 4px rgba(87, 108, 125, 0.3);
     }
   }
@@ -89,7 +99,8 @@ $toggle-on-bg: #2c5cc5;
       border: solid 1px #647a8e;
     }
 
-    &:hover::before {
+    &:hover::before,
+    &:focus::before {
       box-shadow: 0 0 4px 4px rgba(87, 108, 125, 0.3);
     }
   }
@@ -106,7 +117,8 @@ $toggle-on-bg: #2c5cc5;
       border: solid 1px #647a8e;
     }
 
-    &:hover::before {
+    &:hover::before,
+    &:focus::before {
       box-shadow: 0 0 5px 5px rgba(87, 108, 125, 0.3);
     }
   }
@@ -126,7 +138,8 @@ $toggle-on-bg: #2c5cc5;
     border: solid 1px #2c5cc5;
   }
 
-  input:checked + .slider.small:hover::before {
+  input:checked + .slider.small:hover::before,
+  input:checked + .slider.small:focus::before {
     box-shadow: 0 0 3px 3px rgba(40, 61, 165, 0.3);
   }
 
@@ -137,7 +150,8 @@ $toggle-on-bg: #2c5cc5;
     border: solid 1px #2c5cc5;
   }
 
-  input:checked + .slider.medium:hover::before {
+  input:checked + .slider.medium:hover::before,
+  input:checked + .slider.medium:focus::before {
     box-shadow: 0 0 4px 4px rgba(40, 61, 165, 0.3);
   }
 
@@ -148,7 +162,8 @@ $toggle-on-bg: #2c5cc5;
     border: solid 1px #2c5cc5;
   }
 
-  input:checked + .slider.large:hover::before {
+  input:checked + .slider.large:hover::before,
+  input:checked + .slider.large:focus::before {
     box-shadow: 0 0 5px 5px rgba(40, 61, 165, 0.3);
   }
 

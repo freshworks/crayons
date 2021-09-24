@@ -12,7 +12,9 @@ describe('fw-input', () => {
   it('it checks if the input value can be read', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-input value="tyrion lannister" disabled="true"></fw-input>');
+    await page.setContent(
+      '<fw-input value="tyrion lannister" disabled="true"></fw-input>'
+    );
     const element = await page.find('fw-input');
     const value = await element.getProperty('value');
     expect(value).toBe('tyrion lannister');
@@ -76,7 +78,7 @@ describe('fw-input', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ 'value': '2' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
   });
 
   it('it emits fwFocus when the focus is on the component', async () => {

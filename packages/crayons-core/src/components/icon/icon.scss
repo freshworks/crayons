@@ -4,7 +4,7 @@
 
 .icon {
   display: inline-block;
-  color: var(--icon-color, var(--color-elephant-900));
+  color: var(--icon-color, $color-elephant-900);
 
   svg {
     width: 100%;

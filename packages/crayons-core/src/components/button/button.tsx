@@ -1,11 +1,18 @@
-import { Component, Element, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Host,
+  Prop,
+  h,
+} from '@stencil/core';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
   shadow: true,
 })
 export class Button {
-
   @Element() host: HTMLElement;
 
   /**
@@ -16,7 +23,8 @@ export class Button {
   /**
    * Identifier of  the theme based on which the button is styled.
    */
-  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' = 'primary';
+  @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' =
+    'primary';
 
   /**
    * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
@@ -68,34 +76,39 @@ export class Button {
     } else if (this.type === 'submit') {
       const form = this.host.closest('form');
       if (form) {
-            event.preventDefault();
-            const fakeSubmit = document.createElement('button');
-            fakeSubmit.type = 'submit';
-            fakeSubmit.style.display = 'none';
-            form.appendChild(fakeSubmit);
-            fakeSubmit.click();
-            fakeSubmit.remove();
-        }
+        event.preventDefault();
+        const fakeSubmit = document.createElement('button');
+        fakeSubmit.type = 'submit';
+        fakeSubmit.style.display = 'none';
+        form.appendChild(fakeSubmit);
+        fakeSubmit.click();
+        fakeSubmit.remove();
+      }
     }
     this.fwClick.emit();
   }
 
   render() {
     return (
-    <Host
-      onClick={(e: Event) => this.disabled ? undefined : this.handleClick(e) }
-      onFocus={() => this.onFocus()}
-      onBlur={() => this.onBlur()}>
+      <Host
+        onClick={(e: Event) =>
+          this.disabled ? undefined : this.handleClick(e)
+        }
+        onFocus={() => this.onFocus()}
+        onBlur={() => this.onBlur()}
+      >
         <button
-          type = {this.type}
+          type={this.type}
           class={`
             fw-btn fw-btn--${this.color.toLowerCase()}
             fw-btn--${this.size.toLowerCase()}
             ${this.expand ? 'fw-btn--block' : ''}
             `}
-          disabled = {this.disabled}>
-          <slot/>
+          disabled={this.disabled}
+        >
+          <slot />
         </button>
-    </Host>);
+      </Host>
+    );
   }
 }

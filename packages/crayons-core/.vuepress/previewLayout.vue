@@ -55,6 +55,13 @@ export default {
     border-style: solid;
     border-color: rgb(207, 215, 223);
   }
+  @media screen and (prefers-reduced-motion: reduce) {
+    .code {
+        position: relative;
+        margin-top: -14px;
+        transition: none;
+    }
+  }
 
   .code {
     position: relative;
@@ -101,7 +108,7 @@ export default {
   background: transparent;
   border-radius: 4px;
 
-  &:hover {
+  &:hover, &:focus {
     background: #8e44ad;
   }
 }

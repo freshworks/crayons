@@ -1,12 +1,24 @@
-import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Host,
+  Prop,
+  Watch,
+  h,
+} from '@stencil/core';
 
-import { findCheckedOption, renderHiddenField, watchForOptions } from '../../utils/utils';
+import {
+  findCheckedOption,
+  renderHiddenField,
+  watchForOptions,
+} from '../../utils/utils';
 
 @Component({
   tag: 'fw-radio-group',
 })
 export class RadioGroup {
-
   private mutationO?: MutationObserver;
 
   @Element() host!: HTMLElement;
@@ -38,11 +50,12 @@ export class RadioGroup {
   @Event() fwChange!: EventEmitter;
 
   async connectedCallback() {
-
     const el = this.host;
 
     if (this.value === undefined) {
-      const radio = findCheckedOption(el, 'fw-radio') as HTMLFwRadioElement | undefined;
+      const radio = findCheckedOption(el, 'fw-radio') as
+        | HTMLFwRadioElement
+        | undefined;
       if (radio !== undefined) {
         await radio.componentOnReady();
         if (this.value === undefined) {
@@ -51,15 +64,22 @@ export class RadioGroup {
       }
     }
 
-    this.mutationO = watchForOptions<HTMLFwRadioElement>(el, 'fw-radio', async newOption => {
-      if (newOption !== undefined) {
-        newOption.componentOnReady().then(() => {
-          this.value = newOption.value;
-        }).catch();
-      } else {
-        await this.updateRadios();
+    this.mutationO = watchForOptions<HTMLFwRadioElement>(
+      el,
+      'fw-radio',
+      async (newOption) => {
+        if (newOption !== undefined) {
+          newOption
+            .componentOnReady()
+            .then(() => {
+              this.value = newOption.value;
+            })
+            .catch();
+        } else {
+          await this.updateRadios();
+        }
       }
-    });
+    );
     await this.updateRadios();
   }
 
@@ -104,9 +124,9 @@ export class RadioGroup {
 
   private getRadios() {
     return Promise.all(
-      Array
-        .from(this.host.querySelectorAll('fw-radio'))
-        .map(r => r.componentOnReady())
+      Array.from(this.host.querySelectorAll('fw-radio')).map((r) =>
+        r.componentOnReady()
+      )
     );
   }
 
@@ -115,7 +135,7 @@ export class RadioGroup {
     if (selectedRadio) {
       this.value = selectedRadio.value;
     }
-  }
+  };
 
   private onDeselect = async (ev: Event) => {
     const selectedRadio = ev.target as HTMLFwRadioElement | null;
@@ -123,21 +143,19 @@ export class RadioGroup {
       this.value = undefined;
     }
     await this.updateRadios();
-  }
+  };
 
   render() {
-
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
 
     return (
       <Host
-        role="radiogroup"
+        role='radiogroup'
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
-      >
-      </Host>
+      ></Host>
     );
   }
 }

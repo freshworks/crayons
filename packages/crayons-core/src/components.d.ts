@@ -549,7 +549,7 @@ export namespace Components {
           * Time duration of the toast visibility
          */
         "timeout": number;
-        "trigger": (configs: object) => Promise<void>;
+        "trigger": (configs: any) => Promise<void>;
         /**
           * Type of the toast - success,failure, warning, inprogress
          */

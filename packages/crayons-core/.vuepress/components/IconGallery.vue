@@ -62,7 +62,7 @@ export default {
   box-sizing: border-box;
 }
 
-.card:hover {
+.card:hover, .card:focus {
   cursor: pointer;
   box-shadow:
     0 3px 5px 4px rgba(217, 217, 217, 0.3),
