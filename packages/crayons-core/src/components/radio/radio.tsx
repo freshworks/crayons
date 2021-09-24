@@ -103,7 +103,7 @@ export class Radio {
         role='radio'
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
-        aria-checked={`${this.checked}`}
+        aria-checked={this.checked}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >

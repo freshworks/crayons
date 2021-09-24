@@ -1,5 +1,6 @@
 import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
 
+import { handleKeyDown } from '../../utils/utils';
 @Component({
   tag: 'fw-toggle',
   styleUrl: 'toggle.scss',
@@ -9,7 +10,7 @@ export class Toggle {
   /**
    * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop() checked = false;
+  @Prop({ mutable: true }) checked = false;
   /**
    * Size of the input control.
    */
@@ -32,20 +33,23 @@ export class Toggle {
     this.fwChange.emit({ checked: newValue });
   }
 
-  private toggle() {
+  private toggle = (): void => {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
-  }
+  };
 
   render() {
     return (
       <div
+        role='button'
+        tabindex='0'
         class={{
           'toggle-switch': true,
           [this.size]: true,
         }}
         onClick={() => this.toggle()}
+        onKeyDown={handleKeyDown(this.toggle)}
       >
         <input
           name={this.name}

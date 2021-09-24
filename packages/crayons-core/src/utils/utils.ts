@@ -1,5 +1,3 @@
-// This is a sample funtion for boilerplate code
-/* tslint:disable */
 export function format(first: string, middle: string, last: string): string {
   return (
     (first || '') + (middle ? ` ${middle}` : '') + (last ? ` ${last}` : '')
@@ -63,3 +61,25 @@ export const renderHiddenField = (
   input.name = name;
   input.value = value || '';
 };
+type handlerArg = (event?: KeyboardEvent) => void;
+
+// handle jsx-a11y/click-events-have-key-events
+export const handleKeyDown =
+  (handler: handlerArg) =>
+  (e: KeyboardEvent): void => {
+    const event = e;
+    const key = event.key || event.keyCode;
+
+    if (
+      key === 'Enter' ||
+      key === 13 ||
+      key === 32 ||
+      ['Spacebar', ' '].indexOf(key as string) >= 0
+    ) {
+      // In IE11 and lower, event.key will equal "Spacebar" instead of ' '
+
+      // Default behavior is prevented to prevent the page to scroll when "space" is pressed
+      event.preventDefault();
+      handler();
+    }
+  };

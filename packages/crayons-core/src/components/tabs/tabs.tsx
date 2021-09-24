@@ -9,6 +9,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
+import { handleKeyDown } from '../../utils/utils';
 
 @Component({
   tag: 'fw-tabs',
@@ -93,9 +94,13 @@ export class Tabs {
         <ul role='tablist' class='tabs__items'>
           {this.tabs.map((tab, index) => (
             <li
+              role='tab'
               onClick={() =>
                 tab.disabled ? '' : (this.activeTabIndex = index)
               }
+              onKeyDown={handleKeyDown(() =>
+                tab.disabled ? '' : (this.activeTabIndex = index)
+              )}
               class='tabs__item'
             >
               <div

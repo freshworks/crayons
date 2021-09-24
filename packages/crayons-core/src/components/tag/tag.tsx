@@ -6,6 +6,7 @@ import {
   Prop,
   h,
 } from '@stencil/core';
+import { handleKeyDown } from '../../utils/utils';
 
 @Component({
   tag: 'fw-tag',
@@ -33,21 +34,24 @@ export class Tag {
    */
   @Event() fwClosed: EventEmitter;
 
-  removeTag() {
+  removeTag = (): void => {
     if (this.disabled) {
       return;
     }
     const { value, text } = this;
     this.fwClosed.emit({ value, text });
-  }
+  };
+
   render() {
     return (
       <div class='tag'>
         {this.text}
         <span
           role='button'
+          tabindex='0'
           class={{ 'remove-btn': true, 'disabled': this.disabled }}
           onClick={() => this.removeTag()}
+          onKeyDown={handleKeyDown(this.removeTag)}
         >
           ×
         </span>

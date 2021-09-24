@@ -430,10 +430,6 @@ export namespace Components {
     }
     interface FwTextarea {
         /**
-          * If true, the textarea is autofocused
-         */
-        "autofocus": boolean;
-        /**
           * Width of the input box, specified as number of columns.
          */
         "cols"?: number;
@@ -553,7 +549,10 @@ export namespace Components {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type": 'success' | 'error' | 'warning' | 'inprogress';
+        "type": | 'success'
+    | 'error'
+    | 'warning'
+    | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -1249,10 +1248,6 @@ declare namespace LocalJSX {
     }
     interface FwTextarea {
         /**
-          * If true, the textarea is autofocused
-         */
-        "autofocus"?: boolean;
-        /**
           * Width of the input box, specified as number of columns.
          */
         "cols"?: number;
@@ -1387,7 +1382,10 @@ declare namespace LocalJSX {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
+        "type"?: | 'success'
+    | 'error'
+    | 'warning'
+    | 'inprogress';
     }
     interface FwToggle {
         /**
