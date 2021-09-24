@@ -1,12 +1,10 @@
-@import '../../styles/freshworks';
-
 .tag {
   line-height: 1.4;
   border-radius: 4px;
-  background-color: var(--color-smoke-50);
+  background-color: $color-smoke-50;
   border: none;
-  font-size: var(--font-size-12);
-  color: var(--color-elephant-900);
+  font-size: $font-size-12;
+  color: $color-elephant-900;
   margin: 2px;
   display: inline-block;
   width: auto;
@@ -16,9 +14,9 @@
 
   .remove-btn {
     opacity: 1;
-    color: var(--color-elephant-800);
+    color: $color-elephant-800;
     padding: 3px 8px 5px;
-    font-size: var(--font-size-16);
+    font-size: $font-size-16;
     border-radius: 4px;
     line-height: normal;
     position: relative;
@@ -28,13 +26,13 @@
 
     &:hover,
     &:focus {
-      background-color: var(--color-smoke-100);
+      background-color: $color-smoke-100;
       cursor: pointer;
     }
 
     &.disabled {
-      color: var(--color-elephant-500);
-      background-color: var(--color-smoke-50);
+      color: $color-elephant-500;
+      background-color: $color-smoke-50;
       cursor: not-allowed;
     }
   }

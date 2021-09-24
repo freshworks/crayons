@@ -1,5 +1,3 @@
-@import '../../styles/freshworks';
-
 /**
   @prop --dropdown-min-height: Dropdown minimum height in pixels
   @prop --dropdown-min-width: Dropdown minimum width in pixels
@@ -10,27 +8,27 @@
 
 //=== Button Style ===//
 :host {
-  --btn-primary-color: var(--color-milk);
-  --btn-primary-bg: var(--color-elephant-800);
-  --btn-primary-bg-dark: var(--color-elephant-900);
-  --btn-primary-border: var(--color-elephant-900);
-  --btn-primary-border-active: var(--color-elephant-800);
+  --btn-primary-color: #{$color-milk};
+  --btn-primary-bg: #{$color-elephant-800};
+  --btn-primary-bg-dark: #{$color-elephant-900};
+  --btn-primary-border: #{$color-elephant-900};
+  --btn-primary-border-active: #{$color-elephant-800};
 
-  --btn-secondary-color: var(--text-default);
-  --btn-secondary-bg: var(--color-milk);
-  --btn-secondary-bg-dark: var(--color-smoke-25);
-  --btn-secondary-border: var(--border-color);
-  --btn-secondary-border-active: var(--color-smoke-50);
+  --btn-secondary-color: #{$text-default};
+  --btn-secondary-bg: #{$color-milk};
+  --btn-secondary-bg-dark: #{$color-smoke-25};
+  --btn-secondary-border: #{$border-color};
+  --btn-secondary-border-active: #{$color-smoke-50};
 
-  --btn-danger-color: var(--color-milk);
-  --btn-danger-bg: var(--color-persimmon-800);
-  --btn-danger-bg-dark: var(--color-persimmon-900);
-  --btn-danger-border: var(--color-persimmon-900);
+  --btn-danger-color: #{$color-milk};
+  --btn-danger-bg: #{$color-persimmon-800};
+  --btn-danger-bg-dark: #{$color-persimmon-900};
+  --btn-danger-border: #{$color-persimmon-900};
 
-  --btn-link-color: var(--color-azure-800);
-  --btn-link-bg: var(--color-smoke-50);
+  --btn-link-color: #{$color-azure-800};
+  --btn-link-bg: #{$color-smoke-50};
 
-  --bg-color-hover: var(--color-smoke-50);
+  --bg-color-hover: #{$color-smoke-50};
 
   --active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
   //=== Button Style===//
@@ -40,7 +38,7 @@
   --dropdown-min-width: 200px;
   --dropdown-max-height: 200px;
   --dropdown-max-width: 480px;
-  --dropdown-font-size: var(--font-size-14);
+  --dropdown-font-size: #{$font-size-14};
   //* Dropdown style variables *//
 }
 
@@ -172,8 +170,8 @@
       }
 
       &:focus {
-        border: 1px solid var(--color-azure-800);
-        box-shadow: 0 0 0 1px var(--color-azure-800);
+        border: 1px solid $color-azure-800;
+        box-shadow: 0 0 0 1px $color-azure-800;
         outline: none;
       }
 
@@ -229,7 +227,7 @@
       padding: 5px 25px 8px 10px;
       color: var(--btn-secondary-color);
       font-size: var(--dropdown-font-size);
-      font-weight: var(--font-weight-500);
+      font-weight: $font-weight-500;
       cursor: pointer;
       background: transparent;
       border-radius: 5px;

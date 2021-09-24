@@ -1,5 +1,3 @@
-@import '../../styles/freshworks.scss';
-
 /**
   @prop --label-padding-vertical: Top - bottom padding for label
   @prop --label-padding-horizontal: Left - right padding for label
@@ -13,41 +11,41 @@
 .label {
   color: #6f7c87;
   border: 1px solid #dadfe3;
-  background-color: var(--color-milk);
+  background-color: $color-milk;
   font-weight: 600;
-  font-size: var(--font-size-12);
+  font-size: $font-size-12;
   padding: var(--label-padding-vertical) var(--label-padding-horizontal);
   line-height: 1.5;
   display: inline-block;
   border-radius: 2px;
 
   &--blue {
-    background-color: var(--color-azure-50);
-    color: var(--color-azure-800);
-    border: 1px solid var(--color-azure-100);
+    background-color: $color-azure-50;
+    color: $color-azure-800;
+    border: 1px solid $color-azure-100;
   }
 
   &--red {
-    background-color: var(--color-persimmon-50);
-    color: var(--color-persimmon-800);
-    border: 1px solid var(--color-persimmon-100);
+    background-color: $color-persimmon-50;
+    color: $color-persimmon-800;
+    border: 1px solid $color-persimmon-100;
   }
 
   &--green {
-    background-color: var(--color-jungle-50);
-    color: var(--color-jungle-800);
-    border: 1px solid var(--color-jungle-100);
+    background-color: $color-jungle-50;
+    color: $color-jungle-800;
+    border: 1px solid $color-jungle-100;
   }
 
   &--yellow {
-    background-color: var(--color-casablanca-50);
-    color: var(--color-casablanca-700);
-    border: 1px solid var(--color-casablanca-100);
+    background-color: $color-casablanca-50;
+    color: $color-casablanca-700;
+    border: 1px solid $color-casablanca-100;
   }
 
   &--grey {
-    background-color: var(--color-smoke-50);
-    color: var(--color-smoke-700);
-    border: 1px solid var(--color-smoke-100);
+    background-color: $color-smoke-50;
+    color: $color-smoke-700;
+    border: 1px solid $color-smoke-100;
   }
 }

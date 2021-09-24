@@ -1,5 +1,3 @@
-@import '../../styles/freshworks.scss';
-
 /**
  @prop --spinner-color: Color of the spinner
 */
@@ -20,14 +18,14 @@
   z-index: 2;
   @media screen and (prefers-reduced-motion: reduce) {
     & .path {
-      stroke: var(--spinner-color, var(--color-azure-800));
+      stroke: var(--spinner-color, $color-azure-800);
       stroke-linecap: round;
       animation: none;
     }
   }
 
   & .path {
-    stroke: var(--spinner-color, var(--color-azure-800));
+    stroke: var(--spinner-color, $color-azure-800);
     stroke-linecap: round;
     animation: dash 1s ease-in-out infinite;
   }

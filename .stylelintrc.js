@@ -4,7 +4,11 @@ module.exports = {
   rules: {
     'prettier/prettier': true,
     'no-invalid-position-at-import-rule': null,
-    'selector-type-no-unknown': [true, { ignoreTypes: [/^fw-/, 'my-component'] }],
+    'selector-type-no-unknown': [
+      true,
+      { ignore: ['custom-elements'] },
+      { ignoreTypes: [/^fw-/, 'my-component'] },
+    ],
     'at-rule-no-unknown': null,
     'no-descending-specificity': null,
     'scss/at-rule-no-unknown': true,

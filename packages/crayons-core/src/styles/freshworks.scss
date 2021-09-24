@@ -2,7 +2,7 @@
 @import './variables/typography';
 
 :host {
-  font-family: var(--font-stack);
+  font-family: #{$font-stack};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;

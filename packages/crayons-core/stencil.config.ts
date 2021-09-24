@@ -1,7 +1,6 @@
 import { Config } from '@stencil/core';
 import { reactOutputTarget } from '@stencil/react-output-target';
 import { sass } from '@stencil/sass';
-import autoprefixer from 'autoprefixer';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
@@ -30,7 +29,7 @@ export const config: Config = {
     },
     {
       type: 'www',
-    },  
+    },
     {
       type: 'www',
       dir: '.vuepress/public/www/',
@@ -58,7 +57,6 @@ export const config: Config = {
     }),
   ],
   globalStyle: 'src/styles/global/crayons.scss',
- 
   testing: {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     collectCoverageFrom: [

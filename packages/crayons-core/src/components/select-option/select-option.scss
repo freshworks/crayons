@@ -1,19 +1,17 @@
-@import '../../styles/freshworks';
-
 :host {
-  --primary-color: var(--color-elephant-900);
-  --selected-color: var(--color-azure-800);
-  --disabled-color: var(--color-smoke-300);
-  --bg-color: var(--color-azure-50);
-  --bg-color-hover: var(--color-smoke-50);
-  --bg-color-disabled: var(--color-smoke-25);
+  --primary-color: #{$color-elephant-900};
+  --selected-color: #{$color-azure-800};
+  --disabled-color: #{$color-smoke-300};
+  --bg-color: #{$color-azure-50};
+  --bg-color-hover: #{$color-smoke-50};
+  --bg-color-disabled: #{$color-smoke-25};
 }
 
 .select-option {
   cursor: pointer;
   color: var(--primary-color);
   padding: 7px 30px 7px 8px;
-  font-size: var(--font-size-14);
+  font-size: $font-size-14;
   border-radius: 2px;
   list-style: none;
   line-height: 1.3;
@@ -25,7 +23,7 @@
   &.selected {
     color: var(--selected-color);
     position: relative;
-    font-weight: var(--font-weight-500);
+    font-weight: $font-weight-500;
     background-color: var(--bg-color);
   }
 
@@ -44,7 +42,7 @@
   &::after {
     display: block;
     font-style: normal;
-    font-weight: var(--font-weight-400);
+    font-weight: $font-weight-400;
     font-variant: normal;
     line-height: 1;
     text-decoration: inherit;

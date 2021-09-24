@@ -1,5 +1,3 @@
-@import '../../styles/freshworks.scss';
-
 :host {
   display: none;
 }
@@ -22,26 +20,26 @@
   top: 10px;
   width: 400px;
   padding: 10px;
-  border: 1px solid var(--color-smoke-50);
+  border: 1px solid $color-smoke-50;
   border-radius: 4px;
-  background-color: var(--color-milk);
+  background-color: $color-milk;
 }
 
 .toast {
   :host(&.success) {
-    border-top: 5px solid var(--color-jungle-500);
+    border-top: 5px solid $color-jungle-500;
   }
 
   :host(&.error) {
-    border-top: 5px solid var(--color-persimmon-800);
+    border-top: 5px solid $color-persimmon-800;
   }
 
   :host(&.warning) {
-    border-top: 5px solid var(--color-casablanca-300);
+    border-top: 5px solid $color-casablanca-300;
   }
 
   :host(&.inprogress) {
-    border-top: 5px solid var(--color-azure-800);
+    border-top: 5px solid $color-azure-800;
   }
 
   :host(&.top-center) {
@@ -58,13 +56,13 @@
 }
 
 .content {
-  color: var(--color-elephant-900);
+  color: $color-elephant-900;
   line-height: 20px;
   width: 83%;
   float: left;
   margin: 2px auto 8px;
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-500);
+  font-size: $font-size-14;
+  font-weight: $font-weight-500;
 }
 
 .icon {
@@ -74,13 +72,13 @@
 }
 
 .action-link {
-  color: var(--color-azure-800);
+  color: $color-azure-800;
   line-height: 14px;
   margin-left: 38px;
   cursor: pointer;
   float: left;
-  font-size: var(--font-size-12);
-  font-weight: var(--font-weight-600);
+  font-size: $font-size-12;
+  font-weight: $font-weight-600;
 }
 
 .cross {
