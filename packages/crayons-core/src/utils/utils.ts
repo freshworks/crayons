@@ -80,6 +80,6 @@ export const handleKeyDown =
 
       // Default behavior is prevented to prevent the page to scroll when "space" is pressed
       event.preventDefault();
-      handler();
+      handler(event);
     }
   };

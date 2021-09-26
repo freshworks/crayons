@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 import moment from 'moment-mini';
 
-import { renderHiddenField } from '../../utils/utils';
+import { handleKeyDown, renderHiddenField } from '../../utils/utils';
 
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const monthArr = [
@@ -350,7 +350,7 @@ export class Datepicker {
     );
   };
 
-  handleDateHover(day) {
+  handleDateHover = (day): void => {
     if (this.startDate && !this.endDate) {
       if (this.startDate > day.timestamp) {
         this.endDate = this.startDate;
@@ -364,7 +364,7 @@ export class Datepicker {
       }
       this.dateHovered = day.timestamp;
     }
-  }
+  };
 
   isInRange = ({ timestamp }) => {
     const { endDate } = this;
@@ -466,8 +466,12 @@ export class Datepicker {
         <div class={this.getCellStyle(day)} key={index}>
           <div class='cdc-day'>
             <span
+              role='button'
+              tabindex='0'
               onClick={() => this.onDateClick(day)}
               onMouseOver={() => this.handleDateHover(day)}
+              onFocus={() => this.handleDateHover(day)}
+              onKeyDown={handleKeyDown(() => this.handleDateHover(day))}
             >
               {day.date}
             </span>
@@ -502,8 +506,11 @@ export class Datepicker {
     return (
       <div>
         <div
+          role='button'
+          tabindex='0'
           onClick={() => (this.showDatePicker = false)}
           class={this.showDatePicker ? 'overlay-show' : 'overlay-hide'}
+          onKeyDown={handleKeyDown(() => (this.showDatePicker = false))}
         ></div>
         <fw-input
           value={this.value}
@@ -517,7 +524,13 @@ export class Datepicker {
               {/* Head section */}
               <div class='mdpc-head'>
                 <div class='mdpch-button'>
-                  <div class='mdpchb-inner' onClick={() => this.setMonth(-1)}>
+                  <div
+                    role='button'
+                    tabindex='0'
+                    class='mdpchb-inner'
+                    onClick={() => this.setMonth(-1)}
+                    onKeyDown={handleKeyDown(() => this.setMonth(-1))}
+                  >
                     <span class='mdpchbi-left-arrow'></span>
                   </div>
                 </div>
@@ -559,7 +572,13 @@ export class Datepicker {
                   </span>
                 </div>
                 <div class='mdpch-button-right'>
-                  <div class='mdpchb-inner' onClick={() => this.setMonth(1)}>
+                  <div
+                    role='button'
+                    tabindex='0'
+                    class='mdpchb-inner'
+                    onClick={() => this.setMonth(1)}
+                    onKeyDown={handleKeyDown(() => this.setMonth(1))}
+                  >
                     <span class='mdpchbi-right-arrow'></span>
                   </div>
                 </div>
@@ -589,7 +608,13 @@ export class Datepicker {
               {/* Head section */}
               <div class='mdpc-head'>
                 <div class='mdpch-button'>
-                  <div class='mdpchb-inner' onClick={() => this.setMonth(-1)}>
+                  <div
+                    role='button'
+                    tabindex='0'
+                    class='mdpchb-inner'
+                    onClick={() => this.setMonth(-1)}
+                    onKeyDown={handleKeyDown(() => this.setMonth(-1))}
+                  >
                     <span class='mdpchbi-left-arrow'></span>
                   </div>
                 </div>
@@ -630,7 +655,13 @@ export class Datepicker {
                   </span>
                 </div>
                 <div class='mdpch-button-right'>
-                  <div class='mdpchb-inner' onClick={() => this.setMonth(1)}>
+                  <div
+                    role='button'
+                    tabindex='0'
+                    class='mdpchb-inner'
+                    onClick={() => this.setMonth(1)}
+                    onKeyDown={handleKeyDown(() => this.setMonth(1))}
+                  >
                     <span class='mdpchbi-right-arrow'></span>
                   </div>
                 </div>
