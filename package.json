@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=14.7.0",
+    "npm": ">=7.0.0"
+  },
   "workspaces": [
     "./packages/*"
   ],
