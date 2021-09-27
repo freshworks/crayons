@@ -38,7 +38,9 @@ export class SelectOption {
   @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
 
   private onOptionSelected() {
-    if (this.disabled) { return; }
+    if (this.disabled) {
+      return;
+    }
     this.selected = !this.selected;
     const { value, selected } = this;
     this.fwSelected.emit({ value, selected });
@@ -47,14 +49,15 @@ export class SelectOption {
   render() {
     return (
       <li
-        ref={el => this.nativeLi = el}
-        class={{ 'select-option': true, 'selected': this.selected, 'disabled': this.disabled }}
-        onMouseDown={() => this.onOptionSelected()}>
-        {
-          this.html
-            ? '' :
-            <slot />
-        }
+        ref={(el) => (this.nativeLi = el)}
+        class={{
+          'select-option': true,
+          'selected': this.selected,
+          'disabled': this.disabled,
+        }}
+        onMouseDown={() => this.onOptionSelected()}
+      >
+        {this.html ? '' : <slot />}
       </li>
     );
   }

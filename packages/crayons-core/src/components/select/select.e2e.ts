@@ -24,7 +24,6 @@ describe('fw-select', () => {
     await page.waitForChanges();
     const value = element.getAttribute('value');
     expect(value).toBe('starks');
-
   });
 
   it('Renders all the select options', async () => {
@@ -55,7 +54,6 @@ describe('fw-select', () => {
     await page.waitForChanges();
     const value = element.getAttribute('value');
     expect(value).toBe('starks,sands');
-
   });
 
   it('it checks if multiple values set using setSelectedValues method', async () => {
@@ -70,8 +68,8 @@ describe('fw-select', () => {
     await page.waitForChanges();
     const selectedValues = await element.callMethod('getSelectedItem');
     const values = [];
-    selectedValues.forEach(value => {
-        values.push(value.value);
+    selectedValues.forEach((value) => {
+      values.push(value.value);
     });
     expect(values).toStrictEqual(['starks', 'sands']);
   });
@@ -135,7 +133,7 @@ describe('fw-select', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ 'value': 'lannisters' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: 'lannisters' });
   });
 
   it('it emits fwFocus when the focus is on the component', async () => {

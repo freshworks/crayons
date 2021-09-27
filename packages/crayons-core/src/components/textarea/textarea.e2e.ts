@@ -12,7 +12,9 @@ describe('fw-textarea', () => {
   it('it checks if the input value can be read', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-textarea value="tyrion lannister"></fw-textarea>');
+    await page.setContent(
+      '<fw-textarea value="tyrion lannister"></fw-textarea>'
+    );
     const element = await page.find('fw-textarea');
     const value = await element.getProperty('value');
     expect(value).toBe('tyrion lannister');
@@ -77,7 +79,7 @@ describe('fw-textarea', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ 'value': '2' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
   });
 
   it('auto focuses when set to true', async () => {
@@ -88,5 +90,4 @@ describe('fw-textarea', () => {
 
     expect(inputElement.getAttribute('autofocus')).toBe('');
   });
-
 });

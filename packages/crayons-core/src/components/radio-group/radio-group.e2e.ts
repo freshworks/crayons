@@ -35,7 +35,6 @@ describe('fw-radio-group', () => {
     expect(fwChange).toHaveReceivedEvent();
     expect(fwSelect).toHaveReceivedEvent();
     expect(fwBlur).toHaveReceivedEvent();
-
   });
 
   it('it checks the radio group value', async () => {
@@ -56,8 +55,7 @@ describe('fw-radio-group', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ 'value': 'maybe' });
-
+    expect(fwChange).toHaveReceivedEventDetail({ value: 'maybe' });
   });
 
   it('it checks if value can be set', async () => {
@@ -76,7 +74,5 @@ describe('fw-radio-group', () => {
     await page.waitForChanges();
     const valueAfterSetting = element.getAttribute('value');
     expect(valueAfterSetting).toBe('maybe');
-
   });
-
 });

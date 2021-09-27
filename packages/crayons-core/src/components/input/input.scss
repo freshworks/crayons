@@ -1,5 +1,3 @@
-@import "../../styles/theme";
-
 $label-font: $font-stack-sans !default;
 $placeholder-color: $muted-secondary;
 $help-color: $muted-secondary;
@@ -12,7 +10,8 @@ $input-bg: #fff;
 $input-color: $app-primary-black;
 
 :host {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 *,
@@ -58,7 +57,7 @@ label {
   display: block;
 
   &.required::after {
-    content: "*";
+    content: '*';
     position: relative;
     display: inline-block;
     top: 2px;
@@ -96,6 +95,12 @@ label {
     display: inline-block;
     font-family: inherit;
 
+    @media (prefers-reduced-motion) {
+      /* stylelint-disable */
+      &:hover {
+        transition: none;
+      }
+    }
     &:hover {
       border: 1px $input-hover-color solid;
       transition: 0.2s linear;
@@ -115,7 +120,8 @@ label {
       border-style: solid;
       pointer-events: none;
 
-      &:hover {
+      &:hover,
+      &:focus {
         border: 1px solid $input-border;
       }
     }
@@ -128,7 +134,8 @@ label {
     right: 10px;
     display: inline-block;
 
-    &:hover {
+    &:hover,
+    &:focus {
       cursor: pointer;
       pointer-events: initial;
     }
@@ -198,7 +205,7 @@ label {
 
     &::after {
       left: 28px;
-      content: "";
+      content: '';
       width: 1px;
       display: block;
       height: 20px;
@@ -214,7 +221,7 @@ label {
 
     &::before {
       right: 28px;
-      content: "";
+      content: '';
       width: 1px;
       display: block;
       height: 20px;
@@ -243,6 +250,6 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }

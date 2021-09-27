@@ -37,7 +37,7 @@ Toasts are used to show pop-up messages that lasts on the screen for a while. Us
 
 ## Methods
 
-### `trigger(configs: object) => Promise<void>`
+### `trigger(configs: any) => Promise<void>`
 
 
 

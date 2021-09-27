@@ -1,13 +1,11 @@
-@import "../../styles/freshworks";
-
 /**
   @prop --tab-header-font-size: tab-header font size in pixels
   @prop --tabs-color-primary: tab-header font color
 */
 
 :host {
-  --tab-header-font-size: var(--font-size-12);
-  --tabs-color-primary: var(--color-azure-800);
+  --tab-header-font-size: $font-size-12;
+  --tabs-color-primary: $color-azure-800;
 }
 
 .tabs {
@@ -25,29 +23,30 @@
 
     a {
       text-decoration: none;
-      color: var(--color-smoke-300);
+      color: $color-smoke-300;
     }
 
     &__nav {
       margin: 0 12px;
       line-height: 40px;
-      color: var(--color-smoke-300);
+      color: $color-smoke-300;
       position: relative;
       overflow: hidden;
       display: block;
       padding: 0 6px;
       cursor: pointer;
       font-size: var(--tab-header-font-size);
-      font-weight: var(--font-weight-600);
+      font-weight: $font-weight-600;
 
-      &:hover::after {
+      &:hover::after,
+      &:focus::after {
         opacity: 0.3;
-        background: var(--color-smoke-300);
+        background: $color-smoke-300;
       }
 
       &.active {
         color: var(--tabs-color-primary);
-        font-weight: var(--font-weight-600);
+        font-weight: $font-weight-600;
 
         .app-icon {
           fill: var(--tabs-color-primary);
@@ -62,6 +61,11 @@
       &.disabled {
         cursor: not-allowed;
         opacity: 0.7;
+      }
+    }
+    @media screen and (prefers-reduced-motion: reduce) {
+      &__nav::after {
+        transition: none;
       }
     }
 
@@ -89,6 +93,11 @@
 
       &.active {
         display: block;
+      }
+      @media screen and (prefers-reduced-motion: reduce) {
+        &--fade {
+          transition: none;
+        }
       }
 
       &--fade {

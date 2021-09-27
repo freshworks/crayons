@@ -1,11 +1,18 @@
-import { Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Event,
+  EventEmitter,
+  Host,
+  Prop,
+  Watch,
+  h,
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-tab',
   styleUrl: 'tab.scss',
   shadow: true,
 })
-
 export class Tab {
   /**
    * Name of the tab displayed on the UI.
@@ -39,8 +46,8 @@ export class Tab {
 
   render() {
     return (
-      <Host class="tab">
-        <slot/>
+      <Host class='tab'>
+        <slot />
       </Host>
     );
   }

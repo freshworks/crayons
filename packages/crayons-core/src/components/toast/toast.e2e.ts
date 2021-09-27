@@ -12,7 +12,9 @@ describe('fw-toast', () => {
   it('Toast content and action link rendered', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-toast content="Successfully created!" action-link-text="Undo"></fw-toast>');
+    await page.setContent(
+      '<fw-toast content="Successfully created!" action-link-text="Undo"></fw-toast>'
+    );
     const element = await page.find('fw-toast');
     element.classList.add('is-open');
 
@@ -26,7 +28,9 @@ describe('fw-toast', () => {
   it('Toast type and position', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-toast type="warning" position="top-left"></fw-toast>');
+    await page.setContent(
+      '<fw-toast type="warning" position="top-left"></fw-toast>'
+    );
     const element = await page.find('fw-toast');
     element.classList.add('is-open');
     await page.waitForChanges();

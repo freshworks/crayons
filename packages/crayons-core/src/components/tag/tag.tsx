@@ -1,4 +1,11 @@
-import { Component, Element, Event, EventEmitter, Prop, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Prop,
+  h,
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-tag',
@@ -27,19 +34,24 @@ export class Tag {
   @Event() fwClosed: EventEmitter;
 
   removeTag() {
-    if (this.disabled) { return; }
+    if (this.disabled) {
+      return;
+    }
     const { value, text } = this;
     this.fwClosed.emit({ value, text });
   }
   render() {
     return (
-    <div class="tag">
-      {this.text}
-      <span
-        role="button"
-        class={{ 'remove-btn': true, 'disabled': this.disabled }}
-        onClick={() => this.removeTag()}>×</span>
-    </div>
+      <div class='tag'>
+        {this.text}
+        <span
+          role='button'
+          class={{ 'remove-btn': true, 'disabled': this.disabled }}
+          onClick={() => this.removeTag()}
+        >
+          ×
+        </span>
+      </div>
     );
   }
 }
