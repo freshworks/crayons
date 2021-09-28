@@ -35,11 +35,13 @@ fw-checkbox displays a check box on the user interface and enables assigning a s
 
 ### Used by
 
+ - [fw-data-grid](../data-grid)
  - [fw-dropdown-button](../dropdown-button)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-data-grid --> fw-checkbox
   fw-dropdown-button --> fw-checkbox
   style fw-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```

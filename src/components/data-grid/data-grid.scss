@@ -1,0 +1,126 @@
+@import "../../styles/freshworks";
+
+:host {
+  --grid-header-bg: var(--color-smoke-10);
+  --grid-body-bg: var(--color-milk);
+  --grid-row-active: var(--color-azure-50);
+  --grid-row-border: var(--color-smoke-50);
+
+  --grid-header-txt-color: var(--color-smoke-700);
+  --grid-row-txt-color: var(--color-elephant-900);
+
+  --grid-header-txt-size: var(--font-size-12);
+  --grid-row-txt-size: var(--font-size-14);
+  --grid-line-height: var(--font-size-20);
+
+  --grid-density-sm: 4px 8px;
+  --grid-density-md: 12px 8px;
+  --grid-density-lg: 16px 8px;
+
+
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+table.fw-data-grid {
+  table-layout: fixed;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  min-width: 100%;
+  width: max-content;
+
+  thead {
+    position: sticky;
+    top: 0;
+    background: var(--grid-header-bg);
+    width: 100%;
+    border-radius: 4px;
+
+    tr th {
+      color: var(--grid-header-txt-color);
+      font-size: var(--grid-header-txt-size);
+      line-height: var(--grid-line-height);
+      padding: var(--grid-density-md);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      text-overflow: ellipsis;
+      text-align: left;
+      z-index: 1;
+
+      &.data-grid-sm {
+        padding: var(--grid-density-sm);
+      }
+
+      &.data-grid-md {
+        padding: var(--grid-density-md);
+      }
+
+      &.data-grid-lg {
+        padding: var(--grid-density-lg);
+      }
+
+      &:first-child {
+        padding-left: 16px;
+      }
+
+      &:last-child {
+        padding-right: 16px;
+      }
+    }
+  }
+
+  tbody {
+    width: 100%;
+    background: var(--grid-body-bg);
+
+    tr {
+      width: 100%;
+      border-bottom: 1px solid var(--grid-row-border);
+
+      &:hover {
+        background: var(--grid-header-bg);
+        cursor: pointer;
+      }
+
+      &.active {
+        background: var(--grid-row-active);
+      }
+
+      td {
+        color: var(--grid-row-txt-color);
+        font-size: var(--grid-row-txt-size);
+        line-height: var(--grid-line-height);
+        padding: var(--grid-density-md);
+        text-overflow: ellipsis;
+        z-index: 0;
+
+        &.data-grid-checkbox {
+          text-align: center;
+          width: 20px;
+        }
+
+        &.data-grid-sm {
+          padding: var(--grid-density-sm);
+        }
+
+        &.data-grid-md {
+          padding: var(--grid-density-md);
+        }
+
+        &.data-grid-lg {
+          padding: var(--grid-density-lg);
+        }
+
+        &:first-child {
+          padding-left: 16px;
+        }
+
+        &:last-child {
+          padding-right: 16px;
+        }
+      }
+    }
+  }
+}

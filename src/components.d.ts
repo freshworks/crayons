@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Column, Row, } from "./components/data-grid/types";
 export namespace Components {
     interface FwButton {
         /**
@@ -53,6 +54,24 @@ export namespace Components {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+    }
+    interface FwDataGrid {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns": Column[];
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable": boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label": string;
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows": Row[];
     }
     interface FwDatepicker {
         /**
@@ -587,6 +606,12 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwDataGridElement extends Components.FwDataGrid, HTMLStencilElement {
+    }
+    var HTMLFwDataGridElement: {
+        prototype: HTMLFwDataGridElement;
+        new (): HTMLFwDataGridElement;
+    };
     interface HTMLFwDatepickerElement extends Components.FwDatepicker, HTMLStencilElement {
     }
     var HTMLFwDatepickerElement: {
@@ -698,6 +723,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "fw-button": HTMLFwButtonElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-data-grid": HTMLFwDataGridElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-icon": HTMLFwIconElement;
@@ -790,6 +816,28 @@ declare namespace LocalJSX {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+    }
+    interface FwDataGrid {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns"?: Column[];
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable"?: boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label"?: string;
+        /**
+          * fwSelectionChange Emits this event when row is selected/unselected.
+         */
+        "onFwSelectionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows"?: Row[];
     }
     interface FwDatepicker {
         /**
@@ -1414,6 +1462,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "fw-button": FwButton;
         "fw-checkbox": FwCheckbox;
+        "fw-data-grid": FwDataGrid;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-icon": FwIcon;
@@ -1440,6 +1489,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-data-grid": LocalJSX.FwDataGrid & JSXBase.HTMLAttributes<HTMLFwDataGridElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
