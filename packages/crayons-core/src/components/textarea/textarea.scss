@@ -2,17 +2,18 @@
   @prop --input-color: Color of the textarea input
 **/
 
+$label-font: $font-stack;
+$input-bg: $color-milk;
+$help-color: $color-smoke-300;
+$error-color: $color-persimmon-800;
+$input-disabled-bg: $color-smoke-25;
+$input-hover-color: $color-smoke-700;
+$input-focus-color: $color-azure-800;
+$input-border: $color-smoke-100;
+$warning-color: $color-casablanca-300;
+
 :host {
-  --label-font: #{$font-stack};
-  --input-bg: #{$color-milk};
-  --help-color: #{$color-smoke-300};
-  --error-color: #{$color-persimmon-800};
   --input-color: #{$color-elephant-900};
-  --input-disabled-bg: #{$color-smoke-25};
-  --input-hover-color: #{$color-smoke-700};
-  --input-focus-color: #{$color-azure-800};
-  --input-border: #{$color-smoke-100};
-  --warning-color: #{$color-casablanca-300};
 }
 
 @mixin stateStyle($_color) {
@@ -53,7 +54,7 @@ label {
     display: inline-block;
     top: 2px;
     font-size: $font-size-14;
-    color: var(--error-color);
+    color: $error-color;
     padding-left: 2px;
   }
 }
@@ -66,11 +67,11 @@ label {
 
   textarea {
     border: 0;
-    border: 1px solid var(--input-border);
+    border: 1px solid $input-border;
     margin: 5px 0 0;
     border-radius: 4px;
     padding: 4px 12px 5px;
-    background-color: var(--input-bg);
+    background-color: $input-bg;
     box-shadow: none;
     min-height: 24px;
     font-size: $font-size-12;
@@ -89,25 +90,25 @@ label {
     }
     /* stylelint-disable */
     &:hover {
-      border: 1px var(--input-hover-color) solid;
+      border: 1px $input-hover-color solid;
       transition: 0.2s linear;
     }
 
     &:focus {
       outline: none;
-      background: var(--input-bg);
+      background: $input-bg;
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px var(--input-focus-color);
+      box-shadow: 0 0 0 2px $input-focus-color;
     }
 
     &[disabled] {
       color: $color-smoke-300;
-      background-color: var(--input-disabled-bg);
+      background-color: $input-disabled-bg;
       border-style: solid;
 
       &:hover,
       &:focus {
-        border: 1px solid var(--input-border);
+        border: 1px solid $input-border;
         cursor: not-allowed;
       }
     }
@@ -117,7 +118,7 @@ label {
   & + .help-block {
     font-size: $font-size-12;
     margin-top: 3px;
-    color: var(--help-color);
+    color: $help-color;
     position: inherit;
     margin-bottom: 0;
     display: block;
@@ -125,11 +126,11 @@ label {
   }
 
   &.error {
-    @include stateStyle(var(--error-color));
+    @include stateStyle($error-color);
   }
 
   &.warning {
-    @include stateStyle(var(--warning-color));
+    @include stateStyle($warning-color);
   }
 }
 
