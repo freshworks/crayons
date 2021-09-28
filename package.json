@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "build": "lerna run build --stream",
-    "release": "lerna publish --no-commit-hooks --dist-tag latest"
+    "release": "lerna publish --no-commit-hooks --dist-tag latest",
+    "start": "lerna run start --stream"
   },
   "keywords": [],
   "author": "",
