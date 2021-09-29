@@ -15,7 +15,7 @@
   "version": "2.13.2",
   "description": "Crayons for Developer Platform",
   "main": "dist/index.cjs.js",
-  "module": "dist/custom-elements/index.js",
+  "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
   "es2017": "dist/esm/index.mjs",
   "types": "dist/types/components.d.ts",
@@ -41,8 +41,8 @@
     "docs:build": "vuepress build .",
     "docs:dev": "npm run build:components && vuepress dev .",
     "generate": "plop",
-    "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue' --fix",
-    "lint:ts": "eslint 'src' --fix",
+    "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue'",
+    "lint:ts": "eslint 'src'",
     "lint": "npm run lint:ts && npm run lint:styles",
     "local": "stencil build --serve --dev --watch",
     "semantic-release": "semantic-release",
@@ -136,9 +136,8 @@
     }
   },
   "lint-staged": {
-    "**/*.{css,scss,vue}": "stylelint --fix",
-    "**/*.ts": "tslint -c tslint.json --fix",
-    "**/*.tsx": "tslint -c tslint.json --fix"
+    "**/*.{css,scss,vue}": "stylelint",
+    "src": "eslint"
   },
   "publishConfig": {
     "access": "public"
