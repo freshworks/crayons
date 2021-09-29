@@ -11,9 +11,11 @@
     "./packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --stream",
+    "build": "lerna run build --stream && npm run build:storybook",
     "release": "lerna publish --no-commit-hooks --dist-tag latest",
-    "start": "lerna run start --stream"
+    "build:storybook": "rimraf storybook-dist && npm run storybook:build",
+    "storybook:build": "build-storybook -c docs/.storybook  -o docs/storybook-dist",
+    "storybook": "start-storybook -p 9001 -c docs/.storybook"
   },
   "keywords": [],
   "author": "",
@@ -31,7 +33,19 @@
     "stylelint-a11y": "^1.2.3",
     "stylelint-config-recommended": "^5.0.0",
     "stylelint-prettier": "^1.2.0",
-    "stylelint-scss": "^3.21.0"
+    "stylelint-scss": "^3.21.0",
+    "@storybook/addon-a11y": "^6.2.9",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-docs": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-events": "^6.2.9",
+    "@storybook/addon-viewport": "^6.2.9",
+    "@storybook/html": "^6.2.9",
+    "@storybook/preset-typescript": "^3.0.0",
+    "@storybook/web-components": "^6.2.9",
+    "write-file-webpack-plugin": "^4.5.1",
+    "copy-webpack-plugin": "^6.4.1",
+    "html-to-react": "^1.4.5"
   },
   "dependencies": {
     "lerna": "^4.0.0"

@@ -30,7 +30,7 @@
   ],
   "scripts": {
     "build:components": "stencil build --docs",
-    "build": "gulp && npm run add:react && npm run build:components && npm run build:react && npm run storybook:build && npm run docs:build",
+    "build": "npm run add:react && npm run build:components && npm run build:react",
     "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm-run-all --parallel start storybook",
@@ -69,7 +69,7 @@
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/web-components": "^6.2.9",
     "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.41",
+    "@types/node": "^14.0.10",
     "@types/puppeteer": "^5.4.3",
     "@types/react": "^17.0.22",
     "@types/react-dom": "^17.0.9",
@@ -112,7 +112,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "moment-mini": "^2.24.0"
+    "moment-mini": "^2.24.0",
+    "@freshworks/crayons": "file:../crayons-core"
   },
   "config": {
     "commitizen": {

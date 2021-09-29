@@ -106,8 +106,9 @@ export class Button {
             `}
           disabled={this.disabled}
         >
-          datat-table1 <slot />
+          <slot />
         </button>
+        <fw-label color='blue' value='atomic component'></fw-label>
       </Host>
     );
   }

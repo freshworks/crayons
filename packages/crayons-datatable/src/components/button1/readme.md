@@ -26,6 +26,19 @@
 | `fwFocus` | Triggered when the button comes into focus. | `CustomEvent<void>` |
 
 
+## Dependencies
+
+### Depends on
+
+- fw-label
+
+### Graph
+```mermaid
+graph TD;
+  fw-button1 --> fw-label
+  style fw-button1 fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

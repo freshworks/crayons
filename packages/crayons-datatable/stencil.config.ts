@@ -4,6 +4,9 @@ import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
+import { components } from '@freshworks/crayons/dist/docs.json';
+const webComponents = components.map((c) => c.tag);
+
 export const config: Config = {
   autoprefixCss: true,
   namespace: 'crayons-datatable',
@@ -49,6 +52,7 @@ export const config: Config = {
       // tree shakable
       customElementsDir: 'dist/components',
       includeImportCustomElements: true,
+      excludeComponents: webComponents,
     }),
   ],
   plugins: [
@@ -56,6 +60,7 @@ export const config: Config = {
       injectGlobalPaths: ['src/styles/index.scss'],
     }),
   ],
+  globalScript: 'src/global.ts',
   testing: {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     collectCoverageFrom: [
