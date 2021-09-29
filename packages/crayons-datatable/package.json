@@ -21,7 +21,7 @@
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/crayons/crayons.js",
+  "unpkg": "dist/crayons-datatable/crayons-datatable.js",
   "files": [
     "dist/",
     "loader/",
