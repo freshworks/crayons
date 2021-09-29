@@ -223,18 +223,27 @@
       max-height: calc(var(--dropdown-max-height) - 105px);
     }
 
-    .dropdown-item {
-      padding: 5px 25px 8px 10px;
-      color: var(--btn-secondary-color);
-      font-size: var(--dropdown-font-size);
-      font-weight: $font-weight-500;
-      cursor: pointer;
-      background: transparent;
-      border-radius: 5px;
+    .dropdown-item-wrapper {
+      width: 100%;
 
-      &:hover,
-      &:focus {
-        background: var(--bg-color-hover);
+      .dropdown-item {
+        padding: 5px 25px 8px 10px;
+        color: var(--btn-secondary-color);
+        font-size: var(--dropdown-font-size);
+        font-weight: $font-weight-500;
+        cursor: pointer;
+        background: transparent;
+        border-radius: 5px;
+
+        text-decoration: none;
+        border: 0;
+        text-align: left;
+        width: inherit;
+
+        &:hover,
+        &:focus {
+          background: var(--bg-color-hover);
+        }
       }
     }
 

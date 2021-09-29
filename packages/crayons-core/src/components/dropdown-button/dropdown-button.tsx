@@ -246,16 +246,18 @@ export class DropdownButton {
           <div class={this.searchable ? `search-list` : ''}>
             {validOptions.map((option) => {
               const liEl = (
-                <li
-                  key={option.id || option.value}
-                  onClick={() => this.handleOptionClick(option)}
-                  class='dropdown-item'
-                  onKeyDown={handleKeyDown(() =>
-                    this.handleOptionClick(option)
-                  )}
-                >
-                  {' '}
-                  {option.label}{' '}
+                <li class='dropdown-item-wrapper'>
+                  <button
+                    key={option.id || option.value}
+                    onClick={() => this.handleOptionClick(option)}
+                    class='dropdown-item'
+                    onKeyDown={handleKeyDown(() =>
+                      this.handleOptionClick(option)
+                    )}
+                  >
+                    {' '}
+                    {option.label}{' '}
+                  </button>
                 </li>
               );
 
