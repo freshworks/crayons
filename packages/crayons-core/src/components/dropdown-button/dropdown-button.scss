@@ -224,7 +224,6 @@ $active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
       max-height: calc(var(--dropdown-max-height) - 105px);
     }
 
-
     .dropdown-item-wrapper {
       width: 100%;
 
@@ -246,7 +245,8 @@ $active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
         &:focus {
           background: var(--bg-color-hover);
         }
-     }
+      }
+    }
 
     .searchable-item {
       margin-left: 5px;
