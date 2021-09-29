@@ -69,10 +69,6 @@ export class Textarea {
    */
   @Prop() stateText = '';
   /**
-   * If true, the textarea is autofocused
-   */
-  @Prop() autofocus = false;
-  /**
    * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() readonly = false;
@@ -184,7 +180,6 @@ export class Textarea {
               minLength={this.minlength}
               maxLength={this.maxlength}
               readOnly={this.readonly}
-              autoFocus={this.autofocus}
               required={this.required}
               value={this.value}
               onInput={(e) => this.onInput(e)}
