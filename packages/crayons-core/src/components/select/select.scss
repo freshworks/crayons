@@ -3,17 +3,18 @@
   @prop --max-height: Maximum height of the select component
 */
 
+$label-font: $font-stack;
+$input-bg: $color-milk;
+$help-color: $color-smoke-300;
+$error-color: $color-persimmon-800;
+$input-color: $color-elephant-900;
+$input-disabled-bg: $color-smoke-25;
+$input-hover-color: $color-smoke-700;
+$input-focus-color: $color-azure-800;
+$input-border: $color-smoke-100;
+$warning-color: $color-casablanca-300;
+
 :host {
-  --label-font: #{$font-stack};
-  --input-bg: #{$color-milk};
-  --help-color: #{$color-smoke-300};
-  --error-color: #{$color-persimmon-800};
-  --input-color: #{$color-elephant-900};
-  --input-disabled-bg: #{$color-smoke-25};
-  --input-hover-color: #{$color-smoke-700};
-  --input-focus-color: #{$color-azure-800};
-  --input-border: #{$color-smoke-100};
-  --warning-color: #{$color-casablanca-300};
   --min-height: 10px;
   --max-height: 200px;
 }
@@ -46,7 +47,7 @@ label {
     display: inline-block;
     top: 2px;
     font-size: $font-size-14;
-    color: var(--error-color);
+    color: $error-color;
     padding-left: 2px;
   }
 }
@@ -66,7 +67,7 @@ label {
     font-weight: $font-weight-500;
     letter-spacing: 0;
     line-height: 1.4;
-    background-color: var(--input-bg);
+    background-color: $input-bg;
     min-width: 20px;
     box-sizing: border-box;
     overflow: hidden;
@@ -81,7 +82,7 @@ label {
     }
 
     &:disabled {
-      background-color: var(--input-disabled-bg) !important;
+      background-color: $input-disabled-bg !important;
       border-color: transparent;
       cursor: not-allowed;
     }
@@ -91,11 +92,11 @@ label {
 .input-container {
   width: calc(100% - 10px);
   border: 0;
-  border: 1px solid var(--input-border);
+  border: 1px solid $input-border;
   margin: 5px 0 0;
   border-radius: 4px;
   padding: 4px 0 4px 10px;
-  background-color: var(--input-bg);
+  background-color: $input-bg;
   box-shadow: none;
   min-height: 24px;
   display: inline-block;
@@ -109,26 +110,26 @@ label {
   /* stylelint-disable */
   &:hover,
   &:focus {
-    border: 1px var(--input-hover-color) solid;
+    border: 1px $input-hover-color solid;
     transition: 0.2s linear;
   }
 
   &.error {
-    @include stateStyle(var(--error-color));
+    @include stateStyle($error-color);
   }
 
   &.warning {
-    @include stateStyle(var(--warning-color));
+    @include stateStyle($warning-color);
   }
 
   &.select-disabled {
-    color: var(--color-smoke-50);
-    background-color: var(--input-disabled-bg) !important;
+    color: $color-smoke-50;
+    background-color: $input-disabled-bg !important;
     border-style: solid;
     cursor: not-allowed;
 
     &:hover {
-      border: 1px solid var(--input-border);
+      border: 1px solid $input-border;
     }
   }
 }
@@ -136,20 +137,20 @@ label {
 :host(.has-focus) {
   .input-container {
     outline: none;
-    background: var(--input-bg);
+    background: $input-bg;
     border: 1px solid transparent;
-    box-shadow: 0 0 0 2px var(--input-focus-color);
+    box-shadow: 0 0 0 2px $input-focus-color;
 
     &.error {
-      @include stateStyle(var(--error-color));
+      @include stateStyle($error-color);
 
-      box-shadow: 0 0 0 1px var(--error-color);
+      box-shadow: 0 0 0 1px $error-color;
     }
 
     &.warning {
-      @include stateStyle(var(--warning-color));
+      @include stateStyle($warning-color);
 
-      box-shadow: 0 0 0 1px var(--warning-color);
+      box-shadow: 0 0 0 1px $warning-color;
     }
   }
 }
@@ -177,7 +178,7 @@ label {
     display: none;
     position: absolute;
     z-index: 1;
-    background: var(--input-bg);
+    background: $input-bg;
     width: 100%;
     box-sizing: border-box;
     outline: none;
@@ -209,7 +210,7 @@ label {
   .help-block {
     font-size: $font-size-12;
     margin-top: 3px;
-    color: var(--help-color);
+    color: $help-color;
     position: inherit;
     margin-bottom: 0;
     display: block;

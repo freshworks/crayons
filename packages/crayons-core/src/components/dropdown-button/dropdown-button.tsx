@@ -8,6 +8,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
+import { handleKeyDown } from '../../utils/utils';
 
 @Component({
   tag: 'fw-dropdown-button',
@@ -103,11 +104,11 @@ export class DropdownButton {
   /**
    * Toggles dropdown b/w open and close
    */
-  private handleDropdownToggle() {
+  private handleDropdownToggle = () => {
     if (!this.disabled) {
       this.isDropdownOpen = !this.isDropdownOpen;
     }
-  }
+  };
 
   /**
    * Sets dropdown options from slot
@@ -245,13 +246,18 @@ export class DropdownButton {
           <div class={this.searchable ? `search-list` : ''}>
             {validOptions.map((option) => {
               const liEl = (
-                <li
-                  key={option.id || option.value}
-                  onClick={() => this.handleOptionClick(option)}
-                  class='dropdown-item'
-                >
-                  {' '}
-                  {option.label}{' '}
+                <li class='dropdown-item-wrapper'>
+                  <button
+                    key={option.id || option.value}
+                    onClick={() => this.handleOptionClick(option)}
+                    class='dropdown-item'
+                    onKeyDown={handleKeyDown(() =>
+                      this.handleOptionClick(option)
+                    )}
+                  >
+                    {' '}
+                    {option.label}{' '}
+                  </button>
                 </li>
               );
 
@@ -295,8 +301,11 @@ export class DropdownButton {
       `;
       return this.split ? (
         <div
+          role='button'
+          tabindex='0'
           onClick={() => this.handleDropdownToggle()}
           class={dropdownStateClasses}
+          onKeyDown={handleKeyDown(this.handleDropdownToggle)}
         >
           <div class='state-icon'>
             <ChevronArrow />

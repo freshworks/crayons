@@ -1,15 +1,13 @@
-:host {
-  --primary-color: #{$color-elephant-900};
-  --selected-color: #{$color-azure-800};
-  --disabled-color: #{$color-smoke-300};
-  --bg-color: #{$color-azure-50};
-  --bg-color-hover: #{$color-smoke-50};
-  --bg-color-disabled: #{$color-smoke-25};
-}
+$primary-color: $color-elephant-900;
+$selected-color: $color-azure-800;
+$disabled-color: $color-smoke-300;
+$bg-color: $color-azure-50;
+$bg-color-hover: $color-smoke-50;
+$bg-color-disabled: $color-smoke-25;
 
 .select-option {
   cursor: pointer;
-  color: var(--primary-color);
+  color: $primary-color;
   padding: 7px 30px 7px 8px;
   font-size: $font-size-14;
   border-radius: 2px;
@@ -21,22 +19,22 @@
   position: relative;
 
   &.selected {
-    color: var(--selected-color);
+    color: $selected-color;
     position: relative;
     font-weight: $font-weight-500;
-    background-color: var(--bg-color);
+    background-color: $bg-color;
   }
 
   &:hover,
   &:focus {
-    background-color: var(--bg-color-hover);
+    background-color: $bg-color-hover;
   }
 
   &.disabled {
-    color: var(--disabled-color);
+    color: $disabled-color;
     position: relative;
     cursor: not-allowed;
-    background-color: var(--bg-color-disabled);
+    background-color: $bg-color-disabled;
   }
 
   &::after {

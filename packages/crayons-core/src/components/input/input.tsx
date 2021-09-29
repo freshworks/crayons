@@ -11,7 +11,7 @@ import {
   h,
 } from '@stencil/core';
 
-import { renderHiddenField } from '../../utils/utils';
+import { handleKeyDown, renderHiddenField } from '../../utils/utils';
 
 @Component({
   tag: 'fw-input',
@@ -39,10 +39,6 @@ export class Input {
    * Specifies whether the browser can display suggestions to autocomplete the text value.
    */
   @Prop() autocomplete: 'on' | 'off' = 'off';
-  /**
-   * Specifies whether the browser can auto focus the input field
-   */
-  @Prop() autofocus = false;
   /**
    * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
    */
@@ -216,7 +212,6 @@ export class Input {
             <input
               ref={(input) => (this.nativeInput = input)}
               autoComplete={this.autocomplete}
-              autoFocus={this.autofocus}
               disabled={this.disabled}
               name={this.name}
               placeholder={this.placeholder || ''}
@@ -241,7 +236,13 @@ export class Input {
               ''
             )}
             {this.showClearButton() ? (
-              <div class='clear-button' onClick={(e) => this.clearTextInput(e)}>
+              <div
+                class='clear-button'
+                role='button'
+                tabindex='0'
+                onClick={(e) => this.clearTextInput(e)}
+                onKeyDown={handleKeyDown(this.clearTextInput)}
+              >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='32'
