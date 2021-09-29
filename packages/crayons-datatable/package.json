@@ -1,5 +1,5 @@
 {
-  "name": "@freshworks/crayons",
+  "name": "crayons-datatable",
   "repository": {
     "type": "git",
     "url": "https://github.com/freshworks/crayons.git"
@@ -12,8 +12,8 @@
     "components"
   ],
   "author": "Freshworks Inc",
-  "version": "2.13.2",
-  "description": "Crayons for Developer Platform",
+  "version": "0.0.1",
+  "description": "Crayons Datatable for Developer Platform",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",

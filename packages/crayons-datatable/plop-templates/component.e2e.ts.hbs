@@ -1,0 +1,11 @@
+import { newE2EPage } from '@stencil/core/testing';
+
+describe('fw-{{componentCase componentName}}', () => {
+  it('renders', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-{{componentCase componentName}}></fw-{{componentCase componentName}}>');
+    const element = await page.find('fw-{{componentCase componentName}}');
+    expect(element).toHaveClass('hydrated');
+  });
+});
