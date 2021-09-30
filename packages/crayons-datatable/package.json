@@ -21,7 +21,7 @@
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/crayons/crayons.js",
+  "unpkg": "dist/crayons-datatable/crayons-datatable.js",
   "files": [
     "dist/",
     "loader/",
@@ -46,11 +46,14 @@
     "storybook:build": "build-storybook -c .storybook -s www -o storybook-dist",
     "storybook:test": "npm run test:generate && npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook -s www",
-    "test:watch": "gulp && stencil test --spec --e2e --watchAll",
-    "test": "gulp && stencil test --spec --e2e",
+    "test:watch": "stencil test --spec --e2e --watchAll",
+    "test": "stencil test --spec --e2e",
     "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
-    "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react"
+    "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react",
+    "a11y:test": "run-p local a11y:run",
+    "a11y:install": "npm i -g @axe-core/cli",
+    "a11y:run": "wait-on http://localhost:3333/ && npm run a11y:install && axe http://localhost:3333 --show-errors --exit --tags wcag2aa"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
@@ -103,6 +106,7 @@
     "vuepress-plugin-google-tag-manager": "0.0.5",
     "vuepress-plugin-live": "^1.6.2",
     "vuepress-plugin-seo": "^0.1.4",
+    "wait-on": "^6.0.0",
     "web-component-analyzer": "^1.1.6",
     "workbox-build": "^4.3.1",
     "write-file-webpack-plugin": "^4.5.1"
@@ -112,8 +116,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "moment-mini": "^2.24.0",
-    "@freshworks/crayons": "file:../crayons-core"
+    "@freshworks/crayons": "file:../crayons-core",
+    "moment-mini": "^2.24.0"
   },
   "config": {
     "commitizen": {

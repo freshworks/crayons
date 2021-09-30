@@ -50,7 +50,10 @@
     "test": "gulp && stencil test --spec --e2e",
     "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
-    "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react"
+    "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react",
+    "a11y:test": "run-p local a11y:install a11y:run",
+    "a11y:install": "npm i -g @axe-core/cli",
+    "a11y:run": "wait-on -d 30000 http://localhost:3333/ && axe http://localhost:3333 --show-errors --exit --tags wcag2aa"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
@@ -103,6 +106,7 @@
     "vuepress-plugin-google-tag-manager": "0.0.5",
     "vuepress-plugin-live": "^1.6.2",
     "vuepress-plugin-seo": "^0.1.4",
+    "wait-on": "^6.0.0",
     "web-component-analyzer": "^1.1.6",
     "workbox-build": "^4.3.1",
     "write-file-webpack-plugin": "^4.5.1"
