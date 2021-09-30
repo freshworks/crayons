@@ -38,9 +38,17 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description for the checkbox
+         */
+        "description": string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        /**
+          * Indicates the presence of html content if set to true.
+         */
+        "html": boolean;
         /**
           * Label displayed on the interface, for the check box.
          */
@@ -763,9 +771,17 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description for the checkbox
+         */
+        "description"?: string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        /**
+          * Indicates the presence of html content if set to true.
+         */
+        "html"?: boolean;
         /**
           * Label displayed on the interface, for the check box.
          */

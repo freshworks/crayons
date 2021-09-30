@@ -28,6 +28,24 @@ describe('fw-checkbox', () => {
     expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
   });
 
+  it('it emits fwChange when space is pressed', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-checkbox value="1">1</fw-checkbox>');
+    const element = await page.find('fw-checkbox');
+    const fwChange = await page.spyOnEvent('fwChange');
+    await element.press('Space');
+    expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
+  });
+
+  it('it emits fwChange when Enter is pressed', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-checkbox value="1">1</fw-checkbox>');
+    const element = await page.find('fw-checkbox');
+    const fwChange = await page.spyOnEvent('fwChange');
+    await element.press('Enter');
+    expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
+  });
+
   it('it emits fwChange when property is set', async () => {
     const page = await newE2EPage();
 
@@ -47,5 +65,21 @@ describe('fw-checkbox', () => {
     const fwChange = await page.spyOnEvent('fwChange');
     await element.click();
     expect(fwChange.events).toEqual([]);
+  });
+
+  it('it should set label when passed as a prop', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-checkbox label="Yes"></fw-checkbox>');
+    const element = await page.find('fw-checkbox >>> span');
+    expect(element).toEqualText('Yes');
+  });
+
+  it('it should set subtitle/description when passed as a prop', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-checkbox label="Yes" description="Select to Agree"></fw-checkbox>');
+    const element = await page.find('fw-checkbox >>> div');
+    expect(element).toEqualText('Select to Agree');
   });
 });

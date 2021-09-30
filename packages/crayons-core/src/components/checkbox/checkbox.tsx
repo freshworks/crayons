@@ -1,13 +1,4 @@
-import {
-  Component,
-  Element,
-  Event,
-  EventEmitter,
-  Host,
-  Prop,
-  Watch,
-  h,
-} from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h, Listen } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils/utils';
 
@@ -17,6 +8,7 @@ import { renderHiddenField } from '../../utils/utils';
   shadow: true,
 })
 export class Checkbox {
+
   @Element() host!: HTMLElement;
   /**
    * Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.
@@ -30,6 +22,14 @@ export class Checkbox {
    * Label displayed on the interface, for the check box.
    */
   @Prop() label = '';
+  /**
+   * Description for the checkbox
+   */
+  @Prop() description = '';
+  /** 
+   * Indicates the presence of html content if set to true.
+  */
+  @Prop() html = false;
   /**
    * Name of the component, saved as part of form data.
    */
@@ -77,6 +77,14 @@ export class Checkbox {
     this.checkbox.disabled = isDisabled;
   }
 
+  @Listen('keydown')
+  handleKeydown(ev: KeyboardEvent) {
+    if(ev.code === 'Space' || ev.code === 'Enter') {
+      ev.preventDefault();
+      this.toggle();
+    }
+  }
+
   private onFocus() {
     this.fwFocus.emit();
   }
@@ -106,21 +114,28 @@ export class Checkbox {
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={`${this.checked}`}
+        aria-label={`${this.label}`}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
-      >
-        <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
-        <label>
-          <span class='text'>
-            <slot />
-          </span>
-          <br />
-          {this.label !== '' ? (
-            <span class='label-field'>{this.label}</span>
-          ) : (
-            ''
-          )}
-        </label>
+        >
+          <input type="checkbox"
+            ref={el => this.checkbox = el}>
+          </input>
+          <label>
+            {
+              this.label !== ''
+              ? <span class="label-field">{this.label}</span>
+              : ''
+            }
+            {
+              this.description !== ''
+              ? <div class="description">{this.description}</div>
+              : ''
+            }
+            {
+              this.html ? <div class="description"><slot/></div> : ''
+            }
+          </label>
       </Host>
     );
   }
