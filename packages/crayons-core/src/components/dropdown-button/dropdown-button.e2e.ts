@@ -22,55 +22,56 @@ describe('fw-dropdown-button', () => {
     `;
     const expectedOutput = `
     <div class="dropdown-container">
-      <div class="btn-container">
-      <fw-button class="hydrated">
-        Click me
-        <span class="down-arrow">
-          <fw-icon class="hydrated"></fw-icon>
-        </span>
-      </fw-button>
-      </div>
-      <ul class="dropdown-menu">
-      <div>
-        <li class="dropdown-item">
-          Ullu
-        </li>
-        <li class="dropdown-item">
-          Hotstar
-        </li>
-        <li class="dropdown-item">
-          Amazon
-        </li>
-        <li class="dropdown-item">
-          Netflix
-        </li>
-        <li class="dropdown-item">
-          Mx Player
-        </li>
-        <li class="dropdown-item">
-          Share it
-        </li>
-        <li class="dropdown-item">
-          Amazon Prime
-        </li>
-        <li class="dropdown-item">
-          Watch32
-        </li>
-        <li class="dropdown-item">
-          YTS Movies
-        </li>
-        <li class="dropdown-item">
-          Telegram
-        </li>
-        <li class="dropdown-item">
-          Solar Movies
-        </li>
-        <li class="dropdown-item">
-          Yifi torrents
-        </li>
-        </div>
-      </ul>
+  <div class="btn-container">
+    <fw-button class="hydrated">
+      Click me
+      <span class="down-arrow">
+        <fw-icon class="hydrated"></fw-icon>
+      </span>
+    </fw-button>
+  </div>
+  <ul class="dropdown-menu">
+    <div>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Ullu</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Hotstar</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Amazon</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Netflix</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Mx Player</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Share it</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Amazon Prime</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Watch32</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">YTS Movies</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Telegram</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Solar Movies</button>
+      </li>
+      <li class="dropdown-item-wrapper">
+        <button class="dropdown-item">Yifi torrents</button>
+      </li>
     </div>
+  </ul>
+</div>
+
     `;
     const page = await newE2EPage();
 

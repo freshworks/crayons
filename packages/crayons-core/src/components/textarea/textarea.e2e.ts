@@ -81,13 +81,4 @@ describe('fw-textarea', () => {
 
     expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
   });
-
-  it('auto focuses when set to true', async () => {
-    const page = await newE2EPage();
-
-    await page.setContent('<fw-textarea autofocus></fw-input>');
-    const inputElement = await page.find('fw-textarea >>> textarea');
-
-    expect(inputElement.getAttribute('autofocus')).toBe('');
-  });
 });
