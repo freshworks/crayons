@@ -4,6 +4,7 @@ import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
+//do npm run build on the parent first before running the dev/test/build command on this package
 import { components } from '@freshworks/crayons/dist/docs.json';
 const webComponents = components.map((c) => c.tag);
 
