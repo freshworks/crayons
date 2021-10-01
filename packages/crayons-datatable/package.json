@@ -38,7 +38,7 @@
     "docs:dev": "npm run build:components && vuepress dev .",
     "generate": "plop",
     "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue'",
-    "lint:ts": "eslint 'src'",
+    "lint:ts": "eslint 'src' --fix",
     "lint": "npm run lint:ts && npm run lint:styles",
     "local": "stencil build --serve --dev --watch",
     "semantic-release": "semantic-release",
@@ -129,7 +129,7 @@
   },
   "lint-staged": {
     "**/*.{css,scss,vue}": "stylelint",
-    "src": "eslint"
+    "src": "eslint --fix"
   },
   "publishConfig": {
     "access": "public"
