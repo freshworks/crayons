@@ -26,10 +26,6 @@ export class Checkbox {
    * Description for the checkbox
    */
   @Prop() description = '';
-  /** 
-   * Indicates the presence of html content if set to true.
-  */
-  @Prop() html = false;
   /**
    * Name of the component, saved as part of form data.
    */
@@ -127,14 +123,9 @@ export class Checkbox {
               ? <span class="label-field">{this.label}</span>
               : ''
             }
-            {
-              this.description !== ''
-              ? <div class="description">{this.description}</div>
-              : ''
-            }
-            {
-              this.html ? <div class="description"><slot/></div> : ''
-            }
+            <div class="description">{this.description}
+              <slot></slot>
+            </div>
           </label>
       </Host>
     );
