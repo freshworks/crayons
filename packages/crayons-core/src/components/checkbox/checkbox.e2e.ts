@@ -75,11 +75,14 @@ describe('fw-checkbox', () => {
     expect(element).toEqualText('Yes');
   });
 
-  it('it should set subtitle/description when passed as a prop', async () => {
+  it('it should return html structure with slot when content is passed between opening and closing tag', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-checkbox label="Yes" description="Select to Agree"></fw-checkbox>');
+    await page.setContent('<fw-checkbox label="Yes">Select to Agree</fw-checkbox>');
     const element = await page.find('fw-checkbox >>> div');
-    expect(element).toEqualText('Select to Agree');
+    console.log(element);
+    expect(element).toEqualHtml(`<div id="description">
+    <slot/>
+    </div>`);
   });
 });

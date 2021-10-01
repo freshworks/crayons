@@ -111,6 +111,7 @@ export class Checkbox {
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={`${this.checked}`}
         aria-label={`${this.label}`}
+        aria-describedby="description"
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
         >
@@ -123,10 +124,10 @@ export class Checkbox {
               ? <span class="label-field">{this.label}</span>
               : ''
             }
-            <div class="description">{this.description}
-              <slot></slot>
-            </div>
           </label>
+          <div id="description">
+            <slot/>
+          </div>
       </Host>
     );
   }
