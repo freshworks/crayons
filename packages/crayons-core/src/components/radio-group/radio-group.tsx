@@ -7,6 +7,7 @@ import {
   Prop,
   Watch,
   h,
+  Listen
 } from '@stencil/core';
 
 import {
@@ -23,16 +24,25 @@ export class RadioGroup {
 
   @Element() host!: HTMLElement;
 
+  private selectedIndex = 0;
+  private getRadiosPromise;
+  
   /**
    * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() allowEmpty = false;
-
+  /**
+   * Label for the component, that can be used by screen readers.
+   */
+   @Prop() label = '';
   /**
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
-
+  /**
+   * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
+   */
+  @Prop() orientation: 'row' | 'column' = 'column';
   /**
    * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
    */
@@ -49,7 +59,65 @@ export class RadioGroup {
    */
   @Event() fwChange!: EventEmitter;
 
+  @Listen('keydown')
+  async handleKeydown(event: KeyboardEvent) {
+    const radios = await this.getRadios();
+    let previousSelected = this.selectedIndex;
+    switch (event.code) {
+      case 'ArrowDown':
+      case 'ArrowRight':
+        event.preventDefault();
+        radios[previousSelected].setAttribute('tabindex', '-1');
+        radios[previousSelected].checked = false;
+
+        // set currently selectedIndex using roving tabindex technique
+        if (this.selectedIndex === radios.length - 1) {
+          this.selectedIndex = 0;
+        } else {
+          this.selectedIndex++;
+        }
+        radios[this.selectedIndex].setAttribute('tabindex', '0');
+        radios[this.selectedIndex].checked = true;
+        radios[this.selectedIndex].focus();
+        this.value = radios[this.selectedIndex].value;
+        break;
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        event.preventDefault();
+        radios[previousSelected].setAttribute('tabindex', '-1');
+        radios[previousSelected].checked = false;
+
+        // set currently selectedIndex using roving tabindex technique
+        if (this.selectedIndex === 0) {
+          this.selectedIndex = radios.length - 1;
+        } else {
+          this.selectedIndex--;
+        }
+        radios[this.selectedIndex].setAttribute('tabindex', '0');
+        radios[this.selectedIndex].checked = true;
+        radios[this.selectedIndex].focus();
+        this.value = radios[this.selectedIndex].value;
+        break;
+      case 'Space':
+        event.preventDefault();
+        radios[this.selectedIndex].checked = true;
+        radios[this.selectedIndex].focus();
+        this.value = radios[this.selectedIndex].value;
+        break;
+      default:
+        break;
+    }
+  }
+
   async connectedCallback() {
+  
+    this.host.style.display = 'flex';
+    if (this.orientation === 'row') {
+      this.host.style.flexDirection = 'row'
+    } else {
+      this.host.style.flexDirection = 'column'
+    }
+
     const el = this.host;
 
     if (this.value === undefined) {
@@ -102,32 +170,41 @@ export class RadioGroup {
     let hasChecked = false;
 
     // Walk the DOM in reverse order, since the last selected one wins!
-    for (const radio of radios) {
+    for (const [index, radio] of radios.entries()) {
       if (!hasChecked && radio.value === value) {
         // correct value for this radio
         // but this radio isn't checked yet
         // and we haven't found a checked yet
         hasChecked = true;
         radio.checked = true;
+        radio.setAttribute('tabindex', '0');
+        this.selectedIndex = index;
       } else {
         // this radio doesn't have the correct value
         // or the radio group has been already checked
+        radio.setAttribute('tabindex', '-1');
         radio.checked = false;
       }
     }
 
     // Reset value if
     if (!hasChecked) {
+      console.log('radios:', radios);
+      radios.length !==0 && radios[0].setAttribute('tabindex', '0');
+      this.selectedIndex = 0;
       this.value = undefined;
     }
   }
 
-  private getRadios() {
-    return Promise.all(
-      Array.from(this.host.querySelectorAll('fw-radio')).map((r) =>
-        r.componentOnReady()
-      )
+  private async getRadios() {
+    if(this.getRadiosPromise) return this.getRadiosPromise;
+
+    this.getRadiosPromise = await Promise.all(
+      Array
+        .from(this.host.querySelectorAll('fw-radio'))
+        .map(r => r.componentOnReady())
     );
+    return this.getRadiosPromise;
   }
 
   private onSelect = (ev: Event) => {
@@ -153,6 +230,7 @@ export class RadioGroup {
     return (
       <Host
         role='radiogroup'
+        aria-label={this.label}
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
       ></Host>

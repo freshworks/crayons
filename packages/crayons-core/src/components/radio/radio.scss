@@ -21,15 +21,17 @@
   }
 }
 
-.label-field {
+#description {
   font-size: 12px;
   color: #475867;
   letter-spacing: 0;
-  line-height: 20px;
+  line-height: 18px;
   position: relative;
-  padding-left: 28px;
+  padding-left: 22px;
   font-weight: 400;
+  word-wrap: break-word;
 }
+
 
 /* Hover event occurs on the root element */
 :host(:hover) {
@@ -59,12 +61,14 @@ input[type='radio'] {
     max-width: auto;
     margin-bottom: 0;
     vertical-align: middle;
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 20px;
     color: #12344d;
     font-weight: 500;
 
-    .text {
-      padding-left: 27px;
+    .label-field {
+      padding-left: 22px;
+      margin-right: 5px;
     }
 
     &::before,
