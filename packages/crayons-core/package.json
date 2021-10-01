@@ -29,12 +29,8 @@
     "react"
   ],
   "scripts": {
-    "build:components": "stencil build --docs && npm run build:style",
-    "build": "gulp && npm run add:react && npm run build:components && npm run build:react && npm run storybook:build && npm run docs:build",
-    "build:style": "npm run build:scss && npm run build:autoprefix && npm run build:min",
-    "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive src/styles/global/ -o dist/css",
-    "build:autoprefix": "postcss dist/css/*.css --use autoprefixer --dir  dist/css/",
-    "build:min": "cleancss -b dist/css/*.css dist/css/",
+    "build:components": "stencil build --docs",
+    "build": "gulp && npm run add:react && npm run build:components && npm run build:react",
     "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm-run-all --parallel start storybook",
@@ -42,7 +38,7 @@
     "docs:dev": "npm run build:components && vuepress dev .",
     "generate": "plop",
     "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue'",
-    "lint:ts": "eslint 'src'",
+    "lint:ts": "eslint 'src' --fix",
     "lint": "npm run lint:ts && npm run lint:styles",
     "local": "stencil build --serve --dev --watch",
     "semantic-release": "semantic-release",
@@ -72,17 +68,14 @@
     "@storybook/html": "^6.2.9",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/web-components": "^6.2.9",
-    "@types/autoprefixer": "^9.6.1",
     "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.41",
+    "@types/node": "^14.0.10",
     "@types/puppeteer": "^5.4.3",
     "@types/react": "^17.0.22",
     "@types/react-dom": "^17.0.9",
     "@vue/babel-preset-app": "^4.5.12",
     "@vuepress/plugin-active-header-links": "^1.8.2",
-    "autoprefixer": "^9.6.1",
     "babel-loader": "^8.2.2",
-    "clean-css-cli": "^5.3.3",
     "commitizen": "^4.2.4",
     "copy-webpack-plugin": "^6.4.1",
     "custom-tslint-formatters": "^2.4.0",
@@ -97,8 +90,6 @@
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "plop": "^2.7.4",
-    "postcss": "^7.0.36",
-    "postcss-cli": "^7.1.2",
     "puppeteer": "5.2.1",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
@@ -137,7 +128,7 @@
   },
   "lint-staged": {
     "**/*.{css,scss,vue}": "stylelint",
-    "src": "eslint"
+    "src": "eslint --fix"
   },
   "publishConfig": {
     "access": "public"

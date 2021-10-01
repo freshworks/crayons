@@ -12,7 +12,7 @@ import {
   h,
 } from '@stencil/core';
 
-import { renderHiddenField } from '../../utils/utils';
+import { handleKeyDown, renderHiddenField } from '../../utils/utils';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -64,10 +64,6 @@ export class Select {
    * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
    */
   @Prop() readonly = false;
-  /**
-   * If true, the select component is auto focused on the page
-   */
-  @Prop() autofocus = false;
   /**
    * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
@@ -314,6 +310,7 @@ export class Select {
             }}
             ref={(select) => (this.select = select)}
             onClick={() => this.innerOnClick()}
+            onKeyDown={handleKeyDown(this.innerOnClick)}
           >
             <div class='input-container-inner'>
               {this.renderTags()}
@@ -323,7 +320,6 @@ export class Select {
                   'multiple-select': this.multiple,
                 }}
                 autoComplete='off'
-                autoFocus={this.autofocus}
                 disabled={this.disabled}
                 name={this.name}
                 placeholder={this.value ? '' : this.placeholder || ''}
@@ -343,11 +339,7 @@ export class Select {
               ></span>
             </div>
           </div>
-          <ul
-            tabindex='0'
-            class='dropdown'
-            ref={(ul) => (this.selectList = ul)}
-          >
+          <ul class='dropdown' ref={(ul) => (this.selectList = ul)}>
             {this.renderDropdown()}
           </ul>
           {this.stateText !== '' ? (
@@ -357,9 +349,12 @@ export class Select {
           )}
         </div>
         <div
+          role='button'
+          tabindex='0'
           class='overlay'
           ref={(overlay) => (this.overlay = overlay)}
           onClick={() => this.closeDropdown()}
+          onKeyDown={handleKeyDown(this.closeDropdown)}
         />
       </Host>
     );

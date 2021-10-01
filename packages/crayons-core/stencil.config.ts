@@ -56,7 +56,6 @@ export const config: Config = {
       injectGlobalPaths: ['src/styles/index.scss'],
     }),
   ],
-  globalStyle: 'src/styles/global/crayons.scss',
   testing: {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     collectCoverageFrom: [

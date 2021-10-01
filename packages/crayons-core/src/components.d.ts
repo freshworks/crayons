@@ -150,10 +150,6 @@ export namespace Components {
          */
         "autocomplete": 'on' | 'off';
         /**
-          * Specifies whether the browser can auto focus the input field
-         */
-        "autofocus": boolean;
-        /**
           * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput": boolean;
@@ -304,10 +300,6 @@ export namespace Components {
     }
     interface FwSelect {
         /**
-          * If true, the select component is auto focused on the page
-         */
-        "autofocus": boolean;
-        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
@@ -434,10 +426,6 @@ export namespace Components {
     }
     interface FwTextarea {
         /**
-          * If true, the textarea is autofocused
-         */
-        "autofocus": boolean;
-        /**
           * Width of the input box, specified as number of columns.
          */
         "cols"?: number;
@@ -557,7 +545,10 @@ export namespace Components {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type": 'success' | 'error' | 'warning' | 'inprogress';
+        "type": | 'success'
+    | 'error'
+    | 'warning'
+    | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -903,10 +894,6 @@ declare namespace LocalJSX {
          */
         "autocomplete"?: 'on' | 'off';
         /**
-          * Specifies whether the browser can auto focus the input field
-         */
-        "autofocus"?: boolean;
-        /**
           * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput"?: boolean;
@@ -1101,10 +1088,6 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
-          * If true, the select component is auto focused on the page
-         */
-        "autofocus"?: boolean;
-        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
@@ -1257,10 +1240,6 @@ declare namespace LocalJSX {
     }
     interface FwTextarea {
         /**
-          * If true, the textarea is autofocused
-         */
-        "autofocus"?: boolean;
-        /**
           * Width of the input box, specified as number of columns.
          */
         "cols"?: number;
@@ -1395,7 +1374,10 @@ declare namespace LocalJSX {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
+        "type"?: | 'success'
+    | 'error'
+    | 'warning'
+    | 'inprogress';
     }
     interface FwToggle {
         /**

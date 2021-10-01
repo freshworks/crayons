@@ -19,10 +19,10 @@ module.exports = {
     'plugin:vue/essential',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    //'plugin:jsx-a11y/recommended',
+    'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: ['@typescript-eslint' /*'jsx-a11y'*/],
+  plugins: ['@typescript-eslint', 'jsx-a11y'],
   rules: {
     '@typescript-eslint/no-unused-vars': 0,
     'react/no-jsx-bind': 0,

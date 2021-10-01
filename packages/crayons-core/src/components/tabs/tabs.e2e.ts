@@ -47,7 +47,7 @@ describe('fw-tabs', () => {
     expect(element.shadowRoot).toEqualHtml(`
     <div class="tabs">
         <ul class="tabs__items" role="tablist">
-           <li class="tabs__item">
+           <li class="tabs__item" role="tab">
             <div class="active tabs__item__nav" id="#tab-0">
               <span class="tab-title--tab-icon">
                 <span class="tab-title">
@@ -56,7 +56,7 @@ describe('fw-tabs', () => {
               </span>
             </div>
           </li>
-          <li class="tabs__item">
+          <li class="tabs__item" role="tab">
             <div class="tabs__item__nav" id="#tab-1">
               <span class="tab-title--tab-icon">
                 <span class="tab-title">
@@ -65,7 +65,7 @@ describe('fw-tabs', () => {
               </span>
             </div>
           </li>
-          <li class="tabs__item">
+          <li class="tabs__item" role="tab">
             <div class="disabled tabs__item__nav" id="#tab-2">
               <span class="tab-title--tab-icon">
                 <span class="tab-title">
@@ -74,7 +74,7 @@ describe('fw-tabs', () => {
               </span>
             </div>
           </li>
-          <li class="tabs__item">
+          <li class="tabs__item" role="tab">
             <div class="tabs__item__nav" id="#tab-3">
               <span class="tab-title--tab-icon">
                 <span class="tab-title">

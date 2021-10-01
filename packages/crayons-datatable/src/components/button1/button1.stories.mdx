@@ -1,0 +1,121 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Button1
+
+<Meta title='Button1' component='fw-button1' />
+
+## Props
+
+<Props of='fw-button1' />
+
+## Usage
+
+### Primary Buttons
+
+<Preview>
+  <Story name='Primary'>
+    {() => `
+      <fw-button1 color="primary">Primary</fw-button1>
+      <fw-button1 color="primary" disabled>Disabled</fw-button1>`}
+  </Story>
+</Preview>
+
+### Secondary Buttons
+
+<Preview>
+  <Story name='Secondary'>
+    {() => `
+      <fw-button1 color="secondary">Secondary</fw-button1>
+      <fw-button1 color="secondary" disabled>Disabled</fw-button1>`}
+  </Story>
+</Preview>
+
+### Danger Buttons
+
+<Preview>
+  <Story name='Danger'>
+    {() => `
+      <fw-button1 color="danger">Danger</fw-button1>
+      <fw-button1 color="danger" disabled>Disabled</fw-button1>`}
+  </Story>
+</Preview>
+
+### Link Buttons
+
+<Preview>
+  <Story name='Link'>
+    {() => `
+      <fw-button1 color="link">Danger</fw-button1>
+      <fw-button1 color="link" disabled>Disabled</fw-button1>`}
+  </Story>
+</Preview>
+
+### Text Buttons
+
+<Preview>
+  <Story name='Text'>
+    {() => `
+      <fw-button1 color="text">Danger</fw-button1>
+      <fw-button1 color="text" disabled>Disabled</fw-button1>`}
+  </Story>
+</Preview>
+
+### Block Buttons
+
+<Preview>
+  <Story name='Block'>
+    {() => `
+    <fw-button1 expand>Default</fw-button1>
+    <fw-button1 color="primary" expand>Primary</fw-button1>
+    <fw-button1 color="secondary" expand>Secondary</fw-button1>
+    <fw-button1 color="danger" expand>Danger</fw-button1>`}
+  </Story>
+</Preview>
+
+### Small Buttons
+
+<Preview>
+  <Story name='Small'>
+    {() => `
+    <fw-button1 size="small">Default</fw-button1>
+    <fw-button1 color="primary" size="small">Primary</fw-button1>
+    <fw-button1 color="secondary" size="small">Secondary</fw-button1>
+    <fw-button1 color="danger" size="small">Danger</fw-button1>`}
+  </Story>
+</Preview>
+
+### Mini Buttons
+
+<Preview>
+  <Story name='Mini'>
+    {() => `
+    <fw-button1 size="mini">Default</fw-button1>
+    <fw-button1 color="primary" size="mini">Primary</fw-button1>
+    <fw-button1 color="secondary" size="mini">Secondary</fw-button1>
+    <fw-button1 color="danger" size="mini">Danger</fw-button1>`}
+  </Story>
+</Preview>
+
+### Icon Buttons
+
+<Preview>
+  <Story name='Icon'>
+    {() => `
+    <fw-button1 size="icon"><fw-icon name="phone" color="white"></fw-icon></fw-button1>
+    <fw-button1 color="primary" size="icon"><fw-icon color="#fefefe" name="agent"></fw-icon></fw-button1>
+    <fw-button1 color="secondary" size="icon"><fw-icon name="check"></fw-icon></fw-button1>
+    <fw-button1 color="danger" size="icon"><fw-icon color="#fefefe" name="code"></fw-icon></fw-button1>`}
+  </Story>
+</Preview>
+
+### Icon with text Buttons
+
+<Preview>
+  <Story name='IconText'>
+    {() => `
+    <fw-button1><fw-icon name="phone" color="white"></fw-icon> Call</fw-button1>
+    <fw-button1 color="primary"><fw-icon color="#fefefe" name="agent"></fw-icon> Support</fw-button1>
+    <fw-button1 color="secondary"><fw-icon name="delete"></fw-icon> Delete</fw-button1>
+    <fw-button1 color="danger"><fw-icon color="#fefefe" name="code"></fw-icon> See Code</fw-button1>`}
+  </Story>
+</Preview>

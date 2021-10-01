@@ -10,6 +10,7 @@ import {
   getAssetPath,
   h,
 } from '@stencil/core';
+import { handleKeyDown } from '../../utils/utils';
 
 @Component({
   tag: 'fw-toast',
@@ -56,7 +57,11 @@ export class Toast {
   /**
    * Type of the toast - success,failure, warning, inprogress
    */
-  @Prop() type: 'success' | 'error' | 'warning' | 'inprogress' = 'warning';
+  @Prop({ mutable: true }) type:
+    | 'success'
+    | 'error'
+    | 'warning'
+    | 'inprogress' = 'warning';
 
   /**
    * Time duration of the toast visibility
@@ -188,7 +193,13 @@ export class Toast {
             onClick={() => this.closeToast()}
           ></fw-icon>
           {this.actionLinkText.length > 0 ? (
-            <div class='action-link' onClick={() => this.fwLinkClick.emit()}>
+            <div
+              class='action-link'
+              role='button'
+              tabindex='0'
+              onClick={() => this.fwLinkClick.emit()}
+              onKeyDown={handleKeyDown(() => this.fwLinkClick.emit())}
+            >
               {this.actionLinkText}
             </div>
           ) : (
