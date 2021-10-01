@@ -1,0 +1,19 @@
+# compiled output
+/storybook-dist/
+/www/
+/coverage/
+/src/.vuepress/public/build/
+/docs-dist/
+
+# misc
+/.editorconfig
+/.stylelintrc
+/Jenkinsfile
+/.eslintignore
+/.eslintrc.js
+/.stencil/
+/.git/
+/.github/
+/.gitignore
+/CONTRIBUTING.md
+/yarn.lock

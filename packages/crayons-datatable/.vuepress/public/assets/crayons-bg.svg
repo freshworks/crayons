@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="541px" viewBox="0 0 1440 541" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 71</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1440" height="541"></rect>
+        <filter x="-15.9%" y="-31.7%" width="131.8%" height="163.5%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="2" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-45.0%" y="-89.3%" width="190.0%" height="278.7%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="5" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-16.9%" y="-33.5%" width="133.7%" height="167.0%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="3" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-15.3%" y="-30.6%" width="130.6%" height="161.2%" filterUnits="objectBoundingBox" id="filter-6">
+            <feGaussianBlur stdDeviation="3" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-39.1%" y="-39.1%" width="178.3%" height="178.3%" filterUnits="objectBoundingBox" id="filter-7">
+            <feGaussianBlur stdDeviation="3" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-11.4%" y="-11.4%" width="122.7%" height="122.7%" filterUnits="objectBoundingBox" id="filter-8">
+            <feGaussianBlur stdDeviation="5" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Freshworks-lp" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Crayons-New">
+            <g id="Group-71">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Mask">
+                    <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                    <use fill-opacity="0.1" fill="#3973E6" xlink:href="#path-1"></use>
+                </g>
+                <g mask="url(#mask-2)">
+                    <g transform="translate(-96.000000, 101.000000)">
+                        <g id="Group-8-Copy-4" opacity="0.503394717" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1492.500000, 452.500000) scale(-1, 1) translate(-1492.500000, -452.500000) translate(1412.000000, 372.000000)" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M155.821254,118.310416 C155.741058,76.6264583 121.884522,42.7699223 80.2005639,42.6895838 C38.516606,42.6095308 4.79009297,76.3360438 4.87014597,118.020002" id="Oval" stroke="#6694FF" stroke-width="36" opacity="0.2" filter="url(#filter-3)" transform="translate(80.345700, 80.500000) rotate(-225.000000) translate(-80.345700, -80.500000) "></path>
+                        </g>
+                        <g id="Group-8" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1253.000000, 8.000000)">
+                            <path d="M112,80 C112,51.8334778 89.1665222,29 61,29 C32.8334778,29 10,51.8334778 10,80" id="Oval" stroke="#6694FF" stroke-width="21" opacity="0.3" stroke-linecap="round" stroke-linejoin="round" transform="translate(61.000000, 54.500000) rotate(-225.000000) translate(-61.000000, -54.500000) "></path>
+                            <circle id="Oval" fill="#CFDDFD" style="mix-blend-mode: multiply;" opacity="0.879208519" cx="7" cy="72" r="7"></circle>
+                        </g>
+                        <path d="M434.684069,151.509744 C434.795452,135.858211 422.197671,123.26043 406.546138,123.371813 C390.894605,123.483196 378.116236,136.261564 378.004853,151.913097" id="Oval" stroke="#6694FF" stroke-width="21" fill="none" opacity="0.253627232" stroke-linecap="round" stroke-linejoin="round" filter="url(#filter-4)" transform="translate(406.344828, 137.642089) scale(-1, -1) rotate(-225.000000) translate(-406.344828, -137.642089) "></path>
+                        <path d="M182.997737,104.756391 C183.341633,56.5 144.445838,17.6588467 96.1215476,18.0022598 C47.7972569,18.3456728 8.34389618,57.7436031 8,106" id="Oval-Copy" stroke="#FFC858" stroke-width="41" fill="none" opacity="0.403924851" stroke-linecap="round" stroke-linejoin="round" filter="url(#filter-5)" transform="translate(95.500000, 62.000000) scale(-1, 1) rotate(-192.000000) translate(-95.500000, -62.000000) "></path>
+                        <g id="Group-8-Copy-7" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(304.000000, 434.000000) scale(1, -1) rotate(-12.000000) translate(-304.000000, -434.000000) translate(135.000000, 278.000000)">
+                            <path d="M328.200399,229.217424 C328.249605,148.126401 262.552253,82.4290494 181.46123,82.4782551 C100.370207,82.5275162 34.5930322,148.304691 34.5437988,229.395714" id="Oval" stroke="#FF8080" stroke-width="61" opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(181.372099, 155.936985) rotate(-225.000000) translate(-181.372099, -155.936985) "></path>
+                            <circle id="Oval" fill="#FF8080" style="mix-blend-mode: multiply;" opacity="0.198730469" cx="25.4700164" cy="207.785275" r="24.5"></circle>
+                        </g>
+                        <g id="Group-8-Copy" opacity="0.501674107" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1311.000000, 266.500000) rotate(-165.000000) translate(-1311.000000, -266.500000) translate(1220.000000, 181.000000)">
+                            <path d="M176.717252,125.508621 C176.715025,81.3185462 140.890085,45.493607 96.7000109,45.4913793 C52.5099364,45.4891517 16.6886089,81.3104791 16.6908366,125.500554" id="Oval" stroke="#FFC858" stroke-width="31" opacity="0.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#filter-6)" transform="translate(96.704044, 85.500000) rotate(-225.000000) translate(-96.704044, -85.500000) "></path>
+                            <circle id="Oval" fill="#FFC858" style="mix-blend-mode: multiply;" opacity="0.653789993" filter="url(#filter-7)" cx="11.802466" cy="113.818687" r="11.5"></circle>
+                        </g>
+                        <circle id="Oval" stroke="none" fill="#FF8080" fill-rule="evenodd" opacity="0.404366629" filter="url(#filter-8)" cx="1550" cy="160" r="66"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

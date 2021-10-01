@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "module": "esnext",
+    "target": "es2017",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "jsx": "react",
+    "jsxFactory": "h"
+  },
+  "include": [
+    "src",
+    "types/jsx.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "loader",
+    "www",
+    "crayons-react",
+    ".vuepress"
+  ]
+}
