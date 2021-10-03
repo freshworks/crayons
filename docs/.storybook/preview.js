@@ -1,20 +1,14 @@
-import {
-  addParameters,
-  addDecorator,
-  setCustomElements,
-} from '@storybook/web-components';
+import { addParameters, addDecorator } from '@storybook/web-components';
 import { withA11y } from '@storybook/addon-a11y';
 import { withActions } from '@storybook/addon-actions';
+import { Parser } from 'html-to-react';
+
 import theme from './freshworksStorybookTheme';
-
 import { defineCustomElements } from '../../packages/crayons-core/loader';
-
 import { defineCustomElements as defineCustomElementsTable } from '../../packages/crayons-datatable/loader';
 
 defineCustomElements(window);
 defineCustomElementsTable(window);
-
-import { Parser } from 'html-to-react';
 
 const toReact = new Parser();
 

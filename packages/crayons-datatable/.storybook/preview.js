@@ -1,14 +1,12 @@
 import { addParameters, addDecorator } from '@storybook/web-components';
 import { withA11y } from '@storybook/addon-a11y';
 import { withActions } from '@storybook/addon-actions';
-import theme from '../../../docs/.storybook/freshworksStorybookTheme';
+import { Parser } from 'html-to-react';
 
+import theme from '../../../docs/.storybook/freshworksStorybookTheme';
 import { defineCustomElements } from '../loader';
 
 defineCustomElements(window);
-
-import { Parser } from 'html-to-react';
-
 const toReact = new Parser();
 
 addParameters({
