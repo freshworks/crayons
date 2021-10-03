@@ -40,9 +40,9 @@
     "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue'",
     "lint:ts": "eslint 'src'",
     "lint": "npm run lint:ts && npm run lint:styles",
-    "local": "stencil build --serve --dev --watch",
+    "local": "stencil build --serve --dev --watch --port=3333",
     "semantic-release": "semantic-release",
-    "start": "stencil build --dev --watch --serve",
+    "start": "stencil build --dev --watch --serve --port=3333",
     "storybook:build": "build-storybook -c .storybook -s www -o storybook-dist",
     "storybook:test": "npm run test:generate && npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook -s www",
@@ -51,7 +51,7 @@
     "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
     "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react",
-    "a11y:test": "run-p local a11y:install a11y:run",
+    "a11y": "run-p local a11y:install a11y:run",
     "a11y:install": "npm i -g @axe-core/cli",
     "a11y:run": "wait-on -d 30000 http://localhost:3333/ && axe http://localhost:3333 --show-errors --exit --tags wcag2aa"
   },
@@ -106,7 +106,6 @@
     "vuepress-plugin-google-tag-manager": "0.0.5",
     "vuepress-plugin-live": "^1.6.2",
     "vuepress-plugin-seo": "^0.1.4",
-    "wait-on": "^6.0.0",
     "web-component-analyzer": "^1.1.6",
     "workbox-build": "^4.3.1",
     "write-file-webpack-plugin": "^4.5.1"

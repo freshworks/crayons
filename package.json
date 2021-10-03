@@ -45,6 +45,7 @@
     "stylelint-config-recommended": "^5.0.0",
     "stylelint-prettier": "^1.2.0",
     "stylelint-scss": "^3.21.0",
+    "wait-on": "^6.0.0",
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
