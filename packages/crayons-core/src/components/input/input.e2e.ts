@@ -107,13 +107,4 @@ describe('fw-input', () => {
     await page.waitForChanges();
     expect(fwInput).toHaveReceivedEvent();
   });
-
-  it('auto focuses when set to true', async () => {
-    const page = await newE2EPage();
-
-    await page.setContent('<fw-input autofocus></fw-input>');
-    const inputElement = await page.find('fw-input >>> input');
-
-    expect(inputElement.getAttribute('autofocus')).toBe('');
-  });
 });

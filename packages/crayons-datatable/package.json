@@ -21,7 +21,7 @@
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/crayons/crayons.js",
+  "unpkg": "dist/crayons-datatable/crayons-datatable.js",
   "files": [
     "dist/",
     "loader/",
@@ -38,7 +38,7 @@
     "docs:dev": "npm run build:components && vuepress dev .",
     "generate": "plop",
     "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue'",
-    "lint:ts": "eslint 'src'",
+    "lint:ts": "eslint 'src' --fix",
     "lint": "npm run lint:ts && npm run lint:styles",
     "local": "stencil build --serve --dev --watch --port=3334",
     "semantic-release": "semantic-release",
@@ -115,7 +115,7 @@
   },
   "lint-staged": {
     "**/*.{css,scss,vue}": "stylelint",
-    "src": "eslint"
+    "src": "eslint --fix"
   },
   "publishConfig": {
     "access": "public"
