@@ -40,14 +40,16 @@
     "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue'",
     "lint:ts": "eslint 'src'",
     "lint": "npm run lint:ts && npm run lint:styles",
-    "local": "stencil build --serve --dev --watch",
+    "local": "stencil build --serve --dev --watch --port=3333",
     "semantic-release": "semantic-release",
-    "start": "stencil build --dev --watch --serve",
+    "start": "stencil build --dev --watch --serve --port=3333",
     "test:watch": "gulp && stencil test --spec --e2e --watchAll",
     "test": "gulp && stencil test --spec --e2e",
     "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
-    "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react"
+    "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react",
+    "storybook": "run-p local storybook:start",
+    "storybook:start": "wait-on -d 30000 http://localhost:3333 && start-storybook -p 9001 -c .storybook"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
