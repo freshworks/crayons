@@ -48,6 +48,9 @@
     "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
     "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react",
+    "a11y": "run-p start a11y:install a11y:run",
+    "a11y:install": "npm i -g @axe-core/cli",
+    "a11y:run": "wait-on -d 30000 http://localhost:3333/ && axe http://localhost:3333 --show-errors --exit --tags wcag2aa",
     "storybook": "run-p local storybook:start",
     "storybook:start": "wait-on -d 30000 loader/index.js && start-storybook -p 9001 -c .storybook"
   },

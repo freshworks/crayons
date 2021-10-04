@@ -48,6 +48,9 @@
     "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
     "build:react": "tsc --project tsconfig-react.json --module es6 --outDir react",
+    "a11y": "run-p start a11y:run",
+    "a11y:install": "npm i -g @axe-core/cli",
+    "a11y:run": "wait-on http://localhost:3334/ && npm run a11y:install && axe http://localhost:3334 --show-errors --exit --tags wcag2aa",
     "storybook": "run-p local storybook:start",
     "storybook:start": "wait-on -d 30000 loader/index.js && start-storybook -p 9002 -c .storybook"
   },
@@ -98,8 +101,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "moment-mini": "^2.24.0",
-    "@freshworks/crayons": "file:../crayons-core"
+    "@freshworks/crayons": "file:../crayons-core",
+    "moment-mini": "^2.24.0"
   },
   "config": {
     "commitizen": {
