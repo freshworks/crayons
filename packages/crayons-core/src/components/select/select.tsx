@@ -24,14 +24,17 @@ export class Select {
   private selectInput?: HTMLInputElement;
   private selectList?: HTMLUListElement;
   private overlay?: HTMLElement;
+  private preventDropdownClose?: Boolean = false;
+  private arrowKeyCounter?: number = 0;
+  
   /**
    * If the dropdown is shown or not
    */
   @State() isExpanded = false;
-  @State() options = [];
   @State() filteredOptions = [];
   @State() hasFocus = false;
   @State() didInit = false;
+
   /**
    * Label displayed on the interface, for the component.
    */
@@ -88,6 +91,18 @@ export class Select {
    * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
    */
   @Prop() max = Number.MAX_VALUE;
+  /**
+   * Allow to search for value. Default is true.
+   */
+  @Prop() searchable = true;
+  /**
+   * Array of the options of type SelectOption[].
+   */
+   @Prop() options = [];
+  /**
+   * Custom search function of signature (term: string, items: Array[SelectOption]) => promise<SelectOption[]> to filter the input options.
+   */
+   @Prop() search;
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -110,6 +125,13 @@ export class Select {
     this.isExpanded = false;
   };
 
+  private openDropdown = () => {
+    this.selectList.style.display = 'block';
+      this.selectList.style.width = String(this.select.clientWidth) + 'px';
+      this.overlay.style.display = 'block';
+      this.isExpanded = true;
+  }
+
   private innerOnFocus = (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = true;
@@ -119,17 +141,21 @@ export class Select {
 
   private innerOnClick = () => {
     if (this.changeEmittable()) {
+      this.searchable && this.selectInput && (this.selectInput.select());
       this.filteredOptions = this.options;
-      this.selectList.style.display = 'block';
-      this.selectList.style.width = String(this.select.clientWidth) + 'px';
-      this.isExpanded = true;
-      this.overlay.style.display = 'block';
+      this.openDropdown();
     }
   };
 
   private innerOnBlur = (e: Event) => {
     if (this.changeEmittable()) {
-      this.closeDropdown();
+      // Remove the user typed value after user focus-out of input component
+      if(this.multiple){
+        this.selectInput.value=''
+      } else {
+        this.renderInput();
+      }
+      !this.preventDropdownClose && this.closeDropdown();
       this.hasFocus = false;
       this.fwBlur.emit(e);
     }
@@ -162,7 +188,10 @@ export class Select {
     });
     this.selectInput.value = '';
     this.renderInput();
-    this.closeDropdown();
+    if(!this.multiple){
+      this.resetFocus();
+      this.closeDropdown();
+    }
     selectedItem.stopPropagation();
   }
 
@@ -183,10 +212,24 @@ export class Select {
   @Listen('keydown')
   onKeyDonw(ev) {
     switch (ev.key) {
-      case 'ArrowDown':
-        this.innerOnClick();
+      case 'ArrowDown' :
+        this.isExpanded || this.openDropdown();
+        this.preventDropdownClose = true;
+        this.setFocusToOption(ev.key);
+        ev.preventDefault()
         break;
-      case 'Escape':
+      case 'ArrowUp' :
+        if(this.isExpanded) { 
+          this.setFocusToOption(ev.key);
+          ev.preventDefault()
+        };
+        break;
+      case 'Escape' :
+        this.resetFocus()
+        this.innerOnBlur(ev);
+        break;
+      case 'Tab' :
+        this.resetFocus()
         this.innerOnBlur(ev);
         break;
     }
@@ -194,31 +237,42 @@ export class Select {
 
   onInput() {
     const value = this.selectInput.value.toLowerCase();
-    this.filteredOptions =
-      value !== ''
-        ? this.options.filter((option) =>
-            option.text.toLowerCase().startsWith(value)
-          )
-        : this.options;
-    this.renderInput();
+    if(this.search) {
+      this.search(value,this.options).then((result) => {
+        this.filteredOptions = result
+      }); 
+      if(this.options.length === 0) {
+        this.options = this.filteredOptions;
+      }
+      if(this.filteredOptions.length === 0) {
+        this.filteredOptions = [{text: "No items Found"}];
+      }
+      return;
+    }
+    if(this.searchable){
+      this.filteredOptions = value !== ''
+      ? this.options.filter(option => option.text.toLowerCase().includes(value))
+      : this.options;
+      if(this.filteredOptions.length === 0) {
+        this.filteredOptions = [{text: "No items Found"}];
+      }
+    } else{
+      this.filteredOptions = value !== ''
+      ? this.options.filter(option => option.text.toLowerCase().startsWith(value))
+      : this.options;
+      this.renderInput();
+    }
   }
 
   renderTags() {
     if (this.multiple) {
-      return this.options
-        .filter((option) => option.selected)
-        .map((option) => (
-          <fw-tag
-            text={option.text}
-            disabled={option.disabled}
-            value={option.value}
-          />
-        ));
+      return this.getSelectedOption()
+        .map(option => <fw-tag text={option.text} disabled={option.disabled} value={option.value}/>);
     }
   }
 
   renderInput() {
-    const selectedOptions = this.options.filter((option) => option.selected);
+    const selectedOptions = this.getSelectedOption()
     if (selectedOptions.length > 0) {
       this.value = this.multiple
         ? selectedOptions.map((option) => option.value)
@@ -234,8 +288,8 @@ export class Select {
   }
 
   renderDropdown() {
-    return this.filteredOptions.map((option) => (
-      <fw-select-option
+    return this.filteredOptions.map(option =>
+      (<fw-select-option key={option.value}
         value={option.value}
         selected={option.selected}
         disabled={option.disabled || this.value?.length >= this.max}
@@ -247,25 +301,45 @@ export class Select {
     ));
   }
 
+  getSelectedOption(){
+    return this.options.filter(option => option.selected);
+  }
+
+  setFocusToOption(key){
+    if(key === 'ArrowDown') {
+        this.arrowKeyCounter = this.arrowKeyCounter >= this.filteredOptions.length - 1 ? 0 :  this.arrowKeyCounter + 1;
+    } else {
+      this.arrowKeyCounter = this.arrowKeyCounter === 0 ? this.filteredOptions.length -1 :  this.arrowKeyCounter - 1;
+    }
+    let selectOptions = this.selectList.getElementsByTagName('fw-select-option');
+    selectOptions && selectOptions[this.arrowKeyCounter].setFocus();
+  }
+
+  resetFocus(){
+    this.preventDropdownClose = false;
+    this.arrowKeyCounter = this.options.length;
+  }
+
   componentWillLoad() {
-    const selectOptions = Array.from(
-      this.host.querySelectorAll('fw-select-option')
-    );
+    if(this.options.length === 0){
+      const selectOptions = Array.from(this.host.querySelectorAll('fw-select-option'));
 
-    const options = selectOptions.map((option) => {
-      return {
-        isHtml: option.html,
-        text: option.html ? option.optionText : option.textContent,
-        value: option.value,
-        selected: option.value === this.value || option.selected,
-        disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
-        htmlContent: option.html ? option.innerHTML : '',
-      };
-    });
+      const options = selectOptions.map(option => {
+        return {
+          isHtml: option.html,
+          text: option.html ? option.optionText : option.textContent,
+          value: option.value,
+          selected: option.value === this.value || option.selected,
+          disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
+          htmlContent: option.html ? option.innerHTML : '',
+        };
+      });
 
-    this.options = options;
+      this.options = options;
+    }
     this.filteredOptions = this.options;
     this.host.innerHTML = '';
+    this.arrowKeyCounter = this.options.length;
   }
 
   componentDidLoad() {
@@ -275,7 +349,7 @@ export class Select {
 
   @Method()
   async getSelectedItem(): Promise<any> {
-    return this.options.filter((option) => option.selected);
+    return this.getSelectedOption();
   }
 
   @Method()
@@ -359,7 +433,7 @@ export class Select {
         <div
           class='overlay'
           ref={(overlay) => (this.overlay = overlay)}
-          onClick={() => this.closeDropdown()}
+          onClick={() => {this.resetFocus();this.closeDropdown()}}
         />
       </Host>
     );

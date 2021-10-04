@@ -329,6 +329,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Array of the options of type SelectOption[].
+         */
+        "options": any[];
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -340,6 +344,14 @@ export namespace Components {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Custom search function of signature (term: string, items: Array[SelectOption]) => promise<SelectOption[]> to filter the input options.
+         */
+        "search": any;
+        /**
+          * Allow to search for value. Default is true.
+         */
+        "searchable": boolean;
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
@@ -379,6 +391,7 @@ export namespace Components {
           * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
          */
         "selected": boolean;
+        "setFocus": () => Promise<any>;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
@@ -1133,6 +1146,10 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
+          * Array of the options of type SelectOption[].
+         */
+        "options"?: any[];
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -1144,6 +1161,14 @@ declare namespace LocalJSX {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Custom search function of signature (term: string, items: Array[SelectOption]) => promise<SelectOption[]> to filter the input options.
+         */
+        "search"?: any;
+        /**
+          * Allow to search for value. Default is true.
+         */
+        "searchable"?: boolean;
         /**
           * Theme based on which the list box is styled.
          */

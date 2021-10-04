@@ -31,6 +31,19 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 | `fwSelected` | Triggered when an option is selected. | `CustomEvent<any>` |
 
 
+## Methods
+
+### `setFocus() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+
 ## Dependencies
 
 ### Used by

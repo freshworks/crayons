@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, h, Method, Listen } from '@stencil/core';
 
 @Component({
   tag: 'fw-select-option',
@@ -37,6 +37,20 @@ export class SelectOption {
    */
   @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
 
+  @Method()
+  async setFocus(): Promise<any> {
+    this.nativeLi.focus();
+  }
+
+  @Listen('keydown')
+  onKeyDown(ev) {
+    switch (ev.key) {
+      case 'Enter' :
+        this.onOptionSelected();
+        break;
+    }
+  }
+
   private onOptionSelected() {
     if (this.disabled) {
       return;
@@ -48,7 +62,7 @@ export class SelectOption {
 
   render() {
     return (
-      <li
+      <li tabIndex={-1}
         ref={(el) => (this.nativeLi = el)}
         class={{
           'select-option': true,
