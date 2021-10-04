@@ -6,6 +6,8 @@ const getComponents = () =>
     return `../src/components/${tag.substr(3)}/`;
   });
 
+const getUtils = () => ['card'].map(util => (`/components/${util}/`));
+
 const getTags = () => [
   "Web Components",
   "Ui Kit",
@@ -47,7 +49,13 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 1,
         children: getComponents(),
-      },
+      }, 
+      {
+        title: 'CSS Utils',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: getUtils()
+      }
     ],
   },
   plugins: [

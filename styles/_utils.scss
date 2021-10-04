@@ -1,0 +1,10 @@
+@import '../styles/mixins/card';
+
+/**
+  For generating card styles
+*/
+@for $i from 0 through 3 {
+  .fw-card-#{$i} {
+    @include card($i, 4px);
+  }
+}
