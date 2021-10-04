@@ -13,8 +13,9 @@
   "scripts": {
     "build": "lerna run build --stream && npm run build:storybook",
     "release": "lerna publish --no-commit-hooks --dist-tag latest",
+    "test": "lerna run test --stream",
     "build:storybook": "rimraf storybook-dist && npm run storybook:build",
-    "storybook:build": "build-storybook -c docs/.storybook  -o docs/storybook-dist",
+    "storybook:build": "build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook": "start-storybook -p 9001 -c docs/.storybook"
   },
   "keywords": [],
@@ -39,6 +40,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.18.0",
     "html-to-react": "^1.4.5",
+    "lit-html": "^1.3.0",
     "prettier": "^2.4.1",
     "stylelint": "^13.13.1",
     "stylelint-a11y": "^1.2.3",

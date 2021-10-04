@@ -198,13 +198,4 @@ describe('fw-select', () => {
 
     expect(selectInput.getProperty('readOnly')).toBeTruthy();
   });
-
-  it('auto focuses when set to true', async () => {
-    const page = await newE2EPage();
-
-    await page.setContent('<fw-select autofocus></fw-input>');
-    const inputElement = await page.find('fw-select >>> input');
-
-    expect(inputElement.getAttribute('autofocus')).toBe('');
-  });
 });

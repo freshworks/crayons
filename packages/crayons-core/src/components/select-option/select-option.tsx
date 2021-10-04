@@ -48,7 +48,6 @@ export class SelectOption {
 
   render() {
     return (
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <li
         ref={(el) => (this.nativeLi = el)}
         class={{

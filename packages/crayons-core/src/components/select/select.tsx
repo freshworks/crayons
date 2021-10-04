@@ -303,8 +303,6 @@ export class Select {
         )}
         <div class='select-container'>
           <div
-            role='button'
-            tabindex='0'
             class={{
               'input-container': true,
               [this.state]: true,
