@@ -15,7 +15,7 @@
     "release": "lerna publish --no-commit-hooks --dist-tag latest",
     "test": "lerna run test --stream",
     "build:storybook": "rimraf storybook-dist && npm run storybook:build",
-    "storybook:build": "build-storybook -c docs/.storybook  -o docs/storybook-dist",
+    "storybook:build": "build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook": "start-storybook -p 9001 -c docs/.storybook"
   },
   "keywords": [],
