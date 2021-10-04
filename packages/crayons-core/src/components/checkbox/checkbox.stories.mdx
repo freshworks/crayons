@@ -42,21 +42,21 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 ### Checkbox with Text
 <Preview>
 <Story name='withText'>
-{() => '<fw-checkbox> Checkbox Text Here </fw-checkbox>'}
+{() => '<fw-checkbox label="Checkbox Text Here"></fw-checkbox>'}
 </Story>
 </Preview>
 
 ### Checkbox with Text and in Disabled State
 <Preview>
 <Story name='DisabledWithText'>
-{() => '<fw-checkbox disabled> Checkbox Text Here </fw-checkbox>'}
+{() => '<fw-checkbox disabled label="Checkbox Text Here"></fw-checkbox>'}
 </Story>
 </Preview>
 
 ### Checkbox with Text and Label
 <Preview>
 <Story name='WithTextAndLabel'>
-{() => '<fw-checkbox label="This is a subheading"> Checkbox Text Here </fw-checkbox>'}
+{() => '<fw-checkbox label="Checkbox Text Here"> This is a subheading</fw-checkbox>'}
 </Story>
 </Preview>
 
@@ -64,6 +64,6 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 ### Checkbox with Text and Label in Disabled State
 <Preview>
 <Story name='WithTextAndLabelDisabled'>
-{() => '<fw-checkbox disabled label="This is a subheading"> Checkbox Text Here </fw-checkbox>'}
+{() => '<fw-checkbox disabled label="Checkbox Text Here">This is a subheading </fw-checkbox>'}
 </Story>
 </Preview>
