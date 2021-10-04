@@ -1,10 +1,4 @@
 //=== Button Style ===//
-:host {
-  display: inline-block;
-}
-:host([expand]) {
-  width: 100%;
-}
 $btn-primary-color: $color-milk;
 $btn-primary-bg: $color-elephant-800;
 $btn-primary-bg-dark: $color-elephant-900;
@@ -157,7 +151,6 @@ $btn-font-weight: $font-weight-500;
 
   &--block {
     width: 100%;
-    display: block;
   }
 
   &--mini {

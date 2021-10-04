@@ -7,6 +7,9 @@ import {
   Prop,
   h,
 } from '@stencil/core';
+import {
+  throttle
+} from '../../utils/utils';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
@@ -15,15 +18,24 @@ import {
 export class Button {
   @Element() host: HTMLElement;
 
+  private handleClickWithThrottle;
+
   /**
    *  Button type based on which actions are performed when the button is clicked.
    */
   @Prop() type: 'button' | 'reset' | 'submit' = 'button';
 
-  /**
+   /**
+    @deprecated use appearance instead
    * Identifier of  the theme based on which the button is styled.
    */
   @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' =
+    'primary';
+
+  /**
+   * Identifier of  the theme based on which the button is styled.
+   */
+  @Prop() appearance: 'primary' | 'secondary' | 'danger' | 'link' | 'text' =
     'primary';
 
   /**
@@ -32,6 +44,12 @@ export class Button {
   @Prop({ reflect: true }) disabled = false;
 
   /**
+   * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() block = false;
+
+  /**
+   @deprecated use block instead
    * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() expand = false;
@@ -69,6 +87,10 @@ export class Button {
     this.fwBlur.emit();
   }
 
+  connectedCallback() {
+    this.handleClickWithThrottle = throttle(this.handleClick, this);
+  }
+
   private handleClick(event: Event) {
     if (this.modalTriggerId !== '') {
       const modal: any = document.getElementById(this.modalTriggerId);
@@ -92,17 +114,19 @@ export class Button {
     return (
       <Host
         onClick={(e: Event) =>
-          this.disabled ? undefined : this.handleClick(e)
+          this.disabled ? undefined : this.handleClickWithThrottle(e)
         }
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
+        aria-disabled={this.disabled}
+        role="button"
       >
         <button
           type={this.type}
           class={`
-            fw-btn fw-btn--${this.color.toLowerCase()}
+            fw-btn fw-btn--${this.appearance.toLowerCase()}
             fw-btn--${this.size.toLowerCase()}
-            ${this.expand ? 'fw-btn--block' : ''}
+            ${this.block ? 'fw-btn--block' : ''}
             `}
           disabled={this.disabled}
         >

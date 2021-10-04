@@ -214,7 +214,7 @@ export class DropdownButton {
             <fw-button
               id='addBtn'
               size='small'
-              color='primary'
+              appearance='primary'
               onClick={() => this.handleAddClick()}
             >
               {' '}
@@ -223,7 +223,7 @@ export class DropdownButton {
             <fw-button
               id='cancelBtn'
               size='small'
-              color='secondary'
+              appearance='secondary'
               onClick={() => this.handleDropdownToggle()}
             >
               {' '}
@@ -320,7 +320,7 @@ export class DropdownButton {
       <div class='dropdown-container'>
         <div class='btn-container'>
           <fw-button
-            color={this.color}
+            appearance={this.color}
             disabled={this.disabled}
             onClick={() => this.handleDropdownToggle()}
           >

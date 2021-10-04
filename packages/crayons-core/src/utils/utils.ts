@@ -83,3 +83,16 @@ export const handleKeyDown =
       handler(event);
     }
   };
+
+export const throttle = (func, context, delay = 1000) => {
+  let flag = true;
+  return (...args) => {
+    if (flag) {
+      func.apply(context, args);
+      flag = false;
+      setTimeout(() => {
+        flag = true;
+      }, delay);
+    }
+  }
+}
