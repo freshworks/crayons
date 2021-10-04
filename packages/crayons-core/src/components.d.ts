@@ -550,15 +550,27 @@ export namespace Components {
         /**
           * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
          */
+        "active": boolean;
+        /**
+          * @deprecated use active instead. Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
+         */
         "checked": boolean;
         /**
           * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label": string;
+        /**
           * Name of the component, saved as part of the form data.
          */
         "name": string;
+        /**
+          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+         */
+        "showicon": boolean;
         /**
           * Size of the input control.
          */
@@ -1375,11 +1387,19 @@ declare namespace LocalJSX {
         /**
           * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
          */
+        "active"?: boolean;
+        /**
+          * @deprecated use active instead. Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
+         */
         "checked"?: boolean;
         /**
           * Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label"?: string;
         /**
           * Name of the component, saved as part of the form data.
          */
@@ -1388,6 +1408,10 @@ declare namespace LocalJSX {
           * Triggered when the input control is selected or deselected.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+         */
+        "showicon"?: boolean;
         /**
           * Size of the input control.
          */

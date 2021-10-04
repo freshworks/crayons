@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
+import { Component, Event, Element, EventEmitter, Prop, Watch, h, Host } from '@stencil/core';
 
 import { handleKeyDown } from '../../utils/utils';
 @Component({
@@ -7,7 +7,13 @@ import { handleKeyDown } from '../../utils/utils';
   shadow: true,
 })
 export class Toggle {
+  @Element() host!: HTMLElement;
   /**
+   * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
+   */
+   @Prop() active = false;
+  /**
+   * @deprecated use active instead.
    * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop({ mutable: true }) checked = false;
@@ -24,47 +30,85 @@ export class Toggle {
    */
   @Prop() disabled = false;
   /**
+   * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() showicon = false;
+  /**
+   * Label for the component, that can be used by screen readers.
+   */
+  @Prop() label = '';
+  /**
    * Triggered when the input control is selected or deselected.
    */
   @Event() fwChange: EventEmitter;
 
-  @Watch('checked')
+  connectedCallback() {
+    if(this.showicon) {
+      if(this.active) {
+        this.host.style.setProperty('--bg-img', 'var(--checkIcon)');
+      } else {
+        this.host.style.setProperty('--bg-img', 'var(--cancelIcon)');
+      }
+    }
+  }
+
+  handleKeyDown(ev: KeyboardEvent) {
+    if(ev.code === 'Space' || ev.code === 'Enter') {
+      ev.preventDefault();
+      this.toggle();
+    }
+  }
+
+  @Watch('active')
   watchHandler(newValue: boolean) {
-    this.fwChange.emit({ checked: newValue });
+    if(this.showicon) {
+      if(this.active) {
+        this.host.style.setProperty('--bg-img', 'var(--checkIcon)');
+      } else {
+        this.host.style.setProperty('--bg-img', 'var(--cancelIcon)');
+      }
+    }
+    this.fwChange.emit({ active: newValue });
   }
 
   private toggle = (): void => {
     if (!this.disabled) {
-      this.checked = !this.checked;
+      this.active = !this.active;
     }
   };
 
   render() {
     return (
-      <div
-        role='button'
-        tabindex='0'
+      <Host
+      onClick={() => this.toggle()}
+      onKeyDown={(ev) => this.handleKeyDown(ev)}
+      tabindex="0" 
+      role="switch"
+      aria-disabled={this.disabled ? 'true' : 'false'}
+      aria-checked={`${this.active}`}
+      aria-label={`${this.label}`}
+      >
+        <div
         class={{
           'toggle-switch': true,
           [this.size]: true,
         }}
-        onClick={() => this.toggle()}
-        onKeyDown={handleKeyDown(this.toggle)}
-      >
-        <input
-          name={this.name}
-          type='checkbox'
-          disabled={this.disabled}
-          checked={this.checked}
-          class='checkboxClass'
-        />
-        <span
-          class={{
-            slider: true,
-            [this.size]: true,
-          }}
-        ></span>
-      </div>
+        >
+          <input
+            name={this.name}
+            type='checkbox'
+            disabled={this.disabled}
+            checked={this.active}
+            class='checkboxClass'
+          />
+          <span
+            class={{
+              slider: true,
+              [this.size]: true,
+            }}
+          ></span>
+        </div>
+      </Host>
     );
   }
 }

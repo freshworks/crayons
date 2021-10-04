@@ -1,5 +1,38 @@
 $toggle-on-bg: #2c5cc5;
 
+:host {
+  --checkIcon: url('data:image/svg+xml;utf8,\
+  <svg width="8px" height="6px" viewBox="0 0 8 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+    <style>\
+      svg{color: rgb(44, 92, 197) }\
+    </style>\
+    <g id="Icons-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
+      <g id="Icons" transform="translate(-494.000000, -2525.000000)" fill="currentColor">\
+        <g id="icon/check" transform="translate(494.000000, 2525.000000)">\
+          <g id="check">\
+            <path d="M3,5.87 C2.81333186,5.87267463 2.63332891,5.80067345 2.5,5.67 L0.21,3.41 C0.031367205,3.23136721 -0.0383968428,2.97100423 0.0269872981,2.7269873 C0.092371439,2.48297036 0.282970362,2.29237144 0.526987298,2.2269873 C0.771004234,2.16160316 1.03136721,2.23136721 1.21,2.41 L3,4.18 L6.8,0.33 C7.07679776,0.0554444353 7.52320224,0.0554444353 7.8,0.33 C7.93696438,0.460253055 8.01450026,0.640989153 8.01450026,0.83 C8.01450026,1.01901085 7.93696438,1.19974694 7.8,1.33 L3.45,5.67 C3.32917466,5.78896945 3.16927265,5.86003701 3,5.87 Z" id="Path"></path>\
+          </g>\
+        </g>\
+      </g>\
+    </g>\
+  </svg>');
+  --cancelIcon: url('data:image/svg+xml;utf8,\
+  <svg width="6px" height="6px" viewBox="0 0 6 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+    <style>\
+      svg{color: rgb(100,122,142) }\
+    </style>\
+    <g id="Icons-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> \
+      <g id="Icons" transform="translate(-495.000000, -2261.000000)" fill="currentColor"> \
+        <g id="icon/cross" transform="translate(495.000000, 2261.000000)"> \
+          <g id="cross" transform="translate(-1.000000, -1.000000)"> \
+            <path d="M3.00678571,3.985 L1.18,2.17 C0.903857625,1.89385763 0.903857625,1.44614237 1.18,1.17 C1.45614237,0.893857625 1.90385763,0.893857625 2.18,1.17 L4.00411003,2.99411003 L5.83,1.18 C6.10614237,0.903857625 6.55385763,0.903857625 6.83,1.18 C7.10614237,1.45614237 7.10614237,1.90385763 6.83,2.18 L5.00608602,3.99608602 L6.83,5.82 C7.02335713,6.02244677 7.0797026,6.31961464 6.97387278,6.57878972 C6.86804295,6.8379648 6.61979681,7.01075775 6.34,7.02 L6.33,7 C6.14188674,7.00002687 5.96167928,6.92433974 5.83,6.79 L4.01309415,4.98481612 L2.17,6.82 C2.03347281,6.94339035 1.85384766,7.0080554 1.67,7 C1.39020319,6.99075775 1.14195705,6.8179648 1.03612722,6.55878972 C0.930297399,6.29961464 0.986642873,6.00244677 1.18,5.8 L3.00678571,3.985 Z" id="Combined-Shape"></path> \
+          </g> \
+        </g> \
+      </g> \
+    </g> \
+  </svg>');
+}
+
 *,
 ::after,
 ::before {
@@ -62,6 +95,9 @@ $toggle-on-bg: #2c5cc5;
     background-color: $app-secondary-btn;
     -webkit-transition: 0.2s;
     transition: 0.2s;
+    background-image: var(--bg-img);
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .slider.small {
@@ -74,6 +110,7 @@ $toggle-on-bg: #2c5cc5;
       left: 0;
       bottom: -2px;
       border: solid 1px #647a8e;
+      background-size: 6px 6px;
     }
 
     &:hover::before,
@@ -92,6 +129,7 @@ $toggle-on-bg: #2c5cc5;
       left: 0;
       bottom: -2px;
       border: solid 1px #647a8e;
+      background-size: 8px 8px;
     }
 
     &:hover::before,
@@ -110,6 +148,7 @@ $toggle-on-bg: #2c5cc5;
       left: 0;
       bottom: -2px;
       border: solid 1px #647a8e;
+      background-size: 10px 10px;
     }
 
     &:hover::before,
