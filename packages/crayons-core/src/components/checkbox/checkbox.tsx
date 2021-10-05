@@ -80,7 +80,7 @@ export class Checkbox {
 
   @Listen('keydown')
   handleKeydown(ev: KeyboardEvent) {
-    if(ev.code === 'Space' || ev.code === 'Enter') {
+    if (ev.code === 'Space' || ev.code === 'Enter') {
       ev.preventDefault();
       this.toggle();
     }
@@ -114,25 +114,17 @@ export class Checkbox {
         role='checkbox'
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
-        aria-checked={`${this.checked}`}
+        aria-checked={this.checked ? 'true' : 'false'}
         aria-label={`${this.label}`}
-        aria-describedby="description"
+        aria-describedby='description'
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
-        >
-          <input type="checkbox"
-            ref={el => this.checkbox = el}>
-          </input>
-          <label>
-            {
-              this.label !== ''
-              ? <span class="label-field">{this.label}</span>
-              : ''
-            }
-          </label>
-          <div id="description">
-            <slot/>
-          </div>
+      >
+        <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
+        <label>{this.label}</label>
+        <div id='description'>
+          <slot />
+        </div>
       </Host>
     );
   }
