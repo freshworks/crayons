@@ -30,8 +30,9 @@
   padding-left: 22px;
   font-weight: 400;
   word-wrap: break-word;
+  max-width: 80ch;
+  margin-bottom: 8px;
 }
-
 
 /* Hover event occurs on the root element */
 :host(:hover) {
@@ -58,7 +59,6 @@ input[type='radio'] {
   & + label {
     user-select: none;
     cursor: pointer;
-    max-width: auto;
     margin-bottom: 0;
     vertical-align: middle;
     font-size: 14px;
@@ -66,7 +66,9 @@ input[type='radio'] {
     color: #12344d;
     font-weight: 500;
     padding-left: 22px;
-    margin-right: 5px;
+    margin-right: 10px;
+    max-width: 80ch;
+    word-wrap: break-word;
 
     &::before,
     &::after {
