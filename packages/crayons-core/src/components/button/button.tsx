@@ -7,9 +7,7 @@ import {
   Prop,
   h,
 } from '@stencil/core';
-import {
-  throttle
-} from '../../utils/utils';
+import { throttle } from '../../utils/utils';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
@@ -25,7 +23,7 @@ export class Button {
    */
   @Prop() type: 'button' | 'reset' | 'submit' = 'button';
 
-   /**
+  /**
     @deprecated use appearance instead
    * Identifier of  the theme based on which the button is styled.
    */
@@ -119,7 +117,7 @@ export class Button {
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
         aria-disabled={this.disabled}
-        role="button"
+        role='button'
       >
         <button
           type={this.type}

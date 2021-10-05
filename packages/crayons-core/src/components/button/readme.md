@@ -15,7 +15,7 @@ fw-button displays a button on the user interface and enables performing specifi
 <section>
 <fw-label value="Try sizes"></fw-label>
 <fw-button size="small"> Small </fw-button>
-<fw-button size="mini" color="secondary"> Mini </fw-button>
+<fw-button size="mini" appearance="secondary"> Mini </fw-button>
 </section>
 <br>
 <section>
