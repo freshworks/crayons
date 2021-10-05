@@ -65,11 +65,8 @@ input[type='radio'] {
     line-height: 20px;
     color: #12344d;
     font-weight: 500;
-
-    .label-field {
-      padding-left: 22px;
-      margin-right: 5px;
-    }
+    padding-left: 22px;
+    margin-right: 5px;
 
     &::before,
     &::after {
