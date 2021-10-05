@@ -6,7 +6,7 @@ fw-toggle displays an input control that enables modifying an element’s state 
 
 ```html live
 <fw-toggle size="small">Small not selected</fw-toggle><br><br>
-<fw-toggle size="medium" checked>Mid-sized and selected</fw-toggle>
+<fw-toggle size="medium" active>Mid-sized and selected</fw-toggle>
 ```
 
 <!-- Auto Generated Below -->

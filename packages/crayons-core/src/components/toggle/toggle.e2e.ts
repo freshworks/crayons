@@ -9,7 +9,7 @@ describe('fw-toggle', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('it renders with check', async () => {
+  it('it renders with toggle active', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-toggle active></fw-toggle>');

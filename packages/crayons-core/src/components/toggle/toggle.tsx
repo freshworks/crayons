@@ -1,4 +1,13 @@
-import { Component, Event, Element, EventEmitter, Prop, Watch, h, Host } from '@stencil/core';
+import {
+  Component,
+  Event,
+  Element,
+  EventEmitter,
+  Prop,
+  Watch,
+  h,
+  Host,
+} from '@stencil/core';
 @Component({
   tag: 'fw-toggle',
   styleUrl: 'toggle.scss',
@@ -9,7 +18,7 @@ export class Toggle {
   /**
    * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
    */
-   @Prop() active = false;
+  @Prop() active = false;
   /**
    * @deprecated use active instead.
    * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
@@ -41,8 +50,8 @@ export class Toggle {
   @Event() fwChange: EventEmitter;
 
   connectedCallback() {
-    if(this.showicon) {
-      if(this.active) {
+    if (this.showicon) {
+      if (this.active) {
         this.host.style.setProperty('--bg-img', 'var(--checkIcon)');
       } else {
         this.host.style.setProperty('--bg-img', 'var(--cancelIcon)');
@@ -51,7 +60,7 @@ export class Toggle {
   }
 
   handleKeyDown(ev: KeyboardEvent) {
-    if(ev.code === 'Space' || ev.code === 'Enter') {
+    if (ev.code === 'Space' || ev.code === 'Enter') {
       ev.preventDefault();
       this.toggle();
     }
@@ -59,8 +68,8 @@ export class Toggle {
 
   @Watch('active')
   watchHandler(newValue: boolean) {
-    if(this.showicon) {
-      if(this.active) {
+    if (this.showicon) {
+      if (this.active) {
         this.host.style.setProperty('--bg-img', 'var(--checkIcon)');
       } else {
         this.host.style.setProperty('--bg-img', 'var(--cancelIcon)');
@@ -78,19 +87,19 @@ export class Toggle {
   render() {
     return (
       <Host
-      onClick={() => this.toggle()}
-      onKeyDown={(ev) => this.handleKeyDown(ev)}
-      tabindex="0" 
-      role="switch"
-      aria-disabled={this.disabled ? 'true' : 'false'}
-      aria-checked={`${this.active}`}
-      aria-label={`${this.label}`}
+        onClick={() => this.toggle()}
+        onKeyDown={(ev) => this.handleKeyDown(ev)}
+        tabindex='0'
+        role='switch'
+        aria-disabled={this.disabled ? 'true' : 'false'}
+        aria-checked={`${this.active}`}
+        aria-label={`${this.label}`}
       >
         <div
-        class={{
-          'toggle-switch': true,
-          [this.size]: true,
-        }}
+          class={{
+            'toggle-switch': true,
+            [this.size]: true,
+          }}
         >
           <input
             name={this.name}
