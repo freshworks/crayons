@@ -4,10 +4,6 @@ import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
-// do npm run build on the parent first (crayons-core) before running the dev/test/build command on this package
-import { components } from '@freshworks/crayons/dist/docs.json';
-const webComponents = components.map((c) => c.tag);
-
 export const config: Config = {
   autoprefixCss: true,
   namespace: 'crayons-datatable',
@@ -53,7 +49,6 @@ export const config: Config = {
       // tree shakable
       customElementsDir: 'dist/components',
       includeImportCustomElements: true,
-      excludeComponents: webComponents,
     }),
   ],
   plugins: [

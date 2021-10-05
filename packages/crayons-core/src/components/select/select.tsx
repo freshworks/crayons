@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import {
   Component,
   Element,
@@ -349,8 +350,6 @@ export class Select {
           )}
         </div>
         <div
-          role='button'
-          tabindex='0'
           class='overlay'
           ref={(overlay) => (this.overlay = overlay)}
           onClick={() => this.closeDropdown()}
