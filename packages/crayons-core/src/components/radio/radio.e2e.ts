@@ -64,7 +64,7 @@ describe('fw-radio', () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-radio label="Yes"></fw-radio>');
-    const element = await page.find('fw-radio >>> span');
+    const element = await page.find('fw-radio >>> label');
     expect(element).toEqualText('Yes');
   });
 
