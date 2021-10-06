@@ -37,13 +37,7 @@
     "docs:build": "vuepress build .",
     "docs:dev": "npm run build:components && vuepress dev .",
     "generate": "plop",
-    "lint:styles": "stylelint 'src/**/*.scss' '.vuepress/**/*.vue'",
-    "lint:ts": "eslint 'src'",
-    "lint:ts:fix": "eslint 'src' --fix",
-    "lint": "npm run lint:ts && npm run lint:styles",
-    "lint:fix": "npm run lint:ts:fix && npm run lint:styles",
     "local": "stencil build --dev --watch",
-    "precommit": "lint-staged",
     "prestart": "kill-port 3334",
     "semantic-release": "semantic-release",
     "start": "stencil build --dev --watch --serve --port=3334",
@@ -77,7 +71,6 @@
     "gulp": "^4.0.2",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
-    "lint-staged": "^10.5.4",
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "plop": "^2.7.4",
@@ -104,17 +97,6 @@
   "dependencies": {
     "@freshworks/crayons": "file:../crayons-core",
     "moment-mini": "^2.24.0"
-  },
-  "lint-staged": {
-    "src/**/*.{css,scss}": [
-      "stylelint"
-    ],
-    ".vuepress/**/*.vue": [
-      "stylelint"
-    ],
-    "src/**/*.{js,ts,tsx,jsx}": [
-      "eslint --fix"
-    ]
   },
   "publishConfig": {
     "access": "public"
