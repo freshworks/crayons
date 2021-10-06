@@ -34,7 +34,7 @@ describe('fw-toggle', () => {
     await page.setContent('<fw-toggle></fw-toggle>');
     const element = await page.find('fw-toggle');
     const fwChange = await page.spyOnEvent('fwChange');
-    await element.press('Space')
+    await element.press('Space');
     expect(fwChange).toHaveReceivedEventDetail({ active: true });
   });
 
@@ -47,5 +47,4 @@ describe('fw-toggle', () => {
     await element.click();
     expect(fwChange.events).toEqual([]);
   });
-
 });

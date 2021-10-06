@@ -92,8 +92,8 @@ export class Toggle {
         tabindex='0'
         role='switch'
         aria-disabled={this.disabled ? 'true' : 'false'}
-        aria-checked={`${this.active}`}
-        aria-label={`${this.label}`}
+        aria-checked={this.active ? 'true' : 'false'}
+        aria-label={this.label}
       >
         <div
           class={{
