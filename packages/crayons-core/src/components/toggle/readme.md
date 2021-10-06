@@ -6,7 +6,7 @@ fw-toggle displays an input control that enables modifying an element’s state 
 
 ```html live
 <fw-toggle size="small">Small not selected</fw-toggle><br><br>
-<fw-toggle size="medium" active>Mid-sized and selected</fw-toggle>
+<fw-toggle size="medium" checked>Mid-sized and selected</fw-toggle>
 ```
 
 <!-- Auto Generated Below -->
@@ -14,15 +14,14 @@ fw-toggle displays an input control that enables modifying an element’s state 
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                                                                                   | Type                             | Default    |
-| ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ---------- |
-| `active`   | `active`   | Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.                                                                               | `boolean`                        | `false`    |
-| `checked`  | `checked`  | <span style="color:red">**[DEPRECATED]**</span> use active instead. Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.<br/><br/> | `boolean`                        | `false`    |
-| `disabled` | `disabled` | Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false.                                                                  | `boolean`                        | `false`    |
-| `label`    | `label`    | Label for the component, that can be used by screen readers.                                                                                                                                  | `string`                         | `''`       |
-| `name`     | `name`     | Name of the component, saved as part of the form data.                                                                                                                                        | `string`                         | `''`       |
-| `showicon` | `showicon` | Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.                                                      | `boolean`                        | `false`    |
-| `size`     | `size`     | Size of the input control.                                                                                                                                                                    | `"large" \| "medium" \| "small"` | `'medium'` |
+| Property   | Attribute   | Description                                                                                                                              | Type                             | Default    |
+| ---------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ---------- |
+| `checked`  | `checked`   | Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.                          | `boolean`                        | `false`    |
+| `disabled` | `disabled`  | Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false.             | `boolean`                        | `false`    |
+| `label`    | `label`     | Label for the component, that can be used by screen readers.                                                                             | `string`                         | `''`       |
+| `name`     | `name`      | Name of the component, saved as part of the form data.                                                                                   | `string`                         | `''`       |
+| `showIcon` | `show-icon` | Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false. | `boolean`                        | `false`    |
+| `size`     | `size`      | Size of the input control.                                                                                                               | `"large" \| "medium" \| "small"` | `'medium'` |
 
 
 ## Events

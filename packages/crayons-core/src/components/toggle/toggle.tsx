@@ -7,6 +7,7 @@ import {
   Watch,
   h,
   Host,
+  Listen,
 } from '@stencil/core';
 @Component({
   tag: 'fw-toggle',
@@ -16,11 +17,6 @@ import {
 export class Toggle {
   @Element() host!: HTMLElement;
   /**
-   * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
-   */
-  @Prop() active = false;
-  /**
-   * @deprecated use active instead.
    * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop({ mutable: true }) checked = false;
@@ -39,7 +35,7 @@ export class Toggle {
   /**
    * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop() showicon = false;
+  @Prop({ attribute: 'show-icon' }) showIcon = false;
   /**
    * Label for the component, that can be used by screen readers.
    */
@@ -50,8 +46,8 @@ export class Toggle {
   @Event() fwChange: EventEmitter;
 
   connectedCallback() {
-    if (this.showicon) {
-      if (this.active) {
+    if (this.showIcon) {
+      if (this.checked) {
         this.host.style.setProperty('--bg-img', 'var(--checkIcon)');
       } else {
         this.host.style.setProperty('--bg-img', 'var(--cancelIcon)');
@@ -59,28 +55,35 @@ export class Toggle {
     }
   }
 
-  handleKeyDown(ev: KeyboardEvent) {
+  @Listen('keyup')
+  handleKeyUp(ev: KeyboardEvent) {
     if (ev.code === 'Space' || ev.code === 'Enter') {
-      ev.preventDefault();
       this.toggle();
     }
   }
 
-  @Watch('active')
+  @Listen('keydown')
+  handleKeyDown(ev: KeyboardEvent) {
+    if (ev.code === 'Space' || ev.code === 'Enter') {
+      ev.preventDefault();
+    }
+  }
+
+  @Watch('checked')
   watchHandler(newValue: boolean) {
-    if (this.showicon) {
-      if (this.active) {
+    if (this.showIcon) {
+      if (this.checked) {
         this.host.style.setProperty('--bg-img', 'var(--checkIcon)');
       } else {
         this.host.style.setProperty('--bg-img', 'var(--cancelIcon)');
       }
     }
-    this.fwChange.emit({ active: newValue });
+    this.fwChange.emit({ checked: newValue });
   }
 
   private toggle = (): void => {
     if (!this.disabled) {
-      this.active = !this.active;
+      this.checked = !this.checked;
     }
   };
 
@@ -88,11 +91,10 @@ export class Toggle {
     return (
       <Host
         onClick={() => this.toggle()}
-        onKeyDown={(ev) => this.handleKeyDown(ev)}
         tabindex='0'
         role='switch'
         aria-disabled={this.disabled ? 'true' : 'false'}
-        aria-checked={this.active ? 'true' : 'false'}
+        aria-checked={this.checked ? 'true' : 'false'}
         aria-label={this.label}
       >
         <div
@@ -105,7 +107,7 @@ export class Toggle {
             name={this.name}
             type='checkbox'
             disabled={this.disabled}
-            checked={this.active}
+            checked={this.checked}
             class='checkboxClass'
           />
           <span

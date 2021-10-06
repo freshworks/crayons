@@ -9,13 +9,13 @@ describe('fw-toggle', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('it renders with toggle active', async () => {
+  it('it renders with toggle checked', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-toggle active></fw-toggle>');
+    await page.setContent('<fw-toggle checked></fw-toggle>');
     const element = await page.find('fw-toggle');
-    const isActive = await element.getProperty('active');
-    expect(isActive).toBe(true);
+    const isChecked = await element.getProperty('checked');
+    expect(isChecked).toBe(true);
   });
 
   it('it emits fwChange when clicked', async () => {
@@ -25,7 +25,7 @@ describe('fw-toggle', () => {
     const element = await page.find('fw-toggle');
     const fwChange = await page.spyOnEvent('fwChange');
     await element.click();
-    expect(fwChange).toHaveReceivedEventDetail({ active: true });
+    expect(fwChange).toHaveReceivedEventDetail({ checked: true });
   });
 
   it('it emits fwChange when enter/space key is pressed', async () => {
@@ -35,7 +35,7 @@ describe('fw-toggle', () => {
     const element = await page.find('fw-toggle');
     const fwChange = await page.spyOnEvent('fwChange');
     await element.press('Space');
-    expect(fwChange).toHaveReceivedEventDetail({ active: true });
+    expect(fwChange).toHaveReceivedEventDetail({ checked: true });
   });
 
   it('it should not emit fwChange when disabled', async () => {
