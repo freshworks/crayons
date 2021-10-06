@@ -1,6 +1,10 @@
 :host(.radio-container) {
-  display: inline;
+  display: block;
   position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
+  max-width: 80ch;
+  word-wrap: break-word;
 }
 
 /* Focus event occurs on the root element */
@@ -27,11 +31,7 @@
   letter-spacing: 0;
   line-height: 18px;
   position: relative;
-  padding-left: 22px;
   font-weight: 400;
-  word-wrap: break-word;
-  max-width: 80ch;
-  margin-bottom: 8px;
 }
 
 /* Hover event occurs on the root element */
@@ -65,10 +65,7 @@ input[type='radio'] {
     line-height: 20px;
     color: #12344d;
     font-weight: 500;
-    padding-left: 22px;
     margin-right: 10px;
-    max-width: 80ch;
-    word-wrap: break-word;
 
     &::before,
     &::after {
