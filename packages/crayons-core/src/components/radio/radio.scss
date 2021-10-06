@@ -1,5 +1,5 @@
 :host(.radio-container) {
-  display: block;
+  display: inline-block;
   position: relative;
   padding-left: 22px;
   margin-bottom: 8px;
@@ -29,7 +29,7 @@
   font-size: 12px;
   color: #475867;
   letter-spacing: 0;
-  line-height: 18px;
+  line-height: 20px;
   position: relative;
   font-weight: 400;
 }
@@ -59,12 +59,12 @@ input[type='radio'] {
   & + label {
     user-select: none;
     cursor: pointer;
-    margin-bottom: 0;
+    margin-bottom: 4px;
     vertical-align: middle;
     font-size: 14px;
     line-height: 20px;
     color: #12344d;
-    font-weight: 500;
+    font-weight: 600;
     margin-right: 10px;
 
     &::before,
