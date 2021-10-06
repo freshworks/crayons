@@ -41,6 +41,7 @@
     "lint:ts": "eslint 'src' --fix",
     "lint": "npm run lint:ts && npm run lint:styles",
     "local": "stencil build --dev --watch",
+    "prestart": "kill-port 3333",
     "semantic-release": "semantic-release",
     "start": "stencil build --dev --watch --serve --port=3333",
     "test:watch": "gulp && stencil test --spec --e2e --watchAll",
