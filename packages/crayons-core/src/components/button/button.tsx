@@ -7,7 +7,7 @@ import {
   Prop,
   h,
 } from '@stencil/core';
-import { throttle } from '../../utils/utils';
+import { throttle } from '../../utils';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
@@ -24,16 +24,9 @@ export class Button {
   @Prop() type: 'button' | 'reset' | 'submit' = 'button';
 
   /**
-    @deprecated use appearance instead
    * Identifier of  the theme based on which the button is styled.
    */
   @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' =
-    'primary';
-
-  /**
-   * Identifier of  the theme based on which the button is styled.
-   */
-  @Prop() appearance: 'primary' | 'secondary' | 'danger' | 'link' | 'text' =
     'primary';
 
   /**
@@ -42,12 +35,6 @@ export class Button {
   @Prop({ reflect: true }) disabled = false;
 
   /**
-   * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-   */
-  @Prop() block = false;
-
-  /**
-   @deprecated use block instead
    * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() expand = false;
@@ -122,9 +109,9 @@ export class Button {
         <button
           type={this.type}
           class={`
-            fw-btn fw-btn--${this.appearance.toLowerCase()}
+            fw-btn fw-btn--${this.color.toLowerCase()}
             fw-btn--${this.size.toLowerCase()}
-            ${this.block ? 'fw-btn--block' : ''}
+            ${this.expand ? 'fw-btn--block' : ''}
             `}
           disabled={this.disabled}
         >

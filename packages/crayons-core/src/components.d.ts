@@ -10,21 +10,13 @@ export namespace Components {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
-        "appearance": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
-        /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-         */
-        "block": boolean;
-        /**
-          * @deprecated use appearance instead Identifier of  the theme based on which the button is styled.
-         */
         "color": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
           * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * @deprecated use block instead Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
+          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand": boolean;
         /**
@@ -722,21 +714,13 @@ declare namespace LocalJSX {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
-        "appearance"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
-        /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-         */
-        "block"?: boolean;
-        /**
-          * @deprecated use appearance instead Identifier of  the theme based on which the button is styled.
-         */
         "color"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
           * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * @deprecated use block instead Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
+          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand"?: boolean;
         /**

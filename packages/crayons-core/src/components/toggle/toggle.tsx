@@ -1,6 +1,6 @@
 import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
 
-import { handleKeyDown } from '../../utils/utils';
+import { handleKeyDown } from '../../utils';
 @Component({
   tag: 'fw-toggle',
   styleUrl: 'toggle.scss',

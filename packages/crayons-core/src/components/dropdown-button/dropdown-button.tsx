@@ -8,7 +8,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
-import { handleKeyDown } from '../../utils/utils';
+import { handleKeyDown } from '../../utils';
 
 @Component({
   tag: 'fw-dropdown-button',
@@ -214,7 +214,7 @@ export class DropdownButton {
             <fw-button
               id='addBtn'
               size='small'
-              appearance='primary'
+              color='primary'
               onClick={() => this.handleAddClick()}
             >
               {' '}
@@ -223,7 +223,7 @@ export class DropdownButton {
             <fw-button
               id='cancelBtn'
               size='small'
-              appearance='secondary'
+              color='secondary'
               onClick={() => this.handleDropdownToggle()}
             >
               {' '}
@@ -320,7 +320,7 @@ export class DropdownButton {
       <div class='dropdown-container'>
         <div class='btn-container'>
           <fw-button
-            appearance={this.color}
+            color={this.color}
             disabled={this.disabled}
             onClick={() => this.handleDropdownToggle()}
           >

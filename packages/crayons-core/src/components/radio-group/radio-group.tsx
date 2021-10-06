@@ -13,7 +13,7 @@ import {
   findCheckedOption,
   renderHiddenField,
   watchForOptions,
-} from '../../utils/utils';
+} from '../../utils';
 
 @Component({
   tag: 'fw-radio-group',

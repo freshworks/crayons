@@ -19,7 +19,7 @@ describe('fw-button', () => {
     expect(fwClick).toHaveReceivedEvent();
   });
 
-  it('should set button as primary when appearance is not supplied', async () => {
+  it('should set button as primary when color is not supplied', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-button></fw-button>');
@@ -30,10 +30,10 @@ describe('fw-button', () => {
       </button>`);
   });
 
-  it('should set button as secondary when appearance is secondary', async () => {
+  it('should set button as secondary when color is secondary', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-button appearance="secondary"</fw-button>');
+    await page.setContent('<fw-button color="secondary"</fw-button>');
     const element = await page.find('fw-button');
     expect(element.shadowRoot)
       .toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--secondary" type="button">
