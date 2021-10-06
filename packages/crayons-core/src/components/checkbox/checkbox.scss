@@ -59,9 +59,10 @@ input[type='checkbox'] {
     cursor: pointer;
     margin-bottom: 0;
     vertical-align: middle;
-    font-size: 12px;
+    font-size: 14px;
     color: #12344d;
     font-weight: 500;
+    line-height: 20px;
 
     @media screen and (prefers-reduced-motion: reduce) {
       &::before {
