@@ -44,6 +44,7 @@
     "lint:fix": "npm run lint:ts:fix && npm run lint:styles",
     "local": "stencil build --dev --watch",
     "precommit": "lint-staged",
+    "prestart": "kill-port 3333",
     "semantic-release": "semantic-release",
     "start": "stencil build --dev --watch --serve --port=3333",
     "test:watch": "gulp && stencil test --spec --e2e --watchAll",
