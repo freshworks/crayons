@@ -82,6 +82,12 @@ export class Checkbox {
   handleKeydown(ev: KeyboardEvent) {
     if (ev.code === 'Space') {
       ev.preventDefault();
+    }
+  }
+
+  @Listen('keyup')
+  handleKeyup(ev: KeyboardEvent) {
+    if (ev.code === 'Space') {
       this.toggle();
     }
   }
