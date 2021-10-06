@@ -37,15 +37,6 @@ describe('fw-checkbox', () => {
     expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
   });
 
-  it('it emits fwChange when Enter is pressed', async () => {
-    const page = await newE2EPage();
-    await page.setContent('<fw-checkbox value="1">1</fw-checkbox>');
-    const element = await page.find('fw-checkbox');
-    const fwChange = await page.spyOnEvent('fwChange');
-    await element.press('Enter');
-    expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
-  });
-
   it('it emits fwChange when property is set', async () => {
     const page = await newE2EPage();
 

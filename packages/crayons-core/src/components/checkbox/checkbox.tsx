@@ -7,7 +7,7 @@ import {
   Prop,
   Watch,
   h,
-  Listen
+  Listen,
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils/utils';
@@ -80,7 +80,7 @@ export class Checkbox {
 
   @Listen('keydown')
   handleKeydown(ev: KeyboardEvent) {
-    if (ev.code === 'Space' || ev.code === 'Enter') {
+    if (ev.code === 'Space') {
       ev.preventDefault();
       this.toggle();
     }
@@ -115,7 +115,7 @@ export class Checkbox {
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
-        aria-label={`${this.label}`}
+        aria-label={this.label}
         aria-describedby='description'
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}

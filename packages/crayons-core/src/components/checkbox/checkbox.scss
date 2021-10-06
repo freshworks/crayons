@@ -1,11 +1,11 @@
 :host(.checkbox-container) {
-  display: inline;
+  display: block;
   position: relative;
+  padding-left: 22px;
 }
 
 /* Focus event occurs on the root element */
 :host(:focus) {
-
   input[type='checkbox'] + label {
     &::before {
       border: 1px solid transparent;
@@ -27,7 +27,6 @@
   letter-spacing: 0;
   line-height: 18px;
   position: relative;
-  padding-left: 22px;
   font-weight: 400;
   margin-bottom: 10px;
   word-wrap: break-word;
@@ -63,7 +62,6 @@ input[type='checkbox'] {
     font-size: 12px;
     color: #12344d;
     font-weight: 500;
-    padding-left: 22px;
 
     @media screen and (prefers-reduced-motion: reduce) {
       &::before {
