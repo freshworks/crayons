@@ -103,9 +103,13 @@ export class RadioGroup {
         this.value = radios[this.selectedIndex].value;
         break;
       case 'Space':
-        radios[this.selectedIndex].checked = true;
-        radios[this.selectedIndex].focus();
-        this.value = radios[this.selectedIndex].value;
+        /**
+         * This case is executed only when none of the radios are checked
+         * and we first tab into the radio group.
+         */
+        radios[0].checked = true;
+        radios[0].focus();
+        this.value = radios[0].value;
         break;
       default:
         break;
@@ -115,6 +119,12 @@ export class RadioGroup {
   async connectedCallback() {
     const el = this.host;
 
+    /**
+     * Make sure we start radio's componentOnReady promise as soon as possible in the component
+     * lifecycle and maintain a reference to the returned promise so that it can be reused.
+     * We are not using await explictly here as the radio group rendering might get
+     * affected if any of the radio's componentonReady is resolved later than expected.
+     */
     this.radiosPromise = Promise.all(
       Array.from(this.host.querySelectorAll('fw-radio')).map((r) =>
         r.componentOnReady()
