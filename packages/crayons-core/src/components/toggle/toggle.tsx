@@ -35,7 +35,7 @@ export class Toggle {
   /**
    * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop({ attribute: 'show-icon' }) showIcon = false;
+  @Prop() showIcon = false;
   /**
    * Label for the component, that can be used by screen readers.
    */
@@ -46,14 +46,17 @@ export class Toggle {
   @Event() fwChange: EventEmitter;
 
   connectedCallback() {
-    if (this.showIcon) {
-      if (this.checked) {
-        this.host.style.setProperty('--bg-img', 'var(--checkIcon)');
-      } else {
-        this.host.style.setProperty('--bg-img', 'var(--cancelIcon)');
-      }
-    }
+    this.displayIcon();
   }
+
+  private displayIcon = (): void => {
+    if (this.showIcon) {
+      this.host.style.setProperty(
+        '--bg-img',
+        `var(--${this.checked ? 'check' : 'cancel'}Icon)`
+      );
+    }
+  };
 
   @Listen('keyup')
   handleKeyUp(ev: KeyboardEvent) {
@@ -71,13 +74,7 @@ export class Toggle {
 
   @Watch('checked')
   watchHandler(newValue: boolean) {
-    if (this.showIcon) {
-      if (this.checked) {
-        this.host.style.setProperty('--bg-img', 'var(--checkIcon)');
-      } else {
-        this.host.style.setProperty('--bg-img', 'var(--cancelIcon)');
-      }
-    }
+    this.displayIcon();
     this.fwChange.emit({ checked: newValue });
   }
 

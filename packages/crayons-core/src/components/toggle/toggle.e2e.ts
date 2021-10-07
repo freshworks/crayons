@@ -28,13 +28,23 @@ describe('fw-toggle', () => {
     expect(fwChange).toHaveReceivedEventDetail({ checked: true });
   });
 
-  it('it emits fwChange when enter/space key is pressed', async () => {
+  it('it emits fwChange when space key is pressed', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-toggle></fw-toggle>');
     const element = await page.find('fw-toggle');
     const fwChange = await page.spyOnEvent('fwChange');
     await element.press('Space');
+    expect(fwChange).toHaveReceivedEventDetail({ checked: true });
+  });
+
+  it('it emits fwChange when enter key is pressed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-toggle></fw-toggle>');
+    const element = await page.find('fw-toggle');
+    const fwChange = await page.spyOnEvent('fwChange');
+    await element.press('Enter');
     expect(fwChange).toHaveReceivedEventDetail({ checked: true });
   });
 
