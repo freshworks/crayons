@@ -50,6 +50,11 @@ export class Button {
   @Prop() modalTriggerId = '';
 
   /**
+   * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
+   */
+  @Prop() throttleDelay = 200;
+
+  /**
    * Triggered when the button is clicked.
    */
   @Event() fwClick!: EventEmitter<void>;
@@ -73,7 +78,11 @@ export class Button {
   }
 
   connectedCallback() {
-    this.handleClickWithThrottle = throttle(this.handleClick, this);
+    this.handleClickWithThrottle = throttle(
+      this.handleClick,
+      this,
+      this.throttleDelay
+    );
   }
 
   private handleClick(event: Event) {

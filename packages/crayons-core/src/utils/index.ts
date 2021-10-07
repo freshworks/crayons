@@ -84,16 +84,12 @@ export const handleKeyDown =
     }
   };
 
-export const throttle = (func, context, delay = 2000) => {
-  let initialTimeStamp;
+export const throttle = (func, context, delay) => {
+  let lastExecutedAt;
   return (...args) => {
-    const currentTimeStamp = Date.now();
-    if (
-      initialTimeStamp === undefined ||
-      currentTimeStamp - initialTimeStamp >= delay
-    ) {
+    if (!lastExecutedAt || Date.now() - lastExecutedAt >= delay) {
       func.apply(context, args);
-      initialTimeStamp = Date.now();
+      lastExecutedAt = Date.now();
     }
   };
 };
