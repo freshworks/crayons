@@ -67,7 +67,7 @@ $toggle-on-bg: #2c5cc5;
     align-items: center;
 
     fw-icon {
-      color: $toggle-off-bg;
+      color: #647a8e;
     }
   }
 
@@ -142,6 +142,10 @@ $toggle-on-bg: #2c5cc5;
 
   input:checked + .slider {
     background-color: $toggle-on-bg;
+
+    fw-icon {
+      color: #2c5cc5;
+    }
   }
 
   input:checked + .slider.small {
@@ -150,10 +154,6 @@ $toggle-on-bg: #2c5cc5;
       -ms-transform: translateX(12px);
       transform: translateX(12px);
       border: solid 1px #2c5cc5;
-
-      fw-icon {
-        color: #2c5cc5;
-      }
 
       &:hover,
       &:focus {
@@ -169,10 +169,6 @@ $toggle-on-bg: #2c5cc5;
       transform: translateX(16px);
       border: solid 1px #2c5cc5;
 
-      fw-icon {
-        color: #2c5cc5;
-      }
-
       &:hover,
       &:focus {
         box-shadow: 0 0 4px 4px rgba(40, 61, 165, 0.3);
@@ -180,16 +176,12 @@ $toggle-on-bg: #2c5cc5;
     }
   }
 
-  input:checked + .slider.large::before {
+  input:checked + .slider.large {
     .before {
       -webkit-transform: translateX(20px);
       -ms-transform: translateX(20px);
       transform: translateX(20px);
       border: solid 1px #2c5cc5;
-
-      fw-icon {
-        color: #2c5cc5;
-      }
 
       &:hover,
       &:focus {
