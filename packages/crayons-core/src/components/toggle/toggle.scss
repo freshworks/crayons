@@ -65,10 +65,6 @@ $toggle-on-bg: #2c5cc5;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    fw-icon {
-      color: #647a8e;
-    }
   }
 
   .slider.small {
@@ -142,10 +138,6 @@ $toggle-on-bg: #2c5cc5;
 
   input:checked + .slider {
     background-color: $toggle-on-bg;
-
-    fw-icon {
-      color: #2c5cc5;
-    }
   }
 
   input:checked + .slider.small {

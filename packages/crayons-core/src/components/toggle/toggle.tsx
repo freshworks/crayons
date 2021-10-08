@@ -111,6 +111,7 @@ export class Toggle {
             <span class='before'>
               {this.showIcon && (
                 <fw-icon
+                  color={this.checked ? '#2c5cc5' : '#647a8e'}
                   name={this.checked ? this.checkIcon : this.uncheckIcon}
                 ></fw-icon>
               )}
