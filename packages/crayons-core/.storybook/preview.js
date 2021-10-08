@@ -1,18 +1,17 @@
-import { addParameters, addDecorator, setCustomElements } from '@storybook/web-components';
+import { addParameters, addDecorator } from '@storybook/web-components';
 import { withA11y } from '@storybook/addon-a11y';
 import { withActions } from '@storybook/addon-actions';
-import customElements from '../src/custom-elements.json';
-import theme from './freshworksStorybookTheme';
-
 import { Parser } from 'html-to-react';
 
-setCustomElements(customElements);
+import theme from '../../../docs/.storybook/freshworksStorybookTheme';
+import { defineCustomElements } from '../loader';
 
+defineCustomElements(window);
 const toReact = new Parser();
 
 addParameters({
   docs: {
-    prepareForInline: storyFn => {
+    prepareForInline: (storyFn) => {
       return toReact.parse(storyFn());
     },
     inlineStories: true,
@@ -24,4 +23,23 @@ addParameters({
 
 addDecorator(withA11y);
 
-addDecorator(withActions('click', 'select', 'submit', 'blur', 'focus', 'fwSelect', 'fwClick', 'fwBlur', 'fwFocus', 'fwChange', 'fwAction', 'fwInput', 'fwDeselect', 'fwSelected', 'fwClosed', 'fwInputClear'));
+addDecorator(
+  withActions(
+    'click',
+    'select',
+    'submit',
+    'blur',
+    'focus',
+    'fwSelect',
+    'fwClick',
+    'fwBlur',
+    'fwFocus',
+    'fwChange',
+    'fwAction',
+    'fwInput',
+    'fwDeselect',
+    'fwSelected',
+    'fwClosed',
+    'fwInputClear'
+  )
+);

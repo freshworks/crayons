@@ -70,7 +70,10 @@ export class Radio {
           checked: true,
         });
       } else {
-        this.fwDeselect.emit();
+        this.fwDeselect.emit({
+          value: this.value,
+          checked: false,
+        });
       }
     }
     this.radio.checked = isChecked;
@@ -101,24 +104,19 @@ export class Radio {
         class='radio-container'
         onClick={() => this.toggle()}
         role='radio'
-        tabIndex='0'
+        tabIndex='-1'
+        aria-label={this.label}
+        aria-describedby='description'
         aria-disabled={this.disabled ? 'true' : 'false'}
-        aria-checked={this.checked}
+        aria-checked={this.checked ? 'true' : 'false'}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >
         <input type='radio' ref={(el) => (this.radio = el)}></input>
-        <label>
-          <span class='text'>
-            <slot />
-          </span>
-          <br />
-          {this.label !== '' ? (
-            <span class='label-field'>{this.label}</span>
-          ) : (
-            ''
-          )}
-        </label>
+        <label>{this.label}</label>
+        <div id='description'>
+          <slot />
+        </div>
       </Host>
     );
   }

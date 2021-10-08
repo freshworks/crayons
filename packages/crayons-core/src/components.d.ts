@@ -28,6 +28,10 @@ export namespace Components {
          */
         "size": 'normal' | 'mini' | 'small';
         /**
+          * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
+         */
+        "throttleDelay": number;
+        /**
           * Button type based on which actions are performed when the button is clicked.
          */
         "type": 'button' | 'reset' | 'submit';
@@ -286,9 +290,17 @@ export namespace Components {
          */
         "allowEmpty": boolean;
         /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label": string;
+        /**
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
+         */
+        "orientation": 'row' | 'column';
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -760,6 +772,10 @@ declare namespace LocalJSX {
          */
         "size"?: 'normal' | 'mini' | 'small';
         /**
+          * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
+         */
+        "throttleDelay"?: number;
+        /**
           * Button type based on which actions are performed when the button is clicked.
          */
         "type"?: 'button' | 'reset' | 'submit';
@@ -1082,6 +1098,10 @@ declare namespace LocalJSX {
          */
         "allowEmpty"?: boolean;
         /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label"?: string;
+        /**
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
@@ -1089,6 +1109,10 @@ declare namespace LocalJSX {
           * Triggered when an option in the Radio Group is selected or deselected.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
+         */
+        "orientation"?: 'row' | 'column';
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */

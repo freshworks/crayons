@@ -12,29 +12,23 @@
   ],
   "scripts": {
     "build": "lerna run build --stream && npm run build:storybook",
-    "release": "lerna publish --no-commit-hooks --dist-tag latest",
-    "test": "lerna run test --stream",
     "build:storybook": "rimraf storybook-dist && npm run storybook:build",
-    "storybook:build": "build-storybook -c docs/.storybook  -o docs/storybook-dist",
-    "storybook": "start-storybook -p 9001 -c docs/.storybook"
+    "code-sanity": "npm run lint",
+    "release": "lerna publish --no-commit-hooks --dist-tag latest",
+    "lint": "npm run lint:ts && npm run lint:styles",
+    "lint:fix": "npm run lint:ts:fix && npm run lint:styles",
+    "lint:styles": "stylelint '**/*.scss' '**/.vuepress/**/*.vue'",
+    "lint:ts": "eslint .",
+    "lint:ts:fix": "eslint . --fix",
+    "lint-staged": "lint-staged",
+    "storybook:build": "build-storybook -c docs/.storybook -o docs/storybook-dist",
+    "storybook": "start-storybook -p 9001 -c docs/.storybook",
+    "test": "lerna run test --stream"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^7.18.0",
-    "prettier": "^2.4.1",
-    "stylelint": "^13.13.1",
-    "stylelint-a11y": "^1.2.3",
-    "stylelint-config-recommended": "^5.0.0",
-    "stylelint-prettier": "^1.2.0",
-    "stylelint-scss": "^3.21.0",
     "@storybook/addon-a11y": "^6.2.9",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-docs": "^6.2.9",
@@ -44,11 +38,55 @@
     "@storybook/html": "^6.2.9",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/web-components": "^6.2.9",
-    "write-file-webpack-plugin": "^4.5.1",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "commitizen": "^4.2.4",
     "copy-webpack-plugin": "^6.4.1",
-    "html-to-react": "^1.4.5"
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^7.18.0",
+    "html-to-react": "^1.4.5",
+    "husky": "^4.2.3",
+    "kill-port": "^1.6.1",
+    "lint-staged": "^10.5.4",
+    "lit-html": "^1.3.0",
+    "prepend-file": "^2.0.0",
+    "prettier": "^2.4.1",
+    "stylelint": "^13.13.1",
+    "stylelint-a11y": "^1.2.3",
+    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-prettier": "^1.2.0",
+    "stylelint-scss": "^3.21.0",
+    "wait-on": "^6.0.0",
+    "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
     "lerna": "^4.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-commit": "npm run lint-staged && npm run test"
+    }
+  },
+  "lint-staged": {
+    "**/*.{css,scss}": [
+      "stylelint"
+    ],
+    "**/.vuepress/**/*.vue": [
+      "stylelint"
+    ],
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --fix"
+    ]
   }
 }
