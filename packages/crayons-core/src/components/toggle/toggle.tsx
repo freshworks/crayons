@@ -41,6 +41,14 @@ export class Toggle {
    */
   @Prop() label = '';
   /**
+   * Name of the icon to be shown when toggle is checked. Defaults to check icon.
+   */
+  @Prop() checkIcon = 'check';
+  /**
+   * Name of the icon to be shown when toggle is unchecked. Defaults to cross icon.
+   */
+  @Prop() uncheckIcon = 'cross';
+  /**
    * Triggered when the input control is selected or deselected.
    */
   @Event() fwChange: EventEmitter;
@@ -112,7 +120,13 @@ export class Toggle {
               slider: true,
               [this.size]: true,
             }}
-          ></span>
+          >
+            <span class='before'>
+              <fw-icon
+                name={this.checked ? this.checkIcon : this.uncheckIcon}
+              ></fw-icon>
+            </span>
+          </span>
         </div>
       </Host>
     );
