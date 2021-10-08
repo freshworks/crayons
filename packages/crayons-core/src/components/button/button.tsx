@@ -7,6 +7,7 @@ import {
   Prop,
   h,
 } from '@stencil/core';
+import { throttle } from '../../utils';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
@@ -14,6 +15,8 @@ import {
 })
 export class Button {
   @Element() host: HTMLElement;
+
+  private handleClickWithThrottle;
 
   /**
    *  Button type based on which actions are performed when the button is clicked.
@@ -47,6 +50,11 @@ export class Button {
   @Prop() modalTriggerId = '';
 
   /**
+   * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
+   */
+  @Prop() throttleDelay = 200;
+
+  /**
    * Triggered when the button is clicked.
    */
   @Event() fwClick!: EventEmitter<void>;
@@ -67,6 +75,14 @@ export class Button {
 
   private onBlur() {
     this.fwBlur.emit();
+  }
+
+  connectedCallback() {
+    this.handleClickWithThrottle = throttle(
+      this.handleClick,
+      this,
+      this.throttleDelay
+    );
   }
 
   private handleClick(event: Event) {
@@ -92,10 +108,12 @@ export class Button {
     return (
       <Host
         onClick={(e: Event) =>
-          this.disabled ? undefined : this.handleClick(e)
+          this.disabled ? undefined : this.handleClickWithThrottle(e)
         }
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
+        aria-disabled={this.disabled}
+        role='button'
       >
         <button
           type={this.type}

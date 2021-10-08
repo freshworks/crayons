@@ -28,6 +28,10 @@ export namespace Components {
          */
         "size": 'normal' | 'mini' | 'small';
         /**
+          * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
+         */
+        "throttleDelay": number;
+        /**
           * Button type based on which actions are performed when the button is clicked.
          */
         "type": 'button' | 'reset' | 'submit';
@@ -743,6 +747,10 @@ declare namespace LocalJSX {
           * Size of the button.
          */
         "size"?: 'normal' | 'mini' | 'small';
+        /**
+          * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
+         */
+        "throttleDelay"?: number;
         /**
           * Button type based on which actions are performed when the button is clicked.
          */

@@ -12,7 +12,7 @@ import {
   h,
 } from '@stencil/core';
 
-import { handleKeyDown, renderHiddenField } from '../../utils/utils';
+import { handleKeyDown, renderHiddenField } from '../../utils';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',

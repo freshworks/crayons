@@ -1,7 +1,7 @@
 import { Component, Element, Prop, State, h } from '@stencil/core';
 import moment from 'moment-mini';
 
-import { renderHiddenField } from '../../utils/utils';
+import { renderHiddenField } from '../../utils';
 
 @Component({
   tag: 'fw-timepicker',
