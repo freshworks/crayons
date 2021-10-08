@@ -53,19 +53,6 @@ export class Toggle {
    */
   @Event() fwChange: EventEmitter;
 
-  connectedCallback() {
-    this.displayIcon();
-  }
-
-  private displayIcon = (): void => {
-    if (this.showIcon) {
-      this.host.style.setProperty(
-        '--bg-img',
-        `var(--${this.checked ? 'check' : 'cancel'}Icon)`
-      );
-    }
-  };
-
   @Listen('keyup')
   handleKeyUp(ev: KeyboardEvent) {
     if (ev.code === 'Space' || ev.code === 'Enter') {
@@ -82,7 +69,6 @@ export class Toggle {
 
   @Watch('checked')
   watchHandler(newValue: boolean) {
-    this.displayIcon();
     this.fwChange.emit({ checked: newValue });
   }
 
