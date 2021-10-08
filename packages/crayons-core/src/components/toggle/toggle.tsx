@@ -109,9 +109,11 @@ export class Toggle {
             }}
           >
             <span class='before'>
-              <fw-icon
-                name={this.checked ? this.checkIcon : this.uncheckIcon}
-              ></fw-icon>
+              {this.showIcon && (
+                <fw-icon
+                  name={this.checked ? this.checkIcon : this.uncheckIcon}
+                ></fw-icon>
+              )}
             </span>
           </span>
         </div>
