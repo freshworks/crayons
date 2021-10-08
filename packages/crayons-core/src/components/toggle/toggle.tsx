@@ -9,6 +9,7 @@ import {
   Host,
   Listen,
 } from '@stencil/core';
+
 @Component({
   tag: 'fw-toggle',
   styleUrl: 'toggle.scss',

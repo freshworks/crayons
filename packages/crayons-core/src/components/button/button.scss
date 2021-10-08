@@ -1,10 +1,4 @@
 //=== Button Style ===//
-:host {
-  display: inline-block;
-}
-:host([expand]) {
-  width: 100%;
-}
 $btn-primary-color: $color-milk;
 $btn-primary-bg: $color-elephant-800;
 $btn-primary-bg-dark: $color-elephant-900;
@@ -41,7 +35,7 @@ $btn-font-weight: $font-weight-500;
 
 .fw-btn {
   font-size: $btn-default-font-size;
-  line-height: $btn-default-font-size;
+  line-height: 20px;
   padding: 6px 12px;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -51,7 +45,7 @@ $btn-font-weight: $font-weight-500;
   transition: all 0.2s linear;
   letter-spacing: 0.3px;
   font-weight: $btn-font-weight;
-  min-width: 90px;
+  min-width: 87px;
   height: 32px;
 
   &:focus {
@@ -157,7 +151,6 @@ $btn-font-weight: $font-weight-500;
 
   &--block {
     width: 100%;
-    display: block;
   }
 
   &--mini {
@@ -169,10 +162,10 @@ $btn-font-weight: $font-weight-500;
   }
 
   &--small {
-    padding: 4px 6px;
+    padding: 5px 8px;
     font-size: $btn-small-font-size;
-    line-height: $btn-small-font-size;
-    min-width: 16px;
+    line-height: 12px;
+    min-width: 70px;
     height: 24px;
   }
 
