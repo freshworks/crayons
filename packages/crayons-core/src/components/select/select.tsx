@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import {
   Component,
   Element,
@@ -12,7 +13,7 @@ import {
   h,
 } from '@stencil/core';
 
-import { handleKeyDown, renderHiddenField } from '../../utils/utils';
+import { handleKeyDown, renderHiddenField } from '../../utils';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -349,8 +350,6 @@ export class Select {
           )}
         </div>
         <div
-          role='button'
-          tabindex='0'
           class='overlay'
           ref={(overlay) => (this.overlay = overlay)}
           onClick={() => this.closeDropdown()}
