@@ -131,10 +131,8 @@ export class RadioGroup {
       )
     );
 
-    Object.assign(this.host.style, {
-      display: 'flex',
-      flexDirection: this.orientation,
-    });
+    this.host.style.display = 'flex';
+    this.host.style.flexDirection = this.orientation;
 
     if (this.value === undefined) {
       const radio = findCheckedOption(el, 'fw-radio') as

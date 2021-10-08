@@ -73,7 +73,6 @@ describe('fw-radio', () => {
 
     await page.setContent('<fw-radio label="Yes">Agree</fw-radio>');
     const element = await page.find('fw-radio >>> div');
-    console.log(element);
     expect(element).toEqualHtml(`<div id="description">
     <slot/>
     </div>`);
