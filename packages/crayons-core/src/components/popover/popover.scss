@@ -1,0 +1,9 @@
+.popper {
+  width: 100%;
+  display: none;
+  z-index: 99;
+}
+
+.popper[data-show] {
+  display: block;
+}

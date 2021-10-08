@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { PopoverPlacementType } from "./components/popover/popover";
 export namespace Components {
     interface FwButton {
         /**
@@ -257,6 +258,34 @@ export namespace Components {
           * Toggle the visibility of the modal
          */
         "visible": boolean;
+    }
+    interface FwPopover {
+        /**
+          * The area that the popup will be checked for overflow relative to.
+         */
+        "boundary": HTMLElement;
+        /**
+          * Distance defines the distance between the parentRef and the popover along y-axis.
+         */
+        "distance": number;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements": [PopoverPlacementType];
+        "hide": () => Promise<void>;
+        /**
+          * The reference of the parent element to which the popup should be attached.
+         */
+        "parentRef": HTMLElement;
+        /**
+          * Placement of the popover with respect to the parent element (parentRef).
+         */
+        "placement": PopoverPlacementType;
+        "show": () => Promise<void>;
+        /**
+          * Skidding defines the distance between the parentRef and the popover along x-axis.
+         */
+        "skidding": number;
     }
     interface FwRadio {
         /**
@@ -614,6 +643,12 @@ declare global {
         prototype: HTMLFwModalElement;
         new (): HTMLFwModalElement;
     };
+    interface HTMLFwPopoverElement extends Components.FwPopover, HTMLStencilElement {
+    }
+    var HTMLFwPopoverElement: {
+        prototype: HTMLFwPopoverElement;
+        new (): HTMLFwPopoverElement;
+    };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
     var HTMLFwRadioElement: {
@@ -695,6 +730,7 @@ declare global {
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-modal": HTMLFwModalElement;
+        "fw-popover": HTMLFwPopoverElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
@@ -1021,6 +1057,32 @@ declare namespace LocalJSX {
           * Toggle the visibility of the modal
          */
         "visible"?: boolean;
+    }
+    interface FwPopover {
+        /**
+          * The area that the popup will be checked for overflow relative to.
+         */
+        "boundary"?: HTMLElement;
+        /**
+          * Distance defines the distance between the parentRef and the popover along y-axis.
+         */
+        "distance"?: number;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * The reference of the parent element to which the popup should be attached.
+         */
+        "parentRef"?: HTMLElement;
+        /**
+          * Placement of the popover with respect to the parent element (parentRef).
+         */
+        "placement"?: PopoverPlacementType;
+        /**
+          * Skidding defines the distance between the parentRef and the popover along x-axis.
+         */
+        "skidding"?: number;
     }
     interface FwRadio {
         /**
@@ -1402,6 +1464,7 @@ declare namespace LocalJSX {
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-modal": FwModal;
+        "fw-popover": FwPopover;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
@@ -1428,6 +1491,7 @@ declare module "@stencil/core" {
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
+            "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
