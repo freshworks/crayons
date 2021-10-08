@@ -31,8 +31,8 @@ fw-button displays a button on the user interface and enables performing specifi
 </section>
 <br>
 <section>
-<fw-label value="Try block attribute"></fw-label>
-<fw-button size="small" color="secondary" block>Span full-width</fw-button>
+<fw-label value="Try expand attribute"></fw-label>
+<fw-button size="small" color="secondary" expand>Span full-width</fw-button>
 </section>
 ```
 
