@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 import moment from 'moment-mini';
 
-import { handleKeyDown, renderHiddenField } from '../../utils/utils';
+import { handleKeyDown, renderHiddenField } from '../../utils';
 
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const monthArr = [

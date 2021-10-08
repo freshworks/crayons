@@ -11,7 +11,7 @@ import {
   h,
 } from '@stencil/core';
 
-import { renderHiddenField } from '../../utils/utils';
+import { renderHiddenField } from '../../utils';
 
 @Component({
   tag: 'fw-textarea',

@@ -7,9 +7,10 @@ import {
   Prop,
   Watch,
   h,
+  Listen,
 } from '@stencil/core';
 
-import { renderHiddenField } from '../../utils/utils';
+import { renderHiddenField } from '../../utils';
 
 @Component({
   tag: 'fw-checkbox',
@@ -77,6 +78,20 @@ export class Checkbox {
     this.checkbox.disabled = isDisabled;
   }
 
+  @Listen('keydown')
+  handleKeydown(ev: KeyboardEvent) {
+    if (ev.code === 'Space') {
+      ev.preventDefault();
+    }
+  }
+
+  @Listen('keyup')
+  handleKeyup(ev: KeyboardEvent) {
+    if (ev.code === 'Space') {
+      this.toggle();
+    }
+  }
+
   private onFocus() {
     this.fwFocus.emit();
   }
@@ -105,22 +120,17 @@ export class Checkbox {
         role='checkbox'
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
-        aria-checked={this.checked}
+        aria-checked={this.checked ? 'true' : 'false'}
+        aria-label={this.label}
+        aria-describedby='description'
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >
         <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
-        <label>
-          <span class='text'>
-            <slot />
-          </span>
-          <br />
-          {this.label !== '' ? (
-            <span class='label-field'>{this.label}</span>
-          ) : (
-            ''
-          )}
-        </label>
+        <label>{this.label}</label>
+        <div id='description'>
+          <slot />
+        </div>
       </Host>
     );
   }

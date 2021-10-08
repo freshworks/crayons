@@ -83,3 +83,13 @@ export const handleKeyDown =
       handler(event);
     }
   };
+
+export const throttle = (func, context, delay) => {
+  let lastExecutedAt;
+  return (...args) => {
+    if (!lastExecutedAt || Date.now() - lastExecutedAt >= delay) {
+      func.apply(context, args);
+      lastExecutedAt = Date.now();
+    }
+  };
+};
