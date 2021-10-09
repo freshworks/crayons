@@ -4,9 +4,10 @@ import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
+const packageName = 'crayons';
 export const config: Config = {
   autoprefixCss: true,
-  namespace: 'crayons',
+  namespace: packageName,
   outputTargets: [
     {
       type: 'dist',
@@ -42,14 +43,14 @@ export const config: Config = {
     },
     {
       type: 'www',
-      dir: '../../www/.vuepress/public/crayons/',
+      dir: `../../www/.vuepress/public/${packageName}/`,
     },
     {
       type: 'docs-json',
       file: 'dist/docs.json',
     },
     reactOutputTarget({
-      componentCorePackage: '@freshworks/crayons', // name in the package.json should be used
+      componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
       proxiesFile: './crayons-react/src/components.ts',
 
       // lazy load -> code splitting
