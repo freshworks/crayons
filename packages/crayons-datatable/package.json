@@ -1,5 +1,5 @@
 {
-  "name": "crayons-datatable",
+  "name": "@freshworks/crayons-datatable",
   "repository": {
     "type": "git",
     "url": "https://github.com/freshworks/crayons.git"
