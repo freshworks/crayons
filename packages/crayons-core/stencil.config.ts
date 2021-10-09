@@ -17,6 +17,16 @@ export const config: Config = {
       footer: 'Built with ❤ at Freshworks',
     },
     {
+      /*
+        Generate the readme.md files within the www directory
+        at the root of the repo for Vuepress to generate the
+        the website.
+      */
+      type: 'docs-readme',
+      dir: '../../www/core',
+      footer: 'Built with ❤ at Freshworks',
+    },
+    {
       type: 'dist-custom-elements',
     },
     {
@@ -32,7 +42,7 @@ export const config: Config = {
     },
     {
       type: 'www',
-      dir: '.vuepress/public/www/',
+      dir: '../../www/.vuepress/public/crayons/',
     },
     {
       type: 'docs-json',
