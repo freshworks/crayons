@@ -1,0 +1,51 @@
+@import '../variables/typography';
+
+@mixin font-header($size: 16px, $color: $text-default, $weight: 400) {
+  font-size: $size;
+  color: $color;
+  font-weight: $weight;
+  letter-spacing: normal;
+
+  @if $size == 12px {
+    line-height: 16px;
+  } @else if $size == 14px {
+    line-height: 20px;
+  } @else if $size == 16px {
+    line-height: 20px;
+  } @else if $size == 18px  {
+    line-height: 24px;
+  } @else if $size == 24px  {
+    line-height: 32px;
+  } @else if $size == 32px  {
+    line-height: 40px;
+  } @else if $size == 44px  {
+    line-height: 54px;
+  } @else {
+    @error "Unacceptable font size #{$size}.";
+  }
+}
+
+@mixin font-body($size: 16px, $color: $text-secondary, $weight: 400) {
+  font-size: $size;
+  color: $color;
+  font-weight: $weight;
+  letter-spacing: normal;
+
+  @if $size == 12px {
+    line-height: 20px;
+  } @else if $size == 14px {
+    line-height: 20px;
+  } @else if $size == 16px {
+    line-height: 24px;
+  } @else if $size == 18px  {
+    line-height: 28px;
+  } @else if $size == 24px  {
+    line-height: 36px;
+  } @else if $size == 32px  {
+    line-height: 48px;
+  } @else if $size == 44px  {
+    line-height: 64px;
+  } @else {
+    @error "Unacceptable font size #{$size}.";
+  }
+}
