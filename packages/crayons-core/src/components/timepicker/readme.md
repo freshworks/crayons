@@ -40,6 +40,8 @@ graph TD;
   fw-timepicker --> fw-select-option
   fw-select --> fw-tag
   fw-select --> fw-select-option
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

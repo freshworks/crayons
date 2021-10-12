@@ -14,14 +14,20 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                                                              | Type      | Default     |
-| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `disabled`    | `disabled`     | Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.                              | `boolean` | `false`     |
-| `html`        | `html`         | States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.                                                                                | `boolean` | `false`     |
-| `htmlContent` | `html-content` | HTML content that is displayed as the option.                                                                                                                                            | `string`  | `undefined` |
-| `optionText`  | `option-text`  | Alternate text displayed on the interface, in place of the actual HTML content.                                                                                                          | `string`  | `undefined` |
-| `selected`    | `selected`     | Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false. | `boolean` | `false`     |
-| `value`       | `value`        | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                           | `string`  | `undefined` |
+| Property       | Attribute       | Description                                                                                                                                                                              | Type                                     | Default      |
+| -------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------ |
+| `disabled`     | `disabled`      | Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.                              | `boolean`                                | `false`      |
+| `graphicsType` | `graphics-type` | Icon or Avatar to be placed on the left side of the option.                                                                                                                              | `"avatar" \| "icon"`                     | `undefined`  |
+| `groupName`    | `group-name`    | Used in grouped list, provides the group in which the option belongs                                                                                                                     | `string`                                 | `undefined`  |
+| `html`         | `html`          | States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.                                                                                | `boolean`                                | `false`      |
+| `htmlContent`  | `html-content`  | HTML content that is displayed as the option.                                                                                                                                            | `string`                                 | `undefined`  |
+| `iconName`     | `icon-name`     | Used by FW-ICON to set the name of the Icon                                                                                                                                              | `string`                                 | `undefined`  |
+| `optionText`   | `option-text`   | Alternate text displayed on the interface, in place of the actual HTML content.                                                                                                          | `string`                                 | `undefined`  |
+| `selected`     | `selected`      | Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false. | `boolean`                                | `false`      |
+| `subText`      | `sub-text`      | Second line text can be description etc.                                                                                                                                                 | `string`                                 | `undefined`  |
+| `text`         | `text`          | The text to be displayed in the option.                                                                                                                                                  | `string`                                 | `undefined`  |
+| `value`        | `value`         | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                           | `string`                                 | `undefined`  |
+| `variant`      | `variant`       | Standard is the default option, checkbox is the option with checkbox and graphics is the option with either icon or avatar.                                                              | `"checkbox" \| "graphics" \| "standard"` | `'standard'` |
 
 
 ## Events
@@ -29,6 +35,19 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 | Event        | Description                           | Type               |
 | ------------ | ------------------------------------- | ------------------ |
 | `fwSelected` | Triggered when an option is selected. | `CustomEvent<any>` |
+
+
+## Methods
+
+### `setFocus() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
 
 
 ## Dependencies
@@ -39,9 +58,16 @@ fw-select-option provides child elements for fw-select, to populate the Select c
  - [fw-select](../select)
  - [fw-timepicker](../timepicker)
 
+### Depends on
+
+- [fw-icon](../icon)
+- [fw-checkbox](../checkbox)
+
 ### Graph
 ```mermaid
 graph TD;
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
   fw-datepicker --> fw-select-option
   fw-select --> fw-select-option
   fw-timepicker --> fw-select-option

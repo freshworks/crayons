@@ -97,6 +97,8 @@ Type: `Promise<any>`
 graph TD;
   fw-select --> fw-tag
   fw-select --> fw-select-option
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
   fw-datepicker --> fw-select
   fw-timepicker --> fw-select
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
