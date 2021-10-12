@@ -62,6 +62,7 @@ module.exports = {
       "live",
       {
         layout: path.resolve(__dirname, "./previewLayout.vue"),
+        squiggles: false
       },
     ],
     ["@vuepress/active-header-links"],
