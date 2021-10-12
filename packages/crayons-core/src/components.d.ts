@@ -560,10 +560,6 @@ export namespace Components {
     }
     interface FwToggle {
         /**
-          * Name of the icon to be shown when toggle is checked. Defaults to check icon.
-         */
-        "checkIcon": string;
-        /**
           * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
          */
         "checked": boolean;
@@ -587,10 +583,6 @@ export namespace Components {
           * Size of the input control.
          */
         "size": 'small' | 'medium' | 'large';
-        /**
-          * Name of the icon to be shown when toggle is unchecked. Defaults to cross icon.
-         */
-        "uncheckIcon": string;
     }
 }
 declare global {
@@ -1413,10 +1405,6 @@ declare namespace LocalJSX {
     }
     interface FwToggle {
         /**
-          * Name of the icon to be shown when toggle is checked. Defaults to check icon.
-         */
-        "checkIcon"?: string;
-        /**
           * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
          */
         "checked"?: boolean;
@@ -1444,10 +1432,6 @@ declare namespace LocalJSX {
           * Size of the input control.
          */
         "size"?: 'small' | 'medium' | 'large';
-        /**
-          * Name of the icon to be shown when toggle is unchecked. Defaults to cross icon.
-         */
-        "uncheckIcon"?: string;
     }
     interface IntrinsicElements {
         "fw-button": FwButton;
