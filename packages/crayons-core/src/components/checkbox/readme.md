@@ -36,11 +36,13 @@ fw-checkbox displays a check box on the user interface and enables assigning a s
 ### Used by
 
  - [fw-dropdown-button](../dropdown-button)
+ - [fw-select-option](../select-option)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-dropdown-button --> fw-checkbox
+  fw-select-option --> fw-checkbox
   style fw-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

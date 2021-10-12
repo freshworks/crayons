@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { PopoverPlacementType } from "./components/popover/popover";
+import { DropdownVariant } from "./components/select-option/select-option";
 export namespace Components {
     interface FwButton {
         /**
@@ -401,6 +402,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Icon or Avatar to be placed on the left side of the option.
+         */
+        "graphicsType": 'icon' | 'avatar';
+        /**
+          * Used in grouped list, provides the group in which the option belongs
+         */
+        "groupName": string;
+        /**
           * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
          */
         "html": boolean;
@@ -409,6 +418,10 @@ export namespace Components {
          */
         "htmlContent"?: string;
         /**
+          * Used by FW-ICON to set the name of the Icon
+         */
+        "iconName": string;
+        /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
         "optionText": string;
@@ -416,10 +429,23 @@ export namespace Components {
           * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
          */
         "selected": boolean;
+        "setFocus": () => Promise<any>;
+        /**
+          * Second line text can be description etc.
+         */
+        "subText": string;
+        /**
+          * The text to be displayed in the option.
+         */
+        "text": string;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "value": string;
+        /**
+          * Standard is the default option, checkbox is the option with checkbox and graphics is the option with either icon or avatar.
+         */
+        "variant": DropdownVariant;
     }
     interface FwSpinner {
         /**
@@ -1252,6 +1278,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Icon or Avatar to be placed on the left side of the option.
+         */
+        "graphicsType"?: 'icon' | 'avatar';
+        /**
+          * Used in grouped list, provides the group in which the option belongs
+         */
+        "groupName"?: string;
+        /**
           * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
          */
         "html"?: boolean;
@@ -1259,6 +1293,10 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
+        /**
+          * Used by FW-ICON to set the name of the Icon
+         */
+        "iconName"?: string;
         /**
           * Triggered when an option is selected.
          */
@@ -1272,9 +1310,21 @@ declare namespace LocalJSX {
          */
         "selected"?: boolean;
         /**
+          * Second line text can be description etc.
+         */
+        "subText"?: string;
+        /**
+          * The text to be displayed in the option.
+         */
+        "text"?: string;
+        /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "value"?: string;
+        /**
+          * Standard is the default option, checkbox is the option with checkbox and graphics is the option with either icon or avatar.
+         */
+        "variant"?: DropdownVariant;
     }
     interface FwSpinner {
         /**
