@@ -402,6 +402,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'
+         */
+        "graphicsProps": any;
+        /**
           * Icon or Avatar to be placed on the left side of the option.
          */
         "graphicsType": 'icon' | 'avatar';
@@ -417,10 +421,6 @@ export namespace Components {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
-        /**
-          * Used by FW-ICON to set the name of the Icon
-         */
-        "iconName": string;
         /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
@@ -1278,6 +1278,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'
+         */
+        "graphicsProps"?: any;
+        /**
           * Icon or Avatar to be placed on the left side of the option.
          */
         "graphicsType"?: 'icon' | 'avatar';
@@ -1293,10 +1297,6 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
-        /**
-          * Used by FW-ICON to set the name of the Icon
-         */
-        "iconName"?: string;
         /**
           * Triggered when an option is selected.
          */

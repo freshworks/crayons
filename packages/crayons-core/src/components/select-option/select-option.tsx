@@ -62,9 +62,9 @@ export class SelectOption {
    */
   @Prop() groupName: string;
   /**
-   * Used by FW-ICON to set the name of the Icon
+   * The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'
    */
-  @Prop() iconName: string;
+  @Prop() graphicsProps;
 
   /**
    * Triggered when an option is selected.
@@ -120,18 +120,30 @@ export class SelectOption {
 
   createDescription() {
     return this.subText ? (
-      <div class='description'>
+      <div
+        class={
+          'description ' +
+          (this.graphicsType === 'icon' ? 'icon-margin ' : 'standard-margin ')
+        }
+      >
         <span class='description-text'>{this.text}</span>
         <span class='description-subText'>{this.subText}</span>
       </div>
     ) : (
-      <span class='description'>{this.text}</span>
+      <span
+        class={
+          'description ' +
+          (this.graphicsType === 'icon' ? 'icon-margin ' : 'standard-margin ')
+        }
+      >
+        {this.text}
+      </span>
     );
   }
 
   createGraphics() {
     return this.graphicsType === 'icon' ? (
-      <fw-icon name={this.iconName} size={16} color='blue'></fw-icon>
+      <fw-icon {...this.graphicsProps}></fw-icon>
     ) : (
       ''
     );
