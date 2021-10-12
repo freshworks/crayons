@@ -1,34 +1,48 @@
 # Select Option (fw-select-option)
 
-fw-select-option provides child elements for fw-select, to populate the Select component’s list or drop-down box with values. If fw-select-option is used without the value attribute, when the form data is saved, the value of fw-select is the selected option’s text. 
+fw-select-option provides child elements for fw-select, to populate the Select component’s list or drop-down box with values. If fw-select-option is used without the value attribute, when the form data is saved, the value of fw-select is the selected option’s text.
 
 ## Usage
+
 ```html live
 <fw-select-option selected="true">I am the chosen one</fw-select-option>
 <fw-select-option html html-content="<b>Me, nein</b>"></fw-select-option>
 <fw-select-option>I am another option</fw-select-option>
 ```
 
-<!-- Auto Generated Below -->
+#### Variants
 
+```html live
+<fw-select-option text="Standard Variant"></fw-select-option>
+<fw-select-option
+  text="Standard Variant"
+  sub-text="This is multiline element"
+></fw-select-option>
+<fw-select-option
+  variant="checkbox"
+  text="Checkbox Variant"
+  sub-text="This is multiline checkbox element"
+></fw-select-option>
+```
+
+<!-- Auto Generated Below -->
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                                                                                              | Type                                     | Default      |
-| -------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------ |
-| `disabled`     | `disabled`      | Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.                              | `boolean`                                | `false`      |
-| `graphicsType` | `graphics-type` | Icon or Avatar to be placed on the left side of the option.                                                                                                                              | `"avatar" \| "icon"`                     | `undefined`  |
-| `groupName`    | `group-name`    | Used in grouped list, provides the group in which the option belongs                                                                                                                     | `string`                                 | `undefined`  |
-| `html`         | `html`          | States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.                                                                                | `boolean`                                | `false`      |
-| `htmlContent`  | `html-content`  | HTML content that is displayed as the option.                                                                                                                                            | `string`                                 | `undefined`  |
-| `iconName`     | `icon-name`     | Used by FW-ICON to set the name of the Icon                                                                                                                                              | `string`                                 | `undefined`  |
-| `optionText`   | `option-text`   | Alternate text displayed on the interface, in place of the actual HTML content.                                                                                                          | `string`                                 | `undefined`  |
-| `selected`     | `selected`      | Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false. | `boolean`                                | `false`      |
-| `subText`      | `sub-text`      | Second line text can be description etc.                                                                                                                                                 | `string`                                 | `undefined`  |
-| `text`         | `text`          | The text to be displayed in the option.                                                                                                                                                  | `string`                                 | `undefined`  |
-| `value`        | `value`         | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                           | `string`                                 | `undefined`  |
-| `variant`      | `variant`       | Standard is the default option, checkbox is the option with checkbox and graphics is the option with either icon or avatar.                                                              | `"checkbox" \| "graphics" \| "standard"` | `'standard'` |
-
+| Property        | Attribute       | Description                                                                                                                                                                              | Type                                     | Default      |
+| --------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------ |
+| `disabled`      | `disabled`      | Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.                              | `boolean`                                | `false`      |
+| `graphicsProps` | --              | The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'                                                                                                     | `{}`                                     | `{}`         |
+| `graphicsType`  | `graphics-type` | Icon or Avatar to be placed on the left side of the option.                                                                                                                              | `"avatar" \| "icon"`                     | `undefined`  |
+| `groupName`     | `group-name`    | Used in grouped list, provides the group in which the option belongs                                                                                                                     | `string`                                 | `undefined`  |
+| `html`          | `html`          | States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.                                                                                | `boolean`                                | `false`      |
+| `htmlContent`   | `html-content`  | HTML content that is displayed as the option.                                                                                                                                            | `string`                                 | `undefined`  |
+| `optionText`    | `option-text`   | Alternate text displayed on the interface, in place of the actual HTML content.                                                                                                          | `string`                                 | `undefined`  |
+| `selected`      | `selected`      | Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false. | `boolean`                                | `false`      |
+| `subText`       | `sub-text`      | Second line text can be description etc.                                                                                                                                                 | `string`                                 | `undefined`  |
+| `text`          | `text`          | The text to be displayed in the option.                                                                                                                                                  | `string`                                 | `undefined`  |
+| `value`         | `value`         | Value corresponding to the option, that is saved when the form data is saved.                                                                                                            | `string`                                 | `undefined`  |
+| `variant`       | `variant`       | Standard is the default option, checkbox is the option with checkbox and graphics is the option with either icon or avatar.                                                              | `"checkbox" \| "graphics" \| "standard"` | `'standard'` |
 
 ## Events
 
@@ -36,27 +50,21 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 | ------------ | ------------------------------------- | ------------------ |
 | `fwSelected` | Triggered when an option is selected. | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `setFocus() => Promise<any>`
-
-
 
 #### Returns
 
 Type: `Promise<any>`
 
-
-
-
 ## Dependencies
 
 ### Used by
 
- - [fw-datepicker](../datepicker)
- - [fw-select](../select)
- - [fw-timepicker](../timepicker)
+- [fw-datepicker](../datepicker)
+- [fw-select](../select)
+- [fw-timepicker](../timepicker)
 
 ### Depends on
 
@@ -64,6 +72,7 @@ Type: `Promise<any>`
 - [fw-checkbox](../checkbox)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-select-option --> fw-icon
@@ -74,6 +83,6 @@ graph TD;
   style fw-select-option fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks

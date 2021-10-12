@@ -88,5 +88,13 @@ $bg-color-disabled: $color-smoke-25;
     &-subText {
       font-weight: $font-weight-400;
     }
+
+    &.icon-margin {
+      margin-left: 18px;
+    }
+
+    &.standard-margin {
+      margin-left: 12px;
+    }
   }
 }
