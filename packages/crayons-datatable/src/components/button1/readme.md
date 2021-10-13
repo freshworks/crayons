@@ -1,6 +1,16 @@
 # fw-button1
 
+## Usage
 
+```html live
+<section>
+<fw-label value="Try Compound Components"></fw-label>
+<fw-button1 color="secondary"> OK </fw-button1>
+<fw-button1 color="danger"> Don't Click </fw-button1>
+<fw-button1 color="link"> Link Button </fw-button1>
+<fw-button1 color="text"> Plain Text Button </fw-button1>
+</section>
+```
 
 <!-- Auto Generated Below -->
 

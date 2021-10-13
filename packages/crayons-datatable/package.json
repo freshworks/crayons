@@ -26,7 +26,7 @@
     "dist/",
     "loader/",
     "www/",
-    "react"
+    "react/"
   ],
   "scripts": {
     "build:components": "stencil build --docs",

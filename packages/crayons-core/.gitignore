@@ -9,6 +9,7 @@ src/custom-elements.json
 crayons-react/src/react-component-lib
 crayons-react/src/components.ts
 .vuepress/public/build/
+css/
 
 *~
 *.sw[mnpcod]
