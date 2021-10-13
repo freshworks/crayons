@@ -98,7 +98,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@stencil/core": "^2.8.1",
+    "@stencil/core": "^2.9.0",
     "moment-mini": "^2.24.0"
   },
   "publishConfig": {
