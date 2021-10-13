@@ -39,8 +39,6 @@
     bottom: 0;
     border-radius: 34px;
     background: $toggle-btn-off-bg;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
   }
   @media screen and (prefers-reduced-motion: reduce) {
     .before {
@@ -57,8 +55,12 @@
     border-radius: 50%;
     box-shadow: 0 1px 1px 0 $toggle-btn-shadow;
     background-color: $app-secondary-btn;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
     display: flex;
     justify-content: center;
     align-items: center;
