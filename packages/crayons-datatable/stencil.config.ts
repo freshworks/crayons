@@ -4,13 +4,10 @@ import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
-//do npm run build on the parent first before running the dev/test/build command on this package
-import { components } from '@freshworks/crayons/dist/docs.json';
-const webComponents = components.map((c) => c.tag);
-
+const packageName = 'crayons-datatable';
 export const config: Config = {
   autoprefixCss: true,
-  namespace: 'crayons-datatable',
+  namespace: packageName,
   outputTargets: [
     {
       type: 'dist',
@@ -18,6 +15,16 @@ export const config: Config = {
     },
     {
       type: 'docs-readme',
+      footer: 'Built with ❤ at Freshworks',
+    },
+    {
+      /*
+        Generate the readme.md files within the www directory
+        at the root of the repo for Vuepress to generate the
+        the website.
+      */
+      type: 'docs-readme',
+      dir: '../../www/datatable',
       footer: 'Built with ❤ at Freshworks',
     },
     {
@@ -36,14 +43,14 @@ export const config: Config = {
     },
     {
       type: 'www',
-      dir: '.vuepress/public/www/',
+      dir: `../../www/.vuepress/public/${packageName}/`,
     },
     {
       type: 'docs-json',
       file: 'dist/docs.json',
     },
     reactOutputTarget({
-      componentCorePackage: 'crayons-datatable', // name in the package.json should be used
+      componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
       proxiesFile: './crayons-react/src/components.ts',
 
       // lazy load -> code splitting
@@ -53,7 +60,6 @@ export const config: Config = {
       // tree shakable
       customElementsDir: 'dist/components',
       includeImportCustomElements: true,
-      excludeComponents: webComponents,
     }),
   ],
   plugins: [

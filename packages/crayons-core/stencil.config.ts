@@ -4,9 +4,10 @@ import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
+const packageName = 'crayons';
 export const config: Config = {
   autoprefixCss: true,
-  namespace: 'crayons',
+  namespace: packageName,
   outputTargets: [
     {
       type: 'dist',
@@ -14,6 +15,16 @@ export const config: Config = {
     },
     {
       type: 'docs-readme',
+      footer: 'Built with ❤ at Freshworks',
+    },
+    {
+      /*
+        Generate the readme.md files within the www directory
+        at the root of the repo for Vuepress to generate the
+        the website.
+      */
+      type: 'docs-readme',
+      dir: '../../www/core',
       footer: 'Built with ❤ at Freshworks',
     },
     {
@@ -32,14 +43,14 @@ export const config: Config = {
     },
     {
       type: 'www',
-      dir: '.vuepress/public/www/',
+      dir: `../../www/.vuepress/public/${packageName}/`,
     },
     {
       type: 'docs-json',
       file: 'dist/docs.json',
     },
     reactOutputTarget({
-      componentCorePackage: '@freshworks/crayons', // name in the package.json should be used
+      componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
       proxiesFile: './crayons-react/src/components.ts',
 
       // lazy load -> code splitting

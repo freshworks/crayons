@@ -1,12 +1,19 @@
-const path = require("path");
-const components = require("../src/custom-elements.json");
+const fs = require('fs');
+const path = require('path');
 
-const getComponents = () =>
-  components.tags.map(({ tag }) => {
-    return `../src/components/${tag.substr(3)}/`;
-  });
+// Retrieve list of components for the sidebar config
+const components = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../components.json')));
 
-const getUtils = () => ['card'].map(util => (`/components/${util}/`));
+// Generate array of head-scripts based on the www builds of the
+// packages that have landed in the public directory
+const headScripts = [];
+const wwwBuilds = fs.readdirSync(path.resolve(__dirname, 'public')).filter(dir => {
+  return /^(\.\/)?crayons/.test(dir);
+});
+for (const wwwBuild of wwwBuilds) {
+  headScripts.push(["script", { type: "module", src: `/${wwwBuild}/build/${wwwBuild}.esm.js` }]);
+  headScripts.push(["script", { nomodule: "", src: `/${wwwBuild}/build/${wwwBuild}.js` }]);
+}
 
 const getTags = () => [
   "Web Components",
@@ -27,11 +34,9 @@ module.exports = {
   title: "Crayons",
   base: "/",
   description: "A refreshed design library for the Freshworks Developers.",
-  dest: "docs-dist",
-  docsDir: "src",
+  dest: "www-dist",
   head: [
-    ["script", { type: "module", src: "/www/build/crayons.esm.js" }],
-    ["script", { nomodule: "", src: "/www/build/crayons.js" }],
+    ...headScripts,
     ["link", { rel: "icon", href: "/favicon.png" }],
   ],
   themeConfig: {
@@ -42,19 +47,13 @@ module.exports = {
         title: "Introduction",
         collapsable: false,
         sidebarDepth: 1,
-        children: ["../src/components/"],
+        children: ["/introduction/"],
       },
       {
         title: "Components",
         collapsable: false,
         sidebarDepth: 1,
-        children: getComponents(),
-      }, 
-      {
-        title: 'CSS Utils',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: getUtils()
+        children: components,
       }
     ],
   },
@@ -63,6 +62,7 @@ module.exports = {
       "live",
       {
         layout: path.resolve(__dirname, "./previewLayout.vue"),
+        squiggles: false
       },
     ],
     ["@vuepress/active-header-links"],
@@ -95,7 +95,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        "@components": path.resolve(__dirname, "../src/components"),
+        "@icon-assets": path.resolve(__dirname, 'public/crayons/build/icon-assets'),
       },
     },
   },
