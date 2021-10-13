@@ -59,4 +59,31 @@ describe('fw-radio', () => {
     await element.click();
     expect(fwSelect.events).toEqual([]);
   });
+
+  it('it should set label when passed as a prop', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-radio label="Yes"></fw-radio>');
+    const element = await page.find('fw-radio >>> label');
+    expect(element).toEqualText('Yes');
+  });
+
+  it('it should return html structure with slot when content is passed between opening and closing tag', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-radio label="Yes">Agree</fw-radio>');
+    const element = await page.find('fw-radio >>> div');
+    expect(element).toEqualHtml(`<div id="description">
+    <slot/>
+    </div>`);
+  });
+
+  it('it should set aria-label when label is passed as param', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-radio value="1" label="yes">1</fw-radio>');
+    const element = await page.find('fw-radio');
+    const label = element.getAttribute('aria-label');
+    expect(label).toBe('yes');
+  });
 });

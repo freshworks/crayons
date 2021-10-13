@@ -1,6 +1,10 @@
 :host(.radio-container) {
-  display: inline;
+  display: inline-block;
   position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
+  max-width: 80ch;
+  word-wrap: break-word;
 }
 
 /* Focus event occurs on the root element */
@@ -21,13 +25,12 @@
   }
 }
 
-.label-field {
+#description {
   font-size: 12px;
   color: #475867;
   letter-spacing: 0;
   line-height: 20px;
   position: relative;
-  padding-left: 28px;
   font-weight: 400;
 }
 
@@ -56,16 +59,13 @@ input[type='radio'] {
   & + label {
     user-select: none;
     cursor: pointer;
-    max-width: auto;
-    margin-bottom: 0;
+    margin-bottom: 4px;
     vertical-align: middle;
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 20px;
     color: #12344d;
-    font-weight: 500;
-
-    .text {
-      padding-left: 27px;
-    }
+    font-weight: 600;
+    margin-right: 10px;
 
     &::before,
     &::after {

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 
 @Component({

@@ -1,6 +1,8 @@
 :host(.checkbox-container) {
-  display: inline;
+  display: inline-block;
   position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
 }
 
 /* Focus event occurs on the root element */
@@ -20,14 +22,14 @@
   }
 }
 
-.label-field {
+#description {
   font-size: 12px;
   color: #475867;
   letter-spacing: 0;
   line-height: 20px;
   position: relative;
-  padding-left: 28px;
   font-weight: 400;
+  word-wrap: break-word;
 }
 
 /* Hover event occurs on the root element */
@@ -55,15 +57,13 @@ input[type='checkbox'] {
   & + label {
     user-select: none;
     cursor: pointer;
-    margin-bottom: 0;
+    margin-bottom: 4px;
     vertical-align: middle;
-    font-size: 12px;
+    font-size: 14px;
     color: #12344d;
-    font-weight: 500;
+    font-weight: 600;
+    line-height: 20px;
 
-    .text {
-      padding-left: 27px;
-    }
     @media screen and (prefers-reduced-motion: reduce) {
       &::before {
         transition: none;
