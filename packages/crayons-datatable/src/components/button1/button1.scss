@@ -1,36 +1,31 @@
 //=== Button Style ===//
-:host {
-  --btn-primary-color: #{$color-milk};
-  --btn-primary-bg: #{$color-elephant-800};
-  --btn-primary-bg-dark: #{$color-elephant-900};
-  --btn-primary-border: #{$color-elephant-900};
-  --btn-primary-border-active: #{$color-elephant-800};
+$btn-primary-color: $color-milk;
+$btn-primary-bg: $color-elephant-800;
+$btn-primary-bg-dark: $color-elephant-900;
+$btn-primary-border: $color-elephant-900;
+$btn-primary-border-active: $color-elephant-800;
 
-  --btn-secondary-color: #{$text-default};
-  --btn-secondary-bg: #{$color-milk};
-  --btn-secondary-bg-dark: #{$color-smoke-25};
-  --btn-secondary-border: #{$border-color};
-  --btn-secondary-border-active: #{$color-smoke-50};
+$btn-secondary-color: $text-default;
+$btn-secondary-bg: $color-milk;
+$btn-secondary-bg-dark: $color-smoke-25;
+$btn-secondary-border: $border-color;
+$btn-secondary-border-active: $color-smoke-50;
 
-  --btn-danger-color: #{$color-milk};
-  --btn-danger-bg: #{$color-persimmon-800};
-  --btn-danger-bg-dark: #{$color-persimmon-900};
-  --btn-danger-border: #{$color-persimmon-900};
+$btn-danger-color: $color-milk;
+$btn-danger-bg: $color-persimmon-800;
+$btn-danger-bg-dark: $color-persimmon-900;
+$btn-danger-border: $color-persimmon-900;
 
-  --btn-link-color: #{$color-azure-800};
-  --btn-link-bg: #{$color-smoke-50};
+$btn-link-color: $color-azure-800;
+$btn-link-bg: $color-smoke-50;
 
-  --active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
+$active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
-  --btn-default-font-size: #{$font-size-14};
-  --btn-small-font-size: #{$font-size-12};
-  --btn-mini-font-size: #{$font-size-10};
+$btn-default-font-size: $font-size-14;
+$btn-small-font-size: $font-size-12;
+$btn-mini-font-size: $font-size-10;
 
-  --btn-font-weight: #{$font-weight-500};
-
-  display: inline-block;
-  //=== Button Style===//
-}
+$btn-font-weight: $font-weight-500;
 
 @media screen and (prefers-reduced-motion: reduce) {
   .fw-btn {
@@ -39,28 +34,28 @@
 }
 
 .fw-btn {
-  font-size: var(--btn-default-font-size);
-  line-height: var(--btn-default-font-size);
+  font-size: $btn-default-font-size;
+  line-height: 20px;
   padding: 6px 12px;
   border: 1px solid transparent;
   border-radius: 4px;
   outline: 0;
-  color: var(--btn-primary-bg);
+  color: $btn-primary-bg;
   cursor: pointer;
   transition: all 0.2s linear;
   letter-spacing: 0.3px;
-  font-weight: var(--btn-font-weight);
-  min-width: 90px;
+  font-weight: $btn-font-weight;
+  min-width: 87px;
   height: 32px;
 
   &:focus {
-    border: 1px solid var(--btn-primary-bg);
-    box-shadow: 0 0 0 1px var(--btn-primary-bg);
+    border: 1px solid $btn-primary-bg;
+    box-shadow: 0 0 0 1px $btn-primary-bg;
     outline: none;
   }
 
   &:active {
-    box-shadow: var(--active-box-shadow);
+    box-shadow: $active-box-shadow;
   }
 
   &.disabled,
@@ -70,60 +65,60 @@
   }
 
   &--primary {
-    background-color: var(--btn-primary-bg);
-    color: var(--btn-primary-color);
-    border: 1px solid var(--btn-primary-border);
+    background-color: $btn-primary-bg;
+    color: $btn-primary-color;
+    border: 1px solid $btn-primary-border;
     background-image: linear-gradient(
       to bottom,
-      var(--btn-primary-bg),
-      var(--btn-primary-bg-dark)
+      $btn-primary-bg,
+      $btn-primary-bg-dark
     );
 
     &:active {
-      border: 1px solid var(--btn-primary-border-active);
+      border: 1px solid $btn-primary-border-active;
     }
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: var(--btn-primary-bg-dark);
+      background-color: $btn-primary-bg-dark;
       background-image: none;
     }
   }
 
   &--secondary {
-    background-color: var(--btn-secondary-bg-dark);
-    color: var(--btn-secondary-color);
-    border: 1px solid var(--btn-secondary-border);
+    background-color: $btn-secondary-bg-dark;
+    color: $btn-secondary-color;
+    border: 1px solid $btn-secondary-border;
     background-image: linear-gradient(
       to bottom,
-      var(--btn-secondary-bg),
-      var(--btn-secondary-bg-dark)
+      $btn-secondary-bg,
+      $btn-secondary-bg-dark
     );
 
     &:active {
-      border: 1px solid var(--btn-secondary-border-active);
+      border: 1px solid $btn-secondary-border-active;
     }
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: var(--btn-secondary-bg-dark);
+      background-color: $btn-secondary-bg-dark;
       background-image: none;
     }
   }
 
   &--danger {
-    color: var(--btn-danger-color);
-    background-color: var(--btn-danger-bg);
-    border: 1px solid var(--btn-danger-border);
+    color: $btn-danger-color;
+    background-color: $btn-danger-bg;
+    border: 1px solid $btn-danger-border;
     background-image: linear-gradient(
       to bottom,
-      var(--btn-danger-bg),
-      var(--btn-danger-bg-dark)
+      $btn-danger-bg,
+      $btn-danger-bg-dark
     );
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: var(--btn-danger-bg-dark);
+      background-color: $btn-danger-bg-dark;
       background-image: none;
     }
   }
@@ -132,12 +127,12 @@
     background-color: transparent;
     background-image: none;
     border: 1px solid transparent;
-    color: var(--btn-link-color);
+    color: $btn-link-color;
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: var(--btn-link-bg);
-      border-color: var(--btn-link-bg);
+      background-color: $btn-link-bg;
+      border-color: $btn-link-bg;
     }
   }
 
@@ -145,33 +140,32 @@
     background-color: transparent;
     background-image: none;
     border: 1px solid transparent;
-    color: var(--btn-primary-bg);
+    color: $btn-primary-bg;
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: var(--btn-link-bg);
-      border-color: var(--btn-link-bg);
+      background-color: $btn-link-bg;
+      border-color: $btn-link-bg;
     }
   }
 
   &--block {
     width: 100%;
-    display: block;
   }
 
   &--mini {
     padding: 2px 2px;
-    font-size: var(--btn-mini-font-size);
-    line-height: var(--btn-mini-font-size);
+    font-size: $btn-mini-font-size;
+    line-height: $btn-mini-font-size;
     min-width: 16px;
     height: 16px;
   }
 
   &--small {
-    padding: 4px 6px;
-    font-size: var(--btn-small-font-size);
-    line-height: var(--btn-small-font-size);
-    min-width: 16px;
+    padding: 5px 8px;
+    font-size: $btn-small-font-size;
+    line-height: 12px;
+    min-width: 70px;
     height: 24px;
   }
 
