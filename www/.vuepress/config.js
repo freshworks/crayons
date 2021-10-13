@@ -13,7 +13,10 @@ const wwwBuilds = fs.readdirSync(path.resolve(__dirname, 'public')).filter(dir =
 for (const wwwBuild of wwwBuilds) {
   headScripts.push(["script", { type: "module", src: `/${wwwBuild}/build/${wwwBuild}.esm.js` }]);
   headScripts.push(["script", { nomodule: "", src: `/${wwwBuild}/build/${wwwBuild}.js` }]);
+  headScripts.push(["link", { rel: "stylesheet", href: "/output.css" }]);
 }
+
+const getUtils = () => ['card'].map(util => (`/css-utils/${util}/`));
 
 const getTags = () => [
   "Web Components",
@@ -55,6 +58,12 @@ module.exports = {
         sidebarDepth: 1,
         children: components,
       },
+      {
+        title: 'CSS Utils',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: getUtils()
+      }
     ],
   },
   plugins: [
