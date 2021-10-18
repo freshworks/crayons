@@ -72,6 +72,9 @@ export class Toggle {
   };
 
   render() {
+    const toggleSize = ['small', 'medium', 'large'].includes(this.size)
+      ? this.size
+      : 'medium';
     return (
       <Host
         onClick={() => this.toggle()}
@@ -84,9 +87,7 @@ export class Toggle {
         <div
           class={{
             'toggle-switch': true,
-            [['small', 'medium', 'large'].includes(this.size)
-              ? this.size
-              : 'medium']: true,
+            [toggleSize]: true,
           }}
         >
           <input
@@ -99,9 +100,7 @@ export class Toggle {
           <span
             class={{
               slider: true,
-              [['small', 'medium', 'large'].includes(this.size)
-                ? this.size
-                : 'medium']: true,
+              [toggleSize]: true,
             }}
           >
             {
