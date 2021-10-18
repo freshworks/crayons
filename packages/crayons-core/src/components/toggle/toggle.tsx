@@ -24,7 +24,7 @@ export class Toggle {
   /**
    * Size of the input control.
    */
-  @Prop() size: 'small' | 'medium' | 'large' = 'medium';
+  @Prop({ mutable: true }) size: 'small' | 'medium' | 'large' = 'medium';
   /**
    * Name of the component, saved as part of the form data.
    */
@@ -71,6 +71,21 @@ export class Toggle {
     }
   };
 
+  private setDefaultSize(value) {
+    if (!['small', 'medium', 'large'].includes(value)) {
+      this.size = 'medium'; // set medium as default size if incorrect value is passed in for size.
+    }
+  }
+
+  @Watch('size')
+  sizeHandler(newValue: string) {
+    this.setDefaultSize(newValue);
+  }
+
+  connectedCallback() {
+    this.setDefaultSize(this.size);
+  }
+
   render() {
     return (
       <Host
@@ -100,9 +115,7 @@ export class Toggle {
               [this.size]: true,
             }}
           >
-            {(this.size === 'small' ||
-              this.size === 'medium' ||
-              this.size === 'large') && (
+            {
               <span class='before'>
                 {this.showIcon && (
                   <fw-icon
@@ -112,7 +125,7 @@ export class Toggle {
                   ></fw-icon>
                 )}
               </span>
-            )}
+            }
           </span>
         </div>
       </Host>
