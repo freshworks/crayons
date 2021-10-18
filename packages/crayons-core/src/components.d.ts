@@ -1423,7 +1423,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input control is selected or deselected.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwchange"?: (event: CustomEvent<any>) => void;
         /**
           * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
          */

@@ -44,7 +44,7 @@ export class Toggle {
   /**
    * Triggered when the input control is selected or deselected.
    */
-  @Event() fwChange: EventEmitter;
+  @Event({ eventName: 'fwchange' }) fwChange: EventEmitter;
 
   @Listen('keyup')
   handleKeyUp(ev: KeyboardEvent) {

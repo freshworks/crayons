@@ -18,42 +18,42 @@ describe('fw-toggle', () => {
     expect(isChecked).toBe(true);
   });
 
-  it('it emits fwChange when clicked', async () => {
+  it('it emits fwchange when clicked', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-toggle></fw-toggle>');
     const element = await page.find('fw-toggle');
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwChange = await page.spyOnEvent('fwchange');
     await element.click();
     expect(fwChange).toHaveReceivedEventDetail({ checked: true });
   });
 
-  it('it emits fwChange when space key is pressed', async () => {
+  it('it emits fwchange when space key is pressed', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-toggle></fw-toggle>');
     const element = await page.find('fw-toggle');
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwChange = await page.spyOnEvent('fwchange');
     await element.press('Space');
     expect(fwChange).toHaveReceivedEventDetail({ checked: true });
   });
 
-  it('it emits fwChange when enter key is pressed', async () => {
+  it('it emits fwchange when enter key is pressed', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-toggle></fw-toggle>');
     const element = await page.find('fw-toggle');
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwChange = await page.spyOnEvent('fwchange');
     await element.press('Enter');
     expect(fwChange).toHaveReceivedEventDetail({ checked: true });
   });
 
-  it('it should not emit fwChange when disabled', async () => {
+  it('it should not emit fwchange when disabled', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-toggle disabled>1</fw-toggle>');
     const element = await page.find('fw-toggle');
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwChange = await page.spyOnEvent('fwchange');
     await element.click();
     expect(fwChange.events).toEqual([]);
   });

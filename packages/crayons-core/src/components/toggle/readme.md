@@ -28,7 +28,7 @@ fw-toggle displays an input control that enables modifying an element’s state 
 
 | Event      | Description                                                 | Type               |
 | ---------- | ----------------------------------------------------------- | ------------------ |
-| `fwChange` | Triggered when the input control is selected or deselected. | `CustomEvent<any>` |
+| `fwchange` | Triggered when the input control is selected or deselected. | `CustomEvent<any>` |
 
 
 ## Dependencies
