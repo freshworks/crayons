@@ -1,12 +1,22 @@
-import { Component, Event, EventEmitter, Prop, Watch, h } from '@stencil/core';
+import {
+  Component,
+  Event,
+  Element,
+  EventEmitter,
+  Prop,
+  Watch,
+  h,
+  Host,
+  Listen,
+} from '@stencil/core';
 
-import { handleKeyDown } from '../../utils';
 @Component({
   tag: 'fw-toggle',
   styleUrl: 'toggle.scss',
   shadow: true,
 })
 export class Toggle {
+  @Element() host!: HTMLElement;
   /**
    * Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.
    */
@@ -24,9 +34,31 @@ export class Toggle {
    */
   @Prop() disabled = false;
   /**
+   * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() showIcon = false;
+  /**
+   * Label for the component, that can be used by screen readers.
+   */
+  @Prop() label = '';
+  /**
    * Triggered when the input control is selected or deselected.
    */
   @Event() fwChange: EventEmitter;
+
+  @Listen('keyup')
+  handleKeyUp(ev: KeyboardEvent) {
+    if (ev.code === 'Space' || ev.code === 'Enter') {
+      this.toggle();
+    }
+  }
+
+  @Listen('keydown')
+  handleKeyDown(ev: KeyboardEvent) {
+    if (ev.code === 'Space' || ev.code === 'Enter') {
+      ev.preventDefault();
+    }
+  }
 
   @Watch('checked')
   watchHandler(newValue: boolean) {
@@ -40,31 +72,51 @@ export class Toggle {
   };
 
   render() {
+    const toggleSize = ['small', 'medium', 'large'].includes(this.size)
+      ? this.size
+      : 'medium';
     return (
-      <div
-        role='button'
-        tabindex='0'
-        class={{
-          'toggle-switch': true,
-          [this.size]: true,
-        }}
+      <Host
         onClick={() => this.toggle()}
-        onKeyDown={handleKeyDown(this.toggle)}
+        tabindex='0'
+        role='switch'
+        aria-disabled={this.disabled ? 'true' : 'false'}
+        aria-checked={this.checked ? 'true' : 'false'}
+        aria-label={this.label}
       >
-        <input
-          name={this.name}
-          type='checkbox'
-          disabled={this.disabled}
-          checked={this.checked}
-          class='checkboxClass'
-        />
-        <span
+        <div
           class={{
-            slider: true,
-            [this.size]: true,
+            'toggle-switch': true,
+            [toggleSize]: true,
           }}
-        ></span>
-      </div>
+        >
+          <input
+            name={this.name}
+            type='checkbox'
+            disabled={this.disabled}
+            checked={this.checked}
+            class='checkboxClass'
+          />
+          <span
+            class={{
+              slider: true,
+              [toggleSize]: true,
+            }}
+          >
+            {
+              <span class='before'>
+                {this.showIcon && (
+                  <fw-icon
+                    color={this.checked ? '#2c5cc5' : '#647a8e'}
+                    name={this.checked ? 'check' : 'cross'}
+                    class={{ checked: this.checked }}
+                  ></fw-icon>
+                )}
+              </span>
+            }
+          </span>
+        </div>
+      </Host>
     );
   }
 }

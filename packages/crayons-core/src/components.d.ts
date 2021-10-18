@@ -568,9 +568,17 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label": string;
+        /**
           * Name of the component, saved as part of the form data.
          */
         "name": string;
+        /**
+          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+         */
+        "showIcon": boolean;
         /**
           * Size of the input control.
          */
@@ -1405,6 +1413,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label"?: string;
+        /**
           * Name of the component, saved as part of the form data.
          */
         "name"?: string;
@@ -1412,6 +1424,10 @@ declare namespace LocalJSX {
           * Triggered when the input control is selected or deselected.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+         */
+        "showIcon"?: boolean;
         /**
           * Size of the input control.
          */
