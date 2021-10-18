@@ -51,7 +51,7 @@
     "add:react": "npm run clean:react && npx mkdirp react",
     "add:css": "npm run clean:css && npx mkdirp css",
     "tscdisable": "node fileutil",
-    "build:react": "npm run tscdisable && tsc --project tsconfig-react.json --module es6 --outDir react",
+    "build:react": "npm run tscdisable && tsc --project tsconfig-react.json",
     "a11y": "run-p start a11y:install a11y:run",
     "a11y:install": "npm i -g @axe-core/cli",
     "a11y:run": "wait-on -d 30000 http://localhost:3333/ && axe http://localhost:3333 --show-errors --exit --tags wcag2aa",
