@@ -18,10 +18,10 @@ describe('fw-radio-group', () => {
     <fw-radio value="maybe">Maybe</fw-radio>
   </fw-radio-group>`);
 
-    const fwChange = await page.spyOnEvent('fwChange');
-    const fwSelect = await page.spyOnEvent('fwSelect');
-    const fwFocus = await page.spyOnEvent('fwFocus');
-    const fwBlur = await page.spyOnEvent('fwBlur');
+    const fwChange = await page.spyOnEvent('fwchange');
+    const fwSelect = await page.spyOnEvent('fwselect');
+    const fwFocus = await page.spyOnEvent('fwfocus');
+    const fwBlur = await page.spyOnEvent('fwblur');
 
     const element = await page.find('fw-radio-group');
 
@@ -46,7 +46,7 @@ describe('fw-radio-group', () => {
     <fw-radio value="maybe">Maybe</fw-radio>
   </fw-radio-group>`);
 
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwChange = await page.spyOnEvent('fwchange');
     const element = await page.find('fw-radio-group');
 
     await element.click();
@@ -76,7 +76,7 @@ describe('fw-radio-group', () => {
     expect(valueAfterSetting).toBe('maybe');
   });
 
-  it('it should emit fwChange event down/right arrow key is pressed', async () => {
+  it('it should emit fwchange event down/right arrow key is pressed', async () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-radio-group>
@@ -85,7 +85,7 @@ describe('fw-radio-group', () => {
     <fw-radio value="maybe">Maybe</fw-radio>
   </fw-radio-group>`);
 
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwChange = await page.spyOnEvent('fwchange');
     const element = await page.find('fw-radio-group');
 
     element.setAttribute('value', 'yes');
@@ -97,7 +97,7 @@ describe('fw-radio-group', () => {
     expect(fwChange).toHaveReceivedEvent();
   });
 
-  it('it should emit fwChange event left/up arrow key is pressed', async () => {
+  it('it should emit fwchange event left/up arrow key is pressed', async () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-radio-group>
@@ -106,7 +106,7 @@ describe('fw-radio-group', () => {
     <fw-radio value="maybe">Maybe</fw-radio>
   </fw-radio-group>`);
 
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwChange = await page.spyOnEvent('fwchange');
     const element = await page.find('fw-radio-group');
 
     element.setAttribute('value', 'yes');
@@ -118,7 +118,7 @@ describe('fw-radio-group', () => {
     expect(fwChange).toHaveReceivedEvent();
   });
 
-  it('it should emit fwChange event space key is pressed with no option selected', async () => {
+  it('it should emit fwchange event space key is pressed with no option selected', async () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-radio-group>
@@ -127,7 +127,7 @@ describe('fw-radio-group', () => {
     <fw-radio value="maybe">Maybe</fw-radio>
   </fw-radio-group>`);
 
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwChange = await page.spyOnEvent('fwchange');
     const element = await page.find('fw-radio-group');
 
     element.setAttribute('value', 'yes');

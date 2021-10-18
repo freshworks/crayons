@@ -30,7 +30,7 @@ fw-radio-group displays a group of options with radio buttons and enables select
 
 | Event      | Description                                                            | Type               |
 | ---------- | ---------------------------------------------------------------------- | ------------------ |
-| `fwChange` | Triggered when an option in the Radio Group is selected or deselected. | `CustomEvent<any>` |
+| `fwchange` | Triggered when an option in the Radio Group is selected or deselected. | `CustomEvent<any>` |
 
 
 ----------------------------------------------

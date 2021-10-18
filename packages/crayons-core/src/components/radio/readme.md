@@ -27,10 +27,10 @@ fw-radio displays a radio button on the user interface and enables assigning a s
 
 | Event        | Description                                           | Type                |
 | ------------ | ----------------------------------------------------- | ------------------- |
-| `fwBlur`     | Triggered when the radio button loses focus.          | `CustomEvent<void>` |
-| `fwDeselect` | Triggered when the radio button in focus is cleared.  | `CustomEvent<any>`  |
-| `fwFocus`    | Triggered when the radio button comes into focus.     | `CustomEvent<void>` |
-| `fwSelect`   | Triggered when the radio button in focus is selected. | `CustomEvent<any>`  |
+| `fwblur`     | Triggered when the radio button loses focus.          | `CustomEvent<void>` |
+| `fwdeselect` | Triggered when the radio button in focus is cleared.  | `CustomEvent<any>`  |
+| `fwfocus`    | Triggered when the radio button comes into focus.     | `CustomEvent<void>` |
+| `fwselect`   | Triggered when the radio button in focus is selected. | `CustomEvent<any>`  |
 
 
 ----------------------------------------------

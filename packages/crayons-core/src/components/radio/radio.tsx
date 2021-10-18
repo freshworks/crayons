@@ -38,21 +38,21 @@ export class Radio {
   /**
    * Triggered when the radio button in focus is selected.
    */
-  @Event() fwSelect!: EventEmitter;
+  @Event({ eventName: 'fwselect' }) fwSelect!: EventEmitter;
   /**
    * Triggered when the radio button in focus is cleared.
    */
-  @Event() fwDeselect!: EventEmitter;
+  @Event({ eventName: 'fwdeselect' }) fwDeselect!: EventEmitter;
 
   /**
    * Triggered when the radio button comes into focus.
    */
-  @Event() fwFocus!: EventEmitter<void>;
+  @Event({ eventName: 'fwfocus' }) fwFocus!: EventEmitter<void>;
 
   /**
    * Triggered when the radio button loses focus.
    */
-  @Event() fwBlur!: EventEmitter<void>;
+  @Event({ eventName: 'fwblur' }) fwBlur!: EventEmitter<void>;
 
   private radio!: HTMLInputElement;
 

@@ -18,44 +18,44 @@ describe('fw-radio', () => {
     expect(isChecked).toBe(true);
   });
 
-  it('it emits fwSelect when clicked', async () => {
+  it('it emits fwselect when clicked', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-radio value="1">1</fw-radio>');
     const element = await page.find('fw-radio');
-    const fwSelect = await page.spyOnEvent('fwSelect');
+    const fwSelect = await page.spyOnEvent('fwselect');
     await element.click();
     expect(fwSelect).toHaveReceivedEventDetail({ checked: true, value: '1' });
   });
 
-  it('it emits fwSelect when property is set', async () => {
+  it('it emits fwselect when property is set', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-radio value="1">1</fw-radio>');
     const element = await page.find('fw-radio');
-    const fwSelect = await page.spyOnEvent('fwSelect');
+    const fwSelect = await page.spyOnEvent('fwselect');
     element.setProperty('checked', true);
     await page.waitForChanges();
     expect(fwSelect).toHaveReceivedEventDetail({ checked: true, value: '1' });
   });
 
-  it('it emits fwDeselect when property is unset', async () => {
+  it('it emits fwdeselect when property is unset', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-radio value="1" checked>1</fw-radio>');
     const element = await page.find('fw-radio');
-    const fwDeselect = await page.spyOnEvent('fwDeselect');
+    const fwDeselect = await page.spyOnEvent('fwdeselect');
     element.setProperty('checked', false);
     await page.waitForChanges();
     expect(fwDeselect).toHaveReceivedEvent();
   });
 
-  it('it should not emit fwSelect when disabled', async () => {
+  it('it should not emit fwselect when disabled', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-radio value="1" disabled>1</fw-radio>');
     const element = await page.find('fw-radio');
-    const fwSelect = await page.spyOnEvent('fwSelect');
+    const fwSelect = await page.spyOnEvent('fwselect');
     await element.click();
     expect(fwSelect.events).toEqual([]);
   });

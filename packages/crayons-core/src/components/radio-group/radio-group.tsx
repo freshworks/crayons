@@ -57,7 +57,7 @@ export class RadioGroup {
   /**
    * Triggered when an option in the Radio Group is selected or deselected.
    */
-  @Event() fwChange!: EventEmitter;
+  @Event({ eventName: 'fwchange' }) fwChange!: EventEmitter;
 
   @Listen('keydown')
   handleKeydown(ev: KeyboardEvent) {

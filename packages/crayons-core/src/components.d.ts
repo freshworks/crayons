@@ -1066,19 +1066,19 @@ declare namespace LocalJSX {
         /**
           * Triggered when the radio button loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwblur"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when the radio button in focus is cleared.
          */
-        "onFwDeselect"?: (event: CustomEvent<any>) => void;
+        "onFwdeselect"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the radio button comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<void>) => void;
+        "onFwfocus"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when the radio button in focus is selected.
          */
-        "onFwSelect"?: (event: CustomEvent<any>) => void;
+        "onFwselect"?: (event: CustomEvent<any>) => void;
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -1100,7 +1100,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when an option in the Radio Group is selected or deselected.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwchange"?: (event: CustomEvent<any>) => void;
         /**
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
