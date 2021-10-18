@@ -8,6 +8,8 @@ react/
 src/custom-elements.json
 crayons-react/src/react-component-lib
 crayons-react/src/components.ts
+crayons-react/src/*.ts
+!crayons-react/src/index.ts
 .vuepress/public/build/
 css/
 
