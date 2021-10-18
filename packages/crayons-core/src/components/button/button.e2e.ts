@@ -9,14 +9,14 @@ describe('fw-button', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('should emit fwClick when it is clicked', async () => {
+  it('should emit fwclick when it is clicked', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-button></fw-button>');
-    const fwClick = await page.spyOnEvent('fwClick');
+    const fwclick = await page.spyOnEvent('fwclick');
     const element = await page.find('fw-button');
     await element.click();
-    expect(fwClick).toHaveReceivedEvent();
+    expect(fwclick).toHaveReceivedEvent();
   });
 
   it('should set button as primary when color is not supplied', async () => {

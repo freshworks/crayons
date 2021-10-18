@@ -57,17 +57,17 @@ export class Button {
   /**
    * Triggered when the button is clicked.
    */
-  @Event() fwClick!: EventEmitter<void>;
+  @Event({ eventName: 'fwclick' }) fwClick!: EventEmitter<void>;
 
   /**
    * Triggered when the button comes into focus.
    */
-  @Event() fwFocus!: EventEmitter<void>;
+  @Event({ eventName: 'fwfocus' }) fwFocus!: EventEmitter<void>;
 
   /**
    * Triggered when the button loses focus.
    */
-  @Event() fwBlur!: EventEmitter<void>;
+  @Event({ eventName: 'fwblur' }) fwBlur!: EventEmitter<void>;
 
   private onFocus() {
     this.fwFocus.emit();

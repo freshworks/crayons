@@ -750,15 +750,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the button loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwblur"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when the button is clicked.
          */
-        "onFwClick"?: (event: CustomEvent<void>) => void;
+        "onFwclick"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when the button comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<void>) => void;
+        "onFwfocus"?: (event: CustomEvent<void>) => void;
         /**
           * Size of the button.
          */

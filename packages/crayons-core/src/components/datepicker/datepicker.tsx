@@ -94,7 +94,7 @@ export class Datepicker {
     this.showDatePicker = true;
   }
 
-  @Listen('fwClick')
+  @Listen('fwclick')
   handleButtonClick(e) {
     const isUpdateRange = e
       .composedPath()[0]

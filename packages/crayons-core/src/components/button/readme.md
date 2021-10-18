@@ -58,9 +58,9 @@ fw-button displays a button on the user interface and enables performing specifi
 
 | Event     | Description                                 | Type                |
 | --------- | ------------------------------------------- | ------------------- |
-| `fwBlur`  | Triggered when the button loses focus.      | `CustomEvent<void>` |
-| `fwClick` | Triggered when the button is clicked.       | `CustomEvent<void>` |
-| `fwFocus` | Triggered when the button comes into focus. | `CustomEvent<void>` |
+| `fwblur`  | Triggered when the button loses focus.      | `CustomEvent<void>` |
+| `fwclick` | Triggered when the button is clicked.       | `CustomEvent<void>` |
+| `fwfocus` | Triggered when the button comes into focus. | `CustomEvent<void>` |
 
 
 ## Dependencies
