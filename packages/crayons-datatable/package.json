@@ -44,7 +44,7 @@
     "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
     "tscdisable": "node fileutil",
-    "build:react": "npm run tscdisable && tsc --project tsconfig-react.json --module es6 --outDir react",
+    "build:react": "npm run tscdisable && tsc --project tsconfig-react.json",
     "a11y": "run-p start a11y:run",
     "a11y:install": "npm i -g @axe-core/cli",
     "a11y:run": "wait-on http://localhost:3334/ && npm run a11y:install && axe http://localhost:3334 --show-errors --exit --tags wcag2aa",
