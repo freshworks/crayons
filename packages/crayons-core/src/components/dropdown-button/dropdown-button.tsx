@@ -265,7 +265,7 @@ export class DropdownButton {
                 <fw-checkbox
                   id={option.value}
                   checked={(this.value || []).includes(option.value)}
-                  onFwChange={(e) => this.handleCheckboxChange(e)}
+                  onFwchange={(e) => this.handleCheckboxChange(e)}
                 ></fw-checkbox>
               );
 

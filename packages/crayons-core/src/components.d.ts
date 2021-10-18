@@ -792,15 +792,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the check box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwblur"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when the check box’s value is modified.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwchange"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the check box comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<void>) => void;
+        "onFwfocus"?: (event: CustomEvent<void>) => void;
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */

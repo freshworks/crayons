@@ -43,17 +43,17 @@ export class Checkbox {
   /**
    * Triggered when the check box’s value is modified.
    */
-  @Event() fwChange!: EventEmitter;
+  @Event({ eventName: 'fwchange' }) fwChange!: EventEmitter;
 
   /**
    * Triggered when the check box comes into focus.
    */
-  @Event() fwFocus!: EventEmitter<void>;
+  @Event({ eventName: 'fwfocus' }) fwFocus!: EventEmitter<void>;
 
   /**
    * Triggered when the check box loses focus.
    */
-  @Event() fwBlur!: EventEmitter<void>;
+  @Event({ eventName: 'fwblur' }) fwBlur!: EventEmitter<void>;
 
   private checkbox!: HTMLInputElement;
 

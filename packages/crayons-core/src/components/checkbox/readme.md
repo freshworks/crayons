@@ -26,9 +26,9 @@ fw-checkbox displays a check box on the user interface and enables assigning a s
 
 | Event      | Description                                       | Type                |
 | ---------- | ------------------------------------------------- | ------------------- |
-| `fwBlur`   | Triggered when the check box loses focus.         | `CustomEvent<void>` |
-| `fwChange` | Triggered when the check box’s value is modified. | `CustomEvent<any>`  |
-| `fwFocus`  | Triggered when the check box comes into focus.    | `CustomEvent<void>` |
+| `fwblur`   | Triggered when the check box loses focus.         | `CustomEvent<void>` |
+| `fwchange` | Triggered when the check box’s value is modified. | `CustomEvent<any>`  |
+| `fwfocus`  | Triggered when the check box comes into focus.    | `CustomEvent<void>` |
 
 
 ## Dependencies
