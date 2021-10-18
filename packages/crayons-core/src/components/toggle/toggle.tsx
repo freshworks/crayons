@@ -100,15 +100,19 @@ export class Toggle {
               [this.size]: true,
             }}
           >
-            <span class='before'>
-              {this.showIcon && (
-                <fw-icon
-                  color={this.checked ? '#2c5cc5' : '#647a8e'}
-                  name={this.checked ? 'check' : 'cross'}
-                  class={{ checked: this.checked }}
-                ></fw-icon>
-              )}
-            </span>
+            {(this.size === 'small' ||
+              this.size === 'medium' ||
+              this.size === 'large') && (
+              <span class='before'>
+                {this.showIcon && (
+                  <fw-icon
+                    color={this.checked ? '#2c5cc5' : '#647a8e'}
+                    name={this.checked ? 'check' : 'cross'}
+                    class={{ checked: this.checked }}
+                  ></fw-icon>
+                )}
+              </span>
+            )}
           </span>
         </div>
       </Host>
