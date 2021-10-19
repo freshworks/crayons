@@ -9,7 +9,7 @@
 */
 $font-sizes: (12, 14, 16, 18, 24, 32, 44);
 @each $size in $font-sizes {
-  .fw-font-h#{$size} {
+  .fw-font-header-#{$size} {
     @include font-header($size * 1px, $text-default, 600);
   }
 }
