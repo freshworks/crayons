@@ -11,10 +11,11 @@
     "./packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --stream && npm run storybook:build && npm run docs:build",
+    "build": "lerna run build --stream && npm run build:storybook",
+    "build:storybook": "rimraf storybook-dist && npm run storybook:build",
     "code-sanity": "npm run lint",
     "release": "lerna publish --no-commit-hooks --dist-tag latest",
-    "docs:build": "node www/scripts/reorganize.js && vuepress build www",
+    "docs:build": "npm run build && node www/scripts/reorganize.js && vuepress build www",
     "docs:dev": "lerna run build --stream && node www/scripts/reorganize.js && vuepress dev www",
     "lint": "npm run lint:ts && npm run lint:styles",
     "lint:fix": "npm run lint:ts:fix && npm run lint:styles",
@@ -22,8 +23,8 @@
     "lint:ts": "eslint .",
     "lint:ts:fix": "eslint . --fix",
     "lint-staged": "lint-staged",
-    "storybook:build": "rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
-    "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
+    "storybook:build": "build-storybook -c docs/.storybook -o docs/storybook-dist",
+    "storybook": "start-storybook -p 9001 -c docs/.storybook",
     "test": "lerna run test --stream"
   },
   "keywords": [],
