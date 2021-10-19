@@ -9,7 +9,7 @@
 */
 $font-sizes: (12, 14, 16, 18, 24, 32, 44);
 @each $size in $font-sizes {
-  .fw-font-header-#{$size} {
+  .fw-font-h#{$size} {
     @include font-header($size * 1px, $text-default, 600);
   }
 }
@@ -25,7 +25,7 @@ $font-sizes: (12, 14, 16, 18, 24, 32, 44);
 $backgrounds: (dark, smoke, success, info, danger, warning);
 @each $key in $backgrounds {
   .fw-bg-#{$key} {
-    @include background($key)
+    @include background($key);
   }
 }
 
@@ -138,28 +138,52 @@ $flex-wrap: (wrap, wrap-reverse, nowrap);
     @include order($i);
   }
 }
-$flex-order: (first: -9999, last: 9999, none: 0);
+$flex-order: (
+  first: -9999,
+  last: 9999,
+  none: 0,
+);
 @each $name, $value in $flex-order {
   .fw-order-#{$name} {
     @include order($value);
   }
 }
 
-$flex-justify: (start: flex-start, end: flex-end, center: center, between: space-between, around: space-around, evenly: space-evenly);
+$flex-justify: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+);
 @each $name, $value in $flex-justify {
   .fw-justify-#{$name} {
     @include justify-content($value);
   }
 }
 
-$flex-align-items: (start: flex-start, end: flex-end, center: center, baseline: baseline, stretch: stretch);
+$flex-align-items: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  baseline: baseline,
+  stretch: stretch,
+);
 @each $name, $value in $flex-align-items {
   .fw-items-#{$name} {
     @include align-items($value);
   }
 }
 
-$flex-align-content: (start: flex-start, end: flex-end, center: center, between: space-between, around: space-around, evenly: space-evenly);
+$flex-align-content: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+);
 @each $name, $value in $flex-align-content {
   .fw-content-#{$name} {
     @include align-content($value);
