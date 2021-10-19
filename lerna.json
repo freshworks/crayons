@@ -1,11 +1,14 @@
 {
-    "packages": ["packages/*"],
-    "npmClient": "npm",
-    "version": "independent",
-    "command": {
-      "bootstrap": {
-        "hoist": true
-      }
+  "packages": ["packages/*"],
+  "npmClient": "npm",
+  "version": "independent",
+  "command": {
+    "bootstrap": {
+      "hoist": true
+    },
+    "version": {
+      "message": "chore(release): publish",
+      "ignoreChanges": ["**/*.md", "**/*.mdx"]
     }
   }
-  
+}

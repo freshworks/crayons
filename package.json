@@ -1,6 +1,6 @@
 {
   "name": "crayons",
-  "version": "1.0.0",
+  "version": "2.13.2",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -13,7 +13,8 @@
   "scripts": {
     "build": "lerna run build --stream && npm run storybook:build && npm run docs:build",
     "code-sanity": "npm run lint",
-    "release": "lerna publish --no-commit-hooks --dist-tag latest",
+    "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits",
+    "release:canary": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-git --no-commit-hooks --dist-tag canary",
     "docs:build": "node www/scripts/reorganize.js && vuepress build www",
     "docs:dev": "lerna run build --stream && node www/scripts/reorganize.js && vuepress dev www",
     "lint": "npm run lint:ts && npm run lint:styles",
@@ -30,6 +31,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@commitlint/config-lerna-scopes": "^13.2.0",
     "@storybook/addon-a11y": "^6.2.9",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-docs": "^6.2.9",
@@ -81,7 +85,8 @@
     "hooks": {
       "pre-push": "npm run test",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
-      "pre-commit": "npm run lint-staged && npm run test"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run lint-staged"
     }
   },
   "lint-staged": {
