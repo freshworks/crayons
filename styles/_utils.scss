@@ -2,7 +2,6 @@
 @import '../styles/mixins/color';
 @import '../styles/mixins/card';
 @import '../styles/mixins/spacing';
-@import '../styles/mixins/layout';
 
 /**
   For generating typography styles
@@ -10,12 +9,12 @@
 $font-sizes: (12, 14, 16, 18, 24, 32, 44);
 @each $size in $font-sizes {
   .fw-font-header-#{$size} {
-    @include font-header($size * 1px, $text-default, 600);
+    @include typography('header', $size * 1px, $text-default, 600);
   }
 }
 @each $size in $font-sizes {
   .fw-font-#{$size} {
-    @include font-body($size * 1px);
+    @include typography('body', $size * 1px);
   }
 }
 
@@ -102,40 +101,40 @@ $spacing: 28;
   For generating flex related styles
 */
 .fw-flex {
-  @include flexbox();
+  display: flex;
 }
 
 $flex-direction: (row, row-reverse, column, column-reverse);
 @each $direction in $flex-direction {
   .fw-flex-#{$direction} {
-    @include flex-direction($direction);
+    flex-direction: $direction;
   }
 }
 
 $flex-wrap: (wrap, wrap-reverse, nowrap);
 @each $wrap in $flex-wrap {
   .fw-flex-#{$wrap} {
-    @include flex-wrap($wrap);
+    flex-wrap: $wrap;
   }
 }
 
 .fw-flex-grow-0 {
-  @include flex-grow(0);
+  flex-grow: 0;
 }
 .fw-flex-grow {
-  @include flex-grow(1);
+  flex-grow: 1;
 }
 
 .fw-flex-shrink-0 {
-  @include flex-shrink(0);
+  flex-shrink: 0;
 }
 .fw-flex-shrink {
-  @include flex-shrink(1);
+  flex-shrink: 1;
 }
 
 @for $i from 0 through 12 {
   .fw-order-#{$i} {
-    @include order($i);
+    order: $i;
   }
 }
 $flex-order: (
@@ -145,7 +144,7 @@ $flex-order: (
 );
 @each $name, $value in $flex-order {
   .fw-order-#{$name} {
-    @include order($value);
+    order: $value;
   }
 }
 
@@ -159,7 +158,7 @@ $flex-justify: (
 );
 @each $name, $value in $flex-justify {
   .fw-justify-#{$name} {
-    @include justify-content($value);
+    justify-content: $value;
   }
 }
 
@@ -172,7 +171,7 @@ $flex-align-items: (
 );
 @each $name, $value in $flex-align-items {
   .fw-items-#{$name} {
-    @include align-items($value);
+    align-items: $value;
   }
 }
 
@@ -186,6 +185,6 @@ $flex-align-content: (
 );
 @each $name, $value in $flex-align-content {
   .fw-content-#{$name} {
-    @include align-content($value);
+    align-content: $value;
   }
 }
