@@ -13,8 +13,7 @@
   "scripts": {
     "build": "lerna run build --stream && npm run storybook:build && npm run docs:build",
     "code-sanity": "npm run lint",
-    "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits",
-    "release:canary": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-git --no-commit-hooks --dist-tag canary",
+    "check-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-git-tag-version --no-push",
     "docs:build": "node www/scripts/reorganize.js && vuepress build www",
     "docs:dev": "lerna run build --stream && node www/scripts/reorganize.js && vuepress dev www",
     "lint": "npm run lint:ts && npm run lint:styles",
@@ -23,9 +22,13 @@
     "lint:ts": "eslint .",
     "lint:ts:fix": "eslint . --fix",
     "lint-staged": "lint-staged",
+    "release-canary": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-git --no-commit-hooks --dist-tag canary",
+    "release-canary:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-git --no-commit-hooks --dist-tag canary --yes",
     "storybook:build": "rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
-    "test": "lerna run test --stream"
+    "test": "lerna run test --stream",
+    "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits",
+    "update-version:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --yes"
   },
   "keywords": [],
   "author": "",
