@@ -139,6 +139,7 @@ export namespace Components {
           * Size of the icon, specified in number of  pixels.
          */
         "size": number;
+        "title": string;
     }
     interface FwInput {
         /**
@@ -888,6 +889,7 @@ declare namespace LocalJSX {
           * Size of the icon, specified in number of  pixels.
          */
         "size"?: number;
+        "title"?: string;
     }
     interface FwInput {
         /**
