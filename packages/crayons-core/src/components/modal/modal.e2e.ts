@@ -3,32 +3,40 @@ import { newE2EPage } from '@stencil/core/testing';
 describe('fw-modal', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-
     await page.setContent('<fw-modal></fw-modal>');
     const element = await page.find('fw-modal');
     expect(element).toHaveClass('hydrated');
   });
 
-  it('triggers fwClose when visible property is changed to false', async () => {
+  it('triggers fwclose when is-open property is changed to false', async () => {
     const page = await newE2EPage();
-
-    await page.setContent('<fw-modal visible></fw-modal>');
+    await page.setContent('<fw-modal is-open></fw-modal>');
     const element = await page.find('fw-modal');
-    const fwClosed = await page.spyOnEvent('fwClosed');
-    element.setAttribute('visible', false);
+    const fwClose = await page.spyOnEvent('fwclose');
+    element.setAttribute('is-open', false);
     await page.waitForChanges();
-    expect(fwClosed).toHaveReceivedEvent();
+    expect(fwClose).toHaveReceivedEvent();
   });
 
-  it('triggers fwAction when Action Button is clicked', async () => {
+  it('triggers fwopen when is-open property is set to true', async () => {
     const page = await newE2EPage();
-
-    await page.setContent('<fw-modal visible></fw-modal>');
+    await page.setContent('<fw-modal is-open="false"></fw-modal>');
+    const element = await page.find('fw-modal');
+    const fwOpen = await page.spyOnEvent('fwopen');
+    element.setAttribute('is-open', true);
     await page.waitForChanges();
-    const element = await page.findAll('fw-modal >>> fw-button');
-    const fwAction = await page.spyOnEvent('fwAction');
+    expect(fwOpen).toHaveReceivedEvent();
+  });
+
+  it('triggers fwsubmit when submit button is clicked', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-modal is-open></fw-modal>');
+    await page.waitForChanges();
+    const footer = await page.find('fw-modal >>> :first-child');
+    const element = await footer.findAll('fw-modal-footer >>> fw-button');
+    const fwSubmit = await page.spyOnEvent('fwsubmit');
     await element[1].click();
     await page.waitForChanges();
-    expect(fwAction).toHaveReceivedEvent();
+    expect(fwSubmit).toHaveReceivedEvent();
   });
 });

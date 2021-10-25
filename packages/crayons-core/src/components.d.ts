@@ -229,38 +229,78 @@ export namespace Components {
           * The text for the cancel button
          */
         "cancelText": string;
+        "close": () => Promise<boolean>;
         /**
-          * Enable custom footer
-         */
-        "customFooter": boolean;
-        /**
-          * The title text to be displayed on the modal
+          * The description text to be displayed on the modal
          */
         "description": string;
-        /**
-          * Hides the footer
-         */
-        "hideFooter": boolean;
         /**
           * The icon to be displayed with the title
          */
         "icon": string;
         /**
+          * Toggle the visibility of the modal
+         */
+        "isOpen": boolean;
+        /**
           * Size of the modal
          */
         "size": 'standard' | 'small' | 'large';
         /**
-          * The text for the success button
+          * The color of submit button
          */
-        "successText": string;
+        "submitColor": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
+        /**
+          * Default state of submit button
+         */
+        "submitDisabled": boolean;
+        /**
+          * The text for the submit button
+         */
+        "submitText": string;
         /**
           * The title text to be displayed on the modal
          */
         "titleText": string;
+    }
+    interface FwModalContent {
+    }
+    interface FwModalFooter {
         /**
-          * Toggle the visibility of the modal
+          * The text for the cancel button
          */
-        "visible": boolean;
+        "cancelText": string;
+        "close": any;
+        "custom": boolean;
+        "submit": any;
+        /**
+          * The color of submit button
+         */
+        "submitColor": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
+        /**
+          * Default state of submit button
+         */
+        "submitDisabled": boolean;
+        /**
+          * The text for the submit button
+         */
+        "submitText": string;
+    }
+    interface FwModalTitle {
+        "close": any;
+        "custom": boolean;
+        /**
+          * The title text to be displayed on the modal
+         */
+        "description": string;
+        /**
+          * The icon to be displayed with the title
+         */
+        "icon": string;
+        /**
+          * The title text to be displayed on the modal
+         */
+        "titleText": string;
     }
     interface FwRadio {
         /**
@@ -634,6 +674,24 @@ declare global {
         prototype: HTMLFwModalElement;
         new (): HTMLFwModalElement;
     };
+    interface HTMLFwModalContentElement extends Components.FwModalContent, HTMLStencilElement {
+    }
+    var HTMLFwModalContentElement: {
+        prototype: HTMLFwModalContentElement;
+        new (): HTMLFwModalContentElement;
+    };
+    interface HTMLFwModalFooterElement extends Components.FwModalFooter, HTMLStencilElement {
+    }
+    var HTMLFwModalFooterElement: {
+        prototype: HTMLFwModalFooterElement;
+        new (): HTMLFwModalFooterElement;
+    };
+    interface HTMLFwModalTitleElement extends Components.FwModalTitle, HTMLStencilElement {
+    }
+    var HTMLFwModalTitleElement: {
+        prototype: HTMLFwModalTitleElement;
+        new (): HTMLFwModalTitleElement;
+    };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
     var HTMLFwRadioElement: {
@@ -715,6 +773,9 @@ declare global {
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-modal": HTMLFwModalElement;
+        "fw-modal-content": HTMLFwModalContentElement;
+        "fw-modal-footer": HTMLFwModalFooterElement;
+        "fw-modal-title": HTMLFwModalTitleElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
@@ -1006,45 +1067,88 @@ declare namespace LocalJSX {
          */
         "cancelText"?: string;
         /**
-          * Enable custom footer
-         */
-        "customFooter"?: boolean;
-        /**
-          * The title text to be displayed on the modal
+          * The description text to be displayed on the modal
          */
         "description"?: string;
-        /**
-          * Hides the footer
-         */
-        "hideFooter"?: boolean;
         /**
           * The icon to be displayed with the title
          */
         "icon"?: string;
         /**
-          * Triggered when the default action button is clicked.
+          * Toggle the visibility of the modal
          */
-        "onFwAction"?: (event: CustomEvent<void>) => void;
+        "isOpen"?: boolean;
         /**
           * Triggered when modal is closed.
          */
-        "onFwClosed"?: (event: CustomEvent<void>) => void;
+        "onFwclose"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when modal is opened.
+         */
+        "onFwopen"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when the default action button is clicked.
+         */
+        "onFwsubmit"?: (event: CustomEvent<void>) => void;
         /**
           * Size of the modal
          */
         "size"?: 'standard' | 'small' | 'large';
         /**
-          * The text for the success button
+          * The color of submit button
          */
-        "successText"?: string;
+        "submitColor"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
+        /**
+          * Default state of submit button
+         */
+        "submitDisabled"?: boolean;
+        /**
+          * The text for the submit button
+         */
+        "submitText"?: string;
         /**
           * The title text to be displayed on the modal
          */
         "titleText"?: string;
+    }
+    interface FwModalContent {
+    }
+    interface FwModalFooter {
         /**
-          * Toggle the visibility of the modal
+          * The text for the cancel button
          */
-        "visible"?: boolean;
+        "cancelText"?: string;
+        "close"?: any;
+        "custom"?: boolean;
+        "submit"?: any;
+        /**
+          * The color of submit button
+         */
+        "submitColor"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
+        /**
+          * Default state of submit button
+         */
+        "submitDisabled"?: boolean;
+        /**
+          * The text for the submit button
+         */
+        "submitText"?: string;
+    }
+    interface FwModalTitle {
+        "close"?: any;
+        "custom"?: boolean;
+        /**
+          * The title text to be displayed on the modal
+         */
+        "description"?: string;
+        /**
+          * The icon to be displayed with the title
+         */
+        "icon"?: string;
+        /**
+          * The title text to be displayed on the modal
+         */
+        "titleText"?: string;
     }
     interface FwRadio {
         /**
@@ -1442,6 +1546,9 @@ declare namespace LocalJSX {
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-modal": FwModal;
+        "fw-modal-content": FwModalContent;
+        "fw-modal-footer": FwModalFooter;
+        "fw-modal-title": FwModalTitle;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
@@ -1468,6 +1575,9 @@ declare module "@stencil/core" {
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
+            "fw-modal-content": LocalJSX.FwModalContent & JSXBase.HTMLAttributes<HTMLFwModalContentElement>;
+            "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
+            "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
