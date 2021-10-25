@@ -3,13 +3,10 @@ import {
   Element,
   Event,
   EventEmitter,
+  h,
   Listen,
   Prop,
-  State,
-  Watch,
-  h,
 } from '@stencil/core';
-import { handleKeyDown } from '../../utils';
 
 @Component({
   tag: 'fw-tabs',
@@ -21,10 +18,16 @@ export class Tabs {
   el!: HTMLElement;
   private mutationO?: MutationObserver;
 
+  private activeTab;
+
+  private tabs: any[];
+
+  private panels: any[];
+
   /**
-   * Child Elements/Tab Items
+   * Describes the purpose of set of tabs.
    */
-  @State() tabs: any[];
+  @Prop() label = '';
   /**
    * The index of the activated Tab(Starts from 0)
    */
@@ -32,40 +35,59 @@ export class Tabs {
   activeTabIndex = 0;
 
   /**
-   * Active class for tab container
+   * The name of the tab to be activated.
    */
-  @State()
-  activeChildClass = '';
+  @Prop({ reflect: true })
+  activeTabName?: string;
 
   /**
    * Triggered when a the view switches to a new tab.
    */
   @Event() fwChange: EventEmitter;
 
-  @Watch('activeTabIndex')
-  changeIndex(newValue, oldValue) {
-    if (this.tabs[newValue]?.disabled || newValue >= this.tabs.length) {
-      this.activeTabIndex = 0;
-    } else if (newValue !== oldValue) {
-      this.displayTab(newValue);
-    }
-  }
-
-  @Listen('propChanged')
   init() {
     this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(
-      (node) => node.parentNode === this.el
+      (tab) => !tab.disabled
     );
-    this.displayTab(this.activeTabIndex);
+    this.panels = Array.from(this.el.querySelectorAll('fw-panel'));
+
+    // Assign aria attributes
+    this.assignAriaLabels();
+
+    // set active tab
+    this.setActiveTab(this.getActiveTab() || this.tabs[0]);
   }
 
-  displayTab(index: number) {
-    this.fwChange.emit({ tabIndex: this.activeTabIndex });
-    this.activeTabIndex = index;
-    this.tabs = this.tabs?.map((tab, i) => {
-      tab.style.display = index === i ? 'block' : 'none';
-      return tab;
+  assignAriaLabels() {
+    this.tabs.map((tab) => {
+      const panel = this.panels.find(
+        (p) => p.name === tab.getAttribute('panel')
+      );
+
+      if (panel) {
+        tab.setAttribute('aria-controls', panel.getAttribute('id'));
+        panel.setAttribute('aria-labelledby', tab.getAttribute('id'));
+      }
     });
+  }
+
+  setActiveTab(tab) {
+    if (tab && tab !== this.activeTab && !tab.disabled) {
+      this.activeTab = tab;
+      this.activeTabIndex = this.tabs.indexOf(tab);
+
+      // Sync active tab and panel
+      this.tabs.map((el) => (el.active = el === this.activeTab));
+      this.panels.map(
+        (el) => (el.active = el.name === this.activeTab.getAttribute('panel'))
+      );
+
+      // Emit events
+      this.fwChange.emit({
+        tabIndex: this.activeTabIndex,
+        tabName: this.activeTab.id,
+      });
+    }
   }
 
   componentWillLoad() {
@@ -88,41 +110,67 @@ export class Tabs {
     }
   }
 
+  getActiveTab() {
+    return (
+      this.tabs[this.activeTabIndex] ||
+      this.tabs.find((tab) => tab.id === this.activeTabName) ||
+      this.tabs.find((tab) => tab.active)
+    );
+  }
+
+  @Listen('click')
+  handleClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const tab = target.closest('fw-tab');
+
+    if (tab) {
+      this.setActiveTab(tab);
+    }
+  }
+
+  @Listen('keydown')
+  handleKeyDown(event: KeyboardEvent) {
+    switch (event.code) {
+      case 'ArrowDown':
+      case 'ArrowUp':
+      case 'ArrowLeft':
+      case 'ArrowRight':
+        event.preventDefault();
+        break;
+    }
+  }
+
+  @Listen('keyup')
+  handleKeyUp(e: KeyboardEvent) {
+    if (this.activeTabIndex !== undefined) {
+      let index = this.activeTabIndex;
+      switch (e.code) {
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          index = (index - 1 + this.tabs.length) % this.tabs.length;
+          break;
+        case 'ArrowRight':
+        case 'ArrowDown':
+          index = (index + 1) % this.tabs.length;
+          break;
+        default:
+          return;
+      }
+
+      this.tabs[index].focus();
+      this.setActiveTab(this.tabs[index]);
+    }
+  }
+
   render() {
     return (
       <div class='tabs'>
-        <ul role='tablist' class='tabs__items'>
-          {this.tabs.map((tab, index) => (
-            <li
-              role='tab'
-              onClick={() =>
-                tab.disabled ? '' : (this.activeTabIndex = index)
-              }
-              onKeyDown={handleKeyDown(() =>
-                tab.disabled ? '' : (this.activeTabIndex = index)
-              )}
-              class='tabs__item'
-            >
-              <div
-                id={'#tab-' + index}
-                class={
-                  'tabs__item__nav ' +
-                  (index === this.activeTabIndex ? 'active' : '') +
-                  (tab.disabled ? 'disabled' : '')
-                }
-              >
-                <span class='tab-title--tab-icon'>
-                  {tab.tabHeaderHtml ? (
-                    <span innerHTML={tab.tabHeaderHtml}></span>
-                  ) : (
-                    <span class='tab-title'>{tab.tabHeader}</span>
-                  )}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div class='tabs__content'>
+        <div class='tabs__items__nav'>
+          <div class='tabs__items__tabs' role='tablist' aria-label={this.label}>
+            <slot name='tab'></slot>
+          </div>
+        </div>
+        <div class='tabs__panel__content'>
           <slot></slot>
         </div>
       </div>

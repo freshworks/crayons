@@ -16,43 +16,44 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
 <Story name='Default'>{() => `
 <fw-tabs>
-  <fw-tab tab-header ="Tab 1">
-    <section>
-        <p>Tab 1 Content</P>
-    </section>
-  </fw-tab>
-  <fw-tab tab-header="Tab 2">
-        <p>Tab 2 Content</P>
-  </fw-tab>
-  <fw-tab tab-header="Tab 3" disabled>
-    <p>TAB 3 Content</p>
-  </fw-tab>
-  <fw-tab tab-header="Tab 4">
-    <p>TAB 4 Content</p>
-  </fw-tab>
+  <fw-tab slot="tab" panel="one">Tab 1</fw-tab>
+  <fw-tab slot="tab" panel="two">Tab 2</fw-tab>
+  <fw-tab slot="tab" panel="three" disabled>Tab 3</fw-tab>
+  <fw-tab slot="tab" panel="four">Tab 4</fw-tab>
+
+  <fw-panel name="one">Tab 1 Content</fw-panel>
+  <fw-panel name="two">Tab 2 Content</fw-panel>
+  <fw-panel name="three">Tab 3 Content</fw-panel>
+  <fw-panel name="four">Tab 4 Content</fw-panel>
 </fw-tabs>
 `}</Story>
 </Preview>
 
 
-### Default
+### With HTML Headers
 <Preview>
 <Story name='With HTML Headers'>{() => `
 <fw-tabs>
-  <fw-tab tab-header-html="<i>Tab 1</i>">
+  <fw-tab slot="tab" panel="one"><i>Tab 1</i></fw-tab>
+  <fw-tab slot="tab" panel=two"><h2>Tab 2</h2></fw-tab>
+  <fw-tab slot="tab" panel="three" disabled><h3>Tab 3</h3></fw-tab>
+  <fw-tab slot="tab" panel="four"><h3>Tab 4</h3></fw-tab>
+
+  <fw-panel name="one">
     <section>
-        <p>Tab 1 Content</P>
+      <p>Tab 1 Content</p>
     </section>
-  </fw-tab>
-  <fw-tab tab-header-html="<h2>Tab 2</h2>">
-        <p>Tab 2 Content</P>
-  </fw-tab>
-  <fw-tab tab-header-html="<h3>Tab 3</h3>" disabled>
+  </fw-panel>
+  <fw-panel name="two">
+      <p>Tab 2 Content</p>
+  </fw-panel>
+  <fw-panel name="three">
     <p>TAB 3 Content</p>
-  </fw-tab>
-  <fw-tab tab-header-html="<h3>Tab 4</h3>">
+  </fw-panel>
+  <fw-panel name="four">
     <p>TAB 4 Content</p>
-  </fw-tab>
+  </fw-panel>
+
 </fw-tabs>
 `}</Story>
 </Preview>
@@ -62,23 +63,28 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
 <Story name='With Child Components'>{() => `
 <fw-tabs active-tab-index="1">
-  <fw-tab tab-header ="Tab 1">
+  <fw-tab slot="tab" panel="one">Tab 1</fw-tab>
+  <fw-tab slot="tab" panel="two">Tab 2</fw-tab>
+  <fw-tab slot="tab" panel="three" disabled>Tab 3</fw-tab>
+  <fw-tab slot="tab" panel="four">Tab 4</fw-tab>
+
+  <fw-panel name="one">
     <section>
       <img src="https://firebasestorage.googleapis.com/v0/b/blog-88819.appspot.com/o/mostafa-meraji-hgw6HUHlKMk-unsplash.jpg?alt=media&token=4ed2f24a-43ea-4a04-adc7-c7c5d971df71" alt="Sample image" height="420" width="720">
     </section>
-  </fw-tab>
-  <fw-tab tab-header="Tab 2">
+  </fw-panel>
+  <fw-panel name="two">
     <fw-button expand>Default</fw-button>
     <fw-button color="primary" expand>Primary</fw-button>
     <fw-button color="secondary" expand>Secondary</fw-button>
     <fw-button color="danger" expand>Danger</fw-button>
-  </fw-tab>
-  <fw-tab tab-header="Tab 3" disabled>
+  </fw-panel>
+  <fw-panel name="three">
     <fw-input label="Email" placeholder="Please type in your Email" type="email"> </fw-input>
     <fw-input label="Email" placeholder="Please type in your Email" type="email"> </fw-input>
     <fw-input label="Password" placeholder="Please type in your Password" type="password"> </fw-input>
-  </fw-tab>
-  <fw-tab tab-header="Tab 4">
+  </fw-panel>
+  <fw-panel name="four">
     <fw-select multiple label="Select the GOT house" state-text="Choose the house where you belong" required="true">
         <fw-select-option value="1">Starks</fw-select-option>
         <fw-select-option value="2">Lannisters</fw-select-option>
@@ -86,7 +92,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
         <fw-select-option value="4">Greyjoys</fw-select-option>
         <fw-select-option value="5">Tyrell</fw-select-option>
     </fw-select>
-  </fw-tab>
+  </fw-panel>
 </fw-tabs>
 `}</Story>
 </Preview>

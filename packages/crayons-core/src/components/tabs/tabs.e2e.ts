@@ -5,20 +5,15 @@ describe('fw-tabs', () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-tabs>
-    <fw-tab tab-header ="Tab 1">
-      <section>
-          <p>Tab 1 Content</P>
-      </section>
-    </fw-tab>
-    <fw-tab tab-header="Tab 2">
-          <p>Tab 2 Content</P>
-    </fw-tab>
-    <fw-tab tab-header="Tab 3" disabled>
-      <p>TAB 3 Content</p>
-    </fw-tab>
-    <fw-tab tab-header="Tab 4">
-      <p>TAB 4 Content</p>
-    </fw-tab>
+    <fw-tab slot="tab" panel="one">Tab 1</fw-tab>
+    <fw-tab slot="tab" panel="two">Tab 2</fw-tab>
+    <fw-tab slot="tab" panel="three" disabled>TAB 3 </fw-tab>
+    <fw-tab slot="tab" panel="four">TAB 4 </fw-tab>
+
+    <fw-panel name="one">Tab 1 content</fw-panel>
+    <fw-panel name="two">Tab 2 content</fw-panel>
+    <fw-panel name="three">Tab 3 content</fw-panel>
+    <fw-panel name="four">Tab 4 content</fw-panel>
   </fw-tabs>`);
     const element = await page.find('fw-tabs');
     expect(element).toHaveClass('hydrated');
@@ -27,66 +22,61 @@ describe('fw-tabs', () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-tabs>
-    <fw-tab tab-header ="Tab 1">
-      <section>
-          <p>Tab 1 Content</P>
-      </section>
-    </fw-tab>
-    <fw-tab tab-header="Tab 2">
-          <p>Tab 2 Content</P>
-    </fw-tab>
-    <fw-tab tab-header="Tab 3" disabled>
-      <p>TAB 3 Content</p>
-    </fw-tab>
-    <fw-tab tab-header="Tab 4">
-      <p>TAB 4 Content</p>
-    </fw-tab>
+    <fw-tab slot="tab" panel="one">Tab 1</fw-tab>
+    <fw-tab slot="tab" panel="two">Tab 2</fw-tab>
+    <fw-tab slot="tab" panel="three" disabled>TAB 3 </fw-tab>
+    <fw-tab slot="tab" panel="four">TAB 4 </fw-tab>
+
+    <fw-panel name="one">Tab 1 content</fw-panel>
+    <fw-panel name="two">Tab 2 content</fw-panel>
+    <fw-panel name="three">Tab 3 content</fw-panel>
+    <fw-panel name="four">Tab 4 content</fw-panel>
   </fw-tabs>`);
     const element = await page.find('fw-tabs');
 
     expect(element.shadowRoot).toEqualHtml(`
     <div class="tabs">
-        <ul class="tabs__items" role="tablist">
-           <li class="tabs__item" role="tab">
-            <div class="active tabs__item__nav" id="#tab-0">
-              <span class="tab-title--tab-icon">
-                <span class="tab-title">
-                  Tab 1
-                </span>
-              </span>
-            </div>
-          </li>
-          <li class="tabs__item" role="tab">
-            <div class="tabs__item__nav" id="#tab-1">
-              <span class="tab-title--tab-icon">
-                <span class="tab-title">
-                  Tab 2
-                </span>
-              </span>
-            </div>
-          </li>
-          <li class="tabs__item" role="tab">
-            <div class="disabled tabs__item__nav" id="#tab-2">
-              <span class="tab-title--tab-icon">
-                <span class="tab-title">
-                  Tab 3
-                </span>
-              </span>
-            </div>
-          </li>
-          <li class="tabs__item" role="tab">
-            <div class="tabs__item__nav" id="#tab-3">
-              <span class="tab-title--tab-icon">
-                <span class="tab-title">
-                  Tab 4
-                </span>
-              </span>
-            </div>
-          </li>
-        </ul>
-        <div class="tabs__content">
-          <slot></slot>
+      <div class="tabs__items__nav">
+        <div class="tabs__items__tabs" role="tablist" aria-label=''>
+          <slot name="tab"></slot>
         </div>
-      </div>`);
+      </div>
+      <div class="tabs__panel__content">
+        <slot></slot>
+      </div>
+    </div>`);
+  });
+  it('emits fwChange', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<fw-tabs>
+    <fw-tab slot="tab" panel="one" tab-name="tab1">Tab 1</fw-tab>
+    <fw-tab slot="tab" panel="two" tab-name="tab2">Tab 2</fw-tab>
+
+    <fw-panel name="one">Tab 1 content</fw-panel>
+    <fw-panel name="two">Tab 2 content</fw-panel>
+  </fw-tabs>`);
+    const element = await page.find('fw-tabs');
+    const fwChange = await page.spyOnEvent('fwChange');
+    await element.press('Tab');
+    await element.press('ArrowRight');
+    expect(fwChange).toHaveReceivedEventDetail({
+      tabIndex: 1,
+      tabName: 'tab2',
+    });
+  });
+  it('does not emits fwChange when disabled', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<fw-tabs>
+    <fw-tab slot="tab" panel="one" tab-name="tab1">Tab 1</fw-tab>
+    <fw-tab slot="tab" panel="two" tab-name="tab2" disabled>Tab 2</fw-tab>
+
+    <fw-panel name="one">Tab 1 content</fw-panel>
+    <fw-panel name="two">Tab 2 content</fw-panel>
+  </fw-tabs>`);
+    const element = await page.find('fw-tabs');
+    const fwChange = await page.spyOnEvent('fwChange');
+    await element.press('Tab');
+    await element.press('ArrowRight');
+    expect(fwChange.events).toEqual([]);
   });
 });

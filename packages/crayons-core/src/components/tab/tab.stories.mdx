@@ -16,7 +16,17 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 ### Default
 <Preview>
 <Story name='Default'>{() => `
-<fw-tab tab-header="TAB 1" message="this is a sample message"></fw-tab>
-<fw-tab tab-header="TAB 2" message="this is a sample message 2"></fw-tab>
+<fw-tab>Tab Header 1</fw-tab>
+<fw-tab>Tab Header 2</fw-tab>
+`}</Story>
+</Preview>
+
+### With HTML headers
+<Preview>
+<Story name='With HTML Headers'>{() => `
+  <fw-tab><i>Tab 1</i></fw-tab>
+  <fw-tab><h2>Tab 2</h2></fw-tab>
+  <fw-tab disabled><h3>Tab 3</h3></fw-tab>
+  <fw-tab><h3>Tab 4</h3></fw-tab>
 `}</Story>
 </Preview>

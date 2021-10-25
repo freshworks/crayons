@@ -1,3 +1,41 @@
-.tab {
-  padding: 10px;
+:host(.tab) {
+  display: inline-flex;
+  white-space: nowrap;
+  cursor: pointer;
+  align-items: center;
+  padding: 10px 8px;
+  line-height: 20px;
+  color: $color-smoke-700;
+  font-size: $font-size-14;
+  font-weight: $font-weight-400;
+  margin-right: 20px;
+}
+
+:host(:hover:not(.disabled)) {
+  padding-bottom: 8px;
+  border-bottom: 2px solid $color-smoke-300;
+}
+
+:host(.active:not(.disabled)) {
+  padding-bottom: 8px;
+  border-bottom: 2px solid $color-azure-800;
+  color: $color-azure-800;
+  font-weight: $font-weight-600;
+}
+
+:host(.disabled) {
+  cursor: not-allowed;
+  color: $color-smoke-300;
+}
+
+:host(:focus) {
+  outline: none;
+  border: 0;
+  box-shadow: none;
+}
+
+:host(:focus-visible) {
+  outline: none;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 2px $color-azure-800;
 }
