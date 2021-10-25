@@ -141,20 +141,35 @@ export class Modal {
     }
   }
 
+  /**
+   * Method available from the component to perform close action on the modal
+   * @returns promise which resolves to true on closing
+   */
   @Method()
   async close() {
     this.closeModal();
     return Promise.resolve(true);
   }
 
+  /**
+   * private closeModal
+   */
   closeModal() {
     this.isOpen = false;
   }
 
+  /**
+   * private submitModal
+   */
   submitModal() {
     this.fwSubmit.emit();
   }
 
+  /**
+   * Helps determine if an element can be focused or not.
+   * @param element element that we must determine if it is focusable or not.
+   * @returns {Boolean} true if focusable else false.
+   */
   isFocusable(element) {
     if (element.tabIndex < 0) {
       return false;
@@ -176,6 +191,10 @@ export class Modal {
     }
   }
 
+  /**
+   * Adds accesibility related events to the component.
+   * Major actions would be to focus-lock inside modal and to focus on close button when opening the component.
+   */
   addAccesibilityEvents() {
     if (!this.accessibilityAdded) {
       /**
@@ -237,10 +256,18 @@ export class Modal {
     }
   }
 
+  /**
+   * Renders Icon in Modal header.
+   * @returns {JSX.Element}
+   */
   renderIcon(): JSX.Element {
     return <fw-icon class='icon' name={this.icon} size={16}></fw-icon>;
   }
 
+  /**
+   * Renders title text and description in modal header.
+   * @returns {JSX.Element}
+   */
   renderTitle(): JSX.Element {
     return (
       <fw-modal-title
@@ -252,6 +279,10 @@ export class Modal {
     );
   }
 
+  /**
+   * renders the slot content in the modal.
+   * @returns {JSX.Element}
+   */
   renderContent(): JSX.Element {
     return (
       <div class='content'>
@@ -260,6 +291,10 @@ export class Modal {
     );
   }
 
+  /**
+   * renders the default footer in the modal
+   * @returns {JSX.Element}
+   */
   renderFooter(): JSX.Element {
     return (
       <fw-modal-footer
@@ -273,6 +308,11 @@ export class Modal {
     );
   }
 
+  /**
+   * renders either default modal content based on attributes or renders the modal child components like
+   * modal-title, modal-content and modal-footer components.
+   * @returns {JSX.Element}
+   */
   render(): JSX.Element {
     return (
       <div class={{ 'modal-container': true, 'visible': this.isOpen }}>

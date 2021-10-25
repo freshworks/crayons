@@ -229,6 +229,10 @@ export namespace Components {
           * The text for the cancel button
          */
         "cancelText": string;
+        /**
+          * Method available from the component to perform close action on the modal
+          * @returns promise which resolves to true on closing
+         */
         "close": () => Promise<boolean>;
         /**
           * The description text to be displayed on the modal
@@ -271,6 +275,9 @@ export namespace Components {
          */
         "cancelText": string;
         "close": any;
+        /**
+          * Set to true if we want to render slot instead of default footer
+         */
         "custom": boolean;
         "submit": any;
         /**
@@ -288,6 +295,9 @@ export namespace Components {
     }
     interface FwModalTitle {
         "close": any;
+        /**
+          * Set to true if we want to render slot instead of default footer
+         */
         "custom": boolean;
         /**
           * The title text to be displayed on the modal
@@ -1119,6 +1129,9 @@ declare namespace LocalJSX {
          */
         "cancelText"?: string;
         "close"?: any;
+        /**
+          * Set to true if we want to render slot instead of default footer
+         */
         "custom"?: boolean;
         "submit"?: any;
         /**
@@ -1136,6 +1149,9 @@ declare namespace LocalJSX {
     }
     interface FwModalTitle {
         "close"?: any;
+        /**
+          * Set to true if we want to render slot instead of default footer
+         */
         "custom"?: boolean;
         /**
           * The title text to be displayed on the modal

@@ -40,6 +40,10 @@ export class ModalFooter {
   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   @Prop() close: any = () => {};
 
+  /**
+   * render slot when custom attribute is passed, else renders the default footer with submit and cancel buttons
+   * @returns {JSX.Element}
+   */
   render(): JSX.Element {
     return this.custom ? (
       <slot></slot>

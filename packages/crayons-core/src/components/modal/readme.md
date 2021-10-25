@@ -13,7 +13,7 @@ Modals are used as an overlay to display information. It can also be used as con
   </fw-modal>
 ```
 
-#### Composition example
+#### Simple composition example 
 ```html live 
   <fw-button modal-trigger-id='small'> Open Small Modal </fw-button>
   <fw-modal id='small' size="small" submit-disabled="true" submit-color="danger">
@@ -25,11 +25,11 @@ Modals are used as an overlay to display information. It can also be used as con
 
 #### Custom composition example
 ```html live 
-  <fw-button modal-trigger-id='large'> Open Large Modal </fw-button>
+  <fw-button modal-trigger-id='large'> Open custom composed modal </fw-button>
   <fw-modal id='large' icon="agent" description="Subtitle goes here" size="large">
     <fw-modal-title custom>
       <div style="padding: 20px 40px;">
-        <span style="font-weight: bold;">Modal Header</span>
+        <span style="font-weight: bold;">Header text</span>
         <a
           style="float: right;"
           href="javascript:void(0)"
@@ -42,7 +42,7 @@ Modals are used as an overlay to display information. It can also be used as con
       <div style="padding: 20px 40px;">Content text</div>
     </fw-modal-content>
     <fw-modal-footer custom>
-      <div style="padding: 20px 40px; background: #EEE;">Custom footer</div>
+      <div style="padding: 20px 40px; background: #EEE;">Footer text</div>
     </fw-modal-footer>
   </fw-modal>
 ```
@@ -80,13 +80,13 @@ Modals are used as an overlay to display information. It can also be used as con
 
 ### `close() => Promise<boolean>`
 
-
+Method available from the component to perform close action on the modal
 
 #### Returns
 
 Type: `Promise<boolean>`
 
-
+promise which resolves to true on closing
 
 
 ## Dependencies

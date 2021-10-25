@@ -29,10 +29,19 @@ export class ModalTitle {
   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   @Prop() close: any = () => {};
 
+  /**
+   * renders Icon in Modal header.
+   * @returns {JSX.Element}
+   */
   renderIcon(): JSX.Element {
     return <fw-icon class='icon' name={this.icon} size={16}></fw-icon>;
   }
 
+  /**
+   * renders slot content when custom attribute is passed, else displays the default
+   * icon, title and description with close button in the header.
+   * @returns {JSX.Element}
+   */
   render(): JSX.Element {
     return this.custom ? (
       <slot></slot>

@@ -6,6 +6,10 @@ import { Component, h } from '@stencil/core';
   shadow: true,
 })
 export class ModalContent {
+  /**
+   * render the slot content directly
+   * @returns {JSX.Element}
+   */
   render(): JSX.Element {
     return <slot></slot>;
   }

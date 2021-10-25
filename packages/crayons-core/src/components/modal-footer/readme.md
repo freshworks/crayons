@@ -1,0 +1,41 @@
+# fw-modal-footer
+
+
+
+<!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property         | Attribute         | Description                                                     | Type                                                       | Default     |
+| ---------------- | ----------------- | --------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
+| `cancelText`     | `cancel-text`     | The text for the cancel button                                  | `string`                                                   | `'Cancel'`  |
+| `close`          | `close`           |                                                                 | `any`                                                      | `() => {}`  |
+| `custom`         | `custom`          | Set to true if we want to render slot instead of default footer | `boolean`                                                  | `false`     |
+| `submit`         | `submit`          |                                                                 | `any`                                                      | `() => {}`  |
+| `submitColor`    | `submit-color`    | The color of submit button                                      | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'` |
+| `submitDisabled` | `submit-disabled` | Default state of submit button                                  | `boolean`                                                  | `false`     |
+| `submitText`     | `submit-text`     | The text for the submit button                                  | `string`                                                   | `'OK'`      |
+
+
+## Dependencies
+
+### Used by
+
+ - [fw-modal](../modal)
+
+### Depends on
+
+- [fw-button](../button)
+
+### Graph
+```mermaid
+graph TD;
+  fw-modal-footer --> fw-button
+  fw-modal --> fw-modal-footer
+  style fw-modal-footer fill:#f9f,stroke:#333,stroke-width:4px
+```
+
+----------------------------------------------
+
+Built with ❤ at Freshworks
