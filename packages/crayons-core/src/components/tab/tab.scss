@@ -33,14 +33,14 @@
   color: $color-smoke-300;
 }
 
-:host(:focus) {
+.tab:focus {
   outline: none;
   border: 0;
   box-shadow: none;
-}
 
-:host(:focus-visible) {
-  outline: none;
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 2px $color-azure-800;
+  &::after {
+    outline: none;
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 2px $color-azure-800;
+  }
 }
