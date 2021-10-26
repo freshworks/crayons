@@ -7,20 +7,18 @@ import { createPopper, Instance } from '@popperjs/core';
   shadow: true,
 })
 export class Popover {
-  private content: HTMLElement;
+  private contentRef: HTMLElement;
+  private triggerRef: Element;
+  private overlay: HTMLElement;
 
   @Element() host: HTMLElement;
 
   @State() popperInstance: Instance;
   @State() isOpen = false;
-  @State() popperOptions: any;
+  @State() popperOptions;
 
   /**
-   * The reference of the parent element to which the popup should be attached.
-   */
-  @Prop() parentRef: HTMLElement;
-  /**
-   * Placement of the popover with respect to the parent element (parentRef).
+   * Placement of the popover content with respect to the popover trigger.
    */
   @Prop() placement: PopoverPlacementType = 'bottom';
   /**
@@ -32,34 +30,73 @@ export class Popover {
    */
   @Prop() boundary: HTMLElement;
   /**
-   * Skidding defines the distance between the parentRef and the popover along x-axis.
+   * Skidding defines the distance between the popover trigger and the popover content along x-axis.
    */
-  @Prop() skidding = 0;
+  @Prop() skidding = '0';
   /**
-   * Distance defines the distance between the parentRef and the popover along y-axis.
+   * Distance defines the distance between the popover trigger and the popover content along y-axis.
    */
-  @Prop() distance = 0;
+  @Prop() distance = '0';
+  /**
+   * Variant defines the style of the popover-content.
+   */
+  @Prop() variant: 'select' | 'date-picker' = 'select';
+  /**
+   * Whether the popover-content width to be same as that of the popover-trigger.
+   */
+  @Prop() sameWidth = true;
 
   @Method()
   async show() {
     if (!this.isOpen) {
-      this.popperInstance = createPopper(
-        this.parentRef,
-        this.content,
-        this.popperOptions
-      );
-      this.content.setAttribute('data-show', '');
+      this.sameWidth &&
+        (this.contentRef.style.width =
+          String(this.triggerRef.getBoundingClientRect().width) + 'px');
+
+      // Create popper instance if it's not available
+      !this.popperInstance && this.createPopperInstance();
+
+      this.contentRef.setAttribute('data-show', '');
+      // Enable the event listeners
+      this.popperInstance.setOptions((options) => ({
+        ...options,
+        modifiers: [
+          ...options.modifiers,
+          { name: 'eventListeners', enabled: true },
+        ],
+      }));
       this.popperInstance.update();
+      this.overlay.style.display = 'block';
+      this.isOpen = !this.isOpen;
     }
   }
 
   @Method()
   async hide() {
-    this.content.removeAttribute('data-show');
-    this.popperInstance.destroy();
+    if (this.isOpen) {
+      this.contentRef.removeAttribute('data-show');
+      // Disable the event listeners
+      this.popperInstance.setOptions((options) => ({
+        ...options,
+        modifiers: [
+          ...options.modifiers,
+          { name: 'eventListeners', enabled: false },
+        ],
+      }));
+      this.overlay.style.display = 'none';
+      this.isOpen = !this.isOpen;
+    }
   }
 
   componentDidLoad() {
+    this.triggerRef = this.host.querySelector('[slot="popover-trigger"]');
+    this.triggerRef.addEventListener('click', () => {
+      if (this.isOpen) {
+        this.hide();
+      } else {
+        this.show();
+      }
+    });
     this.popperOptions = {
       placement: this.placement,
       modifiers: [
@@ -78,19 +115,41 @@ export class Popover {
         {
           name: 'offset',
           options: {
-            offset: [this.skidding, this.distance],
+            offset: [Number(this.skidding), Number(this.distance)],
           },
         },
       ],
     };
   }
 
-  render() {
-    return (
-      <div class='popper' ref={(content) => (this.content = content)}>
-        <slot />
-      </div>
+  disconnectedCallback() {
+    this.popperInstance.destroy();
+  }
+
+  createPopperInstance() {
+    this.popperInstance = createPopper(
+      this.triggerRef,
+      this.contentRef,
+      this.popperOptions
     );
+  }
+
+  render() {
+    return [
+      <slot name='popover-trigger' />,
+      <div
+        class='popper-content'
+        ref={(contentRef) => (this.contentRef = contentRef)}
+      >
+        <slot name='popover-content' />
+      </div>,
+      <div
+        aria-hidden='true'
+        class='overlay'
+        ref={(overlay) => (this.overlay = overlay)}
+        onClick={() => this.hide()}
+      />,
+    ];
   }
 }
 

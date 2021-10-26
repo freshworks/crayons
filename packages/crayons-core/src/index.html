@@ -10,7 +10,35 @@
 
 </head>
 <body>
- <fw-button expand color="primary">Primary Button</fw-button>
+  
+  <fw-popover>
+    <fw-button slot="popover-trigger" color="primary">Primary Button</fw-button>
+    <ul slot='popover-content'>
+     <li>Test 1</li>
+     <li>Test 2</li>
+     <li>Test 3</li>
+   </ul>
+ </fw-popover>
+
+ <fw-select style="width:250px;"
+      label="Select App type"
+      placeholder="Choose app type"
+      value="2"
+      
+      >
+          <fw-select-option value="1" html option-text="LLL">
+                <div style="color: red; padding: 10px;">Lannister </div class="cls">
+                <div style="color: green; padding: 5px;">Lannisters are gods</div>
+          </fw-select-option>
+          <fw-select-option value="2">
+            Shenigans
+          </fw-select-option>
+  </fw-select>
+
+  <fw-timepicker min-time="09:00 AM" interval=15></fw-timepicker>
+
+  <br><br>
+  <fw-datepicker style="float:left;"></fw-datepicker>
   
 <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
    <fw-select

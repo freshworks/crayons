@@ -269,27 +269,31 @@ export namespace Components {
          */
         "boundary": HTMLElement;
         /**
-          * Distance defines the distance between the parentRef and the popover along y-axis.
+          * Distance defines the distance between the popover trigger and the popover content along y-axis.
          */
-        "distance": number;
+        "distance": string;
         /**
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements": [PopoverPlacementType];
         "hide": () => Promise<void>;
         /**
-          * The reference of the parent element to which the popup should be attached.
-         */
-        "parentRef": HTMLElement;
-        /**
-          * Placement of the popover with respect to the parent element (parentRef).
+          * Placement of the popover content with respect to the popover trigger.
          */
         "placement": PopoverPlacementType;
+        /**
+          * Whether the popover-content width to be same as that of the popover-trigger.
+         */
+        "sameWidth": boolean;
         "show": () => Promise<void>;
         /**
-          * Skidding defines the distance between the parentRef and the popover along x-axis.
+          * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
-        "skidding": number;
+        "skidding": string;
+        /**
+          * Variant defines the style of the popover-content.
+         */
+        "variant": 'select' | 'date-picker';
     }
     interface FwRadio {
         /**
@@ -1080,25 +1084,29 @@ declare namespace LocalJSX {
          */
         "boundary"?: HTMLElement;
         /**
-          * Distance defines the distance between the parentRef and the popover along y-axis.
+          * Distance defines the distance between the popover trigger and the popover content along y-axis.
          */
-        "distance"?: number;
+        "distance"?: string;
         /**
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements"?: [PopoverPlacementType];
         /**
-          * The reference of the parent element to which the popup should be attached.
-         */
-        "parentRef"?: HTMLElement;
-        /**
-          * Placement of the popover with respect to the parent element (parentRef).
+          * Placement of the popover content with respect to the popover trigger.
          */
         "placement"?: PopoverPlacementType;
         /**
-          * Skidding defines the distance between the parentRef and the popover along x-axis.
+          * Whether the popover-content width to be same as that of the popover-trigger.
          */
-        "skidding"?: number;
+        "sameWidth"?: boolean;
+        /**
+          * Skidding defines the distance between the popover trigger and the popover content along x-axis.
+         */
+        "skidding"?: string;
+        /**
+          * Variant defines the style of the popover-content.
+         */
+        "variant"?: 'select' | 'date-picker';
     }
     interface FwRadio {
         /**

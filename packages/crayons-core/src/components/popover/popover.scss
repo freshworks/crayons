@@ -1,9 +1,46 @@
-.popper {
-  width: 100%;
-  display: none;
-  z-index: 99;
+:host {
+  --popover-min-height: 10px;
+  --popover-max-height: 400px;
 }
 
-.popper[data-show] {
+.popper-content {
+  display: none;
+  z-index: 99;
+  min-height: var(--popover-min-height);
+  max-height: var(--popover-max-height);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 0px;
+  border-radius: 8px;
+  border: 1px solid $app-border-secondary;
+  position: absolute;
+  background: $popover-background;
+  box-sizing: border-box;
+  outline: none;
+  box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
+  user-select: none;
+  transform: scale(0.01);
+  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease 0.15s;
+  will-change: auto;
+}
+
+.popper-content[data-show] {
   display: block;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  background-color: transparent;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .popper-content {
+    transition: none;
+  }
 }

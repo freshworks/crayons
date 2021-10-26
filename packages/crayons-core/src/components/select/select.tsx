@@ -21,10 +21,8 @@ import { handleKeyDown, renderHiddenField } from '../../utils';
 })
 export class Select {
   @Element() host: HTMLElement;
-  private select?: HTMLDivElement;
   private selectInput?: HTMLInputElement;
-  private selectList?: HTMLUListElement;
-  private overlay?: HTMLElement;
+  private popover?: HTMLFwPopoverElement;
   /**
    * If the dropdown is shown or not
    */
@@ -102,8 +100,7 @@ export class Select {
   private changeEmittable = () => !this.disabled;
 
   private closeDropdown = () => {
-    this.selectList.style.display = 'none';
-    this.overlay.style.display = 'none';
+    this.popover.hide();
     this.isExpanded = false;
   };
 
@@ -117,10 +114,8 @@ export class Select {
   private innerOnClick = () => {
     if (this.changeEmittable()) {
       this.filteredOptions = this.options;
-      this.selectList.style.display = 'block';
-      this.selectList.style.width = String(this.select.clientWidth) + 'px';
+      this.popover.show();
       this.isExpanded = true;
-      this.overlay.style.display = 'block';
     }
   };
 
@@ -303,58 +298,52 @@ export class Select {
           ''
         )}
         <div class='select-container'>
-          <div
-            class={{
-              'input-container': true,
-              [this.state]: true,
-              'select-disabled': this.disabled,
-            }}
-            ref={(select) => (this.select = select)}
-            onClick={() => this.innerOnClick()}
-            onKeyDown={handleKeyDown(this.innerOnClick)}
-          >
-            <div class='input-container-inner'>
-              {this.renderTags()}
-              <input
-                ref={(selectInput) => (this.selectInput = selectInput)}
-                class={{
-                  'multiple-select': this.multiple,
-                }}
-                autoComplete='off'
-                disabled={this.disabled}
-                name={this.name}
-                placeholder={this.value ? '' : this.placeholder || ''}
-                readOnly={this.readonly}
-                required={this.required}
-                type={this.type}
-                value=''
-                onInput={() => this.onInput()}
-                onFocus={(e) => this.innerOnFocus(e)}
-                onBlur={(e) => this.innerOnBlur(e)}
-              />
-              <span
-                class={{
-                  'dropdown-status-icon': true,
-                  'expanded': this.isExpanded,
-                }}
-              ></span>
+          <fw-popover distance='8' ref={(popover) => (this.popover = popover)}>
+            <div
+              slot='popover-trigger'
+              class={{
+                'input-container': true,
+                [this.state]: true,
+                'select-disabled': this.disabled,
+              }}
+              onClick={() => this.innerOnClick()}
+              onKeyDown={handleKeyDown(this.innerOnClick)}
+            >
+              <div class='input-container-inner'>
+                {this.renderTags()}
+                <input
+                  ref={(selectInput) => (this.selectInput = selectInput)}
+                  class={{
+                    'multiple-select': this.multiple,
+                  }}
+                  autoComplete='off'
+                  disabled={this.disabled}
+                  name={this.name}
+                  placeholder={this.value ? '' : this.placeholder || ''}
+                  readOnly={this.readonly}
+                  required={this.required}
+                  type={this.type}
+                  value=''
+                  onInput={() => this.onInput()}
+                  onFocus={(e) => this.innerOnFocus(e)}
+                  onBlur={(e) => this.innerOnBlur(e)}
+                />
+                <span
+                  class={{
+                    'dropdown-status-icon': true,
+                    'expanded': this.isExpanded,
+                  }}
+                ></span>
+              </div>
             </div>
-          </div>
-          <ul class='dropdown' ref={(ul) => (this.selectList = ul)}>
-            {this.renderDropdown()}
-          </ul>
+            <ul slot='popover-content'> {this.renderDropdown()} </ul>
+          </fw-popover>
           {this.stateText !== '' ? (
             <span class='help-block'>{this.stateText}</span>
           ) : (
             ''
           )}
         </div>
-        <div
-          class='overlay'
-          ref={(overlay) => (this.overlay = overlay)}
-          onClick={() => this.closeDropdown()}
-          onKeyDown={handleKeyDown(this.closeDropdown)}
-        />
       </Host>
     );
   }
