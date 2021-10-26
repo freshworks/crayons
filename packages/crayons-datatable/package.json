@@ -12,7 +12,7 @@
     "components"
   ],
   "author": "Freshworks Inc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Crayons Datatable for Developer Platform",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -26,7 +26,7 @@
     "dist/",
     "loader/",
     "www/",
-    "react"
+    "react/"
   ],
   "scripts": {
     "build:components": "stencil build --docs",
@@ -44,7 +44,7 @@
     "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
     "tscdisable": "node fileutil",
-    "build:react": "npm run tscdisable && tsc --project tsconfig-react.json --module es6 --outDir react",
+    "build:react": "npm run tscdisable && tsc --project tsconfig-react.json",
     "a11y": "run-p start a11y:run",
     "a11y:install": "npm i -g @axe-core/cli",
     "a11y:run": "wait-on http://localhost:3334/ && npm run a11y:install && axe http://localhost:3334 --show-errors --exit --tags wcag2aa",
@@ -87,8 +87,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@freshworks/crayons": "file:../crayons-core",
-    "@stencil/core": "^2.8.1",
+    "@freshworks/crayons": "^3.0.0-beta.1",
+    "@stencil/core": "^2.9.0",
     "moment-mini": "^2.24.0"
   },
   "publishConfig": {
