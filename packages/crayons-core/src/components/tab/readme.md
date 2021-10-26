@@ -2,6 +2,13 @@
 
 fw-tab provides child elements for fw-tabs, to enable tab style navigation.
 
+## Usage
+
+```html live
+  <fw-tab>Personal</fw-tab>
+  <fw-tab>Official</fw-tab>
+```
+
 <!-- Auto Generated Below -->
 
 
