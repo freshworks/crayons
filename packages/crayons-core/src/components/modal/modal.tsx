@@ -107,8 +107,16 @@ export class Modal {
    */
   @Event({ eventName: 'fwclose' }) fwClose!: EventEmitter<void>;
 
+  /**
+   * private
+   * flag to add events to elements only on initial modal load
+   */
   accessibilityAdded = false;
 
+  /**
+   * private
+   * escape key handler
+   */
   escapeHandler = null;
 
   /**
@@ -257,9 +265,13 @@ export class Modal {
     document.addEventListener('keydown', this.escapeHandler);
   }
 
+  /**
+   * Removes accesibility related events bound to the document.
+   */
   removeAccesibilityEvents() {
     if (this.escapeHandler) {
       document.removeEventListener('keydown', this.escapeHandler);
+      this.escapeHandler = null;
     }
   }
 
