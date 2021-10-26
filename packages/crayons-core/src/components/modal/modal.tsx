@@ -95,17 +95,17 @@ export class Modal {
   /**
    * Triggered when the default action button is clicked.
    */
-  @Event({ eventName: 'fwsubmit' }) fwSubmit!: EventEmitter<void>;
+  @Event({ eventName: 'fwSubmit' }) fwSubmit!: EventEmitter<void>;
 
   /**
    * Triggered when modal is opened.
    */
-  @Event({ eventName: 'fwopen' }) fwOpen!: EventEmitter<void>;
+  @Event({ eventName: 'fwOpen' }) fwOpen!: EventEmitter<void>;
 
   /**
    * Triggered when modal is closed.
    */
-  @Event({ eventName: 'fwclose' }) fwClose!: EventEmitter<void>;
+  @Event({ eventName: 'fwClose' }) fwClose!: EventEmitter<void>;
 
   /**
    * private

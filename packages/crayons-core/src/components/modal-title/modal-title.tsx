@@ -26,6 +26,9 @@ export class ModalTitle {
    */
   @Prop() custom = false;
 
+  /**
+   * Function to call on close of modal
+   */
   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   @Prop() close: any = () => {};
 

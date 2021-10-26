@@ -9,7 +9,7 @@
 
 | Property      | Attribute     | Description                                                     | Type      | Default     |
 | ------------- | ------------- | --------------------------------------------------------------- | --------- | ----------- |
-| `close`       | `close`       |                                                                 | `any`     | `() => {}`  |
+| `close`       | `close`       | Function to call on close of modal                              | `any`     | `() => {}`  |
 | `custom`      | `custom`      | Set to true if we want to render slot instead of default footer | `boolean` | `false`     |
 | `description` | `description` | The title text to be displayed on the modal                     | `string`  | `undefined` |
 | `icon`        | `icon`        | The icon to be displayed with the title                         | `string`  | `''`        |

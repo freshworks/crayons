@@ -71,9 +71,9 @@ Modals are used as an overlay to display information. It can also be used as con
 
 | Event      | Description                                          | Type                |
 | ---------- | ---------------------------------------------------- | ------------------- |
-| `fwclose`  | Triggered when modal is closed.                      | `CustomEvent<void>` |
-| `fwopen`   | Triggered when modal is opened.                      | `CustomEvent<void>` |
-| `fwsubmit` | Triggered when the default action button is clicked. | `CustomEvent<void>` |
+| `fwClose`  | Triggered when modal is closed.                      | `CustomEvent<void>` |
+| `fwOpen`   | Triggered when modal is opened.                      | `CustomEvent<void>` |
+| `fwSubmit` | Triggered when the default action button is clicked. | `CustomEvent<void>` |
 
 
 ## Methods

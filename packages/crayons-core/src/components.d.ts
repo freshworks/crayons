@@ -274,11 +274,17 @@ export namespace Components {
           * The text for the cancel button
          */
         "cancelText": string;
+        /**
+          * Function to call on close of modal
+         */
         "close": any;
         /**
           * Set to true if we want to render slot instead of default footer
          */
         "custom": boolean;
+        /**
+          * Function to call on submit of modal
+         */
         "submit": any;
         /**
           * The color of submit button
@@ -294,6 +300,9 @@ export namespace Components {
         "submitText": string;
     }
     interface FwModalTitle {
+        /**
+          * Function to call on close of modal
+         */
         "close": any;
         /**
           * Set to true if we want to render slot instead of default footer
@@ -1091,15 +1100,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when modal is closed.
          */
-        "onFwclose"?: (event: CustomEvent<void>) => void;
+        "onFwClose"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when modal is opened.
          */
-        "onFwopen"?: (event: CustomEvent<void>) => void;
+        "onFwOpen"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when the default action button is clicked.
          */
-        "onFwsubmit"?: (event: CustomEvent<void>) => void;
+        "onFwSubmit"?: (event: CustomEvent<void>) => void;
         /**
           * Size of the modal
          */
@@ -1128,11 +1137,17 @@ declare namespace LocalJSX {
           * The text for the cancel button
          */
         "cancelText"?: string;
+        /**
+          * Function to call on close of modal
+         */
         "close"?: any;
         /**
           * Set to true if we want to render slot instead of default footer
          */
         "custom"?: boolean;
+        /**
+          * Function to call on submit of modal
+         */
         "submit"?: any;
         /**
           * The color of submit button
@@ -1148,6 +1163,9 @@ declare namespace LocalJSX {
         "submitText"?: string;
     }
     interface FwModalTitle {
+        /**
+          * Function to call on close of modal
+         */
         "close"?: any;
         /**
           * Set to true if we want to render slot instead of default footer

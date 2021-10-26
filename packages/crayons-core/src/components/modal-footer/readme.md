@@ -10,9 +10,9 @@
 | Property         | Attribute         | Description                                                     | Type                                                       | Default     |
 | ---------------- | ----------------- | --------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
 | `cancelText`     | `cancel-text`     | The text for the cancel button                                  | `string`                                                   | `'Cancel'`  |
-| `close`          | `close`           |                                                                 | `any`                                                      | `() => {}`  |
+| `close`          | `close`           | Function to call on close of modal                              | `any`                                                      | `() => {}`  |
 | `custom`         | `custom`          | Set to true if we want to render slot instead of default footer | `boolean`                                                  | `false`     |
-| `submit`         | `submit`          |                                                                 | `any`                                                      | `() => {}`  |
+| `submit`         | `submit`          | Function to call on submit of modal                             | `any`                                                      | `() => {}`  |
 | `submitColor`    | `submit-color`    | The color of submit button                                      | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'` |
 | `submitDisabled` | `submit-disabled` | Default state of submit button                                  | `boolean`                                                  | `false`     |
 | `submitText`     | `submit-text`     | The text for the submit button                                  | `string`                                                   | `'OK'`      |
