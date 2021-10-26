@@ -109,6 +109,8 @@ export class Modal {
 
   accessibilityAdded = false;
 
+  escapeHandler = null;
+
   /**
    * lifecycle event that gets triggered before every render
    */
@@ -134,6 +136,7 @@ export class Modal {
   @Watch('isOpen')
   visibilityChange(open: boolean) {
     if (!open) {
+      this.removeAccesibilityEvents();
       this.fwClose.emit();
     } else {
       this.addAccesibilityEvents();
@@ -198,14 +201,6 @@ export class Modal {
   addAccesibilityEvents() {
     if (!this.accessibilityAdded) {
       /**
-       * Escape handling
-       */
-      document.addEventListener('keydown', (e: any) => {
-        if (e.keyCode === 27) {
-          this.isOpen = false;
-        }
-      });
-      /**
        * Focus trapping inside Modal
        */
       const getFocuableChildren = (node: HTMLElement) => {
@@ -253,6 +248,18 @@ export class Modal {
     }
     if (this.firstFocusElement) {
       this.firstFocusElement.focus();
+    }
+    this.escapeHandler = ((e: any) => {
+      if (e.keyCode === 27) {
+        this.isOpen = false;
+      }
+    }).bind(this);
+    document.addEventListener('keydown', this.escapeHandler);
+  }
+
+  removeAccesibilityEvents() {
+    if (this.escapeHandler) {
+      document.removeEventListener('keydown', this.escapeHandler);
     }
   }
 
