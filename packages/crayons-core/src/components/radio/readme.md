@@ -5,8 +5,8 @@ fw-radio displays a radio button on the user interface and enables assigning a s
 ## Usage
 
 ```html live
-<fw-radio checked label="Select to agree">Agree or Disagree</fw-radio><br><br>
-<fw-radio checked disabled value="dr">Disable radio</fw-radio>
+<fw-radio checked label="Agree or Disagree">Select to agree</fw-radio><br><br>
+<fw-radio checked disabled label="Disabled radio" value="dr"></fw-radio>
 ```
 
 <!-- Auto Generated Below -->
