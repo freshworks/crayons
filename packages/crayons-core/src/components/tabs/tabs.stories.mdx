@@ -29,31 +29,27 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 `}</Story>
 </Preview>
 
-
-### With HTML Headers
+### With HTML headers
 <Preview>
 <Story name='With HTML Headers'>{() => `
 <fw-tabs>
   <fw-tab slot="tab" panel="one"><i>Tab 1</i></fw-tab>
-  <fw-tab slot="tab" panel=two"><h2>Tab 2</h2></fw-tab>
+  <fw-tab slot="tab" panel="two"><h2>Tab 2</h2></fw-tab>
   <fw-tab slot="tab" panel="three" disabled><h3>Tab 3</h3></fw-tab>
   <fw-tab slot="tab" panel="four"><h3>Tab 4</h3></fw-tab>
-
+  
   <fw-panel name="one">
-    <section>
-      <p>Tab 1 Content</p>
-    </section>
+    <section><p>Tab 1 Content</p></section>
   </fw-panel>
   <fw-panel name="two">
-      <p>Tab 2 Content</p>
+    <p>Tab 2 Content</p>
   </fw-panel>
   <fw-panel name="three">
-    <p>TAB 3 Content</p>
+      <p>Tab 3 Content</p>
   </fw-panel>
   <fw-panel name="four">
-    <p>TAB 4 Content</p>
+    <p>Tab 4 Content</p>
   </fw-panel>
-
 </fw-tabs>
 `}</Story>
 </Preview>
@@ -67,7 +63,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   <fw-tab slot="tab" panel="two">Tab 2</fw-tab>
   <fw-tab slot="tab" panel="three" disabled>Tab 3</fw-tab>
   <fw-tab slot="tab" panel="four">Tab 4</fw-tab>
-
+  
   <fw-panel name="one">
     <section>
       <img src="https://firebasestorage.googleapis.com/v0/b/blog-88819.appspot.com/o/mostafa-meraji-hgw6HUHlKMk-unsplash.jpg?alt=media&token=4ed2f24a-43ea-4a04-adc7-c7c5d971df71" alt="Sample image" height="420" width="720">
@@ -85,12 +81,9 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
     <fw-input label="Password" placeholder="Please type in your Password" type="password"> </fw-input>
   </fw-panel>
   <fw-panel name="four">
-    <fw-select multiple label="Select the GOT house" state-text="Choose the house where you belong" required="true">
-        <fw-select-option value="1">Starks</fw-select-option>
-        <fw-select-option value="2">Lannisters</fw-select-option>
-        <fw-select-option value="3">Sand</fw-select-option>
-        <fw-select-option value="4">Greyjoys</fw-select-option>
-        <fw-select-option value="5">Tyrell</fw-select-option>
+    <fw-select label="Select the house" required="true" value="1">
+      <fw-select-option value="1">Starks</fw-select-option>
+      <fw-select-option value="2">Lannisters</fw-select-option>
     </fw-select>
   </fw-panel>
 </fw-tabs>

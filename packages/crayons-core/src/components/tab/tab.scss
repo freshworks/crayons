@@ -11,6 +11,11 @@
   margin-right: 20px;
 }
 
+::slotted(a) {
+  text-decoration: none;
+  color: $color-smoke-700;
+}
+
 :host(:hover:not(.disabled)) {
   padding-bottom: 8px;
   border-bottom: 2px solid $color-smoke-300;
