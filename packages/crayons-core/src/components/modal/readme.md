@@ -12,7 +12,7 @@ Modals are used as an overlay to display information. It can also be used as con
   </fw-modal>
 
   <fw-button modal-trigger-id='welcome-large'> Open Large Modal </fw-button>
-  <fw-modal id='welcome-large' title-text="Welcome" size="large">
+  <fw-modal id='welcome-large' title-text="Welcome" size="large" submit-disabled="true">
     Hello, Welcome to Crayons
   </fw-modal>
 ```
@@ -20,7 +20,7 @@ Modals are used as an overlay to display information. It can also be used as con
 #### Simple composition example 
 ```html live 
   <fw-button modal-trigger-id='small'> Open Modal </fw-button>
-  <fw-modal id='small' size="small" submit-disabled="true" submit-color="danger">
+  <fw-modal id='small' size="small" submit-color="danger">
     <fw-modal-title title-text="Welcome">Header text</fw-modal-title>
     <fw-modal-content><div>Content text</div></fw-modal-content>
     <fw-modal-footer></fw-modal-footer>
