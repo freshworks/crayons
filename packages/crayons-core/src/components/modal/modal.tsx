@@ -159,12 +159,12 @@ export class Modal {
 
   /**
    * Method available from the component to perform close action on the modal
-   * @returns promise which resolves to true on closing
+   * @returns promise that resolves to true
    */
   @Method()
   async close() {
     this.closeModal();
-    return Promise.resolve(true);
+    return true;
   }
 
   /**
@@ -242,25 +242,28 @@ export class Modal {
         return focusableElements;
       };
       const focusableElements = getFocuableChildren(this.el);
-      console.log(focusableElements);
       if (focusableElements.length) {
         this.firstFocusElement = focusableElements[0];
         this.lastFocusElement = focusableElements[focusableElements.length - 1];
         this.lastFocusElement.addEventListener('keydown', (e: any) => {
-          if (e.keyCode === 9) {
-            this.firstFocusElement.focus();
+          if (!e.shiftKey && e.keyCode === 9) {
+            this.focusElement(this.firstFocusElement);
           }
         });
         this.firstFocusElement.addEventListener('keydown', (e: any) => {
           if (e.shiftKey && e.keyCode == 9) {
-            this.lastFocusElement.focus();
+            this.focusElement(this.lastFocusElement);
           }
         });
       }
+      if (this.firstFocusElement) {
+        const modalContainer = this.el.shadowRoot.querySelector('.modal');
+        modalContainer &&
+          modalContainer.addEventListener('animationend', () => {
+            this.isOpen && this.focusElement(this.firstFocusElement);
+          });
+      }
       this.accessibilityAdded = true;
-    }
-    if (this.firstFocusElement) {
-      this.firstFocusElement.focus();
     }
     this.escapeHandler = ((e: any) => {
       if (e.keyCode === 27) {
@@ -278,6 +281,14 @@ export class Modal {
       document.removeEventListener('keydown', this.escapeHandler);
       this.escapeHandler = null;
     }
+  }
+
+  /**
+   * To apply focus to HTML elements after timeout to avoid focus changing issue.
+   * @param element element to focus on
+   */
+  focusElement(element: HTMLElement) {
+    setTimeout(() => element.focus(), 1);
   }
 
   /**

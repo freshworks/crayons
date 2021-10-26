@@ -98,7 +98,7 @@ Method available from the component to perform close action on the modal
 
 Type: `Promise<boolean>`
 
-promise which resolves to true on closing
+promise that resolves to true
 
 
 ## Dependencies

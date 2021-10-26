@@ -231,7 +231,7 @@ export namespace Components {
         "cancelText": string;
         /**
           * Method available from the component to perform close action on the modal
-          * @returns promise which resolves to true on closing
+          * @returns promise that resolves to true
          */
         "close": () => Promise<boolean>;
         /**
