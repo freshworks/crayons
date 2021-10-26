@@ -51,23 +51,25 @@ export class ModalFooter {
    * @returns {JSX.Element}
    */
   render(): JSX.Element {
-    return this.custom ? (
-      <slot></slot>
-    ) : (
+    return (
       <div class='modal-footer-container'>
         <div class='modal-footer'>
-          <span>
-            <fw-button color='secondary' onClick={() => this.close()}>
-              {this.cancelText}
-            </fw-button>
-            <fw-button
-              color={this.submitColor}
-              disabled={this.submitDisabled}
-              onClick={() => this.submit()}
-            >
-              {this.submitText}
-            </fw-button>
-          </span>
+          {this.custom ? (
+            <slot></slot>
+          ) : (
+            <span>
+              <fw-button color='secondary' onClick={() => this.close()}>
+                {this.cancelText}
+              </fw-button>
+              <fw-button
+                color={this.submitColor}
+                disabled={this.submitDisabled}
+                onClick={() => this.submit()}
+              >
+                {this.submitText}
+              </fw-button>
+            </span>
+          )}
         </div>
       </div>
     );

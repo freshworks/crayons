@@ -46,16 +46,20 @@ export class ModalTitle {
    * @returns {JSX.Element}
    */
   render(): JSX.Element {
-    return this.custom ? (
-      <slot></slot>
-    ) : (
+    return (
       <div class='modal-header-container'>
         <div class='modal-header'>
-          {this.icon !== '' ? this.renderIcon() : ''}
-          <div>
-            {this.titleText}
-            <div class='description'>{this.description}</div>
-          </div>
+          {this.custom ? (
+            <slot></slot>
+          ) : (
+            <div>
+              {this.icon !== '' ? this.renderIcon() : ''}
+              <div>
+                {this.titleText}
+                <div class='description'>{this.description}</div>
+              </div>
+            </div>
+          )}
         </div>
         <button class='close-btn' onClick={() => this.close()}>
           <fw-icon name='cross-big' />

@@ -11,6 +11,10 @@ export class ModalContent {
    * @returns {JSX.Element}
    */
   render(): JSX.Element {
-    return <slot></slot>;
+    return (
+      <div class='content'>
+        <slot></slot>
+      </div>
+    );
   }
 }

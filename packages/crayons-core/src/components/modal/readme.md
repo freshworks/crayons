@@ -8,45 +8,56 @@ Modals are used as an overlay to display information. It can also be used as con
 ```html live
   <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
   <fw-modal id='welcome' title-text="Welcome">
-    Hello,
-    Welcome to Crayons
+    Hello, Welcome to Crayons
+  </fw-modal>
+
+  <fw-button modal-trigger-id='welcome-large'> Open Large Modal </fw-button>
+  <fw-modal id='welcome-large' title-text="Welcome" size="large">
+    Hello, Welcome to Crayons
   </fw-modal>
 ```
 
 #### Simple composition example 
 ```html live 
-  <fw-button modal-trigger-id='small'> Open Small Modal </fw-button>
+  <fw-button modal-trigger-id='small'> Open Modal </fw-button>
   <fw-modal id='small' size="small" submit-disabled="true" submit-color="danger">
     <fw-modal-title title-text="Welcome">Header text</fw-modal-title>
-    <fw-modal-content><div style="padding: 20px 40px;">Content text</div></fw-modal-content>
+    <fw-modal-content><div>Content text</div></fw-modal-content>
     <fw-modal-footer></fw-modal-footer>
   </fw-modal>
 ```
 
 #### Custom composition example
 ```html live 
-  <fw-button modal-trigger-id='large'> Open custom composed modal </fw-button>
-  <fw-modal id='large' icon="agent" description="Subtitle goes here" size="large">
+  <fw-button modal-trigger-id='composition'> Open modal </fw-button>
+  <fw-modal id='composition'>
     <fw-modal-title custom>
-      <div style="padding: 20px 40px;">
+      <div>
         <span style="font-weight: bold;">Header text</span>
-        <a
-          style="float: right;"
-          href="javascript:void(0)"
-          onclick="document.querySelector('fw-modal#large').close()">
-          Close
-        </a>
       </div>
     </fw-modal-title>
     <fw-modal-content>
-      <div style="padding: 20px 40px;">Content text</div>
+      <div>Content text</div>
     </fw-modal-content>
     <fw-modal-footer custom>
-      <div style="padding: 20px 40px; background: #EEE;">Footer text</div>
+      <fw-button>OK</fw-button>
     </fw-modal-footer>
   </fw-modal>
 ```
 
+
+#### Hide footer of the modal
+```html live 
+  <fw-button modal-trigger-id='large'> Open modal </fw-button>
+  <fw-modal id='large' icon="agent" size="large" hide-footer="true">
+    <fw-modal-title custom>
+      <span style="font-weight: bold;">Header text</span>
+    </fw-modal-title>
+    <fw-modal-content>
+      <div>Content text</div>
+    </fw-modal-content>
+  </fw-modal>
+```
 
 
 <!-- Auto Generated Below -->
@@ -58,6 +69,7 @@ Modals are used as an overlay to display information. It can also be used as con
 | ---------------- | ----------------- | ------------------------------------------------- | ---------------------------------------------------------- | ------------ |
 | `cancelText`     | `cancel-text`     | The text for the cancel button                    | `string`                                                   | `'Cancel'`   |
 | `description`    | `description`     | The description text to be displayed on the modal | `string`                                                   | `undefined`  |
+| `hideFooter`     | `hide-footer`     | Hide footer for the modal                         | `boolean`                                                  | `false`      |
 | `icon`           | `icon`            | The icon to be displayed with the title           | `string`                                                   | `''`         |
 | `isOpen`         | `is-open`         | Toggle the visibility of the modal                | `boolean`                                                  | `false`      |
 | `size`           | `size`            | Size of the modal                                 | `"large" \| "small" \| "standard"`                         | `'standard'` |

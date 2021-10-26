@@ -57,24 +57,18 @@ Sed pulvinar orci in lacus semper, nec volutpat lectus pellentesque. Aliquam dic
   <Story name='Custom composition'>
     {
       () => `
-      <fw-button modal-trigger-id='large'> Open Large Modal </fw-button>
-      <fw-modal id='large' icon="agent" description="Subtitle goes here" size="large">
+      <fw-button modal-trigger-id='large'> Open custom composed modal </fw-button>
+      <fw-modal id='large' size="large">
         <fw-modal-title custom>
-          <div style="padding: 20px 40px;">
-            <span style="font-weight: bold;">Modal Header</span>
-            <a
-              style="float: right;"
-              href="javascript:void(0)"
-              onclick="document.querySelector('fw-modal#large').close()">
-              Close
-            </a>
+          <div>
+            <span style="font-weight: bold;">Header text</span>
           </div>
         </fw-modal-title>
         <fw-modal-content>
-          <div style="padding: 20px 40px;">Content text</div>
+          <div>Content text</div>
         </fw-modal-content>
         <fw-modal-footer custom>
-          <div style="padding: 20px 40px; background: #EEE;">Custom footer</div>
+          <fw-button>OK</fw-button>
         </fw-modal-footer>
       </fw-modal>
       `

@@ -239,6 +239,10 @@ export namespace Components {
          */
         "description": string;
         /**
+          * Hide footer for the modal
+         */
+        "hideFooter": boolean;
+        /**
           * The icon to be displayed with the title
          */
         "icon": string;
@@ -1089,6 +1093,10 @@ declare namespace LocalJSX {
           * The description text to be displayed on the modal
          */
         "description"?: string;
+        /**
+          * Hide footer for the modal
+         */
+        "hideFooter"?: boolean;
         /**
           * The icon to be displayed with the title
          */

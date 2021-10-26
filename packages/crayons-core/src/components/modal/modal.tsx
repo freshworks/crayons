@@ -88,6 +88,11 @@ export class Modal {
     'primary';
 
   /**
+   * Hide footer for the modal
+   */
+  @Prop() hideFooter = false;
+
+  /**
    * Toggle the visibility of the modal
    */
   @Prop({ mutable: true, reflect: true }) isOpen = false;
@@ -338,7 +343,7 @@ export class Modal {
         <div class={{ modal: true, [this.size]: true }}>
           {this.modalTitle ? '' : this.renderTitle()}
           {this.modalContent ? <slot></slot> : this.renderContent()}
-          {this.modalFooter ? '' : this.renderFooter()}
+          {this.hideFooter ? '' : this.modalFooter ? '' : this.renderFooter()}
         </div>
       </div>
     );
