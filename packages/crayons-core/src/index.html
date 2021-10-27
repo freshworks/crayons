@@ -41,6 +41,10 @@
   <fw-datepicker style="float:left;"></fw-datepicker>
   <fw-select-option value="1" text="LLL" graphics-type="icon" icon-name="alert"></fw-select-option>
   <fw-select-option value="2" text="Test Option" variant="checkbox" graphics-type="icon" icon-name="alert"></fw-select-option>
+  <br><br>
+  <fw-list-options id="optionList">
+    
+  </fw-list-options>
 
   
 <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
@@ -105,5 +109,9 @@
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> -->
+  <script>
+    let optionList = document.getElementById("optionList");
+    optionList.options = [{value:'1', text:'Test1'}, {value:'2', text:'Test2'}]
+  </script>
 </body>
 </html>

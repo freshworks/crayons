@@ -226,6 +226,20 @@ export namespace Components {
          */
         "value": string;
     }
+    interface FwListOptions {
+        /**
+          * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
+         */
+        "max": number;
+        /**
+          * Value corresponding to the option, that is saved  when the form data is saved.
+         */
+        "options": any[];
+        /**
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "value": any;
+    }
     interface FwModal {
         /**
           * The text for the cancel button
@@ -687,6 +701,12 @@ declare global {
         prototype: HTMLFwLabelElement;
         new (): HTMLFwLabelElement;
     };
+    interface HTMLFwListOptionsElement extends Components.FwListOptions, HTMLStencilElement {
+    }
+    var HTMLFwListOptionsElement: {
+        prototype: HTMLFwListOptionsElement;
+        new (): HTMLFwListOptionsElement;
+    };
     interface HTMLFwModalElement extends Components.FwModal, HTMLStencilElement {
     }
     var HTMLFwModalElement: {
@@ -779,6 +799,7 @@ declare global {
         "fw-icon": HTMLFwIconElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
+        "fw-list-options": HTMLFwListOptionsElement;
         "fw-modal": HTMLFwModalElement;
         "fw-popover": HTMLFwPopoverElement;
         "fw-radio": HTMLFwRadioElement;
@@ -1065,6 +1086,20 @@ declare namespace LocalJSX {
           * Display text in the label.
          */
         "value"?: string;
+    }
+    interface FwListOptions {
+        /**
+          * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
+         */
+        "max"?: number;
+        /**
+          * Value corresponding to the option, that is saved  when the form data is saved.
+         */
+        "options"?: any[];
+        /**
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "value"?: any;
     }
     interface FwModal {
         /**
@@ -1561,6 +1596,7 @@ declare namespace LocalJSX {
         "fw-icon": FwIcon;
         "fw-input": FwInput;
         "fw-label": FwLabel;
+        "fw-list-options": FwListOptions;
         "fw-modal": FwModal;
         "fw-popover": FwPopover;
         "fw-radio": FwRadio;
@@ -1588,6 +1624,7 @@ declare module "@stencil/core" {
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
+            "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;
             "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
