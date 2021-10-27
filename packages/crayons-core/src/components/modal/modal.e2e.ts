@@ -39,4 +39,15 @@ describe('fw-modal', () => {
     await page.waitForChanges();
     expect(fwSubmit).toHaveReceivedEvent();
   });
+
+  it('should hide footer in modal when hideFooter is set to true', async () => {
+    const page = await newE2EPage();
+    await page.setContent(
+      '<fw-modal is-open hide-footer="true">Hello world</fw-modal>'
+    );
+    await page.waitForChanges();
+    const footer = await page.find('fw-modal >>> fw-modal-footer');
+    await page.waitForChanges();
+    expect(footer).toBe(null);
+  });
 });
