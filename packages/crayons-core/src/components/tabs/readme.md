@@ -9,7 +9,7 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
   <fw-tab slot="tab" panel="personal">Personal</fw-tab>
   <fw-tab slot="tab" panel="official">Official</fw-tab>
 
-  <fw-panel name="personal">
+  <fw-tab-panel name="personal">
     <fw-input
       label="Name"
       icon-left="add-contact"
@@ -21,9 +21,9 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
     </fw-input>
     <fw-button color="secondary">Submit</fw-button>
     <fw-button color="secondary">Save</fw-button>
-  </fw-panel>
+  </fw-tab-panel>
 
-  <fw-panel name="official">
+  <fw-tab-panel name="official">
     <fw-select multiple label="Select location of preference" required="true">
       <fw-select-option value="1">Chennai</fw-select-option>
       <fw-select-option value="2">Bangalore</fw-select-option>
@@ -31,7 +31,7 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
     </fw-select>
     <fw-button color="secondary">Submit</fw-button>
     <fw-button color="secondary">Save</fw-button>
-  </fw-panel>
+  </fw-tab-panel>
 </fw-tabs>
 ```
 

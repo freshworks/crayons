@@ -262,16 +262,6 @@ export namespace Components {
          */
         "visible": boolean;
     }
-    interface FwPanel {
-        /**
-          * If true sets the panel display to block, none otherwise.
-         */
-        "active": boolean;
-        /**
-          * The panel name.
-         */
-        "name": string;
-    }
     interface FwRadio {
         /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
@@ -421,6 +411,16 @@ export namespace Components {
           * Unique name of the tab.
          */
         "tabName": string;
+    }
+    interface FwTabPanel {
+        /**
+          * If true sets the panel display to block, none otherwise.
+         */
+        "active": boolean;
+        /**
+          * The panel name.
+         */
+        "name": string;
     }
     interface FwTabs {
         /**
@@ -652,12 +652,6 @@ declare global {
         prototype: HTMLFwModalElement;
         new (): HTMLFwModalElement;
     };
-    interface HTMLFwPanelElement extends Components.FwPanel, HTMLStencilElement {
-    }
-    var HTMLFwPanelElement: {
-        prototype: HTMLFwPanelElement;
-        new (): HTMLFwPanelElement;
-    };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
     var HTMLFwRadioElement: {
@@ -693,6 +687,12 @@ declare global {
     var HTMLFwTabElement: {
         prototype: HTMLFwTabElement;
         new (): HTMLFwTabElement;
+    };
+    interface HTMLFwTabPanelElement extends Components.FwTabPanel, HTMLStencilElement {
+    }
+    var HTMLFwTabPanelElement: {
+        prototype: HTMLFwTabPanelElement;
+        new (): HTMLFwTabPanelElement;
     };
     interface HTMLFwTabsElement extends Components.FwTabs, HTMLStencilElement {
     }
@@ -739,13 +739,13 @@ declare global {
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-modal": HTMLFwModalElement;
-        "fw-panel": HTMLFwPanelElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
         "fw-select-option": HTMLFwSelectOptionElement;
         "fw-spinner": HTMLFwSpinnerElement;
         "fw-tab": HTMLFwTabElement;
+        "fw-tab-panel": HTMLFwTabPanelElement;
         "fw-tabs": HTMLFwTabsElement;
         "fw-tag": HTMLFwTagElement;
         "fw-textarea": HTMLFwTextareaElement;
@@ -1071,16 +1071,6 @@ declare namespace LocalJSX {
          */
         "visible"?: boolean;
     }
-    interface FwPanel {
-        /**
-          * If true sets the panel display to block, none otherwise.
-         */
-        "active"?: boolean;
-        /**
-          * The panel name.
-         */
-        "name"?: string;
-    }
     interface FwRadio {
         /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
@@ -1264,6 +1254,16 @@ declare namespace LocalJSX {
           * Unique name of the tab.
          */
         "tabName"?: string;
+    }
+    interface FwTabPanel {
+        /**
+          * If true sets the panel display to block, none otherwise.
+         */
+        "active"?: boolean;
+        /**
+          * The panel name.
+         */
+        "name"?: string;
     }
     interface FwTabs {
         /**
@@ -1481,13 +1481,13 @@ declare namespace LocalJSX {
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-modal": FwModal;
-        "fw-panel": FwPanel;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
         "fw-select-option": FwSelectOption;
         "fw-spinner": FwSpinner;
         "fw-tab": FwTab;
+        "fw-tab-panel": FwTabPanel;
         "fw-tabs": FwTabs;
         "fw-tag": FwTag;
         "fw-textarea": FwTextarea;
@@ -1508,13 +1508,13 @@ declare module "@stencil/core" {
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
-            "fw-panel": LocalJSX.FwPanel & JSXBase.HTMLAttributes<HTMLFwPanelElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
             "fw-select-option": LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
             "fw-spinner": LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
             "fw-tab": LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
+            "fw-tab-panel": LocalJSX.FwTabPanel & JSXBase.HTMLAttributes<HTMLFwTabPanelElement>;
             "fw-tabs": LocalJSX.FwTabs & JSXBase.HTMLAttributes<HTMLFwTabsElement>;
             "fw-tag": LocalJSX.FwTag & JSXBase.HTMLAttributes<HTMLFwTagElement>;
             "fw-textarea": LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;

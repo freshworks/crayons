@@ -3,8 +3,8 @@ import { Component, Host, Prop, h, Element } from '@stencil/core';
 let counter = 0;
 
 @Component({
-  tag: 'fw-panel',
-  styleUrl: 'panel.scss',
+  tag: 'fw-tab-panel',
+  styleUrl: 'tab-panel.scss',
   shadow: true,
 })
 export class Panel {
@@ -21,7 +21,7 @@ export class Panel {
 
   connectedCallback() {
     if (!this.el.id) {
-      this.el.id = `fw-panel-${counter++}`;
+      this.el.id = `fw-tab-panel-${counter++}`;
     }
   }
 

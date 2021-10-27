@@ -1,6 +1,12 @@
-# Panel (fw-panel)
+# Tab Panel (fw-tab-panel)
 
-Panel is used inside fw-tabs to show tabbed content.
+fw-tab-panel is used inside fw-tabs to show tabbed content.
+
+## Usage
+
+```html live
+  <fw-tab-panel active>This is sample panel content</fw-tab-panel>
+```
 
 <!-- Auto Generated Below -->
 

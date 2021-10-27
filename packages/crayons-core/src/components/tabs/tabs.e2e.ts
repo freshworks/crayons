@@ -10,10 +10,10 @@ describe('fw-tabs', () => {
     <fw-tab slot="tab" panel="three" disabled>TAB 3 </fw-tab>
     <fw-tab slot="tab" panel="four">TAB 4 </fw-tab>
 
-    <fw-panel name="one">Tab 1 content</fw-panel>
-    <fw-panel name="two">Tab 2 content</fw-panel>
-    <fw-panel name="three">Tab 3 content</fw-panel>
-    <fw-panel name="four">Tab 4 content</fw-panel>
+    <fw-tab-panel name="one">Tab 1 content</fw-tab-panel>
+    <fw-tab-panel name="two">Tab 2 content</fw-tab-panel>
+    <fw-tab-panel name="three">Tab 3 content</fw-tab-panel>
+    <fw-tab-panel name="four">Tab 4 content</fw-tab-panel>
   </fw-tabs>`);
     const element = await page.find('fw-tabs');
     expect(element).toHaveClass('hydrated');
@@ -27,10 +27,10 @@ describe('fw-tabs', () => {
     <fw-tab slot="tab" panel="three" disabled>TAB 3 </fw-tab>
     <fw-tab slot="tab" panel="four">TAB 4 </fw-tab>
 
-    <fw-panel name="one">Tab 1 content</fw-panel>
-    <fw-panel name="two">Tab 2 content</fw-panel>
-    <fw-panel name="three">Tab 3 content</fw-panel>
-    <fw-panel name="four">Tab 4 content</fw-panel>
+    <fw-tab-panel name="one">Tab 1 content</fw-tab-panel>
+    <fw-tab-panel name="two">Tab 2 content</fw-tab-panel>
+    <fw-tab-panel name="three">Tab 3 content</fw-tab-panel>
+    <fw-tab-panel name="four">Tab 4 content</fw-tab-panel>
   </fw-tabs>`);
     const element = await page.find('fw-tabs');
 
@@ -50,8 +50,8 @@ describe('fw-tabs', () => {
     <fw-tab slot="tab" panel="one" tab-name="tab1">Tab 1</fw-tab>
     <fw-tab slot="tab" panel="two" tab-name="tab2">Tab 2</fw-tab>
 
-    <fw-panel name="one">Tab 1 content</fw-panel>
-    <fw-panel name="two">Tab 2 content</fw-panel>
+    <fw-tab-panel name="one">Tab 1 content</fw-tab-panel>
+    <fw-tab-panel name="two">Tab 2 content</fw-tab-panel>
   </fw-tabs>`);
     const element = await page.find('fw-tabs');
     const fwChange = await page.spyOnEvent('fwChange');
@@ -68,8 +68,8 @@ describe('fw-tabs', () => {
     <fw-tab slot="tab" panel="one" tab-name="tab1">Tab 1</fw-tab>
     <fw-tab slot="tab" panel="two" tab-name="tab2" disabled>Tab 2</fw-tab>
 
-    <fw-panel name="one">Tab 1 content</fw-panel>
-    <fw-panel name="two">Tab 2 content</fw-panel>
+    <fw-tab-panel name="one">Tab 1 content</fw-tab-panel>
+    <fw-tab-panel name="two">Tab 2 content</fw-tab-panel>
   </fw-tabs>`);
     const element = await page.find('fw-tabs');
     const fwChange = await page.spyOnEvent('fwChange');

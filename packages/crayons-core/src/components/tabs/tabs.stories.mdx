@@ -21,10 +21,10 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   <fw-tab slot="tab" panel="three" disabled>Tab 3</fw-tab>
   <fw-tab slot="tab" panel="four">Tab 4</fw-tab>
   
-  <fw-panel name="one">Tab 1 Content</fw-panel>
-  <fw-panel name="two">Tab 2 Content</fw-panel>
-  <fw-panel name="three">Tab 3 Content</fw-panel>
-  <fw-panel name="four">Tab 4 Content</fw-panel>
+  <fw-tab-panel name="one">Tab 1 Content</fw-tab-panel>
+  <fw-tab-panel name="two">Tab 2 Content</fw-tab-panel>
+  <fw-tab-panel name="three">Tab 3 Content</fw-tab-panel>
+  <fw-tab-panel name="four">Tab 4 Content</fw-tab-panel>
 </fw-tabs>
 `}</Story>
 </Preview>
@@ -38,18 +38,18 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   <fw-tab slot="tab" panel="three" disabled><h3>Tab 3</h3></fw-tab>
   <fw-tab slot="tab" panel="four"><h3>Tab 4</h3></fw-tab>
   
-  <fw-panel name="one">
+  <fw-tab-panel name="one">
     <section><p>Tab 1 Content</p></section>
-  </fw-panel>
-  <fw-panel name="two">
+  </fw-tab-panel>
+  <fw-tab-panel name="two">
     <p>Tab 2 Content</p>
-  </fw-panel>
-  <fw-panel name="three">
+  </fw-tab-panel>
+  <fw-tab-panel name="three">
       <p>Tab 3 Content</p>
-  </fw-panel>
-  <fw-panel name="four">
+  </fw-tab-panel>
+  <fw-tab-panel name="four">
     <p>Tab 4 Content</p>
-  </fw-panel>
+  </fw-tab-panel>
 </fw-tabs>
 `}</Story>
 </Preview>
@@ -64,28 +64,28 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   <fw-tab slot="tab" panel="three" disabled>Tab 3</fw-tab>
   <fw-tab slot="tab" panel="four">Tab 4</fw-tab>
   
-  <fw-panel name="one">
+  <fw-tab-panel name="one">
     <section>
       <img src="https://firebasestorage.googleapis.com/v0/b/blog-88819.appspot.com/o/mostafa-meraji-hgw6HUHlKMk-unsplash.jpg?alt=media&token=4ed2f24a-43ea-4a04-adc7-c7c5d971df71" alt="Sample image" height="420" width="720">
     </section>
-  </fw-panel>
-  <fw-panel name="two">
+  </fw-tab-panel>
+  <fw-tab-panel name="two">
     <fw-button expand>Default</fw-button>
     <fw-button color="primary" expand>Primary</fw-button>
     <fw-button color="secondary" expand>Secondary</fw-button>
     <fw-button color="danger" expand>Danger</fw-button>
-  </fw-panel>
-  <fw-panel name="three">
+  </fw-tab-panel>
+  <fw-tab-panel name="three">
     <fw-input label="Email" placeholder="Please type in your Email" type="email"> </fw-input>
     <fw-input label="Email" placeholder="Please type in your Email" type="email"> </fw-input>
     <fw-input label="Password" placeholder="Please type in your Password" type="password"> </fw-input>
-  </fw-panel>
-  <fw-panel name="four">
+  </fw-tab-panel>
+  <fw-tab-panel name="four">
     <fw-select label="Select the house" required="true" value="1">
       <fw-select-option value="1">Starks</fw-select-option>
       <fw-select-option value="2">Lannisters</fw-select-option>
     </fw-select>
-  </fw-panel>
+  </fw-tab-panel>
 </fw-tabs>
 `}</Story>
 </Preview>

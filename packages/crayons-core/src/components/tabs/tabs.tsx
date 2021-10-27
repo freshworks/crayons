@@ -49,7 +49,7 @@ export class Tabs {
     this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(
       (tab) => !tab.disabled
     );
-    this.panels = Array.from(this.el.querySelectorAll('fw-panel'));
+    this.panels = Array.from(this.el.querySelectorAll('fw-tab-panel'));
 
     // Assign aria attributes
     this.assignAriaLabels();
