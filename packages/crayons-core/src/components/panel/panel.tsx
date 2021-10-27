@@ -21,7 +21,7 @@ export class Panel {
 
   connectedCallback() {
     if (!this.el.id) {
-      this.el.id = `fw-panel-generated-${counter++}`;
+      this.el.id = `fw-panel-${counter++}`;
     }
   }
 

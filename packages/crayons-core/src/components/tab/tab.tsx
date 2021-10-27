@@ -26,7 +26,7 @@ export class Tab {
 
   connectedCallback() {
     if (!this.tabName) {
-      this.el.id = `fw-tab-generated-${counter++}`;
+      this.el.id = `fw-tab-${counter++}`;
     } else {
       this.el.id = this.tabName;
       this.el.removeAttribute('tab-name');
