@@ -41,9 +41,7 @@ describe('fw-tabs', () => {
           <slot name="tab"></slot>
         </div>
       </div>
-      <div class="tabs__panel__content">
-        <slot></slot>
-      </div>
+      <slot />
     </div>`);
   });
   it('emits fwChange', async () => {
