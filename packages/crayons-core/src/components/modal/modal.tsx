@@ -214,23 +214,21 @@ export class Modal {
   addAccesibilityEvents() {
     if (!this.accessibilityAdded) {
       /**
-       * Focus trapping inside Modal
+       * Focus trapping inside Modal. Below function gets all focusable elements from the modal.
+       * These include elements inside shadow dom too.
        */
       const getFocuableChildren = (node: HTMLElement) => {
         let focusableElements = [];
         const getAllNodes = (element: any, root = true) => {
-          if (root) {
-            focusableElements = [];
-          }
+          root && (focusableElements = []);
           element = element.shadowRoot ? element.shadowRoot : element;
           element.querySelectorAll('*').forEach((el: any) => {
-            if (el.nodeName === 'SLOT') {
-              el.assignedElements({ flatten: true }).forEach(
-                (assignedEl: HTMLElement) => {
-                  getAllNodes(assignedEl, false);
-                }
-              );
-            }
+            el.nodeName === 'SLOT' &&
+              el
+                .assignedElements({ flatten: true })
+                .forEach((assignedEl: HTMLElement) =>
+                  getAllNodes(assignedEl, false)
+                );
             if (this.isFocusable(el)) {
               focusableElements.push(el);
             } else if (el.shadowRoot) {
@@ -246,14 +244,14 @@ export class Modal {
         this.firstFocusElement = focusableElements[0];
         this.lastFocusElement = focusableElements[focusableElements.length - 1];
         this.lastFocusElement.addEventListener('keydown', (e: any) => {
-          if (!e.shiftKey && e.keyCode === 9) {
+          !e.shiftKey &&
+            e.keyCode === 9 &&
             this.focusElement(this.firstFocusElement);
-          }
         });
         this.firstFocusElement.addEventListener('keydown', (e: any) => {
-          if (e.shiftKey && e.keyCode == 9) {
+          e.shiftKey &&
+            e.keyCode == 9 &&
             this.focusElement(this.lastFocusElement);
-          }
         });
       }
       if (this.firstFocusElement) {
@@ -285,6 +283,8 @@ export class Modal {
 
   /**
    * To apply focus to HTML elements after timeout to avoid focus changing issue.
+   * When adding focus to an element inside shadow dom, the focus seems to change. The timeout
+   * helps fix this issue.
    * @param element element to focus on
    */
   focusElement(element: HTMLElement) {
