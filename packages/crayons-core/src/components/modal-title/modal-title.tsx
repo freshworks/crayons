@@ -35,7 +35,10 @@ export class ModalTitle {
   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   @Prop() close: any = () => {};
 
-  componentWillRender() {
+  /**
+   * lifecycle event, called once just after the component is first connected to the DOM
+   */
+  componentWillLoad() {
     if (this.custom === null) {
       this.custom = hasSlot(this.el);
     }
