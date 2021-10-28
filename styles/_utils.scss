@@ -19,16 +19,6 @@ $font-sizes: (12, 14, 16, 18, 24, 32, 44);
 }
 
 /**
-  For generating background related styles
-*/
-$backgrounds: (dark, smoke, success, info, danger, warning);
-@each $key in $backgrounds {
-  .fw-bg-#{$key} {
-    @include background($key);
-  }
-}
-
-/**
   For generating card styles
 */
 @for $i from 0 through 3 {

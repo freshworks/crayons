@@ -16,7 +16,7 @@ for (const wwwBuild of wwwBuilds) {
   headScripts.push(["link", { rel: "stylesheet", href: "/output.css" }]);
 }
 
-const getUtils = () => ['typography', 'color', 'spacing', 'layout', 'card'].map(util => (`/css-utils/${util}/`));
+const getUtils = () => ['typography', 'spacing', 'layout', 'card'].map(util => (`/css-utils/${util}/`));
 
 const getTags = () => [
   "Web Components",
