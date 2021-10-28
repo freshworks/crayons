@@ -9,6 +9,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
+import { isFocusable } from '../../utils';
 
 @Component({
   tag: 'fw-modal',
@@ -182,32 +183,6 @@ export class Modal {
   }
 
   /**
-   * Helps determine if an element can be focused or not.
-   * @param element element that we must determine if it is focusable or not.
-   * @returns {Boolean} true if focusable else false.
-   */
-  isFocusable(element) {
-    if (element.tabIndex < 0) {
-      return false;
-    }
-    if (element.disabled) {
-      return false;
-    }
-    switch (element.nodeName) {
-      case 'A':
-        return !!element.href && element.rel != 'ignore';
-      case 'INPUT':
-        return element.type != 'hidden';
-      case 'BUTTON':
-      case 'SELECT':
-      case 'TEXTAREA':
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  /**
    * Adds accesibility related events to the component.
    * Major actions would be to focus-lock inside modal and to focus on close button when opening the component.
    */
@@ -223,14 +198,12 @@ export class Modal {
           root && (focusableElements = []);
           element = element.shadowRoot ? element.shadowRoot : element;
           element.querySelectorAll('*').forEach((el: any) => {
-            el.nodeName === 'SLOT' &&
-              el
-                .assignedElements({ flatten: true })
-                .forEach((assignedEl: HTMLElement) =>
-                  getAllNodes(assignedEl, false)
-                );
-            if (this.isFocusable(el)) {
+            if (isFocusable(el)) {
               focusableElements.push(el);
+            } else if (el.nodeName === 'SLOT') {
+              el.assignedElements({ flatten: true }).forEach(
+                (assignedEl: HTMLElement) => getAllNodes(assignedEl, false)
+              );
             } else if (el.shadowRoot) {
               getAllNodes(el, false);
             }
@@ -351,7 +324,7 @@ export class Modal {
   render(): JSX.Element {
     return (
       <div class={{ 'modal-container': true, 'visible': this.isOpen }}>
-        <div class={{ modal: true, [this.size]: true }}>
+        <div class={{ modal: true, [this.size]: true }} aria-modal='true'>
           {this.modalTitle ? '' : this.renderTitle()}
           {this.modalContent ? <slot></slot> : this.renderContent()}
           {this.hideFooter ? '' : this.modalFooter ? '' : this.renderFooter()}

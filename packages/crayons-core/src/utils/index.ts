@@ -94,6 +94,27 @@ export const throttle = (func, context, delay) => {
   };
 };
 
+export const isFocusable = (element) => {
+  if (element.tabIndex < 0) {
+    return false;
+  }
+  if (element.disabled) {
+    return false;
+  }
+  switch (element.nodeName) {
+    case 'A':
+      return !!element.href && element.rel != 'ignore';
+    case 'INPUT':
+      return element.type != 'hidden';
+    case 'BUTTON':
+    case 'SELECT':
+    case 'TEXTAREA':
+      return true;
+    default:
+      return false;
+  }
+};
+
 export const hasSlot = (el: HTMLElement, name?: string) => {
   // Look for a named slot
   if (name) {
