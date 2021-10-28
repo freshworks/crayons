@@ -1,4 +1,5 @@
 import { Component, Element, Prop, h } from '@stencil/core';
+import { hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-modal-footer',
@@ -32,7 +33,7 @@ export class ModalFooter {
   /**
    * Set to true if we want to render slot instead of default footer
    */
-  @Prop() custom = false;
+  custom = null;
 
   /**
    * Function to call on submit of modal
@@ -45,6 +46,12 @@ export class ModalFooter {
    */
   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   @Prop() close: any = () => {};
+
+  componentWillRender() {
+    if (this.custom === null) {
+      this.custom = hasSlot(this.el);
+    }
+  }
 
   /**
    * render slot when custom attribute is passed, else renders the default footer with submit and cancel buttons

@@ -283,10 +283,6 @@ export namespace Components {
          */
         "close": any;
         /**
-          * Set to true if we want to render slot instead of default footer
-         */
-        "custom": boolean;
-        /**
           * Function to call on submit of modal
          */
         "submit": any;
@@ -308,10 +304,6 @@ export namespace Components {
           * Function to call on close of modal
          */
         "close": any;
-        /**
-          * Set to true if we want to render slot instead of default footer
-         */
-        "custom": boolean;
         /**
           * The title text to be displayed on the modal
          */
@@ -1150,10 +1142,6 @@ declare namespace LocalJSX {
          */
         "close"?: any;
         /**
-          * Set to true if we want to render slot instead of default footer
-         */
-        "custom"?: boolean;
-        /**
           * Function to call on submit of modal
          */
         "submit"?: any;
@@ -1175,10 +1163,6 @@ declare namespace LocalJSX {
           * Function to call on close of modal
          */
         "close"?: any;
-        /**
-          * Set to true if we want to render slot instead of default footer
-         */
-        "custom"?: boolean;
         /**
           * The title text to be displayed on the modal
          */

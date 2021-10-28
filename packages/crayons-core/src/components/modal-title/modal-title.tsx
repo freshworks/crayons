@@ -1,4 +1,5 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Element, Prop, h } from '@stencil/core';
+import { hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-modal-title',
@@ -6,6 +7,8 @@ import { Component, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class ModalTitle {
+  @Element() el: HTMLElement;
+
   /**
    * The title text to be displayed on the modal
    */
@@ -24,13 +27,19 @@ export class ModalTitle {
   /**
    * Set to true if we want to render slot instead of default footer
    */
-  @Prop() custom = false;
+  custom = null;
 
   /**
    * Function to call on close of modal
    */
   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   @Prop() close: any = () => {};
+
+  componentWillRender() {
+    if (this.custom === null) {
+      this.custom = hasSlot(this.el);
+    }
+  }
 
   /**
    * renders Icon in Modal header.

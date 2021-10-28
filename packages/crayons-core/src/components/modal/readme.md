@@ -21,7 +21,7 @@ Modals are used as an overlay to display information. It can also be used as con
 ```html live 
   <fw-button modal-trigger-id='small'> Open Modal </fw-button>
   <fw-modal id='small' size="small" submit-color="danger">
-    <fw-modal-title title-text="Welcome">Header text</fw-modal-title>
+    <fw-modal-title title-text="Welcome"></fw-modal-title>
     <fw-modal-content><div>Content text</div></fw-modal-content>
     <fw-modal-footer></fw-modal-footer>
   </fw-modal>
@@ -31,7 +31,7 @@ Modals are used as an overlay to display information. It can also be used as con
 ```html live 
   <fw-button modal-trigger-id='composition'> Open modal </fw-button>
   <fw-modal id='composition'>
-    <fw-modal-title custom>
+    <fw-modal-title>
       <div>
         <span style="font-weight: bold;">Header text</span>
       </div>
@@ -39,7 +39,7 @@ Modals are used as an overlay to display information. It can also be used as con
     <fw-modal-content>
       <div>Content text</div>
     </fw-modal-content>
-    <fw-modal-footer custom>
+    <fw-modal-footer>
       <fw-button>OK</fw-button>
     </fw-modal-footer>
   </fw-modal>
@@ -50,7 +50,7 @@ Modals are used as an overlay to display information. It can also be used as con
 ```html live 
   <fw-button modal-trigger-id='large'> Open modal </fw-button>
   <fw-modal id='large' icon="agent" size="large" hide-footer="true">
-    <fw-modal-title custom>
+    <fw-modal-title>
       <span style="font-weight: bold;">Header text</span>
     </fw-modal-title>
     <fw-modal-content>
