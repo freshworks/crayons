@@ -2,23 +2,6 @@
 
 Cards are usually container elements. They dont have functionality on their own. So, instead of adding them as components, SASS mixins and CSS classes are exposed to create cards easily when creating components. 
 
-
-# Using SASS Mixin
-```html
-<style lang="scss">
-  .card {
-    width: 100px;
-    padding: 20px 40px;
-    @include card(3, 4px); // Including the scss mixin
-  }
-</style>
-<template>
-  <div class="card">Card elevation level 3</div>
-</template>
-```
-
-# Using CSS Card and Layout utils
-
 ## Sample - card with interactive component - Variation 1
 ```html live
   <template>

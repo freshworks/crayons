@@ -1,5 +1,4 @@
 @import '../styles/mixins/typography';
-@import '../styles/mixins/color';
 @import '../styles/mixins/card';
 @import '../styles/mixins/spacing';
 
@@ -15,16 +14,6 @@ $font-sizes: (12, 14, 16, 18, 24, 32, 44);
 @each $size in $font-sizes {
   .fw-font-#{$size} {
     @include typography('body', $size * 1px);
-  }
-}
-
-/**
-  For generating background related styles
-*/
-$backgrounds: (dark, smoke, success, info, danger, warning);
-@each $key in $backgrounds {
-  .fw-bg-#{$key} {
-    @include background($key);
   }
 }
 
