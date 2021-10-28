@@ -100,13 +100,13 @@ Type: `Promise<boolean>`
 
 promise that resolves to true
 
-### `open() => Promise<void>`
+### `open() => Promise<boolean>`
 
 Method available from the component to perform open action on the modal
 
 #### Returns
 
-Type: `Promise<void>`
+Type: `Promise<boolean>`
 
 promise that resolves to true
 

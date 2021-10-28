@@ -254,7 +254,7 @@ export namespace Components {
           * Method available from the component to perform open action on the modal
           * @returns promise that resolves to true
          */
-        "open": () => Promise<void>;
+        "open": () => Promise<boolean>;
         /**
           * Size of the modal
          */
