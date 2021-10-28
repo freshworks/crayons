@@ -132,14 +132,14 @@ export class Modal {
     if (!this.modalTitle) {
       this.modalTitle = this.el.querySelector('fw-modal-title');
       if (this.modalTitle) {
-        this.modalTitle.close = this.closeModal.bind(this);
+        this.modalTitle.close = this.close.bind(this);
       }
     }
     if (!this.modalFooter) {
       this.modalFooter = this.el.querySelector('fw-modal-footer');
       if (this.modalFooter) {
-        this.modalFooter.submit = this.submitModal.bind(this);
-        this.modalFooter.close = this.closeModal.bind(this);
+        this.modalFooter.submit = this.submit.bind(this);
+        this.modalFooter.close = this.close.bind(this);
       }
     }
     if (!this.modalContent) {
@@ -164,21 +164,24 @@ export class Modal {
    */
   @Method()
   async close() {
-    this.closeModal();
+    this.isOpen = false;
     return true;
   }
 
   /**
-   * private closeModal
+   * Method available from the component to perform open action on the modal
+   * @returns promise that resolves to true
    */
-  closeModal() {
-    this.isOpen = false;
+  @Method()
+  async open() {
+    this.isOpen = true;
+    return true;
   }
 
   /**
-   * private submitModal
+   * private submit
    */
-  submitModal() {
+  submit() {
     this.fwSubmit.emit();
   }
 
@@ -282,7 +285,7 @@ export class Modal {
         icon={this.icon}
         titleText={this.titleText}
         description={this.description}
-        close={this.closeModal.bind(this)}
+        close={this.close.bind(this)}
       ></fw-modal-title>
     );
   }
@@ -310,8 +313,8 @@ export class Modal {
         cancelText={this.cancelText}
         submitDisabled={this.submitDisabled}
         submitColor={this.submitColor}
-        submit={this.submitModal.bind(this)}
-        close={this.closeModal.bind(this)}
+        submit={this.submit.bind(this)}
+        close={this.close.bind(this)}
       ></fw-modal-footer>
     );
   }

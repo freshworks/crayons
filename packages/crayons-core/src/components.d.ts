@@ -251,6 +251,11 @@ export namespace Components {
          */
         "isOpen": boolean;
         /**
+          * Method available from the component to perform open action on the modal
+          * @returns promise that resolves to true
+         */
+        "open": () => Promise<void>;
+        /**
           * Size of the modal
          */
         "size": 'standard' | 'small' | 'large';
