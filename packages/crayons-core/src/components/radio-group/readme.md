@@ -5,9 +5,9 @@ fw-radio-group displays a group of options with radio buttons and enables select
 
 ```html live
 <fw-radio-group name="Profile" value="au" allow-empty>
-  <fw-radio value="au">Auditory</fw-radio>
-  <fw-radio value="vi">Visual</fw-radio>
-  <fw-radio value="re">Restless</fw-radio>
+  <fw-radio label="Auditory" value="au"></fw-radio>
+  <fw-radio label="Visual" value="vi"></fw-radio>
+  <fw-radio label="Restless" value="re"></fw-radio>
 </fw-radio-group>
 ```
 
