@@ -136,9 +136,25 @@ export namespace Components {
          */
         "color": string;
         /**
+          * Content of the icon. This will be used instead of pulling the icon content from the cdn
+         */
+        "icon": string;
+        /**
+          * If enabled, fw-icon will be loaded lazily when it's visible in the viewport. Default, `false`.
+         */
+        "lazy": boolean;
+        /**
+          * Namespace for icon library. Call registerIcons with the library name and set the path for custom icons. Uses pre-defined icons by default. See readme.md for more details. Default, `default`.
+         */
+        "library": string;
+        /**
           * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "name": string;
+        /**
+          * Specifies the root folder `path` of an SVG file to use. This is used in combination with `name` attribute svg src is path+name.svg
+         */
+        "path": string;
         /**
           * Size of the icon, specified in number of  pixels.
          */
@@ -896,9 +912,25 @@ declare namespace LocalJSX {
          */
         "color"?: string;
         /**
+          * Content of the icon. This will be used instead of pulling the icon content from the cdn
+         */
+        "icon"?: string;
+        /**
+          * If enabled, fw-icon will be loaded lazily when it's visible in the viewport. Default, `false`.
+         */
+        "lazy"?: boolean;
+        /**
+          * Namespace for icon library. Call registerIcons with the library name and set the path for custom icons. Uses pre-defined icons by default. See readme.md for more details. Default, `default`.
+         */
+        "library"?: string;
+        /**
           * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "name"?: string;
+        /**
+          * Specifies the root folder `path` of an SVG file to use. This is used in combination with `name` attribute svg src is path+name.svg
+         */
+        "path"?: string;
         /**
           * Size of the icon, specified in number of  pixels.
          */
