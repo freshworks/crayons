@@ -11,7 +11,7 @@
 </head>
 <body>
   
-  <fw-popover>
+  <!-- <fw-popover>
     <fw-button slot="popover-trigger" color="primary">Primary Button</fw-button>
     <ul slot='popover-content'>
      <li>Test 1</li>
@@ -41,10 +41,44 @@
   <fw-datepicker style="float:left;"></fw-datepicker>
   <fw-select-option value="1" text="LLL" graphics-type="icon" icon-name="alert"></fw-select-option>
   <fw-select-option value="2" text="Test Option" variant="checkbox" graphics-type="icon" icon-name="alert"></fw-select-option>
-  <br><br>
-  <fw-list-options id="optionList">
-    
-  </fw-list-options>
+  <br><br> -->
+  <fw-select
+      label="Select App type"
+      placeholder="Choose app type"
+      value="2"
+      
+      >
+          <fw-select-option value="1" html option-text="LLL">
+                <div style="color: red; padding: 10px;">Lannister </div class="cls">
+                <div style="color: green; padding: 5px;">Lannisters are gods</div>
+          </fw-select-option>
+          <fw-select-option value="2">
+            Shenigans
+          </fw-select-option>
+  </fw-select>
+
+  <fw-select id="optionList" style="width:300px"
+      label="Select App type"
+      placeholder="Choose app type"
+      >
+  </fw-select>
+
+
+  <fw-popover>
+    <div slot="popover-trigger">
+      <fw-button expand>Click Me !</fw-button>
+    </div>
+    <fw-list-options searchable multiple slot="popover-content" id="customPopover"></fw-list-options>
+  </fw-popover>
+
+  <div style="float:left;width:100%;">
+    <fw-datepicker style="float:left;"></fw-datepicker>
+    <fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
+  </div>
+
+  <!-- <fw-list-options id="optionList">
+
+  </fw-list-options> -->
 
   
 <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
@@ -110,8 +144,53 @@
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> -->
   <script>
+
+  let testObj = [
+    {
+        "html": true,
+        "text": "LLL",
+        "value": "1",
+        "selected": false,
+        "disabled": false,
+        "htmlContent": " <div style=\"color: red; padding: 10px;\">Lannister </div> <div style=\"color: green; padding: 5px;\">Lannisters are gods</div> "
+    },
+    {
+        "html": false,
+        "text": " Shenigans ",
+        "value": "2",
+        "selected": true,
+        "disabled": false,
+        "htmlContent": ""
+    }
+];
+
+  let standardVariant = [
+      {value:'1', text:'Test1'},
+      {value:'2', text:'Test2'},
+      {value:'3', text:'Test3'},
+      {value:'4', text:'Test4'},
+    ]
+
+    let iconVariant = [
+      {value:'1', text:'Test1',variant:"graphics", graphicsType:"icon", graphicsProps: {name: "alert", size:16}},
+      {value:'2', text:'Test2',variant:"graphics", graphicsType:"icon", graphicsProps: {name: "add-contact", size:16}},
+      {value:'3', text:'Test3',variant:"graphics", graphicsType:"icon", graphicsProps: {name: "add-note", size:16}},
+      {value:'4', text:'Test4',variant:"graphics", graphicsType:"icon", graphicsProps: {name: "ticket-primary", size:16}},
+    ]
+
+    let iconVariantWithSubText = [
+      {value:'1', text:'Test1', subText: "This is a short description", variant:"graphics", graphicsType:"icon", graphicsProps: {name: "alert", size:16}},
+      {value:'2', text:'Test2', subText: "This is a short description", variant:"graphics", graphicsType:"icon", graphicsProps: {name: "add-contact", size:16}},
+      {value:'3', text:'Test3', subText: "This is a short description", variant:"graphics", graphicsType:"icon", graphicsProps: {name: "add-note", size:16}},
+      {value:'4', text:'Test4', subText: "asd asdasdasdasd asd asd This is a very large description", variant:"graphics", graphicsType:"icon", graphicsProps: {name: "ticket-primary", size:16}}
+    ]
     let optionList = document.getElementById("optionList");
-    optionList.options = [{value:'1', text:'Test1'}, {value:'2', text:'Test2'}]
+    optionList.options = iconVariantWithSubText;
+    optionList.value = ["3"];
+
+    let customPopover = document.getElementById("customPopover");
+    customPopover.options = iconVariantWithSubText;
+    
   </script>
 </body>
 </html>

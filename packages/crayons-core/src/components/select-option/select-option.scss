@@ -11,42 +11,43 @@ $bg-color-disabled: $color-smoke-25;
   font-size: $font-size-14;
   border-radius: 4px;
   list-style: none;
-  line-height: 1.3;
+  line-height: 1.45;
   word-break: break-word;
   word-wrap: break-word;
   position: relative;
   display: flex;
   align-items: center;
+  margin-bottom: 4px;
 
   &.single-line {
     padding-top: 6px;
     padding-bottom: 6px;
-    margin-bottom: 4px;
   }
 
   &.multi-line {
     padding-top: 8px;
     padding-bottom: 8px;
-    margin-bottom: 4px;
   }
 
   &.standard {
-    padding-left: 12px;
+    padding-left: 0px;
     padding-right: 12px;
-    margin-bottom: 4px;
   }
 
-  &.graphics {
+  &.icon {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &.avatar {
     padding-left: 4px;
     padding-right: 4px;
-    margin-bottom: 4px;
   }
 
   &.selected {
-    color: $selected-color;
     position: relative;
     font-weight: $font-weight-600;
-    background-color: $bg-color;
+    background-color: $dropdown-selected;
   }
 
   &:hover,
@@ -71,7 +72,7 @@ $bg-color-disabled: $color-smoke-25;
     text-transform: none;
     position: absolute;
     right: 10px;
-    top: 8px;
+    color: $primary-color;
   }
 
   &.selected::after {
@@ -96,5 +97,11 @@ $bg-color-disabled: $color-smoke-25;
     &.standard-margin {
       margin-left: 12px;
     }
+  }
+
+  // FIX: To center the icon inside the host
+  fw-icon {
+    align-items: center;
+    display: flex;
   }
 }

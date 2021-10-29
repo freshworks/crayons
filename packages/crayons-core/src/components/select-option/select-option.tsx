@@ -159,14 +159,18 @@ export class SelectOption {
         ref={(el) => (this.nativeLi = el)}
         class={
           'select-option ' +
-          (this.subText ? 'multi-line ' : 'single-line ') +
-          (this.graphicsType === 'avatar' ? 'graphics ' : 'standard ') +
           (this.selected && this.variant !== 'checkbox' ? 'selected ' : '') +
-          (this.disabled ? 'disabled ' : '')
+          (this.disabled ? 'disabled ' : '') +
+          (this.html
+            ? ''
+            : (this.subText ? 'multi-line ' : 'single-line ') +
+              (this.variant === 'standard'
+                ? this.variant + ' '
+                : this.graphicsType + ' '))
         }
         onMouseDown={() => this.onOptionSelected()}
       >
-        {this.text ? this.renderInnerHtml() : this.html ? '' : <slot />}
+        {this.html ? '' : this.text ? this.renderInnerHtml() : <slot />}
       </li>
     );
   }

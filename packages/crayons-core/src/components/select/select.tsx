@@ -23,14 +23,16 @@ export class Select {
   @Element() host: HTMLElement;
   private selectInput?: HTMLInputElement;
   private popover?: HTMLFwPopoverElement;
+  private preventDropdownClose?: boolean = false;
+
   /**
    * If the dropdown is shown or not
    */
   @State() isExpanded = false;
-  @State() options = [];
   @State() filteredOptions = [];
   @State() hasFocus = false;
   @State() didInit = false;
+  @State() searchValue;
   /**
    * Label displayed on the interface, for the component.
    */
@@ -83,6 +85,18 @@ export class Select {
    * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
    */
   @Prop() max = Number.MAX_VALUE;
+  /**
+   * Enables the input with in the popup for filtering the options.
+   */
+  @Prop() variant: 'standard' | 'checked' = 'standard';
+  /**
+   * Allow to search for value. Default is true.
+   */
+  @Prop() searchable = true;
+  /**
+   * Allow to search for value. Default is true.
+   */
+  @Prop() options;
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -113,6 +127,7 @@ export class Select {
 
   private innerOnClick = () => {
     if (this.changeEmittable()) {
+      this.searchable && this.selectInput && this.selectInput.select();
       this.filteredOptions = this.options;
       this.popover.show();
       this.isExpanded = true;
@@ -121,7 +136,13 @@ export class Select {
 
   private innerOnBlur = (e: Event) => {
     if (this.changeEmittable()) {
-      this.closeDropdown();
+      // Remove the user typed value after user focus-out of input component
+      if (this.multiple) {
+        this.selectInput.value = '';
+      } else {
+        this.renderInput();
+      }
+      !this.preventDropdownClose && this.closeDropdown();
       this.hasFocus = false;
       this.fwBlur.emit(e);
     }
@@ -144,17 +165,12 @@ export class Select {
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
-    this.options = this.options.map((option) => {
-      if (selectedItem.detail.value === option.value) {
-        option.selected = selectedItem.detail.selected;
-      } else if (!this.multiple) {
-        option.selected = false;
-      }
-      return option;
-    });
     this.selectInput.value = '';
     this.renderInput();
-    this.closeDropdown();
+    if (!this.multiple) {
+      this.resetFocus();
+      this.closeDropdown();
+    }
     selectedItem.stopPropagation();
   }
 
@@ -185,13 +201,7 @@ export class Select {
   }
 
   onInput() {
-    const value = this.selectInput.value.toLowerCase();
-    this.filteredOptions =
-      value !== ''
-        ? this.options.filter((option) =>
-            option.text.toLowerCase().startsWith(value)
-          )
-        : this.options;
+    this.searchValue = this.selectInput.value.toLowerCase();
     this.renderInput();
   }
 
@@ -231,12 +241,16 @@ export class Select {
         value={option.value}
         selected={option.selected}
         disabled={option.disabled || this.value?.length >= this.max}
-        html={option.isHtml}
+        html={option.html}
         htmlContent={option.htmlContent}
       >
         {option.text}
       </fw-select-option>
     ));
+  }
+
+  resetFocus() {
+    this.preventDropdownClose = false;
   }
 
   componentWillLoad() {
@@ -246,7 +260,7 @@ export class Select {
 
     const options = selectOptions.map((option) => {
       return {
-        isHtml: option.html,
+        html: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
         selected: option.value === this.value || option.selected,
@@ -255,7 +269,7 @@ export class Select {
       };
     });
 
-    this.options = options;
+    this.options = options.length === 0 ? this.options : options;
     this.filteredOptions = this.options;
     this.host.innerHTML = '';
   }
@@ -336,7 +350,15 @@ export class Select {
                 ></span>
               </div>
             </div>
-            <ul slot='popover-content'> {this.renderDropdown()} </ul>
+            <fw-list-options
+              variant={this.variant}
+              filter-text={this.searchValue}
+              options={this.options}
+              value={this.value}
+              multiple={this.multiple}
+              max={this.max}
+              slot='popover-content'
+            ></fw-list-options>
           </fw-popover>
           {this.stateText !== '' ? (
             <span class='help-block'>{this.stateText}</span>

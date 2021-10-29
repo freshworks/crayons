@@ -228,17 +228,35 @@ export namespace Components {
     }
     interface FwListOptions {
         /**
+          * The text to filter the options.
+         */
+        "filterText": any;
+        "getSelectedItem": () => Promise<any>;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max": number;
+        /**
+          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
+         */
+        "multiple": boolean;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
         /**
+          * Enables the input with in the popup for filtering the options.
+         */
+        "searchable": boolean;
+        "setSelectedValues": (values: string[]) => Promise<any>;
+        /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value": any;
+        /**
+          * Enables the input with in the popup for filtering the options.
+         */
+        "variant": 'standard' | 'checked';
     }
     interface FwModal {
         /**
@@ -381,6 +399,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Allow to search for value. Default is true.
+         */
+        "options": any;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -392,6 +414,10 @@ export namespace Components {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Allow to search for value. Default is true.
+         */
+        "searchable": boolean;
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
@@ -409,6 +435,10 @@ export namespace Components {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value": any;
+        /**
+          * Enables the input with in the popup for filtering the options.
+         */
+        "variant": 'standard' | 'checked';
     }
     interface FwSelectOption {
         /**
@@ -1089,17 +1119,33 @@ declare namespace LocalJSX {
     }
     interface FwListOptions {
         /**
+          * The text to filter the options.
+         */
+        "filterText"?: any;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
+        /**
+          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
+         */
+        "multiple"?: boolean;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options"?: any[];
         /**
+          * Enables the input with in the popup for filtering the options.
+         */
+        "searchable"?: boolean;
+        /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value"?: any;
+        /**
+          * Enables the input with in the popup for filtering the options.
+         */
+        "variant"?: 'standard' | 'checked';
     }
     interface FwModal {
         /**
@@ -1279,6 +1325,10 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
+          * Allow to search for value. Default is true.
+         */
+        "options"?: any;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -1290,6 +1340,10 @@ declare namespace LocalJSX {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Allow to search for value. Default is true.
+         */
+        "searchable"?: boolean;
         /**
           * Theme based on which the list box is styled.
          */
@@ -1306,6 +1360,10 @@ declare namespace LocalJSX {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value"?: any;
+        /**
+          * Enables the input with in the popup for filtering the options.
+         */
+        "variant"?: 'standard' | 'checked';
     }
     interface FwSelectOption {
         /**
