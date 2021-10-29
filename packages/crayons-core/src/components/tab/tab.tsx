@@ -15,6 +15,11 @@ export class Tab {
   @Prop() tabName: string;
 
   /**
+   * Header for the tab to be displayed.
+   */
+  @Prop() tabHeader: string;
+
+  /**
    * Disables this tab
    */
   @Prop() disabled: boolean;
@@ -46,7 +51,7 @@ export class Tab {
           (this.active ? 'active' : '')
         }
       >
-        <slot />
+        {this.tabHeader ? this.tabHeader : <slot />}
       </Host>
     );
   }

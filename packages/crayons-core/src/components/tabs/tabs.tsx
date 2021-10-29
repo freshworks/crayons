@@ -58,6 +58,26 @@ export class Tabs {
     this.setActiveTab(this.getActiveTab() || this.tabs[0]);
   }
 
+  createPanelIfRequired() {
+    let counter = 0;
+
+    this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(
+      (tab) => !tab.disabled
+    );
+    this.tabs.map((tab) => {
+      if (tab.tabHeader) {
+        tab.setAttribute('panel', `panel-${counter++}`);
+        tab.setAttribute('slot', 'tab');
+        const panel = document.createElement('fw-tab-panel');
+        panel.innerHTML = tab.innerHTML;
+        panel.setAttribute('id', `fw-tab-panel-${counter++}`);
+        panel.setAttribute('name', tab.getAttribute('panel'));
+        this.el.appendChild(panel);
+      }
+    });
+    this.panels = Array.from(this.el.querySelectorAll('fw-tab-panel'));
+  }
+
   assignAriaLabels() {
     this.tabs.map((tab) => {
       const panel = this.panels.find(
@@ -95,6 +115,9 @@ export class Tabs {
   }
 
   connectedCallback() {
+    // Create fw-tab-panel component explictly if tab-header attribute is present.
+    this.createPanelIfRequired();
+
     this.mutationO = new MutationObserver(() => {
       this.init();
     });
@@ -112,7 +135,7 @@ export class Tabs {
 
   getActiveTab() {
     return (
-      this.tabs[this.activeTabIndex] ||
+      (this.activeTabIndex && this.tabs[this.activeTabIndex]) ||
       this.tabs.find((tab) => tab.id === this.activeTabName) ||
       this.tabs.find((tab) => tab.active)
     );
