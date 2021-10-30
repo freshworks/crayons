@@ -75,7 +75,6 @@ export class Tabs {
         this.el.appendChild(panel);
       }
     });
-    this.panels = Array.from(this.el.querySelectorAll('fw-tab-panel'));
   }
 
   assignAriaLabels() {
@@ -136,8 +135,7 @@ export class Tabs {
   getActiveTab() {
     return (
       (this.activeTabIndex && this.tabs[this.activeTabIndex]) ||
-      this.tabs.find((tab) => tab.id === this.activeTabName) ||
-      this.tabs.find((tab) => tab.active)
+      this.tabs.find((tab) => tab.id === this.activeTabName || tab.active)
     );
   }
 
