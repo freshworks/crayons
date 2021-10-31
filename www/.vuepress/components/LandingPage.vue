@@ -14,7 +14,7 @@
       </div>
 
       <div class="crayons-logo">
-        <img src="../public/assets/crayons-logo.svg">
+        <img src="../public/assets/crayons-logo.svg" alt="crayons logo">
       </div>
 
       <div class="crayons-description"> 
@@ -62,6 +62,13 @@ export default {
          description: 'Browse through the contributor guidelines to raise an issue or build new components.',
          link: urlMap.crayons
        },
+       
+      {
+        name: "cookbooks",
+        title:"Cookbooks",
+        description:"Code samples for complex usecases",
+        link:urlMap.cookbooks
+      },
      ],
      freshworksUrl: urlMap.freshworks,
      repoUrl: urlMap.crayons,

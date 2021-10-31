@@ -38,6 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^13.2.0",
+    "@mr-hope/vuepress-plugin-copy-code": "^1.20.4",
     "@storybook/addon-a11y": "^6.2.9",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-docs": "^6.2.9",
@@ -74,6 +75,7 @@
     "vuepress": "^1.8.2",
     "vuepress-plugin-google-tag-manager": "0.0.5",
     "vuepress-plugin-live": "^1.6.2",
+    "vuepress-plugin-md-enhance": "^1.20.5",
     "vuepress-plugin-seo": "^0.1.4",
     "wait-on": "^6.0.0",
     "write-file-webpack-plugin": "^4.5.1"

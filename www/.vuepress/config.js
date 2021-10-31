@@ -30,6 +30,8 @@ const getTags = () => [
 
 const websiteUrl = "https://crayons.freshworks.com";
 
+const getCookBooks = () => ['first'].map(util => (`/cookbooks/${util}/`));
+
 module.exports = {
   title: "Crayons",
   base: "/",
@@ -54,6 +56,12 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 1,
         children: components,
+      },
+      {
+        title: "Cook Books",
+        collapsable: false,
+        sidebarDepth: 1,
+        children: ["/cookbooks/",...getCookBooks()]
       },
     ],
   },
@@ -91,6 +99,15 @@ module.exports = {
         modifiedAt: ($page) => $page.lastUpdated && new Date($page.lastUpdated),
       },
     ],
+    [
+      "md-enhance",
+      {
+       demo:true
+      }
+    ],
+    [ 
+      "@mr-hope/copy-code",
+    ]
   ],
   configureWebpack: {
     resolve: {

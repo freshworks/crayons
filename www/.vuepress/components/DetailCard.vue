@@ -41,6 +41,7 @@ export default {
 .link-card {
   text-decoration: none;
   text-align: center;
+  margin-bottom: 2em;
 
   @media screen and (prefers-reduced-motion: reduce) {
     .card-container {
