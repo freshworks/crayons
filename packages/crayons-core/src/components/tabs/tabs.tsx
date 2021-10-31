@@ -61,9 +61,7 @@ export class Tabs {
   createPanelIfRequired() {
     let counter = 0;
 
-    this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(
-      (tab) => !tab.disabled
-    );
+    this.tabs = Array.from(this.el.querySelectorAll('fw-tab'));
     this.tabs.map((tab) => {
       if (tab.tabHeader) {
         tab.setAttribute('panel', `panel-${counter++}`);
