@@ -15,16 +15,18 @@ const options = yargs
     describe: 'root directory for icons',
     type: 'string',
     demandOption: true,
+    default: '',
   })
   .option('s', {
     alias: 'srcDir',
-    describe: 'source directory for icons inside the root dir',
+    describe:
+      'Source directory for icons inside the root dir. Provide full directory path if root dir is not specified',
     type: 'string',
     demandOption: true,
   })
   .option('d', {
     alias: 'distDir',
-    desc: 'Destination directory for optimized icons',
+    desc: 'Destination directory for optimized icons. Provide full directory path if root dir is not specified',
     type: 'string',
     demandOption: true,
   }).argv;
