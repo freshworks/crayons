@@ -1,35 +1,36 @@
 <template>
-    <div class="landing-container">
-      <div class="landing-header">
-        <div class="fw-logo">
-          <a :href="freshworksUrl" target="_blank">
-            <img src="../public/assets/logo-fworks-black.svg" alt="freshworks">
-          </a>
-        </div>
-        <div class="github-logo">
-          <a :href="repoUrl" target="_blank"> 
-            <img src="../public/assets/github-logo.svg">
-          </a>
-        </div>
+  <div class="landing-container">
+    <div class="landing-header">
+      <div class="fw-logo">
+        <a :href="freshworksUrl" target="_blank">
+          <img src="../public/assets/logo-fworks-black.svg" alt="freshworks" />
+        </a>
       </div>
+      <div class="github-logo">
+        <a :href="repoUrl" target="_blank">
+          <img src="../public/assets/github-logo.svg" />
+        </a>
+      </div>
+    </div>
 
-      <div class="crayons-logo">
-        <img src="../public/assets/crayons-logo.svg" alt="crayons logo">
-      </div>
+    <div class="crayons-logo">
+      <img src="../public/assets/crayons-logo.svg" alt="crayons logo" />
+    </div>
 
-      <div class="crayons-description"> 
-        A refreshed design library for Freshworks Developers.
-      </div>
-      
-      <div class="link-cards-container">
-        <DetailCard v-for="welcomeLink in welcomeLinks"
-          :key="welcomeLink.name"
-          :card-link="welcomeLink.link"
-          :card-name="welcomeLink.name"
-          :card-title="welcomeLink.title"
-          :card-description="welcomeLink.description"
-        />
-      </div>
+    <div class="crayons-description">
+      A refreshed design library for Freshworks Developers.
+    </div>
+
+    <div class="link-cards-container">
+      <DetailCard
+        v-for="welcomeLink in welcomeLinks"
+        :key="welcomeLink.name"
+        :card-link="welcomeLink.link"
+        :card-name="welcomeLink.name"
+        :card-title="welcomeLink.title"
+        :card-description="welcomeLink.description"
+      />
+    </div>
     <Dialogue />
   </div>
 </template>
@@ -43,43 +44,47 @@ export default {
   name: 'landingPage',
   data() {
     return {
-     welcomeLinks: [
-       {
-         name: 'get-started',
-         title: 'Get Started',
-         description: 'Craft great apps with an open-source and framework-agnostic component library.',
-         link: urlMap.docs
-       },
-       {
-         name: 'sample-app-repo',
-         title: 'Sample App Repository',
-         description: 'Accelerate development by using the sample apps in the repository.',
-         link: urlMap.sampleApps
-       },
-       {
-         name: 'build-for-crayons',
-         title: 'Build For Crayons',
-         description: 'Browse through the contributor guidelines to raise an issue or build new components.',
-         link: urlMap.crayons
-       },
-       
-      {
-        name: "cookbooks",
-        title:"Cookbooks",
-        description:"Code samples for complex usecases",
-        link:urlMap.cookbooks
-      },
-     ],
-     freshworksUrl: urlMap.freshworks,
-     repoUrl: urlMap.crayons,
+      welcomeLinks: [
+        {
+          name: 'get-started',
+          title: 'Get Started',
+          description:
+            'Craft great apps with an open-source and framework-agnostic component library.',
+          link: urlMap.docs,
+        },
+        {
+          name: 'sample-app-repo',
+          title: 'Sample App Repository',
+          description:
+            'Accelerate development by using the sample apps in the repository.',
+          link: urlMap.sampleApps,
+        },
+        {
+          name: 'build-for-crayons',
+          title: 'Build For Crayons',
+          description:
+            'Browse through the contributor guidelines to raise an issue or build new components.',
+          link: urlMap.crayons,
+        },
+
+        {
+          name: 'cookbooks',
+          title: 'Cookbooks',
+          description: 'Code samples for complex usecases',
+          link: urlMap.cookbooks,
+        },
+      ],
+      freshworksUrl: urlMap.freshworks,
+      repoUrl: urlMap.crayons,
     };
   },
-}
+};
 </script>
 
 <style lang="scss">
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .landing-container {
@@ -110,7 +115,8 @@ export default {
         height: 40%;
         opacity: 0.5;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           opacity: 1;
         }
       }
