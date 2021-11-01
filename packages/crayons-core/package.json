@@ -69,7 +69,6 @@
     "@types/puppeteer": "^5.4.3",
     "@types/react": "^17.0.22",
     "@types/react-dom": "^17.0.9",
-    "@vue/babel-preset-app": "^4.5.12",
     "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.2",
     "clean-css-cli": "^5.4.1",

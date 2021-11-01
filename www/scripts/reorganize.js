@@ -65,7 +65,7 @@ const fetchTargets = async function () {
   }
 
   return targets;
-}
+};
 
 const processTargets = async function (targets) {
   const components = [];
@@ -74,13 +74,18 @@ const processTargets = async function (targets) {
   await fsPromises.mkdir(outputRoot);
 
   for (let target of targets) {
-    const entries = await fsPromises.readdir(path.resolve(wwwRoot, target, 'components'));
+    const entries = await fsPromises.readdir(
+      path.resolve(wwwRoot, target, 'components')
+    );
     const packageRoot = path.resolve(wwwRoot, target);
 
     // Move each component directory from inside <package-name>/components to
     // the <package-name> directory. E.g. core/components/button becomes core/button
     for (const entry of entries) {
-      await fsPromises.rename(path.resolve(packageRoot, 'components', entry), path.resolve(packageRoot, entry));
+      await fsPromises.rename(
+        path.resolve(packageRoot, 'components', entry),
+        path.resolve(packageRoot, entry)
+      );
 
       // Write the update path to the components array, which will be written to
       // JSON for generating the sidebar configuration in Vuepress.
@@ -89,7 +94,9 @@ const processTargets = async function (targets) {
 
     // Clean-up the now-empty <package-name>/components directory so that
     // it doesn't get copied to the new directory structure.
-    await fsPromises.rmdir(path.resolve(packageRoot, 'components'), { recursive: true });
+    await fsPromises.rmdir(path.resolve(packageRoot, 'components'), {
+      recursive: true,
+    });
 
     // Move the entire <package-name> directory into the new 'components' directory
     // e.g. www/core/* becomes /www/components/core/*
@@ -97,13 +104,20 @@ const processTargets = async function (targets) {
   }
 
   return components;
-}
+};
 
 const run = async function () {
-  const targets = await fetchTargets()
+  const targets = await fetchTargets();
   const components = JSON.stringify(await processTargets(targets));
-  await fsPromises.writeFile(path.resolve(wwwRoot, 'components.json'), components);
-}
+  await fsPromises.writeFile(
+    path.resolve(wwwRoot, 'components.json'),
+    components
+  );
+};
 
 console.log('Re-organizing of readme.md files in the www directory started.');
-run().then(() => { console.log('Re-organizing of readme.md files in the www directory completed.'); });
+run().then(() => {
+  console.log(
+    'Re-organizing of readme.md files in the www directory completed.'
+  );
+});

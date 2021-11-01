@@ -1,18 +1,22 @@
 <template>
   <footer class="footer-container">
     <div class="footer-copyrights">
-    <div class="copyrights-nav">
+      <div class="copyrights-nav">
         <template v-for="items in footerCopyrights['menu-items']">
-          <template v-for="(item,index) in items['menu-list']">
-            <a :href="item.href" :key="index"> {{item.label}} </a>
-            <span v-if="index !== items['menu-list'].length - 1" :key="item.text">-</span>
+          <template v-for="(item, index) in items['menu-list']">
+            <a :href="item.href" :key="index"> {{ item.label }} </a>
+            <span
+              v-if="index !== items['menu-list'].length - 1"
+              :key="item.text"
+              >-</span
+            >
           </template>
         </template>
-    </div>
-    <div class="footer-copyrights-text">
+      </div>
+      <div class="footer-copyrights-text">
         <span>{{ footerCopyrights['copyrights-text'] }}</span>
+      </div>
     </div>
-  </div>
   </footer>
 </template>
 
@@ -23,28 +27,32 @@ export default {
     return {
       footerCopyrights: {
         'copyrights-text': 'Copyright © Freshworks Inc. All Rights Reserved',
-        'menu-items': [{
-          'menu-list': [{
-            label: 'Terms of Service',
-            href: 'https://www.freshworks.com/terms/',
-            'new-tab': false,
-          },
+        'menu-items': [
           {
-            label: 'Privacy Notice',
-            href: 'https://www.freshworks.com/privacy/',
-            'new-tab': false,
+            'menu-list': [
+              {
+                'label': 'Terms of Service',
+                'href': 'https://www.freshworks.com/terms/',
+                'new-tab': false,
+              },
+              {
+                'label': 'Privacy Notice',
+                'href': 'https://www.freshworks.com/privacy/',
+                'new-tab': false,
+              },
+              {
+                'label': 'Takedown Policy',
+                'href': 'https://www.freshworks.com/take-down/',
+                'new-tab': false,
+              },
+              {
+                'label': 'Security',
+                'href': 'https://www.freshworks.com/security/',
+                'new-tab': false,
+              },
+            ],
           },
-          {
-            label: 'Takedown Policy',
-            href: 'https://www.freshworks.com/take-down/',
-            'new-tab': false,
-          },
-          {
-            label: 'Security',
-            href: 'https://www.freshworks.com/security/',
-            'new-tab': false,
-          }],
-        }],
+        ],
       },
     };
   },

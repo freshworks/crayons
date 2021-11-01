@@ -62,7 +62,6 @@
     "@types/puppeteer": "^5.4.3",
     "@types/react": "^17.0.22",
     "@types/react-dom": "^17.0.9",
-    "@vue/babel-preset-app": "^4.5.12",
     "babel-loader": "^8.2.2",
     "gulp": "^4.0.2",
     "jest": "24.9.0",
