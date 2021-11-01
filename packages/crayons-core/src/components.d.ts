@@ -5,8 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { PopoverPlacementType } from "./components/popover/popover";
 import { DropdownVariant } from "./components/select-option/select-option";
+import { PopoverPlacementType } from "./components/popover/popover";
+import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
 export namespace Components {
     interface FwButton {
         /**
@@ -233,6 +234,10 @@ export namespace Components {
         "filterText": any;
         "getSelectedItem": () => Promise<any>;
         /**
+          * Place a checkbox.
+         */
+        "isCheckbox": boolean;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max": number;
@@ -254,9 +259,9 @@ export namespace Components {
          */
         "value": any;
         /**
-          * Enables the input with in the popup for filtering the options.
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
-        "variant": 'standard' | 'checked';
+        "variant": DropdownVariant;
     }
     interface FwModal {
         /**
@@ -383,6 +388,10 @@ export namespace Components {
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
         /**
+          * Place a checkbox.
+         */
+        "isCheckbox": boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -436,9 +445,9 @@ export namespace Components {
          */
         "value": any;
         /**
-          * Enables the input with in the popup for filtering the options.
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
-        "variant": 'standard' | 'checked';
+        "variant": DropdownVariant;
     }
     interface FwSelectOption {
         /**
@@ -449,10 +458,6 @@ export namespace Components {
           * The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'
          */
         "graphicsProps": any;
-        /**
-          * Icon or Avatar to be placed on the left side of the option.
-         */
-        "graphicsType": 'icon' | 'avatar';
         /**
           * Used in grouped list, provides the group in which the option belongs
          */
@@ -465,6 +470,10 @@ export namespace Components {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
+        /**
+          * Place a checkbox.
+         */
+        "isCheckbox": boolean;
         /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
@@ -487,7 +496,7 @@ export namespace Components {
          */
         "value": string;
         /**
-          * Standard is the default option, checkbox is the option with checkbox and graphics is the option with either icon or avatar.
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant": DropdownVariant;
     }
@@ -1123,6 +1132,10 @@ declare namespace LocalJSX {
          */
         "filterText"?: any;
         /**
+          * Place a checkbox.
+         */
+        "isCheckbox"?: boolean;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
@@ -1143,9 +1156,9 @@ declare namespace LocalJSX {
          */
         "value"?: any;
         /**
-          * Enables the input with in the popup for filtering the options.
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
-        "variant"?: 'standard' | 'checked';
+        "variant"?: DropdownVariant;
     }
     interface FwModal {
         /**
@@ -1297,6 +1310,10 @@ declare namespace LocalJSX {
          */
         "forceSelect"?: boolean;
         /**
+          * Place a checkbox.
+         */
+        "isCheckbox"?: boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
@@ -1361,9 +1378,9 @@ declare namespace LocalJSX {
          */
         "value"?: any;
         /**
-          * Enables the input with in the popup for filtering the options.
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
-        "variant"?: 'standard' | 'checked';
+        "variant"?: DropdownVariant;
     }
     interface FwSelectOption {
         /**
@@ -1374,10 +1391,6 @@ declare namespace LocalJSX {
           * The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'
          */
         "graphicsProps"?: any;
-        /**
-          * Icon or Avatar to be placed on the left side of the option.
-         */
-        "graphicsType"?: 'icon' | 'avatar';
         /**
           * Used in grouped list, provides the group in which the option belongs
          */
@@ -1390,6 +1403,10 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
+        /**
+          * Place a checkbox.
+         */
+        "isCheckbox"?: boolean;
         /**
           * Triggered when an option is selected.
          */
@@ -1415,7 +1432,7 @@ declare namespace LocalJSX {
          */
         "value"?: string;
         /**
-          * Standard is the default option, checkbox is the option with checkbox and graphics is the option with either icon or avatar.
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant"?: DropdownVariant;
     }

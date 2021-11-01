@@ -14,6 +14,7 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
+import { DropdownVariant } from '../select-option/select-option';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -86,9 +87,10 @@ export class Select {
    */
   @Prop() max = Number.MAX_VALUE;
   /**
-   * Enables the input with in the popup for filtering the options.
+   * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
+   * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
-  @Prop() variant: 'standard' | 'checked' = 'standard';
+  @Prop() variant: DropdownVariant = 'standard';
   /**
    * Allow to search for value. Default is true.
    */
@@ -97,6 +99,10 @@ export class Select {
    * Allow to search for value. Default is true.
    */
   @Prop() options;
+  /**
+   * Place a checkbox.
+   */
+  @Prop() isCheckbox = false;
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -357,6 +363,7 @@ export class Select {
               value={this.value}
               multiple={this.multiple}
               max={this.max}
+              isCheckbox={this.isCheckbox}
               slot='popover-content'
             ></fw-list-options>
           </fw-popover>

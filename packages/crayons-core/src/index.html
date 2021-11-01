@@ -68,7 +68,7 @@
     <div slot="popover-trigger">
       <fw-button expand>Click Me !</fw-button>
     </div>
-    <fw-list-options searchable multiple slot="popover-content" id="customPopover"></fw-list-options>
+    <fw-list-options variant="icon" is-checkbox="true" searchable multiple slot="popover-content" id="customPopover"></fw-list-options>
   </fw-popover>
 
   <div style="float:left;width:100%;">
@@ -172,17 +172,17 @@
     ]
 
     let iconVariant = [
-      {value:'1', text:'Test1',variant:"graphics", graphicsType:"icon", graphicsProps: {name: "alert", size:16}},
-      {value:'2', text:'Test2',variant:"graphics", graphicsType:"icon", graphicsProps: {name: "add-contact", size:16}},
-      {value:'3', text:'Test3',variant:"graphics", graphicsType:"icon", graphicsProps: {name: "add-note", size:16}},
-      {value:'4', text:'Test4',variant:"graphics", graphicsType:"icon", graphicsProps: {name: "ticket-primary", size:16}},
+      {value:'1', text:'Test1',  graphicsProps: {name: "alert", size:16}},
+      {value:'2', text:'Test2',  graphicsProps: {name: "add-contact", size:16}},
+      {value:'3', text:'Test3',  graphicsProps: {name: "add-note", size:16}},
+      {value:'4', text:'Test4',  graphicsProps: {name: "ticket-primary", size:16}},
     ]
 
     let iconVariantWithSubText = [
-      {value:'1', text:'Test1', subText: "This is a short description", variant:"graphics", graphicsType:"icon", graphicsProps: {name: "alert", size:16}},
-      {value:'2', text:'Test2', subText: "This is a short description", variant:"graphics", graphicsType:"icon", graphicsProps: {name: "add-contact", size:16}},
-      {value:'3', text:'Test3', subText: "This is a short description", variant:"graphics", graphicsType:"icon", graphicsProps: {name: "add-note", size:16}},
-      {value:'4', text:'Test4', subText: "asd asdasdasdasd asd asd This is a very large description", variant:"graphics", graphicsType:"icon", graphicsProps: {name: "ticket-primary", size:16}}
+      {value:'1', text:'Test1', subText: "This is a short description",  graphicsProps: {name: "alert", size:16}},
+      {value:'2', text:'Test2', subText: "This is a short description",  graphicsProps: {name: "add-contact", size:16}},
+      {value:'3', text:'Test3', subText: "This is a short description",  graphicsProps: {name: "add-note", size:16}},
+      {value:'4', text:'Test4', subText: "asd asdasdasdasd asd asd This is a very large description",   graphicsProps: {name: "ticket-primary", size:16}}
     ]
     let optionList = document.getElementById("optionList");
     optionList.options = iconVariantWithSubText;

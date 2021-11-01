@@ -42,13 +42,10 @@ export class SelectOption {
    */
   @Prop() htmlContent?: string;
   /**
-   * Standard is the default option, checkbox is the option with checkbox and graphics is the option with either icon or avatar.
+   * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
+   * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
   @Prop() variant: DropdownVariant = 'standard';
-  /**
-   * Icon or Avatar to be placed on the left side of the option.
-   */
-  @Prop() graphicsType: 'icon' | 'avatar';
   /**
    * The text to be displayed in the option.
    */
@@ -56,7 +53,7 @@ export class SelectOption {
   /**
    * Second line text can be description etc.
    */
-  @Prop({ reflect: true, mutable: true }) subText: string;
+  @Prop({ reflect: true }) subText: string;
   /**
    * Used in grouped list, provides the group in which the option belongs
    */
@@ -65,6 +62,10 @@ export class SelectOption {
    * The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'
    */
   @Prop() graphicsProps;
+  /**
+   * Place a checkbox.
+   */
+  @Prop() isCheckbox = false;
 
   /**
    * Triggered when an option is selected.
@@ -96,20 +97,20 @@ export class SelectOption {
 
   renderInnerHtml() {
     const description = this.createDescription();
+    const checkbox = this.isCheckbox ? this.createCheckbox() : '';
     switch (this.variant) {
       case 'standard':
-        return description;
-      case 'graphics':
         return (
           <Fragment>
-            {this.createGraphics()}
+            {checkbox}
             {description}
           </Fragment>
         );
-      case 'checkbox':
+      case 'icon':
         return (
           <Fragment>
-            {this.createCheckbox()}
+            {checkbox}
+            {this.createIcon()}
             {description}
           </Fragment>
         );
@@ -123,7 +124,7 @@ export class SelectOption {
       <div
         class={
           'description ' +
-          (this.graphicsType === 'icon' ? 'icon-margin ' : 'standard-margin ')
+          (this.variant === 'icon' ? 'icon-margin ' : 'standard-margin ')
         }
       >
         <span class='description-text'>{this.text}</span>
@@ -133,7 +134,7 @@ export class SelectOption {
       <span
         class={
           'description ' +
-          (this.graphicsType === 'icon' ? 'icon-margin ' : 'standard-margin ')
+          (this.variant === 'icon' ? 'icon-margin ' : 'standard-margin ')
         }
       >
         {this.text}
@@ -141,12 +142,8 @@ export class SelectOption {
     );
   }
 
-  createGraphics() {
-    return this.graphicsType === 'icon' ? (
-      <fw-icon {...this.graphicsProps}></fw-icon>
-    ) : (
-      ''
-    );
+  createIcon() {
+    return <fw-icon {...this.graphicsProps}></fw-icon>;
   }
 
   createCheckbox() {
@@ -159,14 +156,12 @@ export class SelectOption {
         ref={(el) => (this.nativeLi = el)}
         class={
           'select-option ' +
-          (this.selected && this.variant !== 'checkbox' ? 'selected ' : '') +
+          (this.selected && this.isCheckbox ? 'selected ' : '') +
           (this.disabled ? 'disabled ' : '') +
           (this.html
             ? ''
             : (this.subText ? 'multi-line ' : 'single-line ') +
-              (this.variant === 'standard'
-                ? this.variant + ' '
-                : this.graphicsType + ' '))
+              (this.variant + ' '))
         }
         onMouseDown={() => this.onOptionSelected()}
       >
@@ -181,4 +176,4 @@ export class SelectOption {
   }
 }
 
-export type DropdownVariant = 'standard' | 'checkbox' | 'graphics';
+export type DropdownVariant = 'standard' | 'icon' | 'avatar';

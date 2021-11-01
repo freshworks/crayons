@@ -8,6 +8,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
+import { DropdownVariant } from '../select-option/select-option';
 
 @Component({
   tag: 'fw-list-options',
@@ -40,13 +41,18 @@ export class ListOptions {
    */
   @Prop() searchable = false;
   /**
-   * Enables the input with in the popup for filtering the options.
+   * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
+   * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
-  @Prop() variant: 'standard' | 'checked' = 'standard';
+  @Prop() variant: DropdownVariant = 'standard';
   /**
    * The text to filter the options.
    */
   @Prop() filterText;
+  /**
+   * Place a checkbox.
+   */
+  @Prop() isCheckbox = false;
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
@@ -126,7 +132,12 @@ export class ListOptions {
   }
 
   componentWillLoad() {
-    this.selectOptions = this.options;
+    this.selectOptions = this.options.map((option) => {
+      return {
+        ...option,
+        ...{ isCheckbox: this.isCheckbox, variant: this.variant },
+      };
+    });
     this.filteredOptions = this.selectOptions;
     console.log(this.options);
   }
