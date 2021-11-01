@@ -156,12 +156,12 @@ export class SelectOption {
         ref={(el) => (this.nativeLi = el)}
         class={
           'select-option ' +
-          (this.selected && this.isCheckbox ? 'selected ' : '') +
+          (this.selected && !this.isCheckbox ? 'selected ' : '') +
           (this.disabled ? 'disabled ' : '') +
           (this.html
             ? ''
             : (this.subText ? 'multi-line ' : 'single-line ') +
-              (this.variant + ' '))
+              (this.variant + ' ' + 'select-center'))
         }
         onMouseDown={() => this.onOptionSelected()}
       >

@@ -23,6 +23,7 @@ import { DropdownVariant } from '../select-option/select-option';
 export class Select {
   @Element() host: HTMLElement;
   private selectInput?: HTMLInputElement;
+  private fwListOptions?: HTMLFwListOptionsElement;
   private popover?: HTMLFwPopoverElement;
   private preventDropdownClose?: boolean = false;
 
@@ -34,6 +35,7 @@ export class Select {
   @State() hasFocus = false;
   @State() didInit = false;
   @State() searchValue;
+  @State() listOptions;
   /**
    * Label displayed on the interface, for the component.
    */
@@ -134,7 +136,7 @@ export class Select {
   private innerOnClick = () => {
     if (this.changeEmittable()) {
       this.searchable && this.selectInput && this.selectInput.select();
-      this.filteredOptions = this.options;
+      this.filteredOptions = this.listOptions;
       this.popover.show();
       this.isExpanded = true;
     }
@@ -157,12 +159,6 @@ export class Select {
   @Watch('value')
   keyChanged(newValue, oldValue) {
     if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-      this.options = this.options.map((option) => {
-        option.selected = Array.isArray(this.value)
-          ? this.value.includes(option.value)
-          : this.value === option.value;
-        return option;
-      });
       if (this.didInit) {
         this.fwChange.emit({ value: this.value });
       }
@@ -171,6 +167,12 @@ export class Select {
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
+    const { value, selected } = selectedItem.detail;
+    if (selected) {
+      this.value = this.multiple ? [...this.value, value] : [value];
+    } else {
+      this.value = this.multiple ? this.value.filter((x) => x !== value) : [];
+    }
     this.selectInput.value = '';
     this.renderInput();
     if (!this.multiple) {
@@ -187,7 +189,7 @@ export class Select {
 
   @Listen('fwClosed')
   fwCloseHandler(ev) {
-    this.options = this.options.map((option) => {
+    this.listOptions = this.listOptions.map((option) => {
       if (option.value === ev.detail.value) {
         option.selected = false;
       }
@@ -213,7 +215,7 @@ export class Select {
 
   renderTags() {
     if (this.multiple) {
-      return this.options
+      return this.listOptions
         .filter((option) => option.selected)
         .map((option) => (
           <fw-tag
@@ -226,33 +228,15 @@ export class Select {
   }
 
   renderInput() {
-    const selectedOptions = this.options.filter((option) => option.selected);
-    if (selectedOptions.length > 0) {
-      this.value = this.multiple
-        ? selectedOptions.map((option) => option.value)
-        : selectedOptions[0].value || '';
-      if (this.selectInput) {
-        this.selectInput.value = this.multiple
-          ? this.selectInput.value
-          : selectedOptions[0].text || '';
+    this.fwListOptions.getSelectedItem().then((selectedOptions) => {
+      if (selectedOptions.length > 0) {
+        if (this.selectInput) {
+          this.selectInput.value = this.multiple
+            ? this.selectInput.value
+            : selectedOptions[0].text || '';
+        }
       }
-    } else if (selectedOptions.length === 0) {
-      this.value = undefined;
-    }
-  }
-
-  renderDropdown() {
-    return this.filteredOptions.map((option) => (
-      <fw-select-option
-        value={option.value}
-        selected={option.selected}
-        disabled={option.disabled || this.value?.length >= this.max}
-        html={option.html}
-        htmlContent={option.htmlContent}
-      >
-        {option.text}
-      </fw-select-option>
-    ));
+    });
   }
 
   resetFocus() {
@@ -269,14 +253,19 @@ export class Select {
         html: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
-        selected: option.value === this.value || option.selected,
+        selected: this.value.includes(option.value) || option.selected,
         disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
-
-    this.options = options.length === 0 ? this.options : options;
-    this.filteredOptions = this.options;
+    this.value = this.value ? this.value : [];
+    if (this.value) {
+      this.value = this.value === 'string' ? [this.value] : this.value;
+    } else {
+      this.value = [];
+    }
+    this.listOptions = options.length === 0 ? this.options : options;
+    this.filteredOptions = this.listOptions;
     this.host.innerHTML = '';
   }
 
@@ -287,13 +276,13 @@ export class Select {
 
   @Method()
   async getSelectedItem(): Promise<any> {
-    return this.options.filter((option) => option.selected);
+    return this.listOptions.filter((option) => option.selected);
   }
 
   @Method()
   async setSelectedValues(values: string[]): Promise<any> {
     if (this.multiple) {
-      this.options.forEach((option) => {
+      this.listOptions.forEach((option) => {
         option.selected = values.includes(option.value);
       });
       this.renderInput();
@@ -339,7 +328,9 @@ export class Select {
                   autoComplete='off'
                   disabled={this.disabled}
                   name={this.name}
-                  placeholder={this.value ? '' : this.placeholder || ''}
+                  placeholder={
+                    this.value.length > 0 ? '' : this.placeholder || ''
+                  }
                   readOnly={this.readonly}
                   required={this.required}
                   type={this.type}
@@ -357,9 +348,10 @@ export class Select {
               </div>
             </div>
             <fw-list-options
+              ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
               variant={this.variant}
               filter-text={this.searchValue}
-              options={this.options}
+              options={this.listOptions}
               value={this.value}
               multiple={this.multiple}
               max={this.max}

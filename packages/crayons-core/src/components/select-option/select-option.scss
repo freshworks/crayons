@@ -5,6 +5,11 @@ $bg-color: $color-azure-50;
 $bg-color-hover: $color-smoke-50;
 $bg-color-disabled: $color-smoke-25;
 
+.select-center {
+  display: flex;
+  align-items: center;
+}
+
 .select-option {
   cursor: pointer;
   color: $primary-color;
@@ -15,8 +20,6 @@ $bg-color-disabled: $color-smoke-25;
   word-break: break-word;
   word-wrap: break-word;
   position: relative;
-  display: flex;
-  align-items: center;
   margin-bottom: 4px;
 
   &.single-line {

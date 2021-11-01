@@ -27,7 +27,7 @@ export class ListOptions {
   /**
    * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
-  @Prop({ mutable: true }) value: any;
+  @Prop({ mutable: true }) value = [];
   /**
    * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
    */
@@ -66,9 +66,9 @@ export class ListOptions {
       return option;
     });
     if (selected) {
-      this.value = this.multiple ? this.value.push(value) : value;
+      this.value = this.multiple ? [...this.value, value] : [value];
     } else {
-      this.value = this.multiple ? this.value.pop(value) : '';
+      this.value = this.multiple ? this.value.filter((x) => x !== value) : [];
     }
   }
 
@@ -135,11 +135,14 @@ export class ListOptions {
     this.selectOptions = this.options.map((option) => {
       return {
         ...option,
-        ...{ isCheckbox: this.isCheckbox, variant: this.variant },
+        ...{
+          isCheckbox: this.isCheckbox,
+          variant: this.variant,
+          selected: this.value.includes(option.value) ? true : false,
+        },
       };
     });
     this.filteredOptions = this.selectOptions;
-    console.log(this.options);
   }
 
   render() {
