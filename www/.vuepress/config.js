@@ -40,14 +40,15 @@ const getTags = () => [
 
 const websiteUrl = 'https://crayons.freshworks.com';
 
-const getCookBooks = () => ['first'].map((util) => `/cookbooks/${util}/`);
+const getCookBooks = () => ['first','second'].map((util) => `/cookbooks/${util}/`);
 
 module.exports = {
   title: 'Crayons',
   base: '/',
   description: 'A refreshed design library for the Freshworks Developers.',
   dest: 'www-dist',
-  head: [...headScripts, ['link', { rel: 'icon', href: '/favicon.png' }]],
+  head: [...headScripts, ['link', { rel: 'icon', href: '/favicon.png' }],
+  ],
   themeConfig: {
     lastUpdated: 'Last Updated',
     smoothScroll: true,
@@ -113,6 +114,37 @@ module.exports = {
       },
     ],
     ['@mr-hope/copy-code'],
+    //require('../../vuepress-plugin-demo-code/src/')
+    ['demo-code', 
+      {
+        jsLibs: [
+            // umd
+           // 'https://unpkg.com/cr-mnr-core@canary',
+        ],
+        cssLibs: [
+            'https://unpkg.com/animate.css@3.7.0/animate.min.css',
+        ],
+        showText: 'show code',
+        hideText: 'hide',
+        styleStr: 'text-decoration: underline;',
+        minHeight: 500,
+        onlineBtns: {
+            codepen: true,
+            jsfiddle: true,
+            codesandbox: true,
+        },
+        jsfiddle: {
+            framework: 'library/pure', // default
+            // framework: 'vue/2.6.11',
+        },
+        codesandbox: {
+            deps: { 'lodash': 'latest', 'cr-mnr-core': 'canary', 'react':'latest', 'react-dom': 'latest' },
+            json: '',
+            query: '',
+            embed: '',
+        },
+        demoCodeMark: 'demo-code1',
+    }]
   ],
   configureWebpack: {
     resolve: {

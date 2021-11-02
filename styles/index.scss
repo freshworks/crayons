@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'theme';
+@import '@tailwind/base';
 :host {
   font-family: $font-stack;
   -webkit-font-smoothing: antialiased;

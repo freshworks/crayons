@@ -1,9 +1,13 @@
 # First Cookbook
+<code-group>
+<code-block title="HTML">
+
 ::: demo First CookBook
 
+card template with input controls
 ```html
 <fw-icon name="add-contact"></fw-icon>
-        <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
+ <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
    <fw-select
       label="Select App type"
       placeholder="Choose app type"
@@ -22,9 +26,9 @@
   
   <fw-timepicker min-time="11:25 AM" max-time="03:45 PM" value="11:25" interval=45> </fw-timepicker>
   <fw-timepicker min-time="01:39 AM" interval=55> </fw-timepicker>
-  <div style="float:left;width:100%;">
-    <fw-datepicker style="float:left;"></fw-datepicker>
-    <fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
+  <div style="display:flex;justify-content:flex-start;">
+    <fw-datepicker></fw-datepicker>
+    <fw-datepicker mode="range"></fw-datepicker>
   </div>
   
   <fw-toast content="Successfully triggered"></fw-toast>
@@ -56,12 +60,18 @@
 document.querySelector("fw-icon").addEventListener("click", () => {
   alert("icon clicked");
 });
-```
-
-```css
-span {
-  color: red;
-}
+ window.addEventListener('fwLinkClick', eventHandler);
+    function eventHandler(e) {
+      console.log('action link clicked', e);
+    }
+    window.addEventListener('fwChange', function(e) {
+      console.log('datepicker fwChange triggered', e);
+    });
+    document.querySelector('fw-dropdown-button')
+      .addEventListener('fwOptionsAdd', (e) => console.log('Selected values are ', e.detail.value))
+  
+    document.querySelector('fw-dropdown-button')
+      .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
 ```
 
 ```json
@@ -74,5 +84,48 @@ span {
   ]
 }
 ```
+:::
+</code-block>
+
+
+<code-block title="React">
+::: demo [react] First React CookBook
+
+```js
+export default () => {
+  const message = "hello workd";
+
+  const handler = () => {
+    alert(message);
+  };
+  return <h1>hello</h1>
+
+  // return (
+  //  <FwIcon name="agent" onClick={handler}></FwIcon>
+  // );
+};
+```
+
+```css
+span {
+  color: red;
+}
+```
+
+```json
+{
+  "jsLib": [
+    "https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js",
+      "https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.js",
+    "https://unpkg.com/@freshworks/crayons@3.0.0-beta.1/react/FwIcon.js"
+  ],
+  "cssLib":[
+   "https://unpkg.com/@freshworks/crayons@canary/css/crayons-min.css"
+  ]
+}
+```
 
 :::
+</code-block> 
+
+</code-group>
