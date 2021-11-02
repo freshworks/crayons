@@ -1,12 +1,13 @@
 import { Config } from '@stencil/core';
 import { reactOutputTarget } from 'react-output-target';
 import { sass } from '@stencil/sass';
+import tailwind from 'stencil-tailwind-plugin';
+//import { postcss } from '@stencil/postcss';
+import tailwindConfig from './tailwind.config';
 
 import { generateJsonDocs } from './customElementDocGenerator';
-
 const packageName = 'crayons';
 export const config: Config = {
-  autoprefixCss: true,
   namespace: packageName,
   outputTargets: [
     {
@@ -66,6 +67,11 @@ export const config: Config = {
     sass({
       injectGlobalPaths: ['src/styles/index.scss'],
     }),
+
+    tailwind({
+      tailwindConf: tailwindConfig,
+      stripComments: true,
+    }),
   ],
   testing: {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
@@ -95,4 +101,7 @@ export const config: Config = {
     slotChildNodesFix: true,
   },
   enableCache: true,
+  devServer: {
+    reloadStrategy: 'pageReload',
+  },
 };

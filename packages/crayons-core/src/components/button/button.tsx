@@ -126,6 +126,7 @@ export class Button {
         >
           <slot />
         </button>
+        <p class='text-sm text-skyblue-500 bg-red-200'>This is JSX!</p>
       </Host>
     );
   }
