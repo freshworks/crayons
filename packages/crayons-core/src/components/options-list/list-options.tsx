@@ -7,6 +7,8 @@ import {
   State,
   Watch,
   h,
+  EventEmitter,
+  Event,
 } from '@stencil/core';
 import { DropdownVariant } from '../select-option/select-option';
 
@@ -27,7 +29,7 @@ export class ListOptions {
   /**
    * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
-  @Prop({ mutable: true }) value = [];
+  @Prop({ reflect: true, mutable: true }) value = [];
   /**
    * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
    */
@@ -53,18 +55,14 @@ export class ListOptions {
    * Place a checkbox.
    */
   @Prop() isCheckbox = false;
+  /**
+   * Triggered when a value is selected or deselected from the list box options.
+   */
+  @Event() fwListOptionsChange: EventEmitter;
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
     const { value, selected } = selectedItem.detail;
-    this.selectOptions = this.selectOptions.map((option) => {
-      if (value === option.value) {
-        option.selected = selected;
-      } else if (!this.multiple) {
-        option.selected = false;
-      }
-      return option;
-    });
     if (selected) {
       this.value = this.multiple ? [...this.value, value] : [value];
     } else {
@@ -80,9 +78,18 @@ export class ListOptions {
   @Method()
   async setSelectedValues(values: string[]): Promise<any> {
     if (this.multiple) {
-      this.selectOptions.forEach((option) => {
-        option.selected = values.includes(option.value);
+      this.value = values;
+    }
+  }
+
+  @Watch('value')
+  onValueChange(newValue, oldValue) {
+    if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+      this.selectOptions = this.selectOptions.map((option) => {
+        option.selected = newValue.includes(option.value);
+        return option;
       });
+      this.fwListOptionsChange.emit(newValue);
     }
   }
 
@@ -102,16 +109,7 @@ export class ListOptions {
 
   renderSelectOption(options: Array<any>) {
     return options.map((option) => (
-      <fw-select-option
-        key={option.value}
-        {...{
-          ...option,
-          ...{
-            selected: option.selected || this.value?.includes(option.value),
-            disabled: option.disabled || this.value?.length >= this.max,
-          },
-        }}
-      ></fw-select-option>
+      <fw-select-option key={option.value} {...option}></fw-select-option>
     ));
   }
 
@@ -136,9 +134,10 @@ export class ListOptions {
       return {
         ...option,
         ...{
-          isCheckbox: this.isCheckbox,
-          variant: this.variant,
-          selected: this.value.includes(option.value) ? true : false,
+          isCheckbox: option.isCheckbox || this.isCheckbox,
+          variant: option.variant || this.variant,
+          selected: option.selected || this.value.includes(option.value),
+          disabled: option.disabled || this.value?.length >= this.max,
         },
       };
     });

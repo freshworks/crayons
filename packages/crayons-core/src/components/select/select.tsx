@@ -31,7 +31,6 @@ export class Select {
    * If the dropdown is shown or not
    */
   @State() isExpanded = false;
-  @State() filteredOptions = [];
   @State() hasFocus = false;
   @State() didInit = false;
   @State() searchValue;
@@ -43,7 +42,7 @@ export class Select {
   /**
    * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
-  @Prop({ mutable: true }) value: any;
+  @Prop({ reflect: true, mutable: true }) value: any;
   /**
    * Name of the component, saved as part of form data.
    */
@@ -100,7 +99,7 @@ export class Select {
   /**
    * Allow to search for value. Default is true.
    */
-  @Prop() options;
+  @Prop({ reflect: true }) options: any;
   /**
    * Place a checkbox.
    */
@@ -136,7 +135,6 @@ export class Select {
   private innerOnClick = () => {
     if (this.changeEmittable()) {
       this.searchable && this.selectInput && this.selectInput.select();
-      this.filteredOptions = this.listOptions;
       this.popover.show();
       this.isExpanded = true;
     }
@@ -165,36 +163,29 @@ export class Select {
     }
   }
 
-  @Listen('fwSelected')
+  @Listen('fwListOptionsChange')
   fwSelectedHandler(selectedItem) {
-    const { value, selected } = selectedItem.detail;
-    if (selected) {
-      this.value = this.multiple ? [...this.value, value] : [value];
-    } else {
-      this.value = this.multiple ? this.value.filter((x) => x !== value) : [];
+    if (selectedItem.detail.length >= 0) {
+      this.value = selectedItem.detail;
+      this.selectInput.value = '';
+      this.renderInput();
+      if (!this.multiple) {
+        this.resetFocus();
+        this.closeDropdown();
+      }
+      selectedItem.stopPropagation();
     }
-    this.selectInput.value = '';
-    this.renderInput();
-    if (!this.multiple) {
-      this.resetFocus();
-      this.closeDropdown();
-    }
-    selectedItem.stopPropagation();
   }
 
-  @Watch('options')
+  @Watch('listOptions')
   optionsChangedHandler() {
     this.renderInput();
   }
 
+  // Listen to Tag close in case of multi-select
   @Listen('fwClosed')
   fwCloseHandler(ev) {
-    this.listOptions = this.listOptions.map((option) => {
-      if (option.value === ev.detail.value) {
-        option.selected = false;
-      }
-      return option;
-    });
+    this.value = this.value.filter((value) => value !== ev.detail.value);
   }
   @Listen('keydown')
   onKeyDonw(ev) {
@@ -215,20 +206,22 @@ export class Select {
 
   renderTags() {
     if (this.multiple) {
-      return this.listOptions
-        .filter((option) => option.selected)
-        .map((option) => (
-          <fw-tag
-            text={option.text}
-            disabled={option.disabled}
-            value={option.value}
-          />
-        ));
+      return this.listOptions.map((option) => {
+        if (this.value.includes(option.value)) {
+          return (
+            <fw-tag
+              text={option.text}
+              disabled={option.disabled}
+              value={option.value}
+            />
+          );
+        }
+      });
     }
   }
 
   renderInput() {
-    this.fwListOptions.getSelectedItem().then((selectedOptions) => {
+    this.fwListOptions?.getSelectedItem().then((selectedOptions) => {
       if (selectedOptions.length > 0) {
         if (this.selectInput) {
           this.selectInput.value = this.multiple
@@ -248,7 +241,15 @@ export class Select {
       this.host.querySelectorAll('fw-select-option')
     );
 
+    this.value = this.value ? this.value : [];
+    if (this.value) {
+      this.value = this.value === 'string' ? [this.value] : this.value;
+    } else {
+      this.value = [];
+    }
+
     const options = selectOptions.map((option) => {
+      console.log(option);
       return {
         html: option.html,
         text: option.html ? option.optionText : option.textContent,
@@ -258,14 +259,7 @@ export class Select {
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
-    this.value = this.value ? this.value : [];
-    if (this.value) {
-      this.value = this.value === 'string' ? [this.value] : this.value;
-    } else {
-      this.value = [];
-    }
     this.listOptions = options.length === 0 ? this.options : options;
-    this.filteredOptions = this.listOptions;
     this.host.innerHTML = '';
   }
 
@@ -276,15 +270,13 @@ export class Select {
 
   @Method()
   async getSelectedItem(): Promise<any> {
-    return this.listOptions.filter((option) => option.selected);
+    return this.fwListOptions.getSelectedItem();
   }
 
   @Method()
   async setSelectedValues(values: string[]): Promise<any> {
     if (this.multiple) {
-      this.listOptions.forEach((option) => {
-        option.selected = values.includes(option.value);
-      });
+      this.fwListOptions.setSelectedValues(values);
       this.renderInput();
     }
   }

@@ -42,10 +42,17 @@
   <fw-select-option value="1" text="LLL" graphics-type="icon" icon-name="alert"></fw-select-option>
   <fw-select-option value="2" text="Test Option" variant="checkbox" graphics-type="icon" icon-name="alert"></fw-select-option>
   <br><br> -->
-  <fw-select
+
+  <fw-select id="testOptions" multiple label="Select the house">
+    <fw-select-option value="starks">Starks</fw-select-option>
+    <fw-select-option value="lannisters">Lannisters</fw-select-option>
+    <fw-select-option value="sands">Sands</fw-select-option>
+  </fw-select>
+
+  <!-- <fw-select
       label="Select App type"
       placeholder="Choose app type"
-      value="2"
+      value="1"
       >
           <fw-select-option value="1" html option-text="LLL">
                 <div style="color: red; padding: 10px;">Lannister </div class="cls">
@@ -58,7 +65,7 @@
 
   <fw-select id="optionList" style="width:300px"
       label="Select App type"
-      placeholder="Choose app type"
+      placeholder="Choose app type" multiple
       >
   </fw-select>
 
@@ -73,7 +80,7 @@
   <div style="float:left;width:100%;">
     <fw-datepicker style="float:left;"></fw-datepicker>
     <fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
-  </div>
+  </div> -->
 
   <!-- <fw-list-options id="optionList">
 
@@ -183,12 +190,17 @@
       {value:'3', text:'Test3', subText: "This is a short description",  graphicsProps: {name: "add-note", size:16}},
       {value:'4', text:'Test4', subText: "asd asdasdasdasd asd asd This is a very large description",   graphicsProps: {name: "ticket-primary", size:16}}
     ]
-    let optionList = document.getElementById("optionList");
-    optionList.options = iconVariantWithSubText;
-    optionList.value = ["3"];
+    // let optionList = document.getElementById("optionList");
+    // optionList.options = iconVariantWithSubText;
+    // // optionList.value = ["1", "3"];
+    // setTimeout( () => { optionList.value = ["1","3"]}, 5000)
+    
+    let testOptions = document.getElementById("testOptions");
+    setTimeout( () => { testOptions.setSelectedValues(['starks', 'sands'])}, 5000)
+    
 
-    let customPopover = document.getElementById("customPopover");
-    customPopover.options = iconVariantWithSubText;
+    // let customPopover = document.getElementById("customPopover");
+    // customPopover.options = iconVariantWithSubText;
     
   </script>
 </body>
