@@ -163,10 +163,10 @@ export class Select {
     }
   }
 
-  @Listen('fwListOptionsChange')
+  @Listen('fwChange')
   fwSelectedHandler(selectedItem) {
-    if (selectedItem.detail.length >= 0) {
-      this.value = selectedItem.detail;
+    if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
+      this.value = selectedItem.detail.value;
       this.selectInput.value = '';
       this.renderInput();
       if (!this.multiple) {
@@ -249,7 +249,6 @@ export class Select {
     }
 
     const options = selectOptions.map((option) => {
-      console.log(option);
       return {
         html: option.html,
         text: option.html ? option.optionText : option.textContent,

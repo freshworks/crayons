@@ -1146,7 +1146,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a value is selected or deselected from the list box options.
          */
-        "onFwListOptionsChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */

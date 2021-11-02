@@ -58,7 +58,7 @@ export class ListOptions {
   /**
    * Triggered when a value is selected or deselected from the list box options.
    */
-  @Event() fwListOptionsChange: EventEmitter;
+  @Event() fwChange: EventEmitter;
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
@@ -89,7 +89,7 @@ export class ListOptions {
         option.selected = newValue.includes(option.value);
         return option;
       });
-      this.fwListOptionsChange.emit(newValue);
+      this.fwChange.emit({ value: newValue });
     }
   }
 
