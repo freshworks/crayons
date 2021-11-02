@@ -232,7 +232,7 @@ export namespace Components {
           * The text to filter the options.
          */
         "filterText": any;
-        "getSelectedItem": () => Promise<any>;
+        "getSelectedOptions": () => Promise<any>;
         /**
           * Place a checkbox.
          */
@@ -246,9 +246,17 @@ export namespace Components {
          */
         "multiple": boolean;
         /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText": string;
+        /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
+        /**
+          * Placeholder to placed on the search text box.
+         */
+        "searchText": string;
         /**
           * Enables the input with in the popup for filtering the options.
          */
@@ -1144,6 +1152,10 @@ declare namespace LocalJSX {
          */
         "multiple"?: boolean;
         /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText"?: string;
+        /**
           * Triggered when a value is selected or deselected from the list box options.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
@@ -1151,6 +1163,10 @@ declare namespace LocalJSX {
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options"?: any[];
+        /**
+          * Placeholder to placed on the search text box.
+         */
+        "searchText"?: string;
         /**
           * Enables the input with in the popup for filtering the options.
          */

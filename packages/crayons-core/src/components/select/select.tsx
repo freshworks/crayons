@@ -221,7 +221,7 @@ export class Select {
   }
 
   renderInput() {
-    this.fwListOptions?.getSelectedItem().then((selectedOptions) => {
+    this.fwListOptions?.getSelectedOptions().then((selectedOptions) => {
       if (selectedOptions.length > 0) {
         if (this.selectInput) {
           this.selectInput.value = this.multiple
@@ -269,7 +269,7 @@ export class Select {
 
   @Method()
   async getSelectedItem(): Promise<any> {
-    return this.fwListOptions.getSelectedItem();
+    return this.fwListOptions.getSelectedOptions();
   }
 
   @Method()

@@ -16,7 +16,7 @@ import {
   shadow: true,
 })
 export class SelectOption {
-  private nativeLi?: HTMLLIElement;
+  private rowContainer?: HTMLElement;
   /**
    * Value corresponding to the option, that is saved  when the form data is saved.
    */
@@ -74,7 +74,7 @@ export class SelectOption {
 
   @Method()
   async setFocus(): Promise<any> {
-    this.nativeLi.focus();
+    this.rowContainer.focus();
   }
 
   @Listen('keydown')
@@ -152,8 +152,10 @@ export class SelectOption {
 
   render() {
     return (
-      <li
-        ref={(el) => (this.nativeLi = el)}
+      <div
+        role='button'
+        tabindex='0'
+        ref={(el) => (this.rowContainer = el)}
         class={
           'select-option ' +
           (this.selected && !this.isCheckbox ? 'selected ' : '') +
@@ -166,12 +168,12 @@ export class SelectOption {
         onMouseDown={() => this.onOptionSelected()}
       >
         {this.html ? '' : this.text ? this.renderInnerHtml() : <slot />}
-      </li>
+      </div>
     );
   }
   componentDidLoad() {
     if (this.html) {
-      this.nativeLi.innerHTML = this.htmlContent;
+      this.rowContainer.innerHTML = this.htmlContent;
     }
   }
 }

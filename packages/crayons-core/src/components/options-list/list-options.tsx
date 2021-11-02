@@ -56,6 +56,14 @@ export class ListOptions {
    */
   @Prop() isCheckbox = false;
   /**
+   * Default option to be shown if the option doesn't match the filterText.
+   */
+  @Prop() notFoundText = 'No items Found';
+  /**
+   * Placeholder to placed on the search text box.
+   */
+  @Prop() searchText = 'Search...';
+  /**
    * Triggered when a value is selected or deselected from the list box options.
    */
   @Event() fwChange: EventEmitter;
@@ -71,7 +79,7 @@ export class ListOptions {
   }
 
   @Method()
-  async getSelectedItem(): Promise<any> {
+  async getSelectedOptions(): Promise<any> {
     return this.selectOptions.filter((option) => option.selected);
   }
 
@@ -103,7 +111,7 @@ export class ListOptions {
           )
         : this.selectOptions;
     if (this.filteredOptions.length === 0) {
-      this.filteredOptions = [{ text: 'No items Found' }];
+      this.filteredOptions = [{ text: this.notFoundText }];
     }
   }
 
@@ -115,13 +123,11 @@ export class ListOptions {
 
   renderSearchInput() {
     return (
-      <li>
-        <fw-input
-          ref={(searchInput) => (this.searchInput = searchInput)}
-          placeholder='Search...'
-          onInput={() => this.onInput()}
-        ></fw-input>
-      </li>
+      <fw-input
+        ref={(searchInput) => (this.searchInput = searchInput)}
+        placeholder={this.searchText}
+        onInput={() => this.onInput()}
+      ></fw-input>
     );
   }
 
@@ -146,10 +152,10 @@ export class ListOptions {
 
   render() {
     return (
-      <ul>
+      <div class='container'>
         {this.searchable && this.renderSearchInput()}
         {this.renderSelectOption(this.filteredOptions)}
-      </ul>
+      </div>
     );
   }
 }

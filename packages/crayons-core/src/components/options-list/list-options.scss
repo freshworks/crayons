@@ -1,8 +1,6 @@
-ul {
-  list-style: none;
+.container {
   margin: 0px;
   padding: 12px 8px 8px;
-  box-sizing: border-box;
-  outline: none;
-  will-change: auto;
+  display: flex;
+  flex-direction: column;
 }
