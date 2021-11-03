@@ -39,9 +39,13 @@ graph TD;
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
   fw-select --> fw-tag
-  fw-select --> fw-select-option
+  fw-select --> fw-popover
+  fw-select --> fw-list-options
+  fw-list-options --> fw-select-option
+  fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-input --> fw-icon
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -41,6 +41,7 @@ fw-datepicker displays an input box with a calendar that enables selecting a dat
 
 ### Depends on
 
+- [fw-popover](../popover)
 - [fw-input](../input)
 - [fw-select](../select)
 - [fw-select-option](../select-option)
@@ -49,13 +50,17 @@ fw-datepicker displays an input box with a calendar that enables selecting a dat
 ### Graph
 ```mermaid
 graph TD;
+  fw-datepicker --> fw-popover
   fw-datepicker --> fw-input
   fw-datepicker --> fw-select
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
   fw-input --> fw-icon
   fw-select --> fw-tag
-  fw-select --> fw-select-option
+  fw-select --> fw-popover
+  fw-select --> fw-list-options
+  fw-list-options --> fw-select-option
+  fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px

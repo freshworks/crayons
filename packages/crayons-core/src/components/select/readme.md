@@ -23,21 +23,25 @@ fw-select displays a list or drop-down box that enables selection of an option o
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                                             | Type                               | Default            |
-| ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------ |
-| `disabled`    | `disabled`     | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                              | `boolean`                          | `false`            |
-| `forceSelect` | `force-select` | If true, the user must select a value. The default value is not displayed.                                                                                              | `boolean`                          | `true`             |
-| `label`       | `label`        | Label displayed on the interface, for the component.                                                                                                                    | `string`                           | `''`               |
-| `max`         | `max`          | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                             | `number`                           | `Number.MAX_VALUE` |
-| `multiple`    | `multiple`     | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                | `boolean`                          | `false`            |
-| `name`        | `name`         | Name of the component, saved as part of form data.                                                                                                                      | `string`                           | `''`               |
-| `placeholder` | `placeholder`  | Text displayed in the list box before an option is selected.                                                                                                            | `string`                           | `undefined`        |
-| `readonly`    | `readonly`     | If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.                                            | `boolean`                          | `false`            |
-| `required`    | `required`     | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.           | `boolean`                          | `false`            |
-| `state`       | `state`        | Theme based on which the list box is styled.                                                                                                                            | `"error" \| "normal" \| "warning"` | `'normal'`         |
-| `stateText`   | `state-text`   | Descriptive or instructional text displayed below the list box.                                                                                                         | `string`                           | `''`               |
-| `type`        | `type`         | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                | `"number" \| "text"`               | `'text'`           |
-| `value`       | `value`        | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select. | `any`                              | `undefined`        |
+| Property      | Attribute      | Description                                                                                                                                                                                                                               | Type                               | Default            |
+| ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------ |
+| `disabled`    | `disabled`     | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                          | `false`            |
+| `forceSelect` | `force-select` | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                          | `true`             |
+| `isCheckbox`  | `is-checkbox`  | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                          | `false`            |
+| `label`       | `label`        | Label displayed on the interface, for the component.                                                                                                                                                                                      | `string`                           | `''`               |
+| `max`         | `max`          | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                           | `Number.MAX_VALUE` |
+| `multiple`    | `multiple`     | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                          | `false`            |
+| `name`        | `name`         | Name of the component, saved as part of form data.                                                                                                                                                                                        | `string`                           | `''`               |
+| `options`     | `options`      | Allow to search for value. Default is true.                                                                                                                                                                                               | `any`                              | `undefined`        |
+| `placeholder` | `placeholder`  | Text displayed in the list box before an option is selected.                                                                                                                                                                              | `string`                           | `undefined`        |
+| `readonly`    | `readonly`     | If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.                                                                                                              | `boolean`                          | `false`            |
+| `required`    | `required`     | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                             | `boolean`                          | `false`            |
+| `searchable`  | `searchable`   | Allow to search for value. Default is true.                                                                                                                                                                                               | `boolean`                          | `true`             |
+| `state`       | `state`        | Theme based on which the list box is styled.                                                                                                                                                                                              | `"error" \| "normal" \| "warning"` | `'normal'`         |
+| `stateText`   | `state-text`   | Descriptive or instructional text displayed below the list box.                                                                                                                                                                           | `string`                           | `''`               |
+| `type`        | `type`         | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                  | `"number" \| "text"`               | `'text'`           |
+| `value`       | `value`        | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                              | `undefined`        |
+| `variant`     | `variant`      | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"` | `'standard'`       |
 
 
 ## Events
@@ -90,15 +94,20 @@ Type: `Promise<any>`
 ### Depends on
 
 - [fw-tag](../tag)
-- [fw-select-option](../select-option)
+- [fw-popover](../popover)
+- [fw-list-options](../options-list)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-select --> fw-tag
-  fw-select --> fw-select-option
+  fw-select --> fw-popover
+  fw-select --> fw-list-options
+  fw-list-options --> fw-select-option
+  fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-input --> fw-icon
   fw-datepicker --> fw-select
   fw-timepicker --> fw-select
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
