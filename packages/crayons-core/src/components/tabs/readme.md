@@ -55,6 +55,19 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
 | `fwChange` | Triggered when a the view switches to a new tab. | `CustomEvent<any>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [fw-tab-panel](../tab-panel)
+
+### Graph
+```mermaid
+graph TD;
+  fw-tabs --> fw-tab-panel
+  style fw-tabs fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
