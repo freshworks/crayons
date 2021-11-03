@@ -1,3 +1,19 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [0.1.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-datatable@0.0.2...@freshworks/crayons-datatable@0.1.0) (2021-11-03)
+
+
+### Features
+
+* **custom-react-wrapper:** use Custom React Wrapper instead of Stencil's react wrapper ([3ae8667](https://github.com/freshworks/crayons/commit/3ae866717d763337acd42f1e13a2155275746022))
+
+
+
+
+
 ## [2.13.2](https://github.com/freshworks/crayons/compare/v2.13.1...v2.13.2) (2021-07-16)
 
 
