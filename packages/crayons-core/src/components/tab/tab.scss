@@ -15,7 +15,7 @@
   text-decoration: none;
   color: $color-smoke-700;
 }
-
+/* stylelint-disable */
 :host(:hover:not(.disabled)) {
   padding-bottom: 8px;
   border-bottom: 2px solid $color-smoke-300;

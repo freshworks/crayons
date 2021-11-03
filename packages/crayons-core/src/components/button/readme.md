@@ -69,14 +69,14 @@ fw-button displays a button on the user interface and enables performing specifi
 
  - [fw-datepicker](../datepicker)
  - [fw-dropdown-button](../dropdown-button)
- - [fw-modal](../modal)
+ - [fw-modal-footer](../modal-footer)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-datepicker --> fw-button
   fw-dropdown-button --> fw-button
-  fw-modal --> fw-button
+  fw-modal-footer --> fw-button
   style fw-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

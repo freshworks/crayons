@@ -88,7 +88,7 @@ export class Button {
   private handleClick(event: Event) {
     if (this.modalTriggerId !== '') {
       const modal: any = document.getElementById(this.modalTriggerId);
-      modal.visible = true;
+      modal.isOpen = true;
     } else if (this.type === 'submit') {
       const form = this.host.closest('form');
       if (form) {

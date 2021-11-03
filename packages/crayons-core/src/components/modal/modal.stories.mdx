@@ -19,7 +19,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
     {
       () => `
       <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
-      <fw-modal id='welcome' title-text="Welcome">
+      <fw-modal id='welcome' title-text="Welcome" submit-disabled="true">
         Hello,
         Welcome to Crayons
       </fw-modal>
@@ -51,36 +51,27 @@ Sed pulvinar orci in lacus semper, nec volutpat lectus pellentesque. Aliquam dic
   </Story>
 </Preview>
 
-### Custom Footer
+### Custom composition using modal's header, content and footer
 
 <Preview>
-  <Story name='Custom Footer'>
+  <Story name='Custom composition'>
     {
       () => `
-      <fw-button modal-trigger-id='custom'> Open Modal </fw-button>
-      <fw-modal id="custom" title-text="Welcome" icon="agent" custom-footer description="Subtitle goes here">
-        Hello, Welcome to Crayons
-        <span slot="footer">
-          <fw-button color="danger">Confirm</fw-button>
-        </span>
+      <fw-button modal-trigger-id='large'> Open custom composed modal </fw-button>
+      <fw-modal id='large' size="large">
+        <fw-modal-title custom>
+          <div>
+            <span style="font-weight: bold;">Header text</span>
+          </div>
+        </fw-modal-title>
+        <fw-modal-content>
+          <div>Content text</div>
+        </fw-modal-content>
+        <fw-modal-footer custom>
+          <fw-button>OK</fw-button>
+        </fw-modal-footer>
       </fw-modal>
       `
     }
   </Story>
 </Preview>
-
-### No Footer
-
-<Preview>
-  <Story name='No Footer'>
-    {
-      () => `
-      <fw-button modal-trigger-id='custom'> Open Modal </fw-button>
-      <fw-modal id="custom" title-text="Welcome" icon="agent" hide-footer description="Subtitle goes here">
-        Hello, Welcome to Crayons
-      </fw-modal>
-      `
-    }
-  </Story>
-</Preview>
-
