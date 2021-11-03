@@ -88,7 +88,7 @@ export class Popover {
     }
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.triggerRef = this.host.querySelector('[slot="popover-trigger"]');
     this.triggerRef.addEventListener('click', () => {
       if (this.isOpen) {

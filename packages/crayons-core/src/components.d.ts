@@ -5,7 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { DropdownVariant } from "./components/select-option/select-option";
 import { PopoverPlacementType } from "./components/popover/popover";
+import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
 export namespace Components {
     interface FwButton {
         /**
@@ -225,6 +227,50 @@ export namespace Components {
          */
         "value": string;
     }
+    interface FwListOptions {
+        /**
+          * The text to filter the options.
+         */
+        "filterText": any;
+        "getSelectedOptions": () => Promise<any>;
+        /**
+          * Place a checkbox.
+         */
+        "isCheckbox": boolean;
+        /**
+          * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
+         */
+        "max": number;
+        /**
+          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
+         */
+        "multiple": boolean;
+        /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText": string;
+        /**
+          * Value corresponding to the option, that is saved  when the form data is saved.
+         */
+        "options": any[];
+        /**
+          * Placeholder to placed on the search text box.
+         */
+        "searchText": string;
+        /**
+          * Enables the input with in the popup for filtering the options.
+         */
+        "searchable": boolean;
+        "setSelectedValues": (values: string[]) => Promise<any>;
+        /**
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "value": any[];
+        /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "variant": DropdownVariant;
+    }
     interface FwModal {
         /**
           * The text for the cancel button
@@ -350,6 +396,10 @@ export namespace Components {
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
         /**
+          * Place a checkbox.
+         */
+        "isCheckbox": boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -366,6 +416,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Allow to search for value. Default is true.
+         */
+        "options": any;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -377,6 +431,10 @@ export namespace Components {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Allow to search for value. Default is true.
+         */
+        "searchable": boolean;
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
@@ -394,12 +452,24 @@ export namespace Components {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value": any;
+        /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "variant": DropdownVariant;
     }
     interface FwSelectOption {
         /**
           * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        /**
+          * The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'
+         */
+        "graphicsProps": any;
+        /**
+          * Used in grouped list, provides the group in which the option belongs
+         */
+        "groupName": string;
         /**
           * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
          */
@@ -409,6 +479,10 @@ export namespace Components {
          */
         "htmlContent"?: string;
         /**
+          * Place a checkbox.
+         */
+        "isCheckbox": boolean;
+        /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
         "optionText": string;
@@ -416,10 +490,23 @@ export namespace Components {
           * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
          */
         "selected": boolean;
+        "setFocus": () => Promise<any>;
+        /**
+          * Second line text can be description etc.
+         */
+        "subText": string;
+        /**
+          * The text to be displayed in the option.
+         */
+        "text": string;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "value": string;
+        /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "variant": DropdownVariant;
     }
     interface FwSpinner {
         /**
@@ -661,6 +748,12 @@ declare global {
         prototype: HTMLFwLabelElement;
         new (): HTMLFwLabelElement;
     };
+    interface HTMLFwListOptionsElement extends Components.FwListOptions, HTMLStencilElement {
+    }
+    var HTMLFwListOptionsElement: {
+        prototype: HTMLFwListOptionsElement;
+        new (): HTMLFwListOptionsElement;
+    };
     interface HTMLFwModalElement extends Components.FwModal, HTMLStencilElement {
     }
     var HTMLFwModalElement: {
@@ -753,6 +846,7 @@ declare global {
         "fw-icon": HTMLFwIconElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
+        "fw-list-options": HTMLFwListOptionsElement;
         "fw-modal": HTMLFwModalElement;
         "fw-popover": HTMLFwPopoverElement;
         "fw-radio": HTMLFwRadioElement;
@@ -1040,6 +1134,52 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface FwListOptions {
+        /**
+          * The text to filter the options.
+         */
+        "filterText"?: any;
+        /**
+          * Place a checkbox.
+         */
+        "isCheckbox"?: boolean;
+        /**
+          * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
+         */
+        "max"?: number;
+        /**
+          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
+         */
+        "multiple"?: boolean;
+        /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText"?: string;
+        /**
+          * Triggered when a value is selected or deselected from the list box options.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Value corresponding to the option, that is saved  when the form data is saved.
+         */
+        "options"?: any[];
+        /**
+          * Placeholder to placed on the search text box.
+         */
+        "searchText"?: string;
+        /**
+          * Enables the input with in the popup for filtering the options.
+         */
+        "searchable"?: boolean;
+        /**
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "value"?: any[];
+        /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "variant"?: DropdownVariant;
+    }
     interface FwModal {
         /**
           * The text for the cancel button
@@ -1190,6 +1330,10 @@ declare namespace LocalJSX {
          */
         "forceSelect"?: boolean;
         /**
+          * Place a checkbox.
+         */
+        "isCheckbox"?: boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
@@ -1218,6 +1362,10 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
+          * Allow to search for value. Default is true.
+         */
+        "options"?: any;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -1229,6 +1377,10 @@ declare namespace LocalJSX {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Allow to search for value. Default is true.
+         */
+        "searchable"?: boolean;
         /**
           * Theme based on which the list box is styled.
          */
@@ -1245,12 +1397,24 @@ declare namespace LocalJSX {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value"?: any;
+        /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "variant"?: DropdownVariant;
     }
     interface FwSelectOption {
         /**
           * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        /**
+          * The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'
+         */
+        "graphicsProps"?: any;
+        /**
+          * Used in grouped list, provides the group in which the option belongs
+         */
+        "groupName"?: string;
         /**
           * States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.
          */
@@ -1259,6 +1423,10 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
+        /**
+          * Place a checkbox.
+         */
+        "isCheckbox"?: boolean;
         /**
           * Triggered when an option is selected.
          */
@@ -1272,9 +1440,21 @@ declare namespace LocalJSX {
          */
         "selected"?: boolean;
         /**
+          * Second line text can be description etc.
+         */
+        "subText"?: string;
+        /**
+          * The text to be displayed in the option.
+         */
+        "text"?: string;
+        /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "value"?: string;
+        /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "variant"?: DropdownVariant;
     }
     interface FwSpinner {
         /**
@@ -1511,6 +1691,7 @@ declare namespace LocalJSX {
         "fw-icon": FwIcon;
         "fw-input": FwInput;
         "fw-label": FwLabel;
+        "fw-list-options": FwListOptions;
         "fw-modal": FwModal;
         "fw-popover": FwPopover;
         "fw-radio": FwRadio;
@@ -1538,6 +1719,7 @@ declare module "@stencil/core" {
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
+            "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;
             "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
