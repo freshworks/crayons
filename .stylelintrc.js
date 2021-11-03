@@ -9,7 +9,18 @@ module.exports = {
       { ignore: ['custom-elements'] },
       { ignoreTypes: [/^fw-/, 'my-component'] },
     ],
-    'at-rule-no-unknown': null,
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'tailwind',
+          'apply',
+          'variants',
+          'responsive',
+          'screen',
+        ],
+      },
+    ],
     'no-descending-specificity': null,
     'scss/at-rule-no-unknown': true,
   },
