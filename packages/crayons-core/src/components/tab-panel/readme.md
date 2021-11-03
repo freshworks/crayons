@@ -19,6 +19,19 @@ fw-tab-panel is used inside fw-tabs to show tabbed content.
 | `name`   | `name`    | The panel name.                                          | `string`  | `''`    |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-tabs](../tabs)
+
+### Graph
+```mermaid
+graph TD;
+  fw-tabs --> fw-tab-panel
+  style fw-tab-panel fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
