@@ -115,7 +115,7 @@ export class ListOptions {
     }
   }
 
-  renderSelectOption(options: Array<any>) {
+  renderSelectOptions(options: Array<any>) {
     return options.map((option) => (
       <fw-select-option key={option.value} {...option}></fw-select-option>
     ));
@@ -154,7 +154,7 @@ export class ListOptions {
     return (
       <div class='container'>
         {this.searchable && this.renderSearchInput()}
-        {this.renderSelectOption(this.filteredOptions)}
+        {this.renderSelectOptions(this.filteredOptions)}
       </div>
     );
   }
