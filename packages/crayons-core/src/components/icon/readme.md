@@ -11,7 +11,6 @@ fw-icon displays an icon-sized image that imparts meaning to the component it is
 The following are the icons supported:
 
 <IconGallery/>
-
 <!-- Auto Generated Below -->
 
 
@@ -39,6 +38,7 @@ The following are the icons supported:
  - [fw-input](../input)
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
+ - [fw-select-option](../select-option)
  - [fw-toast](../toast)
  - [fw-toggle](../toggle)
 
@@ -49,6 +49,7 @@ graph TD;
   fw-input --> fw-icon
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon
+  fw-select-option --> fw-icon
   fw-toast --> fw-icon
   fw-toggle --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px

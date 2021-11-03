@@ -1,8 +1,12 @@
 module.exports = {
   root: true,
-  extends: ['eslint:recommended'],
+  extends: [
+    'plugin:vue/essential',
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+  ],
   parserOptions: {
-    ecmaVersion: 'latest', // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 2021, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
     useJSXTextNode: true,
     ecmaFeatures: {

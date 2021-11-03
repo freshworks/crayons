@@ -2,7 +2,10 @@
   <a :href="cardLink" class="link-card" :target="linkTarget">
     <div class="card-container">
       <div class="img-container">
-        <img :src="require(`../public/assets/${cardName}.png`)" :alt="cardName" />
+        <img
+          :src="require(`../public/assets/${cardName}.png`)"
+          :alt="cardName"
+        />
       </div>
       <div class="card-title">
         {{ cardTitle }}

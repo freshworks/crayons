@@ -1,28 +1,23 @@
-import {
-  Component,
-  Event,
-  EventEmitter,
-  Host,
-  Prop,
-  Watch,
-  h,
-} from '@stencil/core';
+import { Component, Host, Prop, h, Element } from '@stencil/core';
 
+let counter = 0;
 @Component({
   tag: 'fw-tab',
   styleUrl: 'tab.scss',
   shadow: true,
 })
 export class Tab {
-  /**
-   * Name of the tab displayed on the UI.
-   */
-  @Prop() tabHeader: string;
+  @Element() el: HTMLElement;
 
   /**
-   * HTML that can be rendered in tab header.
+   * Unique name of the tab.
    */
-  @Prop() tabHeaderHtml: string;
+  @Prop() tabName: string;
+
+  /**
+   * Header for the tab to be displayed.
+   */
+  @Prop() tabHeader: string;
 
   /**
    * Disables this tab
@@ -30,24 +25,33 @@ export class Tab {
   @Prop() disabled: boolean;
 
   /**
-   * Triggered when either tabHeader or tabHeaderHtml changes.
+   * Determines whether the tab is active.
    */
-  @Event() propChanged: EventEmitter;
+  @Prop() active: boolean;
 
-  @Watch('tabHeader')
-  tabHeaderHandler() {
-    this.propChanged.emit();
-  }
-
-  @Watch('tabHeaderHtml')
-  tabHeaderHtmlHandler() {
-    this.propChanged.emit();
+  connectedCallback() {
+    if (!this.tabName) {
+      this.el.id = `fw-tab-${counter++}`;
+    } else {
+      this.el.id = this.tabName;
+      this.el.removeAttribute('tab-name');
+    }
   }
 
   render() {
     return (
-      <Host class='tab'>
-        <slot />
+      <Host
+        aria-disabled={this.disabled ? 'true' : 'false'}
+        aria-selected={this.active ? 'true' : 'false'}
+        tabindex={this.disabled || !this.active ? '-1' : '0'}
+        role='tab'
+        class={
+          'tab ' +
+          (this.disabled ? 'disabled' : '') +
+          (this.active ? 'active' : '')
+        }
+      >
+        {this.tabHeader ? this.tabHeader : <slot />}
       </Host>
     );
   }

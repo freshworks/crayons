@@ -1,5 +1,5 @@
 import { Config } from '@stencil/core';
-import { reactOutputTarget } from '@stencil/react-output-target';
+import { reactOutputTarget } from 'react-output-target';
 import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';

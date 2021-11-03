@@ -17,4 +17,24 @@ describe('fw-tab', () => {
 
     expect(element.shadowRoot).toEqualHtml(`<slot />`);
   });
+
+  it('Sets active class', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-tab active></fw-tab>`);
+    const element = await page.find('fw-tab');
+
+    expect(element.classList.contains('active'));
+    expect(element.getAttribute('tabindex')).toEqual('0');
+  });
+
+  it('Sets disabled class', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-tab disabled></fw-tab>`);
+    const element = await page.find('fw-tab');
+
+    expect(element.classList.contains('disabled'));
+    expect(element.getAttribute('tabindex')).toEqual('-1');
+  });
 });
