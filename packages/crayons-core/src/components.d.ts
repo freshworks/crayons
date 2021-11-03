@@ -400,23 +400,45 @@ export namespace Components {
     }
     interface FwTab {
         /**
+          * Determines whether the tab is active.
+         */
+        "active": boolean;
+        /**
           * Disables this tab
          */
         "disabled": boolean;
         /**
-          * Name of the tab displayed on the UI.
+          * Header for the tab to be displayed.
          */
         "tabHeader": string;
         /**
-          * HTML that can be rendered in tab header.
+          * Unique name of the tab.
          */
-        "tabHeaderHtml": string;
+        "tabName": string;
+    }
+    interface FwTabPanel {
+        /**
+          * If true sets the panel display to block, none otherwise.
+         */
+        "active": boolean;
+        /**
+          * The panel name.
+         */
+        "name": string;
     }
     interface FwTabs {
         /**
           * The index of the activated Tab(Starts from 0)
          */
         "activeTabIndex": number;
+        /**
+          * The name of the tab to be activated.
+         */
+        "activeTabName"?: string;
+        /**
+          * Describes the purpose of set of tabs.
+         */
+        "label": string;
     }
     interface FwTag {
         /**
@@ -670,6 +692,12 @@ declare global {
         prototype: HTMLFwTabElement;
         new (): HTMLFwTabElement;
     };
+    interface HTMLFwTabPanelElement extends Components.FwTabPanel, HTMLStencilElement {
+    }
+    var HTMLFwTabPanelElement: {
+        prototype: HTMLFwTabPanelElement;
+        new (): HTMLFwTabPanelElement;
+    };
     interface HTMLFwTabsElement extends Components.FwTabs, HTMLStencilElement {
     }
     var HTMLFwTabsElement: {
@@ -721,6 +749,7 @@ declare global {
         "fw-select-option": HTMLFwSelectOptionElement;
         "fw-spinner": HTMLFwSpinnerElement;
         "fw-tab": HTMLFwTabElement;
+        "fw-tab-panel": HTMLFwTabPanelElement;
         "fw-tabs": HTMLFwTabsElement;
         "fw-tag": HTMLFwTagElement;
         "fw-textarea": HTMLFwTextareaElement;
@@ -1218,27 +1247,45 @@ declare namespace LocalJSX {
     }
     interface FwTab {
         /**
+          * Determines whether the tab is active.
+         */
+        "active"?: boolean;
+        /**
           * Disables this tab
          */
         "disabled"?: boolean;
         /**
-          * Triggered when either tabHeader or tabHeaderHtml changes.
-         */
-        "onPropChanged"?: (event: CustomEvent<any>) => void;
-        /**
-          * Name of the tab displayed on the UI.
+          * Header for the tab to be displayed.
          */
         "tabHeader"?: string;
         /**
-          * HTML that can be rendered in tab header.
+          * Unique name of the tab.
          */
-        "tabHeaderHtml"?: string;
+        "tabName"?: string;
+    }
+    interface FwTabPanel {
+        /**
+          * If true sets the panel display to block, none otherwise.
+         */
+        "active"?: boolean;
+        /**
+          * The panel name.
+         */
+        "name"?: string;
     }
     interface FwTabs {
         /**
           * The index of the activated Tab(Starts from 0)
          */
         "activeTabIndex"?: number;
+        /**
+          * The name of the tab to be activated.
+         */
+        "activeTabName"?: string;
+        /**
+          * Describes the purpose of set of tabs.
+         */
+        "label"?: string;
         /**
           * Triggered when a the view switches to a new tab.
          */
@@ -1448,6 +1495,7 @@ declare namespace LocalJSX {
         "fw-select-option": FwSelectOption;
         "fw-spinner": FwSpinner;
         "fw-tab": FwTab;
+        "fw-tab-panel": FwTabPanel;
         "fw-tabs": FwTabs;
         "fw-tag": FwTag;
         "fw-textarea": FwTextarea;
@@ -1474,6 +1522,7 @@ declare module "@stencil/core" {
             "fw-select-option": LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
             "fw-spinner": LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
             "fw-tab": LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
+            "fw-tab-panel": LocalJSX.FwTabPanel & JSXBase.HTMLAttributes<HTMLFwTabPanelElement>;
             "fw-tabs": LocalJSX.FwTabs & JSXBase.HTMLAttributes<HTMLFwTabsElement>;
             "fw-tag": LocalJSX.FwTag & JSXBase.HTMLAttributes<HTMLFwTagElement>;
             "fw-textarea": LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
