@@ -34,7 +34,11 @@ describe('fw-select', () => {
                                 <fw-select-option value="lannisters">Lannisters</fw-select-option>
                             </fw-select>`);
 
-    const options = await page.findAll('fw-select >>> fw-select-option');
+    const popover = await page.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+
     expect(options.length).toBe(2);
   });
 
@@ -168,7 +172,10 @@ describe('fw-select', () => {
 
     const element = await page.find('fw-select');
     await element.click();
-    const selectOptions = await page.findAll('fw-select >>> fw-select-option');
+    const popover = await page.find('fw-select >>> fw-popover');
+    const selectOptions = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
     const selectedOption = await selectOptions[1].getProperty('selected');
     expect(selectedOption).toBeTruthy();
   });

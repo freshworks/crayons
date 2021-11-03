@@ -9,33 +9,22 @@
 .mdp-container,
 .mdp-range-container {
   float: left;
-  position: absolute;
   left: 0;
   top: 40px;
   width: 300px;
   min-height: 336px;
   background: $color-milk;
-  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
   overflow: hidden;
-  padding: 14px;
-  z-index: 1000;
 }
 
 .mdpc-footer,
 .mdpc-range-footer {
   float: left;
-  position: absolute;
   left: 0;
   top: 344px;
   width: 312px;
   padding: 8px;
   background: $color-smoke-25;
-  border-top: 1px solid $color-smoke-50;
-  margin-top: 15.5px;
-  box-shadow: 4px 9px 20px rgba(0, 0, 0, 0.2);
-  border-radius: 0 0 5px 5px;
-  z-index: 1000;
 
   fw-button {
     float: right;
@@ -319,17 +308,4 @@
 
 .c-day-container.highlight-range:not(.disabled) .cdc-day {
   background: #e4f2fd;
-}
-
-.overlay-show {
-  background: transparent;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.overlay-hide {
-  display: none;
 }

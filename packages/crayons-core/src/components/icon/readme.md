@@ -38,6 +38,7 @@ The following are the icons supported:
  - [fw-dropdown-button](../dropdown-button)
  - [fw-input](../input)
  - [fw-modal](../modal)
+ - [fw-select-option](../select-option)
  - [fw-toast](../toast)
  - [fw-toggle](../toggle)
 
@@ -47,6 +48,7 @@ graph TD;
   fw-dropdown-button --> fw-icon
   fw-input --> fw-icon
   fw-modal --> fw-icon
+  fw-select-option --> fw-icon
   fw-toast --> fw-icon
   fw-toggle --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
