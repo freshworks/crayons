@@ -54,11 +54,6 @@ export class Button {
   @Prop() loadingText = ''
 
   /**
-   * Accepts an html element which will be shown when loading, by default set to fw-spinner element
-   */
-  //  @Prop() loader: HTMLElement = <fw-spinner color='white' size={this.size === 'normal' ? 'medium' : 'small'} />
-
-  /**
    * Triggered when the button is clicked.
    */
   @Event() fwClick!: EventEmitter<void>;
@@ -99,9 +94,6 @@ export class Button {
     }
     this.fwClick.emit();
   }
-  componentDidLoad() {
-    // console.log(this.loader, 'pos load');
-  }
   render() {
     const loadingIndicator = <fw-spinner color={(this.color === 'primary' || this.color === 'danger') ? 'white' : 'blue'} size={this.size === 'normal' ? 'medium' : 'small'} />
     return (
@@ -121,7 +113,6 @@ export class Button {
           {!this.loading && <slot />}
           {this.loading && !(this.loadingPosition === 'center') && (this.loadingText || <slot />)}
           {this.loading && (this.loadingPosition === 'center' || this.loadingPosition === 'end') && loadingIndicator}
-          {/* todo: need to handle for icon button and button with icons */}
         </button>
       </Host>);
   }
