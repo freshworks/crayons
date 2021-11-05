@@ -102,3 +102,18 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
     <fw-button color="danger"><fw-icon color="#fefefe" name="code"></fw-icon> See Code</fw-button>`}
 </Story>
 </Preview>
+
+### Loading Buttons
+<Preview>
+<Story name='Loading'>{() => `
+    <div class='story-button'>
+      <fw-button loading=true>Load</fw-button>
+      <fw-button color="secondary" loading=true loading-position="start">Load Left</fw-button>
+      <fw-button color="danger" loading=true loading-position="end">Load Right</fw-button>
+      <fw-button color="secondary" size="icon" loading=true ><fw-icon name="check"></fw-icon></fw-button>
+      <fw-button color="primary" loading=true loading-position="start" loading-text="Support"><fw-icon color="#fefefe" name="agent"></fw-icon> Support</fw-button>
+      <fw-button size="small" loading=true loading-position="start" loading-text="Fetching..">Fetch</fw-button>
+      <fw-button color="secondary" size="mini" loading=true>Custom Loader</fw-button>
+    </div>`}
+</Story>
+</Preview>

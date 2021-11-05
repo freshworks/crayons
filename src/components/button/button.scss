@@ -31,7 +31,7 @@
 .fw-btn {
   font-size: var(--font-size-14);
   line-height: var(--font-size-14);
-  padding: 6px 12px;
+  // padding: 6px 12px;
   border: 1px solid transparent;
   border-radius: 4px;
   outline: 0;
@@ -42,6 +42,10 @@
   font-weight: var(--font-weight-500);
   min-width: 90px;
   height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 
   &:focus {
     border: 1px solid var(--color-azure-800);
@@ -153,4 +157,10 @@
     width: 32px;
     padding: 0;
   }
+}
+
+.story-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

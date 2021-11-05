@@ -39,6 +39,26 @@ export class Button {
   @Prop() modalTriggerId = '';
 
   /**
+   * Sets the loading state of the button. By default set to false
+   */
+  @Prop({ reflect: true }) loading = false;
+
+  /**
+   * Sets the loading position. By default set to center
+   */
+  @Prop() loadingPosition: 'center' | 'start' | 'end' = 'center';
+
+  /**
+   * Accepts the text to be shown along with the spinner
+   */
+  @Prop() loadingText = ''
+
+  /**
+   * Accepts an html element which will be shown when loading, by default set to fw-spinner element
+   */
+  //  @Prop() loader: HTMLElement = <fw-spinner color='white' size={this.size === 'normal' ? 'medium' : 'small'} />
+
+  /**
    * Triggered when the button is clicked.
    */
   @Event() fwClick!: EventEmitter<void>;
@@ -68,34 +88,41 @@ export class Button {
     } else if (this.type === 'submit') {
       const form = this.host.closest('form');
       if (form) {
-            event.preventDefault();
-            const fakeSubmit = document.createElement('button');
-            fakeSubmit.type = 'submit';
-            fakeSubmit.style.display = 'none';
-            form.appendChild(fakeSubmit);
-            fakeSubmit.click();
-            fakeSubmit.remove();
-        }
+        event.preventDefault();
+        const fakeSubmit = document.createElement('button');
+        fakeSubmit.type = 'submit';
+        fakeSubmit.style.display = 'none';
+        form.appendChild(fakeSubmit);
+        fakeSubmit.click();
+        fakeSubmit.remove();
+      }
     }
     this.fwClick.emit();
   }
-
+  componentDidLoad() {
+    // console.log(this.loader, 'pos load');
+  }
   render() {
+    const loadingIndicator = <fw-spinner color={(this.color === 'primary' || this.color === 'danger') ? 'white' : 'blue'} size={this.size === 'normal' ? 'medium' : 'small'} />
     return (
-    <Host
-      onClick={(e: Event) => this.disabled ? undefined : this.handleClick(e) }
-      onFocus={() => this.onFocus()}
-      onBlur={() => this.onBlur()}>
+      <Host
+        onClick={(e: Event) => this.disabled || this.loading ? undefined : this.handleClick(e)}
+        onFocus={() => this.onFocus()}
+        onBlur={() => this.onBlur()}>
         <button
-          type = {this.type}
+          type={this.type}
           class={`
             fw-btn fw-btn--${this.color.toLowerCase()}
             fw-btn--${this.size.toLowerCase()}
             ${this.expand ? 'fw-btn--block' : ''}
             `}
-          disabled = {this.disabled}>
-          <slot/>
+          disabled={this.disabled}>
+          {this.loading && this.loadingPosition === 'start' && loadingIndicator}
+          {!this.loading && <slot />}
+          {this.loading && !(this.loadingPosition === 'center') && (this.loadingText || <slot />)}
+          {this.loading && (this.loadingPosition === 'center' || this.loadingPosition === 'end') && loadingIndicator}
+          {/* todo: need to handle for icon button and button with icons */}
         </button>
-    </Host>);
+      </Host>);
   }
 }

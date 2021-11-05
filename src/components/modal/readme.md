@@ -69,6 +69,7 @@ Modals are used as an overlay to display information. It can also be used as con
 graph TD;
   fw-modal --> fw-icon
   fw-modal --> fw-button
+  fw-button --> fw-spinner
   style fw-modal fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

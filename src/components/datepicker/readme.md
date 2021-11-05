@@ -56,6 +56,7 @@ graph TD;
   fw-input --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-select-option
+  fw-button --> fw-spinner
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

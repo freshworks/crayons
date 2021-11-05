@@ -20,6 +20,18 @@ export namespace Components {
          */
         "expand": boolean;
         /**
+          * Sets the loading state of the button. By default set to false
+         */
+        "loading": boolean;
+        /**
+          * Sets the loading position. By default set to center
+         */
+        "loadingPosition": "center" | "start" | "end";
+        /**
+          * Accepts the text to be shown along with the spinner
+         */
+        "loadingText": string;
+        /**
           * Accepts the id of the fw-modal component to open it on click
          */
         "modalTriggerId": string;
@@ -732,6 +744,18 @@ declare namespace LocalJSX {
           * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand"?: boolean;
+        /**
+          * Sets the loading state of the button. By default set to false
+         */
+        "loading"?: boolean;
+        /**
+          * Sets the loading position. By default set to center
+         */
+        "loadingPosition"?: "center" | "start" | "end";
+        /**
+          * Accepts the text to be shown along with the spinner
+         */
+        "loadingText"?: string;
         /**
           * Accepts the id of the fw-modal component to open it on click
          */

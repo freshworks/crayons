@@ -43,14 +43,17 @@ fw-button displays a button on the user interface and enables performing specifi
 
 ## Properties
 
-| Property         | Attribute          | Description                                                                                              | Type                                                       | Default     |
-| ---------------- | ------------------ | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
-| `color`          | `color`            | Identifier of  the theme based on which the button is styled.                                            | `"danger" or "link" or "primary" or "secondary" or "text"` | `'primary'` |
-| `disabled`       | `disabled`         | Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.  | `boolean`                                                  | `false`     |
-| `expand`         | `expand`           | Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false. | `boolean`                                                  | `false`     |
-| `modalTriggerId` | `modal-trigger-id` | Accepts the id of the fw-modal component to open it on click                                             | `string`                                                   | `''`        |
-| `size`           | `size`             | Size of the button.                                                                                      | `"mini" or "normal" or "small"`                            | `'normal'`  |
-| `type`           | `type`             | Button type based on which actions are performed when the button is clicked.                             | `"button" or "reset" or "submit"`                          | `'button'`  |
+| Property          | Attribute          | Description                                                                                              | Type                                                       | Default     |
+| ----------------- | ------------------ | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
+| `color`           | `color`            | Identifier of  the theme based on which the button is styled.                                            | `"danger" or "link" or "primary" or "secondary" or "text"` | `'primary'` |
+| `disabled`        | `disabled`         | Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.  | `boolean`                                                  | `false`     |
+| `expand`          | `expand`           | Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false. | `boolean`                                                  | `false`     |
+| `loading`         | `loading`          | Sets the loading state of the button. By default set to false                                            | `boolean`                                                  | `false`     |
+| `loadingPosition` | `loading-position` | Sets the loading position. By default set to center                                                      | `"center" or "end" or "start"`                             | `'center'`  |
+| `loadingText`     | `loading-text`     | Accepts the text to be shown along with the spinner                                                      | `string`                                                   | `''`        |
+| `modalTriggerId`  | `modal-trigger-id` | Accepts the id of the fw-modal component to open it on click                                             | `string`                                                   | `''`        |
+| `size`            | `size`             | Size of the button.                                                                                      | `"mini" or "normal" or "small"`                            | `'normal'`  |
+| `type`            | `type`             | Button type based on which actions are performed when the button is clicked.                             | `"button" or "reset" or "submit"`                          | `'button'`  |
 
 
 ## Events
@@ -70,9 +73,14 @@ fw-button displays a button on the user interface and enables performing specifi
  - [fw-dropdown-button](../dropdown-button)
  - [fw-modal](../modal)
 
+### Depends on
+
+- [fw-spinner](../spinner)
+
 ### Graph
 ```mermaid
 graph TD;
+  fw-button --> fw-spinner
   fw-datepicker --> fw-button
   fw-dropdown-button --> fw-button
   fw-modal --> fw-button
