@@ -122,7 +122,7 @@ module.exports = {
            // 'https://unpkg.com/cr-mnr-core@canary',
         ],
         cssLibs: [
-            'https://unpkg.com/animate.css@3.7.0/animate.min.css',
+    //        'https://unpkg.com/animate.css@3.7.0/animate.min.css',
         ],
         showText: 'show code',
         hideText: 'hide',

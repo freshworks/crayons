@@ -2,12 +2,13 @@
   <div class="container">
     <div class="preview block preview-container">
       <slot name="preview"></slot>
-      <div class="seeCode" @click="toggle">{{showCode ? 'Hide Code' : 'Show Code'}}</div>
+    <!--  <div class="seeCode" @click="toggle">{{showCode ? 'Hide Code' : 'Show Code'}}</div> -->
     </div>
-    <div :class="`language-jsx editor block code`" v-if="showCode">
+   <!-- <div :class="`language-jsx editor block code`" v-if="showCode">
       <slot name="editor" ></slot>
       <div class="copy" ref="copyBtn" @click="copyToClipboard">Copy</div>
     </div>
+    -->
   </div>
 </template>
 
