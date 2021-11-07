@@ -5,6 +5,8 @@ $btn-primary-bg-dark: $color-elephant-900;
 $btn-primary-border: $color-elephant-900;
 $btn-primary-border-active: $color-elephant-800;
 
+$group-btn-border: $btn-lg-top;
+
 $btn-secondary-color: $text-default;
 $btn-secondary-bg: $color-milk;
 $btn-secondary-bg-dark: $color-smoke-25;
@@ -175,3 +177,30 @@ $btn-font-weight: $font-weight-500;
     padding: 0;
   }
 }
+
+/*
+   * Button groups support a variety of button types (e.g. buttons with tooltips, buttons as dropdown triggers, etc.).
+   * This means buttons aren't always direct descendants of the button group, thus we can't target them with the
+   * ::slotted selector. To work around this, the button group component does some magic to add these special classes to
+   * buttons and we style them here instead.
+*/
+
+   :host(.fw-button-group__button--first:not(.fw-button-group__button--last)) .fw-btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  :host(.fw-button-group__button--inner) .fw-btn {
+    border-radius: 0;
+    border-left: solid 1px lighten($group-btn-border,80%);
+    margin-left: -1;
+  }
+
+  :host(.fw-button-group__button--last:not(.fw-button-group__button--first)) .fw-btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: solid 1px lighten($group-btn-border,80%);
+    margin-left: -1;
+  }
+
+
