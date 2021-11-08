@@ -2,11 +2,35 @@
 
 fw-tab-panel is used inside fw-tabs to show tabbed content.
 
-## Usage
+
+## Demo
 
 ```html live
   <fw-tab-panel active>This is sample panel content</fw-tab-panel>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-tab-panel active>This is sample panel content</fw-tab-panel>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwTabPanel } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+          <FwTabPanel active>This is sample panel content</FwTabPanel>
+    </div>);
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 

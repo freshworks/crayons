@@ -2,9 +2,11 @@
 
 Modals are used as an overlay to display information. It can also be used as confirm boxes to take user inputs.
 
-## Usage
 
-#### Basic usage
+## Demo & Usage
+
+#### Basic demo
+
 ```html live
   <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
   <fw-modal id='welcome' title-text="Welcome">
@@ -17,7 +19,46 @@ Modals are used as an overlay to display information. It can also be used as con
   </fw-modal>
 ```
 
-#### Simple composition example 
+#### Basic usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
+  <fw-modal id='welcome' title-text="Welcome">
+    Hello, Welcome to Crayons
+  </fw-modal>
+
+  <fw-button modal-trigger-id='welcome-large'> Open Large Modal </fw-button>
+  <fw-modal id='welcome-large' title-text="Welcome" size="large" submit-disabled="true">
+    Hello, Welcome to Crayons
+  </fw-modal>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwButton, FwModal } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+    <FwButton modalTriggerId='welcome'> Open Modal </FwButton>
+    <FwModal id='welcome' titleText="Welcome">
+      Hello, Welcome to Crayons
+    </FwModal>
+
+    <FwButton modalTriggerId='welcome-large'> Open Large Modal </FwButton>
+    <FwModal id='welcome-large' titleText="Welcome" size="large" submitDisabled>
+      Hello, Welcome to Crayons
+    </FwModal>
+ </div>);
+}
+```
+</code-block>
+</code-group>
+
+#### Simple composition Demo 
 ```html live 
   <fw-button modal-trigger-id='small'> Open Modal </fw-button>
   <fw-modal id='small' size="small" submit-color="danger">
@@ -27,7 +68,41 @@ Modals are used as an overlay to display information. It can also be used as con
   </fw-modal>
 ```
 
-#### Custom composition example
+#### Simple composition Usage 
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-button modal-trigger-id='small'> Open Modal </fw-button>
+  <fw-modal id='small' size="small" submit-color="danger">
+    <fw-modal-title title-text="Welcome"></fw-modal-title>
+    <fw-modal-content><div>Content text</div></fw-modal-content>
+    <fw-modal-footer></fw-modal-footer>
+  </fw-modal>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwButton, FwModal, FwModalTitle, FwModalContent, FwModalFooter } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+    <FwButton modalTriggerId='small'> Open Modal </FwBuutton>
+    <FwModal id='small' size="small" submitColor="danger">
+      <FwModalTitle titleText="Welcome"></FwModalTitle>
+      <FwModalContent><div>Content text</div></FwModalContent>
+      <FwModalFooter></FwModalFooter>
+    </FwModal>
+ </div>);
+}
+```
+</code-block>
+</code-group>
+
+#### Custom composition Demo
+
 ```html live 
   <fw-button modal-trigger-id='composition'> Open modal </fw-button>
   <fw-modal id='composition'>
@@ -45,8 +120,58 @@ Modals are used as an overlay to display information. It can also be used as con
   </fw-modal>
 ```
 
+#### Custom composition Usage
 
-#### Hide footer of the modal
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-button modal-trigger-id='composition'> Open modal </fw-button>
+  <fw-modal id='composition'>
+    <fw-modal-title>
+      <div>
+        <span style="font-weight: bold;">Header text</span>
+      </div>
+    </fw-modal-title>
+    <fw-modal-content>
+      <div>Content text</div>
+    </fw-modal-content>
+    <fw-modal-footer>
+      <fw-button>OK</fw-button>
+    </fw-modal-footer>
+  </fw-modal>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwButton, FwModal, FwModalTitle, FwModalContent, FwModalFooter } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+      <FwButton modalTriggerId='composition'> Open modal </FwButton>
+      <FwModal id='composition'>
+        <FwModalTitle>
+          <div>
+            <span style="font-weight: bold;">Header text</span>
+          </div>
+        </FwModalTitle>
+        <FwModalContent>
+          <div>Content text</div>
+        </FwModalContent>
+        <FwModalFooter>
+          <FwButton>OK</FwButton>
+        </FwModalFooter>
+      </FwModal>
+ </div>);
+}
+```
+</code-block>
+</code-group>
+
+
+#### Hide footer of the modal Demo
+
 ```html live 
   <fw-button modal-trigger-id='large'> Open modal </fw-button>
   <fw-modal id='large' icon="agent" size="large" hide-footer="true">
@@ -59,6 +184,44 @@ Modals are used as an overlay to display information. It can also be used as con
   </fw-modal>
 ```
 
+#### Hide footer of the modal Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-button modal-trigger-id='large'> Open modal </fw-button>
+  <fw-modal id='large' icon="agent" size="large" hide-footer="true">
+    <fw-modal-title>
+      <span style="font-weight: bold;">Header text</span>
+    </fw-modal-title>
+    <fw-modal-content>
+      <div>Content text</div>
+    </fw-modal-content>
+  </fw-modal>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwButton, FwModal, FwModalTitle, FwModalContent, FwModalFooter } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+      <FwButton modalTriggerId='large'> Open modal </FwButton>
+      <FwModal id='large' icon="agent" size="large" hideFooter>
+        <FwModalTitle>
+          <span style="font-weight: bold;">Header text</span>
+        </FwModalTitle>
+        <FwModalContent>
+          <div>Content text</div>
+        </FwModalContent>
+      </fw-modal>
+ </div>);
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 

@@ -1,9 +1,9 @@
 # Button (fw-button)
 fw-button displays a button on the user interface and enables performing specific actions based on the button type. The button’s label can be a text, icon, or both.
 
-## Usage
+## Demo
 
-```html live
+``` html live
 <section>
 <fw-label value="Try themes"></fw-label>
 <fw-button color="secondary"> OK </fw-button>
@@ -36,6 +36,61 @@ fw-button displays a button on the user interface and enables performing specifi
 </section>
 ```
 
+## Usage
+
+<code-group>
+<code-block title="HTML">
+``` html
+<section>
+<fw-label value="Try themes"></fw-label>
+<fw-button color="secondary"> OK </fw-button>
+<fw-button color="danger"> Don't Click </fw-button>
+<fw-button color="link"> Link Button </fw-button>
+<fw-button color="text"> Plain Text Button </fw-button>
+</section>
+<br>
+<section>
+<fw-label value="Try sizes"></fw-label>
+<fw-button size="small"> Small </fw-button>
+<fw-button size="mini" color="secondary"> Mini </fw-button>
+</section>
+<br>
+<section>
+<fw-label value="Try icon buttons"></fw-label>
+<fw-button size="icon"><fw-icon name="agent" color="white"></fw-icon> </fw-button>
+<fw-button size="icon" color="secondary"><fw-icon name="phone"></fw-icon> </fw-button>
+</section>
+<br>
+<section>
+<fw-label value="Try icon + text buttons"></fw-label>
+<fw-button color="secondary"><fw-icon name="delete"></fw-icon> Delete</fw-button>
+<fw-button color="primary"> Copy <fw-icon name="code" color="white"></fw-icon></fw-button>
+</section>
+<br>
+<section>
+<fw-label value="Try expand attribute"></fw-label>
+<fw-button size="small" color="secondary" expand>Span full-width</fw-button>
+</section>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwButton } from "@freshworks/crayons/react";
+function App() {
+  const handleClick = (e) => alert("Button Clicked")
+  return (<div>
+  <FwButton onClick={handleClick}>Button</FwButton>
+  <FwButton color="secondary"> OK </FwButton>
+  <FwButton color="danger"> Don't Click </FwButton>
+  <FwButton color="link"> Link Button </FwButton>
+  <FwButton color="text"> Plain Text Button </FwButton>
+  </div>)
+```
+</code-block>
+</code-group>
 
 
 <!-- Auto Generated Below -->

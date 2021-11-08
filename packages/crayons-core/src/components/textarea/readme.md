@@ -1,7 +1,7 @@
 # Textarea (fw-textarea)
 fw-textarea displays an input box on the user interface and enables assigning multi-line text value to it. The size of the input box is based on the cols and rows attributes.
 
-## Usage
+## Demo
 
 ```html live
 <fw-textarea cols=75 rows=5 maxlength=190 minlength=5
@@ -29,6 +29,75 @@ placeholder="Enter landmark details"
   state="normal">
 </fw-textarea>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-textarea cols=75 rows=5 maxlength=190 minlength=5
+  label="Address"
+  state-text="Do not enter your temporary address"
+  state="warning"
+  placeholder="Enter your permanent address"
+  required>
+</fw-textarea>
+<fw-textarea cols=75 rows=5
+  label="Passcode"
+  state-text="Passcode is incorrect"
+  state="error"
+  required>
+</fw-textarea>
+<fw-textarea cols=75 rows=5
+  label="Location identifier"
+placeholder="Enter landmark details"
+  state="normal">
+</fw-textarea>
+<fw-textarea cols=75 rows=1
+  label="Plot number"
+  value="not applicable"
+   disabled
+  state="normal">
+</fw-textarea>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwTextarea } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+            <FwTextarea cols={75} rows={5} maxlength={190} minlength={5}
+              label="Address"
+              stateText="Do not enter your temporary address"
+              state="warning"
+              placeholder="Enter your permanent address"
+              required>
+            </FwTextarea>
+            <FwTextarea cols={75} rows={5}
+              label="Passcode"
+              stateText="Passcode is incorrect"
+              state="error"
+              required>
+            </FwTextarea>
+            <FwTextarea cols={75} rows={5}
+              label="Location identifier"
+              placeholder="Enter landmark details"
+              state="normal">
+            </FwTextarea>
+            <FwTextarea cols={75} rows={1}
+              label="Plot number"
+              value="not applicable"
+              disabled
+              state="normal">
+            </FwTextarea>
+    </div>);
+}
+```
+</code-block>
+</code-group>
 
 
 <!-- Auto Generated Below -->

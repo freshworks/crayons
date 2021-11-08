@@ -2,7 +2,7 @@
 fw-timepicker displays a list or drop-down box with prepopulated time values and enables picking a time. The time values displayed in the list box are based on the fw-timepicker attribute values.
 
 
-## Usage
+## Demo
 
 ```html live
 <fw-label value="An interval based picker" color="yellow"></fw-label><br/> 
@@ -10,6 +10,37 @@ fw-timepicker displays a list or drop-down box with prepopulated time values and
 <fw-label value="A range based picker" color="yellow"></fw-label><br/>
 <fw-timepicker min-time="04:30" max-time="08:30 PM"></fw-timepicker>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-label value="An interval based picker" color="yellow"></fw-label><br/> 
+<fw-timepicker interval=45 hour-format="hh:mm p"></fw-timepicker>
+<fw-label value="A range based picker" color="yellow"></fw-label><br/>
+<fw-timepicker min-time="04:30" max-time="08:30 PM"></fw-timepicker>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwTimepicker } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+          <label>An interval based picker</label><br/> 
+          <FwTimepicker interval={45} hourFormat="hh:mm p"></FwTimepicker>
+          <label>A range based picker</label><br/>
+          <FwTimepicker minTime="04:30" maxTime="08:30 PM"></FwTimepicker>
+    </div>);
+}
+```
+</code-block>
+</code-group>
+
+
 <!-- Auto Generated Below -->
 
 

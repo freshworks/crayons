@@ -1,7 +1,7 @@
 # Select (fw-select)
 fw-select displays a list or drop-down box that enables selection of an option or multiple options from an available list of values.
 
-## Usage
+## Demo
 
 ```html live
 <fw-select label="House Name" required="true" value="1" placeholder="Your choice" state-text="Select singluar option">
@@ -17,6 +17,49 @@ fw-select displays a list or drop-down box that enables selection of an option o
 </fw-select>
 ```
 
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-select label="House Name" required="true" value="1" placeholder="Your choice" state-text="Select singluar option">
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+</fw-select>
+<fw-select label="Names" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+  <fw-select-option value="1" selected>Starks</fw-select-option>
+  <fw-select-option value="2" >Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwSelect, FwSelectOption } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+        <FwSelect label="House Name" required="true" value="1" placeholder="Your choice" stateText="Select singluar option">
+          <FwSelectOption value="1">Starks</FwSelectOption>
+          <FwSelectOption value="2">Lannisters</FwSelectOption>
+        </FwSelect>
+
+        <FwSelect label="Names" value="1" placeholder="Your choices" stateText="Select multiple options" multiple>
+          <FwSelectOption value="1" selected>Starks</FwSelectOption>
+          <FwSelectOption value="2" >Lannisters</FwSelectOption>
+          <FwSelectOption value="3">Sand</FwSelectOption>
+          <FwSelectOption value="4">Greyjoys</FwSelectOption>
+          <FwSelectOption value="5">Tyrell</FwSelectOption>
+        </FwSelect>
+    </div>);
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 
