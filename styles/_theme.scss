@@ -1,6 +1,6 @@
 // Color/Theme related config variables
 
-$app-primary: #2c5cc5;
+$app-primary: $color-azure-800;
 $app-primary-black: #183247;
 $app-icon-color: #12344d;
 $app-icon-color-hover: darken($app-icon-color, 10%);
@@ -20,7 +20,7 @@ $btn-lg-active-border: #b1bdc8;
 $btn-lg-disabled: #f3f5f7;
 $btn-lg-disabled-border: #ebeff3;
 $btn-lg-disabled-text: #647a8e;
-$btn-lg-focus-border: #2e6ed8;
+$btn-lg-focus-border: $color-azure-800;
 
 //Primary and Secondary Buttons
 $btn-lg-primary-top: #264966;
