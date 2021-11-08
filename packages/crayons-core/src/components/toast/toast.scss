@@ -1,4 +1,5 @@
 :host {
+  margin: 16px;
   display: none;
 }
 
@@ -9,50 +10,50 @@
 }
 
 :host(.is-open) {
-  display: block;
+  display: flex;
   animation-duration: 0.5s;
   animation-name: fadeIn;
   z-index: 999;
 }
 
-:host(.toast) {
-  position: fixed;
-  top: 10px;
-  width: 400px;
+.toast {
+  position: relative;
   padding: 10px;
   border: 1px solid $color-smoke-50;
   border-radius: 4px;
   background-color: $color-milk;
-}
+  display: flex;
+  align-items: stretch;
+  width: 400px;
+  margin: inherit;
 
-.toast {
-  :host(&.success) {
+  &.success {
     border-top: 5px solid $color-jungle-500;
   }
 
-  :host(&.error) {
+  &.error {
     border-top: 5px solid $color-persimmon-800;
   }
 
-  :host(&.warning) {
+  &.warning {
     border-top: 5px solid $color-casablanca-300;
   }
 
-  :host(&.inprogress) {
+  &.inprogress {
     border-top: 5px solid $color-azure-800;
   }
 
-  :host(&.top-center) {
-    left: calc(50% - 200px);
-  }
+  // &.top-center {
+  //   left: calc(50% - 200px);
+  // }
 
-  :host(&.top-left) {
-    left: 10px;
-  }
+  // &.top-left {
+  //   left: 10px;
+  // }
 
-  :host(&.top-right) {
-    right: 10px;
-  }
+  // &.top-right {
+  //   right: 100px;
+  // }
 }
 
 .content {

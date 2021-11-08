@@ -751,7 +751,6 @@ export namespace Components {
           * Time duration of the toast visibility
          */
         "timeout": number;
-        "trigger": (configs: any) => Promise<void>;
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
@@ -759,6 +758,9 @@ export namespace Components {
     | 'error'
     | 'warning'
     | 'inprogress';
+    }
+    interface FwToastController {
+        "trigger": (opts: any) => Promise<void>;
     }
     interface FwToggle {
         /**
@@ -938,6 +940,12 @@ declare global {
         prototype: HTMLFwToastElement;
         new (): HTMLFwToastElement;
     };
+    interface HTMLFwToastControllerElement extends Components.FwToastController, HTMLStencilElement {
+    }
+    var HTMLFwToastControllerElement: {
+        prototype: HTMLFwToastControllerElement;
+        new (): HTMLFwToastControllerElement;
+    };
     interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {
     }
     var HTMLFwToggleElement: {
@@ -970,6 +978,7 @@ declare global {
         "fw-textarea": HTMLFwTextareaElement;
         "fw-timepicker": HTMLFwTimepickerElement;
         "fw-toast": HTMLFwToastElement;
+        "fw-toast-controller": HTMLFwToastControllerElement;
         "fw-toggle": HTMLFwToggleElement;
     }
 }
@@ -1812,6 +1821,10 @@ declare namespace LocalJSX {
          */
         "onFwLinkClick"?: (event: CustomEvent<any>) => void;
         /**
+          * Remove toast element from the parent on closing toast message
+         */
+        "onRemoveToastChild"?: (event: CustomEvent<any>) => void;
+        /**
           * Pause the toast from hiding on mouse hover
          */
         "pauseOnHover"?: boolean;
@@ -1834,6 +1847,8 @@ declare namespace LocalJSX {
     | 'error'
     | 'warning'
     | 'inprogress';
+    }
+    interface FwToastController {
     }
     interface FwToggle {
         /**
@@ -1891,6 +1906,7 @@ declare namespace LocalJSX {
         "fw-textarea": FwTextarea;
         "fw-timepicker": FwTimepicker;
         "fw-toast": FwToast;
+        "fw-toast-controller": FwToastController;
         "fw-toggle": FwToggle;
     }
 }
@@ -1923,6 +1939,7 @@ declare module "@stencil/core" {
             "fw-textarea": LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
             "fw-timepicker": LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
+            "fw-toast-controller": LocalJSX.FwToastController & JSXBase.HTMLAttributes<HTMLFwToastControllerElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
         }
     }
