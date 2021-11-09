@@ -1,7 +1,8 @@
 # Dropdown button (fw-dropdown-button)
 fw-dropdown-button displays a dropdown button on the user interface and enables dropdding down options. It can also be searchable. For each option select, an event is triggered
 
-## Usage
+## Demo
+
 ```html live
 <fw-label color="blue" value="Normal dropdown button"></fw-label>
 <br>
@@ -42,6 +43,104 @@ fw-dropdown-button displays a dropdown button on the user interface and enables 
   </div>
 </fw-dropdown-button>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-label color="blue" value="Normal dropdown button"></fw-label>
+<br>
+<fw-dropdown-button label="Choose the sport">
+  <div slot="dropdown-options">
+    <option id="1" value="Cricket">Cricket</option>
+    <option id="2" value="Football">Football</option>
+    <option id="3" value="Hockey">Hockey</option>
+    <option id="4" value="Table tennis">Table tennis</option>
+    <option id="5" value="Badminton">Badminton</option>
+    <option id="6" value="Tennis">Tennis</option>
+  </div>
+</fw-dropdown-button>
+<br><br>
+<fw-label color="blue" value="Splittable dropdown button"></fw-label>
+<br>
+<fw-dropdown-button split color="secondary" label="Choose the sport">
+  <div slot="dropdown-options">
+    <option id="1" value="Cricket">Cricket</option>
+    <option id="2" value="Football">Football</option>
+    <option id="3" value="Hockey">Hockey</option>
+    <option id="4" value="Table tennis">Table tennis</option>
+    <option id="5" value="Badminton">Badminton</option>
+    <option id="6" value="Tennis">Tennis</option>
+  </div>
+</fw-dropdown-button>
+<br><br>
+<fw-label color="blue" value="Searchable dropdown button"></fw-label>
+<br>
+<fw-dropdown-button searchable label="Sport" placeholder="Choose a sport">
+  <div slot="dropdown-options">
+    <option id="1" value="Cricket">Cricket</option>
+    <option id="2" value="Football">Football</option>
+    <option id="3" value="Hockey">Hockey</option>
+    <option id="4" value="Table tennis">Table tennis</option>
+    <option id="5" value="Badminton">Badminton</option>
+    <option id="6" value="Tennis">Tennis</option>
+  </div>
+</fw-dropdown-button>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwDropdownButton } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+    <label>Normal dropdown button</label>
+    <br/>
+    <FwDropdownButton label="Choose the sport">
+      <div slot="dropdown-options">
+        <option id="1" value="Cricket">Cricket</option>
+        <option id="2" value="Football">Football</option>
+        <option id="3" value="Hockey">Hockey</option>
+        <option id="4" value="Table tennis">Table tennis</option>
+        <option id="5" value="Badminton">Badminton</option>
+        <option id="6" value="Tennis">Tennis</option>
+      </div>
+    </FwDropdownButton>
+    <br/><br/>
+    <label>Splittable dropdown button</label>
+    <br/>
+    <FwDropdownButton split color="secondary" label="Choose the sport">
+      <div slot="dropdown-options">
+        <option id="1" value="Cricket">Cricket</option>
+        <option id="2" value="Football">Football</option>
+        <option id="3" value="Hockey">Hockey</option>
+        <option id="4" value="Table tennis">Table tennis</option>
+        <option id="5" value="Badminton">Badminton</option>
+        <option id="6" value="Tennis">Tennis</option>
+      </div>
+    </FwDropdownButton>
+    <br/><br/>
+    <label>Searchable dropdown button</label>
+    <br/>
+    <FwDropdownButton searchable label="Sport" placeholder="Choose a sport">
+      <div slot="dropdown-options">
+        <option id="1" value="Cricket">Cricket</option>
+        <option id="2" value="Football">Football</option>
+        <option id="3" value="Hockey">Hockey</option>
+        <option id="4" value="Table tennis">Table tennis</option>
+        <option id="5" value="Badminton">Badminton</option>
+        <option id="6" value="Tennis">Tennis</option>
+      </div>
+    </FwDropdownButton>
+  </div>)
+}
+```
+</code-block>
+</code-group>
+
 
 <!-- Auto Generated Below -->
 

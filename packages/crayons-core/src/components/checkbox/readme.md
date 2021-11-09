@@ -1,12 +1,36 @@
 # Checkbox (fw-checkbox)
 fw-checkbox displays a check box on the user interface and enables assigning a state (selected or deselected) to it. In the selected state, the check box displayed on the UI is highlighted and contains a check mark. 
-## Usage
+
+## Demo
 
 ```html live
 <fw-checkbox checked label="Select to agree">Agree or Disagree</fw-checkbox><br><br>
 <fw-checkbox checked disabled value="dcb">Disable check box</fw-checkbox>
-
 ```
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-checkbox checked label="Select to agree">Agree or Disagree</fw-checkbox><br><br>
+<fw-checkbox checked disabled value="dcb">Disable check box</fw-checkbox>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwCheckbox } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+    <FwCheckbox checked label="Select to agree">Agree or Disagree</FwCheckbox><br/><br/>
+    <FwCheckbox checked disabled value="dcb">Disable check box</FwCheckbox>
+  </div>)
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 

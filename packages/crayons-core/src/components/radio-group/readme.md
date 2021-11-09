@@ -1,7 +1,7 @@
 # Radio Group (fw-radio-group)
 fw-radio-group displays a group of options with radio buttons and enables selection of one option from the list. 
 
-## Usage
+## Demo
 
 ```html live
 <fw-radio-group name="Profile" value="au" allow-empty>
@@ -11,6 +11,36 @@ fw-radio-group displays a group of options with radio buttons and enables select
 </fw-radio-group>
 ```
 
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-radio-group name="Profile" value="au" allow-empty>
+  <fw-radio label="Auditory" value="au"></fw-radio>
+  <fw-radio label="Visual" value="vi"></fw-radio>
+  <fw-radio label="Restless" value="re"></fw-radio>
+</fw-radio-group>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwRadio, FwRadioGroup } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+        <FwRadioGroup name="Profile" value="au" allowEmpty>
+          <FwRadio label="Auditory" value="au"></FwRadio>
+          <FwRadio label="Visual" value="vi"></FwRadio>
+          <FwRadio label="Restless" value="re"></FwRadio>
+        </FwRadioGroup>
+    </div>);
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 

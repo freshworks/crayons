@@ -2,15 +2,48 @@
 
 Toasts are used to show pop-up messages that lasts on the screen for a while. Use them to show users alerts or messages.
 
-## Usage
+
+## Demo
 
 ```html live
 <fw-toast id="type_toast"></fw-toast>
-<fw-button onClick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})">Success</fw-button>
-<fw-button onClick="document.querySelector('#type_toast').trigger({type:'error', content:'something went wrong!'})">Error</fw-button>
-<fw-button onClick="document.querySelector('#type_toast').trigger({type:'warning', content:'This is a warning!'})">Warning</fw-button>
-<fw-button onClick="document.querySelector('#type_toast').trigger({type:'inprogress', content:'Request is in progress'})">Inprogress</fw-button>
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})">Success</fw-button>
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'error', content:'something went wrong!'})">Error</fw-button>
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'warning', content:'This is a warning!'})">Warning</fw-button>
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'inprogress', content:'Request is in progress'})">Inprogress</fw-button>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-toast id="type_toast"></fw-toast>
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})">Success</fw-button>
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'error', content:'something went wrong!'})">Error</fw-button>
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'warning', content:'This is a warning!'})">Warning</fw-button>
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'inprogress', content:'Request is in progress'})">Inprogress</fw-button>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React, {useRef} from "react";
+import ReactDOM from "react-dom";
+import { FwButton, FwToast } from "@freshworks/crayons/react";
+function App() {
+  const el = useRef(null);
+  return (<div>
+          <FwToast id="type_toast" ref={el}></FwToast>
+          <FwButton onClick={()=> el.current.trigger({type:'success', content: 'Successfullly triggered'})}>Success</FwButton>
+          <FwButton onClick={()=> el.current.trigger({type:'error', content:'something went wrong!'})}>Error</FwButton>
+          <FwButton onClick={()=> el.current.trigger({type:'warning', content:'This is a warning!'})}>Warning</FwButton>
+          <FwButton onClick={()=> el.current.trigger({type:'inprogress', content:'Request is in progress'})}>Inprogress</FwButton>
+    </div>);
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 

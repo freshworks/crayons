@@ -2,12 +2,38 @@
 
 fw-radio displays a radio button on the user interface and enables assigning a state (selected or deselected) to it. In the selected state, the button displayed is highlighted. fw-radio provides child elements for fw-radio-group, to populate the Radio Group component’s list. 
 
-## Usage
+## Demo
 
 ```html live
 <fw-radio checked label="Agree or Disagree">Select to agree</fw-radio><br><br>
 <fw-radio checked disabled label="Disabled radio" value="dr"></fw-radio>
 ```
+
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-radio checked label="Agree or Disagree">Select to agree</fw-radio><br><br>
+<fw-radio checked disabled label="Disabled radio" value="dr"></fw-radio>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwRadio } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+        <FwRadio checked label="Agree or Disagree">Select to agree</FwRadio><br/><br/>
+        <FwRadio checked disabled label="Disabled radio" value="dr"></FwRadio>
+    </div>);
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 
