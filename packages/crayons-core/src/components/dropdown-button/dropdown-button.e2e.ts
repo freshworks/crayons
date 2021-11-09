@@ -77,6 +77,8 @@ describe('fw-dropdown-button', () => {
 
     await page.setContent(simpleDropdown);
     const element = await page.find('fw-dropdown-button');
+
+    console.log(element.shadowRoot.innerHTML);
     expect(element.shadowRoot).toEqualHtml(expectedOutput);
   });
 

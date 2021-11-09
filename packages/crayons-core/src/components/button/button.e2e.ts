@@ -24,20 +24,36 @@ describe('fw-button', () => {
 
     await page.setContent('<fw-button></fw-button>');
     const element = await page.find('fw-button');
-    expect(element.shadowRoot)
-      .toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--primary" type="button">
-        <slot></slot>
-      </button>`);
+    expect(
+      element.shadowRoot
+        .querySelector('button')
+        .classList.contains('fw-btn--primary')
+    ).toBeTruthy();
   });
 
   it('should set button as secondary when color is secondary', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-button color="secondary"</fw-button>');
+    await page.setContent('<fw-button color="secondary"></fw-button>');
     const element = await page.find('fw-button');
-    expect(element.shadowRoot)
-      .toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--secondary" type="button">
-        <slot></slot>
-      </button>`);
+    expect(
+      element.shadowRoot
+        .querySelector('button')
+        .classList.contains('fw-btn--secondary')
+    ).toBeTruthy();
+  });
+
+  // Move to a visual diffing testing model
+  it('should show spinner when loading is true', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-button loading></fw-button>');
+    const element = await page.find('fw-button');
+
+    expect(
+      element.shadowRoot
+        .querySelector('button')
+        .classList.contains('fw-btn--loading')
+    ).toBeTruthy();
   });
 });
