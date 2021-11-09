@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'fw-spinner',
@@ -31,24 +31,26 @@ export class Spinner {
     const diameter = this.getSize();
 
     return (
-      <svg
-        class={`spinner ${this.size}`}
-        style={{
-          'width': `${diameter}px`,
-          'height': `${diameter}px`,
-          '--spinner-color': `${this.color}`,
-        }}
-        viewBox={`0 0 50 50`}
-      >
-        <circle
-          class='path'
-          cx='25'
-          cy='25'
-          r='20'
-          fill='none'
-          stroke-width='5'
-        ></circle>
-      </svg>
+      <Host>
+        <svg
+          class={`spinner ${this.size}`}
+          style={{
+            'width': `${diameter}px`,
+            'height': `${diameter}px`,
+            '--spinner-color': `${this.color}`,
+          }}
+          viewBox={`0 0 50 50`}
+        >
+          <circle
+            class='path'
+            cx='25'
+            cy='25'
+            r='18'
+            fill='none'
+            stroke-width='8'
+          ></circle>
+        </svg>
+      </Host>
     );
   }
 }
