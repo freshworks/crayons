@@ -35,8 +35,9 @@ describe('fw-toast', () => {
     element.classList.add('is-open');
     await page.waitForChanges();
 
-    expect(element).toHaveClass('top-left');
-    expect(element).toHaveClass('warning');
+    const divElem = await page.find('fw-toast >>> div');
+    expect(divElem).toHaveClass('top-left');
+    expect(divElem).toHaveClass('warning');
   });
 
   it('Toast close icon and spinner', async () => {
