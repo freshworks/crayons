@@ -40,9 +40,14 @@ export class Button {
   @Prop() expand = false;
 
   /**
+   * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() loading = false;
+
+  /**
    * Size of the button.
    */
-  @Prop() size: 'normal' | 'mini' | 'small' = 'normal';
+  @Prop() size: 'normal' | 'mini' | 'small' | 'icon' = 'normal';
 
   /**
    *  Accepts the id of the fw-modal component to open it on click
@@ -87,21 +92,30 @@ export class Button {
 
   private handleClick(event: Event) {
     if (this.modalTriggerId !== '') {
-      const modal: any = document.getElementById(this.modalTriggerId);
-      modal.isOpen = true;
+      this.modalTrigger();
     } else if (this.type === 'submit') {
-      const form = this.host.closest('form');
-      if (form) {
-        event.preventDefault();
-        const fakeSubmit = document.createElement('button');
-        fakeSubmit.type = 'submit';
-        fakeSubmit.style.display = 'none';
-        form.appendChild(fakeSubmit);
-        fakeSubmit.click();
-        fakeSubmit.remove();
-      }
+      this.fakeSubmit(event);
     }
+
     this.fwClick.emit();
+  }
+
+  private async modalTrigger() {
+    const modal: any = document.getElementById(this.modalTriggerId);
+    modal.open();
+  }
+
+  private async fakeSubmit(event: Event) {
+    const form = this.host.closest('form');
+    if (form) {
+      event.preventDefault();
+      const fakeSubmit = document.createElement('button');
+      fakeSubmit.type = 'submit';
+      fakeSubmit.style.display = 'none';
+      form.appendChild(fakeSubmit);
+      fakeSubmit.click();
+      fakeSubmit.remove();
+    }
   }
 
   render() {
@@ -121,10 +135,14 @@ export class Button {
             fw-btn fw-btn--${this.color.toLowerCase()}
             fw-btn--${this.size.toLowerCase()}
             ${this.expand ? 'fw-btn--block' : ''}
+            ${this.loading ? 'fw-btn--loading' : ''}
             `}
           disabled={this.disabled}
         >
-          <slot />
+          <span class='fw-btn--label'>
+            <slot />
+          </span>
+          <fw-spinner class='fw-btn--loader'></fw-spinner>
         </button>
       </Host>
     );

@@ -40,6 +40,11 @@ $btn-font-weight: $font-weight-600;
   .fw-btn {
     transition: none;
   }
+
+  .fw-btn--label,
+  .fw-btn--loader {
+    transition: none;
+  }
 }
 
 .fw-btn {
@@ -52,8 +57,16 @@ $btn-font-weight: $font-weight-600;
   outline: 0;
 
   cursor: pointer;
-  transition: all 0.2s ease-in;
   letter-spacing: 0;
+
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  vertical-align: middle;
+  flex-wrap: wrap;
+  align-content: center;
+
+  transition: all 0.2s ease-in;
 
   &:focus {
     border: 1px solid $btn-lg-focus-border;
@@ -201,6 +214,10 @@ $btn-font-weight: $font-weight-600;
     line-height: $btn-mini-font-size;
     min-width: 16px;
     height: 16px;
+
+    fw-spinner {
+      transform: scale(0.5);
+    }
   }
 
   // DS button specification for mini has been referenced within crayons as type small
@@ -210,6 +227,10 @@ $btn-font-weight: $font-weight-600;
     line-height: 12px;
     min-width: 72px;
     height: 24px;
+
+    fw-spinner {
+      transform: scale(0.75);
+    }
   }
 
   &--normal {
@@ -223,4 +244,35 @@ $btn-font-weight: $font-weight-600;
     height: 32px;
     padding: 0;
   }
+}
+
+// Loading button implementation
+.fw-btn--loading {
+  position: relative;
+
+  .fw-btn--label {
+    opacity: 0;
+  }
+
+  .fw-btn--loader {
+    --spinner-color: currentColor;
+    opacity: 1;
+  }
+}
+
+.fw-btn--label {
+  transition: opacity 0.3s ease-out;
+}
+
+.fw-btn--loader {
+  opacity: 0;
+  position: absolute;
+  font-size: 1em;
+  height: 1em;
+  width: 1em;
+  top: calc(50% - 0.5em);
+  left: calc(50% - 0.5em);
+  margin-top: -1px;
+  margin-left: -1px;
+  transition: opacity 0.3s ease-out;
 }
