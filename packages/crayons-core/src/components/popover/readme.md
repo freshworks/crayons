@@ -1,6 +1,37 @@
-# fw-popover
+# Popover (fw-popover)
 
+## Usage
 
+Popover need two slots `popover-trigger` and `popover-content`. By default on clicking the trigger the content will be displayed. The props can be used to change the position of the content, width of the component and the distance between the trigger and the content.
+
+```html live
+<fw-popover>
+  <fw-button slot="popover-trigger">Click Me!</fw-button>
+  <fw-list-options slot="popover-content"></fw-list-options>
+</fw-popover>
+
+<br /><br /><br /><br />
+
+<fw-popover placement="top">
+  <fw-button slot="popover-trigger">Click Me!</fw-button>
+  <fw-list-options
+    id="placementComponent"
+    slot="popover-content"
+  ></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var dataSource = [
+    { value: '1', text: 'Luffy' },
+    { value: '2', text: 'Zorro' },
+    { value: '3', text: 'Sanji' },
+  ];
+  var listOptions = document.querySelector('fw-list-options');
+  var placementOptions = document.getElementById('placementComponent');
+  listOptions.options = dataSource;
+  placementOptions.options = dataSource;
+</script>
+```
 
 <!-- Auto Generated Below -->
 

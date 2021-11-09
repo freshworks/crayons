@@ -3,6 +3,8 @@ fw-select displays a list or drop-down box that enables selection of an option o
 
 ## Usage
 
+The data for the select can either be passed as a child or via a datasource which follows the fw-select-option schema.
+
 ```html live
 <fw-select label="House Name" required="true" value="1" placeholder="Your choice" state-text="Select singluar option">
   <fw-select-option value="1">Starks</fw-select-option>
@@ -15,6 +17,49 @@ fw-select displays a list or drop-down box that enables selection of an option o
   <fw-select-option value="4">Greyjoys</fw-select-option>
   <fw-select-option value="5">Tyrell</fw-select-option>
 </fw-select>
+```
+
+```html live
+<fw-select id="simpleSelect" label="Football Teams" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+</fw-select>
+
+<fw-select id="complexSelect" label="Strawhat Pirates" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+</fw-select>
+
+<script type="application/javascript">
+  var dataSource = [
+    { value: '1', text: 'Liverpool' },
+    { value: '2', text: 'Borussia Dortmund' },
+    { value: '3', text: 'Roma' },
+    { value: '4', text: 'Marseille' },
+  ];
+  var standardVariant = document.getElementById('simpleSelect');
+  standardVariant.options = dataSource;
+  standardVariant.value = ['2'];
+
+  var iconDataSource = [
+    {
+      value: '1',
+      text: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      value: '2',
+      text: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      value: '3',
+      text: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var iconVariant = document.getElementById('complexSelect');
+  iconVariant.options = iconDataSource;
+</script>
 ```
 
 
