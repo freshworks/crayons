@@ -36,11 +36,9 @@ $btn-mini-font-size: $font-size-10;
 
 $btn-font-weight: $font-weight-600;
 
+// stylelint-disable a11y/media-prefers-reduced-motion
 @media screen and (prefers-reduced-motion: reduce) {
-  .fw-btn {
-    transition: none;
-  }
-
+  .fw-btn,
   .fw-btn--label,
   .fw-btn--loader {
     transition: none;
@@ -260,7 +258,8 @@ $btn-font-weight: $font-weight-600;
   }
 }
 
-.fw-btn--label {
+.fw-btn--label,
+.fw-btn--loader {
   transition: opacity 0.3s ease-out;
 }
 
@@ -274,5 +273,4 @@ $btn-font-weight: $font-weight-600;
   left: calc(50% - 0.5em);
   margin-top: -1px;
   margin-left: -1px;
-  transition: opacity 0.3s ease-out;
 }
