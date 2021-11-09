@@ -123,7 +123,7 @@ export class Popover {
   }
 
   disconnectedCallback() {
-    this.popperInstance.destroy();
+    this.popperInstance?.destroy();
   }
 
   createPopperInstance() {
@@ -153,4 +153,16 @@ export class Popover {
   }
 }
 
-export type PopoverPlacementType = 'top' | 'bottom' | 'left' | 'right';
+export type PopoverPlacementType =
+  | 'top-start'
+  | 'top'
+  | 'top-end'
+  | 'left-start'
+  | 'left'
+  | 'left-end'
+  | 'right-start'
+  | 'right'
+  | 'right-end'
+  | 'bottom-start'
+  | 'bottom'
+  | 'bottom-end';
