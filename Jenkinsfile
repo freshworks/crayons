@@ -1,7 +1,7 @@
 #!groovy
 
 def runNPM(command) {
-    def NODE_VERSION = 10;
+    def NODE_VERSION = 12;
     utilObj = new Utils();
     envVersion = utilObj.getEnvVersion(NODE_VERSION);
     utilObj.runCmd(command, envVersion)
@@ -16,7 +16,7 @@ def uploadAndInvalidate(environment) {
       profile: 'default'
     ],
     release: [
-      bucketName: 'crayon-freshworks',
+      bucketName: 'crayon-icon-freshworks',
       cdnDistributionId: 'E2L2PEITWYW1LM',
       profile: 'prod'
     ]

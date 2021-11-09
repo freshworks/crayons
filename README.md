@@ -3,7 +3,7 @@
 
 
 # 🖍️ Crayons
-[Freshworks Crayons](https://crayons.freshworks.com) is a library of UI components that help create an intuitive and uniform user interface for all your apps. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
+[Freshworks Crayons Icons](https://crayons.freshworks.com) is an Icon library that helps you to use standard icons as web-components and provides an awesome tooling to manage your svg icons in any app in an effective manner.Concepts like Tree Shaking , Code Splitting are well supported by the library. The SVGs are optmized and every icon supports Icon-Cache and Intersection Observer which makes loading of icons perfromant and putting minimal load on your app.This collection of [SVG Icon Web-Component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
 
 ### Installation
 

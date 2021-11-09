@@ -7,14 +7,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
+    # Installs Git
+    - name: Install Git
+      run: brew install git
+
     - uses: actions/checkout@v2
   
     - uses: actions/setup-node@v1
       with:
-        node-version: '10.x'
+        node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
 
     # Installs the dependencies

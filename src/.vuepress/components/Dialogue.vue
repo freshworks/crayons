@@ -11,7 +11,7 @@ export default {
     name: 'dialogue',
     data() {
        return {
-         crayonsDialogue: 'Crayons is a design library for developers who build apps for us. Through pre-built components, Crayons offers control and flexibility to build rich interfaces consistent with the Freshworks product design and experience.'
+         crayonsDialogue: 'Crayons-icon is an svg-icon library and tooling for developers who build apps for us.Crayons Icon librray is an offshoot from the main Crayons project and provides icon assets and respective tooling to make use of icons perfromant.'
        };
     },
 }
@@ -26,7 +26,7 @@ export default {
     border-radius: 10px;
 
     .dialogue-text {
-      padding: 1.5625rem 3.125rem;
+      padding: 1.5625rem 1.125rem;
       line-height: 30px;
       color: #666;
       font-family: 'National-Book', sans-serif;

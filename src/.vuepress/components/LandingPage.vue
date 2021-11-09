@@ -18,7 +18,7 @@
       </div>
 
       <div class="crayons-description"> 
-        A refreshed design library for Freshworks Developers.
+        <b>A SVG Icon library for Freshworks Developers.</b>
       </div>
       
       <div class="link-cards-container">
@@ -36,9 +36,7 @@
 
 <script>
 import constants from '../constants';
-
 const { urlMap } = constants;
-
 export default {
   name: 'landingPage',
   data() {
@@ -47,21 +45,9 @@ export default {
        {
          name: 'get-started',
          title: 'Get Started',
-         description: 'Craft great apps with an open-source and framework-agnostic component library.',
+         description: 'Use SVG Icons in a platfrom agnostic manner with greater perfromance and maintainability.',
          link: urlMap.docs
-       },
-       {
-         name: 'sample-app-repo',
-         title: 'Sample App Repository',
-         description: 'Accelerate development by using the sample apps in the repository.',
-         link: urlMap.sampleApps
-       },
-       {
-         name: 'build-for-crayons',
-         title: 'Build For Crayons',
-         description: 'Browse through the contributor guidelines to raise an issue or build new components.',
-         link: urlMap.crayons
-       },
+       }
      ],
      freshworksUrl: urlMap.freshworks,
      repoUrl: urlMap.crayons,
@@ -76,7 +62,7 @@ export default {
 }
 
 .landing-container {
-  width: 1000px;
+  width: 750px;
   margin: 0 auto;
 
   .landing-header {
@@ -111,7 +97,6 @@ export default {
   }
 
   .crayons-logo {
-    margin-top: 6%;
     text-align: center;
 
     img {
@@ -166,22 +151,12 @@ export default {
     }
 
     .crayons-logo {
-      margin-top: 6%;
       text-align: center;
 
       img {
         width: 70%;
         height: 70%;
       }
-    }
-
-    .crayons-description {
-      color: #666;
-      font-size: 1.5rem;
-      font-weight: 400;
-      line-height: 28px;
-      margin-top: 15px;
-      text-align: center;
     }
 
     .link-cards-container {
@@ -218,7 +193,6 @@ export default {
     }
 
     .crayons-logo {
-      margin-top: 6%;
       text-align: center;
 
       img {

@@ -52,6 +52,7 @@ export default {
     border: 1px solid transparent;
     transition: transform 500ms;
     box-sizing: border-box;
+    margin-left: 65%;
 
     .img-container {
       text-align: center;
@@ -115,6 +116,7 @@ export default {
       border: 1px solid transparent;
       transition: transform 500ms;
       box-sizing: border-box;
+      margin-left: 65%;
 
       .img-container {
         text-align: center;
@@ -178,6 +180,7 @@ export default {
       border: 1px solid transparent;
       transition: transform 500ms;
       box-sizing: border-box;
+      margin-left: 65%;
 
       .img-container {
         text-align: center;

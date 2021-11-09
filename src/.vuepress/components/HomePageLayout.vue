@@ -4,7 +4,12 @@
         <AppFooter />
     </div>
 </template>
+<script>
 
+ export default {
+   name : 'Home-Page'
+ }
+</script>
 <style>
   .home-page-container {
     width: 100%;

@@ -1,13 +1,12 @@
 <template>
   <div class="card-gallery">
     <div v-for="icon in icons" class="card" @click="copyToClipboard(icon)">
-      <img :src="require(`@components/icon/icon-assets/icons/${icon}.svg`)"/>
+      <fw-icon :name="icon" size="18" color="black"></fw-icon>
       <span class="name">{{icon}}</span>
       <span :ref="icon" class="copied">Copied</span>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {

@@ -1,12 +1,13 @@
 import { Config } from '@stencil/core';
 import { postcss } from '@stencil/postcss';
+import { reactOutputTarget } from '@stencil/react-output-target';
 import { sass } from '@stencil/sass';
 import autoprefixer from 'autoprefixer';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
 export const config: Config = {
-  namespace: 'crayons',
+  namespace: 'crayons-icons',
   outputTargets: [
     {
       type: 'dist',
@@ -24,7 +25,7 @@ export const config: Config = {
     {
       type: 'www',
       dir: 'src/.vuepress/public/www/',
-      serviceWorker: null, // disable service workers
+      serviceWorker: undefined, // disable service workers
     },
   ],
   plugins: [

@@ -1,0 +1,15 @@
+{
+    "conversionType": "files",
+    "srcFiles": [
+      "./src/components/icon/icon-assets/icons/*.svg"
+    ],
+    "outputDirectory": "./dist-icons",
+    "interfaceName": "CrayonsIcons",
+    "typeName": "crayonsIcons",
+    "prefix": "crayonsIcons",
+    "generateType": false,
+    "exportCompleteIconSet": true,
+    "optimizeForLazyLoading": true,
+    "modelFileName": "crayons-icons.model.js",
+    "compileSources": true
+}

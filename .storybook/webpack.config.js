@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const WriteFilePlugin = require("write-file-webpack-plugin");
 
 module.exports = async ({ config }) => {
-  config.entry.push(path.join(__dirname, "../dist/crayons.js"));
+  config.entry.push(path.join(__dirname, "../dist/crayons-icons.js"));
   fs.readdirSync(
     path.join(__dirname, "../dist/collection/components")
   ).map(function(file) {
@@ -34,13 +34,13 @@ module.exports = async ({ config }) => {
   });
 
   config.plugins.push(
-    new CopyPlugin([
-      {
+    new CopyPlugin({
+      patterns: [{
         from: "**/*",
         to: "./",
         context: "dist"
-      }
-    ])
+      }]
+    })
   );
 
   config.plugins.push(new WriteFilePlugin());

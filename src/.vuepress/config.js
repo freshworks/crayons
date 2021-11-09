@@ -22,14 +22,14 @@ const getTags = () => [
 const websiteUrl = 'https://crayons.freshworks.com';
 
 module.exports = {
-  title: 'Crayons',
+  title: 'Crayons Icons',
   base: '/',
-  description: 'A refreshed design library for the Freshworks Developers.',
+  description: 'A SVG Icon library for the Freshworks Developers.',
   dest: 'docs-dist',
   docsDir: 'src',
   head: [
-    ['script', { type: 'module', src: '/www/build/crayons.esm.js' }],
-    ['script', {  nomodule:'', src: '/www/build/crayons.js' }],
+    ['script', { type: 'module', src: '/www/build/crayons-icons.esm.js' }],
+    ['script', {  nomodule:'', src: '/www/build/crayons-icons.js' }],
     ['link', { rel: 'icon', href: '/favicon.png' }]
   ],
   themeConfig: {
@@ -65,9 +65,9 @@ module.exports = {
     }],
     [
       'vuepress-plugin-seo', {
-        siteTitle: () => 'Crayons',
-        title: () => 'Crayons',
-        description: () => 'A refreshed design library for the Freshworks Developers.',
+        siteTitle: () => 'Crayons Icons',
+        title: () => 'Crayons Icons',
+        description: () => 'A SVG Icon library for the Freshworks Developers.',
         author: () => 'Freshworks',
         tags: getTags,
         twitterCard: _ => 'summary_large_image',

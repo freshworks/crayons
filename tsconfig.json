@@ -20,7 +20,7 @@
   "include": [
     "src",
     "types/jsx.d.ts"
-  ],
+, "src/components/icon/react/Icon.js"  ],
   "exclude": [
     "node_modules"
   ]
