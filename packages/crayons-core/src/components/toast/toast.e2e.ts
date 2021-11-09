@@ -28,15 +28,12 @@ describe('fw-toast', () => {
   it('Toast type and position', async () => {
     const page = await newE2EPage();
 
-    await page.setContent(
-      '<fw-toast type="warning" position="top-left"></fw-toast>'
-    );
+    await page.setContent('<fw-toast type="warning"></fw-toast>');
     const element = await page.find('fw-toast');
     element.classList.add('is-open');
     await page.waitForChanges();
 
     const divElem = await page.find('fw-toast >>> div');
-    expect(divElem).toHaveClass('top-left');
     expect(divElem).toHaveClass('warning');
   });
 
