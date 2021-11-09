@@ -740,10 +740,6 @@ export namespace Components {
          */
         "pauseOnHover": boolean;
         /**
-          * position of the toast notification in screen
-         */
-        "position": 'top-center' | 'top-left' | 'top-right';
-        /**
           * won't close automatically
          */
         "sticky": boolean;
@@ -760,6 +756,10 @@ export namespace Components {
     | 'inprogress';
     }
     interface FwToastController {
+        /**
+          * position of the toast notification in screen
+         */
+        "position": 'top-center' | 'top-left' | 'top-right';
         "trigger": (opts: any) => Promise<void>;
     }
     interface FwToggle {
@@ -1829,10 +1829,6 @@ declare namespace LocalJSX {
          */
         "pauseOnHover"?: boolean;
         /**
-          * position of the toast notification in screen
-         */
-        "position"?: 'top-center' | 'top-left' | 'top-right';
-        /**
           * won't close automatically
          */
         "sticky"?: boolean;
@@ -1849,6 +1845,10 @@ declare namespace LocalJSX {
     | 'inprogress';
     }
     interface FwToastController {
+        /**
+          * position of the toast notification in screen
+         */
+        "position"?: 'top-center' | 'top-left' | 'top-right';
     }
     interface FwToggle {
         /**

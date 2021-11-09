@@ -1,10 +1,21 @@
 :host(.fw-toast-stack) {
   position: fixed;
-  left: 0;
-  right: auto;
   z-index: 950;
   width: 28rem;
   background-color: $color-milk;
   max-width: 100%;
   max-height: 100%;
+}
+.fw-toast-stack {
+  :host(&.top-center) {
+    left: calc(50% - 200px);
+  }
+
+  :host(&.top-left) {
+    left: 10px;
+  }
+
+  :host(&.top-right) {
+    right: 10px;
+  }
 }

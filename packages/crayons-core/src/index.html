@@ -11,11 +11,13 @@
 </head>
 <body>
  <!-- <fw-button expand color="primary">Primary Button</fw-button> -->
- <fw-toast-controller id="ctrl"></fw-toast-controller>
- <fw-button onClick="document.querySelector('#ctrl').trigger({type:'success', content:'hello', position:
- 'top-left', timeout:20000})">Trigger Toast</fw-button>
- <fw-button onClick="document.querySelector('#ctrl').trigger({type:'error', content:'error'})">Trigger Error Toast</fw-button>
- <fw-button onClick="document.querySelector('#ctrl').trigger({type:'error', content:'error1'})">Trigger Error Toast</fw-button>
+ <fw-toast-controller id="ctrl" position="top-center"></fw-toast-controller>
+ <fw-toast-controller id="ctrl1" position="top-right"></fw-toast-controller>
+ 
+ <fw-button onClick="document.querySelector('#ctrl').trigger({type:'success', content:'hello', timeout:2000000})">Trigger Toast</fw-button>
+ <fw-button onClick="document.querySelector('#ctrl').trigger({type:'error', content:'error',timeout:2000000
+})">Trigger Error Toast</fw-button>
+ <fw-button onClick="document.querySelector('#ctrl1').trigger({type:'warning', content:'right'})">Trigger Error Toast</fw-button>
  Creating Toasts Imperatively For convenience, you can create a utility that emits toast notifications with a function call rather than composing them in your HTML. To do this, generate the alert with JavaScript, append it to the body, and call the toast() method as shown in the example below.
  
  <!-- <fw-toast content="Successfully triggered"></fw-toast>
@@ -93,12 +95,12 @@
     document.querySelector('#ctrl').trigger({type:'error', content:'error1 '+count++})
   }
 
-  for(let i = 0; i< 10;i++) {
+  // for(let i = 0; i< 10;i++) {
 
-    setTimeout(() =>{
-      trigger()
-    }, i*1000)
-  }
+  //   setTimeout(() =>{
+  //     trigger()
+  //   }, i*1000)
+  // }
 
  </script>
 </body>

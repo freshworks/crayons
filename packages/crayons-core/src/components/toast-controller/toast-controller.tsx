@@ -1,4 +1,12 @@
-import { Host, Component, h, Element, Method, Listen } from '@stencil/core';
+import {
+  Host,
+  Component,
+  Prop,
+  h,
+  Element,
+  Method,
+  Listen,
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-toast-controller',
@@ -7,6 +15,11 @@ import { Host, Component, h, Element, Method, Listen } from '@stencil/core';
 })
 export class ToastController {
   @Element() controllerEl: HTMLElement;
+
+  /**
+   *  position of the toast notification in screen
+   */
+  @Prop() position: 'top-center' | 'top-left' | 'top-right' = 'top-center';
 
   @Listen('removeToastChild', { target: 'window' })
   removeToastChild(event: any): void {
@@ -50,7 +63,7 @@ export class ToastController {
 
   render(): JSX.Element {
     return (
-      <Host class='fw-toast-stack'>
+      <Host class={`fw-toast-stack ${this.position}`}>
         <slot></slot>
       </Host>
     );

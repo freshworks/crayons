@@ -82,11 +82,6 @@ export class Toast {
   @Prop() pauseOnHover: boolean;
 
   /**
-   *  position of the toast notification in screen
-   */
-  @Prop() position: 'top-center' | 'top-left' | 'top-right' = 'top-center';
-
-  /**
    * Triggered when the action link clicked.
    */
   @Event() fwLinkClick: EventEmitter;
@@ -168,7 +163,7 @@ export class Toast {
         onmouseout={() => this.mouseHover(false)}
       >
         <div
-          class={`toast ${this.position} ${this.type}`}
+          class={`toast ${this.type}`}
           aria-hidden={this.isOpen ? 'false' : 'true'}
         >
           {this.type === 'inprogress' ? (
