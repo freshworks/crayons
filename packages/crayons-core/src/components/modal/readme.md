@@ -127,7 +127,6 @@ graph TD;
   fw-modal --> fw-modal-footer
   fw-modal-title --> fw-icon
   fw-modal-footer --> fw-button
-  fw-button --> fw-spinner
   style fw-modal fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
