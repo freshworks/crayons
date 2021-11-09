@@ -12,14 +12,16 @@
 <body>
  <!-- <fw-button expand color="primary">Primary Button</fw-button> -->
  <fw-toast-controller id="ctrl" position="top-center"></fw-toast-controller>
- <fw-toast-controller id="ctrl1" position="top-right"></fw-toast-controller>
- 
- <fw-button onClick="document.querySelector('#ctrl').trigger({type:'success', content:'hello', timeout:2000000})">Trigger Toast</fw-button>
- <fw-button onClick="document.querySelector('#ctrl').trigger({type:'error', content:'error',timeout:2000000
-})">Trigger Error Toast</fw-button>
- <fw-button onClick="document.querySelector('#ctrl1').trigger({type:'warning', content:'right'})">Trigger Error Toast</fw-button>
+
+ <!-- <fw-toast-controller id="ctrl1" position="top-right"></fw-toast-controller>
+ <fw-toast-controller id="ctrl2" position="top-left"></fw-toast-controller> -->
+<!-- 
+ <fw-button onClick="document.querySelector('#ctrl2').trigger({type:'success', content:'hello', timeout:2000000})">Trigger Left Toast</fw-button>
+ <fw-button onClick="document.querySelector('#ctrl').trigger({type:'error', content:'error',timeout:4000
+})">Trigger Right Error Toast</fw-button>
+ <fw-button onClick="document.querySelector('#ctrl1').trigger({type:'warning', content:'contentasdasdads asas'})">Trigger Center Error Toast</fw-button>
  Creating Toasts Imperatively For convenience, you can create a utility that emits toast notifications with a function call rather than composing them in your HTML. To do this, generate the alert with JavaScript, append it to the body, and call the toast() method as shown in the example below.
- 
+  -->
  <!-- <fw-toast content="Successfully triggered"></fw-toast>
  <fw-button onClick="document.querySelector('fw-toast').trigger({type:'success'})">Trigger Toast</fw-button>
    -->
@@ -91,16 +93,21 @@
  <script>
    var count = 1;
 
+   alert = AlertCotnr("position-code");
+
+
+
   function trigger() {
+    alert
     document.querySelector('#ctrl').trigger({type:'error', content:'error1 '+count++})
   }
 
-  // for(let i = 0; i< 10;i++) {
+  for(let i = 0; i< 10;i++) {
 
-  //   setTimeout(() =>{
-  //     trigger()
-  //   }, i*1000)
-  // }
+    setTimeout(() =>{
+      trigger()
+    }, i*1000)
+  }
 
  </script>
 </body>
