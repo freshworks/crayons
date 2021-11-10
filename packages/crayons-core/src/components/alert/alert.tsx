@@ -18,10 +18,10 @@ const iconMap = {
 };
 
 const iconColorMap = {
-  error: '#E43538',
-  warning: '#C7502F ',
+  error: '#e43538',
+  warning: '#c7502f',
   info: '#264966',
-  success: '#00795B',
+  success: '#00795b',
 };
 
 @Component({
@@ -147,7 +147,7 @@ export class Alert {
               onKeyUp={(e) => this.handleKeyUp(e)}
               onClick={() => this.handleClose()}
             >
-              <fw-icon name='cross' color='#12344D' size={8}></fw-icon>
+              <fw-icon name='cross' color='#12344d' size={8}></fw-icon>
             </span>
           )}
         </div>
