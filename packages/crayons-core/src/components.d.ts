@@ -232,6 +232,7 @@ export namespace Components {
         "value": string;
     }
     interface FwListOptions {
+        "clearFilter": () => Promise<void>;
         /**
           * The text to filter the options.
          */
@@ -257,6 +258,10 @@ export namespace Components {
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
+        /**
+          * Filter function of signature (filterText : string, dataSource: Array<FwSelectOptions>) => Promise<Array<any>>. Where filter text is the text to filter the value in dataSource array.
+         */
+        "search": (text: any, dataSource: any) => Promise<any[]>;
         /**
           * Placeholder to placed on the search text box.
          */
@@ -1281,6 +1286,10 @@ declare namespace LocalJSX {
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options"?: any[];
+        /**
+          * Filter function of signature (filterText : string, dataSource: Array<FwSelectOptions>) => Promise<Array<any>>. Where filter text is the text to filter the value in dataSource array.
+         */
+        "search"?: (text: any, dataSource: any) => Promise<any[]>;
         /**
           * Placeholder to placed on the search text box.
          */

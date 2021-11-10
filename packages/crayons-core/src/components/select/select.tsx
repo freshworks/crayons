@@ -121,6 +121,7 @@ export class Select {
   private changeEmittable = () => !this.disabled;
 
   private closeDropdown = () => {
+    this.searchValue = '';
     this.popover.hide();
     this.isExpanded = false;
   };
