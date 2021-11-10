@@ -38,15 +38,24 @@ Popover need two slots `popover-trigger` and `popover-content`. By default on cl
 
 ## Properties
 
-| Property             | Attribute    | Description                                                                                     | Type                                                                                                                                                                 | Default     |
-| -------------------- | ------------ | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `boundary`           | --           | The area that the popup will be checked for overflow relative to.                               | `HTMLElement`                                                                                                                                                        | `undefined` |
-| `distance`           | `distance`   | Distance defines the distance between the popover trigger and the popover content along y-axis. | `string`                                                                                                                                                             | `'0'`       |
-| `fallbackPlacements` | --           | Alternative placement for popover if the default placement is not possible.                     | `[PopoverPlacementType]`                                                                                                                                             | `['top']`   |
-| `placement`          | `placement`  | Placement of the popover content with respect to the popover trigger.                           | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`  |
-| `sameWidth`          | `same-width` | Whether the popover-content width to be same as that of the popover-trigger.                    | `boolean`                                                                                                                                                            | `true`      |
-| `skidding`           | `skidding`   | Skidding defines the distance between the popover trigger and the popover content along x-axis. | `string`                                                                                                                                                             | `'0'`       |
-| `variant`            | `variant`    | Variant defines the style of the popover-content.                                               | `"date-picker" \| "select"`                                                                                                                                          | `'select'`  |
+| Property             | Attribute         | Description                                                                                     | Type                                                                                                                                                                 | Default     |
+| -------------------- | ----------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `boundary`           | --                | The area that the popup will be checked for overflow relative to.                               | `HTMLElement`                                                                                                                                                        | `undefined` |
+| `distance`           | `distance`        | Distance defines the distance between the popover trigger and the popover content along y-axis. | `string`                                                                                                                                                             | `'0'`       |
+| `fallbackPlacements` | --                | Alternative placement for popover if the default placement is not possible.                     | `[PopoverPlacementType]`                                                                                                                                             | `['top']`   |
+| `placement`          | `placement`       | Placement of the popover content with respect to the popover trigger.                           | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`  |
+| `preventDefault`     | `prevent-default` | Whether the popover-content width to be same as that of the popover-trigger.                    | `boolean`                                                                                                                                                            | `false`     |
+| `sameWidth`          | `same-width`      | Whether the popover-content width to be same as that of the popover-trigger.                    | `boolean`                                                                                                                                                            | `true`      |
+| `skidding`           | `skidding`        | Skidding defines the distance between the popover trigger and the popover content along x-axis. | `string`                                                                                                                                                             | `'0'`       |
+| `variant`            | `variant`         | Variant defines the style of the popover-content.                                               | `"date-picker" \| "select"`                                                                                                                                          | `'select'`  |
+
+
+## Events
+
+| Event    | Description                                                | Type               |
+| -------- | ---------------------------------------------------------- | ------------------ |
+| `fwHide` | Triggered whenever the popover contents is closed/hidden.  | `CustomEvent<any>` |
+| `fwShow` | Triggered whenever the popover contents is open/displayed. | `CustomEvent<any>` |
 
 
 ## Methods

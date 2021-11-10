@@ -390,6 +390,10 @@ export namespace Components {
         /**
           * Whether the popover-content width to be same as that of the popover-trigger.
          */
+        "preventDefault": boolean;
+        /**
+          * Whether the popover-content width to be same as that of the popover-trigger.
+         */
         "sameWidth": boolean;
         "show": () => Promise<void>;
         /**
@@ -1404,9 +1408,21 @@ declare namespace LocalJSX {
          */
         "fallbackPlacements"?: [PopoverPlacementType];
         /**
+          * Triggered whenever the popover contents is closed/hidden.
+         */
+        "onFwHide"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered whenever the popover contents is open/displayed.
+         */
+        "onFwShow"?: (event: CustomEvent<any>) => void;
+        /**
           * Placement of the popover content with respect to the popover trigger.
          */
         "placement"?: PopoverPlacementType;
+        /**
+          * Whether the popover-content width to be same as that of the popover-trigger.
+         */
+        "preventDefault"?: boolean;
         /**
           * Whether the popover-content width to be same as that of the popover-trigger.
          */
