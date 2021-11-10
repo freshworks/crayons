@@ -8,7 +8,6 @@ import {
 
 @Component({
   tag: 'fw-toast',
-  styleUrl: 'toast.scss',
   shadow: true,
 })
 export class Toast {

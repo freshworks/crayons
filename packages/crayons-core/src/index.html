@@ -10,20 +10,9 @@
 
 </head>
 <body>
-<fw-button expand color="primary" onClick="triggerToast()">Primary Button</fw-button>
+<fw-button expand color="primary">Primary Button</fw-button>
 
 
- <fw-toast id="left" position="top-left" content="default" type="error"></fw-toast> 
- <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
- <fw-toast id="center" ></fw-toast> 
- <fw-toast id="center1" ></fw-toast> 
- 
-
- <fw-button onClick="document.querySelector('#left').trigger({type:'success',timeout:2000})">Trigger left Toast </fw-button>
- <fw-button onClick="document.querySelector('#right').trigger({type:'error', content:'right'})">Trigger right Toast</fw-button>
- <fw-button onClick="document.querySelector('#center').trigger({type:'warning', content:'center', timeout:2000})">Trigger Center toast</fw-button>
- <fw-button onClick="document.querySelector('#center1').trigger({type:'inprogress', content:'center 1', timeout:2000})">Trigger Center toast 1</fw-button>
- 
 <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
    <fw-select
       label="Select App type"
@@ -48,9 +37,6 @@
     <fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
   </div>
   
-  <fw-toast content="Successfully triggered"></fw-toast>
-  <fw-button onClick="document.querySelector('fw-toast').trigger({type:'success'})">Trigger Toast</fw-button>
-  
   <br><br>
   <fw-dropdown-button label="Click me" split color="danger" placeholder="efwewe">
     <div slot="dropdown-options">
@@ -72,6 +58,19 @@
   <fw-label color="red" value="wfwefwe" style="--label-padding-vertical: 10px; --label-padding-horizontal:20px" />
   <br>
   
+ <fw-toast id="left" position="top-left" content="default" type="error"></fw-toast> 
+ <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
+ <fw-toast id="center" ></fw-toast> 
+ <fw-toast id="center1" ></fw-toast> 
+ 
+
+ <fw-button onClick="document.querySelector('#left').trigger({type:'success',timeout:20000})">Trigger left Toast </fw-button>
+ <fw-button onClick="document.querySelector('#right').trigger({type:'error', content:'right'})">Trigger right Toast</fw-button>
+ <fw-button onClick="document.querySelector('#center').trigger({type:'warning', content:'center', timeout:2000})">Trigger Center toast</fw-button>
+ <fw-button onClick="document.querySelector('#center1').trigger({type:'inprogress', content:'center 1', timeout:2000})">Trigger Center toast 1</fw-button>
+ <br/>
+
+
   <script>
     window.addEventListener('fwLinkClick', eventHandler);
     function eventHandler(e) {
@@ -87,21 +86,6 @@
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> -->
 
- <script>
-   var count = 1;
-   function triggerToast() {
-     console.log(window.crayons.toast)
-    window.crayons.toast({type:'success', content:'hellow'})
-    window.crayons.toast({type:'error', content:'hellow1232'})
-  //  window.crayons.toast.trigger({type:'success', content:'helloasdw'})
-   }
 
-   
-  function trigger() {
-    // document.querySelector('#ctrl').trigger({type:'error', content:'error1 '+count++})
-  }
- 
-
- </script>
 </body>
 </html>

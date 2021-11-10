@@ -7,5 +7,7 @@ describe('fw-toast', () => {
     await page.setContent('<fw-toast position="top-left"></fw-toast>');
     const element = await page.find('fw-toast');
     expect(element).toHaveClass('hydrated');
+    const toastStack = await page.find('.fw-toast-stack');
+    expect((await toastStack.getComputedStyle()).left).toBe('10px');
   });
 });

@@ -1,6 +1,5 @@
 :host {
   display: none;
-  margin-bottom: 16px;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
@@ -18,14 +17,15 @@
 
 .toast {
   position: relative;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid $color-smoke-50;
   border-radius: 4px;
   background-color: $color-milk;
   display: flex;
   align-items: stretch;
   width: 400px;
-  margin: inherit;
+  margin-bottom: 16px;
+  box-sizing: border-box;
 
   &.success {
     border-top: 5px solid $color-jungle-500;

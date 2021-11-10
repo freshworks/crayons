@@ -1,5 +1,3 @@
-let toastId = 1;
-
 export interface ToastOptions {
   /**
    * The Content of the action link
@@ -50,10 +48,8 @@ export function createToastStack(config: ToastOptions): HTMLElement {
   } else {
     toastContainer = document.createElement('div');
     toastContainer.className = `fw-toast-stack ${config.position}`;
-    toastContainer.id = 'toastId ' + toastId++;
     toastContainer.style.cssText = `position: fixed;
       z-index: 950;
-      width: 400px;
       top: 10px;
       ${getStylePosition(config.position)}
       background-color: $color-milk;
