@@ -1,8 +1,7 @@
 # Datepicker (fw-datepicker)
 fw-datepicker displays an input box with a calendar that enables selecting a date or date range. The values preselected in the input box and calendar are based on the fw-datepicker attribute values.
 
-
-## Usage
+## Demo
 
 ``` html live
 <fw-label value="Single date picker" color="yellow"></fw-label><br/>
@@ -10,6 +9,37 @@ fw-datepicker displays an input box with a calendar that enables selecting a dat
 <fw-label value="A date range picker" color="yellow"></fw-label><br/>
 <fw-datepicker mode="range" min-date="10-05-2020" max-date="10-07-2020" from-date="12-05-2020" to-date="14-05-2020"></fw-datepicker>
 ```
+
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-label value="Single date picker" color="yellow"></fw-label><br/>
+<fw-datepicker value="22-05-2020" date-format="DD-MM-YYYY"></fw-datepicker>
+<fw-label value="A date range picker" color="yellow"></fw-label><br/>
+<fw-datepicker mode="range" min-date="10-05-2020" max-date="10-07-2020" from-date="12-05-2020" to-date="14-05-2020"></fw-datepicker>
+```
+</code-block>
+
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwDatepicker } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+    <label>Single date picker</label><br/>
+    <FwDatepicker value="22-05-2020" dateFormat="DD-MM-YYYY"></FwDatepicker>
+    <label>A date range picker</label><br/>
+    <FwDatepicker mode="range" minDate="10-05-2020" maxDate="10-07-2020" fromDate="12-05-2020" toDate="14-05-2020"></FwDatepicker>
+  </div>)
+}
+```
+</code-block>
+</code-group>
 
 
 <!-- Auto Generated Below -->
@@ -63,6 +93,7 @@ graph TD;
   fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-button --> fw-spinner
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

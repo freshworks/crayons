@@ -1,6 +1,7 @@
-# fw-button1
+# Button1 (fw-button1)
+Compound component using fw-label from core
 
-## Usage
+## Demo
 
 ```html live
 <section>
@@ -11,6 +12,41 @@
 <fw-button1 color="text"> Plain Text Button </fw-button1>
 </section>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<section>
+<fw-label value="Try Compound Components"></fw-label>
+<fw-button1 color="secondary"> OK </fw-button1>
+<fw-button1 color="danger"> Don't Click </fw-button1>
+<fw-button1 color="link"> Link Button </fw-button1>
+<fw-button1 color="text"> Plain Text Button </fw-button1>
+</section>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwButton1 } from "@freshworks/crayons-datatable/react";
+function App() {
+  return (<div>
+  <section>
+    <label>Try Compound Components</label>
+    <FwButton1 color="secondary"> OK </FwButton1>
+    <FwButton1 color="danger"> Don't Click </FwButton1>
+    <FwButton1 color="link"> Link Button </FwButton1>
+    <FwButton1 color="text"> Plain Text Button </FwButton1>
+</section>
+  </div>)
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 

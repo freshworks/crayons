@@ -1,10 +1,34 @@
 # Icon (fw-icon)
 fw-icon displays an icon-sized image that imparts meaning to the component it is associated with.
-## Usage
+
+## Demo
 
 ```html live
 <fw-icon name="add-contact" size="18" color="green"></fw-icon>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-icon name="add-contact" size="18" color="green"></fw-icon>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwIcon } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+  <FwIcon name="add-contact" size="18" color="green"></FwIcon>
+ </div>);
+}
+```
+</code-block>
+</code-group>
 
 ### Icons
 
@@ -39,7 +63,7 @@ The following are the icons supported:
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
  - [fw-select-option](../select-option)
- - [fw-toast-child](../toast-child)
+ - [fw-toast-message](../toast-message)
  - [fw-toggle](../toggle)
 
 ### Graph
@@ -50,7 +74,7 @@ graph TD;
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon
   fw-select-option --> fw-icon
-  fw-toast-child --> fw-icon
+  fw-toast-message --> fw-icon
   fw-toggle --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

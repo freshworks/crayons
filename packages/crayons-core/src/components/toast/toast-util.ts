@@ -71,7 +71,7 @@ export function createToastNotification(
   defaultOpts: ToastOptions
 ): void {
   const props = getProps(opts, defaultOpts);
-  const toastElem = document.createElement('fw-toast-child');
+  const toastElem = document.createElement('fw-toast-message');
 
   Object.entries(props).map(([key, val]) => {
     if (val) toastElem.setAttribute(key, val as string);

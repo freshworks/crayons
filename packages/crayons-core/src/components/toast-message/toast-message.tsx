@@ -11,11 +11,11 @@ import {
 import { handleKeyDown } from '../../utils';
 
 @Component({
-  tag: 'fw-toast-child',
-  styleUrl: 'toast-child.scss',
+  tag: 'fw-toast-message',
+  styleUrl: 'toast-message.scss',
   shadow: true,
 })
-export class ToastChild {
+export class ToastMessage {
   @Element() controllerEl: HTMLElement;
   /**
    * visibility state of toast

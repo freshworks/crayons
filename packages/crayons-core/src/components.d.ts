@@ -24,13 +24,17 @@ export namespace Components {
          */
         "expand": boolean;
         /**
+          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+         */
+        "loading": boolean;
+        /**
           * Accepts the id of the fw-modal component to open it on click
          */
         "modalTriggerId": string;
         /**
           * Size of the button.
          */
-        "size": 'normal' | 'mini' | 'small';
+        "size": 'normal' | 'mini' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -758,7 +762,7 @@ export namespace Components {
          */
         "type": 'success' | 'error' | 'warning' | 'inprogress';
     }
-    interface FwToastChild {
+    interface FwToastMessage {
         /**
           * The Content of the action link
          */
@@ -962,11 +966,11 @@ declare global {
         prototype: HTMLFwToastElement;
         new (): HTMLFwToastElement;
     };
-    interface HTMLFwToastChildElement extends Components.FwToastChild, HTMLStencilElement {
+    interface HTMLFwToastMessageElement extends Components.FwToastMessage, HTMLStencilElement {
     }
-    var HTMLFwToastChildElement: {
-        prototype: HTMLFwToastChildElement;
-        new (): HTMLFwToastChildElement;
+    var HTMLFwToastMessageElement: {
+        prototype: HTMLFwToastMessageElement;
+        new (): HTMLFwToastMessageElement;
     };
     interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {
     }
@@ -1000,7 +1004,7 @@ declare global {
         "fw-textarea": HTMLFwTextareaElement;
         "fw-timepicker": HTMLFwTimepickerElement;
         "fw-toast": HTMLFwToastElement;
-        "fw-toast-child": HTMLFwToastChildElement;
+        "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
     }
 }
@@ -1018,6 +1022,10 @@ declare namespace LocalJSX {
           * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
          */
         "expand"?: boolean;
+        /**
+          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+         */
+        "loading"?: boolean;
         /**
           * Accepts the id of the fw-modal component to open it on click
          */
@@ -1037,7 +1045,7 @@ declare namespace LocalJSX {
         /**
           * Size of the button.
          */
-        "size"?: 'normal' | 'mini' | 'small';
+        "size"?: 'normal' | 'mini' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -1859,7 +1867,7 @@ declare namespace LocalJSX {
          */
         "type"?: 'success' | 'error' | 'warning' | 'inprogress';
     }
-    interface FwToastChild {
+    interface FwToastMessage {
         /**
           * The Content of the action link
          */
@@ -1949,7 +1957,7 @@ declare namespace LocalJSX {
         "fw-textarea": FwTextarea;
         "fw-timepicker": FwTimepicker;
         "fw-toast": FwToast;
-        "fw-toast-child": FwToastChild;
+        "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
     }
 }
@@ -1982,7 +1990,7 @@ declare module "@stencil/core" {
             "fw-textarea": LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
             "fw-timepicker": LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
-            "fw-toast-child": LocalJSX.FwToastChild & JSXBase.HTMLAttributes<HTMLFwToastChildElement>;
+            "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
         }
     }

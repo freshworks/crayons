@@ -47,7 +47,7 @@ export class DropdownButton {
   /**
    * Value of the dropdown button
    */
-  @Prop() value: any = undefined;
+  @Prop({ mutable: true }) value: any = undefined;
 
   /**
    * Placeholder text for search input. Validated only if dropdown and searchable is true
@@ -57,7 +57,7 @@ export class DropdownButton {
   /**
    * Options to show in the dropdown button
    */
-  @Prop() options = [];
+  @Prop({ mutable: true }) options = [];
 
   /**
    * Option input for searching through options

@@ -2,13 +2,38 @@
 
 fw-tab provides child elements for fw-tabs, to enable tab style navigation.
 
-## Usage
+
+## Demo
 
 ```html live
   <fw-tab>Personal</fw-tab>
   <fw-tab>Official</fw-tab>
 ```
 
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-tab>Personal</fw-tab>
+  <fw-tab>Official</fw-tab>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwTab } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+          <FwTab>Personal</FwTab>
+          <FwTab>Official</FwTab>
+    </div>);
+}
+```
+</code-block>
+</code-group>
 <!-- Auto Generated Below -->
 
 

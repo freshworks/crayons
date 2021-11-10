@@ -1,15 +1,45 @@
-# Toast Child (fw-toast-child)
+# Toast Message (fw-toast-message)
 
-Toast Child used internally by Toast component to render toast message.
+Toast Message used internally by Toast component to render toast message.
+
+## Demo
+
+```html live
+ <fw-toast-message id="type_toast" sticky=true type="success" content="success"></fw-toast-message>
+ <fw-toast-message id="type_toast" sticky=true type="error" content="error"></fw-toast-message>
+ <fw-toast-message id="type_toast" type="warning" content="warning"></fw-toast-message>
+ <fw-toast-message id="type_toast" type="inprogress" content="inprogress"></fw-toast-message>
+```
 
 ## Usage
 
-```html live
- <fw-toast-child id="type_toast" sticky=true type="success" content="success"></fw-toast-child>
- <fw-toast-child id="type_toast" sticky=true type="error" content="error"></fw-toast-child>
- <fw-toast-child id="type_toast" sticky=true type="warning" content="warning"></fw-toast-child>
- <fw-toast-child id="type_toast" sticky=true type="inprogress" content="inprogress"></fw-toast-child>
+<code-group>
+<code-block title="HTML">
+```html
+ <fw-toast-message id="type_toast" sticky=true type="success" content="success"></fw-toast-message>
+ <fw-toast-message id="type_toast" sticky=true type="error" content="error"></fw-toast-message>
+ <fw-toast-message id="type_toast" type="warning" content="warning"></fw-toast-message>
+ <fw-toast-message id="type_toast" type="inprogress" content="inprogress"></fw-toast-message>
 ```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwToastMessage } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+        <FwToastMessage id="type_toast" sticky type="success" content="success"></FwToastMessage>
+        <FwToastMessage id="type_toast" sticky type="error" content="error"></FwToastMessage>
+        <FwToastMessage id="type_toast" type="warning" content="warning"></FwToastMessage>
+        <FwToastMessage id="type_toast" type="inprogress" content="inprogress"></FwToastMessage>
+    </div>);
+}
+```
+</code-block>
+</code-group>
+
 
 <!-- Auto Generated Below -->
 
@@ -48,10 +78,10 @@ Toast Child used internally by Toast component to render toast message.
 ### Graph
 ```mermaid
 graph TD;
-  fw-toast-child --> fw-spinner
-  fw-toast-child --> fw-icon
-  fw-toast --> fw-toast-child
-  style fw-toast-child fill:#f9f,stroke:#333,stroke-width:4px
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
+  fw-toast --> fw-toast-message
+  style fw-toast-message fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
