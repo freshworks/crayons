@@ -118,7 +118,9 @@ export class RadioGroup {
 
   async connectedCallback() {
     const el = this.host;
-    this.radios = Array.from(this.host.querySelectorAll('fw-radio'));
+    this.radios = Array.from(this.host.querySelectorAll('fw-radio')).filter(
+      (radio) => !radio.disabled
+    );
     this.host.style.display = 'flex';
     this.host.style.flexDirection = this.orientation;
 
