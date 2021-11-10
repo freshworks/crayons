@@ -29,10 +29,10 @@ Toasts are used to show pop-up messages that lasts on the screen for a while. Us
 
 ## Events
 
-| Event              | Description                                                   | Type               |
-| ------------------ | ------------------------------------------------------------- | ------------------ |
-| `fwLinkClick`      | Triggered when the action link clicked.                       | `CustomEvent<any>` |
-| `removeToastChild` | Remove toast element from the parent on closing toast message | `CustomEvent<any>` |
+| Event           | Description                                                   | Type               |
+| --------------- | ------------------------------------------------------------- | ------------------ |
+| `fwLinkClick`   | Triggered when the action link clicked.                       | `CustomEvent<any>` |
+| `fwRemoveToast` | Remove toast element from the parent on closing toast message | `CustomEvent<any>` |
 
 
 ## Dependencies

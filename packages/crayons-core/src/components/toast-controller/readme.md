@@ -10,6 +10,7 @@
 | Property   | Attribute  | Description                                  | Type                                        | Default        |
 | ---------- | ---------- | -------------------------------------------- | ------------------------------------------- | -------------- |
 | `position` | `position` | position of the toast notification in screen | `"top-center" \| "top-left" \| "top-right"` | `'top-center'` |
+| `timeout`  | `timeout`  | Time duration of the toast visibility        | `number`                                    | `4000`         |
 
 
 ## Methods

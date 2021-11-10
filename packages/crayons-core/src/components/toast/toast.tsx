@@ -89,7 +89,7 @@ export class Toast {
   /**
    * Remove toast element from the parent on closing toast message
    */
-  @Event() private removeToastChild: EventEmitter<any>;
+  @Event() fwRemoveToast: EventEmitter<any>;
 
   // @Method()
   // async trigger(configs: any) {
@@ -117,6 +117,7 @@ export class Toast {
     this.fadeOut = false;
     this.isOpen = true;
     this.isTimedOut = false;
+    console.log('timeput, ', this.timeout);
 
     this.timerId = setTimeout(async () => {
       if (!this.sticky) {
@@ -140,7 +141,7 @@ export class Toast {
     return new Promise<void>((resolve) =>
       setTimeout(() => {
         this.isOpen = false;
-        this.removeToastChild.emit(this.controllerEl);
+        this.fwRemoveToast.emit(this.controllerEl);
         resolve();
       }, 500)
     );

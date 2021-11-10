@@ -760,6 +760,10 @@ export namespace Components {
           * position of the toast notification in screen
          */
         "position": 'top-center' | 'top-left' | 'top-right';
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout": number;
         "trigger": (opts: any) => Promise<void>;
     }
     interface FwToggle {
@@ -1823,7 +1827,7 @@ declare namespace LocalJSX {
         /**
           * Remove toast element from the parent on closing toast message
          */
-        "onRemoveToastChild"?: (event: CustomEvent<any>) => void;
+        "onFwRemoveToast"?: (event: CustomEvent<any>) => void;
         /**
           * Pause the toast from hiding on mouse hover
          */
@@ -1849,6 +1853,10 @@ declare namespace LocalJSX {
           * position of the toast notification in screen
          */
         "position"?: 'top-center' | 'top-left' | 'top-right';
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout"?: number;
     }
     interface FwToggle {
         /**

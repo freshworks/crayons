@@ -95,4 +95,6 @@ export const config: Config = {
     slotChildNodesFix: true,
   },
   enableCache: true,
+
+  globalScript: 'src/global/crayons.ts',
 };
