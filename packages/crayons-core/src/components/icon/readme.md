@@ -34,6 +34,7 @@ The following are the icons supported:
 
 ### Used by
 
+ - [fw-alert](../alert)
  - [fw-dropdown-button](../dropdown-button)
  - [fw-input](../input)
  - [fw-modal](../modal)
@@ -45,6 +46,7 @@ The following are the icons supported:
 ### Graph
 ```mermaid
 graph TD;
+  fw-alert --> fw-icon
   fw-dropdown-button --> fw-icon
   fw-input --> fw-icon
   fw-modal --> fw-icon

@@ -9,6 +9,26 @@ import { DropdownVariant } from "./components/select-option/select-option";
 import { PopoverPlacementType } from "./components/popover/popover";
 import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
 export namespace Components {
+    interface FwAlert {
+        /**
+          * Makes the alert closable.
+         */
+        "closable": boolean;
+        /**
+          * The duration in milliseconds for which alert will be shown.
+         */
+        "duration": number;
+        "hide": () => Promise<void>;
+        /**
+          * Indicates whether the alert is open or not.
+         */
+        "open": boolean;
+        "show": () => Promise<void>;
+        /**
+          * The type of alert to be displayed. Defaults to info.
+         */
+        "type": 'success' | 'warning' | 'info' | 'error';
+    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
@@ -788,6 +808,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwAlertElement extends Components.FwAlert, HTMLStencilElement {
+    }
+    var HTMLFwAlertElement: {
+        prototype: HTMLFwAlertElement;
+        new (): HTMLFwAlertElement;
+    };
     interface HTMLFwButtonElement extends Components.FwButton, HTMLStencilElement {
     }
     var HTMLFwButtonElement: {
@@ -945,6 +971,7 @@ declare global {
         new (): HTMLFwToggleElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-alert": HTMLFwAlertElement;
         "fw-button": HTMLFwButtonElement;
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-datepicker": HTMLFwDatepickerElement;
@@ -974,6 +1001,32 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FwAlert {
+        /**
+          * Makes the alert closable.
+         */
+        "closable"?: boolean;
+        /**
+          * The duration in milliseconds for which alert will be shown.
+         */
+        "duration"?: number;
+        /**
+          * Triggered when alert is hidden.
+         */
+        "onFwHide"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when alert is shown.
+         */
+        "onFwShow"?: (event: CustomEvent<any>) => void;
+        /**
+          * Indicates whether the alert is open or not.
+         */
+        "open"?: boolean;
+        /**
+          * The type of alert to be displayed. Defaults to info.
+         */
+        "type"?: 'success' | 'warning' | 'info' | 'error';
+    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
@@ -1866,6 +1919,7 @@ declare namespace LocalJSX {
         "size"?: 'small' | 'medium' | 'large';
     }
     interface IntrinsicElements {
+        "fw-alert": FwAlert;
         "fw-button": FwButton;
         "fw-checkbox": FwCheckbox;
         "fw-datepicker": FwDatepicker;
@@ -1898,6 +1952,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-alert": LocalJSX.FwAlert & JSXBase.HTMLAttributes<HTMLFwAlertElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
