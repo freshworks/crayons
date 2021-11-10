@@ -13,16 +13,16 @@
 <fw-button expand color="primary" onClick="triggerToast()">Primary Button</fw-button>
 
 
- <fw-toast-controller id="left" position="top-left"></fw-toast-controller> 
- <fw-toast-controller id="right" position="top-right" timeout="1000"></fw-toast-controller> 
- <fw-toast-controller id="center" ></fw-toast-controller> 
- <fw-toast-controller id="center1" ></fw-toast-controller> 
+ <fw-toast id="left" position="top-left" content="default" type="error"></fw-toast> 
+ <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
+ <fw-toast id="center" ></fw-toast> 
+ <fw-toast id="center1" ></fw-toast> 
  
 
- <fw-button onClick="document.querySelector('#left').trigger({type:'success', content:'left', timeout:2000})">Trigger left Toast </fw-button>
- <fw-button onClick="document.querySelector('#right').trigger({type:'success', content:'right'})">Trigger right Toast</fw-button>
- <fw-button onClick="document.querySelector('#center').trigger({type:'success', content:'center', timeout:2000})">Trigger Center toast</fw-button>
- <fw-button onClick="document.querySelector('#center1').trigger({type:'success', content:'center 1', timeout:2000})">Trigger Center toast 1</fw-button>
+ <fw-button onClick="document.querySelector('#left').trigger({type:'success',timeout:2000})">Trigger left Toast </fw-button>
+ <fw-button onClick="document.querySelector('#right').trigger({type:'error', content:'right'})">Trigger right Toast</fw-button>
+ <fw-button onClick="document.querySelector('#center').trigger({type:'warning', content:'center', timeout:2000})">Trigger Center toast</fw-button>
+ <fw-button onClick="document.querySelector('#center1').trigger({type:'inprogress', content:'center 1', timeout:2000})">Trigger Center toast 1</fw-button>
  
 <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
    <fw-select

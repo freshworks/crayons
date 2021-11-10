@@ -1,0 +1,104 @@
+:host {
+  display: none;
+  margin-bottom: 16px;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  :host(.is-open) {
+    animation: none;
+  }
+}
+
+:host(.is-open) {
+  display: flex;
+  animation-duration: 0.5s;
+  animation-name: fadeIn;
+  z-index: 999;
+}
+
+.toast {
+  position: relative;
+  padding: 10px;
+  border: 1px solid $color-smoke-50;
+  border-radius: 4px;
+  background-color: $color-milk;
+  display: flex;
+  align-items: stretch;
+  width: 400px;
+  margin: inherit;
+
+  &.success {
+    border-top: 5px solid $color-jungle-500;
+  }
+
+  &.error {
+    border-top: 5px solid $color-persimmon-800;
+  }
+
+  &.warning {
+    border-top: 5px solid $color-casablanca-300;
+  }
+
+  &.inprogress {
+    border-top: 5px solid $color-azure-800;
+  }
+}
+
+.content {
+  color: $color-elephant-900;
+  line-height: 20px;
+  width: 83%;
+  float: left;
+  margin: 2px auto 8px;
+  font-size: $font-size-14;
+  font-weight: $font-weight-500;
+}
+
+.icon {
+  margin: 5px 16px 0 5px;
+  vertical-align: text-top;
+  float: left;
+}
+
+.action-link {
+  color: $color-azure-800;
+  line-height: 14px;
+  margin-left: 38px;
+  cursor: pointer;
+  float: left;
+  font-size: $font-size-12;
+  font-weight: $font-weight-600;
+}
+
+.cross {
+  float: right;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+@keyframes fadeOut {
+  100% {
+    top: -600px;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    top: -600px;
+  }
+
+  100% {
+    top: 10px;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  :host(.fade-out) {
+    animation: none;
+  }
+}
+
+:host(.fade-out) {
+  animation-duration: 1s;
+  animation-name: fadeOut;
+}

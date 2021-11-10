@@ -39,7 +39,7 @@ The following are the icons supported:
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
  - [fw-select-option](../select-option)
- - [fw-toast](../toast)
+ - [fw-toast-child](../toast-child)
  - [fw-toggle](../toggle)
 
 ### Graph
@@ -50,7 +50,7 @@ graph TD;
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon
   fw-select-option --> fw-icon
-  fw-toast --> fw-icon
+  fw-toast-child --> fw-icon
   fw-toggle --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

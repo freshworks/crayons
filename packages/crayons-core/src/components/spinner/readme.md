@@ -32,12 +32,12 @@ fw-spinner displays a continuous loader on the user interface, to indicate that 
 
 ### Used by
 
- - [fw-toast](../toast)
+ - [fw-toast-child](../toast-child)
 
 ### Graph
 ```mermaid
 graph TD;
-  fw-toast --> fw-spinner
+  fw-toast-child --> fw-spinner
   style fw-spinner fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

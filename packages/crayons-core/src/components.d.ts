@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DropdownVariant } from "./components/select-option/select-option";
 import { PopoverPlacementType } from "./components/popover/popover";
 import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
+import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwButton {
         /**
@@ -732,6 +733,37 @@ export namespace Components {
          */
         "actionLinkText": string;
         /**
+          * The content to be displayed in toast
+         */
+        "content": string;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "pauseOnHover": boolean;
+        /**
+          * position of the toast notification in screen
+         */
+        "position": 'top-center' | 'top-left' | 'top-right';
+        /**
+          * won't close automatically
+         */
+        "sticky": boolean;
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout": number;
+        "trigger": (opts: ToastOptions) => Promise<void>;
+        /**
+          * Type of the toast - success,failure, warning, inprogress
+         */
+        "type": 'success' | 'error' | 'warning' | 'inprogress';
+    }
+    interface FwToastChild {
+        /**
+          * The Content of the action link
+         */
+        "actionLinkText": string;
+        /**
           * The content to be diaplyed in toast
          */
         "content": string;
@@ -750,21 +782,7 @@ export namespace Components {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type": | 'success'
-    | 'error'
-    | 'warning'
-    | 'inprogress';
-    }
-    interface FwToastController {
-        /**
-          * position of the toast notification in screen
-         */
-        "position": 'top-center' | 'top-left' | 'top-right';
-        /**
-          * Time duration of the toast visibility
-         */
-        "timeout": number;
-        "trigger": (opts: any) => Promise<void>;
+        "type": 'success' | 'error' | 'warning' | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -944,11 +962,11 @@ declare global {
         prototype: HTMLFwToastElement;
         new (): HTMLFwToastElement;
     };
-    interface HTMLFwToastControllerElement extends Components.FwToastController, HTMLStencilElement {
+    interface HTMLFwToastChildElement extends Components.FwToastChild, HTMLStencilElement {
     }
-    var HTMLFwToastControllerElement: {
-        prototype: HTMLFwToastControllerElement;
-        new (): HTMLFwToastControllerElement;
+    var HTMLFwToastChildElement: {
+        prototype: HTMLFwToastChildElement;
+        new (): HTMLFwToastChildElement;
     };
     interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {
     }
@@ -982,7 +1000,7 @@ declare global {
         "fw-textarea": HTMLFwTextareaElement;
         "fw-timepicker": HTMLFwTimepickerElement;
         "fw-toast": HTMLFwToastElement;
-        "fw-toast-controller": HTMLFwToastControllerElement;
+        "fw-toast-child": HTMLFwToastChildElement;
         "fw-toggle": HTMLFwToggleElement;
     }
 }
@@ -1817,6 +1835,36 @@ declare namespace LocalJSX {
          */
         "actionLinkText"?: string;
         /**
+          * The content to be displayed in toast
+         */
+        "content"?: string;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "pauseOnHover"?: boolean;
+        /**
+          * position of the toast notification in screen
+         */
+        "position"?: 'top-center' | 'top-left' | 'top-right';
+        /**
+          * won't close automatically
+         */
+        "sticky"?: boolean;
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout"?: number;
+        /**
+          * Type of the toast - success,failure, warning, inprogress
+         */
+        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
+    }
+    interface FwToastChild {
+        /**
+          * The Content of the action link
+         */
+        "actionLinkText"?: string;
+        /**
           * The content to be diaplyed in toast
          */
         "content"?: string;
@@ -1825,7 +1873,7 @@ declare namespace LocalJSX {
          */
         "onFwLinkClick"?: (event: CustomEvent<any>) => void;
         /**
-          * Remove toast element from the parent on closing toast message
+          * Triggered on closing the toast message. This event gets used by the parent container to remove the toast message from itself
          */
         "onFwRemoveToast"?: (event: CustomEvent<any>) => void;
         /**
@@ -1843,20 +1891,7 @@ declare namespace LocalJSX {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type"?: | 'success'
-    | 'error'
-    | 'warning'
-    | 'inprogress';
-    }
-    interface FwToastController {
-        /**
-          * position of the toast notification in screen
-         */
-        "position"?: 'top-center' | 'top-left' | 'top-right';
-        /**
-          * Time duration of the toast visibility
-         */
-        "timeout"?: number;
+        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -1914,7 +1949,7 @@ declare namespace LocalJSX {
         "fw-textarea": FwTextarea;
         "fw-timepicker": FwTimepicker;
         "fw-toast": FwToast;
-        "fw-toast-controller": FwToastController;
+        "fw-toast-child": FwToastChild;
         "fw-toggle": FwToggle;
     }
 }
@@ -1947,7 +1982,7 @@ declare module "@stencil/core" {
             "fw-textarea": LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
             "fw-timepicker": LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
-            "fw-toast-controller": LocalJSX.FwToastController & JSXBase.HTMLAttributes<HTMLFwToastControllerElement>;
+            "fw-toast-child": LocalJSX.FwToastChild & JSXBase.HTMLAttributes<HTMLFwToastChildElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
         }
     }

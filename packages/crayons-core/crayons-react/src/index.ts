@@ -1,2 +1,2 @@
 export * from './components';
-export { registerIcons,ToastController } from '../../dist/components/index' 
+export { ToastController } from '../../dist/components/index' 

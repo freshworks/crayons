@@ -1,3 +1,3 @@
 export * from './components';
 
-export { registerIcons, ToastController } from './global/crayons';
+export { ToastController } from './global/crayons';
