@@ -51,7 +51,7 @@ export const config: Config = {
     },
     reactOutputTarget({
       componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
-      proxiesFile: './crayons-react/src/components.ts',
+      proxiesFile: './crayons-react/components.ts',
 
       // lazy load -> code splitting
       // includeDefineCustomElements: true,
