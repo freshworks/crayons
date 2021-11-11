@@ -51,7 +51,7 @@
   &__icon {
     flex: 0 0 auto;
     display: flex;
-    align-items: center;
+    align-self: flex-start;
     margin-right: 8px;
   }
 
@@ -73,8 +73,9 @@
   &__close {
     flex: 0 0 auto;
     display: flex;
-    align-items: center;
+    align-self: flex-start;
     padding-right: 6px;
+    padding-left: 12px;
     cursor: pointer;
   }
 }

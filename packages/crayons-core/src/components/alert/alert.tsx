@@ -82,11 +82,11 @@ export class Alert {
         this.startAutoHide();
       }
     } else {
+      clearTimeout(this.autoHideTimeout);
+
       this.host.style.display = 'none';
 
       this.fwHide.emit();
-
-      clearTimeout(this.autoHideTimeout);
     }
   }
 
