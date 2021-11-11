@@ -1,7 +1,8 @@
 # Input (fw-input)
 fw-input displays a single-line input box on the user interface and enables assigning a value to it. 
 
-## Usage
+
+## Demo
 
 ```html live
 <fw-input
@@ -39,9 +40,98 @@ placeholder="Enter the verification code sent to the registered email address"
   state="normal"
   clear-input>
 </fw-input>
-
-
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-input
+  label="Name"
+  icon-left="add-contact"
+  state-text="Do not enter your user ID"
+  state="warning"
+  placeholder="Enter your official name"
+  required
+  clear-input>
+</fw-input>
+<fw-input
+  label="Password"
+  state-text="Password is incorrect"
+  state="error"
+  required
+  clear-input>
+</fw-input>
+<fw-input
+  label="Verification Code"
+placeholder="Enter the verification code sent to the registered email address"
+  state="normal"
+  clear-input>
+</fw-input>
+<fw-input
+  label="Deprecated Field"
+  disabled
+  state="normal"
+  clear-input>
+</fw-input>
+<fw-input
+  label="Do Not Modify"
+  value="Not applicable"
+  readonly
+  state="normal"
+  clear-input>
+</fw-input>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwInput } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+      <FwInput
+      label="Name"
+      iconLeft="add-contact"
+      stateText="Do not enter your user ID"
+      state="warning"
+      placeholder="Enter your official name"
+      required
+      clearInput>
+    </FwInput>
+    <FwInput
+      label="Password"
+      stateText="Password is incorrect"
+      state="error"
+      required
+      clearInput>
+    </FwInput>
+    <FwInput
+      label="Verification Code"
+      placeholder="Enter the verification code sent to the registered email address"
+      state="normal"
+      clearInput>
+    </FwInput>
+    <FwInput
+      label="Deprecated Field"
+      disabled
+      state="normal"
+      clearInput>
+    </FwInput>
+    <FwInput
+      label="Do Not Modify"
+      value="Not applicable"
+      readonly
+      state="normal"
+      clearInput>
+    </FwInput>
+ </div>);
+```
+</code-block>
+</code-group>
+
 
 <!-- Auto Generated Below -->
 

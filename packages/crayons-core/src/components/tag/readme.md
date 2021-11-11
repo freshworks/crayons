@@ -1,10 +1,36 @@
 # Tag (fw-tag)
 fw-tag provides a child component that is used to enable selecting multiple options in the Select component. 
 
-## Usage
+
+## Demo
+
 ```html live
 <fw-tag text="Option"></fw-tag>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-tag text="Option"></fw-tag>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwTag } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+          <FwTag text="Option"></FwTag>
+    </div>);
+}
+```
+</code-block>
+</code-group>
+
 
 <!-- Auto Generated Below -->
 

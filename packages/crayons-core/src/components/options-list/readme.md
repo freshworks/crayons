@@ -1,6 +1,66 @@
-# fw-list-options
+# List Options (fw-list-options)
 
+# Usage
 
+The data-source and the visual variant for the list options can be altered via the props.
+
+```html live
+<fw-popover>
+  <fw-button slot="popover-trigger">Straw Hats - Click Me!</fw-button>
+  <fw-list-options
+    id="standardVariant"
+    slot="popover-content"
+    searchable="true"
+    not-found-text="Pirate not found"
+    search-text="Search Pirate"
+  ></fw-list-options>
+</fw-popover>
+
+<br />
+
+<fw-popover same-width="false">
+  <fw-button slot="popover-trigger">Click Me!</fw-button>
+  <fw-list-options
+    variant="icon"
+    id="iconVariant"
+    slot="popover-content"
+  ></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var dataSource = [
+    { value: '1', text: 'Luffy' },
+    { value: '2', text: 'Zorro' },
+    { value: '3', text: 'Sanji' },
+  ];
+  var standardVariant = document.getElementById('standardVariant');
+  standardVariant.options = dataSource;
+  standardVariant.value = ['2'];
+
+  var iconDataSource = [
+    {
+      value: '1',
+      text: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      value: '2',
+      text: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      value: '3',
+      text: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var iconVariant = document.getElementById('iconVariant');
+  iconVariant.options = iconDataSource;
+</script>
+```
 
 <!-- Auto Generated Below -->
 

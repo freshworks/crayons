@@ -7,16 +7,25 @@ $btn-primary-border-active: $color-elephant-800;
 
 $group-btn-border: $btn-lg-top;
 
+$btn-primary-disabled-bg: $color-smoke-300;
+$btn-primary-disabled-bg-dark: #7b8e9f;
+$btn-primary-disabled-color: rgba($btn-primary-color, 0.5);
+
 $btn-secondary-color: $text-default;
 $btn-secondary-bg: $color-milk;
 $btn-secondary-bg-dark: $color-smoke-25;
 $btn-secondary-border: $border-color;
 $btn-secondary-border-active: $color-smoke-50;
+$btn-secondary-disabled-bg: $color-smoke-50;
+$btn-secondary-disabled-color: $color-smoke-300;
 
 $btn-danger-color: $color-milk;
 $btn-danger-bg: $color-persimmon-800;
 $btn-danger-bg-dark: $color-persimmon-900;
 $btn-danger-border: $color-persimmon-900;
+$btn-danger-disabled-bg: #f89fa1;
+$btn-danger-disabled-bg-dark: #f2797b;
+$btn-danger-disabled-color: rgba($btn-primary-color, 0.5);
 
 $btn-link-color: $color-azure-800;
 $btn-link-bg: $color-smoke-50;
@@ -27,32 +36,41 @@ $btn-default-font-size: $font-size-14;
 $btn-small-font-size: $font-size-12;
 $btn-mini-font-size: $font-size-10;
 
-$btn-font-weight: $font-weight-500;
+$btn-font-weight: $font-weight-600;
 
+// stylelint-disable a11y/media-prefers-reduced-motion
 @media screen and (prefers-reduced-motion: reduce) {
-  .fw-btn {
+  .fw-btn,
+  .fw-btn--label,
+  .fw-btn--loader {
     transition: none;
   }
 }
 
 .fw-btn {
   font-size: $btn-default-font-size;
-  line-height: 20px;
+  font-weight: $btn-font-weight;
+  color: $btn-primary-bg;
   padding: 6px 12px;
   border: 1px solid transparent;
   border-radius: 4px;
   outline: 0;
-  color: $btn-primary-bg;
+
   cursor: pointer;
-  transition: all 0.2s linear;
-  letter-spacing: 0.3px;
-  font-weight: $btn-font-weight;
-  min-width: 87px;
-  height: 32px;
+  letter-spacing: 0;
+
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  vertical-align: middle;
+  flex-wrap: wrap;
+  align-content: center;
+
+  transition: all 0.2s ease-in;
 
   &:focus {
-    border: 1px solid $btn-primary-bg;
-    box-shadow: 0 0 0 1px $btn-primary-bg;
+    border: 1px solid $btn-lg-focus-border;
+    box-shadow: 0 0 0 1px $btn-lg-focus-border;
     outline: none;
   }
 
@@ -63,13 +81,12 @@ $btn-font-weight: $font-weight-500;
   &.disabled,
   &[disabled] {
     cursor: not-allowed;
-    opacity: 0.4;
   }
 
   &--primary {
     background-color: $btn-primary-bg;
     color: $btn-primary-color;
-    border: 1px solid $btn-primary-border;
+    border-color: $btn-primary-border;
     background-image: linear-gradient(
       to bottom,
       $btn-primary-bg,
@@ -77,7 +94,7 @@ $btn-font-weight: $font-weight-500;
     );
 
     &:active {
-      border: 1px solid $btn-primary-border-active;
+      border-color: $btn-primary-border-active;
     }
 
     &:focus:not([disabled]),
@@ -85,12 +102,23 @@ $btn-font-weight: $font-weight-500;
       background-color: $btn-primary-bg-dark;
       background-image: none;
     }
+
+    &.disabled,
+    &[disabled] {
+      background-image: linear-gradient(
+        to bottom,
+        $btn-primary-disabled-bg,
+        $btn-primary-disabled-bg-dark
+      );
+      border-color: $btn-primary-disabled-bg-dark;
+      color: $btn-primary-disabled-color;
+    }
   }
 
   &--secondary {
     background-color: $btn-secondary-bg-dark;
     color: $btn-secondary-color;
-    border: 1px solid $btn-secondary-border;
+    border-color: $btn-secondary-border;
     background-image: linear-gradient(
       to bottom,
       $btn-secondary-bg,
@@ -98,7 +126,7 @@ $btn-font-weight: $font-weight-500;
     );
 
     &:active {
-      border: 1px solid $btn-secondary-border-active;
+      border-color: $btn-secondary-border-active;
     }
 
     &:focus:not([disabled]),
@@ -106,12 +134,19 @@ $btn-font-weight: $font-weight-500;
       background-color: $btn-secondary-bg-dark;
       background-image: none;
     }
+
+    &.disabled,
+    &[disabled] {
+      background: $btn-secondary-disabled-bg;
+      border-color: $btn-secondary-disabled-bg;
+      color: $btn-secondary-disabled-color;
+    }
   }
 
   &--danger {
     color: $btn-danger-color;
     background-color: $btn-danger-bg;
-    border: 1px solid $btn-danger-border;
+    border-color: $btn-danger-border;
     background-image: linear-gradient(
       to bottom,
       $btn-danger-bg,
@@ -123,6 +158,17 @@ $btn-font-weight: $font-weight-500;
       background-color: $btn-danger-bg-dark;
       background-image: none;
     }
+
+    &.disabled,
+    &[disabled] {
+      background-image: linear-gradient(
+        to bottom,
+        $btn-danger-disabled-bg,
+        $btn-danger-disabled-bg-dark
+      );
+      border-color: $btn-danger-disabled-bg-dark;
+      color: rgba($color-milk, 0.5);
+    }
   }
 
   &--link {
@@ -130,12 +176,6 @@ $btn-font-weight: $font-weight-500;
     background-image: none;
     border: 1px solid transparent;
     color: $btn-link-color;
-
-    &:focus:not([disabled]),
-    &:hover:not([disabled]) {
-      background-color: $btn-link-bg;
-      border-color: $btn-link-bg;
-    }
   }
 
   &--text {
@@ -147,7 +187,20 @@ $btn-font-weight: $font-weight-500;
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
       background-color: $btn-link-bg;
-      border-color: $btn-link-bg;
+    }
+  }
+
+  &--text,
+  &--link {
+    &:focus:not([disabled]),
+    &:hover:not([disabled]) {
+      border-color: $btn-lg-focus-border;
+      box-shadow: 0 0 0 1px $btn-lg-focus-border;
+    }
+
+    &.disabled,
+    &[disabled] {
+      opacity: 0.5;
     }
   }
 
@@ -161,21 +214,67 @@ $btn-font-weight: $font-weight-500;
     line-height: $btn-mini-font-size;
     min-width: 16px;
     height: 16px;
+
+    fw-spinner {
+      transform: scale(0.5);
+    }
   }
 
+  // DS button specification for mini has been referenced within crayons as type small
   &--small {
     padding: 5px 8px;
     font-size: $btn-small-font-size;
     line-height: 12px;
-    min-width: 70px;
+    min-width: 72px;
     height: 24px;
+
+    fw-spinner {
+      transform: scale(0.75);
+    }
+  }
+
+  &--normal {
+    min-width: 80px;
+    height: 32px;
   }
 
   &--icon {
     min-width: 32px;
     width: 32px;
+    height: 32px;
     padding: 0;
   }
+}
+
+// Loading button implementation
+.fw-btn--loading {
+  position: relative;
+
+  .fw-btn--label {
+    opacity: 0;
+  }
+
+  .fw-btn--loader {
+    --spinner-color: currentColor;
+    opacity: 1;
+  }
+}
+
+.fw-btn--label,
+.fw-btn--loader {
+  transition: opacity 0.3s ease-out;
+}
+
+.fw-btn--loader {
+  opacity: 0;
+  position: absolute;
+  font-size: 1em;
+  height: 1em;
+  width: 1em;
+  top: calc(50% - 0.5em);
+  left: calc(50% - 0.5em);
+  margin-top: -1px;
+  margin-left: -1px;
 }
 
 /*
@@ -185,22 +284,22 @@ $btn-font-weight: $font-weight-500;
    * buttons and we style them here instead.
 */
 
-   :host(.fw-button-group__button--first:not(.fw-button-group__button--last)) .fw-btn {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+:host(.fw-button-group__button--first:not(.fw-button-group__button--last))
+  .fw-btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
 
-  :host(.fw-button-group__button--inner) .fw-btn {
-    border-radius: 0;
-    border-left: solid 1px lighten($group-btn-border,80%);
-    margin-left: -1;
-  }
+:host(.fw-button-group__button--inner) .fw-btn {
+  border-radius: 0;
+  border-left: solid 1px lighten($group-btn-border, 80%);
+  margin-left: -1;
+}
 
-  :host(.fw-button-group__button--last:not(.fw-button-group__button--first)) .fw-btn {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: solid 1px lighten($group-btn-border,80%);
-    margin-left: -1;
-  }
-
-
+:host(.fw-button-group__button--last:not(.fw-button-group__button--first))
+  .fw-btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: solid 1px lighten($group-btn-border, 80%);
+  margin-left: -1;
+}

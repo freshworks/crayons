@@ -25,7 +25,7 @@ export class RadioGroup {
   @Element() host!: HTMLElement;
 
   private selectedIndex = 0;
-  private radiosPromise;
+  private radios;
 
   /**
    * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
@@ -73,8 +73,8 @@ export class RadioGroup {
   }
 
   @Listen('keyup')
-  async handleKeyup(event: KeyboardEvent) {
-    const radios = await this.radiosPromise;
+  handleKeyup(event: KeyboardEvent) {
+    const radios = this.radios;
     const previousSelected = this.selectedIndex;
     switch (event.code) {
       case 'ArrowDown':
@@ -118,19 +118,9 @@ export class RadioGroup {
 
   async connectedCallback() {
     const el = this.host;
-
-    /**
-     * Make sure we start radio's componentOnReady promise as soon as possible in the component
-     * lifecycle and maintain a reference to the returned promise so that it can be reused.
-     * We are not using await explictly here as the radio group rendering might get
-     * affected if any of the radio's componentonReady is resolved later than expected.
-     */
-    this.radiosPromise = Promise.all(
-      Array.from(this.host.querySelectorAll('fw-radio')).map((r) =>
-        r.componentOnReady()
-      )
+    this.radios = Array.from(this.host.querySelectorAll('fw-radio')).filter(
+      (radio) => !radio.disabled
     );
-
     this.host.style.display = 'flex';
     this.host.style.flexDirection = this.orientation;
 
@@ -162,7 +152,6 @@ export class RadioGroup {
         }
       }
     );
-    await this.updateRadios();
   }
 
   disconnectedCallback() {
@@ -178,7 +167,7 @@ export class RadioGroup {
      * so values are up to date prior
      * to caching the radio group value
      */
-    const radios = await this.radiosPromise;
+    const radios = await this.radios;
     const { value } = this;
 
     let hasChecked = false;

@@ -2,7 +2,7 @@
 
 fw-tabs displays a series of tabs on the user interface and enables tab-style navigation. The component doesn’t have any attributes that impart styling; it merely functions as a container for the tabs.
 
-## Usage
+## Demo
 
 ```html live
 <fw-tabs>
@@ -34,6 +34,83 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
   </fw-tab-panel>
 </fw-tabs>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-tabs>
+  <fw-tab slot="tab" panel="personal">Personal</fw-tab>
+  <fw-tab slot="tab" panel="official">Official</fw-tab>
+
+  <fw-tab-panel name="personal">
+    <fw-input
+      label="Name"
+      icon-left="add-contact"
+      state-text="Do not enter your user ID"
+      state="warning"
+      placeholder="Enter your official name"
+      required
+      clear-input>
+    </fw-input>
+    <fw-button color="secondary">Submit</fw-button>
+    <fw-button color="secondary">Save</fw-button>
+  </fw-tab-panel>
+
+  <fw-tab-panel name="official">
+    <fw-select multiple label="Select location of preference" required="true">
+      <fw-select-option value="1">Chennai</fw-select-option>
+      <fw-select-option value="2">Bangalore</fw-select-option>
+      <fw-select-option value="3">Hyderabad</fw-select-option>
+    </fw-select>
+    <fw-button color="secondary">Submit</fw-button>
+    <fw-button color="secondary">Save</fw-button>
+  </fw-tab-panel>
+</fw-tabs>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwButton, FwSelect, FwSelectOption, FwInput, FwTabs, FwTab, FwTabPanel } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+          <FwTabs>
+            <FwTab slot="tab" panel="personal">Personal</FwTab>
+            <FwTab slot="tab" panel="official">Official</FwTab>
+
+            <FwTabPanel name="personal">
+              <FwInput
+                label="Name"
+                iconLeft="add-contact"
+                stateText="Do not enter your user ID"
+                state="warning"
+                placeholder="Enter your official name"
+                required
+                clearInput>
+              </FwInput>
+              <FwButton color="secondary">Submit</FwButton>
+              <FwButton color="secondary">Save</FwButton>
+            </FwTabPanel>
+
+            <FwTabPanel name="official">
+              <FwSelect multiple label="Select location of preference" required="true">
+                <FwSelectOption value="1">Chennai</FwSelectOption>
+                <FwSelectOption value="2">Bangalore</FwSelectOption>
+                <FwSelectOption value="3">Hyderabad</FwSelectOption>
+              </FwSelect>
+              <FwButton color="secondary">Submit</FwButton>
+              <FwButton color="secondary">Save</FwButton>
+            </FwTabPanel>
+          </FwTabs>
+    </div>);
+}
+```
+</code-block>
+</code-group>
 
 
 <!-- Auto Generated Below -->

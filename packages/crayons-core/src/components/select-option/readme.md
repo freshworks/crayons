@@ -2,7 +2,8 @@
 
 fw-select-option provides child elements for fw-select, to populate the Select component’s list or drop-down box with values. If fw-select-option is used without the value attribute, when the form data is saved, the value of fw-select is the selected option’s text.
 
-## Usage
+
+## Demo
 
 ```html live
 <fw-select-option selected="true">I am the chosen one</fw-select-option>
@@ -10,7 +11,35 @@ fw-select-option provides child elements for fw-select, to populate the Select c
 <fw-select-option>I am another option</fw-select-option>
 ```
 
-#### Variants
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-select-option selected="true">I am the chosen one</fw-select-option>
+<fw-select-option html html-content="<b>Me, nein</b>"></fw-select-option>
+<fw-select-option>I am another option</fw-select-option>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwSelectOption } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+        <FwSelectOption selected="true">I am the chosen one</FwSelectOption>
+        <FwSelectOption html htmlContent="<b>Me, nein</b>"></FwSelectOption>
+        <FwSelectOption>I am another option</FwSelectOption>
+    </div>);
+}
+```
+</code-block>
+</code-group>
+
+
+#### Demo - Variants
 
 ```html live
 <fw-select-option text="Standard Variant"></fw-select-option>
@@ -24,6 +53,48 @@ fw-select-option provides child elements for fw-select, to populate the Select c
   sub-text="This is multiline checkbox element"
 ></fw-select-option>
 ```
+
+#### Usage - Variants
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-select-option text="Standard Variant"></fw-select-option>
+<fw-select-option
+  text="Standard Variant"
+  sub-text="This is multiline element"
+></fw-select-option>
+<fw-select-option
+  variant="checkbox"
+  text="Checkbox Variant"
+  sub-text="This is multiline checkbox element"
+></fw-select-option>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwSelectOption } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+        <FwSelectOption text="Standard Variant"></FwSelectOption>
+        <FwSelectOption
+          text="Standard Variant"
+          subText="This is multiline element"
+        ></FwSelectOption>
+        <FwSelectOption
+          variant="checkbox"
+          text="Checkbox Variant"
+          subText="This is multiline checkbox element"
+        ></FwSelectOption>
+    </div>);
+}
+```
+</code-block>
+</code-group>
+
 
 <!-- Auto Generated Below -->
 

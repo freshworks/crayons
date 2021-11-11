@@ -1,10 +1,34 @@
 # Icon (fw-icon)
 fw-icon displays an icon-sized image that imparts meaning to the component it is associated with.
-## Usage
+
+## Demo
 
 ```html live
 <fw-icon name="add-contact" size="18" color="green"></fw-icon>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+<fw-icon name="add-contact" size="18" color="green"></fw-icon>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwIcon } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+  <FwIcon name="add-contact" size="18" color="green"></FwIcon>
+ </div>);
+}
+```
+</code-block>
+</code-group>
 
 ### Icons
 

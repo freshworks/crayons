@@ -85,7 +85,7 @@ function App() {
 
 | Property | Attribute | Description | Type     | Default |
 | -------- | --------- | ----------- | -------- | ------- |
-| `label`  | `label`   |             | `string` | `""`    |
+| `label`  | `label`   |             | `string` | `''`    |
 
 
 ----------------------------------------------

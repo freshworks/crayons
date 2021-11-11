@@ -6,8 +6,6 @@ import {
   Method,
   Prop,
   State,
-  Watch,
-  getAssetPath,
   h,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
@@ -15,7 +13,6 @@ import { handleKeyDown } from '../../utils';
 @Component({
   tag: 'fw-toast',
   styleUrl: 'toast.scss',
-  assetsDirs: ['toast-assets'],
   shadow: true,
 })
 export class Toast {
@@ -28,11 +25,6 @@ export class Toast {
    * To indicate mouse hover on toast
    */
   @State() isMouseHovered: boolean;
-
-  /**
-   * Icon svg html content
-   */
-  @State() svgHTML = '';
 
   /**
    * To indicate toast close timeout
@@ -97,30 +89,6 @@ export class Toast {
    * Triggered when the action link clicked.
    */
   @Event() fwLinkClick: EventEmitter;
-
-  private async getSVGHTML(iconName: string) {
-    const response = await fetch(
-      getAssetPath(`toast-assets/icons/${iconName}.svg`)
-    );
-    const data = await response.text();
-    return data;
-  }
-
-  @Watch('type')
-  private setSVGState(iconName: string) {
-    if (this.type === 'inprogress') {
-      return;
-    }
-    this.getSVGHTML(iconName)
-      .then((res) => {
-        this.svgHTML = res;
-      })
-      .catch();
-  }
-
-  componentWillLoad() {
-    this.setSVGState(this.type);
-  }
 
   @Method()
   async trigger(configs: any) {

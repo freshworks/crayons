@@ -23,13 +23,17 @@ export namespace Components {
          */
         "expand": boolean;
         /**
+          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+         */
+        "loading": boolean;
+        /**
           * Accepts the id of the fw-modal component to open it on click
          */
         "modalTriggerId": string;
         /**
           * Size of the button.
          */
-        "size": 'normal' | 'mini' | 'small';
+        "size": 'normal' | 'mini' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -998,6 +1002,10 @@ declare namespace LocalJSX {
          */
         "expand"?: boolean;
         /**
+          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+         */
+        "loading"?: boolean;
+        /**
           * Accepts the id of the fw-modal component to open it on click
          */
         "modalTriggerId"?: string;
@@ -1016,7 +1024,7 @@ declare namespace LocalJSX {
         /**
           * Size of the button.
          */
-        "size"?: 'normal' | 'mini' | 'small';
+        "size"?: 'normal' | 'mini' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
