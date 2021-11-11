@@ -89,13 +89,11 @@ interface ToastOptions {
    * The content to be diaplyed in toast
    */
   content?: string;
-
   /**
    * The document selector for the toast-message component
    * which can be used to embed custom html content in the toast message
    */
   contentref?: string;
-
   /**
    * Pause the toast from hiding on mouse hover
    */

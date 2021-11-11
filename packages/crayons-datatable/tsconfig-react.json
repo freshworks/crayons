@@ -20,8 +20,8 @@
     "target": "es2017"
   },
   "include": [
-    "crayons-react/src/**/*.ts",
-    "crayons-react/src/**/*.tsx",
+    "crayons-react/**/*.ts",
+    "crayons-react/**/*.tsx",
     "crayons-react/package.json"
   ],
   "exclude": ["**/__tests__/**"],

@@ -810,7 +810,7 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to true.
          */
         "showIcon": boolean;
         /**
@@ -1931,7 +1931,7 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to true.
          */
         "showIcon"?: boolean;
         /**
