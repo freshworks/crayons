@@ -40,6 +40,7 @@ export namespace Components {
         "type": 'button' | 'reset' | 'submit';
     }
     interface FwButtonGroup {
+        "label": string;
     }
     interface FwCheckbox {
         /**
@@ -1026,6 +1027,7 @@ declare namespace LocalJSX {
         "type"?: 'button' | 'reset' | 'submit';
     }
     interface FwButtonGroup {
+        "label"?: string;
     }
     interface FwCheckbox {
         /**
