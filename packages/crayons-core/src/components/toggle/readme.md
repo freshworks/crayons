@@ -38,14 +38,14 @@ function App() {
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                                              | Type                             | Default    |
-| ---------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ---------- |
-| `checked`  | `checked`   | Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.                          | `boolean`                        | `false`    |
-| `disabled` | `disabled`  | Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false.             | `boolean`                        | `false`    |
-| `label`    | `label`     | Label for the component, that can be used by screen readers.                                                                             | `string`                         | `''`       |
-| `name`     | `name`      | Name of the component, saved as part of the form data.                                                                                   | `string`                         | `''`       |
-| `showIcon` | `show-icon` | Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false. | `boolean`                        | `false`    |
-| `size`     | `size`      | Size of the input control.                                                                                                               | `"large" \| "medium" \| "small"` | `'medium'` |
+| Property   | Attribute   | Description                                                                                                                             | Type                             | Default    |
+| ---------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ---------- |
+| `checked`  | `checked`   | Sets the selected state as the default state. If the attribute’s value is undefined, the value is set to false.                         | `boolean`                        | `false`    |
+| `disabled` | `disabled`  | Specifies whether to disable the control on the interface. If the attribute’s value is undefined, the value is set to false.            | `boolean`                        | `false`    |
+| `label`    | `label`     | Label for the component, that can be used by screen readers.                                                                            | `string`                         | `''`       |
+| `name`     | `name`      | Name of the component, saved as part of the form data.                                                                                  | `string`                         | `''`       |
+| `showIcon` | `show-icon` | Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to true. | `boolean`                        | `true`     |
+| `size`     | `size`      | Size of the input control.                                                                                                              | `"large" \| "medium" \| "small"` | `'medium'` |
 
 
 ## Events
