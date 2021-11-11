@@ -112,7 +112,7 @@ import { FwButton } from "@freshworks/crayons/react";
 function App() {
   return (<div>
   <section>
-  <label value="Try themes"></label>
+  <label>Try themes</label>
   <FwButton color="primary"> OK </FwButton>
   <FwButton color="secondary"> Secondary </FwButton>
   <FwButton color="danger"> Don't Click </FwButton>
@@ -123,7 +123,7 @@ function App() {
 <br />
 
 <section>
-  <label value="Try sizes"></label>
+  <label>Try sizes</label>
   <FwButton size="mini" color="secondary"> Mini </FwButton>
   <FwButton size="small"> Small </FwButton>
   <FwButton> Default </FwButton>
@@ -131,7 +131,7 @@ function App() {
 <br />
 
 <section>
-  <label value="Try icon buttons"></label>
+  <label>Try icon buttons</label>
   <FwButton size="icon"
     ><fw-icon name="agent" color="white"></fw-icon>
   </FwButton>
@@ -142,7 +142,7 @@ function App() {
 <br />
 
 <section>
-  <label value="Loading state"></label>
+  <label>Loading state</label>
   <FwButton loading> Loading </FwButton>
   <FwButton loading color="secondary"> OK </FwButton>
   <FwButton loading color="danger"> Don't Click </FwButton>
@@ -150,7 +150,7 @@ function App() {
 <br />
 
 <section>
-  <label value="Disabled"></label>
+  <label>Disabled</label>
   <FwButton disabled color="primary"> OK </FwButton>
   <FwButton disabled color="secondary"> OK </FwButton>
   <FwButton disabled color="danger"> Don't Click </FwButton>
