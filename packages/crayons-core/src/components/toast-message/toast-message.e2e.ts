@@ -19,10 +19,13 @@ describe('fw-toast-message', () => {
     element.classList.add('is-open');
 
     const content = await page.find('fw-toast-message >>> .content');
-    expect(content.innerHTML).toEqual('Successfully created!');
+    expect(content.innerHTML).toEqual(
+      '<slot></slot>Successfully created!<div class="action-link" role="button" tabindex="0">Undo</div>'
+    );
 
-    const actionLink = await page.find('fw-toast-message >>> .action-link');
-    expect(actionLink.innerHTML).toEqual('Undo');
+    const container = await content.find('.action-link');
+
+    expect(container.innerHTML).toEqual('Undo');
   });
 
   it('Toast type and position', async () => {
@@ -35,7 +38,7 @@ describe('fw-toast-message', () => {
     element.classList.add('is-open');
     await page.waitForChanges();
 
-    const divElem = await page.find('fw-toast-message >>> div');
+    const divElem = await page.find('fw-toast-message');
     expect(divElem).toHaveClass('warning');
   });
 
@@ -48,7 +51,7 @@ describe('fw-toast-message', () => {
     const element = await page.find('fw-toast-message');
     element.classList.add('is-open');
 
-    const closeIcon = await page.find('fw-toast-message >>> .cross');
+    const closeIcon = await page.find('fw-toast-message >>> .remove');
     expect(closeIcon).toBeTruthy();
 
     const spinner = await page.find('fw-toast-message >>> fw-spinner');

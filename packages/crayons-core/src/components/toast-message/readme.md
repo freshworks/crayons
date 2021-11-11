@@ -5,10 +5,10 @@ Toast Message used internally by Toast component to render toast message.
 ## Demo
 
 ```html live
- <fw-toast-message id="type_toast" sticky=true type="success" content="success"></fw-toast-message>
- <fw-toast-message id="type_toast" sticky=true type="error" content="error"></fw-toast-message>
- <fw-toast-message id="type_toast" type="warning" content="warning"></fw-toast-message>
- <fw-toast-message id="type_toast" type="inprogress" content="inprogress"></fw-toast-message>
+ <fw-toast-message open id="type_toast" sticky=true type="success" content="success"></fw-toast-message>
+ <fw-toast-message open id="type_toast" sticky=true type="error" content="error"></fw-toast-message>
+ <fw-toast-message open id="type_toast" type="warning" content="warning"></fw-toast-message>
+ <fw-toast-message open id="type_toast" type="inprogress" content="inprogress"></fw-toast-message>
 ```
 
 ## Usage
@@ -16,10 +16,10 @@ Toast Message used internally by Toast component to render toast message.
 <code-group>
 <code-block title="HTML">
 ```html
- <fw-toast-message id="type_toast" sticky=true type="success" content="success"></fw-toast-message>
- <fw-toast-message id="type_toast" sticky=true type="error" content="error"></fw-toast-message>
- <fw-toast-message id="type_toast" type="warning" content="warning"></fw-toast-message>
- <fw-toast-message id="type_toast" type="inprogress" content="inprogress"></fw-toast-message>
+ <fw-toast-message open id="type_toast" sticky=true type="success" content="success"></fw-toast-message>
+ <fw-toast-message open id="type_toast" sticky=true type="error" content="error"></fw-toast-message>
+ <fw-toast-message open id="type_toast" type="warning" content="warning"></fw-toast-message>
+ <fw-toast-message open id="type_toast" type="inprogress" content="inprogress"></fw-toast-message>
 ```
 </code-block>
 
@@ -30,16 +30,15 @@ import ReactDOM from "react-dom";
 import { FwToastMessage } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-        <FwToastMessage id="type_toast" sticky type="success" content="success"></FwToastMessage>
-        <FwToastMessage id="type_toast" sticky type="error" content="error"></FwToastMessage>
-        <FwToastMessage id="type_toast" type="warning" content="warning"></FwToastMessage>
-        <FwToastMessage id="type_toast" type="inprogress" content="inprogress"></FwToastMessage>
+        <FwToastMessage open id="type_toast" sticky type="success" content="success"></FwToastMessage>
+        <FwToastMessage open id="type_toast" sticky type="error" content="error"></FwToastMessage>
+        <FwToastMessage open id="type_toast" type="warning" content="warning"></FwToastMessage>
+        <FwToastMessage open id="type_toast" type="inprogress" content="inprogress"></FwToastMessage>
     </div>);
 }
 ```
 </code-block>
 </code-group>
-
 
 <!-- Auto Generated Below -->
 
@@ -50,6 +49,7 @@ function App() {
 | ---------------- | ------------------ | -------------------------------------------------------- | --------------------------------------------------- | ----------- |
 | `actionLinkText` | `action-link-text` | The Content of the action link                           | `string`                                            | `''`        |
 | `content`        | `content`          | The content to be diaplyed in toast                      | `string`                                            | `undefined` |
+| `open`           | `open`             | visibility prop of toast message                         | `boolean`                                           | `false`     |
 | `pauseOnHover`   | `pause-on-hover`   | Pause the toast from hiding on mouse hover               | `boolean`                                           | `undefined` |
 | `sticky`         | `sticky`           | won't close automatically                                | `boolean`                                           | `false`     |
 | `timeout`        | `timeout`          | Time duration of the toast visibility                    | `number`                                            | `4000`      |

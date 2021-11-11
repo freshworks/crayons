@@ -58,17 +58,26 @@
   <fw-label color="red" value="wfwefwe" style="--label-padding-vertical: 10px; --label-padding-horizontal:20px" />
   <br>
   
- <fw-toast id="left" position="top-left" content="default" type="error"></fw-toast> 
- <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
- <fw-toast id="center" ></fw-toast> 
- <fw-toast id="center1" ></fw-toast> 
- 
+  <fw-toast id="left" position="top-left" content="Conversation #3255 - 💬 Festive offers adasdds conversation has been Restored" type="error"></fw-toast> 
+  <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
+  <fw-toast id="center" timeout=10000></fw-toast> 
+  <fw-toast id="center1"></fw-toast> 
 
- <fw-button onClick="document.querySelector('#left').trigger({type:'success',timeout:20000})">Trigger left Toast </fw-button>
- <fw-button onClick="document.querySelector('#right').trigger({type:'error', content:'right'})">Trigger right Toast</fw-button>
- <fw-button onClick="document.querySelector('#center').trigger({type:'warning', content:'center', timeout:2000})">Trigger Center toast</fw-button>
- <fw-button onClick="document.querySelector('#center1').trigger({type:'inprogress', content:'center 1', timeout:2000})">Trigger Center toast 1</fw-button>
- <br/>
+
+  <fw-toast-message type='success' id="custom-toast" timeout="1000000">
+    <div>
+      <span class="abc">i am a slot</span>
+      <h1>custom content</h1>
+      <button onclick="alert('ss')">custom btn</button>
+    </div>
+  </fw-toast-message>
+
+  <fw-button onClick="document.querySelector('#left').trigger({type:'success',timeout:20000000, actionLinkText:'undo'})">Trigger left Toast </fw-button>
+  <fw-button onClick="document.querySelector('#right').trigger({type:'error', content:'right'})">Trigger right Toast</fw-button>
+  <fw-button onClick="document.querySelector('#center').trigger({type:'warning', content:'center'})">Trigger Center toast</fw-button>
+  <fw-button onClick="document.querySelector('#center1').trigger({type:'inprogress', content:'center 1'})">Trigger Center toast 1</fw-button>
+  <fw-button onClick="document.querySelector('#right').trigger({type:'success', contentref:'#custom-toast', timeout:4666000})">Trigger Right Custom Ref</fw-button>
+  <br/>
 
 
   <script>

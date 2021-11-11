@@ -6,6 +6,7 @@ import {
   Host,
   Prop,
   State,
+  Watch,
   h,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
@@ -18,9 +19,9 @@ import { handleKeyDown } from '../../utils';
 export class ToastMessage {
   @Element() controllerEl: HTMLElement;
   /**
-   * visibility state of toast
+   * visibility prop of toast message
    */
-  @State() isOpen = false;
+  @Prop({ mutable: true, reflect: true }) open = false;
 
   /**
    * To indicate mouse hover on toast
@@ -45,7 +46,7 @@ export class ToastMessage {
   /**
    * State icon size
    */
-  @State() iconSize = 14;
+  @State() iconSize = 16;
 
   /**
    * Type of the toast - success,failure, warning, inprogress
@@ -88,11 +89,18 @@ export class ToastMessage {
    */
   @Event() fwRemoveToast: EventEmitter;
 
-  async componentWillLoad(): Promise<void> {
-    this.fadeOut = false;
-    this.isOpen = true;
-    this.isTimedOut = false;
+  @Watch('open')
+  openChanged(open: boolean): void {
+    if (open) this.setUpToast();
+  }
 
+  async componentWillLoad(): Promise<void> {
+    if (this.open) this.setUpToast();
+  }
+
+  async setUpToast(): Promise<void> {
+    this.fadeOut = false;
+    this.isTimedOut = false;
     this.timerId = setTimeout(async () => {
       if (!this.sticky) {
         if (!this.pauseOnHover || (this.pauseOnHover && !this.isMouseHovered)) {
@@ -114,7 +122,7 @@ export class ToastMessage {
     this.fadeOut = true;
     return new Promise<void>((resolve) =>
       setTimeout(() => {
-        this.isOpen = false;
+        this.open = false;
         this.fwRemoveToast.emit(this.controllerEl);
         resolve();
       }, 500)
@@ -128,45 +136,53 @@ export class ToastMessage {
     await this.closingAnimation();
   }
 
+  disconnectedCallback(): void {
+    if (this.timerId) clearTimeout(this.timerId);
+  }
+
   render(): JSX.Element {
     return (
       <Host
-        class={`${this.isOpen ? 'is-open' : ''} ${
+        class={`toast ${this.type} ${this.open ? 'is-open' : ''} ${
           this.fadeOut ? 'fade-out' : ''
         }`}
         onmouseover={() => this.mouseHover(true)}
         onmouseout={() => this.mouseHover(false)}
+        aria-hidden={this.open ? 'false' : 'true'}
       >
-        <div
-          class={`toast ${this.type}`}
-          aria-hidden={this.isOpen ? 'false' : 'true'}
-        >
+        <div class='toast-container'>
           {this.type === 'inprogress' ? (
             <fw-spinner class='icon'></fw-spinner>
           ) : (
             <fw-icon class='icon' size={this.iconSize} name={this.type} />
           )}
-          <span class='content'>{this.content}</span>
+
+          <div class='content'>
+            <slot />
+            {this.content}
+
+            {this.actionLinkText.length > 0 ? (
+              <div
+                class='action-link'
+                role='button'
+                tabindex='0'
+                onClick={() => this.fwLinkClick.emit()}
+                onKeyDown={handleKeyDown(() => this.fwLinkClick.emit())}
+              >
+                {this.actionLinkText}
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+
           <fw-icon
-            size={7}
+            size={10}
             color='#000'
             name='cross'
-            class='cross'
+            class='remove'
             onClick={() => this.closeToast()}
           ></fw-icon>
-          {this.actionLinkText.length > 0 ? (
-            <div
-              class='action-link'
-              role='button'
-              tabindex='0'
-              onClick={() => this.fwLinkClick.emit()}
-              onKeyDown={handleKeyDown(() => this.fwLinkClick.emit())}
-            >
-              {this.actionLinkText}
-            </div>
-          ) : (
-            ''
-          )}
         </div>
       </Host>
     );

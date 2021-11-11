@@ -9,71 +9,74 @@
 }
 
 :host(.is-open) {
-  display: flex;
+  display: block;
   animation-duration: 0.5s;
   animation-name: fadeIn;
   z-index: 999;
 }
 
-.toast {
+:host(.toast) {
   position: relative;
-  padding: 8px;
+  top: 10px;
+  width: 400px;
+  padding: 0px 0px 16px 0px;
   border: 1px solid $color-smoke-50;
   border-radius: 4px;
   background-color: $color-milk;
-  display: flex;
-  align-items: stretch;
-  width: 400px;
   margin-bottom: 16px;
   box-sizing: border-box;
+}
 
-  &.success {
+.toast {
+  :host(&.success) {
     border-top: 5px solid $color-jungle-500;
   }
 
-  &.error {
+  :host(&.error) {
     border-top: 5px solid $color-persimmon-800;
   }
 
-  &.warning {
+  :host(&.warning) {
     border-top: 5px solid $color-casablanca-300;
   }
 
-  &.inprogress {
+  :host(&.inprogress) {
     border-top: 5px solid $color-azure-800;
   }
 }
 
-.content {
-  color: $color-elephant-900;
-  line-height: 20px;
-  width: 83%;
-  float: left;
-  margin: 2px auto 8px;
-  font-size: $font-size-14;
-  font-weight: $font-weight-500;
-}
+.toast-container {
+  display: flex;
+  align-items: flex-start;
+  place-content: center;
 
-.icon {
-  margin: 5px 16px 0 5px;
-  vertical-align: text-top;
-  float: left;
+  .content {
+    color: $color-elephant-900;
+    line-height: 20px;
+    flex: auto;
+    margin: 16px 0px 0px 16px;
+    font-size: $font-size-14;
+    font-weight: $font-weight-500;
+  }
+
+  .icon {
+    margin: 20px 0px 0px 16px;
+  }
+
+  .remove {
+    float: right;
+    cursor: pointer;
+    margin: 16px 12px 0px 12px;
+  }
 }
 
 .action-link {
   color: $color-azure-800;
   line-height: 14px;
-  margin-left: 38px;
   cursor: pointer;
-  float: left;
   font-size: $font-size-12;
   font-weight: $font-weight-600;
-}
-
-.cross {
-  float: right;
-  cursor: pointer;
-  margin-right: 6px;
+  padding: 8px 0px;
 }
 
 @keyframes fadeOut {

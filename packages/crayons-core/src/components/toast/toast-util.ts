@@ -2,32 +2,39 @@ export interface ToastOptions {
   /**
    * The Content of the action link
    */
-  actionLinkText: string;
+  actionLinkText?: string;
   /**
    * The content to be diaplyed in toast
    */
-  content: string;
+  content?: string;
+
+  /**
+   * The document selector for the toast-message component
+   * which can be used to embed custom html content in the toast message
+   */
+  contentref?: string;
+
   /**
    * Pause the toast from hiding on mouse hover
    */
-  pauseOnHover: boolean;
+  pauseOnHover?: boolean;
   /**
    * won't close automatically
    */
-  sticky: boolean;
+  sticky?: boolean;
   /**
    * Time duration of the toast visibility
    */
-  timeout: number;
+  timeout?: number;
   /**
    * Type of the toast - success,failure, warning, inprogress
    */
-  type: 'success' | 'error' | 'warning' | 'inprogress';
+  type?: 'success' | 'error' | 'warning' | 'inprogress';
 
   /**
    *  position of the toast notification in screen
    */
-  position: 'top-center' | 'top-left' | 'top-right';
+  position?: 'top-center' | 'top-left' | 'top-right';
 }
 export type ToastResult = {
   trigger: any;
@@ -62,15 +69,25 @@ export function createToastStack(config: ToastOptions): HTMLElement {
 }
 
 export function createToastNotification(
-  opts: ToastOptions,
+  opts: ToastOptions = {},
   containerElem: HTMLElement,
   defaultOpts: ToastOptions
 ): void {
   const props = getProps(opts, defaultOpts);
-  const toastElem = document.createElement('fw-toast-message');
+  let toastElem;
 
+  if (opts.contentref) {
+    const ref = document.querySelector(opts.contentref);
+    toastElem = ref.cloneNode(true);
+
+    props.content = '';
+  } else {
+    toastElem = document.createElement('fw-toast-message');
+  }
+
+  console.log(props.actionLinkText);
   Object.entries(props).map(([key, val]) => {
-    if (val) toastElem.setAttribute(key, val as string);
+    if (val) toastElem.setAttribute(kebabCase(key), val as string);
   });
 
   containerElem.appendChild(toastElem);
@@ -95,7 +112,7 @@ function removeChildToast(event) {
   });
 }
 
-function getProps(opts: ToastOptions, defaultOpts: ToastOptions) {
+function getProps(opts: ToastOptions = {}, defaultOpts: ToastOptions) {
   const props = Object.assign(
     {},
     {
@@ -105,8 +122,16 @@ function getProps(opts: ToastOptions, defaultOpts: ToastOptions) {
       actionLinkText: opts.actionLinkText ?? defaultOpts.actionLinkText,
       sticky: opts.sticky ?? defaultOpts.sticky,
       pauseOnHover: opts.pauseOnHover ?? defaultOpts.pauseOnHover,
+      open: true,
     }
   );
 
   return props;
+}
+
+function kebabCase(string) {
+  return string
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
+    .toLowerCase();
 }

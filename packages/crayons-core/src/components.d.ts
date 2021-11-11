@@ -772,6 +772,10 @@ export namespace Components {
          */
         "content": string;
         /**
+          * visibility prop of toast message
+         */
+        "open": boolean;
+        /**
           * Pause the toast from hiding on mouse hover
          */
         "pauseOnHover": boolean;
@@ -1884,6 +1888,10 @@ declare namespace LocalJSX {
           * Triggered on closing the toast message. This event gets used by the parent container to remove the toast message from itself
          */
         "onFwRemoveToast"?: (event: CustomEvent<any>) => void;
+        /**
+          * visibility prop of toast message
+         */
+        "open"?: boolean;
         /**
           * Pause the toast from hiding on mouse hover
          */
