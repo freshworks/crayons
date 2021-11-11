@@ -1,59 +1,23 @@
+import { Host, Component, Prop, h, Method } from '@stencil/core';
+
 import {
-  Component,
-  Event,
-  EventEmitter,
-  Host,
-  Method,
-  Prop,
-  State,
-  h,
-} from '@stencil/core';
-import { handleKeyDown } from '../../utils';
+  ToastOptions,
+  createToastStack,
+  createToastNotification,
+} from './toast-util';
 
 @Component({
   tag: 'fw-toast',
-  styleUrl: 'toast.scss',
   shadow: true,
 })
 export class Toast {
-  /**
-   * visibility state of toast
-   */
-  @State() isOpen = false;
+  private toastContainer: HTMLElement | null;
 
   /**
-   * To indicate mouse hover on toast
+   *  position of the toast notification in screen
    */
-  @State() isMouseHovered: boolean;
-
-  /**
-   * To indicate toast close timeout
-   */
-  @State() isTimedOut = false;
-
-  /**
-   * stored setTimeOut id to close it
-   */
-  @State() timerId: any;
-
-  /**
-   * To add close animation class to toast
-   */
-  @State() fadeOut = false;
-
-  /**
-   * State icon size
-   */
-  @State() iconSize = 14;
-
-  /**
-   * Type of the toast - success,failure, warning, inprogress
-   */
-  @Prop({ mutable: true }) type:
-    | 'success'
-    | 'error'
-    | 'warning'
-    | 'inprogress' = 'warning';
+  @Prop()
+  position: 'top-center' | 'top-left' | 'top-right' = 'top-center';
 
   /**
    * Time duration of the toast visibility
@@ -61,7 +25,12 @@ export class Toast {
   @Prop() timeout = 4000;
 
   /**
-   * The content to be diaplyed in toast
+   * Type of the toast - success,failure, warning, inprogress
+   */
+  @Prop() type: 'success' | 'error' | 'warning' | 'inprogress' = 'warning';
+
+  /**
+   * The content to be displayed in toast
    */
   @Prop() content: string;
 
@@ -80,100 +49,19 @@ export class Toast {
    */
   @Prop() pauseOnHover: boolean;
 
-  /**
-   *  position of the toast notification in screen
-   */
-  @Prop() position: 'top-center' | 'top-left' | 'top-right' = 'top-center';
-
-  /**
-   * Triggered when the action link clicked.
-   */
-  @Event() fwLinkClick: EventEmitter;
+  componentWillLoad(): void {
+    this.toastContainer = createToastStack(this);
+  }
 
   @Method()
-  async trigger(configs: any) {
-    if (this.isOpen || this.timerId) {
-      await this.closeToast();
-    }
-    Object.keys(configs).forEach((key) => {
-      this[key] = configs[key];
-    });
-    this.fadeOut = false;
-    this.isOpen = true;
-    this.isTimedOut = false;
-
-    this.timerId = setTimeout(async () => {
-      if (!this.sticky) {
-        if (!this.pauseOnHover || (this.pauseOnHover && !this.isMouseHovered)) {
-          await this.closeToast();
-        }
-        this.isTimedOut = true;
-      }
-    }, this.timeout);
+  async trigger(opts: ToastOptions): Promise<void> {
+    createToastNotification(opts, this.toastContainer, this);
   }
 
-  async mouseHover(value = false) {
-    this.isMouseHovered = value;
-    if (this.isTimedOut && !this.isMouseHovered) {
-      await this.closeToast();
-    }
-  }
-
-  closingAnimation() {
-    this.fadeOut = true;
-    return new Promise<void>((resolve) =>
-      setTimeout(() => {
-        this.isOpen = false;
-        resolve();
-      }, 500)
-    );
-  }
-
-  async closeToast() {
-    if (this.timerId) {
-      clearTimeout(this.timerId);
-    }
-    await this.closingAnimation();
-  }
-
-  render() {
+  render(): JSX.Element {
     return (
-      <Host
-        class={`toast ${this.position} ${this.type} ${
-          this.isOpen ? 'is-open' : ''
-        } ${this.fadeOut ? 'fade-out' : ''}`}
-        aria-hidden={this.isOpen ? 'false' : 'true'}
-        onmouseover={() => this.mouseHover(true)}
-        onmouseout={() => this.mouseHover(false)}
-      >
-        <div>
-          {this.type === 'inprogress' ? (
-            <fw-spinner class='icon'></fw-spinner>
-          ) : (
-            <fw-icon class='icon' size={this.iconSize} name={this.type} />
-          )}
-          <span class='content'>{this.content}</span>
-          <fw-icon
-            size={7}
-            color='#000'
-            name='cross'
-            class='cross'
-            onClick={() => this.closeToast()}
-          ></fw-icon>
-          {this.actionLinkText.length > 0 ? (
-            <div
-              class='action-link'
-              role='button'
-              tabindex='0'
-              onClick={() => this.fwLinkClick.emit()}
-              onKeyDown={handleKeyDown(() => this.fwLinkClick.emit())}
-            >
-              {this.actionLinkText}
-            </div>
-          ) : (
-            ''
-          )}
-        </div>
+      <Host>
+        <slot></slot>
       </Host>
     );
   }

@@ -10,9 +10,10 @@
 
 </head>
 <body>
- <fw-button expand color="primary">Primary Button</fw-button>
- <br />
- <br />
+<fw-button expand color="primary">Primary Button</fw-button>
+
+
+<!-- <br />
   <fw-button-group>
     <fw-button color="secondary"> Test 1</fw-button>
     <fw-button color="secondary">Test 2</fw-button>
@@ -24,7 +25,8 @@
     <fw-button size="icon" color="secondary">  <fw-icon name="reply" ></fw-icon></fw-button>
     <fw-button size="icon" color="secondary"><fw-icon name="add-contact" ></fw-icon></fw-button>
     <fw-button size="icon" color="secondary"> <fw-icon name="more-horizontal" ></fw-icon></fw-button>
-  </fw-button-group>
+  </fw-button-group> -->
+  
 <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
    <fw-select
       label="Select App type"
@@ -49,9 +51,6 @@
     <fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
   </div>
   
-  <fw-toast content="Successfully triggered"></fw-toast>
-  <fw-button onClick="document.querySelector('fw-toast').trigger({type:'success'})">Trigger Toast</fw-button>
-  
   <br><br>
   <fw-dropdown-button label="Click me" split color="danger" placeholder="efwewe">
     <div slot="dropdown-options">
@@ -73,6 +72,28 @@
   <fw-label color="red" value="wfwefwe" style="--label-padding-vertical: 10px; --label-padding-horizontal:20px" />
   <br>
   
+  <fw-toast id="left" position="top-left" content="Conversation #3255 - 💬 Festive offers adasdds conversation has been Restored" type="error"></fw-toast> 
+  <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
+  <fw-toast id="center" timeout=10000></fw-toast> 
+  <fw-toast id="center1"></fw-toast> 
+
+
+  <fw-toast-message type='success' id="custom-toast" timeout="1000000">
+    <div>
+      <span class="abc">i am a slot</span>
+      <h1>custom content</h1>
+      <button onclick="alert('ss')">custom btn</button>
+    </div>
+  </fw-toast-message>
+
+  <fw-button onClick="document.querySelector('#left').trigger({type:'success',timeout:20000000, actionLinkText:'undo'})">Trigger left Toast </fw-button>
+  <fw-button onClick="document.querySelector('#right').trigger({type:'error', content:'right'})">Trigger right Toast</fw-button>
+  <fw-button onClick="document.querySelector('#center').trigger({type:'warning', content:'center'})">Trigger Center toast</fw-button>
+  <fw-button onClick="document.querySelector('#center1').trigger({type:'inprogress', content:'center 1'})">Trigger Center toast 1</fw-button>
+  <fw-button onClick="document.querySelector('#right').trigger({type:'success', contentref:'#custom-toast', timeout:4666000})">Trigger Right Custom Ref</fw-button>
+  <br/>
+
+
   <script>
     window.addEventListener('fwLinkClick', eventHandler);
     function eventHandler(e) {
@@ -87,5 +108,7 @@
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> -->
+
+
 </body>
 </html>

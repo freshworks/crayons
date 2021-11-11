@@ -16,13 +16,15 @@
 }
 
 :host(.toast) {
-  position: fixed;
+  position: relative;
   top: 10px;
   width: 400px;
-  padding: 10px;
+  padding: 0px 0px 16px 0px;
   border: 1px solid $color-smoke-50;
   border-radius: 4px;
   background-color: $color-milk;
+  margin-bottom: 16px;
+  box-sizing: border-box;
 }
 
 .toast {
@@ -41,50 +43,40 @@
   :host(&.inprogress) {
     border-top: 5px solid $color-azure-800;
   }
-
-  :host(&.top-center) {
-    left: calc(50% - 200px);
-  }
-
-  :host(&.top-left) {
-    left: 10px;
-  }
-
-  :host(&.top-right) {
-    right: 10px;
-  }
 }
 
-.content {
-  color: $color-elephant-900;
-  line-height: 20px;
-  width: 83%;
-  float: left;
-  margin: 2px auto 8px;
-  font-size: $font-size-14;
-  font-weight: $font-weight-500;
-}
+.toast-container {
+  display: flex;
+  align-items: flex-start;
+  place-content: center;
 
-.icon {
-  margin: 5px 16px 0 5px;
-  vertical-align: text-top;
-  float: left;
+  .content {
+    color: $color-elephant-900;
+    line-height: 20px;
+    flex: auto;
+    margin: 16px 0px 0px 16px;
+    font-size: $font-size-14;
+    font-weight: $font-weight-500;
+  }
+
+  .icon {
+    margin: 20px 0px 0px 16px;
+  }
+
+  .remove {
+    float: right;
+    cursor: pointer;
+    margin: 16px 12px 0px 12px;
+  }
 }
 
 .action-link {
   color: $color-azure-800;
   line-height: 14px;
-  margin-left: 38px;
   cursor: pointer;
-  float: left;
   font-size: $font-size-12;
   font-weight: $font-weight-600;
-}
-
-.cross {
-  float: right;
-  cursor: pointer;
-  margin-right: 6px;
+  padding: 8px 0px;
 }
 
 @keyframes fadeOut {
