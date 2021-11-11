@@ -1,5 +1,4 @@
-# fw-modal-footer
-
+# Modal Footer (fw-modal-footer)
 
 
 <!-- Auto Generated Below -->

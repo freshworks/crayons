@@ -1,0 +1,57 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# ToastMessage
+
+<Meta title='Toast Message' component='fw-toast-message' />
+
+## Props
+
+<Props of='fw-toast-message' />
+
+## Usage
+
+### Default
+
+<Preview>
+  <Story name='Default'>
+    {() => `
+    <fw-toast-message open id="default_toast" type="success" content="Successfullly triggered" sticky="true"></fw-toast-message>
+    `}
+  </Story>
+</Preview>
+
+### Type
+
+<Preview>
+  <Story name='Type'>
+    {() => `
+    <fw-toast-message open id="type_toast" sticky=true type="success" content="success"></fw-toast-message>
+    <fw-toast-message open id="type_toast" sticky=true type="error" content="error"></fw-toast-message>
+    <fw-toast-message open id="type_toast" sticky=true type="warning" content="warning"></fw-toast-message>
+    <fw-toast-message open id="type_toast" sticky=true type="inprogress" content="inprogress"></fw-toast-message>
+    `}
+  </Story>
+</Preview>
+
+### Position
+
+<Preview>
+  <Story name='position'>
+    {() => `
+    <div style="margin-top: 30px">
+      <fw-toast-message open id="topleft" type="success" position="top-left" content="Successfullly triggered"></fw-toast-message>
+      <fw-toast-message open id="topcenter" type="success" position="top-center" content="Successfullly triggered"></fw-toast-message>
+      <fw-toast-message open id="topright" type="success" position="top-right" content="Successfullly triggered"></fw-toast-message>
+    </div>
+    `}
+  </Story>
+</Preview>
+
+### Action Link
+
+<Preview>
+  <Story name='Action Link'>
+    {() => `
+    <fw-toast-message open id="actionlink_toast" action-link-text="Undo" type="success" content="Record successfullly deleted" sticky="true"></fw-toast-message>`}
+  </Story>
+</Preview>

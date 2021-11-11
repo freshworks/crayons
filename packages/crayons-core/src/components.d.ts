@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DropdownVariant } from "./components/select-option/select-option";
 import { PopoverPlacementType } from "./components/popover/popover";
 import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
+import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwButton {
         /**
@@ -736,7 +737,7 @@ export namespace Components {
          */
         "actionLinkText": string;
         /**
-          * The content to be diaplyed in toast
+          * The content to be displayed in toast
          */
         "content": string;
         /**
@@ -755,14 +756,41 @@ export namespace Components {
           * Time duration of the toast visibility
          */
         "timeout": number;
-        "trigger": (configs: any) => Promise<void>;
+        "trigger": (opts: ToastOptions) => Promise<void>;
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type": | 'success'
-    | 'error'
-    | 'warning'
-    | 'inprogress';
+        "type": 'success' | 'error' | 'warning' | 'inprogress';
+    }
+    interface FwToastMessage {
+        /**
+          * The Content of the action link
+         */
+        "actionLinkText": string;
+        /**
+          * The content to be diaplyed in toast
+         */
+        "content": string;
+        /**
+          * visibility prop of toast message
+         */
+        "open": boolean;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "pauseOnHover": boolean;
+        /**
+          * won't close automatically
+         */
+        "sticky": boolean;
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout": number;
+        /**
+          * Type of the toast - success,failure, warning, inprogress
+         */
+        "type": 'success' | 'error' | 'warning' | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -942,6 +970,12 @@ declare global {
         prototype: HTMLFwToastElement;
         new (): HTMLFwToastElement;
     };
+    interface HTMLFwToastMessageElement extends Components.FwToastMessage, HTMLStencilElement {
+    }
+    var HTMLFwToastMessageElement: {
+        prototype: HTMLFwToastMessageElement;
+        new (): HTMLFwToastMessageElement;
+    };
     interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {
     }
     var HTMLFwToggleElement: {
@@ -974,6 +1008,7 @@ declare global {
         "fw-textarea": HTMLFwTextareaElement;
         "fw-timepicker": HTMLFwTimepickerElement;
         "fw-toast": HTMLFwToastElement;
+        "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
     }
 }
@@ -1812,13 +1847,9 @@ declare namespace LocalJSX {
          */
         "actionLinkText"?: string;
         /**
-          * The content to be diaplyed in toast
+          * The content to be displayed in toast
          */
         "content"?: string;
-        /**
-          * Triggered when the action link clicked.
-         */
-        "onFwLinkClick"?: (event: CustomEvent<any>) => void;
         /**
           * Pause the toast from hiding on mouse hover
          */
@@ -1838,10 +1869,45 @@ declare namespace LocalJSX {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type"?: | 'success'
-    | 'error'
-    | 'warning'
-    | 'inprogress';
+        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
+    }
+    interface FwToastMessage {
+        /**
+          * The Content of the action link
+         */
+        "actionLinkText"?: string;
+        /**
+          * The content to be diaplyed in toast
+         */
+        "content"?: string;
+        /**
+          * Triggered when the action link clicked.
+         */
+        "onFwLinkClick"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered on closing the toast message. This event gets used by the parent container to remove the toast message from itself
+         */
+        "onFwRemoveToast"?: (event: CustomEvent<any>) => void;
+        /**
+          * visibility prop of toast message
+         */
+        "open"?: boolean;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "pauseOnHover"?: boolean;
+        /**
+          * won't close automatically
+         */
+        "sticky"?: boolean;
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout"?: number;
+        /**
+          * Type of the toast - success,failure, warning, inprogress
+         */
+        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -1899,6 +1965,7 @@ declare namespace LocalJSX {
         "fw-textarea": FwTextarea;
         "fw-timepicker": FwTimepicker;
         "fw-toast": FwToast;
+        "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
     }
 }
@@ -1931,6 +1998,7 @@ declare module "@stencil/core" {
             "fw-textarea": LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
             "fw-timepicker": LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
+            "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
         }
     }
