@@ -37,7 +37,7 @@ export class Alert {
   /**
    * Makes the alert closable.
    */
-  @Prop() closable: boolean;
+  @Prop() closable = false;
 
   /**
    * The type of alert to be displayed. Defaults to info.
