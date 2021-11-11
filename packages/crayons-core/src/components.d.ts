@@ -43,6 +43,9 @@ export namespace Components {
          */
         "type": 'button' | 'reset' | 'submit';
     }
+    interface FwButtonGroup {
+        "label": string;
+    }
     interface FwCheckbox {
         /**
           * Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.
@@ -798,6 +801,12 @@ declare global {
         prototype: HTMLFwButtonElement;
         new (): HTMLFwButtonElement;
     };
+    interface HTMLFwButtonGroupElement extends Components.FwButtonGroup, HTMLStencilElement {
+    }
+    var HTMLFwButtonGroupElement: {
+        prototype: HTMLFwButtonGroupElement;
+        new (): HTMLFwButtonGroupElement;
+    };
     interface HTMLFwCheckboxElement extends Components.FwCheckbox, HTMLStencilElement {
     }
     var HTMLFwCheckboxElement: {
@@ -950,6 +959,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "fw-button": HTMLFwButtonElement;
+        "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
@@ -1023,6 +1033,9 @@ declare namespace LocalJSX {
           * Button type based on which actions are performed when the button is clicked.
          */
         "type"?: 'button' | 'reset' | 'submit';
+    }
+    interface FwButtonGroup {
+        "label"?: string;
     }
     interface FwCheckbox {
         /**
@@ -1875,6 +1888,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "fw-button": FwButton;
+        "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
@@ -1907,6 +1921,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
+            "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
