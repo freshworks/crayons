@@ -80,9 +80,9 @@ function App() {
 
 | Property   | Attribute  | Description                                                          | Type                                          | Default    |
 | ---------- | ---------- | -------------------------------------------------------------------- | --------------------------------------------- | ---------- |
-| `closable` | `closable` | Makes the inline message closable.                                   | `boolean`                                     | `false`    |
+| `closable` | `closable` | Makes the inline message closable.                                   | `boolean`                                     | `true`     |
 | `duration` | `duration` | The duration in milliseconds for which inline message will be shown. | `number`                                      | `Infinity` |
-| `open`     | `open`     | Indicates whether the inline message is open or not.                 | `boolean`                                     | `false`    |
+| `open`     | `open`     | Indicates whether the inline message is open or not.                 | `boolean`                                     | `true`     |
 | `type`     | `type`     | The type of inline message to be displayed. Defaults to info.        | `"error" \| "info" \| "success" \| "warning"` | `'info'`   |
 
 

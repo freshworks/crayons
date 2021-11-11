@@ -37,7 +37,7 @@ export class InlineMessage {
   /**
    * Makes the inline message closable.
    */
-  @Prop() closable = false;
+  @Prop() closable = true;
 
   /**
    * The type of inline message to be displayed. Defaults to info.
@@ -52,7 +52,7 @@ export class InlineMessage {
   /**
    * Indicates whether the inline message is open or not.
    */
-  @Prop({ mutable: true, reflect: true }) open = false;
+  @Prop({ mutable: true, reflect: true }) open = true;
 
   /**
    * Triggered when inline message is shown.
@@ -113,6 +113,10 @@ export class InlineMessage {
 
   connectedCallback() {
     this.host.style.display = this.open ? 'flex' : 'none';
+  }
+
+  disconnectedCallback() {
+    clearTimeout(this.autoHideTimeout);
   }
 
   handleKeyUp(e) {
