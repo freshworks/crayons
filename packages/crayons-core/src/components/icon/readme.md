@@ -47,18 +47,12 @@ The following are the icons supported:
 | `size`   | `size`    | Size of the icon, specified in number of  pixels.                                                           | `number` | `12`        |
 
 
-## CSS Custom Properties
-
-| Name           | Description       |
-| -------------- | ----------------- |
-| `--icon-color` | Color of the icon |
-
-
 ## Dependencies
 
 ### Used by
 
  - [fw-dropdown-button](../dropdown-button)
+ - [fw-inline-message](../inline-message)
  - [fw-input](../input)
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
@@ -70,6 +64,7 @@ The following are the icons supported:
 ```mermaid
 graph TD;
   fw-dropdown-button --> fw-icon
+  fw-inline-message --> fw-icon
   fw-input --> fw-icon
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon

@@ -155,6 +155,26 @@ export namespace Components {
          */
         "size": number;
     }
+    interface FwInlineMessage {
+        /**
+          * Makes the inline message closable.
+         */
+        "closable": boolean;
+        /**
+          * The duration in milliseconds for which inline message will be shown.
+         */
+        "duration": number;
+        "hide": () => Promise<void>;
+        /**
+          * Indicates whether the inline message is open or not.
+         */
+        "open": boolean;
+        "show": () => Promise<void>;
+        /**
+          * The type of inline message to be displayed. Defaults to info.
+         */
+        "type": 'success' | 'warning' | 'info' | 'error';
+    }
     interface FwInput {
         /**
           * Specifies whether the browser can display suggestions to autocomplete the text value.
@@ -859,6 +879,12 @@ declare global {
         prototype: HTMLFwIconElement;
         new (): HTMLFwIconElement;
     };
+    interface HTMLFwInlineMessageElement extends Components.FwInlineMessage, HTMLStencilElement {
+    }
+    var HTMLFwInlineMessageElement: {
+        prototype: HTMLFwInlineMessageElement;
+        new (): HTMLFwInlineMessageElement;
+    };
     interface HTMLFwInputElement extends Components.FwInput, HTMLStencilElement {
     }
     var HTMLFwInputElement: {
@@ -998,6 +1024,7 @@ declare global {
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-icon": HTMLFwIconElement;
+        "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-list-options": HTMLFwListOptionsElement;
@@ -1203,6 +1230,32 @@ declare namespace LocalJSX {
           * Size of the icon, specified in number of  pixels.
          */
         "size"?: number;
+    }
+    interface FwInlineMessage {
+        /**
+          * Makes the inline message closable.
+         */
+        "closable"?: boolean;
+        /**
+          * The duration in milliseconds for which inline message will be shown.
+         */
+        "duration"?: number;
+        /**
+          * Triggered when inline message is hidden.
+         */
+        "onFwHide"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when inline message is shown.
+         */
+        "onFwShow"?: (event: CustomEvent<any>) => void;
+        /**
+          * Indicates whether the inline message is open or not.
+         */
+        "open"?: boolean;
+        /**
+          * The type of inline message to be displayed. Defaults to info.
+         */
+        "type"?: 'success' | 'warning' | 'info' | 'error';
     }
     interface FwInput {
         /**
@@ -1959,6 +2012,7 @@ declare namespace LocalJSX {
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-icon": FwIcon;
+        "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-list-options": FwListOptions;
@@ -1993,6 +2047,7 @@ declare module "@stencil/core" {
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
+            "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;
