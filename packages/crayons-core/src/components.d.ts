@@ -9,26 +9,6 @@ import { DropdownVariant } from "./components/select-option/select-option";
 import { PopoverPlacementType } from "./components/popover/popover";
 import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
 export namespace Components {
-    interface FwAlert {
-        /**
-          * Makes the alert closable.
-         */
-        "closable": boolean;
-        /**
-          * The duration in milliseconds for which alert will be shown.
-         */
-        "duration": number;
-        "hide": () => Promise<void>;
-        /**
-          * Indicates whether the alert is open or not.
-         */
-        "open": boolean;
-        "show": () => Promise<void>;
-        /**
-          * The type of alert to be displayed. Defaults to info.
-         */
-        "type": 'success' | 'warning' | 'info' | 'error';
-    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
@@ -166,6 +146,26 @@ export namespace Components {
           * Size of the icon, specified in number of  pixels.
          */
         "size": number;
+    }
+    interface FwInlineMessage {
+        /**
+          * Makes the inline message closable.
+         */
+        "closable": boolean;
+        /**
+          * The duration in milliseconds for which inline message will be shown.
+         */
+        "duration": number;
+        "hide": () => Promise<void>;
+        /**
+          * Indicates whether the inline message is open or not.
+         */
+        "open": boolean;
+        "show": () => Promise<void>;
+        /**
+          * The type of inline message to be displayed. Defaults to info.
+         */
+        "type": 'success' | 'warning' | 'info' | 'error';
     }
     interface FwInput {
         /**
@@ -808,12 +808,6 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLFwAlertElement extends Components.FwAlert, HTMLStencilElement {
-    }
-    var HTMLFwAlertElement: {
-        prototype: HTMLFwAlertElement;
-        new (): HTMLFwAlertElement;
-    };
     interface HTMLFwButtonElement extends Components.FwButton, HTMLStencilElement {
     }
     var HTMLFwButtonElement: {
@@ -843,6 +837,12 @@ declare global {
     var HTMLFwIconElement: {
         prototype: HTMLFwIconElement;
         new (): HTMLFwIconElement;
+    };
+    interface HTMLFwInlineMessageElement extends Components.FwInlineMessage, HTMLStencilElement {
+    }
+    var HTMLFwInlineMessageElement: {
+        prototype: HTMLFwInlineMessageElement;
+        new (): HTMLFwInlineMessageElement;
     };
     interface HTMLFwInputElement extends Components.FwInput, HTMLStencilElement {
     }
@@ -971,12 +971,12 @@ declare global {
         new (): HTMLFwToggleElement;
     };
     interface HTMLElementTagNameMap {
-        "fw-alert": HTMLFwAlertElement;
         "fw-button": HTMLFwButtonElement;
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-icon": HTMLFwIconElement;
+        "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-list-options": HTMLFwListOptionsElement;
@@ -1001,32 +1001,6 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface FwAlert {
-        /**
-          * Makes the alert closable.
-         */
-        "closable"?: boolean;
-        /**
-          * The duration in milliseconds for which alert will be shown.
-         */
-        "duration"?: number;
-        /**
-          * Triggered when alert is hidden.
-         */
-        "onFwHide"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when alert is shown.
-         */
-        "onFwShow"?: (event: CustomEvent<any>) => void;
-        /**
-          * Indicates whether the alert is open or not.
-         */
-        "open"?: boolean;
-        /**
-          * The type of alert to be displayed. Defaults to info.
-         */
-        "type"?: 'success' | 'warning' | 'info' | 'error';
-    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
@@ -1200,6 +1174,32 @@ declare namespace LocalJSX {
           * Size of the icon, specified in number of  pixels.
          */
         "size"?: number;
+    }
+    interface FwInlineMessage {
+        /**
+          * Makes the inline message closable.
+         */
+        "closable"?: boolean;
+        /**
+          * The duration in milliseconds for which inline message will be shown.
+         */
+        "duration"?: number;
+        /**
+          * Triggered when inline message is hidden.
+         */
+        "onFwHide"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when inline message is shown.
+         */
+        "onFwShow"?: (event: CustomEvent<any>) => void;
+        /**
+          * Indicates whether the inline message is open or not.
+         */
+        "open"?: boolean;
+        /**
+          * The type of inline message to be displayed. Defaults to info.
+         */
+        "type"?: 'success' | 'warning' | 'info' | 'error';
     }
     interface FwInput {
         /**
@@ -1919,12 +1919,12 @@ declare namespace LocalJSX {
         "size"?: 'small' | 'medium' | 'large';
     }
     interface IntrinsicElements {
-        "fw-alert": FwAlert;
         "fw-button": FwButton;
         "fw-checkbox": FwCheckbox;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-icon": FwIcon;
+        "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-list-options": FwListOptions;
@@ -1952,12 +1952,12 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "fw-alert": LocalJSX.FwAlert & JSXBase.HTMLAttributes<HTMLFwAlertElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
+            "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;

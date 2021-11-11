@@ -25,42 +25,42 @@ const iconColorMap = {
 };
 
 @Component({
-  tag: 'fw-alert',
-  styleUrl: 'alert.scss',
+  tag: 'fw-inline-message',
+  styleUrl: 'inline-message.scss',
   shadow: true,
 })
-export class Alert {
+export class InlineMessage {
   @Element() host!: HTMLElement;
 
   private autoHideTimeout;
 
   /**
-   * Makes the alert closable.
+   * Makes the inline message closable.
    */
   @Prop() closable = false;
 
   /**
-   * The type of alert to be displayed. Defaults to info.
+   * The type of inline message to be displayed. Defaults to info.
    */
   @Prop() type: 'success' | 'warning' | 'info' | 'error' = 'info';
 
   /**
-   * The duration in milliseconds for which alert will be shown.
+   * The duration in milliseconds for which inline message will be shown.
    */
   @Prop() duration = Infinity;
 
   /**
-   * Indicates whether the alert is open or not.
+   * Indicates whether the inline message is open or not.
    */
   @Prop({ mutable: true, reflect: true }) open = false;
 
   /**
-   * Triggered when alert is shown.
+   * Triggered when inline message is shown.
    */
   @Event() fwShow!: EventEmitter;
 
   /**
-   * Triggered when alert is hidden.
+   * Triggered when inline message is hidden.
    */
   @Event() fwHide!: EventEmitter;
 

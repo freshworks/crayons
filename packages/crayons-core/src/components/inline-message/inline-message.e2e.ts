@@ -1,51 +1,59 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('fw-alert', () => {
+describe('fw-inline-message', () => {
   it('renders', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-alert></fw-alert>');
-    const element = await page.find('fw-alert');
+    await page.setContent('<fw-inline-message></fw-inline-message>');
+    const element = await page.find('fw-inline-message');
     expect(element).toHaveClass('hydrated');
   });
 
   it('should set alert--info class when info is passed as type', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-alert type="info"></fw-alert>');
-    const element = await page.find('fw-alert >>> div');
+    await page.setContent(
+      '<fw-inline-message type="info"></fw-inline-message>'
+    );
+    const element = await page.find('fw-inline-message >>> div');
     expect(element).toHaveClass('alert--info');
   });
 
   it('should set alert--error when error is passed as type', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-alert type="error"></fw-alert>');
-    const element = await page.find('fw-alert >>> div');
+    await page.setContent(
+      '<fw-inline-message type="error"></fw-inline-message>'
+    );
+    const element = await page.find('fw-inline-message >>> div');
     expect(element).toHaveClass('alert--error');
   });
 
   it('should set alert--success class when success is passed as type', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-alert type="success"></fw-alert>');
-    const element = await page.find('fw-alert >>> div');
+    await page.setContent(
+      '<fw-inline-message type="success"></fw-inline-message>'
+    );
+    const element = await page.find('fw-inline-message >>> div');
     expect(element).toHaveClass('alert--success');
   });
 
   it('should set alert--warning class when warning is passed as type', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-alert type="warning"></fw-alert>');
-    const element = await page.find('fw-alert >>> div');
+    await page.setContent(
+      '<fw-inline-message type="warning"></fw-inline-message>'
+    );
+    const element = await page.find('fw-inline-message >>> div');
     expect(element).toHaveClass('alert--warning');
   });
 
   it('should emit fwShow when alert is shown', async () => {
     const page = await newE2EPage();
-    await page.setContent('<fw-alert></fw-alert>');
+    await page.setContent('<fw-inline-message></fw-inline-message>');
     const fwShow = await page.spyOnEvent('fwShow');
-    const element = await page.find('fw-alert');
+    const element = await page.find('fw-inline-message');
 
     element.setAttribute('open', true);
     await page.waitForChanges();
@@ -54,9 +62,11 @@ describe('fw-alert', () => {
 
   it('should emit fwHide when alert is hidden', async () => {
     const page = await newE2EPage();
-    await page.setContent('<fw-alert open closable></fw-alert>');
+    await page.setContent(
+      '<fw-inline-message open closable></fw-inline-message>'
+    );
     const fwHide = await page.spyOnEvent('fwHide');
-    const element = await page.find('fw-alert >>> .alert__close');
+    const element = await page.find('fw-inline-message >>> .alert__close');
 
     await element.click();
     expect(fwHide).toHaveReceivedEvent();
@@ -65,8 +75,8 @@ describe('fw-alert', () => {
   it('should not have alert__close span when closable is not passed', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-alert></fw-alert>');
-    const element = await page.find('fw-alert');
+    await page.setContent('<fw-inline-message></fw-inline-message>');
+    const element = await page.find('fw-inline-message');
     expect(element.shadowRoot).toEqualHtml(
       `<div class="alert alert--info">
         <span class="alert__icon">
@@ -82,8 +92,8 @@ describe('fw-alert', () => {
   it('should have alert__close span when closable is passed in', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-alert closable></fw-alert>');
-    const element = await page.find('fw-alert');
+    await page.setContent('<fw-inline-message closable></fw-inline-message>');
+    const element = await page.find('fw-inline-message');
     expect(element.shadowRoot).toEqualHtml(
       `<div class="alert alert--info">
         <span class="alert__icon">
