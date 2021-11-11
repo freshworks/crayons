@@ -456,6 +456,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer": number;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
@@ -485,6 +489,14 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDateText": string;
+        /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText": string;
+        /**
           * Allow to search for value. Default is true.
          */
         "options": any;
@@ -500,6 +512,10 @@ export namespace Components {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Filter function of signature (filterText : string, dataSource: Array<FwSelectOptions>) => Promise<Array<any>>. Where filter text is the text to filter the value in dataSource array.
+         */
+        "search": (text: any, dataSource: any) => Promise<any[]>;
         /**
           * Allow to search for value. Default is true.
          */
@@ -1503,6 +1519,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer"?: number;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
@@ -1531,6 +1551,14 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDateText"?: string;
+        /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText"?: string;
+        /**
           * Triggered when the list box loses focus.
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
@@ -1558,6 +1586,10 @@ declare namespace LocalJSX {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Filter function of signature (filterText : string, dataSource: Array<FwSelectOptions>) => Promise<Array<any>>. Where filter text is the text to filter the value in dataSource array.
+         */
+        "search"?: (text: any, dataSource: any) => Promise<any[]>;
         /**
           * Allow to search for value. Default is true.
          */
