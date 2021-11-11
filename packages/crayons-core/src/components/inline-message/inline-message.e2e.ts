@@ -51,7 +51,7 @@ describe('fw-inline-message', () => {
 
   it('should emit fwShow when alert is shown', async () => {
     const page = await newE2EPage();
-    await page.setContent('<fw-inline-message></fw-inline-message>');
+    await page.setContent('<fw-inline-message open=false></fw-inline-message>');
     const fwShow = await page.spyOnEvent('fwShow');
     const element = await page.find('fw-inline-message');
 
@@ -72,10 +72,12 @@ describe('fw-inline-message', () => {
     expect(fwHide).toHaveReceivedEvent();
   });
 
-  it('should not have alert__close span when closable is not passed', async () => {
+  it('should not have alert__close span when closable is passed as false', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-inline-message></fw-inline-message>');
+    await page.setContent(
+      '<fw-inline-message closable=false></fw-inline-message>'
+    );
     const element = await page.find('fw-inline-message');
     expect(element.shadowRoot).toEqualHtml(
       `<div class="alert alert--info">
