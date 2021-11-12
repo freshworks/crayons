@@ -40,17 +40,26 @@ The following are the icons supported:
 
 ## Properties
 
-| Property | Attribute | Description                                                                                                 | Type     | Default     |
-| -------- | --------- | ----------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `color`  | `color`   | Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.                   | `string` | `''`        |
-| `name`   | `name`    | Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons). | `string` | `undefined` |
-| `size`   | `size`    | Size of the icon, specified in number of  pixels.                                                           | `number` | `12`        |
+| Property | Attribute | Description                                                                                                         | Type     | Default     |
+| -------- | --------- | ------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `color`  | `color`   | Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.                           | `string` | `''`        |
+| `name`   | `name`    | Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).         | `string` | `undefined` |
+| `size`   | `size`    | Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable. | `number` | `undefined` |
+
+
+## CSS Custom Properties
+
+| Name           | Description       |
+| -------------- | ----------------- |
+| `--icon-color` | Color of the icon |
+| `--icon-size`  | Size of the icon  |
 
 
 ## Dependencies
 
 ### Used by
 
+ - [fw-button](../button)
  - [fw-dropdown-button](../dropdown-button)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
@@ -63,6 +72,7 @@ The following are the icons supported:
 ### Graph
 ```mermaid
 graph TD;
+  fw-button --> fw-icon
   fw-dropdown-button --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
