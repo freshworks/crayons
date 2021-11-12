@@ -65,12 +65,14 @@ function App() {
 ### Used by
 
  - [fw-button](../button)
+ - [fw-select](../select)
  - [fw-toast](../toast)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-button --> fw-spinner
+  fw-select --> fw-spinner
   fw-toast --> fw-spinner
   style fw-spinner fill:#f9f,stroke:#333,stroke-width:4px
 ```

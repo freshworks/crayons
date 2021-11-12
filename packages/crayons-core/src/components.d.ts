@@ -456,6 +456,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer": number;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
@@ -485,6 +489,14 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText": string;
+        /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText": string;
+        /**
           * Allow to search for value. Default is true.
          */
         "options": any;
@@ -501,9 +513,17 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Filter function of signature (filterText : string, dataSource: Array<FwSelectOptions>) => Promise<Array<any>>. Where filter text is the text to filter the value in dataSource array.
+         */
+        "search": (text: any, dataSource: any) => Promise<any[]>;
+        /**
           * Allow to search for value. Default is true.
          */
         "searchable": boolean;
+        /**
+          * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions": any[];
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
@@ -1503,6 +1523,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer"?: number;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
@@ -1530,6 +1554,14 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText"?: string;
+        /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText"?: string;
         /**
           * Triggered when the list box loses focus.
          */
@@ -1559,9 +1591,17 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
+          * Filter function of signature (filterText : string, dataSource: Array<FwSelectOptions>) => Promise<Array<any>>. Where filter text is the text to filter the value in dataSource array.
+         */
+        "search"?: (text: any, dataSource: any) => Promise<any[]>;
+        /**
           * Allow to search for value. Default is true.
          */
         "searchable"?: boolean;
+        /**
+          * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions"?: any[];
         /**
           * Theme based on which the list box is styled.
          */

@@ -58,6 +58,7 @@ label {
   width: 100%;
   flex-wrap: wrap;
   position: relative;
+  align-items: center;
 
   input {
     flex-grow: 1;
@@ -86,6 +87,10 @@ label {
       border-color: transparent;
       cursor: not-allowed;
     }
+  }
+
+  fw-spinner {
+    margin-right: 8px;
   }
 }
 

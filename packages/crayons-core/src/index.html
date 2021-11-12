@@ -1,18 +1,39 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>Stencil Component Starter</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+    />
+    <title>Stencil Component Starter</title>
 
-  <script type="module" src="/build/crayons.esm.js"></script>
-  <script nomodule src="/build/crayons.js"></script>
+    <script type="module" src="/build/crayons.esm.js"></script>
+    <script nomodule src="/build/crayons.js"></script>
+  </head>
+  <body>
+    <fw-button expand color="primary">Primary Button</fw-button>
 
-</head>
-<body>
- <fw-button expand color="primary">Primary Button</fw-button>
-  
-<!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
+    <fw-select id="test1" label="Select the house">
+      <fw-select-option value="starks">Starks</fw-select-option>
+      <fw-select-option value="lannisters">Lannisters</fw-select-option>
+    </fw-select>
+    <fw-select
+      id="compexSelect"
+      label="Select the pirates"
+      placeholder="Your choice"
+      no-date-text="Type to search..."
+      multiple
+    ></fw-select>
+    <fw-select
+      id="placementComponent"
+      label="Select the pirates"
+      placeholder="Your choice"
+      no-date-text="Type to search..."
+      multiple
+    ></fw-select>
+
+    <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
    <fw-select
       label="Select App type"
       placeholder="Choose app type"
@@ -74,5 +95,37 @@
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> -->
-</body>
+    <script>
+      let compexSelect = document.getElementById('compexSelect');
+      compexSelect.search = (text, source) => {
+        return fetch('http://localhost:3000/onepiece_list', {
+          type: 'GET',
+        }).then((x) => x.json());
+      };
+      compexSelect.selectedOptions = [
+        {
+          value: '1',
+          text: 'Luffy',
+          subText: 'Pirate King',
+          graphicsProps: { name: 'verified' },
+        },
+      ];
+
+      var dataSource = [
+        { value: '1', text: 'Luffy' },
+        { value: '2', text: 'Zorro' },
+        { value: '3', text: 'Sanji' },
+        { value: '4', text: 'Nami' },
+        { value: '5', text: 'Usopp' },
+      ];
+      var placementOptions = document.getElementById('placementComponent');
+      placementOptions.options = dataSource;
+
+      var test1 = document.getElementById('test1');
+      setTimeout(() => {
+        test1.value = 'lannisters';
+      }, 3000);
+      // test1.value = '1';
+    </script>
+  </body>
 </html>

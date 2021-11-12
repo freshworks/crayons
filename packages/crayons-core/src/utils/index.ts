@@ -138,3 +138,13 @@ export const hasSlot = (el: HTMLElement, name?: string) => {
     return false;
   });
 };
+
+export const debounce = (fn, context, timeout) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(context, args);
+    }, timeout);
+  };
+};
