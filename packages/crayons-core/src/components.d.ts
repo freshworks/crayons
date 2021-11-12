@@ -10,6 +10,14 @@ import { PopoverPlacementType } from "./components/popover/popover";
 import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
+    interface FwAvatar {
+        "alt": string;
+        "image": string;
+        "initials": string;
+        "mode": 'dark' | 'light';
+        "shape": 'circle' | 'square' | 'rounded';
+        "size": 'xxlarge' | 'xlarge' | 'large' | 'medium' |'small' | 'xsmall';
+    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
@@ -847,6 +855,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
+    }
+    var HTMLFwAvatarElement: {
+        prototype: HTMLFwAvatarElement;
+        new (): HTMLFwAvatarElement;
+    };
     interface HTMLFwButtonElement extends Components.FwButton, HTMLStencilElement {
     }
     var HTMLFwButtonElement: {
@@ -1022,6 +1036,7 @@ declare global {
         new (): HTMLFwToggleElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
@@ -1054,6 +1069,14 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FwAvatar {
+        "alt"?: string;
+        "image"?: string;
+        "initials"?: string;
+        "mode"?: 'dark' | 'light';
+        "shape"?: 'circle' | 'square' | 'rounded';
+        "size"?: 'xxlarge' | 'xlarge' | 'large' | 'medium' |'small' | 'xsmall';
+    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
@@ -2022,6 +2045,7 @@ declare namespace LocalJSX {
         "size"?: 'small' | 'medium' | 'large';
     }
     interface IntrinsicElements {
+        "fw-avatar": FwAvatar;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
@@ -2057,6 +2081,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
