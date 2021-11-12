@@ -48,7 +48,6 @@ export class Select {
   @State() dataSource;
   @State() filteredOptions;
   @State() isLoading = false;
-  @State() selectedOptions = [];
   /**
    * Label displayed on the interface, for the component.
    */
@@ -130,11 +129,15 @@ export class Select {
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @Prop() noDateText = 'No Data available';
+  @Prop() noDataText = 'No Data available';
   /**
    * Debounce timer for the search promise function.
    */
   @Prop() debounceTimer = 300;
+  /**
+   * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+   */
+  @Prop({ reflect: true, mutable: true }) selectedOptions = [];
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -186,14 +189,16 @@ export class Select {
     }
   };
 
-  @Watch('value')
-  keyChanged(newValue, oldValue) {
-    if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-      if (this.didInit) {
-        this.fwChange.emit({ value: this.value });
-      }
-    }
-  }
+  // @Watch('value')
+  // keyChanged(newValue, oldValue) {
+  //   if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+  //     if (this.didInit) {
+  //       this.fwChange.emit({
+  //         value: this.value,
+  //       });
+  //     }
+  //   }
+  // }
 
   @Listen('fwChange')
   fwSelectedHandler(selectedItem) {
@@ -219,6 +224,10 @@ export class Select {
           nonFilteredSelectedOptions.length > 0
             ? [...nonFilteredSelectedOptions, ...selectedOptions]
             : selectedOptions;
+        this.fwChange.emit({
+          value: this.value,
+          selectedOptions: this.selectedOptions,
+        });
         this.renderInput();
         if (!this.multiple) {
           this.resetFocus();
@@ -255,17 +264,19 @@ export class Select {
   getDatasource() {
     return this.options
       ? this.options
-      : [{ text: this.noDateText, disabled: true }];
+      : [{ text: this.noDataText, disabled: true }];
   }
 
   handleSearchWithDebounce = debounce(
     () => {
       const searchValue = this.selectInput.value.toLowerCase();
+      this.isLoading = true;
       this.search(searchValue, this.dataSource).then((filteredValues) => {
         this.filteredOptions =
           filteredValues.length === 0
             ? [{ text: this.notFoundText, disabled: true }]
             : filteredValues;
+        this.isLoading = false;
       });
     },
     this,
@@ -326,9 +337,13 @@ export class Select {
       };
     });
     this.dataSource = options.length === 0 ? this.getDatasource() : options;
-    this.selectedOptions = this.dataSource.filter((option) =>
-      this.value.includes(option.value)
-    );
+    if (this.selectedOptions.length > 0) {
+      this.value = this.selectedOptions.map((option) => option.value);
+    } else {
+      this.selectedOptions = this.dataSource.filter((option) =>
+        this.value.includes(option.value)
+      );
+    }
     this.filteredOptions = this.dataSource;
     this.host.innerHTML = '';
   }
@@ -407,12 +422,16 @@ export class Select {
                   onFocus={(e) => this.innerOnFocus(e)}
                   onBlur={(e) => this.innerOnBlur(e)}
                 />
-                <span
-                  class={{
-                    'dropdown-status-icon': true,
-                    'expanded': this.isExpanded,
-                  }}
-                ></span>
+                {this.isLoading ? (
+                  <fw-spinner size='small'></fw-spinner>
+                ) : (
+                  <span
+                    class={{
+                      'dropdown-status-icon': true,
+                      'expanded': this.isExpanded,
+                    }}
+                  ></span>
+                )}
               </div>
             </div>
             <fw-list-options

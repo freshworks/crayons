@@ -491,7 +491,7 @@ export namespace Components {
         /**
           * Text to be displayed when there is no data available in the select.
          */
-        "noDateText": string;
+        "noDataText": string;
         /**
           * Default option to be shown if the option doesn't match the filterText.
          */
@@ -520,6 +520,10 @@ export namespace Components {
           * Allow to search for value. Default is true.
          */
         "searchable": boolean;
+        /**
+          * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions": any[];
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
@@ -1553,7 +1557,7 @@ declare namespace LocalJSX {
         /**
           * Text to be displayed when there is no data available in the select.
          */
-        "noDateText"?: string;
+        "noDataText"?: string;
         /**
           * Default option to be shown if the option doesn't match the filterText.
          */
@@ -1594,6 +1598,10 @@ declare namespace LocalJSX {
           * Allow to search for value. Default is true.
          */
         "searchable"?: boolean;
+        /**
+          * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions"?: any[];
         /**
           * Theme based on which the list box is styled.
          */
