@@ -429,6 +429,14 @@ export namespace Components {
          */
         "variant": 'select' | 'date-picker';
     }
+    interface FwProgressBar {
+        "done": () => Promise<any>;
+        "parent": string;
+        "speed": number;
+        "start": () => Promise<void>;
+        "trickle": boolean;
+        "trickleSpeed": number;
+    }
     interface FwRadio {
         /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
@@ -933,6 +941,12 @@ declare global {
         prototype: HTMLFwPopoverElement;
         new (): HTMLFwPopoverElement;
     };
+    interface HTMLFwProgressBarElement extends Components.FwProgressBar, HTMLStencilElement {
+    }
+    var HTMLFwProgressBarElement: {
+        prototype: HTMLFwProgressBarElement;
+        new (): HTMLFwProgressBarElement;
+    };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
     var HTMLFwRadioElement: {
@@ -1033,6 +1047,7 @@ declare global {
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
         "fw-popover": HTMLFwPopoverElement;
+        "fw-progress-bar": HTMLFwProgressBarElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
@@ -1529,6 +1544,12 @@ declare namespace LocalJSX {
          */
         "variant"?: 'select' | 'date-picker';
     }
+    interface FwProgressBar {
+        "parent"?: string;
+        "speed"?: number;
+        "trickle"?: boolean;
+        "trickleSpeed"?: number;
+    }
     interface FwRadio {
         /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
@@ -2021,6 +2042,7 @@ declare namespace LocalJSX {
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
         "fw-popover": FwPopover;
+        "fw-progress-bar": FwProgressBar;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
@@ -2056,6 +2078,7 @@ declare module "@stencil/core" {
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
+            "fw-progress-bar": LocalJSX.FwProgressBar & JSXBase.HTMLAttributes<HTMLFwProgressBarElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;

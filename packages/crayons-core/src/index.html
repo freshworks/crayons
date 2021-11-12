@@ -4,15 +4,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-
+<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
   <script type="module" src="/build/crayons.esm.js"></script>
   <script nomodule src="/build/crayons.js"></script>
+  
+  <script type="module" src="../dist/crayons/crayons.esm.js"></script>
+  <script nomodule src="../dist/crayons/crayons.js"></script>
+
+
+<script type="module">
+
+import { ProgressController } from "../dist/crayons/index.esm.js"
+//console.log(ProgressController);
+
+var nprogress1 = ProgressController();
+var nprogress2 = ProgressController({ parent: '#container1' });
+
+nprogress1.start();
+nprogress2.start();
+setTimeout(() =>{
+  nprogress1.done()
+  nprogress2.done()
+},10000)
+</script>
 
 </head>
 <body>
 <fw-button expand color="primary">Primary Button</fw-button>
 
+<fw-progress-bar parent="#container2" id="pp"></fw-progress-bar>
 
+<div id="container1">
+<h1>asdasd</h1>
+</div>
+
+<p>hellow workd</p>
+<br/><Br/><br/>
+<div id="container2">
+
+  <p>container 2</p>
+  
+  </div>
+
+  
+<fw-button onClick="document.querySelector('#pp').start();">pro</fw-button>
+ 
 <!-- <br />
   <fw-button-group>
     <fw-button color="secondary"> Test 1</fw-button>
@@ -108,7 +144,14 @@
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> -->
-
-
 </body>
+
+<script>
+
+setTimeout(() =>{
+  document.querySelector('#pp').start();
+},100)
+
+
+</script>
 </html>
