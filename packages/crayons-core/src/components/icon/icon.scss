@@ -1,12 +1,21 @@
 /**
   @prop --icon-color: Color of the icon
+  @prop --icon-size: Size of the icon
 */
 
-.icon {
+:host {
   display: inline-block;
+}
+
+.icon {
+  display: block;
   color: var(--icon-color, $color-elephant-900);
 
+  height: var(--icon-size, 12px);
+  width: var(--icon-size, 12px);
+
   svg {
+    display: block;
     width: 100%;
     height: 100%;
   }

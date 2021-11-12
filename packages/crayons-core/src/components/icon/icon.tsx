@@ -17,8 +17,9 @@ export class Icon {
 
   /**
    * Size of the icon, specified in number of  pixels.
+   * Default value is 12px defined using the --icon-size css variable.
    */
-  @Prop() size = 12;
+  @Prop() size: number;
 
   /**
    * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
@@ -37,16 +38,14 @@ export class Icon {
   }
 
   render() {
-    return (
-      <div
-        class='icon'
-        style={{
-          '--icon-color': `${this.color}`,
-          'height': `${this.size}px`,
-          'width': `${this.size}px`,
-        }}
-        innerHTML={this.svgHTML}
-      />
-    );
+    const style = {
+      '--icon-color': this.color,
+    };
+
+    if (this.size !== undefined) {
+      style['--icon-size'] = `${this.size}px`;
+    }
+
+    return <div class='icon' style={style} innerHTML={this.svgHTML} />;
   }
 }
