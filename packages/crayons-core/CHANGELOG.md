@@ -8,7 +8,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - **fw-datepicker:** added more placement options ([#262](https://github.com/freshworks/crayons/issues/262)) ([0a2f7b5](https://github.com/freshworks/crayons/commit/0a2f7b5f3073ba31d1a1e9663e6afe2d848cd573))
-- **fw-popover:** null check ([#278](https://github.com/freshworks/crayons/issues/278)) ([515a7a9](https://github.com/freshworks/crayons/commit/515a7a9d73cf9c4f87a7f4ea593bdbc6d4cffe8d))
 - **radio-group:** fix radio group to be compatiable with react version ([#267](https://github.com/freshworks/crayons/issues/267)) ([c8efaec](https://github.com/freshworks/crayons/commit/c8efaec6030333aa026a2d28cff67c3fe3b7b2f3))
 - **radio-group:** remove call to componentOnReady in connected callback ([#260](https://github.com/freshworks/crayons/issues/260)) ([10de155](https://github.com/freshworks/crayons/commit/10de155d50641a202d82ab013c41ae167393ff2b))
 
@@ -19,6 +18,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **fw-popover:** added show/hide event emitters and new props ([#268](https://github.com/freshworks/crayons/issues/268)) ([e369c1c](https://github.com/freshworks/crayons/commit/e369c1c7ba69f8287a6fe52a862a9dea01a4bcb9))
 - **inline-message:** adding inline messages feature ([#270](https://github.com/freshworks/crayons/issues/270)) ([d41d389](https://github.com/freshworks/crayons/commit/d41d3896c3b26797f373d6f7ef217612974854aa))
 - **toggle:** show icon for toggle by default ([#273](https://github.com/freshworks/crayons/issues/273)) ([f6358a6](https://github.com/freshworks/crayons/commit/f6358a6e6911d814cff86d156192c20883a1bcca))
+- **multi toast:** Multi Toast Notification with toast component and ToastController ([#276](https://github.com/freshworks/crayons/issues/276)) ([e2fb9c0](https://github.com/freshworks/crayons/commit/e2fb9c09c83042234e361e548f2fd1301f031189))
+- **button group:** new button group component added ([#274](https://github.com/freshworks/crayons/issues/274)) ([a55feb2](https://github.com/freshworks/crayons/commit/a55feb222673e888a4c160ea2ca0c53ad330264a))
+
 
 ## [3.0.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.1...@freshworks/crayons@3.0.0-beta.2) (2021-11-03)
 
