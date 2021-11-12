@@ -1,4 +1,13 @@
-import { Component, Element, State, Method, Prop, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  State,
+  Event,
+  EventEmitter,
+  Method,
+  Prop,
+  h,
+} from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
 
 @Component({
@@ -45,6 +54,19 @@ export class Popover {
    * Whether the popover-content width to be same as that of the popover-trigger.
    */
   @Prop() sameWidth = true;
+  /**
+   * The trigger event on which the popover-content is displayed. The available options are
+   * 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+   */
+  @Prop() trigger: 'click' | 'manual' | 'hover' = 'click';
+  /**
+   * Triggered whenever the popover contents is open/displayed.
+   */
+  @Event() fwShow: EventEmitter;
+  /**
+   * Triggered whenever the popover contents is closed/hidden.
+   */
+  @Event() fwHide: EventEmitter;
 
   @Method()
   async show() {
@@ -68,6 +90,7 @@ export class Popover {
       this.popperInstance.update();
       this.overlay.style.display = 'block';
       this.isOpen = !this.isOpen;
+      this.fwShow.emit();
     }
   }
 
@@ -85,18 +108,21 @@ export class Popover {
       }));
       this.overlay.style.display = 'none';
       this.isOpen = !this.isOpen;
+      this.fwHide.emit();
     }
   }
 
   componentWillLoad() {
     this.triggerRef = this.host.querySelector('[slot="popover-trigger"]');
-    this.triggerRef.addEventListener('click', () => {
-      if (this.isOpen) {
-        this.hide();
-      } else {
-        this.show();
-      }
-    });
+    if (this.trigger !== 'manual') {
+      this.triggerRef.addEventListener(this.trigger, () => {
+        if (this.isOpen) {
+          this.hide();
+        } else {
+          this.show();
+        }
+      });
+    }
     this.popperOptions = {
       placement: this.placement,
       modifiers: [

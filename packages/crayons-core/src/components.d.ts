@@ -425,6 +425,10 @@ export namespace Components {
          */
         "skidding": string;
         /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger": 'click' | 'manual' | 'hover';
+        /**
           * Variant defines the style of the popover-content.
          */
         "variant": 'select' | 'date-picker';
@@ -1513,6 +1517,14 @@ declare namespace LocalJSX {
          */
         "fallbackPlacements"?: [PopoverPlacementType];
         /**
+          * Triggered whenever the popover contents is closed/hidden.
+         */
+        "onFwHide"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered whenever the popover contents is open/displayed.
+         */
+        "onFwShow"?: (event: CustomEvent<any>) => void;
+        /**
           * Placement of the popover content with respect to the popover trigger.
          */
         "placement"?: PopoverPlacementType;
@@ -1524,6 +1536,10 @@ declare namespace LocalJSX {
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
         "skidding"?: string;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger"?: 'click' | 'manual' | 'hover';
         /**
           * Variant defines the style of the popover-content.
          */
