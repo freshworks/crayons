@@ -109,7 +109,7 @@ export class Popover {
       }));
       this.overlay.style.display = 'none';
       this.isOpen = !this.isOpen;
-      if (this.contentRef.tagName === 'FW-LIST-OPTIONS') {
+      if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
         listOptionsElement.clearFilter();
       }
