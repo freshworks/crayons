@@ -16,25 +16,25 @@ export namespace Components {
          */
         "color": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
-          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the button on the interface. Default value is false.
          */
         "disabled": boolean;
         /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-         */
-        "expand": boolean;
-        /**
-          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+          * Loading state for the button, Default value is false.
          */
         "loading": boolean;
         /**
-          * Accepts the id of the fw-modal component to open it on click
+          * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId": string;
         /**
+          * Caret indicator for the button, Default value is false.
+         */
+        "showCaretIcon": boolean;
+        /**
           * Size of the button.
          */
-        "size": 'normal' | 'mini' | 'small' | 'icon';
+        "size": 'normal' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -42,7 +42,7 @@ export namespace Components {
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type": 'button' | 'reset' | 'submit';
+        "type": 'button' | 'submit';
     }
     interface FwButtonGroup {
         "label": string;
@@ -151,7 +151,7 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Size of the icon, specified in number of  pixels.
+          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
          */
         "size": number;
     }
@@ -1060,19 +1060,15 @@ declare namespace LocalJSX {
          */
         "color"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
-          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the button on the interface. Default value is false.
          */
         "disabled"?: boolean;
         /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-         */
-        "expand"?: boolean;
-        /**
-          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+          * Loading state for the button, Default value is false.
          */
         "loading"?: boolean;
         /**
-          * Accepts the id of the fw-modal component to open it on click
+          * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId"?: string;
         /**
@@ -1088,9 +1084,13 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
+          * Caret indicator for the button, Default value is false.
+         */
+        "showCaretIcon"?: boolean;
+        /**
           * Size of the button.
          */
-        "size"?: 'normal' | 'mini' | 'small' | 'icon';
+        "size"?: 'normal' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -1098,7 +1098,7 @@ declare namespace LocalJSX {
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type"?: 'button' | 'reset' | 'submit';
+        "type"?: 'button' | 'submit';
     }
     interface FwButtonGroup {
         "label"?: string;
@@ -1231,7 +1231,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Size of the icon, specified in number of  pixels.
+          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
          */
         "size"?: number;
     }
