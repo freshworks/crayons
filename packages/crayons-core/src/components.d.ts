@@ -390,16 +390,16 @@ export namespace Components {
         /**
           * Whether the popover-content width to be same as that of the popover-trigger.
          */
-        "preventDefault": boolean;
-        /**
-          * Whether the popover-content width to be same as that of the popover-trigger.
-         */
         "sameWidth": boolean;
         "show": () => Promise<void>;
         /**
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
         "skidding": string;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger": 'click' | 'manual' | 'hover';
         /**
           * Variant defines the style of the popover-content.
          */
@@ -1422,15 +1422,15 @@ declare namespace LocalJSX {
         /**
           * Whether the popover-content width to be same as that of the popover-trigger.
          */
-        "preventDefault"?: boolean;
-        /**
-          * Whether the popover-content width to be same as that of the popover-trigger.
-         */
         "sameWidth"?: boolean;
         /**
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
         "skidding"?: string;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger"?: 'click' | 'manual' | 'hover';
         /**
           * Variant defines the style of the popover-content.
          */

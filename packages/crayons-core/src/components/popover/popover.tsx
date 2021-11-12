@@ -55,9 +55,10 @@ export class Popover {
    */
   @Prop() sameWidth = true;
   /**
-   * Whether the popover-content width to be same as that of the popover-trigger.
+   * The trigger event on which the popover-content is displayed. The available options are
+   * 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
    */
-  @Prop() preventDefault = false;
+  @Prop() trigger: 'click' | 'manual' | 'hover' = 'click';
   /**
    * Triggered whenever the popover contents is open/displayed.
    */
@@ -113,8 +114,8 @@ export class Popover {
 
   componentWillLoad() {
     this.triggerRef = this.host.querySelector('[slot="popover-trigger"]');
-    if (!this.preventDefault) {
-      this.triggerRef.addEventListener('click', () => {
+    if (this.trigger !== 'manual') {
+      this.triggerRef.addEventListener(this.trigger, () => {
         if (this.isOpen) {
           this.hide();
         } else {
