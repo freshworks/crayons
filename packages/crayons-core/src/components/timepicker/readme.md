@@ -71,6 +71,7 @@ graph TD;
   fw-timepicker --> fw-select-option
   fw-select --> fw-tag
   fw-select --> fw-popover
+  fw-select --> fw-spinner
   fw-select --> fw-list-options
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input

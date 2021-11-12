@@ -137,7 +137,21 @@ describe('fw-select', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: 'lannisters' });
+    expect(fwChange).toHaveReceivedEventDetail({
+      value: 'lannisters',
+      selectedOptions: [
+        {
+          disabled: false,
+          html: false,
+          htmlContent: '',
+          isCheckbox: false,
+          selected: true,
+          text: 'Lannisters',
+          value: 'lannisters',
+          variant: 'standard',
+        },
+      ],
+    });
   });
 
   it('it emits fwFocus when the focus is on the component', async () => {
