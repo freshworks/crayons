@@ -118,8 +118,9 @@ export class RadioGroup {
 
   async connectedCallback() {
     const el = this.host;
-    this.radios = Array.from(this.host.querySelectorAll('fw-radio'));
-
+    this.radios = Array.from(this.host.querySelectorAll('fw-radio')).filter(
+      (radio) => !radio.disabled
+    );
     this.host.style.display = 'flex';
     this.host.style.flexDirection = this.orientation;
 
@@ -151,7 +152,6 @@ export class RadioGroup {
         }
       }
     );
-    await this.updateRadios();
   }
 
   disconnectedCallback() {
@@ -167,7 +167,7 @@ export class RadioGroup {
      * so values are up to date prior
      * to caching the radio group value
      */
-    const radios = this.radios;
+    const radios = await this.radios;
     const { value } = this;
 
     let hasChecked = false;

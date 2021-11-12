@@ -34,9 +34,9 @@ export class Toggle {
    */
   @Prop() disabled = false;
   /**
-   * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+   * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to true.
    */
-  @Prop() showIcon = false;
+  @Prop() showIcon = true;
   /**
    * Label for the component, that can be used by screen readers.
    */

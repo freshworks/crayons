@@ -35,8 +35,8 @@ describe('fw-tab-panel', () => {
         >
           <input class="hidden-input" type="hidden" value="">
         </fw-input>
-        <fw-button class="hydrated" color="secondary" role="button">Submit</fw-button>
-        <fw-button class="hydrated" color="secondary" role="button">Save</fw-button>
+        <fw-button class="hydrated" color="secondary">Submit</fw-button>
+        <fw-button class="hydrated" color="secondary">Save</fw-button>
       </div>`;
     await page.setContent(
       `<fw-tab-panel>

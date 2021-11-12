@@ -36,6 +36,11 @@ $btn-mini-font-size: $font-size-10;
 
 $btn-font-weight: $font-weight-600;
 
+$btn-border-width: 1px;
+$input-height-small: 24px;
+$input-height-normal: 32px;
+$input-height-mini: 16px;
+
 // stylelint-disable a11y/media-prefers-reduced-motion
 @media screen and (prefers-reduced-motion: reduce) {
   .fw-btn,
@@ -45,35 +50,47 @@ $btn-font-weight: $font-weight-600;
   }
 }
 
-.fw-btn {
-  font-size: $btn-default-font-size;
-  font-weight: $btn-font-weight;
-  color: $btn-primary-bg;
-  padding: 6px 12px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  outline: 0;
-
+:host {
+  display: inline-block;
+  width: auto;
   cursor: pointer;
-  letter-spacing: 0;
+}
 
+.fw-btn {
   display: inline-flex;
+  align-content: center;
   align-items: stretch;
   justify-content: center;
+  width: 100%;
+  border-style: solid;
+  border-width: $btn-border-width;
+  font-weight: $btn-font-weight;
+  font-family: inherit;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
   vertical-align: middle;
-  flex-wrap: wrap;
-  align-content: center;
+  padding: 0;
+  // transition: all 0.2s ease-in;
+  cursor: inherit;
+  letter-spacing: 0;
+  outline: 0;
+  border-radius: 4px;
+  --icon-color: currentColor;
 
-  transition: all 0.2s ease-in;
+  .fw-btn--label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &:active:not(.fw-btn--loading) {
+    box-shadow: $active-box-shadow;
+  }
 
   &:focus {
     border: 1px solid $btn-lg-focus-border;
     box-shadow: 0 0 0 1px $btn-lg-focus-border;
-    outline: none;
-  }
-
-  &:active {
-    box-shadow: $active-box-shadow;
   }
 
   &.disabled,
@@ -202,16 +219,13 @@ $btn-font-weight: $font-weight-600;
     }
   }
 
-  &--block {
-    width: 100%;
-  }
-
   &--mini {
-    padding: 2px 2px;
-    font-size: $btn-mini-font-size;
-    line-height: $btn-mini-font-size;
-    min-width: 16px;
     height: 16px;
+    line-height: calc(#{$input-height-mini} - #{$btn-border-width} * 2);
+
+    .fw-btn--label {
+      font-size: $btn-mini-font-size;
+    }
 
     fw-spinner {
       transform: scale(0.5);
@@ -220,11 +234,12 @@ $btn-font-weight: $font-weight-600;
 
   // DS button specification for mini has been referenced within crayons as type small
   &--small {
-    padding: 5px 8px;
-    font-size: $btn-small-font-size;
-    line-height: 12px;
-    min-width: 72px;
     height: 24px;
+    line-height: calc(#{$input-height-small} - #{$btn-border-width} * 2);
+
+    .fw-btn--label {
+      font-size: $btn-small-font-size;
+    }
 
     fw-spinner {
       transform: scale(0.75);
@@ -234,6 +249,7 @@ $btn-font-weight: $font-weight-600;
   &--normal {
     min-width: 80px;
     height: 32px;
+    line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
   }
 
   &--icon {
@@ -241,20 +257,86 @@ $btn-font-weight: $font-weight-600;
     width: 32px;
     height: 32px;
     padding: 0;
+    line-height: calc(32px - #{$btn-border-width} * 2);
   }
+}
+
+.fw-btn--before,
+.fw-btn--after,
+.fw-btn--caret {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.fw-btn--normal ::slotted(fw-icon) {
+  --icon-size: 12px;
+}
+
+.fw-btn--small ::slotted(fw-icon) {
+  --icon-size: 10px;
+}
+
+.fw-btn--mini ::slotted(fw-icon) {
+  --icon-size: 8px;
+}
+
+// Padding and Spacing
+// stylelint-disable
+$sizes:
+  "normal" 12px 8px,
+  "small" 8px 6px,
+  "mini" 6px 4px;
+// stylelint-enable
+
+@each $className, $labelOnlySize, $innerOnlySize in $sizes {
+  .fw-btn--has-label.fw-btn--#{$className} .fw-btn--label {
+    padding: 0 #{$labelOnlySize};
+  }
+
+  .fw-btn--has-before.fw-btn--#{$className} {
+    padding-left: #{$innerOnlySize};
+  }
+
+  .fw-btn--has-before.fw-btn--#{$className} .fw-btn--label {
+    padding-left: #{$innerOnlySize};
+  }
+
+  .fw-btn--has-after.fw-btn--#{$className},
+  .fw-btn--caret.fw-btn--#{$className} {
+    padding-right: #{$innerOnlySize};
+  }
+
+  .fw-btn--has-after.fw-btn--#{$className} .fw-btn--label,
+  .fw-btn--caret.fw-btn--#{$className} .fw-btn--label {
+    padding-right: #{$innerOnlySize};
+  }
+}
+
+.fw-btn--caret fw-icon {
+  --icon-size: 9px;
+}
+
+.fw-btn--caret.fw-btn--mini fw-icon {
+  --icon-size: 6px;
 }
 
 // Loading button implementation
 .fw-btn--loading {
   position: relative;
+  cursor: wait;
 
-  .fw-btn--label {
+  .fw-btn--label,
+  .fw-btn--before,
+  .fw-btn--after,
+  .fw-btn--caret {
     opacity: 0;
   }
 
   .fw-btn--loader {
     --spinner-color: currentColor;
     opacity: 1;
+    line-height: 0;
   }
 }
 
@@ -273,4 +355,31 @@ $btn-font-weight: $font-weight-600;
   left: calc(50% - 0.5em);
   margin-top: -1px;
   margin-left: -1px;
+}
+
+/*
+   * Button groups support a variety of button types (e.g. buttons with tooltips, buttons as dropdown triggers, etc.).
+   * This means buttons aren't always direct descendants of the button group, thus we can't target them with the
+   * ::slotted selector. To work around this, the button group component does some magic to add these special classes to
+   * buttons and we style them here instead.
+*/
+
+:host(.fw-button-group__button--first:not(.fw-button-group__button--last))
+  .fw-btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+:host(.fw-button-group__button--inner) .fw-btn {
+  border-radius: 0;
+  margin-left: -1;
+  border-left: 0;
+}
+
+:host(.fw-button-group__button--last:not(.fw-button-group__button--first))
+  .fw-btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1;
+  border-left: 0;
 }

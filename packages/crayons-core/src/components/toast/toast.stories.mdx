@@ -1,29 +1,28 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
-# Toast
+# ToastController
 
-<Meta
-  title='Toast'
-  component='fw-toast'
-/>
+<Meta title='Toast' component='fw-toast' />
 
-## Props 
+## Props
 
-<Props of="fw-toast"/>
+<Props of='fw-toast' />
 
 ## Usage
 
 ### Default
+
 <Preview>
   <Story name='Default'>
     {() => `
     <fw-toast id="default_toast" type="success" content="Successfullly triggered" sticky="true"></fw-toast>
-    <fw-button onClick="document.querySelector('#default_toast').trigger({})">Trigger</fw-button>
+    <fw-button onClick="document.querySelector('#default_toast').trigger()">Trigger</fw-button>
     `}
   </Story>
 </Preview>
 
 ### Type
+
 <Preview>
   <Story name='Type'>
     {() => `
@@ -37,6 +36,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 </Preview>
 
 ### Position
+
 <Preview>
   <Story name='position'>
     {() => `
@@ -53,10 +53,26 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 </Preview>
 
 ### Action Link
+
 <Preview>
   <Story name='Action Link'>
     {() => `
     <fw-button onClick="document.querySelector('#actionlink_toast').trigger({})">Trigger</fw-button>
     <fw-toast id="actionlink_toast" action-link-text="Undo" type="success" content="Record successfullly deleted" sticky="true"></fw-toast>`}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name='Custom Content'>
+    {() => `
+    <fw-toast-message type='success' id="custom-toast" timeout="1000000">
+      <div>
+       <span class="custom-text">Custom content</span>
+       <button onclick="alert('clicked')">custom btn</button>
+      </div>
+    </fw-toast-message>
+    <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
+    <fw-button onClick="document.querySelector('#right').trigger({type:'inprogress', contentref:'#custom-toast',timeout:4000})">Custom Content</fw-button>
+
   </Story>
 </Preview>

@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DropdownVariant } from "./components/select-option/select-option";
 import { PopoverPlacementType } from "./components/popover/popover";
 import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
+import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwButton {
         /**
@@ -15,25 +16,25 @@ export namespace Components {
          */
         "color": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
-          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the button on the interface. Default value is false.
          */
         "disabled": boolean;
         /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-         */
-        "expand": boolean;
-        /**
-          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+          * Loading state for the button, Default value is false.
          */
         "loading": boolean;
         /**
-          * Accepts the id of the fw-modal component to open it on click
+          * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId": string;
         /**
+          * Caret indicator for the button, Default value is false.
+         */
+        "showCaretIcon": boolean;
+        /**
           * Size of the button.
          */
-        "size": 'normal' | 'mini' | 'small' | 'icon';
+        "size": 'normal' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -41,7 +42,10 @@ export namespace Components {
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type": 'button' | 'reset' | 'submit';
+        "type": 'button' | 'submit';
+    }
+    interface FwButtonGroup {
+        "label": string;
     }
     interface FwCheckbox {
         /**
@@ -147,9 +151,29 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Size of the icon, specified in number of  pixels.
+          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
          */
         "size": number;
+    }
+    interface FwInlineMessage {
+        /**
+          * Makes the inline message closable.
+         */
+        "closable": boolean;
+        /**
+          * The duration in milliseconds for which inline message will be shown.
+         */
+        "duration": number;
+        "hide": () => Promise<void>;
+        /**
+          * Indicates whether the inline message is open or not.
+         */
+        "open": boolean;
+        "show": () => Promise<void>;
+        /**
+          * The type of inline message to be displayed. Defaults to info.
+         */
+        "type": 'success' | 'warning' | 'info' | 'error';
     }
     interface FwInput {
         /**
@@ -405,6 +429,10 @@ export namespace Components {
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
         "skidding": string;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger": 'click' | 'manual' | 'hover';
         /**
           * Variant defines the style of the popover-content.
          */
@@ -761,7 +789,7 @@ export namespace Components {
          */
         "actionLinkText": string;
         /**
-          * The content to be diaplyed in toast
+          * The content to be displayed in toast
          */
         "content": string;
         /**
@@ -780,14 +808,41 @@ export namespace Components {
           * Time duration of the toast visibility
          */
         "timeout": number;
-        "trigger": (configs: any) => Promise<void>;
+        "trigger": (opts: ToastOptions) => Promise<void>;
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type": | 'success'
-    | 'error'
-    | 'warning'
-    | 'inprogress';
+        "type": 'success' | 'error' | 'warning' | 'inprogress';
+    }
+    interface FwToastMessage {
+        /**
+          * The Content of the action link
+         */
+        "actionLinkText": string;
+        /**
+          * The content to be diaplyed in toast
+         */
+        "content": string;
+        /**
+          * visibility prop of toast message
+         */
+        "open": boolean;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "pauseOnHover": boolean;
+        /**
+          * won't close automatically
+         */
+        "sticky": boolean;
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout": number;
+        /**
+          * Type of the toast - success,failure, warning, inprogress
+         */
+        "type": 'success' | 'error' | 'warning' | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -807,7 +862,7 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to true.
          */
         "showIcon": boolean;
         /**
@@ -822,6 +877,12 @@ declare global {
     var HTMLFwButtonElement: {
         prototype: HTMLFwButtonElement;
         new (): HTMLFwButtonElement;
+    };
+    interface HTMLFwButtonGroupElement extends Components.FwButtonGroup, HTMLStencilElement {
+    }
+    var HTMLFwButtonGroupElement: {
+        prototype: HTMLFwButtonGroupElement;
+        new (): HTMLFwButtonGroupElement;
     };
     interface HTMLFwCheckboxElement extends Components.FwCheckbox, HTMLStencilElement {
     }
@@ -846,6 +907,12 @@ declare global {
     var HTMLFwIconElement: {
         prototype: HTMLFwIconElement;
         new (): HTMLFwIconElement;
+    };
+    interface HTMLFwInlineMessageElement extends Components.FwInlineMessage, HTMLStencilElement {
+    }
+    var HTMLFwInlineMessageElement: {
+        prototype: HTMLFwInlineMessageElement;
+        new (): HTMLFwInlineMessageElement;
     };
     interface HTMLFwInputElement extends Components.FwInput, HTMLStencilElement {
     }
@@ -967,6 +1034,12 @@ declare global {
         prototype: HTMLFwToastElement;
         new (): HTMLFwToastElement;
     };
+    interface HTMLFwToastMessageElement extends Components.FwToastMessage, HTMLStencilElement {
+    }
+    var HTMLFwToastMessageElement: {
+        prototype: HTMLFwToastMessageElement;
+        new (): HTMLFwToastMessageElement;
+    };
     interface HTMLFwToggleElement extends Components.FwToggle, HTMLStencilElement {
     }
     var HTMLFwToggleElement: {
@@ -975,10 +1048,12 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "fw-button": HTMLFwButtonElement;
+        "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-icon": HTMLFwIconElement;
+        "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-list-options": HTMLFwListOptionsElement;
@@ -999,6 +1074,7 @@ declare global {
         "fw-textarea": HTMLFwTextareaElement;
         "fw-timepicker": HTMLFwTimepickerElement;
         "fw-toast": HTMLFwToastElement;
+        "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
     }
 }
@@ -1009,19 +1085,15 @@ declare namespace LocalJSX {
          */
         "color"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
-          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the button on the interface. Default value is false.
          */
         "disabled"?: boolean;
         /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-         */
-        "expand"?: boolean;
-        /**
-          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+          * Loading state for the button, Default value is false.
          */
         "loading"?: boolean;
         /**
-          * Accepts the id of the fw-modal component to open it on click
+          * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId"?: string;
         /**
@@ -1037,9 +1109,13 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
+          * Caret indicator for the button, Default value is false.
+         */
+        "showCaretIcon"?: boolean;
+        /**
           * Size of the button.
          */
-        "size"?: 'normal' | 'mini' | 'small' | 'icon';
+        "size"?: 'normal' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -1047,7 +1123,10 @@ declare namespace LocalJSX {
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type"?: 'button' | 'reset' | 'submit';
+        "type"?: 'button' | 'submit';
+    }
+    interface FwButtonGroup {
+        "label"?: string;
     }
     interface FwCheckbox {
         /**
@@ -1177,9 +1256,35 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Size of the icon, specified in number of  pixels.
+          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
          */
         "size"?: number;
+    }
+    interface FwInlineMessage {
+        /**
+          * Makes the inline message closable.
+         */
+        "closable"?: boolean;
+        /**
+          * The duration in milliseconds for which inline message will be shown.
+         */
+        "duration"?: number;
+        /**
+          * Triggered when inline message is hidden.
+         */
+        "onFwHide"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when inline message is shown.
+         */
+        "onFwShow"?: (event: CustomEvent<any>) => void;
+        /**
+          * Indicates whether the inline message is open or not.
+         */
+        "open"?: boolean;
+        /**
+          * The type of inline message to be displayed. Defaults to info.
+         */
+        "type"?: 'success' | 'warning' | 'info' | 'error';
     }
     interface FwInput {
         /**
@@ -1441,6 +1546,14 @@ declare namespace LocalJSX {
          */
         "fallbackPlacements"?: [PopoverPlacementType];
         /**
+          * Triggered whenever the popover contents is closed/hidden.
+         */
+        "onFwHide"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered whenever the popover contents is open/displayed.
+         */
+        "onFwShow"?: (event: CustomEvent<any>) => void;
+        /**
           * Placement of the popover content with respect to the popover trigger.
          */
         "placement"?: PopoverPlacementType;
@@ -1452,6 +1565,10 @@ declare namespace LocalJSX {
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
         "skidding"?: string;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger"?: 'click' | 'manual' | 'hover';
         /**
           * Variant defines the style of the popover-content.
          */
@@ -1861,13 +1978,9 @@ declare namespace LocalJSX {
          */
         "actionLinkText"?: string;
         /**
-          * The content to be diaplyed in toast
+          * The content to be displayed in toast
          */
         "content"?: string;
-        /**
-          * Triggered when the action link clicked.
-         */
-        "onFwLinkClick"?: (event: CustomEvent<any>) => void;
         /**
           * Pause the toast from hiding on mouse hover
          */
@@ -1887,10 +2000,45 @@ declare namespace LocalJSX {
         /**
           * Type of the toast - success,failure, warning, inprogress
          */
-        "type"?: | 'success'
-    | 'error'
-    | 'warning'
-    | 'inprogress';
+        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
+    }
+    interface FwToastMessage {
+        /**
+          * The Content of the action link
+         */
+        "actionLinkText"?: string;
+        /**
+          * The content to be diaplyed in toast
+         */
+        "content"?: string;
+        /**
+          * Triggered when the action link clicked.
+         */
+        "onFwLinkClick"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered on closing the toast message. This event gets used by the parent container to remove the toast message from itself
+         */
+        "onFwRemoveToast"?: (event: CustomEvent<any>) => void;
+        /**
+          * visibility prop of toast message
+         */
+        "open"?: boolean;
+        /**
+          * Pause the toast from hiding on mouse hover
+         */
+        "pauseOnHover"?: boolean;
+        /**
+          * won't close automatically
+         */
+        "sticky"?: boolean;
+        /**
+          * Time duration of the toast visibility
+         */
+        "timeout"?: number;
+        /**
+          * Type of the toast - success,failure, warning, inprogress
+         */
+        "type"?: 'success' | 'error' | 'warning' | 'inprogress';
     }
     interface FwToggle {
         /**
@@ -1914,7 +2062,7 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to false.
+          * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to true.
          */
         "showIcon"?: boolean;
         /**
@@ -1924,10 +2072,12 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "fw-button": FwButton;
+        "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-icon": FwIcon;
+        "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-list-options": FwListOptions;
@@ -1948,6 +2098,7 @@ declare namespace LocalJSX {
         "fw-textarea": FwTextarea;
         "fw-timepicker": FwTimepicker;
         "fw-toast": FwToast;
+        "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
     }
 }
@@ -1956,10 +2107,12 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
+            "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
+            "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;
@@ -1980,6 +2133,7 @@ declare module "@stencil/core" {
             "fw-textarea": LocalJSX.FwTextarea & JSXBase.HTMLAttributes<HTMLFwTextareaElement>;
             "fw-timepicker": LocalJSX.FwTimepicker & JSXBase.HTMLAttributes<HTMLFwTimepickerElement>;
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
+            "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
         }
     }

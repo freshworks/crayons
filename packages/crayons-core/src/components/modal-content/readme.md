@@ -1,4 +1,4 @@
-# fw-modal-content
+# Modal Content (fw-modal-content)
 
 Displays the content inside the component.
 

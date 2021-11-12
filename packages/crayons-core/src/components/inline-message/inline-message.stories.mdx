@@ -1,0 +1,57 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Inline Message
+
+<Meta
+  title='Inline Message'
+  component='fw-inline-message'
+/>
+
+## Props 
+
+<Props of="fw-inline-message"/>
+
+## Usage
+### Default
+<Preview>
+<Story name='Default'>{() => `
+      <fw-inline-message open>This is a default inline message</fw-inline-message>
+      `}
+</Story>
+</Preview>
+
+### Info inline message
+<Preview>
+<Story name='Info'>{() => `
+      <fw-inline-message open type='info'>This is an info message</fw-inline-message><br>
+      <fw-inline-message open closable type='info'>This is an info message with close option</fw-inline-message>
+      `}
+</Story>
+</Preview>
+
+### Success inline message
+<Preview>
+<Story name='Success'>{() => `
+      <fw-inline-message open type='success'>This is a success message</fw-inline-message><br>
+      <fw-inline-message open closable type='success'>This is a success message with close option</fw-inline-message>
+      `}
+</Story>
+</Preview>
+
+### Error inline message
+<Preview>
+<Story name='Error'>{() => `
+      <fw-inline-message open type='error'>This is an error message</fw-inline-message><br>
+      <fw-aleinline-messagert open closable type='error'>This is an error message with close option</fw-inline-message>
+      `}
+</Story>
+</Preview>
+
+### Warning inline message
+<Preview>
+<Story name='Warning'>{() => `
+      <fw-inline-message open type='warning'>This is a warning message</fw-inline-message><br>
+      <fw-inline-message open closable type='warning'>This is a warning message with close option</fw-inline-message>
+      `}
+</Story>
+</Preview>

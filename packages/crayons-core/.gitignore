@@ -6,9 +6,9 @@ coverage/
 docs-dist/
 react/
 src/custom-elements.json
-crayons-react/src/react-component-lib
-crayons-react/src/*.ts
-!crayons-react/src/index.ts
+crayons-react/react-component-lib
+crayons-react/*.ts
+!crayons-react/index.ts
 .vuepress/public/build/
 css/
 

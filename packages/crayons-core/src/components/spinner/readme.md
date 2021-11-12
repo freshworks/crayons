@@ -67,6 +67,7 @@ function App() {
  - [fw-button](../button)
  - [fw-select](../select)
  - [fw-toast](../toast)
+ - [fw-toast-message](../toast-message)
 
 ### Graph
 ```mermaid
@@ -74,6 +75,7 @@ graph TD;
   fw-button --> fw-spinner
   fw-select --> fw-spinner
   fw-toast --> fw-spinner
+  fw-toast-message --> fw-spinner
   style fw-spinner fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
