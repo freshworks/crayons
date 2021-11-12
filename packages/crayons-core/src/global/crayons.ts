@@ -6,7 +6,11 @@ import {
   createToastNotification,
   ToastResult,
 } from '../components/toast/toast-util';
-import { createProgressContainer } from '../components/progress-bar/progress-util';
+import {
+  createProgressContainer,
+  NProgressType,
+  ProgressBarOptions,
+} from '../components/progress-bar/progress-util';
 export function ToastController(config: ToastOptions): ToastResult {
   const toastContainer = createToastStack(config);
 
@@ -17,6 +21,6 @@ export function ToastController(config: ToastOptions): ToastResult {
   return { trigger };
 }
 
-export function ProgressController(config) {
+export function ProgressController(config: ProgressBarOptions): NProgressType {
   return createProgressContainer(config);
 }

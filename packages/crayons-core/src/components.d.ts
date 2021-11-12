@@ -430,11 +430,35 @@ export namespace Components {
         "variant": 'select' | 'date-picker';
     }
     interface FwProgressBar {
-        "done": () => Promise<any>;
+        "done": () => Promise<void>;
+        /**
+          * Adjust animation settings using easing (a CSS easing string). Default is `ease`
+         */
+        "easing": string;
+        /**
+          * Changes the minimum percentage used upon starting. Default is `0.08`
+         */
+        "minimum": number;
+        /**
+          * Specify a selector to change the parent container. Default is `body`
+         */
         "parent": string;
+        /**
+          * Add speed (in ms). Default is `200`
+         */
         "speed": number;
         "start": () => Promise<void>;
+        /**
+          * Specify a background color for the progress bar. Default is `#29d`
+         */
+        "template": string;
+        /**
+          * Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`
+         */
         "trickle": boolean;
+        /**
+          * Adjust how often to trickle/increment, in ms. Default is `200`
+         */
         "trickleSpeed": number;
     }
     interface FwRadio {
@@ -1545,9 +1569,33 @@ declare namespace LocalJSX {
         "variant"?: 'select' | 'date-picker';
     }
     interface FwProgressBar {
+        /**
+          * Adjust animation settings using easing (a CSS easing string). Default is `ease`
+         */
+        "easing"?: string;
+        /**
+          * Changes the minimum percentage used upon starting. Default is `0.08`
+         */
+        "minimum"?: number;
+        /**
+          * Specify a selector to change the parent container. Default is `body`
+         */
         "parent"?: string;
+        /**
+          * Add speed (in ms). Default is `200`
+         */
         "speed"?: number;
+        /**
+          * Specify a background color for the progress bar. Default is `#29d`
+         */
+        "template"?: string;
+        /**
+          * Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`
+         */
         "trickle"?: boolean;
+        /**
+          * Adjust how often to trickle/increment, in ms. Default is `200`
+         */
         "trickleSpeed"?: number;
     }
     interface FwRadio {

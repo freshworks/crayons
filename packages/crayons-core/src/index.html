@@ -4,21 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
   <script type="module" src="/build/crayons.esm.js"></script>
   <script nomodule src="/build/crayons.js"></script>
-  
-  <script type="module" src="../dist/crayons/crayons.esm.js"></script>
-  <script nomodule src="../dist/crayons/crayons.js"></script>
 
+<style>
+  #progress-bar{
+    background-color: red;
+  }
+</style>
 
 <script type="module">
 
-import { ProgressController } from "../dist/crayons/index.esm.js"
-//console.log(ProgressController);
-
+import { ProgressController } from "/build/index.esm.js"
 var nprogress1 = ProgressController();
-var nprogress2 = ProgressController({ parent: '#container1' });
+var nprogress2 = ProgressController({ parent: '#container1', template:'<div id="progress-bar" role="bar"></div>' });
 
 nprogress1.start();
 nprogress2.start();
@@ -32,7 +31,7 @@ setTimeout(() =>{
 <body>
 <fw-button expand color="primary">Primary Button</fw-button>
 
-<fw-progress-bar parent="#container2" id="pp"></fw-progress-bar>
+<fw-progress-bar parent="#container2" id="pp" color="red"></fw-progress-bar>
 
 <div id="container1">
 <h1>asdasd</h1>
