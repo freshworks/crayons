@@ -10,18 +10,18 @@ From your app’s root directory navigate to the **app > template.html** file an
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons/dist/crayons/crayons.esm.js">
+  src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js">
 </script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons/dist/crayons/crayons.js">
+  src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.js">
 </script>
 ```
 
 You can now use the Crayons components just like how you would use any other html element.
 
 ```html live
-<fw-button color="secondary" onClick="alert('Button Clicked')">Get Started</fw-button>
+<fw-button color="secondary" onclick="alert('Button Clicked')">Get Started</fw-button>
 ```
 
 You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
@@ -29,7 +29,7 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 #### Usage via Node Modules
  - Install the package 
 ```bash
-  npm install @freshworks/crayons --save
+  npm install @freshworks/crayons@canary --save
 ```
  - Put a script tag similar to this 
 ```html
@@ -37,22 +37,3 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 ``` 
 in the head of your index.html
  - Now you can use the element anywhere in your template, JSX, html etc.
-
-
-### Bleeding edge version
-
-For a bleeding edge version(highly unstable), you can use the `next` tag.
-```bash
-npm install @freshworks/crayons@next --save
-```
-or
-```html
-<script
-  type="module"
-  src="https://unpkg.com/@freshworks/crayons@next/dist/crayons/crayons.esm.js">
-</script>
-<script
-  nomodule
-  src="https://unpkg.com/@freshworks/crayons@next/dist/crayons/crayons.js">
-</script>
-``` 
