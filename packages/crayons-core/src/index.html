@@ -7,46 +7,9 @@
   <script type="module" src="/build/crayons.esm.js"></script>
   <script nomodule src="/build/crayons.js"></script>
 
-<style>
-  #progress-bar{
-    background-color: red;
-  }
-</style>
-
-<script type="module">
-
-import { ProgressController } from "/build/index.esm.js"
-var nprogress1 = ProgressController();
-var nprogress2 = ProgressController({ parent: '#container1', template:'<div id="progress-bar" role="bar"></div>' });
-
-nprogress1.start();
-nprogress2.start();
-setTimeout(() =>{
-  nprogress1.done()
-  nprogress2.done()
-},10000)
-</script>
-
 </head>
 <body>
 <fw-button expand color="primary">Primary Button</fw-button>
-
-<fw-progress-bar parent="#container2" id="pp" color="red"></fw-progress-bar>
-
-<div id="container1">
-<h1>asdasd</h1>
-</div>
-
-<p>hellow workd</p>
-<br/><Br/><br/>
-<div id="container2">
-
-  <p>container 2</p>
-  
-  </div>
-
-  
-<fw-button onClick="document.querySelector('#pp').start();">pro</fw-button>
  
 <!-- <br />
   <fw-button-group>
@@ -143,14 +106,45 @@ setTimeout(() =>{
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> -->
+
+  <!-- progress loader -->
+  <!--
+    
+    <script type="module">
+
+    import { ProgressLoaderController } from "/build/index.esm.js"
+    var fwprogress1 = ProgressLoaderController();
+    var fwprogress13 = ProgressLoaderController();
+    var fwprogress2 = ProgressLoaderController({ parent: '#container1', template:'<div id="progress-bar" role="bar"></div>' });
+
+    fwprogress1.start();
+    fwprogress13.start();
+    fwprogress2.start();
+    setTimeout(() =>{
+      fwprogress1.done()
+      fwprogress2.done()
+      fwprogress13.done()
+    },10000)
+
+    </script>
+
+    <fw-progress-loader parent="#container2" id="pp" show></fw-progress-loader>
+
+    <div id="container1">
+    <h1>asdasd</h1>
+    </div>
+
+    <p>hello workd</p>
+    <br/><br/><br/>
+    <div id="container2">
+      <p>container 2</p>
+    </div>
+      
+    <fw-button onClick="document.querySelector('#pp').done();">pro</fw-button>
+
+  -->
+
+
 </body>
 
-<script>
-
-setTimeout(() =>{
-  document.querySelector('#pp').start();
-},100)
-
-
-</script>
 </html>

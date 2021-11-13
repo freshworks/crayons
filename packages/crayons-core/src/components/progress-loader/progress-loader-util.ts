@@ -1,6 +1,6 @@
 import FwProgress from 'multi-nprogress';
 
-export interface ProgressBarOptions {
+export interface ProgressLoaderOptions {
   /**
    * Changes the minimum percentage used upon starting. Default is `0.08`
    */
@@ -23,31 +23,24 @@ export interface ProgressBarOptions {
   trickleSpeed?: number;
   /**
    * Specify a selector to change the parent container. Default is `body`
+   * Selector is accessed internally via document.querySelector method
    */
   parent?: string;
-  /**
-   * Specify a background color for the progress bar. Default is `#29d`
-   */
-  color?: string;
   /**
    * Use Custom markup. To keep the progress bar working, keep an element with role='bar' in there
    */
   template?: string;
 }
 
-export interface NProgressType {
-  settings: any;
-  configure: any;
+export interface ProgressLoaderMethods {
   start: any;
   done: any;
-  status: any;
   set: any;
-  isStarted: any;
   inc: any;
-  trickle: any;
-  remove: any;
-  isRendered: any;
-  render: any;
+}
+
+interface ProgressLoaderPropOptions extends ProgressLoaderOptions {
+  show?: boolean;
 }
 
 const DEFAULT_OPTIONS = {
@@ -58,10 +51,11 @@ const DEFAULT_OPTIONS = {
   trickle: true,
   trickleSpeed: 200,
   template: '<div class="bar" role="bar"></div>',
+  show: false,
 };
 export function getPropOptions(
-  opts: ProgressBarOptions = {}
-): ProgressBarOptions {
+  opts: ProgressLoaderPropOptions = {}
+): ProgressLoaderPropOptions {
   return {
     parent: opts.parent ?? DEFAULT_OPTIONS.parent,
     minimum: opts.minimum ?? DEFAULT_OPTIONS.minimum,
@@ -70,13 +64,15 @@ export function getPropOptions(
     trickle: opts.trickle ?? DEFAULT_OPTIONS.trickle,
     trickleSpeed: opts.trickleSpeed ?? DEFAULT_OPTIONS.trickleSpeed,
     template: opts.template ?? DEFAULT_OPTIONS.template,
+    show: opts.show ?? DEFAULT_OPTIONS.show,
   };
 }
 
-export function createProgressContainer(
-  options: ProgressBarOptions
-): NProgressType {
+export function createProgressLoaderContainer(
+  options: ProgressLoaderOptions
+): ProgressLoaderMethods {
   const customizedOptions = getPropOptions(options);
+
   const instance = FwProgress().configure(customizedOptions);
 
   if (!document.querySelector('#fw-progress-bar-style')) {
@@ -104,6 +100,25 @@ export function createProgressContainer(
   }
 
   return {
-    ...instance,
+    start: wrapCheck(instance.start, customizedOptions),
+    done: wrapCheck(instance.done, customizedOptions),
+    set: wrapCheck(instance.set, customizedOptions),
+    inc: wrapCheck(instance.inc, customizedOptions),
+  };
+}
+function wrapCheck(fn, options) {
+  return function (...arr) {
+    try {
+      if (options.parent) {
+        if (!document.querySelector(options.parent)) {
+          console.error(`Document Selector ${options.parent} not found`);
+          return;
+        }
+      }
+
+      fn.apply(this, arr);
+    } catch (error) {
+      console.error(`Error occurred`, error);
+    }
   };
 }

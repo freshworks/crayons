@@ -137,6 +137,7 @@ export class ToastMessage {
   }
 
   disconnectedCallback(): void {
+    this.fwRemoveToast.emit(this.controllerEl);
     if (this.timerId) clearTimeout(this.timerId);
   }
 

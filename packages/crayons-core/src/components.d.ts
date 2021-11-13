@@ -429,27 +429,45 @@ export namespace Components {
          */
         "variant": 'select' | 'date-picker';
     }
-    interface FwProgressBar {
+    interface FwProgressLoader {
+        /**
+          * Method to end the progress. This hides the progress loader
+         */
         "done": () => Promise<void>;
         /**
           * Adjust animation settings using easing (a CSS easing string). Default is `ease`
          */
         "easing": string;
         /**
+          * Increments the progress status by a random amount.
+         */
+        "inc": () => Promise<void>;
+        /**
           * Changes the minimum percentage used upon starting. Default is `0.08`
          */
         "minimum": number;
         /**
-          * Specify a selector to change the parent container. Default is `body`
+          * Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method
          */
         "parent": string;
+        /**
+          * Sets the progress loader status, where `n` is a number from `0.0` to `1.0`.
+         */
+        "set": (n: number) => Promise<void>;
+        /**
+          * Show progress loader. Default `false`
+         */
+        "show": boolean;
         /**
           * Add speed (in ms). Default is `200`
          */
         "speed": number;
+        /**
+          * Method to start showing the progress loader
+         */
         "start": () => Promise<void>;
         /**
-          * Specify a background color for the progress bar. Default is `#29d`
+          * Specify a background color for the progress loader. Default is `#2c5cc5`
          */
         "template": string;
         /**
@@ -965,11 +983,11 @@ declare global {
         prototype: HTMLFwPopoverElement;
         new (): HTMLFwPopoverElement;
     };
-    interface HTMLFwProgressBarElement extends Components.FwProgressBar, HTMLStencilElement {
+    interface HTMLFwProgressLoaderElement extends Components.FwProgressLoader, HTMLStencilElement {
     }
-    var HTMLFwProgressBarElement: {
-        prototype: HTMLFwProgressBarElement;
-        new (): HTMLFwProgressBarElement;
+    var HTMLFwProgressLoaderElement: {
+        prototype: HTMLFwProgressLoaderElement;
+        new (): HTMLFwProgressLoaderElement;
     };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
@@ -1071,7 +1089,7 @@ declare global {
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
         "fw-popover": HTMLFwPopoverElement;
-        "fw-progress-bar": HTMLFwProgressBarElement;
+        "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
@@ -1568,7 +1586,7 @@ declare namespace LocalJSX {
          */
         "variant"?: 'select' | 'date-picker';
     }
-    interface FwProgressBar {
+    interface FwProgressLoader {
         /**
           * Adjust animation settings using easing (a CSS easing string). Default is `ease`
          */
@@ -1578,15 +1596,19 @@ declare namespace LocalJSX {
          */
         "minimum"?: number;
         /**
-          * Specify a selector to change the parent container. Default is `body`
+          * Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method
          */
         "parent"?: string;
+        /**
+          * Show progress loader. Default `false`
+         */
+        "show"?: boolean;
         /**
           * Add speed (in ms). Default is `200`
          */
         "speed"?: number;
         /**
-          * Specify a background color for the progress bar. Default is `#29d`
+          * Specify a background color for the progress loader. Default is `#2c5cc5`
          */
         "template"?: string;
         /**
@@ -2090,7 +2112,7 @@ declare namespace LocalJSX {
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
         "fw-popover": FwPopover;
-        "fw-progress-bar": FwProgressBar;
+        "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
@@ -2126,7 +2148,7 @@ declare module "@stencil/core" {
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
-            "fw-progress-bar": LocalJSX.FwProgressBar & JSXBase.HTMLAttributes<HTMLFwProgressBarElement>;
+            "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
