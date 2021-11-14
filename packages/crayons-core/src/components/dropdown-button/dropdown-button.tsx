@@ -8,7 +8,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
-import { handleKeyDown } from '../../utils';
+import { handleKeyDown, fetchTranslations } from '../../utils';
 
 @Component({
   tag: 'fw-dropdown-button',
@@ -16,6 +16,7 @@ import { handleKeyDown } from '../../utils';
   shadow: true,
 })
 export class DropdownButton {
+  strings: any;
   @Element() host: HTMLElement;
   private dropdownInput?: HTMLFwInputElement;
   /**
@@ -218,7 +219,7 @@ export class DropdownButton {
               onClick={() => this.handleAddClick()}
             >
               {' '}
-              Add{' '}
+              {this.strings.add}{' '}
             </fw-button>
             <fw-button
               id='cancelBtn'
@@ -227,7 +228,7 @@ export class DropdownButton {
               onClick={() => this.handleDropdownToggle()}
             >
               {' '}
-              Cancel{' '}
+              {this.strings.cancel}{' '}
             </fw-button>
           </div>
         );
@@ -334,7 +335,7 @@ export class DropdownButton {
     );
   }
 
-  componentWillLoad() {
+  async componentWillLoad() {
     document.addEventListener('click', (e) => {
       const { target } = e;
       const canClose =
@@ -348,5 +349,6 @@ export class DropdownButton {
     });
 
     this.setDropdownOptions();
+    this.strings = await fetchTranslations();
   }
 }

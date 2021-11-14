@@ -148,3 +148,77 @@ export const debounce = (fn, context, timeout) => {
     }, timeout);
   };
 };
+
+/**
+ * Attempts to find the closest tag with a lang attribute.
+ * @param element The element to find a lang attribute for.
+ */
+function getLangAttr(element = document.body) {
+  const closestElement = element.closest('[lang]') as HTMLElement;
+  if (!closestElement) return undefined;
+
+  let lang = closestElement.lang;
+  if (!lang) return undefined;
+
+  if (lang.indexOf('-') !== -1) {
+    lang = lang.split('-')[0];
+  }
+  if (lang.indexOf('_') !== -1) {
+    lang = lang.split('_')[0];
+  }
+  return lang;
+}
+function getBrowserLang() {
+  if (
+    typeof window === 'undefined' ||
+    typeof window.navigator === 'undefined'
+  ) {
+    return undefined;
+  }
+  let browserLang =
+    window.navigator.languages && window.navigator.languages.length > 0
+      ? window.navigator.languages[0]
+      : null;
+  browserLang = browserLang || window.navigator.language;
+  if (typeof browserLang === 'undefined') {
+    return 'en';
+  }
+  if (browserLang.indexOf('-') !== -1) {
+    browserLang = browserLang.split('-')[0];
+  }
+  if (browserLang.indexOf('_') !== -1) {
+    browserLang = browserLang.split('_')[0];
+  }
+  return browserLang;
+}
+
+export async function fetchTranslations(): Promise<any> {
+  const locale = getLangAttr() || getBrowserLang();
+  try {
+    const existingTranslations = JSON.parse(
+      sessionStorage.getItem(`i18n.${locale}`)
+    );
+
+    if (existingTranslations && Object.keys(existingTranslations).length > 0) {
+      return existingTranslations;
+    } else {
+      try {
+        const result = await import(`../i18n/${locale}.js`);
+        if (result) {
+          const data = await result.default;
+          sessionStorage.setItem(`i18n.${locale}`, JSON.stringify(data));
+          return data;
+        }
+      } catch (exception) {
+        console.error(`Error loading locale: ${locale}`, exception);
+        return {};
+      }
+    }
+  } catch (error) {
+    console.error(
+      `JSON Parse exception while reading locale: ${locale} from sessionStorage`,
+      error
+    );
+    return {};
+  }
+}
