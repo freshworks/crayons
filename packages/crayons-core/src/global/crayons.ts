@@ -7,6 +7,8 @@ import {
   ToastResult,
 } from '../components/toast/toast-util';
 
+import { setTranslations, fetchTranslations } from './Translation';
+
 export function ToastController(config: ToastOptions): ToastResult {
   const toastContainer = createToastStack(config);
 
@@ -16,3 +18,8 @@ export function ToastController(config: ToastOptions): ToastResult {
 
   return { trigger };
 }
+
+export const TranslationController = {
+  setTranslations,
+  fetchTranslations,
+};

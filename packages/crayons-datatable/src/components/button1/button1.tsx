@@ -1,3 +1,4 @@
+import { TranslationController } from '@freshworks/crayons/dist/components';
 import {
   Component,
   Element,
@@ -7,12 +8,14 @@ import {
   Prop,
   h,
 } from '@stencil/core';
+
 @Component({
   tag: 'fw-button1',
   styleUrl: 'button1.scss',
   shadow: true,
 })
 export class Button {
+  strings: any;
   @Element() host: HTMLElement;
 
   /**
@@ -88,6 +91,11 @@ export class Button {
     this.fwClick.emit();
   }
 
+  async componentWillLoad() {
+    this.strings = await TranslationController.fetchTranslations();
+    console.log(this.strings);
+  }
+
   render() {
     return (
       <Host
@@ -109,6 +117,7 @@ export class Button {
           <slot />
         </button>
         <fw-label color='blue' value='atomic component'></fw-label>
+        btn {this.strings.button}
       </Host>
     );
   }

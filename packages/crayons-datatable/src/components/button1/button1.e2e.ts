@@ -28,7 +28,8 @@ describe('fw-button1', () => {
       .toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--primary" type="button">
         <slot></slot>
       </button>
-      <fw-label class="hydrated"></fw-label>`);
+      <fw-label class="hydrated"></fw-label>
+      button`);
   });
 
   it('should set button as secondary when color is secondary', async () => {
@@ -40,6 +41,7 @@ describe('fw-button1', () => {
       .toEqualHtml(`<button class="fw-btn fw-btn--normal fw-btn--secondary" type="button">
         <slot></slot>
       </button>
-      <fw-label class="hydrated"></fw-label>`);
+      <fw-label class="hydrated"></fw-label>
+      button`);
   });
 });

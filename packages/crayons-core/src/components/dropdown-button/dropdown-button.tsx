@@ -8,7 +8,9 @@ import {
   Watch,
   h,
 } from '@stencil/core';
-import { handleKeyDown, fetchTranslations } from '../../utils';
+import { fetchTranslations } from '../../global/Translation';
+
+import { handleKeyDown } from '../../utils';
 
 @Component({
   tag: 'fw-dropdown-button',
@@ -350,5 +352,6 @@ export class DropdownButton {
 
     this.setDropdownOptions();
     this.strings = await fetchTranslations();
+    console.log('drop down strings ', this.strings);
   }
 }
