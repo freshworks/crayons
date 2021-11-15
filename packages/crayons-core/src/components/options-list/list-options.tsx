@@ -20,7 +20,10 @@ import { DropdownVariant } from '../select-option/select-option';
 export class ListOptions {
   private searchInput?: HTMLFwInputElement;
 
-  private defaultSearchFunction = (text, dataSource): Promise<Array<any>> => {
+  private defaultSearchFunction = (
+    text: string,
+    dataSource: any[]
+  ): Promise<any[]> => {
     return new Promise((resolve) => {
       const value = text.toLowerCase();
       const filteredValue =
@@ -77,8 +80,9 @@ export class ListOptions {
    */
   @Prop() notFoundText = 'No items Found';
   /**
-   * Filter function of signature (filterText : string, dataSource: Array<FwSelectOptions>) => Promise<Array<any>>.
+   * Filter function which takes in filterText and dataSource and return a Promise.
    * Where filter text is the text to filter the value in dataSource array.
+   * The returned promise should contain the array of options to be displayed.
    */
   @Prop() search = this.defaultSearchFunction;
   /**
