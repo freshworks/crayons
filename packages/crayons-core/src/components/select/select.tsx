@@ -15,6 +15,7 @@ import {
 
 import { handleKeyDown, renderHiddenField, debounce } from '../../utils';
 import { DropdownVariant } from '../select-option/select-option';
+import { fetchTranslations } from '../../global/Translation';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -123,7 +124,7 @@ export class Select {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @Prop() notFoundText = 'No items Found';
+  @Prop({ mutable: true }) notFoundText = '';
   /**
    * Filter function which takes in filterText and dataSource and return a Promise.
    * Where filter text is the text to filter the value in dataSource array.
@@ -133,7 +134,7 @@ export class Select {
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @Prop() noDataText = 'No Data available';
+  @Prop({ mutable: true }) noDataText = '';
   /**
    * Debounce timer for the search promise function.
    */
@@ -142,6 +143,13 @@ export class Select {
    * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
    */
   @Prop({ reflect: true, mutable: true }) selectedOptions = [];
+
+  /**
+   * private
+   * store i18n strings
+   */
+  strings: any;
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -319,7 +327,12 @@ export class Select {
     this.preventDropdownClose = false;
   }
 
-  componentWillLoad() {
+  async componentWillLoad() {
+    this.strings = await fetchTranslations();
+    if (!this.notFoundText)
+      this.notFoundText = this.strings.t('No items found');
+    if (!this.noDataText) this.noDataText = this.strings.t('No data available');
+
     const selectOptions = Array.from(
       this.host.querySelectorAll('fw-select-option')
     );

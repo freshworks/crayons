@@ -8,10 +8,9 @@ import {
   Watch,
   h,
 } from '@stencil/core';
-import { fetchTranslations } from '../../global/Translation';
 
 import { handleKeyDown } from '../../utils';
-
+import { fetchTranslations } from '../../global/Translation';
 @Component({
   tag: 'fw-dropdown-button',
   styleUrl: 'dropdown-button.scss',
@@ -221,7 +220,7 @@ export class DropdownButton {
               onClick={() => this.handleAddClick()}
             >
               {' '}
-              {this.strings.add}{' '}
+              {this.strings.t('add')}{' '}
             </fw-button>
             <fw-button
               id='cancelBtn'
@@ -230,7 +229,7 @@ export class DropdownButton {
               onClick={() => this.handleDropdownToggle()}
             >
               {' '}
-              {this.strings.cancel}{' '}
+              {this.strings.t('cancel')}{' '}
             </fw-button>
           </div>
         );
@@ -352,6 +351,5 @@ export class DropdownButton {
 
     this.setDropdownOptions();
     this.strings = await fetchTranslations();
-    console.log('drop down strings ', this.strings);
   }
 }

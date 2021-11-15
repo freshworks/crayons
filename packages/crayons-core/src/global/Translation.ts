@@ -87,32 +87,48 @@ export async function fetchDefaultTranslations(): Promise<any> {
   console.log('setting global configs');
   setupConfig({
     locale: locale,
-  });
-  setupConfig({
-    i18n: i18nResult,
+    defaultI18nStrings: i18nResult,
   });
   return i18nResult;
 }
 
 export function setTranslations(json: i18nConfig): void {
   setupConfig({
-    customi18n: json,
+    customI18nStrings: json,
   });
-  console.log('setting config ', json);
+  console.log('custom setting config ', json);
 }
 
-export async function fetchTranslations() {
-  await fetchDefaultTranslations();
-  const defaulti18n = AppConfigService.getInstance().get('i18n');
-  console.log({ defaulti18n });
-  const locale = AppConfigService.getInstance().get('locale');
-  console.log({ locale });
+export async function fetchTranslations(): Promise<any> {
+  try {
+    await fetchDefaultTranslations();
+    const defaultI18nStrings =
+      AppConfigService.getInstance().get('defaultI18nStrings');
+    console.log({ defaultI18nStrings });
+    const locale = AppConfigService.getInstance().get('locale');
+    console.log({ locale });
 
-  const customi18n =
-    AppConfigService.getInstance().get('customi18n')?.[locale] || {};
-  console.log({ customi18n });
-  return {
-    ...defaulti18n,
-    ...customi18n,
-  };
+    const customI18nStrings =
+      AppConfigService.getInstance().get('customI18nStrings')?.[locale] || {};
+    console.log({ customI18nStrings });
+    const finalI18nStrings = {
+      ...defaultI18nStrings,
+      ...customI18nStrings,
+    };
+
+    return {
+      t(key) {
+        if (key) return finalI18nStrings[key.toLowerCase()] || key;
+        return '';
+      },
+    };
+  } catch (err) {
+    console.error(`Error fetching translations. Return the passed string`, err);
+    return {
+      t(key) {
+        if (key) return key;
+        return '';
+      },
+    };
+  }
 }

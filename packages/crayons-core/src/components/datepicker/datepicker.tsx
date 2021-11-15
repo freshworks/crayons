@@ -11,6 +11,7 @@ import {
 import moment from 'moment-mini';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
+import { fetchTranslations } from '../../global/Translation';
 
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const monthArr = [
@@ -47,6 +48,8 @@ export class Datepicker {
   @State() toMonth: number;
 
   @Element() host: HTMLElement;
+
+  strings: any;
 
   /**
    *   Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
@@ -216,7 +219,7 @@ export class Datepicker {
     return yearsArr;
   };
 
-  componentWillLoad() {
+  async componentWillLoad() {
     this.year = moment().year().toString();
     this.month = moment().month();
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
@@ -225,6 +228,7 @@ export class Datepicker {
     this.monthDetails = this.getMonthDetails(this.year, this.month);
     this.todayTimestamp = moment().startOf('date').valueOf();
     this.setInitalValues();
+    this.strings = await fetchTranslations();
   }
 
   setInitalValues() {
@@ -590,10 +594,10 @@ export class Datepicker {
             {/* Footer Section */}
             <div class='mdpc-footer'>
               <fw-button color='primary' class='update-date-value'>
-                Update
+                {this.strings.t('update')}
               </fw-button>
               <fw-button color='secondary' class='close-date-picker'>
-                Cancel
+                {this.strings.t('cancel')}
               </fw-button>
             </div>
           </div>
@@ -714,10 +718,10 @@ export class Datepicker {
             {/* Footer Section */}
             <div class='mdpc-range-footer'>
               <fw-button color='primary' class='update-range-value'>
-                Update
+                {this.strings.t('update')}
               </fw-button>
               <fw-button color='secondary' class='close-date-picker'>
-                Cancel
+                {this.strings.t('cancel')}
               </fw-button>
             </div>
           </div>

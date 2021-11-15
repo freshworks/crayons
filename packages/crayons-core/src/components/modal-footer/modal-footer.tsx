@@ -1,6 +1,6 @@
 import { Component, Element, Prop, h } from '@stencil/core';
 import { hasSlot } from '../../utils';
-
+import { fetchTranslations } from '../../global/Translation';
 @Component({
   tag: 'fw-modal-footer',
   styleUrl: 'modal-footer.scss',
@@ -12,12 +12,12 @@ export class ModalFooter {
   /**
    * The text for the submit button
    */
-  @Prop() submitText = 'OK';
+  @Prop({ mutable: true }) submitText = '';
 
   /**
    * The text for the cancel button
    */
-  @Prop() cancelText = 'Cancel';
+  @Prop({ mutable: true }) cancelText = '';
 
   /**
    * Default state of submit button
@@ -48,12 +48,21 @@ export class ModalFooter {
   @Prop() close: any = () => {};
 
   /**
+   * private
+   * store i18n strings
+   */
+  strings: any;
+
+  /**
    * lifecycle event, called once just after the component is first connected to the DOM
    */
-  componentWillLoad() {
+  async componentWillLoad() {
     if (this.custom === null) {
       this.custom = hasSlot(this.el);
     }
+    this.strings = await fetchTranslations();
+    if (!this.submitText) this.submitText = this.strings.t('OK');
+    if (!this.cancelText) this.cancelText = this.strings.t('Cancel');
   }
 
   /**

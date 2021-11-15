@@ -10,7 +10,7 @@ import {
   h,
 } from '@stencil/core';
 import { isFocusable } from '../../utils';
-
+import { fetchTranslations } from '../../global/Translation';
 @Component({
   tag: 'fw-modal',
   styleUrl: 'modal.scss',
@@ -70,12 +70,12 @@ export class Modal {
   /**
    * The text for the submit button
    */
-  @Prop() submitText = 'OK';
+  @Prop({ mutable: true }) submitText = '';
 
   /**
    * The text for the cancel button
    */
-  @Prop() cancelText = 'Cancel';
+  @Prop({ mutable: true }) cancelText = '';
 
   /**
    * Default state of submit button
@@ -126,9 +126,15 @@ export class Modal {
   escapeHandler = null;
 
   /**
+   * private
+   * store i18n strings
+   */
+  strings: any;
+
+  /**
    * lifecycle event, called once just after the component is first connected to the DOM
    */
-  componentWillLoad() {
+  async componentWillLoad() {
     if (!this.modalTitle) {
       this.modalTitle = this.el.querySelector('fw-modal-title');
       if (this.modalTitle) {
@@ -145,6 +151,9 @@ export class Modal {
     if (!this.modalContent) {
       this.modalContent = this.el.querySelector('fw-modal-content');
     }
+    this.strings = await fetchTranslations();
+    if (!this.submitText) this.submitText = this.strings.t('OK');
+    if (!this.cancelText) this.cancelText = this.strings.t('Cancel');
   }
 
   @Watch('isOpen')

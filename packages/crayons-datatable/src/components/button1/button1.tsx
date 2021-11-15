@@ -117,7 +117,7 @@ export class Button {
           <slot />
         </button>
         <fw-label color='blue' value='atomic component'></fw-label>
-        btn {this.strings.button}
+        btn {this.strings.t('button')}
       </Host>
     );
   }

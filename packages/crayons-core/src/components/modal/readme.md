@@ -230,7 +230,7 @@ function App() {
 
 | Property         | Attribute         | Description                                       | Type                                                       | Default      |
 | ---------------- | ----------------- | ------------------------------------------------- | ---------------------------------------------------------- | ------------ |
-| `cancelText`     | `cancel-text`     | The text for the cancel button                    | `string`                                                   | `'Cancel'`   |
+| `cancelText`     | `cancel-text`     | The text for the cancel button                    | `string`                                                   | `''`         |
 | `description`    | `description`     | The description text to be displayed on the modal | `string`                                                   | `undefined`  |
 | `hideFooter`     | `hide-footer`     | Hide footer for the modal                         | `boolean`                                                  | `false`      |
 | `icon`           | `icon`            | The icon to be displayed with the title           | `string`                                                   | `''`         |
@@ -238,7 +238,7 @@ function App() {
 | `size`           | `size`            | Size of the modal                                 | `"large" \| "small" \| "standard"`                         | `'standard'` |
 | `submitColor`    | `submit-color`    | The color of submit button                        | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'`  |
 | `submitDisabled` | `submit-disabled` | Default state of submit button                    | `boolean`                                                  | `false`      |
-| `submitText`     | `submit-text`     | The text for the submit button                    | `string`                                                   | `'OK'`       |
+| `submitText`     | `submit-text`     | The text for the submit button                    | `string`                                                   | `''`         |
 | `titleText`      | `title-text`      | The title text to be displayed on the modal       | `string`                                                   | `undefined`  |
 
 
