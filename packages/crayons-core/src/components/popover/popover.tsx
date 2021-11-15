@@ -1,4 +1,13 @@
-import { Component, Element, State, Method, Prop, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  State,
+  Event,
+  EventEmitter,
+  Method,
+  Prop,
+  h,
+} from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
 
 @Component({
@@ -7,7 +16,8 @@ import { createPopper, Instance } from '@popperjs/core';
   shadow: true,
 })
 export class Popover {
-  private contentRef: HTMLElement;
+  private popperDiv: HTMLElement;
+  private contentRef: HTMLFwListOptionsElement | HTMLElement;
   private triggerRef: Element;
   private overlay: HTMLElement;
 
@@ -45,18 +55,31 @@ export class Popover {
    * Whether the popover-content width to be same as that of the popover-trigger.
    */
   @Prop() sameWidth = true;
+  /**
+   * The trigger event on which the popover-content is displayed. The available options are
+   * 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+   */
+  @Prop() trigger: 'click' | 'manual' | 'hover' = 'click';
+  /**
+   * Triggered whenever the popover contents is open/displayed.
+   */
+  @Event() fwShow: EventEmitter;
+  /**
+   * Triggered whenever the popover contents is closed/hidden.
+   */
+  @Event() fwHide: EventEmitter;
 
   @Method()
   async show() {
     if (!this.isOpen) {
       this.sameWidth &&
-        (this.contentRef.style.width =
+        (this.popperDiv.style.width =
           String(this.triggerRef.getBoundingClientRect().width) + 'px');
 
       // Create popper instance if it's not available
       !this.popperInstance && this.createPopperInstance();
 
-      this.contentRef.setAttribute('data-show', '');
+      this.popperDiv.setAttribute('data-show', '');
       // Enable the event listeners
       this.popperInstance.setOptions((options) => ({
         ...options,
@@ -68,13 +91,14 @@ export class Popover {
       this.popperInstance.update();
       this.overlay.style.display = 'block';
       this.isOpen = !this.isOpen;
+      this.fwShow.emit();
     }
   }
 
   @Method()
   async hide() {
     if (this.isOpen) {
-      this.contentRef.removeAttribute('data-show');
+      this.popperDiv.removeAttribute('data-show');
       // Disable the event listeners
       this.popperInstance.setOptions((options) => ({
         ...options,
@@ -85,18 +109,26 @@ export class Popover {
       }));
       this.overlay.style.display = 'none';
       this.isOpen = !this.isOpen;
+      if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
+        const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
+        listOptionsElement.clearFilter();
+      }
+      this.fwHide.emit();
     }
   }
 
   componentWillLoad() {
+    this.contentRef = this.host.querySelector('[slot="popover-content"]');
     this.triggerRef = this.host.querySelector('[slot="popover-trigger"]');
-    this.triggerRef.addEventListener('click', () => {
-      if (this.isOpen) {
-        this.hide();
-      } else {
-        this.show();
-      }
-    });
+    if (this.trigger !== 'manual') {
+      this.triggerRef.addEventListener(this.trigger, () => {
+        if (this.isOpen) {
+          this.hide();
+        } else {
+          this.show();
+        }
+      });
+    }
     this.popperOptions = {
       placement: this.placement,
       modifiers: [
@@ -129,7 +161,7 @@ export class Popover {
   createPopperInstance() {
     this.popperInstance = createPopper(
       this.triggerRef,
-      this.contentRef,
+      this.popperDiv,
       this.popperOptions
     );
   }
@@ -139,7 +171,7 @@ export class Popover {
       <slot name='popover-trigger' />,
       <div
         class='popper-content'
-        ref={(contentRef) => (this.contentRef = contentRef)}
+        ref={(popperDiv) => (this.popperDiv = popperDiv)}
       >
         <slot name='popover-content' />
       </div>,

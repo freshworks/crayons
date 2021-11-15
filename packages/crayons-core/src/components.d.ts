@@ -10,31 +10,39 @@ import { PopoverPlacementType } from "./components/popover/popover";
 import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
+    interface FwAvatar {
+        "alt": string;
+        "image": string;
+        "initials": string;
+        "mode": 'dark' | 'light';
+        "shape": 'circle' | 'square' | 'rounded';
+        "size": 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
         "color": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
-          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the button on the interface. Default value is false.
          */
         "disabled": boolean;
         /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-         */
-        "expand": boolean;
-        /**
-          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+          * Loading state for the button, Default value is false.
          */
         "loading": boolean;
         /**
-          * Accepts the id of the fw-modal component to open it on click
+          * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId": string;
         /**
+          * Caret indicator for the button, Default value is false.
+         */
+        "showCaretIcon": boolean;
+        /**
           * Size of the button.
          */
-        "size": 'normal' | 'mini' | 'small' | 'icon';
+        "size": 'normal' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -42,7 +50,7 @@ export namespace Components {
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type": 'button' | 'reset' | 'submit';
+        "type": 'button' | 'submit';
     }
     interface FwButtonGroup {
         "label": string;
@@ -151,7 +159,7 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Size of the icon, specified in number of  pixels.
+          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
          */
         "size": number;
     }
@@ -256,6 +264,7 @@ export namespace Components {
         "value": string;
     }
     interface FwListOptions {
+        "clearFilter": () => Promise<void>;
         /**
           * The text to filter the options.
          */
@@ -281,6 +290,10 @@ export namespace Components {
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
+        /**
+          * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
+         */
+        "search": (text: string, dataSource: any[]) => Promise<any[]>;
         /**
           * Placeholder to placed on the search text box.
          */
@@ -425,6 +438,10 @@ export namespace Components {
          */
         "skidding": string;
         /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger": 'click' | 'manual' | 'hover';
+        /**
           * Variant defines the style of the popover-content.
          */
         "variant": 'select' | 'date-picker';
@@ -525,6 +542,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer": number;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
@@ -554,6 +575,14 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText": string;
+        /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText": string;
+        /**
           * Allow to search for value. Default is true.
          */
         "options": any;
@@ -570,9 +599,17 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
+         */
+        "search": (text: string, dataSource: any[]) => Promise<any[]>;
+        /**
           * Allow to search for value. Default is true.
          */
         "searchable": boolean;
+        /**
+          * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions": any[];
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
@@ -893,6 +930,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
+    }
+    var HTMLFwAvatarElement: {
+        prototype: HTMLFwAvatarElement;
+        new (): HTMLFwAvatarElement;
+    };
     interface HTMLFwButtonElement extends Components.FwButton, HTMLStencilElement {
     }
     var HTMLFwButtonElement: {
@@ -1074,6 +1117,7 @@ declare global {
         new (): HTMLFwToggleElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
@@ -1107,25 +1151,29 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FwAvatar {
+        "alt"?: string;
+        "image"?: string;
+        "initials"?: string;
+        "mode"?: 'dark' | 'light';
+        "shape"?: 'circle' | 'square' | 'rounded';
+        "size"?: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
          */
         "color"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
-          * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
+          * Disables the button on the interface. Default value is false.
          */
         "disabled"?: boolean;
         /**
-          * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-         */
-        "expand"?: boolean;
-        /**
-          * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+          * Loading state for the button, Default value is false.
          */
         "loading"?: boolean;
         /**
-          * Accepts the id of the fw-modal component to open it on click
+          * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId"?: string;
         /**
@@ -1141,9 +1189,13 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
+          * Caret indicator for the button, Default value is false.
+         */
+        "showCaretIcon"?: boolean;
+        /**
           * Size of the button.
          */
-        "size"?: 'normal' | 'mini' | 'small' | 'icon';
+        "size"?: 'normal' | 'small' | 'icon';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -1151,7 +1203,7 @@ declare namespace LocalJSX {
         /**
           * Button type based on which actions are performed when the button is clicked.
          */
-        "type"?: 'button' | 'reset' | 'submit';
+        "type"?: 'button' | 'submit';
     }
     interface FwButtonGroup {
         "label"?: string;
@@ -1284,7 +1336,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Size of the icon, specified in number of  pixels.
+          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
          */
         "size"?: number;
     }
@@ -1440,6 +1492,10 @@ declare namespace LocalJSX {
          */
         "options"?: any[];
         /**
+          * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
+         */
+        "search"?: (text: string, dataSource: any[]) => Promise<any[]>;
+        /**
           * Placeholder to placed on the search text box.
          */
         "searchText"?: string;
@@ -1570,6 +1626,14 @@ declare namespace LocalJSX {
          */
         "fallbackPlacements"?: [PopoverPlacementType];
         /**
+          * Triggered whenever the popover contents is closed/hidden.
+         */
+        "onFwHide"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered whenever the popover contents is open/displayed.
+         */
+        "onFwShow"?: (event: CustomEvent<any>) => void;
+        /**
           * Placement of the popover content with respect to the popover trigger.
          */
         "placement"?: PopoverPlacementType;
@@ -1581,6 +1645,10 @@ declare namespace LocalJSX {
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
         "skidding"?: string;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger"?: 'click' | 'manual' | 'hover';
         /**
           * Variant defines the style of the popover-content.
          */
@@ -1686,6 +1754,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer"?: number;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
@@ -1713,6 +1785,14 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText"?: string;
+        /**
+          * Default option to be shown if the option doesn't match the filterText.
+         */
+        "notFoundText"?: string;
         /**
           * Triggered when the list box loses focus.
          */
@@ -1742,9 +1822,17 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
+          * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
+         */
+        "search"?: (text: string, dataSource: any[]) => Promise<any[]>;
+        /**
           * Allow to search for value. Default is true.
          */
         "searchable"?: boolean;
+        /**
+          * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions"?: any[];
         /**
           * Theme based on which the list box is styled.
          */
@@ -2097,6 +2185,7 @@ declare namespace LocalJSX {
         "size"?: 'small' | 'medium' | 'large';
     }
     interface IntrinsicElements {
+        "fw-avatar": FwAvatar;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
@@ -2133,6 +2222,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;

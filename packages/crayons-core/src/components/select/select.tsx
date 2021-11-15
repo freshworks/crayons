@@ -13,7 +13,7 @@ import {
   h,
 } from '@stencil/core';
 
-import { handleKeyDown, renderHiddenField } from '../../utils';
+import { handleKeyDown, renderHiddenField, debounce } from '../../utils';
 import { DropdownVariant } from '../select-option/select-option';
 @Component({
   tag: 'fw-select',
@@ -26,6 +26,21 @@ export class Select {
   private fwListOptions?: HTMLFwListOptionsElement;
   private popover?: HTMLFwPopoverElement;
   private preventDropdownClose?: boolean = false;
+  private defaultSearchFunction = (
+    text: string,
+    dataSource: any[]
+  ): Promise<any[]> => {
+    return new Promise((resolve) => {
+      const value = text.toLowerCase();
+      const filteredValue =
+        value !== ''
+          ? dataSource.filter((option) =>
+              option.text.toLowerCase().includes(value)
+            )
+          : dataSource;
+      resolve(filteredValue);
+    });
+  };
 
   /**
    * If the dropdown is shown or not
@@ -33,8 +48,9 @@ export class Select {
   @State() isExpanded = false;
   @State() hasFocus = false;
   @State() didInit = false;
-  @State() searchValue;
-  @State() listOptions;
+  @State() dataSource;
+  @State() filteredOptions;
+  @State() isLoading = false;
   /**
    * Label displayed on the interface, for the component.
    */
@@ -104,6 +120,28 @@ export class Select {
    * Place a checkbox.
    */
   @Prop() isCheckbox = false;
+  /**
+   * Default option to be shown if the option doesn't match the filterText.
+   */
+  @Prop() notFoundText = 'No items Found';
+  /**
+   * Filter function which takes in filterText and dataSource and return a Promise.
+   * Where filter text is the text to filter the value in dataSource array.
+   * The returned promise should contain the array of options to be displayed.
+   */
+  @Prop() search = this.defaultSearchFunction;
+  /**
+   * Text to be displayed when there is no data available in the select.
+   */
+  @Prop() noDataText = 'No Data available';
+  /**
+   * Debounce timer for the search promise function.
+   */
+  @Prop() debounceTimer = 300;
+  /**
+   * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+   */
+  @Prop({ reflect: true, mutable: true }) selectedOptions = [];
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -121,6 +159,7 @@ export class Select {
   private changeEmittable = () => !this.disabled;
 
   private closeDropdown = () => {
+    this.filteredOptions = this.dataSource;
     this.popover.hide();
     this.isExpanded = false;
   };
@@ -154,38 +193,65 @@ export class Select {
     }
   };
 
-  @Watch('value')
-  keyChanged(newValue, oldValue) {
-    if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-      if (this.didInit) {
-        this.fwChange.emit({ value: this.value });
-      }
-    }
-  }
+  // @Watch('value')
+  // keyChanged(newValue, oldValue) {
+  //   if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+  //     if (this.didInit) {
+  //       this.fwChange.emit({
+  //         value: this.value,
+  //       });
+  //     }
+  //   }
+  // }
 
   @Listen('fwChange')
   fwSelectedHandler(selectedItem) {
     if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
-      this.value = selectedItem.detail.value;
-      this.selectInput.value = '';
-      this.renderInput();
-      if (!this.multiple) {
-        this.resetFocus();
-        this.closeDropdown();
+      // Before setting the selectedOptions check whether the already selected value
+      // is there in filtered value. If it's not there then that value could't be deselected.
+      // So retain that value in selectedOptions.
+      let nonFilteredSelectedOptions = [];
+      if (this.multiple) {
+        const filteredValues = this.filteredOptions.map(
+          (option) => option.value
+        );
+        const nonFilteredSelectedValues = this.value.filter((value) => {
+          return !filteredValues.includes(value);
+        });
+        nonFilteredSelectedOptions = this.selectedOptions.filter((option) => {
+          return nonFilteredSelectedValues.includes(option.value);
+        });
       }
+      this.value = selectedItem.detail.value;
+      this.getSelectedItem().then((selectedOptions) => {
+        this.selectedOptions =
+          nonFilteredSelectedOptions.length > 0
+            ? [...nonFilteredSelectedOptions, ...selectedOptions]
+            : selectedOptions;
+        this.fwChange.emit({
+          value: this.value,
+          selectedOptions: this.selectedOptions,
+        });
+        this.renderInput();
+        if (!this.multiple) {
+          this.resetFocus();
+          this.closeDropdown();
+        }
+      });
       selectedItem.stopPropagation();
     }
   }
 
-  @Watch('listOptions')
+  @Watch('dataSource')
   optionsChangedHandler() {
-    this.renderInput();
+    this.didInit && this.renderInput();
   }
 
   // Listen to Tag close in case of multi-select
   @Listen('fwClosed')
   fwCloseHandler(ev) {
     this.value = this.value.filter((value) => value !== ev.detail.value);
+    this.setSelectedOptions();
   }
   @Listen('keydown')
   onKeyDonw(ev) {
@@ -199,37 +265,54 @@ export class Select {
     }
   }
 
-  onInput() {
-    this.searchValue = this.selectInput.value.toLowerCase();
-    this.renderInput();
+  getDatasource() {
+    return this.options
+      ? this.options
+      : [{ text: this.noDataText, disabled: true }];
   }
 
-  renderTags() {
+  handleSearchWithDebounce = debounce(
+    () => {
+      const searchValue = this.selectInput.value.toLowerCase();
+      this.isLoading = true;
+      this.search(searchValue, this.dataSource).then((filteredValues) => {
+        this.filteredOptions =
+          filteredValues.length === 0
+            ? [{ text: this.notFoundText, disabled: true }]
+            : filteredValues;
+        this.isLoading = false;
+      });
+    },
+    this,
+    this.debounceTimer
+  );
+
+  renderTags(selectedOptions) {
     if (this.multiple) {
-      return this.listOptions.map((option) => {
-        if (this.value.includes(option.value)) {
-          return (
-            <fw-tag
-              text={option.text}
-              disabled={option.disabled}
-              value={option.value}
-            />
-          );
-        }
+      return selectedOptions?.map((option) => {
+        return (
+          <fw-tag
+            text={option.text}
+            disabled={option.disabled}
+            value={option.value}
+          />
+        );
       });
     }
   }
 
   renderInput() {
-    this.fwListOptions?.getSelectedOptions().then((selectedOptions) => {
-      if (selectedOptions.length > 0) {
-        if (this.selectInput) {
-          this.selectInput.value = this.multiple
-            ? this.selectInput.value
-            : selectedOptions[0].text || '';
-        }
+    if (this.selectedOptions.length > 0) {
+      if (this.selectInput) {
+        this.selectInput.value = this.multiple
+          ? this.selectInput.value
+          : this.selectedOptions[0].text || '';
       }
-    });
+    }
+    // If no value is selected clear the input
+    else if (this.selectInput) {
+      this.selectInput.value = '';
+    }
   }
 
   resetFocus() {
@@ -241,9 +324,8 @@ export class Select {
       this.host.querySelectorAll('fw-select-option')
     );
 
-    this.value = this.value ? this.value : [];
     if (this.value) {
-      this.value = this.value === 'string' ? [this.value] : this.value;
+      this.value = typeof this.value === 'string' ? [this.value] : this.value;
     } else {
       this.value = [];
     }
@@ -258,7 +340,15 @@ export class Select {
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
-    this.listOptions = options.length === 0 ? this.options : options;
+    this.dataSource = options.length === 0 ? this.getDatasource() : options;
+    if (this.selectedOptions.length > 0) {
+      this.value = this.selectedOptions.map((option) => option.value);
+    } else {
+      this.selectedOptions = this.dataSource.filter((option) =>
+        this.value.includes(option.value)
+      );
+    }
+    this.filteredOptions = this.dataSource;
     this.host.innerHTML = '';
   }
 
@@ -278,6 +368,12 @@ export class Select {
       this.fwListOptions.setSelectedValues(values);
       this.renderInput();
     }
+  }
+
+  setSelectedOptions() {
+    this.getSelectedItem().then(
+      (selectedOptions) => (this.selectedOptions = selectedOptions)
+    );
   }
 
   render() {
@@ -310,7 +406,7 @@ export class Select {
               onKeyDown={handleKeyDown(this.innerOnClick)}
             >
               <div class='input-container-inner'>
-                {this.renderTags()}
+                {this.renderTags(this.selectedOptions)}
                 <input
                   ref={(selectInput) => (this.selectInput = selectInput)}
                   class={{
@@ -326,23 +422,26 @@ export class Select {
                   required={this.required}
                   type={this.type}
                   value=''
-                  onInput={() => this.onInput()}
+                  onInput={() => this.handleSearchWithDebounce()}
                   onFocus={(e) => this.innerOnFocus(e)}
                   onBlur={(e) => this.innerOnBlur(e)}
                 />
-                <span
-                  class={{
-                    'dropdown-status-icon': true,
-                    'expanded': this.isExpanded,
-                  }}
-                ></span>
+                {this.isLoading ? (
+                  <fw-spinner size='small'></fw-spinner>
+                ) : (
+                  <span
+                    class={{
+                      'dropdown-status-icon': true,
+                      'expanded': this.isExpanded,
+                    }}
+                  ></span>
+                )}
               </div>
             </div>
             <fw-list-options
               ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
               variant={this.variant}
-              filter-text={this.searchValue}
-              options={this.listOptions}
+              options={this.filteredOptions}
               value={this.value}
               multiple={this.multiple}
               max={this.max}

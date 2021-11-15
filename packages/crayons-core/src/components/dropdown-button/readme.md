@@ -196,6 +196,7 @@ graph TD;
   fw-dropdown-button --> fw-checkbox
   fw-input --> fw-icon
   fw-button --> fw-spinner
+  fw-button --> fw-icon
   style fw-dropdown-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

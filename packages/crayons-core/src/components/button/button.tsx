@@ -5,9 +5,11 @@ import {
   EventEmitter,
   Host,
   Prop,
+  State,
   h,
 } from '@stencil/core';
-import { throttle } from '../../utils';
+import { throttle, hasSlot } from '../../utils';
+
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
@@ -21,7 +23,7 @@ export class Button {
   /**
    *  Button type based on which actions are performed when the button is clicked.
    */
-  @Prop() type: 'button' | 'reset' | 'submit' = 'button';
+  @Prop() type: 'button' | 'submit' = 'button';
 
   /**
    * Identifier of  the theme based on which the button is styled.
@@ -30,27 +32,27 @@ export class Button {
     'primary';
 
   /**
-   * Disables the button on the interface. If the attribute’s value is undefined, the value is set to false.
+   * Size of the button.
+   */
+  @Prop() size: 'normal' | 'small' | 'icon' = 'normal';
+
+  /**
+   * Disables the button on the interface. Default value is false.
    */
   @Prop({ reflect: true }) disabled = false;
 
   /**
-   * Sets the button to a full-width block. If the attribute’s value is undefined, the value is set to false.
-   */
-  @Prop() expand = false;
-
-  /**
-   * Loading state for the button, If the attribute’s value is undefined, the value is set to false.
+   * Loading state for the button, Default value is false.
    */
   @Prop() loading = false;
 
   /**
-   * Size of the button.
+   * Caret indicator for the button, Default value is false.
    */
-  @Prop() size: 'normal' | 'mini' | 'small' | 'icon' = 'normal';
+  @Prop() showCaretIcon = false;
 
   /**
-   *  Accepts the id of the fw-modal component to open it on click
+   *  Accepts the id of the fw-modal component to open it on click.
    */
   @Prop() modalTriggerId = '';
 
@@ -74,6 +76,10 @@ export class Button {
    */
   @Event() fwBlur!: EventEmitter<void>;
 
+  @State() private hasLabel = false;
+  @State() private hasBeforeLabel = false;
+  @State() private hasAfterLabel = false;
+
   private onFocus() {
     this.fwFocus.emit();
   }
@@ -88,6 +94,11 @@ export class Button {
       this,
       this.throttleDelay
     );
+  }
+
+  private handlePreventDefault(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   private handleClick(event: Event) {
@@ -118,31 +129,57 @@ export class Button {
     }
   }
 
+  componentWillLoad() {
+    this.handleSlotChange();
+  }
+
+  private handleSlotChange() {
+    this.hasLabel = hasSlot(this.host);
+    this.hasBeforeLabel = hasSlot(this.host, 'before-label');
+    this.hasAfterLabel = hasSlot(this.host, 'after-label');
+  }
+
   render() {
     return (
-      <Host
-        onClick={(e: Event) =>
-          this.disabled ? undefined : this.handleClickWithThrottle(e)
-        }
-        onFocus={() => this.onFocus()}
-        onBlur={() => this.onBlur()}
-        aria-disabled={this.disabled}
-        role='button'
-      >
+      <Host>
         <button
           type={this.type}
           class={`
             fw-btn fw-btn--${this.color.toLowerCase()}
             fw-btn--${this.size.toLowerCase()}
-            ${this.expand ? 'fw-btn--block' : ''}
             ${this.loading ? 'fw-btn--loading' : ''}
-            `}
+            ${this.hasLabel ? 'fw-btn--has-label' : ''}
+            ${this.hasBeforeLabel ? 'fw-btn--has-before' : ''}
+            ${this.hasAfterLabel ? 'fw-btn--has-after' : ''}
+            ${this.showCaretIcon ? 'fw-btn--caret' : ''}
+          `}
+          onClick={
+            this.disabled || this.loading
+              ? this.handlePreventDefault
+              : this.handleClickWithThrottle
+          }
+          onFocus={() => this.onFocus()}
+          onBlur={() => this.onBlur()}
+          aria-disabled={this.disabled}
           disabled={this.disabled}
         >
-          <span class='fw-btn--label'>
-            <slot />
+          <span class='fw-btn--before'>
+            <slot
+              onSlotchange={() => this.handleSlotChange()}
+              name='before-label'
+            ></slot>
           </span>
-          <fw-spinner class='fw-btn--loader'></fw-spinner>
+          <span class='fw-btn--label'>
+            <slot onSlotchange={() => this.handleSlotChange()} />
+          </span>
+          <span class='fw-btn--after'>
+            <slot
+              onSlotchange={() => this.handleSlotChange()}
+              name='after-label'
+            ></slot>
+          </span>
+          {this.loading ? <fw-spinner class='fw-btn--loader'></fw-spinner> : ''}
+          {this.showCaretIcon ? <fw-icon name='chevron-down' /> : ''}
         </button>
       </Host>
     );

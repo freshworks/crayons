@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.2...@freshworks/crayons@3.0.0-beta.3) (2021-11-12)
+
+### Bug Fixes
+
+- **fw-datepicker:** added more placement options ([#262](https://github.com/freshworks/crayons/issues/262)) ([0a2f7b5](https://github.com/freshworks/crayons/commit/0a2f7b5f3073ba31d1a1e9663e6afe2d848cd573))
+- **radio-group:** fix radio group to be compatiable with react version ([#267](https://github.com/freshworks/crayons/issues/267)) ([c8efaec](https://github.com/freshworks/crayons/commit/c8efaec6030333aa026a2d28cff67c3fe3b7b2f3))
+- **radio-group:** remove call to componentOnReady in connected callback ([#260](https://github.com/freshworks/crayons/issues/260)) ([10de155](https://github.com/freshworks/crayons/commit/10de155d50641a202d82ab013c41ae167393ff2b))
+
+### Features
+
+- button variations, style corrections and loading state ([#264](https://github.com/freshworks/crayons/issues/264)) ([69b326c](https://github.com/freshworks/crayons/commit/69b326ca08ffb4820aa260a69fc4861a9e6efdc6))
+- **fw-list-options:** added custom filter function ([#269](https://github.com/freshworks/crayons/issues/269)) ([73e0af3](https://github.com/freshworks/crayons/commit/73e0af359eb777399e00bab375fa3c72be462908)), closes [#275](https://github.com/freshworks/crayons/issues/275)
+- **fw-popover:** added show/hide event emitters and new props ([#268](https://github.com/freshworks/crayons/issues/268)) ([e369c1c](https://github.com/freshworks/crayons/commit/e369c1c7ba69f8287a6fe52a862a9dea01a4bcb9))
+- **inline-message:** adding inline messages feature ([#270](https://github.com/freshworks/crayons/issues/270)) ([d41d389](https://github.com/freshworks/crayons/commit/d41d3896c3b26797f373d6f7ef217612974854aa))
+- **toggle:** show icon for toggle by default ([#273](https://github.com/freshworks/crayons/issues/273)) ([f6358a6](https://github.com/freshworks/crayons/commit/f6358a6e6911d814cff86d156192c20883a1bcca))
+- **multi toast:** Multi Toast Notification with toast component and ToastController ([#276](https://github.com/freshworks/crayons/issues/276)) ([e2fb9c0](https://github.com/freshworks/crayons/commit/e2fb9c09c83042234e361e548f2fd1301f031189))
+- **button group:** new button group component added ([#274](https://github.com/freshworks/crayons/issues/274)) ([a55feb2](https://github.com/freshworks/crayons/commit/a55feb222673e888a4c160ea2ca0c53ad330264a))
+
+
 ## [3.0.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.1...@freshworks/crayons@3.0.0-beta.2) (2021-11-03)
 
 ### Bug Fixes
@@ -28,43 +47,41 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **fw-tab:** fw-tab-header attribute is now removed, instead use fw-tab children for using html content for tab header and use fw-tab-panel for panel content
 - **fw-modal:** Changing visibility property to is-open property.
 
-
-# [3.0.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.0...@freshworks/crayons@3.0.0-beta.1) (2021-10-22)
+## [3.0.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.0...@freshworks/crayons@3.0.0-beta.1) (2021-10-22)
 
 ### Refactor
 
-* **root:** move .github to the root folder and remove from each packages ([#244](https://github.com/freshworks/crayons/issues/244)) ([56eeeb8](https://github.com/freshworks/crayons/commit/56eeeb84179e39001d9f6f2837e98cc063188e66))
+- **root:** move .github to the root folder and remove from each packages ([#244](https://github.com/freshworks/crayons/issues/244)) ([56eeeb8](https://github.com/freshworks/crayons/commit/56eeeb84179e39001d9f6f2837e98cc063188e66))
 
-
-# [3.0.0-beta.0](https://github.com/freshworks/crayons/compare/v2.13.2...@freshworks/crayons@3.0.0-beta.0) (2021-10-20)
+## [3.0.0-beta.0](https://github.com/freshworks/crayons/compare/v2.13.2...@freshworks/crayons@3.0.0-beta.0) (2021-10-20)
 
 ### Features
 
-*  **react wrapper:** added React wrapper to Crayons ([0c9a42d](https://github.com/freshworks/crayons/commit/0c9a42db21b7e3f80df3adb3e55fd4899c12acb8))
-*  **monorepo:** ([abc48c8](https://github.com/freshworks/crayons/commit/abc48c88f025d13dd321b75bb00782a62361aaf9))
-*  styling architecture changes: ([291832d](https://github.com/freshworks/crayons/commit/291832d6c29b2ae8258f584d6745eb0fe3f85dcf))
-*  tooling setup and stylelint changes: ([098dee5](https://github.com/freshworks/crayons/commit/098dee50fb47ea25b9dc3cedfd65cdf2a495a684))
-*  crayons-commons package to reuse common functionality: ([ce5d5e9](https://github.com/freshworks/crayons/commit/ce5d5e99e21e7237b8fe117d43db30f36b340603))
-*  **crayons-datatable** init setup: ([e4c7fb2](https://github.com/freshworks/crayons/commit/e4c7fb254d3ca8daac2de64094b46362d8679df8))
-*  styles and storybook init setup: ([7a54a45](https://github.com/freshworks/crayons/commit/7a54a4548b979039cb421027b93721be4e41131d))
-*  setup global storybook and remove package level storybook config: ([38c5f33](https://github.com/freshworks/crayons/commit/38c5f336d2426107ba3a274ec577899254275fb9))
-*  a11y runtime check in dev: ([a19e7e0](https://github.com/freshworks/crayons/commit/a19e7e067c91348a1f127598b823a5227a748485))
-*  storybook global setup and package level dev run: ([b43bc9d](https://github.com/freshworks/crayons/commit/b43bc9dccb4a138c32357c6c5504334126958bac))
-*  storybook global and package level dev setup: ([25cf303](https://github.com/freshworks/crayons/commit/25cf3032fa3607fae1f1de746bb5a397d3a0a3d7))
-*  css global styles setup: ([bed2b16](https://github.com/freshworks/crayons/commit/bed2b168d7648b44706ae962fbbdea957ba257a8))
-*  **fw-checkbox** add keyboard nav support and a11y support (#215) ([6e596c8](https://github.com/freshworks/crayons/commit/6e596c88a477b6476a91104cbbfef95157a0f803))
-*  **fw-radio** add keyboard nav support and a11y support (#216) ([ec1d913](https://github.com/freshworks/crayons/commit/ec1d913436c98e6e1d6d9efec7f32a6b45305018))
-*  **fw-toggle** adding support for showicon and keyboard navigation (#220) ([535381c](https://github.com/freshworks/crayons/commit/535381c4962654a1a02d65dcbfff5455292c9039))
-*  a11y changes and ally related test cases update ([6245ade](https://github.com/freshworks/crayons/commit/6245ade16e5dbf999ade26178dfdb26245aafdb9))
+-  **react wrapper:** added React wrapper to Crayons ([0c9a42d](https://github.com/freshworks/crayons/commit/0c9a42db21b7e3f80df3adb3e55fd4899c12acb8))
+-  **monorepo:** ([abc48c8](https://github.com/freshworks/crayons/commit/abc48c88f025d13dd321b75bb00782a62361aaf9))
+-  styling architecture changes: ([291832d](https://github.com/freshworks/crayons/commit/291832d6c29b2ae8258f584d6745eb0fe3f85dcf))
+-  tooling setup and stylelint changes: ([098dee5](https://github.com/freshworks/crayons/commit/098dee50fb47ea25b9dc3cedfd65cdf2a495a684))
+-  crayons-commons package to reuse common functionality: ([ce5d5e9](https://github.com/freshworks/crayons/commit/ce5d5e99e21e7237b8fe117d43db30f36b340603))
+-  **crayons-datatable** init setup: ([e4c7fb2](https://github.com/freshworks/crayons/commit/e4c7fb254d3ca8daac2de64094b46362d8679df8))
+-  styles and storybook init setup: ([7a54a45](https://github.com/freshworks/crayons/commit/7a54a4548b979039cb421027b93721be4e41131d))
+-  setup global storybook and remove package level storybook config: ([38c5f33](https://github.com/freshworks/crayons/commit/38c5f336d2426107ba3a274ec577899254275fb9))
+-  a11y runtime check in dev: ([a19e7e0](https://github.com/freshworks/crayons/commit/a19e7e067c91348a1f127598b823a5227a748485))
+-  storybook global setup and package level dev run: ([b43bc9d](https://github.com/freshworks/crayons/commit/b43bc9dccb4a138c32357c6c5504334126958bac))
+-  storybook global and package level dev setup: ([25cf303](https://github.com/freshworks/crayons/commit/25cf3032fa3607fae1f1de746bb5a397d3a0a3d7))
+-  css global styles setup: ([bed2b16](https://github.com/freshworks/crayons/commit/bed2b168d7648b44706ae962fbbdea957ba257a8))
+-  **fw-checkbox** add keyboard nav support and a11y support (#215) ([6e596c8](https://github.com/freshworks/crayons/commit/6e596c88a477b6476a91104cbbfef95157a0f803))
+-  **fw-radio** add keyboard nav support and a11y support (#216) ([ec1d913](https://github.com/freshworks/crayons/commit/ec1d913436c98e6e1d6d9efec7f32a6b45305018))
+-  **fw-toggle** adding support for showicon and keyboard navigation (#220) ([535381c](https://github.com/freshworks/crayons/commit/535381c4962654a1a02d65dcbfff5455292c9039))
+-  a11y changes and ally related test cases update ([6245ade](https://github.com/freshworks/crayons/commit/6245ade16e5dbf999ade26178dfdb26245aafdb9))
 
 ### Bug Fixes
-* stylelint and eslint fixes: ([44a8aca](https://github.com/freshworks/crayons/commit/44a8aca57e669f8263d491bcb5034a8f1b0649c2))
-* jsx-a11y/click-events-have-key-events and ally issues: ([55b3339](https://github.com/freshworks/crayons/commit/55b333984034ada20d78b50bc0a7f80369cb3425))
-* no-noninteractive-element-interactions fix for dropdown-button: ([de8e0ce](https://github.com/freshworks/crayons/commit/de8e0ce240b101c734e4b576984c1e8ffb1a1126))
-* react wrapper import fix for extended components: ([3d6c49a](https://github.com/freshworks/crayons/commit/3d6c49a3bd525577583ce302d5dc0dd84c732234))
-*  **fw-button** fix a11y issues and standardise attributes (#218) ([96c2a69](https://github.com/freshworks/crayons/commit/96c2a6971315718f7402309ac719ff3d00fa74e3))
-*  **vuepress:** fix Vuepress live preview plugin configuration based on latest version ([1e8d8ca](https://github.com/freshworks/crayons/commit/1e8d8ca33ddaff308a6c4ae4b1bebe2b8ee077dd))
-*  accessibility issue fixes ([56ee9f7](https://github.com/freshworks/crayons/commit/56ee9f7baec0800a83973f60b43c6ee9683364fa))
+- stylelint and eslint fixes: ([44a8aca](https://github.com/freshworks/crayons/commit/44a8aca57e669f8263d491bcb5034a8f1b0649c2))
+- jsx-a11y/click-events-have-key-events and ally issues: ([55b3339](https://github.com/freshworks/crayons/commit/55b333984034ada20d78b50bc0a7f80369cb3425))
+- no-noninteractive-element-interactions fix for dropdown-button: ([de8e0ce](https://github.com/freshworks/crayons/commit/de8e0ce240b101c734e4b576984c1e8ffb1a1126))
+- react wrapper import fix for extended components: ([3d6c49a](https://github.com/freshworks/crayons/commit/3d6c49a3bd525577583ce302d5dc0dd84c732234))
+-  **fw-button** fix a11y issues and standardise attributes (#218) ([96c2a69](https://github.com/freshworks/crayons/commit/96c2a6971315718f7402309ac719ff3d00fa74e3))
+-  **vuepress:** fix Vuepress live preview plugin configuration based on latest version ([1e8d8ca](https://github.com/freshworks/crayons/commit/1e8d8ca33ddaff308a6c4ae4b1bebe2b8ee077dd))
+-  accessibility issue fixes ([56ee9f7](https://github.com/freshworks/crayons/commit/56ee9f7baec0800a83973f60b43c6ee9683364fa))
 
 ## 2.13.2 (2021-07-16)
 

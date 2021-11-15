@@ -18,7 +18,27 @@ import { DropdownVariant } from '../select-option/select-option';
   shadow: true,
 })
 export class ListOptions {
-  private searchInput: HTMLFwInputElement;
+  private searchInput?: HTMLFwInputElement;
+
+  private defaultSearchFunction = (
+    text: string,
+    dataSource: any[]
+  ): Promise<any[]> => {
+    return new Promise((resolve) => {
+      const value = text.toLowerCase();
+      const filteredValue =
+        value !== ''
+          ? dataSource.filter((option) =>
+              option.text.toLowerCase().includes(value)
+            )
+          : dataSource;
+      resolve(
+        filteredValue.length === 0
+          ? [{ text: this.notFoundText, disabled: true }]
+          : filteredValue
+      );
+    });
+  };
 
   @State() filteredOptions = [];
   @State() selectOptions = [];
@@ -60,6 +80,12 @@ export class ListOptions {
    */
   @Prop() notFoundText = 'No items Found';
   /**
+   * Filter function which takes in filterText and dataSource and return a Promise.
+   * Where filter text is the text to filter the value in dataSource array.
+   * The returned promise should contain the array of options to be displayed.
+   */
+  @Prop() search = this.defaultSearchFunction;
+  /**
    * Placeholder to placed on the search text box.
    */
   @Prop() searchText = 'Search...';
@@ -79,6 +105,14 @@ export class ListOptions {
   }
 
   @Method()
+  async clearFilter() {
+    if (this.searchable) {
+      this.filteredOptions = this.selectOptions;
+      this.searchInput.value = '';
+    }
+  }
+
+  @Method()
   async getSelectedOptions(): Promise<any> {
     return this.selectOptions.filter((option) => option.selected);
   }
@@ -88,6 +122,11 @@ export class ListOptions {
     if (this.multiple) {
       this.value = values;
     }
+  }
+
+  @Watch('options')
+  onOptionsChange(newValue) {
+    this.setDataSource(newValue);
   }
 
   @Watch('value')
@@ -103,16 +142,24 @@ export class ListOptions {
 
   @Watch('filterText')
   filterOptions(filterText) {
-    const value = filterText.toLowerCase();
-    this.filteredOptions =
-      value !== ''
-        ? this.selectOptions.filter((option) =>
-            option.text.toLowerCase().includes(value)
-          )
-        : this.selectOptions;
-    if (this.filteredOptions.length === 0) {
-      this.filteredOptions = [{ text: this.notFoundText }];
-    }
+    this.search(filterText, this.selectOptions).then((options) => {
+      this.filteredOptions = options;
+    });
+  }
+
+  setDataSource(dataSource) {
+    this.selectOptions = dataSource.map((option) => {
+      return {
+        ...option,
+        ...{
+          isCheckbox: option.isCheckbox || this.isCheckbox,
+          variant: option.variant || this.variant,
+          selected: option.selected || this.value.includes(option.value),
+          disabled: option.disabled || this.value?.length >= this.max,
+        },
+      };
+    });
+    this.filteredOptions = this.selectOptions;
   }
 
   renderSelectOptions(options: Array<any>) {
@@ -136,18 +183,7 @@ export class ListOptions {
   }
 
   componentWillLoad() {
-    this.selectOptions = this.options.map((option) => {
-      return {
-        ...option,
-        ...{
-          isCheckbox: option.isCheckbox || this.isCheckbox,
-          variant: option.variant || this.variant,
-          selected: option.selected || this.value.includes(option.value),
-          disabled: option.disabled || this.value?.length >= this.max,
-        },
-      };
-    });
-    this.filteredOptions = this.selectOptions;
+    this.setDataSource(this.options);
   }
 
   render() {

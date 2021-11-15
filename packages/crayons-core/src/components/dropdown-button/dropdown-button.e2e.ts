@@ -23,7 +23,7 @@ describe('fw-dropdown-button', () => {
     const expectedOutput = `
     <div class="dropdown-container">
   <div class="btn-container">
-    <fw-button class="hydrated" role="button">
+    <fw-button class="hydrated">
       Click me
       <span class="down-arrow">
         <fw-icon class="hydrated"></fw-icon>
