@@ -44,7 +44,7 @@ import ReactDOM from "react-dom";
 import { FwSelect, FwSelectOption } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-        <FwSelect label="House Name" required="true" value="1" placeholder="Your choice" stateText="Select singluar option">
+        <FwSelect label="House Name" required value="1" placeholder="Your choice" stateText="Select singluar option">
           <FwSelectOption value="1">Starks</FwSelectOption>
           <FwSelectOption value="2">Lannisters</FwSelectOption>
         </FwSelect>
@@ -193,7 +193,7 @@ function App() {
   ];
   
   return (<div>
-        <FwSelect id="simpleSelect" label="Football Teams" value="1" placeholder="Your choices" state-text="Select multiple options" multiple options={dataSource} value=['2']>
+        <FwSelect id="simpleSelect" label="Football Teams" placeholder="Your choices" state-text="Select multiple options" multiple options={dataSource} value={["2"]}>
         </FwSelect>
 
         <FwSelect id="complexSelect" label="Strawhat Pirates" value="1" placeholder="Your choices" state-text="Select multiple options" multiple options={iconDataSource}>

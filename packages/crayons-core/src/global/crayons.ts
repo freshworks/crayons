@@ -7,7 +7,9 @@ import {
   ToastResult,
 } from '../components/toast/toast-util';
 
-export function ToastController(config: ToastOptions): ToastResult {
+export function ToastController(
+  config: ToastOptions = { position: 'top-center' }
+): ToastResult {
   const toastContainer = createToastStack(config);
 
   function trigger(opts: ToastOptions) {
