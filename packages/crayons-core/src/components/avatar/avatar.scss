@@ -1,78 +1,73 @@
 :host {
-    display: inline-block;
-    --size:3rem;
+  display: inline-block;
+  --size: 3rem;
 }
 
 .avatar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    
-    font-size: calc(var(--size) * 0.5);
-    font-weight: $font-weight-400;
-    overflow: hidden;
-    user-select: none;
-    vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
-    &__initials {
-        line-height: 1;
-        text-transform: uppercase;
-    }
-    &__image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  font-size: calc(var(--size) * 0.5);
+  font-weight: $font-weight-400;
+  overflow: hidden;
+  user-select: none;
+  vertical-align: middle;
 
-    &--dark{
-        background-color:$avatar-background-dark ;
-        color: #FFF;
-    }
-    &--light{
-        background-color:$avatar-background-light;
-        color: #000;
-    }
-    &--circle {
-        border-radius: 50%;
-    }
-    &--rounded {
-        border-radius: 4px;
-    }
-    &--square {
-        border-radius: 0;
-    }
-    
-    &--xxlarge{
-        width: 96px;
-        height: 96px;
-    }
-    &--xlarge{
-        width: 72px;
-        height: 72px;
-    }
-    &--large{
-        
-        width: 56px;
-        height:56px;
-    }
-    &--medium{
-        
-        width: 40px;
-        height: 40px;
-    }
-    &--small{
-        
-        width: 32px;
-        height: 32px;
-    }
-    &--xsmall{
-        
-        width: 24px;
-        height: 24px;
-    }
+  &__initials {
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
+  &--dark {
+    background-color: $avatar-background-dark;
+    color: #fff;
+  }
+  &--light {
+    background-color: $avatar-background-light;
+    color: #000;
+  }
+  &--circle {
+    border-radius: 50%;
+  }
+  &--rounded {
+    border-radius: 4px;
+  }
+  &--square {
+    border-radius: 0;
+  }
+
+  &--xxlarge {
+    width: 96px;
+    height: 96px;
+  }
+  &--xlarge {
+    width: 72px;
+    height: 72px;
+  }
+  &--large {
+    width: 56px;
+    height: 56px;
+  }
+  &--medium {
+    width: 40px;
+    height: 40px;
+  }
+  &--small {
+    width: 32px;
+    height: 32px;
+  }
+  &--xsmall {
+    width: 24px;
+    height: 24px;
+  }
+}

@@ -16,7 +16,7 @@ export namespace Components {
         "initials": string;
         "mode": 'dark' | 'light';
         "shape": 'circle' | 'square' | 'rounded';
-        "size": 'xxlarge' | 'xlarge' | 'large' | 'medium' |'small' | 'xsmall';
+        "size": 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
     }
     interface FwButton {
         /**
@@ -1075,7 +1075,7 @@ declare namespace LocalJSX {
         "initials"?: string;
         "mode"?: 'dark' | 'light';
         "shape"?: 'circle' | 'square' | 'rounded';
-        "size"?: 'xxlarge' | 'xlarge' | 'large' | 'medium' |'small' | 'xsmall';
+        "size"?: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
     }
     interface FwButton {
         /**

@@ -62,7 +62,7 @@ Avatar with Light and Dark mode
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FwCheckbox } from "@freshworks/crayons/react";
+import { FwAvatar } from "@freshworks/crayons/react";
 function App() {
   return (<div>
     <FwAvatar  image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"></FwAvatar>
@@ -80,6 +80,7 @@ function App() {
 </code-group>
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property   | Attribute  | Description | Type                                                                  | Default     |
@@ -91,6 +92,7 @@ function App() {
 | `shape`    | `shape`    |             | `"circle" \| "rounded" \| "square"`                                   | `'circle'`  |
 | `size`     | `size`     |             | `"large" \| "medium" \| "small" \| "xlarge" \| "xsmall" \| "xxlarge"` | `'large'`   |
 
+
 ## Shadow Parts
 
 | Part         | Description |
@@ -98,6 +100,7 @@ function App() {
 | `"image"`    |             |
 | `"initials"` |             |
 
----
+
+----------------------------------------------
 
 Built with ❤ at Freshworks
