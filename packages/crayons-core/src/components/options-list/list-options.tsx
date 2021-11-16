@@ -10,6 +10,7 @@ import {
   EventEmitter,
   Event,
 } from '@stencil/core';
+import { debounce } from '../../utils';
 import { DropdownVariant } from '../select-option/select-option';
 
 @Component({
@@ -19,6 +20,7 @@ import { DropdownVariant } from '../select-option/select-option';
 })
 export class ListOptions {
   private searchInput?: HTMLFwInputElement;
+  private isValueSync = false;
 
   private defaultSearchFunction = (
     text: string,
@@ -42,6 +44,9 @@ export class ListOptions {
 
   @State() filteredOptions = [];
   @State() selectOptions = [];
+  @State() selectedOptionsState = [];
+  @State() isLoading = false;
+
   /**
    * Value corresponding to the option, that is saved  when the form data is saved.
    */
@@ -90,37 +95,71 @@ export class ListOptions {
    */
   @Prop() searchText = 'Search...';
   /**
+   * Text to be displayed when there is no data available in the select.
+   */
+  @Prop() noDataText = 'No Data available';
+  /**
+   * Debounce timer for the search promise function.
+   */
+  @Prop() debounceTimer = 300;
+  /**
+   * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+   */
+  @Prop() selectedOptions = [];
+  /**
    * Triggered when a value is selected or deselected from the list box options.
    */
-  @Event() fwChange: EventEmitter;
+  @Event({ cancelable: true }) fwChange: EventEmitter;
+  /**
+   * Triggered when the options list is in loading state processing the search function.
+   */
+  @Event({ cancelable: true }) fwLoading: EventEmitter;
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
     const { value, selected } = selectedItem.detail;
     if (selected) {
-      this.value = this.multiple ? [...this.value, value] : [value];
+      const selectedObj = this.filteredOptions.filter(
+        (option) => option.value === value
+      )[0];
+      this.selectedOptionsState = this.multiple
+        ? [...this.selectedOptionsState, selectedObj]
+        : [selectedObj];
     } else {
-      this.value = this.multiple ? this.value.filter((x) => x !== value) : [];
+      this.selectedOptionsState = this.multiple
+        ? this.selectedOptionsState.filter((option) => option.value !== value)
+        : [];
     }
+    this.isValueSync = true;
+    this.value = this.selectedOptionsState.map((options) => options.value);
   }
 
   @Method()
   async clearFilter() {
+    this.filteredOptions = this.selectOptions;
     if (this.searchable) {
-      this.filteredOptions = this.selectOptions;
       this.searchInput.value = '';
     }
   }
 
   @Method()
   async getSelectedOptions(): Promise<any> {
-    return this.selectOptions.filter((option) => option.selected);
+    return this.selectedOptionsState;
   }
 
   @Method()
   async setSelectedValues(values: string[]): Promise<any> {
     if (this.multiple) {
+      this.isValueSync = false;
       this.value = values;
+    }
+  }
+
+  @Method()
+  async setSelectedOptions(options: any[]): Promise<any> {
+    if (this.multiple) {
+      this.isValueSync = false;
+      this.value = options.map((option) => option.value);
     }
   }
 
@@ -136,19 +175,52 @@ export class ListOptions {
         option.selected = newValue.includes(option.value);
         return option;
       });
-      this.fwChange.emit({ value: newValue });
+      if (!this.isValueSync) {
+        const source =
+          this.options.length > 0 ? this.options : this.filteredOptions;
+        this.selectedOptionsState = source.filter((option) =>
+          newValue.includes(option.value)
+        );
+      }
+      this.fwChange.emit({
+        value: newValue,
+        selectedOptions: this.selectedOptionsState,
+      });
+      this.isValueSync = false;
     }
   }
 
   @Watch('filterText')
-  filterOptions(filterText) {
-    this.search(filterText, this.selectOptions).then((options) => {
-      this.filteredOptions = options;
-    });
+  onFilterTextChange(newValue) {
+    this.handleSearchWithDebounce(newValue);
   }
 
-  setDataSource(dataSource) {
-    this.selectOptions = dataSource.map((option) => {
+  handleSearchWithDebounce = debounce(
+    (filterText) => {
+      this.isLoading = true;
+      this.fwLoading.emit({ isLoading: this.isLoading });
+      this.search(filterText, this.selectOptions).then((options) => {
+        this.filteredOptions = this.serializeData(options);
+        this.isLoading = false;
+        this.fwLoading.emit({ isLoading: this.isLoading });
+      });
+    },
+    this,
+    this.debounceTimer
+  );
+
+  setSelectedOptionsByValue(values) {
+    if (this.options) {
+      this.selectedOptionsState = this.options.filter((option) =>
+        values.includes(option.value)
+      );
+    } else {
+      throw new Error('Options must be passed if value is set');
+    }
+  }
+
+  serializeData(dataSource) {
+    return dataSource.map((option) => {
       return {
         ...option,
         ...{
@@ -159,6 +231,14 @@ export class ListOptions {
         },
       };
     });
+  }
+
+  setDataSource(dataSource) {
+    if (dataSource.length > 0) {
+      this.selectOptions = this.serializeData(dataSource);
+    } else {
+      this.selectOptions = [{ text: this.noDataText, disabled: true }];
+    }
     this.filteredOptions = this.selectOptions;
   }
 
@@ -173,16 +253,17 @@ export class ListOptions {
       <fw-input
         ref={(searchInput) => (this.searchInput = searchInput)}
         placeholder={this.searchText}
-        onInput={() => this.onInput()}
+        onInput={() => this.handleSearchWithDebounce(this.searchInput.value)}
       ></fw-input>
     );
   }
 
-  onInput() {
-    this.filterOptions(this.searchInput.value);
-  }
-
   componentWillLoad() {
+    if (this.selectedOptions.length > 0) {
+      this.value = this.selectedOptions.map((option) => option.value);
+    } else if (this.value.length > 0) {
+      this.setSelectedOptionsByValue(this.value);
+    }
     this.setDataSource(this.options);
   }
 
