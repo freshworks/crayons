@@ -89,7 +89,7 @@ import ReactDOM from "react-dom";
 import { FwButton, FwModal, FwModalTitle, FwModalContent, FwModalFooter } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-    <FwButton modalTriggerId='small'> Open Modal </FwBuutton>
+    <FwButton modalTriggerId='small'> Open Modal </FwButton>
     <FwModal id='small' size="small" submitColor="danger">
       <FwModalTitle titleText="Welcome"></FwModalTitle>
       <FwModalContent><div>Content text</div></FwModalContent>
