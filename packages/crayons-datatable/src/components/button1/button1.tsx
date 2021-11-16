@@ -15,7 +15,6 @@ import {
   shadow: true,
 })
 export class Button {
-  strings: any;
   @Element() host: HTMLElement;
 
   /**
@@ -48,6 +47,9 @@ export class Button {
    *  Accepts the id of the fw-modal component to open it on click
    */
   @Prop() modalTriggerId = '';
+
+  @TranslationController.i18n({ defaultValue: 'button' })
+  buttonText: any;
 
   /**
    * Triggered when the button is clicked.
@@ -91,11 +93,6 @@ export class Button {
     this.fwClick.emit();
   }
 
-  async componentWillLoad() {
-    this.strings = await TranslationController.fetchTranslations();
-    console.log(this.strings);
-  }
-
   render() {
     return (
       <Host
@@ -117,7 +114,7 @@ export class Button {
           <slot />
         </button>
         <fw-label color='blue' value='atomic component'></fw-label>
-        btn {this.strings.t('button')}
+        btn {this.buttonText}
       </Host>
     );
   }

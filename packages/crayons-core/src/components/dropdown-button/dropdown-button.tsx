@@ -10,14 +10,14 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown } from '../../utils';
-import { fetchTranslations } from '../../global/Translation';
+import { i18n } from '../../global/Translation';
+
 @Component({
   tag: 'fw-dropdown-button',
   styleUrl: 'dropdown-button.scss',
   shadow: true,
 })
 export class DropdownButton {
-  strings: any;
   @Element() host: HTMLElement;
   private dropdownInput?: HTMLFwInputElement;
   /**
@@ -85,6 +85,11 @@ export class DropdownButton {
    * Triggered when Add button for searchable dropdown is clicked
    */
   @Event() fwOptionsAdd: EventEmitter<any>;
+
+  @i18n({ defaultValue: 'add' })
+  addText: string;
+  @i18n({ defaultValue: 'cancel' })
+  cancelText: string;
 
   @Watch('isDropdownOpen')
   setInitialState(newVal) {
@@ -220,7 +225,7 @@ export class DropdownButton {
               onClick={() => this.handleAddClick()}
             >
               {' '}
-              {this.strings.t('add')}{' '}
+              {this.addText}{' '}
             </fw-button>
             <fw-button
               id='cancelBtn'
@@ -229,7 +234,7 @@ export class DropdownButton {
               onClick={() => this.handleDropdownToggle()}
             >
               {' '}
-              {this.strings.t('cancel')}{' '}
+              {this.cancelText}{' '}
             </fw-button>
           </div>
         );
@@ -336,7 +341,7 @@ export class DropdownButton {
     );
   }
 
-  async componentWillLoad() {
+  componentWillLoad() {
     document.addEventListener('click', (e) => {
       const { target } = e;
       const canClose =
@@ -350,6 +355,5 @@ export class DropdownButton {
     });
 
     this.setDropdownOptions();
-    this.strings = await fetchTranslations();
   }
 }

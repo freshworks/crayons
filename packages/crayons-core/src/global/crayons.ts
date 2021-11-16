@@ -6,8 +6,7 @@ import {
   createToastNotification,
   ToastResult,
 } from '../components/toast/toast-util';
-
-import { setTranslations, fetchTranslations } from './Translation';
+import { setTranslations, i18n, initTranslation } from './Translation';
 
 export function ToastController(config: ToastOptions): ToastResult {
   const toastContainer = createToastStack(config);
@@ -21,5 +20,10 @@ export function ToastController(config: ToastOptions): ToastResult {
 
 export const TranslationController = {
   setTranslations,
-  fetchTranslations,
+  i18n,
 };
+
+export default async function (): Promise<void> {
+  console.log('start request to get default translations *****');
+  initTranslation();
+}

@@ -11,7 +11,7 @@ import {
 import moment from 'moment-mini';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
-import { fetchTranslations } from '../../global/Translation';
+import { i18n } from '../../global/Translation';
 
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const monthArr = [
@@ -87,6 +87,12 @@ export class Datepicker {
    *   Text displayed in the input box before a user selects a date or date range.
    */
   @Prop() placeholder: string;
+
+  @i18n({ defaultValue: 'update' })
+  updateText: string;
+  @i18n({ defaultValue: 'cancel' })
+  cancelText: string;
+
   /**
    *   Triggered when the update button clicked
    */
@@ -219,7 +225,7 @@ export class Datepicker {
     return yearsArr;
   };
 
-  async componentWillLoad() {
+  componentWillLoad() {
     this.year = moment().year().toString();
     this.month = moment().month();
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
@@ -228,7 +234,6 @@ export class Datepicker {
     this.monthDetails = this.getMonthDetails(this.year, this.month);
     this.todayTimestamp = moment().startOf('date').valueOf();
     this.setInitalValues();
-    this.strings = await fetchTranslations();
   }
 
   setInitalValues() {
@@ -594,10 +599,10 @@ export class Datepicker {
             {/* Footer Section */}
             <div class='mdpc-footer'>
               <fw-button color='primary' class='update-date-value'>
-                {this.strings.t('update')}
+                {this.updateText}
               </fw-button>
               <fw-button color='secondary' class='close-date-picker'>
-                {this.strings.t('cancel')}
+                {this.cancelText}
               </fw-button>
             </div>
           </div>

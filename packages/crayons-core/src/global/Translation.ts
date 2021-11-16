@@ -1,3 +1,5 @@
+import { Build as BUILD, ComponentInterface } from '@stencil/core';
+
 import { setupConfig } from './config';
 import { AppConfigService } from './config-service';
 
@@ -132,3 +134,24 @@ export async function fetchTranslations(): Promise<any> {
     };
   }
 }
+
+/** Decorator to handle i18n support */
+export function i18n({ defaultValue = '' } = {}): any {
+  return (proto: ComponentInterface, propName: string) => {
+    (BUILD as any).cmpWillLoad = true;
+
+    const { componentWillLoad } = proto;
+
+    proto.componentWillLoad = async function () {
+      console.log('on will load getting called');
+      const strings = await fetchTranslations();
+      console.log({ strings });
+      if (!this[propName]) {
+        this[propName] = strings.t(defaultValue);
+      }
+      return componentWillLoad && componentWillLoad.call(this);
+    };
+  };
+}
+
+export const initTranslation = () => fetchDefaultTranslations();
