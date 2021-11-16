@@ -653,6 +653,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * The name of the tab panel which this tab controls.
+         */
+        "panel": string;
+        /**
           * Header for the tab to be displayed.
          */
         "tabHeader": string;
@@ -1836,6 +1840,10 @@ declare namespace LocalJSX {
           * Disables this tab
          */
         "disabled"?: boolean;
+        /**
+          * The name of the tab panel which this tab controls.
+         */
+        "panel"?: string;
         /**
           * Header for the tab to be displayed.
          */
