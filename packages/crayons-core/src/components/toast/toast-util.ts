@@ -85,7 +85,6 @@ export function createToastNotification(
     toastElem = document.createElement('fw-toast-message');
   }
 
-  console.log(props.actionLinkText);
   Object.entries(props).map(([key, val]) => {
     if (val) toastElem.setAttribute(kebabCase(key), val as string);
   });

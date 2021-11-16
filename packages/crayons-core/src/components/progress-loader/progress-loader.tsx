@@ -70,7 +70,6 @@ export class ProgressLoader {
   @Method()
   async done(): Promise<void> {
     try {
-      console.log('stoppimg');
       this.show = false;
       this.progressObj.done();
     } catch (err) {
@@ -102,11 +101,9 @@ export class ProgressLoader {
 
   @Watch('show')
   showChanged(show: boolean): void {
-    console.log(show);
     if (show) {
       this.progressObj.start();
     } else {
-      console.log('stop');
       this.progressObj.done();
     }
   }

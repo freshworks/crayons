@@ -80,13 +80,13 @@ export function createProgressLoaderContainer(
     style.id = 'fw-progress-bar-style';
     style.innerHTML = `
             .nprogress [role="bar"] {
-              background: #2c5cc5;
+              background: var(--progress-loader-color,#2c5cc5);
               position: fixed;
               z-index: 1031;
               top: 0;
               left: 0;
               width: 100%;
-              height: 2px;
+              height: var(--progress-loader-height,2px);
             }
             .nprogress-custom-parent {
               overflow: hidden;
@@ -100,13 +100,13 @@ export function createProgressLoaderContainer(
   }
 
   return {
-    start: wrapCheck(instance.start, customizedOptions),
-    done: wrapCheck(instance.done, customizedOptions),
-    set: wrapCheck(instance.set, customizedOptions),
-    inc: wrapCheck(instance.inc, customizedOptions),
+    start: wrapFn(instance.start, customizedOptions),
+    done: wrapFn(instance.done, customizedOptions),
+    set: wrapFn(instance.set, customizedOptions),
+    inc: wrapFn(instance.inc, customizedOptions),
   };
 }
-function wrapCheck(fn, options) {
+function wrapFn(fn, options) {
   return function (...arr) {
     try {
       if (options.parent) {
@@ -118,7 +118,10 @@ function wrapCheck(fn, options) {
 
       fn.apply(this, arr);
     } catch (error) {
-      console.error(`Error occurred`, error);
+      console.error(
+        `Error occurred in calling Progress Loader Functions`,
+        error
+      );
     }
   };
 }

@@ -16,6 +16,7 @@ Progress Loader Component can be used to indicate loading of a Page / Section of
 <br>
 <br/>
 <br/>
+<fw-button onclick="document.querySelector('#progress-container').start()">Start custom selector progress bar</fw-button> <br/><br/>
 <fw-button onclick="document.querySelector('#progress-container').done()">Stop custom selector progress bar</fw-button>
 
 <script type="application/javascript">
@@ -40,6 +41,7 @@ Progress Loader Component can be used to indicate loading of a Page / Section of
 <br>
 <br/>
 <br/>
+<fw-button onclick="document.querySelector('#progress-container').start()">Start custom selector progress bar</fw-button> <br/><br/>
 <fw-button onclick="document.querySelector('#progress-container').done()">Stop custom selector progress bar</fw-button>
 
 <script type="application/javascript">
@@ -60,12 +62,12 @@ import {FwButton,FwProgressLoader,ProgressLoaderController } from "@freshworks/c
 function App() {
   const pl1 = useRef(null)
   const loaderCustom= ProgressLoaderController({
-    parent:"#container2"
+    parent:"#container1"
   });
   return (<div>
             <FwProgressLoader show ref={pl1}></FwProgressLoader>
             <br/>
-            <div style={{display:'flex'; justify-content:'space-between'}}>
+            <div style={{display:'flex', justifyContent:'space-between'}}>
                 <FwButton onClick={() => pl1.current.show=true}>Show root loader - component - via prop</FwButton>
                 <FwButton onClick={() => pl1.current.show=false}>Hide root loader - component - via prop</FwButton>
                 <FwButton onClick={() => pl1.current.start()}>Start root loader - component - via method</FwButton>
@@ -73,11 +75,11 @@ function App() {
             </div>
 
           <div id="container1"><p> You can have multiple progress loaders in the page. Pass a `selector` as a `parent` prop to the component. The progress loader will be displayed in the provided selector</p></div>
-          <br>
+          <br/>
           <br/>
           <br/>
 
-          <div style={{display:'flex'; justify-content:'space-between'}}>
+          <div style={{display:'flex', justifyContent:'space-between'}}>
                 <FwButton onClick={() => loaderCustom.start()}>Show custom loader - via prop</FwButton>
                 <FwButton onClick={() => loaderCustom.done()}>Hide custom loader - via prop</FwButton>
         </div>
@@ -87,6 +89,10 @@ function App() {
 ```
 </code-block>
 </code-group>
+
+### Styling Loader 
+You can style progress loader by targetting `[role="bar"]` selector. 
+You can also use `--progress-loader-color` and `--progress-loader-height` **css variables** to use custom color and height for the progress loader.
 
 ### ProgressLoaderController
 

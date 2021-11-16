@@ -55,13 +55,6 @@ The following are the icons supported:
 | `--icon-size`  | Size of the icon  |
 
 
-## CSS Custom Properties
-
-| Name           | Description       |
-| -------------- | ----------------- |
-| `--icon-color` | Color of the icon |
-
-
 ## Dependencies
 
 ### Used by
