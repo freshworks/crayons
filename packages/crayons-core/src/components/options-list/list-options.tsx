@@ -20,7 +20,7 @@ import { DropdownVariant } from '../select-option/select-option';
 })
 export class ListOptions {
   private searchInput?: HTMLFwInputElement;
-  private isValueSync = false;
+  private isInternalValueChange = false;
 
   private defaultSearchFunction = (
     text: string,
@@ -130,7 +130,7 @@ export class ListOptions {
         ? this.selectedOptionsState.filter((option) => option.value !== value)
         : [];
     }
-    this.isValueSync = true;
+    this.isInternalValueChange = true;
     this.value = this.selectedOptionsState.map((options) => options.value);
   }
 
@@ -149,18 +149,20 @@ export class ListOptions {
 
   @Method()
   async setSelectedValues(values: string[]): Promise<any> {
-    if (this.multiple) {
-      this.isValueSync = false;
+    if (this.options) {
+      this.selectedOptionsState = this.options.filter((option) =>
+        values.includes(option.value)
+      );
+      this.isInternalValueChange = true;
       this.value = values;
     }
   }
 
   @Method()
   async setSelectedOptions(options: any[]): Promise<any> {
-    if (this.multiple) {
-      this.isValueSync = false;
-      this.value = options.map((option) => option.value);
-    }
+    this.selectedOptionsState = options;
+    this.isInternalValueChange = true;
+    this.value = options.map((option) => option.value);
   }
 
   @Watch('options')
@@ -175,18 +177,25 @@ export class ListOptions {
         option.selected = newValue.includes(option.value);
         return option;
       });
-      if (!this.isValueSync) {
-        const source =
-          this.options.length > 0 ? this.options : this.filteredOptions;
-        this.selectedOptionsState = source.filter((option) =>
-          newValue.includes(option.value)
-        );
+      // Warning: Before mutating this.value inside this file set the  isInternalValueChange to true.
+      // This is to prevent triggering the below code which is executed whenever there is a change in the prop this.value
+      if (!this.isInternalValueChange) {
+        if (this.options.length > 0) {
+          this.selectedOptionsState = this.options.filter((option) =>
+            newValue.includes(option.value)
+          );
+        } else {
+          // This usually occurs during dynamic select
+          this.selectedOptionsState = this.selectedOptionsState.filter(
+            (option) => newValue.includes(option.value)
+          );
+        }
       }
       this.fwChange.emit({
         value: newValue,
         selectedOptions: this.selectedOptionsState,
       });
-      this.isValueSync = false;
+      this.isInternalValueChange = false;
     }
   }
 
