@@ -8,7 +8,16 @@ interface i18nConfig {
     [key: string]: string;
   };
 }
+declare global {
+  interface Window {
+    __crayons__requests: any;
+  }
+}
 
+window.__crayons__requests =
+  window.__crayons__requests || new Map<string, Promise<any>>();
+
+const requests = window.__crayons__requests;
 /**
  * Attempts to find the closest tag with a lang attribute.
  * @param element The element to find a lang attribute for.
@@ -52,67 +61,20 @@ function getBrowserLang() {
   return browserLang;
 }
 
-export async function fetchDefaultTranslations(): Promise<any> {
+export function getLocale(): string {
   const locale = getLangAttr() || getBrowserLang();
-  let i18nResult = {};
-
-  try {
-    const existingTranslations = JSON.parse(
-      sessionStorage.getItem(`i18n.${locale}`)
-    );
-
-    if (existingTranslations && Object.keys(existingTranslations).length > 0) {
-      i18nResult = { ...existingTranslations };
-    } else {
-      try {
-        const result = await import(`../i18n/${locale}.js`);
-        if (result) {
-          const data = await result.default;
-          sessionStorage.setItem(`i18n.${locale}`, JSON.stringify(data));
-          i18nResult = { ...data };
-        }
-      } catch (exception) {
-        console.error(
-          `Error loading locale: ${locale} from pre-defined set`,
-          exception
-        );
-        i18nResult = {};
-      }
-    }
-  } catch (error) {
-    console.error(
-      `Error while reading locale: ${locale} from sessionStorage`,
-      error
-    );
-    i18nResult = {};
-  }
-  console.log('setting global configs');
-  setupConfig({
-    locale: locale,
-    defaultI18nStrings: i18nResult,
-  });
-  return i18nResult;
+  return locale;
 }
 
-export function setTranslations(json: i18nConfig): void {
-  setupConfig({
-    customI18nStrings: json,
-  });
-  console.log('custom setting config ', json);
-}
-
-export async function fetchTranslations(): Promise<any> {
+async function fetchTranslations(): Promise<any> {
   try {
-    await fetchDefaultTranslations();
-    const defaultI18nStrings =
-      AppConfigService.getInstance().get('defaultI18nStrings');
-    console.log({ defaultI18nStrings });
-    const locale = AppConfigService.getInstance().get('locale');
-    console.log({ locale });
+    const locale = getLocale();
+
+    const defaultI18nStrings = await fetchDefaultTranslations(locale);
 
     const customI18nStrings =
       AppConfigService.getInstance().get('customI18nStrings')?.[locale] || {};
-    console.log({ customI18nStrings });
+    console.log({ locale, defaultI18nStrings, customI18nStrings });
     const finalI18nStrings = {
       ...defaultI18nStrings,
       ...customI18nStrings,
@@ -135,6 +97,35 @@ export async function fetchTranslations(): Promise<any> {
   }
 }
 
+export function fetchDefaultTranslations(locale: string): Promise<any> {
+  let req = requests.get(locale);
+  if (!req) {
+    console.log('get default translations for pull from config', locale);
+    req = import(`../i18n/${locale}.js`)
+      .then((result) => result.default)
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.error(
+          `Error loading locale: ${locale} from pre-defined set`,
+          err
+        );
+        return {};
+      });
+    requests.set(locale, req);
+  }
+
+  return req;
+}
+
+export function setTranslations(json: i18nConfig): void {
+  setupConfig({
+    customI18nStrings: json,
+  });
+  console.log('setting custom translations ', json);
+}
+
 /** Decorator to handle i18n support */
 export function i18n({ defaultValue = '' } = {}): any {
   return (proto: ComponentInterface, propName: string) => {
@@ -143,9 +134,7 @@ export function i18n({ defaultValue = '' } = {}): any {
     const { componentWillLoad } = proto;
 
     proto.componentWillLoad = async function () {
-      console.log('on will load getting called');
       const strings = await fetchTranslations();
-      console.log({ strings });
       if (!this[propName]) {
         this[propName] = strings.t(defaultValue);
       }
@@ -153,5 +142,3 @@ export function i18n({ defaultValue = '' } = {}): any {
     };
   };
 }
-
-export const initTranslation = () => fetchDefaultTranslations();
