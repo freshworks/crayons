@@ -1,15 +1,16 @@
-:host {
-  --popover-min-height: 10px;
-  --popover-max-height: 400px;
-}
+/**
+  @prop --popover-min-height: Minimum height of the popover content.
+  @prop --popover-max-height: Maximum height of the popover content.
+*/
 
 .popper-content {
   display: none;
   z-index: 99;
-  min-height: var(--popover-min-height);
-  max-height: var(--popover-max-height);
+  min-height: var(--popover-min-height, 10px);
+  max-height: var(--popover-max-height, 400px);
   overflow-y: scroll;
   overflow-x: hidden;
+  overscroll-behavior-y: contain;
   margin: 0px;
   border-radius: 8px;
   border: 1px solid $app-border-secondary;

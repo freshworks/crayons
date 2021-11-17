@@ -81,6 +81,14 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                   | Description                            |
+| ---------------------- | -------------------------------------- |
+| `--popover-max-height` | Maximum height of the popover content. |
+| `--popover-min-height` | Minimum height of the popover content. |
+
+
 ## Dependencies
 
 ### Used by
