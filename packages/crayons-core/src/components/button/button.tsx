@@ -112,7 +112,9 @@ export class Button {
   }
 
   private async modalTrigger() {
-    const modal: any = document.getElementById(this.modalTriggerId);
+    const modal: any = document.querySelector(
+      `fw-modal#${this.modalTriggerId}`
+    );
     modal.open();
   }
 

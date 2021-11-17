@@ -340,6 +340,10 @@ export namespace Components {
          */
         "size": 'standard' | 'small' | 'large';
         /**
+          * Convert modal to slider
+         */
+        "slider": boolean;
+        /**
           * The color of submit button
          */
         "submitColor": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
@@ -385,10 +389,6 @@ export namespace Components {
         "submitText": string;
     }
     interface FwModalTitle {
-        /**
-          * Function to call on close of modal
-         */
-        "close": any;
         /**
           * The title text to be displayed on the modal
          */
@@ -1470,6 +1470,10 @@ declare namespace LocalJSX {
          */
         "size"?: 'standard' | 'small' | 'large';
         /**
+          * Convert modal to slider
+         */
+        "slider"?: boolean;
+        /**
           * The color of submit button
          */
         "submitColor"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
@@ -1515,10 +1519,6 @@ declare namespace LocalJSX {
         "submitText"?: string;
     }
     interface FwModalTitle {
-        /**
-          * Function to call on close of modal
-         */
-        "close"?: any;
         /**
           * The title text to be displayed on the modal
          */

@@ -50,4 +50,12 @@ describe('fw-modal', () => {
     await page.waitForChanges();
     expect(footer).toBe(null);
   });
+
+  it('should open slider variant of modal when prop slider is passed to the component', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-modal is-open slider>Hello world</fw-modal>');
+    await page.waitForChanges();
+    const slider = await page.find('fw-modal >>> .modal-overlay.slider');
+    expect(slider).not.toBeNull();
+  });
 });

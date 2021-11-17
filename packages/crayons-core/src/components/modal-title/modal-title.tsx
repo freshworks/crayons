@@ -30,12 +30,6 @@ export class ModalTitle {
   custom = null;
 
   /**
-   * Function to call on close of modal
-   */
-  // eslint-disable-next-line  @typescript-eslint/no-empty-function
-  @Prop() close: any = () => {};
-
-  /**
    * lifecycle event, called once just after the component is first connected to the DOM
    */
   componentWillLoad() {
@@ -73,9 +67,6 @@ export class ModalTitle {
             </div>
           )}
         </div>
-        <button class='close-btn' onClick={() => this.close()}>
-          <fw-icon name='cross-big' />
-        </button>
       </div>
     );
   }
