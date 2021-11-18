@@ -130,10 +130,12 @@ describe('fw-select', () => {
                               <fw-select-option value="starks">Starks</fw-select-option>
                               <fw-select-option value="lannisters">Lannisters</fw-select-option>
                             </fw-select>`);
+
     const fwChange = await page.spyOnEvent('fwChange');
     const element = await page.find('fw-select');
 
     element.setProperty('value', 'lannisters');
+    element.waitForEvent('fwChange');
 
     await page.waitForChanges();
 
@@ -144,11 +146,9 @@ describe('fw-select', () => {
           disabled: false,
           html: false,
           htmlContent: '',
-          isCheckbox: false,
-          selected: true,
+          selected: false,
           text: 'Lannisters',
           value: 'lannisters',
-          variant: 'standard',
         },
       ],
     });
