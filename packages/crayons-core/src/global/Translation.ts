@@ -1,5 +1,7 @@
 import { Build as BUILD, ComponentInterface } from '@stencil/core';
 
+import { createStore } from '@stencil/store';
+
 import { setupConfig } from './config';
 import { AppConfigService } from './config-service';
 
@@ -13,6 +15,40 @@ declare global {
     __crayons__requests: any;
   }
 }
+
+// const strings: any = {
+//   en: {
+//     'hello': 'Hello',
+//     'world': 'World',
+//     'add': 'Add12',
+//     'cancel': 'Cancel',
+//     'update': 'Update',
+//     'ok': 'OK',
+//     'search': 'Search',
+//     'no items found': 'No items found',
+//     'no data available': 'No data available',
+//   },
+//   de: {
+//     'hello': 'Hola',
+//     'world': 'Mundo',
+//     'add': 'Addieren',
+//     'cancel': 'Stornieren',
+//     'update': 'Aktualisierung',
+//     'ok': 'OK',
+//     'search': 'Suche',
+//     'no items found': 'Keine Elemente gefunden',
+//     'no data available': 'Keine Daten vorhanden',
+//   },
+// };
+
+const { state, onChange } = createStore({
+  lang: '',
+  globalI18n: {
+    t: (k): string => {
+      return k;
+    },
+  },
+});
 
 window.__crayons__requests =
   window.__crayons__requests || new Map<string, Promise<any>>();
@@ -66,9 +102,9 @@ export function getLocale(): string {
   return locale;
 }
 
-async function fetchTranslations(): Promise<any> {
+async function fetchTranslations(lang): Promise<any> {
   try {
-    const locale = getLocale();
+    const locale = lang || getLocale();
 
     const defaultI18nStrings = await fetchDefaultTranslations(locale);
 
@@ -134,47 +170,57 @@ export function i18n({ defaultValue = '' } = {}): any {
     const { componentWillLoad } = proto;
 
     proto.componentWillLoad = async function () {
-      const strings = await fetchTranslations();
-      let isDefaultUsed = true;
+      let isDefaultValueUsed = true;
       if (!this[propName]) {
-        this[propName] = strings.t(defaultValue);
-        isDefaultUsed = false;
+        //const strings = await fetchTranslations(state.lang);
+        this[propName] = state.globalI18n.t(defaultValue);
+        isDefaultValueUsed = false;
       }
 
-      let mo;
-
-      if ('MutationObserver' in window) {
-        removeMO();
-        mo = new MutationObserver(async (data) => {
-          if (data[0].attributeName === 'lang') {
-            const lang = document.documentElement.getAttribute('lang');
-            if (lang === data[0].oldValue) {
-              console.log('same old value ', lang);
-              return;
-            }
-            console.log('lang changeddddddddd', lang);
-            if (!isDefaultUsed) {
-              const strings = await fetchTranslations();
-              this[propName] = strings.t(defaultValue);
-            }
-          }
-        });
-
-        mo.observe(document.documentElement, {
-          attributes: true,
-          attributeFilter: ['lang'],
-          attributeOldValue: true,
-        });
-      }
-      function removeMO() {
-        if (mo) {
-          console.log('removed');
-          mo.disconnect();
-          mo = undefined;
+      onChange('globalI18n', async (strings) => {
+        if (!isDefaultValueUsed) {
+          this[propName] = strings.t(defaultValue);
         }
-      }
+      });
 
       return componentWillLoad && componentWillLoad.call(this);
     };
   };
 }
+
+onChange('lang', async (lang) => {
+  console.log('new lang ', lang);
+  const strings = await fetchTranslations(state.lang);
+  state.globalI18n = strings;
+});
+
+let mo;
+
+if ('MutationObserver' in window) {
+  removeMO();
+  mo = new MutationObserver(async (data) => {
+    if (data[0].attributeName === 'lang') {
+      const lang = document.documentElement.getAttribute('lang');
+      if (lang === data[0].oldValue) {
+        console.log('same old value ', lang);
+        return;
+      }
+      state.lang = lang;
+    }
+  });
+
+  mo.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['lang'],
+    attributeOldValue: true,
+  });
+}
+function removeMO() {
+  if (mo) {
+    console.log('removed');
+    mo.disconnect();
+    mo = undefined;
+  }
+}
+
+export const i18nState = state;
