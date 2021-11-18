@@ -31,7 +31,7 @@ export class Tag {
   @Prop({ reflect: true }) value: string;
 
   /**
-   * Value associated with the tag component, that is saved when the form data is saved.
+   * The variant of tag to be displayed.
    */
   @Prop({ reflect: true }) variant: 'standard' | 'avatar' = 'standard';
 

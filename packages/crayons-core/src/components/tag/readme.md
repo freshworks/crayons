@@ -52,7 +52,7 @@ function App() {
 | `graphicsProps` | --         | The pops need to be passed for the variant. If the variant is avatar the use this prop to send the pops for the fw-avatar.             | `{}`                     | `{}`         |
 | `text`          | `text`     | Display text in the tag component.                                                                                                     | `string`                 | `undefined`  |
 | `value`         | `value`    | Value associated with the tag component, that is saved when the form data is saved.                                                    | `string`                 | `undefined`  |
-| `variant`       | `variant`  | Value associated with the tag component, that is saved when the form data is saved.                                                    | `"avatar" \| "standard"` | `'standard'` |
+| `variant`       | `variant`  | The variant of tag to be displayed.                                                                                                    | `"avatar" \| "standard"` | `'standard'` |
 
 
 ## Events

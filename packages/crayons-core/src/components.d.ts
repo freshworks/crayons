@@ -727,7 +727,7 @@ export namespace Components {
          */
         "value": string;
         /**
-          * Value associated with the tag component, that is saved when the form data is saved.
+          * The variant of tag to be displayed.
          */
         "variant": 'standard' | 'avatar';
     }
@@ -1953,7 +1953,7 @@ declare namespace LocalJSX {
          */
         "value"?: string;
         /**
-          * Value associated with the tag component, that is saved when the form data is saved.
+          * The variant of tag to be displayed.
          */
         "variant"?: 'standard' | 'avatar';
     }
