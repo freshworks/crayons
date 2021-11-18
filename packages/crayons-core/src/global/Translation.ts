@@ -135,9 +135,45 @@ export function i18n({ defaultValue = '' } = {}): any {
 
     proto.componentWillLoad = async function () {
       const strings = await fetchTranslations();
+      let isDefaultUsed = true;
       if (!this[propName]) {
         this[propName] = strings.t(defaultValue);
+        isDefaultUsed = false;
       }
+
+      let mo;
+
+      if ('MutationObserver' in window) {
+        removeMO();
+        mo = new MutationObserver(async (data) => {
+          if (data[0].attributeName === 'lang') {
+            const lang = document.documentElement.getAttribute('lang');
+            if (lang === data[0].oldValue) {
+              console.log('same old value ', lang);
+              return;
+            }
+            console.log('lang changeddddddddd', lang);
+            if (!isDefaultUsed) {
+              const strings = await fetchTranslations();
+              this[propName] = strings.t(defaultValue);
+            }
+          }
+        });
+
+        mo.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['lang'],
+          attributeOldValue: true,
+        });
+      }
+      function removeMO() {
+        if (mo) {
+          console.log('removed');
+          mo.disconnect();
+          mo = undefined;
+        }
+      }
+
       return componentWillLoad && componentWillLoad.call(this);
     };
   };

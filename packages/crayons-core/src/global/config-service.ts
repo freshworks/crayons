@@ -24,7 +24,7 @@ export class AppConfigService {
     const win = window as any;
     const appConfig = win.appConfig;
     this.m = new Map<keyof AppConfig, any>(
-      Object.entries(appConfig.config) as any
+      Object.entries(appConfig?.config || new Map()) as any
     );
   }
 
