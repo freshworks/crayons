@@ -695,6 +695,10 @@ export namespace Components {
          */
         "disabled": false;
         /**
+          * Value associated with the tag component, that is saved when the form data is saved.
+         */
+        "graphicsProps": {};
+        /**
           * Display text in the tag component.
          */
         "text": string;
@@ -702,6 +706,10 @@ export namespace Components {
           * Value associated with the tag component, that is saved when the form data is saved.
          */
         "value": string;
+        /**
+          * Value associated with the tag component, that is saved when the form data is saved.
+         */
+        "variant": 'standard' | 'avatar';
     }
     interface FwTextarea {
         /**
@@ -1887,6 +1895,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: false;
         /**
+          * Value associated with the tag component, that is saved when the form data is saved.
+         */
+        "graphicsProps"?: {};
+        /**
           * Triggered when the tag is deselected.
          */
         "onFwClosed"?: (event: CustomEvent<any>) => void;
@@ -1898,6 +1910,10 @@ declare namespace LocalJSX {
           * Value associated with the tag component, that is saved when the form data is saved.
          */
         "value"?: string;
+        /**
+          * Value associated with the tag component, that is saved when the form data is saved.
+         */
+        "variant"?: 'standard' | 'avatar';
     }
     interface FwTextarea {
         /**

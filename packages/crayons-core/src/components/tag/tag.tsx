@@ -29,6 +29,16 @@ export class Tag {
    * Value associated with the tag component, that is saved when the form data is saved.
    */
   @Prop({ reflect: true }) value: string;
+
+  /**
+   * Value associated with the tag component, that is saved when the form data is saved.
+   */
+  @Prop({ reflect: true }) variant: 'standard' | 'avatar' = 'standard';
+
+  /**
+   * Value associated with the tag component, that is saved when the form data is saved.
+   */
+  @Prop() graphicsProps = {};
   /**
    * Triggered when the tag is deselected.
    */
@@ -42,14 +52,31 @@ export class Tag {
     this.fwClosed.emit({ value, text });
   };
 
+  renderContent() {
+    switch (this.variant) {
+      case 'standard':
+        return this.text;
+      case 'avatar': {
+        return [
+          <fw-avatar size='xsmall' {...this.graphicsProps}></fw-avatar>,
+          <span class='content'>{this.text}</span>,
+        ];
+      }
+      default:
+        break;
+    }
+  }
+
   render() {
     return (
-      <div class='tag'>
-        {this.text}
+      <div class={`tag tag-${this.variant}`}>
+        {this.renderContent()}
         <span
           role='button'
           tabindex='0'
-          class={{ 'remove-btn': true, 'disabled': this.disabled }}
+          class={`remove-btn ${this.variant} ${
+            this.disabled ? 'disabled' : ''
+          }`}
           onClick={() => this.removeTag()}
           onKeyDown={handleKeyDown(this.removeTag)}
         >

@@ -101,6 +101,19 @@ function App() {
 | `"initials"` |             |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-tag](../tag)
+
+### Graph
+```mermaid
+graph TD;
+  fw-tag --> fw-avatar
+  style fw-avatar fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
