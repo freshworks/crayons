@@ -16,31 +16,6 @@ declare global {
   }
 }
 
-// const strings: any = {
-//   en: {
-//     'hello': 'Hello',
-//     'world': 'World',
-//     'add': 'Add12',
-//     'cancel': 'Cancel',
-//     'update': 'Update',
-//     'ok': 'OK',
-//     'search': 'Search',
-//     'no items found': 'No items found',
-//     'no data available': 'No data available',
-//   },
-//   de: {
-//     'hello': 'Hola',
-//     'world': 'Mundo',
-//     'add': 'Addieren',
-//     'cancel': 'Stornieren',
-//     'update': 'Aktualisierung',
-//     'ok': 'OK',
-//     'search': 'Suche',
-//     'no items found': 'Keine Elemente gefunden',
-//     'no data available': 'Keine Daten vorhanden',
-//   },
-// };
-
 const { state, onChange } = createStore({
   lang: '',
   globalI18n: {
@@ -54,6 +29,7 @@ window.__crayons__requests =
   window.__crayons__requests || new Map<string, Promise<any>>();
 
 const requests = window.__crayons__requests;
+
 /**
  * Attempts to find the closest tag with a lang attribute.
  * @param element The element to find a lang attribute for.
@@ -97,14 +73,9 @@ function getBrowserLang() {
   return browserLang;
 }
 
-export function getLocale(): string {
-  const locale = getLangAttr() || getBrowserLang();
-  return locale;
-}
-
 async function fetchTranslations(lang): Promise<any> {
   try {
-    const locale = lang || getLocale();
+    const locale = lang || getLang();
 
     const defaultI18nStrings = await fetchDefaultTranslations(locale);
 
@@ -131,6 +102,15 @@ async function fetchTranslations(lang): Promise<any> {
       },
     };
   }
+}
+
+export function getLang(): string {
+  const locale = getLangAttr() || getBrowserLang();
+  return locale;
+}
+
+export function setLang(lang: string): void {
+  state.lang = lang;
 }
 
 export function fetchDefaultTranslations(locale: string): Promise<any> {
@@ -169,10 +149,12 @@ export function i18n({ defaultValue = '' } = {}): any {
 
     const { componentWillLoad } = proto;
 
-    proto.componentWillLoad = async function () {
+    proto.componentWillLoad = function () {
+      console.log(propName);
+      //console.log(this);
+
       let isDefaultValueUsed = true;
       if (!this[propName]) {
-        //const strings = await fetchTranslations(state.lang);
         this[propName] = state.globalI18n.t(defaultValue);
         isDefaultValueUsed = false;
       }
@@ -189,23 +171,19 @@ export function i18n({ defaultValue = '' } = {}): any {
 }
 
 onChange('lang', async (lang) => {
-  console.log('new lang ', lang);
+  console.log('new locale ', lang);
   const strings = await fetchTranslations(state.lang);
   state.globalI18n = strings;
+  console.log('setting strings');
 });
 
-let mo;
-
 if ('MutationObserver' in window) {
-  removeMO();
-  mo = new MutationObserver(async (data) => {
+  const mo = new MutationObserver(async (data) => {
     if (data[0].attributeName === 'lang') {
       const lang = document.documentElement.getAttribute('lang');
-      if (lang === data[0].oldValue) {
-        console.log('same old value ', lang);
-        return;
+      if (lang !== data[0].oldValue) {
+        state.lang = lang;
       }
-      state.lang = lang;
     }
   });
 
@@ -214,13 +192,6 @@ if ('MutationObserver' in window) {
     attributeFilter: ['lang'],
     attributeOldValue: true,
   });
-}
-function removeMO() {
-  if (mo) {
-    console.log('removed');
-    mo.disconnect();
-    mo = undefined;
-  }
 }
 
 export const i18nState = state;

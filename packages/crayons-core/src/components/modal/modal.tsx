@@ -134,6 +134,7 @@ export class Modal {
    * lifecycle event, called once just after the component is first connected to the DOM
    */
   componentWillLoad() {
+    console.log('modal running');
     if (!this.modalTitle) {
       this.modalTitle = this.el.querySelector('fw-modal-title');
       if (this.modalTitle) {
