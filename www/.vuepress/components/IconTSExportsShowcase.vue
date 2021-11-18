@@ -1,26 +1,29 @@
 <template>
   <div class="card-gallery">
-     <div v-for="icon in icons" class="card" @click="copyToClipboard(icon)">
-      <fw-icon :name="icon" size="16" x-root-margin="10px"></fw-icon>
-      <span class="name">{{ icon }}</span>
-      <span :ref="icon" class="copied">Copied</span>
+     <div class="card" @click="copyToClipboard('Header')">
+      <fw-icon :name="icons.Header" size="20" ></fw-icon>
+      <span class="name">Header</span>
+      <span id='Header' class="copied">Header</span>
     </div>
+     <div class="card" @click="copyToClipboard('add_contact')">
+      <fw-icon :name="icons.add_contact" size="20" ></fw-icon>
+      <span class="name">add_contact</span>
+      <span id='add_contact' class="copied">add_contact</span>
+    </div>    
   </div>
 </template>
 
 <script>
+import { Header, add_contact} from '../../../packages/crayons-icon-lib';
 export default {
-  name: 'icon-gallery',
+  name: 'icon-ts-exports',
   data() {
     return {
-      icons: [],
+      icons: {Header:Header,add_contact:add_contact},
     }
   },
   methods: {
-    getIconList() {
-      const context = require.context('@icon-assets/icons/', true, /\.svg$/);
-      return context.keys().map(key => key.substring(2, key.length - 4));
-    },
+
     async copyToClipboard(text) {
       const el = document.createElement('textarea');
       el.value = text;
@@ -28,12 +31,12 @@ export default {
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
-      this.$refs[text][0].style.display='block';
-      setTimeout(() => this.$refs[text][0].style.display='none', 2000);
+      document.getElementById(text).style.display='block';
+      setTimeout(() => document.getElementById(text).style.display='none', 2000);
     },
   },
   mounted() {
-    this.icons = this.getIconList();
+   
   }
 }
 </script>

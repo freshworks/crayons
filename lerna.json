@@ -8,7 +8,7 @@
     },
     "version": {
       "message": "chore(release): publish",
-      "ignoreChanges": ["**/*.md", "**/*.mdx"]
+      "ignoreChanges": ["**/*.md", "**/*.mdx", "**/crayons-icon-lib/*"]
     }
   }
 }

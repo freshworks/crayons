@@ -12,7 +12,7 @@ class IconRegistry {
       this.iconLibRegistry.setItem(`${lib}-${svgName}`, svgDoc);
     }
     catch(ex){
-      const svgDocEle = '{"svg":{"props":{"viewBox":"0 0 615 84"}},"g":{"props":{"fill":"black"}}, "paths":[{"props":{"fill":"brown"}},{"props":null},....,{"props":null}]}'
+      const svgDocEle = '{"svg":{"props":{"viewBox":"0 0 617 85","style":"padding-right:10px;margin-top:30px;"}},"g":{"props":{"fill":"black"}}, "paths":[{"props":{"fill":"brown"}},{"props":null},....,{"props":null}]}'
       console.error(`Not a valid SVG JSON . Match the syntax like this : ${svgDocEle}. This is an example. In case of no props pass null against 'svg','g' or 'paths'.e.g. "g":null `);
       throw ex;
     }

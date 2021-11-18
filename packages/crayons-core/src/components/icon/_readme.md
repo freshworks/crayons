@@ -1,19 +1,13 @@
 # Icon (fw-icon)
-fw-icon is a renderer of an svg file which displays an icon-sized image that imparts meaning to the component it is associated with.
-## Exampes Live
-1. Example of Multi-color SVG Logo
+fw-icon displays an icon-sized image that imparts meaning to the component it is associated with.
+
+## Demo
+
 ```html live
-<fw-icon name="crayons_logo" color="" ></fw-icon>
+<fw-icon name="add_contact" size="18" color="green"></fw-icon>
 ```
-2. Below is an example of Animated SVG Icon
-```html live
-<fw-icon name="printing_threeD" size="58" color="" ></fw-icon>
-```
-3. Below is an example of Monochrome SVG Icon
-```html live
-<fw-icon name="add_note" size="58" color="grey" ></fw-icon>
-```
-## Usage in Code
+
+## Usage
 
 <code-group>
 <code-block title="HTML">
@@ -36,90 +30,11 @@ function App() {
 </code-block>
 </code-group>
 
-## Crayons Icon Assets 
+### Icons
 
-The following icons are presently part of Crayons-Icon library. These are optimized using SVGO.
+The following are the icons supported:
+
 <IconGallery/>
-
-## FwIcon as a Renderer for external icons. Follow the steps like below :-
-
-<code-group>
-<code-block title="HTML">
-```html 
-<fw-icon name="pie-chart" size="30" library="feather" ></fw-icon>
-```
-</code-block>
-
-<code-block title="React">
-```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { FwIcon } from "@freshworks/crayons/react";
-import IconLibRegistry from '@freshworks/crayons-icon-lib/icon-registry';
-
-IconLibRegistry.registerIconLib([{lib:'feather', path: 'https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons'}]);
-
-function App() {
-  return (<div>
-  <FwIcon name="feather" size="30" library="feather" ></FwIcon>
- </div>);
-}
-```
-</code-block>
-</code-group>
-
-### Example of Feather Icons
-
-```html live
- <fw-icon name="feather" size="30" library="feather" ></fw-icon>
-```
-### Example of Hero Icons
-
-```html live
- <fw-icon name="cloud" size="30" library="heroicons" ></fw-icon>
-```
-### Example of Custom Icons
-
-```html live
- <fw-icon name="calendar" size="30" library="system" ></fw-icon>
-```
-
-### Rendered in Sample Page as Component 
-
-<ExternalLibIconsShowcase/>
-
-## FwIcon using JS Exports Lib for Crayons-icons. It supports Tree-Shaking .Steps as below :-
-
-<code-group>
-<code-block title="HTML">
-```html 
-<fw-icon name={ Header } size="20" ></fw-icon>
-```
-</code-block>
-
-<code-block title="React">
-```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { FwIcon } from "@freshworks/crayons/react";
-import { Header, add_contact, add_remove, add_note } from '@freshworks/crayons-icon-lib';
-
-function App() {
-  return (<div>
-  <FwIcon name={ Header } size="20" ></FwIcon>
- </div>);
-}
-```
-</code-block>
-</code-group>
-
-
-### Example: Rendered in Sample Page as Component 
-
-<IconTSExportsShowcase/>
-
-
-
 <!-- Auto Generated Below -->
 
 
