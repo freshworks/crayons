@@ -63,7 +63,7 @@ describe('fw-timepicker', () => {
     );
     const el = await page.find('fw-timepicker >>> fw-select');
     expect(el.shadowRoot).toEqualHtml(
-      `<div class="select-container">   <fw-popover class="hydrated">    <div class="input-container normal" slot="popover-trigger">         <div class="input-container-inner">           <input autocomplete="off" placeholder="" type="text">           <span class="dropdown-status-icon"></span>         </div>       </div>        <fw-list-options class="hydrated" slot="popover-content"></fw-list-options> </fw-popover>     </div>     </fw-popover></div>`
+      `<div class="select-container">   <fw-popover class="hydrated" same-width>    <div class="input-container normal" slot="popover-trigger">         <div class="input-container-inner">           <input autocomplete="off" placeholder="" type="text">           <span class="dropdown-status-icon"></span>         </div>       </div>        <fw-list-options class="hydrated" slot="popover-content"></fw-list-options> </fw-popover>     </div>     </fw-popover></div>`
     );
   });
 
