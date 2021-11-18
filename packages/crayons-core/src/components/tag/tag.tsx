@@ -36,7 +36,7 @@ export class Tag {
   @Prop({ reflect: true }) variant: 'standard' | 'avatar' = 'standard';
 
   /**
-   * Value associated with the tag component, that is saved when the form data is saved.
+   * The pops need to be passed for the variant. If the variant is avatar the use this prop to send the pops for the fw-avatar.
    */
   @Prop() graphicsProps = {};
   /**
@@ -58,7 +58,7 @@ export class Tag {
         return this.text;
       case 'avatar': {
         return [
-          <fw-avatar size='xsmall' {...this.graphicsProps}></fw-avatar>,
+          <fw-avatar size='xxsmall' {...this.graphicsProps}></fw-avatar>,
           <span class='content'>{this.text}</span>,
         ];
       }

@@ -83,14 +83,14 @@ function App() {
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                                                                  | Default     |
-| ---------- | ---------- | ----------- | --------------------------------------------------------------------- | ----------- |
-| `alt`      | `alt`      |             | `string`                                                              | `undefined` |
-| `image`    | `image`    |             | `string`                                                              | `undefined` |
-| `initials` | `initials` |             | `string`                                                              | `undefined` |
-| `mode`     | `mode`     |             | `"dark" \| "light"`                                                   | `'dark'`    |
-| `shape`    | `shape`    |             | `"circle" \| "rounded" \| "square"`                                   | `'circle'`  |
-| `size`     | `size`     |             | `"large" \| "medium" \| "small" \| "xlarge" \| "xsmall" \| "xxlarge"` | `'large'`   |
+| Property   | Attribute  | Description | Type                                                                               | Default     |
+| ---------- | ---------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
+| `alt`      | `alt`      |             | `string`                                                                           | `undefined` |
+| `image`    | `image`    |             | `string`                                                                           | `undefined` |
+| `initials` | `initials` |             | `string`                                                                           | `undefined` |
+| `mode`     | `mode`     |             | `"dark" \| "light"`                                                                | `'dark'`    |
+| `shape`    | `shape`    |             | `"circle" \| "rounded" \| "square"`                                                | `'circle'`  |
+| `size`     | `size`     |             | `"large" \| "medium" \| "small" \| "xlarge" \| "xsmall" \| "xxlarge" \| "xxsmall"` | `'large'`   |
 
 
 ## Shadow Parts

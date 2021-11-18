@@ -16,7 +16,13 @@ export namespace Components {
         "initials": string;
         "mode": 'dark' | 'light';
         "shape": 'circle' | 'square' | 'rounded';
-        "size": 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+        "size": | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall';
     }
     interface FwButton {
         /**
@@ -695,7 +701,7 @@ export namespace Components {
          */
         "disabled": false;
         /**
-          * Value associated with the tag component, that is saved when the form data is saved.
+          * The pops need to be passed for the variant. If the variant is avatar the use this prop to send the pops for the fw-avatar.
          */
         "graphicsProps": {};
         /**
@@ -1112,7 +1118,13 @@ declare namespace LocalJSX {
         "initials"?: string;
         "mode"?: 'dark' | 'light';
         "shape"?: 'circle' | 'square' | 'rounded';
-        "size"?: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+        "size"?: | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall';
     }
     interface FwButton {
         /**
@@ -1895,7 +1907,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: false;
         /**
-          * Value associated with the tag component, that is saved when the form data is saved.
+          * The pops need to be passed for the variant. If the variant is avatar the use this prop to send the pops for the fw-avatar.
          */
         "graphicsProps"?: {};
         /**
