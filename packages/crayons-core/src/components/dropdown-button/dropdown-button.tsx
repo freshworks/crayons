@@ -182,7 +182,7 @@ export class DropdownButton {
       const iconColor = ['secondary', 'link', 'text'].includes(this.color)
         ? '#12344d'
         : '#fff';
-      const iconSize = 8;
+      const iconSize = '8';
       const direction = this.isDropdownOpen ? 'up' : 'down';
 
       return (

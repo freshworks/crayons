@@ -151,7 +151,7 @@ export class InlineMessage {
               onKeyUp={(e) => this.handleKeyUp(e)}
               onClick={() => this.handleClose()}
             >
-              <fw-icon name='cross' color='#12344d' size={8}></fw-icon>
+              <fw-icon name='cross' color='#12344d' size='8'></fw-icon>
             </span>
           )}
         </div>

@@ -64,6 +64,7 @@
     "@types/react-dom": "^17.0.9",
     "babel-loader": "^8.2.2",
     "gulp": "^4.0.2",
+    "hast-util-to-html": "^8.0.3",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
     "node-sass": "^5.0.0",
@@ -89,7 +90,8 @@
   "dependencies": {
     "@freshworks/crayons": "^3.0.0-beta.3",
     "@stencil/core": "2.9.0",
-    "moment-mini": "^2.24.0"
+    "moment-mini": "^2.24.0",
+    "svg-parser": "^2.0.4"
   },
   "publishConfig": {
     "access": "public"

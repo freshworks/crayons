@@ -155,13 +155,33 @@ export namespace Components {
          */
         "color": string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
+          * Height of the icon, specified in number of  pixels.
+         */
+        "height": any;
+        /**
+          * Enable Intersection Observer. Default is true.
+         */
+        "lazy": string;
+        /**
+          * Name of External Library to be used
+         */
+        "library": string;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid svg file name or a JS Export of the svg file in the repo of icons (icon-assets/icons) or a named export of svg.
          */
         "name": string;
         /**
-          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
+          * Size of the icon, specified in number of  pixels. This will be square coordinates of (w X h) = size X size
          */
-        "size": number;
+        "size": string;
+        /**
+          * Width of the icon, specified in number of  pixels.
+         */
+        "width": any;
+        /**
+          * Root Margin in px or percentage for intersection observer
+         */
+        "xRootMargin": string;
     }
     interface FwInlineMessage {
         /**
@@ -1279,13 +1299,33 @@ declare namespace LocalJSX {
          */
         "color"?: string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
+          * Height of the icon, specified in number of  pixels.
+         */
+        "height"?: any;
+        /**
+          * Enable Intersection Observer. Default is true.
+         */
+        "lazy"?: string;
+        /**
+          * Name of External Library to be used
+         */
+        "library"?: string;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid svg file name or a JS Export of the svg file in the repo of icons (icon-assets/icons) or a named export of svg.
          */
         "name"?: string;
         /**
-          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
+          * Size of the icon, specified in number of  pixels. This will be square coordinates of (w X h) = size X size
          */
-        "size"?: number;
+        "size"?: string;
+        /**
+          * Width of the icon, specified in number of  pixels.
+         */
+        "width"?: any;
+        /**
+          * Root Margin in px or percentage for intersection observer
+         */
+        "xRootMargin"?: string;
     }
     interface FwInlineMessage {
         /**

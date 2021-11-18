@@ -46,7 +46,7 @@ export class ToastMessage {
   /**
    * State icon size
    */
-  @State() iconSize = 16;
+  @State() iconSize = '16';
 
   /**
    * Type of the toast - success,failure, warning, inprogress
@@ -177,7 +177,7 @@ export class ToastMessage {
           </div>
 
           <fw-icon
-            size={10}
+            size='10'
             color='#000'
             name='cross'
             class='remove'

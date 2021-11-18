@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 import { reactOutputTarget } from 'react-output-target';
 import { sass } from '@stencil/sass';
-
+import dotenvPlugin from 'rollup-plugin-dotenv';
 import { generateJsonDocs } from './customElementDocGenerator';
 
 const packageName = 'crayons';
@@ -66,6 +66,7 @@ export const config: Config = {
     sass({
       injectGlobalPaths: ['src/styles/index.scss'],
     }),
+    dotenvPlugin(),
   ],
   testing: {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
