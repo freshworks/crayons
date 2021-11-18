@@ -13,6 +13,7 @@ import {
   h,
 } from '@stencil/core';
 
+import { PopoverPlacementType } from '../popover/popover';
 import { handleKeyDown, renderHiddenField, debounce } from '../../utils';
 import { DropdownVariant } from '../select-option/select-option';
 @Component({
@@ -142,6 +143,14 @@ export class Select {
    * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
    */
   @Prop({ reflect: true, mutable: true }) selectedOptions = [];
+  /**
+   * Whether the select width to be same as that of the options.
+   */
+  @Prop() sameWidth = true;
+  /**
+   * Placement of the options list with respect to select.
+   */
+  @Prop() optionsPlacement: PopoverPlacementType = 'bottom';
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -394,7 +403,12 @@ export class Select {
           ''
         )}
         <div class='select-container'>
-          <fw-popover distance='8' ref={(popover) => (this.popover = popover)}>
+          <fw-popover
+            distance='8'
+            ref={(popover) => (this.popover = popover)}
+            same-width={this.sameWidth}
+            placement={this.optionsPlacement}
+          >
             <div
               slot='popover-trigger'
               class={{

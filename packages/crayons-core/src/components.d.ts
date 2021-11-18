@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { DropdownVariant } from "./components/select-option/select-option";
 import { PopoverPlacementType } from "./components/popover/popover";
+import { PopoverPlacementType as PopoverPlacementType1 } from "./components/popover/popover";
 import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -537,6 +538,10 @@ export namespace Components {
          */
         "options": any;
         /**
+          * Placement of the options list with respect to select.
+         */
+        "optionsPlacement": PopoverPlacementType;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -548,6 +553,10 @@ export namespace Components {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Whether the select width to be same as that of the options.
+         */
+        "sameWidth": boolean;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -1723,6 +1732,10 @@ declare namespace LocalJSX {
          */
         "options"?: any;
         /**
+          * Placement of the options list with respect to select.
+         */
+        "optionsPlacement"?: PopoverPlacementType;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -1734,6 +1747,10 @@ declare namespace LocalJSX {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Whether the select width to be same as that of the options.
+         */
+        "sameWidth"?: boolean;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
