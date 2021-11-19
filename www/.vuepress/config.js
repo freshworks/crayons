@@ -95,7 +95,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        "@icon-assets": path.resolve(__dirname, '../../packages/crayons-icon-lib'),
+        "@icon-assets": path.resolve(__dirname, '../../packages/crayons-icon'),
       },
     },
   },

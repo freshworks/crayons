@@ -38,7 +38,7 @@ const generateIconsExportData = async () => {
       indexData = indexData + '\n' + (await getIconsSVGData(svgFile));
     }
     fs.writeFile(path.join(iconLibPath, 'index.js'), indexData);
-    console.log(`Succesfully written @freshworks/crayons-icon-lib/index.js`);
+    console.log(`Succesfully written @freshworks/crayons-icon/index.js`);
   } catch (ex) {
     console.error(`Exception occured while building : ${JSON.stringify(ex)}`);
   }
