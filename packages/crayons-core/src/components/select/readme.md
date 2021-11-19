@@ -264,6 +264,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property          | Attribute        | Description                                                                                                                                                                                                                               | Type                               | Default               |
@@ -291,6 +292,7 @@ function App() {
 | `value`           | `value`          | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                              | `undefined`           |
 | `variant`         | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"` | `'standard'`          |
 
+
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -299,25 +301,39 @@ function App() {
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
+
 ## Methods
 
 ### `getSelectedItem() => Promise<any>`
 
+
+
 #### Returns
 
 Type: `Promise<any>`
+
+
 
 ### `setSelectedOptions(options: any[]) => Promise<any>`
 
+
+
 #### Returns
 
 Type: `Promise<any>`
+
+
 
 ### `setSelectedValues(values: string[]) => Promise<any>`
 
+
+
 #### Returns
 
 Type: `Promise<any>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -326,12 +342,13 @@ Type: `Promise<any>`
 | `--max-height` | Maximum height of the select component |
 | `--min-height` | Minimum height of the select component |
 
+
 ## Dependencies
 
 ### Used by
 
-- [fw-datepicker](../datepicker)
-- [fw-timepicker](../timepicker)
+ - [fw-datepicker](../datepicker)
+ - [fw-timepicker](../timepicker)
 
 ### Depends on
 
@@ -341,7 +358,6 @@ Type: `Promise<any>`
 - [fw-list-options](../options-list)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-select --> fw-tag
@@ -358,6 +374,6 @@ graph TD;
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks

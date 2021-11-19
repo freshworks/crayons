@@ -13,8 +13,91 @@
   </head>
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
-  
-<!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
+
+    <fw-popover same-width="false" placement="bottom-start">
+      <fw-button slot="popover-trigger" color="secondary">
+        <fw-icon
+          id="buttonIcon"
+          slot="before-label"
+          name="vertical-align-bottom"
+        ></fw-icon>
+        <span id="buttonContent">Premier Accounts</span>
+      </fw-button>
+      <div slot="popover-content">
+        <div></div>
+        <fw-list-options id="sortBy" variant="icon"> </fw-list-options>
+        <div></div>
+        <fw-list-options id="sortOrder" variant="icon"> </fw-list-options>
+      </div>
+    </fw-popover>
+    <script type="application/javascript">
+      var sortByData = [
+        {
+          value: '1',
+          text: 'Premier Accounts',
+          graphicsProps: { name: 'verified' },
+        },
+        {
+          value: '2',
+          text: 'Expired Accounts',
+          graphicsProps: { name: 'alert' },
+        },
+        {
+          value: '3',
+          text: 'Freshconect Accounts',
+          graphicsProps: { name: 'freshconnect' },
+        },
+        {
+          value: '4',
+          text: 'Freshchat Accounts',
+          graphicsProps: { name: 'freshchat' },
+        },
+        {
+          value: '5',
+          text: 'Verified Accounts',
+          graphicsProps: { name: 'ticket-primary' },
+        },
+      ];
+      var sortOrderData = [
+        {
+          value: '1',
+          text: 'Ascending',
+          graphicsProps: { name: 'vertical-align-bottom' },
+        },
+        {
+          value: '2',
+          text: 'Descending',
+          graphicsProps: { name: 'vertical-align-top' },
+        },
+      ];
+      var buttonIcon = document.getElementById('buttonIcon');
+      var buttonContent = document.getElementById('buttonContent');
+      var sortBy = document.getElementById('sortBy');
+      sortBy.value = ['1'];
+      sortBy.options = sortByData;
+      sortBy.addEventListener('fwChange', (e) => {
+        const selectedOptions = e.detail.selectedOptions;
+        const text =
+          selectedOptions.length > 0
+            ? e.detail.selectedOptions[0].text
+            : 'Select sort type';
+        buttonContent.removeChild(buttonContent.firstChild);
+        buttonContent.appendChild(document.createTextNode(text));
+      });
+      var sortOrder = document.getElementById('sortOrder');
+      sortOrder.options = sortOrderData;
+      sortOrder.value = ['1'];
+      sortOrder.addEventListener('fwChange', (e) => {
+        const selectedOptions = e.detail.selectedOptions;
+        const iconName =
+          selectedOptions.length > 0
+            ? e.detail.selectedOptions[0].graphicsProps.name
+            : 'vertical-align-bottom';
+        buttonIcon.name = iconName;
+      });
+    </script>
+
+    <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
    <fw-select
       label="Select App type"
       placeholder="Choose app type"
@@ -95,6 +178,5 @@
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> -->
-
-</body>
+  </body>
 </html>
