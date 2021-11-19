@@ -13,6 +13,7 @@ import {
   h,
 } from '@stencil/core';
 
+import { handleKeyDown, renderHiddenField } from '../../utils';
 import { PopoverPlacementType } from '../popover/popover';
 import { DropdownVariant } from '../select-option/select-option';
 @Component({
