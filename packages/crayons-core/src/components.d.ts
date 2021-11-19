@@ -267,6 +267,10 @@ export namespace Components {
     interface FwListOptions {
         "clearFilter": () => Promise<void>;
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer": number;
+        /**
           * The text to filter the options.
          */
         "filterText": any;
@@ -283,6 +287,10 @@ export namespace Components {
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
         "multiple": boolean;
+        /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText": string;
         /**
           * Default option to be shown if the option doesn't match the filterText.
          */
@@ -303,6 +311,11 @@ export namespace Components {
           * Enables the input with in the popup for filtering the options.
          */
         "searchable": boolean;
+        /**
+          * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions": any[];
+        "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
@@ -560,7 +573,7 @@ export namespace Components {
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
-        "search": (text: string, dataSource: any[]) => Promise<any[]>;
+        "search": any;
         /**
           * Allow to search for value. Default is true.
          */
@@ -569,6 +582,7 @@ export namespace Components {
           * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
@@ -1420,6 +1434,10 @@ declare namespace LocalJSX {
     }
     interface FwListOptions {
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer"?: number;
+        /**
           * The text to filter the options.
          */
         "filterText"?: any;
@@ -1436,6 +1454,10 @@ declare namespace LocalJSX {
          */
         "multiple"?: boolean;
         /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText"?: string;
+        /**
           * Default option to be shown if the option doesn't match the filterText.
          */
         "notFoundText"?: string;
@@ -1443,6 +1465,10 @@ declare namespace LocalJSX {
           * Triggered when a value is selected or deselected from the list box options.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the options list is in loading state processing the search function.
+         */
+        "onFwLoading"?: (event: CustomEvent<any>) => void;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
@@ -1459,6 +1485,10 @@ declare namespace LocalJSX {
           * Enables the input with in the popup for filtering the options.
          */
         "searchable"?: boolean;
+        /**
+          * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions"?: any[];
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -1754,7 +1784,7 @@ declare namespace LocalJSX {
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
-        "search"?: (text: string, dataSource: any[]) => Promise<any[]>;
+        "search"?: any;
         /**
           * Allow to search for value. Default is true.
          */

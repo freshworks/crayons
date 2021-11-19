@@ -1,4 +1,5 @@
 # Select (fw-select)
+
 fw-select displays a list or drop-down box that enables selection of an option or multiple options from an available list of values.
 
 ## Demo
@@ -6,18 +7,31 @@ fw-select displays a list or drop-down box that enables selection of an option o
 The data for the select can either be passed as a child or via a datasource which follows the fw-select-option schema.
 
 ```html live
-<fw-select label="House Name" required="true" value="1" placeholder="Your choice" state-text="Select singluar option">
+<fw-select
+  label="House Name"
+  required="true"
+  value="1"
+  placeholder="Your choice"
+  state-text="Select singluar option"
+>
   <fw-select-option value="1">Starks</fw-select-option>
   <fw-select-option value="2">Lannisters</fw-select-option>
 </fw-select>
-<fw-select label="Names" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select
+  label="Names"
+  value="1"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  multiple
+>
   <fw-select-option value="1" selected>Starks</fw-select-option>
-  <fw-select-option value="2" >Lannisters</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
   <fw-select-option value="3">Sand</fw-select-option>
   <fw-select-option value="4">Greyjoys</fw-select-option>
   <fw-select-option value="5">Tyrell</fw-select-option>
 </fw-select>
 ```
+
 ## Usage
 
 <code-group>
@@ -57,8 +71,10 @@ function App() {
           <FwSelectOption value="5">Tyrell</FwSelectOption>
         </FwSelect>
     </div>);
+
 }
-```
+
+````
 </code-block>
 </code-group>
 
@@ -106,10 +122,9 @@ function App() {
   var iconVariant = document.getElementById('complexSelect');
   iconVariant.options = iconDataSource;
 </script>
-```
+````
 
 ### Usage with datasource options
-
 
 <code-group>
 <code-block title="HTML">
@@ -154,7 +169,8 @@ function App() {
   var iconVariant = document.getElementById('complexSelect');
   iconVariant.options = iconDataSource;
 </script>
-```
+
+````
 </code-block>
 
 <code-block title="React">
@@ -170,7 +186,7 @@ function App() {
     { value: '3', text: 'Roma' },
     { value: '4', text: 'Marseille' },
   ];
-  
+
   var iconDataSource = [
     {
       value: '1',
@@ -191,7 +207,7 @@ function App() {
       graphicsProps: { name: 'ecommerce' },
     },
   ];
-  
+
   return (<div>
         <FwSelect id="simpleSelect" label="Football Teams" placeholder="Your choices" state-text="Select multiple options" multiple options={dataSource} value={["2"]}>
         </FwSelect>
@@ -200,17 +216,58 @@ function App() {
         </FwSelect>
     </div>);
 }
-```
+````
+
 </code-block>
 </code-group>
 
-<!-- Auto Generated Below -->
+### Demo with dynamic filter option
 
+```html live
+<fw-select
+  id="dynamicSelect"
+  label="Rick & Morty Characters"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  multiple
+>
+</fw-select>
+
+<script type="application/javascript">
+  var dynamicSelect = document.getElementById('dynamicSelect');
+  const baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  dynamicSelect.selectedOptions = [
+    {
+      text: 'Rick Sanchez',
+      subText: 'Human',
+      value: '1',
+    },
+  ];
+  dynamicSelect.search = (value, source) => {
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            text: x.name,
+            subText: x.type,
+            value: x.id.toString(),
+          };
+        });
+      });
+  };
+</script>
+```
+
+<!-- Auto Generated Below -->
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                                                                                                                                               | Type                                                                                                                                                                 | Default                      |
-| ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| Property          | Attribute        | Description                                                                                                                                                                                                                               | Type                               | Default               |
+| ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | --------------------- |
 | `debounceTimer`    | `debounce-timer`    | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                                                                                                                                             | `300`                        |
 | `disabled`         | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                                                                                                                                            | `false`                      |
 | `forceSelect`      | `force-select`      | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                                                                                                                                                            | `true`                       |
@@ -236,7 +293,6 @@ function App() {
 | `value`            | `value`             | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                                                                                                                                                                | `undefined`                  |
 | `variant`          | `variant`           | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                                                                                                                                   | `'standard'`                 |
 
-
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -245,29 +301,25 @@ function App() {
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `getSelectedItem() => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
 
+### `setSelectedOptions(options: any[]) => Promise<any>`
 
+#### Returns
+
+Type: `Promise<any>`
 
 ### `setSelectedValues(values: string[]) => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -276,13 +328,12 @@ Type: `Promise<any>`
 | `--max-height` | Maximum height of the select component |
 | `--min-height` | Minimum height of the select component |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-datepicker](../datepicker)
- - [fw-timepicker](../timepicker)
+- [fw-datepicker](../datepicker)
+- [fw-timepicker](../timepicker)
 
 ### Depends on
 
@@ -292,6 +343,7 @@ Type: `Promise<any>`
 - [fw-list-options](../options-list)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-select --> fw-tag
@@ -308,6 +360,6 @@ graph TD;
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
