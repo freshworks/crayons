@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.2...@freshworks/crayons@3.0.0-beta.4) (2021-11-19)
+
+
+### Bug Fixes
+
+* **fw-datepicker:** added more placement options ([#262](https://github.com/freshworks/crayons/issues/262)) ([0a2f7b5](https://github.com/freshworks/crayons/commit/0a2f7b5f3073ba31d1a1e9663e6afe2d848cd573))
+* **fw-popover:** null check ([#278](https://github.com/freshworks/crayons/issues/278)) ([515a7a9](https://github.com/freshworks/crayons/commit/515a7a9d73cf9c4f87a7f4ea593bdbc6d4cffe8d))
+* **popover:** prevent scroll chaining and expose props for min, max heights ([#287](https://github.com/freshworks/crayons/issues/287)) ([f7525f0](https://github.com/freshworks/crayons/commit/f7525f0a93973673e0a17adfd9c10d1bfb8c3791))
+* **radio-group:** fix radio group to be compatiable with react version ([#267](https://github.com/freshworks/crayons/issues/267)) ([c8efaec](https://github.com/freshworks/crayons/commit/c8efaec6030333aa026a2d28cff67c3fe3b7b2f3))
+* **radio-group:** remove call to componentOnReady in connected callback ([#260](https://github.com/freshworks/crayons/issues/260)) ([10de155](https://github.com/freshworks/crayons/commit/10de155d50641a202d82ab013c41ae167393ff2b))
+* **tab:** fix fw-tab to work with react typescript ([#285](https://github.com/freshworks/crayons/issues/285)) ([f93add1](https://github.com/freshworks/crayons/commit/f93add1919c8c9b0a9cf86c8a408141ef45203a2))
+
+
+### Features
+
+* button variations, style corrections and loading state ([#264](https://github.com/freshworks/crayons/issues/264)) ([69b326c](https://github.com/freshworks/crayons/commit/69b326ca08ffb4820aa260a69fc4861a9e6efdc6))
+* **fw-list-options:** added custom filter function ([#269](https://github.com/freshworks/crayons/issues/269)) ([73e0af3](https://github.com/freshworks/crayons/commit/73e0af359eb777399e00bab375fa3c72be462908)), closes [#275](https://github.com/freshworks/crayons/issues/275)
+* **fw-list-options:** Moved the dynamic filter logic from fw-select to fw-list-options ([#286](https://github.com/freshworks/crayons/issues/286)) ([aed2184](https://github.com/freshworks/crayons/commit/aed2184ce41eb7e938ba64c091438a276e14931c))
+* **fw-popover:** added show/hide event emitters and new props ([#268](https://github.com/freshworks/crayons/issues/268)) ([e369c1c](https://github.com/freshworks/crayons/commit/e369c1c7ba69f8287a6fe52a862a9dea01a4bcb9))
+* **fw-tag:** added avatar variant for tag ([#290](https://github.com/freshworks/crayons/issues/290)) ([c568d06](https://github.com/freshworks/crayons/commit/c568d069d505b352f9d54e83f2f72e00ef5b7ddb))
+* **inline-message:** adding inline messages feature ([#270](https://github.com/freshworks/crayons/issues/270)) ([d41d389](https://github.com/freshworks/crayons/commit/d41d3896c3b26797f373d6f7ef217612974854aa))
+* **slider:** adding slider variant to modal component ([#288](https://github.com/freshworks/crayons/issues/288)) ([4eef379](https://github.com/freshworks/crayons/commit/4eef379e990f7423a0bb0677d057539fdd3cbf68))
+* **toggle:** show icon for toggle by default ([#273](https://github.com/freshworks/crayons/issues/273)) ([f6358a6](https://github.com/freshworks/crayons/commit/f6358a6e6911d814cff86d156192c20883a1bcca))
+
+
+
+
+
 ## [3.0.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.2...@freshworks/crayons@3.0.0-beta.3) (2021-11-12)
 
 ### Bug Fixes
