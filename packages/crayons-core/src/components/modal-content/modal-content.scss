@@ -1,6 +1,10 @@
+:host {
+  flex: 1;
+  overflow-y: auto;
+}
+
 .content {
-  padding: 0 32px 32px;
-  height: 100%;
-  width: auto;
-  overflow: auto;
+  padding: 0px 32px 32px;
+  overflow: visible;
+  box-sizing: border-box;
 }
