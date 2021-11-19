@@ -60,7 +60,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
-- **fw-tab:** fw-tab-header attribute is now removed, instead use fw-tab children for using html content for tab header and use fw-tab-panel for panel content
+- **fw-tab:** _tab-header_ attribute is now removed, instead use fw-tab children for using html content for tab header and use fw-tab-panel for panel content
 - **fw-modal:** Changing visibility property to is-open property.
 
 ## [3.0.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.0...@freshworks/crayons@3.0.0-beta.1) (2021-10-22)
