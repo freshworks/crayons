@@ -114,6 +114,14 @@ export class SelectOption {
             {description}
           </Fragment>
         );
+      case 'avatar':
+        return (
+          <Fragment>
+            {checkbox}
+            {this.createAvatar()}
+            {description}
+          </Fragment>
+        );
       default:
         break;
     }
@@ -148,6 +156,10 @@ export class SelectOption {
 
   createCheckbox() {
     return <fw-checkbox checked={this.selected}></fw-checkbox>;
+  }
+
+  createAvatar() {
+    return <fw-avatar size='small' {...this.graphicsProps}></fw-avatar>;
   }
 
   render() {

@@ -33,7 +33,7 @@ export class Tag {
   /**
    * The variant of tag to be displayed.
    */
-  @Prop({ reflect: true }) variant: 'standard' | 'avatar' = 'standard';
+  @Prop({ reflect: true }) variant: TagVariant = 'standard';
 
   /**
    * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
@@ -86,3 +86,5 @@ export class Tag {
     );
   }
 }
+
+export type TagVariant = 'standard' | 'avatar';
