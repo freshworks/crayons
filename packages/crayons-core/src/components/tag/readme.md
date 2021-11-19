@@ -1,11 +1,21 @@
 # Tag (fw-tag)
-fw-tag provides a child component that is used to enable selecting multiple options in the Select component. 
 
+fw-tag provides a child component that is used to enable selecting multiple options in the Select component.
 
 ## Demo
 
 ```html live
 <fw-tag text="Option"></fw-tag>
+
+<fw-tag id="avatarTag" variant="avatar" text="Option"></fw-tag>
+
+<script type="application/javascript">
+  avatarTag = document.getElementById('avatarTag');
+  avatarTag.graphicsProps = {
+    image:
+      'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+  };
+</script>
 ```
 
 ## Usage
@@ -31,17 +41,18 @@ function App() {
 </code-block>
 </code-group>
 
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                            | Type      | Default     |
-| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `disabled` | `disabled` | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false. | `boolean` | `undefined` |
-| `text`     | `text`     | Display text in the tag component.                                                                                                     | `string`  | `undefined` |
-| `value`    | `value`    | Value associated with the tag component, that is saved when the form data is saved.                                                    | `string`  | `undefined` |
+| Property        | Attribute  | Description                                                                                                                             | Type                     | Default      |
+| --------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------ |
+| `disabled`      | `disabled` | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.  | `boolean`                | `undefined`  |
+| `graphicsProps` | --         | The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component. | `{}`                     | `{}`         |
+| `text`          | `text`     | Display text in the tag component.                                                                                                      | `string`                 | `undefined`  |
+| `value`         | `value`    | Value associated with the tag component, that is saved when the form data is saved.                                                     | `string`                 | `undefined`  |
+| `variant`       | `variant`  | The variant of tag to be displayed.                                                                                                     | `"avatar" \| "standard"` | `'standard'` |
 
 
 ## Events
@@ -57,9 +68,14 @@ function App() {
 
  - [fw-select](../select)
 
+### Depends on
+
+- [fw-avatar](../avatar)
+
 ### Graph
 ```mermaid
 graph TD;
+  fw-tag --> fw-avatar
   fw-select --> fw-tag
   style fw-tag fill:#f9f,stroke:#333,stroke-width:4px
 ```

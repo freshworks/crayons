@@ -90,6 +90,7 @@ graph TD;
   fw-select --> fw-popover
   fw-select --> fw-spinner
   fw-select --> fw-list-options
+  fw-tag --> fw-avatar
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
   fw-select-option --> fw-icon

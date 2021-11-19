@@ -16,7 +16,13 @@ export namespace Components {
         "initials": string;
         "mode": 'dark' | 'light';
         "shape": 'circle' | 'square' | 'rounded';
-        "size": 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+        "size": | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall';
     }
     interface FwButton {
         /**
@@ -709,6 +715,10 @@ export namespace Components {
          */
         "disabled": false;
         /**
+          * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
+         */
+        "graphicsProps": {};
+        /**
           * Display text in the tag component.
          */
         "text": string;
@@ -716,6 +726,10 @@ export namespace Components {
           * Value associated with the tag component, that is saved when the form data is saved.
          */
         "value": string;
+        /**
+          * The variant of tag to be displayed.
+         */
+        "variant": 'standard' | 'avatar';
     }
     interface FwTextarea {
         /**
@@ -1118,7 +1132,13 @@ declare namespace LocalJSX {
         "initials"?: string;
         "mode"?: 'dark' | 'light';
         "shape"?: 'circle' | 'square' | 'rounded';
-        "size"?: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+        "size"?: | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall';
     }
     interface FwButton {
         /**
@@ -1917,6 +1937,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: false;
         /**
+          * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
+         */
+        "graphicsProps"?: {};
+        /**
           * Triggered when the tag is deselected.
          */
         "onFwClosed"?: (event: CustomEvent<any>) => void;
@@ -1928,6 +1952,10 @@ declare namespace LocalJSX {
           * Value associated with the tag component, that is saved when the form data is saved.
          */
         "value"?: string;
+        /**
+          * The variant of tag to be displayed.
+         */
+        "variant"?: 'standard' | 'avatar';
     }
     interface FwTextarea {
         /**

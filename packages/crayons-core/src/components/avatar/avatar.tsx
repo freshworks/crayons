@@ -10,8 +10,14 @@ export class Avatar {
   @Prop() alt: string;
   @Prop() initials: string;
   @Prop() shape: 'circle' | 'square' | 'rounded' = 'circle';
-  @Prop() size: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall' =
-    'large';
+  @Prop() size:
+    | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall' = 'large';
   @Prop() mode: 'dark' | 'light' = 'dark';
 
   render() {
