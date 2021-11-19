@@ -35,7 +35,8 @@
     "build:mincss": "cleancss -b css/*.css css",
     "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css",
     "build:styles": "npm run build:scss && npm run build:autoprefix && npm run build:mincss",
-    "build": "gulp && npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
+    "build": "npm run optimize-icons && gulp && npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
+    "optimize-icons": "svgo -f src/components/icon/icon-assets/icons --config .svgo.yml",
     "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm run start",
@@ -91,7 +92,8 @@
     "ts-loader": "9.2.1",
     "typescript": "^4.2.4",
     "web-component-analyzer": "^1.1.6",
-    "workbox-build": "^4.3.1"
+    "workbox-build": "^4.3.1",
+    "svgo": "^1.3.2"
   },
   "peerDependencies": {
     "webpack": "^4.0.0"
