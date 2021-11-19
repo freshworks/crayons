@@ -7,6 +7,7 @@ import {
   Host,
   Prop,
   h,
+  State,
 } from '@stencil/core';
 
 @Component({
@@ -49,7 +50,8 @@ export class Button {
   @Prop() modalTriggerId = '';
 
   @TranslationController.i18n({ defaultValue: 'button' })
-  buttonText: any;
+  @State()
+  private buttonText: any;
 
   /**
    * Triggered when the button is clicked.
@@ -92,6 +94,10 @@ export class Button {
     }
     this.fwClick.emit();
   }
+
+  // componentWillLoad() {
+  //   console.log('fwbutton1');
+  // }
 
   render() {
     return (

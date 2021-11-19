@@ -2,8 +2,8 @@ import { Build as BUILD, ComponentInterface } from '@stencil/core';
 
 import { createStore } from '@stencil/store';
 
-import { setupConfig } from './config';
-import { AppConfigService } from './config-service';
+// import { setupConfig } from './config';
+// import { AppConfigService } from './config-service';
 
 interface i18nConfig {
   [key: string]: {
@@ -13,17 +13,24 @@ interface i18nConfig {
 declare global {
   interface Window {
     __crayons__requests: any;
+    __crayons__store: any;
   }
 }
-
-const { state, onChange } = createStore({
-  lang: '',
-  globalI18n: {
-    t: (k): string => {
-      return k;
-    },
-  },
-});
+let state, onChange;
+if (!window.__crayons__store) {
+  window.__crayons__store = { state, onChange } = createStore({
+    lang: '',
+    globalI18n: null,
+    customTranslations: {},
+  });
+  onChange('lang', async (lang) => {
+    console.log('new locale ', lang);
+    await fetchTranslations(true, lang);
+    console.log('setting strings change of lang ', state.globalI18n);
+  });
+} else {
+  ({ state, onChange } = window.__crayons__store);
+}
 
 window.__crayons__requests =
   window.__crayons__requests || new Map<string, Promise<any>>();
@@ -73,35 +80,28 @@ function getBrowserLang() {
   return browserLang;
 }
 
-async function fetchTranslations(lang): Promise<any> {
-  try {
-    const locale = lang || getLang();
+async function fetchTranslations(
+  forceUpdate?: boolean,
+  lang?: string
+): Promise<any> {
+  const locale = lang || getLang();
 
-    const defaultI18nStrings = await fetchDefaultTranslations(locale);
-
-    const customI18nStrings =
-      AppConfigService.getInstance().get('customI18nStrings')?.[locale] || {};
-    console.log({ locale, defaultI18nStrings, customI18nStrings });
-    const finalI18nStrings = {
-      ...defaultI18nStrings,
-      ...customI18nStrings,
-    };
-
-    return {
-      t(key) {
-        if (key) return finalI18nStrings[key.toLowerCase()] || key;
-        return '';
-      },
-    };
-  } catch (err) {
-    console.error(`Error fetching translations. Return the passed string`, err);
-    return {
-      t(key) {
-        if (key) return key;
-        return '';
-      },
-    };
+  let req = requests.get('translation_' + locale);
+  // eslint-disable-next-line no-constant-condition
+  if (forceUpdate || !req) {
+    req = fetchDefaultTranslations(locale).then((defaultI18nStrings) => {
+      const customI18nStrings = state.customTranslations?.[locale] || {};
+      console.log({ locale, defaultI18nStrings, customI18nStrings });
+      const finalI18nStrings = {
+        ...defaultI18nStrings,
+        ...customI18nStrings,
+      };
+      state.globalI18n = finalI18nStrings;
+      return finalI18nStrings;
+    });
+    requests.set('translation_' + locale, req);
   }
+  return req;
 }
 
 export function getLang(): string {
@@ -136,9 +136,7 @@ export function fetchDefaultTranslations(locale: string): Promise<any> {
 }
 
 export function setTranslations(json: i18nConfig): void {
-  setupConfig({
-    customI18nStrings: json,
-  });
+  state.customTranslations = json;
   console.log('setting custom translations ', json);
 }
 
@@ -149,19 +147,23 @@ export function i18n({ defaultValue = '' } = {}): any {
 
     const { componentWillLoad } = proto;
 
-    proto.componentWillLoad = function () {
+    proto.componentWillLoad = async function () {
       console.log(propName);
-      //console.log(this);
-
-      let isDefaultValueUsed = true;
-      if (!this[propName]) {
-        this[propName] = state.globalI18n.t(defaultValue);
-        isDefaultValueUsed = false;
+      if (!state.globalI18n) {
+        await fetchTranslations(false, getLang());
       }
 
-      onChange('globalI18n', async (strings) => {
-        if (!isDefaultValueUsed) {
-          this[propName] = strings.t(defaultValue);
+      let isDefaultValueUsed = false;
+      if (!this[propName]) {
+        this[propName] =
+          state.globalI18n[defaultValue.toLowerCase()] || defaultValue;
+        isDefaultValueUsed = true;
+      }
+
+      onChange('globalI18n', async () => {
+        if (isDefaultValueUsed) {
+          this[propName] =
+            state.globalI18n[defaultValue.toLowerCase()] || defaultValue;
         }
       });
 
@@ -170,12 +172,15 @@ export function i18n({ defaultValue = '' } = {}): any {
   };
 }
 
-onChange('lang', async (lang) => {
-  console.log('new locale ', lang);
-  const strings = await fetchTranslations(state.lang);
-  state.globalI18n = strings;
-  console.log('setting strings');
-});
+// onChange('customTranslations', async (customI18nStrings) => {
+//   console.log('new customI18nStrings ', customI18nStrings);
+
+//   await fetchTranslations(true);
+//   console.log(
+//     'setting strings change of customtranslations ',
+//     state.globalI18n
+//   );
+// });
 
 if ('MutationObserver' in window) {
   const mo = new MutationObserver(async (data) => {

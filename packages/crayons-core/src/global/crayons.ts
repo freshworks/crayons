@@ -16,7 +16,3 @@ export function ToastController(config: ToastOptions): ToastResult {
 
   return { trigger };
 }
-
-// export default async function (): Promise<void> {
-//   i18nState.lang = getLang();
-// }
