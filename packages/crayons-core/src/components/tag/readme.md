@@ -46,13 +46,13 @@ function App() {
 
 ## Properties
 
-| Property        | Attribute  | Description                                                                                                                            | Type                     | Default      |
-| --------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------ |
-| `disabled`      | `disabled` | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false. | `boolean`                | `undefined`  |
-| `graphicsProps` | --         | The pops need to be passed for the variant. If the variant is avatar the use this prop to send the pops for the fw-avatar.             | `{}`                     | `{}`         |
-| `text`          | `text`     | Display text in the tag component.                                                                                                     | `string`                 | `undefined`  |
-| `value`         | `value`    | Value associated with the tag component, that is saved when the form data is saved.                                                    | `string`                 | `undefined`  |
-| `variant`       | `variant`  | The variant of tag to be displayed.                                                                                                    | `"avatar" \| "standard"` | `'standard'` |
+| Property        | Attribute  | Description                                                                                                                             | Type                     | Default      |
+| --------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------ |
+| `disabled`      | `disabled` | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.  | `boolean`                | `undefined`  |
+| `graphicsProps` | --         | The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component. | `{}`                     | `{}`         |
+| `text`          | `text`     | Display text in the tag component.                                                                                                      | `string`                 | `undefined`  |
+| `value`         | `value`    | Value associated with the tag component, that is saved when the form data is saved.                                                     | `string`                 | `undefined`  |
+| `variant`       | `variant`  | The variant of tag to be displayed.                                                                                                     | `"avatar" \| "standard"` | `'standard'` |
 
 
 ## Events

@@ -715,7 +715,7 @@ export namespace Components {
          */
         "disabled": false;
         /**
-          * The pops need to be passed for the variant. If the variant is avatar the use this prop to send the pops for the fw-avatar.
+          * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps": {};
         /**
@@ -1937,7 +1937,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: false;
         /**
-          * The pops need to be passed for the variant. If the variant is avatar the use this prop to send the pops for the fw-avatar.
+          * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps"?: {};
         /**
