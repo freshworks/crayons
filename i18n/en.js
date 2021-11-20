@@ -6,4 +6,5 @@ export default {
   'search': 'Search',
   'no items found': 'No items found',
   'no data available': 'No data available',
+  'button': 'button',
 };

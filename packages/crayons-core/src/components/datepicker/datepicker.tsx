@@ -49,8 +49,6 @@ export class Datepicker {
 
   @Element() host: HTMLElement;
 
-  strings: any;
-
   /**
    *   Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
    */
@@ -725,10 +723,10 @@ export class Datepicker {
             {/* Footer Section */}
             <div class='mdpc-range-footer'>
               <fw-button color='primary' class='update-range-value'>
-                {this.strings.t('update')}
+                {this.updateText}
               </fw-button>
               <fw-button color='secondary' class='close-date-picker'>
-                {this.strings.t('cancel')}
+                {this.cancelText}
               </fw-button>
             </div>
           </div>

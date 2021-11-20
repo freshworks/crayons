@@ -29,7 +29,7 @@ describe('fw-button1', () => {
         <slot></slot>
       </button>
       <fw-label class="hydrated"></fw-label>
-      button`);
+      btn button`);
   });
 
   it('should set button as secondary when color is secondary', async () => {
@@ -42,6 +42,6 @@ describe('fw-button1', () => {
         <slot></slot>
       </button>
       <fw-label class="hydrated"></fw-label>
-      button`);
+      btn button`);
   });
 });

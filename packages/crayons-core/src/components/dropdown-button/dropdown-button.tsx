@@ -344,7 +344,6 @@ export class DropdownButton {
   }
 
   componentWillLoad() {
-    console.log('dropdown running');
     document.addEventListener('click', (e) => {
       const { target } = e;
       const canClose =

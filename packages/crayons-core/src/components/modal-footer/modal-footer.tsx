@@ -59,7 +59,6 @@ export class ModalFooter {
     if (this.custom === null) {
       this.custom = hasSlot(this.el);
     }
-    console.log('footer runnin');
   }
 
   /**
