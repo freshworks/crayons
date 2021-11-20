@@ -1,5 +1,5 @@
-import { TranslationController } from '@freshworks/crayons-i18n';
+import { TranslationController as controller } from '@freshworks/crayons-i18n';
 
-export const controller = new TranslationController();
+export const TranslationController = new controller();
 
-export const i18n = controller.i18n.bind(controller);
+export const i18n = TranslationController.i18n.bind(TranslationController);
