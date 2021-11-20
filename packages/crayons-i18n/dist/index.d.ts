@@ -1,1 +1,0 @@
-export { TranslationController } from './Translation';
