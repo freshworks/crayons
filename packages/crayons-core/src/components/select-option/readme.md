@@ -29,7 +29,7 @@ import ReactDOM from "react-dom";
 import { FwSelectOption } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-        <FwSelectOption selected="true">I am the chosen one</FwSelectOption>
+        <FwSelectOption selected>I am the chosen one</FwSelectOption>
         <FwSelectOption html htmlContent="<b>Me, nein</b>"></FwSelectOption>
         <FwSelectOption>I am another option</FwSelectOption>
     </div>);
@@ -48,7 +48,7 @@ function App() {
   sub-text="This is multiline element"
 ></fw-select-option>
 <fw-select-option
-  variant="checkbox"
+  is-checkbox
   text="Checkbox Variant"
   sub-text="This is multiline checkbox element"
 ></fw-select-option>
@@ -65,7 +65,7 @@ function App() {
   sub-text="This is multiline element"
 ></fw-select-option>
 <fw-select-option
-  variant="checkbox"
+  is-checkbox
   text="Checkbox Variant"
   sub-text="This is multiline checkbox element"
 ></fw-select-option>
@@ -85,7 +85,7 @@ function App() {
           subText="This is multiline element"
         ></FwSelectOption>
         <FwSelectOption
-          variant="checkbox"
+          isCheckbox
           text="Checkbox Variant"
           subText="This is multiline checkbox element"
         ></FwSelectOption>

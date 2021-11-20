@@ -9,6 +9,7 @@ Button groups can be used to group related buttons into sections.
     <fw-button>Cancel</fw-button>
   </fw-button-group>
   </section>
+  <br/>
 
 <section>
     <fw-button-group label="Test">
@@ -30,7 +31,7 @@ Button groups can be used to group related buttons into sections.
     <fw-button>Cancel</fw-button>
   </fw-button-group>
   </section>
-
+<br/>
 <section>
     <fw-button-group label="Test">
     <fw-button id="b1" size="icon" color="secondary"><fw-icon name="reply" color="black"></fw-icon> </fw-button>
@@ -45,34 +46,24 @@ Button groups can be used to group related buttons into sections.
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FwCheckbox } from "@freshworks/crayons/react";
+import { FwButtonGroup, FwButton, FwIcon } from "@freshworks/crayons/react";
 function App() {
   return (<div>
     <FwButtonGroup>
-<FwButton color="secondary"> Replace</FwButton> 
-<FwButton color="secondary">Modify</FwButton> 
-<FwButton color="secondary">Cancel</FwButton>
-</FwButtonGroup>
+      <FwButton color="secondary"> Replace</FwButton> 
+      <FwButton color="secondary">Modify</FwButton> 
+      <FwButton color="secondary">Cancel</FwButton>
+    </FwButtonGroup>
+
+  <FwButtonGroup>
+    <FwButton id="b1" size="icon" color="secondary"><FwIcon name="reply" color="black"></FwIcon> </FwButton> 
+    <FwButton id="b1" size="icon" color="secondary"><FwIcon name="chat-online" color="black"></FwIcon> </FwButton>
+    <FwButton id="b1" size="icon" color="secondary"><FwIcon name="more-horizontal" color="black"></FwIcon> </FwButton>
+  </FwButtonGroup>
 
   </div>)
 }
 ```
-```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { FwCheckbox } from "@freshworks/crayons/react";
-function App() {
-  return (<div>
-    
-<FwButtonGroup>
-        <FwButton id="b1" size="icon" color="secondary"><FwIcon name="reply" color="black"></FwIcon> </FwButton> 
-        <FwButton id="b1" size="icon" color="secondary"><FwIcon name="chat-online" color="black"></FwIcon> </FwButton>
-        <FwButton id="b1" size="icon" color="secondary"><FwIcon name="more-horizontal" color="black"></FwIcon> </FwButton>
-      </FwButtonGroup>
-  </div>)
-}
-```
-
 </code-block>
 </code-group>
 

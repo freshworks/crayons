@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.2...@freshworks/crayons@3.0.0-beta.4) (2021-11-19)
+
+### Bug Fixes
+
+- **fw-datepicker:** added more placement options ([#262](https://github.com/freshworks/crayons/issues/262)) ([0a2f7b5](https://github.com/freshworks/crayons/commit/0a2f7b5f3073ba31d1a1e9663e6afe2d848cd573))
+- **popover:** prevent scroll chaining and expose props for min, max heights ([#287](https://github.com/freshworks/crayons/issues/287)) ([f7525f0](https://github.com/freshworks/crayons/commit/f7525f0a93973673e0a17adfd9c10d1bfb8c3791))
+- **tab:** fix fw-tab to work with react typescript ([#285](https://github.com/freshworks/crayons/issues/285)) ([f93add1](https://github.com/freshworks/crayons/commit/f93add1919c8c9b0a9cf86c8a408141ef45203a2))
+
+### Features
+
+- **fw-list-options:** Moved the dynamic filter logic from fw-select to fw-list-options ([#286](https://github.com/freshworks/crayons/issues/286)) ([aed2184](https://github.com/freshworks/crayons/commit/aed2184ce41eb7e938ba64c091438a276e14931c))
+- **fw-popover:** added show/hide event emitters and new props ([#268](https://github.com/freshworks/crayons/issues/268)) ([e369c1c](https://github.com/freshworks/crayons/commit/e369c1c7ba69f8287a6fe52a862a9dea01a4bcb9))
+- **fw-tag:** added avatar variant for tag ([#290](https://github.com/freshworks/crayons/issues/290)) ([c568d06](https://github.com/freshworks/crayons/commit/c568d069d505b352f9d54e83f2f72e00ef5b7ddb))
+- **slider:** adding slider variant to modal component ([#288](https://github.com/freshworks/crayons/issues/288)) ([4eef379](https://github.com/freshworks/crayons/commit/4eef379e990f7423a0bb0677d057539fdd3cbf68))
+- **avatar:** avatar component ([#281](https://github.com/freshworks/crayons/issues/281)) ([dbf256d](https://github.com/freshworks/crayons/commit/dbf256db14ef42b3326192593521312abdffe928))
+
+
 ## [3.0.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.2...@freshworks/crayons@3.0.0-beta.3) (2021-11-12)
 
 ### Bug Fixes
@@ -20,7 +37,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **toggle:** show icon for toggle by default ([#273](https://github.com/freshworks/crayons/issues/273)) ([f6358a6](https://github.com/freshworks/crayons/commit/f6358a6e6911d814cff86d156192c20883a1bcca))
 - **multi toast:** Multi Toast Notification with toast component and ToastController ([#276](https://github.com/freshworks/crayons/issues/276)) ([e2fb9c0](https://github.com/freshworks/crayons/commit/e2fb9c09c83042234e361e548f2fd1301f031189))
 - **button group:** new button group component added ([#274](https://github.com/freshworks/crayons/issues/274)) ([a55feb2](https://github.com/freshworks/crayons/commit/a55feb222673e888a4c160ea2ca0c53ad330264a))
-
 
 ## [3.0.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.1...@freshworks/crayons@3.0.0-beta.2) (2021-11-03)
 
@@ -44,7 +60,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
-- **fw-tab:** fw-tab-header attribute is now removed, instead use fw-tab children for using html content for tab header and use fw-tab-panel for panel content
+- **fw-tab:** _tab-header_ attribute is now removed, instead use fw-tab children for using html content for tab header and use fw-tab-panel for panel content
 - **fw-modal:** Changing visibility property to is-open property.
 
 ## [3.0.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.0...@freshworks/crayons@3.0.0-beta.1) (2021-10-22)

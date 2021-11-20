@@ -16,7 +16,13 @@ export namespace Components {
         "initials": string;
         "mode": 'dark' | 'light';
         "shape": 'circle' | 'square' | 'rounded';
-        "size": 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+        "size": | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall';
     }
     interface FwButton {
         /**
@@ -266,6 +272,10 @@ export namespace Components {
     interface FwListOptions {
         "clearFilter": () => Promise<void>;
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer": number;
+        /**
           * The text to filter the options.
          */
         "filterText": any;
@@ -282,6 +292,10 @@ export namespace Components {
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
         "multiple": boolean;
+        /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText": string;
         /**
           * Default option to be shown if the option doesn't match the filterText.
          */
@@ -302,6 +316,11 @@ export namespace Components {
           * Enables the input with in the popup for filtering the options.
          */
         "searchable": boolean;
+        /**
+          * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions": any[];
+        "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
@@ -348,6 +367,10 @@ export namespace Components {
          */
         "size": 'standard' | 'small' | 'large';
         /**
+          * Convert modal to slider
+         */
+        "slider": boolean;
+        /**
           * The color of submit button
          */
         "submitColor": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
@@ -393,10 +416,6 @@ export namespace Components {
         "submitText": string;
     }
     interface FwModalTitle {
-        /**
-          * Function to call on close of modal
-         */
-        "close": any;
         /**
           * The title text to be displayed on the modal
          */
@@ -551,7 +570,7 @@ export namespace Components {
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
-        "search": (text: string, dataSource: any[]) => Promise<any[]>;
+        "search": any;
         /**
           * Allow to search for value. Default is true.
          */
@@ -560,6 +579,7 @@ export namespace Components {
           * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
@@ -653,6 +673,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * The name of the tab panel which this tab controls.
+         */
+        "panel": string;
+        /**
           * Header for the tab to be displayed.
          */
         "tabHeader": string;
@@ -691,6 +715,10 @@ export namespace Components {
          */
         "disabled": false;
         /**
+          * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
+         */
+        "graphicsProps": {};
+        /**
           * Display text in the tag component.
          */
         "text": string;
@@ -698,6 +726,10 @@ export namespace Components {
           * Value associated with the tag component, that is saved when the form data is saved.
          */
         "value": string;
+        /**
+          * The variant of tag to be displayed.
+         */
+        "variant": 'standard' | 'avatar';
     }
     interface FwTextarea {
         /**
@@ -1100,7 +1132,13 @@ declare namespace LocalJSX {
         "initials"?: string;
         "mode"?: 'dark' | 'light';
         "shape"?: 'circle' | 'square' | 'rounded';
-        "size"?: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+        "size"?: | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall';
     }
     interface FwButton {
         /**
@@ -1407,6 +1445,10 @@ declare namespace LocalJSX {
     }
     interface FwListOptions {
         /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer"?: number;
+        /**
           * The text to filter the options.
          */
         "filterText"?: any;
@@ -1423,6 +1465,10 @@ declare namespace LocalJSX {
          */
         "multiple"?: boolean;
         /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText"?: string;
+        /**
           * Default option to be shown if the option doesn't match the filterText.
          */
         "notFoundText"?: string;
@@ -1430,6 +1476,10 @@ declare namespace LocalJSX {
           * Triggered when a value is selected or deselected from the list box options.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the options list is in loading state processing the search function.
+         */
+        "onFwLoading"?: (event: CustomEvent<any>) => void;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
@@ -1446,6 +1496,10 @@ declare namespace LocalJSX {
           * Enables the input with in the popup for filtering the options.
          */
         "searchable"?: boolean;
+        /**
+          * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions"?: any[];
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -1493,6 +1547,10 @@ declare namespace LocalJSX {
          */
         "size"?: 'standard' | 'small' | 'large';
         /**
+          * Convert modal to slider
+         */
+        "slider"?: boolean;
+        /**
           * The color of submit button
          */
         "submitColor"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
@@ -1538,10 +1596,6 @@ declare namespace LocalJSX {
         "submitText"?: string;
     }
     interface FwModalTitle {
-        /**
-          * Function to call on close of modal
-         */
-        "close"?: any;
         /**
           * The title text to be displayed on the modal
          */
@@ -1733,7 +1787,7 @@ declare namespace LocalJSX {
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
-        "search"?: (text: string, dataSource: any[]) => Promise<any[]>;
+        "search"?: any;
         /**
           * Allow to search for value. Default is true.
          */
@@ -1837,6 +1891,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * The name of the tab panel which this tab controls.
+         */
+        "panel"?: string;
+        /**
           * Header for the tab to be displayed.
          */
         "tabHeader"?: string;
@@ -1879,6 +1937,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: false;
         /**
+          * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
+         */
+        "graphicsProps"?: {};
+        /**
           * Triggered when the tag is deselected.
          */
         "onFwClosed"?: (event: CustomEvent<any>) => void;
@@ -1890,6 +1952,10 @@ declare namespace LocalJSX {
           * Value associated with the tag component, that is saved when the form data is saved.
          */
         "value"?: string;
+        /**
+          * The variant of tag to be displayed.
+         */
+        "variant"?: 'standard' | 'avatar';
     }
     interface FwTextarea {
         /**

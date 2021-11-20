@@ -29,6 +29,11 @@ export class Tab {
    */
   @Prop() active: boolean;
 
+  /**
+   * The name of the tab panel which this tab controls.
+   */
+  @Prop() panel: string;
+
   connectedCallback() {
     if (!this.tabName) {
       this.el.id = `fw-tab-${counter++}`;
