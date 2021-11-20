@@ -1,2 +1,3 @@
 export * from './components';
-export { ToastController, TranslationController } from '../dist/components/index' 
+export { ToastController } from '../dist/components/index' 
+export { TranslationController, i18n } from '../dist/components/index' 

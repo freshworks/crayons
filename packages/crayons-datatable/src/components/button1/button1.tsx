@@ -1,4 +1,4 @@
-import { TranslationController } from '@freshworks/crayons/dist/components';
+import { i18n } from '../../global/Translation';
 import {
   Component,
   Element,
@@ -49,7 +49,7 @@ export class Button {
    */
   @Prop() modalTriggerId = '';
 
-  @TranslationController.i18n({ defaultValue: 'button' })
+  @i18n({ defaultValue: 'button' })
   @State()
   private buttonText: any;
 

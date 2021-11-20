@@ -1,0 +1,27 @@
+{
+  "name": "@freshworks/crayons-i18n",
+  "version": "1.0.0",
+  "description": "Crayons I18n Lib",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "main": "index.js",
+    "build": "tsc"
+  },
+  "keywords": [
+    "Crayons",
+    "i18n"
+  ],
+  "author": "Freshworks",
+  "license": "ISC",
+  "devDependencies": {
+    "@stencil/store": "^1.5.0",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@stencil/core": "^2.9.0"
+  }
+}
