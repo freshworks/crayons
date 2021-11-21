@@ -11,9 +11,28 @@
     <script type="module" src="/build/crayons.esm.js"></script>
     <script nomodule src="/build/crayons.js"></script>
   </head>
+  <style>
+.circle fw-skeleton {
+   display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    margin-right: .5rem;
+}
+  </style>
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
   
+    <div class="circle">
+      <fw-skeleton variant="circle"></fw-skeleton>
+      <fw-skeleton variant="circle"></fw-skeleton>
+      <fw-skeleton variant="circle"></fw-skeleton>
+    </div>
+
+     <fw-skeleton variant="circle" custom-styles='{"display": "inline-block", "margin-right":"0.5rem"}'></fw-skeleton>
+ 
+    <fw-skeleton></fw-skeleton>
+    <fw-skeleton></fw-skeleton>
+
 <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
    <fw-select
       label="Select App type"

@@ -1,0 +1,114 @@
+.skeleton {
+  box-sizing: border-box;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  background: var(--skeleton-background, $color-smoke-100);
+  border-radius: var(--skeleton-border-radius, 999px);
+  width: var(--skeleton-width, 100%);
+  height: var(--skeleton-height, 16px);
+  display: block;
+  margin-bottom: var(--skeleton-margin-bottom, 8px);
+  will-change: transform;
+
+  &:after,
+  &:before {
+    box-sizing: border-box;
+  }
+
+  &.circle {
+    width: var(--skeleton-width, 32px);
+    height: var(--skeleton-height, 32px);
+    margin-bottom: var(--skeleton-margin-bottom, 8px);
+    border-radius: var(--skeleton-border-radius, 50%);
+  }
+
+  &.rect {
+    border-radius: var(--skeleton-border-radius, 0px);
+  }
+
+  // stylelint-disable a11y/media-prefers-reduced-motion
+  @media (prefers-reduced-motion: reduce) {
+    &.pulse,
+    &.sheen,
+    &.progress-dark,
+    &.progress {
+      animation: none;
+    }
+
+    &.progress,
+    &.progress-dark {
+      background-image: none;
+    }
+  }
+
+  &.progress,
+  &.progress-dark {
+    animation: progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    background-size: 200px 100%;
+  }
+
+  &.progress {
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
+  &.progress-dark {
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 0, 0, 0.2),
+      transparent
+    );
+  }
+
+  &.pulse {
+    animation: pulse 2s ease-in-out 0.5s infinite;
+  }
+
+  &.sheen {
+    background: linear-gradient(
+      270deg,
+      var(--sheen-color, $color-smoke-100),
+      var(--skeleton-background, $color-smoke-100),
+      var(--skeleton-background, $color-smoke-100),
+      var(--sheen-color, $color-smoke-100)
+    );
+
+    animation: sheen 8s ease-in-out infinite;
+  }
+}
+
+@keyframes progress {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes sheen {
+  0% {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
