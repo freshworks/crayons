@@ -84,7 +84,7 @@ export class ListOptions {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @i18n({ defaultValue: 'No items Found' })
+  @i18n({ defaultValue: 'No items Found', keyName: 'search.no_items_found' })
   @Prop({ mutable: true })
   notFoundText = '';
   /**
@@ -96,7 +96,7 @@ export class ListOptions {
   /**
    * Placeholder to placed on the search text box.
    */
-  @i18n({ defaultValue: 'Search' })
+  @i18n({ defaultValue: 'Search', keyName: 'search.search' })
   @Prop({ mutable: true })
   searchText = '';
 

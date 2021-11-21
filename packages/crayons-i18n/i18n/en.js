@@ -1,10 +1,16 @@
 export default {
-  'add': 'Add',
-  'cancel': 'Cancel',
-  'update': 'Update',
-  'ok': 'OK',
-  'search': 'Search',
-  'no items found': 'No items found',
-  'no data available': 'No data available',
-  'button': 'button',
+  common: {
+    add: 'Add',
+    cancel: 'Cancel',
+    update: 'Update',
+  },
+  modal: {
+    cancel: 'Modal_Cancel',
+    ok: 'OK',
+  },
+  search: {
+    search: 'Search',
+    no_items_found: 'No items found',
+    no_data_available: 'No data available',
+  },
 };

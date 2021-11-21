@@ -13,14 +13,14 @@ export class ModalFooter {
   /**
    * The text for the submit button
    */
-  @i18n({ defaultValue: 'OK' })
+  @i18n({ defaultValue: 'OK', keyName: 'modal.ok' })
   @Prop({ mutable: true })
   submitText = '';
 
   /**
    * The text for the cancel button
    */
-  @i18n({ defaultValue: 'Cancel' })
+  @i18n({ defaultValue: 'Cancel', keyName: 'modal.cancel' })
   @Prop({ mutable: true })
   cancelText = '';
 

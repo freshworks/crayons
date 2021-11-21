@@ -49,7 +49,7 @@ export class Button {
    */
   @Prop() modalTriggerId = '';
 
-  @i18n({ defaultValue: 'button' })
+  @i18n({ defaultValue: 'Button', keyName: 'button' })
   @State()
   private buttonText: any;
 

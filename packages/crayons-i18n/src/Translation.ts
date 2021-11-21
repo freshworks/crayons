@@ -4,7 +4,7 @@ import { createStore } from '@stencil/store';
 
 interface i18nConfig {
   [key: string]: {
-    [key: string]: string;
+    [key: string]: Record<string, unknown> | string;
   };
 }
 
@@ -53,6 +53,12 @@ function getNavigatorLang() {
 function getBrowserLang(): string {
   const locale = getLangAttr() || getNavigatorLang();
   return locale;
+}
+
+function getVal(path: string, obj: any) {
+  return path?.split('.').reduce((r, val) => {
+    return r ? r[val] : undefined;
+  }, obj);
 }
 
 export class TranslationController {
@@ -158,7 +164,22 @@ export class TranslationController {
   }
 
   /**
-   * set custom translations. ex: { "en":{"hello":"world"}, "de":{"hello":"hola"} }
+   * set custom translations. ex: {
+    en: {
+      common: {
+        add: 'Add',
+        cancel: 'Cancel',
+        update: 'Update',
+      },
+    },
+    de: {
+      common: {
+        add: 'Addieren',
+        cancel: 'Stornieren',
+        update: 'Aktualisierung',
+      },
+    },
+  };
    * it will override existing translations if the key is already present.
    * @param json
    */
@@ -168,7 +189,7 @@ export class TranslationController {
   }
 
   /** Decorator to handle i18n support */
-  i18n({ defaultValue = '' } = {}): any {
+  i18n({ defaultValue = '', keyName = '' } = {}): any {
     return (proto: ComponentInterface, propName: string) => {
       (BUILD as any).cmpWillLoad = true;
 
@@ -185,14 +206,15 @@ export class TranslationController {
         let isDefaultValueUsed = false;
         if (!this[propName]) {
           this[propName] =
-            that.state.globalI18n[defaultValue.toLowerCase()] || defaultValue;
+            getVal(keyName.toLowerCase(), that.state.globalI18n) ||
+            defaultValue;
           isDefaultValueUsed = true;
         }
 
         that.onChange('globalI18n', async () => {
           if (isDefaultValueUsed) {
             this[propName] =
-              (that.state.globalI18n[defaultValue.toLowerCase()] as any) ||
+              getVal(keyName.toLowerCase(), that.state.globalI18n) ||
               defaultValue;
           }
         });

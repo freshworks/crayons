@@ -86,10 +86,10 @@ export class Datepicker {
    */
   @Prop() placeholder: string;
 
-  @i18n({ defaultValue: 'update' })
+  @i18n({ defaultValue: 'Update', keyName: 'common.update' })
   @State()
   updateText: string;
-  @i18n({ defaultValue: 'cancel' })
+  @i18n({ defaultValue: 'Cancel', keyName: 'common.cancel' })
   @State()
   cancelText: string;
 
