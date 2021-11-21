@@ -115,7 +115,6 @@ function wrapFn(fn, options) {
           return;
         }
       }
-
       fn.apply(this, arr);
     } catch (error) {
       console.error(

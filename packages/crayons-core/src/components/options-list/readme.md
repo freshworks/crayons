@@ -67,26 +67,30 @@ The data-source and the visual variant for the list options can be altered via t
 
 ## Properties
 
-| Property       | Attribute        | Description                                                                                                                                                                                                                               | Type                                                  | Default                      |
-| -------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------- |
-| `filterText`   | `filter-text`    | The text to filter the options.                                                                                                                                                                                                           | `any`                                                 | `undefined`                  |
-| `isCheckbox`   | `is-checkbox`    | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                                             | `false`                      |
-| `max`          | `max`            | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                              | `Number.MAX_VALUE`           |
-| `multiple`     | `multiple`       | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                                             | `false`                      |
-| `notFoundText` | `not-found-text` | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                                              | `'No items Found'`           |
-| `options`      | --               | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                                                                            | `any[]`                                               | `[]`                         |
-| `search`       | --               | Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.           | `(text: string, dataSource: any[]) => Promise<any[]>` | `this.defaultSearchFunction` |
-| `searchText`   | `search-text`    | Placeholder to placed on the search text box.                                                                                                                                                                                             | `string`                                              | `'Search...'`                |
-| `searchable`   | `searchable`     | Enables the input with in the popup for filtering the options.                                                                                                                                                                            | `boolean`                                             | `false`                      |
-| `value`        | --               | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any[]`                                               | `[]`                         |
-| `variant`      | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                    | `'standard'`                 |
+| Property          | Attribute        | Description                                                                                                                                                                                                                               | Type                                                  | Default                      |
+| ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------- |
+| `debounceTimer`   | `debounce-timer` | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                              | `300`                        |
+| `filterText`      | `filter-text`    | The text to filter the options.                                                                                                                                                                                                           | `any`                                                 | `undefined`                  |
+| `isCheckbox`      | `is-checkbox`    | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                                             | `false`                      |
+| `max`             | `max`            | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                              | `Number.MAX_VALUE`           |
+| `multiple`        | `multiple`       | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                                             | `false`                      |
+| `noDataText`      | `no-data-text`   | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                                              | `'No Data available'`        |
+| `notFoundText`    | `not-found-text` | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                                              | `'No items Found'`           |
+| `options`         | --               | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                                                                            | `any[]`                                               | `[]`                         |
+| `search`          | --               | Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.           | `(text: string, dataSource: any[]) => Promise<any[]>` | `this.defaultSearchFunction` |
+| `searchText`      | `search-text`    | Placeholder to placed on the search text box.                                                                                                                                                                                             | `string`                                              | `'Search...'`                |
+| `searchable`      | `searchable`     | Enables the input with in the popup for filtering the options.                                                                                                                                                                            | `boolean`                                             | `false`                      |
+| `selectedOptions` | --               | The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                            | `any[]`                                               | `[]`                         |
+| `value`           | --               | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any[]`                                               | `[]`                         |
+| `variant`         | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                    | `'standard'`                 |
 
 
 ## Events
 
-| Event      | Description                                                                 | Type               |
-| ---------- | --------------------------------------------------------------------------- | ------------------ |
-| `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
+| Event       | Description                                                                         | Type               |
+| ----------- | ----------------------------------------------------------------------------------- | ------------------ |
+| `fwChange`  | Triggered when a value is selected or deselected from the list box options.         | `CustomEvent<any>` |
+| `fwLoading` | Triggered when the options list is in loading state processing the search function. | `CustomEvent<any>` |
 
 
 ## Methods
@@ -102,6 +106,16 @@ Type: `Promise<void>`
 
 
 ### `getSelectedOptions() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+### `setSelectedOptions(options: any[]) => Promise<any>`
 
 
 

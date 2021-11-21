@@ -13,7 +13,9 @@ import {
   ProgressLoaderOptions,
 } from '../components/progress-loader/progress-loader-util';
 
-export function ToastController(config: ToastOptions): ToastResult {
+export function ToastController(
+  config: ToastOptions = { position: 'top-center' }
+): ToastResult {
   const toastContainer = createToastStack(config);
 
   function trigger(opts: ToastOptions) {

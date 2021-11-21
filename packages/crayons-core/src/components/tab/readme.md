@@ -39,12 +39,13 @@ function App() {
 
 ## Properties
 
-| Property    | Attribute    | Description                           | Type      | Default     |
-| ----------- | ------------ | ------------------------------------- | --------- | ----------- |
-| `active`    | `active`     | Determines whether the tab is active. | `boolean` | `undefined` |
-| `disabled`  | `disabled`   | Disables this tab                     | `boolean` | `undefined` |
-| `tabHeader` | `tab-header` | Header for the tab to be displayed.   | `string`  | `undefined` |
-| `tabName`   | `tab-name`   | Unique name of the tab.               | `string`  | `undefined` |
+| Property    | Attribute    | Description                                        | Type      | Default     |
+| ----------- | ------------ | -------------------------------------------------- | --------- | ----------- |
+| `active`    | `active`     | Determines whether the tab is active.              | `boolean` | `undefined` |
+| `disabled`  | `disabled`   | Disables this tab                                  | `boolean` | `undefined` |
+| `panel`     | `panel`      | The name of the tab panel which this tab controls. | `string`  | `undefined` |
+| `tabHeader` | `tab-header` | Header for the tab to be displayed.                | `string`  | `undefined` |
+| `tabName`   | `tab-name`   | Unique name of the tab.                            | `string`  | `undefined` |
 
 
 ----------------------------------------------

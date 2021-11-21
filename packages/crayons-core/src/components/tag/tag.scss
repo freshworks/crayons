@@ -1,6 +1,5 @@
 .tag {
   line-height: 1.4;
-  border-radius: 4px;
   background-color: $color-smoke-50;
   border: none;
   font-size: $font-size-12;
@@ -10,19 +9,55 @@
   width: auto;
   font-weight: 500;
   word-break: break-all;
-  padding: 3px 0 4px 8px;
+  vertical-align: middle;
+
+  &-standard {
+    border-radius: 4px;
+    padding: 3px 0 4px 8px;
+  }
+
+  &-avatar {
+    border-radius: 8px;
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+    }
+
+    fw-avatar {
+      margin: 6px 8px 6px 6px;
+    }
+  }
 
   .remove-btn {
     opacity: 1;
     color: $color-elephant-800;
-    padding: 3px 8px 5px;
     font-size: $font-size-16;
-    border-radius: 4px;
     line-height: normal;
     position: relative;
     right: 0;
-    margin-left: 4px;
-    height: 100%;
+
+    &.standard {
+      height: 100%;
+      margin-left: 4px;
+      padding: 3px 8px 5px;
+      border-radius: 4px;
+    }
+
+    &.avatar {
+      width: 24px;
+      height: 24px;
+      margin: 4px 4px 4px 8px;
+      border-radius: 8px;
+      text-align: center;
+
+      &:hover,
+      &:focus {
+        background-color: $color-milk;
+        cursor: pointer;
+      }
+    }
 
     &:hover,
     &:focus {
