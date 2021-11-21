@@ -98,7 +98,7 @@ toast.trigger({type:'success', content: 'Successfullly triggered'})
 ## ToastOptions
 Below is the interface for `ToastOptions` that can be used for creating the toast
 ```js
-export interface ToastOptions {
+interface ToastOptions {
   /**
    * The Content of the action link
    */
