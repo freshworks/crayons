@@ -27,7 +27,7 @@ function getLangAttr(element = document.body) {
   }
   return lang;
 }
-function getBrowserLang() {
+function getNavigatorLang() {
   if (
     typeof window === 'undefined' ||
     typeof window.navigator === 'undefined'
@@ -50,8 +50,8 @@ function getBrowserLang() {
   }
   return browserLang;
 }
-function getLang(): string {
-  const locale = getLangAttr() || getBrowserLang();
+function getBrowserLang(): string {
+  const locale = getLangAttr() || getNavigatorLang();
   return locale;
 }
 
@@ -70,12 +70,15 @@ export class TranslationController {
     this.onChange = onChange;
 
     this.onChange('lang', async (lang: string) => {
-      console.log('new locale ', lang);
-      await this.fetchTranslations(true, lang);
-      console.log('setting strings change of lang ', this.state.globalI18n);
+      console.log('Language Change Detected ', lang);
+      await this.fetchTranslations(lang, true);
+      console.log(
+        'Updating strings due to change of lang ',
+        this.state.globalI18n
+      );
     });
 
-    console.log('Initalising state *** ', { state: this.state });
+    console.log('Initalising state');
 
     if ('MutationObserver' in window) {
       const mo = new MutationObserver(async (data) => {
@@ -95,16 +98,15 @@ export class TranslationController {
     }
   }
 
-  async fetchTranslations(forceUpdate?: boolean, lang?: string): Promise<any> {
-    const locale = lang || getLang();
+  async fetchTranslations(lang?: string, ignoreCache?: boolean): Promise<any> {
+    const locale = lang || getBrowserLang();
 
     let req = this.requests.get('translation_' + locale);
     // eslint-disable-next-line no-constant-condition
-    if (forceUpdate || !req) {
+    if (ignoreCache || !req) {
       req = this.fetchDefaultTranslations(locale).then((defaultI18nStrings) => {
         const customI18nStrings =
           (this.state.customTranslations as any)?.[locale] || {};
-        console.log({ locale, defaultI18nStrings, customI18nStrings });
         const finalI18nStrings = {
           ...defaultI18nStrings,
           ...customI18nStrings,
@@ -117,35 +119,52 @@ export class TranslationController {
     return req;
   }
 
+  /**
+   * set lang manually
+   * @param lang
+   */
   setLang(lang: string): void {
     this.state.lang = lang;
   }
 
-  fetchDefaultTranslations(locale: string): Promise<any> {
-    let req = this.requests.get(locale);
+  /**
+   *
+   * @returns the selected lang
+   */
+  getLang(): string {
+    return this.state.lang;
+  }
+
+  fetchDefaultTranslations(lang: string): Promise<any> {
+    let req = this.requests.get(lang);
     if (!req) {
-      console.log('get default translations for pull from config', locale);
-      req = import(`../i18n/${locale}.js`)
+      console.log('Get Default translations from config for lang', lang);
+      req = import(`../i18n/${lang}.js`)
         .then((result) => result.default)
         .then((data) => {
           return data;
         })
         .catch((err) => {
           console.error(
-            `Error loading locale: ${locale} from pre-defined set`,
+            `Error loading config for lang: ${lang} from pre-defined set`,
             err
           );
           return {};
         });
-      this.requests.set(locale, req);
+      this.requests.set(lang, req);
     }
 
     return req;
   }
 
+  /**
+   * set custom translations. ex: { "en":{"hello":"world"}, "de":{"hello":"hola"} }
+   * it will override existing translations if the key is already present.
+   * @param json
+   */
   setTranslations(json: i18nConfig): void {
     this.state.customTranslations = json;
-    console.log('setting custom translations ', json);
+    console.log('Setting Custom translations ', json);
   }
 
   /** Decorator to handle i18n support */
@@ -159,9 +178,8 @@ export class TranslationController {
       const { componentWillLoad } = proto;
 
       proto.componentWillLoad = async function () {
-        console.log(propName);
         if (!that.state.globalI18n) {
-          await that.fetchTranslations(false, getLang());
+          await that.fetchTranslations(getBrowserLang(), false);
         }
 
         let isDefaultValueUsed = false;
