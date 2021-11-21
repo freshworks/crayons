@@ -9,6 +9,7 @@
 
 | Property       | Attribute       | Description                                              | Type                                                             | Default   |
 | -------------- | --------------- | -------------------------------------------------------- | ---------------------------------------------------------------- | --------- |
+| `count`        | `count`         | Number of rows of current skeleton type                  | `number`                                                         | `1`       |
 | `customStyles` | `custom-styles` | Custom css styles (background/margins/width/height etc.) | `string \| { [key: string]: string; }`                           | `{}`      |
 | `effect`       | `effect`        | Effect the skeleton will use.                            | `"false" \| "progress" \| "progress-dark" \| "pulse" \| "sheen"` | `'pulse'` |
 | `height`       | `height`        | Height of the skeleton ex. 100px, 100%, auto etc.        | `string`                                                         | `null`    |

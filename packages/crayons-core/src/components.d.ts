@@ -655,6 +655,10 @@ export namespace Components {
     }
     interface FwSkeleton {
         /**
+          * Number of rows of current skeleton type
+         */
+        "count": number;
+        /**
           * Custom css styles (background/margins/width/height etc.)
           * @type {({[k: string]: string} | string)}
          */
@@ -1906,6 +1910,10 @@ declare namespace LocalJSX {
         "variant"?: DropdownVariant;
     }
     interface FwSkeleton {
+        /**
+          * Number of rows of current skeleton type
+         */
+        "count"?: number;
         /**
           * Custom css styles (background/margins/width/height etc.)
           * @type {({[k: string]: string} | string)}

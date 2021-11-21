@@ -35,11 +35,19 @@ export class Skeleton {
   marginBottom: string = null;
 
   /**
+   * Number of rows of current skeleton type
+   */
+  @Prop()
+  count = 1;
+
+  /**
    * Custom css styles (background/margins/width/height etc.)
    *
    * @type {({[k: string]: string} | string)}
    */
   @Prop() customStyles: { [key: string]: string } | string = {};
+
+  items: number[] = [];
 
   componentWillLoad(): void {
     this.init();
@@ -50,6 +58,8 @@ export class Skeleton {
   }
 
   init(): void {
+    this.items.length = this.count;
+    this.items.fill(1);
     if (this.customStyles && typeof this.customStyles === 'string') {
       try {
         this.customStyles = JSON.parse(this.customStyles);
@@ -87,24 +97,29 @@ export class Skeleton {
     return { ...dimensionsStyles, ...styles };
   }
 
-  render(): JSX.Element {
+  render(): JSX.Element | JSX.Element[] {
     return (
       <Host>
-        <span
-          part='base'
-          class={{
-            'circle': this.variant === 'circle',
-            'rect': this.variant === 'rect',
-            'skeleton': true,
-            'progress': this.effect === 'progress',
-            'progress-dark': this.effect === 'progress-dark',
-            'pulse': this.effect === 'pulse',
-            'sheen': this.effect === 'sheen',
-          }}
-          aria-busy='true'
-          aria-live='polite'
-          style={this.style}
-        ></span>
+        {this.items.map((_, index) => {
+          return (
+            <span
+              part='base'
+              key={index}
+              class={{
+                'circle': this.variant === 'circle',
+                'rect': this.variant === 'rect',
+                'skeleton': true,
+                'progress': this.effect === 'progress',
+                'progress-dark': this.effect === 'progress-dark',
+                'pulse': this.effect === 'pulse',
+                'sheen': this.effect === 'sheen',
+              }}
+              aria-busy='true'
+              aria-live='polite'
+              style={this.style}
+            ></span>
+          );
+        })}
       </Host>
     );
   }
