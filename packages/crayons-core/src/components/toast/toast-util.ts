@@ -4,7 +4,7 @@ export interface ToastOptions {
    */
   actionLinkText?: string;
   /**
-   * The content to be diaplyed in toast
+   * The content to be displayed in toast
    */
   content?: string;
 
@@ -84,7 +84,6 @@ export function createToastNotification(
   } else {
     toastElem = document.createElement('fw-toast-message');
   }
-
   Object.entries(props).map(([key, val]) => {
     if (val) toastElem.setAttribute(kebabCase(key), val as string);
   });

@@ -910,7 +910,7 @@ export namespace Components {
          */
         "actionLinkText": string;
         /**
-          * The content to be diaplyed in toast
+          * The content to be displayed in toast
          */
         "content": string;
         /**
@@ -2188,7 +2188,7 @@ declare namespace LocalJSX {
          */
         "actionLinkText"?: string;
         /**
-          * The content to be diaplyed in toast
+          * The content to be displayed in toast
          */
         "content"?: string;
         /**
