@@ -93,7 +93,7 @@ export class Skeleton {
     }
     const styles =
       typeof this.customStyles === 'object' ? this.customStyles : {};
-    console.log(styles);
+
     return { ...dimensionsStyles, ...styles };
   }
 
@@ -102,7 +102,7 @@ export class Skeleton {
       <Host>
         {this.items.map((_, index) => {
           return (
-            <span
+            <div
               part='base'
               key={index}
               class={{
@@ -117,7 +117,7 @@ export class Skeleton {
               aria-busy='true'
               aria-live='polite'
               style={this.style}
-            ></span>
+            ></div>
           );
         })}
       </Host>

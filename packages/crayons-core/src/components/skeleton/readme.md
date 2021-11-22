@@ -52,7 +52,7 @@ Skeleton with custom properties
 ```html live
 
  <label>Pass Custom Css Properties</label>
- <fw-skeleton style="--skeleton-background:red; --skeleton-height:20px; --skeleton-width:300px"></fw-skeleton> <br/>
+ <fw-skeleton style="--skeleton-background:red; --skeleton-height:20px; --skeleton-width:500px"></fw-skeleton> <br/>
 ```
 
 Card Layout
@@ -60,15 +60,14 @@ Card Layout
 ```html live
 
 <div class="card">
-  <div class="card-header">
+  <div class="card-header" style="display: flex;align-items:center;">
     <fw-skeleton
       variant="circle"
       count="1"
       height="64px"
       width="64px"
-      custom-styles='margin: 0,
-      "box-shadow": "0px 1px 2px rgba(0,0,0,0.5)"'
     ></fw-skeleton>
+     <fw-skeleton style="  flex: 0 0 auto;width: 40%;margin-left:1em"> </fw-skeleton>
   </div>
 
   <fw-skeleton
@@ -78,6 +77,16 @@ Card Layout
     "box-shadow": "0px 1px 2px rgba(0,0,0,0.1)"'
   ></fw-skeleton>
   <fw-skeleton count="2"> </fw-skeleton>
+</div>
+```
+
+Multi Para Layout
+```html live
+<div class="multi-para">
+  <fw-skeleton> </fw-skeleton>
+  <fw-skeleton width="95%"> </fw-skeleton>
+  <fw-skeleton> </fw-skeleton>
+  <fw-skeleton width="55%"> </fw-skeleton>
 </div>
 ```
 
