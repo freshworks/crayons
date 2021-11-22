@@ -1,10 +1,7 @@
 <template>
   <div class="card-gallery">
     <div v-for="icon in icons" class="card" @click="copyToClipboard(icon)">
-      <img
-        :src="require(`@icon-assets/icons/${icon}.svg`)"
-        alt="Crayons Icons"
-      />
+      <fw-icon :name="icon" size="16" x-root-margin="100px" alt="Crayons-Icon"></fw-icon>
       <span class="name">{{ icon }}</span>
       <span :ref="icon" class="copied">Copied</span>
     </div>
