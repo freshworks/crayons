@@ -321,11 +321,14 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setSelectedOptions": (options: any[]) => Promise<any>;
-        "setSelectedValues": (values: string[]) => Promise<any>;
+        /**
+          * Pass an array of string in case of multi-select or string for single-select.
+         */
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value": any[];
+        "value": string | string[];
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -580,7 +583,7 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setSelectedOptions": (options: any[]) => Promise<any>;
-        "setSelectedValues": (values: string[]) => Promise<any>;
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
          */
@@ -1503,7 +1506,7 @@ declare namespace LocalJSX {
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value"?: any[];
+        "value"?: string | string[];
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */

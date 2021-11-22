@@ -19,7 +19,6 @@ The data for the select can either be passed as a child or via a datasource whic
 </fw-select>
 <fw-select
   label="Names"
-  value="1"
   placeholder="Your choices"
   state-text="Select multiple options"
   multiple
@@ -41,7 +40,7 @@ The data for the select can either be passed as a child or via a datasource whic
   <fw-select-option value="1">Starks</fw-select-option>
   <fw-select-option value="2">Lannisters</fw-select-option>
 </fw-select>
-<fw-select label="Names" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select label="Names" placeholder="Your choices" state-text="Select multiple options" multiple>
   <fw-select-option value="1" selected>Starks</fw-select-option>
   <fw-select-option value="2" >Lannisters</fw-select-option>
   <fw-select-option value="3">Sand</fw-select-option>
@@ -63,7 +62,7 @@ function App() {
           <FwSelectOption value="2">Lannisters</FwSelectOption>
         </FwSelect>
 
-        <FwSelect label="Names" value="1" placeholder="Your choices" stateText="Select multiple options" multiple>
+        <FwSelect label="Names" placeholder="Your choices" stateText="Select multiple options" multiple>
           <FwSelectOption value="1" selected>Starks</FwSelectOption>
           <FwSelectOption value="2" >Lannisters</FwSelectOption>
           <FwSelectOption value="3">Sand</FwSelectOption>
@@ -79,25 +78,26 @@ function App() {
 </code-group>
 
 
-### Demo with datasource option
+### Demo with datasource
 
 ```html live
-<fw-select id="simpleSelect" label="Football Teams" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  multiple
+>
+  <fw-select-option value="1" selected>Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
 </fw-select>
 
-<fw-select id="complexSelect" label="Strawhat Pirates" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select id="complexSelect" label="Strawhat Pirates" placeholder="Your choices" state-text="Select multiple options" multiple>
 </fw-select>
 
 <script type="application/javascript">
-  var dataSource = [
-    { value: '1', text: 'Liverpool' },
-    { value: '2', text: 'Borussia Dortmund' },
-    { value: '3', text: 'Roma' },
-    { value: '4', text: 'Marseille' },
-  ];
-  var standardVariant = document.getElementById('simpleSelect');
-  standardVariant.options = dataSource;
-  standardVariant.value = ['2'];
 
   var iconDataSource = [
     {
@@ -124,28 +124,28 @@ function App() {
 </script>
 ````
 
-### Usage with datasource options
+### Usage with datasource
 
 <code-group>
 <code-block title="HTML">
 ```html 
-<fw-select id="simpleSelect" label="Football Teams" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  multiple
+>
+  <fw-select-option value="1" selected>Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
 </fw-select>
 
-<fw-select id="complexSelect" label="Strawhat Pirates" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select id="complexSelect" label="Strawhat Pirates" placeholder="Your choices" state-text="Select multiple options" multiple>
 </fw-select>
 
 <script type="application/javascript">
-  var dataSource = [
-    { value: '1', text: 'Liverpool' },
-    { value: '2', text: 'Borussia Dortmund' },
-    { value: '3', text: 'Roma' },
-    { value: '4', text: 'Marseille' },
-  ];
-  var standardVariant = document.getElementById('simpleSelect');
-  standardVariant.options = dataSource;
-  standardVariant.value = ['2'];
-
   var iconDataSource = [
     {
       value: '1',
@@ -180,13 +180,6 @@ import ReactDOM from "react-dom";
 import { FwSelect } from "@freshworks/crayons/react";
 function App() {
 
-   var dataSource = [
-    { value: '1', text: 'Liverpool' },
-    { value: '2', text: 'Borussia Dortmund' },
-    { value: '3', text: 'Roma' },
-    { value: '4', text: 'Marseille' },
-  ];
-
   var iconDataSource = [
     {
       value: '1',
@@ -209,7 +202,12 @@ function App() {
   ];
 
   return (<div>
-        <FwSelect id="simpleSelect" label="Football Teams" placeholder="Your choices" state-text="Select multiple options" multiple options={dataSource} value={["2"]}>
+        <FwSelect label="Names" placeholder="Your choices" stateText="Select multiple options" multiple>
+          <FwSelectOption value="1" selected>Starks</FwSelectOption>
+          <FwSelectOption value="2" >Lannisters</FwSelectOption>
+          <FwSelectOption value="3">Sand</FwSelectOption>
+          <FwSelectOption value="4">Greyjoys</FwSelectOption>
+          <FwSelectOption value="5">Tyrell</FwSelectOption>
         </FwSelect>
 
         <FwSelect id="complexSelect" label="Strawhat Pirates" value="1" placeholder="Your choices" state-text="Select multiple options" multiple options={iconDataSource}>
@@ -220,6 +218,107 @@ function App() {
 
 </code-block>
 </code-group>
+
+### Demo for setting/getting selected options
+
+To set the default selected value following methods can be used set `setSelectedOptions` or `setSelectedValues` or by directly modifying the `value` prop.
+
+> NOTE: The value will be of type `string` for single select and `string[]` for multi-select. The params for the function `setSelectedValues` will be of type `string` for single select and `string[]` for multi-select.
+
+To get the selected values the consuming app can listen to `fwChange` event for `detail` attribute or by calling the method `getSelectedItem` which can be resolved to get the selected value.
+
+```html live
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  value="5"
+>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  id="multiSelect"
+  multiple
+>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  id="methodSelect"
+  multiple
+>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+
+<fw-select
+  id="methodOptionSelect"
+  label="Strawhat Pirates"
+  placeholder="Your choices"
+  state-text="Select single option"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var multiSelect = document.getElementById('multiSelect');
+  multiSelect.value = ['2', '3'];
+
+  var methodSelect = document.getElementById('methodSelect');
+  methodSelect.setSelectedValues(['1', '5']);
+
+  var iconDataSource = [
+    {
+      value: '1',
+      text: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      value: '2',
+      text: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      value: '3',
+      text: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var methodOptionSelect = document.getElementById('methodOptionSelect');
+  methodOptionSelect.options = iconDataSource;
+  methodOptionSelect.setSelectedOptions([
+    {
+      value: '2',
+      text: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+  ]);
+  methodOptionSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
 
 ### Demo with dynamic filter option
 
@@ -264,7 +363,6 @@ function App() {
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property          | Attribute        | Description                                                                                                                                                                                                                               | Type                               | Default               |
@@ -292,7 +390,6 @@ function App() {
 | `value`           | `value`          | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                              | `undefined`           |
 | `variant`         | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"` | `'standard'`          |
 
-
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -301,39 +398,25 @@ function App() {
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `getSelectedItem() => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
 
 ### `setSelectedOptions(options: any[]) => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
 
-
-
-### `setSelectedValues(values: string[]) => Promise<any>`
-
-
+### `setSelectedValues(values: string | string[]) => Promise<any>`
 
 #### Returns
 
 Type: `Promise<any>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -342,13 +425,12 @@ Type: `Promise<any>`
 | `--max-height` | Maximum height of the select component |
 | `--min-height` | Minimum height of the select component |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-datepicker](../datepicker)
- - [fw-timepicker](../timepicker)
+- [fw-datepicker](../datepicker)
+- [fw-timepicker](../timepicker)
 
 ### Depends on
 
@@ -358,6 +440,7 @@ Type: `Promise<any>`
 - [fw-list-options](../options-list)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-select --> fw-tag
@@ -375,6 +458,6 @@ graph TD;
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks

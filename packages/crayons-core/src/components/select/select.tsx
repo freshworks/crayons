@@ -267,11 +267,18 @@ export class Select {
     // Set value if the selectedOptions is provided
     if (this.selectedOptions.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
-      this.value = this.selectedOptions.map((option) => option.value);
-    } else if (this.value) {
-      this.value = this.value === 'string' ? [this.value] : this.value;
+      this.value = this.multiple
+        ? this.selectedOptions.map((option) => option.value)
+        : this.selectedOptions[0].value;
+    }
+
+    if (this.multiple) {
+      if (this.multiple && typeof this.value === 'string') {
+        throw Error('value must be a array of string when multiple is true');
+      }
+      this.value = this.value?.length > 0 ? this.value : [];
     } else {
-      this.value = [];
+      this.value = this.value ? this.value : '';
     }
 
     const options = selectOptions.map((option) => {
@@ -279,20 +286,45 @@ export class Select {
         html: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
-        selected: this.value.includes(option.value) || option.selected,
+        selected:
+          (this.multiple
+            ? this.value.includes(option.value)
+            : this.value === option.value) || option.selected,
         disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
     this.dataSource = options.length === 0 ? this.options : options;
     // Set selectedOptions if the value is provided
-    if (
-      this.value.length > 0 &&
-      this.selectedOptions.length !== this.value.length
+    if (!this.multiple && this.value && this.selectedOptions.length === 0) {
+      this.selectedOptionsState = this.dataSource.filter(
+        (option) => this.value === option.value
+      );
+    } else if (
+      this.multiple &&
+      this.value.length !== this.selectedOptions.length
     ) {
       this.selectedOptionsState = this.dataSource.filter((option) =>
         this.value.includes(option.value)
       );
+    }
+    if (this.dataSource?.length > 0) {
+      // Check whether the selected data in the this.dataSource  matches the value
+      const selectedDataSource = this.dataSource.filter(
+        (option) => option.selected
+      );
+      const selectedDataSourceValues = selectedDataSource.map(
+        (option) => option.value
+      );
+      if (
+        selectedDataSourceValues.length > 0 &&
+        JSON.stringify(this.value) !== JSON.stringify(selectedDataSourceValues)
+      ) {
+        this.value = this.multiple
+          ? selectedDataSourceValues
+          : selectedDataSourceValues[0].value;
+        this.selectedOptionsState = selectedDataSource;
+      }
     }
     this.host.innerHTML = '';
   }
@@ -308,7 +340,7 @@ export class Select {
   }
 
   @Method()
-  async setSelectedValues(values: string[]): Promise<any> {
+  async setSelectedValues(values: string | string[]): Promise<any> {
     this.fwListOptions.setSelectedValues(values);
     this.renderInput();
   }
@@ -359,7 +391,10 @@ export class Select {
                   disabled={this.disabled}
                   name={this.name}
                   placeholder={
-                    this.value.length > 0 ? '' : this.placeholder || ''
+                    (this.multiple && this.value.length > 0) ||
+                    (!this.multiple && this.value)
+                      ? ''
+                      : this.placeholder || ''
                   }
                   readOnly={this.readonly}
                   required={this.required}
