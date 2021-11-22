@@ -7,11 +7,11 @@ const generateIconsExportData = async () => {
 
   const getIconsSVGData = async (svgFile) => {
     try {
-      console.log('svgFile', svgFile);
+      //console.log('svgFile', svgFile);
       {
         const svgName = path.parse(svgFile).name;
         const svgFilePath = path.join(iconAssetLibPath, svgFile);
-        console.log('svgFilePath', svgFilePath);
+        //console.log('svgFilePath', svgFilePath);
         const svgContent = await fs.readFile(svgFilePath);
 
         const svg_name =
@@ -23,7 +23,7 @@ const generateIconsExportData = async () => {
 
         const svg_string = svgContent.toString().split('"').join("'");
         const svg_export_data = `export const ${svg_name} = "${svg_string}";`;
-        console.log('svg_export_data', svg_export_data);
+        //console.log('svg_export_data', svg_export_data);
         return svg_export_data;
       }
     } catch (ex) {
@@ -37,8 +37,8 @@ const generateIconsExportData = async () => {
     for (const svgFile of allSvgFiles) {
       indexData = indexData + '\n' + (await getIconsSVGData(svgFile));
     }
-    fs.writeFile(path.join(iconLibPath, 'index.js'), indexData);
-    console.log(`Succesfully written @freshworks/crayons-icon/index.js`);
+    fs.writeFile(path.join(iconLibPath, 'dist', 'index.js'), indexData);
+    console.log(`Succesfully written @freshworks/crayons-icon/dist/index.js`);
   } catch (ex) {
     console.error(`Exception occured while building : ${JSON.stringify(ex)}`);
   }
