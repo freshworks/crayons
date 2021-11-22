@@ -8,10 +8,10 @@ import { Component, Prop, h, Host } from '@stencil/core';
 export class Skeleton {
   /** Effect the skeleton will use. */
   @Prop()
-  effect: 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'false' = 'pulse';
+  effect: 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'none' = 'pulse';
 
   /**
-   * Variant of the skeleton - circle or row or text
+   * Variant of the skeleton - circle or rectangle or text
    */
   @Prop()
   variant: 'circle' | 'rect' | 'text' = 'text';

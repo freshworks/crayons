@@ -666,7 +666,7 @@ export namespace Components {
         /**
           * Effect the skeleton will use.
          */
-        "effect": 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'false';
+        "effect": 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'none';
         /**
           * Height of the skeleton ex. 100px, 100%, auto etc.
          */
@@ -676,7 +676,7 @@ export namespace Components {
          */
         "marginBottom": string;
         /**
-          * Variant of the skeleton - circle or row or text
+          * Variant of the skeleton - circle or rectangle or text
          */
         "variant": 'circle' | 'rect' | 'text';
         /**
@@ -1922,7 +1922,7 @@ declare namespace LocalJSX {
         /**
           * Effect the skeleton will use.
          */
-        "effect"?: 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'false';
+        "effect"?: 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'none';
         /**
           * Height of the skeleton ex. 100px, 100%, auto etc.
          */
@@ -1932,7 +1932,7 @@ declare namespace LocalJSX {
          */
         "marginBottom"?: string;
         /**
-          * Variant of the skeleton - circle or row or text
+          * Variant of the skeleton - circle or rectangle or text
          */
         "variant"?: 'circle' | 'rect' | 'text';
         /**
