@@ -6,7 +6,7 @@ const buildIconsJson = async () => {
   const iconAssetsDir = '/icon-assets';
   const iconAssetsPath = '/icons';
   const iconsJsonFile = 'icons.json';
-  const iconLibPath = '../crayons-icon-lib';
+  const iconLibPath = '../crayons-icon';
 
   const iconsJson = {};
   const getIconsJson = async () => {
