@@ -39,10 +39,6 @@ Skeleton with different effects
  <fw-skeleton></fw-skeleton> <br/>
  <label>Sheen Effect</label>
  <fw-skeleton effect="sheen"></fw-skeleton> <br/>
- <label>Progress Effect</label>
- <fw-skeleton effect="progress"></fw-skeleton> <br/>
- <label>Progress Dark Effect</label>
- <fw-skeleton effect="progress-dark"></fw-skeleton> <br/>
  <label>No Effect</label>
  <fw-skeleton effect="none"></fw-skeleton> <br/>
 ```
@@ -153,6 +149,12 @@ function App() {
             <FwSkeleton variant="rect"></FwSkeleton> <br/>
             <label>Pass count to repeat the item</label>
             <FwSkeleton variant="rect" height="30px" count={3}></FwSkeleton> <br/>
+            <label>Sheen Effect</label>
+            <FwSkeleton effect="sheen"></FwSkeleton> <br/>
+            <label>Default Pulse Effect</label>
+            <FwSkeleton></FwSkeleton> <br/>
+            <label>No Effect</label>
+            <FwSkeleton effect="none"></FwSkeleton> <br/>
 
             <label>Pass Custom styles as props</label>
             <FwSkeleton id="custom-skeleton" ref={skeletonCustomRef}></FwSkeleton>
@@ -197,15 +199,15 @@ function App() {
 
 ## Properties
 
-| Property       | Attribute       | Description                                              | Type                                                            | Default   |
-| -------------- | --------------- | -------------------------------------------------------- | --------------------------------------------------------------- | --------- |
-| `count`        | `count`         | Number of rows of current skeleton type                  | `number`                                                        | `1`       |
-| `customStyles` | `custom-styles` | Custom css styles (background/margins/width/height etc.) | `string \| { [key: string]: string; }`                          | `{}`      |
-| `effect`       | `effect`        | Effect the skeleton will use.                            | `"none" \| "progress" \| "progress-dark" \| "pulse" \| "sheen"` | `'pulse'` |
-| `height`       | `height`        | Height of the skeleton ex. 100px, 100%, auto etc.        | `string`                                                        | `null`    |
-| `marginBottom` | `margin-bottom` | MarginBottom of the skeleton ex. 10px, 0 etc.            | `string`                                                        | `null`    |
-| `variant`      | `variant`       | Variant of the skeleton - circle or rectangle or text    | `"circle" \| "rect" \| "text"`                                  | `'text'`  |
-| `width`        | `width`         | Width of the skeleton ex. 100px, 100%, auto etc.         | `string`                                                        | `null`    |
+| Property       | Attribute       | Description                                              | Type                                   | Default   |
+| -------------- | --------------- | -------------------------------------------------------- | -------------------------------------- | --------- |
+| `count`        | `count`         | Number of rows of current skeleton type                  | `number`                               | `1`       |
+| `customStyles` | `custom-styles` | Custom css styles (background/margins/width/height etc.) | `string \| { [key: string]: string; }` | `{}`      |
+| `effect`       | `effect`        | Effect the skeleton will use.                            | `"none" \| "pulse" \| "sheen"`         | `'pulse'` |
+| `height`       | `height`        | Height of the skeleton ex. 100px, 100%, auto etc.        | `string`                               | `null`    |
+| `marginBottom` | `margin-bottom` | MarginBottom of the skeleton ex. 10px, 0 etc.            | `string`                               | `null`    |
+| `variant`      | `variant`       | Variant of the skeleton - circle or rectangle or text    | `"circle" \| "rect" \| "text"`         | `'text'`  |
+| `width`        | `width`         | Width of the skeleton ex. 100px, 100%, auto etc.         | `string`                               | `null`    |
 
 
 ## Shadow Parts
@@ -217,14 +219,14 @@ function App() {
 
 ## CSS Custom Properties
 
-| Name                       | Description                                                            |
-| -------------------------- | ---------------------------------------------------------------------- |
-| `--sheen-color`            | Skeleton Sheen effect color: Default: #b1bdc8                          |
-| `--skeleton-background`    | Skeleton background: Default: #cfd7df                                  |
-| `--skeleton-border-radius` | Skeleton border-radius: Default: 999px for the row, 50% for the circle |
-| `--skeleton-height`        | Skeleton height: Default: 16px for the row, 32px for the circle        |
-| `--skeleton-margin-bottom` | Skeleton margin-bottom: Default: 8px for the row, 8px for the circle   |
-| `--skeleton-width`         | Skeleton width: Default: 100% for the row, 32px for the circle         |
+| Name                       | Description                                                                               |
+| -------------------------- | ----------------------------------------------------------------------------------------- |
+| `--sheen-color`            | Skeleton Sheen effect color: Default: #b1bdc8                                             |
+| `--skeleton-background`    | Skeleton background: Default: #cfd7df                                                     |
+| `--skeleton-border-radius` | Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect |
+| `--skeleton-height`        | Skeleton height: Default: 16px for the text and rect, 32px for the circle                 |
+| `--skeleton-margin-bottom` | Skeleton margin-bottom: Default: 8px                                                      |
+| `--skeleton-width`         | Skeleton width: Default: 100% for the text and rect, 32px for the circle                  |
 
 
 ----------------------------------------------

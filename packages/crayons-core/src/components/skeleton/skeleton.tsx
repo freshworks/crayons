@@ -8,7 +8,7 @@ import { Component, Prop, h, Host } from '@stencil/core';
 export class Skeleton {
   /** Effect the skeleton will use. */
   @Prop()
-  effect: 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'none' = 'pulse';
+  effect: 'pulse' | 'sheen' | 'none' = 'pulse';
 
   /**
    * Variant of the skeleton - circle or rectangle or text
@@ -106,13 +106,11 @@ export class Skeleton {
               part='base'
               key={index}
               class={{
-                'circle': this.variant === 'circle',
-                'rect': this.variant === 'rect',
-                'skeleton': true,
-                'progress': this.effect === 'progress',
-                'progress-dark': this.effect === 'progress-dark',
-                'pulse': this.effect === 'pulse',
-                'sheen': this.effect === 'sheen',
+                circle: this.variant === 'circle',
+                rect: this.variant === 'rect',
+                skeleton: true,
+                pulse: this.effect === 'pulse',
+                sheen: this.effect === 'sheen',
               }}
               aria-busy='true'
               aria-live='polite'

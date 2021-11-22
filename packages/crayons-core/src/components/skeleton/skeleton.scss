@@ -1,8 +1,8 @@
 /**
- * @prop --skeleton-height: Skeleton height: Default: 16px for the row, 32px for the circle
- * @prop --skeleton-width: Skeleton width: Default: 100% for the row, 32px for the circle
- * @prop --skeleton-margin-bottom: Skeleton margin-bottom: Default: 8px for the row, 8px for the circle
- * @prop --skeleton-border-radius: Skeleton border-radius: Default: 999px for the row, 50% for the circle
+ * @prop --skeleton-height: Skeleton height: Default: 16px for the text and rect, 32px for the circle
+ * @prop --skeleton-width: Skeleton width: Default: 100% for the text and rect, 32px for the circle
+ * @prop --skeleton-margin-bottom: Skeleton margin-bottom: Default: 8px
+ * @prop --skeleton-border-radius: Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect
  * @prop --skeleton-background: Skeleton background: Default: #cfd7df
  * @prop --sheen-color: Skeleton Sheen effect color: Default: #b1bdc8
  */
@@ -39,40 +39,9 @@
   // stylelint-disable a11y/media-prefers-reduced-motion
   @media (prefers-reduced-motion: reduce) {
     &.pulse,
-    &.sheen,
-    &.progress-dark,
-    &.progress {
+    &.sheen {
       animation: none;
     }
-
-    &.progress,
-    &.progress-dark {
-      background-image: none;
-    }
-  }
-
-  &.progress,
-  &.progress-dark {
-    animation: progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    background-size: 200px 100%;
-  }
-
-  &.progress {
-    background-image: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0.6),
-      rgba(255, 255, 255, 0)
-    );
-  }
-
-  &.progress-dark {
-    background-image: linear-gradient(
-      90deg,
-      transparent,
-      rgba(0, 0, 0, 0.2),
-      transparent
-    );
   }
 
   &.pulse {
@@ -89,15 +58,6 @@
     );
 
     animation: sheen 8s ease-in-out infinite;
-  }
-}
-
-@keyframes progress {
-  0% {
-    background-position: -200px 0;
-  }
-  100% {
-    background-position: calc(200px + 100%) 0;
   }
 }
 

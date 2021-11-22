@@ -666,7 +666,7 @@ export namespace Components {
         /**
           * Effect the skeleton will use.
          */
-        "effect": 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'none';
+        "effect": 'pulse' | 'sheen' | 'none';
         /**
           * Height of the skeleton ex. 100px, 100%, auto etc.
          */
@@ -1922,7 +1922,7 @@ declare namespace LocalJSX {
         /**
           * Effect the skeleton will use.
          */
-        "effect"?: 'pulse' | 'progress' | 'progress-dark' | 'sheen' | 'none';
+        "effect"?: 'pulse' | 'sheen' | 'none';
         /**
           * Height of the skeleton ex. 100px, 100%, auto etc.
          */
