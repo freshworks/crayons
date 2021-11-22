@@ -12,10 +12,28 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
-    <fw-button expand color="primary">Primary Button</fw-button>
+    <style>
+      .row {
+        font-weight: 400;
+        font-size: 12px;
+        font-style: italic;
+        padding: 8px;
+      }
+       {
+        display: flex;
+      }
+      span:after {
+        position: relative;
+        flex: 1 1;
+        left: 12px;
+        margin: auto;
+        content: '';
+        border-bottom: 1px solid #ebeff3;
+      }
+    </style>
 
     <fw-popover same-width="false" placement="bottom-start">
-      <fw-button slot="popover-trigger" color="secondary">
+      <fw-button slot="popover-trigger" color="secondary" show-caret-icon>
         <fw-icon
           id="buttonIcon"
           slot="before-label"
@@ -24,12 +42,15 @@
         <span id="buttonContent">Premier Accounts</span>
       </fw-button>
       <div slot="popover-content">
-        <div></div>
+        <div class="row">
+          <span>Sort Customers By</span>
+        </div>
         <fw-list-options id="sortBy" variant="icon"> </fw-list-options>
-        <div></div>
+        <div class="row"><span>Sorting Order</span></div>
         <fw-list-options id="sortOrder" variant="icon"> </fw-list-options>
       </div>
     </fw-popover>
+
     <script type="application/javascript">
       var sortByData = [
         {
