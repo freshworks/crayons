@@ -15,7 +15,7 @@ Skeleton with multiple variants
  <label>Rectangle variant with custom height</label>
  <fw-skeleton variant="rect" height="200px"></fw-skeleton> <br/>
  <label>Pass count to repeat the item</label>
- <fw-skeleton variant="rect" height="30px" count="3"></fw-skeleton> <br/>
+ <fw-skeleton variant="rect" height="30px" count=3></fw-skeleton> <br/>
 
  <label>Pass Custom styles as props</label>
  <fw-skeleton id="custom-skeleton"></fw-skeleton>
@@ -63,7 +63,6 @@ Card Layout
   <div class="card-header" style="display: flex;align-items:center;">
     <fw-skeleton
       variant="circle"
-      count="1"
       height="64px"
       width="64px"
     ></fw-skeleton>
@@ -76,7 +75,7 @@ Card Layout
     custom-styles='"margin-top": "10px",
     "box-shadow": "0px 1px 2px rgba(0,0,0,0.1)"'
   ></fw-skeleton>
-  <fw-skeleton count="2"> </fw-skeleton>
+  <fw-skeleton count=2> </fw-skeleton>
 </div>
 ```
 
@@ -104,6 +103,9 @@ Multi Para Layout
  <fw-skeleton variant="circle"></fw-skeleton> <br/>
  <label>Rectangle variant</label>
  <fw-skeleton variant="rect"></fw-skeleton> <br/>
+ <label>Pass count to repeat the item</label>
+ <fw-skeleton variant="rect" height="30px" count=3></fw-skeleton> <br/>
+
 
  <label>Pass Custom styles as props</label>
  <fw-skeleton id="custom-skeleton"></fw-skeleton>
@@ -129,11 +131,16 @@ import { FwSkeleton } from "@freshworks/crayons/react";
 function App() {
 
     const skeletonCustomRef = useRef(null);
+    const skeletonCardRef = useRef(null);
     useEffect(() => {
         skeletonCustomRef.current.customStyles = {
-        margin: 0,
-        "box-shadow": "0px 1px 2px rgba(0,0,0,0.5)"
+            margin: 0,
+            "box-shadow": "0px 1px 2px rgba(0,0,0,0.5)"
         };
+        skeletonCardRef.current.customStyles = {
+            marginTop: "10px",
+            boxShadow: "0px 1px 2px rgba(0,0,0,0.1)"
+        }
     }, []);
 
 
@@ -144,9 +151,40 @@ function App() {
             <FwSkeleton variant="circle"></FwSkeleton> <br/>
             <label>Rectangle variant</label>
             <FwSkeleton variant="rect"></FwSkeleton> <br/>
+            <label>Pass count to repeat the item</label>
+            <FwSkeleton variant="rect" height="30px" count={3}></FwSkeleton> <br/>
 
             <label>Pass Custom styles as props</label>
             <FwSkeleton id="custom-skeleton" ref={skeletonCustomRef}></FwSkeleton>
+
+            <label>Multi Para Layout</label>
+            <div className="multi-para">
+              <FwSkeleton> </FwSkeleton>
+              <FwSkeleton width="95%"> </FwSkeleton>
+              <FwSkeleton> </FwSkeleton>
+              <FwSkeleton width="55%"> </FwSkeleton>
+            </div>
+
+          <label>Card Layout </label>
+          <div className="card">
+            <div className="card-header" style={{display: "flex",alignItems:'center'
+            }}>
+              <FwSkeleton
+                variant="circle"
+                height="64px"
+                width="64px"
+              ></FwSkeleton>
+              <FwSkeleton style={{flex: "0 0 auto",width: "40%",marginLeft:"1em"}}> </FwSkeleton>
+            </div>
+
+            <FwSkeleton
+              variant="rect"
+              height="180px"
+              ref={skeletonCardRef}
+            ></FwSkeleton>
+            <FwSkeleton count={2}> </FwSkeleton>
+          </div>
+
     </div>);
 }
 ```
