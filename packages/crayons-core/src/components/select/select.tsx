@@ -194,7 +194,9 @@ export class Select {
         this.resetFocus();
         this.closeDropdown();
       }
+      selectedItem.stopImmediatePropagation();
       selectedItem.stopPropagation();
+      selectedItem.preventDefault();
       this.fwChange.emit({
         value: this.value,
         selectedOptions: this.selectedOptionsState,

@@ -254,9 +254,13 @@ export class ListOptions {
   }
 
   setValue(options) {
-    this.value = this.multiple
-      ? options.map((option) => option.value)
-      : options[0].value;
+    if (options?.length > 0) {
+      this.value = this.multiple
+        ? options.map((option) => option.value)
+        : options[0].value;
+    } else {
+      this.value = this.multiple ? [] : '';
+    }
   }
 
   setDataSource(dataSource) {
@@ -290,7 +294,7 @@ export class ListOptions {
     } else if (this.value) {
       this.setSelectedOptionsByValue(this.value);
     } else {
-      this.setValue([{ value: '' }]);
+      this.setValue([]);
     }
     if (this.multiple && typeof this.value === 'string') {
       throw Error('value must be a array of string when multiple is true');
