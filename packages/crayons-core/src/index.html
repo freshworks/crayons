@@ -115,7 +115,7 @@
     import { ProgressLoaderController } from "/build/index.esm.js"
     var fwprogress1 = ProgressLoaderController();
     var fwprogress13 = ProgressLoaderController();
-    var fwprogress2 = ProgressLoaderController({ parent: '#container1', template:'<div id="progress-bar" role="bar"></div>' });
+    var fwprogress2 = ProgressLoaderController({ parent: '#container1', template:'<div id="progress-bar" class="bar" role="progress-bar" aria-valuemin="0" aria-valuemax="1"></div>' });
 
     fwprogress1.start();
     fwprogress13.start();

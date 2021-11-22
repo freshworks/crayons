@@ -43,10 +43,11 @@ export class ProgressLoader {
   @Prop()
   trickleSpeed = 200;
   /**
-   * Specify a background color for the progress loader. Default is `#2c5cc5`
+   * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
    */
   @Prop()
-  template = '<div class="bar" role="bar"></div>';
+  template =
+    '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="1"></div>';
   /**
    * Show progress loader. Default `false`
    */

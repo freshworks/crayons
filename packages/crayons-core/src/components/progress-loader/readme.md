@@ -46,7 +46,7 @@ Progress Loader Component can be used to indicate loading of a Page / Section of
 
 <script type="application/javascript">
     document.querySelector('#progress-container').start();
-    setTimeout(()=>{
+    setTimeout(function() {
         document.querySelector('#root').done();
     },10000)
 </script>
@@ -91,7 +91,7 @@ function App() {
 </code-group>
 
 ### Styling Loader 
-You can style progress loader by targetting `[role="bar"]` selector. 
+You can style progress loader by targetting `class="bar"` selector. 
 You can also use `--progress-loader-color` and `--progress-loader-height` **css variables** to use custom color and height for the progress loader.
 
 ### ProgressLoaderController
@@ -137,7 +137,7 @@ interface ProgressLoaderOptions {
    */
   parent?: string;
   /**
-   * Use Custom markup. To keep the progress bar working, keep an element with role='bar' in there
+   * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
    */
   template?: string;
 }
@@ -149,16 +149,16 @@ interface ProgressLoaderOptions {
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                                            | Type      | Default                                |
-| -------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------- | -------------------------------------- |
-| `easing`       | `easing`        | Adjust animation settings using easing (a CSS easing string). Default is `ease`                                                        | `string`  | `'ease'`                               |
-| `minimum`      | `minimum`       | Changes the minimum percentage used upon starting. Default is `0.08`                                                                   | `number`  | `0.08`                                 |
-| `parent`       | `parent`        | Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method | `string`  | `'body'`                               |
-| `show`         | `show`          | Show progress loader. Default `false`                                                                                                  | `boolean` | `false`                                |
-| `speed`        | `speed`         | Add speed (in ms). Default is `200`                                                                                                    | `number`  | `200`                                  |
-| `template`     | `template`      | Specify a background color for the progress loader. Default is `#2c5cc5`                                                               | `string`  | `'<div class="bar" role="bar"></div>'` |
-| `trickle`      | `trickle`       | Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`                                            | `boolean` | `true`                                 |
-| `trickleSpeed` | `trickle-speed` | Adjust how often to trickle/increment, in ms. Default is `200`                                                                         | `number`  | `200`                                  |
+| Property       | Attribute       | Description                                                                                                                            | Type      | Default                                                                            |
+| -------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------- |
+| `easing`       | `easing`        | Adjust animation settings using easing (a CSS easing string). Default is `ease`                                                        | `string`  | `'ease'`                                                                           |
+| `minimum`      | `minimum`       | Changes the minimum percentage used upon starting. Default is `0.08`                                                                   | `number`  | `0.08`                                                                             |
+| `parent`       | `parent`        | Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method | `string`  | `'body'`                                                                           |
+| `show`         | `show`          | Show progress loader. Default `false`                                                                                                  | `boolean` | `false`                                                                            |
+| `speed`        | `speed`         | Add speed (in ms). Default is `200`                                                                                                    | `number`  | `200`                                                                              |
+| `template`     | `template`      | Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there                                         | `string`  | `'<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="1"></div>'` |
+| `trickle`      | `trickle`       | Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`                                            | `boolean` | `true`                                                                             |
+| `trickleSpeed` | `trickle-speed` | Adjust how often to trickle/increment, in ms. Default is `200`                                                                         | `number`  | `200`                                                                              |
 
 
 ## Methods

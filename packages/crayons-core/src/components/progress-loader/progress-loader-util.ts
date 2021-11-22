@@ -27,7 +27,7 @@ export interface ProgressLoaderOptions {
    */
   parent?: string;
   /**
-   * Use Custom markup. To keep the progress bar working, keep an element with role='bar' in there
+   * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
    */
   template?: string;
 }
@@ -50,7 +50,8 @@ const DEFAULT_OPTIONS = {
   speed: 200,
   trickle: true,
   trickleSpeed: 200,
-  template: '<div class="bar" role="bar"></div>',
+  template:
+    '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="1"></div>',
   show: false,
 };
 export function getPropOptions(
@@ -71,7 +72,10 @@ export function getPropOptions(
 export function createProgressLoaderContainer(
   options: ProgressLoaderOptions
 ): ProgressLoaderMethods {
-  const customizedOptions = getPropOptions(options);
+  const customizedOptions = {
+    ...getPropOptions(options),
+    barSelector: '[role="progressbar"]',
+  };
 
   const instance = FwProgress().configure(customizedOptions);
 
@@ -79,7 +83,7 @@ export function createProgressLoaderContainer(
     const style = document.createElement('style');
     style.id = 'fw-progress-bar-style';
     style.innerHTML = `
-            .nprogress [role="bar"] {
+            .nprogress .bar {
               background: var(--progress-loader-color,#2c5cc5);
               position: fixed;
               z-index: 1031;
@@ -92,7 +96,7 @@ export function createProgressLoaderContainer(
               overflow: hidden;
               position: relative;
             }
-            .nprogress-custom-parent .nprogress [role="bar"] {
+            .nprogress-custom-parent .nprogress .bar {
               position: absolute;
             }
       `;

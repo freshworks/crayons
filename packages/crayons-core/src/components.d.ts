@@ -503,7 +503,7 @@ export namespace Components {
          */
         "start": () => Promise<void>;
         /**
-          * Specify a background color for the progress loader. Default is `#2c5cc5`
+          * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
          */
         "template": string;
         /**
@@ -1730,7 +1730,7 @@ declare namespace LocalJSX {
          */
         "speed"?: number;
         /**
-          * Specify a background color for the progress loader. Default is `#2c5cc5`
+          * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
          */
         "template"?: string;
         /**
