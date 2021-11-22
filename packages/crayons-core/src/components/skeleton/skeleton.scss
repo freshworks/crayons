@@ -4,7 +4,7 @@
  * @prop --skeleton-margin-bottom: Skeleton margin-bottom: Default: 8px for the row, 8px for the circle
  * @prop --skeleton-border-radius: Skeleton border-radius: Default: 999px for the row, 50% for the circle
  * @prop --skeleton-background: Skeleton background: Default: #cfd7df
- * @prop --sheen-color: Skeleton Sheen effect color: Default
+ * @prop --sheen-color: Skeleton Sheen effect color: Default: #b1bdc8
  */
 
 .skeleton {
@@ -82,10 +82,10 @@
   &.sheen {
     background: linear-gradient(
       270deg,
-      var(--sheen-color, $color-smoke-300),
+      var(--sheen-color, $color-smoke-200),
       var(--skeleton-background, $color-smoke-100),
       var(--skeleton-background, $color-smoke-100),
-      var(--sheen-color, $color-smoke-300)
+      var(--sheen-color, $color-smoke-200)
     );
 
     animation: sheen 8s ease-in-out infinite;
