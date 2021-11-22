@@ -32,13 +32,13 @@ const generateIconsExportData = async () => {
     }
   };
   try {
-    let indexData = '';
+    let indexData = '/* eslint-disable */';
     const allSvgFiles = await fs.readdir(path.join(iconAssetLibPath, ''));
     for (const svgFile of allSvgFiles) {
       indexData = indexData + '\n' + (await getIconsSVGData(svgFile));
     }
-    fs.writeFile(path.join(iconLibPath, 'dist', 'index.js'), indexData);
-    console.log(`Succesfully written @freshworks/crayons-icon/dist/index.js`);
+    fs.writeFile(path.join(iconLibPath, 'index.js'), indexData);
+    console.log(`Succesfully written @freshworks/crayons-icon/index.js`);
   } catch (ex) {
     console.error(`Exception occured while building : ${JSON.stringify(ex)}`);
   }
