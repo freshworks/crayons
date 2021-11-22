@@ -59,7 +59,7 @@ export class ToastMessage {
   @Prop() timeout = 4000;
 
   /**
-   * The content to be diaplyed in toast
+   * The content to be displayed in toast
    */
   @Prop() content: string;
 

@@ -89,7 +89,7 @@
   "license": "MIT",
   "dependencies": {
     "@freshworks/crayons": "^3.0.0-beta.4",
-    "@freshworks/crayons-i18n": "../crayons-i18n",
+    "@freshworks/crayons-i18n": "file:../crayons-i18n",
     "@stencil/core": "2.9.0",
     "moment-mini": "^2.24.0"
   },

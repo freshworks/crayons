@@ -48,7 +48,7 @@ function App() {
 | Property         | Attribute          | Description                                              | Type                                                | Default     |
 | ---------------- | ------------------ | -------------------------------------------------------- | --------------------------------------------------- | ----------- |
 | `actionLinkText` | `action-link-text` | The Content of the action link                           | `string`                                            | `''`        |
-| `content`        | `content`          | The content to be diaplyed in toast                      | `string`                                            | `undefined` |
+| `content`        | `content`          | The content to be displayed in toast                     | `string`                                            | `undefined` |
 | `open`           | `open`             | visibility prop of toast message                         | `boolean`                                           | `false`     |
 | `pauseOnHover`   | `pause-on-hover`   | Pause the toast from hiding on mouse hover               | `boolean`                                           | `undefined` |
 | `sticky`         | `sticky`           | won't close automatically                                | `boolean`                                           | `false`     |
