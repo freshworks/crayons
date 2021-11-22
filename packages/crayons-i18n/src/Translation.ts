@@ -78,13 +78,7 @@ export class TranslationController {
     this.onChange('lang', async (lang: string) => {
       console.log('Language Change Detected ', lang);
       await this.fetchTranslations(lang, true);
-      console.log(
-        'Updating strings due to change of lang ',
-        this.state.globalI18n
-      );
     });
-
-    console.log('Initalising state');
 
     if ('MutationObserver' in window) {
       const mo = new MutationObserver(async (data) => {
@@ -144,7 +138,6 @@ export class TranslationController {
   fetchDefaultTranslations(lang: string): Promise<any> {
     let req = this.requests.get(lang);
     if (!req) {
-      console.log('Get Default translations from config for lang', lang);
       req = import(`../i18n/${lang}.js`)
         .then((result) => result.default)
         .then((data) => {

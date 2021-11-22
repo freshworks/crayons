@@ -5,7 +5,7 @@ export default {
     update: 'Update',
   },
   modal: {
-    cancel: 'Modal_Cancel',
+    cancel: 'Cancel',
     ok: 'OK',
   },
   search: {
