@@ -1,0 +1,17 @@
+{
+  "name": "@freshworks/crayons-icon",
+  "version": "1.0.0",
+  "description": "This package contains all the necessary tooling for fw-crayons-icons",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "",
+    "build": "npm run optimize-icons && gulp",
+    "optimize-icons": "svgo -f icons --config .svgo.yml"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "svgo": "^1.3.2"
+  }
+}
