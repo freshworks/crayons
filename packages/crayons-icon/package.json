@@ -2,7 +2,7 @@
   "name": "@freshworks/crayons-icon",
   "version": "1.0.0",
   "description": "This package contains all the necessary tooling for fw-crayons-icons",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "",
     "build": "npm run optimize-icons && gulp",
