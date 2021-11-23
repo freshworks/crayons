@@ -5,8 +5,8 @@ export default {
     update: 'Aktualisierung',
   },
   modal: {
-    cancel: 'Stornieren',
     ok: 'OK',
+    cancel: 'Stornieren',
   },
   search: {
     search: 'Suche',

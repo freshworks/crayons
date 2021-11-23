@@ -26,14 +26,13 @@ You can now use the Crayons components just like how you would use any other htm
 
 You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 
-#### Usage via Node Modules
+#### React Usage via npm install
  - Install the package 
 ```bash
   npm install @freshworks/crayons@canary --save
 ```
- - Put a script tag similar to this 
-```html
-<script src='node_modules/@freshworks/crayons/dist/crayons.js'></script>
+ - You can import components like below
+```js
+import { FwButton } from "@freshworks/crayons/react"
 ``` 
-in the head of your index.html
- - Now you can use the element anywhere in your template, JSX, html etc.
+- Now you can use the component in your React application.

@@ -77,7 +77,7 @@ export class TranslationController {
 
     this.onChange('lang', async (lang: string) => {
       console.log('Language Change Detected ', lang);
-      await this.fetchTranslations(lang, true);
+      await this.fetchTranslations(lang);
     });
 
     if ('MutationObserver' in window) {
@@ -98,25 +98,19 @@ export class TranslationController {
     }
   }
 
-  async fetchTranslations(lang?: string, ignoreCache?: boolean): Promise<any> {
+  async fetchTranslations(lang?: string): Promise<any> {
     const locale = lang || getBrowserLang();
 
-    let req = this.requests.get('translation_' + locale);
-    // eslint-disable-next-line no-constant-condition
-    if (ignoreCache || !req) {
-      req = this.fetchDefaultTranslations(locale).then((defaultI18nStrings) => {
-        const customI18nStrings =
-          (this.state.customTranslations as any)?.[locale] || {};
-        const finalI18nStrings = {
-          ...defaultI18nStrings,
-          ...customI18nStrings,
-        };
-        this.state.globalI18n = finalI18nStrings;
-        return finalI18nStrings;
-      });
-      this.requests.set('translation_' + locale, req);
-    }
-    return req;
+    return this.fetchDefaultTranslations(locale).then((defaultI18nStrings) => {
+      const customI18nStrings =
+        (this.state.customTranslations as any)?.[locale] || {};
+      const finalI18nStrings = {
+        ...defaultI18nStrings,
+        ...customI18nStrings,
+      };
+      this.state.globalI18n = finalI18nStrings;
+      return finalI18nStrings;
+    });
   }
 
   /**
@@ -178,7 +172,6 @@ export class TranslationController {
    */
   setTranslations(json: i18nConfig): void {
     this.state.customTranslations = json;
-    console.log('Setting Custom translations ', json);
   }
 
   /** Decorator to handle i18n support */
@@ -193,7 +186,7 @@ export class TranslationController {
 
       proto.componentWillLoad = async function () {
         if (!that.state.globalI18n) {
-          await that.fetchTranslations(getBrowserLang(), false);
+          await that.fetchTranslations(getBrowserLang());
         }
 
         let isDefaultValueUsed = false;
