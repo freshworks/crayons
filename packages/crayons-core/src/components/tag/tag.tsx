@@ -59,7 +59,7 @@ export class Tag {
   }
 
   removeTag = (): void => {
-    if (this.disabled) {
+    if (this.disabled || !this.closable) {
       return;
     }
     const { value, text } = this;
