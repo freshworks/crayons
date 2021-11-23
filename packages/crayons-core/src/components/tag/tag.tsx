@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Prop,
   h,
+  Listen,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
 
@@ -40,15 +41,29 @@ export class Tag {
    */
   @Prop() graphicsProps = {};
   /**
+   * Whether the Tag can be closed.
+   */
+  @Prop() closable = true;
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
+
+  @Listen('keydown')
+  onKeyDown(event) {
+    switch (event.key) {
+      case 'Backspace':
+        this.removeTag();
+        break;
+    }
+  }
 
   removeTag = (): void => {
     if (this.disabled) {
       return;
     }
     const { value, text } = this;
+    console.log(`Tag with text: ${text} removed`);
     this.fwClosed.emit({ value, text });
   };
 
@@ -69,19 +84,21 @@ export class Tag {
 
   render() {
     return (
-      <div class={`tag tag-${this.variant}`}>
+      <div role='button' tabindex='0' class={`tag tag-${this.variant}`}>
         {this.renderContent()}
-        <span
-          role='button'
-          tabindex='0'
-          class={`remove-btn ${this.variant} ${
-            this.disabled ? 'disabled' : ''
-          }`}
-          onClick={() => this.removeTag()}
-          onKeyDown={handleKeyDown(this.removeTag)}
-        >
-          ×
-        </span>
+        {this.closable && (
+          <span
+            role='button'
+            tabindex='0'
+            class={`remove-btn ${this.variant} ${
+              this.disabled ? 'disabled' : ''
+            }`}
+            onClick={() => this.removeTag()}
+            onKeyDown={handleKeyDown(this.removeTag)}
+          >
+            <fw-icon name='cross' size={8}></fw-icon>
+          </span>
+        )}
       </div>
     );
   }

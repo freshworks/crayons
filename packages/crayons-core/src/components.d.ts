@@ -711,6 +711,10 @@ export namespace Components {
     }
     interface FwTag {
         /**
+          * Whether the Tag can be closed.
+         */
+        "closable": boolean;
+        /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": false;
@@ -1932,6 +1936,10 @@ declare namespace LocalJSX {
         "onFwChange"?: (event: CustomEvent<any>) => void;
     }
     interface FwTag {
+        /**
+          * Whether the Tag can be closed.
+         */
+        "closable"?: boolean;
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
