@@ -88,15 +88,16 @@ graph TD;
   fw-input --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-popover
+  fw-select --> fw-button
   fw-select --> fw-spinner
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

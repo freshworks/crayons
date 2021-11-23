@@ -13,6 +13,7 @@ import {
   h,
 } from '@stencil/core';
 
+import { PopoverPlacementType } from '../popover/popover';
 import { handleKeyDown, renderHiddenField } from '../../utils';
 import { DropdownVariant } from '../select-option/select-option';
 @Component({
@@ -90,10 +91,14 @@ export class Select {
    */
   @Prop() max = Number.MAX_VALUE;
   /**
+   * The variant of the select button to be displayed. Defaults to input type.
+   */
+  @Prop() variant: 'button' | 'input' = 'input';
+  /**
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
-  @Prop() variant: DropdownVariant = 'standard';
+  @Prop() dropdownVariant: DropdownVariant = 'standard';
   /**
    * Allow to search for value. Default is true.
    */
@@ -128,6 +133,14 @@ export class Select {
    * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
    */
   @Prop({ reflect: true, mutable: true }) selectedOptions = [];
+  /**
+   * Whether the select width to be same as that of the options.
+   */
+  @Prop() sameWidth = true;
+  /**
+   * Placement of the options list with respect to select.
+   */
+  @Prop() optionsPlacement: PopoverPlacementType = 'bottom';
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -188,7 +201,6 @@ export class Select {
     if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
       this.selectedOptionsState = selectedItem.detail.selectedOptions;
       this.value = selectedItem.detail.value;
-      this.selectInput.value = '';
       this.renderInput();
       if (!this.multiple) {
         this.resetFocus();
@@ -248,6 +260,7 @@ export class Select {
   renderInput() {
     if (this.selectedOptionsState.length > 0) {
       if (this.selectInput) {
+        this.selectInput.value = '';
         this.selectInput.value = this.multiple
           ? this.selectInput.value
           : this.selectedOptionsState[0].text || '';
@@ -337,49 +350,70 @@ export class Select {
           ''
         )}
         <div class='select-container'>
-          <fw-popover distance='8' ref={(popover) => (this.popover = popover)}>
+          <fw-popover
+            distance='8'
+            ref={(popover) => (this.popover = popover)}
+            same-width={this.sameWidth}
+            placement={this.optionsPlacement}
+          >
             <div
               slot='popover-trigger'
               class={{
-                'input-container': true,
+                'input-container': this.variant === 'input',
                 [this.state]: true,
                 'select-disabled': this.disabled,
               }}
               onClick={() => this.innerOnClick()}
               onKeyDown={handleKeyDown(this.innerOnClick)}
             >
-              <div class='input-container-inner'>
-                {this.renderTags()}
-                <input
-                  ref={(selectInput) => (this.selectInput = selectInput)}
-                  class={{
-                    'multiple-select': this.multiple,
-                  }}
-                  autoComplete='off'
-                  disabled={this.disabled}
-                  name={this.name}
-                  placeholder={
-                    this.value.length > 0 ? '' : this.placeholder || ''
+              {this.variant === 'button' ? (
+                //TODO: Make this behavior generic.
+                <fw-button
+                  id='select-btn'
+                  show-caret-icon
+                  color='secondary'
+                  class={
+                    this.host.classList.value.includes('month')
+                      ? 'fw-button-group__button--first'
+                      : 'fw-button-group__button--last'
                   }
-                  readOnly={this.readonly}
-                  required={this.required}
-                  type={this.type}
-                  value=''
-                  onInput={() => this.onInput()}
-                  onFocus={(e) => this.innerOnFocus(e)}
-                  onBlur={(e) => this.innerOnBlur(e)}
-                />
-                {this.isLoading ? (
-                  <fw-spinner size='small'></fw-spinner>
-                ) : (
-                  <span
+                >
+                  {this.value}
+                </fw-button>
+              ) : (
+                <div class='input-container-inner'>
+                  {this.renderTags()}
+                  <input
+                    ref={(selectInput) => (this.selectInput = selectInput)}
                     class={{
-                      'dropdown-status-icon': true,
-                      'expanded': this.isExpanded,
+                      'multiple-select': this.multiple,
                     }}
-                  ></span>
-                )}
-              </div>
+                    autoComplete='off'
+                    disabled={this.disabled}
+                    name={this.name}
+                    placeholder={
+                      this.value.length > 0 ? '' : this.placeholder || ''
+                    }
+                    readOnly={this.readonly}
+                    required={this.required}
+                    type={this.type}
+                    value=''
+                    onInput={() => this.onInput()}
+                    onFocus={(e) => this.innerOnFocus(e)}
+                    onBlur={(e) => this.innerOnBlur(e)}
+                  />
+                  {this.isLoading ? (
+                    <fw-spinner size='small'></fw-spinner>
+                  ) : (
+                    <span
+                      class={{
+                        'dropdown-status-icon': true,
+                        'expanded': this.isExpanded,
+                      }}
+                    ></span>
+                  )}
+                </div>
+              )}
             </div>
             <fw-list-options
               ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
@@ -388,7 +422,7 @@ export class Select {
               noDataText={this.noDataText}
               search={this.search}
               selectedOptions={this.selectedOptions}
-              variant={this.variant}
+              variant={this.dropdownVariant}
               filter-text={this.searchValue}
               options={this.dataSource}
               value={this.value}

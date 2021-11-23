@@ -71,9 +71,12 @@ graph TD;
   fw-timepicker --> fw-select-option
   fw-select --> fw-tag
   fw-select --> fw-popover
+  fw-select --> fw-button
   fw-select --> fw-spinner
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
   fw-select-option --> fw-icon

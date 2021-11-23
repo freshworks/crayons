@@ -1,5 +1,6 @@
 :host {
   position: relative;
+  --icon-size: 14px;
 
   * {
     user-select: none;
@@ -8,40 +9,33 @@
 
 .mdp-container,
 .mdp-range-container {
-  float: left;
-  left: 0;
-  top: 40px;
-  width: 300px;
-  min-height: 336px;
+  width: 264px;
   background: $color-milk;
+  box-sizing: border-box;
+  padding: 16px;
   overflow: hidden;
 }
 
 .mdpc-footer,
 .mdpc-range-footer {
-  float: left;
-  left: 0;
-  top: 344px;
-  width: 312px;
-  padding: 8px;
+  padding: 4px;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: flex-end;
   background: $color-smoke-25;
 
   fw-button {
-    float: right;
-    margin-left: 7px;
+    margin: 4px;
   }
 }
 
-.mdpc-range-footer {
-  width: 612px;
-}
-
 .mdp-range-container {
-  width: 600px;
+  width: 536px;
 }
 
 .mdpc-head {
-  height: 53px;
+  display: flex;
+  align-items: center;
 }
 
 .mdpc-body {
@@ -50,33 +44,49 @@
 }
 
 .body-container {
-  margin: 0 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
 
   .mdpc-body {
-    width: 48%;
+    width: 232px;
+    padding: 0 8px;
+    position: relative;
   }
 
   .mdpc-body-right {
-    float: right;
-    border-left: 1px solid $color-smoke-50;
-    padding-left: 10px;
+    width: 232px;
+    padding: 0 8px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 251px;
+      border-right: 1px solid #ebeff3;
+      height: 100%;
+    }
   }
 }
 
 /**
  * Controls
  */
+
+.btns {
+  display: inherit;
+  position: absolute;
+  right: 14px;
+}
+
 .mdpch-button,
 .mdpch-button-right {
-  float: left;
-  width: 30px;
+  width: 12px;
   height: 100%;
   box-sizing: border-box;
   position: relative;
-}
-
-.mdpch-button-right {
-  float: right;
+  bottom: 6px;
 }
 
 .mdpchb-inner:hover,
@@ -110,7 +120,6 @@
 .mdpchbi-right-arrows,
 .mdpchbi-right-arrows::after {
   display: block;
-  float: left;
   width: 6px;
   height: 6px;
   border-left: 2px solid $color-smoke-300;
@@ -152,18 +161,11 @@
 
 .mdpch-container,
 .mdpch-container-right {
-  float: left;
-  width: 200px;
-  height: 100%;
+  min-width: 50%;
 }
 
 .mdpch-container-right {
-  float: right;
-
-  .mdpchc-month,
-  .mdpchc-year {
-    float: right;
-  }
+  padding-left: 16px;
 }
 
 .mdpchc-year {
@@ -172,7 +174,9 @@
   font-size: 16px;
   color: $color-smoke-700;
   text-align: center;
-  width: 90px;
+  width: 74px;
+  --popover-max-height: 146px;
+  --popover-min-width: 170px;
 }
 
 .mdpchc-month {
@@ -180,8 +184,10 @@
   font-size: 16px;
   color: $color-smoke-700;
   text-align: center;
-  margin-right: 10px;
-  width: 90px;
+  margin-right: 16px;
+  width: 65px;
+  --popover-max-height: 140px;
+  --popover-min-width: 170px;
 
   fw-select .input-container-inner input {
     width: 98%;
@@ -253,7 +259,7 @@
 .cdc-day span {
   width: 24px;
   height: 22px;
-  font-size: 13px;
+  font-size: 14px;
   margin-top: -11px;
   margin-left: -13px;
   left: 50%;
@@ -269,11 +275,15 @@
 }
 
 .date-input {
-  width: 210px;
+  width: 200px;
+}
+
+.range-date-input {
+  width: 235px;
 }
 
 .c-day-container.disabled .cdc-day span {
-  color: $color-smoke-100;
+  color: $color-smoke-300;
   background: $color-milk !important;
 }
 
