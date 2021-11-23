@@ -16,7 +16,7 @@
 }
 
 :host(.toast) {
-  position: relative;
+  position: fixed;
   top: 10px;
   width: 400px;
   padding: 0px 0px 16px 0px;
@@ -104,4 +104,28 @@
 :host(.fade-out) {
   animation-duration: 1s;
   animation-name: fadeOut;
+}
+
+:host(.stacked) {
+  &:before,
+  &:after {
+    transform-origin: center bottom;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    will-change: transform;
+    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+  }
+  &:before {
+    z-index: -1;
+    transform: translate(0, 5px) scale(0.95);
+  }
+  &:after {
+    z-index: -2;
+    transform: translate(0, 10px) scale(0.9);
+  }
+  transform: translate(0, 0px);
 }

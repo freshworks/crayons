@@ -88,7 +88,15 @@ export function createToastNotification(
     if (val) toastElem.setAttribute(kebabCase(key), val as string);
   });
 
-  containerElem.appendChild(toastElem);
+  toastElem.style.cssText = `right: ${containerElem.style.right};left:${containerElem.style.left}`;
+
+  const hasChildren = containerElem?.children?.length == 1;
+
+  if (hasChildren) {
+    toastElem.classList.add('stacked');
+  }
+
+  containerElem.append(toastElem);
 }
 
 function getStylePosition(position) {
