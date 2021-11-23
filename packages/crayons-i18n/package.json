@@ -13,11 +13,13 @@
     "build": "tsc"
   },
   "keywords": [
-    "Crayons",
-    "i18n"
+    "crayons",
+    "i18n",
+    "typescript",
+    "stenciljs"
   ],
-  "author": "Freshworks",
-  "license": "ISC",
+  "author": "Freshworks Inc",
+  "license": "MIT",
   "devDependencies": {
     "@stencil/store": "^1.5.0",
     "typescript": "^4.2.4"

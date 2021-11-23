@@ -1,7 +1,7 @@
 {
   "name": "crayons",
   "version": "3.0.0-beta.4",
-  "description": "",
+  "description": "Crayons for Developer Platform",
   "main": "index.js",
   "engines": {
     "node": ">=14.7.0",
@@ -32,8 +32,14 @@
     "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push && npm run clean-changelog && npm run update-lock",
     "update-version:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --yes && npm run clean-changelog && npm run update-lock"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "web-components",
+    "stenciljs",
+    "ui-kit",
+    "typescript",
+    "components"
+  ],
+  "author": "Freshworks Inc",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",
