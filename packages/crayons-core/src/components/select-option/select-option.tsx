@@ -9,6 +9,7 @@ import {
   Method,
   Listen,
 } from '@stencil/core';
+import { DropdownVariant } from '../../utils/types';
 
 @Component({
   tag: 'fw-select-option',
@@ -189,5 +190,3 @@ export class SelectOption {
     }
   }
 }
-
-export type DropdownVariant = 'standard' | 'icon' | 'avatar';

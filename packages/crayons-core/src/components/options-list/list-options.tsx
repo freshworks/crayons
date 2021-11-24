@@ -11,7 +11,7 @@ import {
   Event,
 } from '@stencil/core';
 import { debounce } from '../../utils';
-import { DropdownVariant } from '../select-option/select-option';
+import { DropdownVariant } from '../../utils/types';
 
 @Component({
   tag: 'fw-list-options',

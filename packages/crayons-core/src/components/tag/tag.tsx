@@ -7,6 +7,7 @@ import {
   h,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
+import { TagVariant } from '../../utils/types';
 
 @Component({
   tag: 'fw-tag',
@@ -86,5 +87,3 @@ export class Tag {
     );
   }
 }
-
-export type TagVariant = 'standard' | 'avatar';

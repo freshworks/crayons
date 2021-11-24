@@ -9,6 +9,7 @@ import {
   h,
 } from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
+import { PopoverPlacementType } from '../../utils/types';
 
 @Component({
   tag: 'fw-popover',
@@ -184,17 +185,3 @@ export class Popover {
     ];
   }
 }
-
-export type PopoverPlacementType =
-  | 'top-start'
-  | 'top'
-  | 'top-end'
-  | 'left-start'
-  | 'left'
-  | 'left-end'
-  | 'right-start'
-  | 'right'
-  | 'right-end'
-  | 'bottom-start'
-  | 'bottom'
-  | 'bottom-end';

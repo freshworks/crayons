@@ -5,11 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownVariant } from "./components/select-option/select-option";
-import { PopoverPlacementType } from "./components/popover/popover";
-import { TagVariant } from "./components/tag/tag";
-import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
-import { TagVariant as TagVariant1 } from "./components/tag/tag";
+import { DropdownVariant, PopoverPlacementType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAvatar {

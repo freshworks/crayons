@@ -14,8 +14,7 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
-import { DropdownVariant } from '../select-option/select-option';
-import { TagVariant } from '../tag/tag';
+import { DropdownVariant, TagVariant } from '../../utils/types';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
