@@ -142,7 +142,7 @@ function App() {
   <fw-select-option value="5">Tyrell</fw-select-option>
 </fw-select>
 
-<fw-select id="complexSelect" label="Strawhat Pirates" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select id="complexSelect" label="Strawhat Pirates" placeholder="Your choices" state-text="Select multiple options" options-variant='icon' multiple>
 </fw-select>
 
 <script type="application/javascript">
@@ -329,7 +329,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
   no-data-text="Type to search.."
   placeholder="Your choices"
   state-text="Select multiple options"
-  variant="avatar"
+  options-variant="avatar"
   tag-variant="avatar"
   multiple
 >
@@ -367,7 +367,6 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property          | Attribute         | Description                                                                                                                                                                                                                               | Type                               | Default               |
@@ -396,7 +395,6 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 | `type`            | `type`            | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                  | `"number" \| "text"`               | `'text'`              |
 | `value`           | `value`           | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                              | `undefined`           |
 
-
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -405,39 +403,25 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `getSelectedItem() => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
 
 ### `setSelectedOptions(options: any[]) => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
 
 ### `setSelectedValues(values: string | string[]) => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -446,13 +430,12 @@ Type: `Promise<any>`
 | `--max-height` | Maximum height of the select component |
 | `--min-height` | Minimum height of the select component |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-datepicker](../datepicker)
- - [fw-timepicker](../timepicker)
+- [fw-datepicker](../datepicker)
+- [fw-timepicker](../timepicker)
 
 ### Depends on
 
@@ -462,6 +445,7 @@ Type: `Promise<any>`
 - [fw-list-options](../options-list)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-select --> fw-tag
@@ -480,6 +464,6 @@ graph TD;
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
