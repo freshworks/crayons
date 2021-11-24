@@ -261,7 +261,7 @@ export class Modal {
         });
         this.firstFocusElement.addEventListener('keydown', (e: any) => {
           e.shiftKey &&
-            e.keyCode == 9 &&
+            e.keyCode === 9 &&
             this.focusElement(this.lastFocusElement);
         });
       }
