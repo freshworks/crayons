@@ -50,13 +50,16 @@ export class Tab {
         aria-selected={this.active ? 'true' : 'false'}
         tabindex={this.disabled || !this.active ? '-1' : '0'}
         role='tab'
-        class={
-          'tab ' +
-          (this.disabled ? 'disabled' : '') +
-          (this.active ? 'active' : '')
-        }
       >
-        {this.tabHeader ? this.tabHeader : <slot />}
+        <div
+          class={
+            'tab ' +
+            (this.disabled ? 'disabled' : '') +
+            (this.active ? 'active' : '')
+          }
+        >
+          {this.tabHeader ? this.tabHeader : <slot />}
+        </div>
       </Host>
     );
   }
