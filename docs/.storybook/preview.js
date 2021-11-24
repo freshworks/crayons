@@ -5,10 +5,8 @@ import { Parser } from 'html-to-react';
 
 import theme from './freshworksStorybookTheme';
 import { defineCustomElements } from '../../packages/crayons-core/loader';
-import { defineCustomElements as defineCustomElementsTable } from '../../packages/crayons-datatable/loader';
 
 defineCustomElements(window);
-defineCustomElementsTable(window);
 
 const toReact = new Parser();
 
