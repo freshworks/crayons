@@ -66,7 +66,7 @@ export class SelectOption {
   /**
    * Place a checkbox.
    */
-  @Prop() isCheckbox = false;
+  @Prop() checkbox = false;
 
   /**
    * Triggered when an option is selected.
@@ -98,7 +98,7 @@ export class SelectOption {
 
   renderInnerHtml() {
     const description = this.createDescription();
-    const checkbox = this.isCheckbox ? this.createCheckbox() : '';
+    const checkbox = this.checkbox ? this.createCheckbox() : '';
     switch (this.variant) {
       case 'standard':
         return (
@@ -171,7 +171,7 @@ export class SelectOption {
         ref={(el) => (this.rowContainer = el)}
         class={
           'select-option ' +
-          (this.selected && !this.isCheckbox ? 'selected ' : '') +
+          (this.selected && !this.checkbox ? 'selected ' : '') +
           (this.disabled ? 'disabled ' : '') +
           (this.html
             ? ''

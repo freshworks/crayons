@@ -268,6 +268,10 @@ export namespace Components {
         "value": string;
     }
     interface FwListOptions {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
         "clearFilter": () => Promise<void>;
         /**
           * Debounce timer for the search promise function.
@@ -278,10 +282,6 @@ export namespace Components {
          */
         "filterText": any;
         "getSelectedOptions": () => Promise<any>;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -319,11 +319,14 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setSelectedOptions": (options: any[]) => Promise<any>;
-        "setSelectedValues": (values: string[]) => Promise<any>;
+        /**
+          * Pass an array of string in case of multi-select or string for single-select.
+         */
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value": any[];
+        "value": string | string[];
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -509,6 +512,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer": number;
@@ -521,10 +528,6 @@ export namespace Components {
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -554,6 +557,10 @@ export namespace Components {
          */
         "options": any;
         /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "optionsVariant": DropdownVariant;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -578,7 +585,7 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setSelectedOptions": (options: any[]) => Promise<any>;
-        "setSelectedValues": (values: string[]) => Promise<any>;
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
          */
@@ -599,12 +606,12 @@ export namespace Components {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value": any;
-        /**
-          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
-         */
-        "variant": DropdownVariant;
     }
     interface FwSelectOption {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
         /**
           * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
          */
@@ -625,10 +632,6 @@ export namespace Components {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
@@ -1447,6 +1450,10 @@ declare namespace LocalJSX {
     }
     interface FwListOptions {
         /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer"?: number;
@@ -1454,10 +1461,6 @@ declare namespace LocalJSX {
           * The text to filter the options.
          */
         "filterText"?: any;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -1505,7 +1508,7 @@ declare namespace LocalJSX {
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value"?: any[];
+        "value"?: string | string[];
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -1719,6 +1722,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer"?: number;
@@ -1730,10 +1737,6 @@ declare namespace LocalJSX {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -1774,6 +1777,10 @@ declare namespace LocalJSX {
           * Allow to search for value. Default is true.
          */
         "options"?: any;
+        /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "optionsVariant"?: DropdownVariant;
         /**
           * Text displayed in the list box before an option is selected.
          */
@@ -1818,12 +1825,12 @@ declare namespace LocalJSX {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value"?: any;
-        /**
-          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
-         */
-        "variant"?: DropdownVariant;
     }
     interface FwSelectOption {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
         /**
           * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
          */
@@ -1844,10 +1851,6 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Triggered when an option is selected.
          */

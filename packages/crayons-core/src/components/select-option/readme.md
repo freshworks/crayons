@@ -2,7 +2,6 @@
 
 fw-select-option provides child elements for fw-select, to populate the Select component’s list or drop-down box with values. If fw-select-option is used without the value attribute, when the form data is saved, the value of fw-select is the selected option’s text.
 
-
 ## Demo
 
 ```html live
@@ -38,7 +37,6 @@ function App() {
 </code-block>
 </code-group>
 
-
 #### Demo - Variants
 
 ```html live
@@ -48,7 +46,7 @@ function App() {
   sub-text="This is multiline element"
 ></fw-select-option>
 <fw-select-option
-  is-checkbox
+  checkbox
   text="Checkbox Variant"
   sub-text="This is multiline checkbox element"
 ></fw-select-option>
@@ -65,7 +63,7 @@ function App() {
   sub-text="This is multiline element"
 ></fw-select-option>
 <fw-select-option
-  is-checkbox
+  checkbox
   text="Checkbox Variant"
   sub-text="This is multiline checkbox element"
 ></fw-select-option>
@@ -85,7 +83,7 @@ function App() {
           subText="This is multiline element"
         ></FwSelectOption>
         <FwSelectOption
-          isCheckbox
+          checkbox
           text="Checkbox Variant"
           subText="This is multiline checkbox element"
         ></FwSelectOption>
@@ -95,7 +93,6 @@ function App() {
 </code-block>
 </code-group>
 
-
 <!-- Auto Generated Below -->
 
 
@@ -103,12 +100,12 @@ function App() {
 
 | Property        | Attribute        | Description                                                                                                                                                                                                                               | Type                               | Default      |
 | --------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------ |
+| `checkbox`      | `checkbox`       | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                          | `false`      |
 | `disabled`      | `disabled`       | Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.                                                                               | `boolean`                          | `false`      |
 | `graphicsProps` | `graphics-props` | The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'                                                                                                                                                      | `any`                              | `undefined`  |
 | `groupName`     | `group-name`     | Used in grouped list, provides the group in which the option belongs                                                                                                                                                                      | `string`                           | `undefined`  |
 | `html`          | `html`           | States that the option is an HTML value. If the attribute's value is undefined, the value is set to true.                                                                                                                                 | `boolean`                          | `false`      |
 | `htmlContent`   | `html-content`   | HTML content that is displayed as the option.                                                                                                                                                                                             | `string`                           | `undefined`  |
-| `isCheckbox`    | `is-checkbox`    | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                          | `false`      |
 | `optionText`    | `option-text`    | Alternate text displayed on the interface, in place of the actual HTML content.                                                                                                                                                           | `string`                           | `undefined`  |
 | `selected`      | `selected`       | Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.                                                  | `boolean`                          | `false`      |
 | `subText`       | `sub-text`       | Second line text can be description etc.                                                                                                                                                                                                  | `string`                           | `undefined`  |
