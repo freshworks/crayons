@@ -48,6 +48,7 @@ function App() {
 
 | Property        | Attribute  | Description                                                                                                                             | Type                     | Default      |
 | --------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------ |
+| `closable`      | `closable` | Whether the Tag can be closed.                                                                                                          | `boolean`                | `true`       |
 | `disabled`      | `disabled` | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.  | `boolean`                | `undefined`  |
 | `graphicsProps` | --         | The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component. | `{}`                     | `{}`         |
 | `text`          | `text`     | Display text in the tag component.                                                                                                      | `string`                 | `undefined`  |
@@ -71,11 +72,13 @@ function App() {
 ### Depends on
 
 - [fw-avatar](../avatar)
+- [fw-icon](../icon)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-tag --> fw-avatar
+  fw-tag --> fw-icon
   fw-select --> fw-tag
   style fw-tag fill:#f9f,stroke:#333,stroke-width:4px
 ```

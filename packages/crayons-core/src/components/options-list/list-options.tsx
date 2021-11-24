@@ -11,9 +11,8 @@ import {
   Event,
 } from '@stencil/core';
 import { debounce } from '../../utils';
-import { DropdownVariant } from '../select-option/select-option';
+import { DropdownVariant } from '../../utils/types';
 import { i18n } from '../../global/Translation';
-
 @Component({
   tag: 'fw-list-options',
   styleUrl: 'list-options.scss',
@@ -35,11 +34,7 @@ export class ListOptions {
               option.text.toLowerCase().includes(value)
             )
           : dataSource;
-      resolve(
-        filteredValue.length === 0
-          ? [{ text: this.notFoundText, disabled: true }]
-          : filteredValue
-      );
+      resolve(filteredValue);
     });
   };
 
@@ -55,7 +50,7 @@ export class ListOptions {
   /**
    * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
-  @Prop({ reflect: true, mutable: true }) value = [];
+  @Prop({ reflect: true, mutable: true }) value: string | string[] = '';
   /**
    * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
    */
@@ -80,7 +75,7 @@ export class ListOptions {
   /**
    * Place a checkbox.
    */
-  @Prop() isCheckbox = false;
+  @Prop() checkbox = false;
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
@@ -137,7 +132,7 @@ export class ListOptions {
         : [];
     }
     this.isInternalValueChange = true;
-    this.value = this.selectedOptionsState.map((options) => options.value);
+    this.setValue(this.selectedOptionsState);
   }
 
   @Method()
@@ -152,15 +147,19 @@ export class ListOptions {
   async getSelectedOptions(): Promise<any> {
     return this.selectedOptionsState;
   }
-
+  /**
+   * Pass an array of string in case of multi-select or string for single-select.
+   */
   @Method()
-  async setSelectedValues(values: string[]): Promise<any> {
+  async setSelectedValues(values: string | string[]): Promise<any> {
     if (this.options) {
-      this.selectedOptionsState = this.options.filter((option) =>
-        values.includes(option.value)
-      );
+      this.selectedOptionsState = this.options.filter((option) => {
+        return this.multiple
+          ? values.includes(option.value)
+          : values === option.value;
+      });
       this.isInternalValueChange = true;
-      this.value = values;
+      this.setValue(this.selectedOptionsState);
     }
   }
 
@@ -168,7 +167,7 @@ export class ListOptions {
   async setSelectedOptions(options: any[]): Promise<any> {
     this.selectedOptionsState = options;
     this.isInternalValueChange = true;
-    this.value = options.map((option) => option.value);
+    this.setValue(options);
   }
 
   @Watch('options')
@@ -215,7 +214,11 @@ export class ListOptions {
       this.isLoading = true;
       this.fwLoading.emit({ isLoading: this.isLoading });
       this.search(filterText, this.selectOptions).then((options) => {
-        this.filteredOptions = this.serializeData(options);
+        this.filteredOptions =
+          options?.length > 0
+            ? this.serializeData(options)
+            : [{ text: this.notFoundText, disabled: true }];
+
         this.isLoading = false;
         this.fwLoading.emit({ isLoading: this.isLoading });
       });
@@ -226,9 +229,11 @@ export class ListOptions {
 
   setSelectedOptionsByValue(values) {
     if (this.options) {
-      this.selectedOptionsState = this.options.filter((option) =>
-        values.includes(option.value)
-      );
+      this.selectedOptionsState = this.options.filter((option) => {
+        return this.multiple
+          ? values.includes(option.value)
+          : values === option.value;
+      });
     } else {
       throw new Error('Options must be passed if value is set');
     }
@@ -239,13 +244,28 @@ export class ListOptions {
       return {
         ...option,
         ...{
-          isCheckbox: option.isCheckbox || this.isCheckbox,
+          checkbox: option.checkbox || this.checkbox,
           variant: option.variant || this.variant,
-          selected: option.selected || this.value.includes(option.value),
-          disabled: option.disabled || this.value?.length >= this.max,
+          selected:
+            (this.multiple
+              ? this.value.includes(option.value)
+              : this.value === option.value) || option.selected,
+          disabled:
+            option.disabled ||
+            (this.multiple && this.value?.length >= this.max),
         },
       };
     });
+  }
+
+  setValue(options) {
+    if (options?.length > 0) {
+      this.value = this.multiple
+        ? options.map((option) => option.value)
+        : options[0].value;
+    } else {
+      this.value = this.multiple ? [] : '';
+    }
   }
 
   setDataSource(dataSource) {
@@ -275,9 +295,15 @@ export class ListOptions {
 
   componentWillLoad() {
     if (this.selectedOptions.length > 0) {
-      this.value = this.selectedOptions.map((option) => option.value);
+      this.selectedOptionsState = this.selectedOptions;
+      this.value = this.selectedOptionsState.map((option) => option.value);
     } else if (this.value.length > 0) {
       this.setSelectedOptionsByValue(this.value);
+    } else {
+      this.setValue([]);
+    }
+    if (this.multiple && typeof this.value === 'string') {
+      throw Error('value must be a array of string when multiple is true');
     }
     this.setDataSource(this.options);
   }
