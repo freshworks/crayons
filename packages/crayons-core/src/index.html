@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
@@ -26,6 +27,7 @@
   </fw-button-group> -->
   
 <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
+
    <fw-select
       label="Select App type"
       placeholder="Choose app type"
@@ -128,10 +130,11 @@
 
     </script>
 
+    <fw-progress-loader show></fw-progress-loader>
     <fw-progress-loader parent="#container2" id="pp" show></fw-progress-loader>
 
     <div id="container1">
-    <h1>asdasd</h1>
+    <h1>custom content</h1>
     </div>
 
     <p>hello workd</p>
@@ -140,10 +143,12 @@
       <p>container 2</p>
     </div>
       
-    <fw-button onClick="document.querySelector('#pp').done();">pro</fw-button>
+    <fw-button onClick="document.querySelector('#pp').start();">start custom loader</fw-button>
+    <fw-button onClick="document.querySelector('#pp').done();">stop custom loader</fw-button>
 
   -->
 
 
 </body>
+
 </html>

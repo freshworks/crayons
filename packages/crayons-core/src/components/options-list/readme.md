@@ -69,9 +69,9 @@ The data-source and the visual variant for the list options can be altered via t
 
 | Property          | Attribute        | Description                                                                                                                                                                                                                               | Type                                                  | Default                      |
 | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------- |
+| `checkbox`        | `checkbox`       | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                                             | `false`                      |
 | `debounceTimer`   | `debounce-timer` | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                              | `300`                        |
 | `filterText`      | `filter-text`    | The text to filter the options.                                                                                                                                                                                                           | `any`                                                 | `undefined`                  |
-| `isCheckbox`      | `is-checkbox`    | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                                             | `false`                      |
 | `max`             | `max`            | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                              | `Number.MAX_VALUE`           |
 | `multiple`        | `multiple`       | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                                             | `false`                      |
 | `noDataText`      | `no-data-text`   | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                                              | `'No Data available'`        |
@@ -81,7 +81,7 @@ The data-source and the visual variant for the list options can be altered via t
 | `searchText`      | `search-text`    | Placeholder to placed on the search text box.                                                                                                                                                                                             | `string`                                              | `'Search...'`                |
 | `searchable`      | `searchable`     | Enables the input with in the popup for filtering the options.                                                                                                                                                                            | `boolean`                                             | `false`                      |
 | `selectedOptions` | --               | The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                            | `any[]`                                               | `[]`                         |
-| `value`           | --               | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any[]`                                               | `[]`                         |
+| `value`           | `value`          | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `string \| string[]`                                  | `''`                         |
 | `variant`         | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                    | `'standard'`                 |
 
 
@@ -125,9 +125,9 @@ Type: `Promise<any>`
 
 
 
-### `setSelectedValues(values: string[]) => Promise<any>`
+### `setSelectedValues(values: string | string[]) => Promise<any>`
 
-
+Pass an array of string in case of multi-select or string for single-select.
 
 #### Returns
 
@@ -154,6 +154,7 @@ graph TD;
   fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
   fw-input --> fw-icon
   fw-select --> fw-list-options
   style fw-list-options fill:#f9f,stroke:#333,stroke-width:4px

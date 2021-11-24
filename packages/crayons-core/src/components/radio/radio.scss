@@ -1,26 +1,45 @@
-:host(.radio-container) {
+.radio-container {
   display: inline-block;
   position: relative;
   padding-left: 22px;
   margin-bottom: 8px;
   max-width: 80ch;
   word-wrap: break-word;
-}
 
-/* Focus event occurs on the root element */
-:host(:focus) {
-  input[type='radio'] + label {
-    &::before {
-      border: 1px solid transparent;
-      box-shadow: 0 0 0 2px rgb(44, 92, 197);
-      border-color: darken($app-icon-color, 10%);
+  /* Focus event occurs on the root element */
+  &:focus {
+    input[type='radio'] + label {
+      &::before {
+        border: 1px solid transparent;
+        box-shadow: 0 0 0 2px rgb(44, 92, 197);
+        border-color: darken($app-icon-color, 10%);
+      }
+    }
+
+    input[type='radio'][disabled] + label {
+      &::before {
+        box-shadow: none;
+        border: 1px solid #dadfe3;
+      }
     }
   }
 
-  input[type='radio'][disabled] + label {
-    &::before {
-      box-shadow: none;
-      border: 1px solid #dadfe3;
+  /* Hover event occurs on the root element */
+  &:hover {
+    input[type='radio'] + label {
+      &::before {
+        box-shadow: 0 0 0 5px rgb(235, 239, 243);
+        border-color: darken($app-icon-color, 10%);
+      }
+    }
+
+    input[type='radio'][disabled] + label {
+      cursor: not-allowed;
+
+      &::before {
+        box-shadow: none;
+        border: 1px solid #dadfe3;
+      }
     }
   }
 }
@@ -32,25 +51,6 @@
   line-height: 20px;
   position: relative;
   font-weight: 400;
-}
-
-/* Hover event occurs on the root element */
-:host(:hover) {
-  input[type='radio'] + label {
-    &::before {
-      box-shadow: 0 0 0 5px rgb(235, 239, 243);
-      border-color: darken($app-icon-color, 10%);
-    }
-  }
-
-  input[type='radio'][disabled] + label {
-    cursor: not-allowed;
-
-    &::before {
-      box-shadow: none;
-      border: 1px solid #dadfe3;
-    }
-  }
 }
 
 input[type='radio'] {
