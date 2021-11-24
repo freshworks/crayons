@@ -227,8 +227,11 @@ function App() {
 <fw-select
   id="dynamicSelect"
   label="Rick & Morty Characters"
+  no-data-text="Type to search.."
   placeholder="Your choices"
   state-text="Select multiple options"
+  variant="avatar"
+  tag-variant="avatar"
   multiple
 >
 </fw-select>
@@ -255,6 +258,7 @@ function App() {
             text: x.name,
             subText: x.type,
             value: x.id.toString(),
+            graphicsProps: { image: x.image },
           };
         });
       });
@@ -288,6 +292,7 @@ function App() {
 | `selectedOptions` | --               | Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.                                                                 | `any[]`                            | `[]`                  |
 | `state`           | `state`          | Theme based on which the list box is styled.                                                                                                                                                                                              | `"error" \| "normal" \| "warning"` | `'normal'`            |
 | `stateText`       | `state-text`     | Descriptive or instructional text displayed below the list box.                                                                                                                                                                           | `string`                           | `''`                  |
+| `tagVariant`      | `tag-variant`    | The variant of tag to be used.                                                                                                                                                                                                            | `"avatar" \| "standard"`           | `'standard'`          |
 | `type`            | `type`           | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                  | `"number" \| "text"`               | `'text'`              |
 | `value`           | `value`          | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                              | `undefined`           |
 | `variant`         | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"` | `'standard'`          |
@@ -369,6 +374,7 @@ graph TD;
   fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
   fw-input --> fw-icon
   fw-datepicker --> fw-select
   fw-timepicker --> fw-select

@@ -149,12 +149,14 @@ Type: `Promise<any>`
 
 - [fw-icon](../icon)
 - [fw-checkbox](../checkbox)
+- [fw-avatar](../avatar)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
   fw-datepicker --> fw-select-option
   fw-list-options --> fw-select-option
   fw-timepicker --> fw-select-option

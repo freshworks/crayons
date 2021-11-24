@@ -9,6 +9,7 @@ import {
   Method,
   Listen,
 } from '@stencil/core';
+import { DropdownVariant } from '../../utils/types';
 
 @Component({
   tag: 'fw-select-option',
@@ -114,6 +115,14 @@ export class SelectOption {
             {description}
           </Fragment>
         );
+      case 'avatar':
+        return (
+          <Fragment>
+            {checkbox}
+            {this.createAvatar()}
+            {description}
+          </Fragment>
+        );
       default:
         break;
     }
@@ -150,6 +159,10 @@ export class SelectOption {
     return <fw-checkbox checked={this.selected}></fw-checkbox>;
   }
 
+  createAvatar() {
+    return <fw-avatar size='small' {...this.graphicsProps}></fw-avatar>;
+  }
+
   render() {
     return (
       <div
@@ -177,5 +190,3 @@ export class SelectOption {
     }
   }
 }
-
-export type DropdownVariant = 'standard' | 'icon' | 'avatar';

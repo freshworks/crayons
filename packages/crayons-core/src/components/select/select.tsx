@@ -14,7 +14,7 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
-import { DropdownVariant } from '../select-option/select-option';
+import { DropdownVariant, TagVariant } from '../../utils/types';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -128,6 +128,10 @@ export class Select {
    * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
    */
   @Prop({ reflect: true, mutable: true }) selectedOptions = [];
+  /**
+   * The variant of tag to be used.
+   */
+  @Prop() tagVariant: TagVariant = 'standard';
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -235,6 +239,8 @@ export class Select {
         if (this.value.includes(option.value)) {
           return (
             <fw-tag
+              variant={this.tagVariant}
+              graphicsProps={option.graphicsProps}
               text={option.text}
               disabled={option.disabled}
               value={option.value}
