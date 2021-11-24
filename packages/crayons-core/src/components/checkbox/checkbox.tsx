@@ -115,7 +115,6 @@ export class Checkbox {
 
     return (
       <Host
-        class='checkbox-container'
         onClick={() => this.toggle()}
         role='checkbox'
         tabIndex='0'
@@ -126,10 +125,12 @@ export class Checkbox {
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >
-        <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
-        <label>{this.label}</label>
-        <div id='description'>
-          <slot />
+        <div class='checkbox-container'>
+          <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
+          <label>{this.label}</label>
+          <div id='description'>
+            <slot />
+          </div>
         </div>
       </Host>
     );
