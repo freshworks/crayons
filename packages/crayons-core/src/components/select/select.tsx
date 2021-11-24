@@ -93,7 +93,7 @@ export class Select {
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
-  @Prop() variant: DropdownVariant = 'standard';
+  @Prop() optionsVariant: DropdownVariant = 'standard';
   /**
    * Allow to search for value. Default is true.
    */
@@ -105,7 +105,7 @@ export class Select {
   /**
    * Place a checkbox.
    */
-  @Prop() isCheckbox = false;
+  @Prop() checkbox = false;
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
@@ -268,6 +268,7 @@ export class Select {
   }
 
   componentWillLoad() {
+    //TODO: The below is a rough draft and needs to be optimized for better performance.
     const selectOptions = Array.from(
       this.host.querySelectorAll('fw-select-option')
     );
@@ -431,13 +432,13 @@ export class Select {
               noDataText={this.noDataText}
               search={this.search}
               selectedOptions={this.selectedOptions}
-              variant={this.variant}
+              variant={this.optionsVariant}
               filter-text={this.searchValue}
               options={this.dataSource}
               value={this.value}
               multiple={this.multiple}
               max={this.max}
-              isCheckbox={this.isCheckbox}
+              checkbox={this.checkbox}
               slot='popover-content'
             ></fw-list-options>
           </fw-popover>

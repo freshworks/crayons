@@ -75,7 +75,7 @@ export class ListOptions {
   /**
    * Place a checkbox.
    */
-  @Prop() isCheckbox = false;
+  @Prop() checkbox = false;
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
@@ -239,7 +239,7 @@ export class ListOptions {
       return {
         ...option,
         ...{
-          isCheckbox: option.isCheckbox || this.isCheckbox,
+          checkbox: option.checkbox || this.checkbox,
           variant: option.variant || this.variant,
           selected:
             (this.multiple
