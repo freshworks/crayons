@@ -74,8 +74,14 @@ describe('fw-checkbox', () => {
     );
     const element = await page.find('fw-checkbox >>> div');
     console.log(element);
-    expect(element).toEqualHtml(`<div id="description">
-    <slot/>
+    expect(element).toEqualHtml(`<div class="checkbox-container">
+    <input type="checkbox">
+    <label>
+      Yes
+    </label>
+    <div id="description">
+      <slot></slot>
+    </div>
     </div>`);
   });
 });

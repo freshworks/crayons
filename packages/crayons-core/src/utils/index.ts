@@ -103,9 +103,9 @@ export const isFocusable = (element) => {
   }
   switch (element.nodeName) {
     case 'A':
-      return !!element.href && element.rel != 'ignore';
+      return !!element.href && element.rel !== 'ignore';
     case 'INPUT':
-      return element.type != 'hidden';
+      return element.type !== 'hidden';
     case 'BUTTON':
     case 'SELECT':
     case 'TEXTAREA':

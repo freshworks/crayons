@@ -5,6 +5,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:prettier/recommended',
   ],
+  rules: {
+    eqeqeq: 2,
+  },
   parserOptions: {
     ecmaVersion: 2021, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
@@ -48,6 +51,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 0,
         'react/no-jsx-bind': 0,
         'jsx-quotes': [1, 'prefer-single'],
+        'eqeqeq': 2,
       },
     },
   ],

@@ -95,6 +95,7 @@ graph TD;
   fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
   fw-button --> fw-spinner
   fw-button --> fw-icon
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px

@@ -11,7 +11,7 @@ import {
   Event,
 } from '@stencil/core';
 import { debounce } from '../../utils';
-import { DropdownVariant } from '../select-option/select-option';
+import { DropdownVariant } from '../../utils/types';
 
 @Component({
   tag: 'fw-list-options',
@@ -34,11 +34,7 @@ export class ListOptions {
               option.text.toLowerCase().includes(value)
             )
           : dataSource;
-      resolve(
-        filteredValue.length === 0
-          ? [{ text: this.notFoundText, disabled: true }]
-          : filteredValue
-      );
+      resolve(filteredValue);
     });
   };
 
@@ -213,7 +209,11 @@ export class ListOptions {
       this.isLoading = true;
       this.fwLoading.emit({ isLoading: this.isLoading });
       this.search(filterText, this.selectOptions).then((options) => {
-        this.filteredOptions = this.serializeData(options);
+        this.filteredOptions =
+          options?.length > 0
+            ? this.serializeData(options)
+            : [{ text: this.notFoundText, disabled: true }];
+
         this.isLoading = false;
         this.fwLoading.emit({ isLoading: this.isLoading });
       });
@@ -290,8 +290,9 @@ export class ListOptions {
 
   componentWillLoad() {
     if (this.selectedOptions.length > 0) {
-      this.setValue(this.selectedOptions);
-    } else if (this.value) {
+      this.selectedOptionsState = this.selectedOptions;
+      this.value = this.selectedOptionsState.map((option) => option.value);
+    } else if (this.value.length > 0) {
       this.setSelectedOptionsByValue(this.value);
     } else {
       this.setValue([]);

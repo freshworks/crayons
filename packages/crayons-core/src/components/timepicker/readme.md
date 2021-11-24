@@ -78,6 +78,7 @@ graph TD;
   fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
   fw-input --> fw-icon
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```

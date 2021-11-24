@@ -5,9 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownVariant } from "./components/select-option/select-option";
-import { PopoverPlacementType } from "./components/popover/popover";
-import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
+import { DropdownVariant, PopoverPlacementType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAvatar {
@@ -593,6 +591,10 @@ export namespace Components {
          */
         "stateText": string;
         /**
+          * The variant of tag to be used.
+         */
+        "tagVariant": TagVariant;
+        /**
           * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
         "type": 'text' | 'number';
@@ -732,7 +734,7 @@ export namespace Components {
         /**
           * The variant of tag to be displayed.
          */
-        "variant": 'standard' | 'avatar';
+        "variant": TagVariant;
     }
     interface FwTextarea {
         /**
@@ -1808,6 +1810,10 @@ declare namespace LocalJSX {
          */
         "stateText"?: string;
         /**
+          * The variant of tag to be used.
+         */
+        "tagVariant"?: TagVariant;
+        /**
           * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
         "type"?: 'text' | 'number';
@@ -1958,7 +1964,7 @@ declare namespace LocalJSX {
         /**
           * The variant of tag to be displayed.
          */
-        "variant"?: 'standard' | 'avatar';
+        "variant"?: TagVariant;
     }
     interface FwTextarea {
         /**
