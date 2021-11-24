@@ -10,7 +10,11 @@ import {
 } from '@stencil/core';
 import moment from 'moment-mini';
 
-import { handleKeyDown, renderHiddenField, isFocusable } from '../../utils';
+import {
+  handleKeyDown,
+  renderHiddenField,
+  getFocusableChildren,
+} from '../../utils';
 
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -100,29 +104,8 @@ export class Datepicker {
   makeDatePickerInert() {
     if (!this.madeInert) {
       /**
-       * Focus trapping inside datepicker. Below function gets all focusable elements from the datepicker.
-       * These include elements inside shadow dom too.
+       * Focus trapping inside datepicker.
        */
-      const getFocusableChildren = (node: HTMLElement) => {
-        let focusableElements = [];
-        const getAllNodes = (element: any, root = true) => {
-          root && (focusableElements = []);
-          element = element.shadowRoot ? element.shadowRoot : element;
-          element.querySelectorAll('*').forEach((el: any) => {
-            if (isFocusable(el)) {
-              focusableElements.push(el);
-            } else if (el.nodeName === 'SLOT') {
-              el.assignedElements({ flatten: true }).forEach(
-                (assignedEl: HTMLElement) => getAllNodes(assignedEl, false)
-              );
-            } else if (el.shadowRoot) {
-              getAllNodes(el, false);
-            }
-          });
-        };
-        getAllNodes(node);
-        return focusableElements;
-      };
       const focusableElements = getFocusableChildren(this.host);
       if (focusableElements.length) {
         this.firstFocusElement = focusableElements[0];
