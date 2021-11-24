@@ -95,6 +95,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property        | Attribute        | Description                                                                                                                                                                                                                               | Type                               | Default      |
@@ -109,8 +110,9 @@ function App() {
 | `selected`      | `selected`       | Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.                                                  | `boolean`                          | `false`      |
 | `subText`       | `sub-text`       | Second line text can be description etc.                                                                                                                                                                                                  | `string`                           | `undefined`  |
 | `text`          | `text`           | The text to be displayed in the option.                                                                                                                                                                                                   | `string`                           | `undefined`  |
-| `value`         | `value`          | Value corresponding to the option, that is saved when the form data is saved.                                                                                                                                                             | `string`                           | `undefined`  |
+| `value`         | `value`          | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                                                                            | `string`                           | `undefined`  |
 | `variant`       | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"` | `'standard'` |
+
 
 ## Events
 
@@ -118,21 +120,27 @@ function App() {
 | ------------ | ------------------------------------- | ------------------ |
 | `fwSelected` | Triggered when an option is selected. | `CustomEvent<any>` |
 
+
 ## Methods
 
 ### `setFocus() => Promise<any>`
+
+
 
 #### Returns
 
 Type: `Promise<any>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
-- [fw-datepicker](../datepicker)
-- [fw-list-options](../options-list)
-- [fw-timepicker](../timepicker)
+ - [fw-datepicker](../datepicker)
+ - [fw-list-options](../options-list)
+ - [fw-timepicker](../timepicker)
 
 ### Depends on
 
@@ -141,7 +149,6 @@ Type: `Promise<any>`
 - [fw-avatar](../avatar)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-select-option --> fw-icon
@@ -153,6 +160,6 @@ graph TD;
   style fw-select-option fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks
