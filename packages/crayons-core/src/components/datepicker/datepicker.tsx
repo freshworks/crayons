@@ -518,13 +518,14 @@ export class Datepicker {
         this.endDateFormatted = moment(this.endDate).format(this.dateFormat);
         if (this.startDate && this.endDate) {
           this.value = this.startDateFormatted + ' To ' + this.endDateFormatted;
+          this.showDatePicker = false;
         }
       } else {
         // Single Date Container
         this.onDateClick(day);
         this.value = moment(this.selectedDay).format(this.dateFormat);
+        this.showDatePicker = false;
       }
-      this.showDatePicker = false;
     }
   }
 
