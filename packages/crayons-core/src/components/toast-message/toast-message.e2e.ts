@@ -15,10 +15,10 @@ describe('fw-toast-message', () => {
     await page.setContent(
       '<fw-toast-message content="Successfully created!" action-link-text="Undo"></fw-toast-message>'
     );
-    const element = await page.find('fw-toast-message');
+    const element = await page.find('fw-toast-message >>> .toast');
     element.classList.add('is-open');
 
-    const content = await page.find('fw-toast-message >>> .content');
+    const content = await element.find('.content');
     expect(content.innerHTML).toEqual(
       '<slot></slot>Successfully created!<div class="action-link" role="button" tabindex="0">Undo</div>'
     );
@@ -34,11 +34,11 @@ describe('fw-toast-message', () => {
     await page.setContent(
       '<fw-toast-message type="warning"></fw-toast-message>'
     );
-    const element = await page.find('fw-toast-message');
+    const element = await page.find('fw-toast-message >>> .toast');
     element.classList.add('is-open');
     await page.waitForChanges();
 
-    const divElem = await page.find('fw-toast-message');
+    const divElem = await page.find('fw-toast-message >>> .toast');
     expect(divElem).toHaveClass('warning');
   });
 
@@ -48,13 +48,13 @@ describe('fw-toast-message', () => {
     await page.setContent(
       '<fw-toast-message type="inprogress"></fw-toast-message>'
     );
-    const element = await page.find('fw-toast-message');
+    const element = await page.find('fw-toast-message >>> .toast');
     element.classList.add('is-open');
 
-    const closeIcon = await page.find('fw-toast-message >>> .remove');
+    const closeIcon = await element.find('.remove');
     expect(closeIcon).toBeTruthy();
 
-    const spinner = await page.find('fw-toast-message >>> fw-spinner');
+    const spinner = await element.find('fw-spinner');
     expect(spinner).toBeTruthy();
   });
 });
