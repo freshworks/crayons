@@ -89,7 +89,7 @@ export class Tag {
         {this.closable && (
           <span
             role='button'
-            tabindex='0'
+            tabindex='-1'
             class={`remove-btn ${this.variant} ${
               this.disabled ? 'disabled' : ''
             }`}
