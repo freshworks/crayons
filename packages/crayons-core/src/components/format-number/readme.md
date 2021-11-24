@@ -1,4 +1,4 @@
-# FormatNumber (fw-format-number)
+# Format Number (fw-format-number)
 
 Format Number formats a number using the given locale and options.
 Localization is handled by the `Intl.NumberFormat` API
