@@ -101,7 +101,6 @@ export class Radio {
   render() {
     return (
       <Host
-        class='radio-container'
         onClick={() => this.toggle()}
         role='radio'
         tabIndex='-1'
@@ -112,10 +111,12 @@ export class Radio {
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >
-        <input type='radio' ref={(el) => (this.radio = el)}></input>
-        <label>{this.label}</label>
-        <div id='description'>
-          <slot />
+        <div class='radio-container'>
+          <input type='radio' ref={(el) => (this.radio = el)}></input>
+          <label>{this.label}</label>
+          <div id='description'>
+            <slot />
+          </div>
         </div>
       </Host>
     );
