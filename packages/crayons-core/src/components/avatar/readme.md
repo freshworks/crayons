@@ -105,11 +105,13 @@ function App() {
 
 ### Used by
 
+ - [fw-select-option](../select-option)
  - [fw-tag](../tag)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-select-option --> fw-avatar
   fw-tag --> fw-avatar
   style fw-avatar fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -5,16 +5,6 @@ Localization is handled by the `Intl.NumberFormat` API
 
 ## Demo
 
-Pass type as `percent` to get the value as percentage.
-
-```html live
-<fw-format-number type="percent" value="0"></fw-format-number><br/>
-<fw-format-number type="percent" value="0.25"></fw-format-number><br>
-<fw-format-number type="percent" value="0.50"></fw-format-number><br>
-<fw-format-number type="percent" value="0.75"></fw-format-number><br>
-<fw-format-number type="percent" value="1"></fw-format-number> <br/>
-```
-
 Pass `locale` attritube to set the formatting locale for the number.
 
 ```html live
@@ -24,6 +14,16 @@ English: <fw-format-number value="2000" locale="en" minimum-fraction-digits="2">
 <div>
 German: <fw-format-number value="2000" locale="de" minimum-fraction-digits="2"></fw-format-number><br/>
 </div>
+```
+
+Pass type as `percent` to get the value as percentage.
+
+```html live
+<fw-format-number type="percent" value="0"></fw-format-number><br/>
+<fw-format-number type="percent" value="0.25"></fw-format-number><br>
+<fw-format-number type="percent" value="0.50"></fw-format-number><br>
+<fw-format-number type="percent" value="0.75"></fw-format-number><br>
+<fw-format-number type="percent" value="1"></fw-format-number> <br/>
 ```
 
 To format a number as a monetary value, set the type attribute to `currency` and set the currency attribute to the desired `ISO 4217 currency code`.
@@ -44,16 +44,16 @@ You should also specify `locale` attribute to ensure the the number is formatted
 <code-block title="HTML">
 ```html 
 
+<label>Pass `locale` attritube to set the formatting locale for the number</label>
+English: <fw-format-number value="2000" locale="en" minimum-fraction-digits="2"></fw-format-number><br/>
+German: <fw-format-number value="2000" locale="de" minimum-fraction-digits="2"></fw-format-number><br/>
+
 <label> Pass type as `percent` to get the value as percentage.</label>
 <fw-format-number type="percent" value="0"></fw-format-number><br/>
 <fw-format-number type="percent" value="0.25"></fw-format-number><br/>
 <fw-format-number type="percent" value="0.50"></fw-format-number><br/>
 <fw-format-number type="percent" value="0.75"></fw-format-number><br/>
 <fw-format-number type="percent" value="1"></fw-format-number> <br/>
-
-<label>Pass `locale` attritube to set the formatting locale for the number</label>
-English: <fw-format-number value="2000" locale="en" minimum-fraction-digits="2"></fw-format-number><br/>
-German: <fw-format-number value="2000" locale="de" minimum-fraction-digits="2"></fw-format-number><br/>
 
 <label>To format a number as a monetary value, set the type attribute to `currency` and set the currency attribute to the desired `ISO 4217 currency code`.</label>
 
@@ -74,17 +74,16 @@ import { FwFormatNumber } from "@freshworks/crayons/react";
 function App() {
   return (<div>
                       
+            <label>Pass `locale` attritube to set the formatting locale for the number</label>
+            English: <FwFormatNumber value={2000} locale="en" minimum-fraction-digits={2}></FwFormatNumber><br/>
+            German: <FwFormatNumber value={2000} locale="de" minimum-fraction-digits={2}></FwFormatNumber><br/>
+
             <label> Pass type as `percent` to get the value as percentage.</label>
             <FwFormatNumber type="percent" value={0}></FwFormatNumber><br/>
             <FwFormatNumber type="percent" value={0.25}></FwFormatNumber><br/>
             <FwFormatNumber type="percent" value={0.50}></FwFormatNumber><br/>
             <FwFormatNumber type="percent" value={0.75}></FwFormatNumber><br/>
             <FwFormatNumber type="percent" value={1}></FwFormatNumber> <br/>
-
-            <label>Pass `locale` attritube to set the formatting locale for the number</label>
-            English: <FwFormatNumber value={2000} locale="en" minimum-fraction-digits={2}></FwFormatNumber><br/>
-            German: <FwFormatNumber value={2000} locale="de" minimum-fraction-digits={2}></FwFormatNumber><br/>
-
 
             <label>To format a number as a monetary value, set the type attribute to `currency` and set the currency attribute to the desired `ISO 4217 currency code`.</label>
 

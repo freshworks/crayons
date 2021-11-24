@@ -66,6 +66,7 @@ The following are the icons supported:
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
  - [fw-select-option](../select-option)
+ - [fw-tag](../tag)
  - [fw-toast-message](../toast-message)
  - [fw-toggle](../toggle)
 
@@ -79,6 +80,7 @@ graph TD;
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon
   fw-select-option --> fw-icon
+  fw-tag --> fw-icon
   fw-toast-message --> fw-icon
   fw-toggle --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
