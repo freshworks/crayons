@@ -17,7 +17,7 @@ const generateIconsExportData = async () => {
         const svg_name =
           svgName.indexOf('-') > -1
             ? svgName.split('-').join('_')
-            : svgName == 'new' || svgName == 'delete'
+            : svgName === 'new' || svgName === 'delete'
             ? svgName.concat('_icon')
             : svgName;
 

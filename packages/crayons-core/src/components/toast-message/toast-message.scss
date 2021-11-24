@@ -1,21 +1,18 @@
-:host {
-  display: none;
-}
-
 @media screen and (prefers-reduced-motion: reduce) {
-  :host(.is-open) {
+  .toast.is-open {
     animation: none;
   }
 }
 
-:host(.is-open) {
+.toast.is-open {
   display: block;
   animation-duration: 0.5s;
   animation-name: fadeIn;
   z-index: 999;
 }
 
-:host(.toast) {
+.toast {
+  display: none;
   position: relative;
   top: 10px;
   width: 400px;
@@ -25,22 +22,20 @@
   background-color: $color-milk;
   margin-bottom: 16px;
   box-sizing: border-box;
-}
 
-.toast {
-  :host(&.success) {
+  &.success {
     border-top: 5px solid $color-jungle-500;
   }
 
-  :host(&.error) {
+  &.error {
     border-top: 5px solid $color-persimmon-800;
   }
 
-  :host(&.warning) {
+  &.warning {
     border-top: 5px solid $color-casablanca-300;
   }
 
-  :host(&.inprogress) {
+  &.inprogress {
     border-top: 5px solid $color-azure-800;
   }
 }
@@ -96,12 +91,12 @@
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-  :host(.fade-out) {
+  .toast.fade-out {
     animation: none;
   }
 }
 
-:host(.fade-out) {
+.toast.fade-out {
   animation-duration: 1s;
   animation-name: fadeOut;
 }

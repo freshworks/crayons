@@ -144,46 +144,50 @@ export class ToastMessage {
   render(): JSX.Element {
     return (
       <Host
-        class={`toast ${this.type} ${this.open ? 'is-open' : ''} ${
-          this.fadeOut ? 'fade-out' : ''
-        }`}
         onmouseover={() => this.mouseHover(true)}
         onmouseout={() => this.mouseHover(false)}
         aria-hidden={this.open ? 'false' : 'true'}
       >
-        <div class='toast-container'>
-          {this.type === 'inprogress' ? (
-            <fw-spinner class='icon'></fw-spinner>
-          ) : (
-            <fw-icon class='icon' size={this.iconSize} name={this.type} />
-          )}
-
-          <div class='content'>
-            <slot />
-            {this.content}
-
-            {this.actionLinkText.length > 0 ? (
-              <div
-                class='action-link'
-                role='button'
-                tabindex='0'
-                onClick={() => this.fwLinkClick.emit()}
-                onKeyDown={handleKeyDown(() => this.fwLinkClick.emit())}
-              >
-                {this.actionLinkText}
-              </div>
+        <div
+          class={`toast ${this.type} ${this.open ? 'is-open' : ''} ${
+            this.fadeOut ? 'fade-out' : ''
+          }`}
+          aria-hidden={this.open ? 'false' : 'true'}
+        >
+          <div class='toast-container'>
+            {this.type === 'inprogress' ? (
+              <fw-spinner class='icon'></fw-spinner>
             ) : (
-              ''
+              <fw-icon class='icon' size={this.iconSize} name={this.type} />
             )}
-          </div>
 
-          <fw-icon
-            size={10}
-            color='#000'
-            name='cross'
-            class='remove'
-            onClick={() => this.closeToast()}
-          ></fw-icon>
+            <div class='content'>
+              <slot />
+              {this.content}
+
+              {this.actionLinkText.length > 0 ? (
+                <div
+                  class='action-link'
+                  role='button'
+                  tabindex='0'
+                  onClick={() => this.fwLinkClick.emit()}
+                  onKeyDown={handleKeyDown(() => this.fwLinkClick.emit())}
+                >
+                  {this.actionLinkText}
+                </div>
+              ) : (
+                ''
+              )}
+            </div>
+
+            <fw-icon
+              size={10}
+              color='#000'
+              name='cross'
+              class='remove'
+              onClick={() => this.closeToast()}
+            ></fw-icon>
+          </div>
         </div>
       </Host>
     );
