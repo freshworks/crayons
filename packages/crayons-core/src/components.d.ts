@@ -708,6 +708,10 @@ export namespace Components {
           * Describes the purpose of set of tabs.
          */
         "label": string;
+        /**
+          * The style of tab headers that needs to be displayed, box will display headers in a container.
+         */
+        "variant": 'box' | 'normal';
     }
     interface FwTag {
         /**
@@ -1930,6 +1934,10 @@ declare namespace LocalJSX {
           * Triggered when a the view switches to a new tab.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * The style of tab headers that needs to be displayed, box will display headers in a container.
+         */
+        "variant"?: 'box' | 'normal';
     }
     interface FwTag {
         /**
