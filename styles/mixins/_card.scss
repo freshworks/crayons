@@ -11,15 +11,15 @@ $card-padding-left: 16px;
   } @else if $level == 1 {
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.02);
   } @else if $level == 2 {
-    box-shadow: 0px 4px 16px -4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
   } @else if $level == 3 {
-    box-shadow: 8px 20px 34px rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 2px 16px rgba(18, 52, 77, 0.16);
   } @else {
     @warn "Invalid elevation $level `#{$level}`.";
   }
 }
 
-@mixin card($level: 1, $corner: 4px) {
+@mixin card($level: 1, $corner: 8px) {
   background: $color-milk;
   padding: $card-padding-top $card-padding-right $card-padding-bottom
     $card-padding-left;
