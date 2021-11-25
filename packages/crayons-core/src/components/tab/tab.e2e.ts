@@ -15,7 +15,9 @@ describe('fw-tab', () => {
     await page.setContent(`<fw-tab></fw-tab>`);
     const element = await page.find('fw-tab');
 
-    expect(element.shadowRoot).toEqualHtml(`<slot />`);
+    expect(element.shadowRoot).toEqualHtml(`<div class="tab">
+      <slot></slot>
+      </div>`);
   });
 
   it('Sets active class', async () => {

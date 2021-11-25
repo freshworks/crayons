@@ -7,6 +7,13 @@
     display: flex;
     border-bottom: 1px solid $color-smoke-50;
     overflow-x: auto;
+
+    &__box {
+      background-color: $app-header-bg-secondary;
+      border: 1px solid $color-smoke-50;
+      box-sizing: border-box;
+      border-radius: $radius;
+    }
   }
 
   &__items__tabs {
