@@ -198,28 +198,7 @@ export class Datepicker {
 
     if (e.path[0].tagName === 'FW-INPUT') {
       if (e.composedPath()[0].classList.value.includes('range-date-input')) {
-        // Range input
-        const val = e.path[0].value;
-        this.value = val;
-        let [fromDate, toDate] = val.split('To');
-        fromDate = fromDate.trim();
-        toDate = toDate.trim();
-        if (
-          !moment(fromDate, this.dateFormat, true).isValid() ||
-          !moment(toDate, this.dateFormat, true).isValid()
-        ) {
-          // Invalid date format
-          return;
-        }
-
-        this.year = fromDate.split('-')[2];
-        this.month = fromDate.split('-')[1] - 1;
-        this.startDate = moment(fromDate, this.dateFormat).valueOf();
-        this.endDate = moment(toDate, this.dateFormat).valueOf();
-
-        this.toMonth = this.month === 11 ? 0 : this.month + 1;
-        this.toYear =
-          this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
+        //TODO: Handle Range input
       } else {
         // Single Date input
         const val = e.path[0].value;
@@ -228,8 +207,8 @@ export class Datepicker {
           // Invalid date format
           return;
         }
-        this.year = val.split('-')[2];
-        this.month = val.split('-')[1] - 1;
+        this.year = `${moment(val, this.dateFormat).get('year')}`;
+        this.month = moment(val, this.dateFormat).get('month');
         this.todayTimestamp = moment(val, this.dateFormat).valueOf();
         this.selectedDay = moment(val, this.dateFormat).valueOf();
       }
@@ -329,9 +308,11 @@ export class Datepicker {
 
   componentWillLoad() {
     this.year = this.value
-      ? this.value.split('-')[2]
+      ? `${moment(this.value, this.dateFormat).get('year')}`
       : moment().year().toString();
-    this.month = this.value ? +this.value.split('-')[1] - 1 : moment().month();
+    this.month = this.value
+      ? moment(this.value, this.dateFormat).get('month')
+      : moment().month();
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
       this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
@@ -350,7 +331,7 @@ export class Datepicker {
     this.placeholder =
       this.placeholder ||
       (this.mode === 'range'
-        ? `${this.dateFormat} to ${this.dateFormat}`
+        ? `${this.dateFormat}` && `${this.dateFormat} to ${this.dateFormat}`
         : this.dateFormat);
     this.supportedYears = this.getSupportedYears();
     this.selectedDay =
