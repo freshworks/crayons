@@ -15,3 +15,5 @@ export type PopoverPlacementType =
   | 'bottom-start'
   | 'bottom'
   | 'bottom-end';
+
+export type PopoverTriggerType = 'click' | 'hover' | 'manual';
