@@ -63,6 +63,19 @@ function App() {
 | `fwClosed` | Triggered when the tag is deselected. | `CustomEvent<any>` |
 
 
+## Methods
+
+### `setFocus() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+
 ## Dependencies
 
 ### Used by

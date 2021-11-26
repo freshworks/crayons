@@ -95,7 +95,7 @@ The data-source and the visual variant for the list options can be altered via t
 
 ## Methods
 
-### `clearFilter() => Promise<void>`
+### `closeHandler() => Promise<void>`
 
 
 
@@ -106,6 +106,26 @@ Type: `Promise<void>`
 
 
 ### `getSelectedOptions() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+### `openHandler() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFocus() => Promise<any>`
 
 
 

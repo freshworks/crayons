@@ -365,6 +365,33 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 </script>
 ```
 
+### Navigation Demo with large option
+
+```html live
+<fw-select
+  label="Pick one year"
+  placeholder="Your choices"
+  id="longSelect"
+></fw-select>
+<fw-select
+  label="Pick Multiple years"
+  placeholder="Your choices"
+  id="longSelectMulti"
+  multiple
+></fw-select>
+<script type="application/javascript">
+  let years = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
+    return { value: x.toString(), text: x.toString() };
+  });
+
+  let longSelect = document.getElementById('longSelect');
+  longSelect.options = years;
+
+  let longSelectMulti = document.getElementById('longSelectMulti');
+  longSelectMulti.options = years;
+</script>
+```
+
 <!-- Auto Generated Below -->
 
 

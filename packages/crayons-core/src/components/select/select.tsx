@@ -25,7 +25,6 @@ export class Select {
   private selectInput?: HTMLInputElement;
   private fwListOptions?: HTMLFwListOptionsElement;
   private popover?: HTMLFwPopoverElement;
-  private preventDropdownClose?: boolean = false;
 
   /**
    * If the dropdown is shown or not
@@ -148,11 +147,6 @@ export class Select {
 
   private changeEmittable = () => !this.disabled;
 
-  private closeDropdown = () => {
-    this.popover.hide();
-    this.isExpanded = false;
-  };
-
   private innerOnFocus = (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = true;
@@ -161,26 +155,39 @@ export class Select {
   };
 
   private innerOnClick = () => {
-    if (this.changeEmittable()) {
-      this.searchable && this.selectInput && this.selectInput.select();
-      this.popover.show();
-      this.isExpanded = true;
-    }
+    this.openDropdown();
   };
 
   private innerOnBlur = (e: Event) => {
     if (this.changeEmittable()) {
-      // Remove the user typed value after user focus-out of input component
-      if (this.multiple) {
-        this.selectInput.value = '';
-      } else {
-        this.renderInput();
-      }
-      !this.preventDropdownClose && this.closeDropdown();
       this.hasFocus = false;
       this.fwBlur.emit(e);
     }
   };
+
+  private openDropdown = () => {
+    if (!this.isExpanded && this.changeEmittable()) {
+      this.popover.show();
+    }
+  };
+
+  private closeDropdown = () => {
+    if (this.isExpanded && this.changeEmittable()) {
+      this.popover.hide();
+    }
+  };
+
+  @Listen('fwHide')
+  onDropdownClose() {
+    this.clearInput();
+    this.isExpanded = false;
+    this.multiple && this.selectInput.focus();
+  }
+
+  @Listen('fwShow')
+  onDropdownOpen() {
+    this.isExpanded = true;
+  }
 
   @Listen('fwLoading')
   onLoading(event) {
@@ -195,7 +202,6 @@ export class Select {
       this.selectInput.value = '';
       this.renderInput();
       if (!this.multiple) {
-        this.resetFocus();
         this.closeDropdown();
       }
       selectedItem.stopImmediatePropagation();
@@ -219,20 +225,39 @@ export class Select {
     this.value = this.value.filter((value) => value !== ev.detail.value);
   }
   @Listen('keydown')
-  onKeyDonw(ev) {
+  onKeyDown(ev) {
     switch (ev.key) {
       case 'ArrowDown':
         this.innerOnClick();
+        this.fwListOptions.setFocus();
+        ev.preventDefault();
+        ev.stopPropagation();
         break;
       case 'Escape':
         this.innerOnBlur(ev);
+        this.closeDropdown();
+        break;
+      case 'Tab':
+        this.closeDropdown();
         break;
     }
   }
 
+  clearInput() {
+    if (!this.multiple && this.value) {
+      this.renderInput();
+      return;
+    }
+    this.selectInput.value = '';
+  }
+
+  valueExists() {
+    return this.multiple ? this.value.length > 0 : !!this.value;
+  }
+
   onInput() {
     this.searchValue = this.selectInput.value.toLowerCase();
-    this.renderInput();
+    this.openDropdown();
   }
 
   renderTags() {
@@ -261,10 +286,6 @@ export class Select {
           : this.selectedOptionsState[0].text || '';
       }
     }
-  }
-
-  resetFocus() {
-    this.preventDropdownClose = false;
   }
 
   componentWillLoad() {
@@ -327,7 +348,12 @@ export class Select {
       );
       if (
         selectedDataSourceValues.length > 0 &&
-        JSON.stringify(this.value) !== JSON.stringify(selectedDataSourceValues)
+        JSON.stringify(this.value) !==
+          JSON.stringify(
+            this.multiple
+              ? selectedDataSourceValues
+              : selectedDataSourceValues[0]
+          )
       ) {
         this.value = this.multiple
           ? selectedDataSourceValues
@@ -335,6 +361,9 @@ export class Select {
         this.selectedOptionsState = selectedDataSource;
       }
     }
+    this.host.addEventListener('focus', () => {
+      this.selectInput?.focus();
+    });
     this.host.innerHTML = '';
   }
 
@@ -378,7 +407,11 @@ export class Select {
           ''
         )}
         <div class='select-container'>
-          <fw-popover distance='8' ref={(popover) => (this.popover = popover)}>
+          <fw-popover
+            distance='8'
+            trigger='manual'
+            ref={(popover) => (this.popover = popover)}
+          >
             <div
               slot='popover-trigger'
               class={{
@@ -399,12 +432,7 @@ export class Select {
                   autoComplete='off'
                   disabled={this.disabled}
                   name={this.name}
-                  placeholder={
-                    (this.multiple && this.value.length > 0) ||
-                    (!this.multiple && this.value)
-                      ? ''
-                      : this.placeholder || ''
-                  }
+                  placeholder={this.valueExists() ? '' : this.placeholder || ''}
                   readOnly={this.readonly}
                   required={this.required}
                   type={this.type}

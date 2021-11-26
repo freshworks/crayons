@@ -1,6 +1,7 @@
 import {
   Component,
   Element,
+  Listen,
   State,
   Event,
   EventEmitter,
@@ -70,6 +71,15 @@ export class Popover {
    */
   @Event() fwHide: EventEmitter;
 
+  @Listen('keydown')
+  onKeyDown(ev) {
+    switch (ev.key) {
+      case 'Escape':
+        this.hide();
+        break;
+    }
+  }
+
   @Method()
   async show() {
     if (!this.isOpen) {
@@ -92,6 +102,10 @@ export class Popover {
       this.popperInstance.update();
       this.overlay.style.display = 'block';
       this.isOpen = !this.isOpen;
+      if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
+        const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
+        listOptionsElement.openHandler();
+      }
       this.fwShow.emit();
     }
   }
@@ -112,7 +126,7 @@ export class Popover {
       this.isOpen = !this.isOpen;
       if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
-        listOptionsElement.clearFilter();
+        listOptionsElement.closeHandler();
       }
       this.fwHide.emit();
     }

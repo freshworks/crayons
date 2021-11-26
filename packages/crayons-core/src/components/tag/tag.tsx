@@ -6,6 +6,7 @@ import {
   Prop,
   h,
   Listen,
+  Method,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
 import { TagVariant } from '../../utils/types';
@@ -59,6 +60,11 @@ export class Tag {
     }
   }
 
+  @Method()
+  async setFocus(): Promise<any> {
+    this.host.focus();
+  }
+
   removeTag = (): void => {
     if (this.disabled || !this.closable) {
       return;
@@ -85,7 +91,7 @@ export class Tag {
 
   render() {
     return (
-      <div role='button' tabindex='0' class={`tag tag-${this.variant}`}>
+      <div role='button' tabindex='-1' class={`tag tag-${this.variant}`}>
         {this.renderContent()}
         {this.closable && (
           <span

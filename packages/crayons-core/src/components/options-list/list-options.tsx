@@ -21,7 +21,9 @@ import { DropdownVariant } from '../../utils/types';
 export class ListOptions {
   private searchInput?: HTMLFwInputElement;
   private isInternalValueChange = false;
-
+  private arrowKeyCounter = 0;
+  private container: HTMLElement;
+  private optionRefs = [];
   private defaultSearchFunction = (
     text: string,
     dataSource: any[]
@@ -130,12 +132,29 @@ export class ListOptions {
     this.setValue(this.selectedOptionsState);
   }
 
+  @Listen('keydown')
+  onKeyDown(ev) {
+    switch (ev.key) {
+      case 'ArrowDown':
+      case 'ArrowUp':
+        this.setFocusToOption(ev.key);
+        ev.preventDefault();
+        ev.stopPropagation();
+        break;
+    }
+  }
+
   @Method()
-  async clearFilter() {
+  async closeHandler() {
     this.filteredOptions = this.selectOptions;
     if (this.searchable) {
       this.searchInput.value = '';
     }
+  }
+
+  @Method()
+  async openHandler() {
+    this.scrollToLastSelected();
   }
 
   @Method()
@@ -163,6 +182,21 @@ export class ListOptions {
     this.selectedOptionsState = options;
     this.isInternalValueChange = true;
     this.setValue(options);
+  }
+
+  @Method()
+  async setFocus(): Promise<any> {
+    this.optionRefs = [
+      ...this.container.getElementsByTagName('fw-select-option'),
+    ];
+    const lastValue = this.getLastSelectedValue();
+    if (lastValue && this.optionRefs.length > 0) {
+      const lastValueIndex = this.optionRefs.findIndex(
+        (option) => option.value === lastValue
+      );
+      this.arrowKeyCounter = lastValueIndex === -1 ? 0 : lastValueIndex;
+    }
+    this.optionRefs[this.arrowKeyCounter].setFocus();
   }
 
   @Watch('options')
@@ -204,6 +238,18 @@ export class ListOptions {
     this.handleSearchWithDebounce(newValue);
   }
 
+  valueExists() {
+    return this.multiple ? this.value.length > 0 : !!this.value;
+  }
+
+  scrollToLastSelected() {
+    if (this.filteredOptions.length > 0 && this.valueExists()) {
+      this.container
+        .querySelector(`fw-select-option[id='${this.getLastSelectedValue()}']`)
+        ?.scrollIntoView({ block: 'center' });
+    }
+  }
+
   handleSearchWithDebounce = debounce(
     (filterText) => {
       this.isLoading = true;
@@ -221,6 +267,27 @@ export class ListOptions {
     this,
     this.debounceTimer
   );
+
+  setFocusToOption(key) {
+    if (key === 'ArrowDown') {
+      this.arrowKeyCounter =
+        this.arrowKeyCounter >= this.optionRefs.length - 1
+          ? 0
+          : this.arrowKeyCounter + 1;
+    } else {
+      this.arrowKeyCounter =
+        this.arrowKeyCounter === 0
+          ? this.optionRefs.length - 1
+          : this.arrowKeyCounter - 1;
+    }
+    this.optionRefs[this.arrowKeyCounter].setFocus();
+  }
+
+  getLastSelectedValue() {
+    if (this.valueExists()) {
+      return this.multiple ? this.value.slice(-1)[0] : this.value;
+    }
+  }
 
   setSelectedOptionsByValue(values) {
     if (this.options) {
@@ -274,7 +341,11 @@ export class ListOptions {
 
   renderSelectOptions(options: Array<any>) {
     return options.map((option) => (
-      <fw-select-option key={option.value} {...option}></fw-select-option>
+      <fw-select-option
+        id={option.value}
+        key={option.value}
+        {...option}
+      ></fw-select-option>
     ));
   }
 
@@ -292,7 +363,7 @@ export class ListOptions {
     if (this.selectedOptions.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.selectedOptionsState.map((option) => option.value);
-    } else if (this.value.length > 0) {
+    } else if (this.valueExists()) {
       this.setSelectedOptionsByValue(this.value);
     } else {
       this.setValue([]);
@@ -305,7 +376,12 @@ export class ListOptions {
 
   render() {
     return (
-      <div class='container'>
+      <div
+        class='container'
+        ref={(container) => {
+          this.container = container;
+        }}
+      >
         {this.searchable && this.renderSearchInput()}
         {this.renderSelectOptions(this.filteredOptions)}
       </div>

@@ -272,7 +272,7 @@ export namespace Components {
           * Place a checkbox.
          */
         "checkbox": boolean;
-        "clearFilter": () => Promise<void>;
+        "closeHandler": () => Promise<void>;
         /**
           * Debounce timer for the search promise function.
          */
@@ -298,6 +298,7 @@ export namespace Components {
           * Default option to be shown if the option doesn't match the filterText.
          */
         "notFoundText": string;
+        "openHandler": () => Promise<void>;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
@@ -318,6 +319,7 @@ export namespace Components {
           * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         /**
           * Pass an array of string in case of multi-select or string for single-select.
@@ -727,6 +729,7 @@ export namespace Components {
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps": {};
+        "setFocus": () => Promise<any>;
         /**
           * Display text in the tag component.
          */
