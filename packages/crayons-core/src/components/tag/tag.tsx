@@ -5,8 +5,10 @@ import {
   EventEmitter,
   Prop,
   h,
+  Listen,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
+import { TagVariant } from '../../utils/types';
 
 @Component({
   tag: 'fw-tag',
@@ -33,22 +35,36 @@ export class Tag {
   /**
    * The variant of tag to be displayed.
    */
-  @Prop({ reflect: true }) variant: 'standard' | 'avatar' = 'standard';
+  @Prop({ reflect: true }) variant: TagVariant = 'standard';
 
   /**
    * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
    */
   @Prop() graphicsProps = {};
   /**
+   * Whether the Tag can be closed.
+   */
+  @Prop() closable = true;
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
 
+  @Listen('keydown')
+  onKeyDown(event) {
+    switch (event.key) {
+      case 'Backspace':
+        this.removeTag();
+        break;
+    }
+  }
+
   removeTag = (): void => {
-    if (this.disabled) {
+    if (this.disabled || !this.closable) {
       return;
     }
     const { value, text } = this;
+    console.log(`Tag with text: ${text} removed`);
     this.fwClosed.emit({ value, text });
   };
 
@@ -69,19 +85,21 @@ export class Tag {
 
   render() {
     return (
-      <div class={`tag tag-${this.variant}`}>
+      <div role='button' tabindex='0' class={`tag tag-${this.variant}`}>
         {this.renderContent()}
-        <span
-          role='button'
-          tabindex='0'
-          class={`remove-btn ${this.variant} ${
-            this.disabled ? 'disabled' : ''
-          }`}
-          onClick={() => this.removeTag()}
-          onKeyDown={handleKeyDown(this.removeTag)}
-        >
-          ×
-        </span>
+        {this.closable && (
+          <span
+            role='button'
+            tabindex='-1'
+            class={`remove-btn ${this.variant} ${
+              this.disabled ? 'disabled' : ''
+            }`}
+            onClick={() => this.removeTag()}
+            onKeyDown={handleKeyDown(this.removeTag)}
+          >
+            <fw-icon name='cross' size={8}></fw-icon>
+          </span>
+        )}
       </div>
     );
   }

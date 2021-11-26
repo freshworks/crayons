@@ -5,10 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownVariant } from "./components/select-option/select-option";
-import { PopoverPlacementType } from "./components/popover/popover";
-import { PopoverPlacementType as PopoverPlacementType1 } from "./components/popover/popover";
-import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
+import { DropdownVariant, PopoverPlacementType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAvatar {
@@ -271,6 +268,10 @@ export namespace Components {
         "value": string;
     }
     interface FwListOptions {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
         "clearFilter": () => Promise<void>;
         /**
           * Debounce timer for the search promise function.
@@ -281,10 +282,6 @@ export namespace Components {
          */
         "filterText": any;
         "getSelectedOptions": () => Promise<any>;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -322,11 +319,14 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setSelectedOptions": (options: any[]) => Promise<any>;
-        "setSelectedValues": (values: string[]) => Promise<any>;
+        /**
+          * Pass an array of string in case of multi-select or string for single-select.
+         */
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value": any[];
+        "value": string | string[];
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -512,6 +512,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer": number;
@@ -520,18 +524,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
-         */
-        "dropdownVariant": DropdownVariant;
-        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -565,6 +561,10 @@ export namespace Components {
          */
         "optionsPlacement": PopoverPlacementType;
         /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "optionsVariant": DropdownVariant;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -593,7 +593,7 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setSelectedOptions": (options: any[]) => Promise<any>;
-        "setSelectedValues": (values: string[]) => Promise<any>;
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
          */
@@ -602,6 +602,10 @@ export namespace Components {
           * Descriptive or instructional text displayed below the list box.
          */
         "stateText": string;
+        /**
+          * The variant of tag to be used.
+         */
+        "tagVariant": TagVariant;
         /**
           * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
@@ -616,6 +620,10 @@ export namespace Components {
         "variant": 'button' | 'input';
     }
     interface FwSelectOption {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
         /**
           * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
          */
@@ -636,10 +644,6 @@ export namespace Components {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
@@ -721,8 +725,16 @@ export namespace Components {
           * Describes the purpose of set of tabs.
          */
         "label": string;
+        /**
+          * The style of tab headers that needs to be displayed, box will display headers in a container.
+         */
+        "variant": 'box' | 'normal';
     }
     interface FwTag {
+        /**
+          * Whether the Tag can be closed.
+         */
+        "closable": boolean;
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
@@ -742,7 +754,7 @@ export namespace Components {
         /**
           * The variant of tag to be displayed.
          */
-        "variant": 'standard' | 'avatar';
+        "variant": TagVariant;
     }
     interface FwTextarea {
         /**
@@ -1458,6 +1470,10 @@ declare namespace LocalJSX {
     }
     interface FwListOptions {
         /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer"?: number;
@@ -1465,10 +1481,6 @@ declare namespace LocalJSX {
           * The text to filter the options.
          */
         "filterText"?: any;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -1516,7 +1528,7 @@ declare namespace LocalJSX {
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value"?: any[];
+        "value"?: string | string[];
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -1730,6 +1742,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer"?: number;
@@ -1738,17 +1754,9 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
-         */
-        "dropdownVariant"?: DropdownVariant;
-        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -1794,6 +1802,10 @@ declare namespace LocalJSX {
          */
         "optionsPlacement"?: PopoverPlacementType;
         /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "optionsVariant"?: DropdownVariant;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -1830,6 +1842,10 @@ declare namespace LocalJSX {
          */
         "stateText"?: string;
         /**
+          * The variant of tag to be used.
+         */
+        "tagVariant"?: TagVariant;
+        /**
           * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
         "type"?: 'text' | 'number';
@@ -1843,6 +1859,10 @@ declare namespace LocalJSX {
         "variant"?: 'button' | 'input';
     }
     interface FwSelectOption {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
         /**
           * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
          */
@@ -1863,10 +1883,6 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Triggered when an option is selected.
          */
@@ -1955,8 +1971,16 @@ declare namespace LocalJSX {
           * Triggered when a the view switches to a new tab.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * The style of tab headers that needs to be displayed, box will display headers in a container.
+         */
+        "variant"?: 'box' | 'normal';
     }
     interface FwTag {
+        /**
+          * Whether the Tag can be closed.
+         */
+        "closable"?: boolean;
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
@@ -1980,7 +2004,7 @@ declare namespace LocalJSX {
         /**
           * The variant of tag to be displayed.
          */
-        "variant"?: 'standard' | 'avatar';
+        "variant"?: TagVariant;
     }
     interface FwTextarea {
         /**

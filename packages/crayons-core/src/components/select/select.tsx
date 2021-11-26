@@ -13,9 +13,12 @@ import {
   h,
 } from '@stencil/core';
 
-import { PopoverPlacementType } from '../popover/popover';
 import { handleKeyDown, renderHiddenField } from '../../utils';
-import { DropdownVariant } from '../select-option/select-option';
+import {
+  DropdownVariant,
+  TagVariant,
+  PopoverPlacementType,
+} from '../../utils/types';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -98,7 +101,7 @@ export class Select {
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
-  @Prop() dropdownVariant: DropdownVariant = 'standard';
+  @Prop() optionsVariant: DropdownVariant = 'standard';
   /**
    * Allow to search for value. Default is true.
    */
@@ -110,7 +113,7 @@ export class Select {
   /**
    * Place a checkbox.
    */
-  @Prop() isCheckbox = false;
+  @Prop() checkbox = false;
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
@@ -141,6 +144,10 @@ export class Select {
    * Placement of the options list with respect to select.
    */
   @Prop() optionsPlacement: PopoverPlacementType = 'bottom';
+  /**
+   * The variant of tag to be used.
+   */
+  @Prop() tagVariant: TagVariant = 'standard';
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -206,7 +213,9 @@ export class Select {
         this.resetFocus();
         this.closeDropdown();
       }
+      selectedItem.stopImmediatePropagation();
       selectedItem.stopPropagation();
+      selectedItem.preventDefault();
       this.fwChange.emit({
         value: this.value,
         selectedOptions: this.selectedOptionsState,
@@ -247,6 +256,8 @@ export class Select {
         if (this.value.includes(option.value)) {
           return (
             <fw-tag
+              variant={this.tagVariant}
+              graphicsProps={option.graphicsProps}
               text={option.text}
               disabled={option.disabled}
               value={option.value}
@@ -273,6 +284,7 @@ export class Select {
   }
 
   componentWillLoad() {
+    //TODO: The below is a rough draft and needs to be optimized for better performance.
     const selectOptions = Array.from(
       this.host.querySelectorAll('fw-select-option')
     );
@@ -280,11 +292,18 @@ export class Select {
     // Set value if the selectedOptions is provided
     if (this.selectedOptions.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
-      this.value = this.selectedOptions.map((option) => option.value);
-    } else if (this.value) {
-      this.value = this.value === 'string' ? [this.value] : this.value;
+      this.value = this.multiple
+        ? this.selectedOptions.map((option) => option.value)
+        : this.selectedOptions[0].value;
+    }
+
+    if (this.multiple) {
+      if (this.multiple && typeof this.value === 'string') {
+        throw Error('value must be a array of string when multiple is true');
+      }
+      this.value = this.value?.length > 0 ? this.value : [];
     } else {
-      this.value = [];
+      this.value = this.value ? this.value : '';
     }
 
     const options = selectOptions.map((option) => {
@@ -292,20 +311,45 @@ export class Select {
         html: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
-        selected: this.value.includes(option.value) || option.selected,
+        selected:
+          (this.multiple
+            ? this.value.includes(option.value)
+            : this.value === option.value) || option.selected,
         disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
     this.dataSource = options.length === 0 ? this.options : options;
     // Set selectedOptions if the value is provided
-    if (
-      this.value.length > 0 &&
-      this.selectedOptions.length !== this.value.length
+    if (!this.multiple && this.value && this.selectedOptions.length === 0) {
+      this.selectedOptionsState = this.dataSource.filter(
+        (option) => this.value === option.value
+      );
+    } else if (
+      this.multiple &&
+      this.value.length !== this.selectedOptions.length
     ) {
       this.selectedOptionsState = this.dataSource.filter((option) =>
         this.value.includes(option.value)
       );
+    }
+    if (this.dataSource?.length > 0) {
+      // Check whether the selected data in the this.dataSource  matches the value
+      const selectedDataSource = this.dataSource.filter(
+        (option) => option.selected
+      );
+      const selectedDataSourceValues = selectedDataSource.map(
+        (option) => option.value
+      );
+      if (
+        selectedDataSourceValues.length > 0 &&
+        JSON.stringify(this.value) !== JSON.stringify(selectedDataSourceValues)
+      ) {
+        this.value = this.multiple
+          ? selectedDataSourceValues
+          : selectedDataSourceValues[0].value;
+        this.selectedOptionsState = selectedDataSource;
+      }
     }
     this.host.innerHTML = '';
   }
@@ -321,7 +365,7 @@ export class Select {
   }
 
   @Method()
-  async setSelectedValues(values: string[]): Promise<any> {
+  async setSelectedValues(values: string | string[]): Promise<any> {
     this.fwListOptions.setSelectedValues(values);
     this.renderInput();
   }
@@ -392,7 +436,10 @@ export class Select {
                     disabled={this.disabled}
                     name={this.name}
                     placeholder={
-                      this.value.length > 0 ? '' : this.placeholder || ''
+                      (this.multiple && this.value.length > 0) ||
+                      (!this.multiple && this.value)
+                        ? ''
+                        : this.placeholder || ''
                     }
                     readOnly={this.readonly}
                     required={this.required}
@@ -422,13 +469,13 @@ export class Select {
               noDataText={this.noDataText}
               search={this.search}
               selectedOptions={this.selectedOptions}
-              variant={this.dropdownVariant}
+              variant={this.optionsVariant}
               filter-text={this.searchValue}
               options={this.dataSource}
               value={this.value}
               multiple={this.multiple}
               max={this.max}
-              isCheckbox={this.isCheckbox}
+              checkbox={this.checkbox}
               slot='popover-content'
             ></fw-list-options>
           </fw-popover>

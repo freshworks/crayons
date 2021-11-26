@@ -58,7 +58,7 @@ const fetchTargets = async function () {
         out directories without a component sub-directory. Errors other than
         these need to be thrown.
       */
-      if (e.code != 'ENOTDIR' && e.code != 'ENOENT') {
+      if (e.code !== 'ENOTDIR' && e.code !== 'ENOENT') {
         throw e;
       }
     }
