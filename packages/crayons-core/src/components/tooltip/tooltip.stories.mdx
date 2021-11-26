@@ -1,0 +1,69 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Tooltip
+
+<Meta
+  title='Tooltip'
+  component='fw-tooltip'
+/>
+
+## Props 
+
+<Props of="fw-tooltip"/>
+
+## Usage
+
+### Default
+<Preview>
+  <Story name='Default'>
+    {
+      () => `
+        <fw-tooltip placement="right" content="This is the first tooltip example">
+          <fw-button> Show tooltip </fw-button>
+        </fw-tooltip>
+      `
+    }
+  </Story>
+</Preview>
+
+### Placement
+<Preview>
+  <Story name='Placement'>
+    {
+      () => `
+        <fw-tooltip content="Tooltip at the bottom" placement="bottom">
+          <fw-button> Show tooltip </fw-button>
+        </fw-tooltip>
+      `
+    }
+  </Story>
+</Preview>
+
+### Click trigger
+<Preview>
+  <Story name='Trigger'>
+    {
+      () => `
+        <fw-tooltip placement="right" trigger="click" content="This is the tooltip that activates on click">
+          <fw-button> Click </fw-button>
+        </fw-tooltip>
+      `
+    }
+  </Story>
+</Preview>
+
+### Rich HTML Tooltip
+<Preview>
+  <Story name='HTML'>
+    {
+      () => `
+        <fw-tooltip placement="right">
+          <fw-button> Show tooltip </fw-button>
+          <div slot="tooltip-content">
+            This tooltip has <b>HTML</b> content.
+          </div>
+        </fw-tooltip>
+      `
+    }
+  </Story>
+</Preview>
