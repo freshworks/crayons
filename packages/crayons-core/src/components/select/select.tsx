@@ -341,13 +341,14 @@ export class Select {
       const selectedDataSourceValues = selectedDataSource.map(
         (option) => option.value
       );
+      const selected = this.multiple
+        ? selectedDataSourceValues
+        : selectedDataSourceValues[0];
       if (
         selectedDataSourceValues.length > 0 &&
-        JSON.stringify(this.value) !== JSON.stringify(selectedDataSourceValues)
+        JSON.stringify(this.value) !== JSON.stringify(selected)
       ) {
-        this.value = this.multiple
-          ? selectedDataSourceValues
-          : selectedDataSourceValues[0].value;
+        this.value = selected;
         this.selectedOptionsState = selectedDataSource;
       }
     }
