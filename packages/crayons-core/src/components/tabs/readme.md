@@ -118,11 +118,12 @@ function App() {
 
 ## Properties
 
-| Property         | Attribute          | Description                                   | Type     | Default     |
-| ---------------- | ------------------ | --------------------------------------------- | -------- | ----------- |
-| `activeTabIndex` | `active-tab-index` | The index of the activated Tab(Starts from 0) | `number` | `0`         |
-| `activeTabName`  | `active-tab-name`  | The name of the tab to be activated.          | `string` | `undefined` |
-| `label`          | `label`            | Describes the purpose of set of tabs.         | `string` | `''`        |
+| Property         | Attribute          | Description                                                                                   | Type                | Default     |
+| ---------------- | ------------------ | --------------------------------------------------------------------------------------------- | ------------------- | ----------- |
+| `activeTabIndex` | `active-tab-index` | The index of the activated Tab(Starts from 0)                                                 | `number`            | `0`         |
+| `activeTabName`  | `active-tab-name`  | The name of the tab to be activated.                                                          | `string`            | `undefined` |
+| `label`          | `label`            | Describes the purpose of set of tabs.                                                         | `string`            | `''`        |
+| `variant`        | `variant`          | The style of tab headers that needs to be displayed, box will display headers in a container. | `"box" \| "normal"` | `'normal'`  |
 
 
 ## Events

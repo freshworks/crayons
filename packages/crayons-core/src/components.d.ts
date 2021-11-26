@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownVariant, PopoverPlacementType, TagVariant } from "./utils/types";
+import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAvatar {
@@ -436,6 +436,10 @@ export namespace Components {
          */
         "boundary": HTMLElement;
         /**
+          * Option to disable the popover animation on hide and show.
+         */
+        "disableTransition": boolean;
+        /**
           * Distance defines the distance between the popover trigger and the popover content along y-axis.
          */
         "distance": string;
@@ -443,7 +447,15 @@ export namespace Components {
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements": [PopoverPlacementType];
+        /**
+          * Option to determine if popover-content has a border.
+         */
+        "hasBorder": boolean;
         "hide": () => Promise<void>;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
         /**
           * Placement of the popover content with respect to the popover trigger.
          */
@@ -460,7 +472,7 @@ export namespace Components {
         /**
           * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
          */
-        "trigger": 'click' | 'manual' | 'hover';
+        "trigger": PopoverTriggerType;
         /**
           * Variant defines the style of the popover-content.
          */
@@ -713,6 +725,10 @@ export namespace Components {
           * Describes the purpose of set of tabs.
          */
         "label": string;
+        /**
+          * The style of tab headers that needs to be displayed, box will display headers in a container.
+         */
+        "variant": 'box' | 'normal';
     }
     interface FwTag {
         /**
@@ -919,6 +935,42 @@ export namespace Components {
          */
         "size": 'small' | 'medium' | 'large';
     }
+    interface FwTooltip {
+        /**
+          * Content of the tooltip.
+         */
+        "content": string;
+        /**
+          * Distance defines the distance between the popover trigger and the popover content along y-axis.
+         */
+        "distance": string;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements": [PopoverPlacementType];
+        /**
+          * Hides the tooltip.
+          * @returns promise that resolves to true
+         */
+        "hide": () => Promise<boolean>;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
+        /**
+          * Placement of the popover content with respect to the popover trigger.
+         */
+        "placement": PopoverPlacementType;
+        /**
+          * Shows the tooltip.
+          * @returns promise that resolves to true
+         */
+        "show": () => Promise<boolean>;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger": PopoverTriggerType;
+    }
 }
 declare global {
     interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
@@ -1101,6 +1153,12 @@ declare global {
         prototype: HTMLFwToggleElement;
         new (): HTMLFwToggleElement;
     };
+    interface HTMLFwTooltipElement extends Components.FwTooltip, HTMLStencilElement {
+    }
+    var HTMLFwTooltipElement: {
+        prototype: HTMLFwTooltipElement;
+        new (): HTMLFwTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
@@ -1132,6 +1190,7 @@ declare global {
         "fw-toast": HTMLFwToastElement;
         "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
+        "fw-tooltip": HTMLFwTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -1624,6 +1683,10 @@ declare namespace LocalJSX {
          */
         "boundary"?: HTMLElement;
         /**
+          * Option to disable the popover animation on hide and show.
+         */
+        "disableTransition"?: boolean;
+        /**
           * Distance defines the distance between the popover trigger and the popover content along y-axis.
          */
         "distance"?: string;
@@ -1631,6 +1694,14 @@ declare namespace LocalJSX {
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * Option to determine if popover-content has a border.
+         */
+        "hasBorder"?: boolean;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
         /**
           * Triggered whenever the popover contents is closed/hidden.
          */
@@ -1654,7 +1725,7 @@ declare namespace LocalJSX {
         /**
           * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
          */
-        "trigger"?: 'click' | 'manual' | 'hover';
+        "trigger"?: PopoverTriggerType;
         /**
           * Variant defines the style of the popover-content.
          */
@@ -1943,6 +2014,10 @@ declare namespace LocalJSX {
           * Triggered when a the view switches to a new tab.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * The style of tab headers that needs to be displayed, box will display headers in a container.
+         */
+        "variant"?: 'box' | 'normal';
     }
     interface FwTag {
         /**
@@ -2176,6 +2251,32 @@ declare namespace LocalJSX {
          */
         "size"?: 'small' | 'medium' | 'large';
     }
+    interface FwTooltip {
+        /**
+          * Content of the tooltip.
+         */
+        "content"?: string;
+        /**
+          * Distance defines the distance between the popover trigger and the popover content along y-axis.
+         */
+        "distance"?: string;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
+        /**
+          * Placement of the popover content with respect to the popover trigger.
+         */
+        "placement"?: PopoverPlacementType;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger"?: PopoverTriggerType;
+    }
     interface IntrinsicElements {
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
@@ -2207,6 +2308,7 @@ declare namespace LocalJSX {
         "fw-toast": FwToast;
         "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
+        "fw-tooltip": FwTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -2243,6 +2345,7 @@ declare module "@stencil/core" {
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
             "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
+            "fw-tooltip": LocalJSX.FwTooltip & JSXBase.HTMLAttributes<HTMLFwTooltipElement>;
         }
     }
 }
