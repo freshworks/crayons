@@ -1,4 +1,3 @@
-@use 'sass:map';
 @import '../variables/typography';
 
 $size-height-ratio: (
@@ -22,6 +21,13 @@ $size-height-ratio: (
   ),
 );
 
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
 @mixin typography(
   $type: 'body',
   $size: 16px,
@@ -35,19 +41,19 @@ $size-height-ratio: (
 
   @if (($type == 'body') or ($type == 'header')) {
     @if $size == 12px {
-      line-height: map.get($size-height-ratio, $type, 12px);
+      line-height: map-deep-get($size-height-ratio, $type, 12px);
     } @else if $size == 14px {
-      line-height: map.get($size-height-ratio, $type, 14px);
+      line-height: map-deep-get($size-height-ratio, $type, 14px);
     } @else if $size == 16px {
-      line-height: map.get($size-height-ratio, $type, 16px);
+      line-height: map-deep-get($size-height-ratio, $type, 16px);
     } @else if $size == 18px {
-      line-height: map.get($size-height-ratio, $type, 18px);
+      line-height: map-deep-get($size-height-ratio, $type, 18px);
     } @else if $size == 24px {
-      line-height: map.get($size-height-ratio, $type, 24px);
+      line-height: map-deep-get($size-height-ratio, $type, 24px);
     } @else if $size == 32px {
-      line-height: map.get($size-height-ratio, $type, 32px);
+      line-height: map-deep-get($size-height-ratio, $type, 32px);
     } @else if $size == 44px {
-      line-height: map.get($size-height-ratio, $type, 44px);
+      line-height: map-deep-get($size-height-ratio, $type, 44px);
     } @else {
       @error "Unacceptable font size #{$size}.";
     }
