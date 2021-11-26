@@ -1,4 +1,4 @@
-:host(.tab) {
+.tab {
   display: inline-flex;
   white-space: nowrap;
   cursor: pointer;
@@ -8,39 +8,40 @@
   color: $color-smoke-700;
   font-size: $font-size-14;
   font-weight: $font-weight-400;
-  margin-right: 20px;
+  margin: 0 4px;
+
+  /* stylelint-disable */
+  &:hover:not(.disabled) {
+    padding-bottom: 8px;
+    border-bottom: 2px solid $color-smoke-300;
+  }
+
+  &.active:not(.disabled) {
+    padding-bottom: 8px;
+    border-bottom: 2px solid $color-azure-800;
+    color: $color-azure-800;
+    font-weight: $font-weight-600;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    color: $color-smoke-300;
+  }
+
+  &:focus {
+    outline: none;
+    border-bottom: none;
+    box-shadow: none;
+
+    &::after {
+      outline: none;
+      border-radius: 2px;
+      box-shadow: inset 0 0 0 2px $color-azure-800;
+    }
+  }
 }
 
 ::slotted(a) {
   text-decoration: none;
   color: $color-smoke-700;
-}
-/* stylelint-disable */
-:host(:hover:not(.disabled)) {
-  padding-bottom: 8px;
-  border-bottom: 2px solid $color-smoke-300;
-}
-
-:host(.active:not(.disabled)) {
-  padding-bottom: 8px;
-  border-bottom: 2px solid $color-azure-800;
-  color: $color-azure-800;
-  font-weight: $font-weight-600;
-}
-
-:host(.disabled) {
-  cursor: not-allowed;
-  color: $color-smoke-300;
-}
-
-.tab:focus {
-  outline: none;
-  border: 0;
-  box-shadow: none;
-
-  &::after {
-    outline: none;
-    border-radius: 2px;
-    box-shadow: inset 0 0 0 2px $color-azure-800;
-  }
 }
