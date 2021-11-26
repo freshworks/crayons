@@ -68,6 +68,12 @@ module.exports = {
         sidebarDepth: 1,
         children: ['utilities/i18n/'],
       },
+      {
+        title: 'Frameworks',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: ['/frameworks/react/'],
+      },
     ],
   },
   plugins: [
