@@ -13,7 +13,7 @@ const wwwBuilds = fs.readdirSync(path.resolve(__dirname, 'public')).filter(dir =
 for (const wwwBuild of wwwBuilds) {
   headScripts.push(["script", { type: "module", src: `/${wwwBuild}/build/${wwwBuild}.esm.js` }]);
   headScripts.push(["script", { nomodule: "", src: `/${wwwBuild}/build/${wwwBuild}.js` }]);
-  headScripts.push(["link", { rel: "stylesheet", href: "/output.css" }]);
+  headScripts.push(["link", { rel: "stylesheet", href: `/css/crayons-min.css` }]);
 }
 
 const getUtils = () => ['typography', 'spacing', 'layout', 'card'].map(util => (`/css-utils/${util}/`));
