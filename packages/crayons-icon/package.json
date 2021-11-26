@@ -1,6 +1,6 @@
 {
   "name": "@freshworks/crayons-icon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This package contains all the necessary tooling for fw-crayons-icons",
   "main": "dist/index.js",
   "scripts": {

@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.4...@freshworks/crayons@3.0.0-beta.5) (2021-11-26)
+
+
+### Bug Fixes
+
+* **button-group:** use correct units for margin-left ([#301](https://github.com/freshworks/crayons/issues/301)) ([db50bc7](https://github.com/freshworks/crayons/commit/db50bc7296eac56ee6ec3a6ff065da2978c1b58e))
+* **checkbox:** remove class from host to avoid getting overridden by global styles ([#308](https://github.com/freshworks/crayons/issues/308)) ([0e37f57](https://github.com/freshworks/crayons/commit/0e37f576676727db5027742262d313d2b6e7c373))
+* **radio:** remove class from host and apply on container to avoid getting overridden by global styles ([#307](https://github.com/freshworks/crayons/issues/307)) ([df5c5c9](https://github.com/freshworks/crayons/commit/df5c5c9ad34ccbf967f84a45485d0630f4afb88e))
+* tab-header attribute wrongly mentioned as fw-tab-header ([3c03859](https://github.com/freshworks/crayons/commit/3c03859120b2b78ec49c022100c11f6dde80f0f4))
+* **tab:** remove class from host to avoid getting overridden by global styles ([#310](https://github.com/freshworks/crayons/issues/310)) ([b367032](https://github.com/freshworks/crayons/commit/b3670321e3d58c6a4dec99934e6a4c16dbabf406))
+* **toast:** remove styling from host to avoid styles getting overridden by global styles ([#306](https://github.com/freshworks/crayons/issues/306)) ([7b32ef1](https://github.com/freshworks/crayons/commit/7b32ef17045ea4edc8db7b6af2d9a2b0e675d859))
+
+
+### Features
+
+* **fw-select:** added prop to display avatar ([#293](https://github.com/freshworks/crayons/issues/293)) ([d923d16](https://github.com/freshworks/crayons/commit/d923d166495597bd8711e86aa181e08c19ce073c))
+* **fw-tag:** tags can be removed via backspace ([#300](https://github.com/freshworks/crayons/issues/300)) ([8f9576c](https://github.com/freshworks/crayons/commit/8f9576cc41c631e720b502f15f8b54449ed8a0d2))
+* **tooltip:** adding new tooltip component ([#312](https://github.com/freshworks/crayons/issues/312)) ([181f92a](https://github.com/freshworks/crayons/commit/181f92ad4064c37d9c35447dec816c48aff808f7))
+
+
+
+
+
 ## [3.0.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.2...@freshworks/crayons@3.0.0-beta.4) (2021-11-19)
 
 ### Bug Fixes
