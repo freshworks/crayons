@@ -202,7 +202,6 @@ export class Datepicker {
       } else {
         // Single Date input
         const val = e.path[0].value;
-        this.value = val;
         if (!moment(val, this.dateFormat, true).isValid()) {
           // Invalid date format
           return;
@@ -307,12 +306,18 @@ export class Datepicker {
   };
 
   componentWillLoad() {
-    this.year = this.value
-      ? `${moment(this.value, this.dateFormat).get('year')}`
-      : moment().year().toString();
-    this.month = this.value
-      ? moment(this.value, this.dateFormat).get('month')
-      : moment().month();
+    if (this.value && !moment(this.value, this.dateFormat).isValid()) {
+      // Show current month and year if invalid date is provided
+      this.year = moment().year().toString();
+      this.month = moment().month();
+    } else {
+      this.year = this.value
+        ? `${moment(this.value, this.dateFormat).get('year')}`
+        : moment().year().toString();
+      this.month = this.value
+        ? moment(this.value, this.dateFormat).get('month')
+        : moment().month();
+    }
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
       this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
