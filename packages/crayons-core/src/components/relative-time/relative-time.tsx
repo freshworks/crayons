@@ -1,4 +1,4 @@
-import { Component, Prop, h, Watch, State } from '@stencil/core';
+import { Component, Prop, h, Watch, State, Host } from '@stencil/core';
 import { formatDistanceStrict } from 'date-fns';
 import localeObj from 'date-fns/locale/en-US';
 
@@ -48,7 +48,7 @@ export class RelativeTime {
     if (this.sync) {
       this.timerId = setInterval(() => {
         this.now = new Date();
-      }, 1);
+      }, 1000);
     }
   }
 
@@ -59,7 +59,9 @@ export class RelativeTime {
   async loadLocale(locale: string): Promise<void> {
     console.log('locale change detected', locale);
     this.localeObj = await (
-      await import(`https://cdn.skypack.dev/date-fns/locale/${locale}/index.js`)
+      await import(
+        `https://cdn.jsdelivr.net/npm/date-fns/esm/locale/${locale}/index.js`
+      )
     ).default;
   }
 
@@ -72,14 +74,31 @@ export class RelativeTime {
   }
 
   render(): JSX.Element {
+    const date = new Date(this.date);
+    if (isNaN(date.getMilliseconds())) {
+      console.error(`${date}`);
+      return;
+    }
+    const titleTime = new Intl.DateTimeFormat(this.locale, {
+      month: 'long',
+      year: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      timeZoneName: 'short',
+      second: 'numeric',
+    }).format(date);
+
     return (
-      <div>
+      <Host>
         <button onClick={() => (this.locale = 'de')}>Change locale </button>
-        {formatDistanceStrict(new Date(this.date), this.now, {
-          locale: this.localeObj,
-          addSuffix: true,
-        })}
-      </div>
+        <time dateTime={date.toISOString()} title={titleTime}>
+          {formatDistanceStrict(date, this.now, {
+            locale: this.localeObj,
+            addSuffix: true,
+          })}
+        </time>
+      </Host>
     );
   }
 }
