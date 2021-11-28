@@ -522,6 +522,20 @@ export namespace Components {
          */
         "value"?: any | null;
     }
+    interface FwRelativeTime {
+        /**
+          * The date from which to calculate time from. Should either be a date object / valid ISO 8601 date time string
+         */
+        "date": Date | string;
+        /**
+          * The locale to use when formatting the number.
+         */
+        "locale": string;
+        /**
+          * Keep the displayed value up to date as time passes.
+         */
+        "sync": boolean;
+    }
     interface FwSelect {
         /**
           * Place a checkbox.
@@ -1081,6 +1095,12 @@ declare global {
         prototype: HTMLFwRadioGroupElement;
         new (): HTMLFwRadioGroupElement;
     };
+    interface HTMLFwRelativeTimeElement extends Components.FwRelativeTime, HTMLStencilElement {
+    }
+    var HTMLFwRelativeTimeElement: {
+        prototype: HTMLFwRelativeTimeElement;
+        new (): HTMLFwRelativeTimeElement;
+    };
     interface HTMLFwSelectElement extends Components.FwSelect, HTMLStencilElement {
     }
     var HTMLFwSelectElement: {
@@ -1178,6 +1198,7 @@ declare global {
         "fw-popover": HTMLFwPopoverElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
+        "fw-relative-time": HTMLFwRelativeTimeElement;
         "fw-select": HTMLFwSelectElement;
         "fw-select-option": HTMLFwSelectOptionElement;
         "fw-spinner": HTMLFwSpinnerElement;
@@ -1795,6 +1816,20 @@ declare namespace LocalJSX {
          */
         "value"?: any | null;
     }
+    interface FwRelativeTime {
+        /**
+          * The date from which to calculate time from. Should either be a date object / valid ISO 8601 date time string
+         */
+        "date"?: Date | string;
+        /**
+          * The locale to use when formatting the number.
+         */
+        "locale"?: string;
+        /**
+          * Keep the displayed value up to date as time passes.
+         */
+        "sync"?: boolean;
+    }
     interface FwSelect {
         /**
           * Place a checkbox.
@@ -2296,6 +2331,7 @@ declare namespace LocalJSX {
         "fw-popover": FwPopover;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
+        "fw-relative-time": FwRelativeTime;
         "fw-select": FwSelect;
         "fw-select-option": FwSelectOption;
         "fw-spinner": FwSpinner;
@@ -2333,6 +2369,7 @@ declare module "@stencil/core" {
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
+            "fw-relative-time": LocalJSX.FwRelativeTime & JSXBase.HTMLAttributes<HTMLFwRelativeTimeElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
             "fw-select-option": LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
             "fw-spinner": LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
