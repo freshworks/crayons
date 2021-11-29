@@ -1,6 +1,6 @@
-import { Component, Prop, h, Watch, State, Host } from '@stencil/core';
+import { Component, Prop, h, Watch, State, Host, Method } from '@stencil/core';
 import { formatDistanceStrict } from 'date-fns';
-import localeObj from 'date-fns/locale/en-US';
+import enLocaleObj from 'date-fns/locale/en-US';
 
 @Component({
   tag: 'fw-relative-time',
@@ -11,12 +11,15 @@ export class RelativeTime {
   timerId;
 
   /**
-   * The locale to use when formatting the number.
+   * The date-fns locale module to use when formatting the number.
+   * You can import locale modules like below.
+   * `import enLocaleObj from date-fns/locale/en-US`.
+   * Default module is `en-US`
    */
-  @Prop({ mutable: true }) locale: string;
+  @Prop({ mutable: true }) localeModule: any;
 
   /**
-   * The date from which to calculate time from. Should either be a date object / valid ISO 8601 date time string
+   * The date from which, time is calculated from. Should either be a date object / valid `ISO 8601` date time string
    */
   @Prop()
   date: Date | string = new Date();
@@ -26,12 +29,6 @@ export class RelativeTime {
    */
   @Prop()
   sync = false;
-
-  /**
-   * to set the dynamically imported locale object
-   */
-  @State()
-  localeObj = localeObj;
 
   /**
    * keep track of current date
@@ -51,21 +48,20 @@ export class RelativeTime {
       }, 1000);
     }
   }
-
   /**
-   * dynamically load locale object from date-fns cdn
+   * set Locale Module to use when formatting the number.
+   * You can import the locale modules like below.
+   * `import deLocaleObj from date-fns/locale/de`.
+   * `setLocale(deLocaleObj)`
+   * @param localeModule
    */
-  @Watch('locale')
-  async loadLocale(locale: string): Promise<void> {
-    console.log('locale change detected', locale);
-    this.localeObj = await (
-      await import(
-        `https://cdn.jsdelivr.net/npm/date-fns/esm/locale/${locale}/index.js`
-      )
-    ).default;
+  @Method()
+  async setLocaleModule(localeModule: any): Promise<void> {
+    this.localeModule = localeModule;
   }
 
   componentWillLoad(): void {
+    this.localeModule = enLocaleObj;
     this.syncTime();
   }
 
@@ -79,24 +75,33 @@ export class RelativeTime {
       console.error(`${date}`);
       return;
     }
-    const titleTime = new Intl.DateTimeFormat(this.locale, {
-      month: 'long',
-      year: 'numeric',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      timeZoneName: 'short',
-      second: 'numeric',
-    }).format(date);
+    const titleTime = new Intl.DateTimeFormat(
+      this.localeModule?.code || 'en_US',
+      {
+        month: 'long',
+        year: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        timeZoneName: 'short',
+        second: 'numeric',
+      }
+    ).format(date);
+
+    let formattedTime = '';
+    try {
+      formattedTime = formatDistanceStrict(date, this.now, {
+        locale: this.localeModule,
+        addSuffix: true,
+      });
+    } catch (err) {
+      console.error(`Error occurred in formatting date ${err}`);
+    }
 
     return (
       <Host>
-        <button onClick={() => (this.locale = 'de')}>Change locale </button>
         <time dateTime={date.toISOString()} title={titleTime}>
-          {formatDistanceStrict(date, this.now, {
-            locale: this.localeObj,
-            addSuffix: true,
-          })}
+          {formattedTime}
         </time>
       </Host>
     );

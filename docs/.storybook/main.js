@@ -1,3 +1,5 @@
+const webpack = require("webpack")
+
 module.exports = {
   addons: [
     '@storybook/addon-essentials',
@@ -8,4 +10,18 @@ module.exports = {
   features: {
     postcss: false,
   },
+  webpackFinal: async (config) => {
+    console.log(config);
+  
+    config.plugins = [
+      ...config.plugins || [], 
+      new webpack.IgnorePlugin({
+        resourceRegExp: /\.js\.flow|\.md/,
+        contextRegExp:/date\-fns[\/\\]/
+      }
+
+      )
+    ]
+    return config;
+  }
 };

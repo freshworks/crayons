@@ -524,13 +524,18 @@ export namespace Components {
     }
     interface FwRelativeTime {
         /**
-          * The date from which to calculate time from. Should either be a date object / valid ISO 8601 date time string
+          * The date from which, time is calculated from. Should either be a date object / valid `ISO 8601` date time string
          */
         "date": Date | string;
         /**
-          * The locale to use when formatting the number.
+          * The date-fns locale module to use when formatting the number. You can import locale modules like below. `import enLocaleObj from date-fns/locale/en-US`. Default module is `en-US`
          */
-        "locale": string;
+        "localeModule": any;
+        /**
+          * set Locale Module to use when formatting the number. You can import the locale modules like below. `import deLocaleObj from date-fns/locale/de`. `setLocale(deLocaleObj)`
+          * @param localeModule
+         */
+        "setLocaleModule": (localeModule: any) => Promise<void>;
         /**
           * Keep the displayed value up to date as time passes.
          */
@@ -1818,13 +1823,13 @@ declare namespace LocalJSX {
     }
     interface FwRelativeTime {
         /**
-          * The date from which to calculate time from. Should either be a date object / valid ISO 8601 date time string
+          * The date from which, time is calculated from. Should either be a date object / valid `ISO 8601` date time string
          */
         "date"?: Date | string;
         /**
-          * The locale to use when formatting the number.
+          * The date-fns locale module to use when formatting the number. You can import locale modules like below. `import enLocaleObj from date-fns/locale/en-US`. Default module is `en-US`
          */
-        "locale"?: string;
+        "localeModule"?: any;
         /**
           * Keep the displayed value up to date as time passes.
          */
