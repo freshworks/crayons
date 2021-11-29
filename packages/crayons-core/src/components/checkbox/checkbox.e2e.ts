@@ -72,10 +72,9 @@ describe('fw-checkbox', () => {
     <span id="label">
       <slot></slot>
     </span>
-    <br>
-    <span id="description">
+    <div id="description">
     Yes
-    </span>
+    </div>
     </label>
     </div>`);
   });

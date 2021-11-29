@@ -131,9 +131,8 @@ export class Checkbox {
             <span id='label'>
               <slot />
             </span>
-            <br />
             {this.description !== '' ? (
-              <span id='description'>{this.description}</span>
+              <div id='description'>{this.description}</div>
             ) : (
               ''
             )}
