@@ -5,9 +5,9 @@ fw-radio-group displays a group of options with radio buttons and enables select
 
 ```html live
 <fw-radio-group name="Profile" value="au" allow-empty>
-  <fw-radio label="Auditory" value="au"></fw-radio>
-  <fw-radio label="Visual" value="vi"></fw-radio>
-  <fw-radio label="Restless" value="re"></fw-radio>
+  <fw-radio value="au">Auditory</fw-radio>
+  <fw-radio value="vi">Visual</fw-radio>
+  <fw-radio value="re">Restless</fw-radio>
 </fw-radio-group>
 ```
 
@@ -17,9 +17,9 @@ fw-radio-group displays a group of options with radio buttons and enables select
 <code-block title="HTML">
 ```html 
 <fw-radio-group name="Profile" value="au" allow-empty>
-  <fw-radio label="Auditory" value="au"></fw-radio>
-  <fw-radio label="Visual" value="vi"></fw-radio>
-  <fw-radio label="Restless" value="re"></fw-radio>
+  <fw-radio value="au">Auditory</fw-radio>
+  <fw-radio value="vi">Visual</fw-radio>
+  <fw-radio value="re">Restless</fw-radio>
 </fw-radio-group>
 ```
 </code-block>
@@ -32,9 +32,9 @@ import { FwRadio, FwRadioGroup } from "@freshworks/crayons/react";
 function App() {
   return (<div>
         <FwRadioGroup name="Profile" value="au" allowEmpty>
-          <FwRadio label="Auditory" value="au"></FwRadio>
-          <FwRadio label="Visual" value="vi"></FwRadio>
-          <FwRadio label="Restless" value="re"></FwRadio>
+          <FwRadio value="au">Auditory</FwRadio>
+          <FwRadio value="vi">Visual</FwRadio>
+          <FwRadio value="re">Restless</FwRadio>
         </FwRadioGroup>
     </div>);
 }
