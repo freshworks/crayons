@@ -4,16 +4,16 @@ fw-checkbox displays a check box on the user interface and enables assigning a s
 ## Demo
 
 ```html live
-<fw-checkbox checked label="Select to agree">Agree or Disagree</fw-checkbox><br><br>
-<fw-checkbox checked disabled value="dcb">Disable check box</fw-checkbox>
+<fw-checkbox checked description="Agree or Disagree">Select to agree</fw-checkbox><br><br>
+<fw-checkbox checked disabled value="dcb">Disabled check box</fw-checkbox>
 ```
 ## Usage
 
 <code-group>
 <code-block title="HTML">
 ```html
-<fw-checkbox checked label="Select to agree">Agree or Disagree</fw-checkbox><br><br>
-<fw-checkbox checked disabled value="dcb">Disable check box</fw-checkbox>
+<fw-checkbox checked description="Agree or Disagree">Select to agree</fw-checkbox><br><br>
+<fw-checkbox checked disabled value="dcb">Disabled check box</fw-checkbox>
 ```
 </code-block>
 
@@ -24,8 +24,8 @@ import ReactDOM from "react-dom";
 import { FwCheckbox } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-    <FwCheckbox checked label="Select to agree">Agree or Disagree</FwCheckbox><br/><br/>
-    <FwCheckbox checked disabled value="dcb">Disable check box</FwCheckbox>
+    <FwCheckbox checked description="Agree or Disagree">Select to agree</FwCheckbox><br/><br/>
+    <FwCheckbox checked disabled value="dcb">Disabled check box</FwCheckbox>
   </div>)
 }
 ```
@@ -37,13 +37,13 @@ function App() {
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                    | Type      | Default |
-| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `checked`  | `checked`  | Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false. | `boolean` | `false` |
-| `disabled` | `disabled` | Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.     | `boolean` | `false` |
-| `label`    | `label`    | Label displayed on the interface, for the check box.                                                           | `string`  | `''`    |
-| `name`     | `name`     | Name of the component, saved as part of form data.                                                             | `string`  | `''`    |
-| `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                          | `string`  | `''`    |
+| Property      | Attribute     | Description                                                                                                    | Type      | Default |
+| ------------- | ------------- | -------------------------------------------------------------------------------------------------------------- | --------- | ------- |
+| `checked`     | `checked`     | Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false. | `boolean` | `false` |
+| `description` | `description` | Description to be displayed for the checkbox.                                                                  | `string`  | `''`    |
+| `disabled`    | `disabled`    | Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.     | `boolean` | `false` |
+| `name`        | `name`        | Name of the component, saved as part of form data.                                                             | `string`  | `''`    |
+| `value`       | `value`       | Identifier corresponding to the component, that is saved when the form data is saved.                          | `string`  | `''`    |
 
 
 ## Events
