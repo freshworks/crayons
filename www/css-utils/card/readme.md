@@ -1,8 +1,12 @@
 # Card
 
-Cards are usually container elements. They dont have functionality on their own. So, instead of adding them as components, SASS mixins and CSS classes are exposed to create cards easily when creating components. 
+Cards are usually container elements. They dont have functionality on their own. So, instead of adding them as components, CSS classes are exposed to create cards easily when creating components. 
 
-## Sample - card with interactive component - Variation 1
+To apply card css utils, we can use 'fw-card-#{$elevation}'
+
+*#{$elevation} can be from 0-3.*
+
+## Sample - card with interactive component 
 ```html live
   <template>
     <div>
@@ -25,7 +29,7 @@ Cards are usually container elements. They dont have functionality on their own.
   </template>
 ```
 
-## Sample - card with interactive component - Variation 2
+## Sample - card with interactive component 
 ```html live
 <template>
   <div>
@@ -62,6 +66,42 @@ Cards are usually container elements. They dont have functionality on their own.
 </template>
 ```
 
+## Sample - Conversation search result cards
+```html live
+<style>
+  .options fw-icon {
+    vertical-align: middle;
+  }
+</style>
+<template>
+  <div>
+    <div class="fw-card-1 fw-py-16 fw-px-20 fw-flex fw-flex-row">
+      <div>
+        <fw-avatar
+    size="medium"
+    image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+  ></fw-avatar>
+      </div>
+      <div class="fw-flex-grow fw-px-16 fw-flex fw-flex-column">
+        <div class="fw-font-header-16 fw-mb-8">Courtney Henry</div>
+        <div class="fw-font-12 fw-mb-16">Hey! I need help with cancellation of a combo pack that I had ordered yesterday.</div>
+        <div class="fw-font-12 fw-flex fw-flex-row options">
+          <div class="fw-pr-12">
+            <span class="fw-mr-8"><fw-icon name="inbox" size="12"></fw-icon></span>
+            <span>Cancellation</span>
+          </div>
+          <div class="fw-px-12">Open</div>
+          <div class="fw-px-12">Due in 1 hr</div>
+          <div class="fw-px-12">Alex James (Me)</div>
+        </div>
+      </div>
+      <div>
+        <span class="fw-font-12">11 May 2021, 5:30 PM</span>
+      </div>
+    </div>
+  </div>
+</template>
+```
 
 ----------------------------------------------
 

@@ -29,7 +29,12 @@ headScripts.push([
   { rel: "stylesheet", href: `/css/crayons-min.css` },
 ]);
 
-const getUtils = () => ['typography', 'spacing', 'layout', 'card'].map(util => (`/css-utils/${util}/`));
+const getUtils = () => [
+  'typography', 
+  'spacing', 
+  'layout', 
+  'card'
+].map(util => (`/css-utils/${util}/`));
 
 const getTags = () => [
   'Web Components',
