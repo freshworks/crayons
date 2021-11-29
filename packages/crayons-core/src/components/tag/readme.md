@@ -65,6 +65,7 @@ export default App;
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property        | Attribute   | Description                                                                                                                             | Type                     | Default      |
@@ -77,25 +78,32 @@ export default App;
 | `value`         | `value`     | Value associated with the tag component, that is saved when the form data is saved.                                                     | `string`                 | `undefined`  |
 | `variant`       | `variant`   | The variant of tag to be displayed.                                                                                                     | `"avatar" \| "standard"` | `'standard'` |
 
+
 ## Events
 
 | Event      | Description                           | Type               |
 | ---------- | ------------------------------------- | ------------------ |
 | `fwClosed` | Triggered when the tag is deselected. | `CustomEvent<any>` |
 
+
 ## Methods
 
 ### `setFocus() => Promise<any>`
+
+
 
 #### Returns
 
 Type: `Promise<any>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
-- [fw-select](../select)
+ - [fw-select](../select)
 
 ### Depends on
 
@@ -103,7 +111,6 @@ Type: `Promise<any>`
 - [fw-icon](../icon)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-tag --> fw-avatar
@@ -112,6 +119,6 @@ graph TD;
   style fw-tag fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks
