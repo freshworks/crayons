@@ -4,6 +4,7 @@ import {
   Event,
   EventEmitter,
   Prop,
+  Method,
   h,
   Listen,
 } from '@stencil/core';
@@ -46,6 +47,10 @@ export class Tag {
    */
   @Prop() closable = true;
   /**
+   * Whether the Tag is focusable.
+   */
+  @Prop() focusable = true;
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
@@ -57,6 +62,11 @@ export class Tag {
         this.removeTag();
         break;
     }
+  }
+
+  @Method()
+  async setFocus(): Promise<any> {
+    this.host.focus();
   }
 
   removeTag = (): void => {
@@ -90,7 +100,7 @@ export class Tag {
         {this.closable && (
           <span
             role='button'
-            tabindex='-1'
+            tabIndex={this.focusable ? 0 : -1}
             class={`remove-btn ${this.variant} ${
               this.disabled ? 'disabled' : ''
             }`}

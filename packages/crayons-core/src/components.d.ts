@@ -740,9 +740,14 @@ export namespace Components {
          */
         "disabled": false;
         /**
+          * Whether the Tag is focusable.
+         */
+        "focusable": boolean;
+        /**
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps": {};
+        "setFocus": () => Promise<any>;
         /**
           * Display text in the tag component.
          */
@@ -2028,6 +2033,10 @@ declare namespace LocalJSX {
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: false;
+        /**
+          * Whether the Tag is focusable.
+         */
+        "focusable"?: boolean;
         /**
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
