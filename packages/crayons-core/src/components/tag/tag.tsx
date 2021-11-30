@@ -4,6 +4,7 @@ import {
   Event,
   EventEmitter,
   Prop,
+  Method,
   h,
   Listen,
   Method,
@@ -46,6 +47,10 @@ export class Tag {
    * Whether the Tag can be closed.
    */
   @Prop() closable = true;
+  /**
+   * Whether the Tag is focusable.
+   */
+  @Prop() focusable = true;
   /**
    * Triggered when the tag is deselected.
    */
@@ -96,7 +101,7 @@ export class Tag {
         {this.closable && (
           <span
             role='button'
-            tabindex='-1'
+            tabIndex={this.focusable ? 0 : -1}
             class={`remove-btn ${this.variant} ${
               this.disabled ? 'disabled' : ''
             }`}

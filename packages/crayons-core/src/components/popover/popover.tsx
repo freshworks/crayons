@@ -10,7 +10,7 @@ import {
   h,
 } from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
-import { PopoverPlacementType } from '../../utils/types';
+import { PopoverPlacementType, PopoverTriggerType } from '../../utils/types';
 
 @Component({
   tag: 'fw-popover',
@@ -20,7 +20,9 @@ import { PopoverPlacementType } from '../../utils/types';
 export class Popover {
   private popperDiv: HTMLElement;
   private contentRef: HTMLFwListOptionsElement | HTMLElement;
-  private triggerRef: Element;
+  private triggerRef: any;
+  private triggerRefSlot: any = null;
+  private escapeHandler: any = null;
   private overlay: HTMLElement;
 
   @Element() host: HTMLElement;
@@ -61,7 +63,20 @@ export class Popover {
    * The trigger event on which the popover-content is displayed. The available options are
    * 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
    */
-  @Prop() trigger: 'click' | 'manual' | 'hover' = 'click';
+  @Prop() trigger: PopoverTriggerType = 'click';
+  /**
+   * Option to determine if popover-content has a border.
+   */
+  @Prop() hasBorder = true;
+  /**
+   * Option to prevent the tooltip from being clipped when the component is placed inside a container with
+   * `overflow: auto|hidden|scroll`.
+   */
+  @Prop() hoist = false;
+  /**
+   * Option to disable the popover animation on hide and show.
+   */
+  @Prop() disableTransition = false;
   /**
    * Triggered whenever the popover contents is open/displayed.
    */
@@ -100,7 +115,15 @@ export class Popover {
         ],
       }));
       this.popperInstance.update();
-      this.overlay.style.display = 'block';
+      if (this.trigger !== 'hover') {
+        this.overlay.style.display = 'block';
+      }
+      this.escapeHandler = ((e: any) => {
+        if (e.keyCode === 27) {
+          this.hide();
+        }
+      }).bind(this);
+      document.addEventListener('keydown', this.escapeHandler);
       this.isOpen = !this.isOpen;
       if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
@@ -122,7 +145,13 @@ export class Popover {
           { name: 'eventListeners', enabled: false },
         ],
       }));
-      this.overlay.style.display = 'none';
+      if (this.trigger !== 'hover') {
+        this.overlay.style.display = 'none';
+      }
+      if (this.escapeHandler) {
+        document.removeEventListener('keydown', this.escapeHandler);
+        this.escapeHandler = null;
+      }
       this.isOpen = !this.isOpen;
       if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
@@ -135,7 +164,13 @@ export class Popover {
   componentWillLoad() {
     this.contentRef = this.host.querySelector('[slot="popover-content"]');
     this.triggerRef = this.host.querySelector('[slot="popover-trigger"]');
-    if (this.trigger !== 'manual') {
+    if (this.triggerRef.nodeName === 'SLOT') {
+      const assignedElements = this.triggerRef.assignedElements();
+      if (assignedElements.length) {
+        this.triggerRefSlot = assignedElements[0];
+      }
+    }
+    if (this.trigger === 'click') {
       this.triggerRef.addEventListener(this.trigger, () => {
         if (this.isOpen) {
           this.hide();
@@ -143,9 +178,24 @@ export class Popover {
           this.show();
         }
       });
+    } else if (this.trigger === 'hover') {
+      const trigger = this.triggerRefSlot || this.triggerRef;
+      trigger.addEventListener('focus', this.show.bind(this));
+      trigger.addEventListener('blur', this.hide.bind(this));
+      trigger.addEventListener('mouseenter', this.show.bind(this));
+      trigger.addEventListener('mouseleave', (event: any) => {
+        /**
+         * popovercontent might trigger mouseLeave callback of triggerRef during transition.
+         * This condition avoids flicker that might happen because of the mentioned case.
+         */
+        if (!event.relatedTarget.matches('*[slot="popover-content"]')) {
+          this.hide();
+        }
+      });
     }
     this.popperOptions = {
       placement: this.placement,
+      strategy: this.hoist ? 'fixed' : 'absolute',
       modifiers: [
         {
           name: 'flip',
@@ -174,8 +224,9 @@ export class Popover {
   }
 
   createPopperInstance() {
+    const triggerRef = this.triggerRefSlot || this.triggerRef;
     this.popperInstance = createPopper(
-      this.triggerRef,
+      triggerRef,
       this.popperDiv,
       this.popperOptions
     );
@@ -185,17 +236,23 @@ export class Popover {
     return [
       <slot name='popover-trigger' />,
       <div
-        class='popper-content'
+        class={{
+          'popper-content': true,
+          'no-border': !this.hasBorder,
+          'no-transition': this.disableTransition,
+        }}
         ref={(popperDiv) => (this.popperDiv = popperDiv)}
       >
         <slot name='popover-content' />
       </div>,
-      <div
-        aria-hidden='true'
-        class='overlay'
-        ref={(overlay) => (this.overlay = overlay)}
-        onClick={() => this.hide()}
-      />,
+      this.trigger !== 'hover' && (
+        <div
+          aria-hidden='true'
+          class='overlay'
+          ref={(overlay) => (this.overlay = overlay)}
+          onClick={() => this.hide()}
+        />
+      ),
     ];
   }
 }
