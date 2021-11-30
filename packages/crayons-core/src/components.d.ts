@@ -65,11 +65,15 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description": string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -534,11 +538,15 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description": string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -790,9 +798,14 @@ export namespace Components {
          */
         "disabled": false;
         /**
+          * Whether the Tag is focusable.
+         */
+        "focusable": boolean;
+        /**
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps": {};
+        "setFocus": () => Promise<any>;
         /**
           * Display text in the tag component.
          */
@@ -1320,11 +1333,15 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description"?: string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
@@ -1828,11 +1845,15 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description"?: string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
@@ -2119,6 +2140,10 @@ declare namespace LocalJSX {
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: false;
+        /**
+          * Whether the Tag is focusable.
+         */
+        "focusable"?: boolean;
         /**
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
