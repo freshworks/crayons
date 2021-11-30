@@ -117,7 +117,7 @@ export class Datepicker {
         });
         this.firstFocusElement.addEventListener('keydown', (e: any) => {
           e.shiftKey &&
-            e.keyCode == 9 &&
+            e.keyCode === 9 &&
             this.focusElement(this.lastFocusElement);
         });
       }
@@ -176,9 +176,9 @@ export class Datepicker {
         toDate: this.endDateFormatted,
       });
     } else if (isUpdateDate) {
-      this.value = this.selectedDay
-        ? moment(this.selectedDay).format(this.dateFormat)
-        : '';
+      this.value = moment([this.year, this.month, this.selectedDay]).format(
+        this.dateFormat
+      );
       this.fwChange.emit(this.value);
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
@@ -208,8 +208,10 @@ export class Datepicker {
         }
         this.year = `${moment(val, this.dateFormat).get('year')}`;
         this.month = moment(val, this.dateFormat).get('month');
-        this.todayTimestamp = moment(val, this.dateFormat).valueOf();
-        this.selectedDay = moment(val, this.dateFormat).valueOf();
+        this.selectedDay = moment(val, this.dateFormat).get('date');
+        this.value = moment([this.year, this.month, this.selectedDay]).format(
+          this.dateFormat
+        );
       }
     }
 
@@ -341,7 +343,7 @@ export class Datepicker {
     this.supportedYears = this.getSupportedYears();
     this.selectedDay =
       this.value !== undefined
-        ? moment(this.value, this.dateFormat).valueOf()
+        ? moment(this.value, this.dateFormat).get('date')
         : undefined;
     this.startDate =
       this.fromDate !== undefined
@@ -351,7 +353,6 @@ export class Datepicker {
       this.toDate !== undefined
         ? moment(this.toDate, this.dateFormat).valueOf()
         : undefined;
-
     if (this.mode === 'range' && this.startDate && this.endDate) {
       const formattedFromDate = moment(this.startDate).format(this.dateFormat);
       const formattedToDate = moment(this.endDate).format(this.dateFormat);
@@ -446,9 +447,13 @@ export class Datepicker {
     return day.timestamp === this.todayTimestamp;
   };
 
-  isSelectedDay = ({ timestamp }) => {
+  isSelectedDay = ({ date, timestamp }) => {
     return (
-      timestamp === this.selectedDay ||
+      (date === this.selectedDay &&
+        moment(this.value, this.dateFormat).get('month') ===
+          moment(timestamp).get('month') &&
+        moment(this.value, this.dateFormat).get('year') ===
+          moment(timestamp).get('year')) ||
       timestamp === this.startDate ||
       timestamp === this.endDate
     );
@@ -492,7 +497,9 @@ export class Datepicker {
       } else {
         // Single Date Container
         this.onDateClick(day);
-        this.value = moment(this.selectedDay).format(this.dateFormat);
+        this.value = moment([this.year, this.month, this.selectedDay]).format(
+          this.dateFormat
+        );
         this.showDatePicker = false;
       }
     }
@@ -522,9 +529,12 @@ export class Datepicker {
     return startDateCondtion || endDateCondition;
   }
 
-  onDateClick = ({ timestamp }) => {
+  onDateClick = ({ date, timestamp }) => {
     if (this.showSingleDatePicker()) {
-      this.selectedDay = timestamp;
+      this.selectedDay = date;
+      this.value = moment([this.year, this.month, this.selectedDay]).format(
+        this.dateFormat
+      );
     } else if (this.showDateRangePicker()) {
       this.handleRangeSelection(timestamp);
       this.dateHovered = '';
