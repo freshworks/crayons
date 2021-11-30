@@ -85,11 +85,15 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description": string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -504,11 +508,15 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description": string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -1322,11 +1330,15 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description"?: string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
@@ -1796,11 +1808,15 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description"?: string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**

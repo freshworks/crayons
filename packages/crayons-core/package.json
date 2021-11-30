@@ -34,7 +34,7 @@
     "build:components": "stencil build --docs",
     "build:mincss": "cleancss -b css/*.css css",
     "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css",
-    "build:styles": "npm run build:scss && npm run build:autoprefix && npm run build:mincss",
+    "build:styles": "npm run build:scss && npm run build:autoprefix && npm run build:mincss && npx copy css/crayons-min.css ../../www/.vuepress/public",
     "build": "gulp && npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
     "code-sanity": "npm run lint",
     "commit": "git-cz",

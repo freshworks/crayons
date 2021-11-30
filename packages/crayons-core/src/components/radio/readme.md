@@ -5,8 +5,8 @@ fw-radio displays a radio button on the user interface and enables assigning a s
 ## Demo
 
 ```html live
-<fw-radio checked label="Agree or Disagree">Select to agree</fw-radio><br><br>
-<fw-radio checked disabled label="Disabled radio" value="dr"></fw-radio>
+<fw-radio checked description="Select to agree">Agree or Disagree</fw-radio><br><br>
+<fw-radio checked disabled value="dr">Disabled radio</fw-radio>
 ```
 
 
@@ -15,8 +15,8 @@ fw-radio displays a radio button on the user interface and enables assigning a s
 <code-group>
 <code-block title="HTML">
 ```html 
-<fw-radio checked label="Agree or Disagree">Select to agree</fw-radio><br><br>
-<fw-radio checked disabled label="Disabled radio" value="dr"></fw-radio>
+<fw-radio checked description="Select to agree">Agree or Disagree</fw-radio><br><br>
+<fw-radio checked disabled value="dr">Disabled radio</fw-radio>
 ```
 </code-block>
 
@@ -27,8 +27,8 @@ import ReactDOM from "react-dom";
 import { FwRadio } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-        <FwRadio checked label="Agree or Disagree">Select to agree</FwRadio><br/><br/>
-        <FwRadio checked disabled label="Disabled radio" value="dr"></FwRadio>
+        <FwRadio checked description="Select to agree">Agree or Disagree</FwRadio><br/><br/>
+        <FwRadio checked disabled value="dr">Disabled radio</FwRadio>
     </div>);
 }
 ```
@@ -40,13 +40,14 @@ function App() {
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                | Type      | Default |
-| ---------- | ---------- | ---------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `checked`  | `checked`  | Sets the state to selected. If the attribute’s value is undefined, the value is set to false.              | `boolean` | `false` |
-| `disabled` | `disabled` | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false. | `boolean` | `false` |
-| `label`    | `label`    | Label displayed on the interface, for the component.                                                       | `string`  | `''`    |
-| `name`     | `name`     | Name of the component, saved as part of form data.                                                         | `string`  | `''`    |
-| `value`    | `value`    | Identifier corresponding to the component, that is saved when the form data is saved.                      | `string`  | `''`    |
+| Property      | Attribute     | Description                                                                                                                               | Type      | Default |
+| ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
+| `checked`     | `checked`     | Sets the state to selected. If the attribute’s value is undefined, the value is set to false.                                             | `boolean` | `false` |
+| `description` | `description` | Description to be displayed for the checkbox.                                                                                             | `string`  | `''`    |
+| `disabled`    | `disabled`    | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                | `boolean` | `false` |
+| `label`       | `label`       | <span style="color:red">**[DEPRECATED]**</span> Use `description` instead. Label displayed on the interface, for the check box.<br/><br/> | `string`  | `''`    |
+| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                        | `string`  | `''`    |
+| `value`       | `value`       | Identifier corresponding to the component, that is saved when the form data is saved.                                                     | `string`  | `''`    |
 
 
 ## Events
