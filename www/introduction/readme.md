@@ -37,3 +37,19 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 ``` 
 in the head of your index.html
  - Now you can use the element anywhere in your template, JSX, html etc.
+
+
+## Adding CSS Utils
+
+Crayons provides a set of CSS utilities to help with application development. You can use these utils by adding 'crayons-min.css' file in your app. 
+
+#### Usage via Node Modules
+```html
+<link rel="stylesheet" href="node_modules/@freshworks/crayons/css/crayons-min.css">
+```
+#### Usage via CDN
+```html
+<link rel="stylesheet" href="https://unpkg.com/@freshworks/crayons@canary/css/crayons-min.css">
+```
+
+> Note: CSS utils are optional. Crayons can be used without including crayons-min.css.
