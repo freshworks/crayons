@@ -24,6 +24,12 @@ for (const wwwBuild of wwwBuilds) {
     { nomodule: '', src: `/${wwwBuild}/build/${wwwBuild}.js` },
   ]);
 }
+headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
+
+const getUtils = () =>
+  ['typography', 'spacing', 'layout', 'card'].map(
+    (util) => `/css-utils/${util}/`
+  );
 
 const getTags = () => [
   'Web Components',
@@ -61,6 +67,12 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 1,
         children: components,
+      },
+      {
+        title: 'CSS Utils',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: getUtils(),
       },
       {
         title: 'Utilities',

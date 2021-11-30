@@ -58,6 +58,7 @@
     "@vue/babel-preset-app": "^4.5.15",
     "@vuepress/plugin-active-header-links": "^1.8.2",
     "commitizen": "^4.2.4",
+    "copy": "^0.3.2",
     "copy-webpack-plugin": "^6.4.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
