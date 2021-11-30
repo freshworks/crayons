@@ -1,0 +1,11 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.default {
+  display: none;
+}
+::slotted([slot='separator']) {
+  display: none;
+}

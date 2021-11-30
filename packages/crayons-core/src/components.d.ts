@@ -22,6 +22,26 @@ export namespace Components {
     | 'xsmall'
     | 'xxsmall';
     }
+    interface FwBreadcrumb {
+        /**
+          * Label to be used for screen readers and other assistive devices.
+         */
+        "label": string;
+    }
+    interface FwBreadcrumbItem {
+        /**
+          * Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered internally. When unset, a button will be rendered instead.
+         */
+        "href": string;
+        /**
+          * The `rel` attribute to use on the link. Only used when `href` is set.
+         */
+        "rel": string;
+        /**
+          * Tells the browser where to open the link. Only used when `href` is set.
+         */
+        "target": '_blank' | '_parent' | '_self' | '_top';
+    }
     interface FwButton {
         /**
           * Identifier of  the theme based on which the button is styled.
@@ -984,6 +1004,18 @@ declare global {
         prototype: HTMLFwAvatarElement;
         new (): HTMLFwAvatarElement;
     };
+    interface HTMLFwBreadcrumbElement extends Components.FwBreadcrumb, HTMLStencilElement {
+    }
+    var HTMLFwBreadcrumbElement: {
+        prototype: HTMLFwBreadcrumbElement;
+        new (): HTMLFwBreadcrumbElement;
+    };
+    interface HTMLFwBreadcrumbItemElement extends Components.FwBreadcrumbItem, HTMLStencilElement {
+    }
+    var HTMLFwBreadcrumbItemElement: {
+        prototype: HTMLFwBreadcrumbItemElement;
+        new (): HTMLFwBreadcrumbItemElement;
+    };
     interface HTMLFwButtonElement extends Components.FwButton, HTMLStencilElement {
     }
     var HTMLFwButtonElement: {
@@ -1166,6 +1198,8 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "fw-avatar": HTMLFwAvatarElement;
+        "fw-breadcrumb": HTMLFwBreadcrumbElement;
+        "fw-breadcrumb-item": HTMLFwBreadcrumbItemElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
@@ -1212,6 +1246,26 @@ declare namespace LocalJSX {
     | 'small'
     | 'xsmall'
     | 'xxsmall';
+    }
+    interface FwBreadcrumb {
+        /**
+          * Label to be used for screen readers and other assistive devices.
+         */
+        "label"?: string;
+    }
+    interface FwBreadcrumbItem {
+        /**
+          * Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered internally. When unset, a button will be rendered instead.
+         */
+        "href"?: string;
+        /**
+          * The `rel` attribute to use on the link. Only used when `href` is set.
+         */
+        "rel"?: string;
+        /**
+          * Tells the browser where to open the link. Only used when `href` is set.
+         */
+        "target"?: '_blank' | '_parent' | '_self' | '_top';
     }
     interface FwButton {
         /**
@@ -2288,6 +2342,8 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "fw-avatar": FwAvatar;
+        "fw-breadcrumb": FwBreadcrumb;
+        "fw-breadcrumb-item": FwBreadcrumbItem;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
@@ -2325,6 +2381,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
+            "fw-breadcrumb": LocalJSX.FwBreadcrumb & JSXBase.HTMLAttributes<HTMLFwBreadcrumbElement>;
+            "fw-breadcrumb-item": LocalJSX.FwBreadcrumbItem & JSXBase.HTMLAttributes<HTMLFwBreadcrumbItemElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;

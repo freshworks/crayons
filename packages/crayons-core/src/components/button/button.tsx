@@ -131,11 +131,12 @@ export class Button {
     }
   }
 
-  componentWillLoad() {
-    this.handleSlotChange();
-  }
+  // componentWillLoad() {
+  //   this.handleSlotChange();
+  // }
 
   private handleSlotChange() {
+    console.log('fff');
     this.hasLabel = hasSlot(this.host);
     this.hasBeforeLabel = hasSlot(this.host, 'before-label');
     this.hasAfterLabel = hasSlot(this.host, 'after-label');
