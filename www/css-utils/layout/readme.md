@@ -161,7 +161,7 @@ We can use 'fw-justify-#{$value}' class to position a flex item along a **flex c
       <div class="flex-item-border">Flex item 7</div>
     </div>
     <br />
-    <span>between example:</span>
+    <span>Between example:</span>
     <div class="fw-flex flex-container-border fw-justify-between">
       <div class="flex-item-border">Flex item 1</div>
       <div class="flex-item-border">Flex item 2</div>
@@ -172,7 +172,7 @@ We can use 'fw-justify-#{$value}' class to position a flex item along a **flex c
       <div class="flex-item-border">Flex item 7</div>
     </div>
     <br />
-    <span>around example:</span>
+    <span>Around example:</span>
     <div class="fw-flex flex-container-border fw-justify-around">
       <div class="flex-item-border">Flex item 1</div>
       <div class="flex-item-border">Flex item 2</div>
@@ -183,7 +183,7 @@ We can use 'fw-justify-#{$value}' class to position a flex item along a **flex c
       <div class="flex-item-border">Flex item 7</div>
     </div>
     <br />
-    <span>evenly example:</span>
+    <span>Evenly example:</span>
     <div class="fw-flex flex-container-border fw-justify-evenly">
       <div class="flex-item-border">Flex item 1</div>
       <div class="flex-item-border">Flex item 2</div>
@@ -250,7 +250,7 @@ We can use 'fw-content-#{$name}' class to position items in multi-row **flex con
       <div class="flex-item-border">Flex item 7</div>
     </div>
     <br />
-    <span>between example:</span>
+    <span>Between example:</span>
     <div class="fw-flex fw-flex-wrap flex-container-border fw-content-between">
       <div class="flex-item-border">Flex item 1</div>
       <div class="flex-item-border">Flex item 2</div>
@@ -261,7 +261,7 @@ We can use 'fw-content-#{$name}' class to position items in multi-row **flex con
       <div class="flex-item-border">Flex item 7</div>
     </div>
     <br />
-    <span>around example:</span>
+    <span>Around example:</span>
     <div class="fw-flex fw-flex-wrap flex-container-border fw-content-around">
       <div class="flex-item-border">Flex item 1</div>
       <div class="flex-item-border">Flex item 2</div>
@@ -272,7 +272,7 @@ We can use 'fw-content-#{$name}' class to position items in multi-row **flex con
       <div class="flex-item-border">Flex item 7</div>
     </div>
     <br />
-    <span>evenly example:</span>
+    <span>Evenly example:</span>
     <div class="fw-flex fw-flex-wrap flex-container-border fw-content-evenly">
       <div class="flex-item-border">Flex item 1</div>
       <div class="flex-item-border">Flex item 2</div>
@@ -370,7 +370,7 @@ We can use either 'fw-flex-grow-0' or 'fw-flex-grow' value in **flex items**. 'f
       <div class="flex-item-border fw-flex-grow-0">Flex item 2</div>
     </div>
     <br />
-    <span> example:</span>
+    <span>Grow example:</span>
     <div class="fw-flex flex-container-border">
       <div class="flex-item-border fw-flex-grow">Flex item 1</div>
       <div class="flex-item-border fw-flex-grow">Flex item 2</div>
