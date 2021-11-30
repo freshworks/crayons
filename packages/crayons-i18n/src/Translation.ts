@@ -1,6 +1,8 @@
 import { Build as BUILD, ComponentInterface } from '@stencil/core';
 
 import { createStore } from '@stencil/store';
+import { Locale } from 'date-fns';
+import enLocaleObj from 'date-fns/locale/en-US';
 
 interface i18nConfig {
   [key: string]: {
@@ -71,6 +73,7 @@ export class TranslationController {
       lang: '',
       globalI18n: null,
       customTranslations: {},
+      dateLang: enLocaleObj,
     });
     this.state = state;
     this.onChange = onChange;
@@ -127,6 +130,22 @@ export class TranslationController {
    */
   getLang(): string {
     return this.state.lang;
+  }
+
+  /**
+   * set date lang module
+   * @param langModule
+   */
+  setDateLang(langModule: Locale): void {
+    this.state.dateLang = langModule;
+  }
+
+  /**
+   *
+   * @returns the selected date lang module
+   */
+  getDateLang(): Locale {
+    return this.state.dateLang;
   }
 
   fetchDefaultTranslations(lang: string): Promise<any> {

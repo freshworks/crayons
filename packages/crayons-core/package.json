@@ -102,6 +102,7 @@
     "@freshworks/crayons-i18n": "file:../crayons-i18n",
     "@popperjs/core": "^2.10.2",
     "@stencil/core": "2.9.0",
+    "date-fns": "^2.27.0",
     "moment-mini": "^2.24.0"
   },
   "publishConfig": {
