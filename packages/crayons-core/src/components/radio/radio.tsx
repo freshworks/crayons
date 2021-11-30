@@ -27,6 +27,11 @@ export class Radio {
    */
   @Prop() description = '';
   /**
+   * @deprecated Use `description` instead.
+   * Label displayed on the interface, for the check box.
+   */
+  @Prop() label = '';
+  /**
    * Identifier corresponding to the component, that is saved when the form data is saved.
    */
   @Prop() value = '';
@@ -117,8 +122,10 @@ export class Radio {
             <span id='label'>
               <slot />
             </span>
-            {this.description ? (
-              <div id='description'>{this.description}</div>
+            {this.description !== '' || this.label !== '' ? (
+              <div id='description'>
+                {this.description ? this.description : this.label}
+              </div>
             ) : (
               ''
             )}
