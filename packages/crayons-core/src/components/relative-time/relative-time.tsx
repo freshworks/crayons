@@ -1,10 +1,9 @@
-import { Component, Prop, h, Watch, State, Host, Method } from '@stencil/core';
+import { Component, Prop, h, Watch, State, Method } from '@stencil/core';
 import { formatDistanceStrict } from 'date-fns';
 import enLocaleObj from 'date-fns/locale/en-US';
 
 @Component({
   tag: 'fw-relative-time',
-  styleUrl: 'relative-time.scss',
   shadow: true,
 })
 export class RelativeTime {
@@ -99,11 +98,9 @@ export class RelativeTime {
     }
 
     return (
-      <Host>
-        <time dateTime={date.toISOString()} title={titleTime}>
-          {formattedTime}
-        </time>
-      </Host>
+      <time dateTime={date.toISOString()} title={titleTime}>
+        {formattedTime}
+      </time>
     );
   }
 }
