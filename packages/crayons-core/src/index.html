@@ -94,6 +94,13 @@
   
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
-  </script> -->
+  </script> 
+    
+    <fw-format-date date="as03/04/2020"></fw-format-date><br/>
+    <fw-format-date month="long" day="numeric" year="numeric"></fw-format-date><br/>
+    German: <fw-format-date locale="de"></fw-format-date><br/>
+    French: <fw-format-date locale="fr"></fw-format-date><br/>
+    
+-->
   </body>
 </html>

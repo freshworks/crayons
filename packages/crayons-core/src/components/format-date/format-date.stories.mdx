@@ -1,0 +1,25 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# FormatDate
+
+<Meta title='FormatDate' component='fw-format-date' />
+
+## Props
+
+<Props of='fw-format-date' />
+
+## Usage
+
+### Default
+
+<Preview>
+  <Story name='Default'>{() => `<fw-format-date></fw-format-date>`}</Story>
+</Preview>
+
+<Preview>
+  <Story name='Locale'>
+    {() => `French: <fw-format-date locale="fr"></fw-format-date><br/>
+    German: <fw-format-date locale="de"></fw-format-date><br/>
+    English: <fw-format-date locale="en"></fw-format-date>`}
+  </Story>
+</Preview>

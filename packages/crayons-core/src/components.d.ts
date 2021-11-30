@@ -157,6 +157,60 @@ export namespace Components {
          */
         "value": any;
     }
+    interface FwFormatDate {
+        /**
+          * The date/time to format. Default is current date/time
+         */
+        "date": Date | string;
+        /**
+          * The format for displaying the day.
+         */
+        "day": 'numeric' | '2-digit';
+        /**
+          * The format for displaying the era.
+         */
+        "era": 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the hour.
+         */
+        "hour": 'numeric' | '2-digit';
+        /**
+          * Determines whether to show 12 hour or 24 hour format
+         */
+        "hourFormat": 'auto' | '12' | '24';
+        /**
+          * Locale for formatting date/time
+         */
+        "locale": string;
+        /**
+          * The format for displaying the minute.
+         */
+        "minute": 'numeric' | '2-digit';
+        /**
+          * The format for displaying the month.
+         */
+        "month": 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the second.
+         */
+        "second": 'numeric' | '2-digit';
+        /**
+          * The time zone to use.
+         */
+        "timeZone": string;
+        /**
+          * The format for displaying the time zone.
+         */
+        "timeZoneName": 'short' | 'long';
+        /**
+          * The format for displaying the weekday.
+         */
+        "weekday": 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the year.
+         */
+        "year": 'numeric' | '2-digit';
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
@@ -1022,6 +1076,12 @@ declare global {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
     };
+    interface HTMLFwFormatDateElement extends Components.FwFormatDate, HTMLStencilElement {
+    }
+    var HTMLFwFormatDateElement: {
+        prototype: HTMLFwFormatDateElement;
+        new (): HTMLFwFormatDateElement;
+    };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
     var HTMLFwIconElement: {
@@ -1179,6 +1239,7 @@ declare global {
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-format-date": HTMLFwFormatDateElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -1391,6 +1452,60 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
+    }
+    interface FwFormatDate {
+        /**
+          * The date/time to format. Default is current date/time
+         */
+        "date"?: Date | string;
+        /**
+          * The format for displaying the day.
+         */
+        "day"?: 'numeric' | '2-digit';
+        /**
+          * The format for displaying the era.
+         */
+        "era"?: 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the hour.
+         */
+        "hour"?: 'numeric' | '2-digit';
+        /**
+          * Determines whether to show 12 hour or 24 hour format
+         */
+        "hourFormat"?: 'auto' | '12' | '24';
+        /**
+          * Locale for formatting date/time
+         */
+        "locale"?: string;
+        /**
+          * The format for displaying the minute.
+         */
+        "minute"?: 'numeric' | '2-digit';
+        /**
+          * The format for displaying the month.
+         */
+        "month"?: 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the second.
+         */
+        "second"?: 'numeric' | '2-digit';
+        /**
+          * The time zone to use.
+         */
+        "timeZone"?: string;
+        /**
+          * The format for displaying the time zone.
+         */
+        "timeZoneName"?: 'short' | 'long';
+        /**
+          * The format for displaying the weekday.
+         */
+        "weekday"?: 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the year.
+         */
+        "year"?: 'numeric' | '2-digit';
     }
     interface FwIcon {
         /**
@@ -2309,6 +2424,7 @@ declare namespace LocalJSX {
         "fw-checkbox": FwCheckbox;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-format-date": FwFormatDate;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -2346,6 +2462,7 @@ declare module "@stencil/core" {
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-format-date": LocalJSX.FwFormatDate & JSXBase.HTMLAttributes<HTMLFwFormatDateElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
