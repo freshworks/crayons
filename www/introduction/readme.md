@@ -49,7 +49,7 @@ Crayons provides a set of CSS utilities to help with application development. Yo
 ```
 #### Usage via CDN
 ```html
-<link rel="stylesheet" href="https://unpkg.com/browse/@freshworks/crayons/css/crayons-min.css">
+<link rel="stylesheet" href="https://unpkg.com/@freshworks/crayons@canary/css/crayons-min.css">
 ```
 
 > Note: CSS utils are optional. Crayons can be used without including crayons-min.css.
