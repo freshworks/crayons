@@ -32,6 +32,11 @@ export class Checkbox {
    */
   @Prop() description = '';
   /**
+   * @deprecated Use `description` instead.
+   * Label displayed on the interface, for the check box.
+   */
+  @Prop() label = '';
+  /**
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
@@ -131,8 +136,10 @@ export class Checkbox {
             <span id='label'>
               <slot />
             </span>
-            {this.description !== '' ? (
-              <div id='description'>{this.description}</div>
+            {this.description !== '' || this.label !== '' ? (
+              <div id='description'>
+                {this.description ? this.description : this.label}
+              </div>
             ) : (
               ''
             )}
