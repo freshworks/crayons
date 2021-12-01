@@ -13,7 +13,12 @@ import {
   h,
 } from '@stencil/core';
 
-import { handleKeyDown, renderHiddenField } from '../../utils';
+import {
+  cyclicDecrement,
+  cyclicIncrement,
+  handleKeyDown,
+  renderHiddenField,
+} from '../../utils';
 import { DropdownVariant, TagVariant } from '../../utils/types';
 @Component({
   tag: 'fw-select',
@@ -276,27 +281,24 @@ export class Select {
   }
 
   tagContainerKeyDown = (ev) => {
-    console.log(ev.key);
     switch (ev.key) {
       case 'Escape':
         this.innerOnBlur(ev);
         this.closeDropdown();
         break;
       case 'ArrowLeft':
-        this.tagArrowKeyCounter--;
-        this.tagArrowKeyCounter =
-          this.tagArrowKeyCounter < 0
-            ? this.value.length - 1
-            : this.tagArrowKeyCounter;
+        this.tagArrowKeyCounter = cyclicDecrement(
+          this.tagArrowKeyCounter,
+          this.tagRefs.length - 1
+        );
         this.focusOnTag(this.tagArrowKeyCounter);
         ev.stopImmediatePropagation();
         break;
       case 'ArrowRight':
-        this.tagArrowKeyCounter++;
-        this.tagArrowKeyCounter =
-          this.tagArrowKeyCounter >= this.value.length
-            ? 0
-            : this.tagArrowKeyCounter;
+        this.tagArrowKeyCounter = cyclicIncrement(
+          this.tagArrowKeyCounter,
+          this.tagRefs.length - 1
+        );
         this.focusOnTag(this.tagArrowKeyCounter);
         ev.stopImmediatePropagation();
         break;
@@ -432,15 +434,17 @@ export class Select {
         this.selectedOptionsState = selectedDataSource;
       }
     }
-    this.host.addEventListener('focus', () => {
-      this.setFocus();
-    });
+    this.host.addEventListener('focus', this.setFocus);
     this.host.innerHTML = '';
   }
 
   componentDidLoad() {
     this.renderInput();
     this.didInit = true;
+  }
+
+  disconnectedCallback() {
+    this.host.removeEventListener('focus', this.setFocus);
   }
 
   render() {

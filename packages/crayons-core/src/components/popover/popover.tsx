@@ -120,7 +120,7 @@ export class Popover {
       this.isOpen = !this.isOpen;
       if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
-        listOptionsElement.openHandler();
+        listOptionsElement.scrollToLastSelected();
       }
       this.fwShow.emit();
     }
@@ -144,7 +144,7 @@ export class Popover {
       this.isOpen = !this.isOpen;
       if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
-        listOptionsElement.closeHandler();
+        listOptionsElement.clearFilter();
       }
       this.fwHide.emit();
     }

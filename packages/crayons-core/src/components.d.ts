@@ -272,7 +272,7 @@ export namespace Components {
           * Place a checkbox.
          */
         "checkbox": boolean;
-        "closeHandler": () => Promise<void>;
+        "clearFilter": () => Promise<void>;
         /**
           * Debounce timer for the search promise function.
          */
@@ -298,11 +298,11 @@ export namespace Components {
           * Default option to be shown if the option doesn't match the filterText.
          */
         "notFoundText": string;
-        "openHandler": () => Promise<void>;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
+        "scrollToLastSelected": () => Promise<void>;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */

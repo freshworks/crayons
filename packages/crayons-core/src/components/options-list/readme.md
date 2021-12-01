@@ -95,7 +95,7 @@ The data-source and the visual variant for the list options can be altered via t
 
 ## Methods
 
-### `closeHandler() => Promise<void>`
+### `clearFilter() => Promise<void>`
 
 
 
@@ -115,7 +115,7 @@ Type: `Promise<any>`
 
 
 
-### `openHandler() => Promise<void>`
+### `scrollToLastSelected() => Promise<void>`
 
 
 

@@ -77,7 +77,6 @@ export class Tag {
       return;
     }
     const { value, text } = this;
-    console.log(`Tag with text: ${text} removed`);
     this.fwClosed.emit({ value, text });
   };
 

@@ -10,7 +10,7 @@ import {
   EventEmitter,
   Event,
 } from '@stencil/core';
-import { debounce } from '../../utils';
+import { cyclicDecrement, cyclicIncrement, debounce } from '../../utils';
 import { DropdownVariant } from '../../utils/types';
 
 @Component({
@@ -136,16 +136,30 @@ export class ListOptions {
   onKeyDown(ev) {
     switch (ev.key) {
       case 'ArrowDown':
+        // If focus is on the last option, moves focus to the first option.
+        // Ref - https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html
+        this.arrowKeyCounter = cyclicIncrement(
+          this.arrowKeyCounter,
+          this.optionRefs.length - 1
+        );
+        this.optionRefs[this.arrowKeyCounter].setFocus();
+        ev.stopImmediatePropagation();
+        break;
       case 'ArrowUp':
-        this.setFocusToOption(ev.key);
-        ev.preventDefault();
-        ev.stopPropagation();
+        // If focus is on the first option, moves focus to the last option.
+        // Ref - https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html
+        this.arrowKeyCounter = cyclicDecrement(
+          this.arrowKeyCounter,
+          this.optionRefs.length - 1
+        );
+        this.optionRefs[this.arrowKeyCounter].setFocus();
+        ev.stopImmediatePropagation();
         break;
     }
   }
 
   @Method()
-  async closeHandler() {
+  async clearFilter() {
     this.filteredOptions = this.selectOptions;
     if (this.searchable) {
       this.searchInput.value = '';
@@ -153,8 +167,12 @@ export class ListOptions {
   }
 
   @Method()
-  async openHandler() {
-    this.scrollToLastSelected();
+  async scrollToLastSelected() {
+    if (this.filteredOptions.length > 0 && this.valueExists()) {
+      this.container
+        .querySelector(`fw-select-option[id='${this.getLastSelectedValue()}']`)
+        ?.scrollIntoView({ block: 'center' });
+    }
   }
 
   @Method()
@@ -242,14 +260,6 @@ export class ListOptions {
     return this.multiple ? this.value.length > 0 : !!this.value;
   }
 
-  scrollToLastSelected() {
-    if (this.filteredOptions.length > 0 && this.valueExists()) {
-      this.container
-        .querySelector(`fw-select-option[id='${this.getLastSelectedValue()}']`)
-        ?.scrollIntoView({ block: 'center' });
-    }
-  }
-
   handleSearchWithDebounce = debounce(
     (filterText) => {
       this.isLoading = true;
@@ -267,21 +277,6 @@ export class ListOptions {
     this,
     this.debounceTimer
   );
-
-  setFocusToOption(key) {
-    if (key === 'ArrowDown') {
-      this.arrowKeyCounter =
-        this.arrowKeyCounter >= this.optionRefs.length - 1
-          ? 0
-          : this.arrowKeyCounter + 1;
-    } else {
-      this.arrowKeyCounter =
-        this.arrowKeyCounter === 0
-          ? this.optionRefs.length - 1
-          : this.arrowKeyCounter - 1;
-    }
-    this.optionRefs[this.arrowKeyCounter].setFocus();
-  }
 
   getLastSelectedValue() {
     if (this.valueExists()) {
