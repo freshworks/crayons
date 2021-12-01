@@ -1,0 +1,8 @@
+.accordion-body {
+  background-color: $app-header-bg-secondary;
+  padding: 20px;
+
+  &.collapsed {
+    display: none;
+  }
+}

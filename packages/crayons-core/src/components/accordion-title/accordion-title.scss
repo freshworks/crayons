@@ -1,0 +1,23 @@
+.accordion-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $app-border-primary;
+  padding: 10px 20px;
+
+  &.collapsed {
+    border-bottom: none;
+  }
+
+  .accordion-title {
+    flex-grow: 1;
+    height: 20px;
+
+    &.bold {
+      font-weight: bold;
+    }
+  }
+
+  .accordion-icon {
+    flex-grow: 0;
+  }
+}

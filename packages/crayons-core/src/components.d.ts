@@ -5,9 +5,27 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { AccordionToogleEvent } from "./components/accordion/accordion";
 import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
+    interface FwAccordion {
+        /**
+          * to manage accordion expanded or collapsed state
+         */
+        "expanded": boolean;
+    }
+    interface FwAccordionBody {
+        "expanded": boolean;
+    }
+    interface FwAccordionTitle {
+        "bold": boolean;
+        "expanded": boolean;
+        /**
+          * Function to call on toggle
+         */
+        "toggleState": any;
+    }
     interface FwAvatar {
         "alt": string;
         "image": string;
@@ -973,6 +991,24 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwAccordionElement extends Components.FwAccordion, HTMLStencilElement {
+    }
+    var HTMLFwAccordionElement: {
+        prototype: HTMLFwAccordionElement;
+        new (): HTMLFwAccordionElement;
+    };
+    interface HTMLFwAccordionBodyElement extends Components.FwAccordionBody, HTMLStencilElement {
+    }
+    var HTMLFwAccordionBodyElement: {
+        prototype: HTMLFwAccordionBodyElement;
+        new (): HTMLFwAccordionBodyElement;
+    };
+    interface HTMLFwAccordionTitleElement extends Components.FwAccordionTitle, HTMLStencilElement {
+    }
+    var HTMLFwAccordionTitleElement: {
+        prototype: HTMLFwAccordionTitleElement;
+        new (): HTMLFwAccordionTitleElement;
+    };
     interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
     }
     var HTMLFwAvatarElement: {
@@ -1160,6 +1196,9 @@ declare global {
         new (): HTMLFwTooltipElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-accordion": HTMLFwAccordionElement;
+        "fw-accordion-body": HTMLFwAccordionBodyElement;
+        "fw-accordion-title": HTMLFwAccordionTitleElement;
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
@@ -1194,6 +1233,24 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FwAccordion {
+        /**
+          * to manage accordion expanded or collapsed state
+         */
+        "expanded"?: boolean;
+        "onFwAccordionToggle"?: (event: CustomEvent<AccordionToogleEvent>) => void;
+    }
+    interface FwAccordionBody {
+        "expanded"?: boolean;
+    }
+    interface FwAccordionTitle {
+        "bold"?: boolean;
+        "expanded"?: boolean;
+        /**
+          * Function to call on toggle
+         */
+        "toggleState"?: any;
+    }
     interface FwAvatar {
         "alt"?: string;
         "image"?: string;
@@ -2278,6 +2335,9 @@ declare namespace LocalJSX {
         "trigger"?: PopoverTriggerType;
     }
     interface IntrinsicElements {
+        "fw-accordion": FwAccordion;
+        "fw-accordion-body": FwAccordionBody;
+        "fw-accordion-title": FwAccordionTitle;
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
@@ -2315,6 +2375,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-accordion": LocalJSX.FwAccordion & JSXBase.HTMLAttributes<HTMLFwAccordionElement>;
+            "fw-accordion-body": LocalJSX.FwAccordionBody & JSXBase.HTMLAttributes<HTMLFwAccordionBodyElement>;
+            "fw-accordion-title": LocalJSX.FwAccordionTitle & JSXBase.HTMLAttributes<HTMLFwAccordionTitleElement>;
             "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
