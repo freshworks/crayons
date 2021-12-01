@@ -10,19 +10,15 @@
 
     <script type="module" src="/build/crayons.esm.js"></script>
     <script nomodule src="/build/crayons.js"></script>
+    <link rel="stylesheet" href="/build/crayons-min.css" />
   </head>
   <body>
     <style>
       .row {
         font-weight: 400;
-        font-size: 12px;
         font-style: italic;
-        padding: 8px;
       }
-       {
-        display: flex;
-      }
-      span:after {
+      .row > span:after {
         position: relative;
         flex: 1 1;
         left: 12px;
@@ -42,11 +38,9 @@
         <span id="buttonContent">Premier Accounts</span>
       </fw-button>
       <div slot="popover-content">
-        <div class="row">
-          <span>Sort Customers By</span>
-        </div>
+        <span class="row fw-flex fw-font-12 fw-p-8">Sort Customers By</span>
         <fw-list-options id="sortBy" variant="icon"> </fw-list-options>
-        <div class="row"><span>Sorting Order</span></div>
+        <span class="row fw-flex fw-font-12 fw-p-8">Sorting Order</span>
         <fw-list-options id="sortOrder" variant="icon"> </fw-list-options>
       </div>
     </fw-popover>

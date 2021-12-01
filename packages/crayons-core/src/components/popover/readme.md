@@ -36,8 +36,23 @@ Popover need two slots `popover-trigger` and `popover-content`. By default on cl
 Even a complex dropdown can be created via popover
 
 ```html live
+<style>
+  .row {
+    font-weight: 400;
+    font-style: italic;
+  }
+  .row > span:after {
+    position: relative;
+    flex: 1 1;
+    left: 12px;
+    margin: auto;
+    content: '';
+    border-bottom: 1px solid #ebeff3;
+  }
+</style>
+
 <fw-popover same-width="false" placement="bottom-start">
-  <fw-button slot="popover-trigger" color="secondary">
+  <fw-button slot="popover-trigger" color="secondary" show-caret-icon>
     <fw-icon
       id="buttonIcon"
       slot="before-label"
@@ -46,12 +61,13 @@ Even a complex dropdown can be created via popover
     <span id="buttonContent">Premier Accounts</span>
   </fw-button>
   <div slot="popover-content">
-    <div>Sort By</div>
+    <span class="row fw-flex fw-font-12 fw-p-8">Sort Customers By</span>
     <fw-list-options id="sortBy" variant="icon"> </fw-list-options>
-    <div>Sort Order</div>
+    <span class="row fw-flex fw-font-12 fw-p-8">Sorting Order</span>
     <fw-list-options id="sortOrder" variant="icon"> </fw-list-options>
   </div>
 </fw-popover>
+
 <script type="application/javascript">
   var sortByData = [
     {
@@ -159,9 +175,6 @@ Type: `Promise<void>`
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
 | Name                   | Description                            |
@@ -171,14 +184,13 @@ Type: `Promise<void>`
 | `--popover-min-height` | Minimum height of the popover content. |
 | `--popover-min-width`  | Minimum width of the popover content.  |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-datepicker](../datepicker)
- - [fw-select](../select)
- - [fw-tooltip](../tooltip)
+- [fw-datepicker](../datepicker)
+- [fw-select](../select)
+- [fw-tooltip](../tooltip)
 
 ### Graph
 
