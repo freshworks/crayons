@@ -7,7 +7,6 @@ import {
   Method,
   h,
   Listen,
-  Method,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
 import { TagVariant } from '../../utils/types';
@@ -18,6 +17,8 @@ import { TagVariant } from '../../utils/types';
   shadow: true,
 })
 export class Tag {
+  private tagContainer: HTMLElement;
+
   @Element() host: HTMLElement;
   /**
    * Display text in the tag component.
@@ -61,13 +62,14 @@ export class Tag {
     switch (event.key) {
       case 'Backspace':
         this.removeTag();
+        event.preventDefault();
         break;
     }
   }
 
   @Method()
   async setFocus(): Promise<any> {
-    this.host.focus();
+    this.tagContainer.focus();
   }
 
   removeTag = (): void => {
@@ -96,7 +98,12 @@ export class Tag {
 
   render() {
     return (
-      <div role='button' tabindex='-1' class={`tag tag-${this.variant}`}>
+      <div
+        role='button'
+        tabindex='-1'
+        class={`tag tag-${this.variant}`}
+        ref={(tagContainer) => (this.tagContainer = tagContainer)}
+      >
         {this.renderContent()}
         {this.closable && (
           <span

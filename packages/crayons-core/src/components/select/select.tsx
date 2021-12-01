@@ -25,6 +25,41 @@ export class Select {
   private selectInput?: HTMLInputElement;
   private fwListOptions?: HTMLFwListOptionsElement;
   private popover?: HTMLFwPopoverElement;
+  private tagContainer: HTMLElement;
+  private tagRefs = [];
+  private tagArrowKeyCounter = 0;
+
+  private changeEmittable = () => !this.disabled;
+
+  private innerOnFocus = (e: Event) => {
+    if (this.changeEmittable()) {
+      this.hasFocus = true;
+      this.fwFocus.emit(e);
+    }
+  };
+
+  private innerOnClick = () => {
+    this.openDropdown();
+  };
+
+  private innerOnBlur = (e: Event) => {
+    if (this.changeEmittable()) {
+      this.hasFocus = false;
+      this.fwBlur.emit(e);
+    }
+  };
+
+  private openDropdown = () => {
+    if (!this.isExpanded && this.changeEmittable()) {
+      this.popover.show();
+    }
+  };
+
+  private closeDropdown = () => {
+    if (this.isExpanded && this.changeEmittable()) {
+      this.popover.hide();
+    }
+  };
 
   /**
    * If the dropdown is shown or not
@@ -145,38 +180,6 @@ export class Select {
    */
   @Event() fwBlur: EventEmitter;
 
-  private changeEmittable = () => !this.disabled;
-
-  private innerOnFocus = (e: Event) => {
-    if (this.changeEmittable()) {
-      this.hasFocus = true;
-      this.fwFocus.emit(e);
-    }
-  };
-
-  private innerOnClick = () => {
-    this.openDropdown();
-  };
-
-  private innerOnBlur = (e: Event) => {
-    if (this.changeEmittable()) {
-      this.hasFocus = false;
-      this.fwBlur.emit(e);
-    }
-  };
-
-  private openDropdown = () => {
-    if (!this.isExpanded && this.changeEmittable()) {
-      this.popover.show();
-    }
-  };
-
-  private closeDropdown = () => {
-    if (this.isExpanded && this.changeEmittable()) {
-      this.popover.hide();
-    }
-  };
-
   @Listen('fwHide')
   onDropdownClose() {
     this.clearInput();
@@ -214,16 +217,12 @@ export class Select {
     }
   }
 
-  @Watch('dataSource')
-  optionsChangedHandler() {
-    this.renderInput();
-  }
-
   // Listen to Tag close in case of multi-select
   @Listen('fwClosed')
   fwCloseHandler(ev) {
     this.value = this.value.filter((value) => value !== ev.detail.value);
   }
+
   @Listen('keydown')
   onKeyDown(ev) {
     switch (ev.key) {
@@ -233,6 +232,12 @@ export class Select {
         ev.preventDefault();
         ev.stopPropagation();
         break;
+      case 'ArrowLeft':
+      case 'Backspace':
+        if (this.multiple && this.selectInput.value === '') {
+          this.focusOnTagContainer();
+        }
+        break;
       case 'Escape':
         this.innerOnBlur(ev);
         this.closeDropdown();
@@ -241,6 +246,66 @@ export class Select {
         this.closeDropdown();
         break;
     }
+  }
+
+  @Watch('dataSource')
+  optionsChangedHandler() {
+    this.renderInput();
+  }
+
+  @Method()
+  async getSelectedItem(): Promise<any> {
+    return this.fwListOptions.getSelectedOptions();
+  }
+
+  @Method()
+  async setSelectedValues(values: string | string[]): Promise<any> {
+    this.fwListOptions.setSelectedValues(values);
+    this.renderInput();
+  }
+
+  @Method()
+  async setSelectedOptions(options: any[]): Promise<any> {
+    this.fwListOptions.setSelectedOptions(options);
+    this.renderInput();
+  }
+
+  tagContainerKeyDown = (ev) => {
+    console.log(ev.key);
+    switch (ev.key) {
+      case 'Escape':
+        this.innerOnBlur(ev);
+        this.closeDropdown();
+        break;
+      case 'ArrowLeft':
+        this.tagArrowKeyCounter--;
+        this.tagArrowKeyCounter =
+          this.tagArrowKeyCounter < 0
+            ? this.value.length - 1
+            : this.tagArrowKeyCounter;
+        this.focusOnTag(this.tagArrowKeyCounter);
+        ev.stopImmediatePropagation();
+        break;
+      case 'ArrowRight':
+        this.tagArrowKeyCounter++;
+        this.tagArrowKeyCounter =
+          this.tagArrowKeyCounter >= this.value.length
+            ? 0
+            : this.tagArrowKeyCounter;
+        this.focusOnTag(this.tagArrowKeyCounter);
+        ev.stopImmediatePropagation();
+        break;
+    }
+  };
+
+  focusOnTagContainer() {
+    this.tagRefs = [...this.tagContainer.getElementsByTagName('fw-tag')];
+    this.tagArrowKeyCounter = this.value.length - 1;
+    this.focusOnTag(this.tagArrowKeyCounter);
+  }
+
+  focusOnTag(index) {
+    this.tagRefs[index].setFocus();
   }
 
   clearInput() {
@@ -271,6 +336,7 @@ export class Select {
               text={option.text}
               disabled={option.disabled}
               value={option.value}
+              focusable={false}
             />
           );
         }
@@ -372,23 +438,6 @@ export class Select {
     this.didInit = true;
   }
 
-  @Method()
-  async getSelectedItem(): Promise<any> {
-    return this.fwListOptions.getSelectedOptions();
-  }
-
-  @Method()
-  async setSelectedValues(values: string | string[]): Promise<any> {
-    this.fwListOptions.setSelectedValues(values);
-    this.renderInput();
-  }
-
-  @Method()
-  async setSelectedOptions(options: any[]): Promise<any> {
-    this.fwListOptions.setSelectedOptions(options);
-    this.renderInput();
-  }
-
   render() {
     const { host, name, value } = this;
 
@@ -423,7 +472,13 @@ export class Select {
               onKeyDown={handleKeyDown(this.innerOnClick)}
             >
               <div class='input-container-inner'>
-                {this.renderTags()}
+                <div
+                  onFocus={this.focusOnTagContainer}
+                  ref={(tagContainer) => (this.tagContainer = tagContainer)}
+                  onKeyDown={this.tagContainerKeyDown}
+                >
+                  {this.renderTags()}
+                </div>
                 <input
                   ref={(selectInput) => (this.selectInput = selectInput)}
                   class={{
