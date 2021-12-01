@@ -74,27 +74,27 @@ $relative-spacing: (
 */
 $spacing: 28;
 @while $spacing >= 0 {
-  $spacvalue: map-get($relative-spacing, $spacing);
+  $spacevalue: map-get($relative-spacing, $spacing);
   .fw-p-#{$spacing} {
-    @include padding($spacvalue, $spacvalue, $spacvalue, $spacvalue);
+    @include padding($spacevalue, $spacevalue, $spacevalue, $spacevalue);
   }
   .fw-px-#{$spacing} {
-    @include padding(null, $spacvalue, null, $spacvalue);
+    @include padding(null, $spacevalue, null, $spacevalue);
   }
   .fw-py-#{$spacing} {
-    @include padding($spacvalue, null, $spacvalue, null);
+    @include padding($spacevalue, null, $spacevalue, null);
   }
   .fw-pt-#{$spacing} {
-    @include padding($spacvalue, null, null, null);
+    @include padding($spacevalue, null, null, null);
   }
   .fw-pr-#{$spacing} {
-    @include padding(null, $spacvalue, null, null);
+    @include padding(null, $spacevalue, null, null);
   }
   .fw-pb-#{$spacing} {
-    @include padding(null, null, $spacvalue, null);
+    @include padding(null, null, $spacevalue, null);
   }
   .fw-pl-#{$spacing} {
-    @include padding(null, null, null, $spacvalue);
+    @include padding(null, null, null, $spacevalue);
   }
   $spacing: $spacing - 4;
 }
@@ -104,27 +104,27 @@ $spacing: 28;
 */
 $spacing: 28;
 @while $spacing >= 0 {
-  $spacvalue: map-get($relative-spacing, $spacing);
+  $spacevalue: map-get($relative-spacing, $spacing);
   .fw-m-#{$spacing} {
-    @include margin($spacvalue, $spacvalue, $spacvalue, $spacvalue);
+    @include margin($spacevalue, $spacevalue, $spacevalue, $spacevalue);
   }
   .fw-mx-#{$spacing} {
-    @include margin(null, $spacvalue, null, $spacvalue);
+    @include margin(null, $spacevalue, null, $spacevalue);
   }
   .fw-my-#{$spacing} {
-    @include margin($spacvalue, null, $spacvalue, null);
+    @include margin($spacevalue, null, $spacevalue, null);
   }
   .fw-mt-#{$spacing} {
-    @include margin($spacvalue, null, null, null);
+    @include margin($spacevalue, null, null, null);
   }
   .fw-mr-#{$spacing} {
-    @include margin(null, $spacvalue, null, null);
+    @include margin(null, $spacevalue, null, null);
   }
   .fw-mb-#{$spacing} {
-    @include margin(null, null, $spacvalue, null);
+    @include margin(null, null, $spacevalue, null);
   }
   .fw-ml-#{$spacing} {
-    @include margin(null, null, null, $spacvalue);
+    @include margin(null, null, null, $spacevalue);
   }
   $spacing: $spacing - 4;
 }
