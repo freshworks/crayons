@@ -312,6 +312,7 @@ export class Datepicker {
       // Show current month and year if invalid date is provided
       this.year = moment().year().toString();
       this.month = moment().month();
+      this.selectedDay = moment().startOf('date').get('date');
     } else {
       this.year = this.value
         ? `${moment(this.value, this.dateFormat).get('year')}`
@@ -319,6 +320,10 @@ export class Datepicker {
       this.month = this.value
         ? moment(this.value, this.dateFormat).get('month')
         : moment().month();
+      this.selectedDay =
+        this.value !== undefined
+          ? moment(this.value, this.dateFormat).get('date')
+          : undefined;
     }
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
@@ -341,10 +346,6 @@ export class Datepicker {
         ? `${this.dateFormat}` && `${this.dateFormat} to ${this.dateFormat}`
         : this.dateFormat);
     this.supportedYears = this.getSupportedYears();
-    this.selectedDay =
-      this.value !== undefined
-        ? moment(this.value, this.dateFormat).get('date')
-        : undefined;
     this.startDate =
       this.fromDate !== undefined
         ? moment(this.fromDate, this.dateFormat).valueOf()
@@ -448,15 +449,15 @@ export class Datepicker {
   };
 
   isSelectedDay = ({ date, timestamp }) => {
-    return (
-      (date === this.selectedDay &&
-        moment(this.value, this.dateFormat).get('month') ===
-          moment(timestamp).get('month') &&
-        moment(this.value, this.dateFormat).get('year') ===
-          moment(timestamp).get('year')) ||
-      timestamp === this.startDate ||
-      timestamp === this.endDate
-    );
+    return moment(this.value, this.dateFormat).isValid()
+      ? date === this.selectedDay &&
+          moment(this.value, this.dateFormat).get('month') ===
+            moment(timestamp).get('month') &&
+          moment(this.value, this.dateFormat).get('year') ===
+            moment(timestamp).get('year')
+      : date === this.selectedDay ||
+          timestamp === this.startDate ||
+          timestamp === this.endDate;
   };
 
   handleDateHover = (day): void => {
@@ -658,6 +659,7 @@ export class Datepicker {
           value={this.value}
           class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
           placeholder={this.placeholder}
+          title={this.placeholder}
           iconRight='calendar'
         ></fw-input>
         {this.showSingleDatePicker() ? (
