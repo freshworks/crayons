@@ -59,6 +59,7 @@ The following are the icons supported:
 
 ### Used by
 
+ - [fw-breadcrumb](../breadcrumb)
  - [fw-button](../button)
  - [fw-dropdown-button](../dropdown-button)
  - [fw-inline-message](../inline-message)
@@ -73,6 +74,7 @@ The following are the icons supported:
 ### Graph
 ```mermaid
 graph TD;
+  fw-breadcrumb --> fw-icon
   fw-button --> fw-icon
   fw-dropdown-button --> fw-icon
   fw-inline-message --> fw-icon

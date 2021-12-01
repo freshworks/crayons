@@ -12,12 +12,12 @@ export class BreadcrumbItem {
   @State() hasSuffix = false;
 
   /**
-   * Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered
-   * internally. When unset, a button will be rendered instead.
+   * Optional URL to direct the user to when the breadcrumb item is clicked. When set, a link will be rendered.
+   * If it is not set, a button will be rendered instead.
    */
   @Prop() href: string;
 
-  /** Tells the browser where to open the link. Only used when `href` is set. */
+  /** Link target options. Only used when `href` is set. */
   @Prop() target: '_blank' | '_parent' | '_self' | '_top';
 
   /** The `rel` attribute to use on the link. Only used when `href` is set. */
@@ -34,12 +34,12 @@ export class BreadcrumbItem {
       <div
         part='base'
         class={{
-          'breadcrumb-item': true,
-          'breadcrumb-item--has-prefix': this.hasPrefix,
-          'breadcrumb-item--has-suffix': this.hasSuffix,
+          'item': true,
+          'item--has-prefix': this.hasPrefix,
+          'item--has-suffix': this.hasSuffix,
         }}
       >
-        <span part='prefix' class='breadcrumb-item__prefix'>
+        <span part='prefix' class='item__prefix'>
           <slot
             name='prefix'
             onSlotchange={() => this.handleSlotChange()}
@@ -49,31 +49,27 @@ export class BreadcrumbItem {
         {isLink ? (
           <a
             part='label'
-            class='breadcrumb-item__label'
-            href='${this.href}'
-            target='${this.target}'
+            class='item__label'
+            href={this.href}
+            target={this.target}
             rel={this.target ? this.rel : undefined}
           >
             <slot></slot>
           </a>
         ) : (
-          <button part='label' type='button' class='breadcrumb-item__label'>
+          <button part='label' type='button' class='item__label'>
             <slot></slot>
           </button>
         )}
 
-        <span part='suffix' class='breadcrumb-item__suffix'>
+        <span part='suffix' class='item__suffix'>
           <slot
             name='suffix'
             onSlotchange={() => this.handleSlotChange()}
           ></slot>
         </span>
 
-        <span
-          part='separator'
-          class='breadcrumb-item__separator'
-          aria-hidden='true'
-        >
+        <span part='separator' class='item__separator' aria-hidden='true'>
           <slot name='separator'></slot>
         </span>
       </div>

@@ -2,7 +2,7 @@
   display: inline-flex;
 }
 
-.breadcrumb-item {
+.item {
   display: inline-flex;
   align-items: center;
   font-size: 16px;
@@ -12,7 +12,7 @@
   white-space: nowrap;
 }
 
-.breadcrumb-item__label {
+.item__label {
   display: inline-block;
   font-family: inherit;
   font-size: inherit;
@@ -27,43 +27,43 @@
   cursor: pointer;
 }
 
-:host(:not(:last-of-type)) .breadcrumb-item__label {
+:host(:not(:last-of-type)) .item__label {
   color: $color-azure-800;
 }
 
-:host(:not(:last-of-type)) .breadcrumb-item__label:hover {
+:host(:not(:last-of-type)) .item__label:hover {
   color: $color-azure-800;
 }
-:host(:not(:last-of-type)) .breadcrumb-item__label:focus {
-  color: $color-azure-800;
-}
-
-:host(:not(:last-of-type)) .breadcrumb-item__label:active {
+:host(:not(:last-of-type)) .item__label:focus {
   color: $color-azure-800;
 }
 
-.breadcrumb-item__prefix,
-.breadcrumb-item__suffix {
+:host(:not(:last-of-type)) .item__label:active {
+  color: $color-azure-800;
+}
+
+.item__prefix,
+.item__suffix {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
 }
 
-.breadcrumb-item--has-prefix .breadcrumb-item__prefix {
+.item--has-prefix .item__prefix {
   display: inline-flex;
   margin-right: 8px;
 }
 
-.breadcrumb-item--has-suffix .breadcrumb-item__suffix {
+.item--has-suffix .item__suffix {
   display: inline-flex;
   margin-left: 8px;
 }
 
-:host(:last-of-type) .breadcrumb-item__separator {
+:host(:last-of-type) .item__separator {
   display: none;
 }
 
-.breadcrumb-item__separator {
+.item__separator {
   display: inline-flex;
   align-items: center;
   margin: 0 8px;

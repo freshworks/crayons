@@ -30,7 +30,7 @@ export namespace Components {
     }
     interface FwBreadcrumbItem {
         /**
-          * Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered internally. When unset, a button will be rendered instead.
+          * Optional URL to direct the user to when the breadcrumb item is clicked. When set, a link will be rendered. If it is not set, a button will be rendered instead.
          */
         "href": string;
         /**
@@ -38,7 +38,7 @@ export namespace Components {
          */
         "rel": string;
         /**
-          * Tells the browser where to open the link. Only used when `href` is set.
+          * Link target options. Only used when `href` is set.
          */
         "target": '_blank' | '_parent' | '_self' | '_top';
     }
@@ -1263,7 +1263,7 @@ declare namespace LocalJSX {
     }
     interface FwBreadcrumbItem {
         /**
-          * Optional URL to direct the user to when the breadcrumb item is activated. When set, a link will be rendered internally. When unset, a button will be rendered instead.
+          * Optional URL to direct the user to when the breadcrumb item is clicked. When set, a link will be rendered. If it is not set, a button will be rendered instead.
          */
         "href"?: string;
         /**
@@ -1271,7 +1271,7 @@ declare namespace LocalJSX {
          */
         "rel"?: string;
         /**
-          * Tells the browser where to open the link. Only used when `href` is set.
+          * Link target options. Only used when `href` is set.
          */
         "target"?: '_blank' | '_parent' | '_self' | '_top';
     }
