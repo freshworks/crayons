@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
-# ToastController
+# Toast
 
 <Meta title='Toast' component='fw-toast' />
 
@@ -15,7 +15,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
   <Story name='Default'>
     {() => `
-    <fw-toast id="default_toast" type="success" content="Successfullly triggered" sticky="true"></fw-toast>
+    <fw-toast id="default_toast" type="success" content="Successfullly triggered" sticky></fw-toast>
     <fw-button onClick="document.querySelector('#default_toast').trigger()">Trigger</fw-button>
     `}
   </Story>
@@ -26,7 +26,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
   <Story name='Type'>
     {() => `
-    <fw-toast id="type_toast" sticky=true></fw-toast>
+    <fw-toast id="type_toast"></fw-toast>
     <fw-button onClick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})">Success</fw-button>
     <fw-button onClick="document.querySelector('#type_toast').trigger({type:'error', content:'something went wrong!'})">Error</fw-button>
     <fw-button onClick="document.querySelector('#type_toast').trigger({type:'warning', content:'This is a warning!'})">Warning</fw-button>
@@ -58,14 +58,14 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   <Story name='Action Link'>
     {() => `
     <fw-button onClick="document.querySelector('#actionlink_toast').trigger({})">Trigger</fw-button>
-    <fw-toast id="actionlink_toast" action-link-text="Undo" type="success" content="Record successfullly deleted" sticky="true"></fw-toast>`}
+    <fw-toast id="actionlink_toast" action-link-text="Undo" type="success" content="Record successfullly deleted"></fw-toast>`}
   </Story>
 </Preview>
 
 <Preview>
   <Story name='Custom Content'>
-    {() => `
-    <fw-toast-message type='success' id="custom-toast" timeout="1000000">
+    {() => `<div>
+     <fw-toast-message type='success' id="custom-toast" timeout="1000000">
       <div>
        <span class="custom-text">Custom content</span>
        <button onclick="alert('clicked')">custom btn</button>
@@ -73,6 +73,7 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
     </fw-toast-message>
     <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
     <fw-button onClick="document.querySelector('#right').trigger({type:'inprogress', contentref:'#custom-toast',timeout:4000})">Custom Content</fw-button>
-
+      </div>
+    `}
   </Story>
 </Preview>

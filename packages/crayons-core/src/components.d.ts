@@ -484,6 +484,56 @@ export namespace Components {
          */
         "variant": 'select' | 'date-picker';
     }
+    interface FwProgressLoader {
+        /**
+          * Method to end the progress. This hides the progress loader
+         */
+        "done": () => Promise<void>;
+        /**
+          * Adjust animation settings using easing (a CSS easing string). Default is `ease`
+         */
+        "easing": string;
+        /**
+          * Increments the progress status by a random amount.
+         */
+        "inc": () => Promise<void>;
+        /**
+          * Changes the minimum percentage used upon starting. Default is `0.08`
+         */
+        "minimum": number;
+        /**
+          * Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method
+         */
+        "parent": string;
+        /**
+          * Sets the progress loader status, where `n` is a number from `0.0` to `1.0`.
+         */
+        "set": (n: number) => Promise<void>;
+        /**
+          * Show progress loader. Default `false`
+         */
+        "show": boolean;
+        /**
+          * Add speed (in ms). Default is `200`
+         */
+        "speed": number;
+        /**
+          * Method to start showing the progress loader
+         */
+        "start": () => Promise<void>;
+        /**
+          * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
+         */
+        "template": string;
+        /**
+          * Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`
+         */
+        "trickle": boolean;
+        /**
+          * Adjust how often to trickle/increment, in ms. Default is `200`
+         */
+        "trickleSpeed": number;
+    }
     interface FwRadio {
         /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
@@ -1085,6 +1135,12 @@ declare global {
         prototype: HTMLFwPopoverElement;
         new (): HTMLFwPopoverElement;
     };
+    interface HTMLFwProgressLoaderElement extends Components.FwProgressLoader, HTMLStencilElement {
+    }
+    var HTMLFwProgressLoaderElement: {
+        prototype: HTMLFwProgressLoaderElement;
+        new (): HTMLFwProgressLoaderElement;
+    };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
     var HTMLFwRadioElement: {
@@ -1192,6 +1248,7 @@ declare global {
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
         "fw-popover": HTMLFwPopoverElement;
+        "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
@@ -1750,6 +1807,40 @@ declare namespace LocalJSX {
           * Variant defines the style of the popover-content.
          */
         "variant"?: 'select' | 'date-picker';
+    }
+    interface FwProgressLoader {
+        /**
+          * Adjust animation settings using easing (a CSS easing string). Default is `ease`
+         */
+        "easing"?: string;
+        /**
+          * Changes the minimum percentage used upon starting. Default is `0.08`
+         */
+        "minimum"?: number;
+        /**
+          * Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method
+         */
+        "parent"?: string;
+        /**
+          * Show progress loader. Default `false`
+         */
+        "show"?: boolean;
+        /**
+          * Add speed (in ms). Default is `200`
+         */
+        "speed"?: number;
+        /**
+          * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
+         */
+        "template"?: string;
+        /**
+          * Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`
+         */
+        "trickle"?: boolean;
+        /**
+          * Adjust how often to trickle/increment, in ms. Default is `200`
+         */
+        "trickleSpeed"?: number;
     }
     interface FwRadio {
         /**
@@ -2322,6 +2413,7 @@ declare namespace LocalJSX {
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
         "fw-popover": FwPopover;
+        "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
@@ -2359,6 +2451,7 @@ declare module "@stencil/core" {
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
+            "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
