@@ -10,7 +10,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "lang"
+    "i18n"
   ],
   "scripts": {
     "main": "index.js",

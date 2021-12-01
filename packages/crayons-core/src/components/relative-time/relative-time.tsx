@@ -8,7 +8,7 @@ import { TranslationController } from '../../global/Translation';
 })
 export class RelativeTime {
   timerId;
-  listener: any;
+  listener;
 
   /**
    * The date from which, time is calculated from. Should either be a date object / valid `ISO 8601` date time string
@@ -32,7 +32,7 @@ export class RelativeTime {
    * Locale module of date-fns
    */
   @State()
-  localeModule: any;
+  langModule: any;
 
   /**
    * sync time with the current date if sync property is set to true
@@ -48,11 +48,11 @@ export class RelativeTime {
   }
 
   componentWillLoad(): void {
-    this.localeModule = TranslationController.getDateLang();
+    this.langModule = TranslationController.getDateLangModule();
 
     const onChange = TranslationController.onChange.bind(TranslationController);
-    this.listener = onChange('dateLang', (newLang) => {
-      this.localeModule = newLang;
+    this.listener = onChange('dateLangModule', (newLang) => {
+      this.langModule = newLang;
     });
 
     this.syncTime();
@@ -70,7 +70,7 @@ export class RelativeTime {
       return;
     }
     const titleTime = new Intl.DateTimeFormat(
-      this.localeModule?.code || 'en_US',
+      this.langModule?.code || 'en-US',
       {
         month: 'long',
         year: 'numeric',
@@ -85,7 +85,7 @@ export class RelativeTime {
     let formattedTime = '';
     try {
       formattedTime = formatDistanceStrict(date, this.now, {
-        locale: this.localeModule,
+        locale: this.langModule,
         addSuffix: true,
       });
     } catch (err) {

@@ -2,7 +2,7 @@ import { Build as BUILD, ComponentInterface } from '@stencil/core';
 
 import { createStore } from '@stencil/store';
 import { Locale } from 'date-fns';
-import enLocaleObj from 'date-fns/locale/en-US';
+import en_datelang_module from 'date-fns/locale/en-US';
 
 interface i18nConfig {
   [key: string]: {
@@ -73,14 +73,14 @@ export class TranslationController {
       lang: '',
       globalI18n: null,
       customTranslations: {},
-      dateLang: enLocaleObj,
+      dateLangModule: en_datelang_module,
     });
     this.state = state;
     this.onChange = onChange;
 
     this.onChange('lang', async (lang: string) => {
-      console.log('Language Change Detected ', lang);
-      await this.fetchTranslations(lang);
+      this.fetchTranslations(lang);
+      this.setDateLangModule(await this.fetchDateLangModule(lang));
     });
 
     if ('MutationObserver' in window) {
@@ -99,21 +99,6 @@ export class TranslationController {
         attributeOldValue: true,
       });
     }
-  }
-
-  async fetchTranslations(lang?: string): Promise<any> {
-    const locale = lang || getBrowserLang();
-
-    return this.fetchDefaultTranslations(locale).then((defaultI18nStrings) => {
-      const customI18nStrings =
-        (this.state.customTranslations as any)?.[locale] || {};
-      const finalI18nStrings = {
-        ...defaultI18nStrings,
-        ...customI18nStrings,
-      };
-      this.state.globalI18n = finalI18nStrings;
-      return finalI18nStrings;
-    });
   }
 
   /**
@@ -136,16 +121,30 @@ export class TranslationController {
    * set date lang module
    * @param langModule
    */
-  setDateLang(langModule: Locale): void {
-    this.state.dateLang = langModule;
+  setDateLangModule(langModule: Locale): void {
+    this.state.dateLangModule = langModule;
   }
 
   /**
-   *
    * @returns the selected date lang module
    */
-  getDateLang(): Locale {
-    return this.state.dateLang;
+  getDateLangModule(): Locale {
+    return this.state.dateLangModule;
+  }
+
+  async fetchTranslations(lang?: string): Promise<any> {
+    const locale = lang || getBrowserLang();
+
+    return this.fetchDefaultTranslations(locale).then((defaultI18nStrings) => {
+      const customI18nStrings =
+        (this.state.customTranslations as any)?.[locale] || {};
+      const finalI18nStrings = {
+        ...defaultI18nStrings,
+        ...customI18nStrings,
+      };
+      this.state.globalI18n = finalI18nStrings;
+      return finalI18nStrings;
+    });
   }
 
   fetchDefaultTranslations(lang: string): Promise<any> {
@@ -156,14 +155,35 @@ export class TranslationController {
         .then((data) => {
           return data;
         })
-        .catch((err) => {
-          console.error(
-            `Error loading config for lang: ${lang} from pre-defined set`,
-            err
+        .catch(async () => {
+          console.warn(
+            `Error loading config for lang: ${lang} from pre-defined set. defaulting to en-US translation`
           );
-          return {};
+          // fallback to en default strings in case of exception
+          return await this.fetchDefaultTranslations('en');
         });
       this.requests.set(lang, req);
+    }
+
+    return req;
+  }
+
+  async fetchDateLangModule(lang: string): Promise<any> {
+    let req = this.requests.get('date_' + lang);
+    if (!req) {
+      req = import(`date-fns/locale/${lang}`)
+        .then((result) => result.default)
+        .then((data) => {
+          return data;
+        })
+        .catch((err) => {
+          console.warn(
+            `Error loading date lang module for : ${lang} from date-fns set`,
+            err
+          );
+          return en_datelang_module;
+        });
+      this.requests.set('date_' + lang, req);
     }
 
     return req;

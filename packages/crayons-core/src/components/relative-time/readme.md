@@ -8,8 +8,8 @@ When using strings, avoid ambiguous dates such as `04/05/2021` which can be inte
 ## Demo
 
 ```html live
-<fw-relative-time></fw-relative-time>
-<fw-relative-time date="2021-05-18"></fw-relative-time>
+<fw-relative-time></fw-relative-time><br/>
+<fw-relative-time date="2021-05-18"></fw-relative-time><br/>
 <p>Keep the displayed value up to date as time passes by setting `sync` to true </p>
 <fw-relative-time sync></fw-relative-time>
 ```
@@ -19,8 +19,8 @@ When using strings, avoid ambiguous dates such as `04/05/2021` which can be inte
 <code-group>
 <code-block title="HTML">
 ```html 
-<fw-relative-time></fw-relative-time>
-<fw-relative-time date="2021-05-18"></fw-relative-time>
+<fw-relative-time></fw-relative-time><br/>
+<fw-relative-time date="2021-05-18"></fw-relative-time><br/>
 <p>Keep the displayed value up to date as time passes by setting `sync` to true </p>
 <fw-relative-time sync></fw-relative-time>
 ```
@@ -30,13 +30,10 @@ When using strings, avoid ambiguous dates such as `04/05/2021` which can be inte
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FwRelativeTime, TranslationController } from "@freshworks/crayons/react";
-import de from "date-fns/locale/de" // import locale modules from date-fns
+import { FwRelativeTime } from "@freshworks/crayons/react";
 function App() {
-  // import locale module from date-fns and set it via TranslationController like below to use a different locale.
-  TranslationController.setDateLang(de);
   return (<div>
-           <FwRelativeTime date="2021-05-18"></FwRelativeTime>
+           <FwRelativeTime date="2021-05-18"></FwRelativeTime><br/>
            <FwRelativeTime sync></FwRelativeTime>
     </div>);
 }
