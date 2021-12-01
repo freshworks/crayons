@@ -5,15 +5,44 @@
 /**
   For generating typography styles
 */
-$font-sizes: (12, 14, 16, 18, 24, 32, 44);
-@each $size in $font-sizes {
-  .fw-font-header-#{$size} {
-    @include typography('header', $size * 1px, $text-default, 600);
+$font-header-sizes: (
+  'h1': 2.75rem,
+  'h2': 2rem,
+  'h3': 1.5rem,
+  'h4': 1.125rem,
+  'h5': 1rem,
+  'h6': 0.875rem,
+  'h7': 0.75rem,
+);
+@each $name, $size in $font-header-sizes {
+  .fw-type-#{$name} {
+    @include typography('header', $size, $text-default, 600);
   }
 }
-@each $size in $font-sizes {
-  .fw-font-#{$size} {
-    @include typography('body', $size * 1px);
+$font-body-sizes: (
+  '3xl': 2.75rem,
+  '2xl': 2rem,
+  'xl': 1.5rem,
+  'lg': 1.125rem,
+  'base': 1rem,
+  'sm': 0.875rem,
+  'xs': 0.75rem,
+);
+@each $name, $size in $font-body-sizes {
+  .fw-type-#{$name} {
+    @include typography('body', $size);
+  }
+}
+
+$font-weight: (
+  'light': 300,
+  'regular': 400,
+  'semibold': 600,
+  'bold': 700,
+);
+@each $name, $size in $font-weight {
+  .fw-type-#{$name} {
+    font-weight: #{$size};
   }
 }
 
@@ -27,31 +56,45 @@ $font-sizes: (12, 14, 16, 18, 24, 32, 44);
 }
 
 /**
+  For generating spacing styles
+*/
+$relative-spacing: (
+  0: 0px,
+  4: 0.25rem,
+  8: 0.5rem,
+  12: 0.75rem,
+  16: 1rem,
+  20: 1.25rem,
+  24: 1.5rem,
+  28: 1.75rem,
+);
+
+/**
   For generating padding styles
 */
 $spacing: 28;
 @while $spacing >= 0 {
-  $spacingpx: $spacing * 1px;
+  $spacvalue: map-get($relative-spacing, $spacing);
   .fw-p-#{$spacing} {
-    @include padding($spacingpx, $spacingpx, $spacingpx, $spacingpx);
+    @include padding($spacvalue, $spacvalue, $spacvalue, $spacvalue);
   }
   .fw-px-#{$spacing} {
-    @include padding(null, $spacingpx, null, $spacingpx);
+    @include padding(null, $spacvalue, null, $spacvalue);
   }
   .fw-py-#{$spacing} {
-    @include padding($spacingpx, null, $spacingpx, null);
+    @include padding($spacvalue, null, $spacvalue, null);
   }
   .fw-pt-#{$spacing} {
-    @include padding($spacingpx, null, null, null);
+    @include padding($spacvalue, null, null, null);
   }
   .fw-pr-#{$spacing} {
-    @include padding(null, $spacingpx, null, null);
+    @include padding(null, $spacvalue, null, null);
   }
   .fw-pb-#{$spacing} {
-    @include padding(null, null, $spacingpx, null);
+    @include padding(null, null, $spacvalue, null);
   }
   .fw-pl-#{$spacing} {
-    @include padding(null, null, null, $spacingpx);
+    @include padding(null, null, null, $spacvalue);
   }
   $spacing: $spacing - 4;
 }
@@ -61,27 +104,27 @@ $spacing: 28;
 */
 $spacing: 28;
 @while $spacing >= 0 {
-  $spacingpx: $spacing * 1px;
+  $spacvalue: map-get($relative-spacing, $spacing);
   .fw-m-#{$spacing} {
-    @include margin($spacingpx, $spacingpx, $spacingpx, $spacingpx);
+    @include margin($spacvalue, $spacvalue, $spacvalue, $spacvalue);
   }
   .fw-mx-#{$spacing} {
-    @include margin(null, $spacingpx, null, $spacingpx);
+    @include margin(null, $spacvalue, null, $spacvalue);
   }
   .fw-my-#{$spacing} {
-    @include margin($spacingpx, null, $spacingpx, null);
+    @include margin($spacvalue, null, $spacvalue, null);
   }
   .fw-mt-#{$spacing} {
-    @include margin($spacingpx, null, null, null);
+    @include margin($spacvalue, null, null, null);
   }
   .fw-mr-#{$spacing} {
-    @include margin(null, $spacingpx, null, null);
+    @include margin(null, $spacvalue, null, null);
   }
   .fw-mb-#{$spacing} {
-    @include margin(null, null, $spacingpx, null);
+    @include margin(null, null, $spacvalue, null);
   }
   .fw-ml-#{$spacing} {
-    @include margin(null, null, null, $spacingpx);
+    @include margin(null, null, null, $spacvalue);
   }
   $spacing: $spacing - 4;
 }
