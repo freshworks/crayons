@@ -1,4 +1,4 @@
-import { cloneNodeWithEvents } from '../../utils';
+//import { cloneNodeWithEvents } from '../../utils';
 export interface ToastOptions {
   /**
    * The Content of the action link
@@ -78,10 +78,10 @@ export function createToastNotification(
   let toastElem;
 
   if (opts.contentref) {
-    const ref = document.querySelector(opts.contentref);
+    toastElem = document.querySelector(opts.contentref);
     //toastElem = ref.cloneNode(true);
     // since we are cloning nodes, the events don't get cloned by default. we have to copy the events manually
-    toastElem = cloneNodeWithEvents(ref, true, true);
+    //toastElem = cloneNodeWithEvents(ref, true, true);
 
     props.content = '';
   } else {
