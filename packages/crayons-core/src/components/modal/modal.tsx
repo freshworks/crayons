@@ -94,6 +94,11 @@ export class Modal {
   @Prop() hideFooter = false;
 
   /**
+   * Convert modal to slider
+   */
+  @Prop() slider = false;
+
+  /**
    * Toggle the visibility of the modal
    */
   @Prop({ mutable: true, reflect: true }) isOpen = false;
@@ -126,14 +131,26 @@ export class Modal {
   escapeHandler = null;
 
   /**
+   * private
+   * styleVariation styles that vary in normal and slider variations
+   */
+  styleVariation = {
+    closeColor: {
+      modal: '#5D7587',
+      slider: '#FFFFFF',
+    },
+    closeSize: {
+      modal: 10,
+      slider: 12,
+    },
+  };
+
+  /**
    * lifecycle event, called once just after the component is first connected to the DOM
    */
   componentWillLoad() {
     if (!this.modalTitle) {
       this.modalTitle = this.el.querySelector('fw-modal-title');
-      if (this.modalTitle) {
-        this.modalTitle.close = this.close.bind(this);
-      }
     }
     if (!this.modalFooter) {
       this.modalFooter = this.el.querySelector('fw-modal-footer');
@@ -145,14 +162,32 @@ export class Modal {
     if (!this.modalContent) {
       this.modalContent = this.el.querySelector('fw-modal-content');
     }
+    if (this.hideFooter && this.modalFooter) {
+      // Removes footer when footer is added by composition.
+      this.modalFooter.parentNode.removeChild(this.modalFooter);
+    }
+    if (!this.modalContent && (this.modalTitle || this.modalFooter)) {
+      /**
+       * Error that occurs when fw-modal-header or fw-modal-footer is used without
+       * fw-modal-content component. If this not handled, the content that goes inside
+       * fw-modal-content would have fw-modal-header or fw-modal-footer.
+       * This would lead to unexpected results such as header or footer having padding and scroll.
+       */
+      throw new Error(
+        'Composition Error: fw-modal component must have fw-modal-content component when \
+         either fw-modal-header or fw-modal-footer components are used for modal composition'
+      );
+    }
   }
 
   @Watch('isOpen')
   visibilityChange(open: boolean) {
     if (!open) {
+      document.body.style.overflow = 'auto';
       this.removeAccesibilityEvents();
       this.fwClose.emit();
     } else {
+      document.body.style.overflow = 'hidden';
       this.addAccesibilityEvents();
       this.fwOpen.emit();
     }
@@ -226,7 +261,7 @@ export class Modal {
         });
         this.firstFocusElement.addEventListener('keydown', (e: any) => {
           e.shiftKey &&
-            e.keyCode == 9 &&
+            e.keyCode === 9 &&
             this.focusElement(this.lastFocusElement);
         });
       }
@@ -285,7 +320,6 @@ export class Modal {
         icon={this.icon}
         titleText={this.titleText}
         description={this.description}
-        close={this.close.bind(this)}
       ></fw-modal-title>
     );
   }
@@ -296,9 +330,9 @@ export class Modal {
    */
   renderContent(): JSX.Element {
     return (
-      <div class='content'>
+      <fw-modal-content>
         <slot></slot>
-      </div>
+      </fw-modal-content>
     );
   }
 
@@ -325,12 +359,36 @@ export class Modal {
    * @returns {JSX.Element}
    */
   render(): JSX.Element {
+    const variation = this.styleVariation;
     return (
-      <div class={{ 'modal-container': true, 'visible': this.isOpen }}>
+      <div
+        class={{
+          'modal-overlay': true,
+          'visible': this.isOpen,
+          'slider': this.slider,
+        }}
+      >
         <div class={{ modal: true, [this.size]: true }} aria-modal='true'>
-          {this.modalTitle ? '' : this.renderTitle()}
-          {this.modalContent ? <slot></slot> : this.renderContent()}
-          {this.hideFooter ? '' : this.modalFooter ? '' : this.renderFooter()}
+          <button class='close-btn' onClick={() => this.close()}>
+            <fw-icon
+              name='cross-big'
+              color={
+                this.slider
+                  ? variation.closeColor.slider
+                  : variation.closeColor.modal
+              }
+              size={
+                this.slider
+                  ? variation.closeSize.slider
+                  : variation.closeSize.modal
+              }
+            />
+          </button>
+          <div class='modal-container'>
+            {this.modalTitle ? '' : this.renderTitle()}
+            {this.modalContent ? <slot></slot> : this.renderContent()}
+            {this.hideFooter ? '' : this.modalFooter ? '' : this.renderFooter()}
+          </div>
         </div>
       </div>
     );

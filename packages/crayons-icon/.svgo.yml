@@ -1,0 +1,57 @@
+# replace default config
+
+# multipass: true
+# full: true
+
+plugins:
+    - removeDoctype
+    - removeXMLProcInst
+    - removeComments
+    - removeMetadata: true
+    - removeXMLNS: true
+    - removeEditorsNSData
+    - cleanupAttrs: true
+    - inlineStyles
+    - minifyStyles
+    - convertStyleToAttrs
+    - cleanupIDs
+    - prefixIds
+    - removeRasterImages
+    - removeUselessDefs
+    - cleanupNumericValues
+    - cleanupListOfValues
+    - convertColors
+    - removeUnknownsAndDefaults
+    - removeNonInheritableGroupAttrs
+    - removeUselessStrokeAndFill
+    - removeViewBox: false
+    - cleanupEnableBackground
+    - removeHiddenElems
+    - removeEmptyText
+    - convertShapeToPath
+    - convertEllipseToCircle
+    - moveElemsAttrsToGroup
+    - moveGroupAttrsToElems
+    - collapseGroups
+    - convertPathData:
+        noSpaceAfterFlags: false
+    - convertTransform
+    - removeEmptyAttrs: true
+    - removeEmptyContainers
+    - mergePaths:
+        noSpaceAfterFlags: false
+    - removeUnusedNS
+    - sortAttrs
+    - sortDefsChildren
+    - removeTitle
+    - removeDesc
+    - removeDimensions: true
+    - removeAttrs
+    - removeAttributesBySelector
+    - removeElementsByAttr
+    - addClassesToSVGElement
+    - removeStyleElement
+    - removeScriptElement
+    - addAttributesToSVGElement
+    - removeOffCanvasPaths
+    - reusePaths

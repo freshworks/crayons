@@ -15,7 +15,7 @@ describe('fw-button-group', () => {
       '<fw-button-group><fw-button>Replace</fw-button><fw-button>Modify</fw-button><fw-button>Cancel</fw-button></fw-button-group>'
     );
     const element = await page.find('fw-button-group');
-    const children = await element.findAll('fw-button');
-    expect(children.length == 3);
+    const children = await element.findAll('fw-button ');
+    expect(children.length === 3);
   });
 });

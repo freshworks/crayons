@@ -41,6 +41,10 @@ export class Tabs {
   activeTabName?: string;
 
   /**
+   * The style of tab headers that needs to be displayed, box will display headers in a container.
+   */
+  @Prop() variant: 'box' | 'normal' = 'normal';
+  /**
    * Triggered when a the view switches to a new tab.
    */
   @Event() fwChange: EventEmitter;
@@ -184,7 +188,9 @@ export class Tabs {
   render() {
     return (
       <div class='tabs'>
-        <div class='tabs__items__nav'>
+        <div
+          class={'tabs__items__nav' + (this.variant === 'box' ? '__box' : '')}
+        >
           <div class='tabs__items__tabs' role='tablist' aria-label={this.label}>
             <slot name='tab'></slot>
           </div>

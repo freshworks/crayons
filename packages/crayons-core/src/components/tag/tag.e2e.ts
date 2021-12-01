@@ -15,6 +15,6 @@ describe('fw-tag', () => {
     await page.setContent('<fw-tag text="tag"></fw-tag>');
     const element = await page.find('fw-tag >>> .tag');
     await page.waitForChanges();
-    expect(element.innerText).toEqual(`tag×`);
+    expect(element.innerText).toEqual(`tag`);
   });
 });

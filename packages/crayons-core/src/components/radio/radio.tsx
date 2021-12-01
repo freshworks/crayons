@@ -23,7 +23,12 @@ export class Radio {
    */
   @Prop({ mutable: true, reflect: true }) disabled = false;
   /**
-   * Label displayed on the interface, for the component.
+   * Description to be displayed for the checkbox.
+   */
+  @Prop() description = '';
+  /**
+   * @deprecated Use `description` instead.
+   * Label displayed on the interface, for the check box.
    */
   @Prop() label = '';
   /**
@@ -101,21 +106,30 @@ export class Radio {
   render() {
     return (
       <Host
-        class='radio-container'
         onClick={() => this.toggle()}
         role='radio'
         tabIndex='-1'
-        aria-label={this.label}
-        aria-describedby='description'
+        aria-labelledby='label'
+        aria-describedby={this.description}
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >
-        <input type='radio' ref={(el) => (this.radio = el)}></input>
-        <label>{this.label}</label>
-        <div id='description'>
-          <slot />
+        <div class='radio-container'>
+          <input type='radio' ref={(el) => (this.radio = el)}></input>
+          <label>
+            <span id='label'>
+              <slot />
+            </span>
+            {this.description !== '' || this.label !== '' ? (
+              <div id='description'>
+                {this.description ? this.description : this.label}
+              </div>
+            ) : (
+              ''
+            )}
+          </label>
         </div>
       </Host>
     );

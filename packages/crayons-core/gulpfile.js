@@ -4,21 +4,18 @@ const path = require('path');
 const buildIconsJson = async () => {
   const iconComponentPath = './src/components/icon';
   const iconAssetsDir = '/icon-assets';
-  const iconAssetsPath = '/icon-assets/icons';
+  const iconAssetsPath = '/icons';
   const iconsJsonFile = 'icons.json';
+  const iconLibPath = '../crayons-icon';
 
   const iconsJson = {};
   const getIconsJson = async () => {
     try {
       const allSvgFiles = await fs.readdir(
-        path.join(iconComponentPath, iconAssetsPath)
+        path.join(iconLibPath, iconAssetsPath)
       );
       for (const svgFile of allSvgFiles) {
-        const svgFilePath = path.join(
-          iconComponentPath,
-          iconAssetsPath,
-          svgFile
-        );
+        const svgFilePath = path.join(iconLibPath, iconAssetsPath, svgFile);
         const svgContent = await fs.readFile(svgFilePath);
 
         const svgName = path.parse(svgFile).name;

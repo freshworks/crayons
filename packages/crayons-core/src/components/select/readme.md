@@ -19,7 +19,6 @@ The data for the select can either be passed as a child or via a datasource whic
 </fw-select>
 <fw-select
   label="Names"
-  value="1"
   placeholder="Your choices"
   state-text="Select multiple options"
   multiple
@@ -41,7 +40,7 @@ The data for the select can either be passed as a child or via a datasource whic
   <fw-select-option value="1">Starks</fw-select-option>
   <fw-select-option value="2">Lannisters</fw-select-option>
 </fw-select>
-<fw-select label="Names" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select label="Names" placeholder="Your choices" state-text="Select multiple options" multiple>
   <fw-select-option value="1" selected>Starks</fw-select-option>
   <fw-select-option value="2" >Lannisters</fw-select-option>
   <fw-select-option value="3">Sand</fw-select-option>
@@ -63,7 +62,7 @@ function App() {
           <FwSelectOption value="2">Lannisters</FwSelectOption>
         </FwSelect>
 
-        <FwSelect label="Names" value="1" placeholder="Your choices" stateText="Select multiple options" multiple>
+        <FwSelect label="Names" placeholder="Your choices" stateText="Select multiple options" multiple>
           <FwSelectOption value="1" selected>Starks</FwSelectOption>
           <FwSelectOption value="2" >Lannisters</FwSelectOption>
           <FwSelectOption value="3">Sand</FwSelectOption>
@@ -79,25 +78,26 @@ function App() {
 </code-group>
 
 
-### Demo with datasource option
+### Demo with datasource
 
 ```html live
-<fw-select id="simpleSelect" label="Football Teams" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  multiple
+>
+  <fw-select-option value="1" selected>Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
 </fw-select>
 
-<fw-select id="complexSelect" label="Strawhat Pirates" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select id="complexSelect" label="Strawhat Pirates" placeholder="Your choices" state-text="Select multiple options" multiple>
 </fw-select>
 
 <script type="application/javascript">
-  var dataSource = [
-    { value: '1', text: 'Liverpool' },
-    { value: '2', text: 'Borussia Dortmund' },
-    { value: '3', text: 'Roma' },
-    { value: '4', text: 'Marseille' },
-  ];
-  var standardVariant = document.getElementById('simpleSelect');
-  standardVariant.options = dataSource;
-  standardVariant.value = ['2'];
 
   var iconDataSource = [
     {
@@ -124,28 +124,28 @@ function App() {
 </script>
 ````
 
-### Usage with datasource options
+### Usage with datasource
 
 <code-group>
 <code-block title="HTML">
 ```html 
-<fw-select id="simpleSelect" label="Football Teams" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  multiple
+>
+  <fw-select-option value="1" selected>Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
 </fw-select>
 
-<fw-select id="complexSelect" label="Strawhat Pirates" value="1" placeholder="Your choices" state-text="Select multiple options" multiple>
+<fw-select id="complexSelect" label="Strawhat Pirates" placeholder="Your choices" state-text="Select multiple options" options-variant='icon' multiple>
 </fw-select>
 
 <script type="application/javascript">
-  var dataSource = [
-    { value: '1', text: 'Liverpool' },
-    { value: '2', text: 'Borussia Dortmund' },
-    { value: '3', text: 'Roma' },
-    { value: '4', text: 'Marseille' },
-  ];
-  var standardVariant = document.getElementById('simpleSelect');
-  standardVariant.options = dataSource;
-  standardVariant.value = ['2'];
-
   var iconDataSource = [
     {
       value: '1',
@@ -180,13 +180,6 @@ import ReactDOM from "react-dom";
 import { FwSelect } from "@freshworks/crayons/react";
 function App() {
 
-   var dataSource = [
-    { value: '1', text: 'Liverpool' },
-    { value: '2', text: 'Borussia Dortmund' },
-    { value: '3', text: 'Roma' },
-    { value: '4', text: 'Marseille' },
-  ];
-
   var iconDataSource = [
     {
       value: '1',
@@ -209,7 +202,12 @@ function App() {
   ];
 
   return (<div>
-        <FwSelect id="simpleSelect" label="Football Teams" placeholder="Your choices" state-text="Select multiple options" multiple options={dataSource} value={["2"]}>
+        <FwSelect label="Names" placeholder="Your choices" stateText="Select multiple options" multiple>
+          <FwSelectOption value="1" selected>Starks</FwSelectOption>
+          <FwSelectOption value="2" >Lannisters</FwSelectOption>
+          <FwSelectOption value="3">Sand</FwSelectOption>
+          <FwSelectOption value="4">Greyjoys</FwSelectOption>
+          <FwSelectOption value="5">Tyrell</FwSelectOption>
         </FwSelect>
 
         <FwSelect id="complexSelect" label="Strawhat Pirates" value="1" placeholder="Your choices" state-text="Select multiple options" multiple options={iconDataSource}>
@@ -221,14 +219,118 @@ function App() {
 </code-block>
 </code-group>
 
+### Demo for setting/getting selected options
+
+To set the default selected value following methods can be used set `setSelectedOptions` or `setSelectedValues` or by directly modifying the `value` prop.
+
+> NOTE: The value will be of type `string` for single select and `string[]` for multi-select. The params for the function `setSelectedValues` will be of type `string` for single select and `string[]` for multi-select.
+
+To get the selected values the consuming app can listen to `fwChange` event for `detail` attribute or by calling the method `getSelectedItem` which can be resolved to get the selected value.
+
+```html live
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  value="5"
+>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  id="multiSelect"
+  multiple
+>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+
+<fw-select
+  label="Names"
+  placeholder="Your choices"
+  state-text="Select multiple options"
+  id="methodSelect"
+  multiple
+>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+  <fw-select-option value="3">Sand</fw-select-option>
+  <fw-select-option value="4">Greyjoys</fw-select-option>
+  <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+
+<fw-select
+  id="methodOptionSelect"
+  label="Strawhat Pirates"
+  placeholder="Your choices"
+  state-text="Select single option"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var multiSelect = document.getElementById('multiSelect');
+  multiSelect.value = ['2', '3'];
+
+  var methodSelect = document.getElementById('methodSelect');
+  methodSelect.setSelectedValues(['1', '5']);
+
+  var iconDataSource = [
+    {
+      value: '1',
+      text: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      value: '2',
+      text: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      value: '3',
+      text: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var methodOptionSelect = document.getElementById('methodOptionSelect');
+  methodOptionSelect.options = iconDataSource;
+  methodOptionSelect.setSelectedOptions([
+    {
+      value: '2',
+      text: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+  ]);
+  methodOptionSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
 ### Demo with dynamic filter option
 
 ```html live
 <fw-select
   id="dynamicSelect"
   label="Rick & Morty Characters"
+  no-data-text="Type to search.."
   placeholder="Your choices"
   state-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
   multiple
 >
 </fw-select>
@@ -255,6 +357,7 @@ function App() {
             text: x.name,
             subText: x.type,
             value: x.id.toString(),
+            graphicsProps: { image: x.image },
           };
         });
       });
@@ -267,30 +370,32 @@ function App() {
 
 ## Properties
 
-| Property          | Attribute        | Description                                                                                                                                                                                                                               | Type                               | Default               |
-| ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | --------------------- |
-| `debounceTimer`   | `debounce-timer` | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                           | `300`                 |
-| `disabled`        | `disabled`       | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                          | `false`               |
-| `forceSelect`     | `force-select`   | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                          | `true`                |
-| `isCheckbox`      | `is-checkbox`    | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                          | `false`               |
-| `label`           | `label`          | Label displayed on the interface, for the component.                                                                                                                                                                                      | `string`                           | `''`                  |
-| `max`             | `max`            | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                           | `Number.MAX_VALUE`    |
-| `multiple`        | `multiple`       | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                          | `false`               |
-| `name`            | `name`           | Name of the component, saved as part of form data.                                                                                                                                                                                        | `string`                           | `''`                  |
-| `noDataText`      | `no-data-text`   | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                           | `'No Data available'` |
-| `notFoundText`    | `not-found-text` | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                           | `'No items Found'`    |
-| `options`         | `options`        | Allow to search for value. Default is true.                                                                                                                                                                                               | `any`                              | `undefined`           |
-| `placeholder`     | `placeholder`    | Text displayed in the list box before an option is selected.                                                                                                                                                                              | `string`                           | `undefined`           |
-| `readonly`        | `readonly`       | If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.                                                                                                              | `boolean`                          | `false`               |
-| `required`        | `required`       | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                             | `boolean`                          | `false`               |
-| `search`          | `search`         | Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.           | `any`                              | `undefined`           |
-| `searchable`      | `searchable`     | Allow to search for value. Default is true.                                                                                                                                                                                               | `boolean`                          | `true`                |
-| `selectedOptions` | --               | Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.                                                                 | `any[]`                            | `[]`                  |
-| `state`           | `state`          | Theme based on which the list box is styled.                                                                                                                                                                                              | `"error" \| "normal" \| "warning"` | `'normal'`            |
-| `stateText`       | `state-text`     | Descriptive or instructional text displayed below the list box.                                                                                                                                                                           | `string`                           | `''`                  |
-| `type`            | `type`           | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                  | `"number" \| "text"`               | `'text'`              |
-| `value`           | `value`          | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                              | `undefined`           |
-| `variant`         | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"` | `'standard'`          |
+| Property          | Attribute         | Description                                                                                                                                                                                                                               | Type                               | Default               |
+| ----------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | --------------------- |
+| `checkbox`        | `checkbox`        | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                          | `false`               |
+| `debounceTimer`   | `debounce-timer`  | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                           | `300`                 |
+| `disabled`        | `disabled`        | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                          | `false`               |
+| `forceSelect`     | `force-select`    | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                          | `true`                |
+| `label`           | `label`           | Label displayed on the interface, for the component.                                                                                                                                                                                      | `string`                           | `''`                  |
+| `max`             | `max`             | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                           | `Number.MAX_VALUE`    |
+| `multiple`        | `multiple`        | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                          | `false`               |
+| `name`            | `name`            | Name of the component, saved as part of form data.                                                                                                                                                                                        | `string`                           | `''`                  |
+| `noDataText`      | `no-data-text`    | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                           | `'No Data available'` |
+| `notFoundText`    | `not-found-text`  | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                           | `'No items Found'`    |
+| `options`         | `options`         | Allow to search for value. Default is true.                                                                                                                                                                                               | `any`                              | `undefined`           |
+| `optionsVariant`  | `options-variant` | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"` | `'standard'`          |
+| `placeholder`     | `placeholder`     | Text displayed in the list box before an option is selected.                                                                                                                                                                              | `string`                           | `undefined`           |
+| `readonly`        | `readonly`        | If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.                                                                                                              | `boolean`                          | `false`               |
+| `required`        | `required`        | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                             | `boolean`                          | `false`               |
+| `search`          | `search`          | Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.           | `any`                              | `undefined`           |
+| `searchable`      | `searchable`      | Allow to search for value. Default is true.                                                                                                                                                                                               | `boolean`                          | `true`                |
+| `selectedOptions` | --                | Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.                                                                 | `any[]`                            | `[]`                  |
+| `state`           | `state`           | Theme based on which the list box is styled.                                                                                                                                                                                              | `"error" \| "normal" \| "warning"` | `'normal'`            |
+| `stateText`       | `state-text`      | Descriptive or instructional text displayed below the list box.                                                                                                                                                                           | `string`                           | `''`                  |
+| `tagVariant`      | `tag-variant`     | The variant of tag to be used.                                                                                                                                                                                                            | `"avatar" \| "standard"`           | `'standard'`          |
+| `type`            | `type`            | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                  | `"number" \| "text"`               | `'text'`              |
+| `value`           | `value`           | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                              | `undefined`           |
+
 
 
 ## Events
@@ -324,7 +429,9 @@ Type: `Promise<any>`
 
 
 
-### `setSelectedValues(values: string[]) => Promise<any>`
+### `setSelectedValues(values: string | string[]) => Promise<any>`
+
+
 
 
 
@@ -364,10 +471,13 @@ graph TD;
   fw-select --> fw-popover
   fw-select --> fw-spinner
   fw-select --> fw-list-options
+  fw-tag --> fw-avatar
+  fw-tag --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
   fw-input --> fw-icon
   fw-datepicker --> fw-select
   fw-timepicker --> fw-select

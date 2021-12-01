@@ -1,7 +1,6 @@
 /* stylelint-disable a11y/media-prefers-reduced-motion */
-@import '../../styles/freshworks.scss';
 
-.modal-container {
+.modal-overlay {
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -19,19 +18,47 @@
 
 .modal {
   position: relative;
-  max-height: 70vh;
-  background: #fff;
-  border-radius: 4px;
   display: flex;
+  max-height: 70vh;
+  background: $color-milk;
+  border-radius: 4px;
   z-index: 999;
-  flex-direction: column;
   animation: 'modal-entry' 0.5s 1;
 
-  .content {
-    padding: 0 32px 32px;
-    height: 100%;
-    width: auto;
-    overflow: auto;
+  .modal-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .content {
+      padding: 0px 32px 32px;
+      overflow: visible;
+      box-sizing: border-box;
+    }
+  }
+
+  .close-btn {
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    color: $color-elephant-800;
+    padding: 4px 6px;
+    min-width: 16px;
+    height: 24px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    transition: all 0.3s;
+    z-index: 1;
+
+    &:hover,
+    &:focus {
+      background-color: $color-smoke-50;
+      border-radius: 4px;
+      border-color: $color-smoke-50;
+      cursor: pointer;
+    }
   }
 }
 
@@ -47,6 +74,47 @@
   width: 800px;
 }
 
+.modal-overlay.slider {
+  justify-content: right;
+
+  .modal {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0px;
+    width: 600px;
+    animation: 'modal-entry-right' 0.5s 1;
+
+    .close-btn {
+      height: 40px;
+      width: 40px;
+      top: 0px;
+      right: 600px;
+      background-color: $color-elephant-900;
+      border-radius: 2px 0px 0px 2px;
+
+      &:hover,
+      &:focus,
+      &:focus-visible {
+        background-color: $color-elephant-900;
+        border-radius: 2px 0px 0px 2px;
+        border: 0px;
+      }
+
+      &:focus,
+      &:focus-visible {
+        border: 1px solid $color-azure-800;
+        box-shadow: $color-azure-800 0px 0px 0px 1px;
+      }
+    }
+
+    &.small,
+    &.standard,
+    &.large {
+      width: 600px;
+    }
+  }
+}
+
 .visible {
   display: flex;
 }
@@ -58,5 +126,15 @@
 
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes modal-entry-right {
+  0% {
+    transform: translateX(calc(100% - 590px));
+  }
+
+  100% {
+    transform: translateX(0);
   }
 }

@@ -5,9 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownVariant } from "./components/select-option/select-option";
-import { PopoverPlacementType } from "./components/popover/popover";
-import { DropdownVariant as DropdownVariant1 } from "./components/select-option/select-option";
+import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAvatar {
@@ -16,7 +14,13 @@ export namespace Components {
         "initials": string;
         "mode": 'dark' | 'light';
         "shape": 'circle' | 'square' | 'rounded';
-        "size": 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+        "size": | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall';
     }
     interface FwButton {
         /**
@@ -61,11 +65,15 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description": string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -264,6 +272,10 @@ export namespace Components {
         "value": string;
     }
     interface FwListOptions {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
         "clearFilter": () => Promise<void>;
         /**
           * Debounce timer for the search promise function.
@@ -274,10 +286,6 @@ export namespace Components {
          */
         "filterText": any;
         "getSelectedOptions": () => Promise<any>;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -315,11 +323,14 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setSelectedOptions": (options: any[]) => Promise<any>;
-        "setSelectedValues": (values: string[]) => Promise<any>;
+        /**
+          * Pass an array of string in case of multi-select or string for single-select.
+         */
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value": any[];
+        "value": string | string[];
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -360,6 +371,10 @@ export namespace Components {
           * Size of the modal
          */
         "size": 'standard' | 'small' | 'large';
+        /**
+          * Convert modal to slider
+         */
+        "slider": boolean;
         /**
           * The color of submit button
          */
@@ -407,10 +422,6 @@ export namespace Components {
     }
     interface FwModalTitle {
         /**
-          * Function to call on close of modal
-         */
-        "close": any;
-        /**
           * The title text to be displayed on the modal
          */
         "description": string;
@@ -429,6 +440,10 @@ export namespace Components {
          */
         "boundary": HTMLElement;
         /**
+          * Option to disable the popover animation on hide and show.
+         */
+        "disableTransition": boolean;
+        /**
           * Distance defines the distance between the popover trigger and the popover content along y-axis.
          */
         "distance": string;
@@ -436,7 +451,15 @@ export namespace Components {
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements": [PopoverPlacementType];
+        /**
+          * Option to determine if popover-content has a border.
+         */
+        "hasBorder": boolean;
         "hide": () => Promise<void>;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
         /**
           * Placement of the popover content with respect to the popover trigger.
          */
@@ -453,7 +476,7 @@ export namespace Components {
         /**
           * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
          */
-        "trigger": 'click' | 'manual' | 'hover';
+        "trigger": PopoverTriggerType;
         /**
           * Variant defines the style of the popover-content.
          */
@@ -465,11 +488,15 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description": string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -505,6 +532,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer": number;
@@ -517,10 +548,6 @@ export namespace Components {
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -550,6 +577,10 @@ export namespace Components {
          */
         "options": any;
         /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "optionsVariant": DropdownVariant;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -574,7 +605,7 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setSelectedOptions": (options: any[]) => Promise<any>;
-        "setSelectedValues": (values: string[]) => Promise<any>;
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Theme based on which the list box is styled.
          */
@@ -584,6 +615,10 @@ export namespace Components {
          */
         "stateText": string;
         /**
+          * The variant of tag to be used.
+         */
+        "tagVariant": TagVariant;
+        /**
           * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
         "type": 'text' | 'number';
@@ -591,12 +626,12 @@ export namespace Components {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value": any;
-        /**
-          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
-         */
-        "variant": DropdownVariant;
     }
     interface FwSelectOption {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox": boolean;
         /**
           * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
          */
@@ -617,10 +652,6 @@ export namespace Components {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox": boolean;
         /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
@@ -702,12 +733,29 @@ export namespace Components {
           * Describes the purpose of set of tabs.
          */
         "label": string;
+        /**
+          * The style of tab headers that needs to be displayed, box will display headers in a container.
+         */
+        "variant": 'box' | 'normal';
     }
     interface FwTag {
+        /**
+          * Whether the Tag can be closed.
+         */
+        "closable": boolean;
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": false;
+        /**
+          * Whether the Tag is focusable.
+         */
+        "focusable": boolean;
+        /**
+          * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
+         */
+        "graphicsProps": {};
+        "setFocus": () => Promise<any>;
         /**
           * Display text in the tag component.
          */
@@ -716,6 +764,10 @@ export namespace Components {
           * Value associated with the tag component, that is saved when the form data is saved.
          */
         "value": string;
+        /**
+          * The variant of tag to be displayed.
+         */
+        "variant": TagVariant;
     }
     interface FwTextarea {
         /**
@@ -846,7 +898,7 @@ export namespace Components {
          */
         "actionLinkText": string;
         /**
-          * The content to be diaplyed in toast
+          * The content to be displayed in toast
          */
         "content": string;
         /**
@@ -895,6 +947,42 @@ export namespace Components {
           * Size of the input control.
          */
         "size": 'small' | 'medium' | 'large';
+    }
+    interface FwTooltip {
+        /**
+          * Content of the tooltip.
+         */
+        "content": string;
+        /**
+          * Distance defines the distance between the popover trigger and the popover content along y-axis.
+         */
+        "distance": string;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements": [PopoverPlacementType];
+        /**
+          * Hides the tooltip.
+          * @returns promise that resolves to true
+         */
+        "hide": () => Promise<boolean>;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
+        /**
+          * Placement of the popover content with respect to the popover trigger.
+         */
+        "placement": PopoverPlacementType;
+        /**
+          * Shows the tooltip.
+          * @returns promise that resolves to true
+         */
+        "show": () => Promise<boolean>;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger": PopoverTriggerType;
     }
 }
 declare global {
@@ -1078,6 +1166,12 @@ declare global {
         prototype: HTMLFwToggleElement;
         new (): HTMLFwToggleElement;
     };
+    interface HTMLFwTooltipElement extends Components.FwTooltip, HTMLStencilElement {
+    }
+    var HTMLFwTooltipElement: {
+        prototype: HTMLFwTooltipElement;
+        new (): HTMLFwTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
@@ -1109,6 +1203,7 @@ declare global {
         "fw-toast": HTMLFwToastElement;
         "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
+        "fw-tooltip": HTMLFwTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -1118,7 +1213,13 @@ declare namespace LocalJSX {
         "initials"?: string;
         "mode"?: 'dark' | 'light';
         "shape"?: 'circle' | 'square' | 'rounded';
-        "size"?: 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+        "size"?: | 'xxlarge'
+    | 'xlarge'
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'xxsmall';
     }
     interface FwButton {
         /**
@@ -1175,11 +1276,15 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description"?: string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
@@ -1425,6 +1530,10 @@ declare namespace LocalJSX {
     }
     interface FwListOptions {
         /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer"?: number;
@@ -1432,10 +1541,6 @@ declare namespace LocalJSX {
           * The text to filter the options.
          */
         "filterText"?: any;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -1483,7 +1588,7 @@ declare namespace LocalJSX {
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value"?: any[];
+        "value"?: string | string[];
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -1526,6 +1631,10 @@ declare namespace LocalJSX {
           * Size of the modal
          */
         "size"?: 'standard' | 'small' | 'large';
+        /**
+          * Convert modal to slider
+         */
+        "slider"?: boolean;
         /**
           * The color of submit button
          */
@@ -1573,10 +1682,6 @@ declare namespace LocalJSX {
     }
     interface FwModalTitle {
         /**
-          * Function to call on close of modal
-         */
-        "close"?: any;
-        /**
           * The title text to be displayed on the modal
          */
         "description"?: string;
@@ -1595,6 +1700,10 @@ declare namespace LocalJSX {
          */
         "boundary"?: HTMLElement;
         /**
+          * Option to disable the popover animation on hide and show.
+         */
+        "disableTransition"?: boolean;
+        /**
           * Distance defines the distance between the popover trigger and the popover content along y-axis.
          */
         "distance"?: string;
@@ -1602,6 +1711,14 @@ declare namespace LocalJSX {
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * Option to determine if popover-content has a border.
+         */
+        "hasBorder"?: boolean;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
         /**
           * Triggered whenever the popover contents is closed/hidden.
          */
@@ -1625,7 +1742,7 @@ declare namespace LocalJSX {
         /**
           * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
          */
-        "trigger"?: 'click' | 'manual' | 'hover';
+        "trigger"?: PopoverTriggerType;
         /**
           * Variant defines the style of the popover-content.
          */
@@ -1637,11 +1754,15 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description"?: string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
@@ -1697,6 +1818,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer"?: number;
@@ -1708,10 +1833,6 @@ declare namespace LocalJSX {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -1753,6 +1874,10 @@ declare namespace LocalJSX {
          */
         "options"?: any;
         /**
+          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
+         */
+        "optionsVariant"?: DropdownVariant;
+        /**
           * Text displayed in the list box before an option is selected.
          */
         "placeholder"?: string | null;
@@ -1785,6 +1910,10 @@ declare namespace LocalJSX {
          */
         "stateText"?: string;
         /**
+          * The variant of tag to be used.
+         */
+        "tagVariant"?: TagVariant;
+        /**
           * Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.
          */
         "type"?: 'text' | 'number';
@@ -1792,12 +1921,12 @@ declare namespace LocalJSX {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value"?: any;
-        /**
-          * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
-         */
-        "variant"?: DropdownVariant;
     }
     interface FwSelectOption {
+        /**
+          * Place a checkbox.
+         */
+        "checkbox"?: boolean;
         /**
           * Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.
          */
@@ -1818,10 +1947,6 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
-        /**
-          * Place a checkbox.
-         */
-        "isCheckbox"?: boolean;
         /**
           * Triggered when an option is selected.
          */
@@ -1910,12 +2035,28 @@ declare namespace LocalJSX {
           * Triggered when a the view switches to a new tab.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * The style of tab headers that needs to be displayed, box will display headers in a container.
+         */
+        "variant"?: 'box' | 'normal';
     }
     interface FwTag {
+        /**
+          * Whether the Tag can be closed.
+         */
+        "closable"?: boolean;
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: false;
+        /**
+          * Whether the Tag is focusable.
+         */
+        "focusable"?: boolean;
+        /**
+          * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
+         */
+        "graphicsProps"?: {};
         /**
           * Triggered when the tag is deselected.
          */
@@ -1928,6 +2069,10 @@ declare namespace LocalJSX {
           * Value associated with the tag component, that is saved when the form data is saved.
          */
         "value"?: string;
+        /**
+          * The variant of tag to be displayed.
+         */
+        "variant"?: TagVariant;
     }
     interface FwTextarea {
         /**
@@ -2069,7 +2214,7 @@ declare namespace LocalJSX {
          */
         "actionLinkText"?: string;
         /**
-          * The content to be diaplyed in toast
+          * The content to be displayed in toast
          */
         "content"?: string;
         /**
@@ -2131,6 +2276,32 @@ declare namespace LocalJSX {
          */
         "size"?: 'small' | 'medium' | 'large';
     }
+    interface FwTooltip {
+        /**
+          * Content of the tooltip.
+         */
+        "content"?: string;
+        /**
+          * Distance defines the distance between the popover trigger and the popover content along y-axis.
+         */
+        "distance"?: string;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
+        /**
+          * Placement of the popover content with respect to the popover trigger.
+         */
+        "placement"?: PopoverPlacementType;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger"?: PopoverTriggerType;
+    }
     interface IntrinsicElements {
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
@@ -2162,6 +2333,7 @@ declare namespace LocalJSX {
         "fw-toast": FwToast;
         "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
+        "fw-tooltip": FwTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -2198,6 +2370,7 @@ declare module "@stencil/core" {
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
             "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
+            "fw-tooltip": LocalJSX.FwTooltip & JSXBase.HTMLAttributes<HTMLFwTooltipElement>;
         }
     }
 }

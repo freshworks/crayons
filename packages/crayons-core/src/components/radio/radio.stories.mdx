@@ -40,29 +40,29 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 ### With label
 <Preview>
 <Story name="WithLabel">
-  {() => '<fw-radio label="Radio Label Here"></fw-radio>'}
+  {() => '<fw-radio>Radio Label Here</fw-radio>'}
 </Story>
 </Preview>
 
 ### With label and disabled
 <Preview>
 <Story name="DisabledWithLabel">
-  {() => '<fw-radio disabled label="Radio Label Here"></fw-radio>'}
+  {() => '<fw-radio disabled>Radio Label Here</fw-radio>'}
 </Story>
 </Preview>
 
-### With text and label
+### With description and label
 <Preview>
-<Story name="withTextAndLabel">
-  {() => '<fw-radio label="Radio Label Here">This is a subheading</fw-radio>'}
+<Story name="withDescriptionAndLabel">
+  {() => '<fw-radio description="This is a subheading">Radio Label Here</fw-radio>'}
 </Story>
 </Preview>
 
-### With text and label Disabled
+### With description and label Disabled
 <Preview>
-<Story name="WithTextAndLabelDisabled">
+<Story name="WithDescriptionAndLabelDisabled">
   {() =>
-    '<fw-radio disabled label="Radio Label Here">This is a subheading</fw-radio>'
+    '<fw-radio disabled description="This is a subheading">Radio Label Here</fw-radio>'
   }
 </Story>
 </Preview>

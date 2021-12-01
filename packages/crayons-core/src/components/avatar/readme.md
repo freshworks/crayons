@@ -83,14 +83,14 @@ function App() {
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                                                                  | Default     |
-| ---------- | ---------- | ----------- | --------------------------------------------------------------------- | ----------- |
-| `alt`      | `alt`      |             | `string`                                                              | `undefined` |
-| `image`    | `image`    |             | `string`                                                              | `undefined` |
-| `initials` | `initials` |             | `string`                                                              | `undefined` |
-| `mode`     | `mode`     |             | `"dark" \| "light"`                                                   | `'dark'`    |
-| `shape`    | `shape`    |             | `"circle" \| "rounded" \| "square"`                                   | `'circle'`  |
-| `size`     | `size`     |             | `"large" \| "medium" \| "small" \| "xlarge" \| "xsmall" \| "xxlarge"` | `'large'`   |
+| Property   | Attribute  | Description | Type                                                                               | Default     |
+| ---------- | ---------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
+| `alt`      | `alt`      |             | `string`                                                                           | `undefined` |
+| `image`    | `image`    |             | `string`                                                                           | `undefined` |
+| `initials` | `initials` |             | `string`                                                                           | `undefined` |
+| `mode`     | `mode`     |             | `"dark" \| "light"`                                                                | `'dark'`    |
+| `shape`    | `shape`    |             | `"circle" \| "rounded" \| "square"`                                                | `'circle'`  |
+| `size`     | `size`     |             | `"large" \| "medium" \| "small" \| "xlarge" \| "xsmall" \| "xxlarge" \| "xxsmall"` | `'large'`   |
 
 
 ## Shadow Parts
@@ -100,6 +100,21 @@ function App() {
 | `"image"`    |             |
 | `"initials"` |             |
 
+
+## Dependencies
+
+### Used by
+
+ - [fw-select-option](../select-option)
+ - [fw-tag](../tag)
+
+### Graph
+```mermaid
+graph TD;
+  fw-select-option --> fw-avatar
+  fw-tag --> fw-avatar
+  style fw-avatar fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

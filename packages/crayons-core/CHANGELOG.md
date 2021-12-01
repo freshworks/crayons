@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.4...@freshworks/crayons@3.0.0-beta.6) (2021-11-26)
+
+### Bug Fixes
+
+- **button-group:** use correct units for margin-left ([#301](https://github.com/freshworks/crayons/issues/301)) ([db50bc7](https://github.com/freshworks/crayons/commit/db50bc7296eac56ee6ec3a6ff065da2978c1b58e))
+- **checkbox:** remove class from host to avoid getting overridden by global styles ([#308](https://github.com/freshworks/crayons/issues/308)) ([0e37f57](https://github.com/freshworks/crayons/commit/0e37f576676727db5027742262d313d2b6e7c373))
+- **radio:** remove class from host and apply on container to avoid getting overridden by global styles ([#307](https://github.com/freshworks/crayons/issues/307)) ([df5c5c9](https://github.com/freshworks/crayons/commit/df5c5c9ad34ccbf967f84a45485d0630f4afb88e))
+- tab-header attribute wrongly mentioned as fw-tab-header ([3c03859](https://github.com/freshworks/crayons/commit/3c03859120b2b78ec49c022100c11f6dde80f0f4))
+- **tab:** remove class from host to avoid getting overridden by global styles ([#310](https://github.com/freshworks/crayons/issues/310)) ([b367032](https://github.com/freshworks/crayons/commit/b3670321e3d58c6a4dec99934e6a4c16dbabf406))
+- **toast:** remove styling from host to avoid styles getting overridden by global styles ([#306](https://github.com/freshworks/crayons/issues/306)) ([7b32ef1](https://github.com/freshworks/crayons/commit/7b32ef17045ea4edc8db7b6af2d9a2b0e675d859))
+
+### Features
+
+- **fw-select:** added prop to display avatar ([#293](https://github.com/freshworks/crayons/issues/293)) ([d923d16](https://github.com/freshworks/crayons/commit/d923d166495597bd8711e86aa181e08c19ce073c))
+- **fw-tag:** tags can be removed via backspace ([#300](https://github.com/freshworks/crayons/issues/300)) ([8f9576c](https://github.com/freshworks/crayons/commit/8f9576cc41c631e720b502f15f8b54449ed8a0d2))
+- **tooltip:** adding new tooltip component ([#312](https://github.com/freshworks/crayons/issues/312)) ([181f92a](https://github.com/freshworks/crayons/commit/181f92ad4064c37d9c35447dec816c48aff808f7))
+
+## [3.0.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.4...@freshworks/crayons@3.0.0-beta.5) (2021-11-26)
+
+### Bug Fixes
+
+- **button-group:** use correct units for margin-left ([#301](https://github.com/freshworks/crayons/issues/301)) ([db50bc7](https://github.com/freshworks/crayons/commit/db50bc7296eac56ee6ec3a6ff065da2978c1b58e))
+- **checkbox:** remove class from host to avoid getting overridden by global styles ([#308](https://github.com/freshworks/crayons/issues/308)) ([0e37f57](https://github.com/freshworks/crayons/commit/0e37f576676727db5027742262d313d2b6e7c373))
+- **radio:** remove class from host and apply on container to avoid getting overridden by global styles ([#307](https://github.com/freshworks/crayons/issues/307)) ([df5c5c9](https://github.com/freshworks/crayons/commit/df5c5c9ad34ccbf967f84a45485d0630f4afb88e))
+- tab-header attribute wrongly mentioned as fw-tab-header ([3c03859](https://github.com/freshworks/crayons/commit/3c03859120b2b78ec49c022100c11f6dde80f0f4))
+- **tab:** remove class from host to avoid getting overridden by global styles ([#310](https://github.com/freshworks/crayons/issues/310)) ([b367032](https://github.com/freshworks/crayons/commit/b3670321e3d58c6a4dec99934e6a4c16dbabf406))
+- **toast:** remove styling from host to avoid styles getting overridden by global styles ([#306](https://github.com/freshworks/crayons/issues/306)) ([7b32ef1](https://github.com/freshworks/crayons/commit/7b32ef17045ea4edc8db7b6af2d9a2b0e675d859))
+
+### Features
+
+- **fw-select:** added prop to display avatar ([#293](https://github.com/freshworks/crayons/issues/293)) ([d923d16](https://github.com/freshworks/crayons/commit/d923d166495597bd8711e86aa181e08c19ce073c))
+- **fw-tag:** tags can be removed via backspace ([#300](https://github.com/freshworks/crayons/issues/300)) ([8f9576c](https://github.com/freshworks/crayons/commit/8f9576cc41c631e720b502f15f8b54449ed8a0d2))
+- **tooltip:** adding new tooltip component ([#312](https://github.com/freshworks/crayons/issues/312)) ([181f92a](https://github.com/freshworks/crayons/commit/181f92ad4064c37d9c35447dec816c48aff808f7))
+
+## [3.0.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.2...@freshworks/crayons@3.0.0-beta.4) (2021-11-19)
+
+### Bug Fixes
+
+- **fw-datepicker:** added more placement options ([#262](https://github.com/freshworks/crayons/issues/262)) ([0a2f7b5](https://github.com/freshworks/crayons/commit/0a2f7b5f3073ba31d1a1e9663e6afe2d848cd573))
+- **popover:** prevent scroll chaining and expose props for min, max heights ([#287](https://github.com/freshworks/crayons/issues/287)) ([f7525f0](https://github.com/freshworks/crayons/commit/f7525f0a93973673e0a17adfd9c10d1bfb8c3791))
+- **tab:** fix fw-tab to work with react typescript ([#285](https://github.com/freshworks/crayons/issues/285)) ([f93add1](https://github.com/freshworks/crayons/commit/f93add1919c8c9b0a9cf86c8a408141ef45203a2))
+
+### Features
+
+- **fw-list-options:** Moved the dynamic filter logic from fw-select to fw-list-options ([#286](https://github.com/freshworks/crayons/issues/286)) ([aed2184](https://github.com/freshworks/crayons/commit/aed2184ce41eb7e938ba64c091438a276e14931c))
+- **fw-popover:** added show/hide event emitters and new props ([#268](https://github.com/freshworks/crayons/issues/268)) ([e369c1c](https://github.com/freshworks/crayons/commit/e369c1c7ba69f8287a6fe52a862a9dea01a4bcb9))
+- **fw-tag:** added avatar variant for tag ([#290](https://github.com/freshworks/crayons/issues/290)) ([c568d06](https://github.com/freshworks/crayons/commit/c568d069d505b352f9d54e83f2f72e00ef5b7ddb))
+- **slider:** adding slider variant to modal component ([#288](https://github.com/freshworks/crayons/issues/288)) ([4eef379](https://github.com/freshworks/crayons/commit/4eef379e990f7423a0bb0677d057539fdd3cbf68))
+- **avatar:** avatar component ([#281](https://github.com/freshworks/crayons/issues/281)) ([dbf256d](https://github.com/freshworks/crayons/commit/dbf256db14ef42b3326192593521312abdffe928))
+
 ## [3.0.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.2...@freshworks/crayons@3.0.0-beta.3) (2021-11-12)
 
 ### Bug Fixes
@@ -20,7 +70,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **toggle:** show icon for toggle by default ([#273](https://github.com/freshworks/crayons/issues/273)) ([f6358a6](https://github.com/freshworks/crayons/commit/f6358a6e6911d814cff86d156192c20883a1bcca))
 - **multi toast:** Multi Toast Notification with toast component and ToastController ([#276](https://github.com/freshworks/crayons/issues/276)) ([e2fb9c0](https://github.com/freshworks/crayons/commit/e2fb9c09c83042234e361e548f2fd1301f031189))
 - **button group:** new button group component added ([#274](https://github.com/freshworks/crayons/issues/274)) ([a55feb2](https://github.com/freshworks/crayons/commit/a55feb222673e888a4c160ea2ca0c53ad330264a))
-
 
 ## [3.0.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.1...@freshworks/crayons@3.0.0-beta.2) (2021-11-03)
 
@@ -44,7 +93,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
-- **fw-tab:** fw-tab-header attribute is now removed, instead use fw-tab children for using html content for tab header and use fw-tab-panel for panel content
+- **fw-tab:** _tab-header-html_ attribute is now removed, instead use fw-tab children for using html content for tab header and use fw-tab-panel for panel content
 - **fw-modal:** Changing visibility property to is-open property.
 
 ## [3.0.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.0...@freshworks/crayons@3.0.0-beta.1) (2021-10-22)

@@ -372,7 +372,7 @@ $sizes:
 
 :host(.fw-button-group__button--inner) .fw-btn {
   border-radius: 0;
-  margin-left: -1;
+  margin-left: -1px;
   border-left: 0;
 }
 
@@ -380,6 +380,6 @@ $sizes:
   .fw-btn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  margin-left: -1;
+  margin-left: -1px;
   border-left: 0;
 }

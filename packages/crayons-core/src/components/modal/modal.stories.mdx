@@ -59,15 +59,37 @@ Sed pulvinar orci in lacus semper, nec volutpat lectus pellentesque. Aliquam dic
       () => `
       <fw-button modal-trigger-id='large'> Open custom composed modal </fw-button>
       <fw-modal id='large' size="large">
-        <fw-modal-title custom>
-          <div>
-            <span style="font-weight: bold;">Header text</span>
-          </div>
+        <fw-modal-title>
+          <span>Header text</span>
         </fw-modal-title>
         <fw-modal-content>
           <div>Content text</div>
         </fw-modal-content>
-        <fw-modal-footer custom>
+        <fw-modal-footer>
+          <fw-button>OK</fw-button>
+        </fw-modal-footer>
+      </fw-modal>
+      `
+    }
+  </Story>
+</Preview>
+
+
+### Slider
+
+<Preview>
+  <Story name='Slider'>
+    {
+      () => `
+      <fw-button modal-trigger-id='modal-slider'> Open slider </fw-button>
+      <fw-modal id='modal-slider' slider='true' hide-footer='true'>
+        <fw-modal-title>
+          <span>Header text</span>
+        </fw-modal-title>
+        <fw-modal-content>
+          <div>Content text</div>
+        </fw-modal-content>
+        <fw-modal-footer>
           <fw-button>OK</fw-button>
         </fw-modal-footer>
       </fw-modal>

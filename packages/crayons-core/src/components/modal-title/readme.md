@@ -7,7 +7,6 @@
 
 | Property      | Attribute     | Description                                 | Type     | Default     |
 | ------------- | ------------- | ------------------------------------------- | -------- | ----------- |
-| `close`       | `close`       | Function to call on close of modal          | `any`    | `() => {}`  |
 | `description` | `description` | The title text to be displayed on the modal | `string` | `undefined` |
 | `icon`        | `icon`        | The icon to be displayed with the title     | `string` | `''`        |
 | `titleText`   | `title-text`  | The title text to be displayed on the modal | `string` | `undefined` |
