@@ -25,12 +25,15 @@ export class AccordionTitle {
   @Prop() bold = true;
 
   /**
-   * Function to call on toggle
+   * @internal
    */
-  // eslint-disable-next-line  @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   @Prop() toggleState: any = () => {};
 
-  @Prop() expanded: boolean;
+  /**
+   * @internal
+   */
+  @Prop() expanded = true;
 
   /**
    * render the slot content directly

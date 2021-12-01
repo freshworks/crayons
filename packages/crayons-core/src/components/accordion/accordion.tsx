@@ -51,7 +51,7 @@ export class Accordion {
 
   render() {
     return (
-      <div class={{ accordion: true, collapsed: !this.expanded }}>
+      <div class='accordion'>
         <slot />
       </div>
     );

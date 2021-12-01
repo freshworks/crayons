@@ -5,6 +5,9 @@ import { Component, Prop, h } from '@stencil/core';
   styleUrl: 'accordion-body.scss',
 })
 export class AccordionBody {
+  /**
+   * @internal
+   */
   @Prop() expanded: boolean;
 
   render() {

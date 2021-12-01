@@ -21,9 +21,6 @@ export namespace Components {
     interface FwAccordionTitle {
         "bold": boolean;
         "expanded": boolean;
-        /**
-          * Function to call on toggle
-         */
         "toggleState": any;
     }
     interface FwAvatar {
@@ -1246,9 +1243,6 @@ declare namespace LocalJSX {
     interface FwAccordionTitle {
         "bold"?: boolean;
         "expanded"?: boolean;
-        /**
-          * Function to call on toggle
-         */
         "toggleState"?: any;
     }
     interface FwAvatar {
