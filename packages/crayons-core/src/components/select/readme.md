@@ -445,6 +445,16 @@ Type: `Promise<any>`
 
 
 
+### `setFocus() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
 ### `setSelectedOptions(options: any[]) => Promise<any>`
 
 

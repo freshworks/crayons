@@ -598,6 +598,7 @@ export namespace Components {
           * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**

@@ -270,6 +270,11 @@ export class Select {
     this.renderInput();
   }
 
+  @Method()
+  async setFocus(): Promise<any> {
+    this.selectInput?.focus();
+  }
+
   tagContainerKeyDown = (ev) => {
     console.log(ev.key);
     switch (ev.key) {
@@ -428,7 +433,7 @@ export class Select {
       }
     }
     this.host.addEventListener('focus', () => {
-      this.selectInput?.focus();
+      this.setFocus();
     });
     this.host.innerHTML = '';
   }
