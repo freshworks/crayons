@@ -22,7 +22,6 @@ export class Popover {
   private contentRef: HTMLFwListOptionsElement | HTMLElement;
   private triggerRef: any;
   private triggerRefSlot: any = null;
-  private escapeHandler: any = null;
   private overlay: HTMLElement;
 
   @Element() host: HTMLElement;
@@ -118,12 +117,6 @@ export class Popover {
       if (this.trigger !== 'hover') {
         this.overlay.style.display = 'block';
       }
-      this.escapeHandler = ((e: any) => {
-        if (e.keyCode === 27) {
-          this.hide();
-        }
-      }).bind(this);
-      document.addEventListener('keydown', this.escapeHandler);
       this.isOpen = !this.isOpen;
       if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
@@ -147,10 +140,6 @@ export class Popover {
       }));
       if (this.trigger !== 'hover') {
         this.overlay.style.display = 'none';
-      }
-      if (this.escapeHandler) {
-        document.removeEventListener('keydown', this.escapeHandler);
-        this.escapeHandler = null;
       }
       this.isOpen = !this.isOpen;
       if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
