@@ -306,6 +306,7 @@ export namespace Components {
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
+        "scrollToLastSelected": () => Promise<void>;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -322,6 +323,7 @@ export namespace Components {
           * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         /**
           * Pass an array of string in case of multi-select or string for single-select.
@@ -604,6 +606,7 @@ export namespace Components {
           * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
