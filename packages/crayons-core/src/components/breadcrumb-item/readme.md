@@ -1,6 +1,52 @@
 # fw-breadcrumb-item
 
-Breadcrumb Items can be used inside breadcrumb to represent different links
+Breadcrumb Items can be used inside [breadcrumb](../breadcrumb) to represent different links.
+
+## Demo
+
+```html live
+<fw-breadcrumb-item>Home</fw-breadcrumb-item>
+<fw-breadcrumb-item>About
+    <fw-icon name="alert" slot="separator"></fw-icon>
+</fw-breadcrumb-item>
+<fw-breadcrumb-item>Contact</fw-breadcrumb-item>
+<fw-breadcrumb-item>
+    <fw-icon slot="prefix" name="help"></fw-icon>
+    Help</fw-breadcrumb-item>
+```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-breadcrumb-item>Home</fw-breadcrumb-item>
+<fw-breadcrumb-item>About
+    <fw-icon name="alert" slot="separator"></fw-icon>
+</fw-breadcrumb-item>
+<fw-breadcrumb-item>Contact</fw-breadcrumb-item>
+<fw-breadcrumb-item>Help</fw-breadcrumb-item>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwBreadcrumbItem, FwIcon } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+    <FwBreadcrumbItem>Home</FwBreadcrumbItem>
+    <FwBreadcrumbItem>About
+        <FwIcon name="alert" slot="separator"></FwIcon>
+    </FwBreadcrumbItem>
+    <FwBreadcrumbItem>Contact</FwBreadcrumbItem>
+    <FwBreadcrumbItem>Help</FwBreadcrumbItem>
+  </div>)
+}
+```
+</code-block>
+</code-group>
 
 
 <!-- Auto Generated Below -->
