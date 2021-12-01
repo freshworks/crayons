@@ -472,13 +472,15 @@ export class Select {
               onKeyDown={handleKeyDown(this.innerOnClick)}
             >
               <div class='input-container-inner'>
-                <div
-                  onFocus={this.focusOnTagContainer}
-                  ref={(tagContainer) => (this.tagContainer = tagContainer)}
-                  onKeyDown={this.tagContainerKeyDown}
-                >
-                  {this.renderTags()}
-                </div>
+                {this.multiple && (
+                  <div
+                    onFocus={this.focusOnTagContainer}
+                    ref={(tagContainer) => (this.tagContainer = tagContainer)}
+                    onKeyDown={this.tagContainerKeyDown}
+                  >
+                    {this.renderTags()}
+                  </div>
+                )}
                 <input
                   ref={(selectInput) => (this.selectInput = selectInput)}
                   class={{
