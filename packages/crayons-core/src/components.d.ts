@@ -534,6 +534,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Whether the arrow/cater should be shown in the select.
+         */
+        "caret": boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox": boolean;
@@ -629,6 +633,10 @@ export namespace Components {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value": any;
+        /**
+          * The UI variant of the select to be used.
+         */
+        "variant": 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
@@ -1821,6 +1829,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Whether the arrow/cater should be shown in the select.
+         */
+        "caret"?: boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox"?: boolean;
@@ -1924,6 +1936,10 @@ declare namespace LocalJSX {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value"?: any;
+        /**
+          * The UI variant of the select to be used.
+         */
+        "variant"?: 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
