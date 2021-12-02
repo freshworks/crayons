@@ -739,6 +739,37 @@ export namespace Components {
          */
         "variant": DropdownVariant;
     }
+    interface FwSkeleton {
+        /**
+          * Number of rows of current skeleton type
+         */
+        "count": number;
+        /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles": { [key: string]: string } | string;
+        /**
+          * Effect the skeleton will use.
+         */
+        "effect": 'pulse' | 'sheen' | 'none';
+        /**
+          * Height of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "height": string;
+        /**
+          * MarginBottom of the skeleton ex. 10px, 0 etc.
+         */
+        "marginBottom": string;
+        /**
+          * Variant of the skeleton - circle or rectangle or text
+         */
+        "variant": 'circle' | 'rect' | 'text';
+        /**
+          * Width of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "width": string;
+    }
     interface FwSpinner {
         /**
           * Color in which the loader is displayed, specified as a standard CSS color.
@@ -1173,6 +1204,12 @@ declare global {
         prototype: HTMLFwSelectOptionElement;
         new (): HTMLFwSelectOptionElement;
     };
+    interface HTMLFwSkeletonElement extends Components.FwSkeleton, HTMLStencilElement {
+    }
+    var HTMLFwSkeletonElement: {
+        prototype: HTMLFwSkeletonElement;
+        new (): HTMLFwSkeletonElement;
+    };
     interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {
     }
     var HTMLFwSpinnerElement: {
@@ -1261,6 +1298,7 @@ declare global {
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
         "fw-select-option": HTMLFwSelectOptionElement;
+        "fw-skeleton": HTMLFwSkeletonElement;
         "fw-spinner": HTMLFwSpinnerElement;
         "fw-tab": HTMLFwTabElement;
         "fw-tab-panel": HTMLFwTabPanelElement;
@@ -2086,6 +2124,37 @@ declare namespace LocalJSX {
          */
         "variant"?: DropdownVariant;
     }
+    interface FwSkeleton {
+        /**
+          * Number of rows of current skeleton type
+         */
+        "count"?: number;
+        /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles"?: { [key: string]: string } | string;
+        /**
+          * Effect the skeleton will use.
+         */
+        "effect"?: 'pulse' | 'sheen' | 'none';
+        /**
+          * Height of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "height"?: string;
+        /**
+          * MarginBottom of the skeleton ex. 10px, 0 etc.
+         */
+        "marginBottom"?: string;
+        /**
+          * Variant of the skeleton - circle or rectangle or text
+         */
+        "variant"?: 'circle' | 'rect' | 'text';
+        /**
+          * Width of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "width"?: string;
+    }
     interface FwSpinner {
         /**
           * Color in which the loader is displayed, specified as a standard CSS color.
@@ -2434,6 +2503,7 @@ declare namespace LocalJSX {
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
         "fw-select-option": FwSelectOption;
+        "fw-skeleton": FwSkeleton;
         "fw-spinner": FwSpinner;
         "fw-tab": FwTab;
         "fw-tab-panel": FwTabPanel;
@@ -2472,6 +2542,7 @@ declare module "@stencil/core" {
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
             "fw-select-option": LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
+            "fw-skeleton": LocalJSX.FwSkeleton & JSXBase.HTMLAttributes<HTMLFwSkeletonElement>;
             "fw-spinner": LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
             "fw-tab": LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
             "fw-tab-panel": LocalJSX.FwTabPanel & JSXBase.HTMLAttributes<HTMLFwTabPanelElement>;
