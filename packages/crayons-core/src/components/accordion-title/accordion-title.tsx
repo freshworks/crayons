@@ -22,6 +22,9 @@ const ChevronArrow = ({ expanded }) => {
   styleUrl: 'accordion-title.scss',
 })
 export class AccordionTitle {
+  /**
+   * Displays the title in bold
+   */
   @Prop() bold = true;
 
   /**

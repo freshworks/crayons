@@ -1,5 +1,6 @@
 # fw-accordion-body
 
+Displays the content inside the component.
 
 
 <!-- Auto Generated Below -->

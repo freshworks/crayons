@@ -24,10 +24,13 @@ export class Accordion {
   private accordionBody: HTMLFwAccordionBodyElement;
 
   /**
-   * to manage accordion expanded or collapsed state
+   * To manage accordion expanded or collapsed state
    */
   @Prop({ mutable: true }) expanded = true;
 
+  /**
+   * Triggered when the accordion is expanded or collpased
+   */
   @Event() fwAccordionToggle!: EventEmitter<AccordionToogleEvent>;
 
   toggleState = (): void => {
@@ -37,7 +40,7 @@ export class Accordion {
     this.fwAccordionToggle.emit({ expanded: this.expanded });
   };
 
-  passStateToChildren() {
+  passStateToChildren(): void {
     this.accordionTitle.expanded = this.expanded;
     this.accordionBody.expanded = this.expanded;
   }

@@ -11,7 +11,7 @@ import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
         /**
-          * to manage accordion expanded or collapsed state
+          * To manage accordion expanded or collapsed state
          */
         "expanded": boolean;
     }
@@ -19,6 +19,9 @@ export namespace Components {
         "expanded": boolean;
     }
     interface FwAccordionTitle {
+        /**
+          * Displays the title in bold
+         */
         "bold": boolean;
         "expanded": boolean;
         "toggleState": any;
@@ -1232,15 +1235,21 @@ declare global {
 declare namespace LocalJSX {
     interface FwAccordion {
         /**
-          * to manage accordion expanded or collapsed state
+          * To manage accordion expanded or collapsed state
          */
         "expanded"?: boolean;
+        /**
+          * Triggered when the accordion is expanded or collpased
+         */
         "onFwAccordionToggle"?: (event: CustomEvent<AccordionToogleEvent>) => void;
     }
     interface FwAccordionBody {
         "expanded"?: boolean;
     }
     interface FwAccordionTitle {
+        /**
+          * Displays the title in bold
+         */
         "bold"?: boolean;
         "expanded"?: boolean;
         "toggleState"?: any;
