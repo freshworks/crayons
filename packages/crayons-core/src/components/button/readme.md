@@ -177,7 +177,7 @@ function App() {
   return (<div>
   <section>
   <label>Try themes</label>
-  <FwButton color="primary"> OK </FwButton>
+  <FwButton color="primary" onFwClick={()=>console.log("fwClick event emitted from button")}> OK </FwButton>
   <FwButton color="secondary"> Secondary </FwButton>
   <FwButton color="danger"> Don't Click </FwButton>
   <FwButton color="link"> Link Button </FwButton>

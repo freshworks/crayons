@@ -115,6 +115,26 @@ Type: `Promise<any>`
 
 
 
+### `scrollToLastSelected() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFocus() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
 ### `setSelectedOptions(options: any[]) => Promise<any>`
 
 

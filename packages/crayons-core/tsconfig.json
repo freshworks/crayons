@@ -6,6 +6,7 @@
     "experimentalDecorators": true,
     "lib": [
       "dom",
+      "dom.Iterable",
       "es2017"
     ],
     "moduleResolution": "node",

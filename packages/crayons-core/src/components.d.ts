@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownVariant, PopoverPlacementType, TagVariant } from "./utils/types";
+import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAvatar {
@@ -65,11 +65,15 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description": string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -303,6 +307,7 @@ export namespace Components {
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
+        "scrollToLastSelected": () => Promise<void>;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -319,6 +324,7 @@ export namespace Components {
           * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         /**
           * Pass an array of string in case of multi-select or string for single-select.
@@ -437,6 +443,10 @@ export namespace Components {
          */
         "boundary": HTMLElement;
         /**
+          * Option to disable the popover animation on hide and show.
+         */
+        "disableTransition": boolean;
+        /**
           * Distance defines the distance between the popover trigger and the popover content along y-axis.
          */
         "distance": string;
@@ -444,7 +454,15 @@ export namespace Components {
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements": [PopoverPlacementType];
+        /**
+          * Option to determine if popover-content has a border.
+         */
+        "hasBorder": boolean;
         "hide": () => Promise<void>;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
         /**
           * Placement of the popover content with respect to the popover trigger.
          */
@@ -461,11 +479,61 @@ export namespace Components {
         /**
           * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
          */
-        "trigger": 'click' | 'manual' | 'hover';
+        "trigger": PopoverTriggerType;
         /**
           * Variant defines the style of the popover-content.
          */
         "variant": 'select' | 'date-picker';
+    }
+    interface FwProgressLoader {
+        /**
+          * Method to end the progress. This hides the progress loader
+         */
+        "done": () => Promise<void>;
+        /**
+          * Adjust animation settings using easing (a CSS easing string). Default is `ease`
+         */
+        "easing": string;
+        /**
+          * Increments the progress status by a random amount.
+         */
+        "inc": () => Promise<void>;
+        /**
+          * Changes the minimum percentage used upon starting. Default is `0.08`
+         */
+        "minimum": number;
+        /**
+          * Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method
+         */
+        "parent": string;
+        /**
+          * Sets the progress loader status, where `n` is a number from `0.0` to `1.0`.
+         */
+        "set": (n: number) => Promise<void>;
+        /**
+          * Show progress loader. Default `false`
+         */
+        "show": boolean;
+        /**
+          * Add speed (in ms). Default is `200`
+         */
+        "speed": number;
+        /**
+          * Method to start showing the progress loader
+         */
+        "start": () => Promise<void>;
+        /**
+          * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
+         */
+        "template": string;
+        /**
+          * Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`
+         */
+        "trickle": boolean;
+        /**
+          * Adjust how often to trickle/increment, in ms. Default is `200`
+         */
+        "trickleSpeed": number;
     }
     interface FwRadio {
         /**
@@ -473,11 +541,15 @@ export namespace Components {
          */
         "checked": boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description": string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
         /**
@@ -512,6 +584,10 @@ export namespace Components {
         "value"?: any | null;
     }
     interface FwSelect {
+        /**
+          * Whether the arrow/caret should be shown in the select.
+         */
+        "caret": boolean;
         /**
           * Place a checkbox.
          */
@@ -593,6 +669,7 @@ export namespace Components {
           * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
@@ -616,9 +693,9 @@ export namespace Components {
          */
         "value": any;
         /**
-          * The variant of the select button to be displayed. Defaults to input type.
+          * The UI variant of the select to be used.
          */
-        "variant": 'button' | 'input';
+        "variant": 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
@@ -741,9 +818,14 @@ export namespace Components {
          */
         "disabled": false;
         /**
+          * Whether the Tag is focusable.
+         */
+        "focusable": boolean;
+        /**
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps": {};
+        "setFocus": () => Promise<any>;
         /**
           * Display text in the tag component.
          */
@@ -936,6 +1018,42 @@ export namespace Components {
          */
         "size": 'small' | 'medium' | 'large';
     }
+    interface FwTooltip {
+        /**
+          * Content of the tooltip.
+         */
+        "content": string;
+        /**
+          * Distance defines the distance between the popover trigger and the popover content along y-axis.
+         */
+        "distance": string;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements": [PopoverPlacementType];
+        /**
+          * Hides the tooltip.
+          * @returns promise that resolves to true
+         */
+        "hide": () => Promise<boolean>;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
+        /**
+          * Placement of the popover content with respect to the popover trigger.
+         */
+        "placement": PopoverPlacementType;
+        /**
+          * Shows the tooltip.
+          * @returns promise that resolves to true
+         */
+        "show": () => Promise<boolean>;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger": PopoverTriggerType;
+    }
 }
 declare global {
     interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
@@ -1034,6 +1152,12 @@ declare global {
         prototype: HTMLFwPopoverElement;
         new (): HTMLFwPopoverElement;
     };
+    interface HTMLFwProgressLoaderElement extends Components.FwProgressLoader, HTMLStencilElement {
+    }
+    var HTMLFwProgressLoaderElement: {
+        prototype: HTMLFwProgressLoaderElement;
+        new (): HTMLFwProgressLoaderElement;
+    };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
     var HTMLFwRadioElement: {
@@ -1118,6 +1242,12 @@ declare global {
         prototype: HTMLFwToggleElement;
         new (): HTMLFwToggleElement;
     };
+    interface HTMLFwTooltipElement extends Components.FwTooltip, HTMLStencilElement {
+    }
+    var HTMLFwTooltipElement: {
+        prototype: HTMLFwTooltipElement;
+        new (): HTMLFwTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
@@ -1135,6 +1265,7 @@ declare global {
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
         "fw-popover": HTMLFwPopoverElement;
+        "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
@@ -1149,6 +1280,7 @@ declare global {
         "fw-toast": HTMLFwToastElement;
         "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
+        "fw-tooltip": HTMLFwTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -1221,11 +1353,15 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description"?: string;
+        /**
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the check box.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
@@ -1641,6 +1777,10 @@ declare namespace LocalJSX {
          */
         "boundary"?: HTMLElement;
         /**
+          * Option to disable the popover animation on hide and show.
+         */
+        "disableTransition"?: boolean;
+        /**
           * Distance defines the distance between the popover trigger and the popover content along y-axis.
          */
         "distance"?: string;
@@ -1648,6 +1788,14 @@ declare namespace LocalJSX {
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * Option to determine if popover-content has a border.
+         */
+        "hasBorder"?: boolean;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
         /**
           * Triggered whenever the popover contents is closed/hidden.
          */
@@ -1671,11 +1819,45 @@ declare namespace LocalJSX {
         /**
           * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
          */
-        "trigger"?: 'click' | 'manual' | 'hover';
+        "trigger"?: PopoverTriggerType;
         /**
           * Variant defines the style of the popover-content.
          */
         "variant"?: 'select' | 'date-picker';
+    }
+    interface FwProgressLoader {
+        /**
+          * Adjust animation settings using easing (a CSS easing string). Default is `ease`
+         */
+        "easing"?: string;
+        /**
+          * Changes the minimum percentage used upon starting. Default is `0.08`
+         */
+        "minimum"?: number;
+        /**
+          * Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method
+         */
+        "parent"?: string;
+        /**
+          * Show progress loader. Default `false`
+         */
+        "show"?: boolean;
+        /**
+          * Add speed (in ms). Default is `200`
+         */
+        "speed"?: number;
+        /**
+          * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
+         */
+        "template"?: string;
+        /**
+          * Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`
+         */
+        "trickle"?: boolean;
+        /**
+          * Adjust how often to trickle/increment, in ms. Default is `200`
+         */
+        "trickleSpeed"?: number;
     }
     interface FwRadio {
         /**
@@ -1683,11 +1865,15 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
+          * Description to be displayed for the checkbox.
+         */
+        "description"?: string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
         /**
-          * Label displayed on the interface, for the component.
+          * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
         /**
@@ -1742,6 +1928,10 @@ declare namespace LocalJSX {
         "value"?: any | null;
     }
     interface FwSelect {
+        /**
+          * Whether the arrow/caret should be shown in the select.
+         */
+        "caret"?: boolean;
         /**
           * Place a checkbox.
          */
@@ -1855,9 +2045,9 @@ declare namespace LocalJSX {
          */
         "value"?: any;
         /**
-          * The variant of the select button to be displayed. Defaults to input type.
+          * The UI variant of the select to be used.
          */
-        "variant"?: 'button' | 'input';
+        "variant"?: 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
@@ -1986,6 +2176,10 @@ declare namespace LocalJSX {
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: false;
+        /**
+          * Whether the Tag is focusable.
+         */
+        "focusable"?: boolean;
         /**
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
@@ -2209,6 +2403,32 @@ declare namespace LocalJSX {
          */
         "size"?: 'small' | 'medium' | 'large';
     }
+    interface FwTooltip {
+        /**
+          * Content of the tooltip.
+         */
+        "content"?: string;
+        /**
+          * Distance defines the distance between the popover trigger and the popover content along y-axis.
+         */
+        "distance"?: string;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
+        /**
+          * Placement of the popover content with respect to the popover trigger.
+         */
+        "placement"?: PopoverPlacementType;
+        /**
+          * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
+         */
+        "trigger"?: PopoverTriggerType;
+    }
     interface IntrinsicElements {
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
@@ -2226,6 +2446,7 @@ declare namespace LocalJSX {
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
         "fw-popover": FwPopover;
+        "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
@@ -2240,6 +2461,7 @@ declare namespace LocalJSX {
         "fw-toast": FwToast;
         "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
+        "fw-tooltip": FwTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -2262,6 +2484,7 @@ declare module "@stencil/core" {
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
+            "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
@@ -2276,6 +2499,7 @@ declare module "@stencil/core" {
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
             "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
+            "fw-tooltip": LocalJSX.FwTooltip & JSXBase.HTMLAttributes<HTMLFwTooltipElement>;
         }
     }
 }

@@ -12,7 +12,7 @@
   max-width: var(--popover-max-width);
   min-height: var(--popover-min-height, 10px);
   max-height: var(--popover-max-height, 400px);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior-y: contain;
   margin: 0px;
@@ -25,8 +25,16 @@
   box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
   user-select: none;
   transform: scale(0.01);
-  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease 0.15s;
+  transition: 150ms color, 150ms border, 150ms box-shadow;
   will-change: auto;
+}
+
+.popper-content.no-border {
+  border: 0px;
+}
+
+.popper-content.no-transition {
+  transition: none;
 }
 
 .popper-content[data-show] {
