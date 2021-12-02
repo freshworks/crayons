@@ -173,7 +173,7 @@ export class ListOptions {
     if (this.filteredOptions.length > 0 && this.valueExists()) {
       this.container
         .querySelector(`fw-select-option[id='${this.getLastSelectedValue()}']`)
-        ?.scrollIntoView({ block: 'center' });
+        ?.scrollIntoView({ block: 'nearest' });
     }
   }
 
