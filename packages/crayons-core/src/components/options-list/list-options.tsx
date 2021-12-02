@@ -143,7 +143,8 @@ export class ListOptions {
           this.optionRefs.length - 1
         );
         this.optionRefs[this.arrowKeyCounter].setFocus();
-        ev.stopImmediatePropagation();
+        ev.preventDefault();
+        ev.stopPropagation();
         break;
       case 'ArrowUp':
         // If focus is on the first option, moves focus to the last option.
@@ -153,7 +154,8 @@ export class ListOptions {
           this.optionRefs.length - 1
         );
         this.optionRefs[this.arrowKeyCounter].setFocus();
-        ev.stopImmediatePropagation();
+        ev.preventDefault();
+        ev.stopPropagation();
         break;
     }
   }
