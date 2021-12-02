@@ -365,6 +365,33 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 </script>
 ```
 
+### Navigation Demo with large option
+
+```html live
+<fw-select
+  label="Pick one year"
+  placeholder="Your choices"
+  id="longSelect"
+></fw-select>
+<fw-select
+  label="Pick Multiple years"
+  placeholder="Your choices"
+  id="longSelectMulti"
+  multiple
+></fw-select>
+<script type="application/javascript">
+  let years = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
+    return { value: x.toString(), text: x.toString() };
+  });
+
+  let longSelect = document.getElementById('longSelect');
+  longSelect.options = years;
+
+  let longSelectMulti = document.getElementById('longSelectMulti');
+  longSelectMulti.options = years;
+</script>
+```
+
 <!-- Auto Generated Below -->
 
 
@@ -372,6 +399,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 
 | Property          | Attribute         | Description                                                                                                                                                                                                                               | Type                               | Default               |
 | ----------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | --------------------- |
+| `caret`           | `caret`           | Whether the arrow/caret should be shown in the select.                                                                                                                                                                                    | `boolean`                          | `true`                |
 | `checkbox`        | `checkbox`        | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                          | `false`               |
 | `debounceTimer`   | `debounce-timer`  | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                           | `300`                 |
 | `disabled`        | `disabled`        | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                          | `false`               |
@@ -395,6 +423,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 | `tagVariant`      | `tag-variant`     | The variant of tag to be used.                                                                                                                                                                                                            | `"avatar" \| "standard"`           | `'standard'`          |
 | `type`            | `type`            | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                  | `"number" \| "text"`               | `'text'`              |
 | `value`           | `value`           | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                              | `undefined`           |
+| `variant`         | `variant`         | The UI variant of the select to be used.                                                                                                                                                                                                  | `"mail" \| "standard"`             | `'standard'`          |
 
 
 ## Events
@@ -409,6 +438,16 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 ## Methods
 
 ### `getSelectedItem() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+### `setFocus() => Promise<any>`
 
 
 
