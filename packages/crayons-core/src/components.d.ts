@@ -534,7 +534,7 @@ export namespace Components {
     }
     interface FwSelect {
         /**
-          * Whether the arrow/cater should be shown in the select.
+          * Whether the arrow/caret should be shown in the select.
          */
         "caret": boolean;
         /**
@@ -1829,7 +1829,7 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
-          * Whether the arrow/cater should be shown in the select.
+          * Whether the arrow/caret should be shown in the select.
          */
         "caret"?: boolean;
         /**
