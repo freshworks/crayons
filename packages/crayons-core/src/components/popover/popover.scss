@@ -25,7 +25,7 @@
   box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
   user-select: none;
   transform: scale(0.01);
-  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease 0.15s;
+  transition: 150ms color, 150ms border, 150ms box-shadow;
   will-change: auto;
 }
 

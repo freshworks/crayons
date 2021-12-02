@@ -2,6 +2,7 @@
   display: inline-block;
   position: relative;
   padding-left: 22px;
+  margin-right: 10px;
   margin-bottom: 8px;
   max-width: 80ch;
   word-wrap: break-word;
@@ -65,7 +66,6 @@ input[type='radio'] {
     line-height: 20px;
     color: #12344d;
     font-weight: 600;
-    margin-right: 10px;
 
     &::before,
     &::after {
