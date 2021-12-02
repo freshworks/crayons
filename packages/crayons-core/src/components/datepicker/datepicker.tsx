@@ -335,22 +335,13 @@ export class Datepicker {
       this.selectedDay = moment().startOf('date').get('date');
     } else {
       this.year = this.value
-        ? `${moment(
-            moment(this.value).format(this.dateFormat),
-            this.dateFormat
-          ).get('year')}`
+        ? `${moment(this.value, this.dateFormat).get('year')}`
         : moment().year().toString();
       this.month = this.value
-        ? moment(
-            moment(this.value).format(this.dateFormat),
-            this.dateFormat
-          ).get('month')
+        ? moment(this.value, this.dateFormat).get('month')
         : moment().month();
       this.selectedDay =
-        this.value &&
-        moment(moment(this.value).format(this.dateFormat), this.dateFormat).get(
-          'date'
-        );
+        this.value && moment(this.value, this.dateFormat).get('date');
     }
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
