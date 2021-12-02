@@ -4,7 +4,7 @@ import { withActions } from '@storybook/addon-actions';
 import { Parser } from 'html-to-react';
 
 import theme from './freshworksStorybookTheme';
-import { defineCustomElements } from '../../packages/crayons-core/loader';
+import { defineCustomElements } from '../../packages/crayons-core/loader/index.es2017';
 
 defineCustomElements(window);
 

@@ -171,7 +171,10 @@ export class TranslationController {
   async fetchDateLangModule(lang: string): Promise<any> {
     let req = this.requests.get('date_' + lang);
     if (!req) {
-      req = import(`date-fns/locale/${lang}`)
+      req = import(
+        /*webpackIgnore:true*/
+        `https://cdn.jsdelivr.net/npm/date-fns/esm/locale/${lang}/index.js`
+      )
         .then((result) => result.default)
         .then((data) => {
           return data;
@@ -225,7 +228,7 @@ export class TranslationController {
 
       proto.componentWillLoad = async function () {
         if (!that.state.globalI18n) {
-          await that.fetchTranslations(getBrowserLang());
+          await that.fetchTranslations(that.state.lang || getBrowserLang());
         }
 
         let isDefaultValueUsed = false;
