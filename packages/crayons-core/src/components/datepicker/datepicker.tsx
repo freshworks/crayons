@@ -77,11 +77,11 @@ export class Datepicker {
    */
   @Prop({ mutable: true }) toDate: string;
   /**
-   *   Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+   *   Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
    */
-  @Prop() dateFormat = 'DD-MM-YYYY';
+  @Prop() displayFormat = 'YYYY-MM-DD';
   /**
-   *   Date that is preselected in the calendar, if mode is single date or undefined.
+   *   Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
    */
   @Prop({ mutable: true }) value: string;
   /**
@@ -140,8 +140,8 @@ export class Datepicker {
   }
 
   private formatDate(value) {
-    return this.dateFormat
-      ? moment(value, this.dateFormat).format()
+    return this.displayFormat
+      ? moment(value, this.displayFormat).format()
       : moment(value).format();
   }
 
@@ -149,12 +149,12 @@ export class Datepicker {
   async getValue() {
     if (this.mode === 'range') {
       return {
-        fromDate: this.formatDate(this.startDateFormatted),
-        toDate: this.formatDate(this.endDateFormatted),
+        fromDate: moment(this.startDate).format(),
+        toDate: moment(this.endDate).format(),
       };
     }
-    return this.dateFormat
-      ? moment(this.value, this.dateFormat).format()
+    return this.displayFormat
+      ? moment(this.value, this.displayFormat).format()
       : moment(this.value).format();
   }
 
@@ -184,8 +184,10 @@ export class Datepicker {
       .composedPath()[0]
       .classList.value.includes('update-date-value');
     if (isUpdateRange) {
-      this.startDateFormatted = moment(this.startDate).format(this.dateFormat);
-      this.endDateFormatted = moment(this.endDate).format(this.dateFormat);
+      this.startDateFormatted = moment(this.startDate).format(
+        this.displayFormat
+      );
+      this.endDateFormatted = moment(this.endDate).format(this.displayFormat);
       if (this.startDate && this.endDate) {
         this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
       }
@@ -197,7 +199,7 @@ export class Datepicker {
       });
     } else if (isUpdateDate) {
       this.value = moment([this.year, this.month, this.selectedDay]).format(
-        this.dateFormat
+        this.displayFormat
       );
       this.fwChange.emit(this.formatDate(this.value));
     }
@@ -222,15 +224,15 @@ export class Datepicker {
       } else {
         // Single Date input
         const val = e.path[0].value;
-        if (!moment(val, this.dateFormat, true).isValid()) {
+        if (!moment(val, this.displayFormat, true).isValid()) {
           // Invalid date format
           return;
         }
-        this.year = `${moment(val, this.dateFormat).get('year')}`;
-        this.month = moment(val, this.dateFormat).get('month');
-        this.selectedDay = moment(val, this.dateFormat).get('date');
+        this.year = `${moment(val, this.displayFormat).get('year')}`;
+        this.month = moment(val, this.displayFormat).get('month');
+        this.selectedDay = moment(val, this.displayFormat).get('date');
         this.value = moment([this.year, this.month, this.selectedDay]).format(
-          this.dateFormat
+          this.displayFormat
         );
       }
     }
@@ -328,20 +330,30 @@ export class Datepicker {
   };
 
   componentWillLoad() {
-    if (this.value && !moment(this.value, this.dateFormat).isValid()) {
+    if (this.value && !moment(this.value, this.displayFormat).isValid()) {
       // Show current date if invalid date is provided
       this.year = moment().year().toString();
       this.month = moment().month();
       this.selectedDay = moment().startOf('date').get('date');
     } else {
       this.year = this.value
-        ? `${moment(this.value, this.dateFormat).get('year')}`
+        ? `${moment(
+            moment(this.value).format(this.displayFormat),
+            this.displayFormat
+          ).get('year')}`
         : moment().year().toString();
       this.month = this.value
-        ? moment(this.value, this.dateFormat).get('month')
+        ? moment(
+            moment(this.value).format(this.displayFormat),
+            this.displayFormat
+          ).get('month')
         : moment().month();
       this.selectedDay =
-        this.value && moment(this.value, this.dateFormat).get('date');
+        this.value &&
+        moment(
+          moment(this.value).format(this.displayFormat),
+          this.displayFormat
+        ).get('date');
     }
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
@@ -351,7 +363,7 @@ export class Datepicker {
     this.shortMonthNames = monthDetails.map((month) => month.value);
     this.longMonthNames = monthDetails.map((month) => month.text);
     this.value = this.value
-      ? moment(this.value).format(this.dateFormat)
+      ? moment(this.value).format(this.displayFormat)
       : this.value;
     this.setInitalValues();
   }
@@ -364,20 +376,23 @@ export class Datepicker {
     this.placeholder =
       this.placeholder ||
       (this.mode === 'range'
-        ? `${this.dateFormat}` && `${this.dateFormat} to ${this.dateFormat}`
-        : this.dateFormat);
+        ? `${this.displayFormat}` &&
+          `${this.displayFormat} to ${this.displayFormat}`
+        : this.displayFormat);
     this.supportedYears = this.getSupportedYears();
     this.startDate =
       this.fromDate !== undefined
-        ? moment(this.fromDate, this.dateFormat).valueOf()
+        ? moment(this.fromDate, this.displayFormat).valueOf()
         : undefined;
     this.endDate =
       this.toDate !== undefined
-        ? moment(this.toDate, this.dateFormat).valueOf()
+        ? moment(this.toDate, this.displayFormat).valueOf()
         : undefined;
     if (this.mode === 'range' && this.startDate && this.endDate) {
-      const formattedFromDate = moment(this.startDate).format(this.dateFormat);
-      const formattedToDate = moment(this.endDate).format(this.dateFormat);
+      const formattedFromDate = moment(this.startDate).format(
+        this.displayFormat
+      );
+      const formattedToDate = moment(this.endDate).format(this.displayFormat);
       this.value = `${formattedFromDate} to ${formattedToDate}`;
     }
   }
@@ -405,7 +420,7 @@ export class Datepicker {
       if (date < 0) {
         return -1;
       }
-      const dateFormat = this.dateFormat || 'DD-MM-YYYY';
+      const dateFormat = this.displayFormat || 'YYYY-MM-DD';
       const minDate = moment(this.minDate, dateFormat);
       const maxDate = moment(this.maxDate, dateFormat);
       const argDate = moment([args.year, args.month, date + 1]);
@@ -471,11 +486,11 @@ export class Datepicker {
 
   isSelectedDay = ({ date, timestamp }) => {
     if (this.mode !== 'range') {
-      return moment(this.value, this.dateFormat).isValid()
+      return moment(this.value, this.displayFormat).isValid()
         ? date === this.selectedDay &&
-            moment(this.value, this.dateFormat).get('month') ===
+            moment(this.value, this.displayFormat).get('month') ===
               moment(timestamp).get('month') &&
-            moment(this.value, this.dateFormat).get('year') ===
+            moment(this.value, this.displayFormat).get('year') ===
               moment(timestamp).get('year')
         : date === this.selectedDay;
     }
@@ -510,9 +525,9 @@ export class Datepicker {
         // Range Container
         this.onDateClick(day);
         this.startDateFormatted = moment(this.startDate).format(
-          this.dateFormat
+          this.displayFormat
         );
-        this.endDateFormatted = moment(this.endDate).format(this.dateFormat);
+        this.endDateFormatted = moment(this.endDate).format(this.displayFormat);
         if (this.startDate && this.endDate) {
           this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
           this.fwChange.emit({
@@ -525,7 +540,7 @@ export class Datepicker {
         // Single Date Container
         this.onDateClick(day);
         this.value = moment([this.year, this.month, this.selectedDay]).format(
-          this.dateFormat
+          this.displayFormat
         );
         this.fwChange.emit(this.formatDate(this.value));
         this.showDatePicker = false;
@@ -561,7 +576,7 @@ export class Datepicker {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
       this.value = moment([this.year, this.month, this.selectedDay]).format(
-        this.dateFormat
+        this.displayFormat
       );
     } else if (this.showDateRangePicker()) {
       this.handleRangeSelection(timestamp);

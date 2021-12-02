@@ -83,9 +83,9 @@ export namespace Components {
     }
     interface FwDatepicker {
         /**
-          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
-        "dateFormat": string;
+        "displayFormat": string;
         /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
          */
@@ -116,7 +116,7 @@ export namespace Components {
          */
         "toDate": string;
         /**
-          * Date that is preselected in the calendar, if mode is single date or undefined.
+          * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
     }
@@ -1251,9 +1251,9 @@ declare namespace LocalJSX {
     }
     interface FwDatepicker {
         /**
-          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
-        "dateFormat"?: string;
+        "displayFormat"?: string;
         /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
          */
@@ -1287,7 +1287,7 @@ declare namespace LocalJSX {
          */
         "toDate"?: string;
         /**
-          * Date that is preselected in the calendar, if mode is single date or undefined.
+          * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
     }
