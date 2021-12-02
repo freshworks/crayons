@@ -28,6 +28,11 @@ export class Checkbox {
    */
   @Prop({ mutable: true, reflect: true }) disabled = false;
   /**
+   * Description to be displayed for the checkbox.
+   */
+  @Prop() description = '';
+  /**
+   * @deprecated Use `description` instead.
    * Label displayed on the interface, for the check box.
    */
   @Prop() label = '';
@@ -120,17 +125,25 @@ export class Checkbox {
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
-        aria-label={this.label}
-        aria-describedby='description'
+        aria-labelledby='label'
+        aria-describedby={this.description}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
       >
         <div class='checkbox-container'>
           <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
-          <label>{this.label}</label>
-          <div id='description'>
-            <slot />
-          </div>
+          <label>
+            <span id='label'>
+              <slot />
+            </span>
+            {this.description !== '' || this.label !== '' ? (
+              <div id='description'>
+                {this.description ? this.description : this.label}
+              </div>
+            ) : (
+              ''
+            )}
+          </label>
         </div>
       </Host>
     );

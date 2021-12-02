@@ -1,0 +1,179 @@
+@import 'mixins/typography';
+@import 'mixins/card';
+@import 'mixins/spacing';
+
+/**
+  For generating typography styles
+*/
+$font-sizes: (12, 14, 16, 18, 24, 32, 44);
+@each $size in $font-sizes {
+  .fw-font-header-#{$size} {
+    @include typography('header', $size * 1px, $text-default, 600);
+  }
+}
+@each $size in $font-sizes {
+  .fw-font-#{$size} {
+    @include typography('body', $size * 1px);
+  }
+}
+
+/**
+  For generating card styles
+*/
+@for $i from 0 through 3 {
+  .fw-card-#{$i} {
+    @include card($i, 8px);
+  }
+}
+
+/**
+  For generating padding styles
+*/
+$spacing: 28;
+@while $spacing >= 0 {
+  $spacingpx: $spacing * 1px;
+  .fw-p-#{$spacing} {
+    @include padding($spacingpx, $spacingpx, $spacingpx, $spacingpx);
+  }
+  .fw-px-#{$spacing} {
+    @include padding(null, $spacingpx, null, $spacingpx);
+  }
+  .fw-py-#{$spacing} {
+    @include padding($spacingpx, null, $spacingpx, null);
+  }
+  .fw-pt-#{$spacing} {
+    @include padding($spacingpx, null, null, null);
+  }
+  .fw-pr-#{$spacing} {
+    @include padding(null, $spacingpx, null, null);
+  }
+  .fw-pb-#{$spacing} {
+    @include padding(null, null, $spacingpx, null);
+  }
+  .fw-pl-#{$spacing} {
+    @include padding(null, null, null, $spacingpx);
+  }
+  $spacing: $spacing - 4;
+}
+
+/**
+  For generating margin styles
+*/
+$spacing: 28;
+@while $spacing >= 0 {
+  $spacingpx: $spacing * 1px;
+  .fw-m-#{$spacing} {
+    @include margin($spacingpx, $spacingpx, $spacingpx, $spacingpx);
+  }
+  .fw-mx-#{$spacing} {
+    @include margin(null, $spacingpx, null, $spacingpx);
+  }
+  .fw-my-#{$spacing} {
+    @include margin($spacingpx, null, $spacingpx, null);
+  }
+  .fw-mt-#{$spacing} {
+    @include margin($spacingpx, null, null, null);
+  }
+  .fw-mr-#{$spacing} {
+    @include margin(null, $spacingpx, null, null);
+  }
+  .fw-mb-#{$spacing} {
+    @include margin(null, null, $spacingpx, null);
+  }
+  .fw-ml-#{$spacing} {
+    @include margin(null, null, null, $spacingpx);
+  }
+  $spacing: $spacing - 4;
+}
+
+/** 
+  For generating flex related styles
+*/
+.fw-flex {
+  display: flex;
+}
+
+$flex-direction: (row, row-reverse, column, column-reverse);
+@each $direction in $flex-direction {
+  .fw-flex-#{$direction} {
+    flex-direction: $direction;
+  }
+}
+
+$flex-wrap: (wrap, wrap-reverse, nowrap);
+@each $wrap in $flex-wrap {
+  .fw-flex-#{$wrap} {
+    flex-wrap: $wrap;
+  }
+}
+
+.fw-flex-grow-0 {
+  flex-grow: 0;
+}
+.fw-flex-grow {
+  flex-grow: 1;
+}
+
+.fw-flex-shrink-0 {
+  flex-shrink: 0;
+}
+.fw-flex-shrink {
+  flex-shrink: 1;
+}
+
+@for $i from 0 through 12 {
+  .fw-order-#{$i} {
+    order: $i;
+  }
+}
+$flex-order: (
+  first: -9999,
+  last: 9999,
+  none: 0,
+);
+@each $name, $value in $flex-order {
+  .fw-order-#{$name} {
+    order: $value;
+  }
+}
+
+$flex-justify: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+);
+@each $name, $value in $flex-justify {
+  .fw-justify-#{$name} {
+    justify-content: $value;
+  }
+}
+
+$flex-align-items: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  baseline: baseline,
+  stretch: stretch,
+);
+@each $name, $value in $flex-align-items {
+  .fw-items-#{$name} {
+    align-items: $value;
+  }
+}
+
+$flex-align-content: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+);
+@each $name, $value in $flex-align-content {
+  .fw-content-#{$name} {
+    align-content: $value;
+  }
+}

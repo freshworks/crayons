@@ -4,6 +4,7 @@ import {
   Event,
   EventEmitter,
   Prop,
+  Method,
   h,
   Listen,
 } from '@stencil/core';
@@ -16,6 +17,8 @@ import { TagVariant } from '../../utils/types';
   shadow: true,
 })
 export class Tag {
+  private tagContainer: HTMLElement;
+
   @Element() host: HTMLElement;
   /**
    * Display text in the tag component.
@@ -46,6 +49,10 @@ export class Tag {
    */
   @Prop() closable = true;
   /**
+   * Whether the Tag is focusable.
+   */
+  @Prop() focusable = true;
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
@@ -55,8 +62,14 @@ export class Tag {
     switch (event.key) {
       case 'Backspace':
         this.removeTag();
+        event.preventDefault();
         break;
     }
+  }
+
+  @Method()
+  async setFocus(): Promise<any> {
+    this.tagContainer.focus();
   }
 
   removeTag = (): void => {
@@ -64,7 +77,6 @@ export class Tag {
       return;
     }
     const { value, text } = this;
-    console.log(`Tag with text: ${text} removed`);
     this.fwClosed.emit({ value, text });
   };
 
@@ -85,12 +97,17 @@ export class Tag {
 
   render() {
     return (
-      <div role='button' tabindex='0' class={`tag tag-${this.variant}`}>
+      <div
+        role='button'
+        tabindex='-1'
+        class={`tag tag-${this.variant}`}
+        ref={(tagContainer) => (this.tagContainer = tagContainer)}
+      >
         {this.renderContent()}
         {this.closable && (
           <span
             role='button'
-            tabindex='-1'
+            tabIndex={this.focusable ? 0 : -1}
             class={`remove-btn ${this.variant} ${
               this.disabled ? 'disabled' : ''
             }`}

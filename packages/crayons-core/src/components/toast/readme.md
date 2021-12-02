@@ -55,22 +55,32 @@ Toasts are used to show pop-up messages that lasts on the screen for a while. Us
 
 <code-block title="React">
 ```jsx
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import ReactDOM from "react-dom";
 import { FwButton, ToastController, FwToast, FwToastMessage } from "@freshworks/crayons/react";
 function App() {
   const el = useRef(null);
+  const el1 = useRef(null);
   const toast = ToastController({ position:'top-right'})
+
+  useEffect(() => {
+   el1.current.onclick = function() {
+     console.log("custom action handled here");
+   }
+  },[])
+
   return (<div>
 
           <FwToastMessage type='success' id="custom-temp">
             <div>
-              <FwButton>crayons button custom content</FwButton>
-              <p className="cus-style">hello content</p>
+              <FwButton onclick={()=> console.log("custom action here")}>custom action element</FwButton>
+              <FwButton ref={el1}>custom action element in Typescript apps</FwButton>
+              <p> Please make sure here in the above element, the event handler name is in lowercase. use `onclick` instead of `onClick`. </p>
+              <p className="cus-style">custom style element</p>
             </div>
           </FwToastMessage>
         
-          <FwToast id="type_toast" ref={el} timeout="5000"></FwToast>
+          <FwToast id="type_toast" ref={el} timeout={5000}></FwToast>
 
           <FwButton onClick={()=> toast.trigger({type:'success', content: 'Successfullly triggered'})}>Success</FwButton>
           <FwButton onClick={()=> el.current.trigger({type:'error', content:'something went wrong!'})}>Error</FwButton>
@@ -137,6 +147,21 @@ interface ToastOptions {
    */
   position?: 'top-center' | 'top-left' | 'top-right';
 }
+```
+
+### Custom template event naming
+              
+              
+Please make sure when using event handler inside `custom template` in a `React app`, the event handler name is in `lowercase`. For example use `onclick` instead of `onClick`. This helps in cloning the event handlers used in the template when displaying multiple toast messages.
+Refer [usage](#usage)
+```js
+ useEffect(() => {
+   el1.current.onclick = function() {
+     console.log("custom action handled here");
+   }
+  },[])
+ <FwButton onclick={()=> console.log("custom action here")}>Action button</FwButton>
+ <FwButton ref={el1}>In Typescript apps</FwButton>
 ```
 
 <!-- Auto Generated Below -->

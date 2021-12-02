@@ -1,0 +1,27 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# ProgressLoader
+
+<Meta title='ProgressLoader' component='fw-progress-loader' />
+
+## Props
+
+<Props of='fw-progress-loader' />
+
+## Usage
+
+### Default
+
+<Preview>
+  <Story name='Default'>
+    {() => `<div>
+             <fw-progress-loader id="root1" show></fw-progress-loader>
+      <br/><br/><br/>
+      <fw-progress-loader parent="#container2" id="container1" show></fw-progress-loader>
+      <div id="container2"> <p> You can have multiple progress loaders in the page. Pass a 'selector' as a 'parent' prop to the component. The progress loader will be displayed in the provided selector</div>
+      <br/>
+      <br/>
+      <br/>
+   `}
+  </Story>
+</Preview>

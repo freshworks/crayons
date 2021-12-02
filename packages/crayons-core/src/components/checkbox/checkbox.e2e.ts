@@ -58,30 +58,24 @@ describe('fw-checkbox', () => {
     expect(fwChange.events).toEqual([]);
   });
 
-  it('it should set label when passed as a prop', async () => {
-    const page = await newE2EPage();
-
-    await page.setContent('<fw-checkbox label="Yes"></fw-checkbox>');
-    const element = await page.find('fw-checkbox >>> label');
-    expect(element).toEqualText('Yes');
-  });
-
   it('it should return html structure with slot when content is passed between opening and closing tag', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-checkbox label="Yes">Select to Agree</fw-checkbox>'
+      '<fw-checkbox description="Yes">Select to Agree</fw-checkbox>'
     );
     const element = await page.find('fw-checkbox >>> div');
     console.log(element);
     expect(element).toEqualHtml(`<div class="checkbox-container">
     <input type="checkbox">
     <label>
-      Yes
-    </label>
-    <div id="description">
+    <span id="label">
       <slot></slot>
+    </span>
+    <div id="description">
+    Yes
     </div>
+    </label>
     </div>`);
   });
 });
