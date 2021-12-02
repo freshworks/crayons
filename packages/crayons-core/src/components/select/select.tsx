@@ -13,12 +13,7 @@ import {
   h,
 } from '@stencil/core';
 
-import {
-  cyclicDecrement,
-  cyclicIncrement,
-  handleKeyDown,
-  renderHiddenField,
-} from '../../utils';
+import { handleKeyDown, renderHiddenField } from '../../utils';
 import { DropdownVariant, TagVariant } from '../../utils/types';
 @Component({
   tag: 'fw-select',
@@ -44,6 +39,7 @@ export class Select {
   };
 
   private innerOnClick = () => {
+    this.setFocus();
     this.openDropdown();
   };
 
@@ -287,19 +283,21 @@ export class Select {
         this.closeDropdown();
         break;
       case 'ArrowLeft':
-        this.tagArrowKeyCounter = cyclicDecrement(
-          this.tagArrowKeyCounter,
-          this.tagRefs.length - 1
-        );
-        this.focusOnTag(this.tagArrowKeyCounter);
+        this.tagArrowKeyCounter--;
+        if (this.tagArrowKeyCounter >= 0) {
+          this.focusOnTag(this.tagArrowKeyCounter);
+        } else {
+          this.tagArrowKeyCounter = 0;
+        }
         ev.stopImmediatePropagation();
         break;
       case 'ArrowRight':
-        this.tagArrowKeyCounter = cyclicIncrement(
-          this.tagArrowKeyCounter,
-          this.tagRefs.length - 1
-        );
-        this.focusOnTag(this.tagArrowKeyCounter);
+        this.tagArrowKeyCounter++;
+        if (this.tagArrowKeyCounter >= this.value.length) {
+          this.selectInput.focus();
+        } else {
+          this.focusOnTag(this.tagArrowKeyCounter);
+        }
         ev.stopImmediatePropagation();
         break;
     }
