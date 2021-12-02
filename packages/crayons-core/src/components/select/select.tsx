@@ -40,7 +40,9 @@ export class Select {
 
   private innerOnClick = () => {
     this.setFocus();
-    this.openDropdown();
+    if (this.variant !== 'mail') {
+      this.openDropdown();
+    }
   };
 
   private innerOnBlur = (e: Event) => {
@@ -167,6 +169,14 @@ export class Select {
    * The variant of tag to be used.
    */
   @Prop() tagVariant: TagVariant = 'standard';
+  /**
+   * Whether the arrow/caret should be shown in the select.
+   */
+  @Prop() caret = true;
+  /**
+   * The UI variant of the select to be used.
+   */
+  @Prop() variant: 'standard' | 'mail' = 'standard';
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -196,6 +206,9 @@ export class Select {
   @Listen('fwLoading')
   onLoading(event) {
     this.isLoading = event.detail.isLoading;
+    if (this.variant === 'mail' && !this.isLoading) {
+      this.selectInput.value && this.openDropdown();
+    }
   }
 
   @Listen('fwChange')
@@ -205,7 +218,7 @@ export class Select {
       this.value = selectedItem.detail.value;
       this.selectInput.value = '';
       this.renderInput();
-      if (!this.multiple) {
+      if (!this.multiple || this.variant === 'mail') {
         this.closeDropdown();
       }
       selectedItem.stopImmediatePropagation();
@@ -310,7 +323,7 @@ export class Select {
   }
 
   focusOnTag(index) {
-    this.tagRefs[index].setFocus();
+    this.tagRefs[index]?.setFocus();
   }
 
   clearInput() {
@@ -326,8 +339,12 @@ export class Select {
   }
 
   onInput() {
-    this.searchValue = this.selectInput.value.toLowerCase();
-    this.openDropdown();
+    if (this.selectInput.value) {
+      this.searchValue = this.selectInput.value.toLowerCase();
+      this.variant !== 'mail' && this.openDropdown();
+    } else {
+      this.variant === 'mail' && this.closeDropdown();
+    }
   }
 
   renderTags() {
@@ -360,6 +377,11 @@ export class Select {
   }
 
   componentWillLoad() {
+    if (this.variant === 'mail') {
+      this.caret = false;
+      this.multiple = true;
+    }
+
     //TODO: The below is a rough draft and needs to be optimized for better performance.
     const selectOptions = Array.from(
       this.host.querySelectorAll('fw-select-option')
@@ -508,12 +530,14 @@ export class Select {
                 {this.isLoading ? (
                   <fw-spinner size='small'></fw-spinner>
                 ) : (
-                  <span
-                    class={{
-                      'dropdown-status-icon': true,
-                      'expanded': this.isExpanded,
-                    }}
-                  ></span>
+                  this.caret && (
+                    <span
+                      class={{
+                        'dropdown-status-icon': true,
+                        'expanded': this.isExpanded,
+                      }}
+                    ></span>
+                  )
                 )}
               </div>
             </div>
