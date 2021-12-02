@@ -90,6 +90,7 @@ export namespace Components {
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
          */
         "fromDate": string;
+        "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
         /**
           * Latest date a user can select in the calendar, if mode is range.
          */

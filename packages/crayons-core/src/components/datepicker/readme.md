@@ -67,6 +67,19 @@ function App() {
 | `fwChange` | Triggered when the update button clicked | `CustomEvent<any>` |
 
 
+## Methods
+
+### `getValue() => Promise<string | { fromDate: string; toDate: string; }>`
+
+
+
+#### Returns
+
+Type: `Promise<string | { fromDate: string; toDate: string; }>`
+
+
+
+
 ## Dependencies
 
 ### Depends on
