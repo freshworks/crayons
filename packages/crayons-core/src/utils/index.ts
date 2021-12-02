@@ -228,3 +228,13 @@ export function cloneNodeWithEvents(
 
   return eNodeCopy;
 }
+
+export const cyclicIncrement = (value: number, maxValue: number): number => {
+  value++;
+  return value > maxValue ? 0 : value;
+};
+
+export const cyclicDecrement = (value: number, maxValue: number): number => {
+  value--;
+  return value < 0 ? maxValue : value;
+};
