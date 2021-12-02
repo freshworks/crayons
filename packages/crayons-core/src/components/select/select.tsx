@@ -44,7 +44,7 @@ export class Select {
   };
 
   private innerOnClick = () => {
-    if (this.changeEmittable() && this.variant !== 'mail') {
+    if (this.variant !== 'mail') {
       this.openDropdown();
     }
   };
@@ -174,7 +174,7 @@ export class Select {
    */
   @Prop() tagVariant: TagVariant = 'standard';
   /**
-   * Whether the arrow/cater should be shown in the select.
+   * Whether the arrow/caret should be shown in the select.
    */
   @Prop() caret = true;
   /**
