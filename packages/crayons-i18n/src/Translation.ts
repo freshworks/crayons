@@ -54,7 +54,7 @@ function getNavigatorLang() {
 }
 function getBrowserLang(): string {
   const locale = getLangAttr() || getNavigatorLang();
-  return locale || 'en-US';
+  return locale || 'en';
 }
 
 function getVal(path: string, obj: any) {
@@ -79,6 +79,7 @@ export class TranslationController {
     this.onChange = onChange;
 
     this.onChange('lang', async (lang: string) => {
+      console.log('Detected Lang Change. New Lang: ', lang);
       this.fetchTranslations(lang);
       this.setDateLangModule(await this.fetchDateLangModule(lang));
     });
@@ -175,7 +176,7 @@ export class TranslationController {
 
       req = import(
         /*webpackIgnore:true*/
-        `../node_modules/date-fns/esm/locale/${lang}/index.js`
+        `../../../node_modules/date-fns/esm/locale/${lang}/index.js`
       )
         .then((result) => result.default)
         .then((data) => {
