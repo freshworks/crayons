@@ -61,11 +61,11 @@ export class Datepicker {
    */
   @Prop() mode: 'single date' | 'range' = 'single date';
   /**
-   *   Earliest date a user can select in the calendar, if mode is range.
+   *   Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
    */
   @Prop() minDate: string;
   /**
-   *   Latest date a user can select in the calendar, if mode is range.
+   *   Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
    */
   @Prop() maxDate: string;
   /**
@@ -137,6 +137,10 @@ export class Datepicker {
 
   focusElement(element: HTMLElement) {
     element.focus();
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener('keydown', this.escapeHandler);
   }
 
   private formatDate(value) {
@@ -258,11 +262,7 @@ export class Datepicker {
       }
     }
 
-    //TODO: Replace this with e.detail && e.detail.value once bug in select is fixed
-    const newValue =
-      e.detail && Array.isArray(e.detail.value)
-        ? e.detail.value[0]
-        : e.detail.value;
+    const newValue = e.detail && e.detail.value;
 
     if (!newValue) {
       return;
@@ -472,9 +472,9 @@ export class Datepicker {
       if (date < 0) {
         return -1;
       }
-      const dateFormat = this.displayFormat || 'YYYY-MM-DD';
-      const minDate = moment(this.minDate, dateFormat);
-      const maxDate = moment(this.maxDate, dateFormat);
+
+      const minDate = moment(this.minDate);
+      const maxDate = moment(this.maxDate);
       const argDate = moment([args.year, args.month, date + 1]);
 
       const isValid =

@@ -96,11 +96,11 @@ export namespace Components {
         "fromDate": string;
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
         /**
-          * Latest date a user can select in the calendar, if mode is range.
+          * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate": string;
         /**
-          * Earliest date a user can select in the calendar, if mode is range.
+          * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate": string;
         /**
@@ -1395,11 +1395,11 @@ declare namespace LocalJSX {
          */
         "fromDate"?: string;
         /**
-          * Latest date a user can select in the calendar, if mode is range.
+          * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate"?: string;
         /**
-          * Earliest date a user can select in the calendar, if mode is range.
+          * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate"?: string;
         /**
