@@ -7,6 +7,12 @@ import {
   ToastResult,
 } from '../components/toast/toast-util';
 
+import {
+  createProgressLoaderContainer,
+  ProgressLoaderMethods,
+  ProgressLoaderOptions,
+} from '../components/progress-loader/progress-loader-util';
+
 export function ToastController(
   config: ToastOptions = { position: 'top-center' }
 ): ToastResult {
@@ -17,4 +23,10 @@ export function ToastController(
   }
 
   return { trigger };
+}
+
+export function ProgressLoaderController(
+  config: ProgressLoaderOptions
+): ProgressLoaderMethods {
+  return createProgressLoaderContainer(config);
 }

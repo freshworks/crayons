@@ -167,7 +167,7 @@ export class SelectOption {
     return (
       <div
         role='button'
-        tabindex='0'
+        tabindex='-1'
         ref={(el) => (this.rowContainer = el)}
         class={
           'select-option ' +

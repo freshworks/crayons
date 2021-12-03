@@ -148,3 +148,93 @@ export const debounce = (fn, context, timeout) => {
     }, timeout);
   };
 };
+
+// deep clone the node along with its attached events.
+export function cloneNodeWithEvents(
+  oElm: Node,
+  shouldCopyDeep = false,
+  shouldCopyEvents = false
+): Node {
+  let aInputSubElements, aNodeCopySubElements, n1, n2;
+
+  const allEvents = [
+    'onabort',
+    'onbeforecopy',
+    'onbeforecut',
+    'onbeforepaste',
+    'onblur',
+    'onchange',
+    'onclick',
+    'oncontextmenu',
+    'oncopy',
+    'ondblclick',
+    'ondrag',
+    'ondragend',
+    'ondragenter',
+    'ondragleave',
+    'ondragover',
+    'ondragstart',
+    'ondrop',
+    'onerror',
+    'onfocus',
+    'oninput',
+    'oninvalid',
+    'onkeydown',
+    'onkeypress',
+    'onkeyup',
+    'onload',
+    'onmousedown',
+    'onmousemove',
+    'onmouseout',
+    'onmouseover',
+    'onmouseup',
+    'onmousewheel',
+    'onpaste',
+    'onreset',
+    'onresize',
+    'onscroll',
+    'onsearch',
+    'onselect',
+    'onselectstart',
+    'onsubmit',
+    'onunload',
+  ];
+
+  // deep clone node
+  const eNodeCopy = oElm.cloneNode(shouldCopyDeep);
+
+  // copy events
+  if (shouldCopyEvents) {
+    aInputSubElements = (oElm as HTMLElement).getElementsByTagName('*');
+    aNodeCopySubElements = (eNodeCopy as HTMLElement).getElementsByTagName('*');
+
+    // The node root
+    for (n2 = 0; n2 < allEvents.length; n2++) {
+      if (oElm[allEvents[n2]]) {
+        eNodeCopy[allEvents[n2]] = oElm[allEvents[n2]];
+      }
+    }
+
+    // Node descendants copy events
+    for (n1 = 0; n1 < aInputSubElements.length; n1++) {
+      for (n2 = 0; n2 < allEvents.length; n2++) {
+        if (aInputSubElements[n1][allEvents[n2]]) {
+          aNodeCopySubElements[n1][allEvents[n2]] =
+            aInputSubElements[n1][allEvents[n2]];
+        }
+      }
+    }
+  }
+
+  return eNodeCopy;
+}
+
+export const cyclicIncrement = (value: number, maxValue: number): number => {
+  value++;
+  return value > maxValue ? 0 : value;
+};
+
+export const cyclicDecrement = (value: number, maxValue: number): number => {
+  value--;
+  return value < 0 ? maxValue : value;
+};
