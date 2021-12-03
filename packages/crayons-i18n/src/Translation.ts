@@ -171,6 +171,8 @@ export class TranslationController {
   async fetchDateLangModule(lang: string): Promise<any> {
     let req = this.requests.get('date_' + lang);
     if (!req) {
+      //`https://cdn.jsdelivr.net/npm/date-fns/esm/locale/${lang}/index.js`
+
       req = import(
         /*webpackIgnore:true*/
         `https://cdn.jsdelivr.net/npm/date-fns/esm/locale/${lang}/index.js`
