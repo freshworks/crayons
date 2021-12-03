@@ -220,7 +220,28 @@ export class Datepicker {
 
     if (e.path[0].tagName === 'FW-INPUT') {
       if (e.composedPath()[0].classList.value.includes('range-date-input')) {
-        //TODO: Handle Range input
+        // Range input
+        const val = e.path[0].value;
+        let [fromDate, toDate] = val.split('to');
+        fromDate = fromDate.trim();
+        toDate = toDate.trim();
+
+        if (
+          !moment(fromDate, this.displayFormat, true).isValid() ||
+          !moment(toDate, this.displayFormat, true).isValid()
+        ) {
+          // Invalid Date format
+          return;
+        }
+
+        this.year = `${moment(val, this.displayFormat).get('year')}`;
+        this.month = moment(val, this.displayFormat).get('month');
+        this.startDate = moment(fromDate, this.displayFormat).valueOf();
+        this.endDate = moment(toDate, this.displayFormat).valueOf();
+
+        this.toMonth = this.month === 11 ? 0 : this.month + 1;
+        this.toYear =
+          this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
       } else {
         // Single Date input
         const val = e.path[0].value;
@@ -330,30 +351,55 @@ export class Datepicker {
   };
 
   componentWillLoad() {
-    if (this.value && !moment(this.value, this.displayFormat).isValid()) {
-      // Show current date if invalid date is provided
-      this.year = moment().year().toString();
-      this.month = moment().month();
-      this.selectedDay = moment().startOf('date').get('date');
+    if (this.mode === 'range') {
+      if (
+        (this.fromDate &&
+          !moment(this.fromDate, this.displayFormat).isValid()) ||
+        (this.toDate && !moment(this.toDate, this.displayFormat).isValid())
+      ) {
+        // Show current month and year if invalid date is provided
+        this.year = moment().year().toString();
+        this.month = moment().month();
+      } else {
+        this.year = this.fromDate
+          ? `${moment(
+              moment(this.fromDate).format(this.displayFormat),
+              this.displayFormat
+            ).get('year')}`
+          : moment().year().toString();
+        this.month = this.fromDate
+          ? moment(
+              moment(this.fromDate).format(this.displayFormat),
+              this.displayFormat
+            ).get('month')
+          : moment().month();
+      }
     } else {
-      this.year = this.value
-        ? `${moment(
+      if (this.value && !moment(this.value, this.displayFormat).isValid()) {
+        // Show current date if invalid date is provided
+        this.year = moment().year().toString();
+        this.month = moment().month();
+        this.selectedDay = moment().startOf('date').get('date');
+      } else {
+        this.year = this.value
+          ? `${moment(
+              moment(this.value).format(this.displayFormat),
+              this.displayFormat
+            ).get('year')}`
+          : moment().year().toString();
+        this.month = this.value
+          ? moment(
+              moment(this.value).format(this.displayFormat),
+              this.displayFormat
+            ).get('month')
+          : moment().month();
+        this.selectedDay =
+          this.value &&
+          moment(
             moment(this.value).format(this.displayFormat),
             this.displayFormat
-          ).get('year')}`
-        : moment().year().toString();
-      this.month = this.value
-        ? moment(
-            moment(this.value).format(this.displayFormat),
-            this.displayFormat
-          ).get('month')
-        : moment().month();
-      this.selectedDay =
-        this.value &&
-        moment(
-          moment(this.value).format(this.displayFormat),
-          this.displayFormat
-        ).get('date');
+          ).get('date');
+      }
     }
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
@@ -580,6 +626,12 @@ export class Datepicker {
       );
     } else if (this.showDateRangePicker()) {
       this.handleRangeSelection(timestamp);
+      if (this.startDate && this.endDate) {
+        this.value =
+          moment(this.startDate).format(this.displayFormat) +
+          ' to ' +
+          moment(this.endDate).format(this.displayFormat);
+      }
       this.dateHovered = '';
     }
   };
