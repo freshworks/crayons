@@ -87,19 +87,20 @@ export namespace Components {
     }
     interface FwDatepicker {
         /**
-          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
-        "dateFormat": string;
+        "displayFormat": string;
         /**
-          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
+        "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
         /**
-          * Latest date a user can select in the calendar, if mode is range.
+          * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate": string;
         /**
-          * Earliest date a user can select in the calendar, if mode is range.
+          * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate": string;
         /**
@@ -115,11 +116,11 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
         /**
-          * Date that is preselected in the calendar, if mode is single date or undefined.
+          * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
     }
@@ -306,6 +307,7 @@ export namespace Components {
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
+        "scrollToLastSelected": () => Promise<void>;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -322,6 +324,7 @@ export namespace Components {
           * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         /**
           * Pass an array of string in case of multi-select or string for single-select.
@@ -482,6 +485,56 @@ export namespace Components {
          */
         "variant": 'select' | 'date-picker';
     }
+    interface FwProgressLoader {
+        /**
+          * Method to end the progress. This hides the progress loader
+         */
+        "done": () => Promise<void>;
+        /**
+          * Adjust animation settings using easing (a CSS easing string). Default is `ease`
+         */
+        "easing": string;
+        /**
+          * Increments the progress status by a random amount.
+         */
+        "inc": () => Promise<void>;
+        /**
+          * Changes the minimum percentage used upon starting. Default is `0.08`
+         */
+        "minimum": number;
+        /**
+          * Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method
+         */
+        "parent": string;
+        /**
+          * Sets the progress loader status, where `n` is a number from `0.0` to `1.0`.
+         */
+        "set": (n: number) => Promise<void>;
+        /**
+          * Show progress loader. Default `false`
+         */
+        "show": boolean;
+        /**
+          * Add speed (in ms). Default is `200`
+         */
+        "speed": number;
+        /**
+          * Method to start showing the progress loader
+         */
+        "start": () => Promise<void>;
+        /**
+          * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
+         */
+        "template": string;
+        /**
+          * Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`
+         */
+        "trickle": boolean;
+        /**
+          * Adjust how often to trickle/increment, in ms. Default is `200`
+         */
+        "trickleSpeed": number;
+    }
     interface FwRadio {
         /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
@@ -542,6 +595,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Whether the arrow/caret should be shown in the select.
+         */
+        "caret": boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox": boolean;
@@ -587,6 +644,10 @@ export namespace Components {
          */
         "options": any;
         /**
+          * Placement of the options list with respect to select.
+         */
+        "optionsPlacement": PopoverPlacementType;
+        /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "optionsVariant": DropdownVariant;
@@ -603,6 +664,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Whether the select width to be same as that of the options.
+         */
+        "sameWidth": boolean;
+        /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
         "search": any;
@@ -614,6 +679,7 @@ export namespace Components {
           * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
@@ -636,6 +702,10 @@ export namespace Components {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value": any;
+        /**
+          * The UI variant of the select to be used.
+         */
+        "variant": 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
@@ -687,6 +757,37 @@ export namespace Components {
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant": DropdownVariant;
+    }
+    interface FwSkeleton {
+        /**
+          * Number of rows of current skeleton type
+         */
+        "count": number;
+        /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles": { [key: string]: string } | string;
+        /**
+          * Effect the skeleton will use.
+         */
+        "effect": 'pulse' | 'sheen' | 'none';
+        /**
+          * Height of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "height": string;
+        /**
+          * MarginBottom of the skeleton ex. 10px, 0 etc.
+         */
+        "marginBottom": string;
+        /**
+          * Variant of the skeleton - circle or rectangle or text
+         */
+        "variant": 'circle' | 'rect' | 'text';
+        /**
+          * Width of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "width": string;
     }
     interface FwSpinner {
         /**
@@ -1092,6 +1193,12 @@ declare global {
         prototype: HTMLFwPopoverElement;
         new (): HTMLFwPopoverElement;
     };
+    interface HTMLFwProgressLoaderElement extends Components.FwProgressLoader, HTMLStencilElement {
+    }
+    var HTMLFwProgressLoaderElement: {
+        prototype: HTMLFwProgressLoaderElement;
+        new (): HTMLFwProgressLoaderElement;
+    };
     interface HTMLFwRadioElement extends Components.FwRadio, HTMLStencilElement {
     }
     var HTMLFwRadioElement: {
@@ -1121,6 +1228,12 @@ declare global {
     var HTMLFwSelectOptionElement: {
         prototype: HTMLFwSelectOptionElement;
         new (): HTMLFwSelectOptionElement;
+    };
+    interface HTMLFwSkeletonElement extends Components.FwSkeleton, HTMLStencilElement {
+    }
+    var HTMLFwSkeletonElement: {
+        prototype: HTMLFwSkeletonElement;
+        new (): HTMLFwSkeletonElement;
     };
     interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {
     }
@@ -1205,11 +1318,13 @@ declare global {
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
         "fw-popover": HTMLFwPopoverElement;
+        "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-relative-time": HTMLFwRelativeTimeElement;
         "fw-select": HTMLFwSelectElement;
         "fw-select-option": HTMLFwSelectOptionElement;
+        "fw-skeleton": HTMLFwSkeletonElement;
         "fw-spinner": HTMLFwSpinnerElement;
         "fw-tab": HTMLFwTabElement;
         "fw-tab-panel": HTMLFwTabPanelElement;
@@ -1327,19 +1442,19 @@ declare namespace LocalJSX {
     }
     interface FwDatepicker {
         /**
-          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
-        "dateFormat"?: string;
+        "displayFormat"?: string;
         /**
-          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
         /**
-          * Latest date a user can select in the calendar, if mode is range.
+          * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate"?: string;
         /**
-          * Earliest date a user can select in the calendar, if mode is range.
+          * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate"?: string;
         /**
@@ -1359,11 +1474,11 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
         /**
-          * Date that is preselected in the calendar, if mode is single date or undefined.
+          * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
     }
@@ -1765,6 +1880,40 @@ declare namespace LocalJSX {
          */
         "variant"?: 'select' | 'date-picker';
     }
+    interface FwProgressLoader {
+        /**
+          * Adjust animation settings using easing (a CSS easing string). Default is `ease`
+         */
+        "easing"?: string;
+        /**
+          * Changes the minimum percentage used upon starting. Default is `0.08`
+         */
+        "minimum"?: number;
+        /**
+          * Specify a selector to change the parent container. Default is `body` Selector is accessed internally via document.querySelector method
+         */
+        "parent"?: string;
+        /**
+          * Show progress loader. Default `false`
+         */
+        "show"?: boolean;
+        /**
+          * Add speed (in ms). Default is `200`
+         */
+        "speed"?: number;
+        /**
+          * Use Custom markup. To keep the progress bar working, keep an element with class='bar' in there
+         */
+        "template"?: string;
+        /**
+          * Turn on/off the automatic incrementing behavior by setting this to false. Default is `true`
+         */
+        "trickle"?: boolean;
+        /**
+          * Adjust how often to trickle/increment, in ms. Default is `200`
+         */
+        "trickleSpeed"?: number;
+    }
     interface FwRadio {
         /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
@@ -1845,6 +1994,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Whether the arrow/caret should be shown in the select.
+         */
+        "caret"?: boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox"?: boolean;
@@ -1901,6 +2054,10 @@ declare namespace LocalJSX {
          */
         "options"?: any;
         /**
+          * Placement of the options list with respect to select.
+         */
+        "optionsPlacement"?: PopoverPlacementType;
+        /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "optionsVariant"?: DropdownVariant;
@@ -1916,6 +2073,10 @@ declare namespace LocalJSX {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Whether the select width to be same as that of the options.
+         */
+        "sameWidth"?: boolean;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -1948,6 +2109,10 @@ declare namespace LocalJSX {
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "value"?: any;
+        /**
+          * The UI variant of the select to be used.
+         */
+        "variant"?: 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
@@ -2002,6 +2167,37 @@ declare namespace LocalJSX {
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant"?: DropdownVariant;
+    }
+    interface FwSkeleton {
+        /**
+          * Number of rows of current skeleton type
+         */
+        "count"?: number;
+        /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles"?: { [key: string]: string } | string;
+        /**
+          * Effect the skeleton will use.
+         */
+        "effect"?: 'pulse' | 'sheen' | 'none';
+        /**
+          * Height of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "height"?: string;
+        /**
+          * MarginBottom of the skeleton ex. 10px, 0 etc.
+         */
+        "marginBottom"?: string;
+        /**
+          * Variant of the skeleton - circle or rectangle or text
+         */
+        "variant"?: 'circle' | 'rect' | 'text';
+        /**
+          * Width of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "width"?: string;
     }
     interface FwSpinner {
         /**
@@ -2346,11 +2542,13 @@ declare namespace LocalJSX {
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
         "fw-popover": FwPopover;
+        "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
         "fw-radio-group": FwRadioGroup;
         "fw-relative-time": FwRelativeTime;
         "fw-select": FwSelect;
         "fw-select-option": FwSelectOption;
+        "fw-skeleton": FwSkeleton;
         "fw-spinner": FwSpinner;
         "fw-tab": FwTab;
         "fw-tab-panel": FwTabPanel;
@@ -2384,11 +2582,13 @@ declare module "@stencil/core" {
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
+            "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-relative-time": LocalJSX.FwRelativeTime & JSXBase.HTMLAttributes<HTMLFwRelativeTimeElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
             "fw-select-option": LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
+            "fw-skeleton": LocalJSX.FwSkeleton & JSXBase.HTMLAttributes<HTMLFwSkeletonElement>;
             "fw-spinner": LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
             "fw-tab": LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
             "fw-tab-panel": LocalJSX.FwTabPanel & JSXBase.HTMLAttributes<HTMLFwTabPanelElement>;

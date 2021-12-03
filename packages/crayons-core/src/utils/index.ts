@@ -94,6 +94,27 @@ export const throttle = (func, context, delay) => {
   };
 };
 
+export const getFocusableChildren = (node: HTMLElement) => {
+  let focusableElements = [];
+  const getAllNodes = (element: any, root = true) => {
+    root && (focusableElements = []);
+    element = element.shadowRoot ? element.shadowRoot : element;
+    element.querySelectorAll('*').forEach((el: any) => {
+      if (isFocusable(el)) {
+        focusableElements.push(el);
+      } else if (el.nodeName === 'SLOT') {
+        el.assignedElements({ flatten: true }).forEach(
+          (assignedEl: HTMLElement) => getAllNodes(assignedEl, false)
+        );
+      } else if (el.shadowRoot) {
+        getAllNodes(el, false);
+      }
+    });
+  };
+  getAllNodes(node);
+  return focusableElements;
+};
+
 export const isFocusable = (element) => {
   if (element.tabIndex < 0) {
     return false;
@@ -147,4 +168,94 @@ export const debounce = (fn, context, timeout) => {
       fn.apply(context, args);
     }, timeout);
   };
+};
+
+// deep clone the node along with its attached events.
+export function cloneNodeWithEvents(
+  oElm: Node,
+  shouldCopyDeep = false,
+  shouldCopyEvents = false
+): Node {
+  let aInputSubElements, aNodeCopySubElements, n1, n2;
+
+  const allEvents = [
+    'onabort',
+    'onbeforecopy',
+    'onbeforecut',
+    'onbeforepaste',
+    'onblur',
+    'onchange',
+    'onclick',
+    'oncontextmenu',
+    'oncopy',
+    'ondblclick',
+    'ondrag',
+    'ondragend',
+    'ondragenter',
+    'ondragleave',
+    'ondragover',
+    'ondragstart',
+    'ondrop',
+    'onerror',
+    'onfocus',
+    'oninput',
+    'oninvalid',
+    'onkeydown',
+    'onkeypress',
+    'onkeyup',
+    'onload',
+    'onmousedown',
+    'onmousemove',
+    'onmouseout',
+    'onmouseover',
+    'onmouseup',
+    'onmousewheel',
+    'onpaste',
+    'onreset',
+    'onresize',
+    'onscroll',
+    'onsearch',
+    'onselect',
+    'onselectstart',
+    'onsubmit',
+    'onunload',
+  ];
+
+  // deep clone node
+  const eNodeCopy = oElm.cloneNode(shouldCopyDeep);
+
+  // copy events
+  if (shouldCopyEvents) {
+    aInputSubElements = (oElm as HTMLElement).getElementsByTagName('*');
+    aNodeCopySubElements = (eNodeCopy as HTMLElement).getElementsByTagName('*');
+
+    // The node root
+    for (n2 = 0; n2 < allEvents.length; n2++) {
+      if (oElm[allEvents[n2]]) {
+        eNodeCopy[allEvents[n2]] = oElm[allEvents[n2]];
+      }
+    }
+
+    // Node descendants copy events
+    for (n1 = 0; n1 < aInputSubElements.length; n1++) {
+      for (n2 = 0; n2 < allEvents.length; n2++) {
+        if (aInputSubElements[n1][allEvents[n2]]) {
+          aNodeCopySubElements[n1][allEvents[n2]] =
+            aInputSubElements[n1][allEvents[n2]];
+        }
+      }
+    }
+  }
+
+  return eNodeCopy;
+}
+
+export const cyclicIncrement = (value: number, maxValue: number): number => {
+  value++;
+  return value > maxValue ? 0 : value;
+};
+
+export const cyclicDecrement = (value: number, maxValue: number): number => {
+  value--;
+  return value < 0 ? maxValue : value;
 };

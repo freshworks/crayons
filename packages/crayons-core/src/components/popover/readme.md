@@ -33,6 +33,315 @@ Popover need two slots `popover-trigger` and `popover-content`. By default on cl
 </script>
 ```
 
+Even a complex dropdown can be created via popover. Below example contains two different fw-list-options inside a single fw-popover.
+
+```html live
+<fw-popover same-width="false" placement="bottom-start">
+  <fw-button slot="popover-trigger" color="secondary" show-caret-icon>
+    <fw-icon
+      id="buttonIcon"
+      slot="before-label"
+      name="vertical-align-bottom"
+    ></fw-icon>
+    <span id="buttonContent">Premier Accounts</span>
+  </fw-button>
+  <div slot="popover-content">
+    <span
+      style="font-style: italic;"
+      class="row fw-flex fw-type-xs fw-p-4 fw-type-semibold"
+      >Sort Customers By</span
+    >
+    <hr style="margin: 0px" />
+    <fw-list-options id="sortBy" variant="icon"> </fw-list-options>
+    <span
+      style="font-style: italic;"
+      class="row fw-flex fw-type-xs fw-p-4 fw-type-semibold"
+      >Sorting Order</span
+    >
+    <hr style="margin: 0px" />
+    <fw-list-options id="sortOrder" variant="icon"> </fw-list-options>
+  </div>
+</fw-popover>
+
+<script type="application/javascript">
+  var sortByData = [
+    {
+      value: '1',
+      text: 'Premier Accounts',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      value: '2',
+      text: 'Expired Accounts',
+      graphicsProps: { name: 'alert' },
+    },
+    {
+      value: '3',
+      text: 'Freshconect Accounts',
+      graphicsProps: { name: 'freshconnect' },
+    },
+    {
+      value: '4',
+      text: 'Freshchat Accounts',
+      graphicsProps: { name: 'freshchat' },
+    },
+    {
+      value: '5',
+      text: 'Verified Accounts',
+      graphicsProps: { name: 'ticket-primary' },
+    },
+  ];
+  var sortOrderData = [
+    {
+      value: '1',
+      text: 'Ascending',
+      graphicsProps: { name: 'vertical-align-bottom' },
+    },
+    {
+      value: '2',
+      text: 'Descending',
+      graphicsProps: { name: 'vertical-align-top' },
+    },
+  ];
+  var buttonIcon = document.getElementById('buttonIcon');
+  var buttonContent = document.getElementById('buttonContent');
+  var sortBy = document.getElementById('sortBy');
+  sortBy.value = '1';
+  sortBy.options = sortByData;
+  sortBy.addEventListener('fwChange', (e) => {
+    const selectedOptions = e.detail.selectedOptions;
+    const text =
+      selectedOptions.length > 0
+        ? e.detail.selectedOptions[0].text
+        : 'Select sort type';
+    buttonContent.removeChild(buttonContent.firstChild);
+    buttonContent.appendChild(document.createTextNode(text));
+  });
+  var sortOrder = document.getElementById('sortOrder');
+  sortOrder.options = sortOrderData;
+  sortOrder.value = '1';
+  sortOrder.addEventListener('fwChange', (e) => {
+    const selectedOptions = e.detail.selectedOptions;
+    const iconName =
+      selectedOptions.length > 0
+        ? e.detail.selectedOptions[0].graphicsProps.name
+        : 'vertical-align-bottom';
+    buttonIcon.name = iconName;
+  });
+</script>
+```
+
+<code-group>
+<code-block title='HTML'>
+
+```html
+<fw-popover same-width="false" placement="bottom-start">
+  <fw-button slot="popover-trigger" color="secondary" show-caret-icon>
+    <fw-icon
+      id="buttonIcon"
+      slot="before-label"
+      name="vertical-align-bottom"
+    ></fw-icon>
+    <span id="buttonContent">Premier Accounts</span>
+  </fw-button>
+  <div slot="popover-content">
+    <span
+      style="font-style: italic;"
+      class="row fw-flex fw-type-xs fw-p-4 fw-type-semibold"
+      >Sort Customers By</span
+    >
+    <hr style="margin: 0px" />
+    <fw-list-options id="sortBy" variant="icon"> </fw-list-options>
+    <span
+      style="font-style: italic;"
+      class="row fw-flex fw-type-xs fw-p-4 fw-type-semibold"
+      >Sorting Order</span
+    >
+    <hr style="margin: 0px" />
+    <fw-list-options id="sortOrder" variant="icon"> </fw-list-options>
+  </div>
+</fw-popover>
+
+<script type="application/javascript">
+  var sortByData = [
+    {
+      value: '1',
+      text: 'Premier Accounts',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      value: '2',
+      text: 'Expired Accounts',
+      graphicsProps: { name: 'alert' },
+    },
+    {
+      value: '3',
+      text: 'Freshconect Accounts',
+      graphicsProps: { name: 'freshconnect' },
+    },
+    {
+      value: '4',
+      text: 'Freshchat Accounts',
+      graphicsProps: { name: 'freshchat' },
+    },
+    {
+      value: '5',
+      text: 'Verified Accounts',
+      graphicsProps: { name: 'ticket-primary' },
+    },
+  ];
+  var sortOrderData = [
+    {
+      value: '1',
+      text: 'Ascending',
+      graphicsProps: { name: 'vertical-align-bottom' },
+    },
+    {
+      value: '2',
+      text: 'Descending',
+      graphicsProps: { name: 'vertical-align-top' },
+    },
+  ];
+  var buttonIcon = document.getElementById('buttonIcon');
+  var buttonContent = document.getElementById('buttonContent');
+  var sortBy = document.getElementById('sortBy');
+  sortBy.value = '1';
+  sortBy.options = sortByData;
+  sortBy.addEventListener('fwChange', (e) => {
+    const selectedOptions = e.detail.selectedOptions;
+    const text =
+      selectedOptions.length > 0
+        ? e.detail.selectedOptions[0].text
+        : 'Select sort type';
+    buttonContent.removeChild(buttonContent.firstChild);
+    buttonContent.appendChild(document.createTextNode(text));
+  });
+  var sortOrder = document.getElementById('sortOrder');
+  sortOrder.options = sortOrderData;
+  sortOrder.value = '1';
+  sortOrder.addEventListener('fwChange', (e) => {
+    const selectedOptions = e.detail.selectedOptions;
+    const iconName =
+      selectedOptions.length > 0
+        ? e.detail.selectedOptions[0].graphicsProps.name
+        : 'vertical-align-bottom';
+    buttonIcon.name = iconName;
+  });
+</script>
+```
+
+</code-block>
+<code-block title='React'>
+
+```jsx
+import React, { useState } from 'react';
+import {
+  FwButton,
+  FwIcon,
+  FwListOptions,
+  FwPopover,
+} from '@freshworks/crayons/react';
+
+const Popover = () => {
+  var sortByData = [
+    {
+      value: '1',
+      text: 'Premier Accounts',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      value: '2',
+      text: 'Expired Accounts',
+      graphicsProps: { name: 'alert' },
+    },
+    {
+      value: '3',
+      text: 'Freshconect Accounts',
+      graphicsProps: { name: 'freshconnect' },
+    },
+    {
+      value: '4',
+      text: 'Freshchat Accounts',
+      graphicsProps: { name: 'freshchat' },
+    },
+    {
+      value: '5',
+      text: 'Verified Accounts',
+      graphicsProps: { name: 'ticket-primary' },
+    },
+  ];
+  var sortOrderData = [
+    {
+      value: 'vertical-align-bottom',
+      text: 'Ascending',
+      graphicsProps: { name: 'vertical-align-bottom' },
+    },
+    {
+      value: 'vertical-align-top',
+      text: 'Descending',
+      graphicsProps: { name: 'vertical-align-top' },
+    },
+  ];
+
+  // Setting initial states
+  const [sortBy, setSortBy] = useState(sortByData[0]);
+  const [sortOrder, setSortOrder] = useState(sortOrderData[0]);
+
+  const onSortChange = (event) => {
+    setSortBy(event.detail.selectedOptions[0]);
+  };
+
+  const onSortOrderChange = (event) => {
+    setSortOrder(event.detail.selectedOptions[0]);
+  };
+
+  return (
+    <div>
+      <FwPopover sameWidth='false' placement='bottom-start'>
+        <FwButton slot='popover-trigger' color='secondary' showCaretIcon>
+          <FwIcon slot='before-label' name={sortOrder.value}></FwIcon>
+          <span id='buttonContent'>{sortBy.text}</span>
+        </FwButton>
+        <div slot='popover-content'>
+          <span
+            style={{ fontStyle: 'italic' }}
+            className='row fw-flex fw-type-xs fw-p-4 fw-type-semibold'
+          >
+            Sort Customers By
+          </span>
+          <hr style={{ margin: '0px' }} />
+          <FwListOptions
+            onFwChange={onSortChange}
+            selectedOptions={[sortByData[0]]}
+            options={sortByData}
+            variant='icon'
+          ></FwListOptions>
+
+          <span
+            style={{ fontStyle: 'italic' }}
+            className='row fw-flex fw-type-xs fw-p-4 fw-type-semibold'
+          >
+            Sort Order
+          </span>
+          <hr style={{ margin: '0px' }} />
+          <FwListOptions
+            onFwChange={onSortOrderChange}
+            selectedOptions={[sortOrderData[0]]}
+            options={sortOrderData}
+            variant='icon'
+          ></FwListOptions>
+        </div>
+      </FwPopover>
+    </div>
+  );
+};
+
+export default Popover;
+```
+
+</code-block>
+</code-group>
+
 <!-- Auto Generated Below -->
 
 

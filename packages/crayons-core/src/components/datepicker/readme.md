@@ -1,15 +1,22 @@
 # Datepicker (fw-datepicker)
+
 fw-datepicker displays an input box with a calendar that enables selecting a date or date range. The values preselected in the input box and calendar are based on the fw-datepicker attribute values.
+
+All the date formats passed as attribute's values must be valid [ISO Date format](https://en.wikipedia.org/wiki/ISO_8601).
 
 ## Demo
 
-``` html live
-<fw-label value="Single date picker" color="yellow"></fw-label><br/>
-<fw-datepicker value="22-05-2020" date-format="DD-MM-YYYY"></fw-datepicker>
-<fw-label value="A date range picker" color="yellow"></fw-label><br/>
-<fw-datepicker mode="range" min-date="10-05-2020" max-date="10-07-2020" from-date="12-05-2020" to-date="14-05-2020"></fw-datepicker>
+```html live
+<fw-label value="Single date picker" color="yellow"></fw-label><br />
+<fw-datepicker value="2021-12-02" display-format="DD-MM-YYYY"></fw-datepicker>
+<fw-label value="A date range picker" color="yellow"></fw-label><br />
+<fw-datepicker
+  mode="range"
+  from-date="2022-01-02"
+  to-date="2022-01-04"
+  display-format="DD-MM-YYYY"
+></fw-datepicker>
 ```
-
 
 ## Usage
 
@@ -17,12 +24,16 @@ fw-datepicker displays an input box with a calendar that enables selecting a dat
 <code-block title="HTML">
 ```html
 <fw-label value="Single date picker" color="yellow"></fw-label><br/>
-<fw-datepicker value="22-05-2020" date-format="DD-MM-YYYY"></fw-datepicker>
+<fw-datepicker value="2021-12-02" display-format="DD-MM-YYYY"></fw-datepicker>
 <fw-label value="A date range picker" color="yellow"></fw-label><br/>
-<fw-datepicker mode="range" min-date="10-05-2020" max-date="10-07-2020" from-date="12-05-2020" to-date="14-05-2020"></fw-datepicker>
+<fw-datepicker
+  mode="range"
+  from-date="2022-01-02"
+  to-date="2022-01-04"
+  display-format="DD-MM-YYYY"
+></fw-datepicker>
 ```
 </code-block>
-
 
 <code-block title="React">
 ```jsx
@@ -32,32 +43,34 @@ import { FwDatepicker } from "@freshworks/crayons/react";
 function App() {
   return (<div>
     <label>Single date picker</label><br/>
-    <FwDatepicker value="22-05-2020" dateFormat="DD-MM-YYYY"></FwDatepicker>
+    <FwDatepicker value="2021-12-02" display-format="DD-MM-YYYY"></FwDatepicker>
     <label>A date range picker</label><br/>
-    <FwDatepicker mode="range" minDate="10-05-2020" maxDate="10-07-2020" fromDate="12-05-2020" toDate="14-05-2020"></FwDatepicker>
+    <FwDatepicker mode="range"
+  from-date="2022-01-02"
+  to-date="2022-01-04"
+  display-format="DD-MM-YYYY"></FwDatepicker>
   </div>)
 }
 ```
 </code-block>
 </code-group>
 
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                                                                          | Type                       | Default         |
-| ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- | --------------- |
-| `dateFormat`  | `date-format` | Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.       | `string`                   | `'DD-MM-YYYY'`  |
-| `fromDate`    | `from-date`   | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value. | `string`                   | `undefined`     |
-| `maxDate`     | `max-date`    | Latest date a user can select in the calendar, if mode is range.                                                                     | `string`                   | `undefined`     |
-| `minDate`     | `min-date`    | Earliest date a user can select in the calendar, if mode is range.                                                                   | `string`                   | `undefined`     |
-| `mode`        | `mode`        | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.              | `"range" \| "single date"` | `'single date'` |
-| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                   | `string`                   | `''`            |
-| `placeholder` | `placeholder` | Text displayed in the input box before a user selects a date or date range.                                                          | `string`                   | `undefined`     |
-| `toDate`      | `to-date`     | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value. | `string`                   | `undefined`     |
-| `value`       | `value`       | Date that is preselected in the calendar, if mode is single date or undefined.                                                       | `string`                   | `undefined`     |
+| Property        | Attribute        | Description                                                                                                                                                    | Type                       | Default         |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------- |
+| `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.                                          | `string`                   | `'YYYY-MM-DD'`  |
+| `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                   | `undefined`     |
+| `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                   | `undefined`     |
+| `minDate`       | `min-date`       | Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                     | `string`                   | `undefined`     |
+| `mode`          | `mode`           | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"` | `'single date'` |
+| `name`          | `name`           | Name of the component, saved as part of form data.                                                                                                             | `string`                   | `''`            |
+| `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                   | `undefined`     |
+| `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                   | `undefined`     |
+| `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                   | `undefined`     |
 
 
 ## Events
@@ -65,6 +78,19 @@ function App() {
 | Event      | Description                              | Type               |
 | ---------- | ---------------------------------------- | ------------------ |
 | `fwChange` | Triggered when the update button clicked | `CustomEvent<any>` |
+
+
+## Methods
+
+### `getValue() => Promise<string | { fromDate: string; toDate: string; }>`
+
+
+
+#### Returns
+
+Type: `Promise<string | { fromDate: string; toDate: string; }>`
+
+
 
 
 ## Dependencies
@@ -88,17 +114,18 @@ graph TD;
   fw-input --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-popover
+  fw-select --> fw-button
   fw-select --> fw-spinner
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

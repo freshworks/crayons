@@ -39,7 +39,6 @@
     "@rollup/plugin-node-resolve": "^11.1.0",
     "@rollup/plugin-typescript": "^8.1.0",
     "@stencil/store": "^1.5.0",
-    "@types/node": "^12.0.4",
     "date-fns": "^2.27.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.38.0",

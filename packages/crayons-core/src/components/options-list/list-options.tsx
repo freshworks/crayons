@@ -10,7 +10,7 @@ import {
   EventEmitter,
   Event,
 } from '@stencil/core';
-import { debounce } from '../../utils';
+import { cyclicDecrement, cyclicIncrement, debounce } from '../../utils';
 import { DropdownVariant } from '../../utils/types';
 import { i18n } from '../../global/Translation';
 @Component({
@@ -21,7 +21,9 @@ import { i18n } from '../../global/Translation';
 export class ListOptions {
   private searchInput?: HTMLFwInputElement;
   private isInternalValueChange = false;
-
+  private arrowKeyCounter = 0;
+  private container: HTMLElement;
+  private optionRefs = [];
   private defaultSearchFunction = (
     text: string,
     dataSource: any[]
@@ -135,11 +137,48 @@ export class ListOptions {
     this.setValue(this.selectedOptionsState);
   }
 
+  @Listen('keydown')
+  onKeyDown(ev) {
+    switch (ev.key) {
+      case 'ArrowDown':
+        // If focus is on the last option, moves focus to the first option.
+        // Ref - https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html
+        this.arrowKeyCounter = cyclicIncrement(
+          this.arrowKeyCounter,
+          this.optionRefs.length - 1
+        );
+        this.optionRefs[this.arrowKeyCounter].setFocus();
+        ev.preventDefault();
+        ev.stopPropagation();
+        break;
+      case 'ArrowUp':
+        // If focus is on the first option, moves focus to the last option.
+        // Ref - https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html
+        this.arrowKeyCounter = cyclicDecrement(
+          this.arrowKeyCounter,
+          this.optionRefs.length - 1
+        );
+        this.optionRefs[this.arrowKeyCounter].setFocus();
+        ev.preventDefault();
+        ev.stopPropagation();
+        break;
+    }
+  }
+
   @Method()
   async clearFilter() {
     this.filteredOptions = this.selectOptions;
     if (this.searchable) {
       this.searchInput.value = '';
+    }
+  }
+
+  @Method()
+  async scrollToLastSelected() {
+    if (this.filteredOptions.length > 0 && this.valueExists()) {
+      this.container
+        .querySelector(`fw-select-option[id='${this.getLastSelectedValue()}']`)
+        ?.scrollIntoView({ block: 'nearest' });
     }
   }
 
@@ -168,6 +207,21 @@ export class ListOptions {
     this.selectedOptionsState = options;
     this.isInternalValueChange = true;
     this.setValue(options);
+  }
+
+  @Method()
+  async setFocus(): Promise<any> {
+    this.optionRefs = [
+      ...this.container.getElementsByTagName('fw-select-option'),
+    ];
+    const lastValue = this.getLastSelectedValue();
+    if (lastValue && this.optionRefs.length > 0) {
+      const lastValueIndex = this.optionRefs.findIndex(
+        (option) => option.value === lastValue
+      );
+      this.arrowKeyCounter = lastValueIndex === -1 ? 0 : lastValueIndex;
+    }
+    this.optionRefs[this.arrowKeyCounter].setFocus();
   }
 
   @Watch('options')
@@ -209,6 +263,10 @@ export class ListOptions {
     this.handleSearchWithDebounce(newValue);
   }
 
+  valueExists() {
+    return this.multiple ? this.value.length > 0 : !!this.value;
+  }
+
   handleSearchWithDebounce = debounce(
     (filterText) => {
       this.isLoading = true;
@@ -226,6 +284,12 @@ export class ListOptions {
     this,
     this.debounceTimer
   );
+
+  getLastSelectedValue() {
+    if (this.valueExists()) {
+      return this.multiple ? this.value.slice(-1)[0] : this.value;
+    }
+  }
 
   setSelectedOptionsByValue(values) {
     if (this.options) {
@@ -279,7 +343,11 @@ export class ListOptions {
 
   renderSelectOptions(options: Array<any>) {
     return options.map((option) => (
-      <fw-select-option key={option.value} {...option}></fw-select-option>
+      <fw-select-option
+        id={option.value}
+        key={option.value}
+        {...option}
+      ></fw-select-option>
     ));
   }
 
@@ -296,8 +364,10 @@ export class ListOptions {
   componentWillLoad() {
     if (this.selectedOptions.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
-      this.value = this.selectedOptionsState.map((option) => option.value);
-    } else if (this.value.length > 0) {
+      this.value = this.multiple
+        ? this.selectedOptionsState.map((option) => option.value)
+        : this.selectedOptionsState[0].value;
+    } else if (this.valueExists()) {
       this.setSelectedOptionsByValue(this.value);
     } else {
       this.setValue([]);
@@ -310,7 +380,12 @@ export class ListOptions {
 
   render() {
     return (
-      <div class='container'>
+      <div
+        class='container'
+        ref={(container) => {
+          this.container = container;
+        }}
+      >
         {this.searchable && this.renderSearchInput()}
         {this.renderSelectOptions(this.filteredOptions)}
       </div>
