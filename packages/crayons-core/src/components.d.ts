@@ -87,19 +87,20 @@ export namespace Components {
     }
     interface FwDatepicker {
         /**
-          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
-        "dateFormat": string;
+        "displayFormat": string;
         /**
-          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
+        "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
         /**
-          * Latest date a user can select in the calendar, if mode is range.
+          * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate": string;
         /**
-          * Earliest date a user can select in the calendar, if mode is range.
+          * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate": string;
         /**
@@ -115,11 +116,11 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
         /**
-          * Date that is preselected in the calendar, if mode is single date or undefined.
+          * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
     }
@@ -633,6 +634,10 @@ export namespace Components {
          */
         "options": any;
         /**
+          * Placement of the options list with respect to select.
+         */
+        "optionsPlacement": PopoverPlacementType;
+        /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "optionsVariant": DropdownVariant;
@@ -648,6 +653,10 @@ export namespace Components {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Whether the select width to be same as that of the options.
+         */
+        "sameWidth": boolean;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -686,7 +695,7 @@ export namespace Components {
         /**
           * The UI variant of the select to be used.
          */
-        "variant": 'standard' | 'mail';
+        "variant": 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
@@ -1416,19 +1425,19 @@ declare namespace LocalJSX {
     }
     interface FwDatepicker {
         /**
-          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
-        "dateFormat"?: string;
+        "displayFormat"?: string;
         /**
-          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
         /**
-          * Latest date a user can select in the calendar, if mode is range.
+          * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate"?: string;
         /**
-          * Earliest date a user can select in the calendar, if mode is range.
+          * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate"?: string;
         /**
@@ -1448,11 +1457,11 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
         /**
-          * Date that is preselected in the calendar, if mode is single date or undefined.
+          * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
     }
@@ -2018,6 +2027,10 @@ declare namespace LocalJSX {
          */
         "options"?: any;
         /**
+          * Placement of the options list with respect to select.
+         */
+        "optionsPlacement"?: PopoverPlacementType;
+        /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "optionsVariant"?: DropdownVariant;
@@ -2033,6 +2046,10 @@ declare namespace LocalJSX {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Whether the select width to be same as that of the options.
+         */
+        "sameWidth"?: boolean;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -2068,7 +2085,7 @@ declare namespace LocalJSX {
         /**
           * The UI variant of the select to be used.
          */
-        "variant"?: 'standard' | 'mail';
+        "variant"?: 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**

@@ -94,6 +94,27 @@ export const throttle = (func, context, delay) => {
   };
 };
 
+export const getFocusableChildren = (node: HTMLElement) => {
+  let focusableElements = [];
+  const getAllNodes = (element: any, root = true) => {
+    root && (focusableElements = []);
+    element = element.shadowRoot ? element.shadowRoot : element;
+    element.querySelectorAll('*').forEach((el: any) => {
+      if (isFocusable(el)) {
+        focusableElements.push(el);
+      } else if (el.nodeName === 'SLOT') {
+        el.assignedElements({ flatten: true }).forEach(
+          (assignedEl: HTMLElement) => getAllNodes(assignedEl, false)
+        );
+      } else if (el.shadowRoot) {
+        getAllNodes(el, false);
+      }
+    });
+  };
+  getAllNodes(node);
+  return focusableElements;
+};
+
 export const isFocusable = (element) => {
   if (element.tabIndex < 0) {
     return false;

@@ -288,6 +288,7 @@ function App() {
  - [fw-datepicker](../datepicker)
  - [fw-dropdown-button](../dropdown-button)
  - [fw-modal-footer](../modal-footer)
+ - [fw-select](../select)
 
 ### Depends on
 
@@ -302,6 +303,7 @@ graph TD;
   fw-datepicker --> fw-button
   fw-dropdown-button --> fw-button
   fw-modal-footer --> fw-button
+  fw-select --> fw-button
   style fw-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
