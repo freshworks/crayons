@@ -13,8 +13,7 @@
     "i18n"
   ],
   "scripts": {
-    "main": "index.js",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js"
+    "build": "rimraf dist && rollup -c"
   },
   "keywords": [
     "crayons",
@@ -32,22 +31,19 @@
   },
   "homepage": "https://github.com/freshworks/crayons#readme",
   "devDependencies": {
-    "@open-wc/building-rollup": "^2.0.1",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-dynamic-import-vars": "^1.4.1",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "@rollup/plugin-typescript": "^8.1.0",
     "@stencil/store": "^1.5.0",
     "@types/node": "^12.0.4",
-    "@types/webpack": "^4.4.32",
-    "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^5.0.3",
     "date-fns": "^2.27.0",
-    "declaration-bundler-webpack-plugin": "^1.0.3",
-    "deepmerge": "^4.2.2",
     "rimraf": "^3.0.2",
-    "rollup": "^2.60.2",
-    "ts-loader": "^6.0.1",
-    "typescript": "^4.2.4",
-    "uglifyjs-webpack-plugin": "^2.1.3",
-    "webpack": "^4.32.2",
-    "webpack-cli": "^3.3.2"
+    "rollup": "^2.38.0",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "@stencil/core": "^2.9.0"

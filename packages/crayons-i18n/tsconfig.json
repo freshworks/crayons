@@ -1,24 +1,11 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "target": "es2018",
-    "noImplicitAny": true,
-    "declaration": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,              
+    "target": "es2017",
     "module": "esnext",
-    "moduleResolution": "node",                     
-    "noEmitOnError": true,
-    "lib": ["dom", "es2017"],                       
-    "strict": false,  
-    "esModuleInterop": false,                 
-    "outDir": "dist-tsc",
-    "rootDir": "./",
-    "emitDeclarationOnly": false,
-
-  },
-    "compileOnSave": false,
-    "buildOnSave": false
+    "strict": true,
+    "lib": ["dom", "es2017"],      
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   }
-  
+}

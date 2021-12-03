@@ -1,2 +1,1 @@
-import { TranslationController } from './Translation';
-export { TranslationController };
+export { TranslationController } from './Translation';
