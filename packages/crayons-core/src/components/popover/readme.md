@@ -33,7 +33,7 @@ Popover need two slots `popover-trigger` and `popover-content`. By default on cl
 </script>
 ```
 
-Even a complex dropdown can be created via popover
+Even a complex dropdown can be created via popover. Below example contains two different fw-list-options inside a single fw-popover.
 
 ```html live
 <fw-popover same-width="false" placement="bottom-start">
