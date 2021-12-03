@@ -484,7 +484,7 @@ import { FwSelect, FwSelectOption } from '@freshworks/crayons/react';
 
 function App() {
   const methodSelect = useRef();
-  const selectRef = useRef();
+
   const iconDataSource = [
     {
       value: '1',
@@ -512,15 +512,6 @@ function App() {
 
   useEffect(() => {
     methodSelect.current.setSelectedValues(['1', '5']);
-  }, []);
-
-  useEffect(() => {
-    const methodOptionSelect = selectRef.current;
-    methodOptionSelect.addEventListener('fwChange', onSelectChange);
-    return () => {
-      // Remove the listener during unmount
-      methodOptionSelect.removeEventListener('fwChange', onSelectChange);
-    };
   }, []);
 
   return (
@@ -570,7 +561,7 @@ function App() {
 
       <FwSelect
         id='methodOptionSelect'
-        ref={selectRef}
+        onFwChange={onSelectChange}
         label='Strawhat Pirates'
         placeholder='Your choices'
         stateText='Select single option'
