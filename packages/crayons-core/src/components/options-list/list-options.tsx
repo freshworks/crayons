@@ -359,7 +359,9 @@ export class ListOptions {
   componentWillLoad() {
     if (this.selectedOptions.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
-      this.value = this.selectedOptionsState.map((option) => option.value);
+      this.value = this.multiple
+        ? this.selectedOptionsState.map((option) => option.value)
+        : this.selectedOptionsState[0].value;
     } else if (this.valueExists()) {
       this.setSelectedOptionsByValue(this.value);
     } else {
