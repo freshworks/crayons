@@ -929,7 +929,6 @@ export default Select;
 | `variant`         | `variant`         | The UI variant of the select to be used.                                                                                                                                                                                                  | `"mail" \| "standard"`             | `'standard'`          |
 
 
-
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -972,8 +971,6 @@ Type: `Promise<any>`
 
 
 ### `setSelectedValues(values: string | string[]) => Promise<any>`
-
-
 
 
 

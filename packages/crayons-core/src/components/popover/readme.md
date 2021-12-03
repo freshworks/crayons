@@ -36,21 +36,6 @@ Popover need two slots `popover-trigger` and `popover-content`. By default on cl
 Even a complex dropdown can be created via popover
 
 ```html live
-<style>
-  .row {
-    font-weight: 400;
-    font-style: italic;
-  }
-  .row > span:after {
-    position: relative;
-    flex: 1 1;
-    left: 12px;
-    margin: auto;
-    content: '';
-    border-bottom: 1px solid #ebeff3;
-  }
-</style>
-
 <fw-popover same-width="false" placement="bottom-start">
   <fw-button slot="popover-trigger" color="secondary" show-caret-icon>
     <fw-icon
@@ -61,9 +46,19 @@ Even a complex dropdown can be created via popover
     <span id="buttonContent">Premier Accounts</span>
   </fw-button>
   <div slot="popover-content">
-    <span class="row fw-flex fw-font-12 fw-p-8">Sort Customers By</span>
+    <span
+      style="font-style: italic;"
+      class="row fw-flex fw-type-xs fw-p-4 fw-type-semibold"
+      >Sort Customers By</span
+    >
+    <hr style="margin: 0px" />
     <fw-list-options id="sortBy" variant="icon"> </fw-list-options>
-    <span class="row fw-flex fw-font-12 fw-p-8">Sorting Order</span>
+    <span
+      style="font-style: italic;"
+      class="row fw-flex fw-type-xs fw-p-4 fw-type-semibold"
+      >Sorting Order</span
+    >
+    <hr style="margin: 0px" />
     <fw-list-options id="sortOrder" variant="icon"> </fw-list-options>
   </div>
 </fw-popover>
@@ -138,6 +133,7 @@ Even a complex dropdown can be created via popover
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property             | Attribute            | Description                                                                                                                                                              | Type                                                                                                                                                                 | Default     |
@@ -154,6 +150,7 @@ Even a complex dropdown can be created via popover
 | `trigger`            | `trigger`            | The trigger event on which the popover-content is displayed. The available options are 'click' \| 'manual' \| 'hover', in case of 'manual' no trigger event will be set. | `"click" \| "hover" \| "manual"`                                                                                                                                     | `'click'`   |
 | `variant`            | `variant`            | Variant defines the style of the popover-content.                                                                                                                        | `"date-picker" \| "select"`                                                                                                                                          | `'select'`  |
 
+
 ## Events
 
 | Event    | Description                                                | Type               |
@@ -161,19 +158,29 @@ Even a complex dropdown can be created via popover
 | `fwHide` | Triggered whenever the popover contents is closed/hidden.  | `CustomEvent<any>` |
 | `fwShow` | Triggered whenever the popover contents is open/displayed. | `CustomEvent<any>` |
 
+
 ## Methods
 
 ### `hide() => Promise<void>`
 
+
+
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `show() => Promise<void>`
 
+
+
 #### Returns
 
 Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -184,16 +191,16 @@ Type: `Promise<void>`
 | `--popover-min-height` | Minimum height of the popover content. |
 | `--popover-min-width`  | Minimum width of the popover content.  |
 
+
 ## Dependencies
 
 ### Used by
 
-- [fw-datepicker](../datepicker)
-- [fw-select](../select)
-- [fw-tooltip](../tooltip)
+ - [fw-datepicker](../datepicker)
+ - [fw-select](../select)
+ - [fw-tooltip](../tooltip)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-datepicker --> fw-popover
@@ -202,6 +209,6 @@ graph TD;
   style fw-popover fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks
