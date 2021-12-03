@@ -1,8 +1,8 @@
 import { Build as BUILD, ComponentInterface } from '@stencil/core';
 
 import { createStore } from '@stencil/store';
-import { Locale } from 'date-fns';
-import en_datelang_module from 'date-fns/locale/en-US';
+//import { Locale } from 'date-fns';
+//import en_datelang_module from 'date-fns/locale/en-US';
 
 interface i18nConfig {
   [key: string]: {
@@ -73,7 +73,7 @@ export class TranslationController {
       lang: '',
       globalI18n: null,
       customTranslations: {},
-      dateLangModule: en_datelang_module,
+      dateLangModule: '',
     });
     this.state = state;
     this.onChange = onChange;
@@ -121,14 +121,14 @@ export class TranslationController {
    * set date lang module
    * @param langModule
    */
-  setDateLangModule(langModule: Locale): void {
+  setDateLangModule(langModule: any): void {
     this.state.dateLangModule = langModule;
   }
 
   /**
    * @returns the selected date lang module
    */
-  getDateLangModule(): Locale {
+  getDateLangModule(): any {
     return this.state.dateLangModule;
   }
 
@@ -179,12 +179,13 @@ export class TranslationController {
         .then((data) => {
           return data;
         })
-        .catch((err) => {
+        .catch(async (err) => {
           console.warn(
             `Error loading date lang module for : ${lang} from date-fns set`,
             err
           );
-          return en_datelang_module;
+          // fallback to en default strings in case of exception
+          return await this.fetchDateLangModule('en-US');
         });
       this.requests.set('date_' + lang, req);
     }
