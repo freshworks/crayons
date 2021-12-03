@@ -91,7 +91,7 @@ export namespace Components {
          */
         "displayFormat": string;
         /**
-          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
@@ -116,7 +116,7 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
         /**
@@ -1391,7 +1391,7 @@ declare namespace LocalJSX {
          */
         "displayFormat"?: string;
         /**
-          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
         /**
@@ -1419,7 +1419,7 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
         /**

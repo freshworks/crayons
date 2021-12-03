@@ -69,11 +69,11 @@ export class Datepicker {
    */
   @Prop() maxDate: string;
   /**
-   *   Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+   *   Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
    */
   @Prop({ mutable: true }) fromDate: string;
   /**
-   *   Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+   *   Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
    */
   @Prop({ mutable: true }) toDate: string;
   /**
@@ -428,11 +428,17 @@ export class Datepicker {
     this.supportedYears = this.getSupportedYears();
     this.startDate =
       this.fromDate !== undefined
-        ? moment(this.fromDate, this.displayFormat).valueOf()
+        ? moment(
+            moment(this.fromDate).format(this.displayFormat),
+            this.displayFormat
+          ).valueOf()
         : undefined;
     this.endDate =
       this.toDate !== undefined
-        ? moment(this.toDate, this.displayFormat).valueOf()
+        ? moment(
+            moment(this.toDate).format(this.displayFormat),
+            this.displayFormat
+          ).valueOf()
         : undefined;
     if (this.mode === 'range' && this.startDate && this.endDate) {
       const formattedFromDate = moment(this.startDate).format(
