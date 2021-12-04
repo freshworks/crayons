@@ -14,7 +14,11 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
-import { DropdownVariant, TagVariant } from '../../utils/types';
+import {
+  DropdownVariant,
+  TagVariant,
+  PopoverPlacementType,
+} from '../../utils/types';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -25,7 +29,44 @@ export class Select {
   private selectInput?: HTMLInputElement;
   private fwListOptions?: HTMLFwListOptionsElement;
   private popover?: HTMLFwPopoverElement;
-  private preventDropdownClose?: boolean = false;
+  private tagContainer: HTMLElement;
+  private tagRefs = [];
+  private tagArrowKeyCounter = 0;
+
+  private changeEmittable = () => !this.disabled;
+
+  private innerOnFocus = (e: Event) => {
+    if (this.changeEmittable()) {
+      this.hasFocus = true;
+      this.fwFocus.emit(e);
+    }
+  };
+
+  private innerOnClick = () => {
+    this.setFocus();
+    if (this.variant !== 'mail') {
+      this.openDropdown();
+    }
+  };
+
+  private innerOnBlur = (e: Event) => {
+    if (this.changeEmittable()) {
+      this.hasFocus = false;
+      this.fwBlur.emit(e);
+    }
+  };
+
+  private openDropdown = () => {
+    if (!this.isExpanded && this.changeEmittable()) {
+      this.popover.show();
+    }
+  };
+
+  private closeDropdown = () => {
+    if (this.isExpanded && this.changeEmittable()) {
+      this.popover.hide();
+    }
+  };
 
   /**
    * If the dropdown is shown or not
@@ -90,6 +131,10 @@ export class Select {
    */
   @Prop() max = Number.MAX_VALUE;
   /**
+   * The UI variant of the select to be used.
+   */
+  @Prop() variant: 'button' | 'standard' | 'mail' = 'standard';
+  /**
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
@@ -129,9 +174,21 @@ export class Select {
    */
   @Prop({ reflect: true, mutable: true }) selectedOptions = [];
   /**
+   * Whether the select width to be same as that of the options.
+   */
+  @Prop() sameWidth = true;
+  /**
+   * Placement of the options list with respect to select.
+   */
+  @Prop() optionsPlacement: PopoverPlacementType = 'bottom';
+  /**
    * The variant of tag to be used.
    */
   @Prop() tagVariant: TagVariant = 'standard';
+  /**
+   * Whether the arrow/caret should be shown in the select.
+   */
+  @Prop() caret = true;
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -146,45 +203,24 @@ export class Select {
    */
   @Event() fwBlur: EventEmitter;
 
-  private changeEmittable = () => !this.disabled;
-
-  private closeDropdown = () => {
-    this.popover.hide();
+  @Listen('fwHide')
+  onDropdownClose() {
+    this.clearInput();
     this.isExpanded = false;
-  };
+    this.multiple && this.selectInput.focus();
+  }
 
-  private innerOnFocus = (e: Event) => {
-    if (this.changeEmittable()) {
-      this.hasFocus = true;
-      this.fwFocus.emit(e);
-    }
-  };
-
-  private innerOnClick = () => {
-    if (this.changeEmittable()) {
-      this.searchable && this.selectInput && this.selectInput.select();
-      this.popover.show();
-      this.isExpanded = true;
-    }
-  };
-
-  private innerOnBlur = (e: Event) => {
-    if (this.changeEmittable()) {
-      // Remove the user typed value after user focus-out of input component
-      if (this.multiple) {
-        this.selectInput.value = '';
-      } else {
-        this.renderInput();
-      }
-      !this.preventDropdownClose && this.closeDropdown();
-      this.hasFocus = false;
-      this.fwBlur.emit(e);
-    }
-  };
+  @Listen('fwShow')
+  onDropdownOpen() {
+    this.isExpanded = true;
+  }
 
   @Listen('fwLoading')
   onLoading(event) {
     this.isLoading = event.detail.isLoading;
+    if (this.variant === 'mail' && !this.isLoading) {
+      this.selectInput.value && this.openDropdown();
+    }
   }
 
   @Listen('fwChange')
@@ -192,10 +228,8 @@ export class Select {
     if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
       this.selectedOptionsState = selectedItem.detail.selectedOptions;
       this.value = selectedItem.detail.value;
-      this.selectInput.value = '';
       this.renderInput();
-      if (!this.multiple) {
-        this.resetFocus();
+      if (!this.multiple || this.variant === 'mail') {
         this.closeDropdown();
       }
       selectedItem.stopImmediatePropagation();
@@ -208,31 +242,120 @@ export class Select {
     }
   }
 
-  @Watch('dataSource')
-  optionsChangedHandler() {
-    this.renderInput();
-  }
-
   // Listen to Tag close in case of multi-select
   @Listen('fwClosed')
   fwCloseHandler(ev) {
     this.value = this.value.filter((value) => value !== ev.detail.value);
   }
+
   @Listen('keydown')
-  onKeyDonw(ev) {
+  onKeyDown(ev) {
     switch (ev.key) {
       case 'ArrowDown':
         this.innerOnClick();
+        this.fwListOptions.setFocus();
+        ev.preventDefault();
+        ev.stopPropagation();
+        break;
+      case 'ArrowLeft':
+      case 'Backspace':
+        if (this.multiple && this.selectInput.value === '') {
+          this.focusOnTagContainer();
+        }
         break;
       case 'Escape':
         this.innerOnBlur(ev);
+        this.closeDropdown();
+        break;
+      case 'Tab':
+        this.closeDropdown();
         break;
     }
   }
 
-  onInput() {
-    this.searchValue = this.selectInput.value.toLowerCase();
+  @Watch('dataSource')
+  optionsChangedHandler() {
     this.renderInput();
+  }
+
+  @Method()
+  async getSelectedItem(): Promise<any> {
+    return this.fwListOptions.getSelectedOptions();
+  }
+
+  @Method()
+  async setSelectedValues(values: string | string[]): Promise<any> {
+    this.fwListOptions.setSelectedValues(values);
+    this.renderInput();
+  }
+
+  @Method()
+  async setSelectedOptions(options: any[]): Promise<any> {
+    this.fwListOptions.setSelectedOptions(options);
+    this.renderInput();
+  }
+
+  @Method()
+  async setFocus(): Promise<any> {
+    this.selectInput?.focus();
+  }
+
+  tagContainerKeyDown = (ev) => {
+    switch (ev.key) {
+      case 'Escape':
+        this.innerOnBlur(ev);
+        this.closeDropdown();
+        break;
+      case 'ArrowLeft':
+        this.tagArrowKeyCounter--;
+        if (this.tagArrowKeyCounter >= 0) {
+          this.focusOnTag(this.tagArrowKeyCounter);
+        } else {
+          this.tagArrowKeyCounter = 0;
+        }
+        ev.stopImmediatePropagation();
+        break;
+      case 'ArrowRight':
+        this.tagArrowKeyCounter++;
+        if (this.tagArrowKeyCounter >= this.value.length) {
+          this.selectInput.focus();
+        } else {
+          this.focusOnTag(this.tagArrowKeyCounter);
+        }
+        ev.stopImmediatePropagation();
+        break;
+    }
+  };
+
+  focusOnTagContainer() {
+    this.tagRefs = [...this.tagContainer.getElementsByTagName('fw-tag')];
+    this.tagArrowKeyCounter = this.value.length - 1;
+    this.focusOnTag(this.tagArrowKeyCounter);
+  }
+
+  focusOnTag(index) {
+    this.tagRefs[index]?.setFocus();
+  }
+
+  clearInput() {
+    if (!this.multiple && this.value) {
+      this.renderInput();
+      return;
+    }
+    this.selectInput.value = '';
+  }
+
+  valueExists() {
+    return this.multiple ? this.value.length > 0 : !!this.value;
+  }
+
+  onInput() {
+    if (this.selectInput.value) {
+      this.searchValue = this.selectInput.value.toLowerCase();
+      this.variant !== 'mail' && this.openDropdown();
+    } else {
+      this.variant === 'mail' && this.closeDropdown();
+    }
   }
 
   renderTags() {
@@ -246,6 +369,7 @@ export class Select {
               text={option.text}
               disabled={option.disabled}
               value={option.value}
+              focusable={false}
             />
           );
         }
@@ -256,6 +380,7 @@ export class Select {
   renderInput() {
     if (this.selectedOptionsState.length > 0) {
       if (this.selectInput) {
+        this.selectInput.value = '';
         this.selectInput.value = this.multiple
           ? this.selectInput.value
           : this.selectedOptionsState[0].text || '';
@@ -263,11 +388,12 @@ export class Select {
     }
   }
 
-  resetFocus() {
-    this.preventDropdownClose = false;
-  }
-
   componentWillLoad() {
+    if (this.variant === 'mail') {
+      this.caret = false;
+      this.multiple = true;
+    }
+
     //TODO: The below is a rough draft and needs to be optimized for better performance.
     const selectOptions = Array.from(
       this.host.querySelectorAll('fw-select-option')
@@ -325,16 +451,18 @@ export class Select {
       const selectedDataSourceValues = selectedDataSource.map(
         (option) => option.value
       );
+      const selected = this.multiple
+        ? selectedDataSourceValues
+        : selectedDataSourceValues[0];
       if (
         selectedDataSourceValues.length > 0 &&
-        JSON.stringify(this.value) !== JSON.stringify(selectedDataSourceValues)
+        JSON.stringify(this.value) !== JSON.stringify(selected)
       ) {
-        this.value = this.multiple
-          ? selectedDataSourceValues
-          : selectedDataSourceValues[0].value;
+        this.value = selected;
         this.selectedOptionsState = selectedDataSource;
       }
     }
+    this.host.addEventListener('focus', this.setFocus);
     this.host.innerHTML = '';
   }
 
@@ -343,21 +471,8 @@ export class Select {
     this.didInit = true;
   }
 
-  @Method()
-  async getSelectedItem(): Promise<any> {
-    return this.fwListOptions.getSelectedOptions();
-  }
-
-  @Method()
-  async setSelectedValues(values: string | string[]): Promise<any> {
-    this.fwListOptions.setSelectedValues(values);
-    this.renderInput();
-  }
-
-  @Method()
-  async setSelectedOptions(options: any[]): Promise<any> {
-    this.fwListOptions.setSelectedOptions(options);
-    this.renderInput();
+  disconnectedCallback() {
+    this.host.removeEventListener('focus', this.setFocus);
   }
 
   render() {
@@ -378,52 +493,81 @@ export class Select {
           ''
         )}
         <div class='select-container'>
-          <fw-popover distance='8' ref={(popover) => (this.popover = popover)}>
+          <fw-popover
+            distance='8'
+            trigger='manual'
+            ref={(popover) => (this.popover = popover)}
+            same-width={this.sameWidth}
+            placement={this.optionsPlacement}
+          >
             <div
               slot='popover-trigger'
               class={{
-                'input-container': true,
+                'input-container': this.variant !== 'button',
                 [this.state]: true,
                 'select-disabled': this.disabled,
               }}
               onClick={() => this.innerOnClick()}
               onKeyDown={handleKeyDown(this.innerOnClick)}
             >
-              <div class='input-container-inner'>
-                {this.renderTags()}
-                <input
-                  ref={(selectInput) => (this.selectInput = selectInput)}
-                  class={{
-                    'multiple-select': this.multiple,
-                  }}
-                  autoComplete='off'
-                  disabled={this.disabled}
-                  name={this.name}
-                  placeholder={
-                    (this.multiple && this.value.length > 0) ||
-                    (!this.multiple && this.value)
-                      ? ''
-                      : this.placeholder || ''
+              {this.variant === 'button' ? (
+                //TODO: Make this behavior generic.
+                <fw-button
+                  id='select-btn'
+                  show-caret-icon
+                  color='secondary'
+                  class={
+                    this.host.classList.value.includes('month')
+                      ? 'fw-button-group__button--first'
+                      : 'fw-button-group__button--last'
                   }
-                  readOnly={this.readonly}
-                  required={this.required}
-                  type={this.type}
-                  value=''
-                  onInput={() => this.onInput()}
-                  onFocus={(e) => this.innerOnFocus(e)}
-                  onBlur={(e) => this.innerOnBlur(e)}
-                />
-                {this.isLoading ? (
-                  <fw-spinner size='small'></fw-spinner>
-                ) : (
-                  <span
+                >
+                  {this.value}
+                </fw-button>
+              ) : (
+                <div class='input-container-inner'>
+                  {this.multiple && (
+                    <div
+                      onFocus={this.focusOnTagContainer}
+                      ref={(tagContainer) => (this.tagContainer = tagContainer)}
+                      onKeyDown={this.tagContainerKeyDown}
+                    >
+                      {this.renderTags()}
+                    </div>
+                  )}
+                  <input
+                    ref={(selectInput) => (this.selectInput = selectInput)}
                     class={{
-                      'dropdown-status-icon': true,
-                      'expanded': this.isExpanded,
+                      'multiple-select': this.multiple,
                     }}
-                  ></span>
-                )}
-              </div>
+                    autoComplete='off'
+                    disabled={this.disabled}
+                    name={this.name}
+                    placeholder={
+                      this.valueExists() ? '' : this.placeholder || ''
+                    }
+                    readOnly={this.readonly}
+                    required={this.required}
+                    type={this.type}
+                    value=''
+                    onInput={() => this.onInput()}
+                    onFocus={(e) => this.innerOnFocus(e)}
+                    onBlur={(e) => this.innerOnBlur(e)}
+                  />
+                  {this.isLoading ? (
+                    <fw-spinner size='small'></fw-spinner>
+                  ) : (
+                    this.caret && (
+                      <span
+                        class={{
+                          'dropdown-status-icon': true,
+                          'expanded': this.isExpanded,
+                        }}
+                      ></span>
+                    )
+                  )}
+                </div>
+              )}
             </div>
             <fw-list-options
               ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}

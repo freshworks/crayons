@@ -2,22 +2,22 @@
 
 $size-height-ratio: (
   header: (
-    12px: 16px,
-    14px: 20px,
-    16px: 20px,
-    18px: 24px,
-    24px: 32px,
-    32px: 40px,
-    44px: 54px,
+    0.75rem: 1rem,
+    0.875rem: 1.25rem,
+    1rem: 1.25rem,
+    1.125rem: 1.5rem,
+    1.5rem: 2rem,
+    2rem: 2.5rem,
+    2.75rem: 3.375rem,
   ),
   body: (
-    12px: 20px,
-    14px: 20px,
-    16px: 24px,
-    18px: 28px,
-    24px: 36px,
-    32px: 48px,
-    44px: 64px,
+    0.75rem: 1.25rem,
+    0.875rem: 1.25rem,
+    1rem: 1.5rem,
+    1.125rem: 1.75rem,
+    1.5rem: 2.25rem,
+    2rem: 3rem,
+    2.75rem: 4rem,
   ),
 );
 
@@ -29,7 +29,7 @@ $size-height-ratio: (
 }
 
 @mixin typography(
-  $type: 'body',
+  $type: body,
   $size: 16px,
   $color: $text-default,
   $weight: 400
@@ -39,21 +39,21 @@ $size-height-ratio: (
   font-weight: $weight;
   letter-spacing: normal;
 
-  @if (($type == 'body') or ($type == 'header')) {
-    @if $size == 12px {
-      line-height: map-deep-get($size-height-ratio, $type, 12px);
-    } @else if $size == 14px {
-      line-height: map-deep-get($size-height-ratio, $type, 14px);
-    } @else if $size == 16px {
-      line-height: map-deep-get($size-height-ratio, $type, 16px);
-    } @else if $size == 18px {
-      line-height: map-deep-get($size-height-ratio, $type, 18px);
-    } @else if $size == 24px {
-      line-height: map-deep-get($size-height-ratio, $type, 24px);
-    } @else if $size == 32px {
-      line-height: map-deep-get($size-height-ratio, $type, 32px);
-    } @else if $size == 44px {
-      line-height: map-deep-get($size-height-ratio, $type, 44px);
+  @if (($type == body) or ($type == header)) {
+    @if $size == 0.75rem {
+      line-height: map-deep-get($size-height-ratio, $type, 0.75rem);
+    } @else if $size == 0.875rem {
+      line-height: map-deep-get($size-height-ratio, $type, 0.875rem);
+    } @else if $size == 1rem {
+      line-height: map-deep-get($size-height-ratio, $type, 1rem);
+    } @else if $size == 1.125rem {
+      line-height: map-deep-get($size-height-ratio, $type, 1.125rem);
+    } @else if $size == 1.5rem {
+      line-height: map-deep-get($size-height-ratio, $type, 1.5rem);
+    } @else if $size == 2rem {
+      line-height: map-deep-get($size-height-ratio, $type, 2rem);
+    } @else if $size == 2.75rem {
+      line-height: map-deep-get($size-height-ratio, $type, 2.75rem);
     } @else {
       @error "Unacceptable font size #{$size}.";
     }

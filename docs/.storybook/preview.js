@@ -41,6 +41,7 @@ addDecorator(
     'fwDeselect',
     'fwSelected',
     'fwClosed',
-    'fwInputClear'
+    'fwInputClear',
+    'fwRemoveToast'
   )
 );

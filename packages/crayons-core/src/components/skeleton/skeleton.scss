@@ -1,0 +1,83 @@
+/**
+ * @prop --skeleton-height: Skeleton height: Default: 16px for the text and rect, 32px for the circle
+ * @prop --skeleton-width: Skeleton width: Default: 100% for the text and rect, 32px for the circle
+ * @prop --skeleton-margin-bottom: Skeleton margin-bottom: Default: 8px
+ * @prop --skeleton-border-radius: Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect
+ * @prop --skeleton-background: Skeleton background: Default: #cfd7df
+ * @prop --sheen-color: Skeleton Sheen effect color: Default: #b1bdc8
+ */
+
+.skeleton {
+  box-sizing: border-box;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  background: var(--skeleton-background, $color-smoke-100);
+  border-radius: var(--skeleton-border-radius, 999px);
+  width: var(--skeleton-width, 100%);
+  height: var(--skeleton-height, 16px);
+  display: block;
+  margin-bottom: var(--skeleton-margin-bottom, 8px);
+  will-change: auto;
+
+  &:after,
+  &:before {
+    box-sizing: border-box;
+  }
+
+  &.circle {
+    width: var(--skeleton-width, 32px);
+    height: var(--skeleton-height, 32px);
+    margin-bottom: var(--skeleton-margin-bottom, 8px);
+    border-radius: var(--skeleton-border-radius, 50%);
+  }
+
+  &.rect {
+    border-radius: var(--skeleton-border-radius, 0px);
+  }
+
+  // stylelint-disable a11y/media-prefers-reduced-motion
+  @media (prefers-reduced-motion: reduce) {
+    &.pulse,
+    &.sheen {
+      animation: none;
+    }
+  }
+
+  &.pulse {
+    animation: pulse 2s ease-in-out 0.5s infinite;
+  }
+
+  &.sheen {
+    background: linear-gradient(
+      270deg,
+      var(--sheen-color, $color-smoke-200),
+      var(--skeleton-background, $color-smoke-100),
+      var(--skeleton-background, $color-smoke-100),
+      var(--sheen-color, $color-smoke-200)
+    );
+
+    animation: sheen 8s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes sheen {
+  0% {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
