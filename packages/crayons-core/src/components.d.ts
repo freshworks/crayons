@@ -87,19 +87,20 @@ export namespace Components {
     }
     interface FwDatepicker {
         /**
-          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
-        "dateFormat": string;
+        "displayFormat": string;
         /**
-          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
+        "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
         /**
-          * Latest date a user can select in the calendar, if mode is range.
+          * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate": string;
         /**
-          * Earliest date a user can select in the calendar, if mode is range.
+          * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate": string;
         /**
@@ -115,11 +116,11 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
         /**
-          * Date that is preselected in the calendar, if mode is single date or undefined.
+          * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
     }
@@ -683,6 +684,10 @@ export namespace Components {
          */
         "options": any;
         /**
+          * Placement of the options list with respect to select.
+         */
+        "optionsPlacement": PopoverPlacementType;
+        /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "optionsVariant": DropdownVariant;
@@ -698,6 +703,10 @@ export namespace Components {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Whether the select width to be same as that of the options.
+         */
+        "sameWidth": boolean;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -736,7 +745,7 @@ export namespace Components {
         /**
           * The UI variant of the select to be used.
          */
-        "variant": 'standard' | 'mail';
+        "variant": 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
@@ -788,6 +797,37 @@ export namespace Components {
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant": DropdownVariant;
+    }
+    interface FwSkeleton {
+        /**
+          * Number of rows of current skeleton type
+         */
+        "count": number;
+        /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles": { [key: string]: string } | string;
+        /**
+          * Effect the skeleton will use.
+         */
+        "effect": 'pulse' | 'sheen' | 'none';
+        /**
+          * Height of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "height": string;
+        /**
+          * MarginBottom of the skeleton ex. 10px, 0 etc.
+         */
+        "marginBottom": string;
+        /**
+          * Variant of the skeleton - circle or rectangle or text
+         */
+        "variant": 'circle' | 'rect' | 'text';
+        /**
+          * Width of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "width": string;
     }
     interface FwSpinner {
         /**
@@ -1229,6 +1269,12 @@ declare global {
         prototype: HTMLFwSelectOptionElement;
         new (): HTMLFwSelectOptionElement;
     };
+    interface HTMLFwSkeletonElement extends Components.FwSkeleton, HTMLStencilElement {
+    }
+    var HTMLFwSkeletonElement: {
+        prototype: HTMLFwSkeletonElement;
+        new (): HTMLFwSkeletonElement;
+    };
     interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {
     }
     var HTMLFwSpinnerElement: {
@@ -1318,6 +1364,7 @@ declare global {
         "fw-radio-group": HTMLFwRadioGroupElement;
         "fw-select": HTMLFwSelectElement;
         "fw-select-option": HTMLFwSelectOptionElement;
+        "fw-skeleton": HTMLFwSkeletonElement;
         "fw-spinner": HTMLFwSpinnerElement;
         "fw-tab": HTMLFwTabElement;
         "fw-tab-panel": HTMLFwTabPanelElement;
@@ -1435,19 +1482,19 @@ declare namespace LocalJSX {
     }
     interface FwDatepicker {
         /**
-          * Format in which the date values selected in the calendar are populated in the input box and saved when the form data is saved.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
-        "dateFormat"?: string;
+        "displayFormat"?: string;
         /**
-          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value.
+          * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
         /**
-          * Latest date a user can select in the calendar, if mode is range.
+          * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate"?: string;
         /**
-          * Earliest date a user can select in the calendar, if mode is range.
+          * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate"?: string;
         /**
@@ -1467,11 +1514,11 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value.
+          * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
         /**
-          * Date that is preselected in the calendar, if mode is single date or undefined.
+          * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
     }
@@ -2087,6 +2134,10 @@ declare namespace LocalJSX {
          */
         "options"?: any;
         /**
+          * Placement of the options list with respect to select.
+         */
+        "optionsPlacement"?: PopoverPlacementType;
+        /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "optionsVariant"?: DropdownVariant;
@@ -2102,6 +2153,10 @@ declare namespace LocalJSX {
           * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Whether the select width to be same as that of the options.
+         */
+        "sameWidth"?: boolean;
         /**
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
@@ -2137,7 +2192,7 @@ declare namespace LocalJSX {
         /**
           * The UI variant of the select to be used.
          */
-        "variant"?: 'standard' | 'mail';
+        "variant"?: 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
         /**
@@ -2192,6 +2247,37 @@ declare namespace LocalJSX {
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant"?: DropdownVariant;
+    }
+    interface FwSkeleton {
+        /**
+          * Number of rows of current skeleton type
+         */
+        "count"?: number;
+        /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles"?: { [key: string]: string } | string;
+        /**
+          * Effect the skeleton will use.
+         */
+        "effect"?: 'pulse' | 'sheen' | 'none';
+        /**
+          * Height of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "height"?: string;
+        /**
+          * MarginBottom of the skeleton ex. 10px, 0 etc.
+         */
+        "marginBottom"?: string;
+        /**
+          * Variant of the skeleton - circle or rectangle or text
+         */
+        "variant"?: 'circle' | 'rect' | 'text';
+        /**
+          * Width of the skeleton ex. 100px, 100%, auto etc.
+         */
+        "width"?: string;
     }
     interface FwSpinner {
         /**
@@ -2542,6 +2628,7 @@ declare namespace LocalJSX {
         "fw-radio-group": FwRadioGroup;
         "fw-select": FwSelect;
         "fw-select-option": FwSelectOption;
+        "fw-skeleton": FwSkeleton;
         "fw-spinner": FwSpinner;
         "fw-tab": FwTab;
         "fw-tab-panel": FwTabPanel;
@@ -2581,6 +2668,7 @@ declare module "@stencil/core" {
             "fw-radio-group": LocalJSX.FwRadioGroup & JSXBase.HTMLAttributes<HTMLFwRadioGroupElement>;
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
             "fw-select-option": LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
+            "fw-skeleton": LocalJSX.FwSkeleton & JSXBase.HTMLAttributes<HTMLFwSkeletonElement>;
             "fw-spinner": LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
             "fw-tab": LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
             "fw-tab-panel": LocalJSX.FwTabPanel & JSXBase.HTMLAttributes<HTMLFwTabPanelElement>;
