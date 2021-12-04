@@ -12,7 +12,6 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: '../loader',
-      copy: [{ src: '../../crayons-i18n/i18n/*.js', dest: 'i18n', warn: true }],
     },
     {
       type: 'docs-readme',
@@ -41,12 +40,10 @@ export const config: Config = {
     },
     {
       type: 'www',
-      copy: [{ src: '../../crayons-i18n/i18n/*.js', dest: 'i18n', warn: true }],
     },
     {
       type: 'www',
       dir: `../../www/.vuepress/public/${packageName}/`,
-      copy: [{ src: '../../crayons-i18n/i18n/*.js', dest: 'i18n', warn: true }],
     },
     {
       type: 'docs-json',

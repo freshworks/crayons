@@ -174,10 +174,7 @@ export class TranslationController {
     if (!req) {
       //`https://cdn.jsdelivr.net/npm/date-fns/esm/locale/${lang}/index.js`
 
-      req = import(
-        /*webpackIgnore:true*/
-        `../../../node_modules/date-fns/esm/locale/${lang}/index.js`
-      )
+      req = import(`../../../node_modules/date-fns/esm/locale/${lang}/index.js`)
         .then((result) => result.default)
         .then((data) => {
           return data;
