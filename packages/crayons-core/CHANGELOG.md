@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.6...@freshworks/crayons@3.0.0-beta.7) (2021-12-03)
+
+### Bug Fixes
+
+- **toast:** copy event listeners when cloning the node for custom template ([#315](https://github.com/freshworks/crayons/issues/315)) ([2f58061](https://github.com/freshworks/crayons/commit/2f58061ecd1d3b40ed1788c0b485b352fdb05be6))
+
+### Features
+
+- **css-utils:** Adding CSS Utils and related documentation ([#314](https://github.com/freshworks/crayons/issues/314)) ([49c0cc4](https://github.com/freshworks/crayons/commit/49c0cc48dffe9b6e0f711c471d709f02260d50c1))
+- **date-picker:** add input type variant for single date and range selection datepicker ([#303](https://github.com/freshworks/crayons/issues/303)) ([f520401](https://github.com/freshworks/crayons/commit/f520401d356fbb34b6d93665634dc5be8beb83db))
+- **fw-list-options:** scroll to the last selected item on open ([#324](https://github.com/freshworks/crayons/issues/324)) ([e17ea83](https://github.com/freshworks/crayons/commit/e17ea8326da4e158c9e4260510b69aa1d64d4f6e))
+- **fw-select:** added keyboard navigation ([#316](https://github.com/freshworks/crayons/issues/316)) ([6f28bbe](https://github.com/freshworks/crayons/commit/6f28bbead8cfd199a75efd657fb8c090134fe7eb))
+- **fw-select:** added keyboard navigation support for tags in multiselect ([#322](https://github.com/freshworks/crayons/issues/322)) ([0d2caed](https://github.com/freshworks/crayons/commit/0d2caed1330a82382e8022b7517c45dcdbc4de6c))
+- **fw-select:** added mail variant ([#321](https://github.com/freshworks/crayons/issues/321)) ([2333ce6](https://github.com/freshworks/crayons/commit/2333ce69cc27915f611ccdad60f56b3d4e58c64c))
+- **fw-tag:** added focusable prop and setFocus method ([#318](https://github.com/freshworks/crayons/issues/318)) ([d4e8489](https://github.com/freshworks/crayons/commit/d4e8489158afb068154c09f48944e644431979e0))
+- **progress-loader:** Progress Loader Component ([#297](https://github.com/freshworks/crayons/issues/297)) ([ffca27f](https://github.com/freshworks/crayons/commit/ffca27fe953a6060fc8b20df8b1dc6387369606b))
+- **skeleton:** skeleton component to handle progressive loading of contents ([#326](https://github.com/freshworks/crayons/issues/326)) ([d118aa9](https://github.com/freshworks/crayons/commit/d118aa9f9f62de6c563d56f2ed860971a7a2d308))
+
 ## [3.0.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.4...@freshworks/crayons@3.0.0-beta.6) (2021-11-26)
 
 ### Bug Fixes

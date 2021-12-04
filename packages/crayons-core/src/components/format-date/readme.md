@@ -84,7 +84,7 @@ French: <fw-format-date locale="fr"></fw-format-date><br/>
 <code-block title="React">
 ```jsx
 import React from "react";
-import { FormatTime } from "@freshworks/crayons/react";
+import { FwFormatDate } from "@freshworks/crayons/react";
 
 function App() {
 

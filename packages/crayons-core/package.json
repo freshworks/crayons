@@ -12,7 +12,7 @@
     "components"
   ],
   "author": "Freshworks Inc",
-  "version": "3.0.0-beta.6",
+  "version": "3.0.0-beta.7",
   "description": "Crayons for Developer Platform",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -100,7 +100,8 @@
   "dependencies": {
     "@popperjs/core": "^2.10.2",
     "@stencil/core": "2.9.0",
-    "moment-mini": "^2.24.0"
+    "moment-mini": "^2.24.0",
+    "multi-nprogress": "0.3.5"
   },
   "publishConfig": {
     "access": "public"
