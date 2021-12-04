@@ -592,6 +592,10 @@ export namespace Components {
           * Keep the displayed value up to date as time passes.
          */
         "sync": boolean;
+        /**
+          * The displayed value is synced with the current time in every `syncDelay` milliseconds. Default value is `10000` milliseconds
+         */
+        "syncDelay": number;
     }
     interface FwSelect {
         /**
@@ -1991,6 +1995,10 @@ declare namespace LocalJSX {
           * Keep the displayed value up to date as time passes.
          */
         "sync"?: boolean;
+        /**
+          * The displayed value is synced with the current time in every `syncDelay` milliseconds. Default value is `10000` milliseconds
+         */
+        "syncDelay"?: number;
     }
     interface FwSelect {
         /**

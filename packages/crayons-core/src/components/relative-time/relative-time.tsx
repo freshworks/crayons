@@ -23,6 +23,13 @@ export class RelativeTime {
   sync = false;
 
   /**
+   * The displayed value is synced with the current time in every `syncDelay` milliseconds.
+   * Default value is `10000` milliseconds
+   */
+  @Prop()
+  syncDelay = 10000;
+
+  /**
    * keep track of current date
    */
   @State()
@@ -38,12 +45,12 @@ export class RelativeTime {
    * sync time with the current date if sync property is set to true
    */
   @Watch('sync')
-  async syncTime(): Promise<void> {
+  async setupSync(): Promise<void> {
     if (this.timerId) clearTimeout(this.timerId);
     if (this.sync) {
       this.timerId = setInterval(() => {
         this.now = new Date();
-      }, 1000);
+      }, this.syncDelay);
     }
   }
 
@@ -55,7 +62,7 @@ export class RelativeTime {
       this.langModule = newLang;
     });
 
-    this.syncTime();
+    if (this.sync) this.setupSync();
   }
 
   disconnectedCallback(): void {

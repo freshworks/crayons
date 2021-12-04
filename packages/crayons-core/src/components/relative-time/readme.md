@@ -49,10 +49,11 @@ function App() {
 
 ## Properties
 
-| Property | Attribute | Description                                                                                                      | Type             | Default      |
-| -------- | --------- | ---------------------------------------------------------------------------------------------------------------- | ---------------- | ------------ |
-| `date`   | `date`    | The date from which, time is calculated from. Should either be a date object / valid `ISO 8601` date time string | `Date \| string` | `new Date()` |
-| `sync`   | `sync`    | Keep the displayed value up to date as time passes.                                                              | `boolean`        | `false`      |
+| Property    | Attribute    | Description                                                                                                                  | Type             | Default      |
+| ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------------ |
+| `date`      | `date`       | The date from which, time is calculated from. Should either be a date object / valid `ISO 8601` date time string             | `Date \| string` | `new Date()` |
+| `sync`      | `sync`       | Keep the displayed value up to date as time passes.                                                                          | `boolean`        | `false`      |
+| `syncDelay` | `sync-delay` | The displayed value is synced with the current time in every `syncDelay` milliseconds. Default value is `10000` milliseconds | `number`         | `10000`      |
 
 
 ----------------------------------------------
