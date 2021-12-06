@@ -1,4 +1,4 @@
-# fw-breadcrumb-item
+# Breadcrumb Item (fw-breadcrumb-item)
 
 Breadcrumb Items can be used inside [breadcrumb](../breadcrumb) to represent different links.
 
@@ -9,9 +9,9 @@ Breadcrumb Items can be used inside [breadcrumb](../breadcrumb) to represent dif
 <fw-breadcrumb-item>About
     <fw-icon name="alert" slot="separator"></fw-icon>
 </fw-breadcrumb-item>
-<fw-breadcrumb-item>Contact</fw-breadcrumb-item>
 <fw-breadcrumb-item>
-    <fw-icon slot="prefix" name="help"></fw-icon>
+  Contact</fw-breadcrumb-item>
+<fw-breadcrumb-item>
     Help</fw-breadcrumb-item>
 ```
 

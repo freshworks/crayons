@@ -258,6 +258,10 @@ $input-height-mini: 16px;
     height: 32px;
     padding: 0;
     line-height: calc(32px - #{$btn-border-width} * 2);
+
+    .fw-btn--label ::slotted(fw-icon) {
+      vertical-align: -2px;
+    }
   }
 }
 
@@ -283,10 +287,7 @@ $input-height-mini: 16px;
 
 // Padding and Spacing
 // stylelint-disable
-$sizes:
-  "normal" 12px 8px,
-  "small" 8px 6px,
-  "mini" 6px 4px;
+$sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 // stylelint-enable
 
 @each $className, $labelOnlySize, $innerOnlySize in $sizes {

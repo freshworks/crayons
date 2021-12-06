@@ -27,6 +27,10 @@
   cursor: pointer;
 }
 
+:host(:last-of-type) .item__label {
+  cursor: initial;
+}
+
 :host(:not(:last-of-type)) .item__label {
   color: $color-azure-800;
 }
