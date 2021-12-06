@@ -23,11 +23,6 @@ const ChevronArrow = ({ expanded }) => {
 })
 export class AccordionTitle {
   /**
-   * Displays the title in bold
-   */
-  @Prop() bold = true;
-
-  /**
    * @internal
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -52,7 +47,7 @@ export class AccordionTitle {
         onClick={this.toggleState}
         aria-expanded={this.expanded.toString()}
       >
-        <div class={{ 'accordion-title': true, 'bold': this.bold }}>
+        <div class='accordion-title'>
           <slot></slot>
         </div>
         <ChevronArrow expanded={this.expanded} />

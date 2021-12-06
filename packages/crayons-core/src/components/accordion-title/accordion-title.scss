@@ -11,10 +11,7 @@
   .accordion-title {
     flex-grow: 1;
     height: 20px;
-
-    &.bold {
-      font-weight: bold;
-    }
+    font-weight: var(--accordion-title-font-weight, bold);
   }
 
   .accordion-icon {

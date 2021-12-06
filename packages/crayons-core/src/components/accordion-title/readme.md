@@ -5,13 +5,6 @@ Displays the content inside the component.
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property | Attribute | Description                | Type      | Default |
-| -------- | --------- | -------------------------- | --------- | ------- |
-| `bold`   | `bold`    | Displays the title in bold | `boolean` | `true`  |
-
-
 ## Dependencies
 
 ### Depends on

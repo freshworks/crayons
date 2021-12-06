@@ -79,7 +79,7 @@ function App() {
 
 | Event               | Description                                           | Type                                |
 | ------------------- | ----------------------------------------------------- | ----------------------------------- |
-| `fwAccordionToggle` | Triggered when the accordion is expanded or collpased | `CustomEvent<AccordionToogleEvent>` |
+| `fwAccordionToggle` | Triggered when the accordion is expanded or collpased | `CustomEvent<AccordionToggleEvent>` |
 
 
 ----------------------------------------------

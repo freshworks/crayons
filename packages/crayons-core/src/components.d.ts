@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AccordionToogleEvent } from "./components/accordion/accordion";
+import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -23,10 +23,6 @@ export namespace Components {
         "expanded": boolean;
     }
     interface FwAccordionTitle {
-        /**
-          * Displays the title in bold
-         */
-        "bold": boolean;
         "expanded": boolean;
         "toggleState": any;
     }
@@ -1373,7 +1369,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the accordion is expanded or collpased
          */
-        "onFwAccordionToggle"?: (event: CustomEvent<AccordionToogleEvent>) => void;
+        "onFwAccordionToggle"?: (event: CustomEvent<AccordionToggleEvent>) => void;
         /**
           * The type of accordion to be displayed.
          */
@@ -1383,10 +1379,6 @@ declare namespace LocalJSX {
         "expanded"?: boolean;
     }
     interface FwAccordionTitle {
-        /**
-          * Displays the title in bold
-         */
-        "bold"?: boolean;
         "expanded"?: boolean;
         "toggleState"?: any;
     }

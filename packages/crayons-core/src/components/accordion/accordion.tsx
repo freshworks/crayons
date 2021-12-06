@@ -7,7 +7,7 @@ import {
   h,
 } from '@stencil/core';
 
-export interface AccordionToogleEvent {
+export interface AccordionToggleEvent {
   expanded: boolean;
 }
 
@@ -36,16 +36,16 @@ export class Accordion {
   /**
    * Triggered when the accordion is expanded or collpased
    */
-  @Event() fwAccordionToggle!: EventEmitter<AccordionToogleEvent>;
+  @Event() fwAccordionToggle!: EventEmitter<AccordionToggleEvent>;
 
   toggleState = (): void => {
     this.expanded = !this.expanded;
 
-    this.passStateToChildren();
+    this.updateState();
     this.fwAccordionToggle.emit({ expanded: this.expanded });
   };
 
-  passStateToChildren(): void {
+  updateState(): void {
     this.accordionTitle.expanded = this.expanded;
     this.accordionBody.expanded = this.expanded;
   }
@@ -54,7 +54,7 @@ export class Accordion {
     this.accordionTitle = this.el.querySelector('fw-accordion-title');
     this.accordionBody = this.el.querySelector('fw-accordion-body');
     this.accordionTitle.toggleState = this.toggleState.bind(this);
-    this.passStateToChildren();
+    this.updateState();
   }
 
   render() {

@@ -1,5 +1,5 @@
 .accordion {
-  box-shadow: 0px 1px 0px #ebeff3;
+  box-shadow: var(--accordion-box-shadow, 0px 1px 0px #ebeff3);
   border: 1px solid $app-border-primary;
   border-radius: 8px;
 
