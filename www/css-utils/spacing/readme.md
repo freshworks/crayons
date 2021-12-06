@@ -40,6 +40,13 @@
 </template>
 ```
 
+### Spacing size chart
+
+spacing | 0 | 4 | 8 | 12 | 16 | 20 | 24 | 28
+--- | --- | --- | --- |--- |--- |--- |--- |---
+rem | 0rem | 0.25rem | 0.5rem | 0.75rem | 1rem | 1.25rem | 1.5rem | 1.75
+px (font size of the root element being 16px) | 0px | 4px | 8px | 12px | 16px | 20px | 24px | 28px
+
 
 ----------------------------------------------
 

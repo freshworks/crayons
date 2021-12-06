@@ -14,7 +14,11 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
-import { DropdownVariant, TagVariant } from '../../utils/types';
+import {
+  DropdownVariant,
+  TagVariant,
+  PopoverPlacementType,
+} from '../../utils/types';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -127,6 +131,10 @@ export class Select {
    */
   @Prop() max = Number.MAX_VALUE;
   /**
+   * The UI variant of the select to be used.
+   */
+  @Prop() variant: 'button' | 'standard' | 'mail' = 'standard';
+  /**
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
@@ -166,6 +174,14 @@ export class Select {
    */
   @Prop({ reflect: true, mutable: true }) selectedOptions = [];
   /**
+   * Whether the select width to be same as that of the options.
+   */
+  @Prop() sameWidth = true;
+  /**
+   * Placement of the options list with respect to select.
+   */
+  @Prop() optionsPlacement: PopoverPlacementType = 'bottom';
+  /**
    * The variant of tag to be used.
    */
   @Prop() tagVariant: TagVariant = 'standard';
@@ -173,10 +189,6 @@ export class Select {
    * Whether the arrow/caret should be shown in the select.
    */
   @Prop() caret = true;
-  /**
-   * The UI variant of the select to be used.
-   */
-  @Prop() variant: 'standard' | 'mail' = 'standard';
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -216,7 +228,6 @@ export class Select {
     if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
       this.selectedOptionsState = selectedItem.detail.selectedOptions;
       this.value = selectedItem.detail.value;
-      this.selectInput.value = '';
       this.renderInput();
       if (!this.multiple || this.variant === 'mail') {
         this.closeDropdown();
@@ -369,6 +380,7 @@ export class Select {
   renderInput() {
     if (this.selectedOptionsState.length > 0) {
       if (this.selectInput) {
+        this.selectInput.value = '';
         this.selectInput.value = this.multiple
           ? this.selectInput.value
           : this.selectedOptionsState[0].text || '';
@@ -439,18 +451,14 @@ export class Select {
       const selectedDataSourceValues = selectedDataSource.map(
         (option) => option.value
       );
+      const selected = this.multiple
+        ? selectedDataSourceValues
+        : selectedDataSourceValues[0];
       if (
         selectedDataSourceValues.length > 0 &&
-        JSON.stringify(this.value) !==
-          JSON.stringify(
-            this.multiple
-              ? selectedDataSourceValues
-              : selectedDataSourceValues[0]
-          )
+        JSON.stringify(this.value) !== JSON.stringify(selected)
       ) {
-        this.value = this.multiple
-          ? selectedDataSourceValues
-          : selectedDataSourceValues[0].value;
+        this.value = selected;
         this.selectedOptionsState = selectedDataSource;
       }
     }
@@ -489,57 +497,77 @@ export class Select {
             distance='8'
             trigger='manual'
             ref={(popover) => (this.popover = popover)}
+            same-width={this.sameWidth}
+            placement={this.optionsPlacement}
           >
             <div
               slot='popover-trigger'
               class={{
-                'input-container': true,
+                'input-container': this.variant !== 'button',
                 [this.state]: true,
                 'select-disabled': this.disabled,
               }}
               onClick={() => this.innerOnClick()}
               onKeyDown={handleKeyDown(this.innerOnClick)}
             >
-              <div class='input-container-inner'>
-                {this.multiple && (
-                  <div
-                    onFocus={this.focusOnTagContainer}
-                    ref={(tagContainer) => (this.tagContainer = tagContainer)}
-                    onKeyDown={this.tagContainerKeyDown}
-                  >
-                    {this.renderTags()}
-                  </div>
-                )}
-                <input
-                  ref={(selectInput) => (this.selectInput = selectInput)}
-                  class={{
-                    'multiple-select': this.multiple,
-                  }}
-                  autoComplete='off'
-                  disabled={this.disabled}
-                  name={this.name}
-                  placeholder={this.valueExists() ? '' : this.placeholder || ''}
-                  readOnly={this.readonly}
-                  required={this.required}
-                  type={this.type}
-                  value=''
-                  onInput={() => this.onInput()}
-                  onFocus={(e) => this.innerOnFocus(e)}
-                  onBlur={(e) => this.innerOnBlur(e)}
-                />
-                {this.isLoading ? (
-                  <fw-spinner size='small'></fw-spinner>
-                ) : (
-                  this.caret && (
-                    <span
-                      class={{
-                        'dropdown-status-icon': true,
-                        'expanded': this.isExpanded,
-                      }}
-                    ></span>
-                  )
-                )}
-              </div>
+              {this.variant === 'button' ? (
+                //TODO: Make this behavior generic.
+                <fw-button
+                  id='select-btn'
+                  show-caret-icon
+                  color='secondary'
+                  class={
+                    this.host.classList.value.includes('month')
+                      ? 'fw-button-group__button--first'
+                      : 'fw-button-group__button--last'
+                  }
+                >
+                  {this.value}
+                </fw-button>
+              ) : (
+                <div class='input-container-inner'>
+                  {this.multiple && (
+                    <div
+                      onFocus={this.focusOnTagContainer}
+                      ref={(tagContainer) => (this.tagContainer = tagContainer)}
+                      onKeyDown={this.tagContainerKeyDown}
+                    >
+                      {this.renderTags()}
+                    </div>
+                  )}
+                  <input
+                    ref={(selectInput) => (this.selectInput = selectInput)}
+                    class={{
+                      'multiple-select': this.multiple,
+                    }}
+                    autoComplete='off'
+                    disabled={this.disabled}
+                    name={this.name}
+                    placeholder={
+                      this.valueExists() ? '' : this.placeholder || ''
+                    }
+                    readOnly={this.readonly}
+                    required={this.required}
+                    type={this.type}
+                    value=''
+                    onInput={() => this.onInput()}
+                    onFocus={(e) => this.innerOnFocus(e)}
+                    onBlur={(e) => this.innerOnBlur(e)}
+                  />
+                  {this.isLoading ? (
+                    <fw-spinner size='small'></fw-spinner>
+                  ) : (
+                    this.caret && (
+                      <span
+                        class={{
+                          'dropdown-status-icon': true,
+                          'expanded': this.isExpanded,
+                        }}
+                      ></span>
+                    )
+                  )}
+                </div>
+              )}
             </div>
             <fw-list-options
               ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
