@@ -47,8 +47,10 @@ export class Breadcrumb {
     items.map((item: HTMLElement, index) => {
       // Attach a separator to each item if the item doesn't have its own separator
       const separator = item.querySelector('[slot="separator"]') as HTMLElement;
-
+      const textContent = item.textContent;
       if (!separator) {
+        item.title = textContent;
+        item.setAttribute('aria-label', textContent);
         item.append(this.getSeparator());
       }
       // The last breadcrumb item is the "current page"

@@ -25,6 +25,10 @@
   padding: 0;
   margin: 0;
   cursor: pointer;
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 :host(:last-of-type) .item__label {
@@ -72,4 +76,26 @@
   align-items: center;
   margin: 0 8px;
   user-select: none;
+}
+
+/* Add max width for breadcrumb item for various device sizes */
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+  .item__label {
+    max-width: 60px;
+  }
+}
+
+/* Media Query for low resolution Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+  .item__label {
+    max-width: 90px;
+  }
+}
+/* Media Query for Tablets,Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .item__label {
+    max-width: 120px;
+  }
 }

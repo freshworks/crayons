@@ -58,6 +58,11 @@ $bg-color-disabled: $color-smoke-25;
     background-color: $bg-color-hover;
   }
 
+  &.selected:hover,
+  &.selected:focus {
+    background-color: $dropdown-selected;
+  }
+
   &.disabled {
     color: $disabled-color;
     position: relative;

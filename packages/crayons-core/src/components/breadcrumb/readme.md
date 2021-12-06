@@ -243,36 +243,43 @@ function App() {
 Dropdown menus can be placed in a prefix or suffix slot to provide additional options.
 
 ```html live
-<fw-breadcrumb>
-  <fw-breadcrumb-item>Homepage</fw-breadcrumb-item>
-  <fw-breadcrumb-item>Our Services
-   <fw-popover slot="suffix" same-width="false" style="--popover-min-width: 110px;"
-   distance="8" placement="bottom-start"
-   >
+ <fw-breadcrumb>
+      <fw-breadcrumb-item>Homepage</fw-breadcrumb-item>
+      <fw-breadcrumb-item
+        >Our Services
+        <fw-popover
+          slot="suffix"
+          same-width="false"
+          style="--popover-min-width: 110px"
+          distance="8"
+          placement="bottom-start"
+        >
+          <fw-button size="icon" color="link" slot="popover-trigger"
+            ><fw-icon name="three-dots" size="14"></fw-icon>
+          </fw-button>
 
-   <fw-button size="icon" color="link" slot="popover-trigger"  
-    ><fw-icon name="three-dots" size="14"></fw-icon>
-  </fw-button>
+          <fw-list-options
+            slot="popover-content"
+            id="placementComponent"
+          ></fw-list-options>
+        </fw-popover>
+      </fw-breadcrumb-item>
+      <fw-breadcrumb-item>Digital Media</fw-breadcrumb-item>
+      <fw-breadcrumb-item> Web Design </fw-breadcrumb-item>
+    </fw-breadcrumb>
 
-    <fw-list-options slot="popover-content" id="placementComponent"></fw-list-options>
-  </fw-popover>
-  </fw-breadcrumb-item>
-  <fw-breadcrumb-item>Digital Media</fw-breadcrumb-item>
-  <fw-breadcrumb-item>
-    Web Design </fw-breadcrumb-item>
-</fw-breadcrumb>
-
-<script type="application/javascript">
-  var dataSource = [
-    { value: '1', text: 'Page3' },
-    { value: '2', text: 'Page4' },
-    { value: '3', text: 'Page5' },
-  ];
-  var listOptions = document.querySelector('fw-list-options');
-  var placementOptions = document.getElementById('placementComponent');
-  listOptions.options = dataSource;
-  placementOptions.options = dataSource;
-</script>
+    <script type="application/javascript">
+      var dataSource = [
+        {
+          value: '1',
+          text: 'Page3asdasdaasdasdasda asidjaoish do hoashd oa hdoah od ha',
+        },
+        { value: '2', text: 'Page4' },
+        { value: '3', text: 'Page5' },
+      ];
+      var placementOptions = document.getElementById('placementComponent');
+      placementOptions.options = dataSource;
+    </script>
 ```
 
 ## Usage
@@ -280,38 +287,43 @@ Dropdown menus can be placed in a prefix or suffix slot to provide additional op
 <code-group>
 <code-block title="HTML">
 ```html
-<fw-breadcrumb>
-  <fw-breadcrumb-item>Homepage</fw-breadcrumb-item>
-  <fw-breadcrumb-item>Our Services
-   <fw-popover slot="suffix" same-width="false" style="--popover-min-width: 110px;"
-   distance="8" placement="bottom-start"
-   >
-    <div slot="popover-trigger"  style="display: flex; align-items:center;
-    border-radius:0%;
-    "
-    color="secondary"
-    >
-      <fw-icon name="three-dots" size="16"></fw-icon>
-    </div>
-    <fw-list-options slot="popover-content" id="placementComponent"></fw-list-options>
-  </fw-popover>
-  </fw-breadcrumb-item>
-  <fw-breadcrumb-item>Digital Media</fw-breadcrumb-item>
-  <fw-breadcrumb-item>
-    Web Design </fw-breadcrumb-item>
-</fw-breadcrumb>
+ <fw-breadcrumb>
+      <fw-breadcrumb-item>Homepage</fw-breadcrumb-item>
+      <fw-breadcrumb-item
+        >Our Services
+        <fw-popover
+          slot="suffix"
+          same-width="false"
+          style="--popover-min-width: 110px"
+          distance="8"
+          placement="bottom-start"
+        >
+          <fw-button size="icon" color="link" slot="popover-trigger"
+            ><fw-icon name="three-dots" size="14"></fw-icon>
+          </fw-button>
 
-<script type="application/javascript">
-  var dataSource = [
-    { value: '1', text: 'Page3' },
-    { value: '2', text: 'Page4' },
-    { value: '3', text: 'Page5' },
-  ];
-  var listOptions = document.querySelector('fw-list-options');
-  var placementOptions = document.getElementById('placementComponent');
-  listOptions.options = dataSource;
-  placementOptions.options = dataSource;
-</script>
+          <fw-list-options
+            slot="popover-content"
+            id="placementComponent"
+          ></fw-list-options>
+        </fw-popover>
+      </fw-breadcrumb-item>
+      <fw-breadcrumb-item>Digital Media</fw-breadcrumb-item>
+      <fw-breadcrumb-item> Web Design </fw-breadcrumb-item>
+    </fw-breadcrumb>
+
+    <script type="application/javascript">
+      var dataSource = [
+        {
+          value: '1',
+          text: 'Page3asdasdaasdasdasda asidjaoish do hoashd oa hdoah od ha',
+        },
+        { value: '2', text: 'Page4' },
+        { value: '3', text: 'Page5' },
+      ];
+      var placementOptions = document.getElementById('placementComponent');
+      placementOptions.options = dataSource;
+    </script>
 ```
 </code-block>
 
@@ -321,17 +333,41 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { FwBreadcrumb, FwBreadcrumbItem, FwIcon } from "@freshworks/crayons/react";
 function App() {
+  var dataSource = [
+        {
+          value: '1',
+          text: 'Page3asdasdaasdasdasda asidjaoish do hoashd oa hdoah od ha',
+        },
+        { value: '2', text: 'Page4' },
+        { value: '3', text: 'Page5' },
+      ];
+
   return (<div>
   <FwBreadcrumb>
-  <FwBreadcrumbItem>
-    <FwIcon slot="prefix" name="inbox"></FwIcon>
-    Home
-  </FwBreadcrumbItem>
-  <FwBreadcrumbItem>Articles
-     <FwIcon slot="suffix" name="edit"></FwIcon>
-  </FwBreadcrumbItem>
-  <FwBreadcrumbItem>Travelling</FwBreadcrumbItem>
-</FwBreadcrumb>
+      <FwBreadcrumbItem>Homepage</FwBreadcrumbItem>
+      <FwBreadcrumbItem
+        >Our Services
+        <fw-popover
+          slot="suffix"
+          same-width="false"
+          style="--popover-min-width: 110px"
+          distance="8"
+          placement="bottom-start"
+        >
+          <fw-button size="icon" color="link" slot="popover-trigger"
+            ><fw-icon name="three-dots" size="14"></fw-icon>
+          </fw-button>
+
+          <fw-list-options
+            slot="popover-content"
+            id="placementComponent"
+            options={dataSource}
+          ></fw-list-options>
+        </fw-popover>
+      </FwBreadcrumbItem>
+      <FwBreadcrumbItem>Digital Media</FwBreadcrumbItem>
+      <FwBreadcrumbItem> Web Design </FwBreadcrumbItem>
+    </FwBreadcrumb>
   </div>)
 }
 ```
