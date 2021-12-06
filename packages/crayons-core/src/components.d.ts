@@ -14,6 +14,10 @@ export namespace Components {
           * To manage accordion expanded or collapsed state
          */
         "expanded": boolean;
+        /**
+          * The type of accordion to be displayed.
+         */
+        "type": 'default' | 'borderless';
     }
     interface FwAccordionBody {
         "expanded": boolean;
@@ -1323,6 +1327,10 @@ declare namespace LocalJSX {
           * Triggered when the accordion is expanded or collpased
          */
         "onFwAccordionToggle"?: (event: CustomEvent<AccordionToogleEvent>) => void;
+        /**
+          * The type of accordion to be displayed.
+         */
+        "type"?: 'default' | 'borderless';
     }
     interface FwAccordionBody {
         "expanded"?: boolean;

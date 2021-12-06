@@ -50,6 +50,7 @@ export class AccordionTitle {
         tabindex='0'
         onKeyDown={handleKeyDown(this.toggleState)}
         onClick={this.toggleState}
+        aria-expanded={this.expanded.toString()}
       >
         <div class={{ 'accordion-title': true, 'bold': this.bold }}>
           <slot></slot>

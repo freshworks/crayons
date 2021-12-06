@@ -24,6 +24,11 @@ export class Accordion {
   private accordionBody: HTMLFwAccordionBodyElement;
 
   /**
+   * The type of accordion to be displayed.
+   */
+  @Prop() type: 'default' | 'borderless' = 'default';
+
+  /**
    * To manage accordion expanded or collapsed state
    */
   @Prop({ mutable: true }) expanded = true;
@@ -54,7 +59,12 @@ export class Accordion {
 
   render() {
     return (
-      <div class='accordion'>
+      <div
+        class={{
+          accordion: true,
+          borderless: this.type === 'borderless',
+        }}
+      >
         <slot />
       </div>
     );

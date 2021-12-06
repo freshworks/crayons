@@ -3,7 +3,9 @@
   border: 1px solid $app-border-primary;
   border-radius: 8px;
 
-  .accordion-header {
-    border-bottom: none;
+  &.borderless {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
   }
 }
