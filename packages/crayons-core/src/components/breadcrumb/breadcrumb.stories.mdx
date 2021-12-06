@@ -2,23 +2,31 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 # Breadcrumb
 
-<Meta
-  title='Breadcrumb'
-  component='fw-breadcrumb'
-/>
+<Meta title='Breadcrumb' component='fw-breadcrumb' />
 
-## Props 
+## Props
 
-<Props of="fw-breadcrumb"/>
+<Props of='fw-breadcrumb' />
 
 ## Usage
 
 ### Default
+
 <Preview>
   <Story name='Default'>
-    {
-      () => `<fw-breadcrumb></fw-breadcrumb>`
-    }
+    {() => `<fw-breadcrumb>
+  <fw-breadcrumb-item href="https://example.com/home">
+    Homepage
+  </fw-breadcrumb-item>
+<fw-breadcrumb-item href='https://example.com/home/services'>
+Our Services
+</fw-breadcrumb-item>
+<fw-breadcrumb-item href='https://example.com/home/services/digital'>
+Digital Media
+</fw-breadcrumb-item>
+  <fw-breadcrumb-item href="https://example.com/home/services/digital/web-design">
+    Web Design
+  </fw-breadcrumb-item>
+</fw-breadcrumb>`}
   </Story>
 </Preview>
-
