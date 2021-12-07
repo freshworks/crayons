@@ -254,7 +254,7 @@ Dropdown menus can be placed in a prefix or suffix slot to provide additional op
           distance="8"
           placement="bottom-start"
         >
-          <fw-button size="icon" color="link" slot="popover-trigger"
+           <fw-button size="icon" color="secondary" slot="popover-trigger"
             ><fw-icon name="three-dots" size="14"></fw-icon>
           </fw-button>
 
@@ -298,7 +298,7 @@ Dropdown menus can be placed in a prefix or suffix slot to provide additional op
           distance="8"
           placement="bottom-start"
         >
-          <fw-button size="icon" color="link" slot="popover-trigger"
+          <fw-button size="icon" color="secondary" slot="popover-trigger"
             ><fw-icon name="three-dots" size="14"></fw-icon>
           </fw-button>
 
@@ -331,7 +331,7 @@ Dropdown menus can be placed in a prefix or suffix slot to provide additional op
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FwBreadcrumb, FwBreadcrumbItem, FwIcon } from "@freshworks/crayons/react";
+import { FwBreadcrumb, FwBreadcrumbItem, FwButton, FwIcon } from "@freshworks/crayons/react";
 function App() {
   var dataSource = [
         {
@@ -354,9 +354,9 @@ function App() {
           distance="8"
           placement="bottom-start"
         >
-          <fw-button size="icon" color="link" slot="popover-trigger"
-            ><fw-icon name="three-dots" size="14"></fw-icon>
-          </fw-button>
+          <FwButton size="icon" color="secondary" slot="popover-trigger"
+            ><FwIcon name="three-dots" size="14"></FwIcon>
+          </FwButton>
 
           <fw-list-options
             slot="popover-content"
