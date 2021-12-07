@@ -5,8 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Column, Row } from "./components/data-table/types";
-import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAvatar {
@@ -90,7 +89,17 @@ export namespace Components {
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
-        "columns": Column[];
+        "columns": DataTableColumn[];
+        /**
+          * getSelectedIds
+          * @returns an array of selected row IDs
+         */
+        "getSelectedIds": () => Promise<string[]>;
+        /**
+          * getSelectedRows
+          * @returns selected rows from the data table
+         */
+        "getSelectedRows": () => Promise<DataTableRow[]>;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -102,7 +111,7 @@ export namespace Components {
         /**
           * Rows Array of objects to be displayed in the table.
          */
-        "rows": Row[];
+        "rows": DataTableRow[];
     }
     interface FwDatepicker {
         /**
@@ -1453,7 +1462,7 @@ declare namespace LocalJSX {
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
-        "columns"?: Column[];
+        "columns"?: DataTableColumn[];
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -1469,7 +1478,7 @@ declare namespace LocalJSX {
         /**
           * Rows Array of objects to be displayed in the table.
          */
-        "rows"?: Row[];
+        "rows"?: DataTableRow[];
     }
     interface FwDatepicker {
         /**

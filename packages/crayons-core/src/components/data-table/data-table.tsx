@@ -7,9 +7,10 @@ import {
   State,
   Watch,
   h,
+  Method,
 } from '@stencil/core';
 
-import { Column, Row } from './types';
+import { DataTableColumn, DataTableRow } from '../../utils/types';
 
 @Component({
   tag: 'fw-data-table',
@@ -25,12 +26,12 @@ export class DataGrid {
   /**
    * Rows Array of objects to be displayed in the table.
    */
-  @Prop({ mutable: true, reflect: false }) rows: Row[] = [];
+  @Prop({ mutable: true, reflect: false }) rows: DataTableRow[] = [];
 
   /**
    * Columns Array of objects that provides information regarding the columns in the table.
    */
-  @Prop({ mutable: true, reflect: false }) columns: Column[] = [];
+  @Prop({ mutable: true, reflect: false }) columns: DataTableColumn[] = [];
 
   /**
    * isSelectable Boolean based on which selectable options appears for rows in the table.
@@ -40,7 +41,7 @@ export class DataGrid {
   /**
    * orderedColumns Maintains a collection of ordered columns.
    */
-  @State() orderedColumns: Column[] = [];
+  @State() orderedColumns: DataTableColumn[] = [];
 
   /**
    * selected Array of selected row id.
@@ -51,6 +52,15 @@ export class DataGrid {
    * fwSelectionChange Emits this event when row is selected/unselected.
    */
   @Event() fwSelectionChange: EventEmitter;
+
+  /**
+   * componentWillLoad lifecycle event
+   */
+  componentWillLoad() {
+    this.orderedColumns = this.columns.sort((a, b) => {
+      return a.orderIndex - b.orderIndex;
+    });
+  }
 
   /**
    * fwChangeHandler
@@ -73,8 +83,12 @@ export class DataGrid {
     }
   }
 
+  /**
+   * keyDownHandler
+   * @param event
+   */
   @Listen('keydown')
-  handleKeyDown(event) {
+  keyDownHandler(event) {
     const currentElement: HTMLElement =
       event.path[0].nodeName === 'TD'
         ? event.path[0]
@@ -132,21 +146,104 @@ export class DataGrid {
   }
 
   /**
-   * connectedCallback
+   * columnsChangeHandler
+   * @param newValue recent datatable columns value
    */
-  connectedCallback() {
-    this.orderedColumns = this.columns.sort((a, b) => {
-      return a.orderIndex - b.orderIndex;
-    });
-  }
-
   @Watch('columns')
-  onColumnsChanged(newValue: Column[]) {
+  columnsChangeHandler(newValue: DataTableColumn[]) {
     this.orderedColumns = newValue.sort((a, b) => {
       return a.orderIndex - b.orderIndex;
     });
   }
 
+  /**
+   * getSelectedRows
+   * @returns selected rows from the data table
+   */
+  @Method()
+  async getSelectedRows() {
+    return this.rows.filter((row) => this.selected.includes(row.id));
+  }
+
+  /**
+   * getSelectedIds
+   * @returns an array of selected row IDs
+   */
+  @Method()
+  async getSelectedIds() {
+    return this.selected;
+  }
+
+  /**
+   * private
+   * @returns {JSX.Element} table header row
+   */
+  renderTableHeader() {
+    return this.orderedColumns.length ? (
+      <tr role='row'>
+        {this.orderedColumns.length && this.isSelectable && (
+          <th key='isSelectable' aria-colindex={1}></th>
+        )}
+        {this.orderedColumns.map((column, columnIndex) => (
+          <th
+            role='columnheader'
+            key={column.key}
+            aria-colindex={
+              this.isSelectable ? columnIndex + 2 : columnIndex + 1
+            }
+          >
+            {column.text}
+          </th>
+        ))}
+      </tr>
+    ) : (
+      ''
+    );
+  }
+
+  /**
+   * private
+   * @returns table body rows
+   */
+  renderTableBody() {
+    return this.orderedColumns.length
+      ? this.rows.map((row, rowIndex) => (
+          <tr role='row' aria-rowindex={rowIndex + 1}>
+            {this.orderedColumns.length && this.isSelectable && (
+              <td
+                class='data-table-checkbox'
+                aria-colindex={1}
+                data-has-component='true'
+              >
+                <fw-checkbox
+                  label=''
+                  value={row.id ? row.id : ''}
+                ></fw-checkbox>
+              </td>
+            )}
+            {this.orderedColumns.map((orderedColumn, columnIndex) => (
+              <td
+                role='gridcell'
+                tabindex={
+                  !this.isSelectable && rowIndex === 0 && columnIndex === 0
+                    ? '0'
+                    : '-1'
+                }
+                aria-colindex={
+                  this.isSelectable ? columnIndex + 2 : columnIndex + 1
+                }
+              >
+                {row[orderedColumn.key]}
+              </td>
+            ))}
+          </tr>
+        ))
+      : '';
+  }
+
+  /**
+   * render method
+   */
   render() {
     return (
       <div class='fw-data-table-container'>
@@ -156,57 +253,8 @@ export class DataGrid {
           aria-colcount={this.orderedColumns.length}
           aria-label={this.label}
         >
-          <thead>
-            <tr role='row'>
-              {this.orderedColumns.length && this.isSelectable && (
-                <th key='isSelectable' aria-colindex={1}></th>
-              )}
-              {this.orderedColumns.map((column, columnIndex) => (
-                <th
-                  role='columnheader'
-                  key={column.key}
-                  aria-colindex={
-                    this.isSelectable ? columnIndex + 2 : columnIndex + 1
-                  }
-                >
-                  {column.text}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {this.rows.map((row, rowIndex) => (
-              <tr role='row' aria-rowindex={rowIndex + 1}>
-                {this.orderedColumns.length && this.isSelectable && (
-                  <td
-                    class='data-table-checkbox'
-                    aria-colindex={1}
-                    data-has-component='true'
-                  >
-                    <fw-checkbox
-                      label=''
-                      value={row.id ? row.id : ''}
-                    ></fw-checkbox>
-                  </td>
-                )}
-                {this.orderedColumns.map((orderedColumn, columnIndex) => (
-                  <td
-                    role='gridcell'
-                    tabindex={
-                      !this.isSelectable && rowIndex === 0 && columnIndex === 0
-                        ? '0'
-                        : '-1'
-                    }
-                    aria-colindex={
-                      this.isSelectable ? columnIndex + 2 : columnIndex + 1
-                    }
-                  >
-                    {row[orderedColumn.key]}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
+          <thead>{this.renderTableHeader()}</thead>
+          <tbody>{this.renderTableBody()}</tbody>
         </table>
       </div>
     );

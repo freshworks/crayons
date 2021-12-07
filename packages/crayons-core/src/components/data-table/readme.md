@@ -4,21 +4,12 @@ fw-data-table are used for data visualization.
 ## Usage
 
 ```html live
-<template>
-  <!-- 
-    In HTML we cannot pass objects as attributes to custom elements. 
-    So, here vue template is used to load data into datagrid for demo purposes. 
-    You must use fw-data-table like in example below incase of React/Stencil projects:
-    <fw-data-table columns={headers} rows={persons} isSelectable></fw-data-table>
-  -->
-  <fw-data-table ref="datatable"></fw-data-table>
-</template>
+  <fw-data-table id="datatable" is-selectable="true" label="Data table 1">
+  </fw-data-table>
 
-<script>
-export default {
-  data() {
-    return {
-      headers: [{
+  <script type="application/javascript">
+    var data = {
+      columns: [{
         "key": "name",
         "text": "Name",
         "orderIndex": 1
@@ -32,46 +23,135 @@ export default {
         "orderIndex": 2
       }],
       persons: [{
-        "id": 1234,
+        "id": "1234",
         "name": "Alexander Goodman", 
         "role": "Administrator", 
         "group": "L1 Support"
       }, {
-        "id": 2345,
+        "id": "2345",
         "name": "Ambrose Wayne", 
         "role": "Supervisor", 
         "group": "L1 Support"
       }, {
-        "id": 3456,
+        "id": "3456",
         "name": "August hines",
         "role": "Agent",
         "group": "L1 support"
-      }],
-      isSelectable: true,
-      label: "Hello world"
+      }]
     }
-  },
-  mounted() {
-    this.$refs.datatable.columns = this.headers;
-    this.$refs.datatable.rows = this.persons;
-    this.$refs.datatable.isSelectable = this.isSelectable;
-    this.$refs.datatable.label = this.label;
-  }
-};
-</script>
+
+    var datatable = document.getElementById('datatable');
+    datatable.columns = data.columns;
+    datatable.rows = data.persons;
+  </script>
 ```
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-data-table id="datatable" is-selectable="true" label="Data table 1">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name",
+      "orderIndex": 1
+    }, {
+      "key": "group",
+      "text": "Group",
+      "orderIndex": 3
+    }, {
+      "key": "role",
+      "text": "Role",
+      "orderIndex": 2
+    }],
+    persons: [{
+      "id": "1234",
+      "name": "Alexander Goodman", 
+      "role": "Administrator", 
+      "group": "L1 Support"
+    }, {
+      "id": "2345",
+      "name": "Ambrose Wayne", 
+      "role": "Supervisor", 
+      "group": "L1 Support"
+    }, {
+      "id": "3456",
+      "name": "August hines",
+      "role": "Agent",
+      "group": "L1 support"
+    }]
+  }
+
+  var datatable = document.getElementById('datatable');
+  datatable.columns = data.columns;
+  datatable.rows = data.persons;
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FWDataTable } from "@freshworks/crayons/react";
+function App() {
+
+  let data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "orderIndex": 1
+      }, {
+        "key": "group",
+        "text": "Group",
+        "orderIndex": 3
+      }, {
+        "key": "role",
+        "text": "Role",
+        "orderIndex": 2
+      }],
+      persons: [{
+        "id": "1234",
+        "name": "Alexander Goodman", 
+        "role": "Administrator", 
+        "group": "L1 Support"
+      }, {
+        "id": "2345",
+        "name": "Ambrose Wayne", 
+        "role": "Supervisor", 
+        "group": "L1 Support"
+      }, {
+        "id": "3456",
+        "name": "August hines",
+        "role": "Agent",
+        "group": "L1 support"
+      }]
+    };
+
+  return (
+    <FWDataTable columns={data.columns} rows={data.persons} label="Data Table 1" isSelectable>
+    </FWDataTable>
+  );
+}
+```
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                            | Type       | Default |
-| -------------- | --------------- | -------------------------------------------------------------------------------------- | ---------- | ------- |
-| `columns`      | --              | Columns Array of objects that provides information regarding the columns in the table. | `Column[]` | `[]`    |
-| `isSelectable` | `is-selectable` | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`  | `false` |
-| `label`        | `label`         | Label attribute is not visible on screen. There for accessibility purposes.            | `string`   | `''`    |
-| `rows`         | --              | Rows Array of objects to be displayed in the table.                                    | `Row[]`    | `[]`    |
+| Property       | Attribute       | Description                                                                            | Type                | Default |
+| -------------- | --------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
+| `columns`      | --              | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
+| `isSelectable` | `is-selectable` | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
+| `label`        | `label`         | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
+| `rows`         | --              | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
 
 
 ## Events
@@ -79,6 +159,29 @@ export default {
 | Event               | Description                                                         | Type               |
 | ------------------- | ------------------------------------------------------------------- | ------------------ |
 | `fwSelectionChange` | fwSelectionChange Emits this event when row is selected/unselected. | `CustomEvent<any>` |
+
+
+## Methods
+
+### `getSelectedIds() => Promise<string[]>`
+
+getSelectedIds
+
+#### Returns
+
+Type: `Promise<string[]>`
+
+an array of selected row IDs
+
+### `getSelectedRows() => Promise<DataTableRow[]>`
+
+getSelectedRows
+
+#### Returns
+
+Type: `Promise<DataTableRow[]>`
+
+selected rows from the data table
 
 
 ## Dependencies
