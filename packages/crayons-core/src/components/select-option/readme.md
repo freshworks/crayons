@@ -118,6 +118,8 @@ function App() {
 
 | Event        | Description                           | Type               |
 | ------------ | ------------------------------------- | ------------------ |
+| `fwBlur`     | Triggered when an option loses focus. | `CustomEvent<any>` |
+| `fwFocus`    | Triggered when an option is focused.  | `CustomEvent<any>` |
 | `fwSelected` | Triggered when an option is selected. | `CustomEvent<any>` |
 
 

@@ -2121,6 +2121,14 @@ declare namespace LocalJSX {
          */
         "htmlContent"?: string;
         /**
+          * Triggered when an option loses focus.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when an option is focused.
+         */
+        "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
           * Triggered when an option is selected.
          */
         "onFwSelected"?: (event: CustomEvent<any>) => void;

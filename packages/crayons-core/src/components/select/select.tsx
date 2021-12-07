@@ -79,6 +79,7 @@ export class Select {
   @State() dataSource;
   @State() selectedOptionsState = [];
   @State() isLoading = false;
+  @State() focusedOptionId = '';
   /**
    * Label displayed on the interface, for the component.
    */
@@ -275,6 +276,20 @@ export class Select {
       case 'Tab':
         this.closeDropdown();
         break;
+    }
+  }
+
+  @Listen('fwFocus')
+  onOptionFocus(event) {
+    if (event.composedPath()[0].tagName === 'FW-SELECT-OPTION') {
+      this.focusedOptionId = event.detail.id;
+    }
+  }
+
+  @Listen('fwBlur')
+  onOptionBlur(event) {
+    if (event.composedPath()[0].tagName === 'FW-SELECT-OPTION') {
+      this.focusedOptionId = '';
     }
   }
 
@@ -575,6 +590,7 @@ export class Select {
                     type={this.type}
                     value=''
                     aria-autocomplete='list'
+                    aria-activedescendant={this.focusedOptionId}
                     onInput={() => this.onInput()}
                     onFocus={(e) => this.innerOnFocus(e)}
                     onBlur={(e) => this.innerOnBlur(e)}
