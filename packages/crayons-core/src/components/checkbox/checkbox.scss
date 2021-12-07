@@ -1,42 +1,25 @@
-.checkbox-container {
+:host {
   display: inline-block;
   position: relative;
-  padding-left: 22px;
-  margin-bottom: 8px;
+}
 
-  /* Focus event occurs on the root element */
-  &:focus {
-    input[type='checkbox'] + label {
-      &::before {
-        border: 1px solid transparent;
-        box-shadow: 0 0 0 2px rgb(44, 92, 197);
-      }
-    }
+.checkbox-container {
+  margin-bottom: 4px;
+}
 
-    input[type='checkbox'][disabled] + label {
-      &::before {
-        box-shadow: none;
-        border: 1px solid #dadfe3;
-      }
+/* Focus event occurs on the root element */
+:host(:focus) {
+  input[type='checkbox'] + label {
+    &::before {
+      border: 1px solid transparent;
+      box-shadow: 0 0 0 2px rgb(44, 92, 197);
     }
   }
 
-  /* Hover event occurs on the root element */
-  &:hover {
-    input[type='checkbox'] + label {
-      &::before {
-        border-color: $input-hover-color;
-        box-shadow: 0 0 0 5px rgb(235, 239, 243);
-      }
-    }
-
-    input[type='checkbox'][disabled] + label {
-      cursor: not-allowed;
-
-      &::before {
-        box-shadow: none;
-        border: 1px solid #dadfe3;
-      }
+  input[type='checkbox'][disabled] + label {
+    &::before {
+      box-shadow: none;
+      border: 1px solid #dadfe3;
     }
   }
 }
@@ -51,18 +34,41 @@
   word-wrap: break-word;
 }
 
+/* Hover event occurs on the root element */
+:host(:hover) {
+  input[type='checkbox'] + label {
+    &::before {
+      border-color: $input-hover-color;
+      box-shadow: 0 0 0 5px rgb(235, 239, 243);
+    }
+  }
+
+  input[type='checkbox'][disabled] + label {
+    cursor: not-allowed;
+
+    &::before {
+      box-shadow: none;
+      border: 1px solid #dadfe3;
+    }
+  }
+}
+
 input[type='checkbox'] {
   display: none;
 
   & + label {
     user-select: none;
     cursor: pointer;
-    margin-bottom: 4px;
+    margin-bottom: 0;
     vertical-align: middle;
     font-size: 14px;
     color: #12344d;
-    font-weight: 600;
     line-height: 20px;
+    font-weight: 600;
+
+    #label {
+      padding-left: 22px;
+    }
 
     @media screen and (prefers-reduced-motion: reduce) {
       &::before {

@@ -34,6 +34,7 @@ export class Select {
   private tagContainer: HTMLElement;
   private tagRefs = [];
   private tagArrowKeyCounter = 0;
+  private hostId;
 
   private changeEmittable = () => !this.disabled;
 
@@ -80,6 +81,7 @@ export class Select {
   @State() dataSource;
   @State() selectedOptionsState = [];
   @State() isLoading = false;
+  @State() focusedOptionId = '';
   /**
    * Label displayed on the interface, for the component.
    */
@@ -198,6 +200,10 @@ export class Select {
    * Whether the arrow/caret should be shown in the select.
    */
   @Prop() caret = true;
+  /**
+   * If the default label prop is not used, then use this prop to pass the id of the label.
+   */
+  @Prop() labelledBy = '';
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -279,6 +285,20 @@ export class Select {
       case 'Tab':
         this.closeDropdown();
         break;
+    }
+  }
+
+  @Listen('fwFocus')
+  onOptionFocus(event) {
+    if (event.composedPath()[0].tagName === 'FW-SELECT-OPTION') {
+      this.focusedOptionId = event.detail.id;
+    }
+  }
+
+  @Listen('fwBlur')
+  onOptionBlur(event) {
+    if (event.composedPath()[0].tagName === 'FW-SELECT-OPTION') {
+      this.focusedOptionId = '';
     }
   }
 
@@ -473,6 +493,9 @@ export class Select {
     }
     this.host.addEventListener('focus', this.setFocus);
     this.host.innerHTML = '';
+
+    //Get id
+    this.hostId = this.host.id || '';
   }
 
   componentDidLoad() {
@@ -497,11 +520,25 @@ export class Select {
         }}
       >
         {this.label !== '' ? (
-          <label class={{ required: this.required }}> {this.label} </label>
+          <label
+            id={`${this.hostId}-label`}
+            class={{ required: this.required }}
+          >
+            {this.label}
+          </label>
         ) : (
           ''
         )}
-        <div class='select-container'>
+        {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
+        moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
+        <div
+          class='select-container'
+          role='combobox'
+          aria-controls={`${this.hostId}-listbox`}
+          aria-haspopup='listbox'
+          aria-expanded={this.isExpanded}
+          aria-owns={`${this.hostId}-listbox`}
+        >
           <fw-popover
             distance='8'
             trigger='manual'
@@ -522,7 +559,7 @@ export class Select {
               {this.variant === 'button' ? (
                 //TODO: Make this behavior generic.
                 <fw-button
-                  id='select-btn'
+                  id={`${this.hostId}-btn`}
                   show-caret-icon
                   color='secondary'
                   class={
@@ -546,6 +583,7 @@ export class Select {
                   )}
                   <input
                     ref={(selectInput) => (this.selectInput = selectInput)}
+                    id={`${this.hostId}-input`}
                     class={{
                       'multiple-select': this.multiple,
                     }}
@@ -559,6 +597,8 @@ export class Select {
                     required={this.required}
                     type={this.type}
                     value=''
+                    aria-autocomplete='list'
+                    aria-activedescendant={this.focusedOptionId}
                     onInput={() => this.onInput()}
                     onFocus={(e) => this.innerOnFocus(e)}
                     onBlur={(e) => this.innerOnBlur(e)}
@@ -580,6 +620,9 @@ export class Select {
             </div>
             <fw-list-options
               ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
+              id={`${this.hostId}-listbox`}
+              role='listbox'
+              aria-labelledby={this.labelledBy || `${this.hostId}-label`}
               notFoundText={this.notFoundText}
               debounceTimer={this.debounceTimer}
               noDataText={this.noDataText}
