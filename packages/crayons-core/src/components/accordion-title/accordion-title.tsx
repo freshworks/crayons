@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, Element, h } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
 
 const ChevronArrow = ({ expanded }) => {
@@ -12,16 +12,18 @@ const ChevronArrow = ({ expanded }) => {
       name={`chevron-${direction}`}
       size={iconSize}
       color={iconColor}
-    >
-      {' '}
-    </fw-icon>
+    />
   );
 };
+
 @Component({
   tag: 'fw-accordion-title',
   styleUrl: 'accordion-title.scss',
+  shadow: true,
 })
 export class AccordionTitle {
+  @Element() el: HTMLFwAccordionTitleElement;
+
   /**
    * @internal
    */
@@ -32,6 +34,16 @@ export class AccordionTitle {
    * @internal
    */
   @Prop() expanded = true;
+
+  @Prop() truncateOnOverflow = true;
+
+  expandedIcon: HTMLElement;
+  collapsedIcon: HTMLElement;
+
+  componentWillLoad() {
+    this.expandedIcon = this.el.querySelector('[slot="expanded-icon"');
+    this.collapsedIcon = this.el.querySelector('[slot="collapsed-icon"');
+  }
 
   /**
    * render the slot content directly
@@ -47,10 +59,21 @@ export class AccordionTitle {
         onClick={this.toggleState}
         aria-expanded={this.expanded.toString()}
       >
-        <div class='accordion-title'>
+        <div
+          class={{
+            'accordion-title': true,
+            'truncate': this.truncateOnOverflow,
+          }}
+        >
           <slot></slot>
         </div>
-        <ChevronArrow expanded={this.expanded} />
+        {this.expandedIcon && this.collapsedIcon ? (
+          <div class='accordion-icon'>
+            <slot name={this.expanded ? 'expanded-icon' : 'collapsed-icon'} />
+          </div>
+        ) : (
+          <ChevronArrow expanded={this.expanded} />
+        )}
       </div>
     );
   }

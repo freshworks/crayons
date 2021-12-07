@@ -3,6 +3,7 @@ import { Component, Prop, h } from '@stencil/core';
 @Component({
   tag: 'fw-accordion-body',
   styleUrl: 'accordion-body.scss',
+  shadow: true,
 })
 export class AccordionBody {
   /**

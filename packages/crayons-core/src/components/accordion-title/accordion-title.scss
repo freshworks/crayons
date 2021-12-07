@@ -1,17 +1,33 @@
+/**
+  @prop --accordion-title-font-size: Accordion title font size
+  @prop --accordion-title-font-weight: Accordion title font weight
+  @prop --accordion-title-line-height: Accordion title line height
+  @prop --accordion-title-background: Accordion title background
+  @prop --accordion-title-box-shadow: Accordion title box shadow
+  @prop --accordion-title-border: Accordion title border
+*/
+
+$accordion-title-box-shadow: 0px 8px 4px rgba(7, 126, 214, 0.06);
+
 .accordion-header {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid $app-border-primary;
+  background: var(--accordion-title-background, #ffffff);
+  box-shadow: var(--accordion-title-box-shadow, $accordion-title-box-shadow);
+  border: var(--accordion-title-border, none);
   padding: 10px 20px;
-
-  &.collapsed {
-    border-bottom: none;
-  }
 
   .accordion-title {
     flex-grow: 1;
-    height: 20px;
+    line-height: var(--accordion-title-line-height, 19px);
+    font-size: var(--accordion-title-font-size, 16px);
     font-weight: var(--accordion-title-font-weight, bold);
+
+    &.truncate {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 
   .accordion-icon {

@@ -25,6 +25,7 @@ export namespace Components {
     interface FwAccordionTitle {
         "expanded": boolean;
         "toggleState": any;
+        "truncateOnOverflow": boolean;
     }
     interface FwAvatar {
         "alt": string;
@@ -1381,6 +1382,7 @@ declare namespace LocalJSX {
     interface FwAccordionTitle {
         "expanded"?: boolean;
         "toggleState"?: any;
+        "truncateOnOverflow"?: boolean;
     }
     interface FwAvatar {
         "alt"?: string;

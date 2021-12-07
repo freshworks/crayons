@@ -1,7 +1,12 @@
+/**
+  @prop --accordion-box-shadow: Accordion box shadow
+  @prop --accordion-border: Accordion border
+  @prop --accordion-border-radius: Accordion border radius
+*/
 .accordion {
-  box-shadow: var(--accordion-box-shadow, 0px 1px 0px #ebeff3);
-  border: 1px solid $app-border-primary;
-  border-radius: 8px;
+  box-shadow: var(--accordion-box-shadow, 0px 1px 4px rgba(18, 52, 77, 0.08));
+  border: var(--accordion-border, 1px solid $app-border-primary);
+  border-radius: var(--accordion-border-radius, 8px);
 
   &.borderless {
     border-left: 0;

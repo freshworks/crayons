@@ -82,6 +82,15 @@ function App() {
 | `fwAccordionToggle` | Triggered when the accordion is expanded or collpased | `CustomEvent<AccordionToggleEvent>` |
 
 
+## CSS Custom Properties
+
+| Name                        | Description             |
+| --------------------------- | ----------------------- |
+| `--accordion-border`        | Accordion border        |
+| `--accordion-border-radius` | Accordion border radius |
+| `--accordion-box-shadow`    | Accordion box shadow    |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

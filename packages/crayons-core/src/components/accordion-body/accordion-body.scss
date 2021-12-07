@@ -1,6 +1,14 @@
+/**
+  @prop --accordion-body-font-size: Accordion body font size
+  @prop --accordion-body-line-height: Accordion body line height
+  @prop --accordion-background-color: Accordion background color
+  @prop --accordion-body-padding: Accordion body padding
+*/
 .accordion-body {
-  background-color: $app-header-bg-secondary;
-  padding: 20px;
+  font-size: var(--accordion-body-font-size, 14px);
+  line-height: var(--accordion-body-line-height, 18px);
+  background-color: var(--accordion-background-color, $app-header-bg-secondary);
+  padding: var(--accordion-body-padding, 20px);
 
   &.collapsed {
     display: none;
