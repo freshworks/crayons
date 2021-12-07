@@ -166,8 +166,9 @@ export class SelectOption {
   render() {
     return (
       <div
-        role='button'
+        role='option'
         tabindex='-1'
+        aria-selected={this.selected}
         ref={(el) => (this.rowContainer = el)}
         class={
           'select-option ' +

@@ -610,6 +610,10 @@ export namespace Components {
          */
         "label": string;
         /**
+          * If the default label prop is not used, then use this prop to pass the id of the label.
+         */
+        "labeledBy": string;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max": number;
@@ -1990,6 +1994,10 @@ declare namespace LocalJSX {
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
+        /**
+          * If the default label prop is not used, then use this prop to pass the id of the label.
+         */
+        "labeledBy"?: string;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
