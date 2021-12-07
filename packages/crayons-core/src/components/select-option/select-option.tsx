@@ -3,6 +3,7 @@ import {
   Component,
   Event,
   EventEmitter,
+  Element,
   Prop,
   h,
   Fragment,
@@ -17,6 +18,7 @@ import { DropdownVariant } from '../../utils/types';
   shadow: true,
 })
 export class SelectOption {
+  @Element() host: HTMLElement;
   private rowContainer?: HTMLElement;
   /**
    * Value corresponding to the option, that is saved  when the form data is saved.
@@ -72,6 +74,15 @@ export class SelectOption {
    * Triggered when an option is selected.
    */
   @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
+
+  /**
+   * Triggered when an option is focused.
+   */
+  @Event({ bubbles: true, composed: true }) fwFocus: EventEmitter;
+  /**
+   * Triggered when an option loses focus.
+   */
+  @Event({ bubbles: true, composed: true }) fwBlur: EventEmitter;
 
   @Method()
   async setFocus(): Promise<any> {
@@ -166,8 +177,9 @@ export class SelectOption {
   render() {
     return (
       <div
-        role='button'
+        role='option'
         tabindex='-1'
+        aria-selected={this.selected}
         ref={(el) => (this.rowContainer = el)}
         class={
           'select-option ' +
@@ -179,6 +191,8 @@ export class SelectOption {
               (this.variant + ' ' + 'select-center'))
         }
         onMouseDown={() => this.onOptionSelected()}
+        onFocus={() => this.fwFocus.emit({ id: this.host.id })}
+        onBlur={(e) => this.fwBlur.emit(e)}
       >
         {this.html ? '' : this.text ? this.renderInnerHtml() : <slot />}
       </div>

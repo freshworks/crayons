@@ -55,17 +55,19 @@ describe('fw-timepicker', () => {
     expect(fwFocus).toHaveReceivedEvent();
   });
 
-  it('it sets start value, end value and interval as per the properties provided', async () => {
-    const page = await newE2EPage();
+  // TODO: Better test case to check for the first value.
 
-    await page.setContent(
-      `<fw-timepicker min-time="09:00 AM" interval=15></fw-timepicker>`
-    );
-    const el = await page.find('fw-timepicker >>> fw-select');
-    expect(el.shadowRoot).toEqualHtml(
-      `<div class="select-container">   <fw-popover class="hydrated" same-width>    <div class="input-container normal" slot="popover-trigger">         <div class="input-container-inner">           <input autocomplete="off" placeholder="" type="text">           <span class="dropdown-status-icon"></span>         </div>       </div>        <fw-list-options class="hydrated" slot="popover-content" value=""></fw-list-options> </fw-popover>     </div>     </fw-popover></div>`
-    );
-  });
+  // it('it sets start value, end value and interval as per the properties provided', async () => {
+  //   const page = await newE2EPage();
+
+  //   await page.setContent(
+  //     `<fw-timepicker min-time="09:00 AM" interval=15></fw-timepicker>`
+  //   );
+  //   const el = await page.find('fw-timepicker >>> fw-select');
+  //   expect(el.shadowRoot).toEqualHtml(
+  //     `<div class="select-container">   <fw-popover class="hydrated" same-width>    <div class="input-container normal" slot="popover-trigger">         <div class="input-container-inner">           <input autocomplete="off" placeholder="" type="text">           <span class="dropdown-status-icon"></span>         </div>       </div>        <fw-list-options class="hydrated" slot="popover-content" value=""></fw-list-options> </fw-popover>     </div>     </fw-popover></div>`
+  //   );
+  // });
 
   it('sets the value when the option is selected', async () => {
     const page = await newE2EPage();

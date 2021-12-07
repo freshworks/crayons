@@ -660,6 +660,10 @@ export namespace Components {
          */
         "label": string;
         /**
+          * If the default label prop is not used, then use this prop to pass the id of the label.
+         */
+        "labelledBy": string;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max": number;
@@ -2098,6 +2102,10 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * If the default label prop is not used, then use this prop to pass the id of the label.
+         */
+        "labelledBy"?: string;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
@@ -2219,6 +2227,14 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
+        /**
+          * Triggered when an option loses focus.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when an option is focused.
+         */
+        "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when an option is selected.
          */
