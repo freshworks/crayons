@@ -194,7 +194,7 @@ export class Select {
   /**
    * If the default label prop is not used, then use this prop to pass the id of the label.
    */
-  @Prop() labeledBy = '';
+  @Prop() labelledBy = '';
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -614,7 +614,7 @@ export class Select {
               ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
               id={`${this.hostId}-listbox`}
               role='listbox'
-              aria-labelledby={this.labeledBy || `${this.hostId}-label`}
+              aria-labelledby={this.labelledBy || `${this.hostId}-label`}
               notFoundText={this.notFoundText}
               debounceTimer={this.debounceTimer}
               noDataText={this.noDataText}
