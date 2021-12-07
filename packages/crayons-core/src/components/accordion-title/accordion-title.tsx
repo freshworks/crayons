@@ -35,6 +35,9 @@ export class AccordionTitle {
    */
   @Prop() expanded = true;
 
+  /**
+   * Truncate title on text overflow
+   */
   @Prop() truncateOnOverflow = true;
 
   expandedIcon: HTMLElement;

@@ -7,9 +7,9 @@ Displays the content inside the component.
 
 ## Properties
 
-| Property             | Attribute              | Description | Type      | Default |
-| -------------------- | ---------------------- | ----------- | --------- | ------- |
-| `truncateOnOverflow` | `truncate-on-overflow` |             | `boolean` | `true`  |
+| Property             | Attribute              | Description                     | Type      | Default |
+| -------------------- | ---------------------- | ------------------------------- | --------- | ------- |
+| `truncateOnOverflow` | `truncate-on-overflow` | Truncate title on text overflow | `boolean` | `true`  |
 
 
 ## CSS Custom Properties
