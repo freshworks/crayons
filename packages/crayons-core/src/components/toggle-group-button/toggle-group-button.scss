@@ -1,0 +1,206 @@
+:host {
+  display: inline-block;
+}
+
+// stylelint-disable a11y/media-prefers-reduced-motion
+@media screen and (prefers-reduced-motion: reduce) {
+  .fw-toggle-card-button,
+  .fw-toggle-card-button-tick,
+  .fw-toggle-icon-button {
+    transition: none;
+  }
+}
+
+// Styles for card button
+@mixin mixin-fw-toggle-card-button-selected-style {
+  background: #e5f2fd; // TODO - get from design team
+  border: 1px solid #bbdcfe; // TODO - get from design team
+  box-shadow: 0px 1px 4px #ebeff3;
+}
+
+.fw-toggle-card-button {
+  width: 220px;
+  height: 100px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  outline: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: $color-milk;
+  border: 1px solid $color-smoke-100;
+  box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05);
+  transition: background-color 0.3s;
+  position: relative;
+
+  .fw-toggle-card-button-header {
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+    line-height: 20px;
+    text-align: left;
+    color: $text-default;
+    font-size: $font-size-16;
+    font-weight: $font-weight-600;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+  }
+
+  .fw-toggle-card-button-description {
+    width: 100%;
+    margin: 0;
+    pointer-events: none;
+    user-select: none;
+    text-align: left;
+
+    color: $text-secondary;
+    font-size: $font-size-14;
+    font-weight: $font-weight-400;
+
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 16px; /* fallback */
+    max-height: 32px; /* fallback */ // TODO - get from design team
+    -webkit-line-clamp: 2; /* number of lines to show */ // TODO - get from design team
+    -webkit-box-orient: vertical;
+  }
+
+  .fw-toggle-card-button-tick {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    outline: 2px solid $color-milk;
+    background-color: $color-azure-800;
+    transition: opacity 0.3s;
+    opacity: 1;
+  }
+
+  &:hover {
+    background: $color-smoke-50; // TODO - get from design team
+  }
+
+  &:focus {
+    border: 1px solid #e5f2fd; // TODO - get from design team
+    box-shadow: 0 0 0 1px #e5f2fd; // TODO - get from design team
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &--selected {
+    @include mixin-fw-toggle-card-button-selected-style;
+    .fw-toggle-card-button-tick {
+      opacity: 1;
+    }
+  }
+
+  &--selected--checkbox {
+    cursor: pointer;
+    &:hover {
+      @include mixin-fw-toggle-card-button-selected-style;
+      .fw-toggle-card-button-tick {
+        opacity: 0.5;
+      }
+    }
+    &:active {
+      @include mixin-fw-toggle-card-button-selected-style;
+      .fw-toggle-card-button-tick {
+        opacity: 0.1;
+      }
+    }
+    &:focus {
+      @include mixin-fw-toggle-card-button-selected-style;
+      .fw-toggle-card-button-tick {
+        opacity: 1;
+      }
+    }
+  }
+
+  &--selected--radio {
+    cursor: unset;
+    pointer-events: none;
+    &:hover {
+      @include mixin-fw-toggle-card-button-selected-style;
+    }
+    &:focus {
+      @include mixin-fw-toggle-card-button-selected-style;
+    }
+  }
+}
+// Styles for card button - end
+
+// Styles for icon toggle button
+@mixin mixin-fw-toggle-icon-button-selected-style {
+  background: linear-gradient(180deg, #ffffff 2.56%, #f5f7f9 95.75%);
+  border: 2px solid #2c5cc5;
+  box-shadow: 0px 1px 4px #ebeff3;
+}
+
+.fw-toggle-icon-button {
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #ffffff 2.56%, #f5f7f9 95.75%);
+  border: 1px solid #cfd7df;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background: #f5f7f9;
+  }
+
+  &:focus {
+    @include mixin-fw-toggle-icon-button-selected-style;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &--selected {
+    @include mixin-fw-toggle-icon-button-selected-style;
+  }
+
+  &--selected--checkbox {
+    cursor: pointer;
+    &:hover {
+      background: #f5f7f9;
+    }
+    &:focus {
+      @include mixin-fw-toggle-icon-button-selected-style;
+    }
+  }
+
+  &--selected--radio {
+    cursor: unset;
+    pointer-events: none;
+    &:hover {
+      @include mixin-fw-toggle-icon-button-selected-style;
+    }
+    &:focus {
+      @include mixin-fw-toggle-icon-button-selected-style;
+    }
+  }
+}
+// Styles for icon button - end
