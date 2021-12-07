@@ -515,8 +515,7 @@ export class Select {
             id={`${this.hostId}-label`}
             class={{ required: this.required }}
           >
-            {' '}
-            {this.label}{' '}
+            {this.label}
           </label>
         ) : (
           ''
