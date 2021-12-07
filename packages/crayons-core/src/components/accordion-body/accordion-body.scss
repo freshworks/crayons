@@ -1,3 +1,5 @@
+$accordion-border-radius: var(--accordion-border-radius, 8px);
+
 /**
   @prop --accordion-body-font-size: Accordion body font size
   @prop --accordion-body-line-height: Accordion body line height
@@ -9,8 +11,13 @@
   line-height: var(--accordion-body-line-height, 18px);
   background-color: var(--accordion-background-color, $app-header-bg-secondary);
   padding: var(--accordion-body-padding, 20px);
+  border-radius: 0 0 $accordion-border-radius $accordion-border-radius;
 
   &.collapsed {
     display: none;
+  }
+
+  &.borderless {
+    border-radius: 0;
   }
 }

@@ -1,4 +1,4 @@
-# fw-accordion-body
+# Accordion Body (fw-accordion-body)
 
 Displays the content inside the component.
 

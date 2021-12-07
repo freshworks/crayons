@@ -31,7 +31,7 @@ export class Accordion {
   /**
    * To manage accordion expanded or collapsed state
    */
-  @Prop({ mutable: true }) expanded = true;
+  @Prop({ mutable: true }) expanded = false;
 
   /**
    * Triggered when the accordion is expanded or collpased
@@ -53,6 +53,8 @@ export class Accordion {
   componentWillLoad() {
     this.accordionTitle = this.el.querySelector('fw-accordion-title');
     this.accordionBody = this.el.querySelector('fw-accordion-body');
+    this.accordionTitle.type = this.type;
+    this.accordionBody.type = this.type;
     this.accordionTitle.toggleState = this.toggleState.bind(this);
     this.updateState();
   }

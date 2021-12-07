@@ -1,4 +1,4 @@
-# fw-accordion-title
+# Accordion Title (fw-accordion-title)
 
 Displays the content inside the component.
 
@@ -18,7 +18,6 @@ Displays the content inside the component.
 | ------------------------------- | --------------------------- |
 | `--accordion-title-background`  | Accordion title background  |
 | `--accordion-title-border`      | Accordion title border      |
-| `--accordion-title-box-shadow`  | Accordion title box shadow  |
 | `--accordion-title-font-size`   | Accordion title font size   |
 | `--accordion-title-font-weight` | Accordion title font weight |
 | `--accordion-title-line-height` | Accordion title line height |

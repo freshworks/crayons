@@ -21,6 +21,7 @@ export namespace Components {
     }
     interface FwAccordionBody {
         "expanded": boolean;
+        "type": 'default' | 'borderless';
     }
     interface FwAccordionTitle {
         "expanded": boolean;
@@ -29,6 +30,7 @@ export namespace Components {
           * Truncate title on text overflow
          */
         "truncateOnOverflow": boolean;
+        "type": 'default' | 'borderless';
     }
     interface FwAvatar {
         "alt": string;
@@ -1381,6 +1383,7 @@ declare namespace LocalJSX {
     }
     interface FwAccordionBody {
         "expanded"?: boolean;
+        "type"?: 'default' | 'borderless';
     }
     interface FwAccordionTitle {
         "expanded"?: boolean;
@@ -1389,6 +1392,7 @@ declare namespace LocalJSX {
           * Truncate title on text overflow
          */
         "truncateOnOverflow"?: boolean;
+        "type"?: 'default' | 'borderless';
     }
     interface FwAvatar {
         "alt"?: string;

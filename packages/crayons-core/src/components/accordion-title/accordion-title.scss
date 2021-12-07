@@ -3,19 +3,26 @@
   @prop --accordion-title-font-weight: Accordion title font weight
   @prop --accordion-title-line-height: Accordion title line height
   @prop --accordion-title-background: Accordion title background
-  @prop --accordion-title-box-shadow: Accordion title box shadow
   @prop --accordion-title-border: Accordion title border
 */
 
-$accordion-title-box-shadow: 0px 8px 4px rgba(7, 126, 214, 0.06);
+$accordion-border-radius: var(--accordion-border-radius, 8px);
 
 .accordion-header {
   display: flex;
   align-items: center;
   background: var(--accordion-title-background, #ffffff);
-  box-shadow: var(--accordion-title-box-shadow, $accordion-title-box-shadow);
   border: var(--accordion-title-border, none);
+  border-radius: $accordion-border-radius $accordion-border-radius 0 0;
   padding: 10px 20px;
+
+  &.collapsed {
+    border-radius: $accordion-border-radius;
+  }
+
+  &.borderless {
+    border-radius: 0;
+  }
 
   .accordion-title {
     flex-grow: 1;

@@ -36,6 +36,11 @@ export class AccordionTitle {
   @Prop() expanded = true;
 
   /**
+   * @internal
+   */
+  @Prop() type: 'default' | 'borderless' = 'default';
+
+  /**
    * Truncate title on text overflow
    */
   @Prop() truncateOnOverflow = true;
@@ -55,7 +60,11 @@ export class AccordionTitle {
   render(): JSX.Element {
     return (
       <div
-        class={{ 'accordion-header': true, 'collapsed': !this.expanded }}
+        class={{
+          'accordion-header': true,
+          'collapsed': !this.expanded,
+          'borderless': this.type === 'borderless',
+        }}
         role='button'
         tabindex='0'
         onKeyDown={handleKeyDown(this.toggleState)}
