@@ -1,8 +1,11 @@
 export default {
-  common: {
-    add: 'Add',
+  datepicker: {
     cancel: 'Cancel',
     update: 'Update',
+  },
+  dropdown: {
+    add: 'Add',
+    cancel: 'Cancel',
   },
   modal: {
     cancel: 'Cancel',

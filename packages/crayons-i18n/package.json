@@ -1,7 +1,7 @@
 {
   "name": "@freshworks/crayons-i18n",
   "version": "1.0.0",
-  "description": "Crayons I18n Library",
+  "description": "Crayons i18n Library",
   "repository": {
     "type": "git",
     "url": "https://github.com/freshworks/crayons.git"

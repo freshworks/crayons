@@ -1,8 +1,6 @@
 import { Build as BUILD, ComponentInterface } from '@stencil/core';
 
 import { createStore } from '@stencil/store';
-//import { Locale } from 'date-fns';
-//import en_datelang_module from 'date-fns/locale/en-US';
 
 interface i18nConfig {
   [key: string]: {
@@ -71,7 +69,7 @@ export class TranslationController {
   constructor() {
     const { state, onChange } = createStore({
       lang: '',
-      globalI18n: null,
+      globalStrings: null,
       customTranslations: {},
       dateLangModule: '',
     });
@@ -136,15 +134,15 @@ export class TranslationController {
   async fetchTranslations(lang?: string): Promise<any> {
     const locale = lang || getBrowserLang();
 
-    return this.fetchDefaultTranslations(locale).then((defaultI18nStrings) => {
-      const customI18nStrings =
+    return this.fetchDefaultTranslations(locale).then((defaultLangStrings) => {
+      const customLangStrings =
         (this.state.customTranslations as any)?.[locale] || {};
-      const finalI18nStrings = {
-        ...defaultI18nStrings,
-        ...customI18nStrings,
+      const finalLangStrings = {
+        ...defaultLangStrings,
+        ...customLangStrings,
       };
-      this.state.globalI18n = finalI18nStrings;
-      return finalI18nStrings;
+      this.state.globalStrings = finalLangStrings;
+      return finalLangStrings;
     });
   }
 
@@ -172,8 +170,6 @@ export class TranslationController {
   async fetchDateLangModule(lang: string): Promise<any> {
     let req = this.requests.get('date_' + lang);
     if (!req) {
-      //`https://cdn.jsdelivr.net/npm/date-fns/esm/locale/${lang}/index.js`
-
       req = import(`../../../node_modules/date-fns/esm/locale/${lang}/index.js`)
         .then((result) => result.default)
         .then((data) => {
@@ -196,17 +192,41 @@ export class TranslationController {
   /**
    * set custom translations. ex: {
     en: {
-      common: {
-        add: 'Add',
+      datepicker: {
         cancel: 'Cancel',
         update: 'Update',
       },
+      dropdown: {
+        add: 'Add',
+        cancel: 'Cancel',
+      },
+      modal: {
+        cancel: 'Cancel',
+        ok: 'OK',
+      },
+      search: {
+        search: 'Search',
+        no_items_found: 'No items found',
+        no_data_available: 'No data available',
+      },
     },
     de: {
-      common: {
-        add: 'Addieren',
+      datepicker: {
         cancel: 'Stornieren',
         update: 'Aktualisierung',
+      },
+      modal: {
+        ok: 'OK',
+        cancel: 'Stornieren',
+      },
+      dropdown: {
+        add: 'Addieren',
+        cancel: 'Stornieren',
+      },
+      search: {
+        search: 'Suche',
+        no_items_found: 'Keine Elemente gefunden',
+        no_data_available: 'Keine Daten vorhanden',
       },
     },
   };
@@ -228,22 +248,22 @@ export class TranslationController {
       const { componentWillLoad } = proto;
 
       proto.componentWillLoad = async function () {
-        if (!that.state.globalI18n) {
+        if (!that.state.globalStrings) {
           await that.fetchTranslations(that.state.lang || getBrowserLang());
         }
 
         let isDefaultValueUsed = false;
         if (!this[propName]) {
           this[propName] =
-            getVal(keyName.toLowerCase(), that.state.globalI18n) ||
+            getVal(keyName.toLowerCase(), that.state.globalStrings) ||
             defaultValue;
           isDefaultValueUsed = true;
         }
 
-        that.onChange('globalI18n', async () => {
+        that.onChange('globalStrings', async () => {
           if (isDefaultValueUsed) {
             this[propName] =
-              getVal(keyName.toLowerCase(), that.state.globalI18n) ||
+              getVal(keyName.toLowerCase(), that.state.globalStrings) ||
               defaultValue;
           }
         });

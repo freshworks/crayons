@@ -45,11 +45,14 @@ To know about the `translation keys` that should be used in the translation obje
 
 Translation key and value for EN lang.
 ```js
-{
-  common: {
-    add: 'Add',
+en : {
+  datepicker: {
     cancel: 'Cancel',
     update: 'Update',
+  },
+  dropdown: {
+    add: 'Add',
+    cancel: 'Cancel',
   },
   modal: {
     cancel: 'Cancel',

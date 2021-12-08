@@ -1,11 +1,14 @@
 export default {
-  common: {
-    add: 'Addieren',
+  datepicker: {
     cancel: 'Stornieren',
     update: 'Aktualisierung',
   },
   modal: {
     ok: 'OK',
+    cancel: 'Stornieren',
+  },
+  dropdown: {
+    add: 'Addieren',
     cancel: 'Stornieren',
   },
   search: {
