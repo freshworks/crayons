@@ -283,10 +283,7 @@ $input-height-mini: 16px;
 
 // Padding and Spacing
 // stylelint-disable
-$sizes:
-  "normal" 12px 8px,
-  "small" 8px 6px,
-  "mini" 6px 4px;
+$sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 // stylelint-enable
 
 @each $className, $labelOnlySize, $innerOnlySize in $sizes {
@@ -372,7 +369,6 @@ $sizes:
 
 :host(.fw-button-group__button--inner) .fw-btn {
   border-radius: 0;
-  margin-left: -1px;
   border-left: 0;
 }
 
@@ -380,6 +376,5 @@ $sizes:
   .fw-btn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  margin-left: -1px;
   border-left: 0;
 }
