@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { FormRenderProps, FormValidator, FormValues, StencilFormEventDetail } from "./components/form/form-declaration";
 import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -157,6 +158,81 @@ export namespace Components {
           * Value of the dropdown button
          */
         "value": any;
+    }
+    interface FwForm {
+        "initialValues": FormValues;
+        /**
+          * Tell Form if initial form values are valid or not on first render
+         */
+        "isInitialValid"?: boolean;
+        "renderer": (props: FormRenderProps<any>) => any;
+        "validate": FormValidator<FormValues>;
+        /**
+          * Tells Form to validate the form on each input's onBlur event
+         */
+        "validateOnBlur"?: boolean;
+        /**
+          * Tells Form to validate the form on each input's onInput event
+         */
+        "validateOnInput"?: boolean;
+    }
+    interface FwFormControl {
+        /**
+          * The first name
+         */
+        "first": string;
+        /**
+          * The last name
+         */
+        "last": string;
+        /**
+          * The middle name
+         */
+        "middle": string;
+    }
+    interface FwFormControlFeedback {
+        /**
+          * The first name
+         */
+        "first": string;
+        /**
+          * The last name
+         */
+        "last": string;
+        /**
+          * The middle name
+         */
+        "middle": string;
+    }
+    interface FwFormGroup {
+        /**
+          * The first name
+         */
+        "first": string;
+        /**
+          * The last name
+         */
+        "last": string;
+        /**
+          * The middle name
+         */
+        "middle": string;
+    }
+    interface FwFormLabel {
+        /**
+          * The first name
+         */
+        "first": string;
+        /**
+          * The last name
+         */
+        "last": string;
+        /**
+          * The middle name
+         */
+        "middle": string;
+    }
+    interface FwFormText {
     }
     interface FwIcon {
         /**
@@ -1127,6 +1203,42 @@ declare global {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
     };
+    interface HTMLFwFormElement extends Components.FwForm, HTMLStencilElement {
+    }
+    var HTMLFwFormElement: {
+        prototype: HTMLFwFormElement;
+        new (): HTMLFwFormElement;
+    };
+    interface HTMLFwFormControlElement extends Components.FwFormControl, HTMLStencilElement {
+    }
+    var HTMLFwFormControlElement: {
+        prototype: HTMLFwFormControlElement;
+        new (): HTMLFwFormControlElement;
+    };
+    interface HTMLFwFormControlFeedbackElement extends Components.FwFormControlFeedback, HTMLStencilElement {
+    }
+    var HTMLFwFormControlFeedbackElement: {
+        prototype: HTMLFwFormControlFeedbackElement;
+        new (): HTMLFwFormControlFeedbackElement;
+    };
+    interface HTMLFwFormGroupElement extends Components.FwFormGroup, HTMLStencilElement {
+    }
+    var HTMLFwFormGroupElement: {
+        prototype: HTMLFwFormGroupElement;
+        new (): HTMLFwFormGroupElement;
+    };
+    interface HTMLFwFormLabelElement extends Components.FwFormLabel, HTMLStencilElement {
+    }
+    var HTMLFwFormLabelElement: {
+        prototype: HTMLFwFormLabelElement;
+        new (): HTMLFwFormLabelElement;
+    };
+    interface HTMLFwFormTextElement extends Components.FwFormText, HTMLStencilElement {
+    }
+    var HTMLFwFormTextElement: {
+        prototype: HTMLFwFormTextElement;
+        new (): HTMLFwFormTextElement;
+    };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
     var HTMLFwIconElement: {
@@ -1296,6 +1408,12 @@ declare global {
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-form": HTMLFwFormElement;
+        "fw-form-control": HTMLFwFormControlElement;
+        "fw-form-control-feedback": HTMLFwFormControlFeedbackElement;
+        "fw-form-group": HTMLFwFormGroupElement;
+        "fw-form-label": HTMLFwFormLabelElement;
+        "fw-form-text": HTMLFwFormTextElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -1510,6 +1628,82 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
+    }
+    interface FwForm {
+        "initialValues"?: FormValues;
+        /**
+          * Tell Form if initial form values are valid or not on first render
+         */
+        "isInitialValid"?: boolean;
+        "onSubmit"?: (event: CustomEvent<StencilFormEventDetail>) => void;
+        "renderer"?: (props: FormRenderProps<any>) => any;
+        "validate"?: FormValidator<FormValues>;
+        /**
+          * Tells Form to validate the form on each input's onBlur event
+         */
+        "validateOnBlur"?: boolean;
+        /**
+          * Tells Form to validate the form on each input's onInput event
+         */
+        "validateOnInput"?: boolean;
+    }
+    interface FwFormControl {
+        /**
+          * The first name
+         */
+        "first"?: string;
+        /**
+          * The last name
+         */
+        "last"?: string;
+        /**
+          * The middle name
+         */
+        "middle"?: string;
+    }
+    interface FwFormControlFeedback {
+        /**
+          * The first name
+         */
+        "first"?: string;
+        /**
+          * The last name
+         */
+        "last"?: string;
+        /**
+          * The middle name
+         */
+        "middle"?: string;
+    }
+    interface FwFormGroup {
+        /**
+          * The first name
+         */
+        "first"?: string;
+        /**
+          * The last name
+         */
+        "last"?: string;
+        /**
+          * The middle name
+         */
+        "middle"?: string;
+    }
+    interface FwFormLabel {
+        /**
+          * The first name
+         */
+        "first"?: string;
+        /**
+          * The last name
+         */
+        "last"?: string;
+        /**
+          * The middle name
+         */
+        "middle"?: string;
+    }
+    interface FwFormText {
     }
     interface FwIcon {
         /**
@@ -2521,6 +2715,12 @@ declare namespace LocalJSX {
         "fw-checkbox": FwCheckbox;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-form": FwForm;
+        "fw-form-control": FwFormControl;
+        "fw-form-control-feedback": FwFormControlFeedback;
+        "fw-form-group": FwFormGroup;
+        "fw-form-label": FwFormLabel;
+        "fw-form-text": FwFormText;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -2560,6 +2760,12 @@ declare module "@stencil/core" {
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
+            "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
+            "fw-form-control-feedback": LocalJSX.FwFormControlFeedback & JSXBase.HTMLAttributes<HTMLFwFormControlFeedbackElement>;
+            "fw-form-group": LocalJSX.FwFormGroup & JSXBase.HTMLAttributes<HTMLFwFormGroupElement>;
+            "fw-form-label": LocalJSX.FwFormLabel & JSXBase.HTMLAttributes<HTMLFwFormLabelElement>;
+            "fw-form-text": LocalJSX.FwFormText & JSXBase.HTMLAttributes<HTMLFwFormTextElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
