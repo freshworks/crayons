@@ -39,7 +39,7 @@ _Only border style solid is supported._
 
 - To apply border radius on all directions, we can use 'fw-br-#{$radius}'.
 - To apply border radius only on right side, we can use 'fw-br-r-#{$radius}'.
-- To apply border radius only on left side, we can use 'fw-bl-r-#{$radius}'.
+- To apply border radius only on left side, we can use 'fw-br-l-#{$radius}'.
 
 _#{$radius} can be either 1, 2, 3 or 4._
 

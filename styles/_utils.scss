@@ -70,7 +70,7 @@ $font-weight: (
 }
 
 /**
-  For genrating border styles
+  For generating border styles
 */
 
 .fw-b-0 {
@@ -113,7 +113,7 @@ $border-radii: (
   .fw-br-r-#{$radius} {
     @include border-radius($value, 0);
   }
-  .fw-bl-r-#{$radius} {
+  .fw-br-l-#{$radius} {
     @include border-radius(0, $value);
   }
 }
