@@ -1,18 +1,21 @@
-# fw-pagination
+# Pagination (fw-pagination)
 
-
+fw-pagination displays pagination.
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property  | Attribute  | Description                                      | Type     | Default     |
-| --------- | ---------- | ------------------------------------------------ | -------- | ----------- |
-| `perPage` | `per-page` | The number of records to be shown per page.      | `number` | `undefined` |
-| `start`   | `start`    | The starting record number for the current page. | `number` | `undefined` |
-| `total`   | `total`    | The total number of records.                     | `number` | `undefined` |
+| Property         | Attribute          | Description                                 | Type     | Default     |
+| ---------------- | ------------------ | ------------------------------------------- | -------- | ----------- |
+| `recordsPerPage` | `records-per-page` | The number of records to be shown per page. | `number` | `undefined` |
+| `totalRecords`   | `total-records`    | The total number of records.                | `number` | `undefined` |
 
+## Events
+
+| Event      | Description                                               | Type               |
+| ---------- | --------------------------------------------------------- | ------------------ |
+| `fwChange` | Triggered when either previous or next button is clicked. | `CustomEvent<any>` |
 
 ## Dependencies
 
@@ -23,6 +26,7 @@
 - [fw-icon](../icon)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-pagination --> fw-button-group
@@ -33,6 +37,6 @@ graph TD;
   style fw-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks

@@ -3,8 +3,14 @@
   align-items: center;
 }
 
-div {
+.current-record {
   color: $app-info-color;
   margin-left: 10px;
-  margin-right: 5px;
+  margin-right: 14px;
+  line-height: 20px;
+  font-size: 14px;
+
+  .record {
+    font-weight: 700;
+  }
 }

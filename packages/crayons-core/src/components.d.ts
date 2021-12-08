@@ -441,15 +441,11 @@ export namespace Components {
         /**
           * The number of records to be shown per page.
          */
-        "perPage": number;
-        /**
-          * The starting record number for the current page.
-         */
-        "start": number;
+        "recordsPerPage": number;
         /**
           * The total number of records.
          */
-        "total": number;
+        "totalRecords": number;
     }
     interface FwPopover {
         /**
@@ -1836,17 +1832,17 @@ declare namespace LocalJSX {
     }
     interface FwPagination {
         /**
+          * Triggered when either previous or next button is clicked.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
           * The number of records to be shown per page.
          */
-        "perPage"?: number;
-        /**
-          * The starting record number for the current page.
-         */
-        "start"?: number;
+        "recordsPerPage"?: number;
         /**
           * The total number of records.
          */
-        "total"?: number;
+        "totalRecords"?: number;
     }
     interface FwPopover {
         /**

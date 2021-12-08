@@ -1,46 +1,70 @@
-import { Component, Prop, h, Host } from '@stencil/core';
+import {
+  Component,
+  Prop,
+  h,
+  Host,
+  State,
+  Event,
+  EventEmitter,
+} from '@stencil/core';
 @Component({
   tag: 'fw-pagination',
   styleUrl: 'pagination.scss',
   shadow: true,
 })
 export class Pagination {
-  private end;
-  /**
-   * The starting record number for the current page.
-   */
-  @Prop({ mutable: true }) start: number;
+  @State() start;
+  @State() end;
+
   /**
    * The total number of records.
    */
-  @Prop() total: number;
+  @Prop() totalRecords: number;
   /**
    *The number of records to be shown per page.
    */
-  @Prop() perPage: number;
+  @Prop() recordsPerPage: number;
+  /**
+   * Triggered when either previous or next button is clicked.
+   */
+  @Event() fwChange: EventEmitter;
 
   componentWillLoad() {
-    this.end = this.start + this.perPage - 1;
+    const pageQueryParam = parseInt(
+      new URLSearchParams(window.location.search).get('page')
+    );
+    this.start = pageQueryParam
+      ? (pageQueryParam - 1) * this.recordsPerPage + 1
+      : 1;
+    this.end = this.start + this.recordsPerPage - 1;
   }
 
   private previous() {
-    this.start -= this.perPage;
-    this.end -= this.perPage;
+    this.start -= this.recordsPerPage;
+    this.end =
+      this.start - this.end !== this.recordsPerPage
+        ? this.start + this.recordsPerPage - 1
+        : (this.end -= this.recordsPerPage);
+
+    this.fwChange.emit({ startRecord: this.start, endRecord: this.end });
   }
 
   private next() {
-    this.start += this.perPage;
+    this.start += this.recordsPerPage;
     this.end =
-      this.end + this.perPage > this.total
-        ? this.total
-        : this.end + this.perPage;
+      this.end + this.recordsPerPage > this.totalRecords
+        ? this.totalRecords
+        : this.end + this.recordsPerPage;
+
+    this.fwChange.emit({ startRecord: this.start, endRecord: this.end });
   }
 
   render() {
     return (
       <Host>
-        <div>
-          {this.start} to {this.end} of {this.total}
+        <div class='current-record'>
+          <span class='record'>{this.start}</span> to{' '}
+          <span class='record'>{this.end}</span> of {this.totalRecords}
         </div>
         <fw-button-group>
           <fw-button
@@ -52,7 +76,7 @@ export class Pagination {
             <fw-icon name='chevron-left'></fw-icon>
           </fw-button>
           <fw-button
-            disabled={this.end === this.total}
+            disabled={this.end === this.totalRecords}
             color='secondary'
             size='icon'
             onFwClick={() => this.next()}
