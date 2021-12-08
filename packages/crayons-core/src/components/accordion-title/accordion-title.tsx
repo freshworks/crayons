@@ -38,7 +38,7 @@ export class AccordionTitle {
   /**
    * @internal
    */
-  @Prop() type: 'default' | 'borderless' = 'default';
+  @Prop() type: 'default' | 'no_bounding_box' = 'default';
 
   /**
    * Truncate title on text overflow
@@ -63,7 +63,7 @@ export class AccordionTitle {
         class={{
           'accordion-header': true,
           'collapsed': !this.expanded,
-          'borderless': this.type === 'borderless',
+          'no_bounding_box': this.type === 'no_bounding_box',
         }}
         role='button'
         tabindex='0'

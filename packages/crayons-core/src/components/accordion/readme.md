@@ -4,6 +4,8 @@ fw-accordion displays a collapsible accordion component, which expands/collapses
 
 ## Demo
 
+Default Accordion
+
 ```html live
 <fw-accordion expanded="true">
   <fw-accordion-title>Header Text</fw-accordion-title>
@@ -16,18 +18,16 @@ fw-accordion displays a collapsible accordion component, which expands/collapses
 Accordion with custom icons
 
 ```html live
-<fw-accordion type="borderless">
+<fw-accordion>
   <fw-accordion-title>
      <fw-icon
       name='plus'
       size="14"
-      slot="expanded-icon"
-    ></fw-icon>
+      slot="expanded-icon"></fw-icon>
     <fw-icon
       name='minus'
       size="14"
-      slot="collapsed-icon"
-    ></fw-icon>
+      slot="collapsed-icon"></fw-icon>
     Header Text
   </fw-accordion-title>
   <fw-accordion-body>
@@ -36,10 +36,10 @@ Accordion with custom icons
 </fw-accordion>
 ```
 
-Borderless Accordion
+No Bounding Box Accordion (Borders at top and bottom only)
 
 ```html live
-<fw-accordion type="borderless">
+<fw-accordion type="no_bounding_box">
   <fw-accordion-title>Header Text</fw-accordion-title>
   <fw-accordion-body>
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
@@ -59,7 +59,7 @@ Borderless Accordion
   </fw-accordion-body>
 </fw-accordion>
 <br>
-<fw-accordion type="borderless">
+<fw-accordion type="no_bounding_box">
   <fw-accordion-title>Header Text</fw-accordion-title>
   <fw-accordion-body>
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
@@ -92,10 +92,10 @@ function App() {
 
 ## Properties
 
-| Property   | Attribute  | Description                                     | Type                        | Default     |
-| ---------- | ---------- | ----------------------------------------------- | --------------------------- | ----------- |
-| `expanded` | `expanded` | To manage accordion expanded or collapsed state | `boolean`                   | `false`     |
-| `type`     | `type`     | The type of accordion to be displayed.          | `"borderless" \| "default"` | `'default'` |
+| Property   | Attribute  | Description                                                                                                                                | Type                             | Default     |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------- | ----------- |
+| `expanded` | `expanded` | To manage accordion expanded or collapsed state                                                                                            | `boolean`                        | `false`     |
+| `type`     | `type`     | The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only | `"default" \| "no_bounding_box"` | `'default'` |
 
 
 ## Events

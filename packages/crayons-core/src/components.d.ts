@@ -15,13 +15,13 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
-          * The type of accordion to be displayed.
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
          */
-        "type": 'default' | 'borderless';
+        "type": 'default' | 'no_bounding_box';
     }
     interface FwAccordionBody {
         "expanded": boolean;
-        "type": 'default' | 'borderless';
+        "type": 'default' | 'no_bounding_box';
     }
     interface FwAccordionTitle {
         "expanded": boolean;
@@ -30,7 +30,7 @@ export namespace Components {
           * Truncate title on text overflow
          */
         "truncateOnOverflow": boolean;
-        "type": 'default' | 'borderless';
+        "type": 'default' | 'no_bounding_box';
     }
     interface FwAvatar {
         "alt": string;
@@ -1377,13 +1377,13 @@ declare namespace LocalJSX {
          */
         "onFwAccordionToggle"?: (event: CustomEvent<AccordionToggleEvent>) => void;
         /**
-          * The type of accordion to be displayed.
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
          */
-        "type"?: 'default' | 'borderless';
+        "type"?: 'default' | 'no_bounding_box';
     }
     interface FwAccordionBody {
         "expanded"?: boolean;
-        "type"?: 'default' | 'borderless';
+        "type"?: 'default' | 'no_bounding_box';
     }
     interface FwAccordionTitle {
         "expanded"?: boolean;
@@ -1392,7 +1392,7 @@ declare namespace LocalJSX {
           * Truncate title on text overflow
          */
         "truncateOnOverflow"?: boolean;
-        "type"?: 'default' | 'borderless';
+        "type"?: 'default' | 'no_bounding_box';
     }
     interface FwAvatar {
         "alt"?: string;

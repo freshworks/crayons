@@ -14,7 +14,7 @@ export class AccordionBody {
   /**
    * @internal
    */
-  @Prop() type: 'default' | 'borderless' = 'default';
+  @Prop() type: 'default' | 'no_bounding_box' = 'default';
 
   render() {
     return (
@@ -22,7 +22,7 @@ export class AccordionBody {
         class={{
           'accordion-body': true,
           'collapsed': !this.expanded,
-          'borderless': this.type === 'borderless',
+          'no_bounding_box': this.type === 'no_bounding_box',
         }}
       >
         <slot></slot>

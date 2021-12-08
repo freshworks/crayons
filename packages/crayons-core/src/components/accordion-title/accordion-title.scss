@@ -20,7 +20,7 @@ $accordion-border-radius: var(--accordion-border-radius, 8px);
     border-radius: $accordion-border-radius;
   }
 
-  &.borderless {
+  &.no_bounding_box {
     border-radius: 0;
   }
 

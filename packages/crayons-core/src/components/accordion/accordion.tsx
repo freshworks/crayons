@@ -25,8 +25,10 @@ export class Accordion {
 
   /**
    * The type of accordion to be displayed.
+   * default => Accordion with all borders
+   * no_bounding_box => Accordion with top and bottom borders only
    */
-  @Prop() type: 'default' | 'borderless' = 'default';
+  @Prop() type: 'default' | 'no_bounding_box' = 'default';
 
   /**
    * To manage accordion expanded or collapsed state
@@ -64,7 +66,7 @@ export class Accordion {
       <div
         class={{
           accordion: true,
-          borderless: this.type === 'borderless',
+          no_bounding_box: this.type === 'no_bounding_box',
         }}
       >
         <slot />
