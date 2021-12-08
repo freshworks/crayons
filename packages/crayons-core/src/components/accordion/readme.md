@@ -21,11 +21,11 @@ Accordion with custom icons
 <fw-accordion>
   <fw-accordion-title>
      <fw-icon
-      name='plus'
+      name='minus'
       size="14"
       slot="expanded-icon"></fw-icon>
     <fw-icon
-      name='minus'
+      name='plus'
       size="14"
       slot="collapsed-icon"></fw-icon>
     Header Text

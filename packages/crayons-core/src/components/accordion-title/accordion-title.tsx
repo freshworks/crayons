@@ -7,7 +7,7 @@ const ChevronArrow = ({ expanded }) => {
 
   return (
     <fw-icon
-      class={`accordion-icon ${expanded ? 'expanded' : 'collapsed'}`}
+      class='accordion-icon'
       name={`chevron-${direction}`}
       size={iconSize}
     />

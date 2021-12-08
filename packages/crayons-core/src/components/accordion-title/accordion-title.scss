@@ -21,6 +21,13 @@ $accordion-title-icon-color: #475867;
 
   &.collapsed {
     border-radius: $accordion-border-radius;
+
+    .accordion-icon {
+      --icon-color: var(
+        --accordion-title-collapsed-icon-color,
+        $accordion-title-icon-color
+      );
+    }
   }
 
   &.no-bounding-box {
@@ -42,19 +49,9 @@ $accordion-title-icon-color: #475867;
 
   .accordion-icon {
     flex-grow: 0;
-
-    &.expanded {
-      --icon-color: var(
-        --accordion-title-expanded-icon-color,
-        $accordion-title-icon-color
-      );
-    }
-
-    &.collapsed {
-      --icon-color: var(
-        --accordion-title-collapsed-icon-color,
-        $accordion-title-icon-color
-      );
-    }
+    --icon-color: var(
+      --accordion-title-expanded-icon-color,
+      $accordion-title-icon-color
+    );
   }
 }
