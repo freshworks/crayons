@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+div {
+  color: $app-info-color;
+  margin-left: 10px;
+  margin-right: 5px;
+}
