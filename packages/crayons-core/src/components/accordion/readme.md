@@ -51,7 +51,7 @@ Accordion with custom CSS properties
 
 ```html live
 <fw-accordion style="--accordion-border: 1px solid #F5F7F9; --accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --accordion-border-radius: 4px;" expanded="true">
-  <fw-accordion-title truncate-on-overflow="true" style="--accordion-title-background-color: #F5F7F9">
+  <fw-accordion-title truncate-on-overflow="true" style="--accordion-title-background-color: #F5F7F9; --accordion-title-expanded-icon-color: #2C5CC5; --accordion-title-collapsed-icon-color: #264966;">
     <fw-icon
     name='rewards'
     ></fw-icon>
@@ -118,7 +118,7 @@ function App() {
 
 | Event               | Description                                           | Type                                |
 | ------------------- | ----------------------------------------------------- | ----------------------------------- |
-| `fwAccordionToggle` | Triggered when the accordion is expanded or collpased | `CustomEvent<AccordionToggleEvent>` |
+| `fwAccordionToggle` | Triggered when the accordion is expanded or collapsed | `CustomEvent<AccordionToggleEvent>` |
 
 
 ## CSS Custom Properties

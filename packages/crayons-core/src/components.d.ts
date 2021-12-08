@@ -1377,7 +1377,7 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
-          * Triggered when the accordion is expanded or collpased
+          * Triggered when the accordion is expanded or collapsed
          */
         "onFwAccordionToggle"?: (event: CustomEvent<AccordionToggleEvent>) => void;
         /**

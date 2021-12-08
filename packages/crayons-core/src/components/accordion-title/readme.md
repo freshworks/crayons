@@ -14,13 +14,15 @@ Displays the content inside the component.
 
 ## CSS Custom Properties
 
-| Name                                 | Description                      |
-| ------------------------------------ | -------------------------------- |
-| `--accordion-title-background-color` | Accordion title background color |
-| `--accordion-title-border`           | Accordion title border           |
-| `--accordion-title-font-size`        | Accordion title font size        |
-| `--accordion-title-font-weight`      | Accordion title font weight      |
-| `--accordion-title-line-height`      | Accordion title line height      |
+| Name                                     | Description                          |
+| ---------------------------------------- | ------------------------------------ |
+| `--accordion-title-background-color`     | Accordion title background color     |
+| `--accordion-title-border`               | Accordion title border               |
+| `--accordion-title-collapsed-icon-color` | Accordion title collapsed icon color |
+| `--accordion-title-expanded-icon-color`  | Accordion title expanded icon color  |
+| `--accordion-title-font-size`            | Accordion title font size            |
+| `--accordion-title-font-weight`          | Accordion title font weight          |
+| `--accordion-title-line-height`          | Accordion title line height          |
 
 
 ## Dependencies

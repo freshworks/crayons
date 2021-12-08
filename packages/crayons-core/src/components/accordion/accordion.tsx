@@ -36,7 +36,7 @@ export class Accordion {
   @Prop({ mutable: true }) expanded = false;
 
   /**
-   * Triggered when the accordion is expanded or collpased
+   * Triggered when the accordion is expanded or collapsed
    */
   @Event() fwAccordionToggle!: EventEmitter<AccordionToggleEvent>;
 

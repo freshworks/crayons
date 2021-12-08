@@ -4,14 +4,12 @@ import { handleKeyDown } from '../../utils';
 const ChevronArrow = ({ expanded }) => {
   const iconSize = 14;
   const direction = expanded ? 'up' : 'down';
-  const iconColor = expanded ? '#2C5CC5' : '#264966';
 
   return (
     <fw-icon
-      class='accordion-icon'
+      class={`accordion-icon ${expanded ? 'expanded' : 'collapsed'}`}
       name={`chevron-${direction}`}
       size={iconSize}
-      color={iconColor}
     />
   );
 };

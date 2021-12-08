@@ -4,9 +4,12 @@
   @prop --accordion-title-line-height: Accordion title line height
   @prop --accordion-title-background-color: Accordion title background color
   @prop --accordion-title-border: Accordion title border
+  @prop --accordion-title-expanded-icon-color: Accordion title expanded icon color
+  @prop --accordion-title-collapsed-icon-color: Accordion title collapsed icon color
 */
 
 $accordion-border-radius: var(--accordion-border-radius, 8px);
+$accordion-title-icon-color: #475867;
 
 .accordion-header {
   display: flex;
@@ -39,5 +42,19 @@ $accordion-border-radius: var(--accordion-border-radius, 8px);
 
   .accordion-icon {
     flex-grow: 0;
+
+    &.expanded {
+      --icon-color: var(
+        --accordion-title-expanded-icon-color,
+        $accordion-title-icon-color
+      );
+    }
+
+    &.collapsed {
+      --icon-color: var(
+        --accordion-title-collapsed-icon-color,
+        $accordion-title-icon-color
+      );
+    }
   }
 }
