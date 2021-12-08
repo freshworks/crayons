@@ -22,7 +22,7 @@ export class AccordionBody {
         class={{
           'accordion-body': true,
           'collapsed': !this.expanded,
-          'no_bounding_box': this.type === 'no_bounding_box',
+          'no-bounding-box': this.type === 'no_bounding_box',
         }}
       >
         <slot></slot>

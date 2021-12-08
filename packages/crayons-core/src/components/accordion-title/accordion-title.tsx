@@ -63,7 +63,7 @@ export class AccordionTitle {
         class={{
           'accordion-header': true,
           'collapsed': !this.expanded,
-          'no_bounding_box': this.type === 'no_bounding_box',
+          'no-bounding-box': this.type === 'no_bounding_box',
         }}
         role='button'
         tabindex='0'

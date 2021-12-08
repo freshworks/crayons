@@ -47,6 +47,22 @@ No Bounding Box Accordion (Borders at top and bottom only)
 </fw-accordion>
 ```
 
+Accordion with custom CSS properties
+
+```html live
+<fw-accordion style="--accordion-border: 1px solid #F5F7F9; --accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --accordion-border-radius: 4px;" expanded="true">
+  <fw-accordion-title truncate-on-overflow="true" style="--accordion-title-background-color: #F5F7F9">
+    <fw-icon
+    name='rewards'
+    ></fw-icon>
+    <span style="padding-left: 5px;">Header Text</span>
+  </fw-accordion-title>
+  <fw-accordion-body style="--accordion-body-background-color: #FFFFFF">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+  </fw-accordion-body>
+</fw-accordion>
+```
+
 ## Usage
 
 <code-group>

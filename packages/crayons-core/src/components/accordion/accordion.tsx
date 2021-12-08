@@ -65,8 +65,8 @@ export class Accordion {
     return (
       <div
         class={{
-          accordion: true,
-          no_bounding_box: this.type === 'no_bounding_box',
+          'accordion': true,
+          'no-bounding-box': this.type === 'no_bounding_box',
         }}
       >
         <slot />
