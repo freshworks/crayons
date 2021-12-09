@@ -12,6 +12,8 @@ $bg-color-disabled: $color-smoke-25;
 
 .select-option {
   cursor: pointer;
+  display: flex;
+  align-items: center;
   color: $primary-color;
   font-size: $font-size-14;
   border-radius: 4px;
@@ -21,6 +23,7 @@ $bg-color-disabled: $color-smoke-25;
   word-wrap: break-word;
   position: relative;
   margin-bottom: 4px;
+  padding-right: 8px;
 
   &.single-line {
     padding-top: 6px;
@@ -34,28 +37,31 @@ $bg-color-disabled: $color-smoke-25;
 
   &.standard {
     padding-left: 0px;
-    padding-right: 12px;
   }
 
   &.icon {
     padding-left: 10px;
-    padding-right: 10px;
   }
 
   &.avatar {
     padding-left: 4px;
-    padding-right: 4px;
   }
 
   &.selected {
-    position: relative;
     font-weight: $font-weight-600;
     background-color: $dropdown-selected;
+    &:hover,
+    &:focus {
+      background-color: $dropdown-selected;
+    }
   }
 
-  &:hover,
+  &:hover {
+    background-color: $bg-color-hover;
+  }
   &:focus {
     background-color: $bg-color-hover;
+    outline: $color-azure-800 auto 1px;
   }
 
   &.disabled {
@@ -63,23 +69,6 @@ $bg-color-disabled: $color-smoke-25;
     position: relative;
     cursor: not-allowed;
     background-color: $bg-color-disabled;
-  }
-
-  &::after {
-    display: block;
-    font-style: normal;
-    font-weight: $font-weight-400;
-    font-variant: normal;
-    line-height: 1;
-    text-decoration: inherit;
-    text-transform: none;
-    position: absolute;
-    right: 10px;
-    color: $primary-color;
-  }
-
-  &.selected::after {
-    content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='12px' height='9px' viewBox='0 0 12 9' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3ECheck%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3Cpath d='M4.17095654,7.28764233 C3.74936256,6.89579049 3.08481084,6.91447629 2.68663874,7.32937825 C2.28846663,7.7442802 2.30745383,8.39828338 2.72904782,8.79013522 L5.87904631,11.7179111 C6.3006403,12.109763 6.96519201,12.0910772 7.36336412,11.6761752 L13.3133613,5.47617918 C13.7115334,5.06127722 13.6925462,4.40727405 13.2709522,4.0154222 C12.8493582,3.62357036 12.1848065,3.64225616 11.7866344,4.05715812 L6.55759159,9.50590771 L4.17095654,7.28764233 Z' id='path-1'%3E%3C/path%3E%3C/defs%3E%3Cg id='TD-with-Freddy-4-Email' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='ticket-detail--open-copy-2' transform='translate(-1054.000000, -997.000000)'%3E%3Cg id='Group-92' transform='translate(880.000000, 828.000000)'%3E%3Cg id='Group-26'%3E%3Cg id='Group-7' transform='translate(0.000000, 54.000000)'%3E%3Cg id='Group-2' transform='translate(16.000000, 104.000000)'%3E%3Cg id='Icon/new/Check' transform='translate(156.000000, 8.000000)'%3E%3Cmask id='mask-2' fill='white'%3E%3Cuse xlink:href='%23path-1'%3E%3C/use%3E%3C/mask%3E%3Cuse id='save' fill='%23000000' fill-rule='nonzero' xlink:href='%23path-1'%3E%3C/use%3E%3Cg id='Color/Blue-(Hype)' mask='url(%23mask-2)' fill='%232C5CC5' fill-rule='evenodd'%3E%3Crect id='Color---Jade' x='0' y='0' width='15.8024691' height='15.8024691'%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
   .description {
@@ -100,6 +89,15 @@ $bg-color-disabled: $color-smoke-25;
     &.standard-margin {
       margin-left: 12px;
     }
+  }
+
+  .selected-icon {
+    min-width: 24px;
+    min-height: 24px;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   // FIX: To center the icon inside the host

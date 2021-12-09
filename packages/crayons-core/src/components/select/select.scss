@@ -52,48 +52,6 @@ label {
   }
 }
 
-// Input Container Style
-.input-container-inner {
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-  position: relative;
-  align-items: center;
-
-  input {
-    flex-grow: 1;
-    border: none;
-    margin-top: 3px;
-    font-size: $font-size-12;
-    font-weight: $font-weight-500;
-    letter-spacing: 0;
-    line-height: 1.4;
-    background-color: $input-bg;
-    min-width: 20px;
-    box-sizing: border-box;
-    overflow: hidden;
-
-    &:focus {
-      border: none;
-      outline: none;
-    }
-
-    &.multi-select {
-      width: auto;
-    }
-
-    &:disabled {
-      background-color: $input-disabled-bg !important;
-      border-color: transparent;
-      cursor: not-allowed;
-    }
-  }
-
-  fw-spinner {
-    margin-right: 8px;
-  }
-}
-
 .input-container {
   width: calc(100% - 10px);
   border: 0;
@@ -104,7 +62,48 @@ label {
   background-color: $input-bg;
   box-shadow: none;
   min-height: 24px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+
+  .input-container-inner {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+
+    input {
+      flex-grow: 1;
+      border: none;
+      margin-top: 3px;
+      font-size: $font-size-12;
+      font-weight: $font-weight-500;
+      letter-spacing: 0;
+      line-height: 1.4;
+      background-color: $input-bg;
+      min-width: 20px;
+      min-height: 22px;
+      box-sizing: border-box;
+      overflow: hidden;
+
+      &:focus {
+        border: none;
+        outline: none;
+      }
+
+      &.multi-select {
+        width: auto;
+      }
+
+      &:disabled {
+        background-color: $input-disabled-bg !important;
+        border-color: transparent;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  fw-spinner {
+    margin-right: 8px;
+  }
 
   @media (prefers-reduced-motion) {
     &:hover,
@@ -171,19 +170,11 @@ label {
   }
 
   .dropdown-status-icon {
-    position: absolute;
-    display: inline-block;
-    right: 12px;
-    content: '';
-    top: 45%;
-    width: 5px;
-    height: 5px;
-    background-color: transparent;
-    border-style: inherit;
-    border-top: 1px solid #12344d;
-    border-right: 1px solid #12344d;
-    border-left: transparent;
-    transform: rotate(135deg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    min-height: 20px;
     transition: all 0.15s;
   }
 
@@ -199,7 +190,7 @@ label {
   }
 
   .dropdown-status-icon.expanded {
-    transform: rotate(315deg);
+    transform: rotate(180deg);
   }
 }
 
