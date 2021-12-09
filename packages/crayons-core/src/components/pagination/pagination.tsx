@@ -64,11 +64,12 @@ export class Pagination {
           <span class='record'>{this.start}</span> to{' '}
           <span class='record'>{this.end}</span> of {this.totalRecords}
         </div>
-        <fw-button-group>
+        <fw-button-group label='Pagination controls'>
           <fw-button
             disabled={this.start === 1}
             color='secondary'
             size='icon'
+            aria-label='Previous'
             onFwClick={() => this.previous()}
           >
             <fw-icon name='chevron-left'></fw-icon>
@@ -77,6 +78,7 @@ export class Pagination {
             disabled={this.end === this.totalRecords}
             color='secondary'
             size='icon'
+            aria-label='Next'
             onFwClick={() => this.next()}
           >
             <fw-icon name='chevron-right'></fw-icon>
