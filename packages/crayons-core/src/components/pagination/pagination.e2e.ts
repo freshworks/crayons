@@ -27,12 +27,12 @@ describe('fw-pagination', () => {
     const element = await page.findAll('fw-pagination >>> .record');
     expect(element[1].textContent).toEqual('10');
   });
-  it('should set end to 1 when records-per-page is not passed in', async () => {
+  it('should set end to 10 when records-per-page is not passed in', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-pagination total-records="50"></fw-pagination>');
     const element = await page.findAll('fw-pagination >>> .record');
-    expect(element[1].textContent).toEqual('1');
+    expect(element[1].textContent).toEqual('10');
   });
   it('Clicking on previous button should set start and end to next set', async () => {
     const page = await newE2EPage();
