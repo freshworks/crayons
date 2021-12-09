@@ -439,7 +439,7 @@ export namespace Components {
     }
     interface FwPagination {
         /**
-          * The number of records to be shown per page.
+          * The number of records to be shown per page. Defaults to 1.
          */
         "recordsPerPage": number;
         /**
@@ -1836,7 +1836,7 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
-          * The number of records to be shown per page.
+          * The number of records to be shown per page. Defaults to 1.
          */
         "recordsPerPage"?: number;
         /**

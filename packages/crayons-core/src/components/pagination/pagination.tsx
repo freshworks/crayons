@@ -19,11 +19,11 @@ export class Pagination {
   /**
    * The total number of records.
    */
-  @Prop() totalRecords: number;
+  @Prop({ mutable: true }) totalRecords: number;
   /**
-   *The number of records to be shown per page.
+   *The number of records to be shown per page. Defaults to 1.
    */
-  @Prop() recordsPerPage: number;
+  @Prop() recordsPerPage = 1;
   /**
    * Triggered when either previous or next button is clicked.
    */
@@ -37,6 +37,7 @@ export class Pagination {
       ? (pageQueryParam - 1) * this.recordsPerPage + 1
       : 1;
     this.end = this.start + this.recordsPerPage - 1;
+    this.totalRecords = this.totalRecords || this.end;
   }
 
   private previous() {
@@ -44,17 +45,14 @@ export class Pagination {
     this.end =
       this.start - this.end !== this.recordsPerPage
         ? this.start + this.recordsPerPage - 1
-        : (this.end -= this.recordsPerPage);
+        : this.end - this.recordsPerPage;
 
     this.fwChange.emit({ startRecord: this.start, endRecord: this.end });
   }
 
   private next() {
     this.start += this.recordsPerPage;
-    this.end =
-      this.end + this.recordsPerPage > this.totalRecords
-        ? this.totalRecords
-        : this.end + this.recordsPerPage;
+    this.end = Math.min(this.end + this.recordsPerPage, this.totalRecords);
 
     this.fwChange.emit({ startRecord: this.start, endRecord: this.end });
   }
