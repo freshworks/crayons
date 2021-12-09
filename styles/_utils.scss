@@ -108,13 +108,19 @@ $border-radii: (
 );
 @each $radius, $value in $border-radii {
   .fw-br-#{$radius} {
-    @include border-radius($value, $value);
+    @include border-radius($value, $value, $value, $value);
   }
-  .fw-br-r-#{$radius} {
-    @include border-radius($value, 0);
+  .fw-br-tr-#{$radius} {
+    @include border-radius($value, 0, 0, 0);
   }
-  .fw-br-l-#{$radius} {
-    @include border-radius(0, $value);
+  .fw-br-br-#{$radius} {
+    @include border-radius(0, $value, 0, 0);
+  }
+  .fw-br-bl-#{$radius} {
+    @include border-radius(0, 0, $value, 0);
+  }
+  .fw-br-tl-#{$radius} {
+    @include border-radius(0, 0, 0, $value);
   }
 }
 

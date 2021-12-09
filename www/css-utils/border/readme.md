@@ -38,14 +38,16 @@ _Only border style solid is supported._
 'fw-br-#{$radius}' is the class to be applied to apply border radius.
 
 - To apply border radius on all directions, we can use 'fw-br-#{$radius}'.
-- To apply border radius only on right side, we can use 'fw-br-r-#{$radius}'.
-- To apply border radius only on left side, we can use 'fw-br-l-#{$radius}'.
+- To apply border radius only on top right side, we can use 'fw-br-tr-#{$radius}'.
+- To apply border radius only on bottom right side, we can use 'fw-br-br-#{$radius}'.
+- To apply border radius only on bottom left side, we can use 'fw-br-bl-#{$radius}'.
+- To apply border radius only on top left side, we can use 'fw-br-tl-#{$radius}'.
 
 _#{$radius} can be either 1, 2, 3 or 4._
 
 ```html live
 <template>
-  <p class="fw-b-1 fw-b-solid fw-br-r-4">
+  <p class="fw-b-1 fw-b-solid fw-br-4">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pretium velit
     feugiat rutrum ultrices. Morbi elementum id velit sit amet scelerisque.
     Proin tempus placerat luctus. Maecenas pulvinar quis libero nec accumsan.

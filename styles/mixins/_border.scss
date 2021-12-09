@@ -5,9 +5,9 @@
   border-left-width: $left;
 }
 
-@mixin border-radius($right, $left) {
-  border-bottom-right-radius: $right;
-  border-top-right-radius: $right;
-  border-bottom-left-radius: $left;
-  border-top-left-radius: $left;
+@mixin border-radius($topRight, $bottomRight, $bottomLeft, $topLeft) {
+  border-bottom-right-radius: $bottomRight;
+  border-top-right-radius: $topRight;
+  border-bottom-left-radius: $bottomLeft;
+  border-top-left-radius: $topLeft;
 }
