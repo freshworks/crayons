@@ -2,8 +2,52 @@
 
 fw-pagination displays pagination. The component displays starting and ending record numbers against total number of records.
 
-<!-- Auto Generated Below -->
+## Demo
 
+```html live
+<fw-pagination records-per-page="10" total-records="50"></fw-pagination><br />
+<fw-pagination total-records="50"></fw-pagination><br />
+<fw-pagination
+  start="11"
+  records-per-page="10"
+  total-records="50"
+></fw-pagination>
+```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-pagination records-per-page="10" total-records="50"></fw-pagination><br>
+<fw-pagination total-records="50"></fw-pagination><br />
+<fw-pagination
+  start="11"
+  records-per-page="10"
+  total-records="50"
+></fw-pagination>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwPagination } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+    <FwPagination records-per-page="10" total-records="50"></FwPagination><br/>
+    <FwPagination total-records="50"></FwPagination>
+    <FwPagination start="11"
+  records-per-page="10"
+  total-records="50"></FwPagination>
+  </div>)
+}
+```
+</code-block>
+</code-group>
+
+<!-- Auto Generated Below -->
 
 ## Properties
 
@@ -13,13 +57,11 @@ fw-pagination displays pagination. The component displays starting and ending re
 | `start`          | `start`            | The starting record number for the current page.            | `number` | `1`         |
 | `totalRecords`   | `total-records`    | The total number of records.                                | `number` | `undefined` |
 
-
 ## Events
 
 | Event      | Description                                               | Type               |
 | ---------- | --------------------------------------------------------- | ------------------ |
 | `fwChange` | Triggered when either previous or next button is clicked. | `CustomEvent<any>` |
-
 
 ## Dependencies
 
@@ -30,6 +72,7 @@ fw-pagination displays pagination. The component displays starting and ending re
 - [fw-icon](../icon)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-pagination --> fw-button-group
@@ -40,6 +83,6 @@ graph TD;
   style fw-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
