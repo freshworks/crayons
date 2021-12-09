@@ -4,6 +4,7 @@ import {
   Event,
   EventEmitter,
   Prop,
+  Method,
   h,
 } from '@stencil/core';
 
@@ -39,6 +40,16 @@ export class Accordion {
    * Triggered when the accordion is expanded or collapsed
    */
   @Event() fwAccordionToggle!: EventEmitter<AccordionToggleEvent>;
+
+  /**
+   * Method available from the component to toggle expanded or collapsed state of accordion
+   * @returns promise that resolves to true
+   */
+  @Method()
+  async toggle() {
+    this.toggleState();
+    return true;
+  }
 
   toggleState = (): void => {
     this.expanded = !this.expanded;

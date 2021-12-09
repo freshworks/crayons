@@ -4,7 +4,7 @@ fw-accordion displays a collapsible accordion component, which expands/collapses
 
 ## Demo
 
-Default Accordion
+### Default Accordion
 
 ```html live
 <fw-accordion expanded="true">
@@ -15,7 +15,7 @@ Default Accordion
 </fw-accordion>
 ```
 
-Accordion with custom icons
+### Accordion with custom toggle icons
 
 ```html live
 <fw-accordion>
@@ -36,7 +36,14 @@ Accordion with custom icons
 </fw-accordion>
 ```
 
-No Bounding Box Accordion (Borders at top and bottom only)
+Toggle icons can be customized using named slots.
+
+| Icon                        | Slot Name               |
+| --------------------------- | ----------------------- |
+| Expanded Icon               |  expanded-icon          |
+| Collapsed Icon              |  collapsed-icon         |
+
+### No Bounding Box Accordion (Borders at top and bottom only)
 
 ```html live
 <fw-accordion type="no_bounding_box">
@@ -47,7 +54,7 @@ No Bounding Box Accordion (Borders at top and bottom only)
 </fw-accordion>
 ```
 
-Accordion with custom CSS properties
+### Accordion with custom CSS properties
 
 ```html live
 <fw-accordion style="--accordion-border: 1px solid #F5F7F9; --accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --accordion-border-radius: 4px;" expanded="true">
@@ -119,6 +126,19 @@ function App() {
 | Event               | Description                                           | Type                                |
 | ------------------- | ----------------------------------------------------- | ----------------------------------- |
 | `fwAccordionToggle` | Triggered when the accordion is expanded or collapsed | `CustomEvent<AccordionToggleEvent>` |
+
+
+## Methods
+
+### `toggle() => Promise<boolean>`
+
+Method available from the component to toggle expanded or collapsed state of accordion
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+promise that resolves to true
 
 
 ## CSS Custom Properties

@@ -15,6 +15,11 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
+          * Method available from the component to toggle expanded or collapsed state of accordion
+          * @returns promise that resolves to true
+         */
+        "toggle": () => Promise<boolean>;
+        /**
           * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
          */
         "type": 'default' | 'no_bounding_box';
