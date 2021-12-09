@@ -21,9 +21,9 @@ export class Pagination {
    */
   @Prop({ mutable: true }) totalRecords: number;
   /**
-   *The number of records to be shown per page. Defaults to 1.
+   *The number of records to be shown per page. Defaults to 10.
    */
-  @Prop() recordsPerPage = 1;
+  @Prop() recordsPerPage = 10;
   /**
    * Triggered when either previous or next button is clicked.
    */
@@ -34,7 +34,9 @@ export class Pagination {
       new URLSearchParams(window.location.search).get('page')
     );
     this.start = pageQueryParam
-      ? (pageQueryParam - 1) * this.recordsPerPage + 1
+      ? (pageQueryParam - 1) * this.recordsPerPage + 1 > this.totalRecords
+        ? this.totalRecords - this.recordsPerPage + 1
+        : (pageQueryParam - 1) * this.recordsPerPage + 1
       : 1;
     this.end = this.start + this.recordsPerPage - 1;
     this.totalRecords = this.totalRecords || this.end;

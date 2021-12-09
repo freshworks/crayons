@@ -4,18 +4,21 @@ fw-pagination displays pagination. The component displays starting and ending re
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property         | Attribute          | Description                                                | Type     | Default     |
-| ---------------- | ------------------ | ---------------------------------------------------------- | -------- | ----------- |
-| `recordsPerPage` | `records-per-page` | The number of records to be shown per page. Defaults to 1. | `number` | `1`         |
-| `totalRecords`   | `total-records`    | The total number of records.                               | `number` | `undefined` |
+| Property         | Attribute          | Description                                                 | Type     | Default     |
+| ---------------- | ------------------ | ----------------------------------------------------------- | -------- | ----------- |
+| `recordsPerPage` | `records-per-page` | The number of records to be shown per page. Defaults to 10. | `number` | `10`        |
+| `totalRecords`   | `total-records`    | The total number of records.                                | `number` | `undefined` |
+
 
 ## Events
 
 | Event      | Description                                               | Type               |
 | ---------- | --------------------------------------------------------- | ------------------ |
 | `fwChange` | Triggered when either previous or next button is clicked. | `CustomEvent<any>` |
+
 
 ## Dependencies
 
@@ -26,7 +29,6 @@ fw-pagination displays pagination. The component displays starting and ending re
 - [fw-icon](../icon)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-pagination --> fw-button-group
@@ -37,6 +39,6 @@ graph TD;
   style fw-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks
