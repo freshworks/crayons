@@ -164,7 +164,7 @@ export namespace Components {
          */
         "color": string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+          * Valid for fw-icon-type - registry only. This sets a context setter object which can then be used to render related icon from libraries.
          */
         "dataRegisterLibs": any;
         /**
@@ -196,7 +196,7 @@ export namespace Components {
          */
         "src": string;
         /**
-          * Identifier of the icon. Type values 'registry' | 'icon'.
+          * Identifier of the icon. Type values 'registry' or 'icon'.
          */
         "type": string;
         /**
@@ -1553,7 +1553,7 @@ declare namespace LocalJSX {
          */
         "color"?: string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+          * Valid for fw-icon-type - registry only. This sets a context setter object which can then be used to render related icon from libraries.
          */
         "dataRegisterLibs"?: any;
         /**
@@ -1585,7 +1585,7 @@ declare namespace LocalJSX {
          */
         "src"?: string;
         /**
-          * Identifier of the icon. Type values 'registry' | 'icon'.
+          * Identifier of the icon. Type values 'registry' or 'icon'.
          */
         "type"?: string;
         /**

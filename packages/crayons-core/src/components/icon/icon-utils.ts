@@ -11,7 +11,6 @@ export function registerIconlibrary(items): any {
   const iconlibListElem = document.createElement('fw-icon');
   iconlibListElem.setAttribute('type', 'registry');
   iconlibListElem.setAttribute('data-register-libs', JSON.stringify(items));
-  iconlibListElem.style.display = 'none';
 
   const firstBodyEle = document.body.firstChild;
   firstBodyEle.parentNode.insertBefore(iconlibListElem, firstBodyEle);
