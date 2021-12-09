@@ -300,6 +300,7 @@ function App() {
 graph TD;
   fw-button --> fw-spinner
   fw-button --> fw-icon
+  fw-icon --> fw-icon
   fw-datepicker --> fw-button
   fw-dropdown-button --> fw-button
   fw-modal-footer --> fw-button

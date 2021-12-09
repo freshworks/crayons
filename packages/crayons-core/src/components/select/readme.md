@@ -1008,6 +1008,7 @@ graph TD;
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
+  fw-icon --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-list-options --> fw-select-option

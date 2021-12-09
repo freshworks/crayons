@@ -1,35 +1,55 @@
 <template>
-  <div class="card-gallery">
-    <div v-for="icon in icons" class="card" @click="copyToClipboard(icon)">
-      <fw-icon :name="icon" size="16" x-root-margin="100px" alt="Crayons-Icon"></fw-icon>
-      <span class="name">{{ icon }}</span>
-      <span :ref="icon" class="copied">Copied</span>
+  <div class="card-gallery" style="height:600px;overflow-y:scroll;">
+    <div v-for="icon in icons" class="card" @click="copyToClipboard(icon.name, icon.importByName, icon.refIcon, icon.refText)">
+      <div :ref="icon.refIcon">
+        <fw-icon :data-svg="icon.src" alt="Crayons-Icon" ></fw-icon>
+      </div>
+      <span :ref="icon.refIcon" class="name">{{ icon.name }}</span>
+      <span :ref="icon.refText" class="copied">{{ copyText }}</span>
     </div>
   </div>
 </template>
 
 <script>
+import * as Icons from '@freshworks/crayons-icon';
 export default {
   name: 'icon-gallery',
   data() {
     return {
       icons: [],
+      copyText:'',
     };
   },
   methods: {
     getIconList() {
-      const context = require.context('@icon-assets/icons/', true, /\.svg$/);
-      return context.keys().map((key) => key.substring(2, key.length - 4));
+      const context = require.context('@freshworks/crayons-icon/icons/', true, /\.svg$/);
+      return context.keys().map((key) => {
+        let svgName= key.substring(2, key.length - 4);
+        const svg_name =
+          svgName.indexOf('-') > -1
+            ? svgName.split('-').join('_')
+            : (svgName == 'new' || svgName == 'delete')
+            ? svgName.concat('_icon')
+            : svgName;
+          return {name:svgName, src:Icons[svg_name], importByName: svg_name, refIcon: `iconId-${svgName}`, refText: `ref-${svgName}`};
+      });
     },
-    async copyToClipboard(text) {
+    async copyToClipboard(text,import_as,refIcon, refText) {
       const el = document.createElement('textarea');
-      el.value = text;
+      el.value = `-Copied- Name : ${text} , JS Import : import { ${import_as} } from '@freshworks/crayons-icon;' `;
+      this.copyText = el.value;
       document.body.appendChild(el);
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
-      this.$refs[text][0].style.display = 'block';
-      setTimeout(() => (this.$refs[text][0].style.display = 'none'), 2000);
+      this.$refs[refText][0].style.display = 'block';
+      this.$refs[refIcon][0].style.display = "none";
+      this.$refs[refIcon][1].style.display = "none";
+      setTimeout(() => {
+        this.$refs[refText][0].style.display = 'none'; 
+        this.$refs[refIcon][0].style.display = "block"; 
+        this.$refs[refIcon][1].style.display = "block";
+      }, 2000);
     },
   },
   mounted() {

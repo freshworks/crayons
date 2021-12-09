@@ -80,6 +80,7 @@ function App() {
 graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-icon --> fw-icon
   fw-toast --> fw-toast-message
   style fw-toast-message fill:#f9f,stroke:#333,stroke-width:4px
 ```

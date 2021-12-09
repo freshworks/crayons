@@ -127,6 +127,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-inline-message --> fw-icon
+  fw-icon --> fw-icon
   style fw-inline-message fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

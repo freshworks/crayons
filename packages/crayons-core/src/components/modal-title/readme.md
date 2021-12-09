@@ -26,6 +26,7 @@
 ```mermaid
 graph TD;
   fw-modal-title --> fw-icon
+  fw-icon --> fw-icon
   fw-modal --> fw-modal-title
   style fw-modal-title fill:#f9f,stroke:#333,stroke-width:4px
 ```

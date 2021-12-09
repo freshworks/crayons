@@ -30,3 +30,5 @@ export function ProgressLoaderController(
 ): ProgressLoaderMethods {
   return createProgressLoaderContainer(config);
 }
+
+export { registerIconlibrary as registerfwIconLibrary } from '../components/icon/icon-utils';

@@ -364,6 +364,7 @@ graph TD;
   fw-modal --> fw-modal-title
   fw-modal --> fw-modal-content
   fw-modal --> fw-modal-footer
+  fw-icon --> fw-icon
   fw-modal-title --> fw-icon
   fw-modal-footer --> fw-button
   fw-button --> fw-spinner

@@ -32,6 +32,7 @@ graph TD;
   fw-modal-footer --> fw-button
   fw-button --> fw-spinner
   fw-button --> fw-icon
+  fw-icon --> fw-icon
   fw-modal --> fw-modal-footer
   style fw-modal-footer fill:#f9f,stroke:#333,stroke-width:4px
 ```

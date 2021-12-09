@@ -3,7 +3,7 @@ const path = require('path');
 
 const generateIconsExportData = async () => {
   const iconAssetLibPath = './icons';
-  const iconLibPath = './';
+  const iconLibPath = './dist';
 
   const getIconsSVGData = async (svgFile) => {
     try {
@@ -32,15 +32,17 @@ const generateIconsExportData = async () => {
     }
   };
   try {
-    let indexData = '/* eslint-disable */';
+    let indexData =
+      "export const CRAYONS_ICONS_ASSET_PATH = 'https://unpkg.com/@freshworks/crayons-icon@canary/icons';";
     const allSvgFiles = await fs.readdir(path.join(iconAssetLibPath, ''));
     for (const svgFile of allSvgFiles) {
       indexData = indexData + '\n' + (await getIconsSVGData(svgFile));
     }
+    fs.mkdir(iconLibPath, { recursive: true }).catch(console.error);
     fs.writeFile(path.join(iconLibPath, 'index.js'), indexData);
-    console.log(`Succesfully written @freshworks/crayons-icon/index.js`);
+    console.log(`Succesfully written @freshworks/crayons-icon/dist/index.js`);
   } catch (ex) {
-    console.error(`Exception occured while building : ${JSON.stringify(ex)}`);
+    console.error(`Exception occured while building : ${ex}`);
   }
 };
 

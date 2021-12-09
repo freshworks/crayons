@@ -194,6 +194,7 @@ graph TD;
   fw-dropdown-button --> fw-input
   fw-dropdown-button --> fw-button
   fw-dropdown-button --> fw-checkbox
+  fw-icon --> fw-icon
   fw-input --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon

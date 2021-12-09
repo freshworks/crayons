@@ -7,10 +7,15 @@
   "version": "1.0.3",
   "description": "This package contains all the necessary tooling for fw-crayons-icons",
   "main": "dist/index.js",
+  "files": [
+    "dist/",
+    "icons/",
+    ".svgo.yml"
+  ],
   "scripts": {
     "test": "",
     "build": "npm run optimize-icons && gulp",
-    "optimize-icons": "svgo -f icons --config .svgo.yml"
+    "optimize-icons": "svgo -q -f icons --config .svgo.yml"
   },
   "publishConfig": {
     "access": "public"

@@ -164,13 +164,49 @@ export namespace Components {
          */
         "color": string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
+          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+         */
+        "dataRegisterLibs": any;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+         */
+        "dataSvg": string;
+        /**
+          * Height of the icon, specified in number of  pixels.
+         */
+        "height": number;
+        /**
+          * Enable Intersection Observer. Default is false.
+         */
+        "lazy": boolean;
+        /**
+          * Name of External Library to be used
+         */
+        "library": string;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
          */
         "name": string;
         /**
-          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
+          * Size of the icon, specified in number of  pixels. This will be square coordinates of (w X h) = size X size
          */
         "size": number;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid cdn path.
+         */
+        "src": string;
+        /**
+          * Identifier of the icon. Type values 'registry' | 'icon'.
+         */
+        "type": string;
+        /**
+          * Width of the icon, specified in number of  pixels.
+         */
+        "width": number;
+        /**
+          * Root Margin in px or percentage for Intersection-Observer. This means from ref to bottom of loaded view , the item loads when it crosses above the negative y margin.
+         */
+        "xRootMargin": string;
     }
     interface FwInlineMessage {
         /**
@@ -1517,13 +1553,49 @@ declare namespace LocalJSX {
          */
         "color"?: string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
+          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+         */
+        "dataRegisterLibs"?: any;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+         */
+        "dataSvg"?: string;
+        /**
+          * Height of the icon, specified in number of  pixels.
+         */
+        "height"?: number;
+        /**
+          * Enable Intersection Observer. Default is false.
+         */
+        "lazy"?: boolean;
+        /**
+          * Name of External Library to be used
+         */
+        "library"?: string;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
          */
         "name"?: string;
         /**
-          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
+          * Size of the icon, specified in number of  pixels. This will be square coordinates of (w X h) = size X size
          */
         "size"?: number;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid cdn path.
+         */
+        "src"?: string;
+        /**
+          * Identifier of the icon. Type values 'registry' | 'icon'.
+         */
+        "type"?: string;
+        /**
+          * Width of the icon, specified in number of  pixels.
+         */
+        "width"?: number;
+        /**
+          * Root Margin in px or percentage for Intersection-Observer. This means from ref to bottom of loaded view , the item loads when it crosses above the negative y margin.
+         */
+        "xRootMargin"?: string;
     }
     interface FwInlineMessage {
         /**

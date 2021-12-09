@@ -65,6 +65,7 @@ function App() {
 ```mermaid
 graph TD;
   fw-toggle --> fw-icon
+  fw-icon --> fw-icon
   style fw-toggle fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
