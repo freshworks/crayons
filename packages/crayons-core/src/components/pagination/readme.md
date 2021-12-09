@@ -1,6 +1,6 @@
 # Pagination (fw-pagination)
 
-fw-pagination displays pagination. The component displays starting and ending record numbers against total number of records. It also calculates the start and end based on the query parameter `page`.
+fw-pagination displays pagination. The component displays starting and ending record numbers against total number of records.
 
 <!-- Auto Generated Below -->
 
@@ -10,6 +10,7 @@ fw-pagination displays pagination. The component displays starting and ending re
 | Property         | Attribute          | Description                                                 | Type     | Default     |
 | ---------------- | ------------------ | ----------------------------------------------------------- | -------- | ----------- |
 | `recordsPerPage` | `records-per-page` | The number of records to be shown per page. Defaults to 10. | `number` | `10`        |
+| `start`          | `start`            | The starting record number for the current page.            | `number` | `1`         |
 | `totalRecords`   | `total-records`    | The total number of records.                                | `number` | `undefined` |
 
 

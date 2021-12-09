@@ -443,6 +443,10 @@ export namespace Components {
          */
         "recordsPerPage": number;
         /**
+          * The starting record number for the current page.
+         */
+        "start": number;
+        /**
           * The total number of records.
          */
         "totalRecords": number;
@@ -1839,6 +1843,10 @@ declare namespace LocalJSX {
           * The number of records to be shown per page. Defaults to 10.
          */
         "recordsPerPage"?: number;
+        /**
+          * The starting record number for the current page.
+         */
+        "start"?: number;
         /**
           * The total number of records.
          */

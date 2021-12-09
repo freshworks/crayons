@@ -8,7 +8,7 @@ describe('fw-pagination', () => {
     const element = await page.find('fw-pagination');
     expect(element).toHaveClass('hydrated');
   });
-  it('should set start to 1', async () => {
+  it('should set start to 1 if not passed in', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
@@ -17,6 +17,16 @@ describe('fw-pagination', () => {
     const element = await page.findAll('fw-pagination >>> .record');
     console.log(element);
     expect(element[0].textContent).toEqual('1');
+  });
+  it('should set start to the passed in value', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-pagination start="11" records-per-page="10" total-records="50"></fw-pagination>'
+    );
+    const element = await page.findAll('fw-pagination >>> .record');
+    console.log(element);
+    expect(element[0].textContent).toEqual('11');
   });
   it('should set end to 10 when records-per-page is passed in and total records is greater', async () => {
     const page = await newE2EPage();

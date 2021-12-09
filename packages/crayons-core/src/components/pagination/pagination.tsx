@@ -1,21 +1,16 @@
-import {
-  Component,
-  Prop,
-  h,
-  Host,
-  State,
-  Event,
-  EventEmitter,
-} from '@stencil/core';
+import { Component, Prop, h, Host, Event, EventEmitter } from '@stencil/core';
 @Component({
   tag: 'fw-pagination',
   styleUrl: 'pagination.scss',
   shadow: true,
 })
 export class Pagination {
-  @State() start;
-  @State() end;
+  private end;
 
+  /**
+   * The starting record number for the current page.
+   */
+  @Prop() start = 1;
   /**
    * The total number of records.
    */
@@ -30,20 +25,12 @@ export class Pagination {
   @Event() fwChange: EventEmitter;
 
   componentWillLoad() {
-    const pageQueryParam = parseInt(
-      new URLSearchParams(window.location.search).get('page')
-    );
-    this.start = pageQueryParam
-      ? (pageQueryParam - 1) * this.recordsPerPage + 1 > this.totalRecords
-        ? this.totalRecords - this.recordsPerPage + 1
-        : (pageQueryParam - 1) * this.recordsPerPage + 1
-      : 1;
     this.end = this.start + this.recordsPerPage - 1;
     this.totalRecords = this.totalRecords || this.end;
   }
 
   private previous() {
-    this.start -= this.recordsPerPage;
+    this.start = Math.max(this.start - this.recordsPerPage, 1);
     this.end =
       this.start - this.end !== this.recordsPerPage
         ? this.start + this.recordsPerPage - 1
