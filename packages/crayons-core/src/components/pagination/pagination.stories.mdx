@@ -22,3 +22,29 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   </Story>
 </Preview>
 
+### With records-per-page
+<Preview>
+  <Story name='items-per-page'>
+    {
+      () => `<fw-pagination records-per-page='10'></fw-pagination>`
+    }
+  </Story>
+</Preview>
+
+### With total-records
+<Preview>
+  <Story name='total-records'>
+    {
+      () => `<fw-pagination total-records='50'></fw-pagination>`
+    }
+  </Story>
+</Preview>
+
+### With total-records and records-per-page
+<Preview>
+  <Story name='total-records and records-per-page'>
+    {
+      () => `<fw-pagination records-per-page='10' total-records='50'></fw-pagination>`
+    }
+  </Story>
+</Preview>
