@@ -16,7 +16,7 @@ import { fetchIcon, waitUntilVisible, iconRegistry } from './icon-utils';
 })
 export class Icon {
   /**
-   * Identifier of the icon. Type values 'registry' | 'icon'.
+   * Identifier of the icon. Type values 'registry' or 'icon'.
    */
   @Prop() type = 'icon';
   /**
@@ -28,7 +28,7 @@ export class Icon {
    */
   @Prop() dataSvg = '';
   /**
-   * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+   * Valid for fw-icon-type - registry only. This sets a context setter object which can then be used to render related icon from libraries.
    */
   @Prop() dataRegisterLibs: any;
   /**
