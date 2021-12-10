@@ -5,9 +5,38 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
+    interface FwAccordion {
+        /**
+          * To manage accordion expanded or collapsed state
+         */
+        "expanded": boolean;
+        /**
+          * Method available from the component to toggle expanded or collapsed state of accordion
+          * @returns promise that resolves to true
+         */
+        "toggle": () => Promise<boolean>;
+        /**
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
+         */
+        "type": 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionBody {
+        "expanded": boolean;
+        "type": 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionTitle {
+        "expanded": boolean;
+        "toggleState": any;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow": boolean;
+        "type": 'default' | 'no_bounding_box';
+    }
     interface FwAvatar {
         "alt": string;
         "image": string;
@@ -39,6 +68,7 @@ export namespace Components {
           * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId": string;
+        "setFocus": () => Promise<any>;
         /**
           * Caret indicator for the button, Default value is false.
          */
@@ -454,6 +484,10 @@ export namespace Components {
         "totalRecords": number;
     }
     interface FwPopover {
+        /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent": boolean;
         /**
           * The area that the popup will be checked for overflow relative to.
          */
@@ -1107,6 +1141,24 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwAccordionElement extends Components.FwAccordion, HTMLStencilElement {
+    }
+    var HTMLFwAccordionElement: {
+        prototype: HTMLFwAccordionElement;
+        new (): HTMLFwAccordionElement;
+    };
+    interface HTMLFwAccordionBodyElement extends Components.FwAccordionBody, HTMLStencilElement {
+    }
+    var HTMLFwAccordionBodyElement: {
+        prototype: HTMLFwAccordionBodyElement;
+        new (): HTMLFwAccordionBodyElement;
+    };
+    interface HTMLFwAccordionTitleElement extends Components.FwAccordionTitle, HTMLStencilElement {
+    }
+    var HTMLFwAccordionTitleElement: {
+        prototype: HTMLFwAccordionTitleElement;
+        new (): HTMLFwAccordionTitleElement;
+    };
     interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
     }
     var HTMLFwAvatarElement: {
@@ -1312,6 +1364,9 @@ declare global {
         new (): HTMLFwTooltipElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-accordion": HTMLFwAccordionElement;
+        "fw-accordion-body": HTMLFwAccordionBodyElement;
+        "fw-accordion-title": HTMLFwAccordionTitleElement;
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
@@ -1349,6 +1404,33 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FwAccordion {
+        /**
+          * To manage accordion expanded or collapsed state
+         */
+        "expanded"?: boolean;
+        /**
+          * Triggered when the accordion is expanded or collapsed
+         */
+        "onFwAccordionToggle"?: (event: CustomEvent<AccordionToggleEvent>) => void;
+        /**
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
+         */
+        "type"?: 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionBody {
+        "expanded"?: boolean;
+        "type"?: 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionTitle {
+        "expanded"?: boolean;
+        "toggleState"?: any;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow"?: boolean;
+        "type"?: 'default' | 'no_bounding_box';
+    }
     interface FwAvatar {
         "alt"?: string;
         "image"?: string;
@@ -1855,6 +1937,10 @@ declare namespace LocalJSX {
         "totalRecords"?: number;
     }
     interface FwPopover {
+        /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent"?: boolean;
         /**
           * The area that the popup will be checked for overflow relative to.
          */
@@ -2556,6 +2642,9 @@ declare namespace LocalJSX {
         "trigger"?: PopoverTriggerType;
     }
     interface IntrinsicElements {
+        "fw-accordion": FwAccordion;
+        "fw-accordion-body": FwAccordionBody;
+        "fw-accordion-title": FwAccordionTitle;
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
@@ -2596,6 +2685,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-accordion": LocalJSX.FwAccordion & JSXBase.HTMLAttributes<HTMLFwAccordionElement>;
+            "fw-accordion-body": LocalJSX.FwAccordionBody & JSXBase.HTMLAttributes<HTMLFwAccordionBodyElement>;
+            "fw-accordion-title": LocalJSX.FwAccordionTitle & JSXBase.HTMLAttributes<HTMLFwAccordionTitleElement>;
             "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;

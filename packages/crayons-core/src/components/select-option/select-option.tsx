@@ -110,12 +110,20 @@ export class SelectOption {
   renderInnerHtml() {
     const description = this.createDescription();
     const checkbox = this.checkbox ? this.createCheckbox() : '';
+    const selectedIconContainer = (
+      <span class='selected-icon'>
+        {this.selected && (
+          <fw-icon name='check' size={12} color='#2C5CC5'></fw-icon>
+        )}
+      </span>
+    );
     switch (this.variant) {
       case 'standard':
         return (
           <Fragment>
             {checkbox}
             {description}
+            {selectedIconContainer}
           </Fragment>
         );
       case 'icon':
@@ -124,6 +132,7 @@ export class SelectOption {
             {checkbox}
             {this.createIcon()}
             {description}
+            {selectedIconContainer}
           </Fragment>
         );
       case 'avatar':
@@ -132,6 +141,7 @@ export class SelectOption {
             {checkbox}
             {this.createAvatar()}
             {description}
+            {selectedIconContainer}
           </Fragment>
         );
       default:

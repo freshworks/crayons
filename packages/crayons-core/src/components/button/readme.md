@@ -281,6 +281,19 @@ function App() {
 | `fwFocus` | Triggered when the button comes into focus. | `CustomEvent<void>` |
 
 
+## Methods
+
+### `setFocus() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+
 ## Dependencies
 
 ### Used by
