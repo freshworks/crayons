@@ -17,7 +17,7 @@ import { DataTableColumn, DataTableRow } from '../../utils/types';
   styleUrl: 'data-table.scss',
   shadow: true,
 })
-export class DataGrid {
+export class DataTable {
   /**
    * Label attribute is not visible on screen. There for accessibility purposes.
    */
@@ -215,10 +215,7 @@ export class DataGrid {
                 aria-colindex={1}
                 data-has-component='true'
               >
-                <fw-checkbox
-                  label=''
-                  value={row.id ? row.id : ''}
-                ></fw-checkbox>
+                <fw-checkbox value={row.id ? row.id : ''}></fw-checkbox>
               </td>
             )}
             {this.orderedColumns.map((orderedColumn, columnIndex) => (
