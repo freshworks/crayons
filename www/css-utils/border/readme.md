@@ -58,7 +58,7 @@ _#{$radius} can be either 1, 2, 3 or 4._
 
 ## Border Colors
 
-'fw-b-#{$color}' is the class to be applied to apply border radius.
+'fw-b-#{$color}' is the class to be applied to apply border radius. By default `fw-b-azure-100` color is applied for borders.
 
 - To apply border color '#cfd7df', we can use 'fw-b-smoke-100'.
 - To apply border color '#bbdcfe', we can use 'fw-b-azure-100'.
