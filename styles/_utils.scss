@@ -128,6 +128,7 @@ $border-styles: (solid);
 @each $style in $border-styles {
   .fw-b-#{$style} {
     border-style: $style;
+    border-color: $color-azure-100;
   }
 }
 
