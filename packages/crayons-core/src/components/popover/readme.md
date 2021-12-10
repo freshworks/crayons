@@ -6,32 +6,213 @@ Popover need two slots `popover-trigger` and `popover-content`. By default on cl
 
 ```html live
 <fw-popover>
-  <fw-button slot="popover-trigger">Click Me!</fw-button>
-  <fw-list-options slot="popover-content"></fw-list-options>
-</fw-popover>
-
-<br /><br /><br /><br />
-
-<fw-popover placement="top">
-  <fw-button slot="popover-trigger">Click Me!</fw-button>
-  <fw-list-options
-    id="placementComponent"
-    slot="popover-content"
-  ></fw-list-options>
+  <fw-button slot="popover-trigger">Currency List</fw-button>
+  <fw-list-options id="currency" slot="popover-content"></fw-list-options>
 </fw-popover>
 
 <script type="application/javascript">
-  var dataSource = [
-    { value: '1', text: 'Luffy' },
-    { value: '2', text: 'Zorro' },
-    { value: '3', text: 'Sanji' },
+  var rupeeData = [
+    { value: '1', text: 'INR' },
+    { value: '2', text: 'USD' },
+    { value: '3', text: 'AED' },
+    { value: '4', text: 'MYR' },
+    { value: '5', text: 'KWD' },
+    { value: '6', text: 'HKD' },
+    { value: '7', text: 'DMK' },
+    { value: '8', text: 'EUR' },
   ];
-  var listOptions = document.querySelector('fw-list-options');
-  var placementOptions = document.getElementById('placementComponent');
-  listOptions.options = dataSource;
-  placementOptions.options = dataSource;
+  var currency = document.getElementById('currency');
+  currency.options = rupeeData;
 </script>
 ```
+
+### Controlling the width of the popover-content
+
+If we want the content width to be different from the trigger then pass the `sameWidth` prop as false.
+Also the width of the content can be modified via the css variables as shown below.
+
+```html live
+<fw-popover
+  same-width="false"
+  style="--popover-min-width: 150px"
+  placement="bottom-start"
+>
+  <fw-button slot="popover-trigger">Units</fw-button>
+  <fw-list-options id="units" slot="popover-content"></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var unitsData = [
+    { value: '1', text: 'Inch' },
+    { value: '2', text: 'Meter' },
+    { value: '3', text: 'Centimeter' },
+    { value: '4', text: 'Foot' },
+    { value: '5', text: 'Yard' },
+    { value: '6', text: 'Mile' },
+  ];
+
+  var units = document.getElementById('units');
+  units.options = unitsData;
+</script>
+```
+
+### Keyboard navigation
+
+Set the `autoFocusOnContent` prop as true to shift the focus to the content on popover open.
+
+> NOTE: Make sure content or trigger is focusable element, Or use the focus() or the setFocus() method on both to handle focus manually.
+
+```html live
+<fw-popover
+  same-width="false"
+  auto-focus-on-content="true"
+  style="--popover-min-width: 150px"
+  placement="top-start"
+>
+  <fw-button slot="popover-trigger">Payment Option</fw-button>
+  <fw-list-options id="payment" slot="popover-content"></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var paymentData = [
+    { value: '1', text: 'Cash on delivery' },
+    { value: '2', text: 'Netbanking' },
+    { value: '3', text: 'UPI' },
+    { value: '4', text: 'Credit Card' },
+    { value: '5', text: 'Debit Card' },
+  ];
+
+  var payment = document.getElementById('payment');
+  payment.options = paymentData;
+</script>
+```
+
+The above event can be handled manually via the listeners.
+
+```html live
+<fw-popover
+  id="status-popover"
+  same-width="false"
+  style="--popover-min-width: 150px"
+  placement="top-start"
+>
+  <fw-button id="status-icon" size="icon" slot="popover-trigger"
+    ><fw-icon name="agent" color="white"></fw-icon>
+  </fw-button>
+  <fw-list-options id="status-options" slot="popover-content"></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var statusData = [
+    { value: '1', text: 'Busy' },
+    { value: '2', text: 'InActive' },
+    { value: '3', text: 'Active' },
+  ];
+
+  //Setting data
+  var statusOptions = document.getElementById('status-options');
+  statusOptions.options = statusData;
+
+  // Listening to events and setting focus
+  var statusPopover = document.getElementById('status-popover');
+  var statusIcon = document.getElementById('status-icon');
+  statusPopover.addEventListener('fwShow', () => {
+    statusOptions.setFocus();
+  });
+  statusPopover.addEventListener('fwHide', () => {
+    statusIcon.setFocus();
+  });
+</script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-popover
+  id="status-popover"
+  same-width="false"
+  style="--popover-min-width: 150px"
+  placement="top-start"
+>
+  <fw-button id="status-icon" size="icon" slot="popover-trigger"
+    ><fw-icon name="agent" color="white"></fw-icon>
+  </fw-button>
+  <fw-list-options id="status-options" slot="popover-content"></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var statusData = [
+    { value: '1', text: 'Busy' },
+    { value: '2', text: 'InActive' },
+    { value: '3', text: 'Active' },
+  ];
+
+  //Setting data
+  var statusOptions = document.getElementById('status-options');
+  statusOptions.options = statusData;
+
+  // Listening to events and setting focus
+  var statusPopover = document.getElementById('status-popover');
+  var statusIcon = document.getElementById('status-icon');
+  statusPopover.addEventListener('fwShow', () => {
+    statusOptions.setFocus();
+  });
+  statusPopover.addEventListener('fwHide', () => {
+    statusIcon.setFocus();
+  });
+</script>
+```
+
+</code-block>
+<code-block title="React">
+
+```jsx
+import React, { useRef } from 'react';
+import {
+  FwButton,
+  FwIcon,
+  FwListOptions,
+  FwPopover,
+} from '@freshworks/crayons/react';
+
+const Popover = () => {
+  const statusIcon = useRef();
+  const statusOptions = useRef();
+
+  const statusData = [
+    { value: '1', text: 'Busy' },
+    { value: '2', text: 'InActive' },
+    { value: '3', text: 'Active' },
+  ];
+
+  return (
+    <div>
+      <FwPopover
+        sameWidth='false'
+        style={{ '--popover-min-width': '150px' }}
+        placement='top-start'
+        onFwShow={() => statusOptions.current.setFocus()}
+        onFwHide={() => statusIcon.current.setFocus()}
+      >
+        <FwButton ref={statusIcon} size='icon' slot='popover-trigger'>
+          <FwIcon name='agent' color='white'></FwIcon>
+        </FwButton>
+        <FwListOptions
+          ref={statusOptions}
+          options={statusData}
+          slot='popover-content'
+        ></FwListOptions>
+      </FwPopover>
+    </div>
+  );
+};
+
+export default Popover;
+```
+
+</code-block>
+</code-group>
 
 Even a complex dropdown can be created via popover. Below example contains two different fw-list-options inside a single fw-popover.
 
@@ -347,19 +528,20 @@ export default Popover;
 
 ## Properties
 
-| Property             | Attribute            | Description                                                                                                                                                              | Type                                                                                                                                                                 | Default     |
-| -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `boundary`           | --                   | The area that the popup will be checked for overflow relative to.                                                                                                        | `HTMLElement`                                                                                                                                                        | `undefined` |
-| `disableTransition`  | `disable-transition` | Option to disable the popover animation on hide and show.                                                                                                                | `boolean`                                                                                                                                                            | `false`     |
-| `distance`           | `distance`           | Distance defines the distance between the popover trigger and the popover content along y-axis.                                                                          | `string`                                                                                                                                                             | `'0'`       |
-| `fallbackPlacements` | --                   | Alternative placement for popover if the default placement is not possible.                                                                                              | `[PopoverPlacementType]`                                                                                                                                             | `['top']`   |
-| `hasBorder`          | `has-border`         | Option to determine if popover-content has a border.                                                                                                                     | `boolean`                                                                                                                                                            | `true`      |
-| `hoist`              | `hoist`              | Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto\|hidden\|scroll`.                                  | `boolean`                                                                                                                                                            | `false`     |
-| `placement`          | `placement`          | Placement of the popover content with respect to the popover trigger.                                                                                                    | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`  |
-| `sameWidth`          | `same-width`         | Whether the popover-content width to be same as that of the popover-trigger.                                                                                             | `boolean`                                                                                                                                                            | `true`      |
-| `skidding`           | `skidding`           | Skidding defines the distance between the popover trigger and the popover content along x-axis.                                                                          | `string`                                                                                                                                                             | `'0'`       |
-| `trigger`            | `trigger`            | The trigger event on which the popover-content is displayed. The available options are 'click' \| 'manual' \| 'hover', in case of 'manual' no trigger event will be set. | `"click" \| "hover" \| "manual"`                                                                                                                                     | `'click'`   |
-| `variant`            | `variant`            | Variant defines the style of the popover-content.                                                                                                                        | `"date-picker" \| "select"`                                                                                                                                          | `'select'`  |
+| Property             | Attribute               | Description                                                                                                                                                              | Type                                                                                                                                                                 | Default     |
+| -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `autoFocusOnContent` | `auto-focus-on-content` | Whether to focus on the element in popover-content slot on opening the dropdown.                                                                                         | `boolean`                                                                                                                                                            | `false`     |
+| `boundary`           | --                      | The area that the popup will be checked for overflow relative to.                                                                                                        | `HTMLElement`                                                                                                                                                        | `undefined` |
+| `disableTransition`  | `disable-transition`    | Option to disable the popover animation on hide and show.                                                                                                                | `boolean`                                                                                                                                                            | `false`     |
+| `distance`           | `distance`              | Distance defines the distance between the popover trigger and the popover content along y-axis.                                                                          | `string`                                                                                                                                                             | `'0'`       |
+| `fallbackPlacements` | --                      | Alternative placement for popover if the default placement is not possible.                                                                                              | `[PopoverPlacementType]`                                                                                                                                             | `['top']`   |
+| `hasBorder`          | `has-border`            | Option to determine if popover-content has a border.                                                                                                                     | `boolean`                                                                                                                                                            | `true`      |
+| `hoist`              | `hoist`                 | Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto\|hidden\|scroll`.                                  | `boolean`                                                                                                                                                            | `false`     |
+| `placement`          | `placement`             | Placement of the popover content with respect to the popover trigger.                                                                                                    | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`  |
+| `sameWidth`          | `same-width`            | Whether the popover-content width to be same as that of the popover-trigger.                                                                                             | `boolean`                                                                                                                                                            | `true`      |
+| `skidding`           | `skidding`              | Skidding defines the distance between the popover trigger and the popover content along x-axis.                                                                          | `string`                                                                                                                                                             | `'0'`       |
+| `trigger`            | `trigger`               | The trigger event on which the popover-content is displayed. The available options are 'click' \| 'manual' \| 'hover', in case of 'manual' no trigger event will be set. | `"click" \| "hover" \| "manual"`                                                                                                                                     | `'click'`   |
+| `variant`            | `variant`               | Variant defines the style of the popover-content.                                                                                                                        | `"date-picker" \| "select"`                                                                                                                                          | `'select'`  |
 
 
 ## Events

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import {
   Component,
+  Element,
   Listen,
   Method,
   Prop,
@@ -19,6 +20,7 @@ import { DropdownVariant } from '../../utils/types';
   shadow: true,
 })
 export class ListOptions {
+  @Element() host: HTMLElement;
   private searchInput?: HTMLFwInputElement;
   private isInternalValueChange = false;
   private arrowKeyCounter = 0;
@@ -172,7 +174,11 @@ export class ListOptions {
   async scrollToLastSelected() {
     if (this.filteredOptions.length > 0 && this.valueExists()) {
       this.container
-        .querySelector(`fw-select-option[id='${this.getLastSelectedValue()}']`)
+        .querySelector(
+          `fw-select-option[id='${
+            this.host.id
+          }-option-${this.getLastSelectedValue()}']`
+        )
         ?.scrollIntoView({ block: 'nearest' });
     }
   }
@@ -339,7 +345,7 @@ export class ListOptions {
   renderSelectOptions(options: Array<any>) {
     return options.map((option) => (
       <fw-select-option
-        id={option.value}
+        id={`${this.host.id}-option-${option.value}`}
         key={option.value}
         {...option}
       ></fw-select-option>

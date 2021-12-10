@@ -1,6 +1,29 @@
 @import 'mixins/typography';
 @import 'mixins/card';
 @import 'mixins/spacing';
+@import 'mixins/border';
+
+/**
+  For generating colors
+*/
+$colors: (
+  smoke-700: #475867,
+  smoke-300: #92a2b1,
+  azure-800: #2c5cc5,
+  azure-100: #bbdcfe,
+  elephant-900: #12344d,
+  elephant-800: #264966,
+  jungle-800: #005c3f,
+  jungle-500: #00a886,
+  persimmon-900: #c82124,
+  persimmon-800: #d72d30,
+  casablanca-700: #e86f25,
+);
+@each $color, $value in $colors {
+  .fw-color-#{$color} {
+    color: #{$value};
+  }
+}
 
 /**
   For generating typography styles
@@ -43,6 +66,81 @@ $font-weight: (
 @each $name, $size in $font-weight {
   .fw-type-#{$name} {
     font-weight: #{$size};
+  }
+}
+
+/**
+  For generating border styles
+*/
+
+.fw-b-0 {
+  border: none;
+}
+
+$border-widths: (
+  1: 1px,
+  2: 2px,
+  3: 3px,
+);
+@each $width, $value in $border-widths {
+  .fw-b-#{$width} {
+    @include border($value, $value, $value, $value);
+  }
+  .fw-b-t-#{$width} {
+    @include border($value, 0, 0, 0);
+  }
+  .fw-b-r-#{$width} {
+    @include border(0, $value, 0, 0);
+  }
+  .fw-b-b-#{$width} {
+    @include border(0, 0, $value, 0);
+  }
+  .fw-b-l-#{$width} {
+    @include border(0, 0, 0, $value);
+  }
+}
+
+$border-radii: (
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+);
+@each $radius, $value in $border-radii {
+  .fw-br-#{$radius} {
+    @include border-radius($value, $value, $value, $value);
+  }
+  .fw-br-tr-#{$radius} {
+    @include border-radius($value, 0, 0, 0);
+  }
+  .fw-br-br-#{$radius} {
+    @include border-radius(0, $value, 0, 0);
+  }
+  .fw-br-bl-#{$radius} {
+    @include border-radius(0, 0, $value, 0);
+  }
+  .fw-br-tl-#{$radius} {
+    @include border-radius(0, 0, 0, $value);
+  }
+}
+
+$border-styles: (solid);
+@each $style in $border-styles {
+  .fw-b-#{$style} {
+    border-style: $style;
+    border-color: $color-azure-100;
+  }
+}
+
+$border-colors: (
+  'smoke-100': #cfd7df,
+  'azure-100': #bbdcfe,
+  'persimmon-100': #ffd0d6,
+  'casablanca-100': #fddbb5,
+);
+@each $color, $value in $border-colors {
+  .fw-b-#{$color} {
+    border-color: $value;
   }
 }
 

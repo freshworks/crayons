@@ -1,0 +1,23 @@
+$accordion-border-radius: var(--accordion-border-radius, 8px);
+
+/**
+  @prop --accordion-body-font-size: Accordion body font size
+  @prop --accordion-body-line-height: Accordion body line height
+  @prop --accordion-body-background-color: Accordion body background color
+  @prop --accordion-body-padding: Accordion body padding
+*/
+.accordion-body {
+  font-size: var(--accordion-body-font-size, 14px);
+  line-height: var(--accordion-body-line-height, 18px);
+  background-color: var(--accordion-body-background-color, #f5f7f9);
+  padding: var(--accordion-body-padding, 20px);
+  border-radius: 0 0 $accordion-border-radius $accordion-border-radius;
+
+  &.collapsed {
+    display: none;
+  }
+
+  &.no-bounding-box {
+    border-radius: 0;
+  }
+}

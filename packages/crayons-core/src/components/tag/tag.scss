@@ -1,15 +1,15 @@
 .tag {
-  line-height: 1.4;
-  background-color: $color-smoke-50;
-  border: none;
-  font-size: $font-size-12;
-  color: $color-elephant-900;
-  margin: 2px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   width: auto;
+  margin: 2px;
+  border: none;
+  color: $color-elephant-900;
+  font-size: $font-size-12;
   font-weight: 500;
+  background-color: $color-smoke-50;
   word-break: break-all;
-  vertical-align: middle;
+  line-height: 1.4;
 
   &-standard {
     border-radius: 4px;
@@ -41,13 +41,13 @@
     &.standard {
       height: 100%;
       margin-left: 4px;
-      padding: 3px 8px 5px;
+      padding: 0px 8px 5px;
       border-radius: 4px;
     }
 
     &.avatar {
-      width: 24px;
-      height: 24px;
+      min-width: 24px;
+      min-height: 24px;
       margin: 4px 4px 4px 8px;
       border-radius: 8px;
       text-align: center;

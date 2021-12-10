@@ -685,7 +685,7 @@ export default App;
 
 ```jsx
 function Select() {
-  let baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  var baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
   const searchFn = (value, source) => {
     // Sample function to mimic the dynamic filter over network
     return fetch(baseURL)
@@ -873,16 +873,16 @@ export default Select;
   multiple
 ></fw-select>
 <script type="application/javascript">
-  let years = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
+  var yearsData = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
     return { value: x.toString(), text: x.toString() };
   });
 
-  let longSelect = document.getElementById('longSelect');
-  longSelect.options = years;
+  var longSelect = document.getElementById('longSelect');
+  longSelect.options = yearsData;
   longSelect.value = '2021';
 
-  let longSelectMulti = document.getElementById('longSelectMulti');
-  longSelectMulti.options = years;
+  var longSelectMulti = document.getElementById('longSelectMulti');
+  longSelectMulti.options = yearsData;
 </script>
 ```
 
@@ -899,6 +899,7 @@ export default Select;
 | `disabled`         | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                                                                                                                                            | `false`               |
 | `forceSelect`      | `force-select`      | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                                                                                                                                                            | `true`                |
 | `label`            | `label`             | Label displayed on the interface, for the component.                                                                                                                                                                                      | `string`                                                                                                                                                             | `''`                  |
+| `labelledBy`       | `labelled-by`       | If the default label prop is not used, then use this prop to pass the id of the label.                                                                                                                                                    | `string`                                                                                                                                                             | `''`                  |
 | `max`              | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                                                                                                                                             | `Number.MAX_VALUE`    |
 | `multiple`         | `multiple`          | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                                                                                                                                                            | `false`               |
 | `name`             | `name`              | Name of the component, saved as part of form data.                                                                                                                                                                                        | `string`                                                                                                                                                             | `''`                  |
@@ -995,6 +996,7 @@ Type: `Promise<any>`
 - [fw-popover](../popover)
 - [fw-button](../button)
 - [fw-spinner](../spinner)
+- [fw-icon](../icon)
 - [fw-list-options](../options-list)
 
 ### Graph
@@ -1004,6 +1006,7 @@ graph TD;
   fw-select --> fw-popover
   fw-select --> fw-button
   fw-select --> fw-spinner
+  fw-select --> fw-icon
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon

@@ -3,6 +3,7 @@ import {
   Component,
   Event,
   EventEmitter,
+  Element,
   Prop,
   h,
   Fragment,
@@ -17,6 +18,7 @@ import { DropdownVariant } from '../../utils/types';
   shadow: true,
 })
 export class SelectOption {
+  @Element() host: HTMLElement;
   private rowContainer?: HTMLElement;
   /**
    * Value corresponding to the option, that is saved  when the form data is saved.
@@ -73,6 +75,15 @@ export class SelectOption {
    */
   @Event({ bubbles: true, composed: true }) fwSelected: EventEmitter;
 
+  /**
+   * Triggered when an option is focused.
+   */
+  @Event({ bubbles: true, composed: true }) fwFocus: EventEmitter;
+  /**
+   * Triggered when an option loses focus.
+   */
+  @Event({ bubbles: true, composed: true }) fwBlur: EventEmitter;
+
   @Method()
   async setFocus(): Promise<any> {
     this.rowContainer.focus();
@@ -99,12 +110,20 @@ export class SelectOption {
   renderInnerHtml() {
     const description = this.createDescription();
     const checkbox = this.checkbox ? this.createCheckbox() : '';
+    const selectedIconContainer = (
+      <span class='selected-icon'>
+        {this.selected && (
+          <fw-icon name='check' size={12} color='#2C5CC5'></fw-icon>
+        )}
+      </span>
+    );
     switch (this.variant) {
       case 'standard':
         return (
           <Fragment>
             {checkbox}
             {description}
+            {selectedIconContainer}
           </Fragment>
         );
       case 'icon':
@@ -113,6 +132,7 @@ export class SelectOption {
             {checkbox}
             {this.createIcon()}
             {description}
+            {selectedIconContainer}
           </Fragment>
         );
       case 'avatar':
@@ -121,6 +141,7 @@ export class SelectOption {
             {checkbox}
             {this.createAvatar()}
             {description}
+            {selectedIconContainer}
           </Fragment>
         );
       default:
@@ -166,8 +187,9 @@ export class SelectOption {
   render() {
     return (
       <div
-        role='button'
+        role='option'
         tabindex='-1'
+        aria-selected={this.selected}
         ref={(el) => (this.rowContainer = el)}
         class={
           'select-option ' +
@@ -179,6 +201,8 @@ export class SelectOption {
               (this.variant + ' ' + 'select-center'))
         }
         onMouseDown={() => this.onOptionSelected()}
+        onFocus={() => this.fwFocus.emit({ id: this.host.id })}
+        onBlur={(e) => this.fwBlur.emit(e)}
       >
         {this.html ? '' : this.text ? this.renderInnerHtml() : <slot />}
       </div>
