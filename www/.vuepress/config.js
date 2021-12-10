@@ -24,17 +24,12 @@ for (const wwwBuild of wwwBuilds) {
     { nomodule: '', src: `/${wwwBuild}/build/${wwwBuild}.js` },
   ]);
 }
-headScripts.push([
-  'link', 
-  { rel: "stylesheet", href: `/css/crayons-min.css` },
-]);
+headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
 
-const getUtils = () => [
-  'typography', 
-  'spacing', 
-  'layout', 
-  'card'
-].map(util => (`/css-utils/${util}/`));
+const getUtils = () =>
+  ['typography', 'spacing', 'border', 'layout', 'card', 'color'].map(
+    (util) => `/css-utils/${util}/`
+  );
 
 const getTags = () => [
   'Web Components',
@@ -77,7 +72,7 @@ module.exports = {
         title: 'CSS Utils',
         collapsable: false,
         sidebarDepth: 1,
-        children: getUtils()
+        children: getUtils(),
       },
       {
         title: 'Frameworks',
