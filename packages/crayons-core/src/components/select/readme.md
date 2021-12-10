@@ -685,7 +685,7 @@ export default App;
 
 ```jsx
 function Select() {
-  let baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  var baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
   const searchFn = (value, source) => {
     // Sample function to mimic the dynamic filter over network
     return fetch(baseURL)
@@ -873,21 +873,20 @@ export default Select;
   multiple
 ></fw-select>
 <script type="application/javascript">
-  let years = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
+  var yearsData = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
     return { value: x.toString(), text: x.toString() };
   });
 
-  let longSelect = document.getElementById('longSelect');
-  longSelect.options = years;
+  var longSelect = document.getElementById('longSelect');
+  longSelect.options = yearsData;
   longSelect.value = '2021';
 
-  let longSelectMulti = document.getElementById('longSelectMulti');
-  longSelectMulti.options = years;
+  var longSelectMulti = document.getElementById('longSelectMulti');
+  longSelectMulti.options = yearsData;
 </script>
 ```
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -922,7 +921,6 @@ export default Select;
 | `value`            | `value`             | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                                                                                                                                                                | `undefined`           |
 | `variant`          | `variant`           | The UI variant of the select to be used.                                                                                                                                                                                                  | `"button" \| "mail" \| "standard"`                                                                                                                                   | `'standard'`          |
 
-
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -931,49 +929,31 @@ export default Select;
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `getSelectedItem() => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
 
 ### `setFocus() => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
 
 ### `setSelectedOptions(options: any[]) => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
 
 ### `setSelectedValues(values: string | string[]) => Promise<any>`
 
-
-
 #### Returns
 
 Type: `Promise<any>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -982,13 +962,12 @@ Type: `Promise<any>`
 | `--max-height` | Maximum height of the select component |
 | `--min-height` | Minimum height of the select component |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-datepicker](../datepicker)
- - [fw-timepicker](../timepicker)
+- [fw-datepicker](../datepicker)
+- [fw-timepicker](../timepicker)
 
 ### Depends on
 
@@ -996,15 +975,18 @@ Type: `Promise<any>`
 - [fw-popover](../popover)
 - [fw-button](../button)
 - [fw-spinner](../spinner)
+- [fw-icon](../icon)
 - [fw-list-options](../options-list)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-select --> fw-tag
   fw-select --> fw-popover
   fw-select --> fw-button
   fw-select --> fw-spinner
+  fw-select --> fw-icon
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
@@ -1021,6 +1003,6 @@ graph TD;
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks

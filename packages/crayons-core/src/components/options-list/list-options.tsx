@@ -174,7 +174,11 @@ export class ListOptions {
   async scrollToLastSelected() {
     if (this.filteredOptions.length > 0 && this.valueExists()) {
       this.container
-        .querySelector(`fw-select-option[id='${this.getLastSelectedValue()}']`)
+        .querySelector(
+          `fw-select-option[id='${
+            this.host.id
+          }-option-${this.getLastSelectedValue()}']`
+        )
         ?.scrollIntoView({ block: 'nearest' });
     }
   }

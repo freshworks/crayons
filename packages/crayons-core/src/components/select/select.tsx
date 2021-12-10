@@ -11,6 +11,7 @@ import {
   State,
   Watch,
   h,
+  Fragment,
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
@@ -562,38 +563,42 @@ export class Select {
                   {this.value}
                 </fw-button>
               ) : (
-                <div class='input-container-inner'>
-                  {this.multiple && (
-                    <div
-                      onFocus={this.focusOnTagContainer}
-                      ref={(tagContainer) => (this.tagContainer = tagContainer)}
-                      onKeyDown={this.tagContainerKeyDown}
-                    >
-                      {this.renderTags()}
-                    </div>
-                  )}
-                  <input
-                    ref={(selectInput) => (this.selectInput = selectInput)}
-                    id={`${this.hostId}-input`}
-                    class={{
-                      'multiple-select': this.multiple,
-                    }}
-                    autoComplete='off'
-                    disabled={this.disabled}
-                    name={this.name}
-                    placeholder={
-                      this.valueExists() ? '' : this.placeholder || ''
-                    }
-                    readOnly={this.readonly}
-                    required={this.required}
-                    type={this.type}
-                    value=''
-                    aria-autocomplete='list'
-                    aria-activedescendant={this.focusedOptionId}
-                    onInput={() => this.onInput()}
-                    onFocus={(e) => this.innerOnFocus(e)}
-                    onBlur={(e) => this.innerOnBlur(e)}
-                  />
+                <Fragment>
+                  <div class='input-container-inner'>
+                    {this.multiple && (
+                      <div
+                        onFocus={this.focusOnTagContainer}
+                        ref={(tagContainer) =>
+                          (this.tagContainer = tagContainer)
+                        }
+                        onKeyDown={this.tagContainerKeyDown}
+                      >
+                        {this.renderTags()}
+                      </div>
+                    )}
+                    <input
+                      ref={(selectInput) => (this.selectInput = selectInput)}
+                      id={`${this.hostId}-input`}
+                      class={{
+                        'multiple-select': this.multiple,
+                      }}
+                      autoComplete='off'
+                      disabled={this.disabled}
+                      name={this.name}
+                      placeholder={
+                        this.valueExists() ? '' : this.placeholder || ''
+                      }
+                      readOnly={this.readonly}
+                      required={this.required}
+                      type={this.type}
+                      value=''
+                      aria-autocomplete='list'
+                      aria-activedescendant={this.focusedOptionId}
+                      onInput={() => this.onInput()}
+                      onFocus={(e) => this.innerOnFocus(e)}
+                      onBlur={(e) => this.innerOnBlur(e)}
+                    />
+                  </div>
                   {this.isLoading ? (
                     <fw-spinner size='small'></fw-spinner>
                   ) : (
@@ -603,10 +608,16 @@ export class Select {
                           'dropdown-status-icon': true,
                           'expanded': this.isExpanded,
                         }}
-                      ></span>
+                      >
+                        <fw-icon
+                          name='chevron-down'
+                          color='#264966'
+                          size={8}
+                        ></fw-icon>
+                      </span>
                     )
                   )}
-                </div>
+                </Fragment>
               )}
             </div>
             <fw-list-options
