@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.7...@freshworks/crayons@3.0.0-beta.8) (2021-12-10)
+
+
+### Bug Fixes
+
+* **fw-input:** adjust input styles for icons ([#329](https://github.com/freshworks/crayons/issues/329)) ([f7250fc](https://github.com/freshworks/crayons/commit/f7250fce3ea75e1ba858ee37b5fc3df851437b06))
+
+
+### Features
+
+* **accordion:**  Adding accordion component ([#327](https://github.com/freshworks/crayons/issues/327)) ([a8acabf](https://github.com/freshworks/crayons/commit/a8acabfe7bfeb69986e543067a65ec5e89f83694))
+* **data-table:** adding DataTable component ([#332](https://github.com/freshworks/crayons/issues/332)) ([5681084](https://github.com/freshworks/crayons/commit/5681084530dd368a77f7a67bc1c6a95402e7cf59))
+* **fw-popover:** added prop to focus on the content ([#336](https://github.com/freshworks/crayons/issues/336)) ([9e7eea6](https://github.com/freshworks/crayons/commit/9e7eea66a98e333c20bff936150ed9a1382f7aa3))
+* **fw-select:** added ARIA compatibility ([#330](https://github.com/freshworks/crayons/issues/330)) ([893808f](https://github.com/freshworks/crayons/commit/893808f457c8ee5072e80eb7ef4a478f8944d9ec))
+
+
+
+
+
 ## [3.0.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.6...@freshworks/crayons@3.0.0-beta.7) (2021-12-03)
 
 ### Bug Fixes
