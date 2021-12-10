@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
-import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -114,6 +114,34 @@ export namespace Components {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+    }
+    interface FwDataTable {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns": DataTableColumn[];
+        /**
+          * getSelectedIds
+          * @returns an array of selected row IDs
+         */
+        "getSelectedIds": () => Promise<string[]>;
+        /**
+          * getSelectedRows
+          * @returns selected rows from the data table
+         */
+        "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable": boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label": string;
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows": DataTableRow[];
     }
     interface FwDatepicker {
         /**
@@ -1167,6 +1195,12 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwDataTableElement extends Components.FwDataTable, HTMLStencilElement {
+    }
+    var HTMLFwDataTableElement: {
+        prototype: HTMLFwDataTableElement;
+        new (): HTMLFwDataTableElement;
+    };
     interface HTMLFwDatepickerElement extends Components.FwDatepicker, HTMLStencilElement {
     }
     var HTMLFwDatepickerElement: {
@@ -1349,6 +1383,7 @@ declare global {
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-icon": HTMLFwIconElement;
@@ -1508,6 +1543,28 @@ declare namespace LocalJSX {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+    }
+    interface FwDataTable {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns"?: DataTableColumn[];
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable"?: boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label"?: string;
+        /**
+          * fwSelectionChange Emits this event when row is selected/unselected.
+         */
+        "onFwSelectionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows"?: DataTableRow[];
     }
     interface FwDatepicker {
         /**
@@ -2608,6 +2665,7 @@ declare namespace LocalJSX {
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-icon": FwIcon;
@@ -2650,6 +2708,7 @@ declare module "@stencil/core" {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;

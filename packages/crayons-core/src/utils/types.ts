@@ -17,3 +17,14 @@ export type PopoverPlacementType =
   | 'bottom-end';
 
 export type PopoverTriggerType = 'click' | 'hover' | 'manual';
+
+export interface DataTableColumn {
+  key: string;
+  text: string;
+  orderIndex: number;
+}
+
+export interface DataTableRow {
+  id: string;
+  [prop: string]: any;
+}
