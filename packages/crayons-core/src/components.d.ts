@@ -439,15 +439,15 @@ export namespace Components {
     }
     interface FwPagination {
         "next": () => Promise<void>;
+        /**
+          * The current page number.
+         */
+        "page": number;
         "previous": () => Promise<void>;
         /**
           * The number of records to be shown per page. Defaults to 10.
          */
         "recordsPerPage": number;
-        /**
-          * The starting record number for the current page.
-         */
-        "start": number;
         /**
           * The total number of records.
          */
@@ -1842,13 +1842,13 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
+          * The current page number.
+         */
+        "page"?: number;
+        /**
           * The number of records to be shown per page. Defaults to 10.
          */
         "recordsPerPage"?: number;
-        /**
-          * The starting record number for the current page.
-         */
-        "start"?: number;
         /**
           * The total number of records.
          */

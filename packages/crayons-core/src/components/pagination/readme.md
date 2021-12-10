@@ -8,7 +8,7 @@ fw-pagination displays pagination. The component displays starting and ending re
 <fw-pagination records-per-page="10" total-records="50"></fw-pagination><br />
 <fw-pagination total-records="50"></fw-pagination><br />
 <fw-pagination
-  start="11"
+  page="2"
   records-per-page="10"
   total-records="50"
 ></fw-pagination>
@@ -22,7 +22,7 @@ fw-pagination displays pagination. The component displays starting and ending re
 <fw-pagination records-per-page="10" total-records="50"></fw-pagination><br>
 <fw-pagination total-records="50"></fw-pagination><br />
 <fw-pagination
-  start="11"
+  page="2"
   records-per-page="10"
   total-records="50"
 ></fw-pagination>
@@ -38,7 +38,7 @@ function App() {
   return (<div>
     <FwPagination records-per-page="10" total-records="50"></FwPagination><br/>
     <FwPagination total-records="50"></FwPagination>
-    <FwPagination start="11"
+    <FwPagination page="2"
   records-per-page="10"
   total-records="50"></FwPagination>
   </div>)
@@ -49,15 +49,13 @@ function App() {
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property         | Attribute          | Description                                                 | Type     | Default     |
 | ---------------- | ------------------ | ----------------------------------------------------------- | -------- | ----------- |
+| `page`           | `page`             | The current page number.                                    | `number` | `1`         |
 | `recordsPerPage` | `records-per-page` | The number of records to be shown per page. Defaults to 10. | `number` | `10`        |
-| `start`          | `start`            | The starting record number for the current page.            | `number` | `1`         |
 | `totalRecords`   | `total-records`    | The total number of records.                                | `number` | `undefined` |
-
 
 ## Events
 
@@ -65,29 +63,19 @@ function App() {
 | ---------- | --------------------------------------------------------- | ------------------ |
 | `fwChange` | Triggered when either previous or next button is clicked. | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `next() => Promise<void>`
 
-
-
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `previous() => Promise<void>`
 
-
-
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## Dependencies
 
@@ -98,6 +86,7 @@ Type: `Promise<void>`
 - [fw-icon](../icon)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-pagination --> fw-button-group
@@ -108,6 +97,6 @@ graph TD;
   style fw-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks

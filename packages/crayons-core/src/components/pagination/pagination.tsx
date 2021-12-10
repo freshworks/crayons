@@ -6,6 +6,7 @@ import {
   Event,
   EventEmitter,
   Method,
+  State,
 } from '@stencil/core';
 @Component({
   tag: 'fw-pagination',
@@ -13,12 +14,13 @@ import {
   shadow: true,
 })
 export class Pagination {
-  private end;
+  @State() end;
+  @State() start;
 
   /**
-   * The starting record number for the current page.
+   * The current page number.
    */
-  @Prop() start = 1;
+  @Prop() page = 1;
   /**
    * The total number of records.
    */
@@ -43,6 +45,11 @@ export class Pagination {
   }
 
   componentWillLoad() {
+    this.start = this.page
+      ? (this.page - 1) * this.recordsPerPage + 1 > this.totalRecords
+        ? this.totalRecords - this.recordsPerPage + 1
+        : (this.page - 1) * this.recordsPerPage + 1
+      : this.start;
     this.end = this.start + this.recordsPerPage - 1;
     this.totalRecords = this.totalRecords || this.end;
   }
