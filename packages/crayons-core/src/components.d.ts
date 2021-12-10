@@ -177,60 +177,6 @@ export namespace Components {
         "validateOnInput"?: boolean;
     }
     interface FwFormControl {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
-    }
-    interface FwFormControlFeedback {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
-    }
-    interface FwFormGroup {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
-    }
-    interface FwFormLabel {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
     }
     interface FwFormText {
     }
@@ -332,7 +278,7 @@ export namespace Components {
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type": 'text' | 'number';
+        "type": string;
         /**
           * Default value displayed in the input box.
          */
@@ -1215,24 +1161,6 @@ declare global {
         prototype: HTMLFwFormControlElement;
         new (): HTMLFwFormControlElement;
     };
-    interface HTMLFwFormControlFeedbackElement extends Components.FwFormControlFeedback, HTMLStencilElement {
-    }
-    var HTMLFwFormControlFeedbackElement: {
-        prototype: HTMLFwFormControlFeedbackElement;
-        new (): HTMLFwFormControlFeedbackElement;
-    };
-    interface HTMLFwFormGroupElement extends Components.FwFormGroup, HTMLStencilElement {
-    }
-    var HTMLFwFormGroupElement: {
-        prototype: HTMLFwFormGroupElement;
-        new (): HTMLFwFormGroupElement;
-    };
-    interface HTMLFwFormLabelElement extends Components.FwFormLabel, HTMLStencilElement {
-    }
-    var HTMLFwFormLabelElement: {
-        prototype: HTMLFwFormLabelElement;
-        new (): HTMLFwFormLabelElement;
-    };
     interface HTMLFwFormTextElement extends Components.FwFormText, HTMLStencilElement {
     }
     var HTMLFwFormTextElement: {
@@ -1410,9 +1338,6 @@ declare global {
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-form": HTMLFwFormElement;
         "fw-form-control": HTMLFwFormControlElement;
-        "fw-form-control-feedback": HTMLFwFormControlFeedbackElement;
-        "fw-form-group": HTMLFwFormGroupElement;
-        "fw-form-label": HTMLFwFormLabelElement;
         "fw-form-text": HTMLFwFormTextElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
@@ -1648,60 +1573,6 @@ declare namespace LocalJSX {
         "validateOnInput"?: boolean;
     }
     interface FwFormControl {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
-    }
-    interface FwFormControlFeedback {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
-    }
-    interface FwFormGroup {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
-    }
-    interface FwFormLabel {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
     }
     interface FwFormText {
     }
@@ -1825,7 +1696,7 @@ declare namespace LocalJSX {
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type"?: 'text' | 'number';
+        "type"?: string;
         /**
           * Default value displayed in the input box.
          */
@@ -2717,9 +2588,6 @@ declare namespace LocalJSX {
         "fw-dropdown-button": FwDropdownButton;
         "fw-form": FwForm;
         "fw-form-control": FwFormControl;
-        "fw-form-control-feedback": FwFormControlFeedback;
-        "fw-form-group": FwFormGroup;
-        "fw-form-label": FwFormLabel;
         "fw-form-text": FwFormText;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
@@ -2762,9 +2630,6 @@ declare module "@stencil/core" {
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
             "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
-            "fw-form-control-feedback": LocalJSX.FwFormControlFeedback & JSXBase.HTMLAttributes<HTMLFwFormControlFeedbackElement>;
-            "fw-form-group": LocalJSX.FwFormGroup & JSXBase.HTMLAttributes<HTMLFwFormGroupElement>;
-            "fw-form-label": LocalJSX.FwFormLabel & JSXBase.HTMLAttributes<HTMLFwFormLabelElement>;
             "fw-form-text": LocalJSX.FwFormText & JSXBase.HTMLAttributes<HTMLFwFormTextElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;

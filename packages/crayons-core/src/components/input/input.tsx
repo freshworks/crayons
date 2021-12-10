@@ -34,7 +34,7 @@ export class Input {
   /**
    * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
    */
-  @Prop() type: 'text' | 'number' = 'text';
+  @Prop() type = 'text';
   /**
    * Specifies whether the browser can display suggestions to autocomplete the text value.
    */
