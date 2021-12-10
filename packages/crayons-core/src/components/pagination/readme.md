@@ -49,6 +49,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property         | Attribute          | Description                                                 | Type     | Default     |
@@ -57,11 +58,36 @@ function App() {
 | `start`          | `start`            | The starting record number for the current page.            | `number` | `1`         |
 | `totalRecords`   | `total-records`    | The total number of records.                                | `number` | `undefined` |
 
+
 ## Events
 
 | Event      | Description                                               | Type               |
 | ---------- | --------------------------------------------------------- | ------------------ |
 | `fwChange` | Triggered when either previous or next button is clicked. | `CustomEvent<any>` |
+
+
+## Methods
+
+### `next() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `previous() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -72,7 +98,6 @@ function App() {
 - [fw-icon](../icon)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-pagination --> fw-button-group
@@ -83,6 +108,6 @@ graph TD;
   style fw-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks

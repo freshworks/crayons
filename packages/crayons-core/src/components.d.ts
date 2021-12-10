@@ -438,6 +438,8 @@ export namespace Components {
         "titleText": string;
     }
     interface FwPagination {
+        "next": () => Promise<void>;
+        "previous": () => Promise<void>;
         /**
           * The number of records to be shown per page. Defaults to 10.
          */

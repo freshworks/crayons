@@ -1,4 +1,12 @@
-import { Component, Prop, h, Host, Event, EventEmitter } from '@stencil/core';
+import {
+  Component,
+  Prop,
+  h,
+  Host,
+  Event,
+  EventEmitter,
+  Method,
+} from '@stencil/core';
 @Component({
   tag: 'fw-pagination',
   styleUrl: 'pagination.scss',
@@ -24,12 +32,22 @@ export class Pagination {
    */
   @Event() fwChange: EventEmitter;
 
+  @Method()
+  async previous() {
+    this.goToPrevious();
+  }
+
+  @Method()
+  async next() {
+    this.goToNext();
+  }
+
   componentWillLoad() {
     this.end = this.start + this.recordsPerPage - 1;
     this.totalRecords = this.totalRecords || this.end;
   }
 
-  private previous() {
+  private goToPrevious() {
     this.start = Math.max(this.start - this.recordsPerPage, 1);
     this.end =
       this.start - this.end !== this.recordsPerPage
@@ -39,7 +57,7 @@ export class Pagination {
     this.fwChange.emit({ startRecord: this.start, endRecord: this.end });
   }
 
-  private next() {
+  private goToNext() {
     this.start += this.recordsPerPage;
     this.end = Math.min(this.end + this.recordsPerPage, this.totalRecords);
 
@@ -59,7 +77,7 @@ export class Pagination {
             color='secondary'
             size='icon'
             aria-label='Previous'
-            onFwClick={() => this.previous()}
+            onFwClick={() => this.goToPrevious()}
           >
             <fw-icon name='chevron-left'></fw-icon>
           </fw-button>
@@ -68,7 +86,7 @@ export class Pagination {
             color='secondary'
             size='icon'
             aria-label='Next'
-            onFwClick={() => this.next()}
+            onFwClick={() => this.goToNext()}
           >
             <fw-icon name='chevron-right'></fw-icon>
           </fw-button>
