@@ -68,6 +68,7 @@ export namespace Components {
           * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId": string;
+        "setFocus": () => Promise<any>;
         /**
           * Caret indicator for the button, Default value is false.
          */
@@ -467,6 +468,10 @@ export namespace Components {
         "titleText": string;
     }
     interface FwPopover {
+        /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent": boolean;
         /**
           * The area that the popup will be checked for overflow relative to.
          */
@@ -1891,6 +1896,10 @@ declare namespace LocalJSX {
         "titleText"?: string;
     }
     interface FwPopover {
+        /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent"?: boolean;
         /**
           * The area that the popup will be checked for overflow relative to.
          */
