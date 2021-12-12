@@ -45,11 +45,13 @@ export class Pagination {
   }
 
   componentWillLoad() {
-    this.start = this.page
+    // If both totalRecords and page are passed in but if the start record of current page comes out to be
+    // greater than total number of records then assign start to the last page's first record number.
+    this.start = this.totalRecords
       ? (this.page - 1) * this.recordsPerPage + 1 > this.totalRecords
         ? this.totalRecords - this.recordsPerPage + 1
         : (this.page - 1) * this.recordsPerPage + 1
-      : this.start;
+      : (this.page - 1) * this.recordsPerPage + 1;
     this.end = this.start + this.recordsPerPage - 1;
     this.totalRecords = this.totalRecords || this.end;
   }
