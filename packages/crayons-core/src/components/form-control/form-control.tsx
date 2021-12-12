@@ -288,7 +288,7 @@ const getType = ({ type, inputType }) => {
   else if (type === 'phone_number' && inputType === 'text-field')
     return { cmp: 'input', type: 'phone' };
   else if (type === 'paragraph' && inputType === 'textarea-field')
-    return { cmp: 'text-area' };
+    return { cmp: 'textarea' };
   else if (type === 'date_time' && inputType === 'datetime-field')
     return { cmp: 'timepicker' };
   else if (type === 'text' && inputType === 'date-field')
@@ -346,7 +346,12 @@ export class FormControl {
               cmp = <p>unknown</p>;
               break;
           }
-          return cmp;
+          return (
+            <div>
+              {field.type} , {field.inputType}
+              {cmp}
+            </div>
+          );
         })}
       </form>
     );

@@ -160,6 +160,7 @@ export namespace Components {
         "value": any;
     }
     interface FwForm {
+        "initialErrors": any;
         "initialValues": FormValues;
         /**
           * Tell Form if initial form values are valid or not on first render
@@ -179,6 +180,10 @@ export namespace Components {
     interface FwFormControl {
     }
     interface FwFormText {
+    }
+    interface FwFormWrapper {
+    }
+    interface FwFormWrapper1 {
     }
     interface FwIcon {
         /**
@@ -220,6 +225,10 @@ export namespace Components {
          */
         "autocomplete": 'on' | 'off';
         /**
+          * Checks for validity and shows the browser's validation message if the control is invalid.
+         */
+        "checkValidity": () => Promise<boolean>;
+        /**
           * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput": boolean;
@@ -227,6 +236,7 @@ export namespace Components {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        "getRef": any;
         /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
@@ -252,6 +262,13 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Return native element
+         */
+        "nativeRef": () => Promise<HTMLInputElement>;
+        "onBlur": any;
+        "onFocus": any;
+        "onInput": any;
+        /**
           * Text displayed in the text box before a user enters a value.
          */
         "placeholder"?: string | null;
@@ -263,6 +280,10 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Sets a custom validation message. If `message` is not empty, the field will be considered invalid.
+         */
+        "setCustomValidity": (message: string) => Promise<void>;
         /**
           * Sets focus on a specific `fw-input`. Use this method instead of the global `input.focus()`.
          */
@@ -1167,6 +1188,18 @@ declare global {
         prototype: HTMLFwFormTextElement;
         new (): HTMLFwFormTextElement;
     };
+    interface HTMLFwFormWrapperElement extends Components.FwFormWrapper, HTMLStencilElement {
+    }
+    var HTMLFwFormWrapperElement: {
+        prototype: HTMLFwFormWrapperElement;
+        new (): HTMLFwFormWrapperElement;
+    };
+    interface HTMLFwFormWrapper1Element extends Components.FwFormWrapper1, HTMLStencilElement {
+    }
+    var HTMLFwFormWrapper1Element: {
+        prototype: HTMLFwFormWrapper1Element;
+        new (): HTMLFwFormWrapper1Element;
+    };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
     var HTMLFwIconElement: {
@@ -1339,6 +1372,8 @@ declare global {
         "fw-form": HTMLFwFormElement;
         "fw-form-control": HTMLFwFormControlElement;
         "fw-form-text": HTMLFwFormTextElement;
+        "fw-form-wrapper": HTMLFwFormWrapperElement;
+        "fw-form-wrapper1": HTMLFwFormWrapper1Element;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -1555,12 +1590,13 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface FwForm {
+        "initialErrors"?: any;
         "initialValues"?: FormValues;
         /**
           * Tell Form if initial form values are valid or not on first render
          */
         "isInitialValid"?: boolean;
-        "onSubmit"?: (event: CustomEvent<StencilFormEventDetail>) => void;
+        "onSubmit1"?: (event: CustomEvent<StencilFormEventDetail>) => void;
         "renderer"?: (props: FormRenderProps<any>) => any;
         "validate"?: FormValidator<FormValues>;
         /**
@@ -1575,6 +1611,10 @@ declare namespace LocalJSX {
     interface FwFormControl {
     }
     interface FwFormText {
+    }
+    interface FwFormWrapper {
+    }
+    interface FwFormWrapper1 {
     }
     interface FwIcon {
         /**
@@ -1629,6 +1669,7 @@ declare namespace LocalJSX {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        "getRef"?: any;
         /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
@@ -1653,6 +1694,8 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        "onBlur"?: any;
+        "onFocus"?: any;
         /**
           * Triggered when the input box loses focus.
          */
@@ -1673,6 +1716,7 @@ declare namespace LocalJSX {
           * Triggered when clear icon is clicked.
          */
         "onFwInputClear"?: (event: CustomEvent<any>) => void;
+        "onInput"?: any;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -2589,6 +2633,8 @@ declare namespace LocalJSX {
         "fw-form": FwForm;
         "fw-form-control": FwFormControl;
         "fw-form-text": FwFormText;
+        "fw-form-wrapper": FwFormWrapper;
+        "fw-form-wrapper1": FwFormWrapper1;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -2631,6 +2677,8 @@ declare module "@stencil/core" {
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
             "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
             "fw-form-text": LocalJSX.FwFormText & JSXBase.HTMLAttributes<HTMLFwFormTextElement>;
+            "fw-form-wrapper": LocalJSX.FwFormWrapper & JSXBase.HTMLAttributes<HTMLFwFormWrapperElement>;
+            "fw-form-wrapper1": LocalJSX.FwFormWrapper1 & JSXBase.HTMLAttributes<HTMLFwFormWrapper1Element>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;

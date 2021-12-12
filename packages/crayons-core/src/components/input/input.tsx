@@ -74,7 +74,7 @@ export class Input {
   /**
    * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop() required = false;
+  @Prop() required = true;
   /**
    * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
    */
@@ -89,6 +89,11 @@ export class Input {
    * Identifier of the icon that is displayed in the right side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
    */
   @Prop() iconRight: string = undefined;
+
+  @Prop() onInput;
+  @Prop() onBlur;
+  @Prop() onFocus;
+  @Prop() getRef;
 
   /**
    * Triggered when the value in the input box is modified.
@@ -120,22 +125,25 @@ export class Input {
     this.fwChange.emit({ value: newValue });
   }
 
-  private onInput = (ev: Event) => {
+  private onInput1 = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
     if (input) {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
+    this.onInput(ev);
   };
 
-  private onFocus = () => {
+  private onFocus1 = (e) => {
     this.hasFocus = true;
     this.fwFocus.emit();
+    this.onFocus(e);
   };
 
-  private onBlur = () => {
+  private onBlur1 = (e) => {
     this.hasFocus = false;
     this.fwBlur.emit();
+    this.onBlur(e);
   };
 
   private showClearButton() {
@@ -176,6 +184,25 @@ export class Input {
     }
   }
 
+  /** Checks for validity and shows the browser's validation message if the control is invalid. */
+  @Method()
+  async checkValidity() {
+    console.log('valid ', this.nativeInput.checkValidity());
+    return this.nativeInput.checkValidity();
+  }
+
+  /** Sets a custom validation message. If `message` is not empty, the field will be considered invalid. */
+  @Method()
+  async setCustomValidity(message: string) {
+    this.nativeInput.setCustomValidity(message);
+  }
+
+  /** Return native element */
+  @Method()
+  async nativeRef() {
+    return this.nativeInput;
+  }
+
   render() {
     const { host, name, value } = this;
 
@@ -211,7 +238,9 @@ export class Input {
             }}
           >
             <input
-              ref={(input) => (this.nativeInput = input)}
+              ref={(input) => {
+                this.nativeInput = input;
+              }}
               autoComplete={this.autocomplete}
               disabled={this.disabled}
               name={this.name}
@@ -222,9 +251,9 @@ export class Input {
               required={this.required}
               type={this.type}
               value={this.value}
-              onInput={(e) => this.onInput(e)}
-              onBlur={this.onBlur}
-              onFocus={this.onFocus}
+              onInput={(e) => this.onInput1(e)}
+              onBlur={this.onBlur1}
+              onFocus={this.onFocus1}
             />
             {this.iconLeft !== undefined ? (
               <fw-icon class='icon left' name={this.iconLeft}></fw-icon>

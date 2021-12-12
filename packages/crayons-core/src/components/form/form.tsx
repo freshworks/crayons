@@ -34,6 +34,7 @@ export class Form implements FormConfig {
   private inputs: HTMLInputElement[] = [];
   private formId = `stencil-form-${formIds++}`;
   private dirty = false;
+  private formRef;
 
   @State() isValid = false;
   @State() isValidating = false;
@@ -49,6 +50,7 @@ export class Form implements FormConfig {
   @Prop() initialValues: FormValues;
   @Prop() renderer: (props: FormRenderProps<any>) => any = () => null;
   @Prop() validate: FormValidator<FormValues>;
+  @Prop() initialErrors;
 
   /** Tells Form to validate the form on each input's onInput event */
   @Prop() validateOnInput? = true;
@@ -58,10 +60,21 @@ export class Form implements FormConfig {
   @Prop() isInitialValid? = true;
 
   // @Event({ eventName: 'formReset' }) onFormReset: { emit: () => StencilFormEvent<FormValues> };
-  @Event({ eventName: 'submit' })
+  @Event({ eventName: 'submit1' })
   onFormSubmit: EventEmitter<StencilFormEventDetail>;
 
+  getFormControls() {
+    const children = this.formRef.children;
+
+    const reportValidChild = [...children].filter(
+      (c) => c.tagName === 'FW-INPUT'
+    );
+
+    return reportValidChild;
+  }
+
   componentWillLoad() {
+    console.log('this inputs ', this.inputs);
     for (const input of this.inputs) {
       this.validity = {
         ...this.validity,
@@ -75,21 +88,47 @@ export class Form implements FormConfig {
       this.touched[field] = false;
       this.errors[field] = this.isInitialValid ? '' : null;
     }
-  }
 
-  // componentDidLoad() {}
+    this.errors = { ...this.errors, ...this.initialErrors };
+  }
 
   setSubmitting = (value: boolean) => {
     this.isSubmitting = value;
   };
 
-  handleSubmit = (event: Event) => {
+  handleSubmit = async (event: Event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    const isValid = (event.target as HTMLFormElement).checkValidity();
-    this.isValid = isValid;
-    if (!this.isValid) return;
+    //const form = event.target;
+
+    const formControls = this.getFormControls();
+    const isValid = true;
+    for (const formControl of formControls) {
+      const nr = await (formControl as any).nativeRef();
+
+      this.handleValidation((nr as any).name, nr);
+
+      // const result = await (formControl as any).checkValidity();
+      // console.log('result ', result, formControl);
+      // const nr = await (formControl as any).nativeRef();
+      // if (!result) {
+      //   isValid = false;
+      //   const vms = nr.validationMessage;
+      //   console.log(vms);
+      //   this.errors = { ...this.errors, [(nr as any).name]: vms };
+      // } else {
+      //   this.errors = { ...this.errors, [(nr as any).name]: '' };
+      // }
+    }
+    console.log({ errros: this.errors });
+
+    console.log('is Valid ', isValid);
+
+    // const formData = Array.from(
+    //   new FormData(form as HTMLFormElement).entries()
+    // );
+    // console.log(formData);
 
     this.isSubmitting = true;
     this.submitCount++;
@@ -103,75 +142,60 @@ export class Form implements FormConfig {
   };
 
   handleValidation = async (
-    _field: string,
-    _target: HTMLInputElement | HTMLTextAreaElement
+    field: string,
+    target: HTMLInputElement | HTMLTextAreaElement
   ) => {
-    // const validity = copyValidityState(target);
-    // const { validationMessage } = target;
+    const validity = copyValidityState(target);
+    const { validationMessage } = target;
 
-    // let formValidity = { ...this.validity, [field]: validity };
-    // let formErrors = { ...this.errors, [field]: validationMessage };
+    this.validity = { ...this.validity, [field]: validity };
+    this.errors = { ...this.errors, [field]: validationMessage };
 
-    // const resetCustomValidity = (_field: keyof FormValues) => {
-    //   const localTarget: HTMLInputElement = this.inputs.find(
-    //     (x) => x.name === _field
-    //   );
-    //   localTarget.setCustomValidity('');
+    const resetCustomValidity = async (_field: keyof FormValues) => {
+      const controls = this.getFormControls().find((x) => x.name === _field);
+      const localTarget: HTMLInputElement = await controls.nativeRef();
+      localTarget.setCustomValidity('');
 
-    //   const validity = copyValidityState(localTarget);
-    //   formValidity = { ...formValidity, [_field]: validity };
-    //   formErrors = { ...formErrors, [_field]: localTarget.validationMessage };
-    // };
+      const validity = copyValidityState(localTarget);
+      this.validity = { ...this.validity, [_field]: validity };
+      this.errors = { ...this.errors, [_field]: localTarget.validationMessage };
+    };
 
-    // const setCustomValidity =
-    //   (_field: keyof FormValues) => (message: string) => {
-    //     const localTarget: HTMLInputElement = this.inputs.find(
-    //       (x) => x.name === _field
-    //     );
-    //     // setCustomValidity because we want to #usetheplatform
-    //     // allows users to style with :valid and :invalid
-    //     localTarget.setCustomValidity(message);
-    //     const validity = copyValidityState(localTarget);
+    const setCustomValidity =
+      (_field: keyof FormValues) => async (message: string) => {
+        const controls = this.getFormControls().find((x) => x.name === _field);
+        const localTarget: HTMLInputElement = await controls.nativeRef();
+        // setCustomValidity because we want to #usetheplatform
+        // allows users to style with :valid and :invalid
+        localTarget.setCustomValidity(message);
+        const validity = copyValidityState(localTarget);
 
-    //     formValidity = { ...formValidity, [_field]: validity };
-    //     formErrors = { ...formErrors, [_field]: message };
-    //   };
-
-    // if (typeof this.validate === 'function') {
-    //   this.isValidating = true;
-
-    //   let validatorState: FormValidatorState<FormValues> = {} as any;
-    //   for (const [key, value] of Object.entries(this.values)) {
-    //     if (this.touched[key]) resetCustomValidity(key);
-
-    //     validatorState = {
-    //       ...validatorState,
-    //       [key]: {
-    //         value,
-    //         validity: formValidity[field],
-    //         error: formErrors[field],
-    //         setCustomValidity: setCustomValidity(key),
-    //       },
-    //     };
-    //   }
-    //   await this.validate(validatorState);
-    //   this.isValidating = false;
-    // }
-    let validatorState = {} as any;
-    for (const [key, value] of Object.entries(this.values)) {
-      console.log(this.values);
-      validatorState = {
-        ...validatorState,
-        [key]: {
-          value,
-        },
+        this.validity = { ...this.validity, [_field]: validity };
+        this.errors = { ...this.errors, [_field]: message };
       };
+
+    if (typeof this.validate === 'function') {
+      if (!this.isSubmitting && !this.touched[field]) return;
+
+      this.isValidating = true;
+
+      let validatorState = {} as any;
+      for (const [key, value] of Object.entries(this.values)) {
+        if (this.touched[key]) resetCustomValidity(key);
+
+        validatorState = {
+          ...validatorState,
+          [key]: {
+            value,
+            validity: this.validity[field],
+            error: this.errors[field],
+            setCustomValidity: setCustomValidity(key),
+          },
+        };
+      }
       await this.validate(validatorState);
       this.isValidating = false;
     }
-
-    this.validity = {};
-    this.errors = { username: 'error in username' };
   };
 
   handleInput = (field: string) => async (event: Event) => {
@@ -261,7 +285,7 @@ export class Form implements FormConfig {
 
     const inputProps = (field: keyof FormValues) => ({
       name: field,
-      ref: (el: HTMLInputElement) => (this.inputs = [...this.inputs, el]),
+      //ref: (el: HTMLInputElement) => (this.inputs = [...this.inputs, el]),
       type: 'text',
       onInput: this.handleInput(field as string),
       onBlur: this.handleBlur(field as string),
@@ -304,6 +328,7 @@ export class Form implements FormConfig {
     const formProps = {
       action: 'javascript:void(0);',
       onSubmit: this.handleSubmit,
+      ref: async (el) => (this.formRef = el),
     };
 
     return {
