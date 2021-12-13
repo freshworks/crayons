@@ -27,6 +27,7 @@ import {
   validateYupSchema,
   prepareDataForValidation,
   yupToFormErrors,
+  setNestedObjectValues,
 } from './form-util';
 
 let formIds = 0;
@@ -55,8 +56,8 @@ export class Form implements FormConfig {
 
   @Prop() initialValues: FormValues;
   @Prop() renderer: (props: FormRenderProps<any>) => any = () => null;
-  @Prop() validate: FormValidator<FormValues>;
   @Prop() initialErrors;
+  @Prop() validate;
   @Prop() validationSchema;
 
   /** Tells Form to validate the form on each input's onInput event */
@@ -111,23 +112,26 @@ export class Form implements FormConfig {
 
     const formControls = this.getFormControls();
     const isValid = true;
-    for (const formControl of formControls) {
-      const nr = await (formControl as any).nativeRef();
+    // on clicking submit, mark all fields as touched
+    this.touched = setNestedObjectValues(this.values, true);
 
-      this.handleValidation((nr as any).name, nr);
+    this.handleValidation();
 
-      // const result = await (formControl as any).checkValidity();
-      // console.log('result ', result, formControl);
-      // const nr = await (formControl as any).nativeRef();
-      // if (!result) {
-      //   isValid = false;
-      //   const vms = nr.validationMessage;
-      //   console.log(vms);
-      //   this.errors = { ...this.errors, [(nr as any).name]: vms };
-      // } else {
-      //   this.errors = { ...this.errors, [(nr as any).name]: '' };
-      // }
-    }
+    // for (const formControl of formControls) {
+    //   // const nr = await (formControl as any).nativeRef();
+    //   // this.handleValidation((nr as any).name, nr);
+    //   // const result = await (formControl as any).checkValidity();
+    //   // console.log('result ', result, formControl);
+    //   // const nr = await (formControl as any).nativeRef();
+    //   // if (!result) {
+    //   //   isValid = false;
+    //   //   const vms = nr.validationMessage;
+    //   //   console.log(vms);
+    //   //   this.errors = { ...this.errors, [(nr as any).name]: vms };
+    //   // } else {
+    //   //   this.errors = { ...this.errors, [(nr as any).name]: '' };
+    //   // }
+    // }
     console.log({ errros: this.errors });
 
     console.log('is Valid ', isValid);
@@ -149,12 +153,10 @@ export class Form implements FormConfig {
   };
 
   handleValidation = async (
-    field: string,
-    target: HTMLInputElement | HTMLTextAreaElement
+    field?: string,
+    target?: HTMLInputElement | HTMLTextAreaElement
   ) => {
     console.log(`validating ${field}`);
-
-    //prepareDataForValidation
 
     const pr = validateYupSchema(
       prepareDataForValidation(this.values),
@@ -164,6 +166,7 @@ export class Form implements FormConfig {
     try {
       const resultV = await pr;
       console.log({ resultV });
+      this.errors = {}; // reset errors if no errors from validation
     } catch (err) {
       console.log('validation error ', err);
       this.errors = yupToFormErrors(err);

@@ -74,7 +74,7 @@ export class Input {
   /**
    * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop() required = true;
+  @Prop() required = false;
   /**
    * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
    */

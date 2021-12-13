@@ -1,5 +1,6 @@
 import { Component, h, Fragment } from '@stencil/core';
 import * as Yup from 'yup';
+
 const formSchema = {
   title: 'Test Form',
   name: 'Test Form',
@@ -14,7 +15,7 @@ const formSchema = {
       custom: false,
       inputType: 'text',
       placeholder: 'Enter firstname ...',
-      required: false,
+      required: true,
       fieldOptions: {},
       fields: [],
     },
@@ -40,6 +41,7 @@ const formSchema = {
       label: 'Email',
       name: 'email',
       position: 1,
+      required: true,
       editable: true,
       custom: false,
       inputType: 'email',
@@ -55,6 +57,7 @@ const formSchema = {
       position: 1,
       editable: true,
       custom: false,
+      required: false,
       inputType: 'tel',
       placeholder: 'Enter...',
       fieldOptions: {},
@@ -69,6 +72,7 @@ const formSchema = {
       position: 1,
       editable: true,
       custom: false,
+      required: false,
       inputType: 'number',
       placeholder: 'Enter...',
       fieldOptions: {},
@@ -80,6 +84,7 @@ const formSchema = {
       label: 'Personal Page Link',
       name: 'personal_page_link',
       position: 1,
+      required: true,
       editable: true,
       custom: false,
       inputType: 'url',
@@ -96,6 +101,7 @@ const formSchema = {
       position: 1,
       editable: true,
       custom: false,
+      required: true,
       inputType: 'number',
       placeholder: 'Enter...',
       fieldOptions: {},
@@ -103,19 +109,89 @@ const formSchema = {
     },
   ],
 };
-const validationSchema = Yup.object().shape({
-  last_name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
-  email: Yup.string().email('Invalid email').required('Required'),
-  first_name: Yup.string()
-    .min(2, 'First_name Too Short!')
-    .max(50, 'First_name Too Long!')
-    .when('last_name', (last_name, schema) => {
-      return (
-        last_name &&
-        schema.required(' first name is required if last_name is entered')
-      );
-    }),
+
+// const validationSchema = Yup.object().shape({
+//   last_name: Yup.string()
+//     .min(2, 'Too Short!')
+//     .max(50, 'Too Long!')
+//     .notRequired(),
+//   email: Yup.string().email('Invalid email').required('Email is Required'),
+//   first_name: Yup.string()
+//     .min(2, 'First_name Too Short!')
+//     .max(50, 'First_name Too Long!')
+//     .when('last_name', (last_name, schema) => {
+//       return (
+//         last_name &&
+//         schema.required(' first name is required if last_name is entered')
+//       );
+//     }),
+//   age: Yup.number().required('Age is Required'),
+//   income: Yup.number().required('Income is Required'),
+//   personal_page_link: Yup.string()
+//     .url('Invalid URL')
+//     .required('URL is Required'),
+//   phone_number: Yup.string().required('Phone no is Required'),
+// });
+
+function mergeSchema(...schemas) {
+  const [first, ...rest] = schemas;
+
+  const merged = rest.reduce(
+    (mergedSchemas, schema) => mergedSchemas.concat(schema),
+    first
+  );
+
+  return merged;
+}
+
+function createYupSchema(schema, config) {
+  const { inputType, required, name } = config;
+  let yupType = '';
+  switch (inputType) {
+    case 'text':
+      yupType = 'string';
+      break;
+    case 'url':
+      yupType = 'string';
+      break;
+    case 'number':
+      yupType = 'number';
+      break;
+    case 'tel':
+      yupType = 'string';
+      break;
+    default:
+      yupType = 'string';
+  }
+  if (!Yup[yupType]) {
+    return schema;
+  }
+  let validator = Yup[yupType]();
+  if (required) validator = validator['required'](...[`${name} is required`]);
+  else validator = validator['notRequired']();
+
+  if (inputType === 'url')
+    validator = validator['url'](...[`Enter a valid url`]);
+
+  if (inputType === 'email')
+    validator = validator['email'](...[`Enter a valid Email`]);
+
+  schema[name] = validator;
+  return schema;
+}
+
+const yupSchema = formSchema.fields.reduce(createYupSchema, {});
+
+const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
+
+const staticValidationSchema = Yup.object().shape({
+  age: Yup.number().max(20, 'max 20').required('Age is req'),
 });
+
+const validationSchema = mergeSchema(
+  staticValidationSchema,
+  dynamicValidationSchema
+);
 
 @Component({
   tag: 'fw-form-wrapper',
@@ -190,7 +266,7 @@ export class FormWrapper {
                             label={field.label}
                             name={field.name}
                             placeholder={field.placeholder}
-                            required='true'
+                            required={field.required}
                           ></fw-input>
                           {touched[field.name] && errors[field.name] && (
                             <label class='error' {...labelProps(field.name)}>

@@ -43,7 +43,7 @@ export const getElementValue = (element: HTMLElement): any => {
 
     if (isInputElement(element)) {
       if (isNumberType(element)) {
-        value = (element as HTMLInputElement).valueAsNumber;
+        value = element.value;
       } else if (isCheckboxType(element)) {
         value = (element as HTMLInputElement).checked;
       }
@@ -83,7 +83,7 @@ export function prepareDataForValidation(values) {
 }
 
 export function validateYupSchema(
-  values,
+  values: any,
   schema: any,
   sync = false,
   context: any = {}
@@ -109,59 +109,12 @@ export function yupToFormErrors(yupError: any) {
   }
   return errors;
 }
-
-/** @private is the value an empty array? */
-export const isEmptyArray = (value?: any) =>
-  Array.isArray(value) && value.length === 0;
-
-/** @private is the given object a Function? */
-export const isFunction = (obj: any) => typeof obj === 'function';
-
 /** @private is the given object an Object? */
 export const isObject = (obj: any) => obj !== null && typeof obj === 'object';
 
 /** @private is the given object an integer? */
 export const isInteger = (obj: any): boolean =>
   String(Math.floor(Number(obj))) === obj;
-
-/** @private is the given object a string? */
-export const isString = (obj: any): obj is string =>
-  Object.prototype.toString.call(obj) === '[object String]';
-
-/** @private is the given object a NaN? */
-// eslint-disable-next-line no-self-compare
-export const isNaN = (obj: any): boolean => obj !== obj;
-
-/** @private is the given object/value a promise? */
-export const isPromise = (value: any): value is PromiseLike<any> =>
-  isObject(value) && isFunction(value.then);
-
-/** @private is the given object/value a type of synthetic event? */
-export const isInputEvent = (value: any): value is React.SyntheticEvent<any> =>
-  value && isObject(value) && isObject(value.target);
-
-/**
- * Same as document.activeElement but wraps in a try-catch block. In IE it is
- * not safe to call document.activeElement if there is nothing focused.
- *
- * The activeElement will be null only if the document or document body is not
- * yet defined.
- *
- * @param {?Document} doc Defaults to current document.
- * @return {Element | null}
- * @see https://github.com/facebook/fbjs/blob/master/packages/fbjs/src/core/dom/getActiveElement.js
- */
-export function getActiveElement(doc?: Document): Element | null {
-  doc = doc || (typeof document !== 'undefined' ? document : undefined);
-  if (typeof doc === 'undefined') {
-    return null;
-  }
-  try {
-    return doc.activeElement || doc.body;
-  } catch (e) {
-    return doc.body;
-  }
-}
 
 /**
  * Deeply get a value from an object via its path.

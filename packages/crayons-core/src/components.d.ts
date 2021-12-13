@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { FormRenderProps, FormValidator, FormValues, StencilFormEventDetail } from "./components/form/form-declaration";
+import { FormRenderProps, FormValues, StencilFormEventDetail } from "./components/form/form-declaration";
 import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -167,7 +167,7 @@ export namespace Components {
          */
         "isInitialValid"?: boolean;
         "renderer": (props: FormRenderProps<any>) => any;
-        "validate": FormValidator<FormValues>;
+        "validate": any;
         /**
           * Tells Form to validate the form on each input's onBlur event
          */
@@ -1599,7 +1599,7 @@ declare namespace LocalJSX {
         "isInitialValid"?: boolean;
         "onSubmit1"?: (event: CustomEvent<StencilFormEventDetail>) => void;
         "renderer"?: (props: FormRenderProps<any>) => any;
-        "validate"?: FormValidator<FormValues>;
+        "validate"?: any;
         /**
           * Tells Form to validate the form on each input's onBlur event
          */
