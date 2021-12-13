@@ -1,6 +1,71 @@
-# fw-toggle-group-button
+# ToggleGroupButton (fw-toggle-group-button)
 
+fw-toggle-group-button displays a button on the user interface and enables performing specific actions based on the button type. This button can be used as a card or an icon button
 
+## Demo
+
+```html live
+<section>
+  <fw-label value="Icon button"></fw-label>
+  <fw-toggle-group-button
+    icon-name="phone"
+    value="aa"
+    type="icon"
+  ></fw-toggle-group-button>
+  <fw-toggle-group-button
+    icon-name="phone"
+    value="aa"
+    type="delete"
+  ></fw-toggle-group-button>
+</section>
+
+<br />
+
+<section>
+  <fw-label value="Card button"></fw-label>
+  <fw-toggle-group-button
+    header="Header A"
+    description="This is a sample description of the card component."
+    value="aa"
+  ></fw-toggle-group-button>
+  <fw-toggle-group-button
+    header="Header B"
+    description="This is a sample description of the card component."
+    value="bb"
+  ></fw-toggle-group-button>
+</section>
+```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html 
+        <fw-toggle-group-button
+          header="Header A"
+          description="This is a sample description of the card component."
+          value="aa"
+        ></fw-toggle-group-button>
+          <fw-toggle-group-button
+            icon-name="agent"
+            value="bb"
+            type="icon"
+          ></fw-toggle-group-button>
+````
+</code-block>
+
+<code-block title="React">
+```jsx
+    import React from "react";
+    import ReactDOM from "react-dom";
+    import { FWToggleGroupButton } from '@Freshworks/crayons/react'
+    function App() {
+    return (<div>
+            <FWToggleGroupButton key="aa" value="aa" header="Header 1" description="This is a sample description 1"/>
+            <FWToggleGroupButton key="cc" value="cc" iconName="agent" type="icon"/>
+        </div>);
+    }
+````
 
 <!-- Auto Generated Below -->
 
