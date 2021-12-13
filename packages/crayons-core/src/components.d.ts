@@ -1062,10 +1062,11 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        "setSelectedValues": (values: string | string[]) => Promise<void>;
         /**
           * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
          */
-        "selectedValues": any;
+        "value": any;
     }
     interface FwToggleGroupButton {
         /**
@@ -1101,13 +1102,17 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Enables the component to be used as a toggle button or just to be used as a normal button
+         */
+        "selectable": boolean;
+        /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
          */
         "selected": boolean;
         /**
-          * Enables the component to be used as a toggle button or just to be used as a normal button
+          * Public method exposed to set the focus for the button component - to be used for accessibility
          */
-        "togglable": boolean;
+        "setFocus": () => Promise<void>;
         /**
           * sets the type of the button
          */
@@ -2574,7 +2579,7 @@ declare namespace LocalJSX {
         /**
           * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
          */
-        "selectedValues"?: any;
+        "value"?: any;
     }
     interface FwToggleGroupButton {
         /**
@@ -2614,13 +2619,13 @@ declare namespace LocalJSX {
          */
         "onFwToggled"?: (event: CustomEvent<any>) => void;
         /**
+          * Enables the component to be used as a toggle button or just to be used as a normal button
+         */
+        "selectable"?: boolean;
+        /**
           * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
          */
         "selected"?: boolean;
-        /**
-          * Enables the component to be used as a toggle button or just to be used as a normal button
-         */
-        "togglable"?: boolean;
         /**
           * sets the type of the button
          */

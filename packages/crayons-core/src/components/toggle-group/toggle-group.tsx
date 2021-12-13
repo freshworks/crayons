@@ -4,12 +4,20 @@ import {
   Event,
   EventEmitter,
   Host,
+  Method,
   Prop,
   Watch,
   Listen,
   h,
   State,
 } from '@stencil/core';
+
+import {
+  updateSelectedValues,
+  doKeyDownOperations,
+  updateChildSelectionState,
+  validateAndParseInputSelectedValues,
+} from '../../utils/list-utils';
 
 @Component({
   tag: 'fw-toggle-group',
@@ -21,6 +29,7 @@ export class ToggleGroup {
 
   private arrChildElements;
   private selectedIndex = -1;
+  private isInputFormatArray = false;
 
   /**
    * Boolean value to allow multiple selection or single child selection
@@ -29,7 +38,7 @@ export class ToggleGroup {
   /**
    * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
    */
-  @Prop({ mutable: true }) selectedValues = null;
+  @Prop({ mutable: true }) value = null;
   /**
    * Internal state of array items store the selected items
    */
@@ -48,157 +57,106 @@ export class ToggleGroup {
    */
   @Event() fwChange!: EventEmitter;
 
-  @Watch('selectedValues')
-  watchSelectedValuesChangeHandler() {
+  // public method to set selected values
+  @Method()
+  async setSelectedValues(values: string | string[]): Promise<void> {
+    this.value = values;
+  }
+
+  @Watch('value')
+  watchSelectedValuesChangeHandler(): void {
     this.parseSelectedItems();
     this.updateSelection();
   }
 
   @Listen('keyup')
-  keyupHandler(event: KeyboardEvent) {
+  keyupHandler(event: KeyboardEvent): void {
     const arrChildren = this.arrChildElements;
     if (!arrChildren || arrChildren.length === 0) {
       return;
     }
 
-    if (this.selectedIndex < 0) {
-      this.selectedIndex = 0;
-    }
-    const intPrevSelectedIndex = this.selectedIndex;
+    const objResponse = doKeyDownOperations(
+      event.code,
+      this.arrChildElements,
+      this.selectedIndex,
+      this.multiple
+    );
+    this.selectedIndex = objResponse.index;
 
-    switch (event.code) {
-      case 'ArrowDown':
-      case 'ArrowRight':
-        arrChildren[intPrevSelectedIndex].setAttribute('tabindex', '-1');
+    if (objResponse.changeSelection) {
+      const arrUpdatedSelectionItems = updateSelectedValues(
+        arrChildren,
+        this.selectedIndex,
+        objResponse.selected,
+        this.multiple,
+        this.arrSelectedItems
+      );
 
-        // set currently selectedIndex using roving tabindex technique
-        this.selectedIndex = ++this.selectedIndex % arrChildren.length;
-        arrChildren[this.selectedIndex].setAttribute('tabindex', '0');
-        arrChildren[this.selectedIndex].focus();
-        break;
-      case 'ArrowUp':
-      case 'ArrowLeft':
-        arrChildren[intPrevSelectedIndex].setAttribute('tabindex', '-1');
-        this.selectedIndex =
-          this.selectedIndex === 0
-            ? arrChildren.length - 1
-            : --this.selectedIndex;
-        arrChildren[this.selectedIndex].setAttribute('tabindex', '0');
-        arrChildren[this.selectedIndex].focus();
-        break;
-      case 'Enter':
-      case 'Space':
-        arrChildren[this.selectedIndex].focus();
-        if (!this.multiple && arrChildren[this.selectedIndex].selected) {
-          return;
-        }
-        // eslint-disable-next-line no-case-declarations
-        const boolApplySelectChild = this.multiple
-          ? !arrChildren[this.selectedIndex].selected
-          : true;
-
-        this.selectItem(
-          boolApplySelectChild,
-          arrChildren[this.selectedIndex].value,
-          this.selectedIndex
-        );
-        break;
+      this.arrSelectedItems = [...arrUpdatedSelectionItems];
+      this.dispatchSelectionChangeEvent();
     }
   }
 
   @Listen('fwToggled')
-  toggleChangeHandler(event: CustomEvent) {
+  toggleChangeHandler(event: CustomEvent): void {
     const objDetail = event.detail;
-    const strValue = objDetail.value;
-    const intChildIndex = objDetail.index;
-    const boolChildSelected = objDetail.selected;
-    this.selectItem(boolChildSelected, strValue, intChildIndex);
+    this.selectedIndex = objDetail.index;
+
+    const arrUpdatedSelectionItems = updateSelectedValues(
+      this.arrChildElements,
+      this.selectedIndex,
+      objDetail.selected,
+      this.multiple,
+      this.arrSelectedItems
+    );
+    this.arrSelectedItems = arrUpdatedSelectionItems;
+    this.dispatchSelectionChangeEvent();
   }
 
-  private selectItem(
-    boolChildSelected: boolean,
-    strValue: string,
-    intChildIndex: number
-  ) {
-    if (!this.arrSelectedItems) {
-      this.arrSelectedItems = [];
-    }
-
-    const isValueStored = this.arrSelectedItems.includes(strValue);
-    if (!boolChildSelected && this.multiple && isValueStored) {
-      let intSelectedChildIndex = -1;
-      const intLength = this.arrSelectedItems.length;
-      for (let i1 = 0; i1 < intLength; i1++) {
-        const strSelectedItemValue = this.arrSelectedItems[i1];
-        if (strSelectedItemValue === strValue) {
-          intSelectedChildIndex = i1;
-          break;
-        }
-      }
-
-      this.arrSelectedItems = [
-        ...this.arrSelectedItems.slice(0, intSelectedChildIndex),
-        ...this.arrSelectedItems.slice(intSelectedChildIndex + 1),
-      ];
-    } else if (boolChildSelected && !isValueStored) {
-      if (this.multiple) {
-        this.arrSelectedItems = [...this.arrSelectedItems, strValue];
-      } else {
-        this.arrSelectedItems = [strValue];
-      }
-    }
-
-    this.selectedIndex = intChildIndex;
-    const strDispatchSelectedValues = this.arrSelectedItems.toString();
-    this.selectedValues = strDispatchSelectedValues;
-    this.fwChange.emit({ selectedValues: strDispatchSelectedValues });
-  }
-
-  private parseSelectedItems() {
-    this.arrSelectedItems =
-      this.selectedValues && this.selectedValues !== ''
-        ? this.selectedValues.split(',')
-        : null;
-  }
-
-  componentWillLoad() {
+  componentWillLoad(): void {
     this.parseSelectedItems();
   }
 
-  componentDidLoad() {
+  componentDidLoad(): void {
     const elHost = this.host;
     this.arrChildElements = elHost.children;
     this.updateSelection(true);
   }
 
-  private updateSelection(boolSetRadioCheckboxType = false) {
-    const arrChildrenNodes = this.arrChildElements;
-    if (!arrChildrenNodes || arrChildrenNodes.length === 0) {
-      return;
+  private dispatchSelectionChangeEvent() {
+    const strDispatchSelectedValues = this.arrSelectedItems.toString();
+    if (strDispatchSelectedValues !== this.value) {
+      this.value = strDispatchSelectedValues;
+
+      this.fwChange.emit({
+        value: !this.isInputFormatArray
+          ? strDispatchSelectedValues
+          : [...this.arrSelectedItems],
+      });
     }
+  }
 
-    const intLength = arrChildrenNodes.length;
-    for (let i1 = 0; i1 < intLength; i1++) {
-      const elChild = arrChildrenNodes[i1];
-      const strChildValue = elChild.value;
-      elChild.index = i1;
+  private parseSelectedItems() {
+    const objResponse = validateAndParseInputSelectedValues(this.value);
+    if (this.value !== objResponse.strSelectedValues) {
+      this.value = objResponse.strSelectedValues;
+    }
+    this.isInputFormatArray = objResponse.isArray;
+    this.arrSelectedItems = objResponse.arrSelectedValues;
+  }
 
-      if (boolSetRadioCheckboxType) {
-        elChild.isCheckbox = this.multiple;
-      }
+  private updateSelection(boolSetRadioCheckboxType = false) {
+    const intUpdatedIndex = updateChildSelectionState(
+      this.arrChildElements,
+      this.multiple,
+      this.arrSelectedItems,
+      boolSetRadioCheckboxType
+    );
 
-      const boolItemSelected =
-        this.arrSelectedItems && this.arrSelectedItems.includes(strChildValue)
-          ? true
-          : false;
-      elChild.selected = boolItemSelected;
-
-      if (boolItemSelected && this.selectedIndex === -1) {
-        this.selectedIndex = i1;
-        elChild.setAttribute('tabindex', '0');
-      } else {
-        elChild.setAttribute('tabindex', '-1');
-      }
+    // for the first time when the component is loaded and the selectedIndex is not set
+    if (intUpdatedIndex !== -1 && this.selectedIndex === -1) {
+      this.selectedIndex = intUpdatedIndex;
     }
   }
 

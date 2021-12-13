@@ -4,8 +4,8 @@ import {
   Element,
   EventEmitter,
   Prop,
-  Watch,
   Listen,
+  Method,
   h,
   Host,
 } from '@stencil/core';
@@ -16,6 +16,8 @@ import {
   shadow: true,
 })
 export class ToggleGroupButton {
+  private button: HTMLButtonElement;
+
   @Element() host!: HTMLElement;
 
   /**
@@ -37,7 +39,7 @@ export class ToggleGroupButton {
   /**
    * Enables the component to be used as a toggle button or just to be used as a normal button
    */
-  @Prop() togglable = true;
+  @Prop() selectable = true;
   /**
    * Enables the component to be used as a part of multi selection group
    */
@@ -70,16 +72,16 @@ export class ToggleGroupButton {
    * Triggered when the card in focus is selected.
    */
   @Event() fwToggled!: EventEmitter;
-
-  @Watch('selected')
-  watchSelectedHandler(newValue: boolean, oldValue: boolean) {
-    console.log(
-      `Selection change watch triggered -  + ${this.value} from ${oldValue}  to ${newValue}`
-    );
+  /**
+   * Public method exposed to set the focus for the button component - to be used for accessibility
+   */
+  @Method()
+  async setFocus(): Promise<void> {
+    this.button.focus();
   }
 
   @Listen('click', { capture: true })
-  listenClickHandler(event: MouseEvent) {
+  listenClickHandler(event: MouseEvent): void {
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
@@ -91,7 +93,7 @@ export class ToggleGroupButton {
 
     let boolEmitEvent = true;
     let boolSelected = false;
-    if (this.togglable) {
+    if (this.selectable) {
       if (this.isCheckbox) {
         boolSelected = !this.selected;
       } else {
@@ -112,7 +114,7 @@ export class ToggleGroupButton {
     }
   }
 
-  componentWillLoad() {
+  componentWillLoad(): void {
     switch (this.type) {
       case 'card':
         this.baseClassName = 'fw-toggle-card-button';
@@ -127,7 +129,7 @@ export class ToggleGroupButton {
     const strComponentClassName = this.baseClassName;
     let strClassName = strComponentClassName;
 
-    if (this.togglable && this.selected) {
+    if (this.selectable && this.selected) {
       strClassName += ' ' + strComponentClassName + '--selected';
 
       if (this.isCheckbox) {
@@ -150,7 +152,11 @@ export class ToggleGroupButton {
     return (
       <Host tabIndex='-1'>
         {strBtnType === 'card' && (
-          <button class={strButtonClassName} aria-disabled={this.disabled}>
+          <button
+            ref={(button) => (this.button = button)}
+            class={strButtonClassName}
+            aria-disabled={this.disabled}
+          >
             <label class={`${strComponentClassName}-header`}>
               {this.header}
             </label>
@@ -169,7 +175,11 @@ export class ToggleGroupButton {
           </button>
         )}
         {strBtnType === 'icon' && (
-          <button class={strButtonClassName} aria-disabled={this.disabled}>
+          <button
+            ref={(button) => (this.button = button)}
+            class={strButtonClassName}
+            aria-disabled={this.disabled}
+          >
             <fw-icon size={14} name={this.iconName} color='black' />
           </button>
         )}

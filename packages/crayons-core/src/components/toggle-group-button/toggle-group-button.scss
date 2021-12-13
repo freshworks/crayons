@@ -11,6 +11,13 @@
   }
 }
 
+/**
+  @prop --toggle-card-width: width of the card.
+  @prop --toggle-card-height: height of the content.
+  @prop --toggle-card-description-max-height: maximum height for the description text.
+  @prop --toggle-card-description-max-lines: maximum lines that can be displayed for description text.
+*/
+
 // Styles for card button
 @mixin mixin-fw-toggle-card-button-selected-style {
   background: #e5f2fd; // TODO - get from design team
@@ -19,8 +26,8 @@
 }
 
 .fw-toggle-card-button {
-  width: 220px;
-  height: 100px;
+  width: var(--toggle-card-width, 240px);
+  height: var(--toggle-card-height, 112px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -65,9 +72,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    line-height: 16px; /* fallback */
-    max-height: 32px; /* fallback */ // TODO - get from design team
-    -webkit-line-clamp: 2; /* number of lines to show */ // TODO - get from design team
+    line-height: 16px;
+    max-height: var(--toggle-card-description-max-height, 48px);
+    -webkit-line-clamp: var(--toggle-card-description-max-lines, 3);
     -webkit-box-orient: vertical;
   }
 
