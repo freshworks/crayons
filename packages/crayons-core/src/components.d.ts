@@ -522,6 +522,10 @@ export namespace Components {
         "hasBorder": boolean;
         "hide": () => Promise<void>;
         /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab": boolean;
+        /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
         "hoist": boolean;
@@ -1977,6 +1981,10 @@ declare namespace LocalJSX {
           * Option to determine if popover-content has a border.
          */
         "hasBorder"?: boolean;
+        /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab"?: boolean;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */

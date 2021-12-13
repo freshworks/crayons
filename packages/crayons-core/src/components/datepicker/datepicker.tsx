@@ -130,6 +130,7 @@ export class Datepicker {
     this.escapeHandler = ((e: any) => {
       if (e.keyCode === 27) {
         this.showDatePicker = false;
+        this.host.shadowRoot.querySelector('fw-popover').hide();
       }
     }).bind(this);
     document.addEventListener('keydown', this.escapeHandler);
@@ -211,6 +212,7 @@ export class Datepicker {
     // be triggered for month and year select dropdown as well the below check is added.
     if (e.path[0].innerText === 'Update' || e.path[0].innerText === 'Cancel') {
       this.showDatePicker = false;
+      this.host.shadowRoot.querySelector('fw-popover').hide();
     }
   }
 
@@ -587,6 +589,7 @@ export class Datepicker {
             toDate: this.formatDate(this.endDateFormatted),
           });
           this.showDatePicker = false;
+          this.host.shadowRoot.querySelector('fw-popover').hide();
         }
       } else {
         // Single Date Container
@@ -596,6 +599,7 @@ export class Datepicker {
         );
         this.fwChange.emit(this.formatDate(this.value));
         this.showDatePicker = false;
+        this.host.shadowRoot.querySelector('fw-popover').hide();
       }
     }
   }
@@ -753,6 +757,7 @@ export class Datepicker {
         distance='8'
         placement='bottom-start'
         fallbackPlacements={['top-start']}
+        hide-on-tab='false'
       >
         <fw-input
           slot='popover-trigger'
