@@ -1,5 +1,5 @@
 import { Component, h, Fragment } from '@stencil/core';
-
+import * as Yup from 'yup';
 const formSchema = {
   title: 'Test Form',
   name: 'Test Form',
@@ -13,8 +13,23 @@ const formSchema = {
       editable: true,
       custom: false,
       inputType: 'text',
-      placeholder: 'Enter...',
-      required: true,
+      placeholder: 'Enter firstname ...',
+      required: false,
+      fieldOptions: {},
+      fields: [],
+    },
+
+    {
+      id: 'last_name_id',
+      type: 'input',
+      label: 'Last Name',
+      name: 'last_name',
+      position: 1,
+      editable: true,
+      custom: false,
+      inputType: 'text',
+      placeholder: 'Enter last name...',
+      required: false,
       fieldOptions: {},
       fields: [],
     },
@@ -88,7 +103,20 @@ const formSchema = {
     },
   ],
 };
-console.log(formSchema.fields.length);
+const validationSchema = Yup.object().shape({
+  last_name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  first_name: Yup.string()
+    .min(2, 'First_name Too Short!')
+    .max(50, 'First_name Too Long!')
+    .when('last_name', (last_name, schema) => {
+      return (
+        last_name &&
+        schema.required(' first name is required if last_name is entered')
+      );
+    }),
+});
+
 @Component({
   tag: 'fw-form-wrapper',
   styleUrl: 'form-wrapper.scss',
@@ -134,12 +162,19 @@ export class FormWrapper {
       <fw-form
         initialValues={this.initialValues}
         validate={this.validate}
+        validationSchema={validationSchema}
         initialErrors={{
           email: 'ssss',
         }}
         renderer={(props) => {
-          const { errors, formProps, groupProps, labelProps, inputProps } =
-            props;
+          const {
+            errors,
+            formProps,
+            groupProps,
+            labelProps,
+            inputProps,
+            touched,
+          } = props;
           return (
             <div>
               <form {...formProps} novalidate>
@@ -157,7 +192,7 @@ export class FormWrapper {
                             placeholder={field.placeholder}
                             required='true'
                           ></fw-input>
-                          {errors[field.name] && (
+                          {touched[field.name] && errors[field.name] && (
                             <label class='error' {...labelProps(field.name)}>
                               {' '}
                               {errors[field.name]}{' '}

@@ -176,6 +176,7 @@ export namespace Components {
           * Tells Form to validate the form on each input's onInput event
          */
         "validateOnInput"?: boolean;
+        "validationSchema": any;
     }
     interface FwFormControl {
     }
@@ -1607,6 +1608,7 @@ declare namespace LocalJSX {
           * Tells Form to validate the form on each input's onInput event
          */
         "validateOnInput"?: boolean;
+        "validationSchema"?: any;
     }
     interface FwFormControl {
     }

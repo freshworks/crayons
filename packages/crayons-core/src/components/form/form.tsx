@@ -21,7 +21,13 @@ import {
   StencilFormEventDetail,
   //  FormValidatorState,
 } from './form-declaration';
-import { getElementValue, copyValidityState } from './form-util';
+import {
+  getElementValue,
+  copyValidityState,
+  validateYupSchema,
+  prepareDataForValidation,
+  yupToFormErrors,
+} from './form-util';
 
 let formIds = 0;
 
@@ -51,6 +57,7 @@ export class Form implements FormConfig {
   @Prop() renderer: (props: FormRenderProps<any>) => any = () => null;
   @Prop() validate: FormValidator<FormValues>;
   @Prop() initialErrors;
+  @Prop() validationSchema;
 
   /** Tells Form to validate the form on each input's onInput event */
   @Prop() validateOnInput? = true;
@@ -145,6 +152,28 @@ export class Form implements FormConfig {
     field: string,
     target: HTMLInputElement | HTMLTextAreaElement
   ) => {
+    console.log(`validating ${field}`);
+
+    //prepareDataForValidation
+
+    const pr = validateYupSchema(
+      prepareDataForValidation(this.values),
+      this.validationSchema
+    );
+
+    try {
+      const resultV = await pr;
+      console.log({ resultV });
+    } catch (err) {
+      console.log('validation error ', err);
+      this.errors = yupToFormErrors(err);
+    }
+  };
+
+  handleValidation1 = async (
+    field: string,
+    target: HTMLInputElement | HTMLTextAreaElement
+  ) => {
     const validity = copyValidityState(target);
     const { validationMessage } = target;
 
@@ -210,6 +239,7 @@ export class Form implements FormConfig {
 
   handleBlur = (field: string) => (event: Event) => {
     if (this.focused) this.focused = null;
+    if (!this.touched[field]) this.touched = { ...this.touched, [field]: true };
     const target = event.target as HTMLInputElement | HTMLTextAreaElement;
     const value: any = getElementValue(target);
 
@@ -220,7 +250,7 @@ export class Form implements FormConfig {
 
   handleFocus = (field: string) => () => {
     this.focused = field;
-    if (!this.touched[field]) this.touched = { ...this.touched, [field]: true };
+    //if (!this.touched[field]) this.touched = { ...this.touched, [field]: true };
   };
 
   private composedState = (): FormState<FormValues> => {
