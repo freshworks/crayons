@@ -124,10 +124,14 @@ label {
 
   // Clear button
   .clear-button {
-    top: 13px;
+    top: 12px;
     position: absolute;
-    right: 10px;
-    display: inline-block;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
 
     &:hover,
     &:focus {
@@ -135,9 +139,12 @@ label {
       pointer-events: initial;
     }
 
-    .clear-button-img {
-      width: 15px;
-      height: 15px;
+    .clear-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 12px;
+      height: 12px;
     }
   }
 
@@ -182,60 +189,42 @@ label {
 
 .icon {
   position: absolute;
-  top: 8px;
+  top: 12px;
   left: 3px;
-  width: 25px;
-  height: 25px;
-  border-radius: 3px;
-  padding: 3px 0 0 6px;
-  display: block;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
   -ms-flex-pack: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #ebeff3;
 
   &.left {
-    left: 3px;
-
-    &::after {
-      left: 28px;
-      content: '';
-      width: 1px;
-      display: block;
-      height: 20px;
-      background-color: #ebeff3;
-      position: absolute;
-      top: 3px;
-    }
+    left: 8px;
   }
 
   &.right {
     left: auto;
-    right: 3px;
-
-    &::before {
-      right: 28px;
-      content: '';
-      width: 1px;
-      display: block;
-      height: 20px;
-      background-color: #ebeff3;
-      position: absolute;
-      top: 3px;
-    }
+    right: 8px;
   }
 }
 
 .left-icon {
   input {
-    padding-left: 38px;
+    padding-left: 32px;
   }
 }
 
 .right-icon {
   input {
-    padding-right: 38px;
+    padding-right: 32px;
+  }
+}
+
+.has-value {
+  input {
+    padding-right: 32px;
   }
 }
 

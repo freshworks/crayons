@@ -5,9 +5,38 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { AccordionToggleEvent } from "./components/accordion/accordion";
+import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
+    interface FwAccordion {
+        /**
+          * To manage accordion expanded or collapsed state
+         */
+        "expanded": boolean;
+        /**
+          * Method available from the component to toggle expanded or collapsed state of accordion
+          * @returns promise that resolves to true
+         */
+        "toggle": () => Promise<boolean>;
+        /**
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
+         */
+        "type": 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionBody {
+        "expanded": boolean;
+        "type": 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionTitle {
+        "expanded": boolean;
+        "toggleState": any;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow": boolean;
+        "type": 'default' | 'no_bounding_box';
+    }
     interface FwAvatar {
         "alt": string;
         "image": string;
@@ -39,6 +68,7 @@ export namespace Components {
           * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId": string;
+        "setFocus": () => Promise<any>;
         /**
           * Caret indicator for the button, Default value is false.
          */
@@ -84,6 +114,34 @@ export namespace Components {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+    }
+    interface FwDataTable {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns": DataTableColumn[];
+        /**
+          * getSelectedIds
+          * @returns an array of selected row IDs
+         */
+        "getSelectedIds": () => Promise<string[]>;
+        /**
+          * getSelectedRows
+          * @returns selected rows from the data table
+         */
+        "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable": boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label": string;
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows": DataTableRow[];
     }
     interface FwDatepicker {
         /**
@@ -439,6 +497,10 @@ export namespace Components {
     }
     interface FwPopover {
         /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent": boolean;
+        /**
           * The area that the popup will be checked for overflow relative to.
          */
         "boundary": HTMLElement;
@@ -459,6 +521,10 @@ export namespace Components {
          */
         "hasBorder": boolean;
         "hide": () => Promise<void>;
+        /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab": boolean;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
@@ -609,6 +675,10 @@ export namespace Components {
           * Label displayed on the interface, for the component.
          */
         "label": string;
+        /**
+          * If the default label prop is not used, then use this prop to pass the id of the label.
+         */
+        "labelledBy": string;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -1160,6 +1230,24 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwAccordionElement extends Components.FwAccordion, HTMLStencilElement {
+    }
+    var HTMLFwAccordionElement: {
+        prototype: HTMLFwAccordionElement;
+        new (): HTMLFwAccordionElement;
+    };
+    interface HTMLFwAccordionBodyElement extends Components.FwAccordionBody, HTMLStencilElement {
+    }
+    var HTMLFwAccordionBodyElement: {
+        prototype: HTMLFwAccordionBodyElement;
+        new (): HTMLFwAccordionBodyElement;
+    };
+    interface HTMLFwAccordionTitleElement extends Components.FwAccordionTitle, HTMLStencilElement {
+    }
+    var HTMLFwAccordionTitleElement: {
+        prototype: HTMLFwAccordionTitleElement;
+        new (): HTMLFwAccordionTitleElement;
+    };
     interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
     }
     var HTMLFwAvatarElement: {
@@ -1183,6 +1271,12 @@ declare global {
     var HTMLFwCheckboxElement: {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
+    };
+    interface HTMLFwDataTableElement extends Components.FwDataTable, HTMLStencilElement {
+    }
+    var HTMLFwDataTableElement: {
+        prototype: HTMLFwDataTableElement;
+        new (): HTMLFwDataTableElement;
     };
     interface HTMLFwDatepickerElement extends Components.FwDatepicker, HTMLStencilElement {
     }
@@ -1371,10 +1465,14 @@ declare global {
         new (): HTMLFwTooltipElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-accordion": HTMLFwAccordionElement;
+        "fw-accordion-body": HTMLFwAccordionBodyElement;
+        "fw-accordion-title": HTMLFwAccordionTitleElement;
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-icon": HTMLFwIconElement;
@@ -1409,6 +1507,33 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FwAccordion {
+        /**
+          * To manage accordion expanded or collapsed state
+         */
+        "expanded"?: boolean;
+        /**
+          * Triggered when the accordion is expanded or collapsed
+         */
+        "onFwAccordionToggle"?: (event: CustomEvent<AccordionToggleEvent>) => void;
+        /**
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
+         */
+        "type"?: 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionBody {
+        "expanded"?: boolean;
+        "type"?: 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionTitle {
+        "expanded"?: boolean;
+        "toggleState"?: any;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow"?: boolean;
+        "type"?: 'default' | 'no_bounding_box';
+    }
     interface FwAvatar {
         "alt"?: string;
         "image"?: string;
@@ -1509,6 +1634,28 @@ declare namespace LocalJSX {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+    }
+    interface FwDataTable {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns"?: DataTableColumn[];
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable"?: boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label"?: string;
+        /**
+          * fwSelectionChange Emits this event when row is selected/unselected.
+         */
+        "onFwSelectionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows"?: DataTableRow[];
     }
     interface FwDatepicker {
         /**
@@ -1898,6 +2045,10 @@ declare namespace LocalJSX {
     }
     interface FwPopover {
         /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent"?: boolean;
+        /**
           * The area that the popup will be checked for overflow relative to.
          */
         "boundary"?: HTMLElement;
@@ -1917,6 +2068,10 @@ declare namespace LocalJSX {
           * Option to determine if popover-content has a border.
          */
         "hasBorder"?: boolean;
+        /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab"?: boolean;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
@@ -2078,6 +2233,10 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * If the default label prop is not used, then use this prop to pass the id of the label.
+         */
+        "labelledBy"?: string;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
@@ -2199,6 +2358,14 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
+        /**
+          * Triggered when an option loses focus.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when an option is focused.
+         */
+        "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when an option is selected.
          */
@@ -2662,10 +2829,14 @@ declare namespace LocalJSX {
         "trigger"?: PopoverTriggerType;
     }
     interface IntrinsicElements {
+        "fw-accordion": FwAccordion;
+        "fw-accordion-body": FwAccordionBody;
+        "fw-accordion-title": FwAccordionTitle;
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-icon": FwIcon;
@@ -2703,10 +2874,14 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-accordion": LocalJSX.FwAccordion & JSXBase.HTMLAttributes<HTMLFwAccordionElement>;
+            "fw-accordion-body": LocalJSX.FwAccordionBody & JSXBase.HTMLAttributes<HTMLFwAccordionBodyElement>;
+            "fw-accordion-title": LocalJSX.FwAccordionTitle & JSXBase.HTMLAttributes<HTMLFwAccordionTitleElement>;
             "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
