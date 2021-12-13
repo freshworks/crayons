@@ -71,6 +71,7 @@ The following are the icons supported:
  - [fw-tag](../tag)
  - [fw-toast-message](../toast-message)
  - [fw-toggle](../toggle)
+ - [fw-toggle-group-button](../toggle-group-button)
 
 ### Graph
 ```mermaid
@@ -87,6 +88,7 @@ graph TD;
   fw-tag --> fw-icon
   fw-toast-message --> fw-icon
   fw-toggle --> fw-icon
+  fw-toggle-group-button --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
