@@ -1,3 +1,8 @@
 export * from './components';
 
-export { ToastController, ProgressLoaderController } from './global/crayons';
+export {
+  ToastController,
+  ProgressLoaderController,
+  fwIconRegisterLibrary,
+  fwIconUnregisterLibrary,
+} from './global/crayons';
