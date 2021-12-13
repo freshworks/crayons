@@ -266,9 +266,9 @@ export namespace Components {
           * Return native element
          */
         "nativeRef": () => Promise<HTMLInputElement>;
-        "onBlur": any;
-        "onFocus": any;
-        "onInput": any;
+        "onBlur": () => void;
+        "onFocus": () => void;
+        "onInput": () => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -1696,8 +1696,8 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
-        "onBlur"?: any;
-        "onFocus"?: any;
+        "onBlur"?: () => void;
+        "onFocus"?: () => void;
         /**
           * Triggered when the input box loses focus.
          */
@@ -1718,7 +1718,7 @@ declare namespace LocalJSX {
           * Triggered when clear icon is clicked.
          */
         "onFwInputClear"?: (event: CustomEvent<any>) => void;
-        "onInput"?: any;
+        "onInput"?: () => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   Component,
   Element,
@@ -90,9 +91,9 @@ export class Input {
    */
   @Prop() iconRight: string = undefined;
 
-  @Prop() onInput;
-  @Prop() onBlur;
-  @Prop() onFocus;
+  @Prop() onInput = () => {};
+  @Prop() onBlur = () => {};
+  @Prop() onFocus = () => {};
   @Prop() getRef;
 
   /**
