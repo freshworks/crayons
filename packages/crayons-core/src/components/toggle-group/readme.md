@@ -21,7 +21,7 @@ fw-toggle-group displays a group of components like card button/icon button and 
     value="bb"
   ></fw-toggle-group-button>
   <fw-toggle-group-button
-    header="Header c"
+    header="Header C"
     description="This is a sample description of the card component."
     value="cc"
   ></fw-toggle-group-button>
@@ -42,26 +42,21 @@ fw-toggle-group displays a group of components like card button/icon button and 
         <fw-toggle-group-button
           header="Header A"
           description="This is a sample description of the card component."
-          value="aa"
-        ></fw-toggle-group-button>
+          value="aa"></fw-toggle-group-button>
         <fw-toggle-group-button
           header="Header B"
           description="This is a sample description of the card component."
-          value="bb"
-        ></fw-toggle-group-button>
+          value="bb"></fw-toggle-group-button>
         <fw-toggle-group-button
-          header="Header c"
+          header="Header C"
           description="This is a sample description of the card component."
-          value="cc"
-        ></fw-toggle-group-button>
+          value="cc"></fw-toggle-group-button>
         <fw-toggle-group-button
           header="Header D"
-          value="dd"
-        ></fw-toggle-group-button>
+          value="dd"></fw-toggle-group-button>
         <fw-toggle-group-button
           header="Header E"
-          value="ee"
-        ></fw-toggle-group-button>
+          value="ee"></fw-toggle-group-button>
     </fw-toggle-group>
     <fw-toggle-group
           name="Test icon toggle group"
@@ -69,23 +64,19 @@ fw-toggle-group displays a group of components like card button/icon button and 
           <fw-toggle-group-button
             icon-name="phone"
             value="aa"
-            type="icon"
-          ></fw-toggle-group-button>
+            type="icon"></fw-toggle-group-button>
           <fw-toggle-group-button
             icon-name="agent"
             value="bb"
-            type="icon"
-          ></fw-toggle-group-button>
+            type="icon"></fw-toggle-group-button>
           <fw-toggle-group-button
             icon-name="delete"
             value="cc"
-            type="icon"
-          ></fw-toggle-group-button>
+            type="icon"></fw-toggle-group-button>
           <fw-toggle-group-button
             icon-name="check"
             value="dd"
-            type="icon"
-          ></fw-toggle-group-button>
+            type="icon"></fw-toggle-group-button>
     </fw-toggle-group>
 ````
 </code-block>
@@ -105,7 +96,6 @@ fw-toggle-group displays a group of components like card button/icon button and 
         </div>);
     }
 ````
-
 </code-block>
 </code-group>
 
