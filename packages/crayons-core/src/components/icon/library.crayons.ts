@@ -1,4 +1,4 @@
-import type { FwIconLibrary } from './icon-library';
+import type { FwIconLibrary } from './library.icon.utils';
 import { CRAYONS_ICONS_ASSET_PATH } from '../../global/crayons';
 const library: FwIconLibrary = {
   name: 'crayons',

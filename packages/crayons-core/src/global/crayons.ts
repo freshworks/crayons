@@ -34,7 +34,7 @@ export function ProgressLoaderController(
 export {
   registerIconLibrary as fwIconRegisterLibrary,
   unregisterIconLibrary as fwIconUnregisterLibrary,
-} from '../components/icon/icon-library';
+} from '../components/icon/library.icon.utils';
 
 export const CRAYONS_ICONS_ASSET_PATH =
   'https://cdn.jsdelivr.net/npm/@freshworks/crayons-icon/icons';

@@ -1,7 +1,7 @@
 import defaultLibrary from './library.crayons';
 import systemLibrary from './library.system';
 import type { Icon } from './icon';
-import { fetchIcon } from './icon-utils';
+import { fetchIcon } from './icon.utils';
 const parser = new DOMParser();
 
 export type IconLibraryResolver = (name: string) => string;

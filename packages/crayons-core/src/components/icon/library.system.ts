@@ -1,4 +1,4 @@
-import type { FwIconLibrary } from './icon-library';
+import type { FwIconLibrary } from './library.icon.utils';
 //
 // System icons are a separate library to ensure they're always available, regardless of how the default icon library is
 // configured or if its icons resolve properly.

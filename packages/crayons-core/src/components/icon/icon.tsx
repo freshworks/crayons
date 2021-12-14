@@ -7,13 +7,13 @@ import {
   Watch,
   h,
 } from '@stencil/core';
-import { fetchIcon, waitUntilVisible } from './icon-utils';
+import { fetchIcon, waitUntilVisible } from './icon.utils';
 import {
   getIconLibrary,
   watchIcon,
   unwatchIcon,
   getSVGElement,
-} from './icon-library';
+} from './library.icon.utils';
 @Component({
   tag: 'fw-icon',
   styleUrl: 'icon.scss',

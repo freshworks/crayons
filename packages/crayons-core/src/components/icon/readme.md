@@ -6,6 +6,7 @@ Following features are available as part of the implementation of the fw-icon.
 1. Enable fw-icon as an optimized renderer for SVG with built-in functions such as Intersection-Observer and Fetch-API Memoization.
    Go through the docs to understand the various props it supports.
 2. Providing icon-support for crayons-system components and also exposing crayons-icon set for public use with inbuilt support for external icon-libraries also.
+3. Icons are accessibility tree compliant. You need to pass the label attribute. aria-hidden is set to true.
 ## Examples Live
 
 ```html live
