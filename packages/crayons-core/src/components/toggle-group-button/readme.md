@@ -1,4 +1,4 @@
-# ToggleGroupButton (fw-toggle-group-button)
+# Toggle Group Button (fw-toggle-group-button)
 
 fw-toggle-group-button displays a button on the user interface and enables performing specific actions based on the button type. This button can be used as a card or an icon button
 
@@ -13,9 +13,9 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
     type="icon"
   ></fw-toggle-group-button>
   <fw-toggle-group-button
-    icon-name="phone"
-    value="aa"
-    type="delete"
+    icon-name="delete"
+    value="dd"
+    type="icon"
   ></fw-toggle-group-button>
 </section>
 
@@ -27,11 +27,7 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
     header="Header A"
     description="This is a sample description of the card component."
     value="aa"
-  ></fw-toggle-group-button>
-  <fw-toggle-group-button
-    header="Header B"
-    description="This is a sample description of the card component."
-    value="bb"
+    is-checkbox={true}
   ></fw-toggle-group-button>
 </section>
 ```
@@ -44,13 +40,11 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
         <fw-toggle-group-button
           header="Header A"
           description="This is a sample description of the card component."
-          value="aa"
-        ></fw-toggle-group-button>
+          value="aa"></fw-toggle-group-button>
           <fw-toggle-group-button
             icon-name="agent"
             value="bb"
-            type="icon"
-          ></fw-toggle-group-button>
+            type="icon"></fw-toggle-group-button>
 ````
 </code-block>
 
@@ -61,11 +55,13 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
     import { FWToggleGroupButton } from '@Freshworks/crayons/react'
     function App() {
     return (<div>
-            <FWToggleGroupButton key="aa" value="aa" header="Header 1" description="This is a sample description 1"/>
+            <FWToggleGroupButton key="aa" value="aa" header="Header 1" description="This is a sample description 1" isCheckbox={true}/>
             <FWToggleGroupButton key="cc" value="cc" iconName="agent" type="icon"/>
         </div>);
     }
 ````
+</code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 
