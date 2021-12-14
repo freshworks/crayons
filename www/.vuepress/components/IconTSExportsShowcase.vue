@@ -1,11 +1,11 @@
 <template>
   <div class="card-gallery">
      <div class="card" >
-      <fw-icon :data-svg="icons['header']" size="20" lazy></fw-icon>
+      <fw-icon :data-svg="icons['header']" size="20" lazy library="system" ></fw-icon>
       <span class="name">header</span>
     </div>
      <div class="card" >
-      <fw-icon :data-svg="icons['add-contact']" size="20" lazy></fw-icon>
+      <fw-icon :data-svg="icons['add-contact']" size="20" lazy library="system" ></fw-icon>
       <span class="name">add-contact</span>
     </div>    
   </div>

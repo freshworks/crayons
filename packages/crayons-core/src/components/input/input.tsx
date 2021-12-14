@@ -227,12 +227,20 @@ export class Input {
               onFocus={this.onFocus}
             />
             {this.iconLeft !== undefined ? (
-              <fw-icon class='icon left' name={this.iconLeft}></fw-icon>
+              <fw-icon
+                class='icon left'
+                name={this.iconLeft}
+                library='system'
+              ></fw-icon>
             ) : (
               ''
             )}
             {this.iconRight !== undefined ? (
-              <fw-icon class='icon right' name={this.iconRight}></fw-icon>
+              <fw-icon
+                class='icon right'
+                name={this.iconRight}
+                library='system'
+              ></fw-icon>
             ) : (
               ''
             )}
@@ -244,7 +252,11 @@ export class Input {
                 onClick={(e) => this.clearTextInput(e)}
                 onKeyDown={handleKeyDown(this.clearTextInput)}
               >
-                <fw-icon class='clear-img' name='cross'></fw-icon>
+                <fw-icon
+                  class='clear-img'
+                  name='cross'
+                  library='system'
+                ></fw-icon>
               </div>
             ) : (
               ''

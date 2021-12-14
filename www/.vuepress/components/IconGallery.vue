@@ -2,7 +2,7 @@
   <div class="card-gallery" style="height:600px;overflow-y:scroll;">
     <div v-for="icon in icons" class="card" @click="copyToClipboard(icon.name, icon.importByName, icon.refIcon, icon.refText)">
       <div :ref="icon.refIcon">
-        <fw-icon :data-svg="icon.src" size = "16" alt="Crayons-Icon" ></fw-icon>
+        <fw-icon :data-svg="icon.src" size = "16" alt="Crayons-Icon"  library="system" ></fw-icon>
       </div>
       <span :ref="icon.refIcon" class="name">{{ icon.name }}</span>
       <span :ref="icon.refText" class="copied">{{ copyText }}</span>

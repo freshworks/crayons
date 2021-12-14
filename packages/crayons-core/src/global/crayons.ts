@@ -35,3 +35,6 @@ export {
   registerIconLibrary as fwIconRegisterLibrary,
   unregisterIconLibrary as fwIconUnregisterLibrary,
 } from '../components/icon/icon-library';
+
+export const CRAYONS_ICONS_ASSET_PATH =
+  'https://cdn.jsdelivr.net/npm/@freshworks/crayons-icon/icons';

@@ -8,7 +8,12 @@ import {
   h,
 } from '@stencil/core';
 import { fetchIcon, waitUntilVisible } from './icon-utils';
-import { getIconLibrary } from './icon-library';
+import {
+  getIconLibrary,
+  watchIcon,
+  unwatchIcon,
+  getSVGElement,
+} from './icon-library';
 @Component({
   tag: 'fw-icon',
   styleUrl: 'icon.scss',
@@ -20,6 +25,10 @@ export class Icon {
    * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
    */
   @Prop() name: string;
+  /**
+   * An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.
+   */
+  @Prop() label: string;
   /**
    * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
    */
@@ -67,11 +76,13 @@ export class Icon {
 
   @State() private eval_xOb = false;
 
-  @State() private parser = new DOMParser();
+  @State() private iconlibrary = getIconLibrary(this.library);
 
   @Watch('name')
   @Watch('src')
   @Watch('library')
+  @Watch('dataSvg')
+  @Watch('lazy')
   private async setSVGState(): Promise<void> {
     const { name, visible, library, lazy, dataSvg, src } = this;
 
@@ -85,62 +96,56 @@ export class Icon {
       this.svgHTML = dataSvg;
     } else if (name) {
       try {
-        let path = src;
-        if (library !== 'crayons' && !src) {
-          path = this.getUrl();
-        }
-        const lib = src ? 'cdn' : library;
-        if (library === 'crayons' || path !== undefined) {
-          const div = document.createElement('div');
-          div.innerHTML = await fetchIcon(name, lib, path);
-
-          const svgEle = div.firstElementChild;
-          const svg =
-            svgEle && svgEle.tagName.toLowerCase() === 'svg'
-              ? svgEle.outerHTML
-              : '';
-          const doc = this.parser.parseFromString(svg, 'text/html');
-          const svgEl = doc.body.querySelector('svg');
-
-          const iconlibrary = getIconLibrary(this.library);
-          if (iconlibrary && iconlibrary.mutator) {
-            iconlibrary.mutator(svgEl, name);
+        let url = src;
+        if (!src) {
+          url = this.getUrl(name, library);
+        } else url = `${src}/${name}.svg`;
+        if (url !== undefined) {
+          const svgEl = await getSVGElement(url);
+          if (this.iconlibrary && this.iconlibrary.mutator) {
+            this.iconlibrary.mutator(svgEl, name);
           }
-
           this.svgHTML = svgEl.outerHTML;
         } else {
-          throw 'URL Not Valid.';
+          throw 'Icon-URL Not Valid.';
         }
       } catch (ex) {
         console.info(
-          `Cannot load ${name}|${library} from CDN. Please check the url & proide a live path.`,
+          `Cannot load ${name}|${library} from CDN. Please check the url & provide a live path.`,
           ex
         );
         this.loadFallbackImage();
+        return;
       }
     } else {
       console.error(
-        "Please provide valid props 'name' or 'icon'.Check the usage docs."
+        "Please provide valid props either 'name' or 'data-svg'.Check the usage docs."
       );
       return;
     }
   }
 
-  private getUrl(): string {
-    const library = getIconLibrary(this.library);
-    if (this.name && library) {
-      return library.resolver();
+  private getUrl(icon, lib): string {
+    const library = getIconLibrary(lib);
+    if (icon && library) {
+      return library.resolver(icon);
     } else {
-      return this.src;
+      throw 'Icon name/library not registered.';
     }
   }
 
+  /** Fetches the icon and redraws it. Used to handle library registrations. */
+  redraw() {
+    this.setSVGState();
+  }
+
   async loadFallbackImage() {
-    this.svgHTML = await fetchIcon('image', 'crayons', undefined);
+    this.svgHTML = await fetchIcon(this.getUrl('image', 'crayons'));
     this.dataSvg = this.svgHTML;
   }
 
   connectedCallback(): void {
+    watchIcon(this);
     this.lazy &&
       waitUntilVisible(
         this.intersectionObserver,
@@ -154,6 +159,7 @@ export class Icon {
   }
 
   disconnectedCallback(): void {
+    unwatchIcon(this);
     if (this.intersectionObserver) {
       this.intersectionObserver.disconnect();
       this.intersectionObserver = undefined;
@@ -166,12 +172,21 @@ export class Icon {
 
   render() {
     const style = {};
+    const accessibilityProps = {};
+
+    const hasLabel = typeof this.label === 'string' && this.label.length > 0;
+    if (hasLabel) {
+      accessibilityProps['role'] = 'img';
+      accessibilityProps['aria-label'] = this.label;
+      accessibilityProps['aria-hidden'] = undefined;
+    }
     if (this.size !== undefined) style['--icon-size'] = `${this.size}px`;
 
     if (this.color !== undefined) style['--icon-color'] = this.color;
     return (
       <div
         class='icon'
+        {...accessibilityProps}
         style={{
           height: ` ${this.height}px`,
           width: `${this.width}px`,

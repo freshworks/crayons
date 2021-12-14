@@ -5,8 +5,7 @@ Following features are available as part of the implementation of the fw-icon.
 
 1. Enable fw-icon as an optimized renderer for SVG with built-in functions such as Intersection-Observer and Fetch-API Memoization.
    Go through the docs to understand the various props it supports.
-2. React-Support as part of Crayons Release. 
-
+2. Providing icon-support for crayons-system components and also exposing crayons-icon set for public use with inbuilt support for external icon-libraries also.
 ## Examples Live
 
 ```html live
@@ -39,8 +38,8 @@ function App() {
 <code-block title="Using Intersection Observer">
 ```html 
 HTML
-<fw-icon name="add-contact" size="18" color="green" x-root-margin = "80px" lazy></fw-icon>
-<fw-icon name="add-contact" size="18" color="green" lazy></fw-icon>
+<fw-icon name="add-contact" size="18" color="green" x-root-margin = "80px" lazy ></fw-icon>
+<fw-icon name="add-contact" size="18" color="green" lazy ></fw-icon>
 React
 <FwIcon name="add-contact" size="18" color="green" xRootMargin = "80px" lazy></FwIcon>
 ```
@@ -74,11 +73,11 @@ Some implementations via Icon Lib are as below:-
 fw-icon can also render external icons. You can use any external libraries from cdn after registering them. If you don't pass 'library' props,
 it will default to 'crayons'. You can even pass the CDN URL of SVG to 'src' prop. See the example below on how to use in React App.
 
-The library registration happpens via a 'ressolver' function. If you wish to apply some mutation to the icons , you may also choose to pass the mutator function.
+The library registration happens via a 'resolver' function. If you wish to apply some mutation to the icons , you may also choose to pass the mutator function.
 
 ### Usage in HTML/React Page
 <code-group>
-<code-block title="HTML-FwIconLibrary">
+<code-block title="HTML">
 ``` html
 <html>
 <head>
@@ -99,7 +98,7 @@ fwIconRegisterLibrary('feather', {
 ```
 </code-block>
 
-<code-block title="React-FwIconLibrary">
+<code-block title="React">
 ``` jsx
 import React from 'react';
 import './App.css';
@@ -165,7 +164,18 @@ This way, you may choose to alter the SVG data and push it for re-render as per 
 <code-group>
 <code-block title="HTML">
 ```html 
-<fw-icon data-svg={ header } size="20" ></fw-icon>
+<html>
+<head>
+<script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
+<script type="module" >
+import { header } from '@freshworks/crayons-icon';
+</script>
+</head>
+<body>
+    <fw-icon data-svg={ header } size="20" ></fw-icon>
+</body>
+</html>
+
 ```
 </code-block>
 
@@ -178,7 +188,7 @@ import { header } from '@freshworks/crayons-icon';
 
 function App() {
   return (<div>
-  <FwIcon data-svg={ header } size="20" ></FwIcon>
+  <FwIcon dataSvg={ header } size="20" ></FwIcon>
  </div>);
 }
 ```
@@ -201,6 +211,7 @@ function App() {
 | `color`       | `color`         | Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.                                                                             | `string`  | `''`        |
 | `dataSvg`     | `data-svg`      | Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.                            | `string`  | `''`        |
 | `height`      | `height`        | Height of the icon, specified in number of  pixels.                                                                                                                   | `number`  | `undefined` |
+| `label`       | `label`         | An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.                                                         | `string`  | `undefined` |
 | `lazy`        | `lazy`          | Enable Intersection Observer. Default is false.                                                                                                                       | `boolean` | `false`     |
 | `library`     | `library`       | Name of External Library to be used                                                                                                                                   | `string`  | `'crayons'` |
 | `name`        | `name`          | Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.                                                                       | `string`  | `undefined` |
@@ -235,9 +246,15 @@ function App() {
  - [fw-toast-message](../toast-message)
  - [fw-toggle](../toggle)
 
+### Depends on
+
+- [fw-toast-message](../toast-message)
+
 ### Graph
 ```mermaid
 graph TD;
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-icon
   fw-accordion-title --> fw-icon
   fw-button --> fw-icon
   fw-dropdown-button --> fw-icon
@@ -248,7 +265,6 @@ graph TD;
   fw-select --> fw-icon
   fw-select-option --> fw-icon
   fw-tag --> fw-icon
-  fw-toast-message --> fw-icon
   fw-toggle --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

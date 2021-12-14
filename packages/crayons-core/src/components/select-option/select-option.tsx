@@ -113,7 +113,12 @@ export class SelectOption {
     const selectedIconContainer = (
       <span class='selected-icon'>
         {this.selected && (
-          <fw-icon name='check' size={12} color='#2C5CC5'></fw-icon>
+          <fw-icon
+            name='check'
+            size={12}
+            color='#2C5CC5'
+            library='system'
+          ></fw-icon>
         )}
       </span>
     );
@@ -173,7 +178,7 @@ export class SelectOption {
   }
 
   createIcon() {
-    return <fw-icon {...this.graphicsProps}></fw-icon>;
+    return <fw-icon {...this.graphicsProps} library='system'></fw-icon>;
   }
 
   createCheckbox() {

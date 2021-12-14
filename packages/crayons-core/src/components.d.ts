@@ -230,6 +230,10 @@ export namespace Components {
          */
         "height": number;
         /**
+          * An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.
+         */
+        "label": string;
+        /**
           * Enable Intersection Observer. Default is false.
          */
         "lazy": boolean;
@@ -1691,6 +1695,10 @@ declare namespace LocalJSX {
           * Height of the icon, specified in number of  pixels.
          */
         "height"?: number;
+        /**
+          * An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.
+         */
+        "label"?: string;
         /**
           * Enable Intersection Observer. Default is false.
          */

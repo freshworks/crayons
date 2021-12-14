@@ -114,7 +114,7 @@ export class Tag {
             onClick={() => this.removeTag()}
             onKeyDown={handleKeyDown(this.removeTag)}
           >
-            <fw-icon name='cross' size={8}></fw-icon>
+            <fw-icon name='cross' size={8} library='system'></fw-icon>
           </span>
         )}
       </div>

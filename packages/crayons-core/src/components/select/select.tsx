@@ -613,6 +613,7 @@ export class Select {
                           name='chevron-down'
                           color='#264966'
                           size={8}
+                          library='system'
                         ></fw-icon>
                       </span>
                     )
