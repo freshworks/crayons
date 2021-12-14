@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   Component,
   Element,
@@ -91,10 +90,9 @@ export class Input {
    */
   @Prop() iconRight: string = undefined;
 
-  @Prop() onInput = () => {};
-  @Prop() onBlur = () => {};
-  @Prop() onFocus = () => {};
-  @Prop() getRef;
+  @Prop() onInput = (_e) => {};
+  @Prop() onBlur = (_e) => {};
+  @Prop() onFocus = (_e) => {};
 
   /**
    * Triggered when the value in the input box is modified.
@@ -126,7 +124,7 @@ export class Input {
     this.fwChange.emit({ value: newValue });
   }
 
-  private onInput1 = (ev: Event) => {
+  private handleInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
     if (input) {
       this.value = input.value || '';
@@ -135,13 +133,13 @@ export class Input {
     this.onInput(ev);
   };
 
-  private onFocus1 = (e) => {
+  private handleFocus = (e) => {
     this.hasFocus = true;
     this.fwFocus.emit();
     this.onFocus(e);
   };
 
-  private onBlur1 = (e) => {
+  private handleBlur = (e) => {
     this.hasFocus = false;
     this.fwBlur.emit();
     this.onBlur(e);
@@ -252,9 +250,9 @@ export class Input {
               required={this.required}
               type={this.type}
               value={this.value}
-              onInput={(e) => this.onInput1(e)}
-              onBlur={this.onBlur1}
-              onFocus={this.onFocus1}
+              onInput={(e) => this.handleInput(e)}
+              onBlur={this.handleBlur}
+              onFocus={this.handleFocus}
             />
             {this.iconLeft !== undefined ? (
               <fw-icon class='icon left' name={this.iconLeft}></fw-icon>

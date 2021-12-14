@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { FormRenderProps, FormValues, StencilFormEventDetail } from "./components/form/form-declaration";
+import { FormRenderProps, FwFormEventDetail } from "./components/form/form-declaration";
 import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -161,11 +161,7 @@ export namespace Components {
     }
     interface FwForm {
         "initialErrors": any;
-        "initialValues": FormValues;
-        /**
-          * Tell Form if initial form values are valid or not on first render
-         */
-        "isInitialValid"?: boolean;
+        "initialValues": any;
         "renderer": (props: FormRenderProps<any>) => any;
         "validate": any;
         /**
@@ -183,6 +179,10 @@ export namespace Components {
     interface FwFormText {
     }
     interface FwFormWrapper {
+        "formSchema": { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; })[]; };
+        "initialErrors": any;
+        "initialValues": { age: string; };
+        "validationSchema": any;
     }
     interface FwFormWrapper1 {
     }
@@ -237,7 +237,6 @@ export namespace Components {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
-        "getRef": any;
         /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
@@ -266,9 +265,9 @@ export namespace Components {
           * Return native element
          */
         "nativeRef": () => Promise<HTMLInputElement>;
-        "onBlur": () => void;
-        "onFocus": () => void;
-        "onInput": () => void;
+        "onBlur": (_e: any) => void;
+        "onFocus": (_e: any) => void;
+        "onInput": (_e: any) => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -920,6 +919,10 @@ export namespace Components {
     }
     interface FwTextarea {
         /**
+          * Checks for validity and shows the browser's validation message if the control is invalid.
+         */
+        "checkValidity": () => Promise<boolean>;
+        /**
           * Width of the input box, specified as number of columns.
          */
         "cols"?: number;
@@ -944,6 +947,13 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Return native element
+         */
+        "nativeRef": () => Promise<HTMLTextAreaElement>;
+        "onBlur": (_e: any) => void;
+        "onFocus": (_e: any) => void;
+        "onInput": (_e: any) => void;
+        /**
           * Text displayed in the input box before a user enters a value.
          */
         "placeholder"?: string | null;
@@ -959,6 +969,10 @@ export namespace Components {
           * Height of the input box, specified as number of rows.
          */
         "rows"?: number;
+        /**
+          * Sets a custom validation message. If `message` is not empty, the field will be considered invalid.
+         */
+        "setCustomValidity": (message: string) => Promise<void>;
         /**
           * Sets focus on a specific `fw-textarea`. Use this method instead of the global `input.focus()`.
          */
@@ -1592,12 +1606,8 @@ declare namespace LocalJSX {
     }
     interface FwForm {
         "initialErrors"?: any;
-        "initialValues"?: FormValues;
-        /**
-          * Tell Form if initial form values are valid or not on first render
-         */
-        "isInitialValid"?: boolean;
-        "onSubmit1"?: (event: CustomEvent<StencilFormEventDetail>) => void;
+        "initialValues"?: any;
+        "onFwFormSubmit"?: (event: CustomEvent<FwFormEventDetail>) => void;
         "renderer"?: (props: FormRenderProps<any>) => any;
         "validate"?: any;
         /**
@@ -1615,6 +1625,10 @@ declare namespace LocalJSX {
     interface FwFormText {
     }
     interface FwFormWrapper {
+        "formSchema"?: { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; })[]; };
+        "initialErrors"?: any;
+        "initialValues"?: { age: string; };
+        "validationSchema"?: any;
     }
     interface FwFormWrapper1 {
     }
@@ -1671,7 +1685,6 @@ declare namespace LocalJSX {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
-        "getRef"?: any;
         /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
@@ -1696,8 +1709,8 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
-        "onBlur"?: () => void;
-        "onFocus"?: () => void;
+        "onBlur"?: (_e: any) => void;
+        "onFocus"?: (_e: any) => void;
         /**
           * Triggered when the input box loses focus.
          */
@@ -1718,7 +1731,7 @@ declare namespace LocalJSX {
           * Triggered when clear icon is clicked.
          */
         "onFwInputClear"?: (event: CustomEvent<any>) => void;
-        "onInput"?: () => void;
+        "onInput"?: (_e: any) => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -2422,6 +2435,8 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        "onBlur"?: (_e: any) => void;
+        "onFocus"?: (_e: any) => void;
         /**
           * Triggered when the input box loses focus.
          */
@@ -2438,6 +2453,7 @@ declare namespace LocalJSX {
           * Triggered when a value is entered in the input box.
          */
         "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
+        "onInput"?: (_e: any) => void;
         /**
           * Text displayed in the input box before a user enters a value.
          */

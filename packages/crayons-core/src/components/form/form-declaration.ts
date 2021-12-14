@@ -88,7 +88,7 @@ export interface FormUtils<Values, Key extends keyof Values> {
   formProps: any;
 }
 
-export type StencilFormEventDetail = {
+export type FwFormEventDetail = {
   values: FormValues;
   actions: { setSubmitting: (value: boolean) => void };
 };

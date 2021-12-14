@@ -13,17 +13,14 @@ import {
   FormConfig,
   FormComputedProps,
   FormHandlers,
-  FormValidator,
   FormValidity,
   FormTouched,
   FormErrors,
   FormUtils,
-  StencilFormEventDetail,
-  //  FormValidatorState,
+  FwFormEventDetail,
 } from './form-declaration';
 import {
   getElementValue,
-  copyValidityState,
   validateYupSchema,
   prepareDataForValidation,
   yupToFormErrors,
@@ -39,7 +36,7 @@ export class Form implements FormConfig {
   @Element() el!: any;
   private groups: { [key: string]: HTMLElement } = {} as any;
   private inputs: HTMLInputElement[] = [];
-  private formId = `stencil-form-${formIds++}`;
+  private formId = `crayons-form-${formIds++}`;
   private dirty = false;
   private formRef;
 
@@ -54,7 +51,7 @@ export class Form implements FormConfig {
   @State() validity: FormValidity<FormValues> = {} as any;
   @State() errors: FormErrors<FormValues> = {} as any;
 
-  @Prop() initialValues: FormValues;
+  @Prop() initialValues;
   @Prop() renderer: (props: FormRenderProps<any>) => any = () => null;
   @Prop() initialErrors;
   @Prop() validate;
@@ -64,12 +61,9 @@ export class Form implements FormConfig {
   @Prop() validateOnInput? = true;
   /** Tells Form to validate the form on each input's onBlur event */
   @Prop() validateOnBlur? = true;
-  /** Tell Form if initial form values are valid or not on first render */
-  @Prop() isInitialValid? = true;
 
-  // @Event({ eventName: 'formReset' }) onFormReset: { emit: () => StencilFormEvent<FormValues> };
-  @Event({ eventName: 'submit1' })
-  onFormSubmit: EventEmitter<StencilFormEventDetail>;
+  @Event({ eventName: 'fwFormSubmit' })
+  onFormSubmit: EventEmitter<FwFormEventDetail>;
 
   getFormControls() {
     const children = this.formRef.children;
@@ -82,22 +76,18 @@ export class Form implements FormConfig {
   }
 
   componentWillLoad() {
-    console.log('this inputs ', this.inputs);
-    for (const input of this.inputs) {
-      this.validity = {
-        ...this.validity,
-        [input.name]: { ...copyValidityState(input) },
-      };
-    }
-    this.isValid = this.isInitialValid;
     this.values = this.initialValues;
 
     for (const field of Object.keys(this.values)) {
       this.touched[field] = false;
-      this.errors[field] = this.isInitialValid ? '' : null;
+      this.errors[field] = null;
     }
 
     this.errors = { ...this.errors, ...this.initialErrors };
+
+    Object.keys(this.initialErrors).forEach((f) => (this.touched[f] = true));
+
+    console.log({ errrros: this.errors });
   }
 
   setSubmitting = (value: boolean) => {
@@ -108,38 +98,15 @@ export class Form implements FormConfig {
     event.preventDefault();
     event.stopPropagation();
 
-    //const form = event.target;
-
-    const formControls = this.getFormControls();
     const isValid = true;
     // on clicking submit, mark all fields as touched
     this.touched = setNestedObjectValues(this.values, true);
 
     this.handleValidation();
 
-    // for (const formControl of formControls) {
-    //   // const nr = await (formControl as any).nativeRef();
-    //   // this.handleValidation((nr as any).name, nr);
-    //   // const result = await (formControl as any).checkValidity();
-    //   // console.log('result ', result, formControl);
-    //   // const nr = await (formControl as any).nativeRef();
-    //   // if (!result) {
-    //   //   isValid = false;
-    //   //   const vms = nr.validationMessage;
-    //   //   console.log(vms);
-    //   //   this.errors = { ...this.errors, [(nr as any).name]: vms };
-    //   // } else {
-    //   //   this.errors = { ...this.errors, [(nr as any).name]: '' };
-    //   // }
-    // }
     console.log({ errros: this.errors });
 
     console.log('is Valid ', isValid);
-
-    // const formData = Array.from(
-    //   new FormData(form as HTMLFormElement).entries()
-    // );
-    // console.log(formData);
 
     this.isSubmitting = true;
     this.submitCount++;
@@ -156,6 +123,7 @@ export class Form implements FormConfig {
     field?: string,
     target?: HTMLInputElement | HTMLTextAreaElement
   ) => {
+    this.isValidating = true;
     console.log(`validating ${field}`);
 
     const pr = validateYupSchema(
@@ -171,63 +139,7 @@ export class Form implements FormConfig {
       console.log('validation error ', err);
       this.errors = yupToFormErrors(err);
     }
-  };
-
-  handleValidation1 = async (
-    field: string,
-    target: HTMLInputElement | HTMLTextAreaElement
-  ) => {
-    const validity = copyValidityState(target);
-    const { validationMessage } = target;
-
-    this.validity = { ...this.validity, [field]: validity };
-    this.errors = { ...this.errors, [field]: validationMessage };
-
-    const resetCustomValidity = async (_field: keyof FormValues) => {
-      const controls = this.getFormControls().find((x) => x.name === _field);
-      const localTarget: HTMLInputElement = await controls.nativeRef();
-      localTarget.setCustomValidity('');
-
-      const validity = copyValidityState(localTarget);
-      this.validity = { ...this.validity, [_field]: validity };
-      this.errors = { ...this.errors, [_field]: localTarget.validationMessage };
-    };
-
-    const setCustomValidity =
-      (_field: keyof FormValues) => async (message: string) => {
-        const controls = this.getFormControls().find((x) => x.name === _field);
-        const localTarget: HTMLInputElement = await controls.nativeRef();
-        // setCustomValidity because we want to #usetheplatform
-        // allows users to style with :valid and :invalid
-        localTarget.setCustomValidity(message);
-        const validity = copyValidityState(localTarget);
-
-        this.validity = { ...this.validity, [_field]: validity };
-        this.errors = { ...this.errors, [_field]: message };
-      };
-
-    if (typeof this.validate === 'function') {
-      if (!this.isSubmitting && !this.touched[field]) return;
-
-      this.isValidating = true;
-
-      let validatorState = {} as any;
-      for (const [key, value] of Object.entries(this.values)) {
-        if (this.touched[key]) resetCustomValidity(key);
-
-        validatorState = {
-          ...validatorState,
-          [key]: {
-            value,
-            validity: this.validity[field],
-            error: this.errors[field],
-            setCustomValidity: setCustomValidity(key),
-          },
-        };
-      }
-      await this.validate(validatorState);
-      this.isValidating = false;
-    }
+    this.isValidating = false;
   };
 
   handleInput = (field: string) => async (event: Event) => {
@@ -318,7 +230,6 @@ export class Form implements FormConfig {
 
     const inputProps = (field: keyof FormValues) => ({
       name: field,
-      //ref: (el: HTMLInputElement) => (this.inputs = [...this.inputs, el]),
       type: 'text',
       onInput: this.handleInput(field as string),
       onBlur: this.handleBlur(field as string),

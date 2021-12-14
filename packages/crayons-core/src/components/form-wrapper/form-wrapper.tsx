@@ -1,6 +1,7 @@
-import { Component, h, Fragment } from '@stencil/core';
+import { Component, h, Fragment, Prop, State } from '@stencil/core';
 import * as Yup from 'yup';
 
+/** incoming props formSchema, initialvalues, validationSchema, initialErrors */
 const formSchema = {
   title: 'Test Form',
   name: 'Test Form',
@@ -49,6 +50,22 @@ const formSchema = {
       fieldOptions: {},
       fields: [],
     },
+
+    {
+      id: 'description_id',
+      type: 'textarea',
+      label: 'Description',
+      name: 'description',
+      position: 1,
+      editable: true,
+      custom: false,
+      inputType: 'textarea',
+      placeholder: 'Enter Description...',
+      required: true,
+      fieldOptions: {},
+      fields: [],
+    },
+
     {
       id: 'phone_number_id',
       type: 'input',
@@ -110,6 +127,24 @@ const formSchema = {
   ],
 };
 
+// const initialValues = {
+//   first_name: 'skdidiw',
+//   email: '',
+//   phone_number: '',
+//   description: '',
+//   age: '',
+//   personal_page_link: '',
+//   income: '',
+// };
+
+const initialValues = {
+  age: '',
+};
+
+const staticValidationSchema = Yup.object().shape({
+  age: Yup.number().max(20, 'max 20').required('Age is req'),
+});
+
 // const validationSchema = Yup.object().shape({
 //   last_name: Yup.string()
 //     .min(2, 'Too Short!')
@@ -149,6 +184,7 @@ function createYupSchema(schema, config) {
   let yupType = '';
   switch (inputType) {
     case 'text':
+    case 'textarea':
       yupType = 'string';
       break;
     case 'url':
@@ -180,18 +216,9 @@ function createYupSchema(schema, config) {
   return schema;
 }
 
-const yupSchema = formSchema.fields.reduce(createYupSchema, {});
-
-const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
-
-const staticValidationSchema = Yup.object().shape({
-  age: Yup.number().max(20, 'max 20').required('Age is req'),
-});
-
-const validationSchema = mergeSchema(
-  staticValidationSchema,
-  dynamicValidationSchema
-);
+const initialErrors = {
+  // email: 'ssss',
+};
 
 @Component({
   tag: 'fw-form-wrapper',
@@ -199,49 +226,45 @@ const validationSchema = mergeSchema(
   shadow: true,
 })
 export class FormWrapper {
-  private initialValues = {
-    first_name: 'skdidiw',
-    email: '',
-    phone_number: '',
-    description: '',
-    age: '',
-    personal_page_link: '',
-    income: '',
-  };
+  @Prop() formSchema = formSchema;
+  @Prop() initialValues = initialValues;
+  @Prop() validationSchema = staticValidationSchema as any;
+  @Prop() initialErrors = initialErrors as any;
 
-  private validate = (state) => {
-    const {
-      first_name,
-      email,
-      phone_number,
-      description,
-      age,
-      personal_page_link,
-      income,
-    } = state;
-    console.log({
-      first_name,
-      email,
-      phone_number,
-      description,
-      age,
-      personal_page_link,
-      income,
-    });
-    if (first_name.value !== 'Arvind')
-      first_name.setCustomValidity('First name should be Arvind.');
-    return;
-  };
+  @State()
+  formValidationSchema;
+  @State()
+  formInitialValues;
+  @State()
+  formInitialErrors;
+
+  componentWillLoad(): void {
+    const yupSchema = this.formSchema.fields.reduce(createYupSchema, {});
+
+    const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
+
+    this.formValidationSchema = mergeSchema(
+      dynamicValidationSchema,
+      this.validationSchema
+    );
+
+    const dynamicInitialValues = this.formSchema.fields.reduce((acc, field) => {
+      return {
+        ...acc,
+        [field.name]: '',
+      };
+    }, {});
+
+    this.formInitialErrors = this.initialErrors;
+    this.formInitialValues = { ...this.initialValues, ...dynamicInitialValues };
+  }
 
   render() {
     return (
       <fw-form
-        initialValues={this.initialValues}
-        validate={this.validate}
-        validationSchema={validationSchema}
-        initialErrors={{
-          email: 'ssss',
-        }}
+        initialValues={this.formInitialValues}
+        validationSchema={this.formValidationSchema}
+        initialErrors={this.formInitialErrors}
         renderer={(props) => {
           const {
             errors,
@@ -278,16 +301,25 @@ export class FormWrapper {
                       );
                       break;
 
-                    // case 'textarea':
-                    //   cmp = (
-                    //     <fw-textarea
-                    //       {...inputProps(field.name)}
-                    //       label={field.label}
-                    //       placeholder={field.placeholder}
-                    //       name={field.name}
-                    //     ></fw-textarea>
-                    //   );
-                    //   break;
+                    case 'textarea':
+                      cmp = (
+                        <Fragment>
+                          <fw-textarea
+                            {...inputProps(field.name)}
+                            label={field.label}
+                            placeholder={field.placeholder}
+                            name={field.name}
+                            required={field.required}
+                          ></fw-textarea>
+                          {touched[field.name] && errors[field.name] && (
+                            <label class='error' {...labelProps(field.name)}>
+                              {' '}
+                              {errors[field.name]}{' '}
+                            </label>
+                          )}
+                        </Fragment>
+                      );
+                      break;
 
                     case 'datepicker':
                       cmp = <fw-datepicker></fw-datepicker>;
