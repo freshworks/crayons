@@ -76,8 +76,6 @@ export class Icon {
 
   @State() private eval_xOb = false;
 
-  @State() private iconlibrary = getIconLibrary(this.library);
-
   @Watch('name')
   @Watch('src')
   @Watch('library')
@@ -102,17 +100,14 @@ export class Icon {
         } else url = `${src}/${name}.svg`;
         if (url !== undefined) {
           const svgEl = await getSVGElement(url);
-          if (this.iconlibrary && this.iconlibrary.mutator) {
-            this.iconlibrary.mutator(svgEl, name);
-          }
+          this.applySVGMutation(library, name, svgEl);
           this.svgHTML = svgEl.outerHTML;
         } else {
           throw 'Icon-URL Not Valid.';
         }
       } catch (ex) {
         console.info(
-          `Cannot load ${name}|${library} from CDN. Please check the url & provide a live path.`,
-          ex
+          `Cannot load ${name}|${library} from CDN. Please check the url & provide a live path.`
         );
         this.loadFallbackImage();
         return;
@@ -125,12 +120,19 @@ export class Icon {
     }
   }
 
-  private getUrl(icon, lib): string {
+  private getUrl(icon: string, lib: string): string {
     const library = getIconLibrary(lib);
     if (icon && library) {
       return library.resolver(icon);
     } else {
       throw 'Icon name/library not registered.';
+    }
+  }
+
+  private applySVGMutation(library: string, icon: string, svgEl: SVGElement) {
+    const iconlibrary = getIconLibrary(library);
+    if (iconlibrary && iconlibrary.mutator) {
+      iconlibrary.mutator(svgEl, icon);
     }
   }
 

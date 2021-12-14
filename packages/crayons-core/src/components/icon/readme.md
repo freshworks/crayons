@@ -85,8 +85,8 @@ The library registration happens via a 'resolver' function. If you wish to apply
 <script type="module" >
 import { fwIconRegisterLibrary } from 'https://unpkg.com/@freshworks/crayons@canary/dist/crayons/index.esm.js';
 fwIconRegisterLibrary('feather', {
-        resolver: () => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons`,
-        mutator: (svg,'all') => svg.setAttribute('fill', 'currentColor')
+        resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
+        mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
 });
 </script>
 </head>
@@ -106,27 +106,20 @@ import { add_contact } from '@freshworks/crayons-icon';
 import { FwIcon, fwIconRegisterLibrary } from '@freshworks/crayons/react';
 
 fwIconRegisterLibrary('feather', {
-        resolver: () => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons`,
+        resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
         mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
         
 });
 fwIconRegisterLibrary('heroicons', {
-        resolver: () => `https://cdn.jsdelivr.net/npm/heroicons@0.4.2/outline`,
+        resolver: (name) => `https://cdn.jsdelivr.net/npm/heroicons@0.4.2/outline/${name}.svg`,
         mutator: (svg,name) => svg.setAttribute('fill', 'currentColor')
-});
-fwIconRegisterLibrary('custom', {
-        resolver: () => `assets/icons`
 });
 
 function App() {
 
     return ( 
         <div >
-                <div >
-                <FwIcon name = "alert"
-                        color = 'red'
-                        library = "custom" 
-                />
+            <div >
                 <FwIcon name = "feather"
                         library="feather"
                         color = 'red' 
@@ -145,7 +138,7 @@ function App() {
                         color = 'blue'
                         size = "30" 
                 />
-                </div> 
+            </div> 
         </div>
     );
 }
@@ -153,7 +146,6 @@ export default App;
 ```
 </code-block>
 </code-group>
-
 
 
 ## Importing Icons from '@freshworks/crayons-icon' as Inline-SVGs. Supports Tree-Shaking.
