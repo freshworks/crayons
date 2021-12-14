@@ -468,20 +468,42 @@ export namespace Components {
         "titleText": string;
     }
     interface FwPagination {
-        "next": () => Promise<void>;
+        /**
+          * Aria Label to be used for the button group.
+         */
+        "buttonGroupLabel": string;
+        /**
+          * Indicates if the records in current page are being fetched.
+         */
+        "isLoading": boolean;
+        /**
+          * Aria Label to be used for next button.
+         */
+        "nextButtonLabel": string;
+        /**
+          * Navigates to next set of records if available.
+         */
+        "nextPage": () => Promise<void>;
         /**
           * The current page number.
          */
         "page": number;
-        "previous": () => Promise<void>;
         /**
           * The number of records to be shown per page. Defaults to 10.
          */
-        "recordsPerPage": number;
+        "perPage": number;
         /**
-          * The total number of records.
+          * Aria Label to be used for previous button.
          */
-        "totalRecords": number;
+        "previousButtonLabel": string;
+        /**
+          * Navigates to previous set of records if available.
+         */
+        "previousPage": () => Promise<void>;
+        /**
+          * The total number of records. This is a mandatory parameter.
+         */
+        "total": number;
     }
     interface FwPopover {
         /**
@@ -1920,6 +1942,18 @@ declare namespace LocalJSX {
     }
     interface FwPagination {
         /**
+          * Aria Label to be used for the button group.
+         */
+        "buttonGroupLabel"?: string;
+        /**
+          * Indicates if the records in current page are being fetched.
+         */
+        "isLoading"?: boolean;
+        /**
+          * Aria Label to be used for next button.
+         */
+        "nextButtonLabel"?: string;
+        /**
           * Triggered when either previous or next button is clicked.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
@@ -1930,11 +1964,15 @@ declare namespace LocalJSX {
         /**
           * The number of records to be shown per page. Defaults to 10.
          */
-        "recordsPerPage"?: number;
+        "perPage"?: number;
         /**
-          * The total number of records.
+          * Aria Label to be used for previous button.
          */
-        "totalRecords"?: number;
+        "previousButtonLabel"?: string;
+        /**
+          * The total number of records. This is a mandatory parameter.
+         */
+        "total"?: number;
     }
     interface FwPopover {
         /**

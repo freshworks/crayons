@@ -5,13 +5,9 @@ fw-pagination displays pagination. The component displays starting and ending re
 ## Demo
 
 ```html live
-<fw-pagination records-per-page="10" total-records="50"></fw-pagination><br />
-<fw-pagination total-records="50"></fw-pagination><br />
-<fw-pagination
-  page="2"
-  records-per-page="10"
-  total-records="50"
-></fw-pagination>
+<fw-pagination per-page="20" total="50"></fw-pagination><br />
+<fw-pagination total="50"></fw-pagination><br />
+<fw-pagination page="2" per-page="10" total="50"></fw-pagination>
 ```
 
 ## Usage
@@ -19,12 +15,12 @@ fw-pagination displays pagination. The component displays starting and ending re
 <code-group>
 <code-block title="HTML">
 ```html
-<fw-pagination records-per-page="10" total-records="50"></fw-pagination><br>
-<fw-pagination total-records="50"></fw-pagination><br />
+<fw-pagination per-page="20" total="50"></fw-pagination><br>
+<fw-pagination total="50"></fw-pagination><br />
 <fw-pagination
   page="2"
-  records-per-page="10"
-  total-records="50"
+  per-page="10"
+  total="50"
 ></fw-pagination>
 ```
 </code-block>
@@ -36,11 +32,11 @@ import ReactDOM from "react-dom";
 import { FwPagination } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-    <FwPagination records-per-page="10" total-records="50"></FwPagination><br/>
-    <FwPagination total-records="50"></FwPagination>
+    <FwPagination per-page="20" total="50"></FwPagination><br/>
+    <FwPagination total="50"></FwPagination>
     <FwPagination page="2"
-  records-per-page="10"
-  total-records="50"></FwPagination>
+  per-page="10"
+  total="50"></FwPagination>
   </div>)
 }
 ```
@@ -49,13 +45,19 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property         | Attribute          | Description                                                 | Type     | Default     |
-| ---------------- | ------------------ | ----------------------------------------------------------- | -------- | ----------- |
-| `page`           | `page`             | The current page number.                                    | `number` | `1`         |
-| `recordsPerPage` | `records-per-page` | The number of records to be shown per page. Defaults to 10. | `number` | `10`        |
-| `totalRecords`   | `total-records`    | The total number of records.                                | `number` | `undefined` |
+| Property              | Attribute               | Description                                                 | Type      | Default                 |
+| --------------------- | ----------------------- | ----------------------------------------------------------- | --------- | ----------------------- |
+| `buttonGroupLabel`    | `button-group-label`    | Aria Label to be used for the button group.                 | `string`  | `'Pagination controls'` |
+| `isLoading`           | `is-loading`            | Indicates if the records in current page are being fetched. | `boolean` | `false`                 |
+| `nextButtonLabel`     | `next-button-label`     | Aria Label to be used for next button.                      | `string`  | `'Next'`                |
+| `page`                | `page`                  | The current page number.                                    | `number`  | `1`                     |
+| `perPage`             | `per-page`              | The number of records to be shown per page. Defaults to 10. | `number`  | `10`                    |
+| `previousButtonLabel` | `previous-button-label` | Aria Label to be used for previous button.                  | `string`  | `'Previous'`            |
+| `total`               | `total`                 | The total number of records. This is a mandatory parameter. | `number`  | `undefined`             |
+
 
 ## Events
 
@@ -63,19 +65,29 @@ function App() {
 | ---------- | --------------------------------------------------------- | ------------------ |
 | `fwChange` | Triggered when either previous or next button is clicked. | `CustomEvent<any>` |
 
+
 ## Methods
 
-### `next() => Promise<void>`
+### `nextPage() => Promise<void>`
+
+Navigates to next set of records if available.
 
 #### Returns
 
 Type: `Promise<void>`
 
-### `previous() => Promise<void>`
+
+
+### `previousPage() => Promise<void>`
+
+Navigates to previous set of records if available.
 
 #### Returns
 
 Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -86,7 +98,6 @@ Type: `Promise<void>`
 - [fw-icon](../icon)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-pagination --> fw-button-group
@@ -97,6 +108,6 @@ graph TD;
   style fw-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks

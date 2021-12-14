@@ -12,7 +12,7 @@ describe('fw-pagination', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-pagination records-per-page="10" total-records="50"></fw-pagination>'
+      '<fw-pagination per-page="10" total="50"></fw-pagination>'
     );
     const element = await page.findAll('fw-pagination >>> .record');
     console.log(element);
@@ -22,25 +22,25 @@ describe('fw-pagination', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-pagination page="2" records-per-page="10" total-records="50"></fw-pagination>'
+      '<fw-pagination page="2" per-page="10" total="50"></fw-pagination>'
     );
     const element = await page.findAll('fw-pagination >>> .record');
     console.log(element);
     expect(element[0].textContent).toEqual('11');
   });
-  it('should set end to 10 when records-per-page is passed in and total records is greater', async () => {
+  it('should set end to 10 when per-page is passed in and total records is greater', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-pagination records-per-page="10" total-records="50"></fw-pagination>'
+      '<fw-pagination per-page="10" total="50"></fw-pagination>'
     );
     const element = await page.findAll('fw-pagination >>> .record');
     expect(element[1].textContent).toEqual('10');
   });
-  it('should set end to 10 when records-per-page is not passed in', async () => {
+  it('should set end to 10 when per-page is not passed in', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-pagination total-records="50"></fw-pagination>');
+    await page.setContent('<fw-pagination total="50"></fw-pagination>');
     const element = await page.findAll('fw-pagination >>> .record');
     expect(element[1].textContent).toEqual('10');
   });
@@ -48,7 +48,7 @@ describe('fw-pagination', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-pagination records-per-page="10" total-records="50"></fw-pagination>'
+      '<fw-pagination per-page="10" total="50"></fw-pagination>'
     );
     const nextButton = await page.find(
       'fw-pagination >>> fw-button[aria-label="Next"]'
@@ -66,7 +66,7 @@ describe('fw-pagination', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-pagination records-per-page="10" total-records="50"></fw-pagination>'
+      '<fw-pagination per-page="10" total="50"></fw-pagination>'
     );
     const button = await page.find(
       'fw-pagination >>> fw-button[aria-label="Next"]'
@@ -80,7 +80,7 @@ describe('fw-pagination', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-pagination records-per-page="50" total-records="50"></fw-pagination>'
+      '<fw-pagination per-page="50" total="50"></fw-pagination>'
     );
     const nextButton = await page.find(
       'fw-pagination >>> fw-button[aria-label="Next"]'
