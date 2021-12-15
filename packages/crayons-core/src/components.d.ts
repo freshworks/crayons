@@ -554,6 +554,10 @@ export namespace Components {
         "hasBorder": boolean;
         "hide": () => Promise<void>;
         /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab": boolean;
+        /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
         "hoist": boolean;
@@ -1147,6 +1151,79 @@ export namespace Components {
          */
         "size": 'small' | 'medium' | 'large';
     }
+    interface FwToggleGroup {
+        /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label": string;
+        /**
+          * Boolean value to allow multiple selection or single child selection
+         */
+        "multiple": boolean;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name": string;
+        "setSelectedValues": (values: string | string[]) => Promise<void>;
+        /**
+          * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
+         */
+        "value": any;
+    }
+    interface FwToggleGroupButton {
+        /**
+          * sets the default base class name and the rest of the class names for the other states are automatically appended to this
+         */
+        "baseClassName": string;
+        /**
+          * Label displayed as description in the card.
+         */
+        "description": string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
+          * Label displayed as header in the card.
+         */
+        "header": string;
+        /**
+          * If the button type is icon, set the icon path to be used
+         */
+        "iconName": string;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
+        /**
+          * Enables the component to be used as a part of multi selection group
+         */
+        "isCheckbox": boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name": string;
+        /**
+          * Enables the component to be used as a toggle button or just to be used as a normal button
+         */
+        "selectable": boolean;
+        /**
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected": boolean;
+        /**
+          * Public method exposed to set the focus for the button component - to be used for accessibility
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * sets the type of the button
+         */
+        "type": 'card' | 'icon' | 'custom';
+        /**
+          * Identifier corresponding to the component, that is saved when the form data is saved.
+         */
+        "value": string;
+    }
     interface FwTooltip {
         /**
           * Content of the tooltip.
@@ -1401,6 +1478,18 @@ declare global {
         prototype: HTMLFwToggleElement;
         new (): HTMLFwToggleElement;
     };
+    interface HTMLFwToggleGroupElement extends Components.FwToggleGroup, HTMLStencilElement {
+    }
+    var HTMLFwToggleGroupElement: {
+        prototype: HTMLFwToggleGroupElement;
+        new (): HTMLFwToggleGroupElement;
+    };
+    interface HTMLFwToggleGroupButtonElement extends Components.FwToggleGroupButton, HTMLStencilElement {
+    }
+    var HTMLFwToggleGroupButtonElement: {
+        prototype: HTMLFwToggleGroupButtonElement;
+        new (): HTMLFwToggleGroupButtonElement;
+    };
     interface HTMLFwTooltipElement extends Components.FwTooltip, HTMLStencilElement {
     }
     var HTMLFwTooltipElement: {
@@ -1444,6 +1533,8 @@ declare global {
         "fw-toast": HTMLFwToastElement;
         "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
+        "fw-toggle-group": HTMLFwToggleGroupElement;
+        "fw-toggle-group-button": HTMLFwToggleGroupButtonElement;
         "fw-tooltip": HTMLFwTooltipElement;
     }
 }
@@ -2041,6 +2132,10 @@ declare namespace LocalJSX {
           * Option to determine if popover-content has a border.
          */
         "hasBorder"?: boolean;
+        /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab"?: boolean;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
@@ -2695,6 +2790,82 @@ declare namespace LocalJSX {
          */
         "size"?: 'small' | 'medium' | 'large';
     }
+    interface FwToggleGroup {
+        /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label"?: string;
+        /**
+          * Boolean value to allow multiple selection or single child selection
+         */
+        "multiple"?: boolean;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when an option in the Toggle Group is selected or deselected.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
+         */
+        "value"?: any;
+    }
+    interface FwToggleGroupButton {
+        /**
+          * sets the default base class name and the rest of the class names for the other states are automatically appended to this
+         */
+        "baseClassName"?: string;
+        /**
+          * Label displayed as description in the card.
+         */
+        "description"?: string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * Label displayed as header in the card.
+         */
+        "header"?: string;
+        /**
+          * If the button type is icon, set the icon path to be used
+         */
+        "iconName"?: string;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
+        /**
+          * Enables the component to be used as a part of multi selection group
+         */
+        "isCheckbox"?: boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when the card in focus is selected.
+         */
+        "onFwToggled"?: (event: CustomEvent<any>) => void;
+        /**
+          * Enables the component to be used as a toggle button or just to be used as a normal button
+         */
+        "selectable"?: boolean;
+        /**
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected"?: boolean;
+        /**
+          * sets the type of the button
+         */
+        "type"?: 'card' | 'icon' | 'custom';
+        /**
+          * Identifier corresponding to the component, that is saved when the form data is saved.
+         */
+        "value"?: string;
+    }
     interface FwTooltip {
         /**
           * Content of the tooltip.
@@ -2758,6 +2929,8 @@ declare namespace LocalJSX {
         "fw-toast": FwToast;
         "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
+        "fw-toggle-group": FwToggleGroup;
+        "fw-toggle-group-button": FwToggleGroupButton;
         "fw-tooltip": FwTooltip;
     }
 }
@@ -2801,6 +2974,8 @@ declare module "@stencil/core" {
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
             "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
+            "fw-toggle-group": LocalJSX.FwToggleGroup & JSXBase.HTMLAttributes<HTMLFwToggleGroupElement>;
+            "fw-toggle-group-button": LocalJSX.FwToggleGroupButton & JSXBase.HTMLAttributes<HTMLFwToggleGroupButtonElement>;
             "fw-tooltip": LocalJSX.FwTooltip & JSXBase.HTMLAttributes<HTMLFwTooltipElement>;
         }
     }

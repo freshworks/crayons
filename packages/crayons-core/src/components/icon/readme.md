@@ -238,6 +238,7 @@ function App() {
  - [fw-tag](../tag)
  - [fw-toast-message](../toast-message)
  - [fw-toggle](../toggle)
+ - [fw-toggle-group-button](../toggle-group-button)
 
 ### Depends on
 
@@ -259,6 +260,7 @@ graph TD;
   fw-select-option --> fw-icon
   fw-tag --> fw-icon
   fw-toggle --> fw-icon
+  fw-toggle-group-button --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
