@@ -8,11 +8,10 @@ This page contains examples for creating layouts by combining various css utils.
 <style>
   .details {
     width: 70%;
-    background-color: #f5f7f9;
   }
 </style>
 <template>
-  <div class="details">
+  <div class="details fw-bg-smoke-25">
     <div
       class="header fw-type-h6 fw-py-16 fw-px-16 fw-b-b-1 fw-b-solid fw-b-smoke-100"
     >
