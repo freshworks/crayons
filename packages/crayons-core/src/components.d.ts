@@ -845,6 +845,8 @@ export namespace Components {
          */
         "width": string;
     }
+    interface FwSortable {
+    }
     interface FwSpinner {
         /**
           * Color in which the loader is displayed, specified as a standard CSS color.
@@ -1309,6 +1311,12 @@ declare global {
         prototype: HTMLFwSkeletonElement;
         new (): HTMLFwSkeletonElement;
     };
+    interface HTMLFwSortableElement extends Components.FwSortable, HTMLStencilElement {
+    }
+    var HTMLFwSortableElement: {
+        prototype: HTMLFwSortableElement;
+        new (): HTMLFwSortableElement;
+    };
     interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {
     }
     var HTMLFwSpinnerElement: {
@@ -1402,6 +1410,7 @@ declare global {
         "fw-select": HTMLFwSelectElement;
         "fw-select-option": HTMLFwSelectOptionElement;
         "fw-skeleton": HTMLFwSkeletonElement;
+        "fw-sortable": HTMLFwSortableElement;
         "fw-spinner": HTMLFwSpinnerElement;
         "fw-tab": HTMLFwTabElement;
         "fw-tab-panel": HTMLFwTabPanelElement;
@@ -2331,6 +2340,8 @@ declare namespace LocalJSX {
          */
         "width"?: string;
     }
+    interface FwSortable {
+    }
     interface FwSpinner {
         /**
           * Color in which the loader is displayed, specified as a standard CSS color.
@@ -2684,6 +2695,7 @@ declare namespace LocalJSX {
         "fw-select": FwSelect;
         "fw-select-option": FwSelectOption;
         "fw-skeleton": FwSkeleton;
+        "fw-sortable": FwSortable;
         "fw-spinner": FwSpinner;
         "fw-tab": FwTab;
         "fw-tab-panel": FwTabPanel;
@@ -2727,6 +2739,7 @@ declare module "@stencil/core" {
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
             "fw-select-option": LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
             "fw-skeleton": LocalJSX.FwSkeleton & JSXBase.HTMLAttributes<HTMLFwSkeletonElement>;
+            "fw-sortable": LocalJSX.FwSortable & JSXBase.HTMLAttributes<HTMLFwSortableElement>;
             "fw-spinner": LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
             "fw-tab": LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
             "fw-tab-panel": LocalJSX.FwTabPanel & JSXBase.HTMLAttributes<HTMLFwTabPanelElement>;
