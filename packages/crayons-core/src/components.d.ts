@@ -329,6 +329,7 @@ export namespace Components {
           * Display text in the label.
          */
         "value": string;
+        "variant": 'standard' | 'pill';
     }
     interface FwListOptions {
         /**
@@ -1876,6 +1877,7 @@ declare namespace LocalJSX {
           * Display text in the label.
          */
         "value"?: string;
+        "variant"?: 'standard' | 'pill';
     }
     interface FwListOptions {
         /**

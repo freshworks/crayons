@@ -16,9 +16,16 @@ export class Label {
    */
   @Prop() value = '';
 
+  @Prop() variant: 'standard' | 'pill' = 'standard';
+
   render() {
     return (
-      <span class={'label label--' + this.color.toLowerCase()}>
+      <span
+        class={`label label--${this.color.toLowerCase()} ${
+          this.variant === 'pill' ? 'pill' : ''
+        }`}
+      >
+        <slot name='icon' />
         {this.value}
       </span>
     );
