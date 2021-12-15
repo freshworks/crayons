@@ -1,24 +1,44 @@
 import isPlainObject from 'lodash/isPlainObject';
 import clone from 'lodash/clone';
 import toPath from 'lodash/toPath';
-export const isFormParticipantElement = (
-  element: HTMLElement
-): element is HTMLInputElement | HTMLTextAreaElement =>
-  !!element &&
-  ['input', 'textarea', 'select'].includes(element.tagName.toLowerCase());
-export const isInputElement = (
-  element: HTMLElement
-): element is HTMLInputElement =>
-  !!element && element.tagName.toLowerCase() === 'input';
-export const isCheckboxType = ({
-  type,
-}: HTMLInputElement | HTMLTextAreaElement) => type === 'checkbox';
-export const isNumberType = ({
-  type,
-}: HTMLInputElement | HTMLTextAreaElement) =>
-  ['number', 'range'].includes(type);
-export const isDateType = ({ type }: HTMLInputElement | HTMLTextAreaElement) =>
-  ['date', 'datetime-local', 'month', 'time', 'week'].includes(type);
+export const isFormParticipantElement = (type: string) =>
+  !!type &&
+  [
+    'text',
+    'email',
+    'number',
+    'tel',
+    'input',
+    'textarea',
+    'select',
+    'checkbox',
+    'radio',
+    'date',
+  ].includes(type.toLowerCase());
+export const isInputElement = (type: string): boolean =>
+  !!type &&
+  [
+    'text',
+    'email',
+    'number',
+    'tel',
+    'input',
+    'textarea',
+    'select',
+    'checkbox',
+    'radio',
+    'date',
+  ].includes(type.toLowerCase());
+export const isCheckboxType = (type: string): boolean =>
+  !!type && type === 'checkbox';
+
+export const isNumberType = (type: string): boolean =>
+  !!type && type === 'number';
+
+export const isDateType = (type: string): boolean => !!type && type === 'date';
+
+export const isSelectType = (type: string): boolean =>
+  !!type && type === 'select';
 
 /** TODO: Date gets funky here, because pickers are in UTC instead of local. wontfix, just document it */
 export const copyValidityState = (
@@ -37,15 +57,15 @@ export const copyValidityState = (
 };
 
 /** TODO: Date gets funky here, because pickers are in UTC instead of local. wontfix, just document it */
-export const getElementValue = (element: HTMLElement): any => {
-  if (isFormParticipantElement(element)) {
-    let value: any = element.value;
+export const getElementValue = (type: string, ref: any): any => {
+  if (isFormParticipantElement(type)) {
+    let value: any = ref.value;
 
-    if (isInputElement(element)) {
-      if (isNumberType(element)) {
-        value = element.value;
-      } else if (isCheckboxType(element)) {
-        value = (element as HTMLInputElement).checked;
+    if (isInputElement(type)) {
+      if (isNumberType(type)) {
+        value = ref.value;
+      } else if (isCheckboxType(type)) {
+        value = ref.checked;
       }
       // } else if (isDateType(element)) {
       //     value = (element as HTMLInputElement).valueAsDate;

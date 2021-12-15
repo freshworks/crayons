@@ -73,6 +73,9 @@ export namespace Components {
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        "handleBlur": (_e: any, _o: any) => void;
+        "handleChange": (_e: any, _o: any) => void;
+        "handleFocus": (_e: any, _o: any) => void;
         /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
@@ -81,6 +84,14 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Return native element
+         */
+        "nativeRef": () => Promise<HTMLInputElement>;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -181,7 +192,7 @@ export namespace Components {
     interface FwFormWrapper {
         "formSchema": { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; })[]; };
         "initialErrors": any;
-        "initialValues": { age: string; };
+        "initialValues": { age: string; is_indian_citizen: boolean; };
         "validationSchema": any;
     }
     interface FwFormWrapper1 {
@@ -226,10 +237,6 @@ export namespace Components {
          */
         "autocomplete": 'on' | 'off';
         /**
-          * Checks for validity and shows the browser's validation message if the control is invalid.
-         */
-        "checkValidity": () => Promise<boolean>;
-        /**
           * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput": boolean;
@@ -237,6 +244,9 @@ export namespace Components {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        "handleBlur": (_e: any, _o: any) => void;
+        "handleFocus": (_e: any, _o: any) => void;
+        "handleInput": (_e: any, _o: any) => void;
         /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
@@ -265,9 +275,6 @@ export namespace Components {
           * Return native element
          */
         "nativeRef": () => Promise<HTMLInputElement>;
-        "onBlur": (_e: any) => void;
-        "onFocus": (_e: any) => void;
-        "onInput": (_e: any) => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -280,10 +287,6 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
-        /**
-          * Sets a custom validation message. If `message` is not empty, the field will be considered invalid.
-         */
-        "setCustomValidity": (message: string) => Promise<void>;
         /**
           * Sets focus on a specific `fw-input`. Use this method instead of the global `input.focus()`.
          */
@@ -919,10 +922,6 @@ export namespace Components {
     }
     interface FwTextarea {
         /**
-          * Checks for validity and shows the browser's validation message if the control is invalid.
-         */
-        "checkValidity": () => Promise<boolean>;
-        /**
           * Width of the input box, specified as number of columns.
          */
         "cols"?: number;
@@ -930,6 +929,9 @@ export namespace Components {
           * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        "handleBlur": (_e: any, _o: any) => void;
+        "handleFocus": (_e: any, _o: any) => void;
+        "handleInput": (_e: any, _o: any) => void;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -950,9 +952,6 @@ export namespace Components {
           * Return native element
          */
         "nativeRef": () => Promise<HTMLTextAreaElement>;
-        "onBlur": (_e: any) => void;
-        "onFocus": (_e: any) => void;
-        "onInput": (_e: any) => void;
         /**
           * Text displayed in the input box before a user enters a value.
          */
@@ -969,10 +968,6 @@ export namespace Components {
           * Height of the input box, specified as number of rows.
          */
         "rows"?: number;
-        /**
-          * Sets a custom validation message. If `message` is not empty, the field will be considered invalid.
-         */
-        "setCustomValidity": (message: string) => Promise<void>;
         /**
           * Sets focus on a specific `fw-textarea`. Use this method instead of the global `input.focus()`.
          */
@@ -1495,6 +1490,9 @@ declare namespace LocalJSX {
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        "handleBlur"?: (_e: any, _o: any) => void;
+        "handleChange"?: (_e: any, _o: any) => void;
+        "handleFocus"?: (_e: any, _o: any) => void;
         /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
@@ -1515,6 +1513,10 @@ declare namespace LocalJSX {
           * Triggered when the check box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -1627,7 +1629,7 @@ declare namespace LocalJSX {
     interface FwFormWrapper {
         "formSchema"?: { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; })[]; };
         "initialErrors"?: any;
-        "initialValues"?: { age: string; };
+        "initialValues"?: { age: string; is_indian_citizen: boolean; };
         "validationSchema"?: any;
     }
     interface FwFormWrapper1 {
@@ -1685,6 +1687,9 @@ declare namespace LocalJSX {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        "handleBlur"?: (_e: any, _o: any) => void;
+        "handleFocus"?: (_e: any, _o: any) => void;
+        "handleInput"?: (_e: any, _o: any) => void;
         /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
@@ -1709,8 +1714,6 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
-        "onBlur"?: (_e: any) => void;
-        "onFocus"?: (_e: any) => void;
         /**
           * Triggered when the input box loses focus.
          */
@@ -1731,7 +1734,6 @@ declare namespace LocalJSX {
           * Triggered when clear icon is clicked.
          */
         "onFwInputClear"?: (event: CustomEvent<any>) => void;
-        "onInput"?: (_e: any) => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -2419,6 +2421,9 @@ declare namespace LocalJSX {
           * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        "handleBlur"?: (_e: any, _o: any) => void;
+        "handleFocus"?: (_e: any, _o: any) => void;
+        "handleInput"?: (_e: any, _o: any) => void;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -2435,8 +2440,6 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
-        "onBlur"?: (_e: any) => void;
-        "onFocus"?: (_e: any) => void;
         /**
           * Triggered when the input box loses focus.
          */
@@ -2453,7 +2456,6 @@ declare namespace LocalJSX {
           * Triggered when a value is entered in the input box.
          */
         "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
-        "onInput"?: (_e: any) => void;
         /**
           * Text displayed in the input box before a user enters a value.
          */

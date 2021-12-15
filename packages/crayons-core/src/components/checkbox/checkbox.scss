@@ -32,6 +32,17 @@
   position: relative;
   font-weight: 400;
   word-wrap: break-word;
+
+  &.required::after {
+    content: '*';
+    position: relative;
+    display: inline-block;
+    top: 2px;
+    font-size: 14px;
+    color: $app-error;
+    padding-left: 2px;
+    font-weight: $font-weight-bold;
+  }
 }
 
 /* Hover event occurs on the root element */

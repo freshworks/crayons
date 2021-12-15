@@ -142,31 +142,36 @@ export class Form implements FormConfig {
     this.isValidating = false;
   };
 
-  handleInput = (field: string) => async (event: Event) => {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const value: any = getElementValue(target);
+  handleInput =
+    (field: string, inputType: string) => async (event: Event, ref: any) => {
+      const target = event?.target as HTMLInputElement | HTMLTextAreaElement;
+      const value: any = getElementValue(inputType, ref);
 
-    this.values = { ...this.values, [field]: value };
+      this.values = { ...this.values, [field]: value };
 
-    /** Validate, if user wants to validateOnInput */
-    if (this.validateOnInput) this.handleValidation(field, target);
-  };
+      /** Validate, if user wants to validateOnInput */
+      if (this.validateOnInput) this.handleValidation(field, target);
+    };
 
-  handleBlur = (field: string) => (event: Event) => {
-    if (this.focused) this.focused = null;
-    if (!this.touched[field]) this.touched = { ...this.touched, [field]: true };
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const value: any = getElementValue(target);
+  handleBlur =
+    (field: string, inputType: string) => (event: Event, ref: any) => {
+      if (this.focused) this.focused = null;
+      if (!this.touched[field])
+        this.touched = { ...this.touched, [field]: true };
+      const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+      const value: any = getElementValue(inputType, ref);
 
-    this.values = { ...this.values, [field]: value };
-    /** Validate, if user wants to validateOnInput */
-    if (this.validateOnBlur) this.handleValidation(field, target);
-  };
+      this.values = { ...this.values, [field]: value };
+      /** Validate, if user wants to validateOnInput */
+      if (this.validateOnBlur) this.handleValidation(field, target);
+    };
 
-  handleFocus = (field: string) => () => {
-    this.focused = field;
-    //if (!this.touched[field]) this.touched = { ...this.touched, [field]: true };
-  };
+  handleFocus =
+    (field: string, _inputType: string) => (_event: Event, _ref: any) => {
+      this.focused = field;
+      if (!this.touched[field])
+        this.touched = { ...this.touched, [field]: true };
+    };
 
   private composedState = (): FormState<FormValues> => {
     const {
@@ -228,18 +233,19 @@ export class Form implements FormConfig {
       'ref': (el) => (this.groups = { ...this.groups, [field]: el }),
     });
 
-    const inputProps = (field: keyof FormValues) => ({
+    const inputProps = (field: keyof FormValues, inputType: string) => ({
       name: field,
-      type: 'text',
-      onInput: this.handleInput(field as string),
-      onBlur: this.handleBlur(field as string),
-      onFocus: this.handleFocus(field as string),
+      type: inputType,
+      handleInput: this.handleInput(field as string, inputType),
+      handleChange: this.handleInput(field as string, inputType),
+      handleBlur: this.handleBlur(field as string, inputType),
+      handleFocus: this.handleFocus(field as string, inputType),
       id: `${this.formId}-input-${field}`,
       value: this.values[field],
     });
 
     const radioProps = (field: keyof FormValues, value: string) => ({
-      ...inputProps(field),
+      ...inputProps(field, 'radio'),
       type: 'radio',
       id: `${this.formId}-input-${field}--radio-${value}`,
       value: value,
@@ -247,20 +253,18 @@ export class Form implements FormConfig {
     });
 
     const checkboxProps = (field: keyof FormValues) => ({
-      ...inputProps(field),
+      ...inputProps(field, 'checkbox'),
       type: 'checkbox',
-      value: null,
+
       checked: !!this.values[field],
     });
 
     const selectProps = (field: keyof FormValues) => ({
+      ...inputProps(field, 'select'),
       name: field,
       id: `${this.formId}-input-${field}`,
       value: this.values[field],
       ref: (el: HTMLInputElement) => (this.inputs = [...this.inputs, el]),
-      onChange: this.handleInput(field as string),
-      onBlur: this.handleBlur(field as string),
-      onFocus: this.handleFocus(field as string),
     });
 
     const labelProps = (field: keyof FormValues, value?: string) => ({

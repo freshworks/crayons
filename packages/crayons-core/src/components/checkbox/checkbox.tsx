@@ -8,6 +8,7 @@ import {
   Watch,
   h,
   Listen,
+  Method,
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
@@ -44,6 +45,14 @@ export class Checkbox {
    * Identifier corresponding to the component, that is saved when the form data is saved.
    */
   @Prop() value = '';
+  /**
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+
+  @Prop() handleBlur = (_e, _o) => {};
+  @Prop() handleChange = (_e, _o) => {};
+  @Prop() handleFocus = (_e, _o) => {};
 
   /**
    * Triggered when the check box’s value is modified.
@@ -76,6 +85,7 @@ export class Checkbox {
       });
     }
     this.checkbox.checked = isChecked;
+    this.handleChange(null, this.checkbox);
   }
 
   @Watch('disabled')
@@ -97,41 +107,54 @@ export class Checkbox {
     }
   }
 
-  private onFocus() {
+  private onFocus = (e) => {
     this.fwFocus.emit();
-  }
+    this.handleFocus(e, this.checkbox);
+  };
 
-  private onBlur() {
+  private onBlur = (e) => {
     this.fwBlur.emit();
-  }
+    this.handleBlur(e, this.checkbox);
+  };
 
-  private toggle() {
+  private toggle = () => {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
+  };
+
+  /** Return native element */
+  @Method()
+  async nativeRef() {
+    return this.checkbox;
   }
 
   render() {
     const { host, name, value } = this;
 
-    if (this.checked) {
-      renderHiddenField(host, name, value);
-    }
+    //if (this.checked) {
+    renderHiddenField(host, name, value);
+    //}
 
     return (
       <Host
-        onClick={() => this.toggle()}
         role='checkbox'
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         aria-labelledby='label'
         aria-describedby={this.description}
-        onFocus={() => this.onFocus()}
-        onBlur={() => this.onBlur()}
+        onClick={this.toggle}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
       >
         <div class='checkbox-container'>
-          <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
+          <input
+            type='checkbox'
+            ref={(el) => (this.checkbox = el)}
+            required={this.required}
+            name={this.name}
+          ></input>
           <label>
             <span id='label'>
               <slot />

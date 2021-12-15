@@ -67,6 +67,21 @@ const formSchema = {
     },
 
     {
+      id: 'is_indian_citizen_id',
+      type: 'checkbox',
+      label: 'Indian Citizen ?',
+      name: 'is_indian_citizen',
+      position: 1,
+      editable: true,
+      custom: false,
+      required: true,
+      inputType: 'checkbox',
+      placeholder: 'Enter...',
+      fieldOptions: {},
+      fields: [],
+    },
+
+    {
       id: 'phone_number_id',
       type: 'input',
       label: 'Phone Number',
@@ -139,6 +154,7 @@ const formSchema = {
 
 const initialValues = {
   age: '',
+  is_indian_citizen: true,
 };
 
 const staticValidationSchema = Yup.object().shape({
@@ -196,6 +212,9 @@ function createYupSchema(schema, config) {
     case 'tel':
       yupType = 'string';
       break;
+    case 'checkbox':
+      yupType = 'boolean';
+      break;
     default:
       yupType = 'string';
   }
@@ -211,6 +230,9 @@ function createYupSchema(schema, config) {
 
   if (inputType === 'email')
     validator = validator['email'](...[`Enter a valid Email`]);
+
+  if (inputType === 'checkbox' && required)
+    validator = validator['oneOf']([true], `Select the value`);
 
   schema[name] = validator;
   return schema;
@@ -251,12 +273,13 @@ export class FormWrapper {
     const dynamicInitialValues = this.formSchema.fields.reduce((acc, field) => {
       return {
         ...acc,
-        [field.name]: '',
+        [field.name]:
+          field.type === 'checkbox' || field.type === 'radio' ? false : '',
       };
     }, {});
 
     this.formInitialErrors = this.initialErrors;
-    this.formInitialValues = { ...this.initialValues, ...dynamicInitialValues };
+    this.formInitialValues = { ...dynamicInitialValues, ...this.initialValues };
   }
 
   render() {
@@ -272,6 +295,7 @@ export class FormWrapper {
             groupProps,
             labelProps,
             inputProps,
+            checkboxProps,
             touched,
           } = props;
           return (
@@ -284,7 +308,7 @@ export class FormWrapper {
                       cmp = (
                         <Fragment>
                           <fw-input
-                            {...inputProps(field.name)}
+                            {...inputProps(field.name, field.inputType)}
                             type={field.inputType}
                             label={field.label}
                             name={field.name}
@@ -305,7 +329,7 @@ export class FormWrapper {
                       cmp = (
                         <Fragment>
                           <fw-textarea
-                            {...inputProps(field.name)}
+                            {...inputProps(field.name, field.inputType)}
                             label={field.label}
                             placeholder={field.placeholder}
                             name={field.name}
@@ -326,6 +350,28 @@ export class FormWrapper {
                       break;
                     case 'timepicker':
                       cmp = <fw-timepicker></fw-timepicker>;
+                      break;
+                    case 'checkbox':
+                      cmp = (
+                        <div>
+                          <fw-checkbox
+                            {...checkboxProps(field.name)}
+                            placeholder={field.placeholder}
+                            name={field.name}
+                            required={field.required}
+                          >
+                            {field.label}
+                          </fw-checkbox>
+                          <div>
+                            {touched[field.name] && errors[field.name] && (
+                              <label class='error' {...labelProps(field.name)}>
+                                {' '}
+                                {errors[field.name]}{' '}
+                              </label>
+                            )}
+                          </div>
+                        </div>
+                      );
                       break;
                     default:
                       cmp = <p>unknown</p>;

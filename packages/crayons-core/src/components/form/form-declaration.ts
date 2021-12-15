@@ -61,9 +61,12 @@ export interface FormComputedProps<Values> {
 export interface FormHandlers<Values> {
   handleSubmit: (e?: Event) => void;
   handleReset: () => void;
-  handleInput(field: keyof Values): (e: Event) => void;
-  handleBlur(field: keyof Values): (e: Event) => void;
-  handleFocus(field: keyof Values): (e?: Event) => void;
+  handleInput(field: keyof Values, type: string): (e: Event, ref: any) => void;
+  handleBlur(field: keyof Values, type: string): (e: Event, ref: any) => void;
+  handleFocus(
+    field: keyof Values,
+    type: string
+  ): (e?: Event, ref?: any) => void;
 }
 
 /**
@@ -80,7 +83,7 @@ export interface FormConfig {
 
 export interface FormUtils<Values, Key extends keyof Values> {
   groupProps: (key: Key) => any;
-  inputProps: (key: Key) => any;
+  inputProps: (key: Key, inputType: string) => any;
   labelProps: (key: Key, value?: Values[Key]) => any;
   selectProps: (key: Key) => any;
   checkboxProps: (key: Key) => any;

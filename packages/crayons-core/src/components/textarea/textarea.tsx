@@ -81,9 +81,9 @@ export class Textarea {
    */
   @Prop() disabled = false;
 
-  @Prop() onInput = (_e) => {};
-  @Prop() onBlur = (_e) => {};
-  @Prop() onFocus = (_e) => {};
+  @Prop() handleInput = (_e, _o) => {};
+  @Prop() handleBlur = (_e, _o) => {};
+  @Prop() handleFocus = (_e, _o) => {};
 
   /**
    * Triggered when the value in the input box is modified.
@@ -107,25 +107,25 @@ export class Textarea {
     this.fwChange.emit({ value: newValue });
   }
 
-  private handleInput = (ev: Event) => {
+  private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
     if (input) {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    this.onInput(ev);
+    this.handleInput(ev, this.nativeInput);
   };
 
-  private handleFocus = (ev) => {
+  private onFocus = (ev) => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    this.onFocus(ev);
+    this.handleFocus(ev, this.nativeInput);
   };
 
-  private handleBlur = (ev) => {
+  private onBlur = (ev) => {
     this.hasFocus = false;
     this.fwBlur.emit();
-    this.onBlur(ev);
+    this.handleBlur(ev, this.nativeInput);
   };
 
   private getValue(): string {
@@ -144,19 +144,6 @@ export class Textarea {
     if (this.nativeInput) {
       this.nativeInput.focus();
     }
-  }
-
-  /** Checks for validity and shows the browser's validation message if the control is invalid. */
-  @Method()
-  async checkValidity() {
-    console.log('valid ', this.nativeInput.checkValidity());
-    return this.nativeInput.checkValidity();
-  }
-
-  /** Sets a custom validation message. If `message` is not empty, the field will be considered invalid. */
-  @Method()
-  async setCustomValidity(message: string) {
-    this.nativeInput.setCustomValidity(message);
   }
 
   /** Return native element */
@@ -209,9 +196,9 @@ export class Textarea {
               readOnly={this.readonly}
               required={this.required}
               value={this.value}
-              onInput={(e) => this.handleInput(e)}
-              onBlur={this.handleBlur}
-              onFocus={this.handleFocus}
+              onInput={this.onInput}
+              onBlur={this.onBlur}
+              onFocus={this.onFocus}
               rows={this.rows}
               cols={this.cols}
               wrap={this.wrap}

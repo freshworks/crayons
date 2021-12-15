@@ -90,9 +90,9 @@ export class Input {
    */
   @Prop() iconRight: string = undefined;
 
-  @Prop() onInput = (_e) => {};
-  @Prop() onBlur = (_e) => {};
-  @Prop() onFocus = (_e) => {};
+  @Prop() handleInput = (_e, _o) => {};
+  @Prop() handleBlur = (_e, _o) => {};
+  @Prop() handleFocus = (_e, _o) => {};
 
   /**
    * Triggered when the value in the input box is modified.
@@ -124,25 +124,25 @@ export class Input {
     this.fwChange.emit({ value: newValue });
   }
 
-  private handleInput = (ev: Event) => {
+  private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
     if (input) {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    this.onInput(ev);
+    this.handleInput(ev, this.nativeInput);
   };
 
-  private handleFocus = (e) => {
+  private onFocus = (e) => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    this.onFocus(e);
+    this.handleFocus(e, this.nativeInput);
   };
 
-  private handleBlur = (e) => {
+  private onBlur = (e) => {
     this.hasFocus = false;
     this.fwBlur.emit();
-    this.onBlur(e);
+    this.handleBlur(e, this.nativeInput);
   };
 
   private showClearButton() {
@@ -181,19 +181,6 @@ export class Input {
     if (this.nativeInput) {
       this.nativeInput.focus();
     }
-  }
-
-  /** Checks for validity and shows the browser's validation message if the control is invalid. */
-  @Method()
-  async checkValidity() {
-    console.log('valid ', this.nativeInput.checkValidity());
-    return this.nativeInput.checkValidity();
-  }
-
-  /** Sets a custom validation message. If `message` is not empty, the field will be considered invalid. */
-  @Method()
-  async setCustomValidity(message: string) {
-    this.nativeInput.setCustomValidity(message);
   }
 
   /** Return native element */
@@ -250,9 +237,9 @@ export class Input {
               required={this.required}
               type={this.type}
               value={this.value}
-              onInput={(e) => this.handleInput(e)}
-              onBlur={this.handleBlur}
-              onFocus={this.handleFocus}
+              onInput={this.onInput}
+              onBlur={this.onBlur}
+              onFocus={this.onFocus}
             />
             {this.iconLeft !== undefined ? (
               <fw-icon class='icon left' name={this.iconLeft}></fw-icon>
