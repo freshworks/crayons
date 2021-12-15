@@ -27,15 +27,13 @@ This page contains examples for creating layouts by combining various css utils.
         <tr class="fw-b-0">
           <td class="fw-b-0 fw-type-sm">Hotel</td>
           <a href="#">
-            <td class="fw-b-0 fw-type-semibold fw-color-azure-800">
-              Leela palace
-            </td>
+            <td class="fw-b-0 fw-type-h6 fw-color-azure-800">Leela palace</td>
           </a>
         </tr>
         <tr class="fw-b-0">
           <td class="fw-b-0 fw-type-sm">Customer Name</td>
           <a href="#">
-            <td class="fw-b-0 fw-type-semibold fw-color-azure-800">Daniel</td>
+            <td class="fw-b-0 fw-type-h6 fw-color-azure-800">Daniel</td>
           </a>
         </tr>
         <tr class="fw-b-0">
@@ -71,22 +69,20 @@ This page contains examples for creating layouts by combining various css utils.
         <span class="fw-type-xs"><fw-icon name="arrow-right"></fw-icon></span>
       </div>
       <a href="#">
-        <div class="fw-type-semibold fw-color-azure-800">#1237483</div>
+        <div class="fw-type-h6 fw-color-azure-800">#1237483</div>
       </a>
 
       <div class="fw-mt-20">
         <div class="fw-type-h7">Hotel</div>
         <a href="#">
-          <div class="fw-type-semibold fw-mt-4 fw-color-azure-800">
-            Leela Palace
-          </div>
+          <div class="fw-type-h6 fw-mt-4 fw-color-azure-800">Leela Palace</div>
         </a>
       </div>
 
       <div class="fw-mt-20">
         <div class="fw-type-h7">Customer Name</div>
         <a href="#">
-          <div class="fw-type-semibold fw-mt-4 fw-color-azure-800">David</div>
+          <div class="fw-type-h6 fw-mt-4 fw-color-azure-800">David</div>
         </a>
       </div>
     </div>
@@ -198,7 +194,7 @@ This page contains examples for creating layouts by combining various css utils.
       <tr class="fw-b-0">
         <td class="fw-type-sm fw-b-0 fw-pt-20">Hotel</td>
         <a href="#">
-          <td class="fw-type-semibold fw-color-azure-800 fw-b-0 fw-pt-20">
+          <td class="fw-type-h6 fw-color-azure-800 fw-b-0 fw-pt-20">
             Hotel Ampala
           </td>
         </a>
@@ -207,9 +203,7 @@ This page contains examples for creating layouts by combining various css utils.
       <tr class="fw-b-0">
         <td class="fw-type-sm fw-b-0 fw-pt-20">Customer Name</td>
         <a href="#">
-          <td class="fw-type-semibold fw-color-azure-800 fw-b-0 fw-pt-20">
-            Daniel
-          </td>
+          <td class="fw-type-h6 fw-color-azure-800 fw-b-0 fw-pt-20">Daniel</td>
         </a>
       </tr>
 
