@@ -22,7 +22,7 @@ const fs = require('fs');
 (async () => {
 	init({ clear });
 	input.includes(`help`) ? cli.showHelp(0) : '';
-	console.log('cli input', input, 'params', flags);
+	console.log('cli-command :', input, '--params :', flags);
 	try {
 		
 		let pluginOptions = [];
@@ -33,7 +33,7 @@ const fs = require('fs');
 		    const doc = yaml.load(ymlFile);
 			pluginOptions = [...doc.plugins];
 		}
-		console.log('defaultConfig',pluginOptions);
+		console.log('Applied -pluginOptions :',pluginOptions);
 		input.includes(`defaultConfig`)
 			? console.log(
 					'System File :svgo.yml | Leaf-Note: You may filter copy the content under plugins section and set to true, create your custom .yml file and feed that to cli. \n',

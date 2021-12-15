@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "fs": "^0.0.1-security",
+    "fs-extra": "^10.0.0",
     "gulp": "^4.0.2",
     "gulp-svgmin": "^4.1.0",
     "js-yaml": "^4.1.0",
