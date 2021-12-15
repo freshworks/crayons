@@ -292,7 +292,6 @@ export class FormWrapper {
           const {
             errors,
             formProps,
-            groupProps,
             labelProps,
             inputProps,
             checkboxProps,

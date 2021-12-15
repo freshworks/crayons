@@ -57,6 +57,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property        | Attribute        | Description                                                                                                                                                    | Type                       | Default         |
@@ -71,21 +72,32 @@ function App() {
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                   | `undefined`     |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                   | `undefined`     |
 
+
 ## Events
 
 | Event      | Description                              | Type               |
 | ---------- | ---------------------------------------- | ------------------ |
 | `fwChange` | Triggered when the update button clicked | `CustomEvent<any>` |
 
+
 ## Methods
 
 ### `getValue() => Promise<string | { fromDate: string; toDate: string; }>`
+
+
 
 #### Returns
 
 Type: `Promise<string | { fromDate: string; toDate: string; }>`
 
+
+
+
 ## Dependencies
+
+### Used by
+
+ - [fw-form-wrapper](../form-wrapper)
 
 ### Depends on
 
@@ -96,7 +108,6 @@ Type: `Promise<string | { fromDate: string; toDate: string; }>`
 - [fw-button](../button)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-datepicker --> fw-popover
@@ -119,9 +130,10 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-form-wrapper --> fw-datepicker
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks

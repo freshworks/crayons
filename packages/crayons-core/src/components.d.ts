@@ -185,17 +185,11 @@ export namespace Components {
         "validateOnInput"?: boolean;
         "validationSchema": any;
     }
-    interface FwFormControl {
-    }
-    interface FwFormText {
-    }
     interface FwFormWrapper {
         "formSchema": { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; })[]; };
         "initialErrors": any;
         "initialValues": { age: string; is_indian_citizen: boolean; };
         "validationSchema": any;
-    }
-    interface FwFormWrapper1 {
     }
     interface FwIcon {
         /**
@@ -1186,29 +1180,11 @@ declare global {
         prototype: HTMLFwFormElement;
         new (): HTMLFwFormElement;
     };
-    interface HTMLFwFormControlElement extends Components.FwFormControl, HTMLStencilElement {
-    }
-    var HTMLFwFormControlElement: {
-        prototype: HTMLFwFormControlElement;
-        new (): HTMLFwFormControlElement;
-    };
-    interface HTMLFwFormTextElement extends Components.FwFormText, HTMLStencilElement {
-    }
-    var HTMLFwFormTextElement: {
-        prototype: HTMLFwFormTextElement;
-        new (): HTMLFwFormTextElement;
-    };
     interface HTMLFwFormWrapperElement extends Components.FwFormWrapper, HTMLStencilElement {
     }
     var HTMLFwFormWrapperElement: {
         prototype: HTMLFwFormWrapperElement;
         new (): HTMLFwFormWrapperElement;
-    };
-    interface HTMLFwFormWrapper1Element extends Components.FwFormWrapper1, HTMLStencilElement {
-    }
-    var HTMLFwFormWrapper1Element: {
-        prototype: HTMLFwFormWrapper1Element;
-        new (): HTMLFwFormWrapper1Element;
     };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
@@ -1380,10 +1356,7 @@ declare global {
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-form": HTMLFwFormElement;
-        "fw-form-control": HTMLFwFormControlElement;
-        "fw-form-text": HTMLFwFormTextElement;
         "fw-form-wrapper": HTMLFwFormWrapperElement;
-        "fw-form-wrapper1": HTMLFwFormWrapper1Element;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -1622,17 +1595,11 @@ declare namespace LocalJSX {
         "validateOnInput"?: boolean;
         "validationSchema"?: any;
     }
-    interface FwFormControl {
-    }
-    interface FwFormText {
-    }
     interface FwFormWrapper {
         "formSchema"?: { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; })[]; };
         "initialErrors"?: any;
         "initialValues"?: { age: string; is_indian_citizen: boolean; };
         "validationSchema"?: any;
-    }
-    interface FwFormWrapper1 {
     }
     interface FwIcon {
         /**
@@ -2651,10 +2618,7 @@ declare namespace LocalJSX {
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-form": FwForm;
-        "fw-form-control": FwFormControl;
-        "fw-form-text": FwFormText;
         "fw-form-wrapper": FwFormWrapper;
-        "fw-form-wrapper1": FwFormWrapper1;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -2695,10 +2659,7 @@ declare module "@stencil/core" {
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
-            "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
-            "fw-form-text": LocalJSX.FwFormText & JSXBase.HTMLAttributes<HTMLFwFormTextElement>;
             "fw-form-wrapper": LocalJSX.FwFormWrapper & JSXBase.HTMLAttributes<HTMLFwFormWrapperElement>;
-            "fw-form-wrapper1": LocalJSX.FwFormWrapper1 & JSXBase.HTMLAttributes<HTMLFwFormWrapper1Element>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;

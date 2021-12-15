@@ -121,7 +121,7 @@ export class Form implements FormConfig {
 
   handleValidation = async (
     field?: string,
-    target?: HTMLInputElement | HTMLTextAreaElement
+    _target?: HTMLInputElement | HTMLTextAreaElement
   ) => {
     this.isValidating = true;
     console.log(`validating ${field}`);
