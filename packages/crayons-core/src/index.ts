@@ -3,6 +3,6 @@ export * from './components';
 export {
   ToastController,
   ProgressLoaderController,
-  fwIconRegisterLibrary,
-  fwIconUnregisterLibrary,
+  registerIconLibrary,
+  unregisterIconLibrary,
 } from './global/crayons';

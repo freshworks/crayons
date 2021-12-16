@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/
 dist/
+output/
 package-lock.json
 generateSystemIcons.js
 .env.development

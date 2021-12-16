@@ -1,2 +1,2 @@
 export * from './components';
-export { ToastController, ProgressLoaderController, fwIconRegisterLibrary, fwIconUnregisterLibrary } from '../dist/components/index' 
+export { ToastController, ProgressLoaderController, registerIconLibrary, unregisterIconLibrary } from '../dist/components/index' 

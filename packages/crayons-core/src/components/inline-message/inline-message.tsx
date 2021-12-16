@@ -138,7 +138,6 @@ export class InlineMessage {
             <fw-icon
               name={iconMap[this.type]}
               color={iconColorMap[this.type]}
-              library='system'
             ></fw-icon>
           </span>
           <span class='alert__message'>

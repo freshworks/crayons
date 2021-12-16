@@ -43,14 +43,7 @@ export class ModalTitle {
    * @returns {JSX.Element}
    */
   renderIcon(): JSX.Element {
-    return (
-      <fw-icon
-        class='icon'
-        name={this.icon}
-        size={16}
-        library='system'
-      ></fw-icon>
-    );
+    return <fw-icon class='icon' name={this.icon} size={16}></fw-icon>;
   }
 
   /**

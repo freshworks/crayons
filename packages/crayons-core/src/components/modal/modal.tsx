@@ -307,14 +307,7 @@ export class Modal {
    * @returns {JSX.Element}
    */
   renderIcon(): JSX.Element {
-    return (
-      <fw-icon
-        class='icon'
-        name={this.icon}
-        size={16}
-        library='system'
-      ></fw-icon>
-    );
+    return <fw-icon class='icon' name={this.icon} size={16}></fw-icon>;
   }
 
   /**
@@ -379,6 +372,7 @@ export class Modal {
           <button class='close-btn' onClick={() => this.close()}>
             <fw-icon
               name='cross-big'
+              library='system'
               color={
                 this.slider
                   ? variation.closeColor.slider

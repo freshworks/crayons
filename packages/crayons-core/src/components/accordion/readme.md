@@ -21,15 +21,15 @@ fw-accordion displays a collapsible accordion component, which expands/collapses
 <fw-accordion>
   <fw-accordion-title>
      <fw-icon
-      library="system"
+     
       name='minus'
       size="14"
-      slot="expanded-icon" library="system" ></fw-icon>
+      slot="expanded-icon" ></fw-icon>
     <fw-icon
-      library="system"
+     
       name='plus'
       size="14"
-      slot="collapsed-icon" system library="system" ></fw-icon>
+      slot="collapsed-icon"</fw-icon>
     Header Text
   </fw-accordion-title>
   <fw-accordion-body>
@@ -63,7 +63,7 @@ Toggle icons can be customized using named slots.
   <fw-accordion-title truncate-on-overflow="true" style="--accordion-title-background-color: #F5F7F9; --accordion-title-expanded-icon-color: #2C5CC5; --accordion-title-collapsed-icon-color: #264966;">
     <fw-icon
     name='rewards'
-     library="system" ></fw-icon>
+     ></fw-icon>
     <span style="padding-left: 5px;">Header Text</span>
   </fw-accordion-title>
   <fw-accordion-body style="--accordion-body-background-color: #FFFFFF">

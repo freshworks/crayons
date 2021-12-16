@@ -227,20 +227,12 @@ export class Input {
               onFocus={this.onFocus}
             />
             {this.iconLeft !== undefined ? (
-              <fw-icon
-                class='icon left'
-                name={this.iconLeft}
-                library='system'
-              ></fw-icon>
+              <fw-icon class='icon left' name={this.iconLeft}></fw-icon>
             ) : (
               ''
             )}
             {this.iconRight !== undefined ? (
-              <fw-icon
-                class='icon right'
-                name={this.iconRight}
-                library='system'
-              ></fw-icon>
+              <fw-icon class='icon right' name={this.iconRight}></fw-icon>
             ) : (
               ''
             )}

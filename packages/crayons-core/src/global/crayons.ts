@@ -32,8 +32,8 @@ export function ProgressLoaderController(
 }
 
 export {
-  registerIconLibrary as fwIconRegisterLibrary,
-  unregisterIconLibrary as fwIconUnregisterLibrary,
+  registerIconLibrary,
+  unregisterIconLibrary,
 } from '../components/icon/library.icon.utils';
 
 export const CRAYONS_ICONS_ASSET_PATH =

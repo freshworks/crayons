@@ -6,12 +6,12 @@ Following features are available as part of the implementation of the fw-icon.
 1. Enable fw-icon as an optimized renderer for SVG with built-in functions such as Intersection-Observer and Fetch-API Memoization.
    Go through the docs to understand the various props it supports.
 2. Providing icon-support for crayons-system components and also exposing crayons-icon set for public use with inbuilt support for external icon-libraries also.
-3. Icons are accessibility tree compliant. You need to pass the label attribute. aria-hidden is set to true.
+3. Icons are accessibility tree compliant. You need to pass the label attribute. aria-hidden is set to 'undefined' by default.
 ## Examples Live
 
 ```html live
-<fw-icon name="twitter" size="28" color="blue" ></fw-icon>
-<fw-icon name="feather" src = "https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons" size="28" color="blue" ></fw-icon>
+<fw-icon name="twitter" size=18 color="blue" ></fw-icon>
+<fw-icon name="feather" src = "https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons" size=18 color="blue" ></fw-icon>
 ```
 
 ## Usage in Code
@@ -19,7 +19,7 @@ Following features are available as part of the implementation of the fw-icon.
 <code-group>
 <code-block title="HTML">
 ```html 
-<fw-icon name="add-contact" size="18" color="green" ></fw-icon>
+<fw-icon name="add-contact" size=18 color="green" ></fw-icon>
 ```
 </code-block>
 
@@ -30,7 +30,7 @@ import ReactDOM from "react-dom";
 import { FwIcon } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-  <FwIcon name="add-contact" size="18" color="green" ></FwIcon>
+  <FwIcon name="add-contact" size={18} color="green" ></FwIcon>
  </div>);
 }
 ```
@@ -39,23 +39,22 @@ function App() {
 <code-block title="Using Intersection Observer">
 ```html 
 HTML
-<fw-icon name="add-contact" size="18" color="green" x-root-margin = "80px" lazy ></fw-icon>
-<fw-icon name="add-contact" size="18" color="green" lazy ></fw-icon>
+<fw-icon name="add-contact" size=18  color="green" x-root-margin = "80px" lazy ></fw-icon>
+<fw-icon name="add-contact" size=18  color="green" lazy ></fw-icon>
 React
-<FwIcon name="add-contact" size="18" color="green" xRootMargin = "80px" lazy></FwIcon>
+<FwIcon  name="add-contact" size={18}  color="green" xRootMargin = "80px" lazy></FwIcon>
 ```
 </code-block>
 </code-group>
 
 ### Intersection Observer
 
-Use prop 'lazy' to enable Intersection-Observer. By deafult it is disabled. You may choose to give the intersection root-margin for icons i.e via prop 'x-root-margin' as preloading threshold in a viewport.Default value is '50px'.
-fw-icon also implements fetch API Memoization so any icon once fetched will not be requested again and will be available throughout the session/pages.
+Use prop 'lazy' to enable Intersection-Observer. By default it is disabled. You may choose to give the intersection root-margin for icons i.e via prop 'x-root-margin' as preloading threshold.Default value is '50px'.
 
 ## Crayons Icon Assets 
 
 The following icons are presently part of the Crayons-Icon library. These are optimized using SVGO.
-Use the name of an icon as listed below it. For JS Imports, you may click to copy the imports.
+Use the name of an icon as listed below it.For JS Imports, you may also click to copy the imports.
 
 <IconGallery/>
 
@@ -84,16 +83,16 @@ The library registration happens via a 'resolver' function. If you wish to apply
 <head>
 <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
 <script type="module" >
-import { fwIconRegisterLibrary } from 'https://unpkg.com/@freshworks/crayons@canary/dist/crayons/index.esm.js';
-fwIconRegisterLibrary('feather', {
+import { registerIconLibrary } from 'https://unpkg.com/@freshworks/crayons@canary/dist/crayons/index.esm.js';
+registerIconLibrary('feather', {
         resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
         mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
 });
 </script>
 </head>
 <body>
-    <fw-icon name="alert" color="red" size="30" ></fw-icon>
-    <fw-icon name="feather" library="feather" color="red" size="30" ></fw-icon>
+    <fw-icon name="alert" color="red" size=30 ></fw-icon>
+    <fw-icon name="feather" library="feather" color="red" size=30 ></fw-icon>
 </body>
 </html>
 ```
@@ -104,17 +103,19 @@ fwIconRegisterLibrary('feather', {
 import React from 'react';
 import './App.css';
 import { add_contact } from '@freshworks/crayons-icon';
-import { FwIcon, fwIconRegisterLibrary } from '@freshworks/crayons/react';
+import { FwIcon, registerIconLibrary, unregisterIconLibrary } from '@freshworks/crayons/react';
 
-fwIconRegisterLibrary('feather', {
+registerIconLibrary('feather', {
         resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
         mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
         
 });
-fwIconRegisterLibrary('heroicons', {
+registerIconLibrary('heroicons', {
         resolver: (name) => `https://cdn.jsdelivr.net/npm/heroicons@0.4.2/outline/${name}.svg`,
         mutator: (svg,name) => svg.setAttribute('fill', 'currentColor')
 });
+
+unregisterIconLibrary('heroicons');
 
 function App() {
 
@@ -127,17 +128,17 @@ function App() {
                 />
                 <FwIcon name = "alert"
                         color = 'blue'
-                        width = "20"
-                        height = "20" 
+                        width = {20}
+                        height = {20} 
                 />
                 <FwIcon dataSvg = { add_contact }
                         color = 'blue'
-                        size = "30" 
+                        size = {30}
                 />
                 <FwIcon name = "feather"
                         src = "https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons"
                         color = 'blue'
-                        size = "30" 
+                        size = {30} 
                 />
             </div> 
         </div>
@@ -165,7 +166,7 @@ import { header } from '@freshworks/crayons-icon';
 </script>
 </head>
 <body>
-    <fw-icon data-svg={ header } size="20" ></fw-icon>
+    <fw-icon data-svg={ header } size=20 ></fw-icon>
 </body>
 </html>
 
@@ -181,7 +182,7 @@ import { header } from '@freshworks/crayons-icon';
 
 function App() {
   return (<div>
-  <FwIcon dataSvg={ header } size="20" ></FwIcon>
+  <FwIcon dataSvg={ header } size=20 ></FwIcon>
  </div>);
 }
 ```

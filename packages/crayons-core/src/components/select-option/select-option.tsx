@@ -178,7 +178,7 @@ export class SelectOption {
   }
 
   createIcon() {
-    return <fw-icon {...this.graphicsProps} library='system'></fw-icon>;
+    return <fw-icon {...this.graphicsProps}></fw-icon>;
   }
 
   createCheckbox() {

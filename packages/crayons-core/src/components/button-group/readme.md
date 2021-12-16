@@ -13,9 +13,9 @@ Button groups can be used to group related buttons into sections.
 
 <section>
     <fw-button-group label="Test">
-    <fw-button id="b1" size="icon" color="secondary"><fw-icon name="reply" color="black" library="system" ></fw-icon> </fw-button>
-    <fw-button id="b2" size="icon" color="secondary"><fw-icon name="chat-online" color="black" library="system" ></fw-icon> </fw-button>
-    <fw-button id="b3" size="icon" color="secondary"><fw-icon name="more-horizontal" color="black" library="system" ></fw-icon> </fw-button>
+    <fw-button id="b1" size="icon" color="secondary"><fw-icon name="reply" color="black" ></fw-icon> </fw-button>
+    <fw-button id="b2" size="icon" color="secondary"><fw-icon name="chat-online" color="black" ></fw-icon> </fw-button>
+    <fw-button id="b3" size="icon" color="secondary"><fw-icon name="more-horizontal" color="black" ></fw-icon> </fw-button>
   </fw-button-group>
 </section>
 ```
@@ -34,9 +34,9 @@ Button groups can be used to group related buttons into sections.
 <br/>
 <section>
     <fw-button-group label="Test">
-    <fw-button id="b1" size="icon" color="secondary"><fw-icon name="reply" color="black" library="system" ></fw-icon> </fw-button>
-    <fw-button id="b2" size="icon" color="secondary"><fw-icon name="chat-online" color="black" library="system" ></fw-icon> </fw-button>
-    <fw-button id="b3" size="icon" color="secondary"><fw-icon name="more-horizontal" color="black" library="system" ></fw-icon> </fw-button>
+    <fw-button id="b1" size="icon" color="secondary"><fw-icon name="reply" color="black" ></fw-icon> </fw-button>
+    <fw-button id="b2" size="icon" color="secondary"><fw-icon name="chat-online" color="black" ></fw-icon> </fw-button>
+    <fw-button id="b3" size="icon" color="secondary"><fw-icon name="more-horizontal" color="black" ></fw-icon> </fw-button>
   </fw-button-group>
 </section>
 ```

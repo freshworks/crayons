@@ -142,7 +142,7 @@ export class Icon {
   }
 
   async loadFallbackImage() {
-    this.svgHTML = await fetchIcon(this.getUrl('image', 'crayons'));
+    this.svgHTML = await fetchIcon(this.getUrl('image', 'system'));
     this.dataSvg = this.svgHTML;
   }
 
