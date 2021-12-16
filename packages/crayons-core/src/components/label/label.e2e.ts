@@ -30,4 +30,28 @@ describe('fw-label', () => {
     await page.waitForChanges();
     expect(element.textContent).toEqual(`Label`);
   });
+
+  it('renders label with variant as pill', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-label value="dummy text" variant="pill"><fw-icon name="search"></fw-icon></fw-label>'
+    );
+    const element = await page.find('fw-label >>> span');
+
+    await page.waitForChanges();
+    expect(element).toHaveClass('pill');
+  });
+
+  it('renders label with icon', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-label value="dummy text"><fw-icon name="search"></fw-icon></fw-label>'
+    );
+    const element = await page.find('fw-label fw-icon');
+
+    await page.waitForChanges();
+    expect(element.shadowRoot.querySelector('div')).toHaveClass('icon');
+  });
 });

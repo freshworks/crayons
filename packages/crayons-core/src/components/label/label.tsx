@@ -1,5 +1,4 @@
 import { Component, Prop, h } from '@stencil/core';
-
 @Component({
   tag: 'fw-label',
   styleUrl: 'label.scss',
@@ -15,7 +14,9 @@ export class Label {
    * Display text in the label.
    */
   @Prop() value = '';
-
+  /**
+   * The variant of label to be displayed.
+   */
   @Prop() variant: 'standard' | 'pill' = 'standard';
 
   render() {
@@ -25,7 +26,7 @@ export class Label {
           this.variant === 'pill' ? 'pill' : ''
         }`}
       >
-        <slot name='icon' />
+        {this.variant === 'pill' ? <slot name='icon' /> : ''}
         {this.value}
       </span>
     );

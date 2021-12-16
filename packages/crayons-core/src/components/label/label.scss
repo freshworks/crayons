@@ -1,11 +1,13 @@
 /**
   @prop --label-padding-vertical: Top - bottom padding for label
   @prop --label-padding-horizontal: Left - right padding for label
+  @prop --label-border-radius: Border - radius for label
 */
 
 :host {
   --label-padding-vertical: 0;
   --label-padding-horizontal: 8px;
+  --label-border-radius: 4px;
 }
 
 .label {
@@ -15,49 +17,68 @@
   font-weight: 600;
   font-size: $font-size-12;
   padding: var(--label-padding-vertical) var(--label-padding-horizontal);
-  line-height: 22px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
-  border-radius: 4px;
+  border-radius: var(--label-border-radius);
+
+  ::slotted(fw-icon) {
+    margin-right: 8px;
+  }
 
   &--blue {
     background-color: $color-azure-50;
     color: $color-azure-800;
     border: 1px solid $color-azure-100;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-azure-800};
+    }
   }
 
   &--red {
     background-color: $color-persimmon-50;
     color: $color-persimmon-800;
     border: 1px solid $color-persimmon-100;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-persimmon-800};
+    }
   }
 
   &--green {
     background-color: $color-jungle-50;
     color: $color-jungle-800;
     border: 1px solid $color-jungle-100;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-jungle-800};
+    }
   }
 
   &--yellow {
     background-color: $color-casablanca-50;
     color: $color-casablanca-700;
     border: 1px solid $color-casablanca-100;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-casablanca-700};
+    }
   }
 
   &--grey {
     background-color: $color-smoke-50;
     color: $color-smoke-700;
     border: 1px solid $color-smoke-100;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-smoke-700};
+    }
   }
 
   &.pill {
     border-radius: 16px;
     border: unset;
     color: $color-elephant-900;
-    line-height: 24px;
-  }
-
-  ::slotted(fw-icon) {
-    margin-right: 8px;
   }
 }

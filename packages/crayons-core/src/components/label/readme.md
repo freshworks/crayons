@@ -10,6 +10,9 @@ fw-label displays an informational text component that identifies other componen
 <fw-label value="New" color="green"></fw-label>
 <fw-label value="Pending" color="yellow"></fw-label>
 <fw-label value="Archived" color="grey"></fw-label>
+<fw-label value="Label with icon" color="yellow" variant="pill">
+  <fw-icon name="lock" slot="icon"></fw-icon>
+</fw-label>
 ```
 
 ## Usage
@@ -23,6 +26,9 @@ fw-label displays an informational text component that identifies other componen
 <fw-label value="New" color="green"></fw-label>
 <fw-label value="Pending" color="yellow"></fw-label>
 <fw-label value="Archived" color="grey"></fw-label>
+<fw-label value="Label with icon" color="yellow" variant="pill">
+  <fw-icon name="lock" slot="icon"></fw-icon>
+</fw-label>
 ```
 </code-block>
 
@@ -30,7 +36,7 @@ fw-label displays an informational text component that identifies other componen
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FwLabel } from "@freshworks/crayons/react";
+import { FwLabel, FwIcon } from "@freshworks/crayons/react";
 function App() {
   return (<div>
     <FwLabel value="Meta Information"></FwLabel>
@@ -39,6 +45,9 @@ function App() {
     <FwLabel value="New" color="green"></FwLabel>
     <FwLabel value="Pending" color="yellow"></FwLabel>
     <FwLabel value="Archived" color="grey"></FwLabel>
+    <FwLabel value="Label with icon" color="yellow" variant="pill">
+      <FwIcon name="lock" slot="icon"></FwIcon>
+    <FwLabel>
  </div>);
 }
 ```
@@ -53,16 +62,18 @@ function App() {
 
 ## Properties
 
-| Property | Attribute | Description                               | Type                                                           | Default    |
-| -------- | --------- | ----------------------------------------- | -------------------------------------------------------------- | ---------- |
-| `color`  | `color`   | Theme based on which the label is styled. | `"blue" \| "green" \| "grey" \| "normal" \| "red" \| "yellow"` | `'normal'` |
-| `value`  | `value`   | Display text in the label.                | `string`                                                       | `''`       |
+| Property  | Attribute | Description                               | Type                                                           | Default      |
+| --------- | --------- | ----------------------------------------- | -------------------------------------------------------------- | ------------ |
+| `color`   | `color`   | Theme based on which the label is styled. | `"blue" \| "green" \| "grey" \| "normal" \| "red" \| "yellow"` | `'normal'`   |
+| `value`   | `value`   | Display text in the label.                | `string`                                                       | `''`         |
+| `variant` | `variant` | The variant of label to be displayed.     | `"pill" \| "standard"`                                         | `'standard'` |
 
 
 ## CSS Custom Properties
 
 | Name                         | Description                    |
 | ---------------------------- | ------------------------------ |
+| `--label-border-radius`      | Border - radius for label      |
 | `--label-padding-horizontal` | Left - right padding for label |
 | `--label-padding-vertical`   | Top - bottom padding for label |
 
