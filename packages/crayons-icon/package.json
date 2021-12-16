@@ -8,7 +8,7 @@
   "description": "Crayons-Icon as NodeJS-CLI Tool to optimize SVGs and generate JS Imports for icons.",
   "main": "dist/index.js",
   "bin": {
-    "fw-Optimize-Icons": "./bin/index.cli.js"
+    "fw-icon-cli": "./bin/index.cli.js"
   },
   "keywords": [
     "crayons-icon",
@@ -24,7 +24,7 @@
     "test": "",
     "build": "rm -rf ./dist && npm run optimize-icons && npm run generateSysIcons && gulp",
     "generateSysIcons": "node ./build.system.icons",
-    "optimize-icons": "node ./bin/index.cli.js",
+    "optimize-icons": "node ./bin/index.cli.js --cli false",
     "format": "prettier --write \"./**/*.{js,json}\""
   },
   "publishConfig": {

@@ -28,7 +28,7 @@ const flags = {
 	},
 	cli: {
 		type: `boolean`,
-		default: false,
+		default: true,
 		alias: `c`,
 		desc: `For CLI Usage`
 	},
