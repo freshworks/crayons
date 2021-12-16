@@ -27,9 +27,15 @@ for (const wwwBuild of wwwBuilds) {
 headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
 
 const getUtils = () =>
-  ['typography', 'spacing', 'border', 'layout', 'card', 'color'].map(
-    (util) => `/css-utils/${util}/`
-  );
+  [
+    'typography',
+    'spacing',
+    'border',
+    'layout',
+    'card',
+    'color',
+    'examples',
+  ].map((util) => `/css-utils/${util}/`);
 
 const getTags = () => [
   'Web Components',
