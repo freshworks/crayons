@@ -180,7 +180,7 @@ export class Icon {
     if (hasLabel) {
       accessibilityProps['role'] = 'img';
       accessibilityProps['aria-label'] = this.label;
-      accessibilityProps['aria-hidden'] = undefined;
+      accessibilityProps['aria-hidden'] = true;
     }
     if (this.size !== undefined) style['--icon-size'] = `${this.size}px`;
 
