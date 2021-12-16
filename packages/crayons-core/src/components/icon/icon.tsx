@@ -107,7 +107,8 @@ export class Icon {
         }
       } catch (ex) {
         console.info(
-          `Cannot load ${name}|${library} from CDN. Please check the url & provide a live path.`
+          `Cannot load ${name}|${library} from CDN. Please check the url & provide a live path.`,
+          ex
         );
         this.loadFallbackImage();
         return;
