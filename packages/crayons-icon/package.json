@@ -4,21 +4,52 @@
     "type": "git",
     "url": "https://github.com/freshworks/crayons.git"
   },
-  "version": "1.0.3",
-  "description": "This package contains all the necessary tooling for fw-crayons-icons",
+  "version": "3.0.0-beta.8",
+  "description": "Crayons-Icon as NodeJS-CLI Tool to optimize SVGs and generate JS Imports for icons.",
   "main": "dist/index.js",
+  "bin": {
+    "fw-icon-cli": "./bin/index.cli.js"
+  },
+  "keywords": [
+    "crayons-icon",
+    "Freshworks",
+    "svg optimizer cli"
+  ],
+  "files": [
+    "dist/",
+    "utils/",
+    "bin/"
+  ],
   "scripts": {
     "test": "",
-    "build": "npm run optimize-icons && gulp",
-    "optimize-icons": "svgo -f icons --config .svgo.yml"
+    "build": "rm -rf ./dist && npm run optimize-icons && npm run generateSysIcons && gulp",
+    "generateSysIcons": "node ./build.system.icons",
+    "optimize-icons": "node ./bin/index.cli.js --cli false",
+    "format": "prettier --write \"./**/*.{js,json}\""
   },
   "publishConfig": {
     "access": "public"
   },
   "license": "MIT",
   "author": "Freshworks Inc",
-  "devDependencies": {
-    "gulp": "^4.0.2",
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "cli-alerts": "^1.2.2",
+    "cli-handle-error": "^4.4.0",
+    "cli-handle-unhandled": "^1.1.1",
+    "cli-meow-help": "^2.0.2",
+    "cli-welcome": "^2.2.2",
+    "meow": "^9.0.0",
     "svgo": "^1.3.2"
+  },
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "fs-extra": "^10.0.0",
+    "gulp": "^4.0.2",
+    "gulp-svgmin": "^4.1.0",
+    "js-yaml": "^4.1.0",
+    "json-to-pretty-yaml": "^1.2.2",
+    "prettier": "^2.5.1",
+    "svgmin": "^0.1.0"
   }
 }

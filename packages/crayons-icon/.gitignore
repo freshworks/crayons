@@ -2,5 +2,6 @@
 node_modules/
 dist/
 package-lock.json
+generateSystemIcons.js
 .env.development
 .env.local.development
