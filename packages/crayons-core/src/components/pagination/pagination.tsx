@@ -6,7 +6,6 @@ import {
   Event,
   EventEmitter,
   Method,
-  State,
   Watch,
 } from '@stencil/core';
 @Component({
@@ -15,8 +14,8 @@ import {
   shadow: true,
 })
 export class Pagination {
-  @State() end;
-  @State() start;
+  private end;
+  private start;
 
   /**
    * The current page number.
@@ -73,7 +72,7 @@ export class Pagination {
   }
 
   private getStartRecord() {
-    return (this.page - 1) * this.perPage + 1;
+    return Math.max((this.page - 1) * this.perPage + 1, 1);
   }
 
   private getEndRecord() {
@@ -94,29 +93,16 @@ export class Pagination {
   }
 
   private goToPrevious() {
-    this.start = Math.max(this.start - this.perPage, 1);
-    this.end =
-      this.start - this.end !== this.perPage
-        ? this.start + this.perPage - 1
-        : this.end - this.perPage;
-
     this.page = Math.max(1, this.page - 1);
     this.fwChange.emit({
-      previousPage: this.page === 1 ? -1 : this.page - 1,
-      currentPage: this.page,
-      nextPage: this.page + 1,
+      page: this.page,
     });
   }
 
   private goToNext() {
-    this.start =
-      this.end !== this.total ? this.start + this.perPage : this.start;
-    this.end = Math.min(this.end + this.perPage, this.total);
     this.page = Math.min(this.getLastPage(), this.page + 1);
     this.fwChange.emit({
-      previousPage: this.page - 1,
-      currentPage: this.page,
-      nextPage: this.page === this.getLastPage() ? -1 : this.page + 1,
+      page: this.page,
     });
   }
 
