@@ -1,16 +1,15 @@
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('js-yaml');
 
 const generateIconsExportData = async () => {
-	const iconAssetLibPath = './dist/icons';
-	const iconLibPath = './dist';
+	const icons_out_dir = './dist/icons';
+	const out_dir = './dist';
 
 	const getIconsSVGData = async svgFile => {
 		try {
 			{
 				const svgName = path.parse(svgFile).name;
-				const svgFilePath = path.join(iconAssetLibPath, svgFile);
+				const svgFilePath = path.join(icons_out_dir, svgFile);
 				const svgContent = await fs.readFile(svgFilePath);
 
 				const svg_name =
@@ -31,24 +30,16 @@ const generateIconsExportData = async () => {
 	};
 	try {
 		let indexData = '';
-		const allSvgFiles = await fs.readdir(path.join(iconAssetLibPath, ''));
+		const allSvgFiles = await fs.readdir(path.join(icons_out_dir, ''));
 		for (const svgFile of allSvgFiles) {
 			indexData = indexData + (await getIconsSVGData(svgFile)) + '\n';
 		}
-		fs.mkdir(iconLibPath, { recursive: true }).catch(console.error);
-		fs.writeFile(path.join(iconLibPath, 'index.js'), indexData);
+		fs.mkdir(out_dir, { recursive: true }).catch(console.error);
+		fs.writeFile(path.join(out_dir, 'index.js'), indexData);
 		console.log(
 			`Succesfully written @freshworks/crayons-icon/dist/index.js`
 		);
-		const svgo_yml = await fs.readFile('default.svgo.yml','utf8');
-		const doc = yaml.load(svgo_yml);
-		let pluginOptions = JSON.stringify(doc.plugins);
-        console.log('data',pluginOptions);
-        let data = `module.exports = () => { return pluginOptions = ${pluginOptions}};`
-		fs.writeFile(path.join(iconLibPath, 'default.svgo.config.js'), data);
-		console.log(
-			`Succesfully written @freshworks/crayons-icon/dist/default.svgo.config.js`
-		);
+		
 	} catch (ex) {
 		console.error(`Exception occured while building : ${ex}`);
 	}

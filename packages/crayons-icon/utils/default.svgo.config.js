@@ -1,5 +1,5 @@
 module.exports = () => {
-  return pluginOptions = [
+  return pluginOptions = JSON.stringify({ plugins :[
     { removeDoctype: false },
     { removeXMLProcInst: false },
     { removeComments: false },
@@ -49,5 +49,5 @@ module.exports = () => {
     { addAttributesToSVGElement: false },
     { removeOffCanvasPaths: false },
     { reusePaths: false }
-  ]
+  ]})
 } 

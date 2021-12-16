@@ -25,7 +25,7 @@ async function build(rootDir, srcDir, distDir, loadConfigPlugins) {
 }
 async function optimizeSvgs(srcSvgData, loadConfigPlugins) {
 	let pluginOptions = [];
-	loadConfigPlugins.forEach(function (data, index) {
+	loadConfigPlugins.plugins.forEach(function (data, index) {
 		for (key in data) {
 			if (data[key]) pluginOptions = [...pluginOptions, data];
 		}

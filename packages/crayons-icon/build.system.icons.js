@@ -6,21 +6,19 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const generateIconsExportData = async () => {
-	const iconAssetLibPath = './icons';
-	const iconLibPath = './dist';
+	const src_icon_dir = './dist/icons';
+	const out_dir = './dist';
 
 	const getIconsSVGData = async svgFile => {
 		try {
-			{
 				const svgName = path.parse(svgFile).name;
-				const svgFilePath = path.join(iconAssetLibPath, svgFile);
+				const svgFilePath = path.join(src_icon_dir, svgFile);
 				const svgContent = await fs.readFile(svgFilePath);
 
 				const svg_string = svgContent.toString().split('"').join("'");
 
 				const svg_export_data = `'${svgName}' : "${svg_string}",`;
 				return svg_export_data;
-			}
 		} catch (ex) {
 			console.error(ex);
 			throw ex;
@@ -28,51 +26,28 @@ const generateIconsExportData = async () => {
 	};
 	try {
 		const system_icons = [
-			'add-contact',
-			'agent',
-			'alert',
-			'calendar',
-			'calendar-time',
-			'chat-online',
-			'check',
-			'chevron-down',
-			'chevron-up',
-			'code',
-			'cross',
-			'cross-big',
-			'delete',
-			'ecommerce',
-			'error',
-			'freshchat',
-			'freshconnect',
-			'image',
-			'info',
-			'magic-wand',
-			'minus',
-			'more-horizontal',
-			'phone',
-			'plus',
-			'reply',
-			'rewards',
-			'search',
-			'success',
-			'ticket-primary',
-			'verified',
-			'vertical-align-bottom',
-			'vertical-align-top',
-			'warning'
-		];
+			"check",
+			"chevron-down",
+			"chevron-up",
+			"cross",
+			"cross-big",
+			"error",	
+			"image",	
+			"info",	
+			"success",	
+			"warning"
+		  ];
 
 		let indexData = 'const crayons_system_icons = {';
-		const allSvgFiles = await fs.readdir(path.join(iconAssetLibPath, ''));
+		const allSvgFiles = await fs.readdir(path.join(src_icon_dir, ''));
 		for (const svgFile of allSvgFiles) {
 			const svgName = path.parse(svgFile).name;
 			if (system_icons.includes(svgName))
 				indexData = indexData + (await getIconsSVGData(svgFile)) + '\n';
 		}
-		fs.mkdir(iconLibPath, { recursive: true }).catch(console.error);
+		fs.mkdir(out_dir, { recursive: true }).catch(console.error);
 		indexData = indexData + '};';
-		fs.writeFile(path.join(iconLibPath, 'index-system.js'), indexData);
+		fs.writeFile(path.join(out_dir, 'index-system.js'), indexData);
 		console.log(
 			`Succesfully written @freshworks/crayons-icon/dist/index-system.js`
 		);

@@ -13,18 +13,17 @@
   "keywords": [
     "crayons-icon",
     "Freshworks",
-    "crayons-icon-cli"
+    "svg optimizer cli"
   ],
   "files": [
     "dist/",
-    "icons/",
     "utils/",
     "bin/"
   ],
   "scripts": {
     "test": "",
-    "build": "npm run optimize-icons && gulp",
-    "generateSysIcons": "node ./build.icons.system",
+    "build": "rm -rf ./dist && npm run optimize-icons && npm run generateSysIcons && gulp",
+    "generateSysIcons": "node ./build.system.icons",
     "optimize-icons": "node ./bin/index.cli.js",
     "format": "prettier --write \"./**/*.{js,json}\""
   },
@@ -49,6 +48,7 @@
     "gulp": "^4.0.2",
     "gulp-svgmin": "^4.1.0",
     "js-yaml": "^4.1.0",
+    "json-to-pretty-yaml": "^1.2.2",
     "prettier": "^2.5.1",
     "svgmin": "^0.1.0"
   }

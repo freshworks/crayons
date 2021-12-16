@@ -18,27 +18,37 @@ const flags = cli.flags;
 const { clear, debug } = flags;
 const yaml = require('js-yaml');
 const fs = require('fs');
-
+const JSON2YAML = require('json-to-pretty-yaml');
+ 
 (async () => {
 	init({ clear });
 	input.includes(`help`) ? cli.showHelp(0) : '';
 	console.log('cli-command :', input, '--params :', flags);
+
+	const dump_yml = (defPluginOptions,cli) => {
+		let dir = (!cli)? './dist':flags.destYml;
+		fs.promises.mkdir(dir, { recursive: true }).catch(console.error);
+		const data = JSON2YAML.stringify(defPluginOptions);
+		fs.writeFileSync(path.join(dir, 'fw-crayons.icon.svgo.yml'), data);
+		console.log('fw-crayons.icon.svgo.yml generated at',dir);
+	}
+	
 	try {
-		
-		let pluginOptions = [];
+		if(input.length>0 && !input.includes(`svgoYML`) && !input.includes(`help`))
+		  throw new Error('Invalid Command');
+		let pluginOptions;
 		if(flags.config === 'default') {
-			pluginOptions = [...defPluginOptions()];
+			pluginOptions = JSON.parse(defPluginOptions());
+			if(!flags.cli)
+			  dump_yml(pluginOptions,flags.cli);
 		}else{
 			const ymlFile = fs.readFileSync(flags.config, 'utf8');
-		    const doc = yaml.load(ymlFile);
-			pluginOptions = [...doc.plugins];
+		    pluginOptions = yaml.load(ymlFile);
 		}
 		console.log('Applied -pluginOptions :',pluginOptions);
-		input.includes(`defaultConfig`)
-			? console.log(
-					'System File :svgo.yml | Leaf-Note: You may filter copy the content under plugins section and set to true, create your custom .yml file and feed that to cli. \n',
-					defPluginOptions()
-			  )
+
+		input.includes(`svgoYML`)
+			? dump_yml(pluginOptions,flags.cli)
 			: build(
 					path.join('./'),
 					flags.source,
@@ -46,7 +56,7 @@ const fs = require('fs');
 					pluginOptions
 			  );
 	} catch (e) {
-		console.log(e);
+		console.log('Invalid Command or Options. Kindly see help topics by passing help command.',e);
 	}
 	debug && log(flags);
 })();
