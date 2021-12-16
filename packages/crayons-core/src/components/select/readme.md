@@ -685,7 +685,7 @@ export default App;
 
 ```jsx
 function Select() {
-  let baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  var baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
   const searchFn = (value, source) => {
     // Sample function to mimic the dynamic filter over network
     return fetch(baseURL)
@@ -873,16 +873,16 @@ export default Select;
   multiple
 ></fw-select>
 <script type="application/javascript">
-  let years = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
+  var yearsData = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
     return { value: x.toString(), text: x.toString() };
   });
 
-  let longSelect = document.getElementById('longSelect');
-  longSelect.options = years;
+  var longSelect = document.getElementById('longSelect');
+  longSelect.options = yearsData;
   longSelect.value = '2021';
 
-  let longSelectMulti = document.getElementById('longSelectMulti');
-  longSelectMulti.options = years;
+  var longSelectMulti = document.getElementById('longSelectMulti');
+  longSelectMulti.options = yearsData;
 </script>
 ```
 
@@ -996,6 +996,7 @@ Type: `Promise<any>`
 - [fw-popover](../popover)
 - [fw-button](../button)
 - [fw-spinner](../spinner)
+- [fw-icon](../icon)
 - [fw-list-options](../options-list)
 
 ### Graph
@@ -1005,6 +1006,7 @@ graph TD;
   fw-select --> fw-popover
   fw-select --> fw-button
   fw-select --> fw-spinner
+  fw-select --> fw-icon
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon

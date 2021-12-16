@@ -5,10 +5,39 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { AccordionToggleEvent } from "./components/accordion/accordion";
+import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { FormRenderProps, FwFormEventDetail } from "./components/form/form-declaration";
-import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
+    interface FwAccordion {
+        /**
+          * To manage accordion expanded or collapsed state
+         */
+        "expanded": boolean;
+        /**
+          * Method available from the component to toggle expanded or collapsed state of accordion
+          * @returns promise that resolves to true
+         */
+        "toggle": () => Promise<boolean>;
+        /**
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
+         */
+        "type": 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionBody {
+        "expanded": boolean;
+        "type": 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionTitle {
+        "expanded": boolean;
+        "toggleState": any;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow": boolean;
+        "type": 'default' | 'no_bounding_box';
+    }
     interface FwAvatar {
         "alt": string;
         "image": string;
@@ -40,6 +69,7 @@ export namespace Components {
           * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId": string;
+        "setFocus": () => Promise<any>;
         /**
           * Caret indicator for the button, Default value is false.
          */
@@ -96,6 +126,34 @@ export namespace Components {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+    }
+    interface FwDataTable {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns": DataTableColumn[];
+        /**
+          * getSelectedIds
+          * @returns an array of selected row IDs
+         */
+        "getSelectedIds": () => Promise<string[]>;
+        /**
+          * getSelectedRows
+          * @returns selected rows from the data table
+         */
+        "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable": boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label": string;
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows": DataTableRow[];
     }
     interface FwDatepicker {
         /**
@@ -479,6 +537,10 @@ export namespace Components {
     }
     interface FwPopover {
         /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent": boolean;
+        /**
           * The area that the popup will be checked for overflow relative to.
          */
         "boundary": HTMLElement;
@@ -499,6 +561,10 @@ export namespace Components {
          */
         "hasBorder": boolean;
         "hide": () => Promise<void>;
+        /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab": boolean;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
@@ -1100,6 +1166,79 @@ export namespace Components {
          */
         "size": 'small' | 'medium' | 'large';
     }
+    interface FwToggleGroup {
+        /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label": string;
+        /**
+          * Boolean value to allow multiple selection or single child selection
+         */
+        "multiple": boolean;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name": string;
+        "setSelectedValues": (values: string | string[]) => Promise<void>;
+        /**
+          * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
+         */
+        "value": any;
+    }
+    interface FwToggleGroupButton {
+        /**
+          * sets the default base class name and the rest of the class names for the other states are automatically appended to this
+         */
+        "baseClassName": string;
+        /**
+          * Label displayed as description in the card.
+         */
+        "description": string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
+          * Label displayed as header in the card.
+         */
+        "header": string;
+        /**
+          * If the button type is icon, set the icon path to be used
+         */
+        "iconName": string;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
+        /**
+          * Enables the component to be used as a part of multi selection group
+         */
+        "isCheckbox": boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name": string;
+        /**
+          * Enables the component to be used as a toggle button or just to be used as a normal button
+         */
+        "selectable": boolean;
+        /**
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected": boolean;
+        /**
+          * Public method exposed to set the focus for the button component - to be used for accessibility
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * sets the type of the button
+         */
+        "type": 'card' | 'icon' | 'custom';
+        /**
+          * Identifier corresponding to the component, that is saved when the form data is saved.
+         */
+        "value": string;
+    }
     interface FwTooltip {
         /**
           * Content of the tooltip.
@@ -1138,6 +1277,24 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwAccordionElement extends Components.FwAccordion, HTMLStencilElement {
+    }
+    var HTMLFwAccordionElement: {
+        prototype: HTMLFwAccordionElement;
+        new (): HTMLFwAccordionElement;
+    };
+    interface HTMLFwAccordionBodyElement extends Components.FwAccordionBody, HTMLStencilElement {
+    }
+    var HTMLFwAccordionBodyElement: {
+        prototype: HTMLFwAccordionBodyElement;
+        new (): HTMLFwAccordionBodyElement;
+    };
+    interface HTMLFwAccordionTitleElement extends Components.FwAccordionTitle, HTMLStencilElement {
+    }
+    var HTMLFwAccordionTitleElement: {
+        prototype: HTMLFwAccordionTitleElement;
+        new (): HTMLFwAccordionTitleElement;
+    };
     interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
     }
     var HTMLFwAvatarElement: {
@@ -1161,6 +1318,12 @@ declare global {
     var HTMLFwCheckboxElement: {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
+    };
+    interface HTMLFwDataTableElement extends Components.FwDataTable, HTMLStencilElement {
+    }
+    var HTMLFwDataTableElement: {
+        prototype: HTMLFwDataTableElement;
+        new (): HTMLFwDataTableElement;
     };
     interface HTMLFwDatepickerElement extends Components.FwDatepicker, HTMLStencilElement {
     }
@@ -1342,6 +1505,18 @@ declare global {
         prototype: HTMLFwToggleElement;
         new (): HTMLFwToggleElement;
     };
+    interface HTMLFwToggleGroupElement extends Components.FwToggleGroup, HTMLStencilElement {
+    }
+    var HTMLFwToggleGroupElement: {
+        prototype: HTMLFwToggleGroupElement;
+        new (): HTMLFwToggleGroupElement;
+    };
+    interface HTMLFwToggleGroupButtonElement extends Components.FwToggleGroupButton, HTMLStencilElement {
+    }
+    var HTMLFwToggleGroupButtonElement: {
+        prototype: HTMLFwToggleGroupButtonElement;
+        new (): HTMLFwToggleGroupButtonElement;
+    };
     interface HTMLFwTooltipElement extends Components.FwTooltip, HTMLStencilElement {
     }
     var HTMLFwTooltipElement: {
@@ -1349,10 +1524,14 @@ declare global {
         new (): HTMLFwTooltipElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-accordion": HTMLFwAccordionElement;
+        "fw-accordion-body": HTMLFwAccordionBodyElement;
+        "fw-accordion-title": HTMLFwAccordionTitleElement;
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-form": HTMLFwFormElement;
@@ -1383,10 +1562,39 @@ declare global {
         "fw-toast": HTMLFwToastElement;
         "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
+        "fw-toggle-group": HTMLFwToggleGroupElement;
+        "fw-toggle-group-button": HTMLFwToggleGroupButtonElement;
         "fw-tooltip": HTMLFwTooltipElement;
     }
 }
 declare namespace LocalJSX {
+    interface FwAccordion {
+        /**
+          * To manage accordion expanded or collapsed state
+         */
+        "expanded"?: boolean;
+        /**
+          * Triggered when the accordion is expanded or collapsed
+         */
+        "onFwAccordionToggle"?: (event: CustomEvent<AccordionToggleEvent>) => void;
+        /**
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
+         */
+        "type"?: 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionBody {
+        "expanded"?: boolean;
+        "type"?: 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionTitle {
+        "expanded"?: boolean;
+        "toggleState"?: any;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow"?: boolean;
+        "type"?: 'default' | 'no_bounding_box';
+    }
     interface FwAvatar {
         "alt"?: string;
         "image"?: string;
@@ -1494,6 +1702,28 @@ declare namespace LocalJSX {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+    }
+    interface FwDataTable {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns"?: DataTableColumn[];
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable"?: boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label"?: string;
+        /**
+          * fwSelectionChange Emits this event when row is selected/unselected.
+         */
+        "onFwSelectionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows"?: DataTableRow[];
     }
     interface FwDatepicker {
         /**
@@ -1908,6 +2138,10 @@ declare namespace LocalJSX {
     }
     interface FwPopover {
         /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent"?: boolean;
+        /**
           * The area that the popup will be checked for overflow relative to.
          */
         "boundary"?: HTMLElement;
@@ -1927,6 +2161,10 @@ declare namespace LocalJSX {
           * Option to determine if popover-content has a border.
          */
         "hasBorder"?: boolean;
+        /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab"?: boolean;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
@@ -2584,6 +2822,82 @@ declare namespace LocalJSX {
          */
         "size"?: 'small' | 'medium' | 'large';
     }
+    interface FwToggleGroup {
+        /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label"?: string;
+        /**
+          * Boolean value to allow multiple selection or single child selection
+         */
+        "multiple"?: boolean;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when an option in the Toggle Group is selected or deselected.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
+         */
+        "value"?: any;
+    }
+    interface FwToggleGroupButton {
+        /**
+          * sets the default base class name and the rest of the class names for the other states are automatically appended to this
+         */
+        "baseClassName"?: string;
+        /**
+          * Label displayed as description in the card.
+         */
+        "description"?: string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * Label displayed as header in the card.
+         */
+        "header"?: string;
+        /**
+          * If the button type is icon, set the icon path to be used
+         */
+        "iconName"?: string;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
+        /**
+          * Enables the component to be used as a part of multi selection group
+         */
+        "isCheckbox"?: boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when the card in focus is selected.
+         */
+        "onFwToggled"?: (event: CustomEvent<any>) => void;
+        /**
+          * Enables the component to be used as a toggle button or just to be used as a normal button
+         */
+        "selectable"?: boolean;
+        /**
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected"?: boolean;
+        /**
+          * sets the type of the button
+         */
+        "type"?: 'card' | 'icon' | 'custom';
+        /**
+          * Identifier corresponding to the component, that is saved when the form data is saved.
+         */
+        "value"?: string;
+    }
     interface FwTooltip {
         /**
           * Content of the tooltip.
@@ -2611,10 +2925,14 @@ declare namespace LocalJSX {
         "trigger"?: PopoverTriggerType;
     }
     interface IntrinsicElements {
+        "fw-accordion": FwAccordion;
+        "fw-accordion-body": FwAccordionBody;
+        "fw-accordion-title": FwAccordionTitle;
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-form": FwForm;
@@ -2645,6 +2963,8 @@ declare namespace LocalJSX {
         "fw-toast": FwToast;
         "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
+        "fw-toggle-group": FwToggleGroup;
+        "fw-toggle-group-button": FwToggleGroupButton;
         "fw-tooltip": FwTooltip;
     }
 }
@@ -2652,10 +2972,14 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-accordion": LocalJSX.FwAccordion & JSXBase.HTMLAttributes<HTMLFwAccordionElement>;
+            "fw-accordion-body": LocalJSX.FwAccordionBody & JSXBase.HTMLAttributes<HTMLFwAccordionBodyElement>;
+            "fw-accordion-title": LocalJSX.FwAccordionTitle & JSXBase.HTMLAttributes<HTMLFwAccordionTitleElement>;
             "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
@@ -2686,6 +3010,8 @@ declare module "@stencil/core" {
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
             "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
+            "fw-toggle-group": LocalJSX.FwToggleGroup & JSXBase.HTMLAttributes<HTMLFwToggleGroupElement>;
+            "fw-toggle-group-button": LocalJSX.FwToggleGroupButton & JSXBase.HTMLAttributes<HTMLFwToggleGroupButtonElement>;
             "fw-tooltip": LocalJSX.FwTooltip & JSXBase.HTMLAttributes<HTMLFwTooltipElement>;
         }
     }

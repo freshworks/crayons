@@ -59,30 +59,36 @@ The following are the icons supported:
 
 ### Used by
 
+ - [fw-accordion-title](../accordion-title)
  - [fw-button](../button)
  - [fw-dropdown-button](../dropdown-button)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
+ - [fw-select](../select)
  - [fw-select-option](../select-option)
  - [fw-tag](../tag)
  - [fw-toast-message](../toast-message)
  - [fw-toggle](../toggle)
+ - [fw-toggle-group-button](../toggle-group-button)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-accordion-title --> fw-icon
   fw-button --> fw-icon
   fw-dropdown-button --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon
+  fw-select --> fw-icon
   fw-select-option --> fw-icon
   fw-tag --> fw-icon
   fw-toast-message --> fw-icon
   fw-toggle --> fw-icon
+  fw-toggle-group-button --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -77,6 +77,7 @@ Type: `Promise<HTMLInputElement>`
 
 ### Used by
 
+ - [fw-data-table](../data-table)
  - [fw-dropdown-button](../dropdown-button)
  - [fw-form-wrapper](../form-wrapper)
  - [fw-select-option](../select-option)
@@ -84,6 +85,7 @@ Type: `Promise<HTMLInputElement>`
 ### Graph
 ```mermaid
 graph TD;
+  fw-data-table --> fw-checkbox
   fw-dropdown-button --> fw-checkbox
   fw-form-wrapper --> fw-checkbox
   fw-select-option --> fw-checkbox
