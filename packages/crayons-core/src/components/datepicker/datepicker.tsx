@@ -92,6 +92,15 @@ export class Datepicker {
    *   Text displayed in the input box before a user selects a date or date range.
    */
   @Prop({ mutable: true }) placeholder: string;
+
+  /**
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+
+  @Prop() handleInput = (_e, _o) => {};
+  @Prop() handleBlur = (_e, _o) => {};
+
   /**
    *   Triggered when the update button clicked
    */
@@ -138,6 +147,7 @@ export class Datepicker {
 
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
+    this.handleInput(null, { value: eventDetails });
   }
 
   focusElement(element: HTMLElement) {
@@ -163,8 +173,8 @@ export class Datepicker {
       };
     }
     return this.displayFormat
-      ? moment(this.value, this.displayFormat).format()
-      : moment(this.value).format();
+      ? (this.value && moment(this.value, this.displayFormat).format()) || ''
+      : (this.value && moment(this.value).format()) || '';
   }
 
   @Listen('keydown')
@@ -750,6 +760,11 @@ export class Datepicker {
   private showDateRangePicker() {
     return this.showDatePicker && this.mode === 'range';
   }
+
+  private onBlur = async (e) => {
+    this.handleBlur(e, { value: await this.getValue() });
+  };
+
   render() {
     const { host, name, value } = this;
 
@@ -770,6 +785,8 @@ export class Datepicker {
           placeholder={this.placeholder}
           title={this.placeholder}
           iconRight='calendar'
+          required={this.required}
+          onBlur={this.onBlur}
         ></fw-input>
         {this.showSingleDatePicker() ? (
           <div class='datepicker' slot='popover-content'>

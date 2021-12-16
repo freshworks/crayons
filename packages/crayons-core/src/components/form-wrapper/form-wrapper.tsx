@@ -52,6 +52,21 @@ const formSchema = {
     },
 
     {
+      id: 'date_id',
+      type: 'date',
+      label: 'Date',
+      name: 'date',
+      position: 1,
+      required: true,
+      editable: true,
+      custom: false,
+      inputType: 'date',
+      placeholder: 'Enter date...',
+      fieldOptions: {},
+      fields: [],
+    },
+
+    {
       id: 'description_id',
       type: 'textarea',
       label: 'Description',
@@ -201,6 +216,7 @@ function createYupSchema(schema, config) {
   switch (inputType) {
     case 'text':
     case 'textarea':
+    case 'date':
       yupType = 'string';
       break;
     case 'url':
@@ -344,8 +360,24 @@ export class FormWrapper {
                       );
                       break;
 
-                    case 'datepicker':
-                      cmp = <fw-datepicker></fw-datepicker>;
+                    case 'date':
+                      cmp = (
+                        <Fragment>
+                          <fw-datepicker
+                            {...inputProps(field.name, field.inputType)}
+                            label={field.label}
+                            placeholder={field.placeholder}
+                            name={field.name}
+                            required={field.required}
+                          ></fw-datepicker>
+                          {touched[field.name] && errors[field.name] && (
+                            <label class='error' {...labelProps(field.name)}>
+                              {' '}
+                              {errors[field.name]}{' '}
+                            </label>
+                          )}
+                        </Fragment>
+                      );
                       break;
                     case 'timepicker':
                       cmp = <fw-timepicker></fw-timepicker>;

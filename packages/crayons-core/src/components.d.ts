@@ -165,6 +165,8 @@ export namespace Components {
          */
         "fromDate": string;
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
+        "handleBlur": (_e: any, _o: any) => void;
+        "handleInput": (_e: any, _o: any) => void;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
@@ -185,6 +187,10 @@ export namespace Components {
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder": string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -1734,6 +1740,8 @@ declare namespace LocalJSX {
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
+        "handleBlur"?: (_e: any, _o: any) => void;
+        "handleInput"?: (_e: any, _o: any) => void;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
@@ -1758,6 +1766,10 @@ declare namespace LocalJSX {
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */

@@ -8,7 +8,6 @@ export const isFormParticipantElement = (type: string) =>
     'email',
     'number',
     'tel',
-    'input',
     'textarea',
     'select',
     'checkbox',
@@ -22,9 +21,7 @@ export const isInputElement = (type: string): boolean =>
     'email',
     'number',
     'tel',
-    'input',
     'textarea',
-    'select',
     'checkbox',
     'radio',
     'date',
@@ -40,36 +37,16 @@ export const isDateType = (type: string): boolean => !!type && type === 'date';
 export const isSelectType = (type: string): boolean =>
   !!type && type === 'select';
 
-/** TODO: Date gets funky here, because pickers are in UTC instead of local. wontfix, just document it */
-export const copyValidityState = (
-  element: HTMLInputElement | HTMLTextAreaElement
-): ValidityState => {
-  if (!element || (element && !element.validity)) return;
-
-  const { validity } = element;
-
-  let state: ValidityState = {} as any;
-  for (const key in validity) {
-    state = { ...state, [key]: validity[key] };
-  }
-
-  return state;
-};
-
-/** TODO: Date gets funky here, because pickers are in UTC instead of local. wontfix, just document it */
 export const getElementValue = (type: string, ref: any): any => {
   if (isFormParticipantElement(type)) {
     let value: any = ref.value;
 
     if (isInputElement(type)) {
-      if (isNumberType(type)) {
-        value = ref.value;
-      } else if (isCheckboxType(type)) {
+      if (isCheckboxType(type)) {
         value = ref.checked;
+      } else if (isDateType(type)) {
+        value = ref.value;
       }
-      // } else if (isDateType(element)) {
-      //     value = (element as HTMLInputElement).valueAsDate;
-      // }
     }
 
     return value;

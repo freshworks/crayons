@@ -111,6 +111,8 @@ export class Form implements FormConfig {
     this.isSubmitting = true;
     this.submitCount++;
     const { setSubmitting } = this;
+
+    console.log({ values: this.values });
     this.onFormSubmit.emit({ values: this.values, actions: { setSubmitting } });
   };
 
