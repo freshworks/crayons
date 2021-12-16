@@ -136,6 +136,10 @@ export class Datepicker {
     document.addEventListener('keydown', this.escapeHandler);
   }
 
+  private handleChange(eventDetails) {
+    this.fwChange.emit(eventDetails);
+  }
+
   focusElement(element: HTMLElement) {
     element.focus();
   }
@@ -198,7 +202,7 @@ export class Datepicker {
       }
       this.fromDate = this.startDateFormatted;
       this.toDate = this.endDateFormatted;
-      this.fwChange.emit({
+      this.handleChange({
         fromDate: this.formatDate(this.startDateFormatted),
         toDate: this.formatDate(this.endDateFormatted),
       });
@@ -206,7 +210,7 @@ export class Datepicker {
       this.value = moment([this.year, this.month, this.selectedDay]).format(
         this.displayFormat
       );
-      this.fwChange.emit(this.formatDate(this.value));
+      this.handleChange(this.formatDate(this.value));
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
@@ -221,7 +225,7 @@ export class Datepicker {
   @Listen('fwChange')
   handleMonthYearDropDownSelection(e) {
     if (e.path[0].tagName !== 'FW-DATEPICKER') {
-      e.stopPropagation();
+      e.stopImmediatePropagation();
     }
 
     if (e.path[0].tagName === 'FW-INPUT') {
@@ -584,7 +588,7 @@ export class Datepicker {
         this.endDateFormatted = moment(this.endDate).format(this.displayFormat);
         if (this.startDate && this.endDate) {
           this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
-          this.fwChange.emit({
+          this.handleChange({
             fromDate: this.formatDate(this.startDateFormatted),
             toDate: this.formatDate(this.endDateFormatted),
           });
@@ -597,7 +601,7 @@ export class Datepicker {
         this.value = moment([this.year, this.month, this.selectedDay]).format(
           this.displayFormat
         );
-        this.fwChange.emit(this.formatDate(this.value));
+        this.handleChange(this.formatDate(this.value));
         this.showDatePicker = false;
         this.host.shadowRoot.querySelector('fw-popover').hide();
       }
