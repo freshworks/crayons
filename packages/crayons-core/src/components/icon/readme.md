@@ -6,8 +6,8 @@ Following features are available as part of the implementation of the fw-icon.
 1. Enable fw-icon as an optimized renderer for SVG with built-in functions such as Intersection-Observer and Fetch-API Memoization.
    Go through the docs to understand the various props it supports.
 2. Providing icon-support for crayons-system components and also exposing crayons-icon set for public use with inbuilt support for external icon-libraries also.
-3. Icons can convey all sorts of meaningful information and can have a semantic meaning rather than just being decorational. In order to keep such icons accessibility     
-   tree compliant, just pass the 'label' props and fw-icon handles the assistive sr-compliance.
+3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the accessibility tree, just 
+   pass the 'label' props and fw-icon handles the assistive sr-compliance.
 
 ## Examples Live
 
@@ -199,8 +199,8 @@ export default App;
 
 ## CLI Tool for processing SVGs
 
-@frehsworks/crayons-icon is also available as a CLI Tool for processing SVGs with friendlier interface, options and easy customizaable config to optimize your SVGs. See the usage below. 
-It comes with a ultra tuned config. We support YML Config convention as its better in readability and easy to modify than a JSON. You may use the in-built CLI command to get the fw-icon default YML File at your command root/ desired location, which you can further customize and use with the CLI Tool. With @frehsworks/crayons-icon, one also gets access to optimized Crayons-Icons, available as part of /dist folder.You are free to use them for your project purposes.
+@freshworks/crayons-icon is also available as a CLI Tool for processing SVGs with a friendlier interface, options and easily customizable config to optimize your SVGs. See the usage below. 
+It comes with a ultra tuned config. We support YML Config convention as its better in readability and is easy to modify than a JSON. You may use the in-built CLI command to get the fw-icon default YML File at your command root/ desired location, which you can further customize and use with the CLI Tool. With @freshworks/crayons-icon, one also gets access to optimized Crayons-Icons, available as part of /dist folder.You are free to use them for your project purposes.
 
 <IconCLIShowcase/>
 
