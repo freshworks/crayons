@@ -898,6 +898,9 @@ export default Select;
 | `debounceTimer`    | `debounce-timer`    | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                                                                                                                                             | `300`                 |
 | `disabled`         | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                                                                                                                                            | `false`               |
 | `forceSelect`      | `force-select`      | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                                                                                                                                                            | `true`                |
+| `handleBlur`       | --                  |                                                                                                                                                                                                                                           | `(_e: any, _o: any) => void`                                                                                                                                         | `(_e, _o) => {}`      |
+| `handleChange`     | --                  |                                                                                                                                                                                                                                           | `(_e: any, _o: any) => void`                                                                                                                                         | `(_e, _o) => {}`      |
+| `handleFocus`      | --                  |                                                                                                                                                                                                                                           | `(_e?: any, _o?: any) => void`                                                                                                                                       | `(_e?, _o?) => {}`    |
 | `label`            | `label`             | Label displayed on the interface, for the component.                                                                                                                                                                                      | `string`                                                                                                                                                             | `''`                  |
 | `labelledBy`       | `labelled-by`       | If the default label prop is not used, then use this prop to pass the id of the label.                                                                                                                                                    | `string`                                                                                                                                                             | `''`                  |
 | `max`              | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                                                                                                                                             | `Number.MAX_VALUE`    |
@@ -988,6 +991,7 @@ Type: `Promise<any>`
 ### Used by
 
  - [fw-datepicker](../datepicker)
+ - [fw-form-wrapper](../form-wrapper)
  - [fw-timepicker](../timepicker)
 
 ### Depends on
@@ -1022,6 +1026,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-input --> fw-icon
   fw-datepicker --> fw-select
+  fw-form-wrapper --> fw-select
   fw-timepicker --> fw-select
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```

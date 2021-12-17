@@ -35,7 +35,6 @@ let formIds = 0;
 export class Form implements FormConfig {
   @Element() el!: any;
   private groups: { [key: string]: HTMLElement } = {} as any;
-  private inputs: HTMLInputElement[] = [];
   private formId = `crayons-form-${formIds++}`;
   private dirty = false;
   private formRef;
@@ -153,7 +152,7 @@ export class Form implements FormConfig {
     };
 
   handleBlur =
-    (field: string, inputType: string) => (event: Event, ref: any) => {
+    (field: string, inputType: string) => (_event: Event, ref: any) => {
       if (this.focused) this.focused = null;
       if (!this.touched[field])
         this.touched = { ...this.touched, [field]: true };
@@ -167,8 +166,8 @@ export class Form implements FormConfig {
   handleFocus =
     (field: string, _inputType: string) => (_event: Event, _ref: any) => {
       this.focused = field;
-      if (!this.touched[field])
-        this.touched = { ...this.touched, [field]: true };
+      // if (!this.touched[field])
+      //   this.touched = { ...this.touched, [field]: true };
     };
 
   private composedState = (): FormState<FormValues> => {
@@ -253,16 +252,16 @@ export class Form implements FormConfig {
     const checkboxProps = (field: keyof FormValues) => ({
       ...inputProps(field, 'checkbox'),
       type: 'checkbox',
-
       checked: !!this.values[field],
     });
 
     const selectProps = (field: keyof FormValues) => ({
-      ...inputProps(field, 'select'),
       type: 'select',
       name: field,
       id: `${this.formId}-input-${field}`,
-      value: this.values[field],
+      handleChange: this.handleInput(field as string, 'select'),
+      handleBlur: this.handleBlur(field as string, 'select'),
+      handleFocus: this.handleFocus(field as string, 'select'),
     });
 
     const labelProps = (field: keyof FormValues, value?: string) => ({

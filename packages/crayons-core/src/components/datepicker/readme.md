@@ -60,17 +60,20 @@ function App() {
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                                                                    | Type                       | Default         |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------- |
-| `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.                                          | `string`                   | `'YYYY-MM-DD'`  |
-| `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                   | `undefined`     |
-| `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                   | `undefined`     |
-| `minDate`       | `min-date`       | Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                     | `string`                   | `undefined`     |
-| `mode`          | `mode`           | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"` | `'single date'` |
-| `name`          | `name`           | Name of the component, saved as part of form data.                                                                                                             | `string`                   | `''`            |
-| `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                   | `undefined`     |
-| `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                   | `undefined`     |
-| `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                   | `undefined`     |
+| Property        | Attribute        | Description                                                                                                                                                    | Type                         | Default          |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ---------------- |
+| `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.                                          | `string`                     | `'YYYY-MM-DD'`   |
+| `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                     | `undefined`      |
+| `handleBlur`    | --               |                                                                                                                                                                | `(_e: any, _o: any) => void` | `(_e, _o) => {}` |
+| `handleInput`   | --               |                                                                                                                                                                | `(_e: any, _o: any) => void` | `(_e, _o) => {}` |
+| `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                     | `undefined`      |
+| `minDate`       | `min-date`       | Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                     | `string`                     | `undefined`      |
+| `mode`          | `mode`           | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"`   | `'single date'`  |
+| `name`          | `name`           | Name of the component, saved as part of form data.                                                                                                             | `string`                     | `''`             |
+| `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                     | `undefined`      |
+| `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                    | `false`          |
+| `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                     | `undefined`      |
+| `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                     | `undefined`      |
 
 
 ## Events

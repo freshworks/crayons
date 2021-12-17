@@ -52,12 +52,12 @@ export class Select {
     }
   };
 
-  private innerOnBlur = (e: Event) => {
+  private innerOnBlur = async (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
       this.handleBlur(e, {
-        value: this.value,
+        value: await this.getSelectedItem(),
       });
     }
   };
@@ -256,7 +256,7 @@ export class Select {
         selectedOptions: this.selectedOptionsState,
       });
       this.handleChange(selectedItem, {
-        value: this.value,
+        value: this.selectedOptionsState,
       });
     }
   }

@@ -141,6 +141,7 @@ Type: `Promise<any>`
 ### Used by
 
  - [fw-datepicker](../datepicker)
+ - [fw-form-wrapper](../form-wrapper)
  - [fw-list-options](../options-list)
  - [fw-timepicker](../timepicker)
 
@@ -160,6 +161,7 @@ graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-datepicker --> fw-select-option
+  fw-form-wrapper --> fw-select-option
   fw-list-options --> fw-select-option
   fw-timepicker --> fw-select-option
   style fw-select-option fill:#f9f,stroke:#333,stroke-width:4px

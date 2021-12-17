@@ -40,8 +40,8 @@ import toPath from 'lodash/toPath';
 
 // export const isDateType = (type: string): boolean => !!type && type === 'date';
 
-// export const isSelectType = (type: string): boolean =>
-//   !!type && type === 'select';
+export const isSelectType = (type: string): boolean =>
+  !!type && type === 'select';
 
 export const getElementValue = (type: string, result: any): any => {
   const value: any = result.value;

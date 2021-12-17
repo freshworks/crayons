@@ -162,7 +162,7 @@ const formSchema = {
       position: 1,
       editable: true,
       custom: false,
-      required: false,
+      required: true,
       inputType: 'radio',
       placeholder: 'Enter...',
       optionLabelPath: 'value',
@@ -327,9 +327,10 @@ function createYupSchema(schema, config) {
     case 'date':
     case 'time':
     case 'radio':
-    case 'select':
       yupType = 'string';
       break;
+
+    case 'select':
     case 'MULTI_SELECT':
       yupType = 'array';
       break;
@@ -363,6 +364,9 @@ function createYupSchema(schema, config) {
 
   if (inputType === 'checkbox' && required)
     validator = validator['oneOf']([true], `Select the value`);
+
+  if (inputType === 'select' && required)
+    validator = validator.min(1, `${name} is required`);
 
   if (inputType === 'MULTI_SELECT' && required)
     validator = validator.min(1, `Select atleast 1 option`);
@@ -533,7 +537,7 @@ export class FormWrapper {
                               required={field.required}
                             >
                               {' '}
-                              {field.choices.map((ch, i) => {
+                              {field.choices.map((ch) => {
                                 return (
                                   <fw-radio value={ch.value}>
                                     {ch.value}
@@ -567,17 +571,12 @@ export class FormWrapper {
                               placeholder={field.placeholder}
                               name={field.name}
                               required={field.required}
+                              options={field.choices.map((f) => ({
+                                ...f,
+                                text: f.value,
+                              }))}
                               multiple={field.inputType === 'MULTI_SELECT'}
-                            >
-                              {' '}
-                              {field.choices.map((ch, i) => {
-                                return (
-                                  <fw-select-option value={ch.value}>
-                                    {ch.value}
-                                  </fw-select-option>
-                                );
-                              })}
-                            </fw-select>
+                            ></fw-select>
                             <div>
                               {touched[field.name] && errors[field.name] && (
                                 <label
