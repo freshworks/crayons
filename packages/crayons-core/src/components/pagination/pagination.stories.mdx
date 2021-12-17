@@ -1,0 +1,50 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Pagination
+
+<Meta
+  title='Pagination'
+  component='fw-pagination'
+/>
+
+## Props 
+
+<Props of="fw-pagination"/>
+
+## Usage
+
+### With per-page
+<Preview>
+  <Story name='per-page'>
+    {
+      () => `<fw-pagination per-page="20" total="50"></fw-pagination>`
+    }
+  </Story>
+</Preview>
+
+### With total
+<Preview>
+  <Story name='total'>
+    {
+      () => `<fw-pagination total='50'></fw-pagination>`
+    }
+  </Story>
+</Preview>
+
+### With page
+<Preview>
+  <Story name='page'>
+    {
+      () => `<fw-pagination page='2' total="20"></fw-pagination>`
+    }
+  </Story>
+</Preview>
+
+### With page, total and per-page
+<Preview>
+  <Story name='page, total and per-page'>
+    {
+      () => `<fw-pagination page='2' per-page='10' total='50'></fw-pagination>`
+    }
+  </Story>
+</Preview>

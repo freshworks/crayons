@@ -236,6 +236,7 @@ export default App;
  - [fw-input](../input)
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
+ - [fw-pagination](../pagination)
  - [fw-select](../select)
  - [fw-select-option](../select-option)
  - [fw-tag](../tag)
@@ -259,6 +260,7 @@ graph TD;
   fw-input --> fw-icon
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon
+  fw-pagination --> fw-icon
   fw-select --> fw-icon
   fw-select-option --> fw-icon
   fw-tag --> fw-icon

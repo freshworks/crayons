@@ -79,6 +79,19 @@ function App() {
 | `label`  | `label`   |             | `string` | `''`    |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-pagination](../pagination)
+
+### Graph
+```mermaid
+graph TD;
+  fw-pagination --> fw-button-group
+  style fw-button-group fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

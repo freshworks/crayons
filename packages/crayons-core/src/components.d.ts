@@ -527,6 +527,44 @@ export namespace Components {
          */
         "titleText": string;
     }
+    interface FwPagination {
+        /**
+          * Aria Label to be used for the button group.
+         */
+        "buttonGroupLabel": string;
+        /**
+          * Indicates if the records in current page are being fetched.
+         */
+        "isLoading": boolean;
+        /**
+          * Aria Label to be used for next button.
+         */
+        "nextButtonLabel": string;
+        /**
+          * Navigates to next set of records if available.
+         */
+        "nextPage": () => Promise<void>;
+        /**
+          * The current page number.
+         */
+        "page": number;
+        /**
+          * The number of records to be shown per page. Defaults to 10.
+         */
+        "perPage": number;
+        /**
+          * Aria Label to be used for previous button.
+         */
+        "previousButtonLabel": string;
+        /**
+          * Navigates to previous set of records if available.
+         */
+        "previousPage": () => Promise<void>;
+        /**
+          * The total number of records. This is a mandatory parameter.
+         */
+        "total": number;
+    }
     interface FwPopover {
         /**
           * Whether to focus on the element in popover-content slot on opening the dropdown.
@@ -1376,6 +1414,12 @@ declare global {
         prototype: HTMLFwModalTitleElement;
         new (): HTMLFwModalTitleElement;
     };
+    interface HTMLFwPaginationElement extends Components.FwPagination, HTMLStencilElement {
+    }
+    var HTMLFwPaginationElement: {
+        prototype: HTMLFwPaginationElement;
+        new (): HTMLFwPaginationElement;
+    };
     interface HTMLFwPopoverElement extends Components.FwPopover, HTMLStencilElement {
     }
     var HTMLFwPopoverElement: {
@@ -1516,6 +1560,7 @@ declare global {
         "fw-modal-content": HTMLFwModalContentElement;
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
+        "fw-pagination": HTMLFwPaginationElement;
         "fw-popover": HTMLFwPopoverElement;
         "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
@@ -2106,6 +2151,40 @@ declare namespace LocalJSX {
           * The title text to be displayed on the modal
          */
         "titleText"?: string;
+    }
+    interface FwPagination {
+        /**
+          * Aria Label to be used for the button group.
+         */
+        "buttonGroupLabel"?: string;
+        /**
+          * Indicates if the records in current page are being fetched.
+         */
+        "isLoading"?: boolean;
+        /**
+          * Aria Label to be used for next button.
+         */
+        "nextButtonLabel"?: string;
+        /**
+          * Triggered when either previous or next button is clicked.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * The current page number.
+         */
+        "page"?: number;
+        /**
+          * The number of records to be shown per page. Defaults to 10.
+         */
+        "perPage"?: number;
+        /**
+          * Aria Label to be used for previous button.
+         */
+        "previousButtonLabel"?: string;
+        /**
+          * The total number of records. This is a mandatory parameter.
+         */
+        "total"?: number;
     }
     interface FwPopover {
         /**
@@ -2912,6 +2991,7 @@ declare namespace LocalJSX {
         "fw-modal-content": FwModalContent;
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
+        "fw-pagination": FwPagination;
         "fw-popover": FwPopover;
         "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
@@ -2957,6 +3037,7 @@ declare module "@stencil/core" {
             "fw-modal-content": LocalJSX.FwModalContent & JSXBase.HTMLAttributes<HTMLFwModalContentElement>;
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
+            "fw-pagination": LocalJSX.FwPagination & JSXBase.HTMLAttributes<HTMLFwPaginationElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
