@@ -27,10 +27,10 @@ fw-button displays a button on the user interface and enables performing specifi
 <section>
   <fw-label value="Try icon buttons"></fw-label>
   <fw-button size="icon"
-    ><fw-icon name="agent" color="white"></fw-icon>
+    ><fw-icon name="agent" color="white" ></fw-icon>
   </fw-button>
   <fw-button size="icon" color="secondary"
-    ><fw-icon name="phone"></fw-icon>
+    ><fw-icon name="phone" ></fw-icon>
   </fw-button>
 </section>
 <br />
@@ -38,12 +38,12 @@ fw-button displays a button on the user interface and enables performing specifi
 <section>
   <fw-label value="Caret with icon"></fw-label>
   <fw-button show-caret-icon>
-    <fw-icon name="calendar-time" slot="before-label"></fw-icon>
+    <fw-icon name="calendar-time" slot="before-label" ></fw-icon>
     Select date
   </fw-button>
 
   <fw-button color="link" show-caret-icon>
-    <fw-icon name="calendar-time" slot="before-label"></fw-icon>
+    <fw-icon name="calendar-time" slot="before-label" ></fw-icon>
     Select date
   </fw-button>
 </section>
@@ -67,12 +67,12 @@ fw-button displays a button on the user interface and enables performing specifi
 <section>
   <fw-label value="Try icon + text buttons Buttons with before-label and after-label"></fw-label>
   <fw-button color="secondary">
-    <fw-icon slot="before-label" name="delete"></fw-icon>
+    <fw-icon slot="before-label" name="delete" ></fw-icon>
     <span>Delete</span>
   </fw-button>
   <fw-button color="primary">
     <span>Copy</span>
-    <fw-icon name="code" slot="after-label"></fw-icon>
+    <fw-icon name="code" slot="after-label" ></fw-icon>
   </fw-button>
 </section>
 <br />
@@ -110,10 +110,10 @@ fw-button displays a button on the user interface and enables performing specifi
 <section>
   <fw-label value="Try icon buttons"></fw-label>
   <fw-button size="icon"
-    ><fw-icon name="agent" color="white"></fw-icon>
+    ><fw-icon name="agent" color="white" ></fw-icon>
   </fw-button>
   <fw-button size="icon" color="secondary"
-    ><fw-icon name="phone"></fw-icon>
+    ><fw-icon name="phone" ></fw-icon>
   </fw-button>
 </section>
 <br />
@@ -121,12 +121,12 @@ fw-button displays a button on the user interface and enables performing specifi
 <section>
   <fw-label value="Caret with icon"></fw-label>
   <fw-button show-caret-icon>
-    <fw-icon name="calendar-time" slot="before-label"></fw-icon>
+    <fw-icon name="calendar-time" slot="before-label" ></fw-icon>
     Select date
   </fw-button>
 
   <fw-button color="link" show-caret-icon>
-    <fw-icon name="calendar-time" slot="before-label"></fw-icon>
+    <fw-icon name="calendar-time" slot="before-label" ></fw-icon>
     Select date
   </fw-button>
 </section>
@@ -151,12 +151,12 @@ fw-button displays a button on the user interface and enables performing specifi
 <section>
   <fw-label value="Try icon + text buttons Buttons with before-label and after-label"></fw-label>
   <fw-button color="secondary">
-    <fw-icon slot="before-label" name="delete"></fw-icon>
+    <fw-icon slot="before-label" name="delete" ></fw-icon>
     <span>Delete</span>
   </fw-button>
   <fw-button color="primary">
     <span>Copy</span>
-    <fw-icon name="code" slot="after-label"></fw-icon>
+    <fw-icon name="code" slot="after-label" ></fw-icon>
   </fw-button>
 </section>
 <br />
@@ -212,7 +212,7 @@ function App() {
   </FwButton>
 
   <FwButton color="link" show-caret-icon>
-    <fw-icon name="calendar-time" slot="before-label"></fw-icon>
+    <fw-icon name="calendar-time" slot="before-label" ></fw-icon>
     Select date
   </FwButton>
 </section>
@@ -313,6 +313,9 @@ Type: `Promise<any>`
 graph TD;
   fw-button --> fw-spinner
   fw-button --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-datepicker --> fw-button
   fw-dropdown-button --> fw-button
   fw-modal-footer --> fw-button

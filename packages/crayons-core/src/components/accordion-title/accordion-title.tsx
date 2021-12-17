@@ -10,6 +10,7 @@ const ChevronArrow = ({ expanded }) => {
       class='accordion-icon'
       name={`chevron-${direction}`}
       size={iconSize}
+      library='system'
     />
   );
 };

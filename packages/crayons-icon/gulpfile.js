@@ -3,15 +3,13 @@ const path = require('path');
 
 const generateIconsExportData = async () => {
   const iconAssetLibPath = './icons';
-  const iconLibPath = './';
+  const iconLibPath = './dist';
 
   const getIconsSVGData = async (svgFile) => {
     try {
-      //console.log('svgFile', svgFile);
       {
         const svgName = path.parse(svgFile).name;
         const svgFilePath = path.join(iconAssetLibPath, svgFile);
-        //console.log('svgFilePath', svgFilePath);
         const svgContent = await fs.readFile(svgFilePath);
 
         const svg_name =
@@ -23,7 +21,6 @@ const generateIconsExportData = async () => {
 
         const svg_string = svgContent.toString().split('"').join("'");
         const svg_export_data = `export const ${svg_name} = "${svg_string}";`;
-        //console.log('svg_export_data', svg_export_data);
         return svg_export_data;
       }
     } catch (ex) {
@@ -32,15 +29,16 @@ const generateIconsExportData = async () => {
     }
   };
   try {
-    let indexData = '/* eslint-disable */';
+    let indexData = '';
     const allSvgFiles = await fs.readdir(path.join(iconAssetLibPath, ''));
     for (const svgFile of allSvgFiles) {
-      indexData = indexData + '\n' + (await getIconsSVGData(svgFile));
+      indexData = indexData + (await getIconsSVGData(svgFile)) + '\n';
     }
+    fs.mkdir(iconLibPath, { recursive: true }).catch(console.error);
     fs.writeFile(path.join(iconLibPath, 'index.js'), indexData);
-    console.log(`Succesfully written @freshworks/crayons-icon/index.js`);
+    console.log(`Succesfully written @freshworks/crayons-icon/dist/index.js`);
   } catch (ex) {
-    console.error(`Exception occured while building : ${JSON.stringify(ex)}`);
+    console.error(`Exception occured while building : ${ex}`);
   }
 };
 

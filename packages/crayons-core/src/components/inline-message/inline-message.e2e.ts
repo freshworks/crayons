@@ -82,7 +82,7 @@ describe('fw-inline-message', () => {
     expect(element.shadowRoot).toEqualHtml(
       `<div class="alert alert--info">
         <span class="alert__icon">
-          <fw-icon class="hydrated"></fw-icon>
+          <fw-icon class="hydrated" ></fw-icon>
         </span>
         <span class="alert__message">
           <slot></slot>
@@ -99,13 +99,13 @@ describe('fw-inline-message', () => {
     expect(element.shadowRoot).toEqualHtml(
       `<div class="alert alert--info">
         <span class="alert__icon">
-          <fw-icon class="hydrated"></fw-icon>
+          <fw-icon class="hydrated" ></fw-icon>
         </span>
         <span class="alert__message">
           <slot></slot>
         </span>
         <span class="alert__close" role="button" tabindex="0">
-          <fw-icon class="hydrated"></fw-icon>
+          <fw-icon class="hydrated" ></fw-icon>
         </span>
        </div>`
     );

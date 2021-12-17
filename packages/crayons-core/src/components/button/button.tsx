@@ -189,7 +189,11 @@ export class Button {
             ></slot>
           </span>
           {this.loading ? <fw-spinner class='fw-btn--loader'></fw-spinner> : ''}
-          {this.showCaretIcon ? <fw-icon name='chevron-down' /> : ''}
+          {this.showCaretIcon ? (
+            <fw-icon name='chevron-down' library='system' />
+          ) : (
+            ''
+          )}
         </button>
       </Host>
     );

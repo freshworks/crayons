@@ -167,7 +167,12 @@ export class ToggleGroupButton {
             )}
             {this.selected ? (
               <span class={`${strComponentClassName}-tick`}>
-                <fw-icon size={10} name='check' color='#FFFFFF' />
+                <fw-icon
+                  size={10}
+                  name='check'
+                  color='#FFFFFF'
+                  library='system'
+                />
               </span>
             ) : (
               ''
