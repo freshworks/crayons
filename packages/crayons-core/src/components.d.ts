@@ -216,6 +216,56 @@ export namespace Components {
          */
         "value": any;
     }
+    interface FwFormatNumber {
+        /**
+          * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
+         */
+        "currency": string;
+        /**
+          * Currency display formatting.
+         */
+        "currencyDisplay": 'symbol' | 'narrowSymbol' | 'code' | 'name';
+        /**
+          * In many locales, accounting format means to wrap the number with parentheses instead of appending a minus sign. You can enable the above by setting the currencySign option to `accounting`. The default value is `standard`
+         */
+        "currencySign": 'accounting' | 'standard';
+        /**
+          * `Locale` used for formatting the number
+         */
+        "locale": string;
+        /**
+          * The maximum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "maximumFractionDigits": number;
+        /**
+          * The maximum number of significant digits to use,. Possible values are 1 - 21. Default is 21
+         */
+        "maximumSignificantDigits": number;
+        /**
+          * The minimum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "minimumFractionDigits": number;
+        /**
+          * The minimum number of integer digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumIntegerDigits": number;
+        /**
+          * The minimum number of significant digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumSignificantDigits": number;
+        /**
+          * Formatting style
+         */
+        "type": 'currency' | 'decimal' | 'percent';
+        /**
+          * Turns on/off grouping separators.
+         */
+        "useGrouping": boolean;
+        /**
+          * Number to format.
+         */
+        "value": number;
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
@@ -1360,6 +1410,12 @@ declare global {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
     };
+    interface HTMLFwFormatNumberElement extends Components.FwFormatNumber, HTMLStencilElement {
+    }
+    var HTMLFwFormatNumberElement: {
+        prototype: HTMLFwFormatNumberElement;
+        new (): HTMLFwFormatNumberElement;
+    };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
     var HTMLFwIconElement: {
@@ -1551,6 +1607,7 @@ declare global {
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -1817,6 +1874,56 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
+    }
+    interface FwFormatNumber {
+        /**
+          * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
+         */
+        "currency"?: string;
+        /**
+          * Currency display formatting.
+         */
+        "currencyDisplay"?: 'symbol' | 'narrowSymbol' | 'code' | 'name';
+        /**
+          * In many locales, accounting format means to wrap the number with parentheses instead of appending a minus sign. You can enable the above by setting the currencySign option to `accounting`. The default value is `standard`
+         */
+        "currencySign"?: 'accounting' | 'standard';
+        /**
+          * `Locale` used for formatting the number
+         */
+        "locale"?: string;
+        /**
+          * The maximum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "maximumFractionDigits"?: number;
+        /**
+          * The maximum number of significant digits to use,. Possible values are 1 - 21. Default is 21
+         */
+        "maximumSignificantDigits"?: number;
+        /**
+          * The minimum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "minimumFractionDigits"?: number;
+        /**
+          * The minimum number of integer digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumIntegerDigits"?: number;
+        /**
+          * The minimum number of significant digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumSignificantDigits"?: number;
+        /**
+          * Formatting style
+         */
+        "type"?: 'currency' | 'decimal' | 'percent';
+        /**
+          * Turns on/off grouping separators.
+         */
+        "useGrouping"?: boolean;
+        /**
+          * Number to format.
+         */
+        "value"?: number;
     }
     interface FwIcon {
         /**
@@ -2982,6 +3089,7 @@ declare namespace LocalJSX {
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -3028,6 +3136,7 @@ declare module "@stencil/core" {
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
