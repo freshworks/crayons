@@ -250,7 +250,7 @@ export namespace Components {
         "validationSchema": any;
     }
     interface FwFormWrapper {
-        "formSchema": { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; })[]; };
+        "formSchema": { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; optionLabelPath?: undefined; optionValuePath?: undefined; choices?: undefined; parent?: undefined; } | { id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; optionLabelPath: string; optionValuePath: string; choices: { id: string; value: string; position: number; }[]; fields: any[]; fieldOptions?: undefined; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; optionLabelPath?: undefined; optionValuePath?: undefined; choices?: undefined; })[]; };
         "initialErrors": any;
         "initialValues": { age: string; is_indian_citizen: boolean; };
         "validationSchema": any;
@@ -678,6 +678,8 @@ export namespace Components {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty": boolean;
+        "handleBlur": (_e: any, _o: any) => void;
+        "handleChange": (_e: any, _o: any) => void;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -690,6 +692,10 @@ export namespace Components {
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
         "orientation": 'row' | 'column';
+        /**
+          * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -1838,7 +1844,7 @@ declare namespace LocalJSX {
         "validationSchema"?: any;
     }
     interface FwFormWrapper {
-        "formSchema"?: { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; })[]; };
+        "formSchema"?: { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; optionLabelPath?: undefined; optionValuePath?: undefined; choices?: undefined; parent?: undefined; } | { id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; optionLabelPath: string; optionValuePath: string; choices: { id: string; value: string; position: number; }[]; fields: any[]; fieldOptions?: undefined; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; optionLabelPath?: undefined; optionValuePath?: undefined; choices?: undefined; })[]; };
         "initialErrors"?: any;
         "initialValues"?: { age: string; is_indian_citizen: boolean; };
         "validationSchema"?: any;
@@ -2291,6 +2297,8 @@ declare namespace LocalJSX {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty"?: boolean;
+        "handleBlur"?: (_e: any, _o: any) => void;
+        "handleChange"?: (_e: any, _o: any) => void;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -2307,6 +2315,10 @@ declare namespace LocalJSX {
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
         "orientation"?: 'row' | 'column';
+        /**
+          * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */

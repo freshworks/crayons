@@ -48,10 +48,19 @@ export class RadioGroup {
    */
   @Prop({ mutable: true }) value?: any | null;
 
+  /**
+   * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+
+  @Prop() handleChange = (_e, _o) => {};
+  @Prop() handleBlur = (_e, _o) => {};
+
   @Watch('value')
   async valueChanged(value: any | undefined) {
     await this.updateRadios();
     this.fwChange.emit({ value });
+    this.handleChange(null, { value });
   }
 
   /**
@@ -212,6 +221,10 @@ export class RadioGroup {
     await this.updateRadios();
   };
 
+  private onBlur = (e) => {
+    this.handleBlur(e, { value: this.value });
+  };
+
   render() {
     const { host, name, value } = this;
 
@@ -223,6 +236,7 @@ export class RadioGroup {
         aria-label={this.label}
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
+        onFwBlur={this.onBlur}
       ></Host>
     );
   }

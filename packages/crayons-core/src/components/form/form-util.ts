@@ -29,6 +29,9 @@ export const isInputElement = (type: string): boolean =>
 export const isCheckboxType = (type: string): boolean =>
   !!type && type === 'checkbox';
 
+export const isRadioType = (type: string): boolean =>
+  !!type && type === 'radio';
+
 export const isNumberType = (type: string): boolean =>
   !!type && type === 'number';
 
@@ -44,6 +47,8 @@ export const getElementValue = (type: string, ref: any): any => {
     if (isInputElement(type)) {
       if (isCheckboxType(type)) {
         value = ref.checked;
+      } else if (isRadioType(type)) {
+        value = ref.value;
       } else if (isDateType(type)) {
         value = ref.value;
       }

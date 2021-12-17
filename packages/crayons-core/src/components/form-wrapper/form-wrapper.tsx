@@ -126,6 +126,33 @@ const formSchema = {
       fields: [],
     },
     {
+      id: 'interested_id',
+      type: 'radio',
+      label: 'Interested',
+      name: 'interested',
+      position: 1,
+      editable: true,
+      custom: false,
+      required: false,
+      inputType: 'radio',
+      placeholder: 'Enter...',
+      optionLabelPath: 'value',
+      optionValuePath: 'value',
+      choices: [
+        {
+          id: 'yes_id',
+          value: 'Yes',
+          position: 1,
+        },
+        {
+          id: 'no_id',
+          value: 'No',
+          position: 2,
+        },
+      ],
+      fields: [],
+    },
+    {
       id: 'personal_page_link_id',
       type: 'input',
       label: 'Personal Page Link',
@@ -217,6 +244,7 @@ function createYupSchema(schema, config) {
     case 'text':
     case 'textarea':
     case 'date':
+    case 'radio':
       yupType = 'string';
       break;
     case 'url':
@@ -289,8 +317,7 @@ export class FormWrapper {
     const dynamicInitialValues = this.formSchema.fields.reduce((acc, field) => {
       return {
         ...acc,
-        [field.name]:
-          field.type === 'checkbox' || field.type === 'radio' ? false : '',
+        [field.name]: field.type === 'checkbox' ? false : '',
       };
     }, {});
 
@@ -379,9 +406,7 @@ export class FormWrapper {
                         </Fragment>
                       );
                       break;
-                    case 'timepicker':
-                      cmp = <fw-timepicker></fw-timepicker>;
-                      break;
+
                     case 'checkbox':
                       cmp = (
                         <div>
@@ -402,6 +427,43 @@ export class FormWrapper {
                             )}
                           </div>
                         </div>
+                      );
+                      break;
+
+                    case 'radio':
+                      cmp = (
+                        <Fragment>
+                          <div>
+                            <fw-radio-group
+                              allow-empty
+                              {...inputProps(field.name, field.inputType)}
+                              label={field.label}
+                              placeholder={field.placeholder}
+                              name={field.name}
+                              required={field.required}
+                            >
+                              {' '}
+                              {field.choices.map((ch, i) => {
+                                return (
+                                  <fw-radio value={ch.value}>
+                                    {ch.value}
+                                  </fw-radio>
+                                );
+                              })}
+                            </fw-radio-group>
+                            <div>
+                              {touched[field.name] && errors[field.name] && (
+                                <label
+                                  class='error'
+                                  {...labelProps(field.name)}
+                                >
+                                  {' '}
+                                  {errors[field.name]}{' '}
+                                </label>
+                              )}
+                            </div>
+                          </div>
+                        </Fragment>
                       );
                       break;
                     default:
