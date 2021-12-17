@@ -1,12 +1,9 @@
 const alert = require('cli-alerts');
 
-module.exports = info => {
+module.exports = message => {
 	alert({
-		type: `warning`,
-		name: `DEBUG LOG`,
-		msg: `${info}`
+		type: `${message.type}`,
+		name: `${message.name}`,
+		msg: `${message.msg}`
 	});
-
-	console.log(info);
-	console.log();
 };

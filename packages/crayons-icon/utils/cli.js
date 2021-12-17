@@ -31,12 +31,14 @@ const flags = {
 		default: true,
 		alias: `c`,
 		desc: `For CLI Usage`
-	},
+	}
 };
 
 const commands = {
 	help: { desc: `-- H E L P  T O P I C S --` },
-	svgoYML: { desc: `Dumps out the svgo.yml file to your root dir. Pass --dest <target> to output it to desired path. Use this YML Config for passing custom Optimization.`}
+	svgoYML: {
+		desc: `Dumps out the svgo.yml file to your root dir. Pass --dest <target> to output it to desired path. Use this YML Config for passing custom Optimization.`
+	}
 };
 
 const helpText = meowHelp({

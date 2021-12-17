@@ -6,67 +6,103 @@
  *
  * @author Freshworks <https://freshworks.in>
  */
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
+const json2yml = require('json-to-pretty-yaml');
 
 const init = require('../utils/init');
 const cli = require('../utils/cli');
 const log = require('../utils/log');
-const path = require('path');
 const build = require('../utils/svgo.runner');
 const defPluginOptions = require('../utils/default.svgo.config.js');
+
 const input = cli.input;
 const flags = cli.flags;
-const { clear, debug } = flags;
-const yaml = require('js-yaml');
-const fs = require('fs');
-const JSON2YAML = require('json-to-pretty-yaml');
- 
-(async () => {
-	init({ clear });
-	input.includes(`help`) ? cli.showHelp(0) : '';
-	console.log('cli-command :', input, '--params :', flags);
 
-	const dump_yml = (defPluginOptions,destYml) => {
+let alert = { type: '', name: '', msg: '' };
+(async () => {
+	init({ clear: true });
+	input.includes(`help`) ? cli.showHelp(0) : '';
+	alert = {
+		type: 'info',
+		name: 'OPERATION',
+		msg: `\n\nC O M M A N D S : \n\n${input} \n\nF L A G S : \n\n${json2yml.stringify(
+			flags
+		)}`
+	};
+	log(alert);
+
+	const dump_yml = (defPluginOptions, destYml) => {
 		fs.promises.mkdir(destYml, { recursive: true }).catch(console.error);
-		const data = JSON2YAML.stringify(defPluginOptions);
+		const data = json2yml.stringify(defPluginOptions);
 		fs.writeFileSync(path.join(destYml, 'fw-crayons.icon.svgo.yml'), data);
-		console.log('fw-crayons.icon.svgo.yml generated at',destYml);
-	}
-	
+		alert = {
+			type: 'success',
+			name: 'DONE',
+			msg: `FILE - 'fw-crayons.icon.svgo.yml' generated at ${destYml}`
+		};
+		log(alert);
+	};
+
 	try {
-		if(input.length>0 && !input.includes(`svgo`) &&!input.includes(`svgoYML`) && !input.includes(`help`))
-		  throw new Error('Invalid Command');
-		
+		if (
+			input.length > 0 &&
+			!input.includes(`svgo`) &&
+			!input.includes(`svgoYML`) &&
+			!input.includes(`help`)
+		)
+			throw new Error('!! Invalid Command !!');
+
 		let pluginOptions = JSON.parse(defPluginOptions());
-		if(input.includes('svgo')){
-			if(flags.config !== 'default') {
+		if (input.includes('svgo')) {
+			if (flags.config !== 'default') {
 				const ymlFile = fs.readFileSync(flags.config, 'utf8');
 				pluginOptions = yaml.load(ymlFile);
 			}
+			alert = { type: 'info', name: 'Starting Optimization', msg: `` };
+			log(alert);
+			alert = {
+				type: 'info',
+				name: 'Applied SVGO pluginConfig',
+				msg: `SVGs are optimized with following parameters :-\n\n${json2yml.stringify(
+					pluginOptions
+				)}`
+			};
+			log(alert);
 			build(
 				path.join('./'),
 				flags.source,
 				flags.destination,
 				pluginOptions
 			);
-			console.log('Applied -pluginOptions :',pluginOptions);
 		}
-		
-		if(input.includes(`svgoYML`)){
-			dump_yml(pluginOptions,flags.destYml);
+
+		if (input.includes(`svgoYML`)) {
+			dump_yml(pluginOptions, flags.destYml);
 		}
-			
-		if(!flags.cli){// Used for building crayons-icon system
-			build(
-				path.join('./'),
-				'./icons',
-				'./dist/icons',
-				pluginOptions
-		  );
-		  dump_yml(pluginOptions,'./dist');
-		  console.log('SVGs build with -pluginOptions :',pluginOptions);
+
+		if (!flags.cli) {
+			// Used for building crayons-icon system
+			dump_yml(pluginOptions, './dist');
+			alert = { type: 'info', name: 'Starting Optimization', msg: `` };
+			log(alert);
+			alert = {
+				type: 'info',
+				name: 'Applied SVGO pluginConfig',
+				msg: `SVGs are optimized with following parameters :-\n\n${json2yml.stringify(
+					pluginOptions
+				)}`
+			};
+			log(alert);
+			build(path.join('./'), './icons', './dist/icons', pluginOptions);
 		}
 	} catch (e) {
-		console.log('Invalid Command or Options. Kindly see help topics by passing help command.',e);
+		alert = {
+			type: 'error',
+			name: 'ERROR',
+			msg: `Invalid Command or Options. Kindly see HELP topics by passing help command.${e}`
+		};
+		log(alert);
 	}
-	debug && log(flags);
 })();

@@ -11,14 +11,14 @@ const generateIconsExportData = async () => {
 
 	const getIconsSVGData = async svgFile => {
 		try {
-				const svgName = path.parse(svgFile).name;
-				const svgFilePath = path.join(src_icon_dir, svgFile);
-				const svgContent = await fs.readFile(svgFilePath);
+			const svgName = path.parse(svgFile).name;
+			const svgFilePath = path.join(src_icon_dir, svgFile);
+			const svgContent = await fs.readFile(svgFilePath);
 
-				const svg_string = svgContent.toString().split('"').join("'");
+			const svg_string = svgContent.toString().split('"').join("'");
 
-				const svg_export_data = `'${svgName}' : "${svg_string}",`;
-				return svg_export_data;
+			const svg_export_data = `'${svgName}' : "${svg_string}",`;
+			return svg_export_data;
 		} catch (ex) {
 			console.error(ex);
 			throw ex;
@@ -26,17 +26,17 @@ const generateIconsExportData = async () => {
 	};
 	try {
 		const system_icons = [
-			"check",
-			"chevron-down",
-			"chevron-up",
-			"cross",
-			"cross-big",
-			"error",	
-			"image",	
-			"info",	
-			"success",	
-			"warning"
-		  ];
+			'check',
+			'chevron-down',
+			'chevron-up',
+			'cross',
+			'cross-big',
+			'error',
+			'image',
+			'info',
+			'success',
+			'warning'
+		];
 
 		let indexData = 'const crayons_system_icons = {';
 		const allSvgFiles = await fs.readdir(path.join(src_icon_dir, ''));

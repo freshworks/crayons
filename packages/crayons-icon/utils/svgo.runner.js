@@ -2,22 +2,32 @@
 const fs_extra = require('fs-extra');
 const path = require('path');
 const svgo = require('svgo');
+const log = require('./log');
 
 module.exports = build;
-
 async function build(rootDir, srcDir, distDir, loadConfigPlugins) {
 	try {
+		let alert = {};
 		const srcSvgDir = path.join(rootDir, srcDir);
 		const distSvgDir = path.join(rootDir, distDir);
 
-		console.log(`Optimizing SVGs in folder : ${srcSvgDir} `);
+		alert = {
+			type: 'info',
+			name: 'Optimizing SVGs In-Progress...',
+			msg: `Target Path: ${srcSvgDir}`
+		};
+		log(alert);
 
 		await fs_extra.emptyDir(distSvgDir);
 		const srcSvgData = await getSvgs(srcSvgDir, distSvgDir);
 		await optimizeSvgs(srcSvgData, loadConfigPlugins);
-		console.log(
-			`Optimization Complete!!. Moved output files to ${distSvgDir}`
-		);
+
+		alert = {
+			type: 'success',
+			name: 'DONE',
+			msg: `Optimized SVGs moved to ${distSvgDir}`
+		};
+		log(alert);
 	} catch (e) {
 		console.error(e);
 		process.exit(1);
@@ -25,7 +35,7 @@ async function build(rootDir, srcDir, distDir, loadConfigPlugins) {
 }
 async function optimizeSvgs(srcSvgData, loadConfigPlugins) {
 	let pluginOptions = [];
-	loadConfigPlugins.plugins.forEach(function (data, index) {
+	loadConfigPlugins.plugins.forEach(function (data) {
 		for (key in data) {
 			if (data[key]) pluginOptions = [...pluginOptions, data];
 		}
@@ -94,7 +104,7 @@ async function getSvgs(srcSvgDir, distSvgDir) {
 	});
 }
 function camelize(text) {
-	let words = text.split(/[-_]/g); // ok one simple regexp.
+	let words = text.split(/[-_]/g);
 	return words[0].toLowerCase() + words.slice(1).map(upFirst).join('');
 }
 function upFirst(word) {
