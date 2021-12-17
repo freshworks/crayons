@@ -1,6 +1,6 @@
 # Icon Library (@freshworks/crayons-icon)
 
-Crayons Icon is now available as '@freshworks/crayons-icon' Library. This encapsulates all Icon Tooling icon exports. Following is implemented via the Lib.
+Crayons Icon is now available as '@freshworks/crayons-icon' Library. Following features are made available to users.
 
 1. JS Exports of SVG Icon to enable Tree-Shaking for inline-svg. This is a useful feature where you can choose to do something offline with SVGs.
 2. Enables @frehworks/crayons-icon CLI Interface via which you can leverage the SVGO Tooling to optimize your project svg-icons.
