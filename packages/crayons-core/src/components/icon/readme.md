@@ -67,6 +67,8 @@ Crayons Icon is now available as '@freshworks/crayons-icon' Library. This encaps
 1. JS Exports of SVG Icon to enable Tree-Shaking for inline-svg. This is a useful feature where you can choose to do something offline with SVGs.
 2. Enable Crayons-Icon lib to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
    See usage docs.
+3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the accessibility tree, just 
+   pass the 'label' props and fw-icon handles the assistive sr-compliance.
 
 Some implementations via Icon Lib are as below:-
 
@@ -196,6 +198,12 @@ export default App;
 </code-block>
 </code-group>
 
+## CLI Tool for processing SVGs
+
+@frehsworks/crayons-icon is also available as a CLI Tool for processing SVGs with friendlier interface, options and easy customizaable config to optimize your SVGs. See the usage below. 
+It comes with a ultra tuned config. We support YML Config convention as its better in readability and easy to modify than a JSON. You may use the in-built CLI command to get the fw-icon default YML File at your command root/ desired location, which you can further customize and use with the CLI Tool. With @frehsworks/crayons-icon, one also gets access to optimized Crayons-Icons, available as part of /dist folder.You are free to use them for your project purposes.
+
+<IconCLIShowcase/>
 
 <!-- Auto Generated Below -->
 
