@@ -66,13 +66,12 @@ export default {
 }
 
 .card {
-  width: 100px;
-  height: 100px;
+  width: 98px;
+  height: 98px;
   margin: 10px;
   padding: 5px;
   border-radius: 4px;
-  box-shadow: 0 1px 3px 2px rgba(217, 217, 217, 0.3),
-    0 0 0 0 rgba(236, 236, 236, 0.5);
+  box-shadow: 0 2px 3px 3px rgb(217 217 217 / 35%), 0 0 0 0 rgb(236 236 236 / 50%);
   display: flex;
   flex-direction: column;
   align-items: center;
