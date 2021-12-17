@@ -5,8 +5,12 @@ Following features are available as part of the implementation of the fw-icon.
 
 1. Enable fw-icon as an optimized renderer for SVG with built-in functions such as Intersection-Observer and Fetch-API Memoization.
    Go through the docs to understand the various props it supports.
-2. Providing icon-support for crayons-system components and also exposing crayons-icon set for public use with inbuilt support for external icon-libraries also.
+2. Providing icon-support for crayons-system components and also exposing crayons-icon set/tooling for public use.
 3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the accessibility tree, just 
+   pass the 'label' props and fw-icon handles the assistive sr-compliance.
+4. Enable Crayons-Icon lib to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
+   See usage docs.
+5. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the accessibility tree, just 
    pass the 'label' props and fw-icon handles the assistive sr-compliance.
 
 ## Examples Live
@@ -59,63 +63,6 @@ The following icons are presently part of the Crayons-Icon library. These are op
 Use the name of an icon as listed below it.For JS Imports, you may also click to copy the imports.
 
 <IconGallery/>
-
-# Icon Library (@freshworks/crayons-icon)
-
-Crayons Icon is now available as '@freshworks/crayons-icon' Library. This encapsulates all Icon Tooling icon exports. Following is implemented via the Lib.
-
-1. JS Exports of SVG Icon to enable Tree-Shaking for inline-svg. This is a useful feature where you can choose to do something offline with SVGs.
-2. Enable Crayons-Icon lib to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
-   See usage docs.
-3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the accessibility tree, just 
-   pass the 'label' props and fw-icon handles the assistive sr-compliance.
-
-Some implementations via Icon Lib are as below:-
-
-## Importing Icons from '@freshworks/crayons-icon' as Inline-SVGs. Supports Tree-Shaking.
-
-We may also import Crayons Icons from '@freshworks/crayons-icon'. These are in form of JS Exports. This helps you to use inline SVG with Tree-Shakeable Imports
-This way, you may choose to alter the SVG data and push it for re-render as per your project needs.
-
-<code-group>
-<code-block title="HTML">
-```html 
-<html>
-<head>
-<script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
-<script type="module" >
-import { header } from '@freshworks/crayons-icon';
-</script>
-</head>
-<body>
-    <fw-icon data-svg={ header } size=20 ></fw-icon>
-</body>
-</html>
-
-```
-</code-block>
-
-<code-block title="React">
-```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { FwIcon } from "@freshworks/crayons/react";
-import { header } from '@freshworks/crayons-icon';
-
-function App() {
-  return (<div>
-  <FwIcon dataSvg={ header } size=20 ></FwIcon>
- </div>);
-}
-```
-</code-block>
-</code-group>
-
-
-### Example: Rendered in Sample Page as Component 
-
-<IconTSExportsShowcase/>
-
 
 ## FwIcon as a Renderer for external icons.
 
@@ -197,6 +144,62 @@ export default App;
 ```
 </code-block>
 </code-group>
+
+# Icon Library (@freshworks/crayons-icon)
+
+Crayons Icon is now available as '@freshworks/crayons-icon' Library. This encapsulates all Icon Tooling icon exports. Following is implemented via the Lib.
+
+1. JS Exports of SVG Icon to enable Tree-Shaking for inline-svg. This is a useful feature where you can choose to do something offline with SVGs.
+2. Enables @frehworks/crayons-icon CLI Interface via which you can leverage the SVGO Tooling to optimize your project svg-icons.
+3. Optimized set of Crayons-Icon in dist folder. You are free to use them for project related purposes.
+4. Crayons-Icon also makes it svgo.yml file available as part of dist folder. Refer usage docs on how to us it for project purposes.
+
+
+Some implementations via Icon Lib are as below:-
+
+## Importing Icons from '@freshworks/crayons-icon' as Inline-SVGs. Supports Tree-Shaking.
+
+We may also import Crayons Icons from '@freshworks/crayons-icon'. These are in form of JS Exports. This helps you to use inline SVG with Tree-Shakeable Imports
+This way, you may choose to alter the SVG data and push it for re-render as per your project needs.
+
+<code-group>
+<code-block title="HTML">
+```html 
+<html>
+<head>
+<script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
+<script type="module" >
+import { header } from '@freshworks/crayons-icon';
+</script>
+</head>
+<body>
+    <fw-icon data-svg={ header } size=20 ></fw-icon>
+</body>
+</html>
+
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwIcon } from "@freshworks/crayons/react";
+import { header } from '@freshworks/crayons-icon';
+
+function App() {
+  return (<div>
+  <FwIcon dataSvg={ header } size=20 ></FwIcon>
+ </div>);
+}
+```
+</code-block>
+</code-group>
+
+
+### Example: Rendered in Sample Page as Component 
+
+<IconTSExportsShowcase/>
 
 ## CLI Tool for processing SVGs
 

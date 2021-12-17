@@ -3,24 +3,15 @@
 Crayons Icon is now available as '@freshworks/crayons-icon' Library. This encapsulates all Icon Tooling icon exports. Following is implemented via the Lib.
 
 1. JS Exports of SVG Icon to enable Tree-Shaking for inline-svg. This is a useful feature where you can choose to do something offline with SVGs.
-2. Enable Crayons-Icon lib to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
-   See usage docs.
-3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the accessibility tree, just 
-   pass the 'label' props and fw-icon handles the assistive sr-compliance.
+2. Enables @frehworks/crayons-icon CLI Interface via which you can leverage the SVGO Tooling to optimize your project svg-icons.
+3. Optimized set of Crayons-Icon in dist folder. You are free to use them for project related purposes.
+4. Crayons-Icon also makes it svgo.yml file available as part of dist folder. Refer usage docs on how to us it for project purposes.
+
 
 ## Importing Icons from '@freshworks/crayons-icon' as Inline-SVGs. Supports Tree-Shaking.
 
 We may also import Crayons Icons from '@freshworks/crayons-icon'. These are in form of JS Exports. This helps you to use inline SVG with Tree-Shakeable Imports
 This way, you may choose to alter the SVG data and push it for re-render as per your project needs.
-
-[ For Implementation Examples , refer to readMe of icon in Crayons Doc Page. ]
-
-## FwIcon as a Renderer for external icons.
-
-fw-icon can also render external icons. You can use any external libraries from cdn after registering them. If you don't pass 'library' props,
-it will default to 'crayons'. You can even pass the CDN URL of SVG to 'src' prop. See the example below on how to use in React App.
-
-The library registration happens via a 'resolver' function. If you wish to apply some mutation to the icons , you may choose to pass the mutator function.
 
 [ For Implementation Examples , refer to readMe of icon in Crayons Doc Page. ]
 
