@@ -1,10 +1,7 @@
-import { newE2EPage } from '@stencil/core/testing';
-import { ToggleGroupButton } from '../components/toggle-group-button/toggle-group-button';
 import {
   validateAndParseInputSelectedValues,
   updateChildSelectionState,
   updateSelectedValues,
-  doKeyDownOperations,
 } from './list-utils';
 
 describe('validateAndParseInputSelectedValues', () => {
