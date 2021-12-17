@@ -1,61 +1,51 @@
 import isPlainObject from 'lodash/isPlainObject';
 import clone from 'lodash/clone';
 import toPath from 'lodash/toPath';
-export const isFormParticipantElement = (type: string) =>
-  !!type &&
-  [
-    'text',
-    'email',
-    'number',
-    'tel',
-    'textarea',
-    'select',
-    'checkbox',
-    'radio',
-    'date',
-  ].includes(type.toLowerCase());
-export const isInputElement = (type: string): boolean =>
-  !!type &&
-  [
-    'text',
-    'email',
-    'number',
-    'tel',
-    'textarea',
-    'checkbox',
-    'radio',
-    'date',
-  ].includes(type.toLowerCase());
-export const isCheckboxType = (type: string): boolean =>
-  !!type && type === 'checkbox';
+// export const isFormParticipantElement = (type: string) =>
+//   !!type &&
+//   [
+//     'text',
+//     'email',
+//     'number',
+//     'tel',
+//     'textarea',
+//     'select',
+//     'checkbox',
+//     'radio',
+//     'date',
+//     'time',
+//   ].includes(type.toLowerCase());
+// export const isInputElement = (type: string): boolean =>
+//   !!type &&
+//   [
+//     'text',
+//     'email',
+//     'number',
+//     'tel',
+//     'textarea',
+//     'checkbox',
+//     'radio',
+//     'date',
+//     'time',
+//   ].includes(type.toLowerCase());
 
-export const isRadioType = (type: string): boolean =>
-  !!type && type === 'radio';
+// export const isCheckboxType = (type: string): boolean =>
+//   !!type && type === 'checkbox';
 
-export const isNumberType = (type: string): boolean =>
-  !!type && type === 'number';
+// export const isRadioType = (type: string): boolean =>
+//   !!type && type === 'radio';
 
-export const isDateType = (type: string): boolean => !!type && type === 'date';
+// export const isNumberType = (type: string): boolean =>
+//   !!type && type === 'number';
 
-export const isSelectType = (type: string): boolean =>
-  !!type && type === 'select';
+// export const isDateType = (type: string): boolean => !!type && type === 'date';
 
-export const getElementValue = (type: string, ref: any): any => {
-  if (isFormParticipantElement(type)) {
-    let value: any = ref.value;
+// export const isSelectType = (type: string): boolean =>
+//   !!type && type === 'select';
 
-    if (isInputElement(type)) {
-      if (isCheckboxType(type)) {
-        value = ref.checked;
-      } else if (isRadioType(type)) {
-        value = ref.value;
-      } else if (isDateType(type)) {
-        value = ref.value;
-      }
-    }
-
-    return value;
-  }
+export const getElementValue = (type: string, result: any): any => {
+  const value: any = result.value;
+  return value;
 };
 
 /**
@@ -128,33 +118,9 @@ export function getIn(obj: any, key: string | string[], def?: any, p = 0) {
   }
   return obj === undefined ? def : obj;
 }
-
-/**
- * Deeply set a value from in object via it's path. If the value at `path`
- * has changed, return a shallow copy of obj with `value` set at `path`.
- * If `value` has not changed, return the original `obj`.
- *
- * Existing objects / arrays along `path` are also shallow copied. Sibling
- * objects along path retain the same internal js reference. Since new
- * objects / arrays are only created along `path`, we can test if anything
- * changed in a nested structure by comparing the object's reference in
- * the old and new object, similar to how russian doll cache invalidation
- * works.
- *
- * In earlier versions of this function, which used cloneDeep, there were
- * issues whereby settings a nested value would mutate the parent
- * instead of creating a new object. `clone` avoids that bug making a
- * shallow copy of the objects along the update path
- * so no object is mutated in place.
- *
- * Before changing this function, please read through the following
- * discussions.
- *
- * @see https://github.com/developit/linkstate
- * @see https://github.com/jaredpalmer/formik/pull/123
- */
+/** set values recursively on the object based on the given path */
 export function setIn(obj: any, path: string, value: any): any {
-  const res: any = clone(obj); // this keeps inheritance when obj is a class
+  const res: any = clone(obj);
   let resVal: any = res;
   let i = 0;
   const pathArray = toPath(path);

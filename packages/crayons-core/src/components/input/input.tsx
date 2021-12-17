@@ -130,13 +130,13 @@ export class Input {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    this.handleInput(ev, this.nativeInput);
+    this.handleInput(ev, { value: this.nativeInput.value });
   };
 
   private onFocus = (e) => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    this.handleFocus(e, this.nativeInput);
+    this.handleFocus(e, { value: this.nativeInput.value });
   };
 
   private onBlur = (e) => {

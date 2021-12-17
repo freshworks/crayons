@@ -85,7 +85,7 @@ export class Checkbox {
       });
     }
     this.checkbox.checked = isChecked;
-    this.handleChange(null, this.checkbox);
+    this.handleChange(null, { value: this.checkbox.checked });
   }
 
   @Watch('disabled')
@@ -109,12 +109,12 @@ export class Checkbox {
 
   private onFocus = (e) => {
     this.fwFocus.emit();
-    this.handleFocus(e, this.checkbox);
+    this.handleFocus(e, { value: this.checkbox.checked });
   };
 
   private onBlur = (e) => {
     this.fwBlur.emit();
-    this.handleBlur(e, this.checkbox);
+    this.handleBlur(e, { value: this.checkbox.checked });
   };
 
   private toggle = () => {

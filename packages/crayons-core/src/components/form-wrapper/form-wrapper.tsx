@@ -37,6 +37,35 @@ const formSchema = {
     },
 
     {
+      name: 'languages_known',
+      label: 'Languages Known',
+      type: 'select',
+      inputType: 'MULTI_SELECT',
+      field_options: {},
+      filterable: true,
+      searchable: true,
+      required: true,
+      link: '',
+      choices: [
+        {
+          id: 111,
+          value: 'English',
+          position: 1,
+        },
+        {
+          id: 222,
+          value: 'Hindi',
+          position: 2,
+        },
+        {
+          id: 333,
+          value: 'Tamil',
+          position: 3,
+        },
+      ],
+    },
+
+    {
       id: 'email_id',
       type: 'input',
       label: 'Email',
@@ -166,6 +195,58 @@ const formSchema = {
       fieldOptions: {},
       fields: [],
     },
+
+    {
+      id: 'time_id',
+      type: 'time',
+      label: 'Select Time',
+      name: 'time',
+      position: 1,
+      required: true,
+      editable: true,
+      custom: false,
+      inputType: 'time',
+      placeholder: 'Select Time...',
+      fieldOptions: {},
+      fields: [],
+    },
+
+    {
+      id: 'status',
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      inputType: 'select',
+      position: 3,
+      required: true,
+      editable: true,
+      visible: false,
+      deleted: false,
+      link: null,
+      placeholder: null,
+      hint: null,
+      field_options: {},
+      filterable: true,
+      searchable: false,
+      parent_id: null,
+      choices: [
+        {
+          id: 1,
+          value: 'open',
+          position: 1,
+        },
+        {
+          id: 2,
+          value: 'pending',
+          position: 2,
+        },
+        {
+          id: 3,
+          value: 'closed',
+          position: 3,
+        },
+      ],
+    },
     {
       id: 'income_id',
       parent: null,
@@ -244,8 +325,13 @@ function createYupSchema(schema, config) {
     case 'text':
     case 'textarea':
     case 'date':
+    case 'time':
     case 'radio':
+    case 'select':
       yupType = 'string';
+      break;
+    case 'MULTI_SELECT':
+      yupType = 'array';
       break;
     case 'url':
       yupType = 'string';
@@ -277,6 +363,9 @@ function createYupSchema(schema, config) {
 
   if (inputType === 'checkbox' && required)
     validator = validator['oneOf']([true], `Select the value`);
+
+  if (inputType === 'MULTI_SELECT' && required)
+    validator = validator.min(1, `Select atleast 1 option`);
 
   schema[name] = validator;
   return schema;
@@ -317,7 +406,7 @@ export class FormWrapper {
     const dynamicInitialValues = this.formSchema.fields.reduce((acc, field) => {
       return {
         ...acc,
-        [field.name]: field.type === 'checkbox' ? false : '',
+        [field.name]: field.type === 'checkbox' ? false : undefined,
       };
     }, {});
 
@@ -338,6 +427,7 @@ export class FormWrapper {
             labelProps,
             inputProps,
             checkboxProps,
+            selectProps,
             touched,
           } = props;
           return (
@@ -466,6 +556,64 @@ export class FormWrapper {
                         </Fragment>
                       );
                       break;
+
+                    case 'select':
+                      cmp = (
+                        <Fragment>
+                          <div>
+                            <fw-select
+                              {...selectProps(field.name)}
+                              label={field.label}
+                              placeholder={field.placeholder}
+                              name={field.name}
+                              required={field.required}
+                              multiple={field.inputType === 'MULTI_SELECT'}
+                            >
+                              {' '}
+                              {field.choices.map((ch, i) => {
+                                return (
+                                  <fw-select-option value={ch.value}>
+                                    {ch.value}
+                                  </fw-select-option>
+                                );
+                              })}
+                            </fw-select>
+                            <div>
+                              {touched[field.name] && errors[field.name] && (
+                                <label
+                                  class='error'
+                                  {...labelProps(field.name)}
+                                >
+                                  {' '}
+                                  {errors[field.name]}{' '}
+                                </label>
+                              )}
+                            </div>
+                          </div>
+                        </Fragment>
+                      );
+                      break;
+
+                    case 'time':
+                      cmp = (
+                        <Fragment>
+                          <fw-timepicker
+                            {...inputProps(field.name, field.inputType)}
+                            label={field.label}
+                            placeholder={field.placeholder}
+                            name={field.name}
+                            required={field.required}
+                          ></fw-timepicker>
+                          {touched[field.name] && errors[field.name] && (
+                            <label class='error' {...labelProps(field.name)}>
+                              {' '}
+                              {errors[field.name]}{' '}
+                            </label>
+                          )}
+                        </Fragment>
+                      );
+                      break;
+
                     default:
                       cmp = <p>unknown</p>;
                       break;

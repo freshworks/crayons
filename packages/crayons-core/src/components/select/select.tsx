@@ -41,6 +41,7 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
+      this.handleFocus(e);
     }
   };
 
@@ -55,6 +56,9 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
+      this.handleBlur(e, {
+        value: this.value,
+      });
     }
   };
 
@@ -196,6 +200,11 @@ export class Select {
    * If the default label prop is not used, then use this prop to pass the id of the label.
    */
   @Prop() labelledBy = '';
+
+  @Prop() handleChange = (_e, _o) => {};
+  @Prop() handleBlur = (_e, _o) => {};
+  @Prop() handleFocus = (_e?, _o?) => {};
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -245,6 +254,9 @@ export class Select {
       this.fwChange.emit({
         value: this.value,
         selectedOptions: this.selectedOptionsState,
+      });
+      this.handleChange(selectedItem, {
+        value: this.value,
       });
     }
   }

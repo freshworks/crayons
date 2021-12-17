@@ -11,7 +11,7 @@ export class Timepicker {
   @Element() host: HTMLElement;
 
   /**
-   * State for all the time value\s
+   * State for all the time values
    */
   @State() timeValues: any[] = [];
 
@@ -53,6 +53,16 @@ export class Timepicker {
    * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
    */
   @Prop() maxTime?: string = this.isMeridianFormat ? '11:30 PM' : '23:30';
+
+  /**
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+
+  @Prop() handleChange = (_e, _o) => {};
+  @Prop() handleBlur = (_e, _o) => {};
+  @Prop() handleFocus = (_e?, _o?) => {};
+
   /**
    * Boolean representing whethere it is default end time
    */
@@ -100,6 +110,7 @@ export class Timepicker {
   private setTimeValue(e: any) {
     const { value } = e.detail;
     this.value = value;
+    this.handleChange({}, { value: this.value });
   }
 
   private setEndTime() {
@@ -107,6 +118,14 @@ export class Timepicker {
       this.maxTime = this.isMeridianFormat ? `11:59 PM` : `23:59`;
     }
   }
+
+  onBlur = (e) => {
+    this.handleBlur(e, { value: this.value });
+  };
+
+  onFocus = (e) => {
+    this.handleFocus(e);
+  };
 
   componentWillLoad() {
     if (this.interval !== 30) {
@@ -124,7 +143,10 @@ export class Timepicker {
       <fw-select
         disabled={this.disabled}
         value={this.value}
+        required={this.required}
         onFwChange={(e) => this.setTimeValue(e)}
+        onFwBlur={this.onBlur}
+        onFwFocus={this.onFocus}
       >
         {this.timeValues.map((time) => (
           <fw-select-option value={this.currentTimeValue(time)}>

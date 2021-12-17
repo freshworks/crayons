@@ -121,10 +121,7 @@ export class Form implements FormConfig {
     this.submitCount = 0;
   };
 
-  handleValidation = async (
-    field?: string,
-    _target?: HTMLInputElement | HTMLTextAreaElement
-  ) => {
+  handleValidation = async (field?: string, _target?: any) => {
     this.isValidating = true;
     console.log(`validating ${field}`);
 
@@ -160,12 +157,11 @@ export class Form implements FormConfig {
       if (this.focused) this.focused = null;
       if (!this.touched[field])
         this.touched = { ...this.touched, [field]: true };
-      const target = event.target as HTMLInputElement | HTMLTextAreaElement;
       const value: any = getElementValue(inputType, ref);
 
       this.values = { ...this.values, [field]: value };
       /** Validate, if user wants to validateOnInput */
-      if (this.validateOnBlur) this.handleValidation(field, target);
+      if (this.validateOnBlur) this.handleValidation(field);
     };
 
   handleFocus =
@@ -263,10 +259,10 @@ export class Form implements FormConfig {
 
     const selectProps = (field: keyof FormValues) => ({
       ...inputProps(field, 'select'),
+      type: 'select',
       name: field,
       id: `${this.formId}-input-${field}`,
       value: this.values[field],
-      ref: (el: HTMLInputElement) => (this.inputs = [...this.inputs, el]),
     });
 
     const labelProps = (field: keyof FormValues, value?: string) => ({
