@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/freshworks/crayons.git"
   },
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "This package contains all the necessary tooling for fw-crayons-icons",
   "main": "dist/index.js",
   "files": [
@@ -15,7 +15,7 @@
   "scripts": {
     "test": "",
     "build": "npm run optimize-icons && gulp",
-    "generateSysIcons" : "node ./generateSystemIcons",
+    "generateSysIcons": "node ./generateSystemIcons",
     "optimize-icons": "svgo -q -f icons --config .svgo.yml"
   },
   "publishConfig": {
