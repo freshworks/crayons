@@ -94,9 +94,6 @@
     "workbox-build": "^4.3.1",
     "yup": "^0.32.11"
   },
-  "peerDependencies": {
-    "webpack": "^4.0.0"
-  },
   "license": "MIT",
   "dependencies": {
     "@popperjs/core": "^2.10.2",
