@@ -3,25 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.8...@freshworks/crayons@3.0.0-beta.9) (2021-12-17)
-
+## [3.0.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.8...@freshworks/crayons@3.0.0-beta.9) (2021-12-17)
 
 ### Bug Fixes
 
-* **datepicker:** add stopImmediatePropagation and refactor code ([#348](https://github.com/freshworks/crayons/issues/348)) ([7ed726a](https://github.com/freshworks/crayons/commit/7ed726ab12f510c02ab96a067363d3b9fbda6b44))
-* **datepicker:** fix auto close on datepicker on tab ([#339](https://github.com/freshworks/crayons/issues/339)) ([41711f6](https://github.com/freshworks/crayons/commit/41711f6fd2cfe6d8263af1b36a961b61db9c5651))
-
+- **datepicker:** add stopImmediatePropagation and refactor code ([#348](https://github.com/freshworks/crayons/issues/348)) ([7ed726a](https://github.com/freshworks/crayons/commit/7ed726ab12f510c02ab96a067363d3b9fbda6b44))
+- **datepicker:** fix auto close on datepicker on tab ([#339](https://github.com/freshworks/crayons/issues/339)) ([41711f6](https://github.com/freshworks/crayons/commit/41711f6fd2cfe6d8263af1b36a961b61db9c5651))
 
 ### Features
 
-* **format-number:** Format number component using Intl.NumberFormat API ([#333](https://github.com/freshworks/crayons/issues/333)) ([aed902d](https://github.com/freshworks/crayons/commit/aed902df7a2de2df89d40675c30ddc6df8d10831))
-* **fw-icon-library:** fwIcon extensions and IconLibrary ([#340](https://github.com/freshworks/crayons/issues/340)) ([9e5ceb3](https://github.com/freshworks/crayons/commit/9e5ceb314095423a1c6788c911812b2f52f7a926))
-* **pagination:** compact pagination ([#335](https://github.com/freshworks/crayons/issues/335)) ([1bda7e2](https://github.com/freshworks/crayons/commit/1bda7e2769d959a9ab2afa4d059f8135e1fd4710))
-* **toggle-group:** Toggle group button supporting multiple selection ([#331](https://github.com/freshworks/crayons/issues/331)) ([3ec4eb9](https://github.com/freshworks/crayons/commit/3ec4eb9d50419c0b327dc82aa01172f17d82e938))
-
-
-
-
+- **format-number:** Format number component using Intl.NumberFormat API ([#333](https://github.com/freshworks/crayons/issues/333)) ([aed902d](https://github.com/freshworks/crayons/commit/aed902df7a2de2df89d40675c30ddc6df8d10831))
+- **fw-icon-library:** fwIcon extensions and IconLibrary ([#340](https://github.com/freshworks/crayons/issues/340)) ([9e5ceb3](https://github.com/freshworks/crayons/commit/9e5ceb314095423a1c6788c911812b2f52f7a926))
+- **pagination:** compact pagination ([#335](https://github.com/freshworks/crayons/issues/335)) ([1bda7e2](https://github.com/freshworks/crayons/commit/1bda7e2769d959a9ab2afa4d059f8135e1fd4710))
+- **toggle-group:** Toggle group button supporting multiple selection ([#331](https://github.com/freshworks/crayons/issues/331)) ([3ec4eb9](https://github.com/freshworks/crayons/commit/3ec4eb9d50419c0b327dc82aa01172f17d82e938))
 
 ## [3.0.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.7...@freshworks/crayons@3.0.0-beta.8) (2021-12-10)
 
