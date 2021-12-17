@@ -116,6 +116,9 @@ graph TD;
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
   fw-input --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-popover
   fw-select --> fw-button

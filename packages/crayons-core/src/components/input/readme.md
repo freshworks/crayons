@@ -212,6 +212,9 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-input --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-datepicker --> fw-input
   fw-dropdown-button --> fw-input
   fw-form-wrapper --> fw-input
