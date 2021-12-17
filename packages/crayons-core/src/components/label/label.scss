@@ -16,14 +16,17 @@
   background-color: $color-milk;
   font-weight: 600;
   font-size: $font-size-12;
+  line-height: 1.5;
   padding: var(--label-padding-vertical) var(--label-padding-horizontal);
-  height: 24px;
+  height: 22px;
   display: inline-flex;
   align-items: center;
   border-radius: var(--label-border-radius);
 
   ::slotted(fw-icon) {
-    margin-right: 8px;
+    height: 14px;
+    width: 14px;
+    margin-right: 6px;
   }
 
   &--blue {
@@ -80,5 +83,8 @@
     border-radius: 16px;
     border: unset;
     color: $color-elephant-900;
+    height: 28px;
+    padding-left: 8px;
+    padding-right: 12px;
   }
 }
