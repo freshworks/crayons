@@ -175,13 +175,12 @@ export class Icon {
 
   render() {
     const style = {};
-    const accessibilityProps = {};
+    const accessibilityProps = { 'aria-hidden': true };
 
     const hasLabel = typeof this.label === 'string' && this.label.length > 0;
     if (hasLabel) {
       accessibilityProps['role'] = 'img';
       accessibilityProps['aria-label'] = this.label;
-      accessibilityProps['aria-hidden'] = true;
     }
     if (this.size !== undefined) style['--icon-size'] = `${this.size}px`;
 

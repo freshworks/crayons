@@ -21,7 +21,7 @@ To apply card css utils, we can use 'fw-card-#{$elevation}'
         </div>
         <div class="fw-flex-grow-0">
           <fw-button size="icon" color="text" role="button" class="fw-ml-12">
-            <fw-icon name="delete" library="system" ></fw-icon>
+            <fw-icon name="delete" ></fw-icon>
           </fw-button>
         </div>
       </div>

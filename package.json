@@ -1,6 +1,6 @@
 {
   "name": "crayons",
-  "version": "3.0.0-beta.4",
+  "version": "3.0.0-beta.8",
   "description": "",
   "main": "index.js",
   "engines": {
@@ -74,7 +74,6 @@
     "stylelint-prettier": "^1.2.0",
     "stylelint-scss": "^3.21.0",
     "vuepress": "^1.8.2",
-    "vuepress-plugin-demo-code": "^0.6.0",
     "vuepress-plugin-google-tag-manager": "0.0.5",
     "vuepress-plugin-live": "^1.6.2",
     "vuepress-plugin-seo": "^0.1.4",
