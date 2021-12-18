@@ -37,7 +37,7 @@ const flags = {
 const commands = {
   help: { desc: `-- H E L P  T O P I C S --` },
   svgoYML: {
-    desc: `Downloads the default system svgo.yml file to your root dir. Pass --dest <target> to output it to desired path. Use this YML Config for passing custom Optimization.`,
+    desc: `Dumps the default system svgo.yml file to your root dir. Pass --destYml <target> to output it to desired path. Use this YML Config for passing custom Optimization.`,
   },
 };
 

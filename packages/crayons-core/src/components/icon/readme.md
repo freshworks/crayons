@@ -143,7 +143,7 @@ export default App;
 </code-block>
 </code-group>
 
-# Icon Library (@freshworks/crayons-icon)
+# Icon Library (@freshworks/crayons-icon)[![](https://data.jsdelivr.com/v1/package/npm/@freshworks/crayons-icon/badge)](https://www.jsdelivr.com/package/npm/@freshworks/crayons-icon)
 
 Crayons publishes `@freshworks/crayons-icon` as an Icon Library. Following features are made available to users via the Lib utils.
 
@@ -196,7 +196,7 @@ function App() {
 
 ### Example: Rendered in Sample Page as Component 
 
-<IconTSExportsShowcase/>
+<IconJSExportsShowcase/>
 
 ## CLI Tool for processing SVGs
 

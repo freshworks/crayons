@@ -5,20 +5,26 @@
     "url": "https://github.com/freshworks/crayons.git"
   },
   "version": "1.0.3",
-  "description": "Crayons-Icon as NodeJS-CLI Tool to optimize SVGs and generate JS Imports for icons.",
+  "description": "Introducing `Crayons-Icon` as Icon library of SVGs. It also supports JS Exports of SVG Data which is Tree shakeable. It is also a NodeJS-CLI Tool to optimize SVGs on the GO. ",
   "main": "dist/index.js",
   "bin": {
     "fw-icon-cli": "./bin/index.cli.js"
   },
   "keywords": [
     "crayons-icon",
+	"icon lib",
     "Freshworks",
-    "svg optimizer cli"
+	"svgo",
+	"svgo yml config",
+	"svg JS Exports",
+    "svg optimizer",
+	"crayons-icon-cli"
   ],
   "files": [
     "dist/",
     "utils/",
-    "bin/"
+    "bin/",
+	"docs/"
   ],
   "scripts": {
     "test": "",

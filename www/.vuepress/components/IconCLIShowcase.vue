@@ -5,21 +5,21 @@
             <div id="desc">This command list the HELP TOPICS </div>
             <p>hello-world-app % fw-icon-cli help</p>
         </div>
-        <img src="../public/assets/readMe.showcase/cli-help.png" />
+        <img src="../public/assets/readMe.showcase/crayons-icon-cli/cli-help.png" />
      </div>
       <div id="container">
         <div id="content">
             <div id="desc">This command COPIES the YML file to the command root. You may pass the dest also. </div>
             <p>hello-world-app % fw-icon-cli svgoYML</p>
         </div>
-        <img src="../public/assets/readMe.showcase/output-yml.png" />
+        <img src="../public/assets/readMe.showcase/crayons-icon-cli/output-yml.png" />
       </div>
       <div id="container">
         <div id="content">  
             <div id="desc">This command optimizes your SVGs. See the shorter version below. </div>  
             <p>hello-world-app % fw-icon-cli svgo --source ./src/assets/icons --destination ./public/assets/icons</p>
         </div>
-        <img src="../public/assets/readMe.showcase/cli-optimize-icons.png" />
+        <img src="../public/assets/readMe.showcase/crayons-icon-cli/cli-optimize-icons.png" />
         <div id="content">    
             <p>hello-world-app % fw-icon-cli svgo -i ./src/assets/icons -o ./public/assets/icons</p>
         </div>
@@ -29,7 +29,7 @@
             <div id="desc">This command optimizes your SVGs using your custom YML File. </div> 
             <p>hello-world-app % fw-icon-cli svgo --config ./svgo.yml -i ./src/assets/icons -o ./public/assets/icons</p>
         </div>
-         <img src="../public/assets/readMe.showcase/custom-yml.png" />
+         <img src="../public/assets/readMe.showcase/crayons-icon-cli/custom-yml.png" />
       </div>    
   </div> 
 </template>
