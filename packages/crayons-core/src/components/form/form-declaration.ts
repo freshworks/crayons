@@ -89,6 +89,7 @@ export interface FormUtils<Values, Key extends keyof Values> {
   checkboxProps: (key: Key) => any;
   radioProps: (key: Key, value: Values[Key]) => any;
   formProps: any;
+  formWrapperProps: any;
 }
 
 export type FwFormEventDetail = {

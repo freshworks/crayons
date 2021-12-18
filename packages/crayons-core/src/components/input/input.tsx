@@ -94,6 +94,9 @@ export class Input {
   @Prop() handleBlur = (_e, _o) => {};
   @Prop() handleFocus = (_e, _o) => {};
 
+  @Prop() error = '';
+  @Prop() touched = false;
+
   /**
    * Triggered when the value in the input box is modified.
    */
@@ -274,6 +277,7 @@ export class Input {
           ) : (
             ''
           )}
+          {this.touched && <div class='error'> {this.error}</div>}
         </div>
       </Host>
     );

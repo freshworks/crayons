@@ -5,6 +5,7 @@ import {
   Element,
   Event,
   EventEmitter,
+  h,
 } from '@stencil/core';
 import {
   FormRenderProps,
@@ -31,13 +32,13 @@ let formIds = 0;
 
 @Component({
   tag: 'fw-form',
+  shadow: true,
 })
 export class Form implements FormConfig {
   @Element() el!: any;
   private groups: { [key: string]: HTMLElement } = {} as any;
   private formId = `crayons-form-${formIds++}`;
   private dirty = false;
-  private formRef;
 
   @State() isValid = false;
   @State() isValidating = false;
@@ -64,15 +65,15 @@ export class Form implements FormConfig {
   @Event({ eventName: 'fwFormSubmit' })
   onFormSubmit: EventEmitter<FwFormEventDetail>;
 
-  getFormControls() {
-    const children = this.formRef.children;
+  // getFormControls() {
+  //   const children = this.formRef.children;
 
-    const reportValidChild = [...children].filter(
-      (c) => c.tagName === 'FW-INPUT'
-    );
+  //   const reportValidChild = [...children].filter(
+  //     (c) => c.tagName === 'FW-INPUT'
+  //   );
 
-    return reportValidChild;
-  }
+  //   return reportValidChild;
+  // }
 
   componentWillLoad() {
     this.values = this.initialValues;
@@ -143,7 +144,7 @@ export class Form implements FormConfig {
   handleInput =
     (field: string, inputType: string) => async (event: Event, ref: any) => {
       const target = event?.target as HTMLInputElement | HTMLTextAreaElement;
-      const value: any = getElementValue(inputType, ref);
+      const value: any = getElementValue(inputType, event, ref);
 
       this.values = { ...this.values, [field]: value };
 
@@ -152,11 +153,11 @@ export class Form implements FormConfig {
     };
 
   handleBlur =
-    (field: string, inputType: string) => (_event: Event, ref: any) => {
+    (field: string, inputType: string) => (event: Event, ref: any) => {
       if (this.focused) this.focused = null;
       if (!this.touched[field])
         this.touched = { ...this.touched, [field]: true };
-      const value: any = getElementValue(inputType, ref);
+      const value: any = getElementValue(inputType, event, ref);
 
       this.values = { ...this.values, [field]: value };
       /** Validate, if user wants to validateOnInput */
@@ -270,10 +271,14 @@ export class Form implements FormConfig {
         : `${this.formId}-input-${field}--radio-${value}`,
     });
 
-    const formProps = {
+    const formProps: any = {
       action: 'javascript:void(0);',
       onSubmit: this.handleSubmit,
-      ref: async (el) => (this.formRef = el),
+    };
+
+    const formWrapperProps: any = {
+      action: 'javascript:void(0);',
+      //onClick: this.handleSubmit,
     };
 
     return {
@@ -284,8 +289,73 @@ export class Form implements FormConfig {
       radioProps,
       labelProps,
       formProps,
+      formWrapperProps,
     };
   };
+
+  handleSlotChange = (e) => {
+    console.log('handle slot change ', e);
+  };
+
+  componentDidLoad() {
+    const controls = this.getFormControls();
+    controls.forEach((f) => {
+      const field = (f as any).name;
+      (f as any).handleInput = this.handleInput(
+        field as string,
+        (f as any).type
+      );
+      (f as any).handleChange = this.handleInput(
+        field as string,
+        (f as any).type
+      );
+      (f as any).handleBlur = this.handleBlur(field as string, (f as any).type);
+      (f as any).handleFocus = this.handleFocus(
+        field as string,
+        (f as any).type
+      );
+      if (f.tagName.toLowerCase() === 'input') {
+        console.log('input');
+        (f as any).addEventListener(
+          'change',
+          this.handleInput(field as string, (f as any).type)
+        );
+      }
+    });
+  }
+
+  getFormControls() {
+    const children = this.el.querySelectorAll('*');
+    return [...children]
+      .reduce(
+        (all: HTMLElement[], el: HTMLElement) =>
+          all.concat(el, [...el.querySelectorAll('*')] as HTMLElement[]),
+        []
+      )
+      .filter((el: HTMLElement) =>
+        ['fw-input', 'input'].includes(el.tagName.toLowerCase())
+      ) as HTMLElement[];
+  }
+
+  updateState() {
+    const controls = this.getFormControls();
+    controls.forEach((f) => {
+      const value = this.values[(f as any).name];
+      const error = this.errors[(f as any).name];
+      const touched = this.touched[(f as any).name];
+      //const field = (f as any).name;
+      if (value) f.setAttribute('value', value);
+      else (f as any).value = '';
+      if (error) (f as any).error = error;
+      else (f as any).error = '';
+      if (touched) (f as any).touched = true;
+      else (f as any).touched = false;
+      if (f.tagName.toLowerCase() === 'input' && error) {
+        console.log('input');
+        (f as any).setCustomValidity(error);
+      }
+    });
+  }
 
   render() {
     const state: FormState<FormValues> = this.composedState();
@@ -293,6 +363,7 @@ export class Form implements FormConfig {
     const computedProps: FormComputedProps<FormValues> =
       this.composedComputedProps();
     const utils: FormUtils<FormValues, keyof FormValues> = this.composedUtils();
+    this.updateState();
 
     const renderProps: FormRenderProps<any> = {
       ...state,
@@ -300,6 +371,16 @@ export class Form implements FormConfig {
       ...computedProps,
       ...utils,
     };
-    return this.renderer(renderProps);
+    console.log(renderProps);
+    //return this.renderer(renderProps);
+    return (
+      <div {...utils.formWrapperProps}>
+        <slot></slot>
+        <button type='submit' onClick={this.handleSubmit}>
+          {' '}
+          Subit form{' '}
+        </button>
+      </div>
+    );
   }
 }

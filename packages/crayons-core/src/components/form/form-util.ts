@@ -43,8 +43,17 @@ import toPath from 'lodash/toPath';
 export const isSelectType = (type: string): boolean =>
   !!type && type === 'select';
 
-export const getElementValue = (type: string, result: any): any => {
-  const value: any = result.value;
+export const getElementValue = (
+  _type: string,
+  event: any,
+  result: any
+): any => {
+  let value: any = result && result.value;
+  if (!value) {
+    if (event && event.target) {
+      value = event.target.value;
+    }
+  }
   return value;
 };
 

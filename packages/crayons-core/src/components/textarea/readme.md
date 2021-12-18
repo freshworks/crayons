@@ -166,19 +166,6 @@ Type: `Promise<void>`
 | `--input-color` | Color of the textarea input |
 
 
-## Dependencies
-
-### Used by
-
- - [fw-form-wrapper](../form-wrapper)
-
-### Graph
-```mermaid
-graph TD;
-  fw-form-wrapper --> fw-textarea
-  style fw-textarea fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 Built with ❤ at Freshworks

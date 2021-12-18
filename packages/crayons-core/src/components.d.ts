@@ -252,7 +252,7 @@ export namespace Components {
     interface FwFormWrapper {
         "formSchema": { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; field_options?: undefined; filterable?: undefined; searchable?: undefined; link?: undefined; choices?: undefined; optionLabelPath?: undefined; optionValuePath?: undefined; visible?: undefined; deleted?: undefined; hint?: undefined; parent_id?: undefined; parent?: undefined; } | { name: string; label: string; type: string; inputType: string; field_options: {}; filterable: boolean; searchable: boolean; required: boolean; link: string; choices: { id: number; value: string; position: number; }[]; id?: undefined; position?: undefined; editable?: undefined; custom?: undefined; placeholder?: undefined; fieldOptions?: undefined; fields?: undefined; optionLabelPath?: undefined; optionValuePath?: undefined; visible?: undefined; deleted?: undefined; hint?: undefined; parent_id?: undefined; parent?: undefined; } | { id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; optionLabelPath: string; optionValuePath: string; choices: { id: string; value: string; position: number; }[]; fields: any[]; fieldOptions?: undefined; field_options?: undefined; filterable?: undefined; searchable?: undefined; link?: undefined; visible?: undefined; deleted?: undefined; hint?: undefined; parent_id?: undefined; parent?: undefined; } | { id: string; name: string; label: string; type: string; inputType: string; position: number; required: boolean; editable: boolean; visible: boolean; deleted: boolean; link: any; placeholder: any; hint: any; field_options: {}; filterable: boolean; searchable: boolean; parent_id: any; choices: { id: number; value: string; position: number; }[]; custom?: undefined; fieldOptions?: undefined; fields?: undefined; optionLabelPath?: undefined; optionValuePath?: undefined; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; field_options?: undefined; filterable?: undefined; searchable?: undefined; link?: undefined; choices?: undefined; optionLabelPath?: undefined; optionValuePath?: undefined; visible?: undefined; deleted?: undefined; hint?: undefined; parent_id?: undefined; })[]; };
         "initialErrors": any;
-        "initialValues": { age: string; is_indian_citizen: boolean; };
+        "initialValues": { age: string; is_indian_citizen: boolean; abc: string; };
         "validationSchema": any;
     }
     interface FwIcon {
@@ -334,6 +334,7 @@ export namespace Components {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        "error": string;
         "handleBlur": (_e: any, _o: any) => void;
         "handleFocus": (_e: any, _o: any) => void;
         "handleInput": (_e: any, _o: any) => void;
@@ -389,6 +390,7 @@ export namespace Components {
           * Descriptive or instructional text displayed below the text box.
          */
         "stateText": string;
+        "touched": boolean;
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
@@ -1933,7 +1935,7 @@ declare namespace LocalJSX {
     interface FwFormWrapper {
         "formSchema"?: { title: string; name: string; fields: ({ id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; inputType: string; placeholder: string; required: boolean; fieldOptions: {}; fields: any[]; field_options?: undefined; filterable?: undefined; searchable?: undefined; link?: undefined; choices?: undefined; optionLabelPath?: undefined; optionValuePath?: undefined; visible?: undefined; deleted?: undefined; hint?: undefined; parent_id?: undefined; parent?: undefined; } | { name: string; label: string; type: string; inputType: string; field_options: {}; filterable: boolean; searchable: boolean; required: boolean; link: string; choices: { id: number; value: string; position: number; }[]; id?: undefined; position?: undefined; editable?: undefined; custom?: undefined; placeholder?: undefined; fieldOptions?: undefined; fields?: undefined; optionLabelPath?: undefined; optionValuePath?: undefined; visible?: undefined; deleted?: undefined; hint?: undefined; parent_id?: undefined; parent?: undefined; } | { id: string; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; optionLabelPath: string; optionValuePath: string; choices: { id: string; value: string; position: number; }[]; fields: any[]; fieldOptions?: undefined; field_options?: undefined; filterable?: undefined; searchable?: undefined; link?: undefined; visible?: undefined; deleted?: undefined; hint?: undefined; parent_id?: undefined; parent?: undefined; } | { id: string; name: string; label: string; type: string; inputType: string; position: number; required: boolean; editable: boolean; visible: boolean; deleted: boolean; link: any; placeholder: any; hint: any; field_options: {}; filterable: boolean; searchable: boolean; parent_id: any; choices: { id: number; value: string; position: number; }[]; custom?: undefined; fieldOptions?: undefined; fields?: undefined; optionLabelPath?: undefined; optionValuePath?: undefined; parent?: undefined; } | { id: string; parent: any; type: string; label: string; name: string; position: number; editable: boolean; custom: boolean; required: boolean; inputType: string; placeholder: string; fieldOptions: {}; fields: any[]; field_options?: undefined; filterable?: undefined; searchable?: undefined; link?: undefined; choices?: undefined; optionLabelPath?: undefined; optionValuePath?: undefined; visible?: undefined; deleted?: undefined; hint?: undefined; parent_id?: undefined; })[]; };
         "initialErrors"?: any;
-        "initialValues"?: { age: string; is_indian_citizen: boolean; };
+        "initialValues"?: { age: string; is_indian_citizen: boolean; abc: string; };
         "validationSchema"?: any;
     }
     interface FwIcon {
@@ -2021,6 +2023,7 @@ declare namespace LocalJSX {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        "error"?: string;
         "handleBlur"?: (_e: any, _o: any) => void;
         "handleFocus"?: (_e: any, _o: any) => void;
         "handleInput"?: (_e: any, _o: any) => void;
@@ -2088,6 +2091,7 @@ declare namespace LocalJSX {
           * Descriptive or instructional text displayed below the text box.
          */
         "stateText"?: string;
+        "touched"?: boolean;
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */

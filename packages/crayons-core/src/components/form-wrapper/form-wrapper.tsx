@@ -278,10 +278,12 @@ const formSchema = {
 const initialValues = {
   age: '',
   is_indian_citizen: true,
+  abc: '',
 };
 
 const staticValidationSchema = Yup.object().shape({
   age: Yup.number().max(20, 'max 20').required('Age is req'),
+  abc: Yup.string().required('custom abc is req'),
 });
 
 // const validationSchema = Yup.object().shape({
@@ -318,7 +320,7 @@ function mergeSchema(...schemas) {
   return merged;
 }
 
-function createYupSchema(schema, config) {
+function createYupSchema(schema: any, config: any) {
   const { inputType, required, name } = config;
   let yupType = '';
   switch (inputType) {
@@ -424,209 +426,203 @@ export class FormWrapper {
         initialValues={this.formInitialValues}
         validationSchema={this.formValidationSchema}
         initialErrors={this.formInitialErrors}
-        renderer={(props) => {
-          const {
-            errors,
-            formProps,
-            labelProps,
-            inputProps,
-            checkboxProps,
-            selectProps,
-            touched,
-          } = props;
-          return (
-            <div>
-              <form {...formProps} novalidate>
-                {formSchema.fields.map((field) => {
-                  let cmp = '';
-                  switch (field.type) {
-                    case 'input':
-                      cmp = (
-                        <Fragment>
-                          <fw-input
-                            {...inputProps(field.name, field.inputType)}
-                            type={field.inputType}
-                            label={field.label}
-                            name={field.name}
-                            placeholder={field.placeholder}
-                            required={field.required}
-                          ></fw-input>
-                          {touched[field.name] && errors[field.name] && (
-                            <label class='error' {...labelProps(field.name)}>
-                              {' '}
-                              {errors[field.name]}{' '}
-                            </label>
-                          )}
-                        </Fragment>
-                      );
-                      break;
+      >
+        <div>
+          {this.formSchema.fields.map((field) => {
+            let cmp = '';
+            switch (field.type) {
+              case 'input':
+                cmp = (
+                  <Fragment>
+                    <fw-input
+                      type={field.inputType}
+                      label={field.label}
+                      name={field.name}
+                      placeholder={field.placeholder}
+                      required={field.required}
+                    ></fw-input>
+                    {/* {touched[field.name] && errors[field.name] && (
+                      <label class='error' {...labelProps(field.name)}>
+                        {' '}
+                        {errors[field.name]}{' '}
+                      </label>
+                    )} */}
+                  </Fragment>
+                );
+                break;
 
-                    case 'textarea':
-                      cmp = (
-                        <Fragment>
-                          <fw-textarea
-                            {...inputProps(field.name, field.inputType)}
-                            label={field.label}
-                            placeholder={field.placeholder}
-                            name={field.name}
-                            required={field.required}
-                          ></fw-textarea>
-                          {touched[field.name] && errors[field.name] && (
-                            <label class='error' {...labelProps(field.name)}>
-                              {' '}
-                              {errors[field.name]}{' '}
-                            </label>
-                          )}
-                        </Fragment>
-                      );
-                      break;
+              // case 'textarea':
+              //   cmp = (
+              //     <Fragment>
+              //       <fw-textarea
+              //         {...inputProps(field.name, field.inputType)}
+              //         label={field.label}
+              //         placeholder={field.placeholder}
+              //         name={field.name}
+              //         required={field.required}
+              //       ></fw-textarea>
+              //       {touched[field.name] && errors[field.name] && (
+              //         <label class='error' {...labelProps(field.name)}>
+              //           {' '}
+              //           {errors[field.name]}{' '}
+              //         </label>
+              //       )}
+              //     </Fragment>
+              //   );
+              //   break;
 
-                    case 'date':
-                      cmp = (
-                        <Fragment>
-                          <fw-datepicker
-                            {...inputProps(field.name, field.inputType)}
-                            label={field.label}
-                            placeholder={field.placeholder}
-                            name={field.name}
-                            required={field.required}
-                          ></fw-datepicker>
-                          {touched[field.name] && errors[field.name] && (
-                            <label class='error' {...labelProps(field.name)}>
-                              {' '}
-                              {errors[field.name]}{' '}
-                            </label>
-                          )}
-                        </Fragment>
-                      );
-                      break;
+              // case 'date':
+              //   cmp = (
+              //     <Fragment>
+              //       <fw-datepicker
+              //         {...inputProps(field.name, field.inputType)}
+              //         label={field.label}
+              //         placeholder={field.placeholder}
+              //         name={field.name}
+              //         required={field.required}
+              //       ></fw-datepicker>
+              //       {touched[field.name] && errors[field.name] && (
+              //         <label class='error' {...labelProps(field.name)}>
+              //           {' '}
+              //           {errors[field.name]}{' '}
+              //         </label>
+              //       )}
+              //     </Fragment>
+              //   );
+              //   break;
 
-                    case 'checkbox':
-                      cmp = (
-                        <div>
-                          <fw-checkbox
-                            {...checkboxProps(field.name)}
-                            placeholder={field.placeholder}
-                            name={field.name}
-                            required={field.required}
-                          >
-                            {field.label}
-                          </fw-checkbox>
-                          <div>
-                            {touched[field.name] && errors[field.name] && (
-                              <label class='error' {...labelProps(field.name)}>
-                                {' '}
-                                {errors[field.name]}{' '}
-                              </label>
-                            )}
-                          </div>
-                        </div>
-                      );
-                      break;
+              // case 'checkbox':
+              //   cmp = (
+              //     <div>
+              //       <fw-checkbox
+              //         {...checkboxProps(field.name)}
+              //         placeholder={field.placeholder}
+              //         name={field.name}
+              //         required={field.required}
+              //       >
+              //         {field.label}
+              //       </fw-checkbox>
+              //       <div>
+              //         {touched[field.name] && errors[field.name] && (
+              //           <label class='error' {...labelProps(field.name)}>
+              //             {' '}
+              //             {errors[field.name]}{' '}
+              //           </label>
+              //         )}
+              //       </div>
+              //     </div>
+              //   );
+              //   break;
 
-                    case 'radio':
-                      cmp = (
-                        <Fragment>
-                          <div>
-                            <fw-radio-group
-                              allow-empty
-                              {...inputProps(field.name, field.inputType)}
-                              label={field.label}
-                              placeholder={field.placeholder}
-                              name={field.name}
-                              required={field.required}
-                            >
-                              {' '}
-                              {field.choices.map((ch) => {
-                                return (
-                                  <fw-radio value={ch.value}>
-                                    {ch.value}
-                                  </fw-radio>
-                                );
-                              })}
-                            </fw-radio-group>
-                            <div>
-                              {touched[field.name] && errors[field.name] && (
-                                <label
-                                  class='error'
-                                  {...labelProps(field.name)}
-                                >
-                                  {' '}
-                                  {errors[field.name]}{' '}
-                                </label>
-                              )}
-                            </div>
-                          </div>
-                        </Fragment>
-                      );
-                      break;
+              // case 'radio':
+              //   cmp = (
+              //     <Fragment>
+              //       <div>
+              //         <fw-radio-group
+              //           allow-empty
+              //           {...inputProps(field.name, field.inputType)}
+              //           label={field.label}
+              //           placeholder={field.placeholder}
+              //           name={field.name}
+              //           required={field.required}
+              //         >
+              //           {' '}
+              //           {field.choices.map((ch) => {
+              //             return (
+              //               <fw-radio value={ch.value}>{ch.value}</fw-radio>
+              //             );
+              //           })}
+              //         </fw-radio-group>
+              //         <div>
+              //           {touched[field.name] && errors[field.name] && (
+              //             <label class='error' {...labelProps(field.name)}>
+              //               {' '}
+              //               {errors[field.name]}{' '}
+              //             </label>
+              //           )}
+              //         </div>
+              //       </div>
+              //     </Fragment>
+              //   );
+              //   break;
 
-                    case 'select':
-                      cmp = (
-                        <Fragment>
-                          <div>
-                            <fw-select
-                              {...selectProps(field.name)}
-                              label={field.label}
-                              placeholder={field.placeholder}
-                              name={field.name}
-                              required={field.required}
-                              options={field.choices.map((f) => ({
-                                ...f,
-                                text: f.value,
-                              }))}
-                              multiple={field.inputType === 'MULTI_SELECT'}
-                            ></fw-select>
-                            <div>
-                              {touched[field.name] && errors[field.name] && (
-                                <label
-                                  class='error'
-                                  {...labelProps(field.name)}
-                                >
-                                  {' '}
-                                  {errors[field.name]}{' '}
-                                </label>
-                              )}
-                            </div>
-                          </div>
-                        </Fragment>
-                      );
-                      break;
+              // case 'select':
+              //   cmp = (
+              //     <Fragment>
+              //       <div>
+              //         <fw-select
+              //           {...selectProps(field.name)}
+              //           label={field.label}
+              //           placeholder={field.placeholder}
+              //           name={field.name}
+              //           required={field.required}
+              //           options={field.choices.map((f) => ({
+              //             ...f,
+              //             text: f.value,
+              //           }))}
+              //           multiple={field.inputType === 'MULTI_SELECT'}
+              //         ></fw-select>
+              //         <div>
+              //           {touched[field.name] && errors[field.name] && (
+              //             <label class='error' {...labelProps(field.name)}>
+              //               {' '}
+              //               {errors[field.name]}{' '}
+              //             </label>
+              //           )}
+              //         </div>
+              //       </div>
+              //     </Fragment>
+              //   );
+              //   break;
 
-                    case 'time':
-                      cmp = (
-                        <Fragment>
-                          <fw-timepicker
-                            {...inputProps(field.name, field.inputType)}
-                            label={field.label}
-                            placeholder={field.placeholder}
-                            name={field.name}
-                            required={field.required}
-                          ></fw-timepicker>
-                          {touched[field.name] && errors[field.name] && (
-                            <label class='error' {...labelProps(field.name)}>
-                              {' '}
-                              {errors[field.name]}{' '}
-                            </label>
-                          )}
-                        </Fragment>
-                      );
-                      break;
+              // case 'time':
+              //   cmp = (
+              //     <Fragment>
+              //       <fw-timepicker
+              //         {...inputProps(field.name, field.inputType)}
+              //         label={field.label}
+              //         placeholder={field.placeholder}
+              //         name={field.name}
+              //         required={field.required}
+              //       ></fw-timepicker>
+              //       {touched[field.name] && errors[field.name] && (
+              //         <label class='error' {...labelProps(field.name)}>
+              //           {' '}
+              //           {errors[field.name]}{' '}
+              //         </label>
+              //       )}
+              //     </Fragment>
+              //   );
+              //   break;
 
-                    default:
-                      cmp = <p>unknown</p>;
-                      break;
-                  }
-                  return cmp;
-                })}
-                <br />
-                <br />
-                <button type='submit'>Submit</button>
-              </form>
-            </div>
-          );
-        }}
-      ></fw-form>
+              // default:
+              //   cmp = <p>unknown</p>;
+              //   break;
+            }
+            return cmp;
+          })}
+          {/* <input
+            type='text'
+            name='abc'
+            onInput={(e) => {
+              const event = new CustomEvent('fwInput');
+              e.target.dispatchEvent(event);
+            }}
+          /> */}
+
+          <h3> This is rendered apart from the json schema</h3>
+          <fw-input
+            name='abc'
+            type='text'
+            label='custom layoyt'
+            placeholder={'custom layou in'}
+            required
+          ></fw-input>
+          <br />
+          <br />
+          {/* <button type='submit'>Submit</button> */}
+        </div>
+      </fw-form>
     );
   }
 }
