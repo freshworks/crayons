@@ -8,7 +8,7 @@ Crayons publishes `@freshworks/crayons-icon` as an Icon Library. Following featu
 3. Optimized set of Crayons Icons in `dist` folder. You are free to use them for project related purposes.
 4. Crayons Iconlib default `svgo` (svg compression util) config is available as part of dist folder. Refer usage docs on how to use it in your project.
 
-[<img alt="Crayons Icon Assets" width="90px" src="docs/crayons-icon-cli/crayons-icon-assets.png" />]()
+[<img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-assets.jpg" />]()
 
 ## Importing Icons from '@freshworks/crayons-icon' as Inline-SVGs. [ Supports Tree-Shaking ].
 
@@ -32,7 +32,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
 
 Below is the list of Sample commands with Output.
 
-[<img alt="Crayons Icon Assets" width="90px" src="docs/crayons-icon-cli/crayons-icon-cli-usage.png" />]()
+[<img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-cli-usage.png" />]()
 
 ----------------------------------------------
 
