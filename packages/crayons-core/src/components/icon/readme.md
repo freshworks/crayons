@@ -145,7 +145,7 @@ export default App;
 
 # Icon Library (@freshworks/crayons-icon)[![](https://data.jsdelivr.com/v1/package/npm/@freshworks/crayons-icon/badge)](https://www.jsdelivr.com/package/npm/@freshworks/crayons-icon)
 
-`Crayons` publishes `@freshworks/crayons-icon` as an **Icon Library**. Following features are made available to users via the Lib utils.
+**Freshworks Crayons** publishes `@freshworks/crayons-icon` as an `Icon Library`. Following features are made available to users via the Lib utils.
 
 1. `Crayons` SVG Icons are also available as JS exports. Supports Tree-Shaking. This is a useful feature especially for customization purposes.
 2. Enables `@freshworks/crayons-icon` CLI Interface via which you can leverage the SVGO Tooling to optimize your project svg-icons.
