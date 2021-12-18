@@ -7,8 +7,8 @@ Following features are available as part of the implementation of the fw-icon.
    Go through the docs to understand the various props it supports.
 2. Providing icon-support for crayons-system components and also exposing crayons-icon set/tooling for public use.
 3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the` accessibility tree`, just 
-   pass the 'label' props and fw-icon handles the assistive sr-compliance.
-4. Enable `Crayons-Icon lib` to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
+   pass the `label` props and fw-icon does the a11y attribute mapping.
+4. Enable `Crayons-Icon` as an iconlib to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
    See usage docs.
 
 ## Examples Live
@@ -85,7 +85,6 @@ registerIconLibrary('feather', {
 </script>
 </head>
 <body>
-    <fw-icon name="alert" color="red" size=30 ></fw-icon>
     <fw-icon name="feather" library="feather" color="red" size=30 ></fw-icon>
 </body>
 </html>
@@ -96,7 +95,6 @@ registerIconLibrary('feather', {
 ``` jsx
 import React from 'react';
 import './App.css';
-import { add_contact } from '@freshworks/crayons-icon';
 import { FwIcon, registerIconLibrary, unregisterIconLibrary } from '@freshworks/crayons/react';
 
 registerIconLibrary('feather', {
@@ -115,26 +113,10 @@ function App() {
 
     return ( 
         <div >
-            <div >
-                <FwIcon name = "feather"
-                        library="feather"
-                        color = 'red' 
-                />
-                <FwIcon name = "alert"
-                        color = 'blue'
-                        width = {20}
-                        height = {20} 
-                />
-                <FwIcon dataSvg = { add_contact }
-                        color = 'blue'
-                        size = {30}
-                />
-                <FwIcon name = "feather"
-                        src = "https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons"
-                        color = 'blue'
-                        size = {30} 
-                />
-            </div> 
+            <FwIcon name = "feather"
+                    library="feather"
+                    color = 'red' 
+            />
         </div>
     );
 }
@@ -147,52 +129,53 @@ export default App;
 
 **Freshworks Crayons** publishes `@freshworks/crayons-icon` as an `Icon Library`. Following features are made available to users via the Lib utils.
 
-1. `Crayons` SVG Icons are also available as JS exports. Supports Tree-Shaking. This is a useful feature especially for customization purposes.
+1. `Crayons` SVG Icons are also available as esm module. Supports Tree-Shaking. This is a useful feature especially for customization purposes.
 2. Enables `@freshworks/crayons-icon` CLI Interface via which you can leverage the SVGO Tooling to optimize your project svg-icons.
 3. Optimized set of Crayons Icons in `dist` folder. You are free to use them for project related purposes.
 4. Crayons Iconlib default `svgo` (svg compression util) config is available as part of dist folder. Refer usage docs on how to use it in your project.
 
+Some implementations via Icon Lib are as below:-
 
-**Some implementations via Icon Lib are as below:-**
+## Importing Icons from '@freshworks/crayons-icon'. [ Supports Tree-Shaking ].
 
-## Importing Icons from '@freshworks/crayons-icon' as Inline-SVGs. [ Supports Tree-Shaking ].
+You can also import Crayons Icons as an esm module. See the code below for implementation basics.
 
-You can also import Crayons Icons as a JS File. See the code below for implementation basics.
+1. HTML USAGE
 
-<code-group>
-<code-block title="HTML">
-```html 
+```html
 <html>
 <head>
-<script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
-<script type="module" >
-import { header } from '@freshworks/crayons-icon';
-</script>
-</head>
+   <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
+   <script type="module">
+          import { header, add_contact } from '@freshworks/crayons-icon';
+   </script>
+</head>   
 <body>
-    <fw-icon data-svg={ header } size=20 ></fw-icon>
+      <div>
+        <fw-icon data-svg = { header } label = "Header" />
+        <fw-icon data-svg = { add_contact } label = "Add-Contact" />
+      </div>
 </body>
 </html>
-
 ```
-</code-block>
 
-<code-block title="React">
-```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { FwIcon } from "@freshworks/crayons/react";
-import { header } from '@freshworks/crayons-icon';
+2. REACTJS USAGE
+
+```js
+import React from 'react';
+import { FwIcon } from '@freshworks/crayons/react'; 
+import { header, add_contact } from '@freshworks/crayons-icon';
 
 function App() {
-  return (<div>
-  <FwIcon dataSvg={ header } size=20 ></FwIcon>
- </div>);
+    return ( 
+        <div>
+            < FwIcon dataSvg = { header } label = "Header"/>
+            < FwIcon dataSvg = { add_contact } label = "Add-Contact"/>
+        </div>
+    );
 }
+export default App;
 ```
-</code-block>
-</code-group>
-
 
 ### Example: Rendered in Sample Page as Component 
 
