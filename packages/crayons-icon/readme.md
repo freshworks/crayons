@@ -14,7 +14,32 @@ Crayons publishes `@freshworks/crayons-icon` as an Icon Library. Following featu
 
 You can also import Crayons Icons as a JS Module.
 
+1. HTML USAGE
+
+```html
+<html>
+<head>
+   <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
+   <script type="module">
+          import { header, add_contact, alert, add_note, check} from '@freshworks/crayons-icon';
+   </script>
+</head>   
+<body>
+      
+      <fw-icon data-svg = { header } label = "Header" />
+      <fw-icon data-svg = { add_contact } label = "Add-Contact" />
+      <fw-icon data-svg = { alert } label = "Alert" />
+      <fw-icon data-svg = { add_note } label = "Add-Note" />
+      <fw-icon data-svg = { check } label = "Check" />
+
+</body>
+</html>
+```
+
+2. REACTJS USAGE
+
 ```js
+import { FwIcon } from '@freshworks/crayons/react'; 
 import { header, add_contact, alert, add_note, check} from '@freshworks/crayons-icon';
 
 < FwIcon dataSvg = { header } label = "Header"/>
@@ -32,7 +57,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
 
 Below is the list of Sample commands with Output.
 
-[<img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-cli-usage.png" />]()
+[<img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-cli-usage.jpg" />]()
 
 ----------------------------------------------
 
