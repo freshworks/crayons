@@ -9,7 +9,7 @@ Crayons publishes `@freshworks/crayons-icon` as an Icon Library. Following featu
 4. Crayons Iconlib default `svgo` (svg compression util) config is available as part of dist folder. Refer usage docs on how to use it in your project.
 
 <details> 
-  <summary>**Click to see the List of Icon Assets available as part of Repo.**</summary>
+  <summary>> Click to see the List of Icon Assets available as part of Repo.</summary>
    [<img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-assets.jpg" />]()
 </details>
 
@@ -59,7 +59,7 @@ import { header, add_contact, alert, add_note, check} from '@freshworks/crayons-
 It comes packed with a ultra tuned svgo-config. We support YML Config convention as its better in readability and easy to modify than a JSON. You may use the in-built CLI command to get the default YML File at your command root/ desired location, which you can further customize and use to optimze your SVGs via this CLI Tool. With `@freshworks/crayons-icon`, one also gets access to optimized `Crayons` Icons, available as part of `/dist` folder.You are free to use them for your project purposes.
 
 <details> 
-  <summary>**Click to see the List of Sample CLI commands with Output.**</summary>
+  <summary>> Click to see the List of Sample CLI commands with Output.</summary>
   [<img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-cli-usage.jpg" />]()
 </details>
 
