@@ -1,14 +1,14 @@
 # Icon (fw-icon)
 
-"fw-icon/FwIcon" is a renderer of SVG file that displays an icon-sized image that imparts meaning to the HTML component it is associated with.
+**fw-icon/FwIcon** is a renderer of SVG file that displays an icon-sized image that imparts meaning to the HTML component it is associated with.
 Following features are available as part of the implementation of the fw-icon.
 
-1. Enable fw-icon as an optimized renderer for SVG with built-in functions such as Intersection-Observer and Fetch-API Memoization.
+1. Enable `fw-icon` as an optimized renderer for SVG with built-in functions such as `Intersection-Observer` and `Fetch-API Memoization`.
    Go through the docs to understand the various props it supports.
 2. Providing icon-support for crayons-system components and also exposing crayons-icon set/tooling for public use.
-3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the accessibility tree, just 
+3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the` accessibility tree`, just 
    pass the 'label' props and fw-icon handles the assistive sr-compliance.
-4. Enable Crayons-Icon lib to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
+4. Enable `Crayons-Icon lib` to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
    See usage docs.
 
 ## Examples Live
@@ -53,7 +53,7 @@ React
 
 ### Intersection Observer
 
-Use prop 'lazy' to enable Intersection-Observer. By default it is disabled. You may choose to give the intersection root-margin for icons i.e via prop 'x-root-margin' as preloading threshold.Default value is '50px'.
+Use prop `lazy` to enable Intersection-Observer. `By default it is disabled`. You may choose to give the intersection root-margin for icons i.e via prop `x-root-margin` as preloading threshold.Default value is **50px**.
 
 ## Crayons Icon Assets 
 
@@ -64,10 +64,10 @@ Use the name of an icon as listed below it.For JS Imports, you may also click to
 
 ## FwIcon as a Renderer for external icons.
 
-fw-icon can also render external icons. You can use any external libraries from cdn after registering them. If you don't pass 'library' props,
-it will default to 'crayons'. You can even pass the CDN URL of SVG to 'src' prop. See the example below on how to use in React App.
+**fw-icon/FwIcon can also render external icons**. You can use any external libraries from cdn after registering them. If you don't pass `library` props,
+it will default to `crayons`. You can even pass the CDN URL of SVG to `src` prop. See the example below on how to use in React App.
 
-The library registration happens via a 'resolver' function. If you wish to apply some mutation to the icons , you may choose to pass the mutator function.
+The library registration happens via a `resolver` function. If you wish to apply some mutation to the icons , you may choose to pass the `mutator` function.
 
 ### Usage in HTML/React Page
 <code-group>
@@ -145,7 +145,7 @@ export default App;
 
 # Icon Library (@freshworks/crayons-icon)[![](https://data.jsdelivr.com/v1/package/npm/@freshworks/crayons-icon/badge)](https://www.jsdelivr.com/package/npm/@freshworks/crayons-icon)
 
-Crayons publishes `@freshworks/crayons-icon` as an Icon Library. Following features are made available to users via the Lib utils.
+`Crayons` publishes `@freshworks/crayons-icon` as an **Icon Library**. Following features are made available to users via the Lib utils.
 
 1. `Crayons` SVG Icons are also available as JS exports. Supports Tree-Shaking. This is a useful feature especially for customization purposes.
 2. Enables `@freshworks/crayons-icon` CLI Interface via which you can leverage the SVGO Tooling to optimize your project svg-icons.
@@ -153,7 +153,7 @@ Crayons publishes `@freshworks/crayons-icon` as an Icon Library. Following featu
 4. Crayons Iconlib default `svgo` (svg compression util) config is available as part of dist folder. Refer usage docs on how to use it in your project.
 
 
-Some implementations via Icon Lib are as below:-
+**Some implementations via Icon Lib are as below:-**
 
 ## Importing Icons from '@freshworks/crayons-icon' as Inline-SVGs. [ Supports Tree-Shaking ].
 
@@ -200,7 +200,7 @@ function App() {
 
 ## CLI Tool for processing SVGs
 
-`@freshworks/crayons-icon` is also available as a CLI Tool for processing SVGs with a friendlier interface, options and easily customizaable config to optimize your SVGs. See the usage below. 
+`@freshworks/crayons-icon` is also available as a CLI Tool for processing SVGs with a friendlier interface, options and easily customizable config to optimize your SVGs. See the usage below. 
 It comes packed with a ultra tuned svgo-config. We support YML Config convention as its better in readability and easy to modify than a JSON. You may use the in-built CLI command to get the default YML File at your command root/ desired location, which you can further customize and use to optimze your SVGs via this CLI Tool. With `@freshworks/crayons-icon`, one also gets access to optimized `Crayons` Icons, available as part of `/dist` folder.You are free to use them for your project purposes.
 
 <IconCLIShowcase/>
