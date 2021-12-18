@@ -10,7 +10,7 @@ Crayons publishes `@freshworks/crayons-icon` as an Icon Library. Following featu
 
 <details> 
   <summary>> Click to see the List of Icon Assets available as part of Repo.</summary>
-   [<img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-assets.jpg" />]()
+   <img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-assets.jpg" />
 </details>
 
 ## Importing Icons from '@freshworks/crayons-icon' as Inline-SVGs. [ Supports Tree-Shaking ].
@@ -60,7 +60,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
 
 <details> 
   <summary>> Click to see the List of Sample CLI commands with Output.</summary>
-  [<img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-cli-usage.jpg" />]()
+    <img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-cli-usage.jpg" />
 </details>
 
 ----------------------------------------------
