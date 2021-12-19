@@ -19,10 +19,11 @@ const defPluginOptions = require('../utils/default.svgo.config.js');
 
 const input = cli.input;
 const flags = cli.flags;
-
+const console_clear = flags.cli ? { clear: true } : { clear: false };
 let alert = { type: '', name: '', msg: '' };
+
 (async () => {
-  init({ clear: true });
+  init(console_clear);
   input.includes(`help`) ? cli.showHelp(0) : '';
 
   const dump_yml = (defPluginOptions, destYml) => {
@@ -54,14 +55,16 @@ let alert = { type: '', name: '', msg: '' };
       }
       alert = { type: 'info', name: 'Starting Optimization', msg: `` };
       log(alert);
-      alert = {
-        type: 'success',
-        name: 'DONE',
-        msg: `Applied following SVGO pluginOptions :-\n\n${json2yml.stringify(
-          pluginOptions
-        )}`,
-      };
-      !flags.quiet && log(alert);
+
+      !flags.quiet &&
+        log({
+          type: 'success',
+          name: 'DONE',
+          msg: `Applied following SVGO pluginOptions :-\n\n${json2yml.stringify(
+            pluginOptions
+          )}`,
+        });
+
       build(path.join('./'), flags.source, flags.destination, pluginOptions);
     }
 
@@ -74,14 +77,16 @@ let alert = { type: '', name: '', msg: '' };
       dump_yml(pluginOptions, './dist');
       alert = { type: 'info', name: 'Starting Optimization', msg: `` };
       log(alert);
-      alert = {
-        type: 'info',
-        name: 'Applied SVGO pluginConfig',
-        msg: `SVGs are optimized with following parameters :-\n\n${json2yml.stringify(
-          pluginOptions
-        )}`,
-      };
-      !flags.quiet && log(alert);
+
+      !flags.quiet &&
+        log({
+          type: 'info',
+          name: 'Applied SVGO pluginConfig',
+          msg: `SVGs are optimized with following parameters :-\n\n${json2yml.stringify(
+            pluginOptions
+          )}`,
+        });
+
       build(path.join('./'), './icons', './dist/icons', pluginOptions);
     }
   } catch (e) {

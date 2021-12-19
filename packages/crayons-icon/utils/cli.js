@@ -2,6 +2,30 @@ const meow = require('meow');
 const meowHelp = require('cli-meow-help');
 
 const flags = {
+  cli: {
+    type: `boolean`,
+    default: true,
+    alias: `c`,
+    desc: `@freshworks/crayons-icon as a CLI Tool`,
+  },
+  config: {
+    type: `string`,
+    default: 'default',
+    alias: `x`,
+    desc: `Apply your custom xxx.svgo.yml plugin config`,
+  },
+  quiet: {
+    type: `boolean`,
+    default: false,
+    alias: `q`,
+    desc: `On/Off printing CLI Terminal logs.`,
+  },
+  destYml: {
+    type: `string`,
+    default: './',
+    alias: `d`,
+    desc: `Outputs the default fw.crayons.icon.svgo.yml at specified path.`,
+  },
   source: {
     type: `string`,
     default: './icons',
@@ -12,31 +36,7 @@ const flags = {
     type: `string`,
     default: './dist/icons',
     alias: `o`,
-    desc: `Output folder for svg files`,
-  },
-  config: {
-    type: `string`,
-    default: 'default',
-    alias: `x`,
-    desc: `Load .yml config`,
-  },
-  destYml: {
-    type: `string`,
-    default: './',
-    alias: `d`,
-    desc: `Outputs the fw.crayons.icon.svgo.yml at specified path.`,
-  },
-  cli: {
-    type: `boolean`,
-    default: true,
-    alias: `c`,
-    desc: `Crayons-icon as a CLI Tool`,
-  },
-  quiet: {
-    type: `boolean`,
-    default: false,
-    alias: `q`,
-    desc: `For verbose output`,
+    desc: `Output folder for optimized svg files`,
   },
 };
 
