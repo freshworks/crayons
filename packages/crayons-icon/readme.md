@@ -3,10 +3,10 @@
 
 **Freshworks Crayons** publishes `@freshworks/crayons-icon` as an `Icon Library`. Following features are made available to users via the Lib utils.
 
-1. `Crayons` SVG Icons are also available as an esm module. Supports Tree-Shaking. This is a useful feature especially for customization purposes.
-2. Enables `@freshworks/crayons-icon` CLI Interface via which you can leverage the SVGO Tooling to optimize your project svg-icons.
-3. Optimized set of Crayons Icons in `dist` folder. You are free to use them for project related purposes.
-4. Crayons Iconlib default `svgo` (svg compression util) config is available as part of dist folder. Refer usage docs on how to use it in your project.
+1. Optimized set of Crayons Icons in `dist/icons` path. You are free to use them for project related purposes.
+2. `Crayons` SVG Icons are also available as an esm module. Supports Tree-Shaking. This is a useful feature especially for customization purposes.
+3. Enables `@freshworks/crayons-icon` CLI Interface via which you can leverage the SVGO Tooling to optimize your project svg-icons.
+4. Crayons Iconlib default `svgo config` (svg compression util) is available as part of `dist` folder. Refer usage docs on how to use it in your project.
 
 <details> 
   <summary>Click to see the List of Icon Assets available as part of Repo.</summary>
@@ -57,11 +57,11 @@ export default App;
 ## CLI Tool for processing SVGs
 
 `@freshworks/crayons-icon` is also available as a CLI Tool for processing SVGs with a friendlier interface, options and easily customizable config to optimize your SVGs. See the usage below. 
-It comes packed with a ultra tuned svgo-config. We support YML Config convention as its better in readability and easy to modify than a JSON. You may use the in-built CLI command to get the default YML File at your command root/ desired location, which you can further customize and use to optimze your SVGs via this CLI Tool. With `@freshworks/crayons-icon`, one also gets access to optimized `Crayons` Icons, available as part of `/dist` folder.You are free to use them for your project purposes.
+It comes packed with a ultra tuned svgo-config. We support YML Config convention as its better in readability and easy to modify than a JSON. You may use the in-built CLI command to get the default YML File at your command root/ desired location, which you can further customize and use to optimze your SVGs via this CLI Tool.
 
 <details> 
   <summary>Click to see the List of Sample CLI commands with Output.</summary>
-    <img alt="Crayons Icon Assets" width="100%" src="docs/crayons-icon-cli/crayons-icon-cli-usage.jpg" />
+    <img alt="Crayons Icon CLI Usage" width="100%" src="docs/crayons-icon-cli/crayons-icon-cli-usage.jpg" />
 </details>
 
 ----------------------------------------------
