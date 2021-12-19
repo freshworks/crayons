@@ -30,7 +30,7 @@
     "test": "",
     "build": "rm -rf ./dist && npm run optimize-icons && npm run generateSysIcons && gulp",
     "generateSysIcons": "node ./build.system.icons",
-    "optimize-icons": "node ./bin/index.cli.js --cli false",
+    "optimize-icons": "node ./bin/index.cli.js --cli false --quiet true",
     "format": "prettier --write \"./**/*.{js,json}\""
   },
   "publishConfig": {

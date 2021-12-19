@@ -30,7 +30,13 @@ const flags = {
     type: `boolean`,
     default: true,
     alias: `c`,
-    desc: `For CLI Usage`,
+    desc: `Crayons-icon as a CLI Tool`,
+  },
+  quiet: {
+    type: `boolean`,
+    default: false,
+    alias: `q`,
+    desc: `For verbose output`,
   },
 };
 

@@ -4,7 +4,7 @@
  * @freshworks/crayons-icon
  * Crayons-Icon as NodeJS-CLI Tool to optimize SVGs and generate JS Imports for icons.
  *
- * @author Freshworks <https://freshworks.in>
+ * @author Freshworks Inc
  */
 const fs = require('fs');
 const path = require('path');
@@ -61,7 +61,7 @@ let alert = { type: '', name: '', msg: '' };
           pluginOptions
         )}`,
       };
-      log(alert);
+      !flags.quiet && log(alert);
       build(path.join('./'), flags.source, flags.destination, pluginOptions);
     }
 
@@ -81,7 +81,7 @@ let alert = { type: '', name: '', msg: '' };
           pluginOptions
         )}`,
       };
-      log(alert);
+      !flags.quiet && log(alert);
       build(path.join('./'), './icons', './dist/icons', pluginOptions);
     }
   } catch (e) {
