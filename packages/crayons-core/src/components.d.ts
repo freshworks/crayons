@@ -115,6 +115,15 @@ export namespace Components {
          */
         "value": string;
     }
+    interface FwCustomCellAnchor {
+        "href": string;
+        "text": string;
+    }
+    interface FwCustomCellUser {
+        "email": string;
+        "image": any;
+        "name": string;
+    }
     interface FwDataTable {
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
@@ -1195,6 +1204,18 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwCustomCellAnchorElement extends Components.FwCustomCellAnchor, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellAnchorElement: {
+        prototype: HTMLFwCustomCellAnchorElement;
+        new (): HTMLFwCustomCellAnchorElement;
+    };
+    interface HTMLFwCustomCellUserElement extends Components.FwCustomCellUser, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellUserElement: {
+        prototype: HTMLFwCustomCellUserElement;
+        new (): HTMLFwCustomCellUserElement;
+    };
     interface HTMLFwDataTableElement extends Components.FwDataTable, HTMLStencilElement {
     }
     var HTMLFwDataTableElement: {
@@ -1383,6 +1404,8 @@ declare global {
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
+        "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
@@ -1543,6 +1566,15 @@ declare namespace LocalJSX {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+    }
+    interface FwCustomCellAnchor {
+        "href"?: string;
+        "text"?: string;
+    }
+    interface FwCustomCellUser {
+        "email"?: string;
+        "image"?: any;
+        "name"?: string;
     }
     interface FwDataTable {
         /**
@@ -2665,6 +2697,8 @@ declare namespace LocalJSX {
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-custom-cell-anchor": FwCustomCellAnchor;
+        "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
@@ -2708,6 +2742,8 @@ declare module "@stencil/core" {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
+            "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;

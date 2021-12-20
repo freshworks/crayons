@@ -105,12 +105,14 @@ function App() {
 
 ### Used by
 
+ - [fw-custom-cell-user](../data-table/custom-cells/user)
  - [fw-select-option](../select-option)
  - [fw-tag](../tag)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-custom-cell-user --> fw-avatar
   fw-select-option --> fw-avatar
   fw-tag --> fw-avatar
   style fw-avatar fill:#f9f,stroke:#333,stroke-width:4px
