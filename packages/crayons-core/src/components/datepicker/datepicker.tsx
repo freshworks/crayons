@@ -130,9 +130,14 @@ export class Datepicker {
     this.escapeHandler = ((e: any) => {
       if (e.keyCode === 27) {
         this.showDatePicker = false;
+        this.host.shadowRoot.querySelector('fw-popover').hide();
       }
     }).bind(this);
     document.addEventListener('keydown', this.escapeHandler);
+  }
+
+  private emitEvent(eventDetails) {
+    this.fwChange.emit(eventDetails);
   }
 
   focusElement(element: HTMLElement) {
@@ -197,7 +202,7 @@ export class Datepicker {
       }
       this.fromDate = this.startDateFormatted;
       this.toDate = this.endDateFormatted;
-      this.fwChange.emit({
+      this.emitEvent({
         fromDate: this.formatDate(this.startDateFormatted),
         toDate: this.formatDate(this.endDateFormatted),
       });
@@ -205,12 +210,13 @@ export class Datepicker {
       this.value = moment([this.year, this.month, this.selectedDay]).format(
         this.displayFormat
       );
-      this.fwChange.emit(this.formatDate(this.value));
+      this.emitEvent(this.formatDate(this.value));
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
     if (e.path[0].innerText === 'Update' || e.path[0].innerText === 'Cancel') {
       this.showDatePicker = false;
+      this.host.shadowRoot.querySelector('fw-popover').hide();
     }
   }
 
@@ -219,7 +225,7 @@ export class Datepicker {
   @Listen('fwChange')
   handleMonthYearDropDownSelection(e) {
     if (e.path[0].tagName !== 'FW-DATEPICKER') {
-      e.stopPropagation();
+      e.stopImmediatePropagation();
     }
 
     if (e.path[0].tagName === 'FW-INPUT') {
@@ -582,11 +588,12 @@ export class Datepicker {
         this.endDateFormatted = moment(this.endDate).format(this.displayFormat);
         if (this.startDate && this.endDate) {
           this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
-          this.fwChange.emit({
+          this.emitEvent({
             fromDate: this.formatDate(this.startDateFormatted),
             toDate: this.formatDate(this.endDateFormatted),
           });
           this.showDatePicker = false;
+          this.host.shadowRoot.querySelector('fw-popover').hide();
         }
       } else {
         // Single Date Container
@@ -594,8 +601,9 @@ export class Datepicker {
         this.value = moment([this.year, this.month, this.selectedDay]).format(
           this.displayFormat
         );
-        this.fwChange.emit(this.formatDate(this.value));
+        this.emitEvent(this.formatDate(this.value));
         this.showDatePicker = false;
+        this.host.shadowRoot.querySelector('fw-popover').hide();
       }
     }
   }
@@ -753,6 +761,7 @@ export class Datepicker {
         distance='8'
         placement='bottom-start'
         fallbackPlacements={['top-start']}
+        hide-on-tab='false'
       >
         <fw-input
           slot='popover-trigger'

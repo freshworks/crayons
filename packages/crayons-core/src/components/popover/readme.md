@@ -97,7 +97,7 @@ The above event can be handled manually via the listeners.
   placement="top-start"
 >
   <fw-button id="status-icon" size="icon" slot="popover-trigger"
-    ><fw-icon name="agent" color="white"></fw-icon>
+    ><fw-icon name="agent" color="white" ></fw-icon>
   </fw-button>
   <fw-list-options id="status-options" slot="popover-content"></fw-list-options>
 </fw-popover>
@@ -136,7 +136,7 @@ The above event can be handled manually via the listeners.
   placement="top-start"
 >
   <fw-button id="status-icon" size="icon" slot="popover-trigger"
-    ><fw-icon name="agent" color="white"></fw-icon>
+    ><fw-icon name="agent" color="white" ></fw-icon>
   </fw-button>
   <fw-list-options id="status-options" slot="popover-content"></fw-list-options>
 </fw-popover>
@@ -223,7 +223,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
       id="buttonIcon"
       slot="before-label"
       name="vertical-align-bottom"
-    ></fw-icon>
+     ></fw-icon>
     <span id="buttonContent">Premier Accounts</span>
   </fw-button>
   <div slot="popover-content">
@@ -322,7 +322,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
       id="buttonIcon"
       slot="before-label"
       name="vertical-align-bottom"
-    ></fw-icon>
+     ></fw-icon>
     <span id="buttonContent">Premier Accounts</span>
   </fw-button>
   <div slot="popover-content">
@@ -536,6 +536,7 @@ export default Popover;
 | `distance`           | `distance`              | Distance defines the distance between the popover trigger and the popover content along y-axis.                                                                          | `string`                                                                                                                                                             | `'0'`       |
 | `fallbackPlacements` | --                      | Alternative placement for popover if the default placement is not possible.                                                                                              | `[PopoverPlacementType]`                                                                                                                                             | `['top']`   |
 | `hasBorder`          | `has-border`            | Option to determine if popover-content has a border.                                                                                                                     | `boolean`                                                                                                                                                            | `true`      |
+| `hideOnTab`          | `hide-on-tab`           | Indicates whether popover contents should be hidden on pressing Tab.                                                                                                     | `boolean`                                                                                                                                                            | `true`      |
 | `hoist`              | `hoist`                 | Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto\|hidden\|scroll`.                                  | `boolean`                                                                                                                                                            | `false`     |
 | `placement`          | `placement`             | Placement of the popover content with respect to the popover trigger.                                                                                                    | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`  |
 | `sameWidth`          | `same-width`            | Whether the popover-content width to be same as that of the popover-trigger.                                                                                             | `boolean`                                                                                                                                                            | `true`      |

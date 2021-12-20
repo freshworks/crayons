@@ -21,7 +21,7 @@ To apply card css utils, we can use 'fw-card-#{$elevation}'
         </div>
         <div class="fw-flex-grow-0">
           <fw-button size="icon" color="text" role="button" class="fw-ml-12">
-            <fw-icon name="delete"></fw-icon>
+            <fw-icon name="delete" ></fw-icon>
           </fw-button>
         </div>
       </div>
@@ -87,7 +87,7 @@ To apply card css utils, we can use 'fw-card-#{$elevation}'
         <div class="fw-type-xs fw-mb-16">Hey! I need help with cancellation of a combo pack that I had ordered yesterday.</div>
         <div class="fw-type-xs fw-flex fw-flex-row options">
           <div class="fw-pr-12">
-            <span class="fw-mr-8"><fw-icon name="inbox" size="12"></fw-icon></span>
+            <span class="fw-mr-8"><fw-icon name="inbox" size="12" library="system" ></fw-icon></span>
             <span>Cancellation</span>
           </div>
           <div class="fw-px-12">Open</div>

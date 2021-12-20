@@ -4,28 +4,6 @@
 @import 'mixins/border';
 
 /**
-  For generating colors
-*/
-$colors: (
-  smoke-700: #475867,
-  smoke-300: #92a2b1,
-  azure-800: #2c5cc5,
-  azure-100: #bbdcfe,
-  elephant-900: #12344d,
-  elephant-800: #264966,
-  jungle-800: #005c3f,
-  jungle-500: #00a886,
-  persimmon-900: #c82124,
-  persimmon-800: #d72d30,
-  casablanca-700: #e86f25,
-);
-@each $color, $value in $colors {
-  .fw-color-#{$color} {
-    color: #{$value};
-  }
-}
-
-/**
   For generating typography styles
 */
 $font-header-sizes: (
@@ -225,6 +203,47 @@ $spacing: 28;
     @include margin(null, null, null, $spacevalue);
   }
   $spacing: $spacing - 4;
+}
+
+/**
+  For generating font colors
+*/
+$colors: (
+  smoke-700: #475867,
+  smoke-300: #92a2b1,
+  azure-800: #2c5cc5,
+  azure-100: #bbdcfe,
+  elephant-900: #12344d,
+  elephant-800: #264966,
+  jungle-800: #005c3f,
+  jungle-500: #00a886,
+  persimmon-900: #c82124,
+  persimmon-800: #d72d30,
+  casablanca-700: #e86f25,
+);
+@each $color, $value in $colors {
+  .fw-color-#{$color} {
+    color: #{$value};
+  }
+}
+
+/**
+  For generating background colors
+*/
+$background-colors: (
+  elephant-900: #12344d,
+  smoke-100: #cfd7df,
+  smoke-50: #ebeff3,
+  smoke-25: #f5f7f9,
+  jungle-50: #e0f5f1,
+  azure-50: #e5f2fd,
+  persimmon-50: #ffecf0,
+  casablanca-50: #fef1e1,
+);
+@each $color, $value in $background-colors {
+  .fw-bg-#{$color} {
+    background-color: #{$value};
+  }
 }
 
 /** 

@@ -244,7 +244,11 @@ export class Input {
                 onClick={(e) => this.clearTextInput(e)}
                 onKeyDown={handleKeyDown(this.clearTextInput)}
               >
-                <fw-icon class='clear-img' name='cross'></fw-icon>
+                <fw-icon
+                  class='clear-img'
+                  name='cross'
+                  library='system'
+                ></fw-icon>
               </div>
             ) : (
               ''

@@ -26,7 +26,7 @@ describe('fw-dropdown-button', () => {
     <fw-button class="hydrated">
       Click me
       <span class="down-arrow">
-        <fw-icon class="hydrated"></fw-icon>
+        <fw-icon class="hydrated" ></fw-icon>
       </span>
     </fw-button>
   </div>

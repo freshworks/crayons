@@ -419,6 +419,9 @@ graph TD;
   fw-modal --> fw-modal-title
   fw-modal --> fw-modal-content
   fw-modal --> fw-modal-footer
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-modal-title --> fw-icon
   fw-modal-footer --> fw-button
   fw-button --> fw-spinner

@@ -1,0 +1,32 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# FormatNumber
+
+<Meta title='FormatNumber' component='fw-format-number' />
+
+## Props
+
+<Props of='fw-format-number' />
+
+## Usage
+
+### Default
+
+<Preview>
+  <Story name='Default'>
+    {() => `<fw-format-number type="percent" value="0"></fw-format-number><br/>
+            <fw-format-number type="percent" value="0.25"></fw-format-number><br>
+            <fw-format-number type="percent" value="0.50"></fw-format-number><br>
+            <fw-format-number type="percent" value="0.75"></fw-format-number><br>
+            <fw-format-number type="percent" value="1"></fw-format-number> <br/>`}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name='Currency'>
+    {() => `<div>USD: <fw-format-number type="currency" currency="USD" value="5000" locale="en-US"></fw-format-number><br></div>
+<div>GBP: <fw-format-number type="currency" currency="GBP" value="5000" locale="en-GB"></fw-format-number><br></div>
+<div>EUR: <fw-format-number type="currency" currency="EUR" value="5000" locale="de"></fw-format-number><br></div>
+<div>CNY: <fw-format-number type="currency" currency="CNY" value="5000" locale="zh-cn"></fw-format-number></div>`}
+  </Story>
+</Preview>

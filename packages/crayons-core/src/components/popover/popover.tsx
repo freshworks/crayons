@@ -81,6 +81,10 @@ export class Popover {
    */
   @Prop() autoFocusOnContent = false;
   /**
+   * Indicates whether popover contents should be hidden on pressing Tab.
+   */
+  @Prop() hideOnTab = true;
+  /**
    * Triggered whenever the popover contents is open/displayed.
    */
   @Event() fwShow: EventEmitter;
@@ -93,6 +97,8 @@ export class Popover {
   onKeyDown(ev) {
     switch (ev.key) {
       case 'Tab':
+        this.hideOnTab && this.hide();
+        break;
       case 'Escape':
         this.hide();
         break;

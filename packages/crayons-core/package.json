@@ -12,7 +12,7 @@
     "components"
   ],
   "author": "Freshworks Inc",
-  "version": "3.0.0-beta.8",
+  "version": "3.0.0-beta.9",
   "description": "Crayons for Developer Platform",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -35,7 +35,7 @@
     "build:mincss": "cleancss -b css/*.css css",
     "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css",
     "build:styles": "npm run build:scss && npm run build:autoprefix && npm run build:mincss && npx copy css/crayons-min.css ../../www/.vuepress/public",
-    "build": "gulp && npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
+    "build": "npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
     "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm run start",
@@ -44,8 +44,8 @@
     "prestart": "kill-port 3333",
     "semantic-release": "semantic-release",
     "start": "stencil build --dev --watch --serve --port=3333",
-    "test:watch": "gulp && stencil test --spec --e2e --watchAll",
-    "test": "gulp && stencil test --spec --e2e",
+    "test:watch": "stencil test --spec --e2e --watchAll",
+    "test": "stencil test --spec --e2e",
     "clean:react": "rimraf react",
     "clean:css": "rimraf css",
     "add:react": "npm run clean:react && npx mkdirp react",
@@ -92,9 +92,6 @@
     "typescript": "^4.2.4",
     "web-component-analyzer": "^1.1.6",
     "workbox-build": "^4.3.1"
-  },
-  "peerDependencies": {
-    "webpack": "^4.0.0"
   },
   "license": "MIT",
   "dependencies": {

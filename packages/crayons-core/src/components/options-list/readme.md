@@ -175,6 +175,9 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-input --> fw-icon
   fw-select --> fw-list-options
   style fw-list-options fill:#f9f,stroke:#333,stroke-width:4px
