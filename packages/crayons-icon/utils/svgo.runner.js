@@ -7,10 +7,9 @@ const log = require('./log');
 module.exports = build;
 async function build(rootDir, srcDir, distDir, loadConfigPlugins) {
   try {
-    let alert = {};
     const srcSvgDir = path.join(rootDir, srcDir);
     const distSvgDir = path.join(rootDir, distDir);
-
+    let alert = {};
     alert = {
       type: 'info',
       name: 'Optimizing SVGs In-Progress...',
@@ -29,7 +28,13 @@ async function build(rootDir, srcDir, distDir, loadConfigPlugins) {
     };
     log(alert);
   } catch (e) {
-    console.error(e);
+    let alert = {};
+    alert = {
+      type: 'error',
+      name: 'SVGO RunLog : (fn)build',
+      msg: `Error :  ${e}`,
+    };
+    log(alert);
     process.exit(1);
   }
 }
@@ -56,9 +61,7 @@ async function optimizeSvg(optimizePass, svgData) {
     path: svgData.srcFilePath,
   });
   const optimizedCode = optimizedSvg.data;
-
   svgData.optimizedSvgContent = optimizedCode;
-
   await fs_extra.writeFile(svgData.distSvgFilePath, optimizedSvg.data);
 }
 
