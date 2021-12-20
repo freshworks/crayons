@@ -17,9 +17,8 @@
 
 You can also import Crayons Icons as an esm Module.
 
-### Usage in HTML/React Page
-<code-group>
-<code-block title="HTML">
+1. HTML USAGE
+
 ```html
 <html>
 <head>
@@ -36,10 +35,10 @@ You can also import Crayons Icons as an esm Module.
 </body>
 </html>
 ```
-</code-block>
 
-<code-block title="React">
-```jsx
+2. REACTJS USAGE
+
+```js
 import React from 'react';
 import { FwIcon } from '@freshworks/crayons/react'; 
 import { header, add_contact } from '@freshworks/crayons-icon';
@@ -47,15 +46,13 @@ import { header, add_contact } from '@freshworks/crayons-icon';
 function App() {
     return ( 
         <div>
-            <FwIcon dataSvg={ header }  label="Header" />
-            <FwIcon dataSvg={ add_contact }  label="Add-Contact" />
+            <FwIcon dataSvg={ header }  label="Header"/>
+            <FwIcon dataSvg={ add_contact }  label="Add-Contact"/>
         </div>
     );
 }
 export default App;
 ```
-</code-block>
-</code-group>
 
 ## CLI Tool for processing SVGs
 
