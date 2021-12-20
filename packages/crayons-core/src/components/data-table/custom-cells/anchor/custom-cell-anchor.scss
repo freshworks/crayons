@@ -1,5 +1,5 @@
+@import '../../../../../../../styles/mixins/typography';
+
 .anchor {
-  color: $color-azure-800;
-  text-decoration: none;
-  font-weight: 600;
+  @include anchor;
 }
