@@ -5,7 +5,7 @@
     "url": "https://github.com/freshworks/crayons.git"
   },
   "version": "1.1.0",
-  "description": "Introducing `Crayons-Icon` as Icon library of SVGs. It provided SVGs as JS Module Imports. [Tree shakeable]. It is also a NodeJS-CLI Tool to optimize SVGs on the GO. ",
+  "description": "Freshworks `Crayons-Icon` is an Icon library of SVGs.It also provides a NodeJS-CLI to optimize SVGs on the GO. ",
   "main": "dist/index.js",
   "bin": {
     "fw-icon-cli": "./bin/index.cli.js"

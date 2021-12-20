@@ -75,14 +75,14 @@ The library registration happens via a `resolver` function. If you wish to apply
 ``` html
 <html>
 <head>
-<script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
-<script type="module" >
-import { registerIconLibrary } from 'https://unpkg.com/@freshworks/crayons@canary/dist/crayons/index.esm.js';
-registerIconLibrary('feather', {
-        resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
-        mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
-});
-</script>
+    <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
+    <script type="module" >
+        import { registerIconLibrary } from 'https://unpkg.com/@freshworks/crayons@canary/dist/crayons/index.esm.js';
+        registerIconLibrary('feather', {
+                resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
+                mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
+        });
+    </script>
 </head>
 <body>
     <fw-icon name="feather" library="feather" color="red" size=30 ></fw-icon>
@@ -98,27 +98,23 @@ import './App.css';
 import { FwIcon, registerIconLibrary, unregisterIconLibrary } from '@freshworks/crayons/react';
 
 registerIconLibrary('feather', {
-        resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
-        mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
-        
+      resolver : (  name  ) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
+      mutator  : (svg,name) => {(name==='feather') ? svg.setAttribute('fill', 'currentColor') : false}
 });
+
 registerIconLibrary('heroicons', {
-        resolver: (name) => `https://cdn.jsdelivr.net/npm/heroicons@0.4.2/outline/${name}.svg`,
-        mutator: (svg,name) => svg.setAttribute('fill', 'currentColor')
+      resolver : (  name  ) => `https://cdn.jsdelivr.net/npm/heroicons@0.4.2/outline/${name}.svg`
 });
 
 unregisterIconLibrary('heroicons');
 
 function App() {
-
     return ( 
-        <div >
-            <FwIcon name = "feather"
-                    library="feather"
-                    color = 'red' 
-            />
-        </div>
-    );
+             <div >
+                <FwIcon name = "feather"   library="feather" color = 'red'  label = "feather"   />
+                <FwIcon name = "pie-chart" library="feather" color = 'blue' label = "pie-chart" />
+             </div> 
+           );
 }
 export default App;
 ```
@@ -148,7 +144,7 @@ You can also import Crayons Icons as an esm module. See the code below for imple
 <head>
    <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
    <script type="module">
-          import { header, add_contact } from '@freshworks/crayons-icon';
+       import { header, add_contact } from '@freshworks/crayons-icon';
    </script>
 </head>   
 <body>
