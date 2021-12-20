@@ -12,24 +12,14 @@ export class CustomCellUser {
 
   @Prop() email = '';
 
-  getInitialsFromName() {
-    const initials = this.name
-      ? this.name
-          .split(' ')
-          .map((name) => name[0].toUpperCase())
-          .join('')
-      : '';
-    return initials;
-  }
-
   render() {
     return (
       <div class='name-box-container'>
         <div class='avatar'>
           <fw-avatar
             size='small'
-            initials={this.getInitialsFromName()}
             image={this.image}
+            name={this.name}
           ></fw-avatar>
         </div>
         <div class='name-box'>

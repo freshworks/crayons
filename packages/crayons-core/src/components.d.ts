@@ -42,6 +42,7 @@ export namespace Components {
         "image": string;
         "initials": string;
         "mode": 'dark' | 'light';
+        "name": string;
         "shape": 'circle' | 'square' | 'rounded';
         "size": | 'xxlarge'
     | 'xlarge'
@@ -1471,6 +1472,7 @@ declare namespace LocalJSX {
         "image"?: string;
         "initials"?: string;
         "mode"?: 'dark' | 'light';
+        "name"?: string;
         "shape"?: 'circle' | 'square' | 'rounded';
         "size"?: | 'xxlarge'
     | 'xlarge'
