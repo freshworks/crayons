@@ -114,7 +114,7 @@ export class Icon {
         throw '-invalid props-';
       }
     } catch (e) {
-      console.log(e);
+      console.error(e.message);
       this.loadFallbackImage();
     }
   }
@@ -126,7 +126,9 @@ export class Icon {
       this.applySVGMutation(library, name, svgEl);
       return svgEl.outerHTML;
     } catch (ex) {
-      throw new Error(`Exception occured while drawing Icon- ${name} : ${ex}`);
+      throw new Error(
+        `Exception occured while drawing Icon- ${name} : ${ex.message}`
+      );
     }
   }
 
@@ -158,7 +160,9 @@ export class Icon {
     if (icon && library) {
       return library.resolver(icon);
     } else {
-      console.error(`Icon ${icon}/${library} not registered.`);
+      console.error(
+        `Icon ${icon}/${lib} not registered.Check the Implementation.`
+      );
       return;
     }
   }

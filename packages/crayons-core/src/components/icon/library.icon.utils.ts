@@ -41,7 +41,7 @@ export async function getSVGElement(url: string): Promise<SVGElement> {
     return doc.body.querySelector('svg');
   } catch (e) {
     throw new Error(
-      `Error while creating SVG Element. It can be due to corrupt/missing SVG Source. : ${e}`
+      `Error while creating SVG Element. It can be due to corrupt/missing SVG Source. : ${e.message}`
     );
   }
 }
@@ -50,18 +50,29 @@ export function registerIconLibrary(
   name: string,
   options: { resolver: IconLibraryResolver; mutator?: SVGMutator }
 ) {
-  unregisterIconLibrary(name);
-  registry.push({
-    name,
-    resolver: options.resolver,
-    mutator: options.mutator,
-  });
-  // Re-render watched icons
-  watchedIcons.map((icon) => {
-    if (icon.library === name) {
-      icon.redrawIcon();
+  try {
+    if (name !== 'crayons' && name !== 'system') {
+      unregisterIconLibrary(name);
+      registry.push({
+        name,
+        resolver: options.resolver,
+        mutator: options.mutator,
+      });
+      // Re-render watched icons
+      watchedIcons.map((icon) => {
+        if (icon.library === name) {
+          icon.redrawIcon();
+        }
+      });
+    } else {
+      throw new Error(
+        'You cannot register libraries with name "crayons" | "system". Please register with different name.'
+      );
     }
-  });
+  } catch (e) {
+    console.error(e.message);
+    return;
+  }
 }
 
 export function unregisterIconLibrary(name: string) {
