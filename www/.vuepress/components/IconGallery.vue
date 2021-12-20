@@ -1,6 +1,6 @@
 <template>
   <div class="card-gallery" style="height:600px;overflow-y:scroll;">
-    <div v-for="icon in icons" class="card" @click="copyToClipboard(icon.name, icon.importByName, icon.refIcon, icon.refText)">
+    <div v-for="icon in icons" :key="icon.refIcon" class="card" @click="copyToClipboard(icon.name, icon.importByName, icon.refIcon, icon.refText)">
       <div :ref="icon.refIcon">
         <fw-icon :data-svg="icon.src" size = "16" alt="Crayons-Icon"  :label = "icon.name"></fw-icon>
       </div>

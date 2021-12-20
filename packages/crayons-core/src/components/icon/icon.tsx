@@ -1,12 +1,4 @@
-import {
-  Build,
-  Component,
-  Element,
-  Prop,
-  State,
-  Watch,
-  h,
-} from '@stencil/core';
+import { Build, Component, Element, Prop, State, h } from '@stencil/core';
 import { fetchIcon, waitUntilVisible } from './icon.utils';
 import {
   getIconLibrary,
@@ -21,6 +13,7 @@ import {
   shadow: true,
 })
 export class Icon {
+  @Element() el: HTMLElement;
   /**
    * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
    */
@@ -58,93 +51,30 @@ export class Icon {
    */
   @Prop() color = '';
   /**
-   * Enable Intersection Observer. Default is false.
-   */
-  @Prop() lazy = false;
-  /**
    * Name of External Library to be used
    */
   @Prop() library = 'crayons';
+  /**
+   * Enable Intersection Observer. Default is false.
+   */
+  @Prop() lazy = false;
 
-  @Element() el: HTMLElement;
+  @State() private setElVisible = false;
 
   @State() private visible = false;
 
   @State() private intersectionObserver: IntersectionObserver;
 
-  @State() private svgHTML = '';
+  @State() private svg: string;
 
-  @State() private eval_xOb = false;
+  async componentWillLoad(): Promise<void> {
+    if (!this.lazy) this.visible = true;
+    else this.visible = this.setElVisible;
 
-  @Watch('name')
-  @Watch('src')
-  @Watch('library')
-  @Watch('dataSvg')
-  @Watch('lazy')
-  private async setSVGState(): Promise<void> {
-    const { name, visible, library, lazy, dataSvg, src } = this;
-
-    if (!lazy) this.eval_xOb = true;
-    else this.eval_xOb = visible;
-
-    if (!Build.isBrowser || !this.eval_xOb) {
+    if (!Build.isBrowser || !this.visible) {
       return;
     }
-    if (!name && dataSvg) {
-      this.svgHTML = dataSvg;
-    } else if (name) {
-      try {
-        let url = src;
-        if (!src) {
-          url = this.getUrl(name, library);
-        } else url = `${src}/${name}.svg`;
-        if (url !== undefined) {
-          const svgEl = await getSVGElement(url);
-          this.applySVGMutation(library, name, svgEl);
-          this.svgHTML = svgEl.outerHTML;
-        } else {
-          throw 'Icon-URL Not Valid.';
-        }
-      } catch (ex) {
-        console.info(
-          `Cannot load ${name}|${library} from CDN. Please check the url & provide a live path.`,
-          ex
-        );
-        this.loadFallbackImage();
-        return;
-      }
-    } else {
-      console.error(
-        "Please provide valid props either 'name' or 'data-svg'.Check the usage docs."
-      );
-      return;
-    }
-  }
-
-  private getUrl(icon: string, lib: string): string {
-    const library = getIconLibrary(lib);
-    if (icon && library) {
-      return library.resolver(icon);
-    } else {
-      throw 'Icon name/library not registered.';
-    }
-  }
-
-  private applySVGMutation(library: string, icon: string, svgEl: SVGElement) {
-    const iconlibrary = getIconLibrary(library);
-    if (iconlibrary && iconlibrary.mutator) {
-      iconlibrary.mutator(svgEl, icon);
-    }
-  }
-
-  /** Fetches the icon and redraws it. Used to handle library registrations. */
-  redraw() {
-    this.setSVGState();
-  }
-
-  async loadFallbackImage() {
-    this.svgHTML = await fetchIcon(this.getUrl('image', 'system'));
-    this.dataSvg = this.svgHTML;
+    this.applyIconPropstoState();
   }
 
   connectedCallback(): void {
@@ -155,8 +85,8 @@ export class Icon {
         this.xRootMargin,
         this.el,
         () => {
-          this.visible = true;
-          this.setSVGState();
+          this.setElVisible = true;
+          this.applyIconPropstoState();
         }
       );
   }
@@ -169,8 +99,75 @@ export class Icon {
     }
   }
 
-  async componentWillLoad(): Promise<void> {
-    this.setSVGState();
+  private async applyIconPropstoState(): Promise<void> {
+    const { name, dataSvg, library } = this;
+    try {
+      if (!name && dataSvg) {
+        this.svg = dataSvg;
+      } else if (name) {
+        const url = this.getIconUrl(name, library);
+        this.svg = await this.drawIcon(url);
+      } else {
+        console.error(
+          "Please provide valid props either 'name' or 'data-svg'.Check the usage docs."
+        );
+        throw '-invalid props-';
+      }
+    } catch (e) {
+      console.log(e);
+      this.loadFallbackImage();
+    }
+  }
+
+  private async drawIcon(url: string): Promise<string> {
+    const { name, library } = this;
+    try {
+      const svgEl = await getSVGElement(url);
+      this.applySVGMutation(library, name, svgEl);
+      return svgEl.outerHTML;
+    } catch (ex) {
+      throw new Error(`Exception occured while drawing Icon- ${name} : ${ex}`);
+    }
+  }
+
+  /** Fetches the icon and redraws it. Used to handle library registrations. */
+  redrawIcon() {
+    this.applyIconPropstoState();
+  }
+
+  async loadFallbackImage() {
+    this.svg = await fetchIcon(this.getIconUrlfromlib('image', 'system'));
+  }
+
+  private getIconUrl(icon: string, lib: string): string {
+    let url = '';
+    if (!this.src) {
+      url = this.getIconUrlfromlib(icon, lib);
+      if (url === undefined) {
+        console.error(
+          `Error while resolving url for ${this.name}|${this.library}. Please check the lib registration/resolver function.`
+        );
+        return;
+      }
+    } else url = `${this.src}/${this.name}.svg`;
+    return url;
+  }
+
+  private getIconUrlfromlib(icon: string, lib: string): string {
+    const library = getIconLibrary(lib);
+    if (icon && library) {
+      return library.resolver(icon);
+    } else {
+      console.error(`Icon ${icon}/${library} not registered.`);
+      return;
+    }
+  }
+
+  private applySVGMutation(library: string, icon: string, svgEl: SVGElement) {
+    const iconlibrary = getIconLibrary(library);
+    if (iconlibrary && iconlibrary.mutator) {
+      iconlibrary.mutator(svgEl, icon);
+    }
   }
 
   render() {
@@ -194,7 +191,7 @@ export class Icon {
           width: `${this.width}px`,
           ...style,
         }}
-        innerHTML={this.svgHTML}
+        innerHTML={this.svg}
       ></div>
     );
   }

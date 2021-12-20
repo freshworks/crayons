@@ -29,13 +29,21 @@ export function getIconLibrary(name?: string) {
 }
 
 export async function getSVGElement(url: string): Promise<SVGElement> {
-  const div = document.createElement('div');
-  div.innerHTML = await fetchIcon(url);
-  const svgEle = div.firstElementChild;
-  const svg =
-    svgEle && svgEle.tagName.toLowerCase() === 'svg' ? svgEle.outerHTML : '';
-  const doc = parser.parseFromString(svg, 'text/html');
-  return doc.body.querySelector('svg');
+  try {
+    const div = document.createElement('div');
+    div.innerHTML = await fetchIcon(url);
+    if (div.innerHTML.indexOf('</svg>') === -1)
+      throw new Error(`Asset not found or Network Issue`);
+    const svgEle = div.firstElementChild;
+    const svg =
+      svgEle && svgEle.tagName.toLowerCase() === 'svg' ? svgEle.outerHTML : '';
+    const doc = parser.parseFromString(svg, 'text/html');
+    return doc.body.querySelector('svg');
+  } catch (e) {
+    throw new Error(
+      `Error while creating SVG Element. It can be due to corrupt/missing SVG Source. : ${e}`
+    );
+  }
 }
 
 export function registerIconLibrary(
@@ -51,7 +59,7 @@ export function registerIconLibrary(
   // Re-render watched icons
   watchedIcons.map((icon) => {
     if (icon.library === name) {
-      icon.redraw();
+      icon.redrawIcon();
     }
   });
 }
