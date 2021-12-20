@@ -182,6 +182,28 @@ export namespace Components {
          */
         "value": string;
     }
+    interface FwDragContainer {
+        /**
+          * Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.
+         */
+        "acceptFrom": string;
+        /**
+          * Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.
+         */
+        "addOnDrop": boolean;
+        /**
+          * Whether the drag element should be moved or copied.
+         */
+        "copy": boolean;
+        /**
+          * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
+         */
+        "placeholderClass": string;
+        /**
+          * Whether the list should be sortable.
+         */
+        "sortable": boolean;
+    }
     interface FwDropdownButton {
         /**
           * Dropdown Button color
@@ -845,8 +867,6 @@ export namespace Components {
          */
         "width": string;
     }
-    interface FwSortable {
-    }
     interface FwSpinner {
         /**
           * Color in which the loader is displayed, specified as a standard CSS color.
@@ -1209,6 +1229,12 @@ declare global {
         prototype: HTMLFwDatepickerElement;
         new (): HTMLFwDatepickerElement;
     };
+    interface HTMLFwDragContainerElement extends Components.FwDragContainer, HTMLStencilElement {
+    }
+    var HTMLFwDragContainerElement: {
+        prototype: HTMLFwDragContainerElement;
+        new (): HTMLFwDragContainerElement;
+    };
     interface HTMLFwDropdownButtonElement extends Components.FwDropdownButton, HTMLStencilElement {
     }
     var HTMLFwDropdownButtonElement: {
@@ -1311,12 +1337,6 @@ declare global {
         prototype: HTMLFwSkeletonElement;
         new (): HTMLFwSkeletonElement;
     };
-    interface HTMLFwSortableElement extends Components.FwSortable, HTMLStencilElement {
-    }
-    var HTMLFwSortableElement: {
-        prototype: HTMLFwSortableElement;
-        new (): HTMLFwSortableElement;
-    };
     interface HTMLFwSpinnerElement extends Components.FwSpinner, HTMLStencilElement {
     }
     var HTMLFwSpinnerElement: {
@@ -1393,6 +1413,7 @@ declare global {
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
+        "fw-drag-container": HTMLFwDragContainerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
@@ -1410,7 +1431,6 @@ declare global {
         "fw-select": HTMLFwSelectElement;
         "fw-select-option": HTMLFwSelectOptionElement;
         "fw-skeleton": HTMLFwSkeletonElement;
-        "fw-sortable": HTMLFwSortableElement;
         "fw-spinner": HTMLFwSpinnerElement;
         "fw-tab": HTMLFwTabElement;
         "fw-tab-panel": HTMLFwTabPanelElement;
@@ -1616,6 +1636,32 @@ declare namespace LocalJSX {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
+    }
+    interface FwDragContainer {
+        /**
+          * Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.
+         */
+        "acceptFrom"?: string;
+        /**
+          * Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.
+         */
+        "addOnDrop"?: boolean;
+        /**
+          * Whether the drag element should be moved or copied.
+         */
+        "copy"?: boolean;
+        /**
+          * Triggered when an draggable item is dropped inside the container.
+         */
+        "onFwDrop"?: (event: CustomEvent<void>) => void;
+        /**
+          * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
+         */
+        "placeholderClass"?: string;
+        /**
+          * Whether the list should be sortable.
+         */
+        "sortable"?: boolean;
     }
     interface FwDropdownButton {
         /**
@@ -2340,8 +2386,6 @@ declare namespace LocalJSX {
          */
         "width"?: string;
     }
-    interface FwSortable {
-    }
     interface FwSpinner {
         /**
           * Color in which the loader is displayed, specified as a standard CSS color.
@@ -2678,6 +2722,7 @@ declare namespace LocalJSX {
         "fw-checkbox": FwCheckbox;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
+        "fw-drag-container": FwDragContainer;
         "fw-dropdown-button": FwDropdownButton;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
@@ -2695,7 +2740,6 @@ declare namespace LocalJSX {
         "fw-select": FwSelect;
         "fw-select-option": FwSelectOption;
         "fw-skeleton": FwSkeleton;
-        "fw-sortable": FwSortable;
         "fw-spinner": FwSpinner;
         "fw-tab": FwTab;
         "fw-tab-panel": FwTabPanel;
@@ -2722,6 +2766,7 @@ declare module "@stencil/core" {
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
+            "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
@@ -2739,7 +2784,6 @@ declare module "@stencil/core" {
             "fw-select": LocalJSX.FwSelect & JSXBase.HTMLAttributes<HTMLFwSelectElement>;
             "fw-select-option": LocalJSX.FwSelectOption & JSXBase.HTMLAttributes<HTMLFwSelectOptionElement>;
             "fw-skeleton": LocalJSX.FwSkeleton & JSXBase.HTMLAttributes<HTMLFwSkeletonElement>;
-            "fw-sortable": LocalJSX.FwSortable & JSXBase.HTMLAttributes<HTMLFwSortableElement>;
             "fw-spinner": LocalJSX.FwSpinner & JSXBase.HTMLAttributes<HTMLFwSpinnerElement>;
             "fw-tab": LocalJSX.FwTab & JSXBase.HTMLAttributes<HTMLFwTabElement>;
             "fw-tab-panel": LocalJSX.FwTabPanel & JSXBase.HTMLAttributes<HTMLFwTabPanelElement>;

@@ -1,9 +1,0 @@
-.sortable-container .dragging {
-  opacity: 0.5;
-}
-@media (prefers-reduced-motion) {
-  .sortable-container > * {
-    transition: transform 300ms;
-    will-change: transform;
-  }
-}
