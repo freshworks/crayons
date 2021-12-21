@@ -29,8 +29,8 @@ You can also import Crayons Icons as an esm Module.
 </head>   
 <body>
       <div>
-        <fw-icon data-svg={ header }  label="Header" />
-        <fw-icon data-svg={ add_contact }  label="Add-Contact" />
+        <fw-icon data-svg={ header } label="Header" />
+        <fw-icon data-svg={ add_contact } label="Add-Contact" />
       </div>
 </body>
 </html>
@@ -46,8 +46,8 @@ import { header, add_contact } from '@freshworks/crayons-icon';
 function App() {
     return ( 
         <div>
-            <FwIcon dataSvg={ header }  label="Header"/>
-            <FwIcon dataSvg={ add_contact }  label="Add-Contact"/>
+            <FwIcon dataSvg={ header } label="Header"/>
+            <FwIcon dataSvg={ add_contact } label="Add-Contact"/>
         </div>
     );
 }
