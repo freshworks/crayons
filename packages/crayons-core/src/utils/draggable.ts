@@ -2,7 +2,6 @@ import { debounce } from '.';
 
 //Global Variables
 let dragElement;
-let cancelDebouncedDrag;
 const DEFAULT_OPTIONS = {
   sortable: false,
   acceptFrom: '',
@@ -18,12 +17,14 @@ export class Draggable {
   placeholder: HTMLElement;
   nextSibling: HTMLElement;
   previousContainer;
+  cancelDebouncedDrag;
 
   debouncedSetElement = debounce(
     (childElements, draggingElement, y) => {
-      if (cancelDebouncedDrag) {
+      if (this.cancelDebouncedDrag) {
         return;
       }
+
       const afterElement = this.getDragAfterElement(childElements, y);
       let newElement;
       // dragging inside the same container, so no need to add placeholder
@@ -64,6 +65,7 @@ export class Draggable {
 
   private onDragStart = (e) => {
     dragElement = e.target;
+    this.cancelDebouncedDrag = false;
 
     // Set dragElementId for Firefox
     e.dataTransfer.setData('text/plain', dragElement.id);
@@ -78,7 +80,7 @@ export class Draggable {
     const sortContainer = e.composedPath().find((el) => el.id === this.host.id);
     if (sortContainer && sortContainer !== this.previousContainer) {
       // the drag element have entered or re-entered current container(this.host)
-      cancelDebouncedDrag = false;
+      this.cancelDebouncedDrag = false;
     }
     this.previousContainer = sortContainer;
   };
@@ -88,7 +90,8 @@ export class Draggable {
     if (!e.currentTarget.contains(outTarget)) {
       // the drag element have left the current container(this.host)
       this.previousContainer = undefined;
-      cancelDebouncedDrag = true;
+      this.cancelDebouncedDrag = true;
+
       if (dragElement.parentElement.id !== this.host.id) {
         // dragElement from another container
         this.removePlaceholder();
@@ -217,9 +220,10 @@ export class Draggable {
   resetData(e) {
     e.dataTransfer.clearData();
     this.childElements = Array.from(this.host.children);
+    this.previousContainer = undefined;
     dragElement = undefined;
     this.placeholder = undefined;
-    cancelDebouncedDrag = true;
+    this.cancelDebouncedDrag = true;
   }
 
   getElementHeight(element) {
