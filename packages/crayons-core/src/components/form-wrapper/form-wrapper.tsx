@@ -389,10 +389,10 @@ const initialErrors = {
   shadow: true,
 })
 export class FormWrapper {
-  @Prop() formSchema = formSchema;
-  @Prop() initialValues = initialValues;
-  @Prop() validationSchema = staticValidationSchema as any;
-  @Prop() initialErrors = initialErrors as any;
+  @Prop() formSchema;
+  @Prop() initialValues: any;
+  @Prop() validationSchema: any;
+  @Prop() initialErrors: any;
 
   @State()
   formValidationSchema;
@@ -402,6 +402,10 @@ export class FormWrapper {
   formInitialErrors;
 
   componentWillLoad(): void {
+    this.initialValues = initialValues;
+    this.initialErrors = initialErrors;
+    this.formSchema = formSchema;
+    this.validationSchema = staticValidationSchema;
     const yupSchema = this.formSchema.fields.reduce(createYupSchema, {});
 
     const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
