@@ -5,7 +5,7 @@ import { Component, h, Prop } from '@stencil/core';
   styleUrl: 'custom-cell-anchor.scss',
   shadow: true,
 })
-export class CustomCellUser {
+export class CustomCellAnchor {
   @Prop() href = '';
 
   @Prop() text = '';
