@@ -300,6 +300,7 @@ export class Form implements FormConfig {
   componentDidLoad() {
     const controls = this.getFormControls();
     controls.forEach((f) => {
+      if (f.tagName.toLowerCase() === 'fw-form-control') return;
       const field = (f as any).name;
       (f as any).handleInput = this.handleInput(
         field as string,
@@ -320,6 +321,16 @@ export class Form implements FormConfig {
           'change',
           this.handleInput(field as string, (f as any).type)
         );
+
+        (f as any).addEventListener(
+          'focus',
+          this.handleFocus(field as string, (f as any).type)
+        );
+
+        (f as any).addEventListener(
+          'blur',
+          this.handleBlur(field as string, (f as any).type)
+        );
       }
     });
   }
@@ -332,8 +343,11 @@ export class Form implements FormConfig {
           all.concat(el, [...el.querySelectorAll('*')] as HTMLElement[]),
         []
       )
-      .filter((el: HTMLElement) =>
-        ['fw-input', 'input'].includes(el.tagName.toLowerCase())
+      .filter(
+        (el: HTMLElement) =>
+          ['fw-input', 'input', 'fw-form-control'].includes(
+            el.tagName.toLowerCase()
+          ) && !['hidden-input'].includes(el.className)
       ) as HTMLElement[];
   }
 
@@ -350,10 +364,6 @@ export class Form implements FormConfig {
       else (f as any).error = '';
       if (touched) (f as any).touched = true;
       else (f as any).touched = false;
-      if (f.tagName.toLowerCase() === 'input' && error) {
-        console.log('input');
-        (f as any).setCustomValidity(error);
-      }
     });
   }
 

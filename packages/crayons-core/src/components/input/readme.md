@@ -143,7 +143,6 @@ function App() {
 | `autocomplete` | `autocomplete` | Specifies whether the browser can display suggestions to autocomplete the text value.                                                                                                                                                                                               | `"off" \| "on"`                    | `'off'`          |
 | `clearInput`   | `clear-input`  | Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box. | `boolean`                          | `false`          |
 | `disabled`     | `disabled`     | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                          | `boolean`                          | `false`          |
-| `error`        | `error`        |                                                                                                                                                                                                                                                                                     | `string`                           | `''`             |
 | `handleBlur`   | --             |                                                                                                                                                                                                                                                                                     | `(_e: any, _o: any) => void`       | `(_e, _o) => {}` |
 | `handleFocus`  | --             |                                                                                                                                                                                                                                                                                     | `(_e: any, _o: any) => void`       | `(_e, _o) => {}` |
 | `handleInput`  | --             |                                                                                                                                                                                                                                                                                     | `(_e: any, _o: any) => void`       | `(_e, _o) => {}` |
@@ -158,7 +157,6 @@ function App() {
 | `required`     | `required`     | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                                                                          | `boolean`                          | `false`          |
 | `state`        | `state`        | Theme based on which the text box is styled.                                                                                                                                                                                                                                        | `"error" \| "normal" \| "warning"` | `'normal'`       |
 | `stateText`    | `state-text`   | Descriptive or instructional text displayed below the text box.                                                                                                                                                                                                                     | `string`                           | `''`             |
-| `touched`      | `touched`      |                                                                                                                                                                                                                                                                                     | `boolean`                          | `false`          |
 | `type`         | `type`         | Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.                                                                                                                                                  | `string`                           | `'text'`         |
 | `value`        | `value`        | Default value displayed in the input box.                                                                                                                                                                                                                                           | `string`                           | `''`             |
 
@@ -203,7 +201,7 @@ Type: `Promise<void>`
 
  - [fw-datepicker](../datepicker)
  - [fw-dropdown-button](../dropdown-button)
- - [fw-form-wrapper](../form-wrapper)
+ - [fw-form-control](../form-control)
  - [fw-list-options](../options-list)
 
 ### Depends on
@@ -219,7 +217,7 @@ graph TD;
   fw-toast-message --> fw-icon
   fw-datepicker --> fw-input
   fw-dropdown-button --> fw-input
-  fw-form-wrapper --> fw-input
+  fw-form-control --> fw-input
   fw-list-options --> fw-input
   style fw-input fill:#f9f,stroke:#333,stroke-width:4px
 ```

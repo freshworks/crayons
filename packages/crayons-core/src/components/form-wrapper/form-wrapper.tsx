@@ -279,11 +279,13 @@ const initialValues = {
   age: '',
   is_indian_citizen: true,
   abc: '',
+  sss: '',
 };
 
 const staticValidationSchema = Yup.object().shape({
   age: Yup.number().max(20, 'max 20').required('Age is req'),
   abc: Yup.string().required('custom abc is req'),
+  sss: Yup.string().required('custom sss input is req'),
 });
 
 // const validationSchema = Yup.object().shape({
@@ -434,13 +436,21 @@ export class FormWrapper {
               case 'input':
                 cmp = (
                   <Fragment>
-                    <fw-input
+                    <fw-form-control
+                      type='input'
+                      inputType={field.inputType}
+                      name={field.name}
+                      placeholder={field.placeholder}
+                      required={field.required}
+                      label={field.label}
+                    ></fw-form-control>
+                    {/* <fw-input
                       type={field.inputType}
                       label={field.label}
                       name={field.name}
                       placeholder={field.placeholder}
                       required={field.required}
-                    ></fw-input>
+                    ></fw-input> */}
                     {/* {touched[field.name] && errors[field.name] && (
                       <label class='error' {...labelProps(field.name)}>
                         {' '}
@@ -611,15 +621,31 @@ export class FormWrapper {
           /> */}
 
           <h3> This is rendered apart from the json schema</h3>
-          <fw-input
-            name='abc'
-            type='text'
-            label='custom layoyt'
-            placeholder={'custom layou in'}
-            required
-          ></fw-input>
+          <fw-form-control
+            type='input'
+            inputType={'text'}
+            name={'abc'}
+            placeholder={'Custom layout'}
+            required={true}
+            label={'Custom Layout apart from json schema'}
+          ></fw-form-control>
           <br />
           <br />
+
+          <h3> This is rendered apart from the json schema</h3>
+          <fw-form-control
+            type='input'
+            inputType={'text'}
+            name={'sss'}
+            placeholder={'Custom layout'}
+            required={true}
+            label={'Custom Layout apart from json schema'}
+          >
+            <input placeholder='sss' id='sss' name='sss' required></input>
+          </fw-form-control>
+          <br />
+          <br />
+
           {/* <button type='submit'>Submit</button> */}
         </div>
       </fw-form>

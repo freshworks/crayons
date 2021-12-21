@@ -94,8 +94,8 @@ export class Input {
   @Prop() handleBlur = (_e, _o) => {};
   @Prop() handleFocus = (_e, _o) => {};
 
-  @Prop() error = '';
-  @Prop() touched = false;
+  // @Prop() error = '';
+  // @Prop() touched = false;
 
   /**
    * Triggered when the value in the input box is modified.
@@ -206,17 +206,14 @@ export class Input {
         }}
       >
         <div class='input-container'>
-          {this.label !== '' ? (
-            <label
-              class={{
-                required: this.required,
-              }}
-            >
-              {this.label}
-            </label>
-          ) : (
-            ''
-          )}
+          <label
+            class={{
+              required: this.required,
+            }}
+          >
+            {this.label}
+          </label>
+
           <div
             class={{
               'input-container-inner': true,
@@ -277,7 +274,7 @@ export class Input {
           ) : (
             ''
           )}
-          {this.touched && <div class='error'> {this.error}</div>}
+          {/* {this.touched && <div class='error'> {this.error}</div>} */}
         </div>
       </Host>
     );
