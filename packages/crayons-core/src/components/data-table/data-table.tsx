@@ -176,6 +176,73 @@ export class DataTable {
 
   /**
    * private
+   * @returns {JSX.Element} returns jsx for a webcomponent
+   */
+  renderWebComponent(componentName: string, props: any) {
+    let template: JSX.Element;
+    if (window.customElements.get(componentName)) {
+      const WebComponentTag = `${componentName}`;
+      let slotText: JSX.Element;
+      if (props.slotText) {
+        slotText = props.slotText;
+        delete props.slotText;
+      }
+      template = <WebComponentTag {...props}>{slotText}</WebComponentTag>;
+    } else {
+      template = null;
+    }
+    return template;
+  }
+
+  /**
+   * private
+   * @returns {JSX.Element} returns jsx for a custom HTML template
+   */
+  renderCustomTemplate(
+    customTemplate: DataTableColumn['customTemplate'],
+    cellValue: any
+  ) {
+    return customTemplate(h, cellValue);
+  }
+
+  /**
+   * private
+   * @returns {JSX.Element} returns jsx from a predefined set of components
+   */
+  renderPredefinedVariant(columnVariant: string, cellValue: any) {
+    let template: JSX.Element;
+    switch (columnVariant) {
+      case 'anchor':
+        template = this.renderWebComponent('fw-custom-cell-anchor', cellValue);
+        break;
+      case 'user':
+        template = this.renderWebComponent('fw-custom-cell-user', cellValue);
+        break;
+      default:
+        template = null;
+        break;
+    }
+    return template;
+  }
+
+  /**
+   * private
+   * @returns {JSX.Element} table body cell
+   */
+  renderTableCell(column: DataTableColumn, cellValue: any) {
+    let template: JSX.Element;
+    if (column.variant) {
+      template = this.renderPredefinedVariant(column.variant, cellValue);
+    } else if (column.customTemplate) {
+      template = this.renderCustomTemplate(column.customTemplate, cellValue);
+    } else {
+      template = cellValue;
+    }
+    return template;
+  }
+
+  /**
+   * private
    * @returns {JSX.Element} table header row
    */
   renderTableHeader() {
@@ -196,9 +263,7 @@ export class DataTable {
           </th>
         ))}
       </tr>
-    ) : (
-      ''
-    );
+    ) : null;
   }
 
   /**
@@ -230,12 +295,12 @@ export class DataTable {
                   this.isSelectable ? columnIndex + 2 : columnIndex + 1
                 }
               >
-                {row[orderedColumn.key]}
+                {this.renderTableCell(orderedColumn, row[orderedColumn.key])}
               </td>
             ))}
           </tr>
         ))
-      : '';
+      : null;
   }
 
   /**
