@@ -367,7 +367,7 @@ export class Select {
   }
 
   valueExists() {
-    return this.multiple ? this.value.length > 0 : !!this.value;
+    return this.value && (this.multiple ? this.value.length > 0 : !!this.value);
   }
 
   onInput() {
@@ -380,7 +380,7 @@ export class Select {
   }
 
   renderTags() {
-    if (this.multiple) {
+    if (this.multiple && Array.isArray(this.value)) {
       return this.selectedOptionsState.map((option) => {
         if (this.value.includes(option.value)) {
           return (
@@ -405,6 +405,10 @@ export class Select {
         this.selectInput.value = this.multiple
           ? this.selectInput.value
           : this.selectedOptionsState[0].text || '';
+      }
+    } else {
+      if (this.selectInput) {
+        this.selectInput.value = '';
       }
     }
   }
