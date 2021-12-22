@@ -1,4 +1,4 @@
-import { debounce } from '.';
+import { debounce, cloneNodeWithEvents } from './index';
 
 //Global Variables
 let dragElement;
@@ -127,8 +127,7 @@ export class Draggable {
       if (this.placeholder) {
         droppedIndex = [...this.host.children].indexOf(this.placeholder);
         if (this.options.addOnDrop) {
-          const clone = dragElement.cloneNode(true);
-          clone.id = dragElement.id + 'clone';
+          const clone = cloneNodeWithEvents(dragElement, true, true);
           this.placeholder.replaceWith(clone);
         }
       } else {
