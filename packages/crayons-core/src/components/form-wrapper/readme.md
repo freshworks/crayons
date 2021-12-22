@@ -7,12 +7,35 @@
 
 ## Properties
 
-| Property           | Attribute           | Description | Type  | Default                  |
-| ------------------ | ------------------- | ----------- | ----- | ------------------------ |
-| `formSchema`       | `form-schema`       |             | `any` | `formSchema`             |
-| `initialErrors`    | `initial-errors`    |             | `any` | `initialErrors`          |
-| `initialValues`    | `initial-values`    |             | `any` | `initialValues`          |
-| `validationSchema` | `validation-schema` |             | `any` | `staticValidationSchema` |
+| Property           | Attribute           | Description | Type  | Default |
+| ------------------ | ------------------- | ----------- | ----- | ------- |
+| `formSchema`       | `form-schema`       |             | `any` | `[]`    |
+| `initialErrors`    | `initial-errors`    |             | `any` | `{}`    |
+| `initialValues`    | `initial-values`    |             | `any` | `{}`    |
+| `validationSchema` | `validation-schema` |             | `any` | `{}`    |
+
+
+## Methods
+
+### `doReset(e: any) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `doSubmit(e: any) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies

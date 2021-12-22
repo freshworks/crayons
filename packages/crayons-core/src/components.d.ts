@@ -235,11 +235,13 @@ export namespace Components {
         "value": any;
     }
     interface FwForm {
+        "doReset": (e: any) => Promise<void>;
+        "doSubmit": (e: any) => Promise<void>;
         "initialErrors": any;
         "initialValues": any;
         "renderer": (props: FormRenderProps<any>) => any;
-        "setErrors": (obj: any) => Promise<void>;
-        "setField": (obj: any) => Promise<void>;
+        "setFieldErrors": (obj: any) => Promise<void>;
+        "setFieldValue": (obj: any) => Promise<void>;
         "validate": any;
         /**
           * Tells Form to validate the form on each input's onBlur event
@@ -253,6 +255,7 @@ export namespace Components {
     }
     interface FwFormControl {
         "choices": any;
+        "controlProps": any;
         "error": any;
         "inputType": any;
         "label": any;
@@ -263,6 +266,8 @@ export namespace Components {
         "type": any;
     }
     interface FwFormWrapper {
+        "doReset": (e: any) => Promise<void>;
+        "doSubmit": (e: any) => Promise<void>;
         "formSchema": any;
         "initialErrors": any;
         "initialValues": any;
@@ -1952,6 +1957,7 @@ declare namespace LocalJSX {
     }
     interface FwFormControl {
         "choices"?: any;
+        "controlProps"?: any;
         "error"?: any;
         "inputType"?: any;
         "label"?: any;

@@ -27,6 +27,9 @@ export class FormControl {
   @Prop()
   choices: any;
 
+  @Prop()
+  controlProps: any;
+
   @State() hasSlot = false;
 
   renderControl() {
@@ -40,6 +43,7 @@ export class FormControl {
             name={this.name}
             placeholder={this.placeholder}
             required={this.required}
+            {...this.controlProps.inputProps(this.name, this.inputType)}
           ></fw-input>
         );
         break;
@@ -49,6 +53,7 @@ export class FormControl {
             placeholder={this.placeholder}
             name={this.name}
             required={this.required}
+            {...this.controlProps.inputProps(this.name, this.inputType)}
           ></fw-textarea>
         );
         break;
@@ -59,13 +64,18 @@ export class FormControl {
             placeholder={this.placeholder}
             name={this.name}
             required={this.required}
+            {...this.controlProps.inputProps(this.name, this.inputType)}
           ></fw-datepicker>
         );
         break;
 
       case 'checkbox':
         cmp = (
-          <fw-checkbox name={this.name} required={this.required}>
+          <fw-checkbox
+            name={this.name}
+            required={this.required}
+            {...this.controlProps.checkboxProps(this.name, this.inputType)}
+          >
             {this.label}
           </fw-checkbox>
         );
@@ -78,6 +88,7 @@ export class FormControl {
             label={this.label}
             name={this.name}
             required={this.required}
+            {...this.controlProps.radioProps(this.name, this.inputType)}
           >
             {this.choices?.map((ch) => {
               return <fw-radio value={ch.value}>{ch.value}</fw-radio>;
@@ -97,6 +108,7 @@ export class FormControl {
               text: f.value,
             }))}
             multiple={this.inputType === 'MULTI_SELECT'}
+            {...this.controlProps.selectProps(this.name, this.inputType)}
           ></fw-select>
         );
         break;
@@ -105,6 +117,7 @@ export class FormControl {
           <fw-timepicker
             name={this.name}
             required={this.required}
+            {...this.controlProps.inputProps(this.name, this.inputType)}
           ></fw-timepicker>
         );
         break;
@@ -140,7 +153,6 @@ export class FormControl {
         </div>
         {this.renderControl()}
         <slot></slot>
-        {JSON.stringify({ touched: this.touched, error: this.error })}
         {this.touched && this.error && <div class='error'> {this.error}</div>}
       </div>
     );

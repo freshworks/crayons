@@ -42,8 +42,6 @@ export interface FormState<Values> {
   isValidating: boolean;
   /** whether the form is currently submitting */
   isSubmitting: boolean;
-  /** Number of times user tried to submit the form */
-  submitCount: number;
 }
 
 /**
@@ -82,14 +80,13 @@ export interface FormConfig {
 }
 
 export interface FormUtils<Values, Key extends keyof Values> {
-  groupProps: (key: Key) => any;
+  // groupProps: (key: Key) => any;
   inputProps: (key: Key, inputType: string) => any;
   labelProps: (key: Key, value?: Values[Key]) => any;
   selectProps: (key: Key) => any;
   checkboxProps: (key: Key) => any;
   radioProps: (key: Key, value: Values[Key]) => any;
   formProps: any;
-  formWrapperProps: any;
 }
 
 export type FwFormEventDetail = {

@@ -37,14 +37,12 @@ let formIds = 0;
 })
 export class Form implements FormConfig {
   @Element() el!: any;
-  private groups: { [key: string]: HTMLElement } = {} as any;
   private formId = `crayons-form-${formIds++}`;
   private dirty = false;
 
   @State() isValid = false;
   @State() isValidating = false;
   @State() isSubmitting = false;
-  @State() submitCount = 0;
 
   @State() focused: keyof FormValues = null;
   @State() values: FormValues = {} as any;
@@ -78,7 +76,7 @@ export class Form implements FormConfig {
 
     Object.keys(this.initialErrors).forEach((f) => (this.touched[f] = true));
 
-    console.log({ errrros: this.errors });
+    console.log({ errors: this.errors });
   }
 
   setSubmitting = (value: boolean) => {
@@ -86,60 +84,39 @@ export class Form implements FormConfig {
   };
 
   handleSubmit = async (event: Event) => {
-    event.preventDefault();
-    event.stopPropagation();
+    event?.preventDefault();
+    event?.stopPropagation();
 
-    const isValid = true;
+    let isValid = false;
     // on clicking submit, mark all fields as touched
     this.touched = setNestedObjectValues(this.values, true);
 
     this.handleValidation();
 
-    console.log({ errros: this.errors });
+    console.log({ errors: this.errors });
 
-    console.log('is Valid ', isValid);
+    isValid = !this.errors || Object.keys(this.errors).length === 0;
 
+    console.log('is Valid Form ', isValid);
+
+    if (!isValid) {
+      return;
+    }
     this.isSubmitting = true;
-    this.submitCount++;
-    const { setSubmitting } = this;
 
     console.log({ values: this.values });
 
-    const controls = this.getFormControls();
-    const fieldWithError = controls.find((control) => {
-      const name = (control as any).name;
-      // eslint-disable-next-line no-prototype-builtins
-      return this.errors.hasOwnProperty(name);
-    });
-    (
-      fieldWithError
-        .querySelector(`fw-${(fieldWithError as any).type}`)
-        .shadowRoot.querySelector(
-          `[name=${(fieldWithError as any).name}`
-        ) as any
-    ).focus();
-    this.onFormSubmit.emit({ values: this.values, actions: { setSubmitting } });
+    return this.values;
   };
 
-  @Method()
-  async setField(obj) {
-    this.values = { ...this.values, ...obj };
-    Object.keys(obj).forEach(
-      (k) => (this.touched = { ...this.touched, [k]: true })
-    );
-  }
-
-  @Method()
-  async setErrors(obj) {
-    this.errors = { ...this.errors, ...obj };
-    Object.keys(obj).forEach(
-      (k) => (this.touched = { ...this.touched, [k]: true })
-    );
-  }
-
-  handleReset = () => {
+  handleReset = (event?: Event) => {
+    event?.preventDefault();
+    event?.stopPropagation();
     this.isSubmitting = false;
-    this.submitCount = 0;
+    this.values = this.initialValues;
+    this.errors = {};
+    this.touched = {};
+    this.focused = null;
   };
 
   handleValidation = async (field?: string, _target?: any) => {
@@ -199,7 +176,6 @@ export class Form implements FormConfig {
       touched,
       isValidating,
       isSubmitting,
-      submitCount,
     } = this;
     return {
       focused,
@@ -209,7 +185,6 @@ export class Form implements FormConfig {
       touched,
       isValidating,
       isSubmitting,
-      submitCount,
     };
   };
 
@@ -231,25 +206,6 @@ export class Form implements FormConfig {
   };
 
   private composedUtils = (): FormUtils<FormValues, keyof FormValues> => {
-    const groupProps = (field: keyof FormValues) => ({
-      'data-for': field,
-      'class': {
-        'input-group': true,
-        'was-touched': this.touched[field],
-        'has-focus': this.focused === field,
-        'has-value':
-          typeof this.values[field] === 'string'
-            ? !!this.values[field]
-            : typeof this.values[field] === 'number'
-            ? typeof this.values[field] !== null
-            : false,
-        'has-error':
-          !this.validity[field] ||
-          (this.validity[field] && !this.validity[field].valid),
-      },
-      'ref': (el) => (this.groups = { ...this.groups, [field]: el }),
-    });
-
     const inputProps = (field: keyof FormValues, inputType: string) => ({
       name: field,
       type: inputType,
@@ -293,36 +249,26 @@ export class Form implements FormConfig {
     const formProps: any = {
       action: 'javascript:void(0);',
       onSubmit: this.handleSubmit,
-    };
-
-    const formWrapperProps: any = {
-      action: 'javascript:void(0);',
-      //onClick: this.handleSubmit,
+      onReset: this.handleReset,
     };
 
     return {
-      groupProps,
       inputProps,
       selectProps,
       checkboxProps,
       radioProps,
       labelProps,
       formProps,
-      formWrapperProps,
     };
   };
 
-  handleSlotChange = (e) => {
-    console.log('handle slot change ', e);
-  };
-
   getFormControls() {
-    let ch =
+    const children =
       this.el.shadowRoot
-        .querySelector('#x')
+        .querySelector('#fw_form_wrapper')
         ?.querySelector('slot')
         ?.assignedElements({ flattened: true }) || [];
-    ch = ch
+    const controls = children
       .reduce(
         (all: HTMLElement[], el: HTMLElement) =>
           all.concat(el, [...el.querySelectorAll('*')] as HTMLElement[]),
@@ -347,7 +293,7 @@ export class Form implements FormConfig {
           ].includes(el.tagName.toLowerCase()) &&
           !['hidden-input'].includes(el.className)
       ) as HTMLElement[];
-    return ch;
+    return controls;
   }
 
   // attach event listeners and set initial values and errors
@@ -407,17 +353,6 @@ export class Form implements FormConfig {
     });
   }
 
-  // setInitilaStates() {
-  //   const value = this.values[(f as any).name];
-  //   const error = this.errors[(f as any).name];
-  //   const touched = this.touched[(f as any).name];
-  //   const type = f.tagName.toLowerCase();
-  //   if (error) (f as any).error = error;
-  //     else (f as any).error = '';
-  //     if (touched) (f as any).touched = true;
-  //     else (f as any).touched = false;
-  // }
-
   setValues(f) {
     const value = this.values[(f as any).name];
     const error = this.errors[(f as any).name];
@@ -447,6 +382,32 @@ export class Form implements FormConfig {
     }
   }
 
+  @Method()
+  async setFieldValue(obj) {
+    this.values = { ...this.values, ...obj };
+    Object.keys(obj).forEach(
+      (k) => (this.touched = { ...this.touched, [k]: true })
+    );
+  }
+
+  @Method()
+  async setFieldErrors(obj) {
+    this.errors = { ...this.errors, ...obj };
+    Object.keys(obj).forEach(
+      (k) => (this.touched = { ...this.touched, [k]: true })
+    );
+  }
+
+  @Method()
+  async doSubmit(e) {
+    this.handleSubmit(e);
+  }
+
+  @Method()
+  async doReset(e) {
+    this.handleReset(e);
+  }
+
   render() {
     const state: FormState<FormValues> = this.composedState();
     const handlers: FormHandlers<FormValues> = this.composedHandlers();
@@ -464,14 +425,9 @@ export class Form implements FormConfig {
     console.log(renderProps);
     //return this.renderer(renderProps);
     return (
-      <div id='x' {...utils.formWrapperProps}>
-        {/* {JSON.stringify(this.values)} */}
+      <form id='fw_form_wrapper' {...utils.formProps}>
         <slot></slot>
-        <button type='submit' onClick={this.handleSubmit}>
-          {' '}
-          Submit form{' '}
-        </button>
-      </div>
+      </form>
     );
   }
 }

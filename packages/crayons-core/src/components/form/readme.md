@@ -27,7 +27,7 @@
 
 ## Methods
 
-### `setErrors(obj: any) => Promise<void>`
+### `doReset(e: any) => Promise<void>`
 
 
 
@@ -37,7 +37,27 @@ Type: `Promise<void>`
 
 
 
-### `setField(obj: any) => Promise<void>`
+### `doSubmit(e: any) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFieldErrors(obj: any) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFieldValue(obj: any) => Promise<void>`
 
 
 

@@ -1,365 +1,355 @@
-import { Component, h, Prop, State } from '@stencil/core';
-import * as Yup from 'yup';
+import { Component, h, Prop, State, Method } from '@stencil/core';
+//import * as Yup from 'yup';
 
-/** incoming props formSchema, initialvalues, validationSchema, initialErrors */
-const formSchema = {
-  title: 'Test Form',
-  name: 'Test Form',
-  fields: [
-    {
-      id: 'first_name_id',
-      type: 'input',
-      label: 'First Name',
-      name: 'first_name',
-      position: 1,
-      editable: true,
-      custom: false,
-      inputType: 'text',
-      placeholder: 'Enter firstname ...',
-      required: true,
-      fieldOptions: {},
-      fields: [],
-    },
+// /** incoming props formSchema, initialvalues, validationSchema, initialErrors */
+// const formSchema = {
+//   title: 'Test Form',
+//   name: 'Test Form',
+//   fields: [
+//     {
+//       id: 'first_name_id',
+//       type: 'input',
+//       label: 'First Name',
+//       name: 'first_name',
+//       position: 1,
+//       editable: true,
+//       custom: false,
+//       inputType: 'text',
+//       placeholder: 'Enter firstname ...',
+//       required: true,
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      id: 'last_name_id',
-      type: 'input',
-      label: 'Last Name',
-      name: 'last_name',
-      position: 1,
-      editable: true,
-      custom: false,
-      inputType: 'text',
-      placeholder: 'Enter last name...',
-      required: false,
-      fieldOptions: {},
-      fields: [],
-    },
+//     {
+//       id: 'last_name_id',
+//       type: 'input',
+//       label: 'Last Name',
+//       name: 'last_name',
+//       position: 1,
+//       editable: true,
+//       custom: false,
+//       inputType: 'text',
+//       placeholder: 'Enter last name...',
+//       required: false,
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      name: 'languages_known',
-      label: 'Languages Known',
-      type: 'select',
-      inputType: 'MULTI_SELECT',
-      field_options: {},
-      filterable: true,
-      searchable: true,
-      required: true,
-      link: '',
-      choices: [
-        {
-          id: 111,
-          value: 'English',
-          position: 1,
-        },
-        {
-          id: 222,
-          value: 'Hindi',
-          position: 2,
-        },
-        {
-          id: 333,
-          value: 'Tamil',
-          position: 3,
-        },
-      ],
-    },
+//     {
+//       name: 'languages_known',
+//       label: 'Languages Known',
+//       type: 'select',
+//       inputType: 'MULTI_SELECT',
+//       field_options: {},
+//       filterable: true,
+//       searchable: true,
+//       required: true,
+//       link: '',
+//       choices: [
+//         {
+//           id: 111,
+//           value: 'English',
+//           position: 1,
+//         },
+//         {
+//           id: 222,
+//           value: 'Hindi',
+//           position: 2,
+//         },
+//         {
+//           id: 333,
+//           value: 'Tamil',
+//           position: 3,
+//         },
+//       ],
+//     },
 
-    {
-      id: 'email_id',
-      type: 'input',
-      label: 'Email',
-      name: 'email',
-      position: 1,
-      required: true,
-      editable: true,
-      custom: false,
-      inputType: 'email',
-      placeholder: 'Enter email...',
-      fieldOptions: {},
-      fields: [],
-    },
+//     {
+//       id: 'email_id',
+//       type: 'input',
+//       label: 'Email',
+//       name: 'email',
+//       position: 1,
+//       required: true,
+//       editable: true,
+//       custom: false,
+//       inputType: 'email',
+//       placeholder: 'Enter email...',
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      id: 'date_id',
-      type: 'date',
-      label: 'Date',
-      name: 'date',
-      position: 1,
-      required: true,
-      editable: true,
-      custom: false,
-      inputType: 'date',
-      placeholder: 'Enter date...',
-      fieldOptions: {},
-      fields: [],
-    },
+//     {
+//       id: 'date_id',
+//       type: 'date',
+//       label: 'Date',
+//       name: 'date',
+//       position: 1,
+//       required: true,
+//       editable: true,
+//       custom: false,
+//       inputType: 'date',
+//       placeholder: 'Enter date...',
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      id: 'description_id',
-      type: 'textarea',
-      label: 'Description',
-      name: 'description',
-      position: 1,
-      editable: true,
-      custom: false,
-      inputType: 'textarea',
-      placeholder: 'Enter Description...',
-      required: true,
-      fieldOptions: {},
-      fields: [],
-    },
+//     {
+//       id: 'description_id',
+//       type: 'textarea',
+//       label: 'Description',
+//       name: 'description',
+//       position: 1,
+//       editable: true,
+//       custom: false,
+//       inputType: 'textarea',
+//       placeholder: 'Enter Description...',
+//       required: true,
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      id: 'is_indian_citizen_id',
-      type: 'checkbox',
-      label: 'Indian Citizen ?',
-      name: 'is_indian_citizen',
-      position: 1,
-      editable: true,
-      custom: false,
-      required: true,
-      inputType: 'checkbox',
-      placeholder: 'Enter...',
-      fieldOptions: {},
-      fields: [],
-    },
+//     {
+//       id: 'is_indian_citizen_id',
+//       type: 'checkbox',
+//       label: 'Indian Citizen ?',
+//       name: 'is_indian_citizen',
+//       position: 1,
+//       editable: true,
+//       custom: false,
+//       required: true,
+//       inputType: 'checkbox',
+//       placeholder: 'Enter...',
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      id: 'phone_number_id',
-      type: 'input',
-      label: 'Phone Number',
-      name: 'phone_number',
-      position: 1,
-      editable: true,
-      custom: false,
-      required: false,
-      inputType: 'tel',
-      placeholder: 'Enter...',
-      fieldOptions: {},
-      fields: [],
-    },
+//     {
+//       id: 'phone_number_id',
+//       type: 'input',
+//       label: 'Phone Number',
+//       name: 'phone_number',
+//       position: 1,
+//       editable: true,
+//       custom: false,
+//       required: false,
+//       inputType: 'tel',
+//       placeholder: 'Enter...',
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      id: 'age_id',
-      type: 'input',
-      label: 'Age',
-      name: 'age',
-      position: 1,
-      editable: true,
-      custom: false,
-      required: false,
-      inputType: 'number',
-      placeholder: 'Enter...',
-      fieldOptions: {},
-      fields: [],
-    },
-    {
-      id: 'interested_id',
-      type: 'radio',
-      label: 'Interested',
-      name: 'interested',
-      position: 1,
-      editable: true,
-      custom: false,
-      required: true,
-      inputType: 'radio',
-      placeholder: 'Enter...',
-      optionLabelPath: 'value',
-      optionValuePath: 'value',
-      choices: [
-        {
-          id: 'yes_id',
-          value: 'Yes',
-          position: 1,
-        },
-        {
-          id: 'no_id',
-          value: 'No',
-          position: 2,
-        },
-      ],
-      fields: [],
-    },
-    {
-      id: 'personal_page_link_id',
-      type: 'input',
-      label: 'Personal Page Link',
-      name: 'personal_page_link',
-      position: 1,
-      required: true,
-      editable: true,
-      custom: false,
-      inputType: 'url',
-      placeholder: 'Enter...',
-      fieldOptions: {},
-      fields: [],
-    },
+//     {
+//       id: 'age_id',
+//       type: 'input',
+//       label: 'Age',
+//       name: 'age',
+//       position: 1,
+//       editable: true,
+//       custom: false,
+//       required: false,
+//       inputType: 'number',
+//       placeholder: 'Enter...',
+//       fieldOptions: {},
+//       fields: [],
+//     },
+//     {
+//       id: 'interested_id',
+//       type: 'radio',
+//       label: 'Interested',
+//       name: 'interested',
+//       position: 1,
+//       editable: true,
+//       custom: false,
+//       required: true,
+//       inputType: 'radio',
+//       placeholder: 'Enter...',
+//       optionLabelPath: 'value',
+//       optionValuePath: 'value',
+//       choices: [
+//         {
+//           id: 'yes_id',
+//           value: 'Yes',
+//           position: 1,
+//         },
+//         {
+//           id: 'no_id',
+//           value: 'No',
+//           position: 2,
+//         },
+//       ],
+//       fields: [],
+//     },
+//     {
+//       id: 'personal_page_link_id',
+//       type: 'input',
+//       label: 'Personal Page Link',
+//       name: 'personal_page_link',
+//       position: 1,
+//       required: true,
+//       editable: true,
+//       custom: false,
+//       inputType: 'url',
+//       placeholder: 'Enter...',
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      id: 'time_id',
-      type: 'time',
-      label: 'Select Time',
-      name: 'time',
-      position: 1,
-      required: true,
-      editable: true,
-      custom: false,
-      inputType: 'time',
-      placeholder: 'Select Time...',
-      fieldOptions: {},
-      fields: [],
-    },
+//     {
+//       id: 'time_id',
+//       type: 'time',
+//       label: 'Select Time',
+//       name: 'time',
+//       position: 1,
+//       required: true,
+//       editable: true,
+//       custom: false,
+//       inputType: 'time',
+//       placeholder: 'Select Time...',
+//       fieldOptions: {},
+//       fields: [],
+//     },
 
-    {
-      id: 'status',
-      name: 'status',
-      label: 'Status',
-      type: 'select',
-      inputType: 'select',
-      position: 3,
-      required: true,
-      editable: true,
-      visible: false,
-      deleted: false,
-      link: null,
-      placeholder: null,
-      hint: null,
-      field_options: {},
-      filterable: true,
-      searchable: false,
-      parent_id: null,
-      choices: [
-        {
-          id: 1,
-          value: 'open',
-          position: 1,
-        },
-        {
-          id: 2,
-          value: 'pending',
-          position: 2,
-        },
-        {
-          id: 3,
-          value: 'closed',
-          position: 3,
-        },
-      ],
-    },
-    {
-      id: 'income_id',
-      parent: null,
-      type: 'input',
-      label: 'Income',
-      name: 'income',
-      position: 1,
-      editable: true,
-      custom: false,
-      required: true,
-      inputType: 'number',
-      placeholder: 'Enter...',
-      fieldOptions: {},
-      fields: [],
-    },
-  ],
-};
-
-// const initialValues = {
-//   first_name: 'skdidiw',
-//   email: '',
-//   phone_number: '',
-//   description: '',
-//   age: '',
-//   personal_page_link: '',
-//   income: '',
+//     {
+//       id: 'status',
+//       name: 'status',
+//       label: 'Status',
+//       type: 'select',
+//       inputType: 'select',
+//       position: 3,
+//       required: true,
+//       editable: true,
+//       visible: false,
+//       deleted: false,
+//       link: null,
+//       placeholder: null,
+//       hint: null,
+//       field_options: {},
+//       filterable: true,
+//       searchable: false,
+//       parent_id: null,
+//       choices: [
+//         {
+//           id: 1,
+//           value: 'open',
+//           position: 1,
+//         },
+//         {
+//           id: 2,
+//           value: 'pending',
+//           position: 2,
+//         },
+//         {
+//           id: 3,
+//           value: 'closed',
+//           position: 3,
+//         },
+//       ],
+//     },
+//     {
+//       id: 'income_id',
+//       parent: null,
+//       type: 'input',
+//       label: 'Income',
+//       name: 'income',
+//       position: 1,
+//       editable: true,
+//       custom: false,
+//       required: true,
+//       inputType: 'number',
+//       placeholder: 'Enter...',
+//       fieldOptions: {},
+//       fields: [],
+//     },
+//   ],
 // };
 
-const initialValues = {
-  first_name: '',
-  age: '',
-  is_indian_citizen: true,
-  abc: '',
-  sss: '',
-};
+// const initialValues = {
+//   first_name: '',
+//   age: '',
+//   is_indian_citizen: true,
+//   abc: '',
+//   sss: '',
+// };
 
-const staticValidationSchema = Yup.object().shape({
-  age: Yup.number().max(20, 'max 20').required('Age is req'),
-  abc: Yup.string().required('custom abc is req'),
-  sss: Yup.string().required('custom sss input is req'),
-});
+// const staticValidationSchema = Yup.object().shape({
+//   age: Yup.number().max(20, 'max 20').required('Age is req'),
+//   abc: Yup.string().required('custom abc is req'),
+//   sss: Yup.string().required('custom sss input is req'),
+// });
 
-function mergeSchema(...schemas) {
-  const [first, ...rest] = schemas;
+// function mergeSchema(...schemas) {
+//   const [first, ...rest] = schemas;
 
-  const merged = rest.reduce(
-    (mergedSchemas, schema) => mergedSchemas.concat(schema),
-    first
-  );
+//   const merged = rest.reduce(
+//     (mergedSchemas, schema) => mergedSchemas.concat(schema),
+//     first
+//   );
 
-  return merged;
-}
+//   return merged;
+// }
 
-function createYupSchema(schema: any, config: any) {
-  const { inputType, required, name } = config;
-  let yupType = '';
-  switch (inputType) {
-    case 'text':
-    case 'textarea':
-    case 'date':
-    case 'time':
-    case 'radio':
-      yupType = 'string';
-      break;
+// function createYupSchema(schema: any, config: any) {
+//   const { inputType, required, name } = config;
+//   let yupType = '';
+//   switch (inputType) {
+//     case 'text':
+//     case 'textarea':
+//     case 'date':
+//     case 'time':
+//     case 'radio':
+//       yupType = 'string';
+//       break;
 
-    case 'select':
-    case 'MULTI_SELECT':
-      yupType = 'array';
-      break;
-    case 'url':
-      yupType = 'string';
-      break;
-    case 'number':
-      yupType = 'number';
-      break;
-    case 'tel':
-      yupType = 'string';
-      break;
-    case 'checkbox':
-      yupType = 'boolean';
-      break;
-    default:
-      yupType = 'string';
-  }
-  if (!Yup[yupType]) {
-    return schema;
-  }
-  let validator = Yup[yupType]();
-  if (required) validator = validator['required'](...[`${name} is required`]);
-  else validator = validator['notRequired']();
+//     case 'select':
+//     case 'MULTI_SELECT':
+//       yupType = 'array';
+//       break;
+//     case 'url':
+//       yupType = 'string';
+//       break;
+//     case 'number':
+//       yupType = 'number';
+//       break;
+//     case 'tel':
+//       yupType = 'string';
+//       break;
+//     case 'checkbox':
+//       yupType = 'boolean';
+//       break;
+//     default:
+//       yupType = 'string';
+//   }
+//   if (!Yup[yupType]) {
+//     return schema;
+//   }
+//   let validator = Yup[yupType]();
+//   if (required) validator = validator['required'](...[`${name} is required`]);
+//   else validator = validator['notRequired']();
 
-  if (inputType === 'url')
-    validator = validator['url'](...[`Enter a valid url`]);
+//   if (inputType === 'url')
+//     validator = validator['url'](...[`Enter a valid url`]);
 
-  if (inputType === 'email')
-    validator = validator['email'](...[`Enter a valid Email`]);
+//   if (inputType === 'email')
+//     validator = validator['email'](...[`Enter a valid Email`]);
 
-  if (inputType === 'checkbox' && required)
-    validator = validator['oneOf']([true], `Select the value`);
+//   if (inputType === 'checkbox' && required)
+//     validator = validator['oneOf']([true], `Select the value`);
 
-  if (inputType === 'select' && required)
-    validator = validator.min(1, `${name} is required`);
+//   if (inputType === 'select' && required)
+//     validator = validator.min(1, `${name} is required`);
 
-  if (inputType === 'MULTI_SELECT' && required)
-    validator = validator.min(1, `Select atleast 1 option`);
+//   if (inputType === 'MULTI_SELECT' && required)
+//     validator = validator.min(1, `Select atleast 1 option`);
 
-  schema[name] = validator;
-  return schema;
-}
+//   schema[name] = validator;
+//   return schema;
+// }
 
-const initialErrors = {
-  // email: 'ssss',
-};
+// const initialErrors = {
+//   // email: 'ssss',
+// };
 
 @Component({
   tag: 'fw-form-wrapper',
@@ -367,10 +357,10 @@ const initialErrors = {
   shadow: true,
 })
 export class FormWrapper {
-  @Prop() formSchema: any = formSchema;
-  @Prop() initialValues: any = initialValues;
-  @Prop() validationSchema: any = staticValidationSchema;
-  @Prop() initialErrors: any = initialErrors;
+  @Prop() formSchema: any = [];
+  @Prop() initialValues: any = {};
+  @Prop() validationSchema: any = {};
+  @Prop() initialErrors: any = {};
 
   @State()
   formValidationSchema;
@@ -379,26 +369,44 @@ export class FormWrapper {
   @State()
   formInitialErrors;
 
+  formRef: any;
+
   componentWillLoad(): void {
-    const yupSchema = this.formSchema.fields.reduce(createYupSchema, {});
-
-    const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
-
-    this.formValidationSchema = mergeSchema(
-      dynamicValidationSchema,
-      this.validationSchema
-    );
-
-    const dynamicInitialValues = this.formSchema.fields.reduce((acc, field) => {
-      return {
-        ...acc,
-        [field.name]: field.type === 'checkbox' ? false : undefined,
-      };
-    }, {});
-
+    this.formValidationSchema = this.validationSchema;
     this.formInitialErrors = this.initialErrors;
-    this.formInitialValues = { ...dynamicInitialValues, ...this.initialValues };
+    this.formInitialValues = this.initialValues;
   }
+
+  @Method()
+  async doSubmit(e) {
+    this.formRef.doSubmit(e);
+  }
+
+  @Method()
+  async doReset(e) {
+    this.formRef.doReset(e);
+  }
+
+  // componentWillLoad(): void {
+  //   const yupSchema = this.formSchema.fields.reduce(createYupSchema, {});
+
+  //   const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
+
+  //   this.formValidationSchema = mergeSchema(
+  //     dynamicValidationSchema,
+  //     this.validationSchema
+  //   );
+
+  //   const dynamicInitialValues = this.formSchema.fields.reduce((acc, field) => {
+  //     return {
+  //       ...acc,
+  //       [field.name]: field.type === 'checkbox' ? false : undefined,
+  //     };
+  //   }, {});
+
+  //   this.formInitialErrors = this.initialErrors;
+  //   this.formInitialValues = { ...dynamicInitialValues, ...this.initialValues };
+  // }
 
   render() {
     return (
@@ -406,6 +414,7 @@ export class FormWrapper {
         initialValues={this.formInitialValues}
         validationSchema={this.formValidationSchema}
         initialErrors={this.formInitialErrors}
+        ref={(el) => (this.formRef = el)}
       >
         <div>
           {this.formSchema.fields.map((field) => {
@@ -420,221 +429,7 @@ export class FormWrapper {
                 choices={field.choices}
               ></fw-form-control>
             );
-            // switch (field.type) {
-            //   case 'input':
-            //     cmp = (
-            //       <Fragment>
-            //         <fw-form-control
-            //           type='input'
-            //           inputType={field.inputType}
-            //           name={field.name}
-            //           placeholder={field.placeholder}
-            //           required={field.required}
-            //           label={field.label}
-            //         ></fw-form-control>
-            //         {/* <fw-input
-            //           type={field.inputType}
-            //           label={field.label}
-            //           name={field.name}
-            //           placeholder={field.placeholder}
-            //           required={field.required}
-            //         ></fw-input> */}
-            //         {/* {touched[field.name] && errors[field.name] && (
-            //           <label class='error' {...labelProps(field.name)}>
-            //             {' '}
-            //             {errors[field.name]}{' '}
-            //           </label>
-            //         )} */}
-            //       </Fragment>
-            //     );
-            //     break;
-
-            //   // case 'textarea':
-            //   //   cmp = (
-            //   //     <Fragment>
-            //   //       <fw-textarea
-            //   //         {...inputProps(field.name, field.inputType)}
-            //   //         label={field.label}
-            //   //         placeholder={field.placeholder}
-            //   //         name={field.name}
-            //   //         required={field.required}
-            //   //       ></fw-textarea>
-            //   //       {touched[field.name] && errors[field.name] && (
-            //   //         <label class='error' {...labelProps(field.name)}>
-            //   //           {' '}
-            //   //           {errors[field.name]}{' '}
-            //   //         </label>
-            //   //       )}
-            //   //     </Fragment>
-            //   //   );
-            //   //   break;
-
-            //   // case 'date':
-            //   //   cmp = (
-            //   //     <Fragment>
-            //   //       <fw-datepicker
-            //   //         {...inputProps(field.name, field.inputType)}
-            //   //         label={field.label}
-            //   //         placeholder={field.placeholder}
-            //   //         name={field.name}
-            //   //         required={field.required}
-            //   //       ></fw-datepicker>
-            //   //       {touched[field.name] && errors[field.name] && (
-            //   //         <label class='error' {...labelProps(field.name)}>
-            //   //           {' '}
-            //   //           {errors[field.name]}{' '}
-            //   //         </label>
-            //   //       )}
-            //   //     </Fragment>
-            //   //   );
-            //   //   break;
-
-            //   // case 'checkbox':
-            //   //   cmp = (
-            //   //     <div>
-            //   //       <fw-checkbox
-            //   //         {...checkboxProps(field.name)}
-            //   //         placeholder={field.placeholder}
-            //   //         name={field.name}
-            //   //         required={field.required}
-            //   //       >
-            //   //         {field.label}
-            //   //       </fw-checkbox>
-            //   //       <div>
-            //   //         {touched[field.name] && errors[field.name] && (
-            //   //           <label class='error' {...labelProps(field.name)}>
-            //   //             {' '}
-            //   //             {errors[field.name]}{' '}
-            //   //           </label>
-            //   //         )}
-            //   //       </div>
-            //   //     </div>
-            //   //   );
-            //   //   break;
-
-            //   // case 'radio':
-            //   //   cmp = (
-            //   //     <Fragment>
-            //   //       <div>
-            //   //         <fw-radio-group
-            //   //           allow-empty
-            //   //           {...inputProps(field.name, field.inputType)}
-            //   //           label={field.label}
-            //   //           placeholder={field.placeholder}
-            //   //           name={field.name}
-            //   //           required={field.required}
-            //   //         >
-            //   //           {' '}
-            //   //           {field.choices.map((ch) => {
-            //   //             return (
-            //   //               <fw-radio value={ch.value}>{ch.value}</fw-radio>
-            //   //             );
-            //   //           })}
-            //   //         </fw-radio-group>
-            //   //         <div>
-            //   //           {touched[field.name] && errors[field.name] && (
-            //   //             <label class='error' {...labelProps(field.name)}>
-            //   //               {' '}
-            //   //               {errors[field.name]}{' '}
-            //   //             </label>
-            //   //           )}
-            //   //         </div>
-            //   //       </div>
-            //   //     </Fragment>
-            //   //   );
-            //   //   break;
-
-            //   // case 'select':
-            //   //   cmp = (
-            //   //     <Fragment>
-            //   //       <div>
-            //   //         <fw-select
-            //   //           {...selectProps(field.name)}
-            //   //           label={field.label}
-            //   //           placeholder={field.placeholder}
-            //   //           name={field.name}
-            //   //           required={field.required}
-            //   //           options={field.choices.map((f) => ({
-            //   //             ...f,
-            //   //             text: f.value,
-            //   //           }))}
-            //   //           multiple={field.inputType === 'MULTI_SELECT'}
-            //   //         ></fw-select>
-            //   //         <div>
-            //   //           {touched[field.name] && errors[field.name] && (
-            //   //             <label class='error' {...labelProps(field.name)}>
-            //   //               {' '}
-            //   //               {errors[field.name]}{' '}
-            //   //             </label>
-            //   //           )}
-            //   //         </div>
-            //   //       </div>
-            //   //     </Fragment>
-            //   //   );
-            //   //   break;
-
-            //   // case 'time':
-            //   //   cmp = (
-            //   //     <Fragment>
-            //   //       <fw-timepicker
-            //   //         {...inputProps(field.name, field.inputType)}
-            //   //         label={field.label}
-            //   //         placeholder={field.placeholder}
-            //   //         name={field.name}
-            //   //         required={field.required}
-            //   //       ></fw-timepicker>
-            //   //       {touched[field.name] && errors[field.name] && (
-            //   //         <label class='error' {...labelProps(field.name)}>
-            //   //           {' '}
-            //   //           {errors[field.name]}{' '}
-            //   //         </label>
-            //   //       )}
-            //   //     </Fragment>
-            //   //   );
-            //   //   break;
-
-            //   // default:
-            //   //   cmp = <p>unknown</p>;
-            //   //   break;
-            // }
-            // return cmp;
           })}
-          {/* <input
-            type='text'
-            name='abc'
-            onInput={(e) => {
-              const event = new CustomEvent('fwInput');
-              e.target.dispatchEvent(event);
-            }}
-          /> */}
-
-          <h3> This is rendered apart from the json schema</h3>
-          <fw-form-control
-            type='input'
-            inputType={'text'}
-            name={'abc'}
-            placeholder={'Custom layout'}
-            required={true}
-            label={'Custom Layout apart from json schema'}
-          ></fw-form-control>
-          <br />
-          <br />
-
-          <h3> This is rendered apart from the json schema</h3>
-          <fw-form-control
-            type='input'
-            inputType={'text'}
-            name={'sss'}
-            placeholder={'Custom layout'}
-            required={true}
-            label={'Custom Layout apart from json schema'}
-          >
-            <input placeholder='sss' id='sss' name='sss' required></input>
-          </fw-form-control>
-          <br />
-          <br />
-
-          {/* <button type='submit'>Submit</button> */}
         </div>
       </fw-form>
     );
