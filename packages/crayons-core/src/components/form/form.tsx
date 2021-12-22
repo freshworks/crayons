@@ -6,6 +6,7 @@ import {
   Event,
   EventEmitter,
   h,
+  Method,
 } from '@stencil/core';
 import {
   FormRenderProps,
@@ -105,6 +106,22 @@ export class Form implements FormConfig {
     console.log({ values: this.values });
     this.onFormSubmit.emit({ values: this.values, actions: { setSubmitting } });
   };
+
+  @Method()
+  async setField(obj) {
+    this.values = { ...this.values, ...obj };
+    Object.keys(obj).forEach(
+      (k) => (this.touched = { ...this.touched, [k]: true })
+    );
+  }
+
+  @Method()
+  async setErrors(obj) {
+    this.errors = { ...this.errors, ...obj };
+    Object.keys(obj).forEach(
+      (k) => (this.touched = { ...this.touched, [k]: true })
+    );
+  }
 
   handleReset = () => {
     this.isSubmitting = false;
@@ -371,6 +388,17 @@ export class Form implements FormConfig {
     });
   }
 
+  // setInitilaStates() {
+  //   const value = this.values[(f as any).name];
+  //   const error = this.errors[(f as any).name];
+  //   const touched = this.touched[(f as any).name];
+  //   const type = f.tagName.toLowerCase();
+  //   if (error) (f as any).error = error;
+  //     else (f as any).error = '';
+  //     if (touched) (f as any).touched = true;
+  //     else (f as any).touched = false;
+  // }
+
   setValues(f) {
     const value = this.values[(f as any).name];
     const error = this.errors[(f as any).name];
@@ -385,9 +413,18 @@ export class Form implements FormConfig {
     } else if (['fw-checkbox', 'checkbox'].includes(type)) {
       if (value) (f as any).checked = value;
       else (f as any).checked = false;
-    } else {
+    } else if (['fw-select'].includes(type)) {
+      (f as any).value = f.multiple // for multiselect pass Array
+        ? value?.map((v) => v.value || v) || []
+        : Array.isArray(value) // single select but the value is an array, pass 0th index
+        ? value?.map((v) => v.value || v)[0] || ''
+        : value || '';
+    } else if (['fw-radio'].includes(type)) {
       if (value) (f as any).value = value;
       else (f as any).value = undefined;
+    } else {
+      if (value) (f as any).value = value;
+      else (f as any).value = '';
     }
   }
 
@@ -409,7 +446,7 @@ export class Form implements FormConfig {
     //return this.renderer(renderProps);
     return (
       <div {...utils.formWrapperProps}>
-        {JSON.stringify(this.values)}
+        {/* {JSON.stringify(this.values)} */}
         <slot></slot>
         <button type='submit' onClick={this.handleSubmit}>
           {' '}

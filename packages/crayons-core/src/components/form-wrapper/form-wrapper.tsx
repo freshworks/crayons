@@ -276,10 +276,11 @@ const formSchema = {
 // };
 
 const initialValues = {
+  first_name: '',
   age: '',
   is_indian_citizen: true,
   abc: '',
-  sss: '123123',
+  sss: '',
 };
 
 const staticValidationSchema = Yup.object().shape({

@@ -238,6 +238,8 @@ export namespace Components {
         "initialErrors": any;
         "initialValues": any;
         "renderer": (props: FormRenderProps<any>) => any;
+        "setErrors": (obj: any) => Promise<void>;
+        "setField": (obj: any) => Promise<void>;
         "validate": any;
         /**
           * Tells Form to validate the form on each input's onBlur event
