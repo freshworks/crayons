@@ -250,6 +250,7 @@ export namespace Components {
         "validationSchema": any;
     }
     interface FwFormControl {
+        "choices": any;
         "error": any;
         "inputType": any;
         "label": any;
@@ -1948,6 +1949,7 @@ declare namespace LocalJSX {
         "validationSchema"?: any;
     }
     interface FwFormControl {
+        "choices"?: any;
         "error"?: any;
         "inputType"?: any;
         "label"?: any;

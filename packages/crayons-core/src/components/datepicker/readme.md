@@ -98,6 +98,10 @@ Type: `Promise<string | { fromDate: string; toDate: string; }>`
 
 ## Dependencies
 
+### Used by
+
+ - [fw-form-control](../form-control)
+
 ### Depends on
 
 - [fw-popover](../popover)
@@ -133,6 +137,7 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-form-control --> fw-datepicker
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

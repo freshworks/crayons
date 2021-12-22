@@ -66,6 +66,19 @@ function App() {
 | `fwChange` | Triggered when an option in the Radio Group is selected or deselected. | `CustomEvent<any>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-form-control](../form-control)
+
+### Graph
+```mermaid
+graph TD;
+  fw-form-control --> fw-radio-group
+  style fw-radio-group fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

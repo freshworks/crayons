@@ -79,6 +79,7 @@ Type: `Promise<HTMLInputElement>`
 
  - [fw-data-table](../data-table)
  - [fw-dropdown-button](../dropdown-button)
+ - [fw-form-control](../form-control)
  - [fw-select-option](../select-option)
 
 ### Graph
@@ -86,6 +87,7 @@ Type: `Promise<HTMLInputElement>`
 graph TD;
   fw-data-table --> fw-checkbox
   fw-dropdown-button --> fw-checkbox
+  fw-form-control --> fw-checkbox
   fw-select-option --> fw-checkbox
   style fw-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -65,16 +65,6 @@ export class Form implements FormConfig {
   @Event({ eventName: 'fwFormSubmit' })
   onFormSubmit: EventEmitter<FwFormEventDetail>;
 
-  // getFormControls() {
-  //   const children = this.formRef.children;
-
-  //   const reportValidChild = [...children].filter(
-  //     (c) => c.tagName === 'FW-INPUT'
-  //   );
-
-  //   return reportValidChild;
-  // }
-
   componentWillLoad() {
     this.values = this.initialValues;
 
@@ -167,8 +157,6 @@ export class Form implements FormConfig {
   handleFocus =
     (field: string, _inputType: string) => (_event: Event, _ref: any) => {
       this.focused = field;
-      // if (!this.touched[field])
-      //   this.touched = { ...this.touched, [field]: true };
     };
 
   private composedState = (): FormState<FormValues> => {
@@ -297,44 +285,6 @@ export class Form implements FormConfig {
     console.log('handle slot change ', e);
   };
 
-  componentDidLoad() {
-    const controls = this.getFormControls();
-    controls.forEach((f) => {
-      if (f.tagName.toLowerCase() === 'fw-form-control') return;
-      const field = (f as any).name;
-      (f as any).handleInput = this.handleInput(
-        field as string,
-        (f as any).type
-      );
-      (f as any).handleChange = this.handleInput(
-        field as string,
-        (f as any).type
-      );
-      (f as any).handleBlur = this.handleBlur(field as string, (f as any).type);
-      (f as any).handleFocus = this.handleFocus(
-        field as string,
-        (f as any).type
-      );
-      if (f.tagName.toLowerCase() === 'input') {
-        console.log('input');
-        (f as any).addEventListener(
-          'change',
-          this.handleInput(field as string, (f as any).type)
-        );
-
-        (f as any).addEventListener(
-          'focus',
-          this.handleFocus(field as string, (f as any).type)
-        );
-
-        (f as any).addEventListener(
-          'blur',
-          this.handleBlur(field as string, (f as any).type)
-        );
-      }
-    });
-  }
-
   getFormControls() {
     const children = this.el.querySelectorAll('*');
     return [...children]
@@ -345,26 +295,100 @@ export class Form implements FormConfig {
       )
       .filter(
         (el: HTMLElement) =>
-          ['fw-input', 'input', 'fw-form-control'].includes(
-            el.tagName.toLowerCase()
-          ) && !['hidden-input'].includes(el.className)
+          [
+            'fw-input',
+            'fw-textarea',
+            'fw-select',
+            'fw-radio-group',
+            // 'fw-radio',
+            'fw-checkbox',
+            'fw-datepicker',
+            'fw-timepicker',
+            'fw-form-control',
+            'input',
+            'textarea',
+            'date',
+            'select',
+          ].includes(el.tagName.toLowerCase()) &&
+          !['hidden-input'].includes(el.className)
       ) as HTMLElement[];
+  }
+
+  // attach event listeners and set initial values and errors
+  componentDidLoad() {
+    const controls = this.getFormControls();
+    controls.forEach((f) => {
+      // dont attach listener on form-control
+      if (f.tagName.toLowerCase() === 'fw-form-control') this.setValues(f);
+      else {
+        const field = (f as any).name;
+        (f as any).handleInput = this.handleInput(
+          field as string,
+          (f as any).type
+        );
+        (f as any).handleChange = this.handleInput(
+          field as string,
+          (f as any).type
+        );
+        (f as any).handleBlur = this.handleBlur(
+          field as string,
+          (f as any).type
+        );
+        (f as any).handleFocus = this.handleFocus(
+          field as string,
+          (f as any).type
+        );
+        if (
+          ['input', 'select', 'textarea', 'checkbox'].includes(
+            f.tagName.toLowerCase()
+          )
+        ) {
+          console.log('input');
+          (f as any).addEventListener(
+            'change',
+            this.handleInput(field as string, (f as any).type)
+          );
+
+          (f as any).addEventListener(
+            'focus',
+            this.handleFocus(field as string, (f as any).type)
+          );
+
+          (f as any).addEventListener(
+            'blur',
+            this.handleBlur(field as string, (f as any).type)
+          );
+        }
+        this.setValues(f);
+      }
+    });
   }
 
   updateState() {
     const controls = this.getFormControls();
     controls.forEach((f) => {
-      const value = this.values[(f as any).name];
-      const error = this.errors[(f as any).name];
-      const touched = this.touched[(f as any).name];
-      //const field = (f as any).name;
-      if (value) f.setAttribute('value', value);
-      else (f as any).value = '';
+      this.setValues(f);
+    });
+  }
+
+  setValues(f) {
+    const value = this.values[(f as any).name];
+    const error = this.errors[(f as any).name];
+    const touched = this.touched[(f as any).name];
+    const type = f.tagName.toLowerCase();
+
+    if (['fw-form-control'].includes(type)) {
       if (error) (f as any).error = error;
       else (f as any).error = '';
       if (touched) (f as any).touched = true;
       else (f as any).touched = false;
-    });
+    } else if (['fw-checkbox', 'checkbox'].includes(type)) {
+      if (value) (f as any).checked = value;
+      else (f as any).checked = false;
+    } else {
+      if (value) (f as any).value = value;
+      else (f as any).value = undefined;
+    }
   }
 
   render() {
@@ -385,10 +409,11 @@ export class Form implements FormConfig {
     //return this.renderer(renderProps);
     return (
       <div {...utils.formWrapperProps}>
+        {JSON.stringify(this.values)}
         <slot></slot>
         <button type='submit' onClick={this.handleSubmit}>
           {' '}
-          Subit form{' '}
+          Submit form{' '}
         </button>
       </div>
     );

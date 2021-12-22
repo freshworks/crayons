@@ -23,6 +23,8 @@ export class FormControl {
   inputType: any;
   @Prop()
   name = '';
+  @Prop()
+  choices: any;
 
   @State() hasSlot = false;
 
@@ -36,7 +38,73 @@ export class FormControl {
             type={this.inputType}
             name={this.name}
             placeholder={this.placeholder}
+            required={this.required}
           ></fw-input>
+        );
+        break;
+      case 'textarea':
+        cmp = (
+          <fw-textarea
+            placeholder={this.placeholder}
+            name={this.name}
+            required={this.required}
+          ></fw-textarea>
+        );
+        break;
+
+      case 'date':
+        cmp = (
+          <fw-datepicker
+            placeholder={this.placeholder}
+            name={this.name}
+            required={this.required}
+          ></fw-datepicker>
+        );
+        break;
+
+      case 'checkbox':
+        cmp = (
+          <fw-checkbox name={this.name} required={this.required}>
+            {this.label}
+          </fw-checkbox>
+        );
+        break;
+
+      case 'radio':
+        cmp = (
+          <fw-radio-group
+            allow-empty
+            label={this.label}
+            name={this.name}
+            required={this.required}
+          >
+            {this.choices?.map((ch) => {
+              return <fw-radio value={ch.value}>{ch.value}</fw-radio>;
+            })}
+          </fw-radio-group>
+        );
+        break;
+
+      case 'select':
+        cmp = (
+          <fw-select
+            placeholder={this.placeholder}
+            name={this.name}
+            required={this.required}
+            options={this.choices.map((f) => ({
+              ...f,
+              text: f.value,
+            }))}
+            multiple={this.inputType === 'MULTI_SELECT'}
+          ></fw-select>
+        );
+        break;
+      case 'time':
+        cmp = (
+          <fw-timepicker
+            name={this.name}
+            required={this.required}
+          ></fw-timepicker>
         );
         break;
 

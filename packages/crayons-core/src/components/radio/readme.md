@@ -60,6 +60,19 @@ function App() {
 | `fwSelect`   | Triggered when the radio button in focus is selected. | `CustomEvent<any>`  |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-form-control](../form-control)
+
+### Graph
+```mermaid
+graph TD;
+  fw-form-control --> fw-radio
+  style fw-radio fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

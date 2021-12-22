@@ -991,6 +991,7 @@ Type: `Promise<any>`
 ### Used by
 
  - [fw-datepicker](../datepicker)
+ - [fw-form-control](../form-control)
  - [fw-timepicker](../timepicker)
 
 ### Depends on
@@ -1025,6 +1026,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-input --> fw-icon
   fw-datepicker --> fw-select
+  fw-form-control --> fw-select
   fw-timepicker --> fw-select
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```

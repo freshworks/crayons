@@ -1,4 +1,4 @@
-import { Component, h, Fragment, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 import * as Yup from 'yup';
 
 /** incoming props formSchema, initialvalues, validationSchema, initialErrors */
@@ -279,7 +279,7 @@ const initialValues = {
   age: '',
   is_indian_citizen: true,
   abc: '',
-  sss: '',
+  sss: '123123',
 };
 
 const staticValidationSchema = Yup.object().shape({
@@ -287,29 +287,6 @@ const staticValidationSchema = Yup.object().shape({
   abc: Yup.string().required('custom abc is req'),
   sss: Yup.string().required('custom sss input is req'),
 });
-
-// const validationSchema = Yup.object().shape({
-//   last_name: Yup.string()
-//     .min(2, 'Too Short!')
-//     .max(50, 'Too Long!')
-//     .notRequired(),
-//   email: Yup.string().email('Invalid email').required('Email is Required'),
-//   first_name: Yup.string()
-//     .min(2, 'First_name Too Short!')
-//     .max(50, 'First_name Too Long!')
-//     .when('last_name', (last_name, schema) => {
-//       return (
-//         last_name &&
-//         schema.required(' first name is required if last_name is entered')
-//       );
-//     }),
-//   age: Yup.number().required('Age is Required'),
-//   income: Yup.number().required('Income is Required'),
-//   personal_page_link: Yup.string()
-//     .url('Invalid URL')
-//     .required('URL is Required'),
-//   phone_number: Yup.string().required('Phone no is Required'),
-// });
 
 function mergeSchema(...schemas) {
   const [first, ...rest] = schemas;
@@ -389,10 +366,10 @@ const initialErrors = {
   shadow: true,
 })
 export class FormWrapper {
-  @Prop() formSchema;
-  @Prop() initialValues: any;
-  @Prop() validationSchema: any;
-  @Prop() initialErrors: any;
+  @Prop() formSchema: any = formSchema;
+  @Prop() initialValues: any = initialValues;
+  @Prop() validationSchema: any = staticValidationSchema;
+  @Prop() initialErrors: any = initialErrors;
 
   @State()
   formValidationSchema;
@@ -402,10 +379,6 @@ export class FormWrapper {
   formInitialErrors;
 
   componentWillLoad(): void {
-    this.initialValues = initialValues;
-    this.initialErrors = initialErrors;
-    this.formSchema = formSchema;
-    this.validationSchema = staticValidationSchema;
     const yupSchema = this.formSchema.fields.reduce(createYupSchema, {});
 
     const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
@@ -435,185 +408,195 @@ export class FormWrapper {
       >
         <div>
           {this.formSchema.fields.map((field) => {
-            let cmp = '';
-            switch (field.type) {
-              case 'input':
-                cmp = (
-                  <Fragment>
-                    <fw-form-control
-                      type='input'
-                      inputType={field.inputType}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      required={field.required}
-                      label={field.label}
-                    ></fw-form-control>
-                    {/* <fw-input
-                      type={field.inputType}
-                      label={field.label}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      required={field.required}
-                    ></fw-input> */}
-                    {/* {touched[field.name] && errors[field.name] && (
-                      <label class='error' {...labelProps(field.name)}>
-                        {' '}
-                        {errors[field.name]}{' '}
-                      </label>
-                    )} */}
-                  </Fragment>
-                );
-                break;
+            return (
+              <fw-form-control
+                type={field.type}
+                inputType={field.inputType}
+                name={field.name}
+                placeholder={field.placeholder}
+                required={field.required}
+                label={field.label}
+                choices={field.choices}
+              ></fw-form-control>
+            );
+            // switch (field.type) {
+            //   case 'input':
+            //     cmp = (
+            //       <Fragment>
+            //         <fw-form-control
+            //           type='input'
+            //           inputType={field.inputType}
+            //           name={field.name}
+            //           placeholder={field.placeholder}
+            //           required={field.required}
+            //           label={field.label}
+            //         ></fw-form-control>
+            //         {/* <fw-input
+            //           type={field.inputType}
+            //           label={field.label}
+            //           name={field.name}
+            //           placeholder={field.placeholder}
+            //           required={field.required}
+            //         ></fw-input> */}
+            //         {/* {touched[field.name] && errors[field.name] && (
+            //           <label class='error' {...labelProps(field.name)}>
+            //             {' '}
+            //             {errors[field.name]}{' '}
+            //           </label>
+            //         )} */}
+            //       </Fragment>
+            //     );
+            //     break;
 
-              // case 'textarea':
-              //   cmp = (
-              //     <Fragment>
-              //       <fw-textarea
-              //         {...inputProps(field.name, field.inputType)}
-              //         label={field.label}
-              //         placeholder={field.placeholder}
-              //         name={field.name}
-              //         required={field.required}
-              //       ></fw-textarea>
-              //       {touched[field.name] && errors[field.name] && (
-              //         <label class='error' {...labelProps(field.name)}>
-              //           {' '}
-              //           {errors[field.name]}{' '}
-              //         </label>
-              //       )}
-              //     </Fragment>
-              //   );
-              //   break;
+            //   // case 'textarea':
+            //   //   cmp = (
+            //   //     <Fragment>
+            //   //       <fw-textarea
+            //   //         {...inputProps(field.name, field.inputType)}
+            //   //         label={field.label}
+            //   //         placeholder={field.placeholder}
+            //   //         name={field.name}
+            //   //         required={field.required}
+            //   //       ></fw-textarea>
+            //   //       {touched[field.name] && errors[field.name] && (
+            //   //         <label class='error' {...labelProps(field.name)}>
+            //   //           {' '}
+            //   //           {errors[field.name]}{' '}
+            //   //         </label>
+            //   //       )}
+            //   //     </Fragment>
+            //   //   );
+            //   //   break;
 
-              // case 'date':
-              //   cmp = (
-              //     <Fragment>
-              //       <fw-datepicker
-              //         {...inputProps(field.name, field.inputType)}
-              //         label={field.label}
-              //         placeholder={field.placeholder}
-              //         name={field.name}
-              //         required={field.required}
-              //       ></fw-datepicker>
-              //       {touched[field.name] && errors[field.name] && (
-              //         <label class='error' {...labelProps(field.name)}>
-              //           {' '}
-              //           {errors[field.name]}{' '}
-              //         </label>
-              //       )}
-              //     </Fragment>
-              //   );
-              //   break;
+            //   // case 'date':
+            //   //   cmp = (
+            //   //     <Fragment>
+            //   //       <fw-datepicker
+            //   //         {...inputProps(field.name, field.inputType)}
+            //   //         label={field.label}
+            //   //         placeholder={field.placeholder}
+            //   //         name={field.name}
+            //   //         required={field.required}
+            //   //       ></fw-datepicker>
+            //   //       {touched[field.name] && errors[field.name] && (
+            //   //         <label class='error' {...labelProps(field.name)}>
+            //   //           {' '}
+            //   //           {errors[field.name]}{' '}
+            //   //         </label>
+            //   //       )}
+            //   //     </Fragment>
+            //   //   );
+            //   //   break;
 
-              // case 'checkbox':
-              //   cmp = (
-              //     <div>
-              //       <fw-checkbox
-              //         {...checkboxProps(field.name)}
-              //         placeholder={field.placeholder}
-              //         name={field.name}
-              //         required={field.required}
-              //       >
-              //         {field.label}
-              //       </fw-checkbox>
-              //       <div>
-              //         {touched[field.name] && errors[field.name] && (
-              //           <label class='error' {...labelProps(field.name)}>
-              //             {' '}
-              //             {errors[field.name]}{' '}
-              //           </label>
-              //         )}
-              //       </div>
-              //     </div>
-              //   );
-              //   break;
+            //   // case 'checkbox':
+            //   //   cmp = (
+            //   //     <div>
+            //   //       <fw-checkbox
+            //   //         {...checkboxProps(field.name)}
+            //   //         placeholder={field.placeholder}
+            //   //         name={field.name}
+            //   //         required={field.required}
+            //   //       >
+            //   //         {field.label}
+            //   //       </fw-checkbox>
+            //   //       <div>
+            //   //         {touched[field.name] && errors[field.name] && (
+            //   //           <label class='error' {...labelProps(field.name)}>
+            //   //             {' '}
+            //   //             {errors[field.name]}{' '}
+            //   //           </label>
+            //   //         )}
+            //   //       </div>
+            //   //     </div>
+            //   //   );
+            //   //   break;
 
-              // case 'radio':
-              //   cmp = (
-              //     <Fragment>
-              //       <div>
-              //         <fw-radio-group
-              //           allow-empty
-              //           {...inputProps(field.name, field.inputType)}
-              //           label={field.label}
-              //           placeholder={field.placeholder}
-              //           name={field.name}
-              //           required={field.required}
-              //         >
-              //           {' '}
-              //           {field.choices.map((ch) => {
-              //             return (
-              //               <fw-radio value={ch.value}>{ch.value}</fw-radio>
-              //             );
-              //           })}
-              //         </fw-radio-group>
-              //         <div>
-              //           {touched[field.name] && errors[field.name] && (
-              //             <label class='error' {...labelProps(field.name)}>
-              //               {' '}
-              //               {errors[field.name]}{' '}
-              //             </label>
-              //           )}
-              //         </div>
-              //       </div>
-              //     </Fragment>
-              //   );
-              //   break;
+            //   // case 'radio':
+            //   //   cmp = (
+            //   //     <Fragment>
+            //   //       <div>
+            //   //         <fw-radio-group
+            //   //           allow-empty
+            //   //           {...inputProps(field.name, field.inputType)}
+            //   //           label={field.label}
+            //   //           placeholder={field.placeholder}
+            //   //           name={field.name}
+            //   //           required={field.required}
+            //   //         >
+            //   //           {' '}
+            //   //           {field.choices.map((ch) => {
+            //   //             return (
+            //   //               <fw-radio value={ch.value}>{ch.value}</fw-radio>
+            //   //             );
+            //   //           })}
+            //   //         </fw-radio-group>
+            //   //         <div>
+            //   //           {touched[field.name] && errors[field.name] && (
+            //   //             <label class='error' {...labelProps(field.name)}>
+            //   //               {' '}
+            //   //               {errors[field.name]}{' '}
+            //   //             </label>
+            //   //           )}
+            //   //         </div>
+            //   //       </div>
+            //   //     </Fragment>
+            //   //   );
+            //   //   break;
 
-              // case 'select':
-              //   cmp = (
-              //     <Fragment>
-              //       <div>
-              //         <fw-select
-              //           {...selectProps(field.name)}
-              //           label={field.label}
-              //           placeholder={field.placeholder}
-              //           name={field.name}
-              //           required={field.required}
-              //           options={field.choices.map((f) => ({
-              //             ...f,
-              //             text: f.value,
-              //           }))}
-              //           multiple={field.inputType === 'MULTI_SELECT'}
-              //         ></fw-select>
-              //         <div>
-              //           {touched[field.name] && errors[field.name] && (
-              //             <label class='error' {...labelProps(field.name)}>
-              //               {' '}
-              //               {errors[field.name]}{' '}
-              //             </label>
-              //           )}
-              //         </div>
-              //       </div>
-              //     </Fragment>
-              //   );
-              //   break;
+            //   // case 'select':
+            //   //   cmp = (
+            //   //     <Fragment>
+            //   //       <div>
+            //   //         <fw-select
+            //   //           {...selectProps(field.name)}
+            //   //           label={field.label}
+            //   //           placeholder={field.placeholder}
+            //   //           name={field.name}
+            //   //           required={field.required}
+            //   //           options={field.choices.map((f) => ({
+            //   //             ...f,
+            //   //             text: f.value,
+            //   //           }))}
+            //   //           multiple={field.inputType === 'MULTI_SELECT'}
+            //   //         ></fw-select>
+            //   //         <div>
+            //   //           {touched[field.name] && errors[field.name] && (
+            //   //             <label class='error' {...labelProps(field.name)}>
+            //   //               {' '}
+            //   //               {errors[field.name]}{' '}
+            //   //             </label>
+            //   //           )}
+            //   //         </div>
+            //   //       </div>
+            //   //     </Fragment>
+            //   //   );
+            //   //   break;
 
-              // case 'time':
-              //   cmp = (
-              //     <Fragment>
-              //       <fw-timepicker
-              //         {...inputProps(field.name, field.inputType)}
-              //         label={field.label}
-              //         placeholder={field.placeholder}
-              //         name={field.name}
-              //         required={field.required}
-              //       ></fw-timepicker>
-              //       {touched[field.name] && errors[field.name] && (
-              //         <label class='error' {...labelProps(field.name)}>
-              //           {' '}
-              //           {errors[field.name]}{' '}
-              //         </label>
-              //       )}
-              //     </Fragment>
-              //   );
-              //   break;
+            //   // case 'time':
+            //   //   cmp = (
+            //   //     <Fragment>
+            //   //       <fw-timepicker
+            //   //         {...inputProps(field.name, field.inputType)}
+            //   //         label={field.label}
+            //   //         placeholder={field.placeholder}
+            //   //         name={field.name}
+            //   //         required={field.required}
+            //   //       ></fw-timepicker>
+            //   //       {touched[field.name] && errors[field.name] && (
+            //   //         <label class='error' {...labelProps(field.name)}>
+            //   //           {' '}
+            //   //           {errors[field.name]}{' '}
+            //   //         </label>
+            //   //       )}
+            //   //     </Fragment>
+            //   //   );
+            //   //   break;
 
-              // default:
-              //   cmp = <p>unknown</p>;
-              //   break;
-            }
-            return cmp;
+            //   // default:
+            //   //   cmp = <p>unknown</p>;
+            //   //   break;
+            // }
+            // return cmp;
           })}
           {/* <input
             type='text'
