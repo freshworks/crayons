@@ -104,6 +104,20 @@ export class Form implements FormConfig {
     const { setSubmitting } = this;
 
     console.log({ values: this.values });
+
+    const controls = this.getFormControls();
+    const fieldWithError = controls.find((control) => {
+      const name = (control as any).name;
+      // eslint-disable-next-line no-prototype-builtins
+      return this.errors.hasOwnProperty(name);
+    });
+    (
+      fieldWithError
+        .querySelector(`fw-${(fieldWithError as any).type}`)
+        .shadowRoot.querySelector(
+          `[name=${(fieldWithError as any).name}`
+        ) as any
+    ).focus();
     this.onFormSubmit.emit({ values: this.values, actions: { setSubmitting } });
   };
 
@@ -303,8 +317,12 @@ export class Form implements FormConfig {
   };
 
   getFormControls() {
-    const children = this.el.querySelectorAll('*');
-    return [...children]
+    let ch =
+      this.el.shadowRoot
+        .querySelector('#x')
+        ?.querySelector('slot')
+        ?.assignedElements({ flattened: true }) || [];
+    ch = ch
       .reduce(
         (all: HTMLElement[], el: HTMLElement) =>
           all.concat(el, [...el.querySelectorAll('*')] as HTMLElement[]),
@@ -329,6 +347,7 @@ export class Form implements FormConfig {
           ].includes(el.tagName.toLowerCase()) &&
           !['hidden-input'].includes(el.className)
       ) as HTMLElement[];
+    return ch;
   }
 
   // attach event listeners and set initial values and errors
@@ -419,7 +438,7 @@ export class Form implements FormConfig {
         : Array.isArray(value) // single select but the value is an array, pass 0th index
         ? value?.map((v) => v.value || v)[0] || ''
         : value || '';
-    } else if (['fw-radio'].includes(type)) {
+    } else if (['fw-radio', 'fw-radio-group'].includes(type)) {
       if (value) (f as any).value = value;
       else (f as any).value = undefined;
     } else {
@@ -445,7 +464,7 @@ export class Form implements FormConfig {
     console.log(renderProps);
     //return this.renderer(renderProps);
     return (
-      <div {...utils.formWrapperProps}>
+      <div id='x' {...utils.formWrapperProps}>
         {/* {JSON.stringify(this.values)} */}
         <slot></slot>
         <button type='submit' onClick={this.handleSubmit}>

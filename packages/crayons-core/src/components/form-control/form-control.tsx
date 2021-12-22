@@ -3,6 +3,7 @@ import { hasSlot } from '../../utils';
 @Component({
   tag: 'fw-form-control',
   styleUrl: 'form-control.scss',
+  shadow: true,
 })
 export class FormControl {
   @Element() el;
