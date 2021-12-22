@@ -20,6 +20,7 @@ export class CustomCellUser {
             size='small'
             image={this.image}
             name={this.name}
+            alt='Profile picture'
           ></fw-avatar>
         </div>
         <div class='name-box'>

@@ -13,6 +13,17 @@ import {
 
 import { DataTableColumn, DataTableRow } from '../../utils/types';
 
+const PREDEFINED_VARIANTS_META = {
+  anchor: {
+    componentName: 'fw-custom-cell-anchor',
+    isFocusable: true,
+  },
+  user: {
+    componentName: 'fw-custom-cell-user',
+    isFocusable: false,
+  },
+};
+
 @Component({
   tag: 'fw-data-table',
   styleUrl: 'data-table.scss',
@@ -139,59 +150,64 @@ export class DataTable {
    */
   @Listen('keydown')
   keyDownHandler(event) {
-    const currentElement: HTMLElement =
-      event.path[0].nodeName === 'TD'
-        ? event.path[0]
-        : event.path[0].closest('td');
-    const currentRowIndex: number =
-      +currentElement.parentElement.getAttribute('aria-rowIndex');
-    const currentColIndex: number =
-      +currentElement.getAttribute('aria-colIndex');
-    let nextRowIndex: number;
-    let nextColIndex: number;
-    const columnLength: number = this.isSelectable
-      ? this.orderedColumns.length + 1
-      : this.orderedColumns.length;
-    switch (event.key) {
-      case 'ArrowDown':
-        nextRowIndex = currentRowIndex + 1;
-        nextColIndex = currentColIndex;
-        break;
-      case 'ArrowUp':
-        nextRowIndex = currentRowIndex - 1;
-        nextColIndex = currentColIndex;
-        break;
-      case 'ArrowRight':
-        if (currentColIndex !== columnLength) {
-          nextRowIndex = currentRowIndex;
-          nextColIndex = currentColIndex + 1;
-        } else {
+    const currentElement: HTMLElement = this.closestTableCell(event.path);
+    if (currentElement) {
+      const currentRowIndex: number =
+        +currentElement.parentElement.getAttribute('aria-rowIndex');
+      const currentColIndex: number =
+        +currentElement.getAttribute('aria-colIndex');
+      let nextRowIndex: number;
+      let nextColIndex: number;
+      const columnLength: number = this.isSelectable
+        ? this.orderedColumns.length + 1
+        : this.orderedColumns.length;
+      switch (event.key) {
+        case 'ArrowDown':
           nextRowIndex = currentRowIndex + 1;
-          nextColIndex = 1;
-        }
-        break;
-      case 'ArrowLeft':
-        if (currentColIndex !== 1) {
-          nextRowIndex = currentRowIndex;
-          nextColIndex = currentColIndex - 1;
-        } else {
+          nextColIndex = currentColIndex;
+          break;
+        case 'ArrowUp':
           nextRowIndex = currentRowIndex - 1;
-          nextColIndex = columnLength;
+          nextColIndex = currentColIndex;
+          break;
+        case 'ArrowRight':
+          if (currentColIndex !== columnLength) {
+            nextRowIndex = currentRowIndex;
+            nextColIndex = currentColIndex + 1;
+          } else {
+            nextRowIndex = currentRowIndex + 1;
+            nextColIndex = 1;
+          }
+          break;
+        case 'ArrowLeft':
+          if (currentColIndex !== 1) {
+            nextRowIndex = currentRowIndex;
+            nextColIndex = currentColIndex - 1;
+          } else {
+            nextRowIndex = currentRowIndex - 1;
+            nextColIndex = columnLength;
+          }
+          break;
+        default:
+          break;
+      }
+      const nextCell = event.currentTarget.shadowRoot.querySelector(
+        `[aria-rowIndex="${nextRowIndex}"] > [aria-colIndex="${nextColIndex}"]`
+      );
+      if (nextCell) {
+        currentElement.setAttribute('tabIndex', '-1');
+        if (
+          nextCell.dataset.hasFocusableChild &&
+          nextCell.dataset.hasFocusableChild === 'true'
+        ) {
+          nextCell.removeAttribute('tabIndex');
+          nextCell.firstChild.setAttribute('tabIndex', 0);
+          nextCell.firstChild.focus();
+        } else {
+          nextCell.setAttribute('tabIndex', '0');
+          nextCell.focus();
         }
-        break;
-      default:
-        break;
-    }
-    const nextCell = event.currentTarget.shadowRoot.querySelector(
-      `[aria-rowIndex="${nextRowIndex}"] > [aria-colIndex="${nextColIndex}"]`
-    );
-    if (nextCell) {
-      const nextFocusCell = nextCell.dataset.hasComponent
-        ? nextCell.firstChild
-        : nextCell;
-      currentElement.setAttribute('tabIndex', '-1');
-      nextCell.setAttribute('tabIndex', '0');
-      nextFocusCell.focus();
+      }
     }
   }
 
@@ -233,6 +249,42 @@ export class DataTable {
       columnConfig[column.key] = { position: column.position };
     });
     return columnConfig;
+  }
+
+  /**
+   * hasFocusableComponent - determines if a cell has focusable component
+   * @param column column information
+   * @returns {boolean} hasFocusableComponent
+   */
+  hasFocusableComponent(column: DataTableColumn) {
+    let hasFocusableComponent = false;
+    if (column.hasFocusableComponent) {
+      hasFocusableComponent = true;
+    } else if (
+      column.variant &&
+      PREDEFINED_VARIANTS_META[column.variant].isFocusable
+    ) {
+      hasFocusableComponent = true;
+    }
+    return hasFocusableComponent;
+  }
+
+  /**
+   * private
+   * closestTableCell Find the closest table cell from the path of the event
+   * @param eventPath Event path from the emitted event
+   * @returns closest table cell
+   */
+  closestTableCell(eventPath: any) {
+    let closestCell: any;
+    for (let i = 0; i < eventPath.length; i++) {
+      const element = eventPath[i];
+      if (element.nodeName === 'TD') {
+        closestCell = element;
+        break;
+      }
+    }
+    return closestCell;
   }
 
   /**
@@ -306,16 +358,11 @@ export class DataTable {
    */
   renderPredefinedVariant(columnVariant: string, cellValue: any) {
     let template: JSX.Element;
-    switch (columnVariant) {
-      case 'anchor':
-        template = this.renderWebComponent('fw-custom-cell-anchor', cellValue);
-        break;
-      case 'user':
-        template = this.renderWebComponent('fw-custom-cell-user', cellValue);
-        break;
-      default:
-        template = null;
-        break;
+    if (PREDEFINED_VARIANTS_META[columnVariant]) {
+      template = this.renderWebComponent(
+        PREDEFINED_VARIANTS_META[columnVariant].componentName,
+        cellValue
+      );
     }
     return template;
   }
@@ -377,26 +424,34 @@ export class DataTable {
               <td
                 class='data-table-checkbox'
                 aria-colindex={1}
-                data-has-component='true'
+                data-has-focusable-child='true'
               >
                 <fw-checkbox value={row.id ? row.id : ''}></fw-checkbox>
               </td>
             )}
-            {this.orderedColumns.map((orderedColumn, columnIndex) => (
-              <td
-                role='gridcell'
-                tabindex={
+            {this.orderedColumns.map((orderedColumn, columnIndex) => {
+              const attrs: any = {};
+              const isFocusable = this.hasFocusableComponent(orderedColumn)
+                ? true
+                : false;
+              if (!isFocusable) {
+                attrs.tabindex =
                   !this.isSelectable && rowIndex === 0 && columnIndex === 0
                     ? '0'
-                    : '-1'
-                }
-                aria-colindex={
-                  this.isSelectable ? columnIndex + 2 : columnIndex + 1
-                }
-              >
-                {this.renderTableCell(orderedColumn, row[orderedColumn.key])}
-              </td>
-            ))}
+                    : '-2';
+              }
+              attrs['aria-colindex'] = this.isSelectable
+                ? columnIndex + 2
+                : columnIndex + 1;
+              attrs['data-has-focusable-child'] = isFocusable
+                ? 'true'
+                : 'false';
+              return (
+                <td role='gridcell' {...attrs}>
+                  {this.renderTableCell(orderedColumn, row[orderedColumn.key])}
+                </td>
+              );
+            })}
           </tr>
         ))
       : null;
