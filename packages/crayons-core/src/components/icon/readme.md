@@ -58,11 +58,13 @@ Use prop `lazy` to enable Intersection-Observer. `By default it is disabled`. Yo
 ## Crayons Icon Assets 
 
 The following icons are presently part of the Crayons-Icon library. These are optimized using SVGO.
-Use the name of an icon as listed below it.For JS Imports, you may also click to copy the imports.
+Use the name of an icon as listed below it.
+In case you are planning to use `svg+xml` source for `crayons` icons, do remember to import icons from `@freshworks/crayons-icon` and substitute an underscore for any hyphen in icon name. You may click the image to copy the import. See usage in section **Icon Library**.
+e.g. `import { add_contact, alert, add_remove, ... } from '@freshworks/crayons-icon';` where name of icon is `add-contact`,`alert` and `add-remove`.
 
 <IconGallery/>
 
-## FwIcon as a Renderer for external icons.
+## FwIcon as a Renderer for external lib icons.
 
 **fw-icon/FwIcon can also render external icons**. You can use any external libraries from cdn after registering them. If you don't pass `library` props,
 it will default to `crayons`. You can even pass the CDN URL of SVG to `src` prop. See the example below on how to use in React App.
@@ -134,7 +136,8 @@ Some implementations via Icon Lib are as below:-
 
 ## Importing Icons from '@freshworks/crayons-icon'. [ Supports Tree-Shaking ].
 
-You can also import Crayons Icons as an esm module. See the code below for implementation basics.
+You can also import Crayons Icons as an esm module. In case you wish to use your own `svg+xml` source, please pass the source string to `data-svg` props. 
+See the code below for implementation. 
 
 ### Usage in HTML/React Page
 <code-group>
@@ -145,12 +148,14 @@ You can also import Crayons Icons as an esm module. See the code below for imple
    <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
    <script type="module">
        import { header, add_contact } from '@freshworks/crayons-icon';
+       const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`;  
    </script>
 </head>   
 <body>
       <div>
-        <fw-icon data-svg={ header }  label="Header" />
-        <fw-icon data-svg={ add_contact }  label="Add-Contact" />
+        <fw-icon data-svg={ header }  label="Crayons Icon Header" />
+        <fw-icon data-svg={ add_contact }  label="Crayons Icon Add Contact" />
+        <fw-icon data-svg={ circle }  label="circle svg" />
       </div>
 </body>
 </html>
@@ -162,12 +167,14 @@ You can also import Crayons Icons as an esm module. See the code below for imple
 import React from 'react';
 import { FwIcon } from '@freshworks/crayons/react'; 
 import { header, add_contact } from '@freshworks/crayons-icon';
+const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`; 
 
 function App() {
     return ( 
         <div>
-            <FwIcon dataSvg={ header }  label="Header" />
-            <FwIcon dataSvg={ add_contact }  label="Add-Contact" />
+            <FwIcon dataSvg={ header }  label="Crayons Icon Header" />
+            <FwIcon dataSvg={ add_contact }  label="Crayons Icon Add-Contact" />
+            <FwIcon dataSvg={ circle } />
         </div>
     );
 }

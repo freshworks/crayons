@@ -36,7 +36,7 @@ export default {
     },
     async copyToClipboard(text,import_as,refIcon, refText) {
       const el = document.createElement('textarea');
-      el.value = `-Copied- Name : ${text} , JS Import : import { ${import_as} } from '@freshworks/crayons-icon;' `;
+      el.value = `import { ${import_as} } from '@freshworks/crayons-icon';`;
       this.copyText = el.value;
       document.body.appendChild(el);
       el.select();

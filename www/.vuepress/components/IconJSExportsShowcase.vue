@@ -1,23 +1,28 @@
 <template>
   <div class="card-gallery">
      <div class="card" >
-      <fw-icon :data-svg="icons['header']" size="20"  label="header" lazy></fw-icon>
-      <span class="name">header</span>
+      <fw-icon :data-svg="icons['header']" size="20"  label="crayons icon header" lazy></fw-icon>
+      <span class="name">crayons-icon|header</span>
     </div>
      <div class="card" >
-      <fw-icon :data-svg="icons['add-contact']" size="20"  label="add-contact" lazy></fw-icon>
-      <span class="name">add-contact</span>
+      <fw-icon :data-svg="icons['add-contact']" size="20"  label="crayons icon add-contact" lazy></fw-icon>
+      <span class="name">crayons-icon|add-contact</span>
+    </div>   
+    <div class="card" >
+      <fw-icon :data-svg="icons['circle']" size="20"  label="svg circle" lazy></fw-icon>
+      <span class="name">custom|circle-svg</span>
     </div>    
   </div>
 </template>
 
 <script>
 import { header, add_contact} from '@freshworks/crayons-icon';
+const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`; 
 export default {
   name: 'icon-ts-exports',
   data() {
     return {
-      icons: {'header':header,'add-contact':add_contact},
+      icons: {'header':header,'add-contact':add_contact, 'circle':circle},
     }
   }
 }
