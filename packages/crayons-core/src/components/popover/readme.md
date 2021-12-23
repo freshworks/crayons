@@ -97,7 +97,7 @@ The above event can be handled manually via the listeners.
   placement="top-start"
 >
   <fw-button id="status-icon" size="icon" slot="popover-trigger"
-    ><fw-icon name="agent" color="white"></fw-icon>
+    ><fw-icon name="agent" color="white" ></fw-icon>
   </fw-button>
   <fw-list-options id="status-options" slot="popover-content"></fw-list-options>
 </fw-popover>
@@ -136,7 +136,7 @@ The above event can be handled manually via the listeners.
   placement="top-start"
 >
   <fw-button id="status-icon" size="icon" slot="popover-trigger"
-    ><fw-icon name="agent" color="white"></fw-icon>
+    ><fw-icon name="agent" color="white" ></fw-icon>
   </fw-button>
   <fw-list-options id="status-options" slot="popover-content"></fw-list-options>
 </fw-popover>
@@ -223,7 +223,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
       id="buttonIcon"
       slot="before-label"
       name="vertical-align-bottom"
-    ></fw-icon>
+     ></fw-icon>
     <span id="buttonContent">Premier Accounts</span>
   </fw-button>
   <div slot="popover-content">
@@ -322,7 +322,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
       id="buttonIcon"
       slot="before-label"
       name="vertical-align-bottom"
-    ></fw-icon>
+     ></fw-icon>
     <span id="buttonContent">Premier Accounts</span>
   </fw-button>
   <div slot="popover-content">

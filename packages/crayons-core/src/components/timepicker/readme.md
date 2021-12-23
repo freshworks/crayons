@@ -77,6 +77,9 @@ graph TD;
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-list-options --> fw-select-option

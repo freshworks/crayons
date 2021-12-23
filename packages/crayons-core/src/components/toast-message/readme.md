@@ -68,6 +68,7 @@ function App() {
 
 ### Used by
 
+ - [fw-icon](../icon)
  - [fw-toast](../toast)
 
 ### Depends on
@@ -80,6 +81,7 @@ function App() {
 graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-icon --> fw-toast-message
   fw-toast --> fw-toast-message
   style fw-toast-message fill:#f9f,stroke:#333,stroke-width:4px
 ```

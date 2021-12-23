@@ -372,6 +372,7 @@ export class Modal {
           <button class='close-btn' onClick={() => this.close()}>
             <fw-icon
               name='cross-big'
+              library='system'
               color={
                 this.slider
                   ? variation.closeColor.slider

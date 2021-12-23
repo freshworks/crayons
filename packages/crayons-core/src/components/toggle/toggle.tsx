@@ -110,6 +110,7 @@ export class Toggle {
                     color={this.checked ? '#2c5cc5' : '#647a8e'}
                     name={this.checked ? 'check' : 'cross'}
                     class={{ checked: this.checked }}
+                    library='system'
                   ></fw-icon>
                 )}
               </span>

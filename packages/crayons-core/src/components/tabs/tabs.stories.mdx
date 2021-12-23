@@ -1,21 +1,20 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 # Tabs
-<Meta
-  title='Tabs'
-  component='fw-tabs'
-   />
+
+<Meta title='Tabs' component='fw-tabs' />
 
 ## Props
 
-<Props of="fw-tabs"/>
+<Props of='fw-tabs' />
 
 ## Usage of component
 
 ### Default
+
 <Preview>
-<Story name='Default'>{() => `
-<fw-tabs>
+  <Story name='Default'>
+    {() => `<fw-tabs>
   <fw-tab slot="tab" panel="one">Tab 1</fw-tab>
   <fw-tab slot="tab" panel="two">Tab 2</fw-tab>
   <fw-tab slot="tab" panel="three" disabled>Tab 3</fw-tab>
@@ -26,29 +25,42 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   <fw-tab-panel name="three">Tab 3 Content</fw-tab-panel>
   <fw-tab-panel name="four">Tab 4 Content</fw-tab-panel>
 </fw-tabs>
-`}</Story>
+`}
+  </Story>
 </Preview>
 
 ### With variant box
+
 <Preview>
-<Story name='with box variant'>{() => `
-<fw-tabs variant="box">
+  <Story name='With box variant'>
+    {() => `<fw-tabs variant='box'>
   <fw-tab slot="tab" panel="one">Tab 1</fw-tab>
   <fw-tab slot="tab" panel="two">Tab 2</fw-tab>
   <fw-tab slot="tab" panel="three" disabled>Tab 3</fw-tab>
   <fw-tab slot="tab" panel="four">Tab 4</fw-tab>
-
-  <fw-tab-panel name="one">Tab 1 Content</fw-tab-panel>
-  <fw-tab-panel name="two">Tab 2 Content</fw-tab-panel>
-  <fw-tab-panel name="three">Tab 3 Content</fw-tab-panel>
-  <fw-tab-panel name="four">Tab 4 Content</fw-tab-panel>
+  
+  <fw-tab-panel name="one">
+   Tab 1 Content
+  </fw-tab-panel>
+  <fw-tab-panel name="two">
+    Tab 2 Content
+  </fw-tab-panel>
+  <fw-tab-panel name="three">
+      Tab 3 Content
+  </fw-tab-panel>
+  <fw-tab-panel name="four">
+    Tab 4 Content
+  </fw-tab-panel>
 </fw-tabs>
-`}</Story>
+`}
+  </Story>
 </Preview>
 
 ### With HTML headers
+
 <Preview>
-<Story name='With HTML Headers'>{() => `
+  <Story name='With HTML Headers'>
+    {() => `
 <fw-tabs>
   <fw-tab slot="tab" panel="one"><i>Tab 1</i></fw-tab>
   <fw-tab slot="tab" panel="two"><h2>Tab 2</h2></fw-tab>
@@ -68,14 +80,15 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
     <p>Tab 4 Content</p>
   </fw-tab-panel>
 </fw-tabs>
-`}</Story>
+`}
+  </Story>
 </Preview>
 
-
 ### With Child components
+
 <Preview>
-<Story name='With Child Components'>{() => `
-<fw-tabs active-tab-index="1">
+  <Story name='With Child Components'>
+    {() => `<fw-tabs active-tab-index="1">
   <fw-tab slot="tab" panel="one">Tab 1</fw-tab>
   <fw-tab slot="tab" panel="two">Tab 2</fw-tab>
   <fw-tab slot="tab" panel="three" disabled>Tab 3</fw-tab>
@@ -104,5 +117,6 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
     </fw-select>
   </fw-tab-panel>
 </fw-tabs>
-`}</Story>
+`}
+  </Story>
 </Preview>

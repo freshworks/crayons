@@ -10,6 +10,7 @@ export class Avatar {
   @Prop() alt: string;
   @Prop() initials: string;
   @Prop() shape: 'circle' | 'square' | 'rounded' = 'circle';
+  @Prop() name = '';
   @Prop() size:
     | 'xxlarge'
     | 'xlarge'
@@ -19,6 +20,25 @@ export class Avatar {
     | 'xsmall'
     | 'xxsmall' = 'large';
   @Prop() mode: 'dark' | 'light' = 'dark';
+
+  /**
+   * Function to get the initials to display inside the avatar
+   * @returns initials from either initials prop or from name prop
+   */
+  getInitials() {
+    let initials = '';
+    if (this.initials) {
+      initials = this.initials;
+    } else if (this.name.trim().length > 0) {
+      const nameParts = this.name.trim().split(' ');
+      if (nameParts.length === 1) {
+        initials = nameParts.shift().charAt(0);
+      } else if (nameParts.length > 1) {
+        initials = nameParts.shift().charAt(0) + nameParts.pop().charAt(0);
+      }
+    }
+    return initials;
+  }
 
   render() {
     return (
@@ -39,7 +59,7 @@ export class Avatar {
           ></img>
         ) : (
           <div part='initials' class='avatar__initials'>
-            {this.initials}
+            {this.getInitials()}
           </div>
         )}
       </div>

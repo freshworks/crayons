@@ -186,6 +186,7 @@ export class ToastMessage {
               name='cross'
               class='remove'
               onClick={() => this.closeToast()}
+              library='system'
             ></fw-icon>
           </div>
         </div>

@@ -106,4 +106,43 @@ describe('fw-data-table', () => {
     expect(firstColumn.innerText).toEqual('Job');
     expect(secondColumn.innerText).toEqual('Name');
   });
+
+  it('should render predefined components when column has variant name', async () => {
+    const data = {
+      columns: [
+        {
+          key: 'search',
+          text: 'Search',
+          orderIndex: 1,
+          variant: 'anchor',
+        },
+        {
+          key: 'usedby',
+          text: 'Used by',
+          orderIndex: 2,
+          variant: 'user',
+        },
+      ],
+      rows: [
+        {
+          id: '01',
+          search: { text: 'Google', href: 'www.google.com' },
+          usedby: {
+            name: 'Alexander Goodman',
+            email: 'alexander.goodman@freshworks.com',
+          },
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const anchorComponent = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:first-child > fw-custom-cell-anchor'
+    );
+    const userComponent = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:nth-child(2) > fw-custom-cell-user'
+    );
+    expect(anchorComponent).toBeTruthy();
+    expect(userComponent).toBeTruthy();
+  });
 });

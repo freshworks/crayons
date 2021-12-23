@@ -76,6 +76,7 @@ export namespace Components {
         "image": string;
         "initials": string;
         "mode": 'dark' | 'light';
+        "name": string;
         "shape": 'circle' | 'square' | 'rounded';
         "size": | 'xxlarge'
     | 'xlarge'
@@ -148,6 +149,15 @@ export namespace Components {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+    }
+    interface FwCustomCellAnchor {
+        "href": string;
+        "text": string;
+    }
+    interface FwCustomCellUser {
+        "email": string;
+        "image": any;
+        "name": string;
     }
     interface FwDataTable {
         /**
@@ -272,19 +282,101 @@ export namespace Components {
          */
         "name": string;
     }
+    interface FwFormatNumber {
+        /**
+          * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
+         */
+        "currency": string;
+        /**
+          * Currency display formatting.
+         */
+        "currencyDisplay": 'symbol' | 'narrowSymbol' | 'code' | 'name';
+        /**
+          * In many locales, accounting format means to wrap the number with parentheses instead of appending a minus sign. You can enable the above by setting the currencySign option to `accounting`. The default value is `standard`
+         */
+        "currencySign": 'accounting' | 'standard';
+        /**
+          * `Locale` used for formatting the number
+         */
+        "locale": string;
+        /**
+          * The maximum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "maximumFractionDigits": number;
+        /**
+          * The maximum number of significant digits to use,. Possible values are 1 - 21. Default is 21
+         */
+        "maximumSignificantDigits": number;
+        /**
+          * The minimum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "minimumFractionDigits": number;
+        /**
+          * The minimum number of integer digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumIntegerDigits": number;
+        /**
+          * The minimum number of significant digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumSignificantDigits": number;
+        /**
+          * Formatting style
+         */
+        "type": 'currency' | 'decimal' | 'percent';
+        /**
+          * Turns on/off grouping separators.
+         */
+        "useGrouping": boolean;
+        /**
+          * Number to format.
+         */
+        "value": number;
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
          */
         "color": string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
+          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+         */
+        "dataSvg": string;
+        /**
+          * Height of the icon, specified in number of  pixels.
+         */
+        "height": number;
+        /**
+          * An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.
+         */
+        "label": string;
+        /**
+          * Enable Intersection Observer. Default is false.
+         */
+        "lazy": boolean;
+        /**
+          * Name of External Library to be used
+         */
+        "library": string;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
          */
         "name": string;
         /**
-          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
+          * Size of the icon, specified in number of  pixels. This will be square coordinates of (w X h) = size X size
          */
         "size": number;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid path to svg file.
+         */
+        "src": string;
+        /**
+          * Width of the icon, specified in number of  pixels.
+         */
+        "width": number;
+        /**
+          * Root Margin in px or percentage for Intersection-Observer. This means from ref to bottom of loaded view , the item loads when it crosses above the negative y margin.
+         */
+        "xRootMargin": string;
     }
     interface FwInlineMessage {
         /**
@@ -550,6 +642,44 @@ export namespace Components {
           * The title text to be displayed on the modal
          */
         "titleText": string;
+    }
+    interface FwPagination {
+        /**
+          * Aria Label to be used for the button group.
+         */
+        "buttonGroupLabel": string;
+        /**
+          * Indicates if the records in current page are being fetched.
+         */
+        "isLoading": boolean;
+        /**
+          * Aria Label to be used for next button.
+         */
+        "nextButtonLabel": string;
+        /**
+          * Navigates to next set of records if available.
+         */
+        "nextPage": () => Promise<void>;
+        /**
+          * The current page number.
+         */
+        "page": number;
+        /**
+          * The number of records to be shown per page. Defaults to 10.
+         */
+        "perPage": number;
+        /**
+          * Aria Label to be used for previous button.
+         */
+        "previousButtonLabel": string;
+        /**
+          * Navigates to previous set of records if available.
+         */
+        "previousPage": () => Promise<void>;
+        /**
+          * The total number of records. This is a mandatory parameter.
+         */
+        "total": number;
     }
     interface FwPopover {
         /**
@@ -1334,6 +1464,18 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwCustomCellAnchorElement extends Components.FwCustomCellAnchor, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellAnchorElement: {
+        prototype: HTMLFwCustomCellAnchorElement;
+        new (): HTMLFwCustomCellAnchorElement;
+    };
+    interface HTMLFwCustomCellUserElement extends Components.FwCustomCellUser, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellUserElement: {
+        prototype: HTMLFwCustomCellUserElement;
+        new (): HTMLFwCustomCellUserElement;
+    };
     interface HTMLFwDataTableElement extends Components.FwDataTable, HTMLStencilElement {
     }
     var HTMLFwDataTableElement: {
@@ -1357,6 +1499,12 @@ declare global {
     var HTMLFwFieldCreatorElement: {
         prototype: HTMLFwFieldCreatorElement;
         new (): HTMLFwFieldCreatorElement;
+    };
+    interface HTMLFwFormatNumberElement extends Components.FwFormatNumber, HTMLStencilElement {
+    }
+    var HTMLFwFormatNumberElement: {
+        prototype: HTMLFwFormatNumberElement;
+        new (): HTMLFwFormatNumberElement;
     };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
@@ -1411,6 +1559,12 @@ declare global {
     var HTMLFwModalTitleElement: {
         prototype: HTMLFwModalTitleElement;
         new (): HTMLFwModalTitleElement;
+    };
+    interface HTMLFwPaginationElement extends Components.FwPagination, HTMLStencilElement {
+    }
+    var HTMLFwPaginationElement: {
+        prototype: HTMLFwPaginationElement;
+        new (): HTMLFwPaginationElement;
     };
     interface HTMLFwPopoverElement extends Components.FwPopover, HTMLStencilElement {
     }
@@ -1541,10 +1695,13 @@ declare global {
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
+        "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-field-creator": HTMLFwFieldCreatorElement;
+        "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -1554,6 +1711,7 @@ declare global {
         "fw-modal-content": HTMLFwModalContentElement;
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
+        "fw-pagination": HTMLFwPaginationElement;
         "fw-popover": HTMLFwPopoverElement;
         "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
@@ -1647,6 +1805,7 @@ declare namespace LocalJSX {
         "image"?: string;
         "initials"?: string;
         "mode"?: 'dark' | 'light';
+        "name"?: string;
         "shape"?: 'circle' | 'square' | 'rounded';
         "size"?: | 'xxlarge'
     | 'xlarge'
@@ -1742,6 +1901,15 @@ declare namespace LocalJSX {
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+    }
+    interface FwCustomCellAnchor {
+        "href"?: string;
+        "text"?: string;
+    }
+    interface FwCustomCellUser {
+        "email"?: string;
+        "image"?: any;
+        "name"?: string;
     }
     interface FwDataTable {
         /**
@@ -1879,19 +2047,101 @@ declare namespace LocalJSX {
          */
         "onFwSubmit"?: (event: CustomEvent<any>) => void;
     }
+    interface FwFormatNumber {
+        /**
+          * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
+         */
+        "currency"?: string;
+        /**
+          * Currency display formatting.
+         */
+        "currencyDisplay"?: 'symbol' | 'narrowSymbol' | 'code' | 'name';
+        /**
+          * In many locales, accounting format means to wrap the number with parentheses instead of appending a minus sign. You can enable the above by setting the currencySign option to `accounting`. The default value is `standard`
+         */
+        "currencySign"?: 'accounting' | 'standard';
+        /**
+          * `Locale` used for formatting the number
+         */
+        "locale"?: string;
+        /**
+          * The maximum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "maximumFractionDigits"?: number;
+        /**
+          * The maximum number of significant digits to use,. Possible values are 1 - 21. Default is 21
+         */
+        "maximumSignificantDigits"?: number;
+        /**
+          * The minimum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "minimumFractionDigits"?: number;
+        /**
+          * The minimum number of integer digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumIntegerDigits"?: number;
+        /**
+          * The minimum number of significant digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumSignificantDigits"?: number;
+        /**
+          * Formatting style
+         */
+        "type"?: 'currency' | 'decimal' | 'percent';
+        /**
+          * Turns on/off grouping separators.
+         */
+        "useGrouping"?: boolean;
+        /**
+          * Number to format.
+         */
+        "value"?: number;
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
          */
         "color"?: string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
+          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+         */
+        "dataSvg"?: string;
+        /**
+          * Height of the icon, specified in number of  pixels.
+         */
+        "height"?: number;
+        /**
+          * An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.
+         */
+        "label"?: string;
+        /**
+          * Enable Intersection Observer. Default is false.
+         */
+        "lazy"?: boolean;
+        /**
+          * Name of External Library to be used
+         */
+        "library"?: string;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
          */
         "name"?: string;
         /**
-          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
+          * Size of the icon, specified in number of  pixels. This will be square coordinates of (w X h) = size X size
          */
         "size"?: number;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid path to svg file.
+         */
+        "src"?: string;
+        /**
+          * Width of the icon, specified in number of  pixels.
+         */
+        "width"?: number;
+        /**
+          * Root Margin in px or percentage for Intersection-Observer. This means from ref to bottom of loaded view , the item loads when it crosses above the negative y margin.
+         */
+        "xRootMargin"?: string;
     }
     interface FwInlineMessage {
         /**
@@ -2180,6 +2430,40 @@ declare namespace LocalJSX {
           * The title text to be displayed on the modal
          */
         "titleText"?: string;
+    }
+    interface FwPagination {
+        /**
+          * Aria Label to be used for the button group.
+         */
+        "buttonGroupLabel"?: string;
+        /**
+          * Indicates if the records in current page are being fetched.
+         */
+        "isLoading"?: boolean;
+        /**
+          * Aria Label to be used for next button.
+         */
+        "nextButtonLabel"?: string;
+        /**
+          * Triggered when either previous or next button is clicked.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * The current page number.
+         */
+        "page"?: number;
+        /**
+          * The number of records to be shown per page. Defaults to 10.
+         */
+        "perPage"?: number;
+        /**
+          * Aria Label to be used for previous button.
+         */
+        "previousButtonLabel"?: string;
+        /**
+          * The total number of records. This is a mandatory parameter.
+         */
+        "total"?: number;
     }
     interface FwPopover {
         /**
@@ -2975,10 +3259,13 @@ declare namespace LocalJSX {
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-custom-cell-anchor": FwCustomCellAnchor;
+        "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-field-creator": FwFieldCreator;
+        "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -2988,6 +3275,7 @@ declare namespace LocalJSX {
         "fw-modal-content": FwModalContent;
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
+        "fw-pagination": FwPagination;
         "fw-popover": FwPopover;
         "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
@@ -3022,10 +3310,13 @@ declare module "@stencil/core" {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
+            "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-field-creator": LocalJSX.FwFieldCreator & JSXBase.HTMLAttributes<HTMLFwFieldCreatorElement>;
+            "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
@@ -3035,6 +3326,7 @@ declare module "@stencil/core" {
             "fw-modal-content": LocalJSX.FwModalContent & JSXBase.HTMLAttributes<HTMLFwModalContentElement>;
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
+            "fw-pagination": LocalJSX.FwPagination & JSXBase.HTMLAttributes<HTMLFwPaginationElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;

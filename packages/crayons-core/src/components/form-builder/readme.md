@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property       | Attribute       | Description                                                                                                | Type      | Default |
@@ -12,12 +13,14 @@
 | `index`        | `index`         | index attached inside the parent group component                                                           | `number`  | `-1`    |
 | `name`         | `name`          | Name of the component, saved as part of the form data.                                                     | `string`  | `''`    |
 
+
 ## Events
 
 | Event      | Description                                           | Type               |
 | ---------- | ----------------------------------------------------- | ------------------ |
 | `fwExpand` | Triggered when the field is expanded or collapsed     | `CustomEvent<any>` |
 | `fwSubmit` | Triggered when the field details need to be submitted | `CustomEvent<any>` |
+
 
 ## Dependencies
 
@@ -29,7 +32,6 @@
 - [fw-button](../button)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-field-creator --> fw-input
@@ -37,11 +39,14 @@ graph TD;
   fw-field-creator --> fw-icon
   fw-field-creator --> fw-button
   fw-input --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   style fw-field-creator fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks
