@@ -357,11 +357,11 @@ import { Component, h, Prop, State, Method } from '@stencil/core';
   shadow: true,
 })
 export class FormWrapper {
-  @Prop() formSchema: any = [];
-  @Prop() initialValues: any = {};
-  @Prop() validationSchema: any = {};
-  @Prop() initialErrors: any = {};
-  @Prop() validate: any = () => {};
+  @Prop() formSchema?: any = {};
+  @Prop() initialValues?: any = {};
+  @Prop() validationSchema?: any = {};
+  @Prop() initialErrors?: any = {};
+  @Prop() validate?: any = () => {};
 
   @State()
   formValidationSchema;

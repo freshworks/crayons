@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property           | Attribute           | Description | Type  | Default |
-| ------------------ | ------------------- | ----------- | ----- | ------- |
-| `formSchema`       | `form-schema`       |             | `any` | `{}`    |
-| `initialErrors`    | `initial-errors`    |             | `any` | `{}`    |
-| `initialValues`    | `initial-values`    |             | `any` | `{}`    |
-| `validationSchema` | `validation-schema` |             | `any` | `{}`    |
+| Property           | Attribute           | Description | Type  | Default    |
+| ------------------ | ------------------- | ----------- | ----- | ---------- |
+| `formSchema`       | `form-schema`       |             | `any` | `{}`       |
+| `initialErrors`    | `initial-errors`    |             | `any` | `{}`       |
+| `initialValues`    | `initial-values`    |             | `any` | `{}`       |
+| `validate`         | `validate`          |             | `any` | `() => {}` |
+| `validationSchema` | `validation-schema` |             | `any` | `{}`       |
 
 
 ## Methods

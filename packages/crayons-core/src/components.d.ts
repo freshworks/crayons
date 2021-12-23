@@ -7,7 +7,6 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
-import { FormRenderProps, FwFormEventDetail } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -237,12 +236,11 @@ export namespace Components {
     interface FwForm {
         "doReset": (e: any) => Promise<void>;
         "doSubmit": (e: any) => Promise<void>;
-        "initialErrors": any;
-        "initialValues": any;
-        "renderer": (props: FormRenderProps<any>) => any;
+        "initialErrors"?: any;
+        "initialValues"?: any;
         "setFieldErrors": (obj: any) => Promise<void>;
         "setFieldValue": (obj: any) => Promise<void>;
-        "validate": any;
+        "validate"?: any;
         /**
           * Tells Form to validate the form on each input's onBlur event
          */
@@ -251,7 +249,7 @@ export namespace Components {
           * Tells Form to validate the form on each input's onInput event
          */
         "validateOnInput"?: boolean;
-        "validationSchema": any;
+        "validationSchema"?: any;
     }
     interface FwFormControl {
         "choices": any;
@@ -268,11 +266,11 @@ export namespace Components {
     interface FwFormWrapper {
         "doReset": (e: any) => Promise<void>;
         "doSubmit": (e: any) => Promise<void>;
-        "formSchema": any;
-        "initialErrors": any;
-        "initialValues": any;
-        "validate": any;
-        "validationSchema": any;
+        "formSchema"?: any;
+        "initialErrors"?: any;
+        "initialValues"?: any;
+        "validate"?: any;
+        "validationSchema"?: any;
     }
     interface FwIcon {
         /**
@@ -1943,8 +1941,6 @@ declare namespace LocalJSX {
     interface FwForm {
         "initialErrors"?: any;
         "initialValues"?: any;
-        "onFwFormSubmit"?: (event: CustomEvent<FwFormEventDetail>) => void;
-        "renderer"?: (props: FormRenderProps<any>) => any;
         "validate"?: any;
         /**
           * Tells Form to validate the form on each input's onBlur event

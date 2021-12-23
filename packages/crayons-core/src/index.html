@@ -15,6 +15,30 @@
 
     <fw-form-wrapper id="form"></fw-form-wrapper>
 
+    <!-- <fw-form id="fw-form">
+      <fw-form-control
+        type="input"
+        inputType="text"
+        name="abc"
+        placeholder="Custom Layout"
+        required
+        label="Custom Layout"
+      ></fw-form-control>
+
+      <fw-form-control
+        type="input"
+        inputType="text"
+        name="ccc"
+        placeholder="Custom native in"
+        required
+        label="Custom native in"
+      >
+      <input name="ccc" id="ccc" placeholder="ccc"></input>
+    </fw-form-control>
+    </fw-form> -->
+
+    <br /><br />
+
     <button id="submit">Submit</button>
     <button id="reset">Reset</button>
 
@@ -288,16 +312,31 @@
           },
         ],
       };
+
       const initialValues = {
-        is_indian_citizen: true,
+        abc: 'Test',
       };
+
+      /** pattern**/
       form.formSchema = formSchema;
+
+      form.initialValues = initialValues;
+
       form.validate = async function (values) {
         console.log('validate called with ', values);
         return {
           first_name: 'error from validate fn',
+          ccc: 'ccc error',
         };
       };
+
+      function handleInput(e) {
+        console.log('handleinput');
+        form.setFieldValue({ [e.target.name]: e.target.value });
+      }
+      document.querySelector('#ccc').addEventListener('input', handleInput);
+      document.querySelector('#ccc').addEventListener('change', handleInput);
+      document.querySelector('#ccc').addEventListener('blur', handleInput);
     </script>
 
     <!-- <fw-form-group>
