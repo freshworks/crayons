@@ -29,15 +29,12 @@ import {
   setNestedObjectValues,
 } from './form-util';
 
-let formIds = 0;
-
 @Component({
   tag: 'fw-form',
   shadow: true,
 })
 export class Form implements FormConfig {
   @Element() el!: any;
-  private formId = `crayons-form-${formIds++}`;
   private dirty = false;
 
   @State() isValid = false;
@@ -136,6 +133,7 @@ export class Form implements FormConfig {
       console.log('validation error ', err);
       this.errors = yupToFormErrors(err);
     }
+
     this.isValidating = false;
   };
 
@@ -206,47 +204,50 @@ export class Form implements FormConfig {
   };
 
   private composedUtils = (): FormUtils<FormValues, keyof FormValues> => {
-    const inputProps = (field: keyof FormValues, inputType: string) => ({
+    const inputProps = (field, inputType) => ({
       name: field,
       type: inputType,
-      handleInput: this.handleInput(field as string, inputType),
-      handleChange: this.handleInput(field as string, inputType),
-      handleBlur: this.handleBlur(field as string, inputType),
-      handleFocus: this.handleFocus(field as string, inputType),
-      id: `${this.formId}-input-${field}`,
+      handleInput: this.handleInput(field, inputType),
+      handleChange: this.handleInput(field, inputType),
+      handleBlur: this.handleBlur(field, inputType),
+      handleFocus: this.handleFocus(field, inputType),
+      id: `input-${field}`,
       value: this.values[field],
     });
 
-    const radioProps = (field: keyof FormValues, value: string) => ({
+    const radioProps = (field, value) => ({
       ...inputProps(field, 'radio'),
       type: 'radio',
-      id: `${this.formId}-input-${field}--radio-${value}`,
+      id: `input-${field}--radio-${value}`,
       value: value,
       checked: this.values[field] === value,
     });
 
-    const checkboxProps = (field: keyof FormValues) => ({
+    const checkboxProps = (field) => ({
       ...inputProps(field, 'checkbox'),
       type: 'checkbox',
       checked: !!this.values[field],
     });
 
-    const selectProps = (field: keyof FormValues) => ({
+    const selectProps = (field, inputType) => ({
       type: 'select',
       name: field,
-      id: `${this.formId}-input-${field}`,
-      handleChange: this.handleInput(field as string, 'select'),
-      handleBlur: this.handleBlur(field as string, 'select'),
-      handleFocus: this.handleFocus(field as string, 'select'),
+      id: `input-${field}`,
+      handleChange: this.handleInput(field, 'select'),
+      handleBlur: this.handleBlur(field, 'select'),
+      value:
+        inputType === 'MULTI_SELECT' // for multiselect pass Array
+          ? this.values[field]?.map((v) => v.value || v) || []
+          : Array.isArray(this.values[field]) // single select but the value is an array, pass 0th index
+          ? this.values[field]?.map((v) => v.value || v)[0] || ''
+          : this.values[field] || '',
     });
 
-    const labelProps = (field: keyof FormValues, value?: string) => ({
-      htmlFor: !value
-        ? `${this.formId}-input-${field}`
-        : `${this.formId}-input-${field}--radio-${value}`,
+    const labelProps = (field, value) => ({
+      htmlFor: !value ? `input-${field}` : `input-${field}--radio-${value}`,
     });
 
-    const formProps: any = {
+    const formProps = {
       action: 'javascript:void(0);',
       onSubmit: this.handleSubmit,
       onReset: this.handleReset,
@@ -262,37 +263,53 @@ export class Form implements FormConfig {
     };
   };
 
+  getAllNodesRecursively = (node: HTMLElement) => {
+    let nodes = [];
+    const getAllNodes = (element: any, root = true) => {
+      root && (nodes = []);
+      if (element.shadowRoot) {
+        nodes.push(element);
+      }
+      element = element.shadowRoot ? element.shadowRoot : element;
+      element.querySelectorAll('*').forEach((el: any) => {
+        if (el.nodeName !== 'SLOT') {
+          nodes.push(el);
+        } else if (el.nodeName === 'SLOT') {
+          el.assignedElements({ flatten: true }).forEach(
+            (assignedEl: HTMLElement) => getAllNodes(assignedEl, false)
+          );
+        } else if (el.shadowRoot) {
+          getAllNodes(el, false);
+        }
+      });
+    };
+    getAllNodes(node);
+    return nodes;
+  };
+
   getFormControls() {
-    const children =
-      this.el.shadowRoot
-        .querySelector('#fw_form_wrapper')
-        ?.querySelector('slot')
-        ?.assignedElements({ flattened: true }) || [];
-    const controls = children
-      .reduce(
-        (all: HTMLElement[], el: HTMLElement) =>
-          all.concat(el, [...el.querySelectorAll('*')] as HTMLElement[]),
-        []
-      )
-      .filter(
-        (el: HTMLElement) =>
-          [
-            'fw-input',
-            'fw-textarea',
-            'fw-select',
-            'fw-radio-group',
-            // 'fw-radio',
-            'fw-checkbox',
-            'fw-datepicker',
-            'fw-timepicker',
-            'fw-form-control',
-            'input',
-            'textarea',
-            'date',
-            'select',
-          ].includes(el.tagName.toLowerCase()) &&
-          !['hidden-input'].includes(el.className)
-      ) as HTMLElement[];
+    let children = [];
+    children = this.getAllNodesRecursively(this.el);
+
+    const controls = children.filter(
+      (el: HTMLElement) =>
+        [
+          'fw-input',
+          'fw-textarea',
+          'fw-select',
+          'fw-radio-group',
+          // 'fw-radio',
+          'fw-checkbox',
+          'fw-datepicker',
+          'fw-timepicker',
+          'fw-form-control',
+          'input',
+          'textarea',
+          'date',
+          'select',
+        ].includes(el.tagName.toLowerCase()) &&
+        !['hidden-input'].includes(el.className)
+    ) as HTMLElement[];
     return controls;
   }
 
@@ -301,46 +318,7 @@ export class Form implements FormConfig {
     const controls = this.getFormControls();
     controls.forEach((f) => {
       // dont attach listener on form-control
-      if (f.tagName.toLowerCase() === 'fw-form-control') this.setValues(f);
-      else {
-        const field = (f as any).name;
-        (f as any).handleInput = this.handleInput(
-          field as string,
-          (f as any).type
-        );
-        (f as any).handleChange = this.handleInput(
-          field as string,
-          (f as any).type
-        );
-        (f as any).handleBlur = this.handleBlur(
-          field as string,
-          (f as any).type
-        );
-        (f as any).handleFocus = this.handleFocus(
-          field as string,
-          (f as any).type
-        );
-        if (
-          ['input', 'select', 'textarea', 'checkbox'].includes(
-            f.tagName.toLowerCase()
-          )
-        ) {
-          console.log('input');
-          (f as any).addEventListener(
-            'change',
-            this.handleInput(field as string, (f as any).type)
-          );
-
-          (f as any).addEventListener(
-            'focus',
-            this.handleFocus(field as string, (f as any).type)
-          );
-
-          (f as any).addEventListener(
-            'blur',
-            this.handleBlur(field as string, (f as any).type)
-          );
-        }
+      if (f.tagName.toLowerCase() === 'fw-form-control') {
         this.setValues(f);
       }
     });
@@ -354,32 +332,13 @@ export class Form implements FormConfig {
   }
 
   setValues(f) {
-    const value = this.values[(f as any).name];
     const error = this.errors[(f as any).name];
     const touched = this.touched[(f as any).name];
-    const type = f.tagName.toLowerCase();
-
-    if (['fw-form-control'].includes(type)) {
-      if (error) (f as any).error = error;
-      else (f as any).error = '';
-      if (touched) (f as any).touched = true;
-      else (f as any).touched = false;
-    } else if (['fw-checkbox', 'checkbox'].includes(type)) {
-      if (value) (f as any).checked = value;
-      else (f as any).checked = false;
-    } else if (['fw-select'].includes(type)) {
-      (f as any).value = f.multiple // for multiselect pass Array
-        ? value?.map((v) => v.value || v) || []
-        : Array.isArray(value) // single select but the value is an array, pass 0th index
-        ? value?.map((v) => v.value || v)[0] || ''
-        : value || '';
-    } else if (['fw-radio', 'fw-radio-group'].includes(type)) {
-      if (value) (f as any).value = value;
-      else (f as any).value = undefined;
-    } else {
-      if (value) (f as any).value = value;
-      else (f as any).value = '';
-    }
+    (f as any).controlProps = this.composedUtils();
+    if (error) (f as any).error = error;
+    else (f as any).error = '';
+    if (touched) (f as any).touched = true;
+    else (f as any).touched = false;
   }
 
   @Method()

@@ -271,6 +271,7 @@ export namespace Components {
         "formSchema": any;
         "initialErrors": any;
         "initialValues": any;
+        "validate": any;
         "validationSchema": any;
     }
     interface FwIcon {
@@ -1971,6 +1972,7 @@ declare namespace LocalJSX {
         "formSchema"?: any;
         "initialErrors"?: any;
         "initialValues"?: any;
+        "validate"?: any;
         "validationSchema"?: any;
     }
     interface FwIcon {

@@ -9,7 +9,7 @@
 
 | Property           | Attribute           | Description | Type  | Default |
 | ------------------ | ------------------- | ----------- | ----- | ------- |
-| `formSchema`       | `form-schema`       |             | `any` | `[]`    |
+| `formSchema`       | `form-schema`       |             | `any` | `{}`    |
 | `initialErrors`    | `initial-errors`    |             | `any` | `{}`    |
 | `initialValues`    | `initial-values`    |             | `any` | `{}`    |
 | `validationSchema` | `validation-schema` |             | `any` | `{}`    |

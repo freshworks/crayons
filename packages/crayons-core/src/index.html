@@ -13,7 +13,292 @@
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
 
-    <fw-form-wrapper></fw-form-wrapper>
+    <fw-form-wrapper id="form"></fw-form-wrapper>
+
+    <button id="submit">Submit</button>
+    <button id="reset">Reset</button>
+
+    <script>
+      const form = document.querySelector('#form');
+      document.querySelector('#submit').addEventListener('click', (e) => {
+        form.doSubmit(e);
+      });
+      document.querySelector('#reset').addEventListener('click', (e) => {
+        form.doReset(e);
+      });
+      const formSchema = {
+        title: 'Test Form',
+        name: 'Test Form',
+        fields: [
+          {
+            id: 'first_name_id',
+            type: 'input',
+            label: 'First Name',
+            name: 'first_name',
+            position: 1,
+            editable: true,
+            custom: false,
+            inputType: 'text',
+            placeholder: 'Enter firstname ...',
+            required: true,
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            id: 'last_name_id',
+            type: 'input',
+            label: 'Last Name',
+            name: 'last_name',
+            position: 1,
+            editable: true,
+            custom: false,
+            inputType: 'text',
+            placeholder: 'Enter last name...',
+            required: false,
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            name: 'languages_known',
+            label: 'Languages Known',
+            type: 'select',
+            inputType: 'MULTI_SELECT',
+            field_options: {},
+            filterable: true,
+            searchable: true,
+            required: true,
+            link: '',
+            choices: [
+              {
+                id: 111,
+                value: 'English',
+                position: 1,
+              },
+              {
+                id: 222,
+                value: 'Hindi',
+                position: 2,
+              },
+              {
+                id: 333,
+                value: 'Tamil',
+                position: 3,
+              },
+            ],
+          },
+
+          {
+            id: 'email_id',
+            type: 'input',
+            label: 'Email',
+            name: 'email',
+            position: 1,
+            required: true,
+            editable: true,
+            custom: false,
+            inputType: 'email',
+            placeholder: 'Enter email...',
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            id: 'date_id',
+            type: 'date',
+            label: 'Date',
+            name: 'date',
+            position: 1,
+            required: true,
+            editable: true,
+            custom: false,
+            inputType: 'date',
+            placeholder: 'Enter date...',
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            id: 'description_id',
+            type: 'textarea',
+            label: 'Description',
+            name: 'description',
+            position: 1,
+            editable: true,
+            custom: false,
+            inputType: 'textarea',
+            placeholder: 'Enter Description...',
+            required: true,
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            id: 'is_indian_citizen_id',
+            type: 'checkbox',
+            label: 'Indian Citizen ?',
+            name: 'is_indian_citizen',
+            position: 1,
+            editable: true,
+            custom: false,
+            required: true,
+            inputType: 'checkbox',
+            placeholder: 'Enter...',
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            id: 'phone_number_id',
+            type: 'input',
+            label: 'Phone Number',
+            name: 'phone_number',
+            position: 1,
+            editable: true,
+            custom: false,
+            required: false,
+            inputType: 'tel',
+            placeholder: 'Enter...',
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            id: 'age_id',
+            type: 'input',
+            label: 'Age',
+            name: 'age',
+            position: 1,
+            editable: true,
+            custom: false,
+            required: false,
+            inputType: 'number',
+            placeholder: 'Enter...',
+            fieldOptions: {},
+            fields: [],
+          },
+          {
+            id: 'interested_id',
+            type: 'radio',
+            label: 'Interested',
+            name: 'interested',
+            position: 1,
+            editable: true,
+            custom: false,
+            required: true,
+            inputType: 'radio',
+            placeholder: 'Enter...',
+            optionLabelPath: 'value',
+            optionValuePath: 'value',
+            choices: [
+              {
+                id: 'yes_id',
+                value: 'Yes',
+                position: 1,
+              },
+              {
+                id: 'no_id',
+                value: 'No',
+                position: 2,
+              },
+            ],
+            fields: [],
+          },
+          {
+            id: 'personal_page_link_id',
+            type: 'input',
+            label: 'Personal Page Link',
+            name: 'personal_page_link',
+            position: 1,
+            required: true,
+            editable: true,
+            custom: false,
+            inputType: 'url',
+            placeholder: 'Enter...',
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            id: 'time_id',
+            type: 'time',
+            label: 'Select Time',
+            name: 'time',
+            position: 1,
+            required: true,
+            editable: true,
+            custom: false,
+            inputType: 'time',
+            placeholder: 'Select Time...',
+            fieldOptions: {},
+            fields: [],
+          },
+
+          {
+            id: 'status',
+            name: 'status',
+            label: 'Status',
+            type: 'select',
+            inputType: 'select',
+            position: 3,
+            required: true,
+            editable: true,
+            visible: false,
+            deleted: false,
+            link: null,
+            placeholder: null,
+            hint: null,
+            field_options: {},
+            filterable: true,
+            searchable: false,
+            parent_id: null,
+            choices: [
+              {
+                id: 1,
+                value: 'open',
+                position: 1,
+              },
+              {
+                id: 2,
+                value: 'pending',
+                position: 2,
+              },
+              {
+                id: 3,
+                value: 'closed',
+                position: 3,
+              },
+            ],
+          },
+          {
+            id: 'income_id',
+            parent: null,
+            type: 'input',
+            label: 'Income',
+            name: 'income',
+            position: 1,
+            editable: true,
+            custom: false,
+            required: true,
+            inputType: 'number',
+            placeholder: 'Enter...',
+            fieldOptions: {},
+            fields: [],
+          },
+        ],
+      };
+      const initialValues = {
+        is_indian_citizen: true,
+      };
+      form.formSchema = formSchema;
+      form.validate = async function (values) {
+        console.log('validate called with ', values);
+        return {
+          first_name: 'error from validate fn',
+        };
+      };
+    </script>
 
     <!-- <fw-form-group>
       <fw-form-label>Label 1 </fw-form-label>

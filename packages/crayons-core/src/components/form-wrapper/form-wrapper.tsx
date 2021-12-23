@@ -1,5 +1,5 @@
 import { Component, h, Prop, State, Method } from '@stencil/core';
-//import * as Yup from 'yup';
+// import * as Yup from 'yup';
 
 // /** incoming props formSchema, initialvalues, validationSchema, initialErrors */
 // const formSchema = {
@@ -361,6 +361,7 @@ export class FormWrapper {
   @Prop() initialValues: any = {};
   @Prop() validationSchema: any = {};
   @Prop() initialErrors: any = {};
+  @Prop() validate: any = () => {};
 
   @State()
   formValidationSchema;
@@ -413,24 +414,23 @@ export class FormWrapper {
       <fw-form
         initialValues={this.formInitialValues}
         validationSchema={this.formValidationSchema}
+        validate={this.validate}
         initialErrors={this.formInitialErrors}
         ref={(el) => (this.formRef = el)}
       >
-        <div>
-          {this.formSchema.fields.map((field) => {
-            return (
-              <fw-form-control
-                type={field.type}
-                inputType={field.inputType}
-                name={field.name}
-                placeholder={field.placeholder}
-                required={field.required}
-                label={field.label}
-                choices={field.choices}
-              ></fw-form-control>
-            );
-          })}
-        </div>
+        {this.formSchema.fields?.map((field) => {
+          return (
+            <fw-form-control
+              type={field.type}
+              inputType={field.inputType}
+              name={field.name}
+              placeholder={field.placeholder}
+              required={field.required}
+              label={field.label}
+              choices={field.choices}
+            ></fw-form-control>
+          );
+        })}
       </fw-form>
     );
   }

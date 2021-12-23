@@ -26,7 +26,6 @@ export class FormControl {
   name = '';
   @Prop()
   choices: any;
-
   @Prop()
   controlProps: any;
 
@@ -43,7 +42,7 @@ export class FormControl {
             name={this.name}
             placeholder={this.placeholder}
             required={this.required}
-            {...this.controlProps.inputProps(this.name, this.inputType)}
+            {...this.controlProps?.inputProps(this.name, this.inputType)}
           ></fw-input>
         );
         break;
@@ -53,7 +52,7 @@ export class FormControl {
             placeholder={this.placeholder}
             name={this.name}
             required={this.required}
-            {...this.controlProps.inputProps(this.name, this.inputType)}
+            {...this.controlProps?.inputProps(this.name, this.inputType)}
           ></fw-textarea>
         );
         break;
@@ -64,7 +63,7 @@ export class FormControl {
             placeholder={this.placeholder}
             name={this.name}
             required={this.required}
-            {...this.controlProps.inputProps(this.name, this.inputType)}
+            {...this.controlProps?.inputProps(this.name, this.inputType)}
           ></fw-datepicker>
         );
         break;
@@ -74,7 +73,7 @@ export class FormControl {
           <fw-checkbox
             name={this.name}
             required={this.required}
-            {...this.controlProps.checkboxProps(this.name, this.inputType)}
+            {...this.controlProps?.checkboxProps(this.name, this.inputType)}
           >
             {this.label}
           </fw-checkbox>
@@ -88,7 +87,7 @@ export class FormControl {
             label={this.label}
             name={this.name}
             required={this.required}
-            {...this.controlProps.radioProps(this.name, this.inputType)}
+            {...this.controlProps?.radioProps(this.name, this.inputType)}
           >
             {this.choices?.map((ch) => {
               return <fw-radio value={ch.value}>{ch.value}</fw-radio>;
@@ -108,7 +107,7 @@ export class FormControl {
               text: f.value,
             }))}
             multiple={this.inputType === 'MULTI_SELECT'}
-            {...this.controlProps.selectProps(this.name, this.inputType)}
+            {...this.controlProps?.selectProps(this.name, this.inputType)}
           ></fw-select>
         );
         break;
@@ -117,7 +116,7 @@ export class FormControl {
           <fw-timepicker
             name={this.name}
             required={this.required}
-            {...this.controlProps.inputProps(this.name, this.inputType)}
+            {...this.controlProps?.inputProps(this.name, this.inputType)}
           ></fw-timepicker>
         );
         break;
