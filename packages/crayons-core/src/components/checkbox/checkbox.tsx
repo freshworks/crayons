@@ -133,7 +133,7 @@ export class Checkbox {
         <div class='checkbox-container'>
           <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
           <label>
-            <span id='label'>
+            <span id='label' class={this.description && 'with-description'}>
               <slot />
             </span>
             {this.description !== '' || this.label !== '' ? (
