@@ -298,8 +298,10 @@ Type: `Promise<any>`
 
 ### Used by
 
+ - [field-type-menu-item](../form-builder)
  - [fw-datepicker](../datepicker)
  - [fw-dropdown-button](../dropdown-button)
+ - [fw-field-creator](../form-builder)
  - [fw-modal-footer](../modal-footer)
  - [fw-select](../select)
 
@@ -313,8 +315,10 @@ Type: `Promise<any>`
 graph TD;
   fw-button --> fw-spinner
   fw-button --> fw-icon
+  field-type-menu-item --> fw-button
   fw-datepicker --> fw-button
   fw-dropdown-button --> fw-button
+  fw-field-creator --> fw-button
   fw-modal-footer --> fw-button
   fw-select --> fw-button
   style fw-button fill:#f9f,stroke:#333,stroke-width:4px

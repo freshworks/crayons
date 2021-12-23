@@ -59,9 +59,11 @@ The following are the icons supported:
 
 ### Used by
 
+ - [field-type-menu-item](../form-builder)
  - [fw-accordion-title](../accordion-title)
  - [fw-button](../button)
  - [fw-dropdown-button](../dropdown-button)
+ - [fw-field-creator](../form-builder)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
  - [fw-modal](../modal)
@@ -76,9 +78,11 @@ The following are the icons supported:
 ### Graph
 ```mermaid
 graph TD;
+  field-type-menu-item --> fw-icon
   fw-accordion-title --> fw-icon
   fw-button --> fw-icon
   fw-dropdown-button --> fw-icon
+  fw-field-creator --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
   fw-modal --> fw-icon

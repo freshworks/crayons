@@ -9,6 +9,40 @@ import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
+    interface FieldTypeMenuItem {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider": any;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
+          * backgroundcolor for the icon
+         */
+        "iconBackgroundColor": string;
+        /**
+          * set the icon path to be used
+         */
+        "iconName": string;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
+        /**
+          * Label displayed as header in the card.
+         */
+        "label": string;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name": string;
+        /**
+          * field type attached to the item which will be broadcasted for adding the field type.
+         */
+        "value": string;
+    }
     interface FwAccordion {
         /**
           * To manage accordion expanded or collapsed state
@@ -215,6 +249,28 @@ export namespace Components {
           * Value of the dropdown button
          */
         "value": any;
+    }
+    interface FwFieldCreator {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider": any;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
+          * Property to determine expanded state or collapsed
+         */
+        "expanded": boolean;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name": string;
     }
     interface FwIcon {
         /**
@@ -1230,6 +1286,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFieldTypeMenuItemElement extends Components.FieldTypeMenuItem, HTMLStencilElement {
+    }
+    var HTMLFieldTypeMenuItemElement: {
+        prototype: HTMLFieldTypeMenuItemElement;
+        new (): HTMLFieldTypeMenuItemElement;
+    };
     interface HTMLFwAccordionElement extends Components.FwAccordion, HTMLStencilElement {
     }
     var HTMLFwAccordionElement: {
@@ -1289,6 +1351,12 @@ declare global {
     var HTMLFwDropdownButtonElement: {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
+    };
+    interface HTMLFwFieldCreatorElement extends Components.FwFieldCreator, HTMLStencilElement {
+    }
+    var HTMLFwFieldCreatorElement: {
+        prototype: HTMLFwFieldCreatorElement;
+        new (): HTMLFwFieldCreatorElement;
     };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
@@ -1465,6 +1533,7 @@ declare global {
         new (): HTMLFwTooltipElement;
     };
     interface HTMLElementTagNameMap {
+        "field-type-menu-item": HTMLFieldTypeMenuItemElement;
         "fw-accordion": HTMLFwAccordionElement;
         "fw-accordion-body": HTMLFwAccordionBodyElement;
         "fw-accordion-title": HTMLFwAccordionTitleElement;
@@ -1475,6 +1544,7 @@ declare global {
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-field-creator": HTMLFwFieldCreatorElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -1507,6 +1577,44 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FieldTypeMenuItem {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider"?: any;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * backgroundcolor for the icon
+         */
+        "iconBackgroundColor"?: string;
+        /**
+          * set the icon path to be used
+         */
+        "iconName"?: string;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
+        /**
+          * Label displayed as header in the card.
+         */
+        "label"?: string;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when the card in focus is selected.
+         */
+        "onFwAddClick"?: (event: CustomEvent<any>) => void;
+        /**
+          * field type attached to the item which will be broadcasted for adding the field type.
+         */
+        "value"?: string;
+    }
     interface FwAccordion {
         /**
           * To manage accordion expanded or collapsed state
@@ -1740,6 +1848,36 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
+    }
+    interface FwFieldCreator {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider"?: any;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * Property to determine expanded state or collapsed
+         */
+        "expanded"?: boolean;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when the field is expanded or collapsed
+         */
+        "onFwExpand"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the field details need to be submitted
+         */
+        "onFwSubmit"?: (event: CustomEvent<any>) => void;
     }
     interface FwIcon {
         /**
@@ -2829,6 +2967,7 @@ declare namespace LocalJSX {
         "trigger"?: PopoverTriggerType;
     }
     interface IntrinsicElements {
+        "field-type-menu-item": FieldTypeMenuItem;
         "fw-accordion": FwAccordion;
         "fw-accordion-body": FwAccordionBody;
         "fw-accordion-title": FwAccordionTitle;
@@ -2839,6 +2978,7 @@ declare namespace LocalJSX {
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-field-creator": FwFieldCreator;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -2874,6 +3014,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "field-type-menu-item": LocalJSX.FieldTypeMenuItem & JSXBase.HTMLAttributes<HTMLFieldTypeMenuItemElement>;
             "fw-accordion": LocalJSX.FwAccordion & JSXBase.HTMLAttributes<HTMLFwAccordionElement>;
             "fw-accordion-body": LocalJSX.FwAccordionBody & JSXBase.HTMLAttributes<HTMLFwAccordionBodyElement>;
             "fw-accordion-title": LocalJSX.FwAccordionTitle & JSXBase.HTMLAttributes<HTMLFwAccordionTitleElement>;
@@ -2884,6 +3025,7 @@ declare module "@stencil/core" {
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-field-creator": LocalJSX.FwFieldCreator & JSXBase.HTMLAttributes<HTMLFwFieldCreatorElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;

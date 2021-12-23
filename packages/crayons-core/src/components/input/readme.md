@@ -188,6 +188,7 @@ Type: `Promise<void>`
 
  - [fw-datepicker](../datepicker)
  - [fw-dropdown-button](../dropdown-button)
+ - [fw-field-creator](../form-builder)
  - [fw-list-options](../options-list)
 
 ### Depends on
@@ -200,6 +201,7 @@ graph TD;
   fw-input --> fw-icon
   fw-datepicker --> fw-input
   fw-dropdown-button --> fw-input
+  fw-field-creator --> fw-input
   fw-list-options --> fw-input
   style fw-input fill:#f9f,stroke:#333,stroke-width:4px
 ```

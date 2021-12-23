@@ -9,9 +9,42 @@
     <title>Stencil Component Starter</title>
     <script type="module" src="/build/crayons.esm.js"></script>
     <script nomodule src="/build/crayons.js"></script>
+    <style>
+      .listDiv {
+        margin-left: 40px;
+        margin-top: 40px;
+        width: 200px;
+        height: auto;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
   </head>
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
+
+    <div class="listDiv">
+      <field-type-menu-item
+        icon-background-color="#FEF1E1"
+        icon-name="delete"
+        label="Text"
+        value="TEXT"
+      ></field-type-menu-item>
+
+      <field-type-menu-item
+        icon-background-color="#FFECF0"
+        icon-name="phone"
+        label="Email"
+        value="Email"
+      ></field-type-menu-item>
+
+      <field-type-menu-item
+        iconName="agent"
+        label="Paragraph"
+        value="Paragraph"
+      ></field-type-menu-item>
+    </div>
 
     <!-- <br />
   <fw-button-group>
