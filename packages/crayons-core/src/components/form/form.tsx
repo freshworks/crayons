@@ -215,7 +215,7 @@ export class Form implements FormConfig {
       ...inputProps(field, 'radio'),
       type: 'radio',
       id: `input-${field}--radio-${value}`,
-      value: value,
+      value: this.values[field],
       checked: this.values[field] === value,
     });
 
