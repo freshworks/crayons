@@ -49,10 +49,8 @@ export const getElementValue = (
   result: any
 ): any => {
   let value: any = result && result.value;
-  if (!value) {
-    if (event && event.target) {
-      value = event.target.value;
-    }
+  if (!result) {
+    value = event && event.target && event.target.value;
   }
   return value;
 };
