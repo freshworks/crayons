@@ -69,7 +69,7 @@ describe('fw-checkbox', () => {
     expect(element).toEqualHtml(`<div class="checkbox-container">
     <input type="checkbox">
     <label>
-    <span id="label">
+    <span id="label" class="with-description">
       <slot></slot>
     </span>
     <div id="description">
