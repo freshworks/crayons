@@ -9,6 +9,7 @@
 
 | Property | Attribute | Description | Type     | Default |
 | -------- | --------- | ----------- | -------- | ------- |
+| `alt`    | `alt`     |             | `string` | `''`    |
 | `email`  | `email`   |             | `string` | `''`    |
 | `image`  | `image`   |             | `any`    | `null`  |
 | `name`   | `name`    |             | `string` | `''`    |

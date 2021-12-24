@@ -121,6 +121,7 @@ export namespace Components {
         "text": string;
     }
     interface FwCustomCellUser {
+        "alt": string;
         "email": string;
         "image": any;
         "name": string;
@@ -131,6 +132,11 @@ export namespace Components {
          */
         "columns": DataTableColumn[];
         /**
+          * getColumnConfig
+          * @returns columnConfig object
+         */
+        "getColumnConfig": () => Promise<{}>;
+        /**
           * getSelectedIds
           * @returns an array of selected row IDs
          */
@@ -140,6 +146,10 @@ export namespace Components {
           * @returns selected rows from the data table
          */
         "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable": boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -1799,6 +1809,7 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface FwCustomCellUser {
+        "alt"?: string;
         "email"?: string;
         "image"?: any;
         "name"?: string;
@@ -1809,6 +1820,10 @@ declare namespace LocalJSX {
          */
         "columns"?: DataTableColumn[];
         /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable"?: boolean;
+        /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
         "isSelectable"?: boolean;
@@ -1816,6 +1831,14 @@ declare namespace LocalJSX {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label"?: string;
+        /**
+          * fwColumnsPositionChange Emits this event when columns position changes.
+         */
+        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * fwSelectAllChange Emits this event when select all is checked.
+         */
+        "onFwSelectAllChange"?: (event: CustomEvent<any>) => void;
         /**
           * fwSelectionChange Emits this event when row is selected/unselected.
          */

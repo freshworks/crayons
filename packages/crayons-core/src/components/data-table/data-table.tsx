@@ -1,5 +1,6 @@
 import {
   Component,
+  Element,
   Event,
   EventEmitter,
   Listen,
@@ -12,12 +13,28 @@ import {
 
 import { DataTableColumn, DataTableRow } from '../../utils/types';
 
+const PREDEFINED_VARIANTS_META = {
+  anchor: {
+    componentName: 'fw-custom-cell-anchor',
+    isFocusable: true,
+  },
+  user: {
+    componentName: 'fw-custom-cell-user',
+    isFocusable: false,
+  },
+};
+
 @Component({
   tag: 'fw-data-table',
   styleUrl: 'data-table.scss',
   shadow: true,
 })
 export class DataTable {
+  /**
+   * To get access to the host element
+   */
+  @Element() el: HTMLFwDataTableElement;
+
   /**
    * Label attribute is not visible on screen. There for accessibility purposes.
    */
@@ -39,6 +56,11 @@ export class DataTable {
   @Prop() isSelectable = false;
 
   /**
+   * isAllSelectable Booleam based on which select all option appears in the table header
+   */
+  @Prop() isAllSelectable = false;
+
+  /**
    * orderedColumns Maintains a collection of ordered columns.
    */
   @State() orderedColumns: DataTableColumn[] = [];
@@ -54,12 +76,26 @@ export class DataTable {
   @Event() fwSelectionChange: EventEmitter;
 
   /**
+   * fwSelectAllChange Emits this event when select all is checked.
+   */
+  @Event() fwSelectAllChange: EventEmitter;
+
+  /**
+   * fwColumnsPositionChange Emits this event when columns position changes.
+   */
+  @Event() fwColumnsPositionChange: EventEmitter;
+
+  /**
+   * Private
+   * To understand when select all event completes.
+   */
+  selectAllProgressCount = 0;
+
+  /**
    * componentWillLoad lifecycle event
    */
   componentWillLoad() {
-    this.orderedColumns = this.columns.sort((a, b) => {
-      return a.orderIndex - b.orderIndex;
-    });
+    this.columnOrdering(this.columns);
   }
 
   /**
@@ -68,18 +104,43 @@ export class DataTable {
   @Listen('fwChange')
   fwChangeHandler(event) {
     if (event.detail) {
-      if (event.detail.checked) {
-        this.selected.push(event.detail.value);
-        event.path[0].closest('tr').classList.add('active');
+      if (
+        event.detail.value === 'select-all' &&
+        event.path[0].id === 'select-all'
+      ) {
+        const checkboxSelector = event.detail.checked
+          ? 'tr > td:first-child > fw-checkbox:not([checked])'
+          : 'tr > td:first-child > fw-checkbox[checked]';
+        const checkboxes =
+          this.el.shadowRoot.querySelectorAll(checkboxSelector);
+        this.selectAllProgressCount = checkboxes.length;
+        checkboxes.forEach((checkbox: HTMLFwCheckboxElement) => {
+          checkbox.checked = event.detail.checked;
+        });
       } else {
-        this.selected.splice(this.selected.indexOf(event.detail.value), 1);
-        event.path[0].closest('tr').classList.remove('active');
+        if (event.detail.checked) {
+          this.selected.push(event.detail.value);
+          event.path[0].closest('tr').classList.add('active');
+        } else {
+          this.selected.splice(this.selected.indexOf(event.detail.value), 1);
+          event.path[0].closest('tr').classList.remove('active');
+        }
+        if (!this.selectAllProgressCount) {
+          this.fwSelectionChange.emit({
+            rowId: event.detail.value,
+            checked: event.detail.checked,
+            selected: this.selected,
+          });
+        } else {
+          this.selectAllProgressCount = this.selectAllProgressCount - 1;
+          if (!this.selectAllProgressCount) {
+            this.fwSelectAllChange.emit({
+              checked: event.detail.checked,
+              selected: this.selected,
+            });
+          }
+        }
       }
-      this.fwSelectionChange.emit({
-        rowId: event.detail.value,
-        checked: event.detail.checked,
-        selected: this.selected,
-      });
     }
   }
 
@@ -89,71 +150,74 @@ export class DataTable {
    */
   @Listen('keydown')
   keyDownHandler(event) {
-    const currentElement: HTMLElement =
-      event.path[0].nodeName === 'TD'
-        ? event.path[0]
-        : event.path[0].closest('td');
-    const currentRowIndex: number =
-      +currentElement.parentElement.getAttribute('aria-rowIndex');
-    const currentColIndex: number =
-      +currentElement.getAttribute('aria-colIndex');
-    let nextRowIndex: number;
-    let nextColIndex: number;
-    const columnLength: number = this.isSelectable
-      ? this.orderedColumns.length + 1
-      : this.orderedColumns.length;
-    switch (event.key) {
-      case 'ArrowDown':
-        nextRowIndex = currentRowIndex + 1;
-        nextColIndex = currentColIndex;
-        break;
-      case 'ArrowUp':
-        nextRowIndex = currentRowIndex - 1;
-        nextColIndex = currentColIndex;
-        break;
-      case 'ArrowRight':
-        if (currentColIndex !== columnLength) {
-          nextRowIndex = currentRowIndex;
-          nextColIndex = currentColIndex + 1;
-        } else {
+    const currentElement: HTMLElement = this.closestTableCell(event.path);
+    if (currentElement) {
+      const currentRowIndex: number =
+        +currentElement.parentElement.getAttribute('aria-rowIndex');
+      const currentColIndex: number =
+        +currentElement.getAttribute('aria-colIndex');
+      let nextRowIndex: number;
+      let nextColIndex: number;
+      const columnLength: number = this.isSelectable
+        ? this.orderedColumns.length + 1
+        : this.orderedColumns.length;
+      switch (event.key) {
+        case 'ArrowDown':
           nextRowIndex = currentRowIndex + 1;
-          nextColIndex = 1;
-        }
-        break;
-      case 'ArrowLeft':
-        if (currentColIndex !== 1) {
-          nextRowIndex = currentRowIndex;
-          nextColIndex = currentColIndex - 1;
-        } else {
+          nextColIndex = currentColIndex;
+          break;
+        case 'ArrowUp':
           nextRowIndex = currentRowIndex - 1;
-          nextColIndex = columnLength;
+          nextColIndex = currentColIndex;
+          break;
+        case 'ArrowRight':
+          if (currentColIndex !== columnLength) {
+            nextRowIndex = currentRowIndex;
+            nextColIndex = currentColIndex + 1;
+          } else {
+            nextRowIndex = currentRowIndex + 1;
+            nextColIndex = 1;
+          }
+          break;
+        case 'ArrowLeft':
+          if (currentColIndex !== 1) {
+            nextRowIndex = currentRowIndex;
+            nextColIndex = currentColIndex - 1;
+          } else {
+            nextRowIndex = currentRowIndex - 1;
+            nextColIndex = columnLength;
+          }
+          break;
+        default:
+          break;
+      }
+      const nextCell = event.currentTarget.shadowRoot.querySelector(
+        `[aria-rowIndex="${nextRowIndex}"] > [aria-colIndex="${nextColIndex}"]`
+      );
+      if (nextCell) {
+        currentElement.setAttribute('tabIndex', '-1');
+        if (
+          nextCell.dataset.hasFocusableChild &&
+          nextCell.dataset.hasFocusableChild === 'true'
+        ) {
+          nextCell.removeAttribute('tabIndex');
+          nextCell.firstChild.setAttribute('tabIndex', 0);
+          nextCell.firstChild.focus();
+        } else {
+          nextCell.setAttribute('tabIndex', '0');
+          nextCell.focus();
         }
-        break;
-      default:
-        break;
-    }
-    const nextCell = event.currentTarget.shadowRoot.querySelector(
-      `[aria-rowIndex="${nextRowIndex}"] > [aria-colIndex="${nextColIndex}"]`
-    );
-    if (nextCell) {
-      const nextFocusCell = nextCell.dataset.hasComponent
-        ? nextCell.firstChild
-        : nextCell;
-      currentElement.setAttribute('tabIndex', '-1');
-      nextCell.setAttribute('tabIndex', '0');
-      nextFocusCell.focus();
+      }
     }
   }
 
   /**
    * columnsChangeHandler
-   * @param newValue recent datatable columns value
+   * @param newColumns recent datatable columns value
    */
   @Watch('columns')
-  columnsChangeHandler(newValue: DataTableColumn[]) {
-    this.orderedColumns = newValue.sort((a, b) => {
-      return a.orderIndex - b.orderIndex;
-    });
+  columnsChangeHandler(newColumns: DataTableColumn[]) {
+    this.columnOrdering(newColumns);
   }
 
   /**
@@ -172,6 +236,89 @@ export class DataTable {
   @Method()
   async getSelectedIds() {
     return this.selected;
+  }
+
+  /**
+   * getColumnConfig
+   * @returns columnConfig object
+   */
+  @Method()
+  async getColumnConfig() {
+    const columnConfig = {};
+    this.orderedColumns.map((column) => {
+      columnConfig[column.key] = { position: column.position };
+    });
+    return columnConfig;
+  }
+
+  /**
+   * hasFocusableComponent - determines if a cell has focusable component
+   * @param column column information
+   * @returns {boolean} hasFocusableComponent
+   */
+  hasFocusableComponent(column: DataTableColumn) {
+    let hasFocusableComponent = false;
+    if (column.hasFocusableComponent) {
+      hasFocusableComponent = true;
+    } else if (
+      column.variant &&
+      PREDEFINED_VARIANTS_META[column.variant].isFocusable
+    ) {
+      hasFocusableComponent = true;
+    }
+    return hasFocusableComponent;
+  }
+
+  /**
+   * private
+   * closestTableCell Find the closest table cell from the path of the event
+   * @param eventPath Event path from the emitted event
+   * @returns closest table cell
+   */
+  closestTableCell(eventPath: any) {
+    let closestCell: any;
+    for (let i = 0; i < eventPath.length; i++) {
+      const element = eventPath[i];
+      if (element.nodeName === 'TD') {
+        closestCell = element;
+        break;
+      }
+    }
+    return closestCell;
+  }
+
+  /**
+   * columnOrdering Sorting columns based on position to show columns in the right order visually.
+   * @param columns
+   */
+  columnOrdering(columns: DataTableColumn[]) {
+    this.orderedColumns = columns.sort((column1, column2) => {
+      let result = 0;
+      if (column1.position && column2.position) {
+        result = column1.position - column2.position;
+      } else if (column1.position && !column2.position) {
+        result = -1;
+      } else if (!column1.position && column1.position) {
+        result = 1;
+      }
+      return result;
+    });
+    const positionChangedColumns = [];
+    // To add correct position to ordered columns array
+    this.orderedColumns.map((column, index) => {
+      if (column.position !== index + 1) {
+        positionChangedColumns.push({
+          key: column.key,
+          oldPosition: column.position,
+          newPosition: index + 1,
+        });
+      }
+      column.position = index + 1;
+    });
+    // Emit column change event
+    if (positionChangedColumns.length) {
+      this.fwColumnsPositionChange.emit(positionChangedColumns);
+    }
   }
 
   /**
@@ -211,16 +358,11 @@ export class DataTable {
    */
   renderPredefinedVariant(columnVariant: string, cellValue: any) {
     let template: JSX.Element;
-    switch (columnVariant) {
-      case 'anchor':
-        template = this.renderWebComponent('fw-custom-cell-anchor', cellValue);
-        break;
-      case 'user':
-        template = this.renderWebComponent('fw-custom-cell-user', cellValue);
-        break;
-      default:
-        template = null;
-        break;
+    if (PREDEFINED_VARIANTS_META[columnVariant]) {
+      template = this.renderWebComponent(
+        PREDEFINED_VARIANTS_META[columnVariant].componentName,
+        cellValue
+      );
     }
     return template;
   }
@@ -249,7 +391,11 @@ export class DataTable {
     return this.orderedColumns.length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
-          <th key='isSelectable' aria-colindex={1}></th>
+          <th key='isSelectable' aria-colindex={1}>
+            {this.isAllSelectable && (
+              <fw-checkbox id='select-all' value={'select-all'}></fw-checkbox>
+            )}
+          </th>
         )}
         {this.orderedColumns.map((column, columnIndex) => (
           <th
@@ -278,26 +424,34 @@ export class DataTable {
               <td
                 class='data-table-checkbox'
                 aria-colindex={1}
-                data-has-component='true'
+                data-has-focusable-child='true'
               >
                 <fw-checkbox value={row.id ? row.id : ''}></fw-checkbox>
               </td>
             )}
-            {this.orderedColumns.map((orderedColumn, columnIndex) => (
-              <td
-                role='gridcell'
-                tabindex={
+            {this.orderedColumns.map((orderedColumn, columnIndex) => {
+              const attrs: any = {};
+              const isFocusable = this.hasFocusableComponent(orderedColumn)
+                ? true
+                : false;
+              if (!isFocusable) {
+                attrs.tabindex =
                   !this.isSelectable && rowIndex === 0 && columnIndex === 0
                     ? '0'
-                    : '-1'
-                }
-                aria-colindex={
-                  this.isSelectable ? columnIndex + 2 : columnIndex + 1
-                }
-              >
-                {this.renderTableCell(orderedColumn, row[orderedColumn.key])}
-              </td>
-            ))}
+                    : '-2';
+              }
+              attrs['aria-colindex'] = this.isSelectable
+                ? columnIndex + 2
+                : columnIndex + 1;
+              attrs['data-has-focusable-child'] = isFocusable
+                ? 'true'
+                : 'false';
+              return (
+                <td role='gridcell' {...attrs}>
+                  {this.renderTableCell(orderedColumn, row[orderedColumn.key])}
+                </td>
+              );
+            })}
           </tr>
         ))
       : null;
