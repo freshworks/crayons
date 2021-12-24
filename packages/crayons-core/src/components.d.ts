@@ -121,6 +121,7 @@ export namespace Components {
         "text": string;
     }
     interface FwCustomCellUser {
+        "alt": string;
         "email": string;
         "image": any;
         "name": string;
@@ -1808,6 +1809,7 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface FwCustomCellUser {
+        "alt"?: string;
         "email"?: string;
         "image"?: any;
         "name"?: string;

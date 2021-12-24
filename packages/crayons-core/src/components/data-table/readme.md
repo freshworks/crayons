@@ -293,7 +293,8 @@ Row value for this column variant should be an object with the following propert
         "createdby": { 
           "image": "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
           "name": "Alexander Goodman", 
-          "email": "alexander.goodman@freshdesk.com" 
+          "email": "alexander.goodman@freshdesk.com",
+          "alt": "Profile picture of Alexander Goodman"
         }
       }, {
         "id": "0022",
@@ -301,7 +302,8 @@ Row value for this column variant should be an object with the following propert
         "createdby": { 
           "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
           "name": "Ambrose Wayne", 
-          "email": "ambrose.wayne@freshdesk.com" 
+          "email": "ambrose.wayne@freshdesk.com",
+          "alt": "Profile picture of Ambrose Wayne"
         }
       }, {
         "id": "0033",
@@ -309,7 +311,8 @@ Row value for this column variant should be an object with the following propert
         "createdby": {
           "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
           "name": "August hines", 
-          "email": "august.hines@freshdesk.com" 
+          "email": "august.hines@freshdesk.com",
+          "alt": "Profile picture of August hines"
         }
       }]
     }; 
@@ -345,7 +348,8 @@ Row value for this column variant should be an object with the following propert
       "createdby": { 
         "image": "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "Alexander Goodman", 
-        "email": "alexander.goodman@freshdesk.com" 
+        "email": "alexander.goodman@freshdesk.com",
+        "alt": "Profile picture of Alexander Goodman"
       }
     }, {
       "id": "0022",
@@ -353,7 +357,8 @@ Row value for this column variant should be an object with the following propert
       "createdby": { 
         "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "Ambrose Wayne", 
-        "email": "ambrose.wayne@freshdesk.com" 
+        "email": "ambrose.wayne@freshdesk.com",
+        "alt": "Profile picture of Ambrose Wayne"
       }
     }, {
       "id": "0033",
@@ -361,7 +366,8 @@ Row value for this column variant should be an object with the following propert
       "createdby": {
         "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "August hines", 
-        "email": "august.hines@freshdesk.com" 
+        "email": "august.hines@freshdesk.com",
+        "alt": "Profile picture of August hines"
       }
     }]
   }; 
@@ -397,7 +403,8 @@ function App() {
       "createdby": { 
         "image": "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "Alexander Goodman", 
-        "email": "alexander.goodman@freshdesk.com" 
+        "email": "alexander.goodman@freshdesk.com",
+        "alt": "Profile picture of Alexander Goodman"
       }
     }, {
       "id": "0022",
@@ -405,7 +412,8 @@ function App() {
       "createdby": { 
         "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "Ambrose Wayne", 
-        "email": "ambrose.wayne@freshdesk.com" 
+        "email": "ambrose.wayne@freshdesk.com",
+        "alt": "Profile picture of Ambrose Wayne"
       }
     }, {
       "id": "0033",
@@ -413,7 +421,8 @@ function App() {
       "createdby": {
         "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "August hines", 
-        "email": "august.hines@freshdesk.com" 
+        "email": "august.hines@freshdesk.com",
+        "alt": "Profile picture of August hines"
       }
     }]
   };

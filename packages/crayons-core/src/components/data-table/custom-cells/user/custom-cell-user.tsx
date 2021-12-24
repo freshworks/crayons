@@ -12,6 +12,8 @@ export class CustomCellUser {
 
   @Prop() email = '';
 
+  @Prop() alt = '';
+
   render() {
     return (
       <div class='name-box-container'>
@@ -20,7 +22,7 @@ export class CustomCellUser {
             size='small'
             image={this.image}
             name={this.name}
-            alt='Profile picture'
+            alt={this.alt}
           ></fw-avatar>
         </div>
         <div class='name-box'>
