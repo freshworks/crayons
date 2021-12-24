@@ -131,6 +131,11 @@ export namespace Components {
          */
         "columns": DataTableColumn[];
         /**
+          * getColumnConfig
+          * @returns columnConfig object
+         */
+        "getColumnConfig": () => Promise<{}>;
+        /**
           * getSelectedIds
           * @returns an array of selected row IDs
          */
@@ -1824,6 +1829,10 @@ declare namespace LocalJSX {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label"?: string;
+        /**
+          * fwColumnsPositionChange Emits this event when columns position changes.
+         */
+        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
         /**
           * fwSelectAllChange Emits this event when select all is checked.
          */

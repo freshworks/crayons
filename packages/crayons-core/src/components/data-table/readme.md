@@ -11,16 +11,13 @@ fw-data-table are used for data visualization.
     var data = {
       columns: [{
         "key": "name",
-        "text": "Name",
-        "orderIndex": 1
+        "text": "Name"
       }, {
         "key": "group",
-        "text": "Group",
-        "orderIndex": 3
+        "text": "Group"
       }, {
         "key": "role",
-        "text": "Role",
-        "orderIndex": 2
+        "text": "Role"
       }],
       persons: [{
         "id": "1234",
@@ -57,16 +54,13 @@ fw-data-table are used for data visualization.
   var data = {
     columns: [{
       "key": "name",
-      "text": "Name",
-      "orderIndex": 1
+      "text": "Name"
     }, {
       "key": "group",
-      "text": "Group",
-      "orderIndex": 3
+      "text": "Group"
     }, {
       "key": "role",
-      "text": "Role",
-      "orderIndex": 2
+      "text": "Role"
     }],
     persons: [{
       "id": "1234",
@@ -103,16 +97,13 @@ function App() {
   let data = {
       columns: [{
         "key": "name",
-        "text": "Name",
-        "orderIndex": 1
+        "text": "Name"
       }, {
         "key": "group",
-        "text": "Group",
-        "orderIndex": 3
+        "text": "Group"
       }, {
         "key": "role",
-        "text": "Role",
-        "orderIndex": 2
+        "text": "Role"
       }],
       persons: [{
         "id": "1234",
@@ -160,12 +151,12 @@ Row value for this column variant should be an object with the following propert
       columns: [{
         "key": "search",
         "text": "Search Engine",
-        "orderIndex": 1,
+        "position": 1,
         "variant": "anchor"
       }, {
         "key": "rank",
         "text": "Rank",
-        "orderIndex": 2
+        "position": 2
       }],
       rows: [{
         "id": "001",
@@ -200,12 +191,12 @@ Row value for this column variant should be an object with the following propert
     columns: [{
       "key": "search",
       "text": "Search Engine",
-      "orderIndex": 1,
+      "position": 1,
       "variant": "anchor"
     }, {
       "key": "rank",
       "text": "Rank",
-      "orderIndex": 2
+      "position": 2
     }],
     rows: [{
       "id": "001",
@@ -240,12 +231,12 @@ function App() {
     columns: [{
       "key": "search",
       "text": "Search Engine",
-      "orderIndex": 1,
+      "position": 1,
       "variant": "anchor"
     }, {
       "key": "rank",
       "text": "Rank",
-      "orderIndex": 2
+      "position": 2
     }],
     rows: [{
       "id": "001",
@@ -289,12 +280,12 @@ Row value for this column variant should be an object with the following propert
       columns: [{
         "key": "createdby",
         "text": "Created By",
-        "orderIndex": 1,
+        "position": 1,
         "variant": "user"
       }, {
         "key": "objectname",
         "text": "Object Name",
-        "orderIndex": 2
+        "position": 2
       }],
       rows: [{
         "id": "0011",
@@ -341,12 +332,12 @@ Row value for this column variant should be an object with the following propert
     columns: [{
       "key": "createdby",
       "text": "Created By",
-      "orderIndex": 1,
+      "position": 1,
       "variant": "user"
     }, {
       "key": "objectname",
       "text": "Object Name",
-      "orderIndex": 2
+      "position": 2
     }],
     rows: [{
       "id": "0011",
@@ -393,12 +384,12 @@ function App() {
     columns: [{
       "key": "createdby",
       "text": "Created By",
-      "orderIndex": 1,
+      "position": 1,
       "variant": "user"
     }, {
       "key": "objectname",
       "text": "Object Name",
-      "orderIndex": 2
+      "position": 2
     }],
     rows: [{
       "id": "0011",
@@ -476,13 +467,24 @@ This codeblock shows how to use custom cell function to display HTML content in 
 
 ## Events
 
-| Event               | Description                                                         | Type               |
-| ------------------- | ------------------------------------------------------------------- | ------------------ |
-| `fwSelectAllChange` | fwSelectAllChange Emits this event when select all is checked.      | `CustomEvent<any>` |
-| `fwSelectionChange` | fwSelectionChange Emits this event when row is selected/unselected. | `CustomEvent<any>` |
+| Event                     | Description                                                             | Type               |
+| ------------------------- | ----------------------------------------------------------------------- | ------------------ |
+| `fwColumnsPositionChange` | fwColumnsPositionChange Emits this event when columns position changes. | `CustomEvent<any>` |
+| `fwSelectAllChange`       | fwSelectAllChange Emits this event when select all is checked.          | `CustomEvent<any>` |
+| `fwSelectionChange`       | fwSelectionChange Emits this event when row is selected/unselected.     | `CustomEvent<any>` |
 
 
 ## Methods
+
+### `getColumnConfig() => Promise<{}>`
+
+getColumnConfig
+
+#### Returns
+
+Type: `Promise<{}>`
+
+columnConfig object
 
 ### `getSelectedIds() => Promise<string[]>`
 

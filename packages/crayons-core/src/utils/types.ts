@@ -55,7 +55,7 @@ export type customTemplateFunc<T> = (
 export type DataTableColumn = {
   key: string;
   text: string;
-  orderIndex: number;
-  customTemplate?: customTemplateFunc<VNode>;
   variant?: string;
+  position?: number;
+  customTemplate?: customTemplateFunc<VNode>;
 };

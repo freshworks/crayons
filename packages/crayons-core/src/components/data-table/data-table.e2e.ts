@@ -13,7 +13,7 @@ describe('fw-data-table', () => {
       {
         key: 'name',
         text: 'Name',
-        orderIndex: 1,
+        position: 1,
       },
     ],
   };
@@ -109,12 +109,12 @@ describe('fw-data-table', () => {
         {
           key: 'name',
           text: 'Name',
-          orderIndex: 2,
+          position: 2,
         },
         {
           key: 'job',
           text: 'Job',
-          orderIndex: 1,
+          position: 1,
         },
       ],
     };
@@ -130,19 +130,96 @@ describe('fw-data-table', () => {
     expect(secondColumn.innerText).toEqual('Name');
   });
 
+  it('should render columns in right order even position value is not specified', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+          job: 'Lead designer',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+        {
+          key: 'job',
+          text: 'Job',
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const firstColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:nth-child(1)'
+    );
+    const secondColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:nth-child(2)'
+    );
+    expect(firstColumn.innerText).toEqual('Name');
+    expect(secondColumn.innerText).toEqual('Job');
+  });
+
+  it('should render columns in right order even if only some of the columns have position values', async () => {
+    const changedEvent = await page.spyOnEvent('fwColumnsPositionChange');
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+          job: 'Lead designer',
+          place: 'London',
+        },
+      ],
+      columns: [
+        {
+          key: 'place',
+          text: 'Place',
+          position: 2,
+        },
+        {
+          key: 'name',
+          text: 'Name',
+        },
+        {
+          key: 'job',
+          text: 'Job',
+          position: 1,
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const firstColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:nth-child(1)'
+    );
+    const secondColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:nth-child(2)'
+    );
+    const thirdColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:nth-child(3)'
+    );
+    expect(firstColumn.innerText).toEqual('Job');
+    expect(secondColumn.innerText).toEqual('Place');
+    expect(thirdColumn.innerText).toEqual('Name');
+    expect(changedEvent).toHaveReceivedEventTimes(1);
+  });
+
   it('should render predefined components when column has variant name', async () => {
     const data = {
       columns: [
         {
           key: 'search',
           text: 'Search',
-          orderIndex: 1,
+          position: 1,
           variant: 'anchor',
         },
         {
           key: 'usedby',
           text: 'Used by',
-          orderIndex: 2,
+          position: 2,
           variant: 'user',
         },
       ],

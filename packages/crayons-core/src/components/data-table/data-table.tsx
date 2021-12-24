@@ -70,6 +70,11 @@ export class DataTable {
   @Event() fwSelectAllChange: EventEmitter;
 
   /**
+   * fwColumnsPositionChange Emits this event when columns position changes.
+   */
+  @Event() fwColumnsPositionChange: EventEmitter;
+
+  /**
    * Private
    * To understand when select all event completes.
    */
@@ -79,9 +84,7 @@ export class DataTable {
    * componentWillLoad lifecycle event
    */
   componentWillLoad() {
-    this.orderedColumns = this.columns.sort((a, b) => {
-      return a.orderIndex - b.orderIndex;
-    });
+    this.columnOrdering(this.columns);
   }
 
   /**
@@ -194,13 +197,11 @@ export class DataTable {
 
   /**
    * columnsChangeHandler
-   * @param newValue recent datatable columns value
+   * @param newColumns recent datatable columns value
    */
   @Watch('columns')
-  columnsChangeHandler(newValue: DataTableColumn[]) {
-    this.orderedColumns = newValue.sort((a, b) => {
-      return a.orderIndex - b.orderIndex;
-    });
+  columnsChangeHandler(newColumns: DataTableColumn[]) {
+    this.columnOrdering(newColumns);
   }
 
   /**
@@ -219,6 +220,53 @@ export class DataTable {
   @Method()
   async getSelectedIds() {
     return this.selected;
+  }
+
+  /**
+   * getColumnConfig
+   * @returns columnConfig object
+   */
+  @Method()
+  async getColumnConfig() {
+    const columnConfig = {};
+    this.orderedColumns.map((column) => {
+      columnConfig[column.key] = { position: column.position };
+    });
+    return columnConfig;
+  }
+
+  /**
+   * columnOrdering Sorting columns based on position to show columns in the right order visually.
+   * @param columns
+   */
+  columnOrdering(columns: DataTableColumn[]) {
+    this.orderedColumns = columns.sort((column1, column2) => {
+      let result = 0;
+      if (column1.position && column2.position) {
+        result = column1.position - column2.position;
+      } else if (column1.position && !column2.position) {
+        result = -1;
+      } else if (!column1.position && column1.position) {
+        result = 1;
+      }
+      return result;
+    });
+    const positionChangedColumns = [];
+    // To add correct position to ordered columns array
+    this.orderedColumns.map((column, index) => {
+      if (column.position !== index + 1) {
+        positionChangedColumns.push({
+          key: column.key,
+          oldPosition: column.position,
+          newPosition: index + 1,
+        });
+      }
+      column.position = index + 1;
+    });
+    // Emit column change event
+    if (positionChangedColumns.length) {
+      this.fwColumnsPositionChange.emit(positionChangedColumns);
+    }
   }
 
   /**
