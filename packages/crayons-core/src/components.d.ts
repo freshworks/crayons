@@ -635,6 +635,12 @@ export namespace Components {
          */
         "total": number;
     }
+    interface FwPill {
+        /**
+          * Theme based on which the pill is styled.
+         */
+        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom';
+    }
     interface FwPopover {
         /**
           * Whether to focus on the element in popover-content slot on opening the dropdown.
@@ -1508,6 +1514,12 @@ declare global {
         prototype: HTMLFwPaginationElement;
         new (): HTMLFwPaginationElement;
     };
+    interface HTMLFwPillElement extends Components.FwPill, HTMLStencilElement {
+    }
+    var HTMLFwPillElement: {
+        prototype: HTMLFwPillElement;
+        new (): HTMLFwPillElement;
+    };
     interface HTMLFwPopoverElement extends Components.FwPopover, HTMLStencilElement {
     }
     var HTMLFwPopoverElement: {
@@ -1652,6 +1664,7 @@ declare global {
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
         "fw-pagination": HTMLFwPaginationElement;
+        "fw-pill": HTMLFwPillElement;
         "fw-popover": HTMLFwPopoverElement;
         "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
@@ -2349,6 +2362,12 @@ declare namespace LocalJSX {
           * The total number of records. This is a mandatory parameter.
          */
         "total"?: number;
+    }
+    interface FwPill {
+        /**
+          * Theme based on which the pill is styled.
+         */
+        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom';
     }
     interface FwPopover {
         /**
@@ -3159,6 +3178,7 @@ declare namespace LocalJSX {
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
         "fw-pagination": FwPagination;
+        "fw-pill": FwPill;
         "fw-popover": FwPopover;
         "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
@@ -3208,6 +3228,7 @@ declare module "@stencil/core" {
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
             "fw-pagination": LocalJSX.FwPagination & JSXBase.HTMLAttributes<HTMLFwPaginationElement>;
+            "fw-pill": LocalJSX.FwPill & JSXBase.HTMLAttributes<HTMLFwPillElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
