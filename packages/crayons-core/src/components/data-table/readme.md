@@ -465,18 +465,20 @@ This codeblock shows how to use custom cell function to display HTML content in 
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                            | Type                | Default |
-| -------------- | --------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
-| `columns`      | --              | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
-| `isSelectable` | `is-selectable` | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
-| `label`        | `label`         | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
-| `rows`         | --              | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
+| Property          | Attribute           | Description                                                                            | Type                | Default |
+| ----------------- | ------------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
+| `columns`         | --                  | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
+| `isAllSelectable` | `is-all-selectable` | isAllSelectable Booleam based on which select all option appears in the table header   | `boolean`           | `false` |
+| `isSelectable`    | `is-selectable`     | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
+| `label`           | `label`             | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
+| `rows`            | --                  | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
 
 
 ## Events
 
 | Event               | Description                                                         | Type               |
 | ------------------- | ------------------------------------------------------------------- | ------------------ |
+| `fwSelectAllChange` | fwSelectAllChange Emits this event when select all is checked.      | `CustomEvent<any>` |
 | `fwSelectionChange` | fwSelectionChange Emits this event when row is selected/unselected. | `CustomEvent<any>` |
 
 

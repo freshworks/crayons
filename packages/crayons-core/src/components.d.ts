@@ -141,6 +141,10 @@ export namespace Components {
          */
         "getSelectedRows": () => Promise<DataTableRow[]>;
         /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable": boolean;
+        /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
         "isSelectable": boolean;
@@ -1809,6 +1813,10 @@ declare namespace LocalJSX {
          */
         "columns"?: DataTableColumn[];
         /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable"?: boolean;
+        /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
         "isSelectable"?: boolean;
@@ -1816,6 +1824,10 @@ declare namespace LocalJSX {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label"?: string;
+        /**
+          * fwSelectAllChange Emits this event when select all is checked.
+         */
+        "onFwSelectAllChange"?: (event: CustomEvent<any>) => void;
         /**
           * fwSelectionChange Emits this event when row is selected/unselected.
          */

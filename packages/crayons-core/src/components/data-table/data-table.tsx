@@ -1,5 +1,6 @@
 import {
   Component,
+  Element,
   Event,
   EventEmitter,
   Listen,
@@ -18,6 +19,11 @@ import { DataTableColumn, DataTableRow } from '../../utils/types';
   shadow: true,
 })
 export class DataTable {
+  /**
+   * To get access to the host element
+   */
+  @Element() el: HTMLFwDataTableElement;
+
   /**
    * Label attribute is not visible on screen. There for accessibility purposes.
    */
@@ -39,6 +45,11 @@ export class DataTable {
   @Prop() isSelectable = false;
 
   /**
+   * isAllSelectable Booleam based on which select all option appears in the table header
+   */
+  @Prop() isAllSelectable = false;
+
+  /**
    * orderedColumns Maintains a collection of ordered columns.
    */
   @State() orderedColumns: DataTableColumn[] = [];
@@ -52,6 +63,17 @@ export class DataTable {
    * fwSelectionChange Emits this event when row is selected/unselected.
    */
   @Event() fwSelectionChange: EventEmitter;
+
+  /**
+   * fwSelectAllChange Emits this event when select all is checked.
+   */
+  @Event() fwSelectAllChange: EventEmitter;
+
+  /**
+   * Private
+   * To understand when select all event completes.
+   */
+  selectAllProgressCount = 0;
 
   /**
    * componentWillLoad lifecycle event
@@ -68,18 +90,43 @@ export class DataTable {
   @Listen('fwChange')
   fwChangeHandler(event) {
     if (event.detail) {
-      if (event.detail.checked) {
-        this.selected.push(event.detail.value);
-        event.path[0].closest('tr').classList.add('active');
+      if (
+        event.detail.value === 'select-all' &&
+        event.path[0].id === 'select-all'
+      ) {
+        const checkboxSelector = event.detail.checked
+          ? 'tr > td:first-child > fw-checkbox:not([checked])'
+          : 'tr > td:first-child > fw-checkbox[checked]';
+        const checkboxes =
+          this.el.shadowRoot.querySelectorAll(checkboxSelector);
+        this.selectAllProgressCount = checkboxes.length;
+        checkboxes.forEach((checkbox: HTMLFwCheckboxElement) => {
+          checkbox.checked = event.detail.checked;
+        });
       } else {
-        this.selected.splice(this.selected.indexOf(event.detail.value), 1);
-        event.path[0].closest('tr').classList.remove('active');
+        if (event.detail.checked) {
+          this.selected.push(event.detail.value);
+          event.path[0].closest('tr').classList.add('active');
+        } else {
+          this.selected.splice(this.selected.indexOf(event.detail.value), 1);
+          event.path[0].closest('tr').classList.remove('active');
+        }
+        if (!this.selectAllProgressCount) {
+          this.fwSelectionChange.emit({
+            rowId: event.detail.value,
+            checked: event.detail.checked,
+            selected: this.selected,
+          });
+        } else {
+          this.selectAllProgressCount = this.selectAllProgressCount - 1;
+          if (!this.selectAllProgressCount) {
+            this.fwSelectAllChange.emit({
+              checked: event.detail.checked,
+              selected: this.selected,
+            });
+          }
+        }
       }
-      this.fwSelectionChange.emit({
-        rowId: event.detail.value,
-        checked: event.detail.checked,
-        selected: this.selected,
-      });
     }
   }
 
@@ -249,7 +296,11 @@ export class DataTable {
     return this.orderedColumns.length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
-          <th key='isSelectable' aria-colindex={1}></th>
+          <th key='isSelectable' aria-colindex={1}>
+            {this.isAllSelectable && (
+              <fw-checkbox id='select-all' value={'select-all'}></fw-checkbox>
+            )}
+          </th>
         )}
         {this.orderedColumns.map((column, columnIndex) => (
           <th

@@ -73,6 +73,29 @@ describe('fw-data-table', () => {
     expect(selectedRow).toBeTruthy();
   });
 
+  it('should show select all option when isAllSelectable prop is set to true', async () => {
+    const currentData = { ...data, isSelectable: true, isAllSelectable: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const checkbox = await page.find(
+      'fw-data-table >>> thead > tr:first-child > th:first-child > fw-checkbox'
+    );
+    expect(checkbox).toBeTruthy();
+  });
+
+  it('should trigger fwSelectAllChange when select-all checkbox is checked/unchecked', async () => {
+    const currentData = { ...data, isSelectable: true, isAllSelectable: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const checkbox = await page.find(
+      'fw-data-table >>> thead > tr:first-child > th:first-child > fw-checkbox'
+    );
+    const changedEvent = await page.spyOnEvent('fwSelectAllChange');
+    checkbox.click();
+    await page.waitForChanges();
+    expect(changedEvent).toHaveReceivedEventTimes(1);
+  });
+
   it('should render in the right column order', async () => {
     const data = {
       rows: [
