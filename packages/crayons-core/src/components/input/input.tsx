@@ -34,7 +34,7 @@ export class Input {
   /**
    * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
    */
-  @Prop() type = 'text';
+  @Prop() type: 'text' | 'number' | 'email' | 'url' = 'text';
   /**
    * Specifies whether the browser can display suggestions to autocomplete the text value.
    */
@@ -51,6 +51,21 @@ export class Input {
    * Minimum number of characters a user must enter in the text box for the value to be valid.
    */
   @Prop() minlength?: number;
+  /**
+   * Specifies a maximum value that can be entered for the number/decimal input.
+   */
+  @Prop() max?: number;
+  /**
+   * Specifies a minimum value that can be entered for the number/decimal input.
+   */
+  @Prop() min?: number;
+  /**
+   * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element.
+   * Works with the min and max attributes to limit the increments at which a value can be set.
+   * Possible values are `any` or a positive floating point number.
+   * Default value is `any`
+   */
+  @Prop() step = 'any';
   /**
    * Name of the component, saved as part of form data.
    */
@@ -129,12 +144,23 @@ export class Input {
 
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
-    if (input) {
+    // handle number and decimal input type
+    if (this.type === 'number') {
+      this.value = this.handleMinAndMaxCheck(input.value);
+    } else {
       this.value = input.value || '';
+    }
+    if (this.nativeInput) {
+      this.nativeInput.value = this.value;
     }
     this.fwInput.emit(ev as KeyboardEvent);
     this.handleInput(ev, { value: this.nativeInput.value });
   };
+  private handleMinAndMaxCheck(value) {
+    const { min = -Infinity, max = Infinity } = this;
+    value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+    return value;
+  }
 
   private onFocus = (e) => {
     this.hasFocus = true;

@@ -367,9 +367,17 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Specifies a maximum value that can be entered for the number/decimal input.
+         */
+        "max"?: number;
+        /**
           * Maximum number of characters a user can enter in the text box.
          */
         "maxlength"?: number;
+        /**
+          * Specifies a minimum value that can be entered for the number/decimal input.
+         */
+        "min"?: number;
         /**
           * Minimum number of characters a user must enter in the text box for the value to be valid.
          */
@@ -407,9 +415,13 @@ export namespace Components {
          */
         "stateText": string;
         /**
+          * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
+         */
+        "step": string;
+        /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type": string;
+        "type": 'text' | 'number' | 'email' | 'url';
         /**
           * Default value displayed in the input box.
          */
@@ -2072,9 +2084,17 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Specifies a maximum value that can be entered for the number/decimal input.
+         */
+        "max"?: number;
+        /**
           * Maximum number of characters a user can enter in the text box.
          */
         "maxlength"?: number;
+        /**
+          * Specifies a minimum value that can be entered for the number/decimal input.
+         */
+        "min"?: number;
         /**
           * Minimum number of characters a user must enter in the text box for the value to be valid.
          */
@@ -2124,9 +2144,13 @@ declare namespace LocalJSX {
          */
         "stateText"?: string;
         /**
+          * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
+         */
+        "step"?: string;
+        /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type"?: string;
+        "type"?: 'text' | 'number' | 'email' | 'url';
         /**
           * Default value displayed in the input box.
          */
