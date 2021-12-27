@@ -43,7 +43,7 @@ Pill can be customized with custom colors by setting attribute `color="custom"` 
 ```html live
 <fw-pill color="custom" style="--pill-background-color: #fff;--pill-border: 1px solid gray;--pill-padding: 4px 12px 4px 8px;">
   <fw-icon name="info" slot="icon"></fw-icon>
-  Custom Pill
+  Custom Styled Pill
 </fw-pill>
 ```
 

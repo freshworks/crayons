@@ -13,12 +13,72 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 ## Usage
 
-### Default
+### Blue
 <Preview>
-  <Story name='Default'>
-    {
-      () => `<fw-pill></fw-pill>`
-    }
-  </Story>
+<Story name='Blue'>
+{() => `<fw-pill color="blue">
+  <fw-icon name="info" slot="icon"></fw-icon>
+  Response Received
+</fw-pill>`}
+</Story>
 </Preview>
 
+### Red
+<Preview>
+<Story name='Red'>
+{() => `<fw-pill color="red">
+  <fw-icon name="alert" slot="icon"></fw-icon>
+  Overdue
+</fw-pill>`}
+</Story>
+</Preview>
+
+### Green
+<Preview>
+<Story name='Green'>
+{() => `<fw-pill color="green">
+  <fw-icon name="add-contact" slot="icon"></fw-icon>
+  New
+</fw-pill>`}
+</Story>
+</Preview>
+
+### Yellow
+<Preview>
+<Story name='Yellow'>
+{() => `<fw-pill color="yellow">
+  <fw-icon name="help" slot="icon"></fw-icon>
+  Pending
+</fw-pill>`}
+</Story>
+</Preview>
+
+### Grey
+<Preview>
+<Story name='Grey'>
+{() => `<fw-pill color="grey">
+  <fw-icon name="add-note" slot="icon"></fw-icon>
+  Archived
+</fw-pill>`}
+</Story>
+</Preview>
+
+### Pills with custom icons or images
+<Preview>
+<Story name='Custom icons or images'>
+{() => `<fw-pill color="grey">
+  <img src="/favicon.ico" slot="icon" />
+  Crayons custom icon
+</fw-pill>`}
+</Story>
+</Preview>
+
+### Pills with custom CSS properties
+<Preview>
+<Story name='Custyom CSS styles'>
+{() => `<fw-pill color="custom" style="--pill-background-color: #fff;--pill-border: 1px solid gray;--pill-padding: 4px 12px 4px 8px;">
+  <fw-icon name="info" slot="icon"></fw-icon>
+  Custom Styled Pill
+</fw-pill>`}
+</Story>
+</Preview>
