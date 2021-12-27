@@ -238,8 +238,8 @@ export namespace Components {
         "doSubmit": (e: any) => Promise<void>;
         "initialErrors"?: any;
         "initialValues"?: any;
-        "setFieldErrors": (obj: any) => Promise<void>;
-        "setFieldValue": (obj: any) => Promise<void>;
+        "setFieldErrors": (errorObj: any) => Promise<void>;
+        "setFieldValue": (fieldObj: any) => Promise<void>;
         "validate"?: any;
         /**
           * Tells Form to validate the form on each input's onBlur event

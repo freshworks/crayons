@@ -39,7 +39,7 @@ Type: `Promise<void>`
 
 
 
-### `setFieldErrors(obj: any) => Promise<void>`
+### `setFieldErrors(errorObj: any) => Promise<void>`
 
 
 
@@ -49,7 +49,7 @@ Type: `Promise<void>`
 
 
 
-### `setFieldValue(obj: any) => Promise<void>`
+### `setFieldValue(fieldObj: any) => Promise<void>`
 
 
 

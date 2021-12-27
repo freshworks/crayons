@@ -1,12 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Prop, State, Element, h, Method } from '@stencil/core';
 import {
-  FormRenderProps,
-  FormState,
   FormValues,
   FormConfig,
-  FormComputedProps,
-  FormHandlers,
-  FormValidity,
   FormTouched,
   FormErrors,
   FormUtils,
@@ -24,10 +21,8 @@ import {
 })
 export class Form implements FormConfig {
   @Element() el!: any;
-  private dirty = false;
 
   @Prop() initialValues?: any = {};
-  //@Prop() renderer: (props: FormRenderProps<any>) => any = () => null;
   @Prop() initialErrors?: any = {};
   @Prop() validate?: any = () => {};
   @Prop() validationSchema?: any = {};
@@ -44,15 +39,14 @@ export class Form implements FormConfig {
   @State() focused: keyof FormValues = null;
   @State() values: FormValues = {} as any;
   @State() touched: FormTouched<FormValues> = {} as any;
-  @State() validity: FormValidity<FormValues> = {} as any;
   @State() errors: FormErrors<FormValues> = {} as any;
 
   componentWillLoad() {
     this.values = this.initialValues;
 
     for (const field of Object.keys(this.values)) {
-      this.touched[field] = false;
       this.errors[field] = null;
+      this.touched[field] = false;
     }
 
     this.errors = { ...this.errors, ...this.initialErrors };
@@ -60,6 +54,11 @@ export class Form implements FormConfig {
     Object.keys(this.initialErrors).forEach((f) => (this.touched[f] = true));
 
     console.log({ errors: this.errors });
+  }
+
+  // attach event listeners and set initial values and errors
+  componentDidLoad() {
+    this.passPropsToChildren();
   }
 
   setSubmitting = (value: boolean) => {
@@ -70,8 +69,9 @@ export class Form implements FormConfig {
     event?.preventDefault();
     event?.stopPropagation();
 
+    this.isSubmitting = true;
+
     let isValid = false;
-    // on clicking submit, mark all fields as touched
 
     await this.handleValidation();
 
@@ -79,18 +79,22 @@ export class Form implements FormConfig {
 
     const keys = [...Object.keys(this.values), ...Object.keys(this.errors)];
 
-    keys.forEach((k) => (this.touched = { ...this.touched, [k]: true }));
+    let touchedState = {};
+    keys.forEach((k) => (touchedState = { ...touchedState, [k]: true }));
+    // on clicking submit, mark all fields as touched
+    this.touched = { ...this.touched, ...touchedState };
 
     isValid = !this.errors || Object.keys(this.errors).length === 0;
 
+    console.log({ values: this.values });
+
     console.log('is Valid Form ', isValid);
+
+    this.isSubmitting = false;
 
     if (!isValid) {
       return;
     }
-    this.isSubmitting = true;
-
-    console.log({ values: this.values });
 
     return this.values;
   };
@@ -105,43 +109,48 @@ export class Form implements FormConfig {
     this.focused = null;
   };
 
-  handleValidation = async (field?: string, _target?: any) => {
-    this.isValidating = true;
-    console.log(`validating ${field}`);
+  handleValidation = async () => {
+    console.log('handle validation');
 
+    this.isValidating = true;
+
+    let validationErrors = {};
     if (this.validationSchema && Object.keys(this.validationSchema).length) {
       const pr = validateYupSchema(
         prepareDataForValidation(this.values),
         this.validationSchema
       );
       try {
-        const resultV = await pr;
-        console.log({ resultV });
-        this.errors = {}; // reset errors if no errors from validation
+        await pr;
+        validationErrors = {}; // reset errors if no errors from validation
       } catch (err) {
-        this.errors = yupToFormErrors(err);
+        validationErrors = yupToFormErrors(err);
       }
     } else if (this.validate && typeof this.validate === 'function') {
       try {
-        const errors = await this.validate(this.values);
-        this.errors = errors || {};
+        const errors = (await this.validate(this.values)) || {};
+        validationErrors = errors || {};
       } catch (err) {
         console.error(`Error in calling validate function ${err.message}`);
+        validationErrors = {};
       }
     }
+
+    this.errors = validationErrors;
 
     this.isValidating = false;
   };
 
   handleInput =
-    (field: string, inputType: string) => async (event: Event, ref: any) => {
-      const target = event?.target as HTMLInputElement | HTMLTextAreaElement;
-      const value: any = getElementValue(inputType, event, ref);
+    (field: string, inputType: string) =>
+    async (event: Event, ref: any): Promise<void> => {
+      //const target = event?.target;
+      const value = getElementValue(inputType, event, ref);
 
       this.values = { ...this.values, [field]: value };
 
       /** Validate, if user wants to validateOnInput */
-      if (this.validateOnInput) this.handleValidation(field, target);
+      if (this.validateOnInput) this.handleValidation();
     };
 
   handleBlur =
@@ -153,7 +162,7 @@ export class Form implements FormConfig {
 
       this.values = { ...this.values, [field]: value };
       /** Validate, if user wants to validateOnInput */
-      if (this.validateOnBlur) this.handleValidation(field);
+      if (this.validateOnBlur) this.handleValidation();
     };
 
   handleFocus =
@@ -161,43 +170,31 @@ export class Form implements FormConfig {
       this.focused = field;
     };
 
-  private composedState = (): FormState<FormValues> => {
-    const {
-      focused,
-      values,
-      errors,
-      validity,
-      touched,
-      isValidating,
-      isSubmitting,
-    } = this;
-    return {
-      focused,
-      values,
-      errors,
-      validity,
-      touched,
-      isValidating,
-      isSubmitting,
-    };
-  };
+  private getFormControls() {
+    let children = [];
+    children = Array.from(this.el.querySelectorAll('*')).filter(
+      (el: HTMLElement) =>
+        ['fw-form-control'].includes(el.tagName.toLowerCase())
+    );
+    return children;
+  }
 
-  private composedHandlers = (): FormHandlers<FormValues> => {
-    const { handleSubmit, handleReset, handleInput, handleFocus, handleBlur } =
-      this;
-    return { handleSubmit, handleReset, handleInput, handleFocus, handleBlur };
-  };
+  private passPropsToChildren() {
+    const controls = this.getFormControls();
+    controls.forEach((f) => {
+      this.passPropsToChild(f);
+    });
+  }
 
-  private computeProps = () => {
-    this.dirty = !Object.values(this.touched).every((x) => !x);
-    this.isValid = Object.values(this.validity).every((x) => (x as any).valid);
-  };
-
-  private composedComputedProps = (): FormComputedProps<FormValues> => {
-    this.computeProps();
-    const { dirty, isValid, initialValues } = this;
-    return { dirty, isValid, initialValues };
-  };
+  private passPropsToChild(f) {
+    const error = this.errors[(f as any).name];
+    const touched = this.touched[(f as any).name];
+    (f as any).controlProps = this.composedUtils();
+    if (error) (f as any).error = error;
+    else (f as any).error = '';
+    if (touched) (f as any).touched = true;
+    else (f as any).touched = false;
+  }
 
   private composedUtils = (): FormUtils<FormValues, keyof FormValues> => {
     const inputProps = (field, inputType) => ({
@@ -259,75 +256,22 @@ export class Form implements FormConfig {
     };
   };
 
-  getAllNodesRecursively = (node: HTMLElement) => {
-    let nodes = [];
-    const getAllNodes = (element: any, root = true) => {
-      root && (nodes = []);
-      if (element.shadowRoot) {
-        nodes.push(element);
-      }
-      element = element.shadowRoot ? element.shadowRoot : element;
-      element.querySelectorAll('*').forEach((el: any) => {
-        if (el.nodeName !== 'SLOT') {
-          nodes.push(el);
-        } else if (el.nodeName === 'SLOT') {
-          el.assignedElements({ flatten: true }).forEach(
-            (assignedEl: HTMLElement) => getAllNodes(assignedEl, false)
-          );
-        } else if (el.shadowRoot) {
-          getAllNodes(el, false);
-        }
-      });
-    };
-    getAllNodes(node);
-    return nodes;
-  };
-
-  getFormControls() {
-    let children = [];
-    children = Array.from(this.el.querySelectorAll('*')).filter(
-      (el: HTMLElement) =>
-        ['fw-form-control'].includes(el.tagName.toLowerCase())
-    );
-    return children;
-  }
-
-  // attach event listeners and set initial values and errors
-  componentDidLoad() {
-    this.passPropsToChildren();
-  }
-
-  passPropsToChildren() {
-    const controls = this.getFormControls();
-    controls.forEach((f) => {
-      this.passPropsToChild(f);
+  @Method()
+  async setFieldValue(fieldObj) {
+    Object.entries(fieldObj)?.forEach(([field, value]) => {
+      this.values = { ...this.values, [field]: value };
+      this.touched = { ...this.touched, [field]: true };
     });
-  }
-
-  passPropsToChild(f) {
-    const error = this.errors[(f as any).name];
-    const touched = this.touched[(f as any).name];
-    (f as any).controlProps = this.composedUtils();
-    if (error) (f as any).error = error;
-    else (f as any).error = '';
-    if (touched) (f as any).touched = true;
-    else (f as any).touched = false;
+    if (this.validateOnBlur || this.validateOnInput)
+      await this.handleValidation();
   }
 
   @Method()
-  async setFieldValue(obj) {
-    this.values = { ...this.values, ...obj };
-    Object.keys(obj).forEach(
-      (k) => (this.touched = { ...this.touched, [k]: true })
-    );
-  }
-
-  @Method()
-  async setFieldErrors(obj) {
-    this.errors = { ...this.errors, ...obj };
-    Object.keys(obj).forEach(
-      (k) => (this.touched = { ...this.touched, [k]: true })
-    );
+  async setFieldErrors(errorObj) {
+    Object.entries(errorObj)?.forEach(([field, value]) => {
+      this.errors = { ...this.errors, [field]: value as string };
+      this.touched = { ...this.touched, [field]: true };
+    });
   }
 
   @Method()
@@ -341,21 +285,9 @@ export class Form implements FormConfig {
   }
 
   render() {
-    const state: FormState<FormValues> = this.composedState();
-    const handlers: FormHandlers<FormValues> = this.composedHandlers();
-    const computedProps: FormComputedProps<FormValues> =
-      this.composedComputedProps();
     const utils: FormUtils<FormValues, keyof FormValues> = this.composedUtils();
     this.passPropsToChildren();
 
-    const renderProps: FormRenderProps<any> = {
-      ...state,
-      ...handlers,
-      ...computedProps,
-      ...utils,
-    };
-    console.log(renderProps);
-    //return this.renderer(renderProps);
     return (
       <form id='fw_form_wrapper' {...utils.formProps}>
         <slot></slot>

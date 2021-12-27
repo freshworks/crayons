@@ -13,9 +13,19 @@
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
 
-    <fw-form-wrapper id="form"></fw-form-wrapper>
+    <fw-form-wrapper id="fw-form"></fw-form-wrapper>
 
     <!-- <fw-form id="fw-form">
+
+      <fw-form-control
+      type="input"
+      inputType="text"
+      name="first_name"
+      placeholder="First Name"
+      required
+      label="First Name"
+    ></fw-form-control>
+
       <fw-form-control
         type="input"
         inputType="text"
@@ -33,7 +43,9 @@
         required
         label="Custom native in"
       >
-      <input name="ccc" id="ccc" placeholder="ccc"></input>
+      <input name="ccc" id="ccc" placeholder="ccc"
+      autocomplete="off"
+      ></input>
     </fw-form-control>
     </fw-form> -->
 
@@ -43,11 +55,12 @@
     <button id="reset">Reset</button>
 
     <script>
-      const form = document.querySelector('#form');
+      const form = document.querySelector('#fw-form');
       document.querySelector('#submit').addEventListener('click', (e) => {
         form.doSubmit(e);
       });
       document.querySelector('#reset').addEventListener('click', (e) => {
+        // document.querySelector('#ccc').value = '';
         form.doReset(e);
       });
       const formSchema = {
@@ -315,17 +328,18 @@
 
       const initialValues = {
         abc: 'Test',
+        is_indian_citizen: true,
       };
 
-      /** pattern**/
-      form.formSchema = formSchema;
+      /** pattern 1 **/
+      //form.formSchema = formSchema;
 
       form.initialValues = initialValues;
 
       form.validate = async function (values) {
         console.log('validate called with ', values);
         return {
-          first_name: 'error from validate fn',
+          first_name: 'first name error',
           ccc: 'ccc error',
         };
       };
