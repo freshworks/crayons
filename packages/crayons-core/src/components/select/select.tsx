@@ -527,16 +527,6 @@ export class Select {
           'has-focus': this.hasFocus,
         }}
       >
-        {this.label !== '' ? (
-          <label
-            id={`${this.hostId}-label`}
-            class={{ required: this.required }}
-          >
-            {this.label}
-          </label>
-        ) : (
-          ''
-        )}
         {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
         moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
         <div

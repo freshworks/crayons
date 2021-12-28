@@ -232,14 +232,6 @@ export class Input {
         }}
       >
         <div class='input-container'>
-          <label
-            class={{
-              required: this.required,
-            }}
-          >
-            {this.label}
-          </label>
-
           <div
             class={{
               'input-container-inner': true,

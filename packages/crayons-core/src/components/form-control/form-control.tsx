@@ -9,23 +9,39 @@ export class FormControl {
   @Element() el;
 
   @Prop()
-  label: any;
+  label = '';
   @Prop()
-  required: any;
+  required = false;
   @Prop()
-  placeholder: any;
+  placeholder = '';
   @Prop()
-  touched: any;
+  touched = false;
   @Prop()
-  error: any;
+  error = '';
   @Prop()
-  type: any;
-  @Prop()
-  inputType: any;
+  type:
+    | 'TEXT'
+    | 'PARAGRAPH'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'EMAIL'
+    | 'URL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'TIME' = 'TEXT';
   @Prop()
   name = '';
   @Prop()
+  hint = '';
+  @Prop()
   choices: any;
+
+  /**
+   * @internal
+   */
   @Prop()
   controlProps: any;
 
@@ -34,60 +50,64 @@ export class FormControl {
   renderControl() {
     if (this.hasSlot) return null;
     let cmp;
+    const type = this.type.toLowerCase();
     switch (this.type) {
-      case 'input':
+      case 'TEXT':
+      case 'NUMBER':
+      case 'DECIMAL':
+      case 'EMAIL':
         cmp = (
           <fw-input
-            type={this.inputType}
+            type={type}
             name={this.name}
             placeholder={this.placeholder}
             required={this.required}
-            {...this.controlProps?.inputProps(this.name, this.inputType)}
+            {...this.controlProps?.inputProps(this.name, type)}
           ></fw-input>
         );
         break;
-      case 'textarea':
+      case 'PARAGRAPH':
         cmp = (
           <fw-textarea
             placeholder={this.placeholder}
             name={this.name}
             required={this.required}
-            {...this.controlProps?.inputProps(this.name, this.inputType)}
+            {...this.controlProps?.inputProps(this.name, type)}
           ></fw-textarea>
         );
         break;
 
-      case 'date':
+      case 'DATE':
         cmp = (
           <fw-datepicker
             placeholder={this.placeholder}
             name={this.name}
             required={this.required}
-            {...this.controlProps?.inputProps(this.name, this.inputType)}
+            {...this.controlProps?.inputProps(this.name, type)}
           ></fw-datepicker>
         );
         break;
 
-      case 'checkbox':
+      case 'CHECKBOX':
         cmp = (
           <fw-checkbox
             name={this.name}
             required={this.required}
-            {...this.controlProps?.checkboxProps(this.name, this.inputType)}
+            {...this.controlProps?.checkboxProps(this.name, type)}
           >
             {this.label}
           </fw-checkbox>
         );
         break;
 
-      case 'radio':
+      case 'RADIO':
         cmp = (
           <fw-radio-group
             allow-empty
             label={this.label}
             name={this.name}
             required={this.required}
-            {...this.controlProps?.radioProps(this.name, this.inputType)}
+            {...this.controlProps?.radioProps(this.name, type)}
           >
             {this.choices?.map((ch) => {
               return <fw-radio value={ch.value}>{ch.value}</fw-radio>;
@@ -96,7 +116,8 @@ export class FormControl {
         );
         break;
 
-      case 'select':
+      case 'DROPDOWN':
+      case 'MULTI_SELECT':
         cmp = (
           <fw-select
             placeholder={this.placeholder}
@@ -106,17 +127,17 @@ export class FormControl {
               ...f,
               text: f.value,
             }))}
-            multiple={this.inputType === 'MULTI_SELECT'}
-            {...this.controlProps?.selectProps(this.name, this.inputType)}
+            multiple={this.type === 'MULTI_SELECT'}
+            {...this.controlProps?.selectProps(this.name, type)}
           ></fw-select>
         );
         break;
-      case 'time':
+      case 'TIME':
         cmp = (
           <fw-timepicker
             name={this.name}
             required={this.required}
-            {...this.controlProps?.inputProps(this.name, this.inputType)}
+            {...this.controlProps?.inputProps(this.name, type)}
           ></fw-timepicker>
         );
         break;
@@ -128,7 +149,7 @@ export class FormControl {
     return cmp;
   }
 
-  componentWillLoad() {
+  componentWillLoad(): void {
     this.handleSlotChange();
   }
 
@@ -136,10 +157,10 @@ export class FormControl {
     this.hasSlot = hasSlot(this.el);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
-      <div>
-        <div class='container'>
+      <div class='form-control-container'>
+        <div>
           <label
             htmlFor={this.name}
             class={{
@@ -152,7 +173,8 @@ export class FormControl {
         </div>
         {this.renderControl()}
         <slot></slot>
-        {this.touched && this.error && <div class='error'> {this.error}</div>}
+        {!(this.touched && this.error) && <div class='hint'>{this.hint}</div>}
+        {this.touched && this.error && <div class='error'>{this.error}</div>}
       </div>
     );
   }

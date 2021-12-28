@@ -254,14 +254,25 @@ export namespace Components {
     interface FwFormControl {
         "choices": any;
         "controlProps": any;
-        "error": any;
-        "inputType": any;
-        "label": any;
+        "error": string;
+        "hint": string;
+        "label": string;
         "name": string;
-        "placeholder": any;
-        "required": any;
-        "touched": any;
-        "type": any;
+        "placeholder": string;
+        "required": boolean;
+        "touched": boolean;
+        "type": | 'TEXT'
+    | 'PARAGRAPH'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'EMAIL'
+    | 'URL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'TIME';
     }
     interface FwFormWrapper {
         "doReset": (e: any) => Promise<void>;
@@ -1967,14 +1978,25 @@ declare namespace LocalJSX {
     interface FwFormControl {
         "choices"?: any;
         "controlProps"?: any;
-        "error"?: any;
-        "inputType"?: any;
-        "label"?: any;
+        "error"?: string;
+        "hint"?: string;
+        "label"?: string;
         "name"?: string;
-        "placeholder"?: any;
-        "required"?: any;
-        "touched"?: any;
-        "type"?: any;
+        "placeholder"?: string;
+        "required"?: boolean;
+        "touched"?: boolean;
+        "type"?: | 'TEXT'
+    | 'PARAGRAPH'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'EMAIL'
+    | 'URL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'TIME';
     }
     interface FwFormWrapper {
         "formSchema"?: any;

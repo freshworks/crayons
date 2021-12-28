@@ -7,18 +7,17 @@
 
 ## Properties
 
-| Property       | Attribute       | Description | Type     | Default     |
-| -------------- | --------------- | ----------- | -------- | ----------- |
-| `choices`      | `choices`       |             | `any`    | `undefined` |
-| `controlProps` | `control-props` |             | `any`    | `undefined` |
-| `error`        | `error`         |             | `any`    | `undefined` |
-| `inputType`    | `input-type`    |             | `any`    | `undefined` |
-| `label`        | `label`         |             | `any`    | `undefined` |
-| `name`         | `name`          |             | `string` | `''`        |
-| `placeholder`  | `placeholder`   |             | `any`    | `undefined` |
-| `required`     | `required`      |             | `any`    | `undefined` |
-| `touched`      | `touched`       |             | `any`    | `undefined` |
-| `type`         | `type`          |             | `any`    | `undefined` |
+| Property      | Attribute     | Description | Type                                                                                                                                              | Default     |
+| ------------- | ------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `choices`     | `choices`     |             | `any`                                                                                                                                             | `undefined` |
+| `error`       | `error`       |             | `string`                                                                                                                                          | `''`        |
+| `hint`        | `hint`        |             | `string`                                                                                                                                          | `''`        |
+| `label`       | `label`       |             | `string`                                                                                                                                          | `''`        |
+| `name`        | `name`        |             | `string`                                                                                                                                          | `''`        |
+| `placeholder` | `placeholder` |             | `string`                                                                                                                                          | `''`        |
+| `required`    | `required`    |             | `boolean`                                                                                                                                         | `false`     |
+| `touched`     | `touched`     |             | `boolean`                                                                                                                                         | `false`     |
+| `type`        | `type`        |             | `"CHECKBOX" \| "DATE" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
 
 
 ## Dependencies

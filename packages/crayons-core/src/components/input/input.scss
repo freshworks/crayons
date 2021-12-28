@@ -37,31 +37,31 @@ $input-color: $app-primary-black;
 }
 
 .input-container {
-  margin-bottom: 16px;
+  // margin-bottom: 16px;
   width: inherit;
   height: inherit;
 }
 // Label Style
-label {
-  font-size: 12px;
-  color: $label-default;
-  font-weight: $font-weight-semibold;
-  margin-bottom: 0;
-  padding-bottom: 4px;
-  padding-left: 2px;
-  display: block;
+// label {
+//   font-size: 12px;
+//   color: $label-default;
+//   font-weight: $font-weight-semibold;
+//   margin-bottom: 0;
+//   padding-bottom: 4px;
+//   padding-left: 2px;
+//   display: block;
 
-  &.required::after {
-    content: '*';
-    position: relative;
-    display: inline-block;
-    top: 2px;
-    font-size: 14px;
-    color: $app-error;
-    padding-left: 2px;
-    font-weight: $font-weight-bold;
-  }
-}
+//   &.required::after {
+//     content: '*';
+//     position: relative;
+//     display: inline-block;
+//     top: 2px;
+//     font-size: 14px;
+//     color: $app-error;
+//     padding-left: 2px;
+//     font-weight: $font-weight-bold;
+//   }
+// }
 
 // Input Container Style
 .input-container-inner {

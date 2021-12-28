@@ -84,7 +84,7 @@ export interface FormUtils<Values, Key extends keyof Values> {
   inputProps: (key: Key, inputType: string) => any;
   labelProps: (key: Key, value?: Values[Key]) => any;
   selectProps: (key: Key, inputType: string) => any;
-  checkboxProps: (key: Key) => any;
+  checkboxProps: (key: Key, inputType: string) => any;
   radioProps: (key: Key, value: Values[Key]) => any;
   formProps: any;
 }

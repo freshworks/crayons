@@ -208,28 +208,27 @@ export class Form implements FormConfig {
       value: this.values[field],
     });
 
-    const radioProps = (field, value) => ({
-      ...inputProps(field, 'radio'),
-      type: 'radio',
-      id: `input-${field}--radio-${value}`,
+    const radioProps = (field, inputType) => ({
+      ...inputProps(field, inputType),
+      type: inputType,
+      id: `input-${field}--radio-${this.values[field]}`,
       value: this.values[field],
-      checked: this.values[field] === value,
     });
 
-    const checkboxProps = (field) => ({
-      ...inputProps(field, 'checkbox'),
-      type: 'checkbox',
+    const checkboxProps = (field, inputType) => ({
+      ...inputProps(field, inputType),
+      type: inputType,
       checked: !!this.values[field],
     });
 
     const selectProps = (field, inputType) => ({
-      type: 'select',
+      type: 'text',
       name: field,
       id: `input-${field}`,
-      handleChange: this.handleInput(field, 'select'),
-      handleBlur: this.handleBlur(field, 'select'),
+      handleChange: this.handleInput(field, inputType),
+      handleBlur: this.handleBlur(field, inputType),
       value:
-        inputType === 'MULTI_SELECT' // for multiselect pass Array
+        inputType === 'multi_select' // for multiselect pass Array
           ? this.values[field]?.map((v) => v.value || v) || []
           : Array.isArray(this.values[field]) // single select but the value is an array, pass 0th index
           ? this.values[field]?.map((v) => v.value || v)[0] || ''

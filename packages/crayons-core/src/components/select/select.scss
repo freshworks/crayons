@@ -32,25 +32,25 @@ $warning-color: $color-casablanca-300;
 }
 
 // Label Style
-label {
-  font-size: $font-size-12;
-  font-weight: $font-weight-500;
-  color: $color-elephant-900;
-  margin-bottom: 0;
-  padding-bottom: 4px;
-  padding-left: 2px;
-  display: block;
+// label {
+//   font-size: $font-size-12;
+//   font-weight: $font-weight-500;
+//   color: $color-elephant-900;
+//   margin-bottom: 0;
+//   padding-bottom: 4px;
+//   padding-left: 2px;
+//   display: block;
 
-  &.required::after {
-    content: '*';
-    position: relative;
-    display: inline-block;
-    top: 2px;
-    font-size: $font-size-14;
-    color: $error-color;
-    padding-left: 2px;
-  }
-}
+//   &.required::after {
+//     content: '*';
+//     position: relative;
+//     display: inline-block;
+//     top: 2px;
+//     font-size: $font-size-14;
+//     color: $error-color;
+//     padding-left: 2px;
+//   }
+// }
 
 .input-container {
   width: calc(100% - 10px);
@@ -160,7 +160,7 @@ label {
 }
 
 .select-container {
-  margin-bottom: 16px;
+  // margin-bottom: 16px;
   width: inherit;
   height: inherit;
   position: relative;
