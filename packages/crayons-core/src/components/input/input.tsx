@@ -253,9 +253,9 @@ export class Input {
               maxLength={this.maxlength}
               min={this.min}
               max={this.max}
-              step={this.step}
               readOnly={this.readonly}
               required={this.required}
+              step={this.step}
               type={this.type}
               value={this.value}
               onInput={this.onInput}
