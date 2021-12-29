@@ -251,6 +251,9 @@ export class Input {
               placeholder={this.placeholder || ''}
               minLength={this.minlength}
               maxLength={this.maxlength}
+              min={this.min}
+              max={this.max}
+              step={this.step}
               readOnly={this.readonly}
               required={this.required}
               type={this.type}
