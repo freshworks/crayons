@@ -7,23 +7,32 @@
 
 ## Properties
 
-| Property      | Attribute     | Description | Type                                                                                                                                              | Default     |
-| ------------- | ------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `choices`     | `choices`     |             | `any`                                                                                                                                             | `undefined` |
-| `error`       | `error`       |             | `string`                                                                                                                                          | `''`        |
-| `hint`        | `hint`        |             | `string`                                                                                                                                          | `''`        |
-| `label`       | `label`       |             | `string`                                                                                                                                          | `''`        |
-| `name`        | `name`        |             | `string`                                                                                                                                          | `''`        |
-| `placeholder` | `placeholder` |             | `string`                                                                                                                                          | `''`        |
-| `required`    | `required`    |             | `boolean`                                                                                                                                         | `false`     |
-| `touched`     | `touched`     |             | `boolean`                                                                                                                                         | `false`     |
-| `type`        | `type`        |             | `"CHECKBOX" \| "DATE" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
+| Property       | Attribute       | Description | Type                                                                                                                                              | Default     |
+| -------------- | --------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `choices`      | `choices`       |             | `any`                                                                                                                                             | `undefined` |
+| `controlProps` | `control-props` |             | `any`                                                                                                                                             | `undefined` |
+| `error`        | `error`         |             | `string`                                                                                                                                          | `''`        |
+| `hint`         | `hint`          |             | `string`                                                                                                                                          | `''`        |
+| `label`        | `label`         |             | `string`                                                                                                                                          | `''`        |
+| `name`         | `name`          |             | `string`                                                                                                                                          | `''`        |
+| `placeholder`  | `placeholder`   |             | `string`                                                                                                                                          | `''`        |
+| `required`     | `required`      |             | `boolean`                                                                                                                                         | `false`     |
+| `touched`      | `touched`       |             | `boolean`                                                                                                                                         | `false`     |
+| `type`         | `type`          |             | `"CHECKBOX" \| "DATE" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
+
+
+## Events
+
+| Event             | Description | Type               |
+| ----------------- | ----------- | ------------------ |
+| `fwControlChange` |             | `CustomEvent<any>` |
 
 
 ## Dependencies
 
 ### Used by
 
+ - [fw-form](../form)
  - [fw-form-wrapper](../form-wrapper)
 
 ### Depends on
@@ -74,6 +83,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
+  fw-form --> fw-form-control
   fw-form-wrapper --> fw-form-control
   style fw-form-control fill:#f9f,stroke:#333,stroke-width:4px
 ```

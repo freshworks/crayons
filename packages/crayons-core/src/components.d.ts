@@ -236,6 +236,7 @@ export namespace Components {
     interface FwForm {
         "doReset": (e: any) => Promise<void>;
         "doSubmit": (e: any) => Promise<void>;
+        "formSchema"?: any;
         "initialErrors"?: any;
         "initialValues"?: any;
         "setFieldErrors": (errorObj: any) => Promise<void>;
@@ -1962,6 +1963,7 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface FwForm {
+        "formSchema"?: any;
         "initialErrors"?: any;
         "initialValues"?: any;
         "validate"?: any;
@@ -1982,6 +1984,7 @@ declare namespace LocalJSX {
         "hint"?: string;
         "label"?: string;
         "name"?: string;
+        "onFwControlChange"?: (event: CustomEvent<any>) => void;
         "placeholder"?: string;
         "required"?: boolean;
         "touched"?: boolean;

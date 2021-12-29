@@ -1,4 +1,14 @@
-import { Component, Prop, h, Element, State } from '@stencil/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  Component,
+  Prop,
+  h,
+  Element,
+  State,
+  Listen,
+  Event,
+} from '@stencil/core';
+
 import { hasSlot } from '../../utils';
 @Component({
   tag: 'fw-form-control',
@@ -38,16 +48,14 @@ export class FormControl {
   hint = '';
   @Prop()
   choices: any;
-
-  /**
-   * @internal
-   */
   @Prop()
   controlProps: any;
 
   @State() hasSlot = false;
 
-  renderControl() {
+  @Event() fwControlChange: any;
+
+  renderControl(): JSX.Element {
     if (this.hasSlot) return null;
     let cmp;
     const type = this.type.toLowerCase();
@@ -155,6 +163,11 @@ export class FormControl {
 
   private handleSlotChange() {
     this.hasSlot = hasSlot(this.el);
+  }
+
+  @Listen('fwChange')
+  listenFwChange(e: CustomEvent): void {
+    this.fwControlChange.emit({ value: e.detail.value });
   }
 
   render(): JSX.Element {

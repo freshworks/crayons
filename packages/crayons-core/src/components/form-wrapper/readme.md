@@ -51,6 +51,7 @@ Type: `Promise<void>`
 graph TD;
   fw-form-wrapper --> fw-form
   fw-form-wrapper --> fw-form-control
+  fw-form --> fw-form-control
   fw-form-control --> fw-input
   fw-form-control --> fw-textarea
   fw-form-control --> fw-datepicker

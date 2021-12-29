@@ -13,10 +13,21 @@
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
 
-    <fw-form-wrapper id="fw-form"></fw-form-wrapper>
+    <!-- <fw-form-wrapper id="fw-form"></fw-form-wrapper> -->
 
-    <!-- <fw-form id="fw-form">
+    <fw-form-control
+    type="TEXT"
+    name="first_name"
+    placeholder="First Name"
+    required
+    label="First Name"
+    id="a"
+  ></fw-form-control>
 
+  <br>
+  <h3>custom form </h3>
+
+    <fw-form id="fw-form">
       <fw-form-control
       type="TEXT"
       name="first_name"
@@ -34,7 +45,7 @@
       ></fw-form-control>
 
       <fw-form-control
-        type="TEXT"
+        type="CUSTOM"
         name="ccc"
         placeholder="Custom native in"
         required
@@ -44,7 +55,7 @@
       autocomplete="off"
       ></input>
     </fw-form-control>
-    </fw-form> -->
+    </fw-form>
 
     <br /><br />
 
@@ -57,7 +68,7 @@
         form.doSubmit(e);
       });
       document.querySelector('#reset').addEventListener('click', (e) => {
-        // document.querySelector('#ccc').value = '';
+        document.querySelector('#ccc').value = '';
         form.doReset(e);
       });
       const formSchema = {
@@ -354,6 +365,32 @@
             parent_id: null,
             choices: [],
           },
+
+          // {
+          //   id: '9319f86f-1b6a-49cb-b4b6-cf487be94595',
+          //   name: 'abc4',
+          //   label: 'Custom Input123123',
+          //   type: 'CUSTOM',
+          //   position: 3,
+          //   required: true,
+          //   editable: true,
+          //   visible: true,
+          //   deleted: false,
+          //   link: null,
+          //   Placeholder: 'Enter…',
+          //   hint: 'Custom Input webcomponent via schema',
+          //   field_options: {},
+          //   filterable: true,
+          //   searchable: true,
+          //   parent_id: null,
+          //   choices: [],
+          //   component: "fw-input",
+          //   componentProps: {
+          //     color: "secondary",
+          //     formRef: "fw-form",
+          //     ref:""
+          //   }
+          // },
         ],
       };
 
@@ -363,7 +400,7 @@
       };
 
       /** pattern 1 **/
-      form.formSchema = formSchema;
+      // form.formSchema = formSchema;
 
       form.initialValues = initialValues;
 
@@ -372,16 +409,20 @@
         return {
           first_name: 'first name error',
           ccc: 'ccc error',
+          last_name:"last name error"
         };
+        // json api std.
       };
 
       function handleInput(e) {
         console.log('handleinput');
         form.setFieldValue({ [e.target.name]: e.target.value });
       }
-      // document.querySelector('#ccc').addEventListener('input', handleInput);
-      // document.querySelector('#ccc').addEventListener('change', handleInput);
-      // document.querySelector('#ccc').addEventListener('blur', handleInput);
+
+      document.querySelector("#a").addEventListener("fwControlChange",(e) => console.log(e))
+      document.querySelector('#ccc').addEventListener('input', handleInput);
+      document.querySelector('#ccc').addEventListener('change', handleInput);
+      document.querySelector('#ccc').addEventListener('blur', handleInput);
     </script>
 
     <!-- <fw-form-group>

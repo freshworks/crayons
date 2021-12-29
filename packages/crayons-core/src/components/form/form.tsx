@@ -22,9 +22,12 @@ import {
 export class Form implements FormConfig {
   @Element() el!: any;
 
+  private controls: any;
+
   @Prop() initialValues?: any = {};
   @Prop() initialErrors?: any = {};
   @Prop() validate?: any = () => {};
+  @Prop() formSchema?: any;
   @Prop() validationSchema?: any = {};
 
   /** Tells Form to validate the form on each input's onInput event */
@@ -56,9 +59,19 @@ export class Form implements FormConfig {
     console.log({ errors: this.errors });
   }
 
-  // attach event listeners and set initial values and errors
+  // get Form Controls and pass props to children
   componentDidLoad() {
-    this.passPropsToChildren();
+    this.controls = this.getFormControls();
+    this.passPropsToChildren(this.controls);
+  }
+
+  // pass props to form-control children
+  componentWillUpdate() {
+    console.log('Component will update and re-render');
+    if (!this.controls) {
+      this.controls = this.getFormControls();
+    }
+    this.passPropsToChildren(this.controls);
   }
 
   setSubmitting = (value: boolean) => {
@@ -172,15 +185,16 @@ export class Form implements FormConfig {
 
   private getFormControls() {
     let children = [];
-    children = Array.from(this.el.querySelectorAll('*')).filter(
-      (el: HTMLElement) =>
-        ['fw-form-control'].includes(el.tagName.toLowerCase())
+    children = Array.from([
+      ...this.el.shadowRoot.querySelectorAll('*'),
+      ...this.el.querySelectorAll('*'),
+    ]).filter((el: HTMLElement) =>
+      ['fw-form-control'].includes(el.tagName.toLowerCase())
     );
     return children;
   }
 
-  private passPropsToChildren() {
-    const controls = this.getFormControls();
+  private passPropsToChildren(controls) {
     controls.forEach((f) => {
       this.passPropsToChild(f);
     });
@@ -283,13 +297,53 @@ export class Form implements FormConfig {
     this.handleReset(e);
   }
 
+  renderCustomComponent(componentName: string, props: any) {
+    let template: JSX.Element;
+    if (window.customElements?.get(componentName)) {
+      const CustomComponent = `${componentName}`;
+      let slotText: JSX.Element;
+      if (props.slotText) {
+        slotText = props.slotText;
+        delete props.slotText;
+      }
+      template = <CustomComponent {...props}>{slotText}</CustomComponent>;
+    } else {
+      template = null;
+    }
+    return template;
+  }
+
   render() {
     const utils: FormUtils<FormValues, keyof FormValues> = this.composedUtils();
-    this.passPropsToChildren();
 
     return (
       <form id='fw_form_wrapper' {...utils.formProps}>
-        <slot></slot>
+        {this.formSchema ? (
+          this.formSchema?.fields
+            ?.sort((a, b) => a.position - b.position)
+            .map((field) => {
+              return (
+                <fw-form-control
+                  key={field.name}
+                  type={field.type}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  label={field.label}
+                  choices={field.choices}
+                  controlProps={utils}
+                >
+                  {field.type === 'CUSTOM' &&
+                    this.renderCustomComponent(
+                      field.component,
+                      field.componentProps
+                    )}
+                </fw-form-control>
+              );
+            })
+        ) : (
+          <slot></slot>
+        )}
       </form>
     );
   }

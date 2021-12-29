@@ -171,7 +171,7 @@ export class Input {
   private onBlur = (e) => {
     this.hasFocus = false;
     this.fwBlur.emit();
-    this.handleBlur(e, this.nativeInput);
+    this.handleBlur(e, { value: this.nativeInput.value });
   };
 
   private showClearButton() {
