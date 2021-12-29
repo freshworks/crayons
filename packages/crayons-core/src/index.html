@@ -64,9 +64,23 @@
 
     <script>
       const form = document.querySelector('#fw-form');
-      document.querySelector('#submit').addEventListener('click', (e) => {
-        form.doSubmit(e);
-      });
+      document.querySelector('#submit').addEventListener('click', async (e) => {
+          const { values, isValid} = await form.doSubmit(e);
+          console.log({ values, isValid });
+   
+          if(isValid) {
+            // make ajax post end point with values
+            // fetch("/post",values);
+
+            // if error from backend , set Errors - passing key value pair
+          
+            form.setFieldErrors({ first_name:"First Name must be unique <<Server Error>>"})
+          
+            // reset the form if required if success
+            // formRef.current.doReset(e);
+          }
+     
+        });
       document.querySelector('#reset').addEventListener('click', (e) => {
         document.querySelector('#ccc').value = '';
         form.doReset(e);

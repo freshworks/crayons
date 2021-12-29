@@ -58,7 +58,8 @@ export class FormControl {
   renderControl(): JSX.Element {
     if (this.hasSlot) return null;
     let cmp;
-    const type = this.type.toLowerCase();
+    let type = this.type.toLowerCase();
+    if (this.type === 'DECIMAL') type = 'number';
     switch (this.type) {
       case 'TEXT':
       case 'NUMBER':

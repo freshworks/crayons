@@ -27,7 +27,7 @@ export class Form implements FormConfig {
   @Prop() initialValues?: any = {};
   @Prop() initialErrors?: any = {};
   @Prop() validate?: any = () => {};
-  @Prop() formSchema?: any;
+  @Prop() formSchema?: any = {};
   @Prop() validationSchema?: any = {};
 
   /** Tells Form to validate the form on each input's onInput event */
@@ -105,11 +105,7 @@ export class Form implements FormConfig {
 
     this.isSubmitting = false;
 
-    if (!isValid) {
-      return;
-    }
-
-    return this.values;
+    return { values: this.values, isValid };
   };
 
   handleReset = (event?: Event) => {
@@ -318,7 +314,7 @@ export class Form implements FormConfig {
 
     return (
       <form id='fw_form_wrapper' {...utils.formProps}>
-        {this.formSchema ? (
+        {this.formSchema && Object.keys(this.formSchema).length > 0 ? (
           this.formSchema?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
