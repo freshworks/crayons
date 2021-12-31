@@ -5,7 +5,10 @@ packages/**/.vuepress/
 packages/**/loader/
 packages/**/node_modules/
 packages/**/www/
-packages/**/crayons-react/
+packages/**/crayons-react/**
+!packages/**/crayons-react/custom/
+!packages/**/crayons-react/custom/FwForm.tsx
+!packages/**/crayons-react/custom/form-util.ts
 docs/
 packages/**/src/**/*.stories.tsx
 www-dist/

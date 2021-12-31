@@ -124,8 +124,8 @@ export class FormControl {
         componentProps = {
           ...componentProps,
           ...this.controlProps?.inputProps(
-            componentProps.name,
-            componentProps.type?.toLowerCase()
+            props.name,
+            props.type?.toLowerCase()
           ),
         };
         return componentProps;
@@ -135,8 +135,8 @@ export class FormControl {
         componentProps = {
           ...componentProps,
           ...this.controlProps?.checkboxProps(
-            componentProps.name,
-            componentProps.type?.toLowerCase()
+            props.name,
+            props.type?.toLowerCase()
           ),
         };
         return componentProps;
@@ -146,8 +146,8 @@ export class FormControl {
           'allow-empty': true,
           ...componentProps,
           ...this.controlProps?.radioProps(
-            componentProps.name,
-            componentProps.type?.toLowerCase()
+            props.name,
+            props.type?.toLowerCase()
           ),
         };
         return componentProps;
@@ -156,8 +156,8 @@ export class FormControl {
         componentProps = {
           ...componentProps,
           ...this.controlProps?.selectProps(
-            componentProps.name,
-            componentProps.type?.toLowerCase()
+            props.name,
+            props.type?.toLowerCase()
           ),
         };
         return componentProps;
@@ -255,8 +255,14 @@ export class FormControl {
       case 'MULTI_SELECT':
         cmp = (
           <fw-select
-            {...this.assignProps('fw-select', { ...this.fieldProps, ...this })}
-            options={this.fieldProps?.choices.map((f) => ({
+            {...this.assignProps('fw-select', {
+              name: this.name,
+              type: this.type,
+              label: this.label,
+              required: this.required,
+              ...this.fieldProps,
+            })}
+            options={this.fieldProps?.choices?.map((f) => ({
               ...f,
               text: f.value,
             }))}
