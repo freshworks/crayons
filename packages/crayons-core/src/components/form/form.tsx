@@ -86,18 +86,21 @@ export class Form implements FormConfig {
 
     let isValid = false;
 
-    await this.handleValidation();
+    const validationErrors = await this.handleValidation();
 
-    console.log({ errors: this.errors });
+    console.log({ errors: validationErrors });
 
-    const keys = [...Object.keys(this.values), ...Object.keys(this.errors)];
+    const keys = [
+      ...Object.keys(this.values),
+      ...Object.keys(validationErrors),
+    ];
 
     let touchedState = {};
     keys.forEach((k) => (touchedState = { ...touchedState, [k]: true }));
     // on clicking submit, mark all fields as touched
     this.touched = { ...this.touched, ...touchedState };
 
-    isValid = !this.errors || Object.keys(this.errors).length === 0;
+    isValid = !validationErrors || Object.keys(validationErrors).length === 0;
 
     console.log({ values: this.values });
 
@@ -148,6 +151,7 @@ export class Form implements FormConfig {
     this.errors = validationErrors;
 
     this.isValidating = false;
+    return validationErrors;
   };
 
   handleInput =
@@ -321,12 +325,12 @@ export class Form implements FormConfig {
               return (
                 <fw-form-control
                   key={field.name}
-                  type={field.type}
                   name={field.name}
-                  placeholder={field.placeholder}
-                  required={field.required}
+                  type={field.type}
                   label={field.label}
-                  choices={field.choices}
+                  required={field.required}
+                  hint={field.hint}
+                  fieldProps={field}
                   controlProps={utils}
                 >
                   {field.type === 'CUSTOM' &&

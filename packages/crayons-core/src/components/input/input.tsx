@@ -295,7 +295,6 @@ export class Input {
           ) : (
             ''
           )}
-          {/* {this.touched && <div class='error'> {this.error}</div>} */}
         </div>
       </Host>
     );

@@ -14,7 +14,7 @@
     <fw-button expand color="primary">Primary Button</fw-button>
 
     <!-- <fw-form-wrapper id="fw-form"></fw-form-wrapper> -->
-
+<!-- 
     <fw-form-control
     type="TEXT"
     name="first_name"
@@ -22,18 +22,20 @@
     required
     label="First Name"
     id="a"
-  ></fw-form-control>
+  ></fw-form-control> -->
 
   <br>
   <h3>custom form </h3>
 
     <fw-form id="fw-form">
+
       <fw-form-control
       type="TEXT"
       name="first_name"
       placeholder="First Name"
       required
       label="First Name"
+      id="first_name"
     ></fw-form-control>
 
       <fw-form-control
@@ -55,6 +57,7 @@
       autocomplete="off"
       ></input>
     </fw-form-control>
+
     </fw-form>
 
     <br /><br />
@@ -414,7 +417,7 @@
       };
 
       /** pattern 1 **/
-      // form.formSchema = formSchema;
+      //form.formSchema = formSchema;
 
       form.initialValues = initialValues;
 
@@ -433,7 +436,11 @@
         form.setFieldValue({ [e.target.name]: e.target.value });
       }
 
-      document.querySelector("#a").addEventListener("fwControlChange",(e) => console.log(e))
+      document.querySelector("#first_name").fieldProps = {
+        placeholder: "Enter First Name"
+      }
+
+      // document.querySelector("#a").addEventListener("fwControlChange",(e) => console.log(e))
       document.querySelector('#ccc').addEventListener('input', handleInput);
       document.querySelector('#ccc').addEventListener('change', handleInput);
       document.querySelector('#ccc').addEventListener('blur', handleInput);

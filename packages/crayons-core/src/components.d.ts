@@ -253,27 +253,21 @@ export namespace Components {
         "validationSchema"?: any;
     }
     interface FwFormControl {
-        "choices": any;
-        "controlProps": any;
+        /**
+          * Value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control.
+         */
+        "controlProps"?: any;
         "error": string;
+        /**
+          * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
+         */
+        "fieldProps"?: any;
         "hint": string;
-        "label": string;
-        "name": string;
-        "placeholder": string;
+        "label": any;
+        "name": any;
         "required": boolean;
         "touched": boolean;
-        "type": | 'TEXT'
-    | 'PARAGRAPH'
-    | 'NUMBER'
-    | 'DECIMAL'
-    | 'EMAIL'
-    | 'URL'
-    | 'DROPDOWN'
-    | 'MULTI_SELECT'
-    | 'RADIO'
-    | 'CHECKBOX'
-    | 'DATE'
-    | 'TIME';
+        "type": any;
     }
     interface FwFormWrapper {
         "doReset": (e: any) => Promise<void>;
@@ -1978,28 +1972,21 @@ declare namespace LocalJSX {
         "validationSchema"?: any;
     }
     interface FwFormControl {
-        "choices"?: any;
+        /**
+          * Value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control.
+         */
         "controlProps"?: any;
         "error"?: string;
+        /**
+          * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
+         */
+        "fieldProps"?: any;
         "hint"?: string;
-        "label"?: string;
-        "name"?: string;
-        "onFwControlChange"?: (event: CustomEvent<any>) => void;
-        "placeholder"?: string;
+        "label"?: any;
+        "name"?: any;
         "required"?: boolean;
         "touched"?: boolean;
-        "type"?: | 'TEXT'
-    | 'PARAGRAPH'
-    | 'NUMBER'
-    | 'DECIMAL'
-    | 'EMAIL'
-    | 'URL'
-    | 'DROPDOWN'
-    | 'MULTI_SELECT'
-    | 'RADIO'
-    | 'CHECKBOX'
-    | 'DATE'
-    | 'TIME';
+        "type"?: any;
     }
     interface FwFormWrapper {
         "formSchema"?: any;

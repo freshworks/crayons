@@ -449,13 +449,13 @@ export class FormWrapper {
         {this.formSchema.fields?.map((field) => {
           return (
             <fw-form-control
-              type={field.type}
+              key={field.name}
               name={field.name}
-              placeholder={field.placeholder}
-              required={field.required}
+              type={field.type}
               label={field.label}
-              choices={field.choices}
+              required={field.required}
               hint={field.hint}
+              fieldProps={field}
             ></fw-form-control>
           );
         })}

@@ -1,15 +1,79 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Component,
-  Prop,
-  h,
-  Element,
-  State,
-  Listen,
-  Event,
-} from '@stencil/core';
+import { Component, Prop, h, Element, State } from '@stencil/core';
 
 import { hasSlot } from '../../utils';
+
+const CONTROL_PROPS = {
+  'fw-input': [
+    'label',
+    'required',
+    'name',
+    'placeholder',
+    'type',
+    'autocomplete',
+    'clearInput',
+    'maxlength',
+    'minlength',
+    'max',
+    'min',
+    'step',
+    'state',
+    'stateText',
+    'readonly',
+    'disabled',
+    'iconLeft',
+    'iconRight',
+  ],
+  'fw-textarea': [
+    'label',
+    'required',
+    'name',
+    'placeholder',
+    'cols',
+    'rows',
+    'maxlength',
+    'minlength',
+    'state',
+    'stateText',
+    'readonly',
+    'disabled',
+    'wrap',
+  ],
+  'fw-radio-group': ['label', 'required', 'name', 'allow-empty'],
+  'fw-radio': ['value'],
+  'fw-checkbox': ['label', 'required', 'name'],
+  'fw-datepicker': ['label', 'required', 'name', 'placeholder'],
+  'fw-select': [
+    'label',
+    'required',
+    'name',
+    'placeholder',
+    'state',
+    'stateText',
+    'readonly',
+    'forceSelect',
+    'disabled',
+    'max',
+    'variant',
+    'optionsVariant',
+    'searchable',
+    'checkbox',
+    'notFoundText',
+    'search',
+    'noDataText',
+    'debounceTimer',
+    'selectedOptions',
+    'sameWidth',
+    'optionsPlacement',
+    'tagVariant',
+    'caret',
+    'labelledBy',
+    'options',
+    'multiple',
+  ],
+  'fw-timepicker': ['label', 'required', 'name', 'placeholder'],
+};
 @Component({
   tag: 'fw-form-control',
   styleUrl: 'form-control.scss',
@@ -19,69 +83,122 @@ export class FormControl {
   @Element() el;
 
   @Prop()
-  label = '';
+  type: any;
+  @Prop()
+  name: any;
+  @Prop()
+  label: any;
   @Prop()
   required = false;
   @Prop()
-  placeholder = '';
+  hint = '';
+  /**
+   * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
+   */
+  @Prop({ mutable: true })
+  fieldProps?: any = {};
+  /**
+   * Value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control.
+   */
+  @Prop()
+  controlProps?: any;
   @Prop()
   touched = false;
   @Prop()
   error = '';
-  @Prop()
-  type:
-    | 'TEXT'
-    | 'PARAGRAPH'
-    | 'NUMBER'
-    | 'DECIMAL'
-    | 'EMAIL'
-    | 'URL'
-    | 'DROPDOWN'
-    | 'MULTI_SELECT'
-    | 'RADIO'
-    | 'CHECKBOX'
-    | 'DATE'
-    | 'TIME' = 'TEXT';
-  @Prop()
-  name = '';
-  @Prop()
-  hint = '';
-  @Prop()
-  choices: any;
-  @Prop()
-  controlProps: any;
 
   @State() hasSlot = false;
 
-  @Event() fwControlChange: any;
+  assignProps = (type: string, props: any): any => {
+    const propList = CONTROL_PROPS[type] || [];
+    let componentProps = propList.reduce((acc: any, prop: any) => {
+      if (prop in props) acc[prop] = props[prop];
+      return acc;
+    }, {});
+
+    switch (type) {
+      case 'fw-input':
+      case 'fw-textarea':
+      case 'fw-datepicker':
+      case 'fw-timepicker': {
+        componentProps = {
+          ...componentProps,
+          ...this.controlProps?.inputProps(
+            componentProps.name,
+            componentProps.type?.toLowerCase()
+          ),
+        };
+        return componentProps;
+      }
+
+      case 'fw-checkbox': {
+        componentProps = {
+          ...componentProps,
+          ...this.controlProps?.checkboxProps(
+            componentProps.name,
+            componentProps.type?.toLowerCase()
+          ),
+        };
+        return componentProps;
+      }
+      case 'fw-radio-group': {
+        componentProps = {
+          'allow-empty': true,
+          ...componentProps,
+          ...this.controlProps?.radioProps(
+            componentProps.name,
+            componentProps.type?.toLowerCase()
+          ),
+        };
+        return componentProps;
+      }
+      case 'fw-select': {
+        componentProps = {
+          ...componentProps,
+          ...this.controlProps?.selectProps(
+            componentProps.name,
+            componentProps.type?.toLowerCase()
+          ),
+        };
+        return componentProps;
+      }
+    }
+  };
 
   renderControl(): JSX.Element {
     if (this.hasSlot) return null;
+    if (!this.name) return null;
+
     let cmp;
-    let type = this.type.toLowerCase();
-    if (this.type === 'DECIMAL') type = 'number';
+    if (this.type === 'DECIMAL') this.type = 'NUMBER';
     switch (this.type) {
       case 'TEXT':
       case 'NUMBER':
       case 'DECIMAL':
-      case 'EMAIL':
+      case 'EMAIL': {
         cmp = (
           <fw-input
-            type={type}
-            name={this.name}
-            placeholder={this.placeholder}
-            required={this.required}
-            {...this.controlProps?.inputProps(this.name, type)}
+            {...this.assignProps('fw-input', {
+              name: this.name,
+              type: this.type,
+              label: this.label,
+              required: this.required,
+              ...this.fieldProps,
+            })}
           ></fw-input>
         );
         break;
+      }
       case 'PARAGRAPH':
         cmp = (
           <fw-textarea
-            placeholder={this.placeholder}
-            name={this.name}
-            required={this.required}
-            {...this.controlProps?.inputProps(this.name, type)}
+            {...this.assignProps('fw-textarea', {
+              name: this.name,
+              type: this.type,
+              label: this.label,
+              required: this.required,
+              ...this.fieldProps,
+            })}
           ></fw-textarea>
         );
         break;
@@ -89,10 +206,13 @@ export class FormControl {
       case 'DATE':
         cmp = (
           <fw-datepicker
-            placeholder={this.placeholder}
-            name={this.name}
-            required={this.required}
-            {...this.controlProps?.inputProps(this.name, type)}
+            {...this.assignProps('fw-datepicker', {
+              name: this.name,
+              type: this.type,
+              label: this.label,
+              required: this.required,
+              ...this.fieldProps,
+            })}
           ></fw-datepicker>
         );
         break;
@@ -100,11 +220,15 @@ export class FormControl {
       case 'CHECKBOX':
         cmp = (
           <fw-checkbox
-            name={this.name}
-            required={this.required}
-            {...this.controlProps?.checkboxProps(this.name, type)}
+            {...this.assignProps('fw-checkbox', {
+              name: this.name,
+              type: this.type,
+              label: this.label,
+              required: this.required,
+              ...this.fieldProps,
+            })}
           >
-            {this.label}
+            {this.fieldProps?.label}
           </fw-checkbox>
         );
         break;
@@ -112,13 +236,15 @@ export class FormControl {
       case 'RADIO':
         cmp = (
           <fw-radio-group
-            allow-empty
-            label={this.label}
-            name={this.name}
-            required={this.required}
-            {...this.controlProps?.radioProps(this.name, type)}
+            {...this.assignProps('fw-radio-group', {
+              name: this.name,
+              type: this.type,
+              label: this.label,
+              required: this.required,
+              ...this.fieldProps,
+            })}
           >
-            {this.choices?.map((ch) => {
+            {this.fieldProps?.choices?.map((ch) => {
               return <fw-radio value={ch.value}>{ch.value}</fw-radio>;
             })}
           </fw-radio-group>
@@ -129,30 +255,27 @@ export class FormControl {
       case 'MULTI_SELECT':
         cmp = (
           <fw-select
-            placeholder={this.placeholder}
-            name={this.name}
-            required={this.required}
-            options={this.choices.map((f) => ({
+            {...this.assignProps('fw-select', { ...this.fieldProps, ...this })}
+            options={this.fieldProps?.choices.map((f) => ({
               ...f,
               text: f.value,
             }))}
             multiple={this.type === 'MULTI_SELECT'}
-            {...this.controlProps?.selectProps(this.name, type)}
           ></fw-select>
         );
         break;
       case 'TIME':
         cmp = (
           <fw-timepicker
-            name={this.name}
-            required={this.required}
-            {...this.controlProps?.inputProps(this.name, type)}
+            {...this.assignProps('fw-timepicker', {
+              name: this.name,
+              type: this.type,
+              label: this.label,
+              required: this.required,
+              ...this.fieldProps,
+            })}
           ></fw-timepicker>
         );
-        break;
-
-      default:
-        cmp = <div>Not found</div>;
         break;
     }
     return cmp;
@@ -164,11 +287,6 @@ export class FormControl {
 
   private handleSlotChange() {
     this.hasSlot = hasSlot(this.el);
-  }
-
-  @Listen('fwChange')
-  listenFwChange(e: CustomEvent): void {
-    this.fwControlChange.emit({ value: e.detail.value });
   }
 
   render(): JSX.Element {

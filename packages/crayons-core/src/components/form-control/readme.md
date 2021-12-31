@@ -7,25 +7,17 @@
 
 ## Properties
 
-| Property       | Attribute       | Description | Type                                                                                                                                              | Default     |
-| -------------- | --------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `choices`      | `choices`       |             | `any`                                                                                                                                             | `undefined` |
-| `controlProps` | `control-props` |             | `any`                                                                                                                                             | `undefined` |
-| `error`        | `error`         |             | `string`                                                                                                                                          | `''`        |
-| `hint`         | `hint`          |             | `string`                                                                                                                                          | `''`        |
-| `label`        | `label`         |             | `string`                                                                                                                                          | `''`        |
-| `name`         | `name`          |             | `string`                                                                                                                                          | `''`        |
-| `placeholder`  | `placeholder`   |             | `string`                                                                                                                                          | `''`        |
-| `required`     | `required`      |             | `boolean`                                                                                                                                         | `false`     |
-| `touched`      | `touched`       |             | `boolean`                                                                                                                                         | `false`     |
-| `type`         | `type`          |             | `"CHECKBOX" \| "DATE" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
-
-
-## Events
-
-| Event             | Description | Type               |
-| ----------------- | ----------- | ------------------ |
-| `fwControlChange` |             | `CustomEvent<any>` |
+| Property       | Attribute       | Description                                                                                                                       | Type      | Default     |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `controlProps` | `control-props` | Value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control.            | `any`     | `undefined` |
+| `error`        | `error`         |                                                                                                                                   | `string`  | `''`        |
+| `fieldProps`   | `field-props`   | Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control. | `any`     | `{}`        |
+| `hint`         | `hint`          |                                                                                                                                   | `string`  | `''`        |
+| `label`        | `label`         |                                                                                                                                   | `any`     | `undefined` |
+| `name`         | `name`          |                                                                                                                                   | `any`     | `undefined` |
+| `required`     | `required`      |                                                                                                                                   | `boolean` | `false`     |
+| `touched`      | `touched`       |                                                                                                                                   | `boolean` | `false`     |
+| `type`         | `type`          |                                                                                                                                   | `any`     | `undefined` |
 
 
 ## Dependencies
