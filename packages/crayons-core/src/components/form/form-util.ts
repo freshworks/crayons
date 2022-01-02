@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import isPlainObject from 'lodash/isPlainObject';
 import clone from 'lodash/clone';
@@ -248,7 +247,7 @@ export const generateDynamicInitialValues = (
   initialValues: any = {}
 ): any => {
   const dynamicInitialValues =
-    formSchema?.fields?.reduce((acc, field) => {
+    formSchema?.fields?.reduce((acc: any, field: any) => {
       return {
         ...acc,
         [field.name]: field.type === 'CHECKBOX' ? false : undefined,

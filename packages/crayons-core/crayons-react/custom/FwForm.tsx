@@ -322,7 +322,7 @@ function FwForm({
         });
 
         return validationErrors;
-      }
+      } else return {};
     },
     [values]
   );
