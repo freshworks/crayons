@@ -281,15 +281,6 @@ export namespace Components {
     | 'TEL'
     | 'TIME';
     }
-    interface FwFormWrapper {
-        "doReset": (e: any) => Promise<void>;
-        "doSubmit": (e: any) => Promise<void>;
-        "formSchema"?: any;
-        "initialErrors"?: any;
-        "initialValues"?: any;
-        "validate"?: any;
-        "validationSchema"?: any;
-    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
@@ -1488,12 +1479,6 @@ declare global {
         prototype: HTMLFwFormControlElement;
         new (): HTMLFwFormControlElement;
     };
-    interface HTMLFwFormWrapperElement extends Components.FwFormWrapper, HTMLStencilElement {
-    }
-    var HTMLFwFormWrapperElement: {
-        prototype: HTMLFwFormWrapperElement;
-        new (): HTMLFwFormWrapperElement;
-    };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
     var HTMLFwIconElement: {
@@ -1687,7 +1672,6 @@ declare global {
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-form": HTMLFwFormElement;
         "fw-form-control": HTMLFwFormControlElement;
-        "fw-form-wrapper": HTMLFwFormWrapperElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -2011,13 +1995,6 @@ declare namespace LocalJSX {
     | 'URL'
     | 'TEL'
     | 'TIME';
-    }
-    interface FwFormWrapper {
-        "formSchema"?: any;
-        "initialErrors"?: any;
-        "initialValues"?: any;
-        "validate"?: any;
-        "validationSchema"?: any;
     }
     interface FwIcon {
         /**
@@ -3219,7 +3196,6 @@ declare namespace LocalJSX {
         "fw-dropdown-button": FwDropdownButton;
         "fw-form": FwForm;
         "fw-form-control": FwFormControl;
-        "fw-form-wrapper": FwFormWrapper;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -3268,7 +3244,6 @@ declare module "@stencil/core" {
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
             "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
-            "fw-form-wrapper": LocalJSX.FwFormWrapper & JSXBase.HTMLAttributes<HTMLFwFormWrapperElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;

@@ -63,10 +63,6 @@ Type: `Promise<void>`
 
 ## Dependencies
 
-### Used by
-
- - [fw-form-wrapper](../form-wrapper)
-
 ### Depends on
 
 - [fw-form-control](../form-control)
@@ -109,7 +105,6 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
-  fw-form-wrapper --> fw-form
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

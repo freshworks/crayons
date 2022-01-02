@@ -25,7 +25,6 @@
 ### Used by
 
  - [fw-form](../form)
- - [fw-form-wrapper](../form-wrapper)
 
 ### Depends on
 
@@ -76,7 +75,6 @@ graph TD;
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
   fw-form --> fw-form-control
-  fw-form-wrapper --> fw-form-control
   style fw-form-control fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
