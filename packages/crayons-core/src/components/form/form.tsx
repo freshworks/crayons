@@ -13,6 +13,8 @@ import {
   validateYupSchema,
   prepareDataForValidation,
   yupToFormErrors,
+  generateDynamicInitialValues,
+  generateDynamicValidationSchema,
 } from './form-util';
 
 @Component({
@@ -44,10 +46,19 @@ export class Form implements FormConfig {
   @State() touched: FormTouched<FormValues> = {} as any;
   @State() errors: FormErrors<FormValues> = {} as any;
 
-  componentWillLoad() {
-    this.values = this.initialValues;
+  @State() formValidationSchema;
+  @State() formInitialValues;
 
-    for (const field of Object.keys(this.values)) {
+  componentWillLoad() {
+    this.formValidationSchema =
+      generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
+      {};
+    this.formInitialValues =
+      generateDynamicInitialValues(this.formSchema, this.initialValues) || {};
+
+    this.values = this.formInitialValues;
+
+    for (const field of Object.keys(this.formInitialValues)) {
       this.errors[field] = null;
       this.touched[field] = false;
     }
@@ -67,7 +78,6 @@ export class Form implements FormConfig {
 
   // pass props to form-control children
   componentWillUpdate() {
-    console.log('Component will update and re-render');
     if (!this.controls) {
       this.controls = this.getFormControls();
     }
@@ -115,7 +125,7 @@ export class Form implements FormConfig {
     event?.preventDefault();
     event?.stopPropagation();
     this.isSubmitting = false;
-    this.values = this.initialValues;
+    this.values = this.formInitialValues;
     this.errors = {};
     this.touched = {};
     this.focused = null;

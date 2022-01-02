@@ -13,6 +13,8 @@ import {
   prepareDataForValidation,
   yupToFormErrors,
   setIn,
+  generateDynamicInitialValues,
+  generateDynamicValidationSchema,
 } from './form-util';
 
 interface FormParams {
@@ -105,7 +107,7 @@ function FwForm({
         return {
           ...state,
           isSubmitting: false,
-          values: initialValues,
+          values: formInitialValues.current,
           errors: {},
           touched: {},
           focused: null,
@@ -127,7 +129,7 @@ function FwForm({
             action.payload.value
           ),
         };
-      case 'SET_INITIAL_VALUES': {
+      case 'SET_INITIAL_STATE': {
         return {
           ...state,
           values: action.payload.values,
@@ -145,12 +147,20 @@ function FwForm({
   const { isValidating, isSubmitting, focused, values, touched, errors } =
     formState;
 
+  const formValidationSchema = useRef({});
+  const formInitialValues = useRef({});
+
   useEffect(() => {
-    console.log('initialize state');
+    console.log('initialize validation and state');
+
+    formValidationSchema.current =
+      generateDynamicValidationSchema(formSchema, validationSchema) || {};
+    formInitialValues.current =
+      generateDynamicInitialValues(formSchema, initialValues) || {};
 
     let touchedState = {};
     let errorState = {};
-    for (const field of Object.keys(initialValues)) {
+    for (const field of Object.keys(formInitialValues.current)) {
       errorState = { ...errorState, [field]: null };
       touchedState = { ...touchedState, [field]: false };
     }
@@ -161,11 +171,11 @@ function FwForm({
     }
 
     setFormState({
-      type: 'SET_INITIAL_VALUES',
+      type: 'SET_INITIAL_STATE',
       payload: {
         errors: errorState,
         touched: touchedState,
-        values: initialValues,
+        values: formInitialValues.current,
       },
     });
 
@@ -183,7 +193,7 @@ function FwForm({
 
     let isValid = false;
 
-    const validationErrors = await handleValidation();
+    const validationErrors = await handleValidation({ isSubmit: true });
 
     console.log({ errors: validationErrors });
 
@@ -269,50 +279,64 @@ function FwForm({
     setFieldValue,
   }));
 
-  const handleValidation = useCallback(async () => {
-    console.log('handle validation');
+  const handleValidation = useCallback(
+    async ({ isSubmit = false } = {}) => {
+      if (isSubmit || validateOnBlur || validateOnInput) {
+        console.log('handle validation');
 
-    setFormState({
-      type: 'SET_IS_VALIDATING',
-      payload: true,
-    });
+        setFormState({
+          type: 'SET_IS_VALIDATING',
+          payload: true,
+        });
 
-    let validationErrors = {};
-    if (validationSchema && Object.keys(validationSchema)?.length) {
-      const pr = validateYupSchema(
-        prepareDataForValidation(values),
-        validationSchema
-      );
+        let validationErrors = {};
+        if (
+          formValidationSchema.current &&
+          Object.keys(formValidationSchema.current)?.length
+        ) {
+          const pr = validateYupSchema(
+            prepareDataForValidation(values),
+            formValidationSchema.current
+          );
 
-      try {
-        await pr;
-        validationErrors = {}; // reset errors if no errors from validation
-      } catch (err) {
-        validationErrors = yupToFormErrors(err);
+          try {
+            await pr;
+            validationErrors = {}; // reset errors if no errors from validation
+          } catch (err) {
+            validationErrors = yupToFormErrors(err);
+          }
+        } else if (validate && typeof validate === 'function') {
+          try {
+            validationErrors = (await validate(values)) || {};
+          } catch (err) {
+            console.error(`Error in calling validate function ${err.message}`);
+            validationErrors = {};
+          }
+        }
+        setFormState({
+          type: 'SET_VALIDATION_RESULT',
+          payload: {
+            errors: validationErrors,
+            isValidating: false,
+          },
+        });
+
+        return validationErrors;
       }
-    } else if (validate && typeof validate === 'function') {
-      try {
-        validationErrors = (await validate(values)) || {};
-      } catch (err) {
-        console.error(`Error in calling validate function ${err.message}`);
-        validationErrors = {};
-      }
-    }
-    setFormState({
-      type: 'SET_VALIDATION_RESULT',
-      payload: {
-        errors: validationErrors,
-        isValidating: false,
-      },
-    });
+    },
+    [values]
+  );
 
-    return validationErrors;
-  }, [values]);
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (validateOnInput || validateOnBlur) {
       if (isMounted.current) handleValidation();
-      else isMounted.current = true;
     }
   }, [values, handleValidation, validateOnBlur, validateOnInput]);
 

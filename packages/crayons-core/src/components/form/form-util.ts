@@ -1,44 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import isPlainObject from 'lodash/isPlainObject';
 import clone from 'lodash/clone';
 import toPath from 'lodash/toPath';
-// export const isFormParticipantElement = (type: string) =>
-//   !!type &&
-//   [
-//     'text',
-//     'email',
-//     'number',
-//     'tel',
-//     'textarea',
-//     'select',
-//     'checkbox',
-//     'radio',
-//     'date',
-//     'time',
-//   ].includes(type.toLowerCase());
-// export const isInputElement = (type: string): boolean =>
-//   !!type &&
-//   [
-//     'text',
-//     'email',
-//     'number',
-//     'tel',
-//     'textarea',
-//     'checkbox',
-//     'radio',
-//     'date',
-//     'time',
-//   ].includes(type.toLowerCase());
-
-// export const isCheckboxType = (type: string): boolean =>
-//   !!type && type === 'checkbox';
-
-// export const isRadioType = (type: string): boolean =>
-//   !!type && type === 'radio';
-
-// export const isNumberType = (type: string): boolean =>
-//   !!type && type === 'number';
-
-// export const isDateType = (type: string): boolean => !!type && type === 'date';
+import * as Yup from 'yup';
 
 export const isSelectType = (type: string): boolean =>
   !!type && type === 'select';
@@ -196,3 +161,99 @@ export function setNestedObjectValues<T>(
 
   return response;
 }
+
+function mergeSchema(...schemas: any) {
+  const [first, ...rest] = schemas;
+
+  const merged =
+    rest?.reduce(
+      (mergedSchemas: string | any[], schema: any) =>
+        mergedSchemas.concat(schema),
+      first
+    ) || {};
+
+  return merged;
+}
+
+function createYupSchema(schema: any, config: any) {
+  const { type, required, name } = config;
+  let yupType;
+  switch (type) {
+    case 'TEXT':
+    case 'PARAGRAPH':
+    case 'DATE':
+    case 'TIME':
+    case 'RADIO':
+    case 'EMAIL':
+      yupType = 'string';
+      break;
+    case 'DROPDOWN':
+    case 'MULTI_SELECT':
+      yupType = 'array';
+      break;
+    case 'url':
+      yupType = 'string';
+      break;
+    case 'NUMBER':
+    case 'DECIMAL':
+      yupType = 'number';
+      break;
+    case 'TEL':
+      yupType = 'string';
+      break;
+    case 'CHECKBOX':
+      yupType = 'boolean';
+      break;
+    default:
+      yupType = 'string';
+  }
+  if (!Yup[yupType as keyof typeof Yup]) {
+    return schema;
+  }
+  const yupMethod = yupType as keyof typeof Yup;
+  let validator = Yup[yupMethod] as any;
+  validator = validator();
+  if (required) validator = validator['required'](...[`${name} is required`]);
+  else validator = validator['notRequired']();
+
+  if (type === 'URL') validator = validator['url'](...[`Enter a valid url`]);
+
+  if (type === 'EMAIL')
+    validator = validator['email'](...[`Enter a valid Email`]);
+
+  if (type === 'CHECKBOX' && required)
+    validator = validator['oneOf']([true], `${name} is required`);
+
+  if ((type === 'DROPDOWN' || type === 'MULTI_SELECT') && required)
+    validator = validator.min(1, `${name} is required`);
+
+  schema[name] = validator;
+  return schema;
+}
+export const generateDynamicValidationSchema = (
+  formSchema: any,
+  validationSchema: any = {}
+): any => {
+  const yupSchema = formSchema?.fields?.reduce(createYupSchema, {}) || {};
+  const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
+  const formValidationSchema = mergeSchema(
+    dynamicValidationSchema,
+    validationSchema
+  );
+  return formValidationSchema;
+};
+
+export const generateDynamicInitialValues = (
+  formSchema: any,
+  initialValues: any = {}
+): any => {
+  const dynamicInitialValues =
+    formSchema?.fields?.reduce((acc, field) => {
+      return {
+        ...acc,
+        [field.name]: field.type === 'CHECKBOX' ? false : undefined,
+      };
+    }, {}) || {};
+  const formInitialValues = { ...dynamicInitialValues, ...initialValues };
+  return formInitialValues;
+};
