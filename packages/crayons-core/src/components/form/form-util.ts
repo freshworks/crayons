@@ -58,11 +58,11 @@ export const getElementValue = (
 /**
  * Recursively prepare values.
  */
-export function prepareDataForValidation(values) {
-  const data = Array.isArray(values) ? [] : {};
+export function prepareDataForValidation(values: [] | any) {
+  const data: any = Array.isArray(values) ? [] : {};
   for (const k in values) {
     if (Object.prototype.hasOwnProperty.call(values, k)) {
-      const key = String(k);
+      const key: any = String(k);
       if (Array.isArray(values[key]) === true) {
         data[key] = values[key].map((value: any) => {
           if (Array.isArray(value) === true || isPlainObject(value)) {

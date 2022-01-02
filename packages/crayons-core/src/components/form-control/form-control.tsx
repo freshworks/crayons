@@ -194,7 +194,6 @@ export class FormControl {
           <fw-textarea
             {...this.assignProps('fw-textarea', {
               name: this.name,
-              type: this.type,
               label: this.label,
               required: this.required,
               ...this.fieldProps,
