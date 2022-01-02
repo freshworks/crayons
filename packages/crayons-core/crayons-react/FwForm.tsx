@@ -6,7 +6,7 @@ import React, {
   useImperativeHandle,
   useReducer,
 } from 'react';
-import { FwFormControl } from '../FwFormControl';
+import { FwFormControl } from './FwFormControl';
 import {
   getElementValue,
   validateYupSchema,
@@ -16,20 +16,89 @@ import {
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
 } from './form-util';
+import { FormParams, FormValues, FormState, FormAction, FormErrors  } from "./form-declaration"
 
-interface FormParams {
-  initialValues?: any;
-  formSchema?: any;
-  renderer?: any;
-  initialErrors?: any;
-  validationSchema?: any;
-  validateOnInput?: boolean;
-  validateOnBlur?: boolean;
-  formRef: any;
-  validate?: any;
-}
+function reducer<Values>(state: FormState<Values>, action: FormAction<Values>): FormState<Values> {
+  switch (action.type) {
+    case 'SET_VALUES':
+      return { ...state, values: action.payload };
+    case 'SET_ERRORS':
+      return { ...state, errors: action.payload };
+    case 'SET_TOUCHED':
+      return { ...state, touched: action.payload };
+    case 'SET_FIELD_FOCUSED':
+      return { ...state, focused: action.payload };
+    case 'SET_ISVALIDATING':
+      return { ...state, isValidating: action.payload };
+    case 'SET_ISSUBMITTING':
+      return { ...state, isSubmitting: action.payload };
+    case 'SET_FIELD_VALUE':
+      return {
+        ...state,
+        values: setIn(
+          state.values,
+          action.payload.field,
+          action.payload.value
+        ),
+      };
+    case 'SET_FIELD_TOUCHED':
+      return {
+        ...state,
+        touched: setIn(
+          state.touched,
+          action.payload.field,
+          action.payload.value
+        ),
+      };
+    case 'SET_FIELD_ERROR':
+      return {
+        ...state,
+        errors: setIn(
+          state.errors,
+          action.payload.field,
+          action.payload.value
+        ),
+      };
+    case 'RESET_FORM':
+      return {
+        ...state,
+        isSubmitting: false,
+        values: action.payload.values,
+        errors: {},
+        touched: {},
+        focused: null,
+      };
+    case 'SET_VALIDATION_RESULT':
+      return {
+        ...state,
+        isSubmitting: false,
+        errors: action.payload.errors,
+      };
+    case 'SET_HANDLE_BLUR_RESULT':
+      return {
+        ...state,
+        focused: action.payload.focused,
+        touched: setIn(state.touched, action.payload.field, true),
+        values: setIn(
+          state.values,
+          action.payload.field,
+          action.payload.value
+        ),
+      };
+    case 'SET_INITIAL_STATE': {
+      return {
+        ...state,
+        values: action.payload.values,
+        errors: action.payload.errors,
+        touched: action.payload.touched,
+      };
+    }
+    default:
+      return state;
+  }
+};
 
-function FwForm({
+function FwForm<Values extends FormValues = FormValues>({
   initialValues = {},
   formSchema = {},
   renderer = (_props: any) => {},
@@ -41,19 +110,12 @@ function FwForm({
   validate = (_val: any): Promise<any> => {
     return Promise.resolve();
   },
-}: FormParams) {
+}: FormParams){
   let dirty = false;
 
   const isMounted = useRef(false);
 
-  const INITIAL_STATE: {
-    isValidating: boolean;
-    isSubmitting: boolean;
-    focused: any;
-    values: any;
-    touched: any;
-    errors: any;
-  } = {
+  const INITIAL_STATE: FormState<Values> = {
     isValidating: false,
     isSubmitting: false,
     focused: null,
@@ -62,87 +124,9 @@ function FwForm({
     errors: {},
   };
 
-  const reducer = (state: any, action: any) => {
-    switch (action.type) {
-      case 'SET_VALUES':
-        return { ...state, values: action.payload };
-      case 'SET_ERRORS':
-        return { ...state, errors: action.payload };
-      case 'SET_TOUCHED':
-        return { ...state, touched: action.payload };
-      case 'SET_FOCUSED':
-        return { ...state, focused: action.payload };
-      case 'SET_IS_VALIDATING':
-        return { ...state, isValidating: action.payload };
-      case 'SET_IS_SUBMITTING':
-        return { ...state, isSubmitting: action.payload };
-      case 'SET_FIELD_VALUE':
-        return {
-          ...state,
-          values: setIn(
-            state.values,
-            action.payload.field,
-            action.payload.value
-          ),
-        };
-      case 'SET_FIELD_TOUCHED':
-        return {
-          ...state,
-          touched: setIn(
-            state.touched,
-            action.payload.field,
-            action.payload.value
-          ),
-        };
-      case 'SET_FIELD_ERROR':
-        return {
-          ...state,
-          errors: setIn(
-            state.errors,
-            action.payload.field,
-            action.payload.value
-          ),
-        };
-      case 'RESET_FORM':
-        return {
-          ...state,
-          isSubmitting: false,
-          values: formInitialValues.current,
-          errors: {},
-          touched: {},
-          focused: null,
-        };
-      case 'SET_VALIDATION_RESULT':
-        return {
-          ...state,
-          isSubmitting: false,
-          errors: action.payload.errors,
-        };
-      case 'SET_BLUR_RESULT':
-        return {
-          ...state,
-          focused: action.payload.focused,
-          touched: setIn(state.touched, action.payload.field, true),
-          values: setIn(
-            state.values,
-            action.payload.field,
-            action.payload.value
-          ),
-        };
-      case 'SET_INITIAL_STATE': {
-        return {
-          ...state,
-          values: action.payload.values,
-          errors: action.payload.errors,
-          touched: action.payload.touched,
-        };
-      }
-      default:
-        return state;
-    }
-  };
-
-  const [formState, setFormState] = useReducer(reducer, INITIAL_STATE);
+  const [formState, setFormState] = useReducer<
+  React.Reducer<FormState<Values>, FormAction<Values>>
+>(reducer, INITIAL_STATE);
 
   const { isValidating, isSubmitting, focused, values, touched, errors } =
     formState;
@@ -187,7 +171,7 @@ function FwForm({
     event?.stopPropagation();
 
     setFormState({
-      type: 'SET_IS_SUBMITTING',
+      type: 'SET_ISSUBMITTING',
       payload: true,
     });
 
@@ -216,7 +200,7 @@ function FwForm({
     console.log('is Valid Form', isValid);
 
     setFormState({
-      type: 'SET_IS_SUBMITTING',
+      type: 'SET_ISSUBMITTING',
       payload: false,
     });
 
@@ -229,6 +213,9 @@ function FwForm({
 
     setFormState({
       type: 'RESET_FORM',
+      payload: {
+        values: formInitialValues.current,
+      },
     });
   };
 
@@ -251,7 +238,7 @@ function FwForm({
     });
   };
 
-  const setFieldErrors = (errorObj: any) => {
+  const setFieldErrors = (errorObj: FormErrors<Values>) => {
     setFormState({
       type: 'SET_ERRORS',
       payload: errorObj,
@@ -268,9 +255,8 @@ function FwForm({
     );
   };
 
-  const ref = React.useRef();
   if (!formRef) {
-    formRef = ref;
+    formRef = React.useRef();
   }
   useImperativeHandle(formRef, () => ({
     doSubmit: handleSubmit,
@@ -285,7 +271,7 @@ function FwForm({
         console.log('handle validation');
 
         setFormState({
-          type: 'SET_IS_VALIDATING',
+          type: 'SET_ISVALIDATING',
           payload: true,
         });
 
@@ -375,7 +361,7 @@ function FwForm({
           const value = getElementValue(inputType, event, ref);
 
           setFormState({
-            type: 'SET_BLUR_RESULT',
+            type: 'SET_HANDLE_BLUR_RESULT',
             payload: {
               field: field,
               value: value,
@@ -399,7 +385,7 @@ function FwForm({
       if (!memoizedHandleFocus[field]) {
         memoizedHandleFocus[field] = (_event: any, _ref: any) => {
           setFormState({
-            type: 'SET_FOCUSED',
+            type: 'SET_FIELD_FOCUSED',
             payload: field,
           });
         };
@@ -434,7 +420,7 @@ function FwForm({
   };
 
   const composedUtils = () => {
-    const inputProps = (field: string, inputType: string) => ({
+    const inputProps = (field: string, inputType: string): any => ({
       name: field,
       type: inputType,
       handleInput: handleInput(field, inputType),
@@ -442,23 +428,23 @@ function FwForm({
       handleBlur: handleBlur(field, inputType),
       handleFocus: handleFocus(field, inputType),
       id: `input-${field}`,
-      value: values[field],
+      value: (values as Values)[field],
     });
 
-    const radioProps = (field: string, inputType: string) => ({
+    const radioProps = (field: string, inputType: string): any => ({
       ...inputProps(field, inputType),
       type: inputType,
-      id: `input-${field}--radio-${values[field]}`,
-      value: values[field],
+      id: `input-${field}--radio-${(values as Values)[field]}`,
+      value: (values as Values)[field],
     });
 
-    const checkboxProps = (field: string, inputType: string) => ({
+    const checkboxProps = (field: string, inputType: string): any => ({
       ...inputProps(field, inputType),
       type: inputType,
-      checked: !!values[field],
+      checked: !!(values as Values)[field],
     });
 
-    const selectProps = (field: string, inputType: string) => ({
+    const selectProps = (field: string, inputType: string): any => ({
       type: 'text',
       name: field,
       id: `input-${field}`,
@@ -466,17 +452,17 @@ function FwForm({
       handleBlur: handleBlur(field, inputType),
       value:
         inputType === 'multi_select' // for multiselect pass Array
-          ? values[field]?.map((v: any) => v.value || v) || []
-          : Array.isArray(values[field]) // single select but the value is an array, pass 0th index
-          ? values[field]?.map((v: any) => v.value || v)[0] || ''
-          : values[field] || '',
+          ? (values as Values)[field]?.map((v: any) => v.value || v) || []
+          : Array.isArray((values as Values)[field]) // single select but the value is an array, pass 0th index
+          ? (values as Values)[field]?.map((v: any) => v.value || v)[0] || ''
+          : (values as Values)[field] || '',
     });
 
-    const labelProps = (field: string, value: any) => ({
+    const labelProps = (field: string, value: any): any => ({
       htmlFor: !value ? `input-${field}` : `input-${field}--radio-${value}`,
     });
 
-    const formProps = {
+    const formProps: any = {
       onSubmit: handleSubmit,
       onReset: handleReset,
     };

@@ -83,7 +83,20 @@ export class FormControl {
   @Element() el;
 
   @Prop()
-  type: any;
+  type:
+    | 'TEXT'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'PARAGRAPH'
+    | 'EMAIL'
+    | 'URL'
+    | 'TEL'
+    | 'TIME' = 'TEXT';
   @Prop()
   name: any;
   @Prop()
@@ -170,17 +183,19 @@ export class FormControl {
     if (!this.name) return null;
 
     let cmp;
-    if (this.type === 'DECIMAL') this.type = 'NUMBER';
     switch (this.type) {
       case 'TEXT':
       case 'NUMBER':
       case 'DECIMAL':
-      case 'EMAIL': {
+      case 'EMAIL':
+      case 'TEL':
+      case 'URL': {
         cmp = (
           <fw-input
             {...this.assignProps('fw-input', {
               name: this.name,
-              type: this.type,
+              type:
+                this.type === 'DECIMAL' ? 'number' : this.type.toLowerCase(),
               label: this.label,
               required: this.required,
               ...this.fieldProps,
@@ -207,7 +222,6 @@ export class FormControl {
           <fw-datepicker
             {...this.assignProps('fw-datepicker', {
               name: this.name,
-              type: this.type,
               label: this.label,
               required: this.required,
               ...this.fieldProps,
@@ -221,7 +235,6 @@ export class FormControl {
           <fw-checkbox
             {...this.assignProps('fw-checkbox', {
               name: this.name,
-              type: this.type,
               label: this.label,
               required: this.required,
               ...this.fieldProps,
@@ -237,7 +250,6 @@ export class FormControl {
           <fw-radio-group
             {...this.assignProps('fw-radio-group', {
               name: this.name,
-              type: this.type,
               label: this.label,
               required: this.required,
               ...this.fieldProps,
@@ -256,7 +268,6 @@ export class FormControl {
           <fw-select
             {...this.assignProps('fw-select', {
               name: this.name,
-              type: this.type,
               label: this.label,
               required: this.required,
               ...this.fieldProps,
@@ -274,7 +285,6 @@ export class FormControl {
           <fw-timepicker
             {...this.assignProps('fw-timepicker', {
               name: this.name,
-              type: this.type,
               label: this.label,
               required: this.required,
               ...this.fieldProps,

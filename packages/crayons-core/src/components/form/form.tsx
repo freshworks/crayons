@@ -3,7 +3,6 @@
 import { Component, Prop, State, Element, h, Method } from '@stencil/core';
 import {
   FormValues,
-  FormConfig,
   FormTouched,
   FormErrors,
   FormUtils,
@@ -21,7 +20,7 @@ import {
   tag: 'fw-form',
   shadow: true,
 })
-export class Form implements FormConfig {
+export class Form {
   @Element() el!: any;
 
   private controls: any;

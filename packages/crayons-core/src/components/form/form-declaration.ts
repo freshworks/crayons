@@ -29,13 +29,11 @@ export type FormTouched<Values> = {
 };
 
 export interface FormState<Values> {
-  focused: keyof Values;
+  focused: string | null;
   /** Form values */
-  values: Values;
+  values: Values | unknown;
   /** map of field names to specific error for that field */
   errors: FormErrors<Values>;
-  /** map of field names to specific error for that field */
-  validity: FormValidity<Values>;
   /** map of field names to whether the field has been touched */
   touched: FormTouched<Values>;
   /** whether the form is currently validating */
@@ -65,18 +63,6 @@ export interface FormHandlers<Values> {
     field: keyof Values,
     type: string
   ): (e?: Event, ref?: any) => void;
-}
-
-/**
- * Base configuration/props
- */
-export interface FormConfig {
-  /** Tells Form to validate the form on each input's onInput event */
-  validateOnInput?: boolean;
-  /** Tells Form to validate the form on each input's onBlur event */
-  validateOnBlur?: boolean;
-  /** Tell Form if initial form values are valid or not on first render */
-  isInitialValid?: boolean;
 }
 
 export interface FormUtils<Values, Key extends keyof Values> {
@@ -116,3 +102,59 @@ export type FormValidatorState<
 > = { [K in Key]: FieldState<Values, K> };
 
 export type FormValidatorResult = void | Promise<any>;
+
+export type FormParams = {
+  initialValues?: FormValues;
+  formSchema?: any;
+  renderer?: any;
+  initialErrors?: FormValues;
+  validationSchema?: any;
+  validateOnInput?: boolean;
+  validateOnBlur?: boolean;
+  formRef: any;
+  validate?: any;
+  ref?: any;
+};
+
+export type FormAction<Values> =
+  | { type: 'SUBMIT_ATTEMPT' }
+  | { type: 'SUBMIT_FAILURE' }
+  | { type: 'SUBMIT_SUCCESS' }
+  | { type: 'SET_ISVALIDATING'; payload: boolean }
+  | { type: 'SET_ISSUBMITTING'; payload: boolean }
+  | { type: 'SET_VALUES'; payload: Values }
+  | { type: 'SET_FIELD_VALUE'; payload: { field: string; value?: any } }
+  | { type: 'SET_FIELD_TOUCHED'; payload: { field: string; value?: boolean } }
+  | { type: 'SET_FIELD_ERROR'; payload: { field: string; value?: string } }
+  | { type: 'SET_TOUCHED'; payload: FormTouched<Values> }
+  | { type: 'SET_FIELD_FOCUSED'; payload: string }
+  | { type: 'SET_ERRORS'; payload: FormErrors<Values> }
+  | { type: 'SET_STATUS'; payload: any }
+  | {
+      type: 'RESET_FORM';
+      payload: { values: FormValues };
+    }
+  | {
+      type: 'SET_VALIDATION_RESULT';
+      payload: {
+        errors: FormErrors<Values>;
+        isValidating: boolean;
+      };
+    }
+  | {
+      type: 'SET_HANDLE_BLUR_RESULT';
+      payload: {
+        field: string;
+        value: any;
+        touched: boolean;
+        focused: string | null;
+      };
+    }
+  | {
+      type: 'SET_INITIAL_STATE';
+      payload: {
+        errors: FormErrors<Values>;
+        values: FormValues;
+        touched: FormTouched<Values>;
+      };
+    };

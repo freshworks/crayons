@@ -267,7 +267,19 @@ export namespace Components {
         "name": any;
         "required": boolean;
         "touched": boolean;
-        "type": any;
+        "type": | 'TEXT'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'PARAGRAPH'
+    | 'EMAIL'
+    | 'URL'
+    | 'TEL'
+    | 'TIME';
     }
     interface FwFormWrapper {
         "doReset": (e: any) => Promise<void>;
@@ -1986,7 +1998,19 @@ declare namespace LocalJSX {
         "name"?: any;
         "required"?: boolean;
         "touched"?: boolean;
-        "type"?: any;
+        "type"?: | 'TEXT'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'PARAGRAPH'
+    | 'EMAIL'
+    | 'URL'
+    | 'TEL'
+    | 'TIME';
     }
     interface FwFormWrapper {
         "formSchema"?: any;

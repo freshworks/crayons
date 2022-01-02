@@ -8,7 +8,8 @@ react/
 src/custom-elements.json
 crayons-react/react-component-lib
 crayons-react/*.ts
-crayons-react/custom/form-util.ts
+crayons-react/form-util.ts
+crayons-react/form-declaration.ts
 !crayons-react/index.ts
 .vuepress/public/build/
 css/

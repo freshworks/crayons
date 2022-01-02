@@ -9,6 +9,7 @@ packages/**/crayons-react/**
 !packages/**/crayons-react/custom/
 !packages/**/crayons-react/custom/FwForm.tsx
 !packages/**/crayons-react/custom/form-util.ts
+!packages/**/crayons-react/custom/form-declaration.ts
 docs/
 packages/**/src/**/*.stories.tsx
 www-dist/
