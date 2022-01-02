@@ -6,10 +6,9 @@ packages/**/loader/
 packages/**/node_modules/
 packages/**/www/
 packages/**/crayons-react/**
-!packages/**/crayons-react/custom/
-!packages/**/crayons-react/custom/FwForm.tsx
-!packages/**/crayons-react/custom/form-util.ts
-!packages/**/crayons-react/custom/form-declaration.ts
+!packages/**/crayons-react/FwForm.tsx
+!packages/**/crayons-react/form-util.ts
+!packages/**/crayons-react/form-declaration.ts
 docs/
 packages/**/src/**/*.stories.tsx
 www-dist/

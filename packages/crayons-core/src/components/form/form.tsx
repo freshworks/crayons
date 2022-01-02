@@ -6,6 +6,8 @@ import {
   FormTouched,
   FormErrors,
   FormUtils,
+  FormProps,
+  FormSubmit,
 } from './form-declaration';
 import {
   getElementValue,
@@ -27,7 +29,7 @@ export class Form {
 
   @Prop() initialValues?: any = {};
   @Prop() initialErrors?: any = {};
-  @Prop() validate?: any = () => {};
+  @Prop() validate?: any;
   @Prop() formSchema?: any = {};
   @Prop() validationSchema?: any = {};
 
@@ -87,7 +89,7 @@ export class Form {
     this.isSubmitting = value;
   };
 
-  handleSubmit = async (event: Event) => {
+  handleSubmit = async (event: Event): Promise<FormSubmit> => {
     event?.preventDefault();
     event?.stopPropagation();
 
@@ -120,7 +122,7 @@ export class Form {
     return { values: this.values, isValid };
   };
 
-  handleReset = (event?: Event) => {
+  handleReset = async (event?: Event): Promise<void> => {
     event?.preventDefault();
     event?.stopPropagation();
     this.isSubmitting = false;
@@ -136,6 +138,8 @@ export class Form {
     this.isValidating = true;
 
     let validationErrors = {};
+
+    // run validations against validationSchema if present
     if (this.validationSchema && Object.keys(this.validationSchema).length) {
       const pr = validateYupSchema(
         prepareDataForValidation(this.values),
@@ -147,13 +151,18 @@ export class Form {
       } catch (err) {
         validationErrors = yupToFormErrors(err);
       }
-    } else if (this.validate && typeof this.validate === 'function') {
+    }
+
+    // run validations with validate function if passed as prop and merge with the errors from the above step
+    if (this.validate && typeof this.validate === 'function') {
       try {
-        const errors = (await this.validate(this.values)) || {};
-        validationErrors = errors || {};
+        validationErrors = {
+          ...validationErrors,
+          ...((await this.validate(this.values)) || {}),
+        };
       } catch (err) {
         console.error(`Error in calling validate function ${err.message}`);
-        validationErrors = {};
+        validationErrors = { ...validationErrors };
       }
     }
 
@@ -219,8 +228,8 @@ export class Form {
     else (f as any).touched = false;
   }
 
-  private composedUtils = (): FormUtils<FormValues, keyof FormValues> => {
-    const inputProps = (field, inputType) => ({
+  private composedUtils = (): FormUtils => {
+    const inputProps = (field: string, inputType: string) => ({
       name: field,
       type: inputType,
       handleInput: this.handleInput(field, inputType),
@@ -231,20 +240,20 @@ export class Form {
       value: this.values[field],
     });
 
-    const radioProps = (field, inputType) => ({
+    const radioProps = (field: string, inputType: string) => ({
       ...inputProps(field, inputType),
       type: inputType,
       id: `input-${field}--radio-${this.values[field]}`,
       value: this.values[field],
     });
 
-    const checkboxProps = (field, inputType) => ({
+    const checkboxProps = (field: string, inputType: string) => ({
       ...inputProps(field, inputType),
       type: inputType,
       checked: !!this.values[field],
     });
 
-    const selectProps = (field, inputType) => ({
+    const selectProps = (field: string, inputType: string) => ({
       type: 'text',
       name: field,
       id: `input-${field}`,
@@ -258,11 +267,11 @@ export class Form {
           : this.values[field] || '',
     });
 
-    const labelProps = (field, value) => ({
+    const labelProps = (field: string, value: any) => ({
       htmlFor: !value ? `input-${field}` : `input-${field}--radio-${value}`,
     });
 
-    const formProps = {
+    const formProps: FormProps = {
       action: 'javascript:void(0);',
       onSubmit: this.handleSubmit,
       onReset: this.handleReset,
@@ -279,7 +288,7 @@ export class Form {
   };
 
   @Method()
-  async setFieldValue(fieldObj) {
+  async setFieldValue(fieldObj): Promise<void> {
     Object.entries(fieldObj)?.forEach(([field, value]) => {
       this.values = { ...this.values, [field]: value };
       this.touched = { ...this.touched, [field]: true };
@@ -289,7 +298,7 @@ export class Form {
   }
 
   @Method()
-  async setFieldErrors(errorObj) {
+  async setFieldErrors(errorObj: FormErrors<FormValues>): Promise<void> {
     Object.entries(errorObj)?.forEach(([field, value]) => {
       this.errors = { ...this.errors, [field]: value as string };
       this.touched = { ...this.touched, [field]: true };
@@ -323,7 +332,7 @@ export class Form {
   }
 
   render() {
-    const utils: FormUtils<FormValues, keyof FormValues> = this.composedUtils();
+    const utils: FormUtils = this.composedUtils();
 
     return (
       <form id='fw_form_wrapper' {...utils.formProps}>

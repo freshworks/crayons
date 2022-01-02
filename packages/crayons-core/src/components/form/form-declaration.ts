@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 /**
  * Values of fields in the form
  */
@@ -7,15 +9,7 @@ export interface FormValues {
 
 /**
  * An object containing error messages whose keys correspond to FormValues.
- * Should be always be and object of strings, but any is allowed to support i18n libraries.
- */
-export type FormValidity<Values> = {
-  [K in keyof Values]?: ValidityState;
-};
-
-/**
- * An object containing error messages whose keys correspond to FormValues.
- * Should be always be and object of strings, but any is allowed to support i18n libraries.
+ * Should be always be an object of strings or empty object
  */
 export type FormErrors<Values> = {
   [K in keyof Values]?: string;
@@ -42,21 +36,9 @@ export interface FormState<Values> {
   isSubmitting: boolean;
 }
 
-/**
- * Form computed properties. These are read-only.
- */
-export interface FormComputedProps<Values> {
-  /** True if any input has been touched. False otherwise. */
-  readonly dirty: boolean;
-  /** Result of isInitiallyValid on mount, then whether true values pass validation. */
-  readonly isValid: boolean;
-  /** initialValues */
-  readonly initialValues: Values;
-}
-
 export interface FormHandlers<Values> {
-  handleSubmit: (e?: Event) => void;
-  handleReset: () => void;
+  handleSubmit: (e?: Event) => Promise<FormSubmit>;
+  handleReset: (e?: Event) => Promise<any>;
   handleInput(field: keyof Values, type: string): (e: Event, ref: any) => void;
   handleBlur(field: keyof Values, type: string): (e: Event, ref: any) => void;
   handleFocus(
@@ -65,14 +47,19 @@ export interface FormHandlers<Values> {
   ): (e?: Event, ref?: any) => void;
 }
 
-export interface FormUtils<Values, Key extends keyof Values> {
-  // groupProps: (key: Key) => any;
-  inputProps: (key: Key, inputType: string) => any;
-  labelProps: (key: Key, value?: Values[Key]) => any;
-  selectProps: (key: Key, inputType: string) => any;
-  checkboxProps: (key: Key, inputType: string) => any;
-  radioProps: (key: Key, value: Values[Key]) => any;
-  formProps: any;
+export interface FormProps {
+  action: any;
+  onSubmit: (event?: any) => Promise<FormSubmit>;
+  onReset: (event?: any) => Promise<void>;
+}
+
+export interface FormUtils {
+  inputProps: (field: string, inputType: string) => any;
+  labelProps: (field: string, value?: any) => any;
+  selectProps: (field: string, inputType: string) => any;
+  checkboxProps: (field: string, inputType: string) => any;
+  radioProps: (field: string, value: any) => any;
+  formProps: FormProps;
 }
 
 export type FwFormEventDetail = {
@@ -82,8 +69,9 @@ export type FwFormEventDetail = {
 
 export type FormRenderProps<Values> = FormState<Values> &
   FormHandlers<Values> &
-  FormComputedProps<Values> &
-  FormUtils<Values, keyof Values>;
+  FormUtils & {
+    controlProps: FormUtils;
+  };
 
 export interface FormValidator<Values> {
   (state: FormValidatorState<Values>): FormValidatorResult;
@@ -103,17 +91,24 @@ export type FormValidatorState<
 
 export type FormValidatorResult = void | Promise<any>;
 
+type ImperativeMethods<Values> = {
+  doSubmit: (event?: Event) => Promise<FormSubmit>;
+  doReset: (event?: Event) => Promise<void>;
+  setFieldErrors: (errorObj: FormErrors<Values>) => Promise<void>;
+  setFieldValue: (fieldObj: Values) => Promise<void>;
+};
+
 export type FormParams = {
   initialValues?: FormValues;
   formSchema?: any;
-  renderer?: any;
+  renderer?: (props: FormRenderProps<FormValues>) => React.ReactNode;
   initialErrors?: FormValues;
   validationSchema?: any;
   validateOnInput?: boolean;
   validateOnBlur?: boolean;
-  formRef: any;
-  validate?: any;
-  ref?: any;
+  formRef: React.Ref<ImperativeMethods<FormValues>>;
+  validate?: (values: FormValues) => Promise<FormErrors<FormValues>>;
+  ref?: React.Ref<any>;
 };
 
 export type FormAction<Values> =
@@ -129,7 +124,6 @@ export type FormAction<Values> =
   | { type: 'SET_TOUCHED'; payload: FormTouched<Values> }
   | { type: 'SET_FIELD_FOCUSED'; payload: string }
   | { type: 'SET_ERRORS'; payload: FormErrors<Values> }
-  | { type: 'SET_STATUS'; payload: any }
   | {
       type: 'RESET_FORM';
       payload: { values: FormValues };
@@ -158,3 +152,8 @@ export type FormAction<Values> =
         touched: FormTouched<Values>;
       };
     };
+
+export type FormSubmit = {
+  values: FormValues;
+  isValid: boolean;
+};

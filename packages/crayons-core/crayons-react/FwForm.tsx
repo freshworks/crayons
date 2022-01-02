@@ -16,9 +16,22 @@ import {
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
 } from './form-util';
-import { FormParams, FormValues, FormState, FormAction, FormErrors  } from "./form-declaration"
+import {
+  FormParams,
+  FormValues,
+  FormState,
+  FormAction,
+  FormErrors,
+  FormRenderProps,
+  FormUtils,
+  FormProps,
+  FormSubmit,
+} from './form-declaration';
 
-function reducer<Values>(state: FormState<Values>, action: FormAction<Values>): FormState<Values> {
+function reducer<Values>(
+  state: FormState<Values>,
+  action: FormAction<Values>
+): FormState<Values> {
   switch (action.type) {
     case 'SET_VALUES':
       return { ...state, values: action.payload };
@@ -35,11 +48,7 @@ function reducer<Values>(state: FormState<Values>, action: FormAction<Values>): 
     case 'SET_FIELD_VALUE':
       return {
         ...state,
-        values: setIn(
-          state.values,
-          action.payload.field,
-          action.payload.value
-        ),
+        values: setIn(state.values, action.payload.field, action.payload.value),
       };
     case 'SET_FIELD_TOUCHED':
       return {
@@ -53,11 +62,7 @@ function reducer<Values>(state: FormState<Values>, action: FormAction<Values>): 
     case 'SET_FIELD_ERROR':
       return {
         ...state,
-        errors: setIn(
-          state.errors,
-          action.payload.field,
-          action.payload.value
-        ),
+        errors: setIn(state.errors, action.payload.field, action.payload.value),
       };
     case 'RESET_FORM':
       return {
@@ -79,11 +84,7 @@ function reducer<Values>(state: FormState<Values>, action: FormAction<Values>): 
         ...state,
         focused: action.payload.focused,
         touched: setIn(state.touched, action.payload.field, true),
-        values: setIn(
-          state.values,
-          action.payload.field,
-          action.payload.value
-        ),
+        values: setIn(state.values, action.payload.field, action.payload.value),
       };
     case 'SET_INITIAL_STATE': {
       return {
@@ -96,23 +97,19 @@ function reducer<Values>(state: FormState<Values>, action: FormAction<Values>): 
     default:
       return state;
   }
-};
+}
 
 function FwForm<Values extends FormValues = FormValues>({
   initialValues = {},
   formSchema = {},
-  renderer = (_props: any) => {},
+  renderer,
   initialErrors = {},
   validationSchema = {},
   validateOnInput = true,
   validateOnBlur = true,
   formRef,
-  validate = (_val: any): Promise<any> => {
-    return Promise.resolve();
-  },
-}: FormParams){
-  let dirty = false;
-
+  validate,
+}: FormParams) {
   const isMounted = useRef(false);
 
   const INITIAL_STATE: FormState<Values> = {
@@ -125,8 +122,8 @@ function FwForm<Values extends FormValues = FormValues>({
   };
 
   const [formState, setFormState] = useReducer<
-  React.Reducer<FormState<Values>, FormAction<Values>>
->(reducer, INITIAL_STATE);
+    React.Reducer<FormState<Values>, FormAction<Values>>
+  >(reducer, INITIAL_STATE);
 
   const { isValidating, isSubmitting, focused, values, touched, errors } =
     formState;
@@ -166,7 +163,7 @@ function FwForm<Values extends FormValues = FormValues>({
     console.log('Initialized values, touched and error state');
   }, []);
 
-  const handleSubmit = async (event?: any) => {
+  const handleSubmit = async (event?: Event): Promise<FormSubmit> => {
     event?.preventDefault();
     event?.stopPropagation();
 
@@ -177,7 +174,9 @@ function FwForm<Values extends FormValues = FormValues>({
 
     let isValid = false;
 
-    const validationErrors = await handleValidation({ isSubmit: true });
+    const validationErrors = await handleValidation({
+      isSubmit: true,
+    });
 
     console.log({ errors: validationErrors });
 
@@ -207,7 +206,7 @@ function FwForm<Values extends FormValues = FormValues>({
     return { values, isValid };
   };
 
-  const handleReset = (event?: any) => {
+  const handleReset = async (event?: any): Promise<void> => {
     event?.preventDefault();
     event?.stopPropagation();
 
@@ -219,7 +218,7 @@ function FwForm<Values extends FormValues = FormValues>({
     });
   };
 
-  const setFieldValue = (fieldObj: any) => {
+  const setFieldValue = async (fieldObj: FormValues): Promise<void> => {
     Object.entries(fieldObj)?.forEach(([field, value]) => {
       setFormState({
         type: 'SET_FIELD_VALUE',
@@ -238,7 +237,9 @@ function FwForm<Values extends FormValues = FormValues>({
     });
   };
 
-  const setFieldErrors = (errorObj: FormErrors<Values>) => {
+  const setFieldErrors = async (
+    errorObj: FormErrors<Values>
+  ): Promise<void> => {
     setFormState({
       type: 'SET_ERRORS',
       payload: errorObj,
@@ -276,6 +277,8 @@ function FwForm<Values extends FormValues = FormValues>({
         });
 
         let validationErrors = {};
+
+        // run validations against validationSchema if present
         if (
           formValidationSchema.current &&
           Object.keys(formValidationSchema.current)?.length
@@ -291,12 +294,18 @@ function FwForm<Values extends FormValues = FormValues>({
           } catch (err) {
             validationErrors = yupToFormErrors(err);
           }
-        } else if (validate && typeof validate === 'function') {
+        }
+
+        // run validations with validate function if passed as prop and merge with the errors from the above step
+        if (validate && typeof validate === 'function') {
           try {
-            validationErrors = (await validate(values)) || {};
+            validationErrors = {
+              ...validationErrors,
+              ...((await validate(values)) || {}),
+            };
           } catch (err) {
             console.error(`Error in calling validate function ${err.message}`);
-            validationErrors = {};
+            validationErrors = { ...validationErrors };
           }
         }
         setFormState({
@@ -407,19 +416,16 @@ function FwForm<Values extends FormValues = FormValues>({
   };
 
   const composedHandlers = () => {
-    return { handleSubmit, handleReset, handleInput, handleFocus, handleBlur };
+    return {
+      handleSubmit,
+      handleReset,
+      handleInput,
+      handleFocus,
+      handleBlur,
+    };
   };
 
-  const computeProps = () => {
-    dirty = !Object.values(touched).every((x: any) => !x);
-  };
-
-  const composedComputedProps = () => {
-    computeProps();
-    return { dirty, initialValues };
-  };
-
-  const composedUtils = () => {
+  const composedUtils = (): FormUtils => {
     const inputProps = (field: string, inputType: string): any => ({
       name: field,
       type: inputType,
@@ -462,7 +468,8 @@ function FwForm<Values extends FormValues = FormValues>({
       htmlFor: !value ? `input-${field}` : `input-${field}--radio-${value}`,
     });
 
-    const formProps: any = {
+    const formProps: FormProps = {
+      action: '',
       onSubmit: handleSubmit,
       onReset: handleReset,
     };
@@ -479,13 +486,11 @@ function FwForm<Values extends FormValues = FormValues>({
 
   const state = composedState();
   const handlers = composedHandlers();
-  const computedProps = composedComputedProps();
   const utils = composedUtils();
 
-  const renderProps = {
+  const renderProps: FormRenderProps<Values> = {
     ...state,
     ...handlers,
-    ...computedProps,
     ...utils,
     controlProps: utils,
   };

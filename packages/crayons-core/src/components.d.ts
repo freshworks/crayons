@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { FormErrors, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -239,7 +240,7 @@ export namespace Components {
         "formSchema"?: any;
         "initialErrors"?: any;
         "initialValues"?: any;
-        "setFieldErrors": (errorObj: any) => Promise<void>;
+        "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         "setFieldValue": (fieldObj: any) => Promise<void>;
         "validate"?: any;
         /**

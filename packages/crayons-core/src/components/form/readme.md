@@ -7,15 +7,15 @@
 
 ## Properties
 
-| Property           | Attribute           | Description                                                   | Type      | Default    |
-| ------------------ | ------------------- | ------------------------------------------------------------- | --------- | ---------- |
-| `formSchema`       | `form-schema`       |                                                               | `any`     | `{}`       |
-| `initialErrors`    | `initial-errors`    |                                                               | `any`     | `{}`       |
-| `initialValues`    | `initial-values`    |                                                               | `any`     | `{}`       |
-| `validate`         | `validate`          |                                                               | `any`     | `() => {}` |
-| `validateOnBlur`   | `validate-on-blur`  | Tells Form to validate the form on each input's onBlur event  | `boolean` | `true`     |
-| `validateOnInput`  | `validate-on-input` | Tells Form to validate the form on each input's onInput event | `boolean` | `true`     |
-| `validationSchema` | `validation-schema` |                                                               | `any`     | `{}`       |
+| Property           | Attribute           | Description                                                   | Type      | Default     |
+| ------------------ | ------------------- | ------------------------------------------------------------- | --------- | ----------- |
+| `formSchema`       | `form-schema`       |                                                               | `any`     | `{}`        |
+| `initialErrors`    | `initial-errors`    |                                                               | `any`     | `{}`        |
+| `initialValues`    | `initial-values`    |                                                               | `any`     | `{}`        |
+| `validate`         | `validate`          |                                                               | `any`     | `undefined` |
+| `validateOnBlur`   | `validate-on-blur`  | Tells Form to validate the form on each input's onBlur event  | `boolean` | `true`      |
+| `validateOnInput`  | `validate-on-input` | Tells Form to validate the form on each input's onInput event | `boolean` | `true`      |
+| `validationSchema` | `validation-schema` |                                                               | `any`     | `{}`        |
 
 
 ## Methods
@@ -40,7 +40,7 @@ Type: `Promise<void>`
 
 
 
-### `setFieldErrors(errorObj: any) => Promise<void>`
+### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
 
 
