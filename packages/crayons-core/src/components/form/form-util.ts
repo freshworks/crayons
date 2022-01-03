@@ -3,6 +3,7 @@ import isPlainObject from 'lodash/isPlainObject';
 import clone from 'lodash/clone';
 import toPath from 'lodash/toPath';
 import * as Yup from 'yup';
+import { FormValues } from './form-declaration';
 
 export const isSelectType = (type: string): boolean =>
   !!type && type === 'select';
@@ -45,16 +46,10 @@ export function prepareDataForValidation(values: [] | any) {
   return data;
 }
 
-export function validateYupSchema(
-  values: any,
-  schema: any,
-  sync = false,
-  context: any = {}
-): Promise<any> {
+export function validateYupSchema(values: any, schema: any): Promise<any> {
   const validateData = prepareDataForValidation(values);
-  return schema[sync ? 'validateSync' : 'validate'](validateData, {
+  return schema['validate'](validateData, {
     abortEarly: false,
-    context: context,
   });
 }
 
@@ -184,21 +179,17 @@ function createYupSchema(schema: any, config: any) {
     case 'TIME':
     case 'RADIO':
     case 'EMAIL':
+    case 'TEL':
+    case 'URL':
       yupType = 'string';
       break;
     case 'DROPDOWN':
     case 'MULTI_SELECT':
       yupType = 'array';
       break;
-    case 'url':
-      yupType = 'string';
-      break;
     case 'NUMBER':
     case 'DECIMAL':
       yupType = 'number';
-      break;
-    case 'TEL':
-      yupType = 'string';
       break;
     case 'CHECKBOX':
       yupType = 'boolean';
@@ -244,8 +235,8 @@ export const generateDynamicValidationSchema = (
 
 export const generateDynamicInitialValues = (
   formSchema: any,
-  initialValues: any = {}
-): any => {
+  initialValues: FormValues = {}
+): FormValues => {
   const dynamicInitialValues =
     formSchema?.fields?.reduce((acc: any, field: any) => {
       return {
