@@ -260,20 +260,22 @@ function FwForm<Values extends FormValues = FormValues>({
   const setFieldErrors = async (
     errorObj: FormErrors<Values>
   ): Promise<void> => {
-    setFormState({
-      type: 'SET_ERRORS',
-      payload: errorObj,
-    });
-
-    Object.keys(errorObj)?.forEach((k: any) =>
+    Object.entries(errorObj)?.forEach(([k, val]) => {
+      setFormState({
+        type: 'SET_FIELD_ERROR',
+        payload: {
+          field: k,
+          value: val,
+        },
+      });
       setFormState({
         type: 'SET_FIELD_TOUCHED',
         payload: {
           field: k,
           value: true,
         },
-      })
-    );
+      });
+    });
   };
 
   if (!formRef) {
@@ -361,7 +363,7 @@ function FwForm<Values extends FormValues = FormValues>({
             payload: {
               field: field,
               value: value,
-              touched: validateOnInput && true,
+              touched: (validateOnInput && true) || touched[field],
               focused: field,
             },
           });
@@ -387,7 +389,7 @@ function FwForm<Values extends FormValues = FormValues>({
             payload: {
               field: field,
               value: value,
-              touched: validateOnBlur && true,
+              touched: (validateOnBlur && true) || touched[field],
               focused: null,
             },
           });
