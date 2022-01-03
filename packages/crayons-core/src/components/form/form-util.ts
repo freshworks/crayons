@@ -160,11 +160,10 @@ function mergeSchema(...schemas: any) {
   const [first, ...rest] = schemas;
 
   const merged =
-    rest?.reduce(
-      (mergedSchemas: string | any[], schema: any) =>
-        mergedSchemas.concat(schema),
-      first
-    ) || {};
+    rest?.reduce((mergedSchemas: string | any[], schema: any) => {
+      if (!schema || !Object.keys(schema).length) return mergedSchemas;
+      return mergedSchemas.concat(schema);
+    }, first) || {};
 
   return merged;
 }
@@ -221,11 +220,12 @@ function createYupSchema(schema: any, config: any) {
   return schema;
 }
 export const generateDynamicValidationSchema = (
-  formSchema: any,
+  formSchema: any = {},
   validationSchema: any = {}
 ): any => {
   const yupSchema = formSchema?.fields?.reduce(createYupSchema, {}) || {};
-  const dynamicValidationSchema = Yup.object().shape(yupSchema as any);
+  const dynamicValidationSchema =
+    (formSchema?.fields && Yup.object().shape(yupSchema as any)) || {};
   const formValidationSchema = mergeSchema(
     dynamicValidationSchema,
     validationSchema

@@ -287,8 +287,6 @@ function FwForm<Values extends FormValues = FormValues>({
   }));
 
   const handleValidation = useCallback(async () => {
-    console.log('handle validation ', values);
-
     setFormState({
       type: 'SET_ISVALIDATING',
       payload: true,

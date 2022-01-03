@@ -144,8 +144,6 @@ export class Form {
   };
 
   handleValidation = async () => {
-    console.log('handle validation');
-
     this.isValidating = true;
 
     let validationErrors = {};
