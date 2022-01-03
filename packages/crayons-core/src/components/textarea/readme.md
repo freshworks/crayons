@@ -153,6 +153,19 @@ Type: `Promise<void>`
 | `--input-color` | Color of the textarea input |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-fb-basic-details](../form-builder/fb-basic-details)
+
+### Graph
+```mermaid
+graph TD;
+  fw-fb-basic-details --> fw-textarea
+  style fw-textarea fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

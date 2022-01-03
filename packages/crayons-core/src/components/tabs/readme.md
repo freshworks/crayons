@@ -135,6 +135,10 @@ function App() {
 
 ## Dependencies
 
+### Used by
+
+ - [fw-form-builder](../form-builder)
+
 ### Depends on
 
 - [fw-tab-panel](../tab-panel)
@@ -143,6 +147,7 @@ function App() {
 ```mermaid
 graph TD;
   fw-tabs --> fw-tab-panel
+  fw-form-builder --> fw-tabs
   style fw-tabs fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

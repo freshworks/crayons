@@ -116,6 +116,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [fw-fb-basic-details](../form-builder/fb-basic-details)
+
 ### Depends on
 
 - [fw-icon](../icon)
@@ -127,6 +131,7 @@ graph TD;
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-fb-basic-details --> fw-toggle-group-button
   style fw-toggle-group-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -9,7 +9,7 @@ import {
 } from '@stencil/core';
 
 @Component({
-  tag: 'field-type-menu-item',
+  tag: 'fw-field-type-menu-item',
   styleUrl: 'field-type-menu-item.scss',
   shadow: true,
 })

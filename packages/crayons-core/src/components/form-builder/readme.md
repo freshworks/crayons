@@ -1,50 +1,55 @@
-# fw-field-type-menu-item
+# fw-form-builder
+
+
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                | Type      | Default |
-| -------------- | --------------- | ---------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `dataProvider` | `data-provider` | data source used to set and edit the field values                                                          | `any`     | `null`  |
-| `disabled`     | `disabled`      | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false. | `boolean` | `false` |
-| `expanded`     | `expanded`      | Property to determine expanded state or collapsed                                                          | `boolean` | `false` |
-| `index`        | `index`         | index attached inside the parent group component                                                           | `number`  | `-1`    |
-| `name`         | `name`          | Name of the component, saved as part of the form data.                                                     | `string`  | `''`    |
+| Property          | Attribute           | Description                                            | Type     | Default     |
+| ----------------- | ------------------- | ------------------------------------------------------ | -------- | ----------- |
+| `jsonFormBuilder` | `json-form-builder` | json data input to render the form builder             | `any`    | `undefined` |
+| `name`            | `name`              | Name of the component, saved as part of the form data. | `string` | `''`        |
 
 
 ## Events
 
-| Event      | Description                                           | Type               |
-| ---------- | ----------------------------------------------------- | ------------------ |
-| `fwExpand` | Triggered when the field is expanded or collapsed     | `CustomEvent<any>` |
-| `fwSubmit` | Triggered when the field details need to be submitted | `CustomEvent<any>` |
+| Event      | Description                                       | Type               |
+| ---------- | ------------------------------------------------- | ------------------ |
+| `fwExpand` | Triggered when the field is expanded or collapsed | `CustomEvent<any>` |
 
 
 ## Dependencies
 
 ### Depends on
 
-- [fw-input](../input)
-- [fw-checkbox](../checkbox)
-- [fw-icon](../icon)
-- [fw-button](../button)
+- [fw-tabs](../tabs)
+- [fw-tab](../tab)
+- [fw-tab-panel](../tab-panel)
+- [fw-fb-basic-details](fb-basic-details)
 
 ### Graph
 ```mermaid
 graph TD;
-  fw-field-creator --> fw-input
-  fw-field-creator --> fw-checkbox
-  fw-field-creator --> fw-icon
-  fw-field-creator --> fw-button
-  fw-input --> fw-icon
+  fw-form-builder --> fw-tabs
+  fw-form-builder --> fw-tab
+  fw-form-builder --> fw-tab-panel
+  fw-form-builder --> fw-fb-basic-details
+  fw-tabs --> fw-tab-panel
+  fw-fb-basic-details --> fw-toggle-group-button
+  fw-fb-basic-details --> fw-input
+  fw-fb-basic-details --> fw-textarea
+  fw-fb-basic-details --> fw-toggle-group
+  fw-fb-basic-details --> fw-button
+  fw-toggle-group-button --> fw-icon
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-input --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
-  style fw-field-creator fill:#f9f,stroke:#333,stroke-width:4px
+  style fw-form-builder fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

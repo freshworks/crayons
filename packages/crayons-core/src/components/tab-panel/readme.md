@@ -47,11 +47,13 @@ function App() {
 
 ### Used by
 
+ - [fw-form-builder](../form-builder)
  - [fw-tabs](../tabs)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-form-builder --> fw-tab-panel
   fw-tabs --> fw-tab-panel
   style fw-tab-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```

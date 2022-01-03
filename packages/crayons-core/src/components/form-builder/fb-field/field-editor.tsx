@@ -9,13 +9,14 @@ import {
 } from '@stencil/core';
 
 @Component({
-  tag: 'fw-field-creator',
-  styleUrl: 'field-creator.scss',
+  tag: 'fw-field-editor',
+  styleUrl: 'field-editor.scss',
   shadow: true,
 })
-export class FieldCreator {
+export class FieldEditor {
   @Element() host!: HTMLElement;
 
+  private divFieldBase: HTMLElement;
   private fieldNameInput?: HTMLFwInputElement;
 
   /**
@@ -47,11 +48,51 @@ export class FieldCreator {
    */
   @Event() fwSubmit!: EventEmitter;
 
+  /**
+   * Key bindings done for the event to keep them accessible in 'this' scope
+   */
   componentWillLoad(): void {
     this.onSubmitFieldHandler = this.onSubmitFieldHandler.bind(this);
     this.onCancelHandler = this.onCancelHandler.bind(this);
     this.onExpandHandler = this.onExpandHandler.bind(this);
     this.onExpandKeyPressHandler = this.onExpandKeyPressHandler.bind(this);
+    this.startParentDragging = this.startParentDragging.bind(this);
+    this.stopParentDragging = this.stopParentDragging.bind(this);
+    this.enableParentDrag = this.enableParentDrag.bind(this);
+  }
+
+  disconnectedCallback(): void {
+    window.removeEventListener('mouseup', this.stopParentDragging);
+  }
+
+  /**
+   * function called on reorder button mousedown to enable the parent as draggable
+   */
+  private startParentDragging() {
+    // event added to remove the draggable for the parent
+    window.addEventListener('mouseup', this.stopParentDragging);
+    this.enableParentDrag(true);
+  }
+
+  /**
+   * function to disable the parent as draggable
+   */
+  private stopParentDragging() {
+    window.removeEventListener('mouseup', this.stopParentDragging);
+    this.enableParentDrag(false);
+  }
+
+  /**
+   * function to enable/disable the draggable property for the base div
+   */
+  private enableParentDrag(value: boolean): void {
+    if (this.divFieldBase) {
+      if (value) {
+        this.divFieldBase.setAttribute('draggable', 'true');
+      } else {
+        this.divFieldBase.removeAttribute('dragable');
+      }
+    }
   }
 
   /**
@@ -138,12 +179,38 @@ export class FieldCreator {
   // }
 
   /**
+   * function to render basic field checkboxes
+   * @returns {JSX.Element}
+   */
+  private renderCheckboxField(dataCheckbox) {
+    const strBaseClassName = 'fw-field-editor';
+
+    return (
+      <fw-checkbox
+        key={dataCheckbox.key}
+        value={dataCheckbox.key}
+        checked={dataCheckbox.selected}
+        disabled={!dataCheckbox.enabled}
+        class={`${strBaseClassName}-content-checkbox-input`}
+      >
+        {dataCheckbox.label}
+      </fw-checkbox>
+    );
+  }
+
+  /**
    * function to render basic field details
    * @returns {JSX.Element}
    */
   private renderContent() {
-    const strBaseClassName = 'fw-field-creator';
-    const strInputValue = this.dataProvider ? this.dataProvider.label : '';
+    const objField = this.dataProvider;
+    const strBaseClassName = 'fw-field-editor';
+    const strInputValue = objField.label;
+    const arrCheckboxes = objField.field_options.checkboxes;
+    const checkboxItems =
+      arrCheckboxes && arrCheckboxes.length > 0
+        ? arrCheckboxes.map((dataItem) => this.renderCheckboxField(dataItem))
+        : null;
 
     return (
       <div class={`${strBaseClassName}-content-required`}>
@@ -158,19 +225,7 @@ export class FieldCreator {
           onBlur={this.onFieldNameChangeHandler}
         ></fw-input>
         <div class={`${strBaseClassName}-content-checkboxes`}>
-          <fw-checkbox
-            class={`${strBaseClassName}-content-checkbox-input`}
-            value='required'
-            checked={false}
-          >
-            This field is required
-          </fw-checkbox>
-          <fw-checkbox value='filterable' checked={true}>
-            This field is filterable
-          </fw-checkbox>
-          <fw-checkbox value='unique' checked={false}>
-            This field is unique
-          </fw-checkbox>
+          {checkboxItems}
         </div>
       </div>
     );
@@ -181,7 +236,7 @@ export class FieldCreator {
       return null;
     }
     const objField = this.dataProvider;
-    const strBaseClassName = 'fw-field-creator';
+    const strBaseClassName = 'fw-field-editor';
     let strComponentClassName = strBaseClassName;
     if (this.expanded) {
       strComponentClassName += ' ' + strBaseClassName + '--expanded';
@@ -189,7 +244,10 @@ export class FieldCreator {
 
     return (
       <Host tabIndex='-1'>
-        <div class={strComponentClassName}>
+        <div
+          class={strComponentClassName}
+          ref={(divFieldBase) => (this.divFieldBase = divFieldBase)}
+        >
           <div
             role='button'
             class={`${strBaseClassName}-header`}
@@ -197,18 +255,22 @@ export class FieldCreator {
             onKeyPress={this.onExpandKeyPressHandler}
             tabIndex={0}
           >
-            <span class={`${strBaseClassName}-drag-container`}>
+            <div
+              role='none'
+              class={`${strBaseClassName}-drag-container`}
+              onMouseDown={this.startParentDragging}
+            >
               <fw-icon size={14} name='drag' color='#CFD7DF' />
-            </span>
+            </div>
             <span
               class={`${strBaseClassName}-icon-container`}
               style={{
-                backgroundColor: objField.field_options.icon_bg_color,
+                backgroundColor: objField.field_options.icon.bg_color,
               }}
             >
               <fw-icon
                 size={14}
-                name={objField.field_options.icon}
+                name={objField.field_options.icon.name}
                 color='#475867'
               />
             </span>

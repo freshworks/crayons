@@ -132,6 +132,19 @@ Type: `Promise<void>`
 
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-fb-basic-details](../form-builder/fb-basic-details)
+
+### Graph
+```mermaid
+graph TD;
+  fw-fb-basic-details --> fw-toggle-group
+  style fw-toggle-group fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
