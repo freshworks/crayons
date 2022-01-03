@@ -29,13 +29,13 @@ Type: `Promise<void>`
 
 
 
-### `doSubmit(e: any) => Promise<void>`
+### `doSubmit(e: any) => Promise<FormSubmit>`
 
 
 
 #### Returns
 
-Type: `Promise<void>`
+Type: `Promise<FormSubmit>`
 
 
 

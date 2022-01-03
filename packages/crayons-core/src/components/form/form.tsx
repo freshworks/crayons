@@ -149,10 +149,13 @@ export class Form {
     let validationErrors = {};
 
     // run validations against validationSchema if present
-    if (this.validationSchema && Object.keys(this.validationSchema).length) {
+    if (
+      this.formValidationSchema &&
+      Object.keys(this.formValidationSchema).length
+    ) {
       const pr = validateYupSchema(
         prepareDataForValidation(this.values),
-        this.validationSchema
+        this.formValidationSchema
       );
       try {
         await pr;
@@ -235,6 +238,7 @@ export class Form {
     const error = this.errors[(f as any).name];
     const touched = this.touched[(f as any).name];
     (f as any).controlProps = this.composedUtils();
+    (f as any).fieldProps = f;
     if (error) (f as any).error = error;
     else (f as any).error = '';
     if (touched) (f as any).touched = true;
@@ -324,7 +328,7 @@ export class Form {
 
   @Method()
   async doSubmit(e) {
-    this.handleSubmit(e);
+    return this.handleSubmit(e);
   }
 
   @Method()

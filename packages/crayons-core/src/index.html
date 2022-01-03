@@ -14,7 +14,7 @@
     <fw-button expand color="primary">Primary Button</fw-button>
 
     <!-- <fw-form-wrapper id="fw-form"></fw-form-wrapper> -->
-<!-- 
+    <!-- 
     <fw-form-control
     type="TEXT"
     name="first_name"
@@ -24,11 +24,10 @@
     id="a"
   ></fw-form-control> -->
 
-  <br>
-  <h3>custom form </h3>
+    <br />
+    <h3>custom form</h3>
 
     <fw-form id="fw-form">
-
       <fw-form-control
       type="TEXT"
       name="first_name"
@@ -47,7 +46,7 @@
       ></fw-form-control>
 
       <fw-form-control
-        type="CUSTOM"
+        type="TEXT"
         name="ccc"
         placeholder="Custom native in"
         required
@@ -55,9 +54,7 @@
       >
       <input name="ccc" id="ccc" placeholder="ccc"
       autocomplete="off"
-      ></input>
-    </fw-form-control>
-
+      ></input>  
     </fw-form>
 
     <br /><br />
@@ -68,24 +65,25 @@
     <script>
       const form = document.querySelector('#fw-form');
       document.querySelector('#submit').addEventListener('click', async (e) => {
-          const { values, isValid} = await form.doSubmit(e);
-          console.log({ values, isValid });
-   
-          if(isValid) {
-            // make ajax post end point with values
-            // fetch("/post",values);
+        const { values, isValid } = await form.doSubmit(e);
+        console.log({ values, isValid });
 
-            // if error from backend , set Errors - passing key value pair
-          
-            form.setFieldErrors({ first_name:"First Name must be unique <<Server Error>>"})
-          
-            // reset the form if required if success
-            // formRef.current.doReset(e);
-          }
-     
-        });
+        if (isValid) {
+          // make ajax post end point with values
+          // fetch("/post",values);
+
+          // if error from backend , set Errors - passing key value pair
+
+          form.setFieldErrors({
+            first_name: 'First Name must be unique <<Server Error>>',
+          });
+
+          // reset the form if required if success
+          // formRef.current.doReset(e);
+        }
+      });
       document.querySelector('#reset').addEventListener('click', (e) => {
-        document.querySelector('#ccc').value = '';
+        // document.querySelector('#ccc').value = '';
         form.doReset(e);
       });
       const formSchema = {
@@ -412,33 +410,34 @@
       };
 
       const initialValues = {
-        abc: 'Test',
-        is_indian_citizen: true,
+        // abc: 'Test',
+       // is_indian_citizen: true,
       };
 
       /** pattern 1 **/
-      //form.formSchema = formSchema;
+     // form.formSchema = formSchema;
+      //form.validateOnInput = false;
 
       form.initialValues = initialValues;
 
       form.validate = async function (values) {
         console.log('validate called with ', values);
         return {
-          first_name: 'first name error',
-          ccc: 'ccc error',
-          last_name:"last name error"
+          // first_name: 'first name error',
+          // last_name: 'last name error',
+          ccc:"ss"
         };
         // json api std.
       };
 
       function handleInput(e) {
         console.log('handleinput');
-        form.setFieldValue({ [e.target.name]: e.target.value });
+        form.setFieldValue([e.target.name], e.target.value );
       }
 
-      document.querySelector("#first_name").fieldProps = {
-        placeholder: "Enter First Name"
-      }
+      // document.querySelector('#first_name').fieldProps = {
+      //   placeholder: 'Enter First Name',
+      // };
 
       // document.querySelector("#a").addEventListener("fwControlChange",(e) => console.log(e))
       document.querySelector('#ccc').addEventListener('input', handleInput);

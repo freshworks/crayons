@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
-import { FormErrors, FormValues } from "./components/form/form-declaration";
+import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -236,7 +236,7 @@ export namespace Components {
     }
     interface FwForm {
         "doReset": (e: any) => Promise<void>;
-        "doSubmit": (e: any) => Promise<void>;
+        "doSubmit": (e: any) => Promise<FormSubmit>;
         "formSchema"?: any;
         "initialValues"?: any;
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
