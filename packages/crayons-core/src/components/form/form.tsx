@@ -28,7 +28,6 @@ export class Form {
   private controls: any;
 
   @Prop() initialValues?: any = {};
-  @Prop() initialErrors?: any = {};
   @Prop() validate?: any;
   @Prop() formSchema?: any = {};
   @Prop() validationSchema?: any = {};
@@ -50,7 +49,7 @@ export class Form {
   @State() formValidationSchema;
   @State() formInitialValues;
 
-  componentWillLoad() {
+  async componentWillLoad() {
     this.formValidationSchema =
       generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
       {};
@@ -64,9 +63,11 @@ export class Form {
       this.touched[field] = false;
     }
 
-    this.errors = { ...this.errors, ...this.initialErrors };
+    Object.keys(this.initialValues).forEach((f) => (this.touched[f] = true));
 
-    Object.keys(this.initialErrors).forEach((f) => (this.touched[f] = true));
+    const validationErrors = await this.handleValidation();
+
+    this.errors = { ...this.errors, ...validationErrors };
 
     console.log({ errors: this.errors });
   }
@@ -107,7 +108,9 @@ export class Form {
     ];
 
     let touchedState = {};
-    keys.forEach((k) => (touchedState = { ...touchedState, [k]: true }));
+    keys.forEach(
+      (k: string) => (touchedState = { ...touchedState, [k]: true })
+    );
     // on clicking submit, mark all fields as touched
     this.touched = { ...this.touched, ...touchedState };
 
@@ -127,8 +130,16 @@ export class Form {
     event?.stopPropagation();
     this.isSubmitting = false;
     this.values = this.formInitialValues;
-    this.errors = this.initialErrors;
-    this.touched = {};
+
+    let touchedState = {};
+    Object.keys(this.initialValues).forEach(
+      (k: string) => (touchedState = { ...touchedState, [k]: true })
+    );
+    this.touched = { ...touchedState };
+
+    const validationErrors = await this.handleValidation();
+    this.errors = { ...validationErrors };
+
     this.focused = null;
   };
 
@@ -181,19 +192,23 @@ export class Form {
       this.values = { ...this.values, [field]: value };
 
       /** Validate, if user wants to validateOnInput */
-      if (this.validateOnInput) this.handleValidation();
+      if (this.validateOnInput) {
+        this.touched = { ...this.touched, [field]: true };
+        await this.handleValidation();
+      }
     };
 
   handleBlur =
-    (field: string, inputType: string) => (event: Event, ref: any) => {
+    (field: string, inputType: string) => async (event: Event, ref: any) => {
       if (this.focused) this.focused = null;
-      if (!this.touched[field])
-        this.touched = { ...this.touched, [field]: true };
       const value: any = getElementValue(inputType, event, ref);
 
       this.values = { ...this.values, [field]: value };
-      /** Validate, if user wants to validateOnInput */
-      if (this.validateOnBlur) this.handleValidation();
+      /** Validate, if user wants to validateOnBlur */
+      if (this.validateOnBlur) {
+        this.touched = { ...this.touched, [field]: true };
+        await this.handleValidation();
+      }
     };
 
   handleFocus =
@@ -288,13 +303,17 @@ export class Form {
   };
 
   @Method()
-  async setFieldValue(fieldObj): Promise<void> {
-    Object.entries(fieldObj)?.forEach(([field, value]) => {
-      this.values = { ...this.values, [field]: value };
+  async setFieldValue(
+    field: string,
+    value: any,
+    shouldValidate = true
+  ): Promise<void> {
+    this.values = { ...this.values, [field]: value };
+
+    if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
-    });
-    if (this.validateOnBlur || this.validateOnInput)
       await this.handleValidation();
+    }
   }
 
   @Method()

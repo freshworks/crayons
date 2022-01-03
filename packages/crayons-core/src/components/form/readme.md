@@ -10,7 +10,6 @@
 | Property           | Attribute           | Description                                                   | Type      | Default     |
 | ------------------ | ------------------- | ------------------------------------------------------------- | --------- | ----------- |
 | `formSchema`       | `form-schema`       |                                                               | `any`     | `{}`        |
-| `initialErrors`    | `initial-errors`    |                                                               | `any`     | `{}`        |
 | `initialValues`    | `initial-values`    |                                                               | `any`     | `{}`        |
 | `validate`         | `validate`          |                                                               | `any`     | `undefined` |
 | `validateOnBlur`   | `validate-on-blur`  | Tells Form to validate the form on each input's onBlur event  | `boolean` | `true`      |
@@ -50,7 +49,7 @@ Type: `Promise<void>`
 
 
 
-### `setFieldValue(fieldObj: any) => Promise<void>`
+### `setFieldValue(field: string, value: any, shouldValidate?: boolean) => Promise<void>`
 
 
 

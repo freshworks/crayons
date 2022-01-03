@@ -95,19 +95,23 @@ type ImperativeMethods<Values> = {
   doSubmit: (event?: Event) => Promise<FormSubmit>;
   doReset: (event?: Event) => Promise<void>;
   setFieldErrors: (errorObj: FormErrors<Values>) => Promise<void>;
-  setFieldValue: (fieldObj: Values) => Promise<void>;
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate: boolean
+  ) => Promise<void>;
 };
 
-export type FormParams = {
-  initialValues?: FormValues;
+export type FormParams<Values> = {
+  initialValues?: Values;
   formSchema?: any;
-  renderer?: (props: FormRenderProps<FormValues>) => React.ReactNode;
-  initialErrors?: FormErrors<FormValues>;
+  renderer?: (props: FormRenderProps<Values>) => React.ReactNode;
+  initialErrors?: FormErrors<Values>;
   validationSchema?: any;
   validateOnInput?: boolean;
   validateOnBlur?: boolean;
-  formRef: React.Ref<ImperativeMethods<FormValues>>;
-  validate?: (values: FormValues) => Promise<FormErrors<FormValues>>;
+  formRef: React.Ref<ImperativeMethods<Values>>;
+  validate?: (values: Values) => Promise<FormErrors<Values>>;
   ref?: React.Ref<any>;
 };
 
@@ -117,7 +121,7 @@ export type FormAction<Values> =
   | { type: 'SUBMIT_SUCCESS' }
   | { type: 'SET_ISVALIDATING'; payload: boolean }
   | { type: 'SET_ISSUBMITTING'; payload: boolean }
-  | { type: 'SET_VALUES'; payload: Values }
+  | { type: 'SET_VALUES'; payload: FormValues }
   | { type: 'SET_FIELD_VALUE'; payload: { field: string; value?: any } }
   | { type: 'SET_FIELD_TOUCHED'; payload: { field: string; value?: boolean } }
   | { type: 'SET_FIELD_ERROR'; payload: { field: string; value?: string } }
@@ -126,7 +130,7 @@ export type FormAction<Values> =
   | { type: 'SET_ERRORS'; payload: FormErrors<Values> }
   | {
       type: 'RESET_FORM';
-      payload: { values: FormValues; errors: FormErrors<Values> };
+      payload: { values: FormValues; touched: FormTouched<FormValues> };
     }
   | {
       type: 'SET_VALIDATION_RESULT';
@@ -150,6 +154,15 @@ export type FormAction<Values> =
         errors: FormErrors<Values>;
         values: FormValues;
         touched: FormTouched<Values>;
+      };
+    }
+  | {
+      type: 'SET_HANDLE_INPUT_RESULT';
+      payload: {
+        field: string;
+        value: any;
+        touched: boolean;
+        focused: string | null;
       };
     };
 

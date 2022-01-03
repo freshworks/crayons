@@ -69,8 +69,7 @@ function reducer<Values>(
         ...state,
         isSubmitting: false,
         values: action.payload.values,
-        errors: action.payload.errors,
-        touched: {},
+        touched: action.payload.touched,
         focused: null,
       };
     case 'SET_VALIDATION_RESULT':
@@ -83,7 +82,22 @@ function reducer<Values>(
       return {
         ...state,
         focused: action.payload.focused,
-        touched: setIn(state.touched, action.payload.field, true),
+        touched: setIn(
+          state.touched,
+          action.payload.field,
+          action.payload.touched
+        ),
+        values: setIn(state.values, action.payload.field, action.payload.value),
+      };
+    case 'SET_HANDLE_INPUT_RESULT':
+      return {
+        ...state,
+        focused: action.payload.focused,
+        touched: setIn(
+          state.touched,
+          action.payload.field,
+          action.payload.touched
+        ),
         values: setIn(state.values, action.payload.field, action.payload.value),
       };
     case 'SET_INITIAL_STATE': {
@@ -103,13 +117,12 @@ function FwForm<Values extends FormValues = FormValues>({
   initialValues = {},
   formSchema = {},
   renderer,
-  initialErrors = {},
   validationSchema = {},
   validateOnInput = true,
   validateOnBlur = true,
   formRef,
   validate,
-}: FormParams) {
+}: FormParams<FormValues>) {
   const isMounted = useRef(false);
 
   const INITIAL_STATE: FormState<Values> = {
@@ -145,18 +158,17 @@ function FwForm<Values extends FormValues = FormValues>({
       errorState = { ...errorState, [field]: null };
       touchedState = { ...touchedState, [field]: false };
     }
-    errorState = { ...errorState, ...initialErrors };
 
-    for (const field of Object.keys({ ...initialErrors })) {
+    for (const field of Object.keys({ ...initialValues })) {
       touchedState = { ...touchedState, [field]: true };
     }
 
     setFormState({
       type: 'SET_INITIAL_STATE',
       payload: {
-        errors: errorState,
-        touched: touchedState,
         values: formInitialValues.current,
+        errors: { ...errorState },
+        touched: touchedState,
       },
     });
 
@@ -174,9 +186,7 @@ function FwForm<Values extends FormValues = FormValues>({
 
     let isValid = false;
 
-    const validationErrors = await handleValidation({
-      isSubmit: true,
-    });
+    const validationErrors = await handleValidation();
 
     console.log({ errors: validationErrors });
 
@@ -184,7 +194,9 @@ function FwForm<Values extends FormValues = FormValues>({
 
     let touchedState = {};
 
-    keys.forEach((k) => (touchedState = { ...touchedState, [k]: true }));
+    keys.forEach(
+      (k: string) => (touchedState = { ...touchedState, [k]: true })
+    );
 
     // on clicking submit, mark touched fields
     setFormState({
@@ -210,24 +222,32 @@ function FwForm<Values extends FormValues = FormValues>({
     event?.preventDefault();
     event?.stopPropagation();
 
+    let touchedState = {};
+    Object.keys(initialValues).forEach(
+      (k: string) => (touchedState = { ...touchedState, [k]: true })
+    );
     setFormState({
       type: 'RESET_FORM',
       payload: {
         values: formInitialValues.current,
-        errors: initialErrors,
+        touched: touchedState,
       },
     });
   };
 
-  const setFieldValue = async (fieldObj: FormValues): Promise<void> => {
-    Object.entries(fieldObj)?.forEach(([field, value]) => {
-      setFormState({
-        type: 'SET_FIELD_VALUE',
-        payload: {
-          field,
-          value,
-        },
-      });
+  const setFieldValue = async (
+    field: string,
+    value: any,
+    shouldValidate = true
+  ): Promise<void> => {
+    setFormState({
+      type: 'SET_FIELD_VALUE',
+      payload: {
+        field,
+        value,
+      },
+    });
+    if (shouldValidate)
       setFormState({
         type: 'SET_FIELD_TOUCHED',
         payload: {
@@ -235,7 +255,6 @@ function FwForm<Values extends FormValues = FormValues>({
           value: true,
         },
       });
-    });
   };
 
   const setFieldErrors = async (
@@ -267,61 +286,56 @@ function FwForm<Values extends FormValues = FormValues>({
     setFieldValue,
   }));
 
-  const handleValidation = useCallback(
-    async ({ isSubmit = false } = {}) => {
-      if (isSubmit || validateOnBlur || validateOnInput) {
-        console.log('handle validation');
+  const handleValidation = useCallback(async () => {
+    console.log('handle validation ', values);
 
-        setFormState({
-          type: 'SET_ISVALIDATING',
-          payload: true,
-        });
+    setFormState({
+      type: 'SET_ISVALIDATING',
+      payload: true,
+    });
 
-        let validationErrors = {};
+    let validationErrors = {};
 
-        // run validations against validationSchema if present
-        if (
-          formValidationSchema.current &&
-          Object.keys(formValidationSchema.current)?.length
-        ) {
-          const pr = validateYupSchema(
-            prepareDataForValidation(values),
-            formValidationSchema.current
-          );
+    // run validations against validationSchema if present
+    if (
+      formValidationSchema.current &&
+      Object.keys(formValidationSchema.current)?.length
+    ) {
+      const pr = validateYupSchema(
+        prepareDataForValidation(values),
+        formValidationSchema.current
+      );
 
-          try {
-            await pr;
-            validationErrors = {}; // reset errors if no errors from validation
-          } catch (err) {
-            validationErrors = yupToFormErrors(err);
-          }
-        }
+      try {
+        await pr;
+        validationErrors = {}; // reset errors if no errors from validation
+      } catch (err) {
+        validationErrors = yupToFormErrors(err);
+      }
+    }
 
-        // run validations with validate function if passed as prop and merge with the errors from the above step
-        if (validate && typeof validate === 'function') {
-          try {
-            validationErrors = {
-              ...validationErrors,
-              ...((await validate(values)) || {}),
-            };
-          } catch (err) {
-            console.error(`Error in calling validate function ${err.message}`);
-            validationErrors = { ...validationErrors };
-          }
-        }
-        setFormState({
-          type: 'SET_VALIDATION_RESULT',
-          payload: {
-            errors: validationErrors,
-            isValidating: false,
-          },
-        });
+    // run validations with validate function if passed as prop and merge with the errors from the above step
+    if (validate && typeof validate === 'function') {
+      try {
+        validationErrors = {
+          ...validationErrors,
+          ...((await validate(values)) || {}),
+        };
+      } catch (err) {
+        console.error(`Error in calling validate function ${err.message}`);
+        validationErrors = { ...validationErrors };
+      }
+    }
+    setFormState({
+      type: 'SET_VALIDATION_RESULT',
+      payload: {
+        errors: validationErrors,
+        isValidating: false,
+      },
+    });
 
-        return validationErrors;
-      } else return {};
-    },
-    [values]
-  );
+    return validationErrors;
+  }, [values]);
 
   useEffect(() => {
     isMounted.current = true;
@@ -331,10 +345,8 @@ function FwForm<Values extends FormValues = FormValues>({
   }, []);
 
   useEffect(() => {
-    if (validateOnInput || validateOnBlur) {
-      if (isMounted.current) handleValidation();
-    }
-  }, [values, handleValidation, validateOnBlur, validateOnInput]);
+    if (isMounted.current) handleValidation();
+  }, [values, handleValidation]);
 
   const memoizedHandleInput: any = useMemo(() => {
     return {};
@@ -347,10 +359,12 @@ function FwForm<Values extends FormValues = FormValues>({
           const value = getElementValue(inputType, event, ref);
 
           setFormState({
-            type: 'SET_FIELD_VALUE',
+            type: 'SET_HANDLE_INPUT_RESULT',
             payload: {
               field: field,
               value: value,
+              touched: validateOnInput && true,
+              focused: field,
             },
           });
         };
@@ -375,7 +389,7 @@ function FwForm<Values extends FormValues = FormValues>({
             payload: {
               field: field,
               value: value,
-              touched: true,
+              touched: validateOnBlur && true,
               focused: null,
             },
           });

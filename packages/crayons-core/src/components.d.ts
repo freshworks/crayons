@@ -238,10 +238,9 @@ export namespace Components {
         "doReset": (e: any) => Promise<void>;
         "doSubmit": (e: any) => Promise<void>;
         "formSchema"?: any;
-        "initialErrors"?: any;
         "initialValues"?: any;
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
-        "setFieldValue": (fieldObj: any) => Promise<void>;
+        "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         "validate"?: any;
         /**
           * Tells Form to validate the form on each input's onBlur event
@@ -1955,7 +1954,6 @@ declare namespace LocalJSX {
     }
     interface FwForm {
         "formSchema"?: any;
-        "initialErrors"?: any;
         "initialValues"?: any;
         "validate"?: any;
         /**
