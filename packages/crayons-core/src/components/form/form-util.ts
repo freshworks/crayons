@@ -156,16 +156,8 @@ export function setNestedObjectValues<T>(
   return response;
 }
 
-function mergeSchema(...schemas: any) {
-  const [first, ...rest] = schemas;
-
-  const merged =
-    rest?.reduce((mergedSchemas: string | any[], schema: any) => {
-      if (!schema || !Object.keys(schema).length) return mergedSchemas;
-      return mergedSchemas.concat(schema);
-    }, first) || {};
-
-  return merged;
+function mergeSchema(first: any = {}, second: any = {}) {
+  return first.concat(second);
 }
 
 function createYupSchema(schema: any, config: any) {
@@ -223,9 +215,11 @@ export const generateDynamicValidationSchema = (
   formSchema: any = {},
   validationSchema: any = {}
 ): any => {
-  const yupSchema = formSchema?.fields?.reduce(createYupSchema, {}) || {};
+  const yupSchema =
+    formSchema?.fields?.reduce(createYupSchema, {}) || Yup.object();
   const dynamicValidationSchema =
-    (formSchema?.fields && Yup.object().shape(yupSchema as any)) || {};
+    (formSchema?.fields && Yup.object().shape(yupSchema as any)) ||
+    Yup.object();
   const formValidationSchema = mergeSchema(
     dynamicValidationSchema,
     validationSchema
