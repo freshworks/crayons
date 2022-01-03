@@ -116,7 +116,7 @@ function reducer<Values>(
 function FwForm<Values extends FormValues = FormValues>({
   initialValues = {},
   formSchema = {},
-  renderer,
+  renderer = () => React.Fragment,
   validationSchema = {},
   validateOnInput = true,
   validateOnBlur = true,

@@ -215,14 +215,14 @@ export const generateDynamicValidationSchema = (
   formSchema: any = {},
   validationSchema: any = {}
 ): any => {
-  const yupSchema =
-    formSchema?.fields?.reduce(createYupSchema, {}) || Yup.object();
+  const yupSchema = formSchema?.fields?.reduce(createYupSchema, {});
   const dynamicValidationSchema =
-    (formSchema?.fields && Yup.object().shape(yupSchema as any)) ||
-    Yup.object();
+    yupSchema && Yup.object().shape(yupSchema as any);
   const formValidationSchema = mergeSchema(
-    dynamicValidationSchema,
-    validationSchema
+    dynamicValidationSchema || Yup.object(),
+    validationSchema && Object.keys(validationSchema).length
+      ? validationSchema
+      : Yup.object()
   );
   return formValidationSchema;
 };
