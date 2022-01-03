@@ -127,7 +127,7 @@ export class Form {
     event?.stopPropagation();
     this.isSubmitting = false;
     this.values = this.formInitialValues;
-    this.errors = {};
+    this.errors = this.initialErrors;
     this.touched = {};
     this.focused = null;
   };

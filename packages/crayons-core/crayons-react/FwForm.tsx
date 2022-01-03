@@ -69,7 +69,7 @@ function reducer<Values>(
         ...state,
         isSubmitting: false,
         values: action.payload.values,
-        errors: {},
+        errors: action.payload.errors,
         touched: {},
         focused: null,
       };
@@ -214,6 +214,7 @@ function FwForm<Values extends FormValues = FormValues>({
       type: 'RESET_FORM',
       payload: {
         values: formInitialValues.current,
+        errors: initialErrors,
       },
     });
   };

@@ -102,7 +102,7 @@ export type FormParams = {
   initialValues?: FormValues;
   formSchema?: any;
   renderer?: (props: FormRenderProps<FormValues>) => React.ReactNode;
-  initialErrors?: FormValues;
+  initialErrors?: FormErrors<FormValues>;
   validationSchema?: any;
   validateOnInput?: boolean;
   validateOnBlur?: boolean;
@@ -126,7 +126,7 @@ export type FormAction<Values> =
   | { type: 'SET_ERRORS'; payload: FormErrors<Values> }
   | {
       type: 'RESET_FORM';
-      payload: { values: FormValues };
+      payload: { values: FormValues; errors: FormErrors<Values> };
     }
   | {
       type: 'SET_VALIDATION_RESULT';

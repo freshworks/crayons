@@ -141,6 +141,13 @@ export class FormControl {
             props.type?.toLowerCase()
           ),
         };
+        // handle DECIMAL TYPE.
+        if (type === 'fw-input')
+          componentProps = {
+            ...componentProps,
+            type: this.type === 'DECIMAL' ? 'number' : this.type.toLowerCase(),
+          };
+
         return componentProps;
       }
 
@@ -194,8 +201,6 @@ export class FormControl {
           <fw-input
             {...this.assignProps('fw-input', {
               name: this.name,
-              type:
-                this.type === 'DECIMAL' ? 'number' : this.type.toLowerCase(),
               label: this.label,
               required: this.required,
               ...this.fieldProps,
