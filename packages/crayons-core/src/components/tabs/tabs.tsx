@@ -6,6 +6,7 @@ import {
   h,
   Listen,
   Prop,
+  Method,
 } from '@stencil/core';
 
 @Component({
@@ -90,6 +91,16 @@ export class Tabs {
         panel.setAttribute('aria-labelledby', tab.getAttribute('id'));
       }
     });
+  }
+
+  /**
+   * Activates the tab based based on tabindex or name.
+   */
+  @Method()
+  async activateTab(index?: number, name?: string) {
+    index && (this.activeTabIndex = index);
+    name && (this.activeTabName = name);
+    this.setActiveTab(this.getActiveTab());
   }
 
   setActiveTab(tab) {

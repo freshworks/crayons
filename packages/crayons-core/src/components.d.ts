@@ -1033,6 +1033,10 @@ export namespace Components {
     }
     interface FwTabs {
         /**
+          * Activates the tab based based on tabindex or name.
+         */
+        "activateTab": (index?: number, name?: string) => Promise<void>;
+        /**
           * The index of the activated Tab(Starts from 0)
          */
         "activeTabIndex": number;
