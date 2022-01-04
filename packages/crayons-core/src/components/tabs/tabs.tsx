@@ -135,6 +135,7 @@ export class Tabs {
     });
     this.mutationO.observe(this.el, {
       childList: true,
+      attributes: true,
     });
   }
 
