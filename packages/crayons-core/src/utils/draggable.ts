@@ -129,6 +129,8 @@ export class Draggable {
         if (this.options.addOnDrop) {
           const clone = cloneNodeWithEvents(dragElement, true, true);
           this.placeholder.replaceWith(clone);
+        } else {
+          this.removePlaceholder();
         }
       } else {
         droppedIndex = [...this.host.children].indexOf(dragElement);
@@ -140,7 +142,6 @@ export class Draggable {
           detail: {
             droppedElement: dragElement,
             droppedIndex,
-            placeholder: this.placeholder,
           },
         })
       );
