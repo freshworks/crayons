@@ -416,13 +416,13 @@
       };
 
       /** pattern 1 **/
-     // form.formSchema = formSchema;
+      form.formSchema = formSchema;
       //form.validateOnInput = false;
 
       form.initialValues = initialValues;
 
       form.validate = async function (values) {
-        console.log('validate called with ', values);
+        console.log('validate method called with ', values);
         return {
           // first_name: 'first name error',
           // last_name: 'last name error',
@@ -432,7 +432,7 @@
       };
 
       function handleInput(e) {
-        console.log('handleinput');
+        console.log('handle input');
         form.setFieldValue([e.target.name], e.target.value );
       }
 

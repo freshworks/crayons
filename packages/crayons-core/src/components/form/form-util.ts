@@ -65,7 +65,7 @@ export function yupToFormErrors(yupError: any) {
       }
     }
   }
-  return errors;
+  return errors || {};
 }
 /** @private is the given object an Object? */
 export const isObject = (obj: any) => obj !== null && typeof obj === 'object';
@@ -161,7 +161,7 @@ function mergeSchema(first: any = {}, second: any = {}) {
 }
 
 function createYupSchema(schema: any, config: any) {
-  const { type, required, name } = config;
+  const { type, required, name, label } = config;
   let yupType;
   switch (type) {
     case 'TEXT':
@@ -194,7 +194,8 @@ function createYupSchema(schema: any, config: any) {
   const yupMethod = yupType as keyof typeof Yup;
   let validator = Yup[yupMethod] as any;
   validator = validator();
-  if (required) validator = validator['required'](...[`${name} is required`]);
+  if (required)
+    validator = validator['required'](...[`${label || name} is required`]);
   else validator = validator['notRequired']();
 
   if (type === 'URL') validator = validator['url'](...[`Enter a valid url`]);
@@ -203,10 +204,10 @@ function createYupSchema(schema: any, config: any) {
     validator = validator['email'](...[`Enter a valid Email`]);
 
   if (type === 'CHECKBOX' && required)
-    validator = validator['oneOf']([true], `${name} is required`);
+    validator = validator['oneOf']([true], `${label || name} is required`);
 
   if ((type === 'DROPDOWN' || type === 'MULTI_SELECT') && required)
-    validator = validator.min(1, `${name} is required`);
+    validator = validator.min(1, `${label || name} is required`);
 
   schema[name] = validator;
   return schema;

@@ -28,7 +28,7 @@ import {
   FormSubmit,
 } from './form-declaration';
 
-function reducer<Values>(
+function formReducer<Values>(
   state: FormState<Values>,
   action: FormAction<Values>
 ): FormState<Values> {
@@ -64,6 +64,30 @@ function reducer<Values>(
         ...state,
         errors: setIn(state.errors, action.payload.field, action.payload.value),
       };
+    case 'SET_VALIDATION_RESULT':
+      return {
+        ...state,
+        isSubmitting: false,
+        errors: action.payload.errors,
+      };
+    case 'SET_HANDLE_VALUE_CHANGE':
+      return {
+        ...state,
+        focused: action.payload.focused,
+        touched: setIn(
+          state.touched,
+          action.payload.field,
+          action.payload.touched
+        ),
+        values: setIn(state.values, action.payload.field, action.payload.value),
+      };
+    case 'SET_INITIAL_STATE':
+      return {
+        ...state,
+        values: action.payload.values,
+        errors: action.payload.errors,
+        touched: action.payload.touched,
+      };
     case 'RESET_FORM':
       return {
         ...state,
@@ -72,42 +96,6 @@ function reducer<Values>(
         touched: action.payload.touched,
         focused: null,
       };
-    case 'SET_VALIDATION_RESULT':
-      return {
-        ...state,
-        isSubmitting: false,
-        errors: action.payload.errors,
-      };
-    case 'SET_HANDLE_BLUR_RESULT':
-      return {
-        ...state,
-        focused: action.payload.focused,
-        touched: setIn(
-          state.touched,
-          action.payload.field,
-          action.payload.touched
-        ),
-        values: setIn(state.values, action.payload.field, action.payload.value),
-      };
-    case 'SET_HANDLE_INPUT_RESULT':
-      return {
-        ...state,
-        focused: action.payload.focused,
-        touched: setIn(
-          state.touched,
-          action.payload.field,
-          action.payload.touched
-        ),
-        values: setIn(state.values, action.payload.field, action.payload.value),
-      };
-    case 'SET_INITIAL_STATE': {
-      return {
-        ...state,
-        values: action.payload.values,
-        errors: action.payload.errors,
-        touched: action.payload.touched,
-      };
-    }
     default:
       return state;
   }
@@ -136,7 +124,7 @@ function FwForm<Values extends FormValues = FormValues>({
 
   const [formState, setFormState] = useReducer<
     React.Reducer<FormState<Values>, FormAction<Values>>
-  >(reducer, INITIAL_STATE);
+  >(formReducer, INITIAL_STATE);
 
   const { isValidating, isSubmitting, focused, values, touched, errors } =
     formState;
@@ -145,34 +133,30 @@ function FwForm<Values extends FormValues = FormValues>({
   const formInitialValues = useRef({});
 
   useEffect(() => {
-    console.log('initialize validation and state');
+    let touchedState = {},
+      errorState = {};
+    const initialValuesKeys = Object.keys({ ...initialValues });
 
     formValidationSchema.current =
       generateDynamicValidationSchema(formSchema, validationSchema) || {};
     formInitialValues.current =
       generateDynamicInitialValues(formSchema, initialValues) || {};
 
-    let touchedState = {};
-    let errorState = {};
     for (const field of Object.keys(formInitialValues.current)) {
       errorState = { ...errorState, [field]: null };
-      touchedState = { ...touchedState, [field]: false };
-    }
-
-    for (const field of Object.keys({ ...initialValues })) {
-      touchedState = { ...touchedState, [field]: true };
+      if (initialValuesKeys?.includes(field))
+        touchedState = { ...touchedState, [field]: true };
+      else touchedState = { ...touchedState, [field]: false };
     }
 
     setFormState({
       type: 'SET_INITIAL_STATE',
       payload: {
         values: formInitialValues.current,
-        errors: { ...errorState },
+        errors: errorState,
         touched: touchedState,
       },
     });
-
-    console.log('Initialized values, touched and error state');
   }, []);
 
   const handleSubmit = async (event?: Event): Promise<FormSubmit> => {
@@ -184,15 +168,12 @@ function FwForm<Values extends FormValues = FormValues>({
       payload: true,
     });
 
-    let isValid = false;
+    let isValid = false,
+      touchedState = {};
 
     const validationErrors = await handleValidation();
 
-    console.log({ errors: validationErrors });
-
     const keys = [...Object.keys(values), ...Object.keys(validationErrors)];
-
-    let touchedState = {};
 
     keys.forEach(
       (k: string) => (touchedState = { ...touchedState, [k]: true })
@@ -206,16 +187,14 @@ function FwForm<Values extends FormValues = FormValues>({
 
     isValid = !validationErrors || Object.keys(validationErrors).length === 0;
 
-    console.log({ values: values });
-
-    console.log('is Valid Form', isValid);
+    console.log({ values: values, errors: validationErrors, isValid });
 
     setFormState({
       type: 'SET_ISSUBMITTING',
       payload: false,
     });
 
-    return { values, isValid };
+    return { values, errors: validationErrors, isValid };
   };
 
   const handleReset = async (event?: any): Promise<void> => {
@@ -359,7 +338,7 @@ function FwForm<Values extends FormValues = FormValues>({
           const value = getElementValue(inputType, event, ref);
 
           setFormState({
-            type: 'SET_HANDLE_INPUT_RESULT',
+            type: 'SET_HANDLE_VALUE_CHANGE',
             payload: {
               field: field,
               value: value,
@@ -385,7 +364,7 @@ function FwForm<Values extends FormValues = FormValues>({
           const value = getElementValue(inputType, event, ref);
 
           setFormState({
-            type: 'SET_HANDLE_BLUR_RESULT',
+            type: 'SET_HANDLE_VALUE_CHANGE',
             payload: {
               field: field,
               value: value,

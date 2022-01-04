@@ -58,18 +58,17 @@ export class Form {
 
     this.values = this.formInitialValues;
 
+    const initialValuesKeys = Object.keys(this.initialValues);
+
     for (const field of Object.keys(this.formInitialValues)) {
       this.errors[field] = null;
-      this.touched[field] = false;
+      if (initialValuesKeys?.includes(field)) this.touched[field] = true;
+      else this.touched[field] = false;
     }
-
-    Object.keys(this.initialValues).forEach((f) => (this.touched[f] = true));
 
     const validationErrors = await this.handleValidation();
 
     this.errors = { ...this.errors, ...validationErrors };
-
-    console.log({ errors: this.errors });
   }
 
   // get Form Controls and pass props to children
@@ -96,18 +95,16 @@ export class Form {
 
     this.isSubmitting = true;
 
-    let isValid = false;
+    let isValid = false,
+      touchedState = {};
 
     const validationErrors = await this.handleValidation();
-
-    console.log({ errors: validationErrors });
 
     const keys = [
       ...Object.keys(this.values),
       ...Object.keys(validationErrors),
     ];
 
-    let touchedState = {};
     keys.forEach(
       (k: string) => (touchedState = { ...touchedState, [k]: true })
     );
@@ -116,13 +113,11 @@ export class Form {
 
     isValid = !validationErrors || Object.keys(validationErrors).length === 0;
 
-    console.log({ values: this.values });
-
-    console.log('is Valid Form ', isValid);
+    console.log({ values: this.values, errors: this.errors, isValid });
 
     this.isSubmitting = false;
 
-    return { values: this.values, isValid };
+    return { values: this.values, errors: this.errors, isValid };
   };
 
   handleReset = async (event?: Event): Promise<void> => {
@@ -135,10 +130,10 @@ export class Form {
     Object.keys(this.initialValues).forEach(
       (k: string) => (touchedState = { ...touchedState, [k]: true })
     );
-    this.touched = { ...touchedState };
+    this.touched = touchedState;
 
     const validationErrors = await this.handleValidation();
-    this.errors = { ...validationErrors };
+    this.errors = validationErrors;
 
     this.focused = null;
   };
@@ -187,7 +182,6 @@ export class Form {
   handleInput =
     (field: string, inputType: string) =>
     async (event: Event, ref: any): Promise<void> => {
-      //const target = event?.target;
       const value = getElementValue(inputType, event, ref);
 
       this.values = { ...this.values, [field]: value };
@@ -205,6 +199,7 @@ export class Form {
       const value: any = getElementValue(inputType, event, ref);
 
       this.values = { ...this.values, [field]: value };
+
       /** Validate, if user wants to validateOnBlur */
       if (this.validateOnBlur) {
         this.touched = { ...this.touched, [field]: true };
@@ -229,20 +224,18 @@ export class Form {
   }
 
   private passPropsToChildren(controls) {
-    controls.forEach((f) => {
-      this.passPropsToChild(f);
+    controls.forEach((control: any) => {
+      this.passPropsToChild(control);
     });
   }
 
-  private passPropsToChild(f) {
-    const error = this.errors[(f as any).name];
-    const touched = this.touched[(f as any).name];
-    (f as any).controlProps = this.composedUtils();
-    (f as any).fieldProps = f;
-    if (error) (f as any).error = error;
-    else (f as any).error = '';
-    if (touched) (f as any).touched = true;
-    else (f as any).touched = false;
+  private passPropsToChild(control: any) {
+    const error = this.errors[control.name];
+    const touched = this.touched[control.name];
+    control.controlProps = this.composedUtils();
+    control.fieldProps = control;
+    control.error = error || '';
+    control.touched = touched || false;
   }
 
   private composedUtils = (): FormUtils => {
@@ -336,21 +329,21 @@ export class Form {
     this.handleReset(e);
   }
 
-  renderCustomComponent(componentName: string, props: any) {
-    let template: JSX.Element;
-    if (window.customElements?.get(componentName)) {
-      const CustomComponent = `${componentName}`;
-      let slotText: JSX.Element;
-      if (props.slotText) {
-        slotText = props.slotText;
-        delete props.slotText;
-      }
-      template = <CustomComponent {...props}>{slotText}</CustomComponent>;
-    } else {
-      template = null;
-    }
-    return template;
-  }
+  // renderCustomComponent(componentName: string, props: any) {
+  //   let template: JSX.Element;
+  //   if (window.customElements?.get(componentName)) {
+  //     const CustomComponent = `${componentName}`;
+  //     let slotText: JSX.Element;
+  //     if (props.slotText) {
+  //       slotText = props.slotText;
+  //       delete props.slotText;
+  //     }
+  //     template = <CustomComponent {...props}>{slotText}</CustomComponent>;
+  //   } else {
+  //     template = null;
+  //   }
+  //   return template;
+  // }
 
   render() {
     const utils: FormUtils = this.composedUtils();
@@ -374,11 +367,11 @@ export class Form {
                   fieldProps={field}
                   controlProps={utils}
                 >
-                  {field.type === 'CUSTOM' &&
+                  {/* {field.component &&
                     this.renderCustomComponent(
                       field.component,
                       field.componentProps
-                    )}
+                    )} */}
                 </fw-form-control>
               );
             })

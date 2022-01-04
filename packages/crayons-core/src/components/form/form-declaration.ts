@@ -140,15 +140,6 @@ export type FormAction<Values> =
       };
     }
   | {
-      type: 'SET_HANDLE_BLUR_RESULT';
-      payload: {
-        field: string;
-        value: any;
-        touched: boolean;
-        focused: string | null;
-      };
-    }
-  | {
       type: 'SET_INITIAL_STATE';
       payload: {
         errors: FormErrors<Values>;
@@ -157,7 +148,7 @@ export type FormAction<Values> =
       };
     }
   | {
-      type: 'SET_HANDLE_INPUT_RESULT';
+      type: 'SET_HANDLE_VALUE_CHANGE';
       payload: {
         field: string;
         value: any;
@@ -168,5 +159,6 @@ export type FormAction<Values> =
 
 export type FormSubmit = {
   values: FormValues;
+  errors: FormErrors<FormValues>;
   isValid: boolean;
 };
