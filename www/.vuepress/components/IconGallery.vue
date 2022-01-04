@@ -1,8 +1,8 @@
 <template>
   <div class="card-gallery" style="height:600px;overflow-y:scroll;">
-    <div v-for="icon in icons" class="card" @click="copyToClipboard(icon.name, icon.importByName, icon.refIcon, icon.refText)">
+    <div v-for="icon in icons" :key="icon.refIcon" class="card" @click="copyToClipboard(icon.name, icon.importByName, icon.refIcon, icon.refText)">
       <div :ref="icon.refIcon">
-        <fw-icon :data-svg="icon.src" size = "16" alt="Crayons-Icon"  library="system" ></fw-icon>
+        <fw-icon :data-svg="icon.src" size = "16" alt="Crayons-Icon"  :label = "icon.name"></fw-icon>
       </div>
       <span :ref="icon.refIcon" class="name">{{ icon.name }}</span>
       <span :ref="icon.refText" class="copied">{{ copyText }}</span>
@@ -36,7 +36,7 @@ export default {
     },
     async copyToClipboard(text,import_as,refIcon, refText) {
       const el = document.createElement('textarea');
-      el.value = `-Copied- Name : ${text} , JS Import : import { ${import_as} } from '@freshworks/crayons-icon;' `;
+      el.value = `import { ${import_as} } from '@freshworks/crayons-icon';`;
       this.copyText = el.value;
       document.body.appendChild(el);
       el.select();
@@ -66,13 +66,12 @@ export default {
 }
 
 .card {
-  width: 100px;
-  height: 100px;
+  width: 98px;
+  height: 98px;
   margin: 10px;
   padding: 5px;
   border-radius: 4px;
-  box-shadow: 0 1px 3px 2px rgba(217, 217, 217, 0.3),
-    0 0 0 0 rgba(236, 236, 236, 0.5);
+  box-shadow: 0 2px 3px 3px rgb(217 217 217 / 35%), 0 0 0 0 rgb(236 236 236 / 50%);
   display: flex;
   flex-direction: column;
   align-items: center;

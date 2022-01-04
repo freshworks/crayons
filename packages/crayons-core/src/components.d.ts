@@ -43,6 +43,7 @@ export namespace Components {
         "image": string;
         "initials": string;
         "mode": 'dark' | 'light';
+        "name": string;
         "shape": 'circle' | 'square' | 'rounded';
         "size": | 'xxlarge'
     | 'xlarge'
@@ -127,11 +128,26 @@ export namespace Components {
          */
         "value": string;
     }
+    interface FwCustomCellAnchor {
+        "href": string;
+        "text": string;
+    }
+    interface FwCustomCellUser {
+        "alt": string;
+        "email": string;
+        "image": any;
+        "name": string;
+    }
     interface FwDataTable {
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns": DataTableColumn[];
+        /**
+          * getColumnConfig
+          * @returns columnConfig object
+         */
+        "getColumnConfig": () => Promise<{}>;
         /**
           * getSelectedIds
           * @returns an array of selected row IDs
@@ -142,6 +158,10 @@ export namespace Components {
           * @returns selected rows from the data table
          */
         "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable": boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -280,6 +300,56 @@ export namespace Components {
     | 'URL'
     | 'TEL'
     | 'TIME';
+    }
+    interface FwFormatNumber {
+        /**
+          * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
+         */
+        "currency": string;
+        /**
+          * Currency display formatting.
+         */
+        "currencyDisplay": 'symbol' | 'narrowSymbol' | 'code' | 'name';
+        /**
+          * In many locales, accounting format means to wrap the number with parentheses instead of appending a minus sign. You can enable the above by setting the currencySign option to `accounting`. The default value is `standard`
+         */
+        "currencySign": 'accounting' | 'standard';
+        /**
+          * `Locale` used for formatting the number
+         */
+        "locale": string;
+        /**
+          * The maximum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "maximumFractionDigits": number;
+        /**
+          * The maximum number of significant digits to use,. Possible values are 1 - 21. Default is 21
+         */
+        "maximumSignificantDigits": number;
+        /**
+          * The minimum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "minimumFractionDigits": number;
+        /**
+          * The minimum number of integer digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumIntegerDigits": number;
+        /**
+          * The minimum number of significant digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumSignificantDigits": number;
+        /**
+          * Formatting style
+         */
+        "type": 'currency' | 'decimal' | 'percent';
+        /**
+          * Turns on/off grouping separators.
+         */
+        "useGrouping": boolean;
+        /**
+          * Number to format.
+         */
+        "value": number;
     }
     interface FwIcon {
         /**
@@ -1449,6 +1519,18 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwCustomCellAnchorElement extends Components.FwCustomCellAnchor, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellAnchorElement: {
+        prototype: HTMLFwCustomCellAnchorElement;
+        new (): HTMLFwCustomCellAnchorElement;
+    };
+    interface HTMLFwCustomCellUserElement extends Components.FwCustomCellUser, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellUserElement: {
+        prototype: HTMLFwCustomCellUserElement;
+        new (): HTMLFwCustomCellUserElement;
+    };
     interface HTMLFwDataTableElement extends Components.FwDataTable, HTMLStencilElement {
     }
     var HTMLFwDataTableElement: {
@@ -1478,6 +1560,12 @@ declare global {
     var HTMLFwFormControlElement: {
         prototype: HTMLFwFormControlElement;
         new (): HTMLFwFormControlElement;
+    };
+    interface HTMLFwFormatNumberElement extends Components.FwFormatNumber, HTMLStencilElement {
+    }
+    var HTMLFwFormatNumberElement: {
+        prototype: HTMLFwFormatNumberElement;
+        new (): HTMLFwFormatNumberElement;
     };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
@@ -1667,11 +1755,14 @@ declare global {
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
+        "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-form": HTMLFwFormElement;
         "fw-form-control": HTMLFwFormControlElement;
+        "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
@@ -1737,6 +1828,7 @@ declare namespace LocalJSX {
         "image"?: string;
         "initials"?: string;
         "mode"?: 'dark' | 'light';
+        "name"?: string;
         "shape"?: 'circle' | 'square' | 'rounded';
         "size"?: | 'xxlarge'
     | 'xlarge'
@@ -1840,11 +1932,25 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface FwCustomCellAnchor {
+        "href"?: string;
+        "text"?: string;
+    }
+    interface FwCustomCellUser {
+        "alt"?: string;
+        "email"?: string;
+        "image"?: any;
+        "name"?: string;
+    }
     interface FwDataTable {
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns"?: DataTableColumn[];
+        /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable"?: boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -1853,6 +1959,14 @@ declare namespace LocalJSX {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label"?: string;
+        /**
+          * fwColumnsPositionChange Emits this event when columns position changes.
+         */
+        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * fwSelectAllChange Emits this event when select all is checked.
+         */
+        "onFwSelectAllChange"?: (event: CustomEvent<any>) => void;
         /**
           * fwSelectionChange Emits this event when row is selected/unselected.
          */
@@ -1994,6 +2108,56 @@ declare namespace LocalJSX {
     | 'URL'
     | 'TEL'
     | 'TIME';
+    }
+    interface FwFormatNumber {
+        /**
+          * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
+         */
+        "currency"?: string;
+        /**
+          * Currency display formatting.
+         */
+        "currencyDisplay"?: 'symbol' | 'narrowSymbol' | 'code' | 'name';
+        /**
+          * In many locales, accounting format means to wrap the number with parentheses instead of appending a minus sign. You can enable the above by setting the currencySign option to `accounting`. The default value is `standard`
+         */
+        "currencySign"?: 'accounting' | 'standard';
+        /**
+          * `Locale` used for formatting the number
+         */
+        "locale"?: string;
+        /**
+          * The maximum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "maximumFractionDigits"?: number;
+        /**
+          * The maximum number of significant digits to use,. Possible values are 1 - 21. Default is 21
+         */
+        "maximumSignificantDigits"?: number;
+        /**
+          * The minimum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "minimumFractionDigits"?: number;
+        /**
+          * The minimum number of integer digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumIntegerDigits"?: number;
+        /**
+          * The minimum number of significant digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumSignificantDigits"?: number;
+        /**
+          * Formatting style
+         */
+        "type"?: 'currency' | 'decimal' | 'percent';
+        /**
+          * Turns on/off grouping separators.
+         */
+        "useGrouping"?: boolean;
+        /**
+          * Number to format.
+         */
+        "value"?: number;
     }
     interface FwIcon {
         /**
@@ -3190,11 +3354,14 @@ declare namespace LocalJSX {
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-custom-cell-anchor": FwCustomCellAnchor;
+        "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-dropdown-button": FwDropdownButton;
         "fw-form": FwForm;
         "fw-form-control": FwFormControl;
+        "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
@@ -3238,11 +3405,14 @@ declare module "@stencil/core" {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
+            "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
             "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
+            "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;

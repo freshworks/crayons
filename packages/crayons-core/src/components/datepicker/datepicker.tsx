@@ -485,6 +485,7 @@ export class Datepicker {
     if (!value) {
       this.startDate = undefined;
       this.endDate = undefined;
+      this.selectedDay = undefined;
       this.value = undefined;
       this.year = moment().year().toString();
       this.month = moment().month();

@@ -156,7 +156,7 @@ export class Checkbox {
             name={this.name}
           ></input>
           <label>
-            <span id='label'>
+            <span id='label' class={this.description && 'with-description'}>
               <slot />
             </span>
             {this.description !== '' || this.label !== '' ? (

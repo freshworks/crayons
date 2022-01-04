@@ -47,6 +47,10 @@ $font-weight: (
   }
 }
 
+.fw-type-anchor {
+  @include anchor;
+}
+
 /**
   For generating border styles
 */
