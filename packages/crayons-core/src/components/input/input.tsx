@@ -232,6 +232,17 @@ export class Input {
         }}
       >
         <div class='input-container'>
+          {this.label !== '' ? (
+            <label
+              class={{
+                required: this.required,
+              }}
+            >
+              {this.label}
+            </label>
+          ) : (
+            ''
+          )}
           <div
             class={{
               'input-container-inner': true,

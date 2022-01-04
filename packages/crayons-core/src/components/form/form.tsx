@@ -369,6 +369,8 @@ export class Form {
                   label={field.label}
                   required={field.required}
                   hint={field.hint}
+                  placeholder={field.placeholder}
+                  choices={field.choices}
                   fieldProps={field}
                   controlProps={utils}
                 >

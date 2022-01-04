@@ -156,7 +156,13 @@ export class Checkbox {
             name={this.name}
           ></input>
           <label>
-            <span id='label' class={this.description && 'with-description'}>
+            <span
+              id='label'
+              class={{
+                'with-description': this.description !== '',
+                'required': this.required,
+              }}
+            >
               <slot />
             </span>
             {this.description !== '' || this.label !== '' ? (

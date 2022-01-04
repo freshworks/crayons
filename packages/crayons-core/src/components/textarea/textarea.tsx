@@ -166,6 +166,17 @@ export class Textarea {
         }}
       >
         <div class='textarea-container'>
+          {this.label !== '' ? (
+            <label
+              class={{
+                required: this.required,
+              }}
+            >
+              {this.label}
+            </label>
+          ) : (
+            ''
+          )}
           <div
             class={{
               'textarea-container-inner': true,

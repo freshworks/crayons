@@ -273,8 +273,9 @@ export namespace Components {
         "validationSchema"?: any;
     }
     interface FwFormControl {
+        "choices": any;
         /**
-          * Value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control.
+          * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
         "error": string;
@@ -285,6 +286,7 @@ export namespace Components {
         "hint": string;
         "label": any;
         "name": any;
+        "placeholder": string;
         "required": boolean;
         "touched": boolean;
         "type": | 'TEXT'
@@ -2081,8 +2083,9 @@ declare namespace LocalJSX {
         "validationSchema"?: any;
     }
     interface FwFormControl {
+        "choices"?: any;
         /**
-          * Value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control.
+          * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
         "error"?: string;
@@ -2093,6 +2096,7 @@ declare namespace LocalJSX {
         "hint"?: string;
         "label"?: any;
         "name"?: any;
+        "placeholder"?: string;
         "required"?: boolean;
         "touched"?: boolean;
         "type"?: | 'TEXT'
