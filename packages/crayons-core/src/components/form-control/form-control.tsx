@@ -107,6 +107,8 @@ export class FormControl {
       case 'EMAIL':
       case 'TEL':
       case 'URL': {
+        const type =
+          this.type === 'DECIMAL' ? 'number' : this.type?.toLowerCase();
         const componentProps = {
           ...this.fieldProps,
           name: this.name,
@@ -114,8 +116,8 @@ export class FormControl {
           label: '',
           required: '',
           hint: '',
-          type: this.type === 'DECIMAL' ? 'number' : this.type?.toLowerCase(),
-          ...this.controlProps?.inputProps(this.name, this.type?.toLowerCase()),
+          type: type,
+          ...this.controlProps?.inputProps(this.name, type),
         };
 
         cmp = <fw-input {...componentProps}></fw-input>;

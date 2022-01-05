@@ -233,7 +233,6 @@ export class Form {
     const error = this.errors[control.name];
     const touched = this.touched[control.name];
     control.controlProps = this.composedUtils();
-    control.fieldProps = control;
     control.error = error || '';
     control.touched = touched || false;
   }

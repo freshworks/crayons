@@ -60,7 +60,6 @@ export const config: Config = {
       // tree shakable, need to use setassetpath
       customElementsDir: 'dist/components',
       includeImportCustomElements: true,
-      excludeComponents: ['fw-form'],
     }),
   ],
   plugins: [
