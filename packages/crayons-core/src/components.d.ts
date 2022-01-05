@@ -204,6 +204,12 @@ export namespace Components {
          */
         "sortable": boolean;
     }
+    interface FwDragItem {
+        /**
+          * Whether the drag is disabled or not.
+         */
+        "disabled": boolean;
+    }
     interface FwDropdownButton {
         /**
           * Dropdown Button color
@@ -1432,6 +1438,12 @@ declare global {
         prototype: HTMLFwDragContainerElement;
         new (): HTMLFwDragContainerElement;
     };
+    interface HTMLFwDragItemElement extends Components.FwDragItem, HTMLStencilElement {
+    }
+    var HTMLFwDragItemElement: {
+        prototype: HTMLFwDragItemElement;
+        new (): HTMLFwDragItemElement;
+    };
     interface HTMLFwDropdownButtonElement extends Components.FwDropdownButton, HTMLStencilElement {
     }
     var HTMLFwDropdownButtonElement: {
@@ -1635,6 +1647,7 @@ declare global {
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-drag-container": HTMLFwDragContainerElement;
+        "fw-drag-item": HTMLFwDragItemElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
@@ -1887,6 +1900,12 @@ declare namespace LocalJSX {
           * Whether the list should be sortable.
          */
         "sortable"?: boolean;
+    }
+    interface FwDragItem {
+        /**
+          * Whether the drag is disabled or not.
+         */
+        "disabled"?: boolean;
     }
     interface FwDropdownButton {
         /**
@@ -3144,6 +3163,7 @@ declare namespace LocalJSX {
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-drag-container": FwDragContainer;
+        "fw-drag-item": FwDragItem;
         "fw-dropdown-button": FwDropdownButton;
         "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
@@ -3192,6 +3212,7 @@ declare module "@stencil/core" {
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
+            "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;

@@ -26,6 +26,7 @@ export class Draggable {
       }
 
       const afterElement = this.getDragAfterElement(childElements, y);
+
       let newElement;
       // dragging inside the same container, so no need to add placeholder
       if (
@@ -38,15 +39,7 @@ export class Draggable {
           this.placeholder || this.createPlaceholder(draggingElement);
         newElement = this.placeholder;
       }
-      // global variable dragElement is set to undefined during drop event.
-      // Added the if condition to prevent the debounced function from firing after drop event
-      if (dragElement) {
-        if (afterElement) {
-          this.host.insertBefore(newElement, afterElement);
-        } else {
-          this.host.appendChild(newElement);
-        }
-      }
+      this.addElement(newElement, afterElement);
     },
     this,
     5
@@ -88,19 +81,18 @@ export class Draggable {
   private onDragLeave = (e) => {
     const outTarget = e.relatedTarget || e.fromElement;
     if (!e.currentTarget.contains(outTarget)) {
-      // the drag element have left the current container(this.host)
-      this.previousContainer = undefined;
-      this.cancelDebouncedDrag = true;
+      // Check whether the outTarget's host (in case of shadow dom) exists in currentTarget
+      if (!e.currentTarget.contains(outTarget.getRootNode().host)) {
+        // the drag element have left the current container(this.host)
+        this.previousContainer = undefined;
+        this.cancelDebouncedDrag = true;
 
-      if (dragElement.parentElement.id !== this.host.id) {
-        // dragElement from another container
-        this.removePlaceholder();
-      } else {
-        // Sort within the same container
-        if (this.nextSibling) {
-          this.host.insertBefore(dragElement, this.nextSibling);
+        if (dragElement.parentElement.id !== this.host.id) {
+          // dragElement from another container
+          this.removePlaceholder();
         } else {
-          this.host.appendChild(dragElement);
+          // Sort within the same container
+          this.addElement(dragElement, this.nextSibling);
         }
       }
     }
@@ -122,31 +114,32 @@ export class Draggable {
 
   private onDrop = (e) => {
     const sortContainerId = dragElement.parentElement.id;
-    if (this.acceptFrom.includes(sortContainerId)) {
-      let droppedIndex;
-      if (this.placeholder) {
-        droppedIndex = [...this.host.children].indexOf(this.placeholder);
-        if (this.options.addOnDrop) {
-          const clone = cloneNodeWithEvents(dragElement, true, true);
-          this.placeholder.replaceWith(clone);
-        } else {
-          this.removePlaceholder();
-        }
-      } else {
-        droppedIndex = [...this.host.children].indexOf(dragElement);
-      }
-      this.host.dispatchEvent(
-        new CustomEvent('fwDropBase', {
-          cancelable: true,
-          bubbles: false,
-          detail: {
-            droppedElement: dragElement,
-            droppedIndex,
-          },
-        })
-      );
-      this.resetData(e);
+    if (!this.acceptFrom.includes(sortContainerId)) {
+      return;
     }
+    const newElement = this.placeholder || dragElement;
+    const droppedIndex = [...this.host.children].indexOf(newElement);
+    if (this.placeholder) {
+      if (this.options.addOnDrop) {
+        const clone = cloneNodeWithEvents(dragElement, true, true);
+        this.placeholder.replaceWith(clone);
+      } else {
+        this.removePlaceholder();
+      }
+    }
+    this.host.dispatchEvent(
+      new CustomEvent('fwDropBase', {
+        cancelable: true,
+        bubbles: false,
+        detail: {
+          droppedElement: dragElement,
+          droppedIndex,
+          dragFromId: sortContainerId,
+          dropToId: this.host.id,
+        },
+      })
+    );
+    this.resetData(e);
   };
 
   addListeners() {
@@ -215,6 +208,14 @@ export class Draggable {
   removePlaceholder(element?) {
     const removeElement = element || this.placeholder;
     this.host.contains(removeElement) && this.host.removeChild(removeElement);
+  }
+
+  addElement(newElement, nextElement) {
+    if (nextElement) {
+      this.host.insertBefore(newElement, nextElement);
+    } else {
+      this.host.appendChild(newElement);
+    }
   }
 
   resetData(e) {
