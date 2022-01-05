@@ -14,29 +14,33 @@
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
 
-    <!-- <fw-form-wrapper id="fw-form"></fw-form-wrapper> -->
-    <!-- 
-    <fw-form-control
-    type="TEXT"
-    name="first_name"
-    placeholder="First Name"
-    required
-    label="First Name"
-    id="a"
-  ></fw-form-control> -->
-
     <br />
-    <h3>custom form</h3>
+    <!-- <h3>Pattern 1</h3>
 
-    <fw-form id="fw-form">
-      <fw-form-control
-      type="TEXT"
-      name="first_name"
-      placeholder="First Name"
-      required
-      label="First Name"
-      id="first_name"
-    ></fw-form-control>
+    <fw-form id="fw-form"> </fw-form> -->
+    <br/>
+
+      <!-- <h3>Pattern 2</h3>
+
+      <fw-form id="fw-form"></fw-form>
+
+      <div id="child" style="display: none;">
+        <input name="ccc" id="ccc" placeholder="ccc"
+        autocomplete="off"
+        ></input>  
+      </div> -->
+      <br/>
+
+      <h3>Pattern 3 </h3>
+      <fw-form id="fw-form">
+        <fw-form-control
+        type="TEXT"
+        name="first_name"
+        placeholder="First Name"
+        required
+        label="First Name"
+        id="first_name"
+      ></fw-form-control>
 
       <fw-form-control
         type="TEXT"
@@ -57,6 +61,7 @@
       autocomplete="off"
       ></input>  
     </fw-form>
+
 
     <br /><br />
 
@@ -84,7 +89,9 @@
         }
       });
       document.querySelector('#reset').addEventListener('click', (e) => {
-        // document.querySelector('#ccc').value = '';
+        
+        if(document.querySelector('#ccc'))
+          document.querySelector('#ccc').value = '';
         form.doReset(e);
       });
       const formSchema = {
@@ -412,35 +419,58 @@
 
       const initialValues = {
         // abc: 'Test',
-       // is_indian_citizen: true,
+        // is_indian_citizen: true,
       };
 
-      /** pattern 1 **/
-      form.formSchema = formSchema;
       //form.validateOnInput = false;
 
+      /** pattern 1 **/
+      //form.formSchema = formSchema;
+      
+      // for pattern 2
+      // formSchema?.fields?.forEach(f =>{
+
+      //   const formControl = document.createElement("fw-form-control");
+      //   formControl.name = f.name;
+      //   formControl.type = f.type;
+      //   formControl.hint = f.hint;
+      //   formControl.label = f.label;
+      //   formControl.placeholder = f.placeholder;
+      //   formControl.required = f.required;
+      //   formControl.choices = f.choices;
+      //   formControl.id = f.name
+      //   form.appendChild(formControl);
+      // });
+
+      // const formControl = document.createElement("fw-form-control");
+      //   formControl.name = "ccc";
+      //   formControl.type = "TEXT";
+      //   formControl.hint = "custom web hint";
+      //   formControl.label = "custom we";
+      //   formControl.required = true;
+      //   formControl.innerHTML = (document.querySelector("#child")).innerHTML;
+
+      //   form.querySelector("fw-form-control#last_name").prepend(formControl)
+
+      
       form.initialValues = initialValues;
 
+      // no required for Pattern 1 since implicit validation is in place.
       form.validate = async function (values) {
         console.log('validate method called with ', values);
         return {
           // first_name: 'first name error',
           // last_name: 'last name error',
-          ccc:"ss"
+          ccc: 'ss',
         };
         // json api std.
       };
 
       function handleInput(e) {
         console.log('handle input');
-        form.setFieldValue([e.target.name], e.target.value );
+        form.setFieldValue([e.target.name], e.target.value);
       }
 
-      // document.querySelector('#first_name').fieldProps = {
-      //   placeholder: 'Enter First Name',
-      // };
-
-      // document.querySelector("#a").addEventListener("fwControlChange",(e) => console.log(e))
       document.querySelector('#ccc').addEventListener('input', handleInput);
       document.querySelector('#ccc').addEventListener('change', handleInput);
       document.querySelector('#ccc').addEventListener('blur', handleInput);
