@@ -1,3 +1,10 @@
+## [2.13.3](https://github.com/freshworks/crayons/compare/v2.13.2...v2.13.3) (2022-01-05)
+
+
+### Bug Fixes
+
+* **icon.tsx:** removes title from svg that is visible on hover ([95d2900](https://github.com/freshworks/crayons/commit/95d29005ce8be8cc18d3dd2afdc18724f6fb2fc0)), closes [#200](https://github.com/freshworks/crayons/issues/200)
+
 ## [2.13.2](https://github.com/freshworks/crayons/compare/v2.13.1...v2.13.2) (2021-07-16)
 
 
