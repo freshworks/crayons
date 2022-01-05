@@ -29,7 +29,7 @@ export class Icon {
 
   @Watch('name')
   private setSVGState(iconName: string) {
-    this.svgHTML = icons[iconName];
+    this.svgHTML = icons[iconName].replace(/<title>(.*?)<\/title>/g, ``);
   }
 
   componentWillLoad() {
