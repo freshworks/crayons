@@ -1,0 +1,35 @@
+.drag-item {
+  display: flex;
+  background: #ffffff;
+  border: 1px solid #ebeff3;
+  box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
+  border-radius: 4px;
+  padding: 8px 12px;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &#{&}__label {
+    flex: 1 1 auto;
+  }
+
+  &#{&}__prefix {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+  &#{&}__suffix {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .drag-icon {
+    padding-right: 12px;
+
+    &:hover,
+    &:focus {
+      cursor: grab;
+    }
+  }
+}
