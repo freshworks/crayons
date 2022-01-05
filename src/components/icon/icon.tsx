@@ -24,7 +24,6 @@ export class Icon {
    * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
    */
   @Prop() color = '';
-  @Prop() title = '';
 
   @State() svgHTML = '';
 
@@ -38,9 +37,6 @@ export class Icon {
   }
 
   render() {
-    if (this.title) {
-      this.svgHTML = (this.svgHTML.replace(/<title>(.*?)<\/title>/g, `<title>${this.title}</title>`));
-    }
     return (
       <div class="icon"
         style={
