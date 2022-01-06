@@ -17,13 +17,28 @@ export class DragItem {
   @Prop() disabled = false;
 
   componentDidLoad() {
-    this.dragIcon.addEventListener('mousedown', () => {
-      this.draggable = true;
-    });
+    this.dragIcon.addEventListener(
+      'mousedown',
+      this.toggleDraggable.bind(this)
+    );
 
-    this.dragIcon.addEventListener('mouseout', () => {
-      this.draggable = false;
-    });
+    this.dragIcon.addEventListener('mouseout', this.toggleDraggable.bind(this));
+  }
+
+  toggleDraggable() {
+    this.draggable = !this.draggable;
+  }
+
+  disconnectedCallback() {
+    this.dragIcon.removeEventListener(
+      'mousedown',
+      this.toggleDraggable.bind(this)
+    );
+
+    this.dragIcon.removeEventListener(
+      'mouseout',
+      this.toggleDraggable.bind(this)
+    );
   }
 
   render() {

@@ -35,8 +35,7 @@ export class Draggable {
       ) {
         newElement = draggingElement;
       } else {
-        this.placeholder =
-          this.placeholder || this.createPlaceholder(draggingElement);
+        this.placeholder ||= this.createPlaceholder(draggingElement);
         newElement = this.placeholder;
       }
       this.addElement(newElement, afterElement);
@@ -173,6 +172,8 @@ export class Draggable {
   removeListeners() {
     this.host.removeEventListener('dragstart', (e) => this.onDragStart(e));
     this.host.removeEventListener('dragend', (e) => this.onDragEnd(e));
+    this.host.removeEventListener('dragenter', (e) => this.onDragEnter(e));
+    this.host.removeEventListener('dragleave', (e) => this.onDragLeave(e));
 
     if (this.options.sortable) {
       this.host.removeEventListener('dragover', (e) => this.onDragOver(e));
