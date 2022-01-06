@@ -70,6 +70,9 @@ export class Draggable {
   };
 
   private onDragEnter = (e) => {
+    if (!dragElement) {
+      return;
+    }
     const sortContainer = e.composedPath().find((el) => el.id === this.host.id);
     if (sortContainer && sortContainer !== this.previousContainer) {
       // the drag element have entered or re-entered current container(this.host)
@@ -79,10 +82,17 @@ export class Draggable {
   };
 
   private onDragLeave = (e) => {
-    const outTarget = e.relatedTarget || e.fromElement;
+    if (!dragElement) {
+      return;
+    }
+    const outTarget = e.fromElement || e.relatedTarget;
     if (!e.currentTarget.contains(outTarget)) {
       // Check whether the outTarget's host (in case of shadow dom) exists in currentTarget
-      if (!e.currentTarget.contains(outTarget.getRootNode().host)) {
+      const parentHost = this.getMatchingHost(
+        outTarget,
+        this.host.children[0].tagName
+      );
+      if (!e.currentTarget.contains(parentHost)) {
         // the drag element have left the current container(this.host)
         this.previousContainer = undefined;
         this.cancelDebouncedDrag = true;
@@ -100,6 +110,9 @@ export class Draggable {
 
   private onDragOver = (e) => {
     e.preventDefault();
+    if (!dragElement) {
+      return;
+    }
     const sortContainerId = dragElement.parentElement.id;
     if (this.acceptFrom.includes(sortContainerId)) {
       this.debouncedSetElement(this.childElements, dragElement, e.clientY);
@@ -113,6 +126,9 @@ export class Draggable {
   };
 
   private onDrop = (e) => {
+    if (!dragElement) {
+      return;
+    }
     const sortContainerId = dragElement.parentElement.id;
     if (!this.acceptFrom.includes(sortContainerId)) {
       return;
@@ -216,6 +232,21 @@ export class Draggable {
     } else {
       this.host.appendChild(newElement);
     }
+  }
+
+  getHost(element) {
+    return element.getRootNode().host;
+  }
+
+  getMatchingHost(element, tagName) {
+    let matchingElement = element;
+    while (matchingElement) {
+      matchingElement = this.getHost(matchingElement);
+      if (matchingElement && matchingElement.tagName === tagName) {
+        return matchingElement;
+      }
+    }
+    return undefined;
   }
 
   resetData(e) {
