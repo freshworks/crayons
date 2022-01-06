@@ -133,6 +133,19 @@ function App() {
 | `fwChange` | Triggered when a the view switches to a new tab. | `CustomEvent<any>` |
 
 
+## Methods
+
+### `activateTab(index?: number, name?: string) => Promise<void>`
+
+Activates the tab based based on tabindex or name.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on

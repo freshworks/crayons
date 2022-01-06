@@ -42,6 +42,7 @@ export namespace Components {
         "image": string;
         "initials": string;
         "mode": 'dark' | 'light';
+        "name": string;
         "shape": 'circle' | 'square' | 'rounded';
         "size": | 'xxlarge'
     | 'xlarge'
@@ -115,11 +116,26 @@ export namespace Components {
          */
         "value": string;
     }
+    interface FwCustomCellAnchor {
+        "href": string;
+        "text": string;
+    }
+    interface FwCustomCellUser {
+        "alt": string;
+        "email": string;
+        "image": any;
+        "name": string;
+    }
     interface FwDataTable {
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns": DataTableColumn[];
+        /**
+          * getColumnConfig
+          * @returns columnConfig object
+         */
+        "getColumnConfig": () => Promise<{}>;
         /**
           * getSelectedIds
           * @returns an array of selected row IDs
@@ -130,6 +146,10 @@ export namespace Components {
           * @returns selected rows from the data table
          */
         "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable": boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -1041,6 +1061,10 @@ export namespace Components {
     }
     interface FwTabs {
         /**
+          * Activates the tab based based on tabindex or name.
+         */
+        "activateTab": (index?: number, name?: string) => Promise<void>;
+        /**
           * The index of the activated Tab(Starts from 0)
          */
         "activeTabIndex": number;
@@ -1420,6 +1444,18 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwCustomCellAnchorElement extends Components.FwCustomCellAnchor, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellAnchorElement: {
+        prototype: HTMLFwCustomCellAnchorElement;
+        new (): HTMLFwCustomCellAnchorElement;
+    };
+    interface HTMLFwCustomCellUserElement extends Components.FwCustomCellUser, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellUserElement: {
+        prototype: HTMLFwCustomCellUserElement;
+        new (): HTMLFwCustomCellUserElement;
+    };
     interface HTMLFwDataTableElement extends Components.FwDataTable, HTMLStencilElement {
     }
     var HTMLFwDataTableElement: {
@@ -1644,6 +1680,8 @@ declare global {
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
+        "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-drag-container": HTMLFwDragContainerElement;
@@ -1715,6 +1753,7 @@ declare namespace LocalJSX {
         "image"?: string;
         "initials"?: string;
         "mode"?: 'dark' | 'light';
+        "name"?: string;
         "shape"?: 'circle' | 'square' | 'rounded';
         "size"?: | 'xxlarge'
     | 'xlarge'
@@ -1811,11 +1850,25 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface FwCustomCellAnchor {
+        "href"?: string;
+        "text"?: string;
+    }
+    interface FwCustomCellUser {
+        "alt"?: string;
+        "email"?: string;
+        "image"?: any;
+        "name"?: string;
+    }
     interface FwDataTable {
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns"?: DataTableColumn[];
+        /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable"?: boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -1824,6 +1877,14 @@ declare namespace LocalJSX {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label"?: string;
+        /**
+          * fwColumnsPositionChange Emits this event when columns position changes.
+         */
+        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * fwSelectAllChange Emits this event when select all is checked.
+         */
+        "onFwSelectAllChange"?: (event: CustomEvent<any>) => void;
         /**
           * fwSelectionChange Emits this event when row is selected/unselected.
          */
@@ -3160,6 +3221,8 @@ declare namespace LocalJSX {
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-custom-cell-anchor": FwCustomCellAnchor;
+        "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
         "fw-drag-container": FwDragContainer;
@@ -3209,6 +3272,8 @@ declare module "@stencil/core" {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
+            "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;

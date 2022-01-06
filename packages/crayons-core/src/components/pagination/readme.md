@@ -105,6 +105,9 @@ graph TD;
   fw-pagination --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   style fw-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

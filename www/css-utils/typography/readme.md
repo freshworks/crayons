@@ -68,6 +68,14 @@ For font weight, we can use 'fw-type-#{weight}'
 </div>
 ```
 
+## Anchor
+
+For anchor tags, we can use 'fw-type-anchor'
+
+```html live
+<a class="fw-type-anchor" href="#anchor">Anchor Text</a>
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

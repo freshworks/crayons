@@ -61,3 +61,9 @@ $size-height-ratio: (
     @error "Unacceptable type value. Should always be 'header' or 'body'.";
   }
 }
+
+@mixin anchor {
+  color: $color-azure-800;
+  text-decoration: none;
+  font-weight: 600;
+}

@@ -11,6 +11,7 @@ Avatars are used to represent a person or object.
     image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
   ></fw-avatar>
   <fw-avatar initials="PT"></fw-avatar>
+  <fw-avatar name="Patrick Goodwin"></fw-avatar>
 </section>
 ```
 
@@ -89,6 +90,7 @@ function App() {
 | `image`    | `image`    |             | `string`                                                                           | `undefined` |
 | `initials` | `initials` |             | `string`                                                                           | `undefined` |
 | `mode`     | `mode`     |             | `"dark" \| "light"`                                                                | `'dark'`    |
+| `name`     | `name`     |             | `string`                                                                           | `''`        |
 | `shape`    | `shape`    |             | `"circle" \| "rounded" \| "square"`                                                | `'circle'`  |
 | `size`     | `size`     |             | `"large" \| "medium" \| "small" \| "xlarge" \| "xsmall" \| "xxlarge" \| "xxsmall"` | `'large'`   |
 
@@ -105,12 +107,14 @@ function App() {
 
 ### Used by
 
+ - [fw-custom-cell-user](../data-table/custom-cells/user)
  - [fw-select-option](../select-option)
  - [fw-tag](../tag)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-custom-cell-user --> fw-avatar
   fw-select-option --> fw-avatar
   fw-tag --> fw-avatar
   style fw-avatar fill:#f9f,stroke:#333,stroke-width:4px

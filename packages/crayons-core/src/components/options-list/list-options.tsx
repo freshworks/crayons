@@ -233,6 +233,11 @@ export class ListOptions {
   @Watch('value')
   onValueChange(newValue, oldValue) {
     if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+      if (newValue) {
+        this.validateValue(newValue);
+      } else {
+        newValue = this.multiple ? [] : '';
+      }
       this.selectOptions = this.selectOptions.map((option) => {
         option.selected = newValue.includes(option.value);
         return option;
@@ -266,6 +271,15 @@ export class ListOptions {
 
   valueExists() {
     return this.multiple ? this.value.length > 0 : !!this.value;
+  }
+
+  validateValue(value) {
+    if (this.multiple && !Array.isArray(value)) {
+      throw new Error('Value must be a array for multi-select');
+    }
+    if (!this.multiple && typeof value !== 'string') {
+      throw new Error('Value must be a string for single-select');
+    }
   }
 
   handleSearchWithDebounce = debounce(
@@ -363,6 +377,7 @@ export class ListOptions {
   }
 
   componentWillLoad() {
+    this.validateValue(this.value);
     if (this.selectedOptions.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.multiple

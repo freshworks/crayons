@@ -38,6 +38,7 @@
   position: relative;
   font-weight: 400;
   word-wrap: break-word;
+  padding-left: 22px;
 }
 
 /* Hover event occurs on the root element */
@@ -70,7 +71,11 @@ input[type='checkbox'] {
     font-size: 14px;
     color: #12344d;
     line-height: 20px;
-    font-weight: 600;
+    font-weight: 400;
+
+    .with-description {
+      font-weight: 600;
+    }
 
     #label {
       padding-left: 22px;
