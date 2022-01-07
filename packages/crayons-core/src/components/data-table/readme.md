@@ -460,6 +460,195 @@ This codeblock shows how to use custom cell function to display HTML content in 
 ```
 
 
+### Row Actions:
+
+You can easily add an actions column by passing in rowActions prop to the component.
+
+```html live
+  <fw-data-table id="datatable-4"  is-selectable="true" is-all-selectable="true" label="Data table 4">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"]
+      }]
+    }
+
+    var datatable4 = document.getElementById('datatable-4');
+    datatable4.columns = data.columns;
+    datatable4.rows = data.rows;
+    datatable4.rowActions = data.rowActions;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-4"  is-selectable="true" is-all-selectable="true" label="Data table 4">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name"
+    }, {
+      "key": "role",
+      "text": "Role"
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "role": "Member"
+    }, {
+      "id": "0002",
+      "name": "Ambrose Wayne",
+      "role": "Member"
+    }, {
+      "id": "0003",
+      "name": "August hines",
+      "role": "Administrator"
+    }],
+    rowActions: [{
+      "name": "Alert",
+      "handler": (rowData) => {
+        window.alert(rowData.name);
+      }
+    }, {
+      "name": "Delete",
+      "handler": async (rowData) => {
+        let deletePromise = new Promise((resolve, reject) => {
+          const dataTable = document.querySelector('#datatable-4');
+          setTimeout(() => {
+            if (dataTable) {
+              dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+              resolve();
+            } else {
+              reject();
+            }
+          }, 3000); 
+        });
+        await deletePromise;
+      },
+      "hideForRowIds": ["0003"]
+    }]
+  }
+
+  var datatable4 = document.getElementById('datatable-4');
+  datatable4.columns = data.columns;
+  datatable4.rows = data.rows;
+  datatable4.rowActions = data.rowActions;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FWDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"]
+      }]
+    }
+
+    return (
+      <FWDataTable columns={data.columns} rows={data.persons} rowActions={data.rowActions} label="Data Table 3">
+      </FWDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
 <!-- Auto Generated Below -->
 
 
@@ -471,6 +660,7 @@ This codeblock shows how to use custom cell function to display HTML content in 
 | `isAllSelectable` | `is-all-selectable` | isAllSelectable Booleam based on which select all option appears in the table header   | `boolean`           | `false` |
 | `isSelectable`    | `is-selectable`     | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
 | `label`           | `label`             | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
+| `rowActions`      | --                  | To enable bulk actions on the table.                                                   | `DataTableAction[]` | `[]`    |
 | `rows`            | --                  | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
 
 
@@ -515,17 +705,36 @@ Type: `Promise<DataTableRow[]>`
 
 selected rows from the data table
 
+### `loadTable(state: boolean) => Promise<boolean>`
+
+loadTable - Method to call when we want to change table loading state
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+isTableLoading current state
+
 
 ## Dependencies
 
 ### Depends on
 
 - [fw-checkbox](../checkbox)
+- [fw-skeleton](../skeleton)
+- [fw-button](../button)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-data-table --> fw-checkbox
+  fw-data-table --> fw-skeleton
+  fw-data-table --> fw-button
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   style fw-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

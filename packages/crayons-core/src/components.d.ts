@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
-import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -158,6 +158,16 @@ export namespace Components {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label": string;
+        /**
+          * loadTable - Method to call when we want to change table loading state
+          * @param state to load table or not
+          * @returns isTableLoading current state
+         */
+        "loadTable": (state: boolean) => Promise<boolean>;
+        /**
+          * To enable bulk actions on the table.
+         */
+        "rowActions": DataTableAction[];
         /**
           * Rows Array of objects to be displayed in the table.
          */
@@ -1843,6 +1853,10 @@ declare namespace LocalJSX {
           * fwSelectionChange Emits this event when row is selected/unselected.
          */
         "onFwSelectionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * To enable bulk actions on the table.
+         */
+        "rowActions"?: DataTableAction[];
         /**
           * Rows Array of objects to be displayed in the table.
          */
