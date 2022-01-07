@@ -15,6 +15,7 @@ import {
   renderHiddenField,
   watchForOptions,
 } from '../../utils';
+import PubSub from '../../utils/pub-sub';
 
 @Component({
   tag: 'fw-radio-group',
@@ -53,14 +54,10 @@ export class RadioGroup {
    */
   @Prop() required = false;
 
-  @Prop() handleChange = (_e, _o) => {};
-  @Prop() handleBlur = (_e, _o) => {};
-
   @Watch('value')
   async valueChanged(value: any | undefined) {
     await this.updateRadios();
     this.fwChange.emit({ value });
-    this.handleChange(null, { value });
   }
 
   /**
@@ -123,6 +120,8 @@ export class RadioGroup {
       default:
         break;
     }
+
+    PubSub.publish('handleChange', { field: this.name, value: this.value });
   }
 
   async connectedCallback() {
@@ -232,8 +231,8 @@ export class RadioGroup {
     await this.updateRadios();
   };
 
-  private onBlur = (e) => {
-    this.handleBlur(e, { value: this.value });
+  private onBlur = () => {
+    PubSub.publish('handleBlur', { field: this.name, value: this.value });
   };
 
   render() {

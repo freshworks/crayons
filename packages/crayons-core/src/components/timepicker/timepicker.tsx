@@ -2,6 +2,7 @@ import { Component, Element, Prop, State, h } from '@stencil/core';
 import moment from 'moment-mini';
 
 import { renderHiddenField } from '../../utils';
+import PubSub from '../../utils/pub-sub';
 
 @Component({
   tag: 'fw-timepicker',
@@ -59,10 +60,6 @@ export class Timepicker {
    */
   @Prop() required = false;
 
-  @Prop() handleChange = (_e, _o) => {};
-  @Prop() handleBlur = (_e, _o) => {};
-  @Prop() handleFocus = (_e?, _o?) => {};
-
   /**
    * Boolean representing whethere it is default end time
    */
@@ -110,7 +107,8 @@ export class Timepicker {
   private setTimeValue(e: any) {
     const { value } = e.detail;
     this.value = value;
-    this.handleChange({}, { value: this.value });
+    if (this.value)
+      PubSub.publish('handleChange', { field: this.name, value: this.value });
   }
 
   private setEndTime() {
@@ -119,12 +117,12 @@ export class Timepicker {
     }
   }
 
-  onBlur = (e) => {
-    this.handleBlur(e, { value: this.value });
+  onBlur = (): void => {
+    PubSub.publish('handleBlur', { field: this.name, value: this.value });
   };
 
-  onFocus = (e) => {
-    this.handleFocus(e);
+  onFocus = (): void => {
+    PubSub.publish('handleFocus', { field: this.name, value: this.value });
   };
 
   componentWillLoad() {

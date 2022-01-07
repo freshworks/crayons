@@ -8,11 +8,10 @@ import {
   Watch,
   h,
   Listen,
-  Method,
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
-
+import PubSub from '../../utils/pub-sub';
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
@@ -50,10 +49,6 @@ export class Checkbox {
    */
   @Prop() required = false;
 
-  @Prop() handleBlur = (_e, _o) => {};
-  @Prop() handleChange = (_e, _o) => {};
-  @Prop() handleFocus = (_e, _o) => {};
-
   /**
    * Triggered when the check box’s value is modified.
    */
@@ -85,7 +80,6 @@ export class Checkbox {
       });
     }
     this.checkbox.checked = isChecked;
-    this.handleChange(null, { value: this.checkbox.checked });
   }
 
   @Watch('disabled')
@@ -107,27 +101,31 @@ export class Checkbox {
     }
   }
 
-  private onFocus = (e) => {
+  private onFocus = () => {
     this.fwFocus.emit();
-    this.handleFocus(e, { value: this.checkbox.checked });
+    PubSub.publish('handleFocus', {
+      field: this.name,
+      value: this.checkbox.checked,
+    });
   };
 
-  private onBlur = (e) => {
+  private onBlur = () => {
     this.fwBlur.emit();
-    this.handleBlur(e, { value: this.checkbox.checked });
+    PubSub.publish('handleBlur', {
+      field: this.name,
+      value: this.checkbox.checked,
+    });
   };
 
   private toggle = () => {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
+    PubSub.publish('handleChange', {
+      field: this.name,
+      value: this.checkbox.checked,
+    });
   };
-
-  /** Return native element */
-  @Method()
-  async nativeRef() {
-    return this.checkbox;
-  }
 
   render() {
     const { host, name, value } = this;

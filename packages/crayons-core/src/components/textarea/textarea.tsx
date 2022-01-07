@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
+import PubSub from '../../utils/pub-sub';
 
 @Component({
   tag: 'fw-textarea',
@@ -81,10 +82,6 @@ export class Textarea {
    */
   @Prop() disabled = false;
 
-  @Prop() handleInput = (_e, _o) => {};
-  @Prop() handleBlur = (_e, _o) => {};
-  @Prop() handleFocus = (_e, _o) => {};
-
   /**
    * Triggered when the value in the input box is modified.
    */
@@ -113,19 +110,28 @@ export class Textarea {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    this.handleInput(ev, this.nativeInput);
+    PubSub.publish('handleInput', {
+      field: this.name,
+      value: this.nativeInput.value,
+    });
   };
 
-  private onFocus = (ev) => {
+  private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    this.handleFocus(ev, this.nativeInput);
+    PubSub.publish('handleFocus', {
+      field: this.name,
+      value: this.nativeInput.value,
+    });
   };
 
-  private onBlur = (ev) => {
+  private onBlur = () => {
     this.hasFocus = false;
     this.fwBlur.emit();
-    this.handleBlur(ev, this.nativeInput);
+    PubSub.publish('handleBlur', {
+      field: this.name,
+      value: this.nativeInput.value,
+    });
   };
 
   private getValue(): string {
@@ -144,12 +150,6 @@ export class Textarea {
     if (this.nativeInput) {
       this.nativeInput.focus();
     }
-  }
-
-  /** Return native element */
-  @Method()
-  async nativeRef() {
-    return this.nativeInput;
   }
 
   render() {

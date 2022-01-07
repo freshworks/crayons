@@ -10,13 +10,15 @@ import {
   FormSubmit,
 } from './form-declaration';
 import {
-  getElementValue,
   validateYupSchema,
   prepareDataForValidation,
   yupToFormErrors,
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
 } from './form-util';
+import { debounce } from '../../utils';
+
+import PubSub from '../../utils/pub-sub';
 
 @Component({
   tag: 'fw-form',
@@ -27,15 +29,35 @@ export class Form {
 
   private controls: any;
 
+  /**
+   * Initial field values of the form. It is an object with keys pointing to field name
+   */
   @Prop() initialValues?: any = {};
+
+  /** Validate the form's values with an async function.
+   * Should return a Promise which resolves to an errors object.
+   * The keys in the errors object must match with the field names.
+   */
   @Prop() validate?: any;
+
+  /**
+   * Schema to render Dynamic Form. Contains an array of fields pointing to each form control.
+   * Please see the usage reference for examples.
+   */
   @Prop() formSchema?: any = {};
+
+  /**
+   * YUP based validation schema for handling validation
+   */
   @Prop() validationSchema?: any = {};
 
   /** Tells Form to validate the form on each input's onInput event */
   @Prop() validateOnInput? = true;
   /** Tells Form to validate the form on each input's onBlur event */
   @Prop() validateOnBlur? = true;
+
+  /** The number of milliseconds to delay before doing validation on Input */
+  @Prop() wait = 1000;
 
   @State() isValid = false;
   @State() isValidating = false;
@@ -49,7 +71,16 @@ export class Form {
   @State() formValidationSchema;
   @State() formInitialValues;
 
+  private debouncedHandleInput: any;
+
   async componentWillLoad() {
+    this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
+
+    PubSub.subscribe('handleInput', this.debouncedHandleInput);
+    PubSub.subscribe('handleBlur', this.handleBlur);
+    PubSub.subscribe('handleChange', this.debouncedHandleInput);
+    PubSub.subscribe('handhandleFocus', this.handleFocus);
+
     this.formValidationSchema =
       generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
       {};
@@ -127,13 +158,16 @@ export class Form {
     this.values = this.formInitialValues;
 
     let touchedState = {};
-    Object.keys(this.initialValues).forEach(
+    const initialValuesKeys = Object.keys(this.initialValues);
+
+    initialValuesKeys.forEach(
       (k: string) => (touchedState = { ...touchedState, [k]: true })
     );
     this.touched = touchedState;
 
-    const validationErrors = await this.handleValidation();
-    this.errors = validationErrors;
+    if (initialValuesKeys && initialValuesKeys.length > 0) {
+      this.errors = await this.handleValidation();
+    }
 
     this.focused = null;
   };
@@ -179,38 +213,30 @@ export class Form {
     return validationErrors;
   };
 
-  handleInput =
-    (field: string, inputType: string) =>
-    async (event: Event, ref: any): Promise<void> => {
-      const value = getElementValue(inputType, event, ref);
+  handleInput = async ({ field, value }) => {
+    this.values = { ...this.values, [field]: value };
 
-      this.values = { ...this.values, [field]: value };
+    /** Validate, if user wants to validateOnInput */
+    if (this.validateOnInput) {
+      this.touched = { ...this.touched, [field]: true };
+      await this.handleValidation();
+    }
+  };
 
-      /** Validate, if user wants to validateOnInput */
-      if (this.validateOnInput) {
-        this.touched = { ...this.touched, [field]: true };
-        await this.handleValidation();
-      }
-    };
+  handleBlur = async ({ field, value }) => {
+    if (this.focused) this.focused = null;
+    this.values = { ...this.values, [field]: value };
 
-  handleBlur =
-    (field: string, inputType: string) => async (event: Event, ref: any) => {
-      if (this.focused) this.focused = null;
-      const value: any = getElementValue(inputType, event, ref);
+    /** Validate, if user wants to validateOnBlur */
+    if (this.validateOnBlur) {
+      this.touched = { ...this.touched, [field]: true };
+      await this.handleValidation();
+    }
+  };
 
-      this.values = { ...this.values, [field]: value };
-
-      /** Validate, if user wants to validateOnBlur */
-      if (this.validateOnBlur) {
-        this.touched = { ...this.touched, [field]: true };
-        await this.handleValidation();
-      }
-    };
-
-  handleFocus =
-    (field: string, _inputType: string) => (_event: Event, _ref: any) => {
-      this.focused = field;
-    };
+  handleFocus = ({ field }) => {
+    this.focused = field;
+  };
 
   private getFormControls() {
     let children = [];
@@ -238,46 +264,25 @@ export class Form {
   }
 
   private composedUtils = (): FormUtils => {
-    const inputProps = (field: string, inputType: string) => ({
-      name: field,
-      type: inputType,
-      handleInput: this.handleInput(field, inputType),
-      handleChange: this.handleInput(field, inputType),
-      handleBlur: this.handleBlur(field, inputType),
-      handleFocus: this.handleFocus(field, inputType),
-      id: `input-${field}`,
+    const inputProps = (field: string) => ({
       value: this.values[field],
     });
 
-    const radioProps = (field: string, inputType: string) => ({
-      ...inputProps(field, inputType),
-      type: inputType,
-      id: `input-${field}--radio-${this.values[field]}`,
+    const radioProps = (field: string) => ({
       value: this.values[field],
     });
 
-    const checkboxProps = (field: string, inputType: string) => ({
-      ...inputProps(field, inputType),
-      type: inputType,
+    const checkboxProps = (field: string) => ({
       checked: !!this.values[field],
     });
 
-    const selectProps = (field: string, inputType: string) => ({
-      type: 'text',
-      name: field,
-      id: `input-${field}`,
-      handleChange: this.handleInput(field, inputType),
-      handleBlur: this.handleBlur(field, inputType),
+    const selectProps = (field: string, inputType) => ({
       value:
         inputType === 'multi_select' // for multiselect pass Array
           ? this.values[field]?.map((v) => v.value || v) || []
           : Array.isArray(this.values[field]) // single select but the value is an array, pass 0th index
           ? this.values[field]?.map((v) => v.value || v)[0] || ''
           : this.values[field] || '',
-    });
-
-    const labelProps = (field: string, value: any) => ({
-      htmlFor: !value ? `input-${field}` : `input-${field}--radio-${value}`,
     });
 
     const formProps: FormProps = {
@@ -291,7 +296,6 @@ export class Form {
       selectProps,
       checkboxProps,
       radioProps,
-      labelProps,
       formProps,
     };
   };

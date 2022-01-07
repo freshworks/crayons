@@ -7,6 +7,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
+import PubSub from '../../utils/pub-sub';
 
 @Component({
   tag: 'fw-radio',
@@ -100,6 +101,11 @@ export class Radio {
   private toggle() {
     if (!this.disabled) {
       this.checked = !this.checked;
+    }
+    if (this.checked) {
+      PubSub.publish('handleChange', { field: this.name, value: this.value });
+    } else {
+      PubSub.publish('handleChange', { field: this.name, value: undefined });
     }
   }
 

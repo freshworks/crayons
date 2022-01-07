@@ -172,9 +172,9 @@ function createYupSchema(schema: any, config: any) {
     case 'EMAIL':
     case 'TEL':
     case 'URL':
+    case 'DROPDOWN':
       yupType = 'string';
       break;
-    case 'DROPDOWN':
     case 'MULTI_SELECT':
       yupType = 'array';
       break;
@@ -193,7 +193,9 @@ function createYupSchema(schema: any, config: any) {
   }
   const yupMethod = yupType as keyof typeof Yup;
   let validator = Yup[yupMethod] as any;
-  validator = validator();
+
+  validator = validator().nullable();
+
   if (required)
     validator = validator['required'](...[`${label || name} is required`]);
   else validator = validator['notRequired']();

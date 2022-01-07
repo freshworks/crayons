@@ -11,7 +11,7 @@ import {
   Watch,
 } from '@stencil/core';
 import moment from 'moment-mini';
-
+import PubSub from '../../utils/pub-sub';
 import {
   handleKeyDown,
   renderHiddenField,
@@ -99,9 +99,6 @@ export class Datepicker {
    */
   @Prop() required = false;
 
-  @Prop() handleInput = (_e, _o) => {};
-  @Prop() handleBlur = (_e, _o) => {};
-
   /**
    *   Triggered when the update button clicked
    */
@@ -148,7 +145,7 @@ export class Datepicker {
 
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
-    this.handleInput(null, { value: eventDetails });
+    PubSub.publish('handleInput', { field: this.name, value: eventDetails });
   }
 
   focusElement(element: HTMLElement) {
@@ -801,8 +798,11 @@ export class Datepicker {
     return this.showDatePicker && this.mode === 'range';
   }
 
-  private onBlur = async (e) => {
-    this.handleBlur(e, { value: await this.getValue() });
+  private onBlur = async () => {
+    PubSub.publish('handleBlur', {
+      field: this.name,
+      value: await this.getValue(),
+    });
   };
 
   render() {

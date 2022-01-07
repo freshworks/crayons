@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
+import PubSub from '../../utils/pub-sub';
 
 @Component({
   tag: 'fw-input',
@@ -105,13 +106,6 @@ export class Input {
    */
   @Prop() iconRight: string = undefined;
 
-  @Prop() handleInput = (_e, _o) => {};
-  @Prop() handleBlur = (_e, _o) => {};
-  @Prop() handleFocus = (_e, _o) => {};
-
-  // @Prop() error = '';
-  // @Prop() touched = false;
-
   /**
    * Triggered when the value in the input box is modified.
    */
@@ -154,7 +148,10 @@ export class Input {
       this.nativeInput.value = this.value;
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    this.handleInput(ev, { value: this.nativeInput.value });
+    PubSub.publish('handleInput', {
+      field: this.name,
+      value: this.nativeInput.value,
+    });
   };
   private handleMinAndMaxCheck(value) {
     const { min = -Infinity, max = Infinity } = this;
@@ -162,16 +159,22 @@ export class Input {
     return value;
   }
 
-  private onFocus = (e) => {
+  private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    this.handleFocus(e, { value: this.nativeInput.value });
+    PubSub.publish('handleFocus', {
+      field: this.name,
+      value: this.nativeInput.value,
+    });
   };
 
-  private onBlur = (e) => {
+  private onBlur = () => {
     this.hasFocus = false;
     this.fwBlur.emit();
-    this.handleBlur(e, { value: this.nativeInput.value });
+    PubSub.publish('handleBlur', {
+      field: this.name,
+      value: this.nativeInput.value,
+    });
   };
 
   private showClearButton() {
@@ -210,12 +213,6 @@ export class Input {
     if (this.nativeInput) {
       this.nativeInput.focus();
     }
-  }
-
-  /** Return native element */
-  @Method()
-  async nativeRef() {
-    return this.nativeInput;
   }
 
   render() {

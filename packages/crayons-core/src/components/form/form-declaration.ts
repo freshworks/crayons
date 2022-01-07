@@ -54,11 +54,10 @@ export interface FormProps {
 }
 
 export interface FormUtils {
-  inputProps: (field: string, inputType: string) => any;
-  labelProps: (field: string, value?: any) => any;
+  inputProps: (field: string) => any;
   selectProps: (field: string, inputType: string) => any;
-  checkboxProps: (field: string, inputType: string) => any;
-  radioProps: (field: string, value: any) => any;
+  checkboxProps: (field: string) => any;
+  radioProps: (field: string) => any;
   formProps: FormProps;
 }
 

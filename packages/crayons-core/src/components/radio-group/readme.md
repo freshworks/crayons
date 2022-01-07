@@ -47,16 +47,14 @@ function App() {
 
 ## Properties
 
-| Property       | Attribute     | Description                                                                                                                                                                                 | Type                         | Default          |
-| -------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ---------------- |
-| `allowEmpty`   | `allow-empty` | If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false. | `boolean`                    | `false`          |
-| `handleBlur`   | --            |                                                                                                                                                                                             | `(_e: any, _o: any) => void` | `(_e, _o) => {}` |
-| `handleChange` | --            |                                                                                                                                                                                             | `(_e: any, _o: any) => void` | `(_e, _o) => {}` |
-| `label`        | `label`       | Label for the component, that can be used by screen readers.                                                                                                                                | `string`                     | `''`             |
-| `name`         | `name`        | Name of the component, saved as part of form data.                                                                                                                                          | `string`                     | `''`             |
-| `orientation`  | `orientation` | Indicates the direction of the radio buttons alignment, defaults to vertical alignment.                                                                                                     | `"column" \| "row"`          | `'column'`       |
-| `required`     | `required`    | Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                          | `boolean`                    | `false`          |
-| `value`        | `value`       | Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.                 | `any`                        | `undefined`      |
+| Property      | Attribute     | Description                                                                                                                                                                                 | Type                | Default     |
+| ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------- |
+| `allowEmpty`  | `allow-empty` | If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false. | `boolean`           | `false`     |
+| `label`       | `label`       | Label for the component, that can be used by screen readers.                                                                                                                                | `string`            | `''`        |
+| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                                                                          | `string`            | `''`        |
+| `orientation` | `orientation` | Indicates the direction of the radio buttons alignment, defaults to vertical alignment.                                                                                                     | `"column" \| "row"` | `'column'`  |
+| `required`    | `required`    | Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                          | `boolean`           | `false`     |
+| `value`       | `value`       | Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.                 | `any`               | `undefined` |
 
 
 ## Events

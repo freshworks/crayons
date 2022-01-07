@@ -104,9 +104,6 @@ export namespace Components {
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
-        "handleBlur": (_e: any, _o: any) => void;
-        "handleChange": (_e: any, _o: any) => void;
-        "handleFocus": (_e: any, _o: any) => void;
         /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
@@ -115,10 +112,6 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
-        /**
-          * Return native element
-         */
-        "nativeRef": () => Promise<HTMLInputElement>;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
@@ -185,8 +178,6 @@ export namespace Components {
          */
         "fromDate": string;
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
-        "handleBlur": (_e: any, _o: any) => void;
-        "handleInput": (_e: any, _o: any) => void;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
@@ -257,10 +248,19 @@ export namespace Components {
     interface FwForm {
         "doReset": (e: any) => Promise<void>;
         "doSubmit": (e: any) => Promise<FormSubmit>;
+        /**
+          * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
+         */
         "formSchema"?: any;
+        /**
+          * Initial field values of the form. It is an object with keys pointing to field name
+         */
         "initialValues"?: any;
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
+         */
         "validate"?: any;
         /**
           * Tells Form to validate the form on each input's onBlur event
@@ -270,7 +270,14 @@ export namespace Components {
           * Tells Form to validate the form on each input's onInput event
          */
         "validateOnInput"?: boolean;
+        /**
+          * YUP based validation schema for handling validation
+         */
         "validationSchema"?: any;
+        /**
+          * The number of milliseconds to delay before doing validation on Input
+         */
+        "wait": number;
     }
     interface FwFormControl {
         "choices": any;
@@ -432,9 +439,6 @@ export namespace Components {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
-        "handleBlur": (_e: any, _o: any) => void;
-        "handleFocus": (_e: any, _o: any) => void;
-        "handleInput": (_e: any, _o: any) => void;
         /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
@@ -467,10 +471,6 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
-        /**
-          * Return native element
-         */
-        "nativeRef": () => Promise<HTMLInputElement>;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -858,8 +858,6 @@ export namespace Components {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty": boolean;
-        "handleBlur": (_e: any, _o: any) => void;
-        "handleChange": (_e: any, _o: any) => void;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -903,9 +901,6 @@ export namespace Components {
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
-        "handleBlur": (_e: any, _o: any) => void;
-        "handleChange": (_e: any, _o: any) => void;
-        "handleFocus": (_e?: any, _o?: any) => void;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -1184,9 +1179,6 @@ export namespace Components {
           * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
-        "handleBlur": (_e: any, _o: any) => void;
-        "handleFocus": (_e: any, _o: any) => void;
-        "handleInput": (_e: any, _o: any) => void;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -1203,10 +1195,6 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
-        /**
-          * Return native element
-         */
-        "nativeRef": () => Promise<HTMLTextAreaElement>;
         /**
           * Text displayed in the input box before a user enters a value.
          */
@@ -1253,9 +1241,6 @@ export namespace Components {
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format": 'hh:mm A' | 'HH:mm';
-        "handleBlur": (_e: any, _o: any) => void;
-        "handleChange": (_e: any, _o: any) => void;
-        "handleFocus": (_e?: any, _o?: any) => void;
         /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
@@ -1902,9 +1887,6 @@ declare namespace LocalJSX {
           * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
-        "handleBlur"?: (_e: any, _o: any) => void;
-        "handleChange"?: (_e: any, _o: any) => void;
-        "handleFocus"?: (_e: any, _o: any) => void;
         /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
@@ -1987,8 +1969,6 @@ declare namespace LocalJSX {
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
-        "handleBlur"?: (_e: any, _o: any) => void;
-        "handleInput"?: (_e: any, _o: any) => void;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
@@ -2069,8 +2049,17 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface FwForm {
+        /**
+          * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
+         */
         "formSchema"?: any;
+        /**
+          * Initial field values of the form. It is an object with keys pointing to field name
+         */
         "initialValues"?: any;
+        /**
+          * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
+         */
         "validate"?: any;
         /**
           * Tells Form to validate the form on each input's onBlur event
@@ -2080,7 +2069,14 @@ declare namespace LocalJSX {
           * Tells Form to validate the form on each input's onInput event
          */
         "validateOnInput"?: boolean;
+        /**
+          * YUP based validation schema for handling validation
+         */
         "validationSchema"?: any;
+        /**
+          * The number of milliseconds to delay before doing validation on Input
+         */
+        "wait"?: number;
     }
     interface FwFormControl {
         "choices"?: any;
@@ -2248,9 +2244,6 @@ declare namespace LocalJSX {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
-        "handleBlur"?: (_e: any, _o: any) => void;
-        "handleFocus"?: (_e: any, _o: any) => void;
-        "handleInput"?: (_e: any, _o: any) => void;
         /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
@@ -2689,8 +2682,6 @@ declare namespace LocalJSX {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty"?: boolean;
-        "handleBlur"?: (_e: any, _o: any) => void;
-        "handleChange"?: (_e: any, _o: any) => void;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -2737,9 +2728,6 @@ declare namespace LocalJSX {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
-        "handleBlur"?: (_e: any, _o: any) => void;
-        "handleChange"?: (_e: any, _o: any) => void;
-        "handleFocus"?: (_e?: any, _o?: any) => void;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -3045,9 +3033,6 @@ declare namespace LocalJSX {
           * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
-        "handleBlur"?: (_e: any, _o: any) => void;
-        "handleFocus"?: (_e: any, _o: any) => void;
-        "handleInput"?: (_e: any, _o: any) => void;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -3122,9 +3107,6 @@ declare namespace LocalJSX {
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format"?: 'hh:mm A' | 'HH:mm';
-        "handleBlur"?: (_e: any, _o: any) => void;
-        "handleChange"?: (_e: any, _o: any) => void;
-        "handleFocus"?: (_e?: any, _o?: any) => void;
         /**
           * Time interval between the values displayed in the list, specified in minutes.
          */

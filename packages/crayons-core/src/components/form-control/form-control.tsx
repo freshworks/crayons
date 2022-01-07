@@ -195,7 +195,13 @@ export class FormControl {
           cmp = (
             <fw-radio-group {...componentProps}>
               {this.choices?.map((ch) => {
-                return <fw-radio value={ch.value}>{ch.value}</fw-radio>;
+                return (
+                  <fw-radio
+                    value={ch[componentProps.optionValuePath] || ch.value}
+                  >
+                    {ch[componentProps.optionLabelPath] || ch.value}
+                  </fw-radio>
+                );
               })}
             </fw-radio-group>
           );
@@ -224,6 +230,7 @@ export class FormControl {
                 ...f,
                 text: f.value,
               }))}
+              value=''
               multiple={this.type === 'MULTI_SELECT'}
             ></fw-select>
           );

@@ -17,10 +17,10 @@
     <br />
     <!-- <h3>Pattern 1</h3>
 
-    <fw-form id="fw-form"> </fw-form> -->
-    <br/>
+    <fw-form id="fw-form"> </fw-form>
+    <br /> -->
 
-      <!-- <h3>Pattern 2</h3>
+    <!-- <h3>Pattern 2</h3>
 
       <fw-form id="fw-form"></fw-form>
 
@@ -29,9 +29,9 @@
         autocomplete="off"
         ></input>  
       </div> -->
-      <br/>
+    <!-- <br /> -->
 
-      <h3>Pattern 3 </h3>
+    <!-- <h3>Pattern 3 </h3>
       <fw-form id="fw-form">
         <fw-form-control
         type="TEXT"
@@ -62,7 +62,6 @@
       ></input>  
     </fw-form>
 
-
     <br /><br />
 
     <button id="submit">Submit</button>
@@ -89,8 +88,7 @@
         }
       });
       document.querySelector('#reset').addEventListener('click', (e) => {
-        
-        if(document.querySelector('#ccc'))
+        if (document.querySelector('#ccc'))
           document.querySelector('#ccc').value = '';
         form.doReset(e);
       });
@@ -303,7 +301,7 @@
             label: 'Gender',
             type: 'RADIO',
             position: 5,
-            required: false,
+            required: true,
             editable: true,
             visible: true,
             deleted: false,
@@ -425,8 +423,8 @@
       //form.validateOnInput = false;
 
       /** pattern 1 **/
-      //form.formSchema = formSchema;
-      
+      // form.formSchema = formSchema;
+
       // for pattern 2
       // formSchema?.fields?.forEach(f =>{
 
@@ -452,16 +450,15 @@
 
       //   form.querySelector("fw-form-control#last_name").prepend(formControl)
 
-      
       form.initialValues = initialValues;
-
+    
       // no required for Pattern 1 since implicit validation is in place.
       form.validate = async function (values) {
         console.log('validate method called with ', values);
         return {
           // first_name: 'first name error',
           // last_name: 'last name error',
-          ccc: 'ss',
+           ccc: 'ss',
         };
         // json api std.
       };
@@ -474,7 +471,7 @@
       document.querySelector('#ccc').addEventListener('input', handleInput);
       document.querySelector('#ccc').addEventListener('change', handleInput);
       document.querySelector('#ccc').addEventListener('blur', handleInput);
-    </script>
+    </script> -->
 
     <!-- <fw-form-group>
       <fw-form-label>Label 1 </fw-form-label>

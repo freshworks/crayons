@@ -20,6 +20,8 @@ import {
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
+import PubSub from '../../utils/pub-sub';
+
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -41,7 +43,9 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
-      this.handleFocus(e);
+      PubSub.publish('handleFocus', {
+        field: this.name,
+      });
     }
   };
 
@@ -56,7 +60,8 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
-      this.handleBlur(e, {
+      PubSub.publish('handleBlur', {
+        field: this.name,
         value: await this.getSelectedItem(),
       });
     }
@@ -201,10 +206,6 @@ export class Select {
    */
   @Prop() labelledBy = '';
 
-  @Prop() handleChange = (_e, _o) => {};
-  @Prop() handleBlur = (_e, _o) => {};
-  @Prop() handleFocus = (_e?, _o?) => {};
-
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -255,9 +256,12 @@ export class Select {
         value: this.value,
         selectedOptions: this.selectedOptionsState,
       });
-      this.handleChange(selectedItem, {
-        value: this.selectedOptionsState,
-      });
+
+      if (this.selectedOptionsState?.length)
+        PubSub.publish('handleChange', {
+          field: this.name,
+          value: this.selectedOptionsState,
+        });
     }
   }
 
