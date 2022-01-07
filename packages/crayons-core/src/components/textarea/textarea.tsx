@@ -91,7 +91,7 @@ export class Textarea {
   /**
    * Triggered when the input box loses focus.
    */
-  @Event() fwBlur: EventEmitter<void>;
+  @Event() fwBlur: EventEmitter;
   /**
    * Triggered when a value is entered in the input box.
    */
@@ -117,7 +117,7 @@ export class Textarea {
 
   private onBlur = () => {
     this.hasFocus = false;
-    this.fwBlur.emit();
+    this.fwBlur.emit({ value: this.getValue() });
   };
 
   private getValue(): string {

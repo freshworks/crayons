@@ -43,6 +43,14 @@ function App() {
 | `name`   | `name`    | The panel name.                                          | `string`  | `''`    |
 
 
+## CSS Custom Properties
+
+| Name                 | Description                  |
+| -------------------- | ---------------------------- |
+| `--tab-panel-height` | height of the tab container. |
+| `--tab-panel-width`  | width of the tab container.  |
+
+
 ## Dependencies
 
 ### Used by

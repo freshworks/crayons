@@ -23,6 +23,19 @@
 | `fwDrop` | Triggered when an draggable item is dropped inside the container. | `CustomEvent<void>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-fb-field-details](../form-builder/fb-field)
+
+### Graph
+```mermaid
+graph TD;
+  fw-fb-field-details --> fw-drag-container
+  style fw-drag-container fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

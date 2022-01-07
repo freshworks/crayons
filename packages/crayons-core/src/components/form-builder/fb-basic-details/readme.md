@@ -7,16 +7,17 @@
 
 ## Properties
 
-| Property          | Attribute           | Description                                | Type  | Default     |
-| ----------------- | ------------------- | ------------------------------------------ | ----- | ----------- |
-| `jsonFormBuilder` | `json-form-builder` | json data input to render the form builder | `any` | `undefined` |
+| Property     | Attribute     | Description                                | Type  | Default     |
+| ------------ | ------------- | ------------------------------------------ | ----- | ----------- |
+| `jsonPreset` | `json-preset` | json data input to render the form builder | `any` | `undefined` |
 
 
 ## Events
 
-| Event      | Description                                   | Type               |
-| ---------- | --------------------------------------------- | ------------------ |
-| `fwChange` | Triggered when the card in focus is selected. | `CustomEvent<any>` |
+| Event      | Description                      | Type                |
+| ---------- | -------------------------------- | ------------------- |
+| `fwCancel` | Triggered on cancel button click | `CustomEvent<void>` |
+| `fwCreate` | Triggered on create button click | `CustomEvent<any>`  |
 
 
 ## Dependencies

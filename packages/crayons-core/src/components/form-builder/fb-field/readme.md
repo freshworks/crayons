@@ -28,6 +28,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [fw-fb-field-details](.)
+
 ### Depends on
 
 - [fw-icon](../../icon)
@@ -43,6 +47,7 @@ graph TD;
   fw-toast-message --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
+  fw-fb-field-details --> fw-field-type-menu-item
   style fw-field-type-menu-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

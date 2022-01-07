@@ -5,6 +5,7 @@ import {
   EventEmitter,
   h,
   Listen,
+  Method,
   Prop,
 } from '@stencil/core';
 
@@ -81,15 +82,24 @@ export class Tabs {
 
   assignAriaLabels() {
     this.tabs.map((tab) => {
-      const panel = this.panels.find(
-        (p) => p.name === tab.getAttribute('panel')
-      );
+      const strPanelName = tab.getAttribute('panel') || tab.panel;
+      const panel = this.panels.find((p) => p.name === strPanelName);
 
       if (panel) {
         tab.setAttribute('aria-controls', panel.getAttribute('id'));
         panel.setAttribute('aria-labelledby', tab.getAttribute('id'));
       }
     });
+  }
+
+  /**
+   * Activates the tab based based on tabindex or name.
+   */
+  @Method()
+  async activateTab(index?: number, name?: string) {
+    index && (this.activeTabIndex = index);
+    name && (this.activeTabName = name);
+    this.setActiveTab(this.getActiveTab());
   }
 
   setActiveTab(tab) {
@@ -99,9 +109,9 @@ export class Tabs {
 
       // Sync active tab and panel
       this.tabs.map((el) => (el.active = el === this.activeTab));
-      this.panels.map(
-        (el) => (el.active = el.name === this.activeTab.getAttribute('panel'))
-      );
+      const strActivePanel =
+        this.activeTab.getAttribute('panel') || this.activeTab.panel;
+      this.panels.map((el) => (el.active = el.name === strActivePanel));
 
       // Emit events
       this.fwChange.emit({
@@ -124,6 +134,7 @@ export class Tabs {
     });
     this.mutationO.observe(this.el, {
       childList: true,
+      attributes: true,
     });
   }
 

@@ -78,7 +78,11 @@ export class FieldTypeMenuItem {
           </span>
           <label class={`${strComponentClassName}-label`}>{this.label}</label>
           <span class={`${strComponentClassName}-add-button-container`}>
-            <fw-button size='icon' color='link' onClick={this.onAddItemHandler}>
+            <fw-button
+              size='icon'
+              color='link'
+              onFwClick={this.onAddItemHandler}
+            >
               <fw-icon name='plus' color='#12344D'></fw-icon>
             </fw-button>
           </span>

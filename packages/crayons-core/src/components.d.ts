@@ -250,15 +250,38 @@ export namespace Components {
     }
     interface FwFbBasicDetails {
         /**
+          * variable to store form values
+         */
+        "formValues": any;
+        /**
           * json data input to render the form builder
          */
-        "jsonFormBuilder": any;
+        "jsonPreset": any;
+        "setFormCreated": (value: boolean) => Promise<void>;
+    }
+    interface FwFbFieldDetails {
+        /**
+          * Prop to store the expanded field index
+         */
+        "expandedFieldIndex": number;
+        /**
+          * variable to store form values
+         */
+        "formValues": any;
+        /**
+          * json data input to render the form builder
+         */
+        "jsonPreset": any;
     }
     interface FwFieldEditor {
         /**
           * data source used to set and edit the field values
          */
         "dataProvider": any;
+        /**
+          * stores the default field type schema for this editor type
+         */
+        "defaultFieldTypeSchema": any;
         /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -271,6 +294,10 @@ export namespace Components {
           * index attached inside the parent group component
          */
         "index": number;
+        /**
+          * defines if the field is primary
+         */
+        "isPrimaryField": boolean;
         /**
           * Name of the component, saved as part of the form data.
          */
@@ -312,13 +339,19 @@ export namespace Components {
     }
     interface FwFormBuilder {
         /**
+          * variable to store form values
+         */
+        "formValues": any;
+        /**
           * json data input to render the form builder
          */
-        "jsonFormBuilder": any;
+        "jsonPreset": any;
         /**
           * Name of the component, saved as part of the form data.
          */
         "name": string;
+        "setFieldCreated": (value: boolean) => Promise<void>;
+        "setFormCreated": (value: boolean) => Promise<void>;
     }
     interface FwFormatNumber {
         /**
@@ -1117,6 +1150,10 @@ export namespace Components {
     }
     interface FwTabs {
         /**
+          * Activates the tab based based on tabindex or name.
+         */
+        "activateTab": (index?: number, name?: string) => Promise<void>;
+        /**
           * The index of the activated Tab(Starts from 0)
          */
         "activeTabIndex": number;
@@ -1538,6 +1575,12 @@ declare global {
         prototype: HTMLFwFbBasicDetailsElement;
         new (): HTMLFwFbBasicDetailsElement;
     };
+    interface HTMLFwFbFieldDetailsElement extends Components.FwFbFieldDetails, HTMLStencilElement {
+    }
+    var HTMLFwFbFieldDetailsElement: {
+        prototype: HTMLFwFbFieldDetailsElement;
+        new (): HTMLFwFbFieldDetailsElement;
+    };
     interface HTMLFwFieldEditorElement extends Components.FwFieldEditor, HTMLStencilElement {
     }
     var HTMLFwFieldEditorElement: {
@@ -1757,6 +1800,7 @@ declare global {
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-fb-basic-details": HTMLFwFbBasicDetailsElement;
+        "fw-fb-field-details": HTMLFwFbFieldDetailsElement;
         "fw-field-editor": HTMLFwFieldEditorElement;
         "fw-field-type-menu-item": HTMLFwFieldTypeMenuItemElement;
         "fw-form-builder": HTMLFwFormBuilderElement;
@@ -2066,19 +2110,57 @@ declare namespace LocalJSX {
     }
     interface FwFbBasicDetails {
         /**
+          * variable to store form values
+         */
+        "formValues"?: any;
+        /**
           * json data input to render the form builder
          */
-        "jsonFormBuilder"?: any;
+        "jsonPreset"?: any;
         /**
-          * Triggered when the card in focus is selected.
+          * Triggered on cancel button click
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwCancel"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered on create button click
+         */
+        "onFwCreate"?: (event: CustomEvent<any>) => void;
+    }
+    interface FwFbFieldDetails {
+        /**
+          * Prop to store the expanded field index
+         */
+        "expandedFieldIndex"?: number;
+        /**
+          * variable to store form values
+         */
+        "formValues"?: any;
+        /**
+          * json data input to render the form builder
+         */
+        "jsonPreset"?: any;
+        /**
+          * Triggered when a new field type is dropped / added inside the fields area
+         */
+        "onFwComposeNewField"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the field is expanded or collapsed
+         */
+        "onFwExpandField"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered on Add field button click from the field list items
+         */
+        "onFwSaveField"?: (event: CustomEvent<any>) => void;
     }
     interface FwFieldEditor {
         /**
           * data source used to set and edit the field values
          */
         "dataProvider"?: any;
+        /**
+          * stores the default field type schema for this editor type
+         */
+        "defaultFieldTypeSchema"?: any;
         /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -2092,6 +2174,10 @@ declare namespace LocalJSX {
          */
         "index"?: number;
         /**
+          * defines if the field is primary
+         */
+        "isPrimaryField"?: boolean;
+        /**
           * Name of the component, saved as part of the form data.
          */
         "name"?: string;
@@ -2100,9 +2186,9 @@ declare namespace LocalJSX {
          */
         "onFwExpand"?: (event: CustomEvent<any>) => void;
         /**
-          * Triggered when the field details need to be submitted
+          * Triggered when the field details need to be saved on the server
          */
-        "onFwSubmit"?: (event: CustomEvent<any>) => void;
+        "onFwUpdateField"?: (event: CustomEvent<any>) => void;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -2144,17 +2230,21 @@ declare namespace LocalJSX {
     }
     interface FwFormBuilder {
         /**
+          * variable to store form values
+         */
+        "formValues"?: any;
+        /**
           * json data input to render the form builder
          */
-        "jsonFormBuilder"?: any;
+        "jsonPreset"?: any;
         /**
           * Name of the component, saved as part of the form data.
          */
         "name"?: string;
         /**
-          * Triggered when the field is expanded or collapsed
+          * Triggered when any change in the form is updated
          */
-        "onFwExpand"?: (event: CustomEvent<any>) => void;
+        "onFwFormBuilderUpdate"?: (event: CustomEvent<any>) => void;
     }
     interface FwFormatNumber {
         /**
@@ -2318,7 +2408,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the value in the input box is modified.
          */
@@ -3083,7 +3173,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the value in the input box is modified.
          */
@@ -3374,6 +3464,7 @@ declare namespace LocalJSX {
         "fw-drag-container": FwDragContainer;
         "fw-dropdown-button": FwDropdownButton;
         "fw-fb-basic-details": FwFbBasicDetails;
+        "fw-fb-field-details": FwFbFieldDetails;
         "fw-field-editor": FwFieldEditor;
         "fw-field-type-menu-item": FwFieldTypeMenuItem;
         "fw-form-builder": FwFormBuilder;
@@ -3428,6 +3519,7 @@ declare module "@stencil/core" {
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-fb-basic-details": LocalJSX.FwFbBasicDetails & JSXBase.HTMLAttributes<HTMLFwFbBasicDetailsElement>;
+            "fw-fb-field-details": LocalJSX.FwFbFieldDetails & JSXBase.HTMLAttributes<HTMLFwFbFieldDetailsElement>;
             "fw-field-editor": LocalJSX.FwFieldEditor & JSXBase.HTMLAttributes<HTMLFwFieldEditorElement>;
             "fw-field-type-menu-item": LocalJSX.FwFieldTypeMenuItem & JSXBase.HTMLAttributes<HTMLFwFieldTypeMenuItemElement>;
             "fw-form-builder": LocalJSX.FwFormBuilder & JSXBase.HTMLAttributes<HTMLFwFormBuilderElement>;

@@ -1,3 +1,8 @@
+@import '../../../../../../styles/utils';
+
+// Sides padding - form builder
+$form-builder-padding-sides: 42px;
+
 :host {
   display: inline-block;
   width: 100%;
@@ -19,13 +24,25 @@
   .fb-basic-details-content {
     width: 100%;
     height: calc(100% - 24px - 24px - 56px);
-    padding: 0 42px 24px;
+    padding: 0 #{$form-builder-padding-sides} 24px;
     box-sizing: border-box;
     overflow-y: auto;
+    #{--input-margin-bottom}: 0;
 
-    .fb-basic-details-name-input {
-      width: 60%;
-      max-width: 598px;
+    .fb-basic-details-name-div {
+      width: 100%;
+      height: auto;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+
+      .fb-basic-details-name-input {
+        width: 60%;
+        max-width: 598px;
+        margin-bottom: 0;
+      }
+      .fb-basic-details-name-error-msg {
+        @include form-error-label;
+      }
     }
     .fb-basic-details-desc-textarea {
       max-width: 598px;
@@ -41,9 +58,11 @@
         font-size: $font-size-12;
         font-weight: $font-weight-500;
         color: $color-elephant-900;
-        margin-bottom: 0;
+        margin-bottom: 8px;
         padding-left: 2px;
         display: block;
+        pointer-events: none;
+        user-select: none;
       }
 
       .fb-basic-details-icon-toggle-group {
@@ -57,7 +76,7 @@
     width: 100%;
     height: 56px;
     padding: 0;
-    padding-right: 52px;
+    padding-right: $form-builder-padding-sides;
     position: absolute;
     bottom: 0;
     left: 0;

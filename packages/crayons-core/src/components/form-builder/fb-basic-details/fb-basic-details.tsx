@@ -7,6 +7,8 @@ import {
   Prop,
   h,
   Host,
+  State,
+  Method,
 } from '@stencil/core';
 
 @Component({
@@ -17,46 +19,102 @@ import {
 export class FbBasicDetails {
   @Element() host!: HTMLElement;
 
-  private inputDesc?: HTMLFwTextareaElement;
-  private inputName?: HTMLFwInputElement;
-  private formValues;
+  /**
+   * variable to store form values
+   */
+  @Prop({ mutable: true }) formValues = null;
   /**
    * json data input to render the form builder
    */
-  @Prop() jsonFormBuilder;
+  @Prop() jsonPreset;
   /**
-   * Triggered when the card in focus is selected.
+   * State to show the error message
    */
-  @Event() fwChange!: EventEmitter;
+  @State() showNameError = false;
+  /**
+   * State to check the form creating status
+   */
+  @State() isEntityCreationInProgress = false;
+  /**
+   * Triggered on create button click
+   */
+  @Event() fwCreate!: EventEmitter;
+  /**
+   * Triggered on cancel button click
+   */
+  @Event() fwCancel!: EventEmitter<void>;
+
+  // public method to show the error message
+  @Method()
+  async setFormCreated(value: boolean): Promise<void> {
+    this.isEntityCreationInProgress = false;
+    if (value) {
+      this.showNameError = false;
+    }
+  }
 
   componentWillLoad(): void {
     if (!this.formValues) {
       this.formValues = { name: '', description: '', icon: '' };
     }
-    this.onAddItemHandler = this.onAddItemHandler.bind(this);
+    this.createHandler = this.createHandler.bind(this);
+    this.cancelHandler = this.cancelHandler.bind(this);
+    this.descBlurHandler = this.descBlurHandler.bind(this);
+    this.nameBlurHandler = this.nameBlurHandler.bind(this);
+    this.nameChangeHandler = this.nameChangeHandler.bind(this);
+    this.iconSelectHandler = this.iconSelectHandler.bind(this);
   }
 
-  /**
-   * function to emit the updated values
-   */
-  private onAddItemHandler(): void {
-    this.fwChange.emit({
-      type: 'CREATE',
-      value: this.formValues,
+  private isNewForm() {
+    if (
+      this.formValues &&
+      Object.prototype.hasOwnProperty.call(this.formValues, 'name') &&
+      this.formValues.name !== ''
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  private createHandler(): void {
+    if (!this.formValues || this.formValues.name === '') {
+      this.showNameError = true;
+      return;
+    }
+    this.isEntityCreationInProgress = true;
+    this.showNameError = false;
+    this.fwCreate.emit({
+      value: { ...this.formValues },
     });
   }
 
-  private nameBlurHandler(): void {
-    const strUpdateValue1 = this.inputDesc.value;
-    const strUpdateValue = this.inputName.value;
-    this.formValues.name = strUpdateValue;
-    console.log('---- ' + strUpdateValue);
-    console.log('---- ' + strUpdateValue1);
+  private cancelHandler(): void {
+    this.fwCancel.emit();
   }
 
   private nameChangeHandler(event: CustomEvent): void {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    const strUpdateValue = event.detail.value.trim();
+    this.formValues.name = strUpdateValue;
+    if (strUpdateValue !== '') {
+      this.showNameError = false;
+    }
+  }
+
+  private nameBlurHandler(event: CustomEvent): void {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    this.formValues.name = event.detail.value.trim();
+  }
+
+  private descBlurHandler(event: CustomEvent): void {
+    const strUpdateValue = event.detail.value;
+    this.formValues.description = strUpdateValue;
+  }
+
+  private iconSelectHandler(event: CustomEvent): void {
+    this.formValues.icon = event.detail.value;
   }
 
   /**
@@ -75,12 +133,14 @@ export class FbBasicDetails {
   }
 
   render() {
-    if (!this.jsonFormBuilder) {
+    if (!this.jsonPreset) {
       return null;
     }
     const strBaseClassName = 'fb-basic-details';
-    const objSchema = this.jsonFormBuilder;
+    const objSchema = this.jsonPreset;
     const arrIcons = objSchema.iconSet;
+    const boolNewForm = this.isNewForm();
+    const strCreateBtnLabel = boolNewForm ? 'Create' : 'Update';
 
     const iconGroupItems =
       arrIcons && arrIcons.length > 0
@@ -93,36 +153,56 @@ export class FbBasicDetails {
       <Host tabIndex='-1'>
         <div class={strBaseClassName}>
           <div class={`${strBaseClassName}-content`}>
-            <fw-input
-              ref={(inputName) => (this.inputName = inputName)}
-              class={`${strBaseClassName}-name-input`}
-              required={true}
-              label='Name'
-              placeholder='Enter the name of your custom object'
-              onFwBlur={this.nameBlurHandler}
-              onFwChange={this.nameChangeHandler}
-            ></fw-input>
+            <div class={`${strBaseClassName}-name-div`}>
+              <fw-input
+                class={`${strBaseClassName}-name-input`}
+                required={true}
+                label='Name'
+                placeholder='Enter the name of your custom object'
+                onFwBlur={this.nameBlurHandler}
+                onFwChange={this.nameChangeHandler}
+              ></fw-input>
+              {this.showNameError && (
+                <label class={`${strBaseClassName}-name-error-msg`}>
+                  Name field cannot be empty
+                </label>
+              )}
+            </div>
             <fw-textarea
-              ref={(inputDesc) => (this.inputDesc = inputDesc)}
               class={`${strBaseClassName}-desc-textarea`}
               label='Description'
               placeholder='Enter a description'
+              onFwBlur={this.descBlurHandler}
             ></fw-textarea>
             <div class={`${strBaseClassName}-icon-container`}>
               <label class={`${strBaseClassName}-icon-header-label`}>
                 Select Icon
               </label>
-              <fw-toggle-group class={`${strBaseClassName}-icon-toggle-group`}>
+              <fw-toggle-group
+                class={`${strBaseClassName}-icon-toggle-group`}
+                onFwChange={this.iconSelectHandler}
+              >
                 {iconGroupItems}
               </fw-toggle-group>
             </div>
           </div>
           <div class={`${strBaseClassName}-footer`}>
-            <fw-button id='clearFieldBtn' color='secondary'>
-              Cancel
-            </fw-button>
-            <fw-button id='submitFieldBtn' color='primary'>
-              Create
+            {boolNewForm && (
+              <fw-button
+                id='clearFieldBtn'
+                color='secondary'
+                onFwClick={this.cancelHandler}
+              >
+                Cancel
+              </fw-button>
+            )}
+            <fw-button
+              id='submitFieldBtn'
+              color='primary'
+              onFwClick={this.createHandler}
+              loading={this.isEntityCreationInProgress}
+            >
+              {strCreateBtnLabel}
             </fw-button>
           </div>
         </div>

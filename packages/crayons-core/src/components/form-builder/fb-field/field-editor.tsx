@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import {
   Component,
   Element,
@@ -6,6 +7,8 @@ import {
   Host,
   EventEmitter,
   Event,
+  State,
+  Watch,
 } from '@stencil/core';
 
 @Component({
@@ -15,10 +18,18 @@ import {
 })
 export class FieldEditor {
   @Element() host!: HTMLElement;
-
   private divFieldBase: HTMLElement;
-  private fieldNameInput?: HTMLFwInputElement;
+  private dictInteractiveElements;
+  private strFieldName = '';
 
+  /**
+   * State to check the form creating status
+   */
+  @State() isFieldCreationInProgress = false;
+  /**
+   * State to show the field name error message
+   */
+  @State() showFieldNameError = false;
   /**
    * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
    */
@@ -28,13 +39,21 @@ export class FieldEditor {
    */
   @Prop({ mutable: true }) expanded = false;
   /**
+   * data source used to set and edit the field values
+   */
+  @Prop({ mutable: true }) dataProvider = null;
+  /**
+   * stores the default field type schema for this editor type
+   */
+  @Prop() defaultFieldTypeSchema;
+  /**
+   * defines if the field is primary
+   */
+  @Prop() isPrimaryField = false;
+  /**
    * index attached inside the parent group component
    */
   @Prop() index = -1;
-  /**
-   * data source used to set and edit the field values
-   */
-  @Prop() dataProvider = null;
   /**
    * Name of the component, saved as part of the form data.
    */
@@ -44,24 +63,41 @@ export class FieldEditor {
    */
   @Event() fwExpand!: EventEmitter;
   /**
-   * Triggered when the field details need to be submitted
+   * Triggered when the field details need to be saved on the server
    */
-  @Event() fwSubmit!: EventEmitter;
+  @Event() fwUpdateField!: EventEmitter;
+
+  @Watch('expanded')
+  watchExpandChangeHandler(): void {
+    if (!this.expanded) {
+      this.isFieldCreationInProgress = false;
+    }
+  }
+
+  @Watch('dataProvider')
+  watchDataproviderChangeHandler(): void {
+    this.strFieldName = this.dataProvider ? this.dataProvider.name : '';
+  }
 
   /**
    * Key bindings done for the event to keep them accessible in 'this' scope
    */
   componentWillLoad(): void {
-    this.onSubmitFieldHandler = this.onSubmitFieldHandler.bind(this);
-    this.onCancelHandler = this.onCancelHandler.bind(this);
-    this.onExpandHandler = this.onExpandHandler.bind(this);
-    this.onExpandKeyPressHandler = this.onExpandKeyPressHandler.bind(this);
+    this.watchDataproviderChangeHandler();
+    this.dictInteractiveElements = {};
+    this.addFieldHandler = this.addFieldHandler.bind(this);
+    this.cancelFieldHandler = this.cancelFieldHandler.bind(this);
+    this.expandHandler = this.expandHandler.bind(this);
+    this.expandKeyPressHandler = this.expandKeyPressHandler.bind(this);
     this.startParentDragging = this.startParentDragging.bind(this);
     this.stopParentDragging = this.stopParentDragging.bind(this);
     this.enableParentDrag = this.enableParentDrag.bind(this);
+    this.nameBlurHandler = this.nameBlurHandler.bind(this);
+    this.nameChangeHandler = this.nameChangeHandler.bind(this);
   }
 
   disconnectedCallback(): void {
+    this.dictInteractiveElements = null;
     window.removeEventListener('mouseup', this.stopParentDragging);
   }
 
@@ -95,33 +131,54 @@ export class FieldEditor {
     }
   }
 
-  /**
-   * submit handler - submit the changes made to the field and emit the changes
-   */
-  private onSubmitFieldHandler() {
-    this.fwSubmit.emit({
-      expanded: false,
+  private addFieldHandler() {
+    if (!this.strFieldName || this.strFieldName === '') {
+      this.showFieldNameError = true;
+      return;
+    }
+
+    this.isFieldCreationInProgress = true;
+    const objValues = {
+      type: this.dataProvider.type,
+      isPrimaryField: this.isPrimaryField,
+    };
+
+    for (const key in this.dictInteractiveElements) {
+      const elInteractive = this.dictInteractiveElements[key];
+      const strTagName = elInteractive.tagName.toLowerCase();
+
+      switch (strTagName) {
+        case 'fw-input':
+          objValues[key] = elInteractive.value || '';
+          break;
+        case 'fw-checkbox':
+          objValues[key] = elInteractive.checked || false;
+          break;
+        default:
+          break;
+      }
+    }
+
+    this.showFieldNameError = false;
+    this.fwUpdateField.emit({
       index: this.index,
+      value: { ...objValues },
+      isNew: this.isNewField(),
     });
   }
 
-  /**
-   * cancel handler - will remove all the changes made to the field and close the expanded view
-   */
-  private onCancelHandler() {
+  private cancelFieldHandler() {
     if (this.expanded) {
       this.expanded = false;
       this.fwExpand.emit({
         expanded: false,
         index: this.index,
+        isNew: this.isNewField(),
       });
     }
   }
 
-  /**
-   * expand handler - will expand the field for editing
-   */
-  private onExpandHandler(event: MouseEvent): void {
+  private expandHandler(event: MouseEvent): void {
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
@@ -136,14 +193,12 @@ export class FieldEditor {
       this.fwExpand.emit({
         expanded: true,
         index: this.index,
+        isNew: this.isNewField(),
       });
     }
   }
 
-  /**
-   * key press handler - will remove all the changes made to the field and close the expanded view
-   */
-  private onExpandKeyPressHandler(event: KeyboardEvent): void {
+  private expandKeyPressHandler(event: KeyboardEvent): void {
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
@@ -159,54 +214,93 @@ export class FieldEditor {
     }
   }
 
-  /**
-   * on Blur field name handler
-   */
-  private onFieldNameChangeHandler() {
-    const strUpdateFieldName = this.fieldNameInput.value;
-    console.log('----' + strUpdateFieldName);
+  private nameChangeHandler(event: CustomEvent): void {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    this.strFieldName = event.detail.value.trim();
+    if (this.strFieldName !== '') {
+      this.showFieldNameError = false;
+    }
   }
 
-  // private renderOptional() {
-  //   if (!this.dataProvider) {
-  //     return null;
-  //   }
-  //   // const strFieldType = this.dataProvider.type;
-  //   // switch (strFieldType) {
-  //   //   case "DROPDOWN":
-  //   //     return ();
-  //   // }
-  // }
+  private nameBlurHandler(event: CustomEvent): void {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    this.strFieldName = event.detail.value.trim();
+  }
 
-  /**
-   * function to render basic field checkboxes
-   * @returns {JSX.Element}
-   */
-  private renderCheckboxField(dataCheckbox) {
+  private isNewField() {
+    if (
+      this.dataProvider &&
+      Object.prototype.hasOwnProperty.call(this.dataProvider, 'isNew') &&
+      this.dataProvider['isNew'] === true
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  private getFieldOptions() {
+    if (this.dataProvider) {
+      const objFieldData = { ...this.dataProvider };
+
+      if (this.isNewField()) {
+        return objFieldData;
+      } else {
+        const objDefaultFieldTypeSchema = { ...this.defaultFieldTypeSchema };
+        const arrCheckBoxes = objDefaultFieldTypeSchema.checkboxes;
+        const intCheckboxesLength = arrCheckBoxes.length;
+        for (let i1 = 0; i1 < intCheckboxesLength; i1++) {
+          const strKey = arrCheckBoxes[i1].key;
+          if (Object.prototype.hasOwnProperty.call(objFieldData, strKey)) {
+            arrCheckBoxes[i1].selected = objFieldData[strKey];
+          }
+        }
+        objDefaultFieldTypeSchema.name = objFieldData.name;
+        return objDefaultFieldTypeSchema;
+      }
+    }
+    return null;
+  }
+
+  private renderFwLabel(dataItem) {
+    if (!dataItem.selected) {
+      return null;
+    }
     const strBaseClassName = 'fw-field-editor';
+    const strKey = dataItem.key;
+    return (
+      <fw-label
+        key={strKey}
+        value={strKey}
+        color='grey'
+        class={`${strBaseClassName}-content-fw-label`}
+      />
+    );
+  }
+
+  private renderCheckboxField(dataCheckbox) {
+    const strKey = dataCheckbox.key;
 
     return (
       <fw-checkbox
-        key={dataCheckbox.key}
-        value={dataCheckbox.key}
+        ref={(el) => (this.dictInteractiveElements[strKey] = el)}
+        key={strKey}
+        value={strKey}
         checked={dataCheckbox.selected}
         disabled={!dataCheckbox.enabled}
-        class={`${strBaseClassName}-content-checkbox-input`}
       >
         {dataCheckbox.label}
       </fw-checkbox>
     );
   }
 
-  /**
-   * function to render basic field details
-   * @returns {JSX.Element}
-   */
-  private renderContent() {
+  private renderContent(objFieldOptions) {
     const objField = this.dataProvider;
     const strBaseClassName = 'fw-field-editor';
-    const strInputValue = objField.label;
-    const arrCheckboxes = objField.field_options.checkboxes;
+    const strInputValue = objField.name || '';
+
+    const arrCheckboxes = objFieldOptions ? objFieldOptions.checkboxes : null;
     const checkboxItems =
       arrCheckboxes && arrCheckboxes.length > 0
         ? arrCheckboxes.map((dataItem) => this.renderCheckboxField(dataItem))
@@ -214,16 +308,21 @@ export class FieldEditor {
 
     return (
       <div class={`${strBaseClassName}-content-required`}>
-        <label class={`${strBaseClassName}-content-required-label`}>
-          {'Field Name'}
-        </label>
         <fw-input
+          ref={(el) => (this.dictInteractiveElements['name'] = el)}
           class={`${strBaseClassName}-content-required-input`}
-          ref={(fieldNameInput) => (this.fieldNameInput = fieldNameInput)}
-          placeholder='Enter the name of your lookup field here'
+          placeholder='Enter the name of your field here'
+          required={true}
+          label='Field Name'
           value={strInputValue}
-          onBlur={this.onFieldNameChangeHandler}
+          onFwBlur={this.nameBlurHandler}
+          onFwChange={this.nameChangeHandler}
         ></fw-input>
+        {this.showFieldNameError && (
+          <label class={`${strBaseClassName}-content-name-error-msg`}>
+            Name field cannot be empty
+          </label>
+        )}
         <div class={`${strBaseClassName}-content-checkboxes`}>
           {checkboxItems}
         </div>
@@ -236,10 +335,31 @@ export class FieldEditor {
       return null;
     }
     const objField = this.dataProvider;
+    const objFieldOptions = this.getFieldOptions();
+    const boolNewField = this.isNewField();
+
+    const boolShowCancelBtn =
+      !this.isPrimaryField || (this.isPrimaryField && !boolNewField)
+        ? true
+        : false;
+    const strHeaderLabel =
+      boolNewField && this.isPrimaryField ? 'Primary Field' : objField.label;
+
+    const arrCheckboxes = objFieldOptions ? objFieldOptions.checkboxes : null;
+    const fwLabelItems =
+      !this.expanded && arrCheckboxes && arrCheckboxes.length > 0
+        ? arrCheckboxes.map((dataItem) => this.renderFwLabel(dataItem))
+        : null;
+
     const strBaseClassName = 'fw-field-editor';
     let strComponentClassName = strBaseClassName;
+    if (this.isPrimaryField) {
+      strComponentClassName += ` ${strBaseClassName}--primary`;
+    }
     if (this.expanded) {
-      strComponentClassName += ' ' + strBaseClassName + '--expanded';
+      strComponentClassName += ` ${strBaseClassName}--expanded`;
+    } else if (this.disabled) {
+      strComponentClassName += ` ${strBaseClassName}--disabled`;
     }
 
     return (
@@ -251,8 +371,8 @@ export class FieldEditor {
           <div
             role='button'
             class={`${strBaseClassName}-header`}
-            onClick={this.onExpandHandler}
-            onKeyPress={this.onExpandKeyPressHandler}
+            onClick={this.expandHandler}
+            onKeyPress={this.expandKeyPressHandler}
             tabIndex={0}
           >
             <div
@@ -265,35 +385,45 @@ export class FieldEditor {
             <span
               class={`${strBaseClassName}-icon-container`}
               style={{
-                backgroundColor: objField.field_options.icon.bg_color,
+                backgroundColor: objFieldOptions.icon.bg_color,
               }}
             >
               <fw-icon
                 size={14}
-                name={objField.field_options.icon.name}
+                name={objFieldOptions.icon.name}
                 color='#475867'
               />
             </span>
-            <label class={`${strBaseClassName}-label`}>{objField.label}</label>
+            <label class={`${strBaseClassName}-label`}>{strHeaderLabel}</label>
+            {!this.expanded && (
+              <div class={`${strBaseClassName}-key-fw-labels`}>
+                {fwLabelItems}
+              </div>
+            )}
+
+            {/* Add fw-labels on collapsed - map */}
           </div>
           <div class={`${strBaseClassName}-body`}>
             <div class={`${strBaseClassName}-content`}>
-              {this.renderContent()}
+              {this.renderContent(objFieldOptions)}
             </div>
             <div class={`${strBaseClassName}-footer`}>
-              <fw-button
-                id='clearFieldBtn'
-                color='secondary'
-                onClick={this.onCancelHandler}
-              >
-                Cancel
-              </fw-button>
+              {boolShowCancelBtn && (
+                <fw-button
+                  id='clearFieldBtn'
+                  color='secondary'
+                  onClick={this.cancelFieldHandler}
+                >
+                  Cancel
+                </fw-button>
+              )}
               <fw-button
                 id='submitFieldBtn'
                 color='primary'
-                onClick={this.onSubmitFieldHandler}
+                onClick={this.addFieldHandler}
+                loading={this.isFieldCreationInProgress}
               >
-                Submit
+                {boolNewField ? 'Add Field' : 'Update Field'}
               </fw-button>
             </div>
           </div>
