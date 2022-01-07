@@ -3,25 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.9...@freshworks/crayons@3.0.0-beta.10) (2022-01-07)
-
+## [3.0.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.9...@freshworks/crayons@3.0.0-beta.10) (2022-01-07)
 
 ### Bug Fixes
 
-* **fw-select:** handled undefined / invalid value scenarios ([#354](https://github.com/freshworks/crayons/issues/354)) ([148cda8](https://github.com/freshworks/crayons/commit/148cda8140dfe6403555153714d7c7ee50872952))
-
+- **fw-select:** handled undefined / invalid value scenarios ([#354](https://github.com/freshworks/crayons/issues/354)) ([148cda8](https://github.com/freshworks/crayons/commit/148cda8140dfe6403555153714d7c7ee50872952))
 
 ### Features
 
-* **data-table:** adding select all rows to DataTable component ([#356](https://github.com/freshworks/crayons/issues/356)) ([39d2403](https://github.com/freshworks/crayons/commit/39d2403b26fc39bd4b2c22e81502bb0f08c4849f))
-* **data-table:** custom cell implementation ([#351](https://github.com/freshworks/crayons/issues/351)) ([9e6e1fb](https://github.com/freshworks/crayons/commit/9e6e1fb2b27f39fdc48d11409cf06952b05690fd))
-* **fw-drag-container:** added drag/drop and sortable container ([#352](https://github.com/freshworks/crayons/issues/352)) ([6323475](https://github.com/freshworks/crayons/commit/6323475ec489dc58c90f779b8c3d5a44c3c787a0))
-* **pill:** Adding pill component ([#357](https://github.com/freshworks/crayons/issues/357)) ([9a675e7](https://github.com/freshworks/crayons/commit/9a675e7f3dc984134f441c747d3722866aca162f))
-* **tabs:** expose public method to set active tab index from outside of fw-tabs ([#359](https://github.com/freshworks/crayons/issues/359)) ([7131acb](https://github.com/freshworks/crayons/commit/7131acb6ea3d08558f5dc6b2cf9838dc4305acdf))
-
-
-
-
+- **data-table:** adding select all rows to DataTable component ([#356](https://github.com/freshworks/crayons/issues/356)) ([39d2403](https://github.com/freshworks/crayons/commit/39d2403b26fc39bd4b2c22e81502bb0f08c4849f))
+- **data-table:** custom cell implementation ([#351](https://github.com/freshworks/crayons/issues/351)) ([9e6e1fb](https://github.com/freshworks/crayons/commit/9e6e1fb2b27f39fdc48d11409cf06952b05690fd))
+- **fw-drag-container:** added drag/drop and sortable container ([#352](https://github.com/freshworks/crayons/issues/352)) ([6323475](https://github.com/freshworks/crayons/commit/6323475ec489dc58c90f779b8c3d5a44c3c787a0))
+- **pill:** Adding pill component ([#357](https://github.com/freshworks/crayons/issues/357)) ([9a675e7](https://github.com/freshworks/crayons/commit/9a675e7f3dc984134f441c747d3722866aca162f))
+- **tabs:** expose public method to set active tab index from outside of fw-tabs ([#359](https://github.com/freshworks/crayons/issues/359)) ([7131acb](https://github.com/freshworks/crayons/commit/7131acb6ea3d08558f5dc6b2cf9838dc4305acdf))
 
 ## [3.0.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.8...@freshworks/crayons@3.0.0-beta.9) (2021-12-17)
 
