@@ -6,6 +6,7 @@ import {
   h,
   Listen,
   Prop,
+  Method,
 } from '@stencil/core';
 
 @Component({
@@ -73,7 +74,7 @@ export class Tabs {
         const panel = document.createElement('fw-tab-panel');
         panel.innerHTML = tab.innerHTML;
         panel.setAttribute('id', `fw-tab-panel-${counter++}`);
-        panel.setAttribute('name', tab.getAttribute('panel'));
+        panel.setAttribute('name', tab.getAttribute('panel') || tab.panel);
         this.el.appendChild(panel);
       }
     });
@@ -82,7 +83,7 @@ export class Tabs {
   assignAriaLabels() {
     this.tabs.map((tab) => {
       const panel = this.panels.find(
-        (p) => p.name === tab.getAttribute('panel')
+        (p) => p.name === tab.getAttribute('panel') || tab.panel
       );
 
       if (panel) {
@@ -92,6 +93,16 @@ export class Tabs {
     });
   }
 
+  /**
+   * Activates the tab based based on tabindex or name.
+   */
+  @Method()
+  async activateTab(index?: number, name?: string) {
+    index && (this.activeTabIndex = index);
+    name && (this.activeTabName = name);
+    this.setActiveTab(this.getActiveTab());
+  }
+
   setActiveTab(tab) {
     if (tab && tab !== this.activeTab && !tab.disabled) {
       this.activeTab = tab;
@@ -99,9 +110,9 @@ export class Tabs {
 
       // Sync active tab and panel
       this.tabs.map((el) => (el.active = el === this.activeTab));
-      this.panels.map(
-        (el) => (el.active = el.name === this.activeTab.getAttribute('panel'))
-      );
+      const activePanel =
+        this.activeTab.getAttribute('panel') || this.activeTab.panel;
+      this.panels.map((el) => (el.active = el.name === activePanel));
 
       // Emit events
       this.fwChange.emit({
@@ -124,6 +135,7 @@ export class Tabs {
     });
     this.mutationO.observe(this.el, {
       childList: true,
+      attributes: true,
     });
   }
 
