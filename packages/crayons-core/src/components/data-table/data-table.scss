@@ -66,6 +66,10 @@ div.fw-data-table-container {
           padding-right: 16px;
         }
       }
+
+      tr th.hidden {
+        display: none;
+      }
     }
 
     tbody {
@@ -122,6 +126,10 @@ div.fw-data-table-container {
 
         td.row-actions > fw-button {
           margin-right: 5px;
+        }
+
+        td.hidden {
+          display: none;
         }
       }
     }

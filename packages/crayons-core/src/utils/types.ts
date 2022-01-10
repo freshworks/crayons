@@ -57,6 +57,7 @@ export type DataTableColumn = {
   text: string;
   variant?: string;
   position?: number;
+  hide?: boolean;
   hasFocusableComponent?: boolean;
   customTemplate?: customTemplateFunc<VNode>;
 };

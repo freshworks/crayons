@@ -324,4 +324,33 @@ describe('fw-data-table', () => {
     await page.waitForChanges();
     expect(myMock).toHaveBeenCalled();
   });
+
+  it('should hide a column when hide is passed in column configuration', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+          job: 'Lead designer',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+          hide: true,
+        },
+        {
+          key: 'job',
+          text: 'Job',
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const firstColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:first-child'
+    );
+    expect(firstColumn).toHaveClass('hidden');
+  });
 });

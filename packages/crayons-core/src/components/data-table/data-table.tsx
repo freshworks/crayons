@@ -222,10 +222,9 @@ export class DataTable {
 
     // Switch focus between cells
     if (cellFocusChange && currentCell) {
-      const currentRowIndex: number =
+      let currentRowIndex: number =
         +currentCell.parentElement.getAttribute('aria-rowIndex');
-      const currentColIndex: number =
-        +currentCell.getAttribute('aria-colIndex');
+      let currentColIndex: number = +currentCell.getAttribute('aria-colIndex');
       let nextRowIndex: number;
       let nextColIndex: number;
       let columnLength: number = this.orderedColumns.length;
@@ -241,21 +240,69 @@ export class DataTable {
           nextColIndex = currentColIndex;
           break;
         case 'ArrowRight':
-          if (currentColIndex !== columnLength) {
-            nextRowIndex = currentRowIndex;
-            nextColIndex = currentColIndex + 1;
-          } else {
-            nextRowIndex = currentRowIndex + 1;
-            nextColIndex = 1;
+          {
+            const getNextCellIndex = (currentRowIndex, currentColIndex) => {
+              if (currentColIndex !== columnLength) {
+                nextRowIndex = currentRowIndex;
+                nextColIndex = currentColIndex + 1;
+              } else {
+                nextRowIndex = currentRowIndex + 1;
+                nextColIndex = 1;
+              }
+              return { nextRowIndex, nextColIndex };
+            };
+            let currentColumnHidden = false;
+            do {
+              const nextCellIndex = getNextCellIndex(
+                currentRowIndex,
+                currentColIndex
+              );
+              const currentColumn =
+                event.currentTarget.shadowRoot.querySelector(
+                  `th[aria-colIndex="${nextColIndex}"]`
+                );
+              currentColumnHidden = currentColumn.classList.contains('hidden');
+              if (currentColumnHidden) {
+                currentRowIndex = nextCellIndex.nextRowIndex;
+                currentColIndex = nextCellIndex.nextColIndex;
+              } else {
+                nextRowIndex = nextCellIndex.nextRowIndex;
+                nextColIndex = nextCellIndex.nextColIndex;
+              }
+            } while (currentColumnHidden); // Loop till next visible column
           }
           break;
         case 'ArrowLeft':
-          if (currentColIndex !== 1) {
-            nextRowIndex = currentRowIndex;
-            nextColIndex = currentColIndex - 1;
-          } else {
-            nextRowIndex = currentRowIndex - 1;
-            nextColIndex = columnLength;
+          {
+            const getPreviousCellIndex = (currentRowIndex, currentColIndex) => {
+              if (currentColIndex !== 1) {
+                nextRowIndex = currentRowIndex;
+                nextColIndex = currentColIndex - 1;
+              } else {
+                nextRowIndex = currentRowIndex - 1;
+                nextColIndex = columnLength;
+              }
+              return { nextRowIndex, nextColIndex };
+            };
+            let currentColumnHidden = false;
+            do {
+              const previousCellIndex = getPreviousCellIndex(
+                currentRowIndex,
+                currentColIndex
+              );
+              const currentColumn =
+                event.currentTarget.shadowRoot.querySelector(
+                  `th[aria-colIndex="${nextColIndex}"]`
+                );
+              currentColumnHidden = currentColumn.classList.contains('hidden');
+              if (currentColumnHidden) {
+                currentRowIndex = previousCellIndex.nextRowIndex;
+                currentColIndex = previousCellIndex.nextColIndex;
+              } else {
+                nextRowIndex = previousCellIndex.nextRowIndex;
+                nextColIndex = previousCellIndex.nextColIndex;
+              }
+            } while (currentColumnHidden); // Loop till next visible column
           }
           break;
         default:
@@ -574,6 +621,7 @@ export class DataTable {
             aria-colindex={
               this.isSelectable ? columnIndex + 2 : columnIndex + 1
             }
+            class={`${column.hide ? 'hidden' : ''}`}
           >
             {column.text}
           </th>
@@ -637,7 +685,11 @@ export class DataTable {
                 ? 'true'
                 : 'false';
               return (
-                <td role='gridcell' {...attrs}>
+                <td
+                  role='gridcell'
+                  class={`${orderedColumn.hide ? 'hidden' : ''}`}
+                  {...attrs}
+                >
                   {!this.rowsLoading[row.id] ? (
                     this.renderTableCell(orderedColumn, row[orderedColumn.key])
                   ) : (
