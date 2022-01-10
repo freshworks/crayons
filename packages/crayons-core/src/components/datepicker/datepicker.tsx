@@ -802,7 +802,7 @@ export class Datepicker {
   }
 
   private onBlur = async () => {
-    PubSub.publish('handleBlur', {
+    EventStore.publish('handleBlur', {
       field: this.name,
       value: await this.getValue(),
     });
