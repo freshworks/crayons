@@ -229,6 +229,14 @@ export namespace Components {
           * Whether the drag is disabled or not.
          */
         "disabled": boolean;
+        /**
+          * Pinned position of the drag item, other drag item cannot be placed above or below it.
+         */
+        "pinned": 'top' | 'bottom';
+        /**
+          * Whether the drag icon should be visible.
+         */
+        "showDragIcon": boolean;
     }
     interface FwDropdownButton {
         /**
@@ -1980,6 +1988,14 @@ declare namespace LocalJSX {
           * Whether the drag is disabled or not.
          */
         "disabled"?: boolean;
+        /**
+          * Pinned position of the drag item, other drag item cannot be placed above or below it.
+         */
+        "pinned"?: 'top' | 'bottom';
+        /**
+          * Whether the drag icon should be visible.
+         */
+        "showDragIcon"?: boolean;
     }
     interface FwDropdownButton {
         /**
