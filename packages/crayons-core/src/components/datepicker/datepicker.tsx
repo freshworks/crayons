@@ -821,6 +821,7 @@ export class Datepicker {
         <fw-input
           slot='popover-trigger'
           value={this.value}
+          name={this.name}
           class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
           placeholder={this.placeholder}
           title={this.placeholder}

@@ -56,45 +56,6 @@ export class FormControl {
 
   @State() hasSlot = false;
 
-  // assignProps = (type: string, props: any): any => {
-  //   // const propList = CONTROL_PROPS[type] || [];
-  //   let componentProps = { ...props };
-
-  //   switch (type) {
-  //     case 'fw-checkbox': {
-  //       componentProps = {
-  //         ...componentProps,
-  //         ...this.controlProps?.checkboxProps(
-  //           props.name,
-  //           props.type?.toLowerCase()
-  //         ),
-  //       };
-  //       return componentProps;
-  //     }
-  //     case 'fw-radio-group': {
-  //       componentProps = {
-  //         'allow-empty': true,
-  //         ...componentProps,
-  //         ...this.controlProps?.radioProps(
-  //           props.name,
-  //           props.type?.toLowerCase()
-  //         ),
-  //       };
-  //       return componentProps;
-  //     }
-  //     case 'fw-select': {
-  //       componentProps = {
-  //         ...componentProps,
-  //         ...this.controlProps?.selectProps(
-  //           props.name,
-  //           props.type?.toLowerCase()
-  //         ),
-  //       };
-  //       return componentProps;
-  //     }
-  //   }
-  // };
-
   renderControl(): JSX.Element {
     if (this.hasSlot) return null;
     if (!this.name) return null;
@@ -114,7 +75,7 @@ export class FormControl {
           name: this.name,
           placeholder: this.placeholder,
           label: '',
-          required: '',
+          required: this.required,
           hint: '',
           type: type,
           ...this.controlProps?.inputProps(this.name, type),
@@ -130,7 +91,7 @@ export class FormControl {
             name: this.name,
             placeholder: this.placeholder,
             label: '',
-            required: '',
+            required: this.required,
             hint: '',
             ...this.controlProps?.inputProps(
               this.name,
@@ -148,7 +109,7 @@ export class FormControl {
             name: this.name,
             placeholder: this.placeholder,
             label: '',
-            required: '',
+            required: this.required,
             hint: '',
             ...this.controlProps?.inputProps(
               this.name,
@@ -184,7 +145,7 @@ export class FormControl {
             'name': this.name,
             'placeholder': this.placeholder,
             'label': '',
-            'required': '',
+            'required': this.required,
             'hint': '',
             'allow-empty': true,
             ...this.controlProps?.radioProps(
@@ -193,13 +154,12 @@ export class FormControl {
             ),
           };
           cmp = (
-            <fw-radio-group {...componentProps}>
+            <fw-radio-group {...componentProps} label={this.name}>
               {this.choices?.map((ch) => {
+                const val = ch[componentProps.optionValuePath] || ch.value;
                 return (
-                  <fw-radio
-                    value={ch[componentProps.optionValuePath] || ch.value}
-                  >
-                    {ch[componentProps.optionLabelPath] || ch.value}
+                  <fw-radio name={val} value={val}>
+                    {val}
                   </fw-radio>
                 );
               })}
@@ -216,7 +176,7 @@ export class FormControl {
             name: this.name,
             placeholder: this.placeholder,
             label: '',
-            required: '',
+            required: this.required,
             hint: '',
             ...this.controlProps?.selectProps(
               this.name,
@@ -230,7 +190,6 @@ export class FormControl {
                 ...f,
                 text: f.value,
               }))}
-              value=''
               multiple={this.type === 'MULTI_SELECT'}
             ></fw-select>
           );
@@ -243,7 +202,7 @@ export class FormControl {
             name: this.name,
             placeholder: this.placeholder,
             label: '',
-            required: '',
+            required: this.required,
             hint: '',
             ...this.controlProps?.inputProps(
               this.name,

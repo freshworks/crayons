@@ -152,6 +152,7 @@ export class Checkbox {
             ref={(el) => (this.checkbox = el)}
             required={this.required}
             name={this.name}
+            id={this.name}
           ></input>
           <label>
             <span

@@ -247,6 +247,7 @@ export class RadioGroup {
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
         onFwBlur={this.onBlur}
+        id={this.label}
       ></Host>
     );
   }

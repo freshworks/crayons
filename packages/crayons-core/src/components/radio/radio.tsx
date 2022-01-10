@@ -123,8 +123,13 @@ export class Radio {
         onBlur={() => this.onBlur()}
       >
         <div class='radio-container'>
-          <input type='radio' ref={(el) => (this.radio = el)}></input>
-          <label>
+          <input
+            type='radio'
+            ref={(el) => (this.radio = el)}
+            id={this.name}
+            name={this.name}
+          ></input>
+          <label htmlFor={this.name}>
             <span id='label'>
               <slot />
             </span>

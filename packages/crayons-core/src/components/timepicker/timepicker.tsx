@@ -139,6 +139,7 @@ export class Timepicker {
 
     return (
       <fw-select
+        name={this.name}
         disabled={this.disabled}
         value={this.value}
         required={this.required}

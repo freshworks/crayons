@@ -202,6 +202,7 @@ export class Textarea {
               rows={this.rows}
               cols={this.cols}
               wrap={this.wrap}
+              id={this.name}
             />
           </div>
           {this.stateText !== '' ? (

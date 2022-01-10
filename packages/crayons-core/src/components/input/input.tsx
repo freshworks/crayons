@@ -253,6 +253,7 @@ export class Input {
               ref={(input) => {
                 this.nativeInput = input;
               }}
+              id={this.name}
               autoComplete={this.autocomplete}
               disabled={this.disabled}
               name={this.name}

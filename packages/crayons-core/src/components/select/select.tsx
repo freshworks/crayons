@@ -598,13 +598,13 @@ export class Select {
                     )}
                     <input
                       ref={(selectInput) => (this.selectInput = selectInput)}
-                      id={`${this.hostId}-input`}
                       class={{
                         'multiple-select': this.multiple,
                       }}
                       autoComplete='off'
                       disabled={this.disabled}
                       name={this.name}
+                      id={this.name}
                       placeholder={
                         this.valueExists() ? '' : this.placeholder || ''
                       }
