@@ -527,6 +527,18 @@ export namespace Components {
          */
         "variant": DropdownVariant;
     }
+    interface FwMenu {
+    }
+    interface FwMenuItem {
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selectable": boolean;
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected": boolean;
+    }
     interface FwModal {
         /**
           * The text for the cancel button
@@ -1528,6 +1540,18 @@ declare global {
         prototype: HTMLFwListOptionsElement;
         new (): HTMLFwListOptionsElement;
     };
+    interface HTMLFwMenuElement extends Components.FwMenu, HTMLStencilElement {
+    }
+    var HTMLFwMenuElement: {
+        prototype: HTMLFwMenuElement;
+        new (): HTMLFwMenuElement;
+    };
+    interface HTMLFwMenuItemElement extends Components.FwMenuItem, HTMLStencilElement {
+    }
+    var HTMLFwMenuItemElement: {
+        prototype: HTMLFwMenuItemElement;
+        new (): HTMLFwMenuItemElement;
+    };
     interface HTMLFwModalElement extends Components.FwModal, HTMLStencilElement {
     }
     var HTMLFwModalElement: {
@@ -1705,6 +1729,8 @@ declare global {
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-list-options": HTMLFwListOptionsElement;
+        "fw-menu": HTMLFwMenuElement;
+        "fw-menu-item": HTMLFwMenuItemElement;
         "fw-modal": HTMLFwModalElement;
         "fw-modal-content": HTMLFwModalContentElement;
         "fw-modal-footer": HTMLFwModalFooterElement;
@@ -2306,6 +2332,18 @@ declare namespace LocalJSX {
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant"?: DropdownVariant;
+    }
+    interface FwMenu {
+    }
+    interface FwMenuItem {
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selectable"?: boolean;
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected"?: boolean;
     }
     interface FwModal {
         /**
@@ -3253,6 +3291,8 @@ declare namespace LocalJSX {
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-list-options": FwListOptions;
+        "fw-menu": FwMenu;
+        "fw-menu-item": FwMenuItem;
         "fw-modal": FwModal;
         "fw-modal-content": FwModalContent;
         "fw-modal-footer": FwModalFooter;
@@ -3305,6 +3345,8 @@ declare module "@stencil/core" {
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;
+            "fw-menu": LocalJSX.FwMenu & JSXBase.HTMLAttributes<HTMLFwMenuElement>;
+            "fw-menu-item": LocalJSX.FwMenuItem & JSXBase.HTMLAttributes<HTMLFwMenuItemElement>;
             "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
             "fw-modal-content": LocalJSX.FwModalContent & JSXBase.HTMLAttributes<HTMLFwModalContentElement>;
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;

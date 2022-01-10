@@ -234,6 +234,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-dropdown-button](../dropdown-button)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
+ - [fw-menu-item](../menu-item)
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
  - [fw-pagination](../pagination)
@@ -259,6 +260,7 @@ graph TD;
   fw-dropdown-button --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
+  fw-menu-item --> fw-icon
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon
   fw-pagination --> fw-icon
