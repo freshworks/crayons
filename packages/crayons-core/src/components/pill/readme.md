@@ -39,9 +39,9 @@ Icon inside the pill must be set with attribute `slot="icon"` and it could eithe
 ```
 
 ### Styling Pills with custom CSS
-Pill can be customized with custom colors by setting attribute `color="custom"` and apply the styles using custom CSS properties listed further below in the page.
+Pill can be customized with custom colors by using custom CSS properties listed further below in the page.
 ```html live
-<fw-pill color="custom" style="--pill-background-color: #fff;--pill-border: 1px solid gray;--pill-padding: 4px 12px 4px 8px;">
+<fw-pill style="--pill-background-color: #fff;--pill-border: 1px solid gray;--pill-padding: 4px 12px 4px 8px;">
   <fw-icon name="info" slot="icon"></fw-icon>
   Custom Styled Pill
 </fw-pill>
@@ -102,9 +102,9 @@ function App() {
 
 ## Properties
 
-| Property | Attribute | Description                              | Type                                                           | Default  |
-| -------- | --------- | ---------------------------------------- | -------------------------------------------------------------- | -------- |
-| `color`  | `color`   | Theme based on which the pill is styled. | `"blue" \| "custom" \| "green" \| "grey" \| "red" \| "yellow"` | `'grey'` |
+| Property | Attribute | Description                              | Type                                               | Default     |
+| -------- | --------- | ---------------------------------------- | -------------------------------------------------- | ----------- |
+| `color`  | `color`   | Theme based on which the pill is styled. | `"blue" \| "green" \| "grey" \| "red" \| "yellow"` | `undefined` |
 
 
 ## CSS Custom Properties
