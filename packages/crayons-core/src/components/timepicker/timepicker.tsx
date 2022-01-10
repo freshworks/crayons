@@ -2,7 +2,7 @@ import { Component, Element, Prop, State, h } from '@stencil/core';
 import moment from 'moment-mini';
 
 import { renderHiddenField } from '../../utils';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-timepicker',
@@ -108,7 +108,10 @@ export class Timepicker {
     const { value } = e.detail;
     this.value = value;
     if (this.value)
-      PubSub.publish('handleChange', { field: this.name, value: this.value });
+      EventStore.publish('handleChange', {
+        field: this.name,
+        value: this.value,
+      });
   }
 
   private setEndTime() {
@@ -118,11 +121,11 @@ export class Timepicker {
   }
 
   onBlur = (): void => {
-    PubSub.publish('handleBlur', { field: this.name, value: this.value });
+    EventStore.publish('handleBlur', { field: this.name, value: this.value });
   };
 
   onFocus = (): void => {
-    PubSub.publish('handleFocus', { field: this.name, value: this.value });
+    EventStore.publish('handleFocus', { field: this.name, value: this.value });
   };
 
   componentWillLoad() {

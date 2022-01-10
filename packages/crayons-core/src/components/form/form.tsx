@@ -18,7 +18,7 @@ import {
 } from './form-util';
 import { debounce } from '../../utils';
 
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-form',
@@ -76,10 +76,10 @@ export class Form {
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
-    PubSub.subscribe('handleInput', this.debouncedHandleInput);
-    PubSub.subscribe('handleBlur', this.handleBlur);
-    PubSub.subscribe('handleChange', this.debouncedHandleInput);
-    PubSub.subscribe('handhandleFocus', this.handleFocus);
+    EventStore.subscribe('handleInput', this.debouncedHandleInput);
+    EventStore.subscribe('handleBlur', this.handleBlur);
+    EventStore.subscribe('handleChange', this.debouncedHandleInput);
+    EventStore.subscribe('handhandleFocus', this.handleFocus);
 
     this.formValidationSchema =
       generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||

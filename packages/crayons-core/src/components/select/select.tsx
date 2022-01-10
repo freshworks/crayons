@@ -20,7 +20,7 @@ import {
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-select',
@@ -43,7 +43,7 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
-      PubSub.publish('handleFocus', {
+      EventStore.publish('handleFocus', {
         field: this.name,
       });
     }
@@ -60,7 +60,7 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
-      PubSub.publish('handleBlur', {
+      EventStore.publish('handleBlur', {
         field: this.name,
         value: await this.getSelectedItem(),
       });
@@ -258,7 +258,7 @@ export class Select {
       });
 
       if (this.selectedOptionsState?.length)
-        PubSub.publish('handleChange', {
+        EventStore.publish('handleChange', {
           field: this.name,
           value: this.selectedOptionsState,
         });
