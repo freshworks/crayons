@@ -1,14 +1,4 @@
-import {
-  Component,
-  Element,
-  Prop,
-  h,
-  Host,
-  EventEmitter,
-  Event,
-  State,
-  Method,
-} from '@stencil/core';
+import { Component, Element, Prop, h, Host, State } from '@stencil/core';
 
 @Component({
   tag: 'fw-form-builder',
@@ -35,10 +25,6 @@ export class FormBuilder {
    */
   @State() isFormCreated = false;
   /**
-   * State flag to determine if the field is created
-   */
-  @State() isFieldCreated = false;
-  /**
    * variable to store form values
    */
   @Prop({ mutable: true }) formValues = null;
@@ -47,37 +33,13 @@ export class FormBuilder {
    */
   @Prop() jsonPreset;
   /**
+   * callback function to send data to to the server
+   */
+  @Prop() callbackFormUpdate;
+  /**
    * Name of the component, saved as part of the form data.
    */
   @Prop() name = '';
-  /**
-   * Triggered when any change in the form is updated
-   */
-  @Event() fwFormBuilderUpdate!: EventEmitter;
-
-  // public method to set if the form is created
-  @Method()
-  async setFormCreated(value: boolean): Promise<void> {
-    this.isFormCreated = value;
-    if (value) {
-      const boolPrimaryFieldAdded = this.validateAndCreatePrimaryField();
-      this.basicDetails.setFormCreated(value);
-      this.selectedTabIndex = 1;
-      this.tabBar.activateTab(1);
-      if (boolPrimaryFieldAdded) {
-        this.expandedFieldIndex = 0;
-      }
-    }
-  }
-
-  // public method to set if the field is created
-  @Method()
-  async setFieldCreated(value: boolean): Promise<void> {
-    this.isFieldCreated = value;
-    if (value) {
-      this.expandedFieldIndex = -1;
-    }
-  }
 
   componentWillLoad(): void {
     if (!this.formValues) {
@@ -90,22 +52,14 @@ export class FormBuilder {
     this.saveFieldHandler = this.saveFieldHandler.bind(this);
     this.tabChangeHandler = this.tabChangeHandler.bind(this);
     this.expandFieldHandler = this.expandFieldHandler.bind(this);
-    this.dispatchUpdateEvent = this.dispatchUpdateEvent.bind(this);
-    this.createObjectHandler = this.createObjectHandler.bind(this);
+    this.createEntityHandler = this.createEntityHandler.bind(this);
     this.getDefaultFieldSchema = this.getDefaultFieldSchema.bind(this);
     this.deleteNewLocalFieldAtIndex =
       this.deleteNewLocalFieldAtIndex.bind(this);
     this.composeNewFieldTypeHandler =
       this.composeNewFieldTypeHandler.bind(this);
-    this.cancelObjectCreationHandler =
-      this.cancelObjectCreationHandler.bind(this);
-  }
-
-  private dispatchUpdateEvent(strEventType, objData = null) {
-    this.fwFormBuilderUpdate.emit({
-      type: strEventType,
-      data: objData,
-    });
+    this.cancelEntityCreationHandler =
+      this.cancelEntityCreationHandler.bind(this);
   }
 
   private isNewForm() {
@@ -168,16 +122,44 @@ export class FormBuilder {
     return false;
   }
 
-  private createObjectHandler(event: CustomEvent) {
-    this.dispatchUpdateEvent('CREATE_OBJECT', event.detail);
+  private async createEntityHandler(event: CustomEvent) {
+    const objResponse = await this.callbackFormUpdate({
+      type: 'CREATE_ENTITY',
+      detail: event.detail,
+    });
+    console.log('Create entity response --- ' + objResponse);
+
+    if (objResponse && objResponse.success) {
+      this.isFormCreated = true;
+      const boolPrimaryFieldAdded = this.validateAndCreatePrimaryField();
+      this.basicDetails.setFormCreated(true);
+      this.selectedTabIndex = 1;
+      this.tabBar.activateTab(1);
+      if (boolPrimaryFieldAdded) {
+        this.expandedFieldIndex = 0;
+      }
+    } else {
+      this.isFormCreated = false;
+    }
   }
 
-  private cancelObjectCreationHandler() {
-    this.dispatchUpdateEvent('CANCEL_CREATE_OBJECT');
+  private async cancelEntityCreationHandler() {
+    const objResponse = await this.callbackFormUpdate({
+      type: 'CANCEL_ENTITY_CREATION',
+    });
+    console.log('Cancel entity creation response --- ' + objResponse);
   }
 
-  private saveFieldHandler(event: CustomEvent) {
-    this.dispatchUpdateEvent('SAVE_FIELD', event.detail);
+  private async saveFieldHandler(event: CustomEvent) {
+    const objResponse = await this.callbackFormUpdate({
+      type: 'SAVE_FIELD',
+      detail: event.detail,
+    });
+    console.log('Update field response --- ' + objResponse);
+
+    if (objResponse && objResponse.success) {
+      this.expandedFieldIndex = -1;
+    }
   }
 
   // delete the new field which was stored locally
@@ -316,8 +298,9 @@ export class FormBuilder {
                     ref={(el) => (this.basicDetails = el)}
                     jsonPreset={this.jsonPreset}
                     formValues={this.formValues}
-                    onFwCreate={this.createObjectHandler}
-                    onFwCancel={this.cancelObjectCreationHandler}
+                    isFormCreated={this.isFormCreated}
+                    onFwCreate={this.createEntityHandler}
+                    onFwCancel={this.cancelEntityCreationHandler}
                   ></fw-fb-basic-details>
                 </fw-tab-panel>
                 <fw-tab-panel name={objSchema.header.tabs[1].name}>

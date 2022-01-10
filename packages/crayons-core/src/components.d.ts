@@ -254,6 +254,10 @@ export namespace Components {
          */
         "formValues": any;
         /**
+          * Prop to determine if the basic form is created
+         */
+        "isFormCreated": boolean;
+        /**
           * json data input to render the form builder
          */
         "jsonPreset": any;
@@ -339,6 +343,10 @@ export namespace Components {
     }
     interface FwFormBuilder {
         /**
+          * callback function to send data to to the server
+         */
+        "callbackFormUpdate": any;
+        /**
           * variable to store form values
          */
         "formValues": any;
@@ -350,8 +358,6 @@ export namespace Components {
           * Name of the component, saved as part of the form data.
          */
         "name": string;
-        "setFieldCreated": (value: boolean) => Promise<void>;
-        "setFormCreated": (value: boolean) => Promise<void>;
     }
     interface FwFormatNumber {
         /**
@@ -2114,6 +2120,10 @@ declare namespace LocalJSX {
          */
         "formValues"?: any;
         /**
+          * Prop to determine if the basic form is created
+         */
+        "isFormCreated"?: boolean;
+        /**
           * json data input to render the form builder
          */
         "jsonPreset"?: any;
@@ -2230,6 +2240,10 @@ declare namespace LocalJSX {
     }
     interface FwFormBuilder {
         /**
+          * callback function to send data to to the server
+         */
+        "callbackFormUpdate"?: any;
+        /**
           * variable to store form values
          */
         "formValues"?: any;
@@ -2241,10 +2255,6 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of the form data.
          */
         "name"?: string;
-        /**
-          * Triggered when any change in the form is updated
-         */
-        "onFwFormBuilderUpdate"?: (event: CustomEvent<any>) => void;
     }
     interface FwFormatNumber {
         /**

@@ -24,6 +24,10 @@ export class FbBasicDetails {
    */
   @Prop({ mutable: true }) formValues = null;
   /**
+   * Prop to determine if the basic form is created
+   */
+  @Prop({ mutable: true }) isFormCreated = false;
+  /**
    * json data input to render the form builder
    */
   @Prop() jsonPreset;
@@ -92,29 +96,39 @@ export class FbBasicDetails {
     this.fwCancel.emit();
   }
 
+  private updateFormValue(strProperty, strUpdateValue) {
+    if (strUpdateValue !== this.formValues[strProperty]) {
+      this.formValues[strProperty] = strUpdateValue;
+
+      if (strProperty === 'name' && strUpdateValue !== '') {
+        this.showNameError = false;
+      }
+    }
+  }
+
   private nameChangeHandler(event: CustomEvent): void {
     event.stopImmediatePropagation();
     event.stopPropagation();
+
     const strUpdateValue = event.detail.value.trim();
-    this.formValues.name = strUpdateValue;
-    if (strUpdateValue !== '') {
-      this.showNameError = false;
-    }
+    this.updateFormValue('name', strUpdateValue);
   }
 
   private nameBlurHandler(event: CustomEvent): void {
     event.stopImmediatePropagation();
     event.stopPropagation();
-    this.formValues.name = event.detail.value.trim();
+
+    const strUpdateValue = event.detail.value.trim();
+    this.updateFormValue('name', strUpdateValue);
   }
 
   private descBlurHandler(event: CustomEvent): void {
-    const strUpdateValue = event.detail.value;
-    this.formValues.description = strUpdateValue;
+    const strUpdateValue = event.detail.value.trim();
+    this.updateFormValue('description', strUpdateValue);
   }
 
   private iconSelectHandler(event: CustomEvent): void {
-    this.formValues.icon = event.detail.value;
+    this.updateFormValue('icon', event.detail.value);
   }
 
   /**
@@ -140,7 +154,8 @@ export class FbBasicDetails {
     const objSchema = this.jsonPreset;
     const arrIcons = objSchema.iconSet;
     const boolNewForm = this.isNewForm();
-    const strCreateBtnLabel = boolNewForm ? 'Create' : 'Update';
+    const strCreateBtnLabel =
+      boolNewForm || !this.isFormCreated ? 'Create' : 'Update';
 
     const iconGroupItems =
       arrIcons && arrIcons.length > 0
