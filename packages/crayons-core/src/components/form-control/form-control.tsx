@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Prop, h, Element, State } from '@stencil/core';
+import { Component, Prop, h, Element, State, Method } from '@stencil/core';
 
 import { hasSlot } from '../../utils';
 @Component({
@@ -26,7 +26,7 @@ export class FormControl {
     | 'URL'
     | 'TEL'
     | 'TIME' = 'TEXT';
-  @Prop()
+  @Prop({ reflect: true })
   name: any;
   @Prop()
   label: any;
@@ -53,6 +53,8 @@ export class FormControl {
   touched = false;
   @Prop()
   error = '';
+  private slotElement;
+  private crayonsControlRef;
 
   @State() hasSlot = false;
 
@@ -81,7 +83,13 @@ export class FormControl {
           ...this.controlProps?.inputProps(this.name, type),
         };
 
-        cmp = <fw-input {...componentProps}></fw-input>;
+        console.log(componentProps);
+        cmp = (
+          <fw-input
+            {...componentProps}
+            ref={(el) => (this.crayonsControlRef = el)}
+          ></fw-input>
+        );
         break;
       }
       case 'PARAGRAPH':
@@ -97,6 +105,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            ref: this.crayonsControlRef,
           };
           cmp = <fw-textarea {...componentProps}></fw-textarea>;
         }
@@ -115,6 +124,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            ref: this.crayonsControlRef,
           };
           cmp = <fw-datepicker {...componentProps}></fw-datepicker>;
         }
@@ -133,6 +143,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            ref: this.crayonsControlRef,
           };
           cmp = <fw-checkbox {...componentProps}>{this.label}</fw-checkbox>;
         }
@@ -152,6 +163,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            'ref': this.crayonsControlRef,
           };
           cmp = (
             <fw-radio-group {...componentProps} label={this.name}>
@@ -182,6 +194,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            ref: this.crayonsControlRef,
           };
           cmp = (
             <fw-select
@@ -208,6 +221,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            ref: this.crayonsControlRef,
           };
           cmp = <fw-timepicker {...componentProps}></fw-timepicker>;
         }
@@ -217,14 +231,34 @@ export class FormControl {
   }
 
   componentWillLoad(): void {
+    console.log('form control will load');
     this.handleSlotChange();
+  }
+
+  componentDidLoad() {
+    console.log(' form control did load');
+  }
+
+  /**
+   * Set Focus on the child
+   */
+  @Method()
+  async setFocus() {
+    console.log(' ref ', this.crayonsControlRef);
+    if (!this.hasSlot) {
+      await this.crayonsControlRef?.setFocus?.();
+    } else {
+      this.slotElement?.focus?.();
+    }
   }
 
   private handleSlotChange() {
     this.hasSlot = hasSlot(this.el);
+    this.slotElement = this.el.querySelector('*');
   }
 
   render(): JSX.Element {
+    console.log('render form control');
     return (
       <div class='form-control-container'>
         {this.type !== 'CHECKBOX' && (

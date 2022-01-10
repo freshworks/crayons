@@ -323,6 +323,10 @@ export namespace Components {
         "name": any;
         "placeholder": string;
         "required": boolean;
+        /**
+          * Set Focus on the child
+         */
+        "setFocus": () => Promise<void>;
         "touched": boolean;
         "type": | 'TEXT'
     | 'NUMBER'
