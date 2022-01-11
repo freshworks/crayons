@@ -48,19 +48,6 @@ function App() {
 | `tabName`   | `tab-name`   | Unique name of the tab.                            | `string`  | `undefined` |
 
 
-## Dependencies
-
-### Used by
-
- - [fw-form-builder](../form-builder)
-
-### Graph
-```mermaid
-graph TD;
-  fw-form-builder --> fw-tab
-  style fw-tab fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 Built with ❤ at Freshworks

@@ -341,26 +341,3 @@ $flex-align-content: (
     align-content: $value;
   }
 }
-
-// mixin for common form error label
-@mixin form-error-label {
-  display: block;
-  pointer-events: none;
-  user-select: none;
-  text-align: left;
-  margin-top: 4px;
-  margin-left: 2px;
-
-  color: $app-error;
-  font-weight: $font-weight-default;
-  font-size: $font-size-12;
-  line-height: 20px;
-  height: 20px;
-}
-
-// mixin for single line ellipsis style
-@mixin single-line-ellipsis-label {
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}

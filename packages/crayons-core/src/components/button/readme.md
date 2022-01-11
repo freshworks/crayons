@@ -305,9 +305,6 @@ Type: `Promise<any>`
 
  - [fw-datepicker](../datepicker)
  - [fw-dropdown-button](../dropdown-button)
- - [fw-fb-basic-details](../form-builder/fb-basic-details)
- - [fw-field-editor](../form-builder/fb-field)
- - [fw-field-type-menu-item](../form-builder/fb-field)
  - [fw-modal-footer](../modal-footer)
  - [fw-pagination](../pagination)
  - [fw-select](../select)
@@ -327,9 +324,6 @@ graph TD;
   fw-toast-message --> fw-icon
   fw-datepicker --> fw-button
   fw-dropdown-button --> fw-button
-  fw-fb-basic-details --> fw-button
-  fw-field-editor --> fw-button
-  fw-field-type-menu-item --> fw-button
   fw-modal-footer --> fw-button
   fw-pagination --> fw-button
   fw-select --> fw-button

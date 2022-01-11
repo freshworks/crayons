@@ -240,8 +240,6 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-accordion-title](../accordion-title)
  - [fw-button](../button)
  - [fw-dropdown-button](../dropdown-button)
- - [fw-field-editor](../form-builder/fb-field)
- - [fw-field-type-menu-item](../form-builder/fb-field)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
  - [fw-modal](../modal)
@@ -266,8 +264,6 @@ graph TD;
   fw-accordion-title --> fw-icon
   fw-button --> fw-icon
   fw-dropdown-button --> fw-icon
-  fw-field-editor --> fw-icon
-  fw-field-type-menu-item --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
   fw-modal --> fw-icon

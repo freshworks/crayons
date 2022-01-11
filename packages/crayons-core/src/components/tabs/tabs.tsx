@@ -5,8 +5,8 @@ import {
   EventEmitter,
   h,
   Listen,
-  Method,
   Prop,
+  Method,
 } from '@stencil/core';
 
 @Component({
@@ -74,7 +74,7 @@ export class Tabs {
         const panel = document.createElement('fw-tab-panel');
         panel.innerHTML = tab.innerHTML;
         panel.setAttribute('id', `fw-tab-panel-${counter++}`);
-        panel.setAttribute('name', tab.getAttribute('panel'));
+        panel.setAttribute('name', tab.getAttribute('panel') || tab.panel);
         this.el.appendChild(panel);
       }
     });
@@ -82,8 +82,9 @@ export class Tabs {
 
   assignAriaLabels() {
     this.tabs.map((tab) => {
-      const strPanelName = tab.getAttribute('panel') || tab.panel;
-      const panel = this.panels.find((p) => p.name === strPanelName);
+      const panel = this.panels.find(
+        (p) => p.name === tab.getAttribute('panel') || tab.panel
+      );
 
       if (panel) {
         tab.setAttribute('aria-controls', panel.getAttribute('id'));
@@ -109,9 +110,9 @@ export class Tabs {
 
       // Sync active tab and panel
       this.tabs.map((el) => (el.active = el === this.activeTab));
-      const strActivePanel =
+      const activePanel =
         this.activeTab.getAttribute('panel') || this.activeTab.panel;
-      this.panels.map((el) => (el.active = el.name === strActivePanel));
+      this.panels.map((el) => (el.active = el.name === activePanel));
 
       // Emit events
       this.fwChange.emit({

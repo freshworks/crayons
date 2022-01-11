@@ -192,28 +192,6 @@ export namespace Components {
          */
         "value": string;
     }
-    interface FwDragContainer {
-        /**
-          * Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.
-         */
-        "acceptFrom": string;
-        /**
-          * Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.
-         */
-        "addOnDrop": boolean;
-        /**
-          * Whether the drag element should be moved or copied.
-         */
-        "copy": boolean;
-        /**
-          * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
-         */
-        "placeholderClass": string;
-        /**
-          * Whether the list should be sortable.
-         */
-        "sortable": boolean;
-    }
     interface FwDropdownButton {
         /**
           * Dropdown Button color
@@ -247,117 +225,6 @@ export namespace Components {
           * Value of the dropdown button
          */
         "value": any;
-    }
-    interface FwFbBasicDetails {
-        /**
-          * variable to store form values
-         */
-        "formValues": any;
-        /**
-          * Prop to determine if the basic form is created
-         */
-        "isFormCreated": boolean;
-        /**
-          * json data input to render the form builder
-         */
-        "jsonPreset": any;
-        "setFormCreated": (value: boolean) => Promise<void>;
-    }
-    interface FwFbFieldDetails {
-        /**
-          * Prop to store the expanded field index
-         */
-        "expandedFieldIndex": number;
-        /**
-          * variable to store form values
-         */
-        "formValues": any;
-        /**
-          * json data input to render the form builder
-         */
-        "jsonPreset": any;
-    }
-    interface FwFieldEditor {
-        /**
-          * data source used to set and edit the field values
-         */
-        "dataProvider": any;
-        /**
-          * stores the default field type schema for this editor type
-         */
-        "defaultFieldTypeSchema": any;
-        /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
-         */
-        "disabled": boolean;
-        /**
-          * Property to determine expanded state or collapsed
-         */
-        "expanded": boolean;
-        /**
-          * index attached inside the parent group component
-         */
-        "index": number;
-        /**
-          * defines if the field is primary
-         */
-        "isPrimaryField": boolean;
-        /**
-          * Name of the component, saved as part of the form data.
-         */
-        "name": string;
-    }
-    interface FwFieldTypeMenuItem {
-        /**
-          * data source used to set and edit the field values
-         */
-        "dataProvider": any;
-        /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
-         */
-        "disabled": boolean;
-        /**
-          * backgroundcolor for the icon
-         */
-        "iconBackgroundColor": string;
-        /**
-          * set the icon path to be used
-         */
-        "iconName": string;
-        /**
-          * index attached inside the parent group component
-         */
-        "index": number;
-        /**
-          * Label displayed as header in the card.
-         */
-        "label": string;
-        /**
-          * Name of the component, saved as part of the form data.
-         */
-        "name": string;
-        /**
-          * field type attached to the item which will be broadcasted for adding the field type.
-         */
-        "value": string;
-    }
-    interface FwFormBuilder {
-        /**
-          * callback function to send data to to the server
-         */
-        "callbackFormUpdate": any;
-        /**
-          * variable to store form values
-         */
-        "formValues": any;
-        /**
-          * json data input to render the form builder
-         */
-        "jsonPreset": any;
-        /**
-          * Name of the component, saved as part of the form data.
-         */
-        "name": string;
     }
     interface FwFormatNumber {
         /**
@@ -1563,47 +1430,11 @@ declare global {
         prototype: HTMLFwDatepickerElement;
         new (): HTMLFwDatepickerElement;
     };
-    interface HTMLFwDragContainerElement extends Components.FwDragContainer, HTMLStencilElement {
-    }
-    var HTMLFwDragContainerElement: {
-        prototype: HTMLFwDragContainerElement;
-        new (): HTMLFwDragContainerElement;
-    };
     interface HTMLFwDropdownButtonElement extends Components.FwDropdownButton, HTMLStencilElement {
     }
     var HTMLFwDropdownButtonElement: {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
-    };
-    interface HTMLFwFbBasicDetailsElement extends Components.FwFbBasicDetails, HTMLStencilElement {
-    }
-    var HTMLFwFbBasicDetailsElement: {
-        prototype: HTMLFwFbBasicDetailsElement;
-        new (): HTMLFwFbBasicDetailsElement;
-    };
-    interface HTMLFwFbFieldDetailsElement extends Components.FwFbFieldDetails, HTMLStencilElement {
-    }
-    var HTMLFwFbFieldDetailsElement: {
-        prototype: HTMLFwFbFieldDetailsElement;
-        new (): HTMLFwFbFieldDetailsElement;
-    };
-    interface HTMLFwFieldEditorElement extends Components.FwFieldEditor, HTMLStencilElement {
-    }
-    var HTMLFwFieldEditorElement: {
-        prototype: HTMLFwFieldEditorElement;
-        new (): HTMLFwFieldEditorElement;
-    };
-    interface HTMLFwFieldTypeMenuItemElement extends Components.FwFieldTypeMenuItem, HTMLStencilElement {
-    }
-    var HTMLFwFieldTypeMenuItemElement: {
-        prototype: HTMLFwFieldTypeMenuItemElement;
-        new (): HTMLFwFieldTypeMenuItemElement;
-    };
-    interface HTMLFwFormBuilderElement extends Components.FwFormBuilder, HTMLStencilElement {
-    }
-    var HTMLFwFormBuilderElement: {
-        prototype: HTMLFwFormBuilderElement;
-        new (): HTMLFwFormBuilderElement;
     };
     interface HTMLFwFormatNumberElement extends Components.FwFormatNumber, HTMLStencilElement {
     }
@@ -1803,13 +1634,7 @@ declare global {
         "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
-        "fw-drag-container": HTMLFwDragContainerElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
-        "fw-fb-basic-details": HTMLFwFbBasicDetailsElement;
-        "fw-fb-field-details": HTMLFwFbFieldDetailsElement;
-        "fw-field-editor": HTMLFwFieldEditorElement;
-        "fw-field-type-menu-item": HTMLFwFieldTypeMenuItemElement;
-        "fw-form-builder": HTMLFwFormBuilderElement;
         "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
@@ -2046,32 +1871,6 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
-    interface FwDragContainer {
-        /**
-          * Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.
-         */
-        "acceptFrom"?: string;
-        /**
-          * Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.
-         */
-        "addOnDrop"?: boolean;
-        /**
-          * Whether the drag element should be moved or copied.
-         */
-        "copy"?: boolean;
-        /**
-          * Triggered when an draggable item is dropped inside the container.
-         */
-        "onFwDrop"?: (event: CustomEvent<void>) => void;
-        /**
-          * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
-         */
-        "placeholderClass"?: string;
-        /**
-          * Whether the list should be sortable.
-         */
-        "sortable"?: boolean;
-    }
     interface FwDropdownButton {
         /**
           * Dropdown Button color
@@ -2113,148 +1912,6 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
-    }
-    interface FwFbBasicDetails {
-        /**
-          * variable to store form values
-         */
-        "formValues"?: any;
-        /**
-          * Prop to determine if the basic form is created
-         */
-        "isFormCreated"?: boolean;
-        /**
-          * json data input to render the form builder
-         */
-        "jsonPreset"?: any;
-        /**
-          * Triggered on cancel button click
-         */
-        "onFwCancel"?: (event: CustomEvent<void>) => void;
-        /**
-          * Triggered on create button click
-         */
-        "onFwCreate"?: (event: CustomEvent<any>) => void;
-    }
-    interface FwFbFieldDetails {
-        /**
-          * Prop to store the expanded field index
-         */
-        "expandedFieldIndex"?: number;
-        /**
-          * variable to store form values
-         */
-        "formValues"?: any;
-        /**
-          * json data input to render the form builder
-         */
-        "jsonPreset"?: any;
-        /**
-          * Triggered when a new field type is dropped / added inside the fields area
-         */
-        "onFwComposeNewField"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the field is expanded or collapsed
-         */
-        "onFwExpandField"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered on Add field button click from the field list items
-         */
-        "onFwSaveField"?: (event: CustomEvent<any>) => void;
-    }
-    interface FwFieldEditor {
-        /**
-          * data source used to set and edit the field values
-         */
-        "dataProvider"?: any;
-        /**
-          * stores the default field type schema for this editor type
-         */
-        "defaultFieldTypeSchema"?: any;
-        /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
-         */
-        "disabled"?: boolean;
-        /**
-          * Property to determine expanded state or collapsed
-         */
-        "expanded"?: boolean;
-        /**
-          * index attached inside the parent group component
-         */
-        "index"?: number;
-        /**
-          * defines if the field is primary
-         */
-        "isPrimaryField"?: boolean;
-        /**
-          * Name of the component, saved as part of the form data.
-         */
-        "name"?: string;
-        /**
-          * Triggered when the field is expanded or collapsed
-         */
-        "onFwExpand"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the field details need to be saved on the server
-         */
-        "onFwUpdateField"?: (event: CustomEvent<any>) => void;
-    }
-    interface FwFieldTypeMenuItem {
-        /**
-          * data source used to set and edit the field values
-         */
-        "dataProvider"?: any;
-        /**
-          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
-         */
-        "disabled"?: boolean;
-        /**
-          * backgroundcolor for the icon
-         */
-        "iconBackgroundColor"?: string;
-        /**
-          * set the icon path to be used
-         */
-        "iconName"?: string;
-        /**
-          * index attached inside the parent group component
-         */
-        "index"?: number;
-        /**
-          * Label displayed as header in the card.
-         */
-        "label"?: string;
-        /**
-          * Name of the component, saved as part of the form data.
-         */
-        "name"?: string;
-        /**
-          * Triggered when the card in focus is selected.
-         */
-        "onFwAddClick"?: (event: CustomEvent<any>) => void;
-        /**
-          * field type attached to the item which will be broadcasted for adding the field type.
-         */
-        "value"?: string;
-    }
-    interface FwFormBuilder {
-        /**
-          * callback function to send data to to the server
-         */
-        "callbackFormUpdate"?: any;
-        /**
-          * variable to store form values
-         */
-        "formValues"?: any;
-        /**
-          * json data input to render the form builder
-         */
-        "jsonPreset"?: any;
-        /**
-          * Name of the component, saved as part of the form data.
-         */
-        "name"?: string;
     }
     interface FwFormatNumber {
         /**
@@ -3471,13 +3128,7 @@ declare namespace LocalJSX {
         "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
-        "fw-drag-container": FwDragContainer;
         "fw-dropdown-button": FwDropdownButton;
-        "fw-fb-basic-details": FwFbBasicDetails;
-        "fw-fb-field-details": FwFbFieldDetails;
-        "fw-field-editor": FwFieldEditor;
-        "fw-field-type-menu-item": FwFieldTypeMenuItem;
-        "fw-form-builder": FwFormBuilder;
         "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
@@ -3526,13 +3177,7 @@ declare module "@stencil/core" {
             "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
-            "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
-            "fw-fb-basic-details": LocalJSX.FwFbBasicDetails & JSXBase.HTMLAttributes<HTMLFwFbBasicDetailsElement>;
-            "fw-fb-field-details": LocalJSX.FwFbFieldDetails & JSXBase.HTMLAttributes<HTMLFwFbFieldDetailsElement>;
-            "fw-field-editor": LocalJSX.FwFieldEditor & JSXBase.HTMLAttributes<HTMLFwFieldEditorElement>;
-            "fw-field-type-menu-item": LocalJSX.FwFieldTypeMenuItem & JSXBase.HTMLAttributes<HTMLFwFieldTypeMenuItemElement>;
-            "fw-form-builder": LocalJSX.FwFormBuilder & JSXBase.HTMLAttributes<HTMLFwFormBuilderElement>;
             "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;

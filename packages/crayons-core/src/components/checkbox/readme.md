@@ -62,7 +62,6 @@ function App() {
 
  - [fw-data-table](../data-table)
  - [fw-dropdown-button](../dropdown-button)
- - [fw-field-editor](../form-builder/fb-field)
  - [fw-select-option](../select-option)
 
 ### Graph
@@ -70,7 +69,6 @@ function App() {
 graph TD;
   fw-data-table --> fw-checkbox
   fw-dropdown-button --> fw-checkbox
-  fw-field-editor --> fw-checkbox
   fw-select-option --> fw-checkbox
   style fw-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```
