@@ -605,7 +605,7 @@ export class DataTable {
     } else if (column.customTemplate) {
       template = this.renderCustomTemplate(column.customTemplate, cellValue);
     } else {
-      template = cellValue;
+      template = column.formatData ? column.formatData(cellValue) : cellValue;
     }
     return template;
   }

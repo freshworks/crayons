@@ -386,4 +386,54 @@ describe('fw-data-table', () => {
     );
     expect(columnWidth).toEqual(testColumnWidth);
   });
+
+  it('should call formatData function when it is passed in column configuration', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+          knowledge: ['HTML', 'CSS', 'JS'],
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+        {
+          key: 'knowledge',
+          text: 'Knowledge',
+        },
+      ],
+    };
+    const formatData = (cellData) => cellData.join(', ');
+    const formatDataResult = formatData(data.rows[0].knowledge);
+    const myMockFn = jest.fn(formatData);
+    await page.exposeFunction('myMockFn', myMockFn);
+    await page.$eval(
+      'fw-data-table',
+      (elm: any, data: any, formatDataResult: string) => {
+        data.columns[1].formatData = (cellData) => {
+          (window as any).myMockFn(cellData);
+          /**
+           * Hardcoded result because myMockFn turns async on page.exposeFunction
+           * https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#pageexposefunctionname-puppeteerfunction
+           * but render in JSX expects sync call.
+           */
+          return formatDataResult;
+        };
+        Object.assign(elm, data);
+      },
+      data,
+      formatDataResult
+    );
+    await page.waitForChanges();
+    const formattedCell = await page.find(
+      'fw-data-table >>> tbody > tr > td:nth-child(2)'
+    );
+    expect(myMockFn).toHaveBeenCalled();
+    expect(myMockFn.mock.results[0].value).toBe(formatDataResult);
+    expect(formattedCell.innerText).toEqual(formatDataResult);
+  });
 });

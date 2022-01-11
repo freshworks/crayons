@@ -50,7 +50,7 @@ export type WidthStyles = {
 
 export type DataTableRow = {
   id: string;
-  [prop: string]: string;
+  [prop: string]: any;
 };
 
 export type customTemplateFunc<T> = (
@@ -66,6 +66,7 @@ export type DataTableColumn = {
   hide?: boolean;
   widthProperties?: WidthStyles;
   hasFocusableComponent?: boolean;
+  formatData?: (cellValue: any) => string;
   customTemplate?: customTemplateFunc<VNode>;
 };
 
