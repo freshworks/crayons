@@ -42,9 +42,15 @@ interface HyperFunc<T> {
   (sel: any, data: any, children: T): T;
 }
 
+export type AllowedStyles = 'width' | 'minWidth' | 'maxWidth';
+
+export type WidthStyles = {
+  [prop in AllowedStyles]: any;
+};
+
 export type DataTableRow = {
   id: string;
-  [prop: string]: any;
+  [prop: string]: string;
 };
 
 export type customTemplateFunc<T> = (
@@ -58,6 +64,7 @@ export type DataTableColumn = {
   variant?: string;
   position?: number;
   hide?: boolean;
+  widthProperties?: WidthStyles;
   hasFocusableComponent?: boolean;
   customTemplate?: customTemplateFunc<VNode>;
 };

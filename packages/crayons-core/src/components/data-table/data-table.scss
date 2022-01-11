@@ -35,40 +35,45 @@ div.fw-data-table-container {
       width: 100%;
       border-radius: 4px;
 
-      tr th {
-        color: $grid-header-txt-color;
-        font-size: $grid-header-txt-size;
-        line-height: $grid-line-height;
-        padding: $grid-density-md;
-        font-weight: 600;
-        letter-spacing: 0.2px;
-        text-overflow: ellipsis;
-        text-align: left;
-        z-index: 1;
-
-        &.data-grid-sm {
-          padding: $grid-density-sm;
-        }
-
-        &.data-grid-md {
+      tr {
+        th {
+          color: $grid-header-txt-color;
+          font-size: $grid-header-txt-size;
+          line-height: $grid-line-height;
           padding: $grid-density-md;
+          font-weight: 600;
+          letter-spacing: 0.2px;
+          text-overflow: ellipsis;
+          text-align: left;
+          z-index: 1;
+          box-sizing: border-box;
+          min-width: 50px;
+          max-width: 1000px;
+
+          &.data-grid-sm {
+            padding: $grid-density-sm;
+          }
+
+          &.data-grid-md {
+            padding: $grid-density-md;
+          }
+
+          &.data-grid-lg {
+            padding: $grid-density-lg;
+          }
+
+          &:first-child {
+            padding-left: 16px;
+          }
+
+          &:last-child {
+            padding-right: 16px;
+          }
         }
 
-        &.data-grid-lg {
-          padding: $grid-density-lg;
+        th.hidden {
+          display: none;
         }
-
-        &:first-child {
-          padding-left: 16px;
-        }
-
-        &:last-child {
-          padding-right: 16px;
-        }
-      }
-
-      tr th.hidden {
-        display: none;
       }
     }
 
@@ -96,6 +101,7 @@ div.fw-data-table-container {
           line-height: $grid-line-height;
           padding: $grid-density-md;
           text-overflow: ellipsis;
+          box-sizing: border-box;
           z-index: 0;
 
           &.data-grid-checkbox {
@@ -124,12 +130,30 @@ div.fw-data-table-container {
           }
         }
 
-        td.row-actions > fw-button {
-          margin-right: 5px;
+        td.row-actions {
+          // column has to take up only required space
+          width: 1px;
+          white-space: nowrap;
+
+          & > fw-button {
+            margin-right: 5px;
+          }
         }
 
         td.hidden {
           display: none;
+        }
+      }
+    }
+
+    &.is-selectable {
+      td:first-child,
+      th:first-child {
+        text-align: center;
+
+        fw-checkbox {
+          width: 16px;
+          height: 20px;
         }
       }
     }

@@ -608,26 +608,31 @@ export class DataTable {
     return this.orderedColumns.length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
-          <th key='isSelectable' aria-colindex={1}>
+          <th key='isSelectable' aria-colindex={1} style={{ width: '42px' }}>
             {this.isAllSelectable && (
               <fw-checkbox id='select-all' value={'select-all'}></fw-checkbox>
             )}
           </th>
         )}
-        {this.orderedColumns.map((column, columnIndex) => (
-          <th
-            role='columnheader'
-            key={column.key}
-            aria-colindex={
-              this.isSelectable ? columnIndex + 2 : columnIndex + 1
-            }
-            class={`${column.hide ? 'hidden' : ''}`}
-          >
-            {column.text}
-          </th>
-        ))}
+        {this.orderedColumns.map((column, columnIndex) => {
+          const headerStyles = column.widthProperties;
+          return (
+            <th
+              role='columnheader'
+              key={column.key}
+              aria-colindex={
+                this.isSelectable ? columnIndex + 2 : columnIndex + 1
+              }
+              class={{ hidden: column.hide }}
+              style={headerStyles}
+            >
+              {column.text}
+            </th>
+          );
+        })}
         {this.rowActions.length !== 0 && (
           <th
+            class='row-actions'
             role='columnheader'
             aria-colindex={
               this.isSelectable
@@ -687,7 +692,7 @@ export class DataTable {
               return (
                 <td
                   role='gridcell'
-                  class={`${orderedColumn.hide ? 'hidden' : ''}`}
+                  class={{ hidden: orderedColumn.hide }}
                   {...attrs}
                 >
                   {!this.rowsLoading[row.id] ? (
@@ -760,7 +765,7 @@ export class DataTable {
     return (
       <div class='fw-data-table-container'>
         <table
-          class='fw-data-table'
+          class={{ 'fw-data-table': true, 'is-selectable': this.isSelectable }}
           role='grid'
           aria-colcount={this.orderedColumns.length}
           aria-label={this.label}

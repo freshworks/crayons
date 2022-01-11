@@ -353,4 +353,37 @@ describe('fw-data-table', () => {
     );
     expect(firstColumn).toHaveClass('hidden');
   });
+
+  it('should set column width if widthProperties is passed in column configuration', async () => {
+    const testColumnWidth = '200px';
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+          widthProperties: {
+            width: testColumnWidth,
+          },
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const columnWidth = await page.evaluate(
+      (component, selector) => {
+        const cmpEl = document.querySelector(component);
+        const headerCell = cmpEl.shadowRoot.querySelector(selector);
+        return headerCell.style.width;
+      },
+      'fw-data-table',
+      'th:first-child'
+    );
+    expect(columnWidth).toEqual(testColumnWidth);
+  });
 });
