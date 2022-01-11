@@ -16,13 +16,17 @@ class EventStore {
     this.subscribers[event].push(callback);
 
     return {
-      unsubscribe() {
+      unsubscribe: () => {
         this.subscribers[event] = this.subscribers[event].filter(
           (subscriberCallback) => subscriberCallback !== callback
         );
         this.subscribers[event].length === 0 && delete this.subscribers[event];
       },
     };
+  }
+
+  reset() {
+    this.subscribers = {};
   }
 }
 
