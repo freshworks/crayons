@@ -117,6 +117,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Sets focus on a `fw-checkbox`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;

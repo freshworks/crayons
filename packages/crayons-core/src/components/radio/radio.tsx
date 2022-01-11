@@ -98,8 +98,6 @@ export class Radio {
   }
 
   private onBlur() {
-    const container = this.host.shadowRoot?.querySelector('.radio-container');
-    container?.removeAttribute('tabindex');
     this.fwBlur.emit();
   }
 
@@ -119,9 +117,7 @@ export class Radio {
    */
   @Method()
   async setFocus() {
-    const container = this.host.shadowRoot?.querySelector('.radio-container');
-    container?.setAttribute('tabindex', '0');
-    (container as any)?.focus();
+    this.host?.focus();
   }
 
   render() {

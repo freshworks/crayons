@@ -242,7 +242,6 @@ export class RadioGroup {
   @Method()
   async setFocus() {
     const radios = this.radios;
-    radios[0].tabIndex = '0';
     radios[0]?.setFocus?.();
   }
 
