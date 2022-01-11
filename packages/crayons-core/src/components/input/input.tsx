@@ -103,7 +103,7 @@ export class Input {
   /**
    * Triggered when the input box loses focus.
    */
-  @Event() fwBlur: EventEmitter<void>;
+  @Event() fwBlur: EventEmitter;
 
   /**
    * Triggered when a value is entered in the input box.
@@ -135,7 +135,7 @@ export class Input {
 
   private onBlur = () => {
     this.hasFocus = false;
-    this.fwBlur.emit();
+    this.fwBlur.emit({ value: this.getValue() });
   };
 
   private showClearButton() {

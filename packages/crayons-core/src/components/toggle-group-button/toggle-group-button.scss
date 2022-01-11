@@ -16,6 +16,8 @@
   @prop --toggle-card-height: height of the content.
   @prop --toggle-card-description-max-height: maximum height for the description text.
   @prop --toggle-card-description-max-lines: maximum lines that can be displayed for description text.
+  @prop --toggle-icon-button-width: defines the width of the icon toggle button - default is 42px
+  @prop --toggle-icon-button-height: defines the height of the icon toggle button - default is 36px
 */
 
 // Styles for card button
@@ -158,8 +160,8 @@
 }
 
 .fw-toggle-icon-button {
-  width: 32px;
-  height: 32px;
+  width: var(--toggle-icon-button-width, 42px);
+  height: var(--toggle-icon-button-height, 36px);
   box-sizing: border-box;
   display: flex;
   align-items: center;
