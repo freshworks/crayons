@@ -11,16 +11,13 @@ fw-data-table are used for data visualization.
     var data = {
       columns: [{
         "key": "name",
-        "text": "Name",
-        "orderIndex": 1
+        "text": "Name"
       }, {
         "key": "group",
-        "text": "Group",
-        "orderIndex": 3
+        "text": "Group"
       }, {
         "key": "role",
-        "text": "Role",
-        "orderIndex": 2
+        "text": "Role"
       }],
       persons: [{
         "id": "1234",
@@ -57,16 +54,13 @@ fw-data-table are used for data visualization.
   var data = {
     columns: [{
       "key": "name",
-      "text": "Name",
-      "orderIndex": 1
+      "text": "Name"
     }, {
       "key": "group",
-      "text": "Group",
-      "orderIndex": 3
+      "text": "Group"
     }, {
       "key": "role",
-      "text": "Role",
-      "orderIndex": 2
+      "text": "Role"
     }],
     persons: [{
       "id": "1234",
@@ -103,16 +97,13 @@ function App() {
   let data = {
       columns: [{
         "key": "name",
-        "text": "Name",
-        "orderIndex": 1
+        "text": "Name"
       }, {
         "key": "group",
-        "text": "Group",
-        "orderIndex": 3
+        "text": "Group"
       }, {
         "key": "role",
-        "text": "Role",
-        "orderIndex": 2
+        "text": "Role"
       }],
       persons: [{
         "id": "1234",
@@ -160,12 +151,12 @@ Row value for this column variant should be an object with the following propert
       columns: [{
         "key": "search",
         "text": "Search Engine",
-        "orderIndex": 1,
+        "position": 1,
         "variant": "anchor"
       }, {
         "key": "rank",
         "text": "Rank",
-        "orderIndex": 2
+        "position": 2
       }],
       rows: [{
         "id": "001",
@@ -200,12 +191,12 @@ Row value for this column variant should be an object with the following propert
     columns: [{
       "key": "search",
       "text": "Search Engine",
-      "orderIndex": 1,
+      "position": 1,
       "variant": "anchor"
     }, {
       "key": "rank",
       "text": "Rank",
-      "orderIndex": 2
+      "position": 2
     }],
     rows: [{
       "id": "001",
@@ -240,12 +231,12 @@ function App() {
     columns: [{
       "key": "search",
       "text": "Search Engine",
-      "orderIndex": 1,
+      "position": 1,
       "variant": "anchor"
     }, {
       "key": "rank",
       "text": "Rank",
-      "orderIndex": 2
+      "position": 2
     }],
     rows: [{
       "id": "001",
@@ -289,12 +280,12 @@ Row value for this column variant should be an object with the following propert
       columns: [{
         "key": "createdby",
         "text": "Created By",
-        "orderIndex": 1,
+        "position": 1,
         "variant": "user"
       }, {
         "key": "objectname",
         "text": "Object Name",
-        "orderIndex": 2
+        "position": 2
       }],
       rows: [{
         "id": "0011",
@@ -302,7 +293,8 @@ Row value for this column variant should be an object with the following propert
         "createdby": { 
           "image": "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
           "name": "Alexander Goodman", 
-          "email": "alexander.goodman@freshdesk.com" 
+          "email": "alexander.goodman@freshdesk.com",
+          "alt": "Profile picture of Alexander Goodman"
         }
       }, {
         "id": "0022",
@@ -310,7 +302,8 @@ Row value for this column variant should be an object with the following propert
         "createdby": { 
           "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
           "name": "Ambrose Wayne", 
-          "email": "ambrose.wayne@freshdesk.com" 
+          "email": "ambrose.wayne@freshdesk.com",
+          "alt": "Profile picture of Ambrose Wayne"
         }
       }, {
         "id": "0033",
@@ -318,7 +311,8 @@ Row value for this column variant should be an object with the following propert
         "createdby": {
           "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
           "name": "August hines", 
-          "email": "august.hines@freshdesk.com" 
+          "email": "august.hines@freshdesk.com",
+          "alt": "Profile picture of August hines"
         }
       }]
     }; 
@@ -341,12 +335,12 @@ Row value for this column variant should be an object with the following propert
     columns: [{
       "key": "createdby",
       "text": "Created By",
-      "orderIndex": 1,
+      "position": 1,
       "variant": "user"
     }, {
       "key": "objectname",
       "text": "Object Name",
-      "orderIndex": 2
+      "position": 2
     }],
     rows: [{
       "id": "0011",
@@ -354,7 +348,8 @@ Row value for this column variant should be an object with the following propert
       "createdby": { 
         "image": "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "Alexander Goodman", 
-        "email": "alexander.goodman@freshdesk.com" 
+        "email": "alexander.goodman@freshdesk.com",
+        "alt": "Profile picture of Alexander Goodman"
       }
     }, {
       "id": "0022",
@@ -362,7 +357,8 @@ Row value for this column variant should be an object with the following propert
       "createdby": { 
         "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "Ambrose Wayne", 
-        "email": "ambrose.wayne@freshdesk.com" 
+        "email": "ambrose.wayne@freshdesk.com",
+        "alt": "Profile picture of Ambrose Wayne"
       }
     }, {
       "id": "0033",
@@ -370,7 +366,8 @@ Row value for this column variant should be an object with the following propert
       "createdby": {
         "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "August hines", 
-        "email": "august.hines@freshdesk.com" 
+        "email": "august.hines@freshdesk.com",
+        "alt": "Profile picture of August hines"
       }
     }]
   }; 
@@ -393,12 +390,12 @@ function App() {
     columns: [{
       "key": "createdby",
       "text": "Created By",
-      "orderIndex": 1,
+      "position": 1,
       "variant": "user"
     }, {
       "key": "objectname",
       "text": "Object Name",
-      "orderIndex": 2
+      "position": 2
     }],
     rows: [{
       "id": "0011",
@@ -406,7 +403,8 @@ function App() {
       "createdby": { 
         "image": "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "Alexander Goodman", 
-        "email": "alexander.goodman@freshdesk.com" 
+        "email": "alexander.goodman@freshdesk.com",
+        "alt": "Profile picture of Alexander Goodman"
       }
     }, {
       "id": "0022",
@@ -414,7 +412,8 @@ function App() {
       "createdby": { 
         "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "Ambrose Wayne", 
-        "email": "ambrose.wayne@freshdesk.com" 
+        "email": "ambrose.wayne@freshdesk.com",
+        "alt": "Profile picture of Ambrose Wayne"
       }
     }, {
       "id": "0033",
@@ -422,7 +421,8 @@ function App() {
       "createdby": {
         "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
         "name": "August hines", 
-        "email": "august.hines@freshdesk.com" 
+        "email": "august.hines@freshdesk.com",
+        "alt": "Profile picture of August hines"
       }
     }]
   };
@@ -465,22 +465,35 @@ This codeblock shows how to use custom cell function to display HTML content in 
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                            | Type                | Default |
-| -------------- | --------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
-| `columns`      | --              | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
-| `isSelectable` | `is-selectable` | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
-| `label`        | `label`         | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
-| `rows`         | --              | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
+| Property          | Attribute           | Description                                                                            | Type                | Default |
+| ----------------- | ------------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
+| `columns`         | --                  | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
+| `isAllSelectable` | `is-all-selectable` | isAllSelectable Booleam based on which select all option appears in the table header   | `boolean`           | `false` |
+| `isSelectable`    | `is-selectable`     | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
+| `label`           | `label`             | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
+| `rows`            | --                  | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
 
 
 ## Events
 
-| Event               | Description                                                         | Type               |
-| ------------------- | ------------------------------------------------------------------- | ------------------ |
-| `fwSelectionChange` | fwSelectionChange Emits this event when row is selected/unselected. | `CustomEvent<any>` |
+| Event                     | Description                                                             | Type               |
+| ------------------------- | ----------------------------------------------------------------------- | ------------------ |
+| `fwColumnsPositionChange` | fwColumnsPositionChange Emits this event when columns position changes. | `CustomEvent<any>` |
+| `fwSelectAllChange`       | fwSelectAllChange Emits this event when select all is checked.          | `CustomEvent<any>` |
+| `fwSelectionChange`       | fwSelectionChange Emits this event when row is selected/unselected.     | `CustomEvent<any>` |
 
 
 ## Methods
+
+### `getColumnConfig() => Promise<{}>`
+
+getColumnConfig
+
+#### Returns
+
+Type: `Promise<{}>`
+
+columnConfig object
 
 ### `getSelectedIds() => Promise<string[]>`
 

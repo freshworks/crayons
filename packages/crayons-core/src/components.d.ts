@@ -121,6 +121,7 @@ export namespace Components {
         "text": string;
     }
     interface FwCustomCellUser {
+        "alt": string;
         "email": string;
         "image": any;
         "name": string;
@@ -131,6 +132,11 @@ export namespace Components {
          */
         "columns": DataTableColumn[];
         /**
+          * getColumnConfig
+          * @returns columnConfig object
+         */
+        "getColumnConfig": () => Promise<{}>;
+        /**
           * getSelectedIds
           * @returns an array of selected row IDs
          */
@@ -140,6 +146,10 @@ export namespace Components {
           * @returns selected rows from the data table
          */
         "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable": boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -191,6 +201,34 @@ export namespace Components {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
+    }
+    interface FwDragContainer {
+        /**
+          * Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.
+         */
+        "acceptFrom": string;
+        /**
+          * Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.
+         */
+        "addOnDrop": boolean;
+        /**
+          * Whether the drag element should be moved or copied.
+         */
+        "copy": boolean;
+        /**
+          * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
+         */
+        "placeholderClass": string;
+        /**
+          * Whether the list should be sortable.
+         */
+        "sortable": boolean;
+    }
+    interface FwDragItem {
+        /**
+          * Whether the drag is disabled or not.
+         */
+        "disabled": boolean;
     }
     interface FwDropdownButton {
         /**
@@ -624,6 +662,12 @@ export namespace Components {
           * The total number of records. This is a mandatory parameter.
          */
         "total": number;
+    }
+    interface FwPill {
+        /**
+          * Theme based on which the pill is styled.
+         */
+        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey';
     }
     interface FwPopover {
         /**
@@ -1430,6 +1474,18 @@ declare global {
         prototype: HTMLFwDatepickerElement;
         new (): HTMLFwDatepickerElement;
     };
+    interface HTMLFwDragContainerElement extends Components.FwDragContainer, HTMLStencilElement {
+    }
+    var HTMLFwDragContainerElement: {
+        prototype: HTMLFwDragContainerElement;
+        new (): HTMLFwDragContainerElement;
+    };
+    interface HTMLFwDragItemElement extends Components.FwDragItem, HTMLStencilElement {
+    }
+    var HTMLFwDragItemElement: {
+        prototype: HTMLFwDragItemElement;
+        new (): HTMLFwDragItemElement;
+    };
     interface HTMLFwDropdownButtonElement extends Components.FwDropdownButton, HTMLStencilElement {
     }
     var HTMLFwDropdownButtonElement: {
@@ -1501,6 +1557,12 @@ declare global {
     var HTMLFwPaginationElement: {
         prototype: HTMLFwPaginationElement;
         new (): HTMLFwPaginationElement;
+    };
+    interface HTMLFwPillElement extends Components.FwPill, HTMLStencilElement {
+    }
+    var HTMLFwPillElement: {
+        prototype: HTMLFwPillElement;
+        new (): HTMLFwPillElement;
     };
     interface HTMLFwPopoverElement extends Components.FwPopover, HTMLStencilElement {
     }
@@ -1634,6 +1696,8 @@ declare global {
         "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
+        "fw-drag-container": HTMLFwDragContainerElement;
+        "fw-drag-item": HTMLFwDragItemElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
@@ -1646,6 +1710,7 @@ declare global {
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
         "fw-pagination": HTMLFwPaginationElement;
+        "fw-pill": HTMLFwPillElement;
         "fw-popover": HTMLFwPopoverElement;
         "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
@@ -1803,6 +1868,7 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface FwCustomCellUser {
+        "alt"?: string;
         "email"?: string;
         "image"?: any;
         "name"?: string;
@@ -1813,6 +1879,10 @@ declare namespace LocalJSX {
          */
         "columns"?: DataTableColumn[];
         /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable"?: boolean;
+        /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
         "isSelectable"?: boolean;
@@ -1820,6 +1890,14 @@ declare namespace LocalJSX {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label"?: string;
+        /**
+          * fwColumnsPositionChange Emits this event when columns position changes.
+         */
+        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * fwSelectAllChange Emits this event when select all is checked.
+         */
+        "onFwSelectAllChange"?: (event: CustomEvent<any>) => void;
         /**
           * fwSelectionChange Emits this event when row is selected/unselected.
          */
@@ -1870,6 +1948,38 @@ declare namespace LocalJSX {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
+    }
+    interface FwDragContainer {
+        /**
+          * Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.
+         */
+        "acceptFrom"?: string;
+        /**
+          * Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.
+         */
+        "addOnDrop"?: boolean;
+        /**
+          * Whether the drag element should be moved or copied.
+         */
+        "copy"?: boolean;
+        /**
+          * Triggered when an draggable item is dropped inside the container.
+         */
+        "onFwDrop"?: (event: CustomEvent<void>) => void;
+        /**
+          * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
+         */
+        "placeholderClass"?: string;
+        /**
+          * Whether the list should be sortable.
+         */
+        "sortable"?: boolean;
+    }
+    interface FwDragItem {
+        /**
+          * Whether the drag is disabled or not.
+         */
+        "disabled"?: boolean;
     }
     interface FwDropdownButton {
         /**
@@ -2330,6 +2440,12 @@ declare namespace LocalJSX {
           * The total number of records. This is a mandatory parameter.
          */
         "total"?: number;
+    }
+    interface FwPill {
+        /**
+          * Theme based on which the pill is styled.
+         */
+        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey';
     }
     interface FwPopover {
         /**
@@ -3128,6 +3244,8 @@ declare namespace LocalJSX {
         "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
+        "fw-drag-container": FwDragContainer;
+        "fw-drag-item": FwDragItem;
         "fw-dropdown-button": FwDropdownButton;
         "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
@@ -3140,6 +3258,7 @@ declare namespace LocalJSX {
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
         "fw-pagination": FwPagination;
+        "fw-pill": FwPill;
         "fw-popover": FwPopover;
         "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
@@ -3177,6 +3296,8 @@ declare module "@stencil/core" {
             "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
+            "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
+            "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
@@ -3189,6 +3310,7 @@ declare module "@stencil/core" {
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
             "fw-pagination": LocalJSX.FwPagination & JSXBase.HTMLAttributes<HTMLFwPaginationElement>;
+            "fw-pill": LocalJSX.FwPill & JSXBase.HTMLAttributes<HTMLFwPillElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;

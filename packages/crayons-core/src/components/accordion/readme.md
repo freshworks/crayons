@@ -21,15 +21,13 @@ fw-accordion displays a collapsible accordion component, which expands/collapses
 <fw-accordion>
   <fw-accordion-title>
      <fw-icon
-     
       name='minus'
       size="14"
-      slot="expanded-icon" ></fw-icon>
+      slot="expanded-icon"></fw-icon>
     <fw-icon
-     
       name='plus'
       size="14"
-      slot="collapsed-icon"</fw-icon>
+      slot="collapsed-icon"></fw-icon>
     Header Text
   </fw-accordion-title>
   <fw-accordion-body>

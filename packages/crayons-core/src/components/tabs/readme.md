@@ -17,7 +17,8 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
       state="warning"
       placeholder="Enter your official name"
       required
-      clear-input>
+      clear-input
+    >
     </fw-input>
     <fw-button color="secondary">Submit</fw-button>
     <fw-button color="secondary">Save</fw-button>
@@ -107,7 +108,9 @@ function App() {
             </FwTabPanel>
           </FwTabs>
     </div>);
+
 }
+
 ```
 </code-block>
 </code-group>
