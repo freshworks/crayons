@@ -667,7 +667,7 @@ export namespace Components {
         /**
           * Theme based on which the pill is styled.
          */
-        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom';
+        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey';
     }
     interface FwPopover {
         /**
@@ -2445,7 +2445,7 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the pill is styled.
          */
-        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom';
+        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey';
     }
     interface FwPopover {
         /**
