@@ -16,7 +16,7 @@ import {
   renderHiddenField,
   watchForOptions,
 } from '../../utils';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio-group',
@@ -122,7 +122,7 @@ export class RadioGroup {
         break;
     }
 
-    PubSub.publish('handleChange', { field: this.name, value: this.value });
+    EventStore.publish('handleChange', { field: this.name, value: this.value });
   }
 
   async connectedCallback() {
@@ -233,7 +233,7 @@ export class RadioGroup {
   };
 
   private onBlur = () => {
-    PubSub.publish('handleBlur', { field: this.name, value: this.value });
+    EventStore.publish('handleBlur', { field: this.name, value: this.value });
   };
 
   /**

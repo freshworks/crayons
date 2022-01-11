@@ -9,7 +9,7 @@ import {
   Element,
   h,
 } from '@stencil/core';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio',
@@ -106,9 +106,15 @@ export class Radio {
       this.checked = !this.checked;
     }
     if (this.checked) {
-      PubSub.publish('handleChange', { field: this.name, value: this.value });
+      EventStore.publish('handleChange', {
+        field: this.name,
+        value: this.value,
+      });
     } else {
-      PubSub.publish('handleChange', { field: this.name, value: undefined });
+      EventStore.publish('handleChange', {
+        field: this.name,
+        value: undefined,
+      });
     }
   }
 

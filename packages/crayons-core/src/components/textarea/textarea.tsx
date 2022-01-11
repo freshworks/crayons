@@ -12,7 +12,7 @@ import {
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-textarea',
@@ -110,7 +110,7 @@ export class Textarea {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    PubSub.publish('handleInput', {
+    EventStore.publish('handleInput', {
       field: this.name,
       value: this.nativeInput.value,
     });
@@ -119,7 +119,7 @@ export class Textarea {
   private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    PubSub.publish('handleFocus', {
+    EventStore.publish('handleFocus', {
       field: this.name,
       value: this.nativeInput.value,
     });
@@ -128,7 +128,7 @@ export class Textarea {
   private onBlur = () => {
     this.hasFocus = false;
     this.fwBlur.emit();
-    PubSub.publish('handleBlur', {
+    EventStore.publish('handleBlur', {
       field: this.name,
       value: this.nativeInput.value,
     });

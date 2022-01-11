@@ -1,4 +1,4 @@
-class Pubsub {
+class EventStore {
   subscribers: any;
   constructor() {
     this.subscribers = {};
@@ -26,4 +26,4 @@ class Pubsub {
   }
 }
 
-export default new Pubsub();
+export default new EventStore();
