@@ -82,7 +82,7 @@ export class Form {
     PubSub.subscribe('handleChange', this.handleInput);
     PubSub.subscribe('handhandleFocus', this.handleFocus);
 
-    this.fields = this.formSchema?.fields.reduce((acc, field) => {
+    this.fields = this.formSchema?.fields?.reduce((acc, field) => {
       return { ...acc, [field.name]: field };
     }, {});
 
