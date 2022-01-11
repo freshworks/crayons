@@ -28,6 +28,7 @@ export class Form {
   @Element() el!: any;
 
   private controls: any;
+  private fields: any;
 
   /**
    * Initial field values of the form. It is an object with keys pointing to field name
@@ -78,8 +79,12 @@ export class Form {
 
     PubSub.subscribe('handleInput', this.debouncedHandleInput);
     PubSub.subscribe('handleBlur', this.handleBlur);
-    PubSub.subscribe('handleChange', this.debouncedHandleInput);
+    PubSub.subscribe('handleChange', this.handleInput);
     PubSub.subscribe('handhandleFocus', this.handleFocus);
+
+    this.fields = this.formSchema?.fields.reduce((acc, field) => {
+      return { ...acc, [field.name]: field };
+    }, {});
 
     this.formValidationSchema =
       generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
@@ -104,6 +109,8 @@ export class Form {
   componentDidLoad() {
     this.controls = this.getFormControls();
     this.passPropsToChildren(this.controls);
+    // adding a timeout since this lifecycle method is called before its child in React apps.
+    // Bug with react wrapper.
     setTimeout(() => {
       this.setFocusOnError();
     }, 10);
@@ -247,10 +254,13 @@ export class Form {
   };
 
   setFocusOnError = () => {
-    console.log({ errors: this.errors });
-    const firstErrorField = Object.keys(this.errors || {}).find((field) => {
-      return this.touched[field] === true;
-    });
+    const firstErrorField = Object.keys(this.errors || {})
+      .sort((a, b) => {
+        return this.fields?.[a]?.position - this.fields?.[b]?.position;
+      })
+      .find((field) => {
+        return this.touched[field] === true;
+      });
 
     if (firstErrorField) this.setFocus(firstErrorField);
   };

@@ -108,6 +108,7 @@ export class Datepicker {
   private longMonthNames;
   private escapeHandler = null;
   private madeInert;
+  private nativeInput;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -145,7 +146,7 @@ export class Datepicker {
 
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
-    PubSub.publish('handleInput', { field: this.name, value: eventDetails });
+    PubSub.publish('handleChange', { field: this.name, value: eventDetails });
   }
 
   focusElement(element: HTMLElement) {
@@ -180,6 +181,16 @@ export class Datepicker {
       ? (this.value && moment(this.value, this.displayFormat).format()) ||
           undefined
       : (this.value && moment(this.value).format()) || undefined;
+  }
+
+  /**
+   * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
+   */
+  @Method()
+  async setFocus() {
+    if (this.nativeInput) {
+      this.nativeInput.focus();
+    }
   }
 
   @Listen('keydown')
@@ -828,6 +839,7 @@ export class Datepicker {
           iconRight='calendar'
           required={this.required}
           onBlur={this.onBlur}
+          ref={(el) => (this.nativeInput = el)}
         ></fw-input>
         {this.showSingleDatePicker() ? (
           <div class='datepicker' slot='popover-content'>

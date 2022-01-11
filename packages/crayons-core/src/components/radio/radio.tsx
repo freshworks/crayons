@@ -5,6 +5,8 @@ import {
   Host,
   Prop,
   Watch,
+  Method,
+  Element,
   h,
 } from '@stencil/core';
 import PubSub from '../../utils/pub-sub';
@@ -15,6 +17,7 @@ import PubSub from '../../utils/pub-sub';
   shadow: true,
 })
 export class Radio {
+  @Element() host!: HTMLElement;
   /**
    * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
    */
@@ -95,6 +98,8 @@ export class Radio {
   }
 
   private onBlur() {
+    const container = this.host.shadowRoot?.querySelector('.radio-container');
+    container?.removeAttribute('tabindex');
     this.fwBlur.emit();
   }
 
@@ -107,6 +112,16 @@ export class Radio {
     } else {
       PubSub.publish('handleChange', { field: this.name, value: undefined });
     }
+  }
+
+  /**
+   * Sets focus on a specific `fw-radio`.
+   */
+  @Method()
+  async setFocus() {
+    const container = this.host.shadowRoot?.querySelector('.radio-container');
+    container?.setAttribute('tabindex', '0');
+    (container as any)?.focus();
   }
 
   render() {
@@ -123,13 +138,8 @@ export class Radio {
         onBlur={() => this.onBlur()}
       >
         <div class='radio-container'>
-          <input
-            type='radio'
-            ref={(el) => (this.radio = el)}
-            id={this.name}
-            name={this.name}
-          ></input>
-          <label htmlFor={this.name}>
+          <input type='radio' ref={(el) => (this.radio = el)}></input>
+          <label>
             <span id='label'>
               <slot />
             </span>

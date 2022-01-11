@@ -257,11 +257,10 @@ export class Select {
         selectedOptions: this.selectedOptionsState,
       });
 
-      if (this.selectedOptionsState?.length)
-        PubSub.publish('handleChange', {
-          field: this.name,
-          value: this.selectedOptionsState,
-        });
+      PubSub.publish('handleChange', {
+        field: this.name,
+        value: this.selectedOptionsState,
+      });
     }
   }
 

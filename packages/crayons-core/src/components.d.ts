@@ -203,6 +203,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
@@ -887,6 +891,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Sets focus on a specific `fw-radio`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
@@ -912,6 +920,10 @@ export namespace Components {
           * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Sets focus on a specific `fw-radio`.
+         */
+        "setFocus": () => Promise<void>;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -1303,6 +1315,10 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Sets focus on a specific `fw-timepicker`.
+         */
+        "setFocus": () => Promise<void>;
         /**
           * Time output value
          */

@@ -3,6 +3,8 @@
 import { Component, Prop, h, Element, State, Method } from '@stencil/core';
 
 import { hasSlot } from '../../utils';
+
+const NATIVE_CONTROLS = ['input', 'select', 'textarea'];
 @Component({
   tag: 'fw-form-control',
   styleUrl: 'form-control.scss',
@@ -83,7 +85,6 @@ export class FormControl {
           ...this.controlProps?.inputProps(this.name, type),
         };
 
-        console.log(componentProps);
         cmp = (
           <fw-input
             {...componentProps}
@@ -105,9 +106,13 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
-            ref: this.crayonsControlRef,
           };
-          cmp = <fw-textarea {...componentProps}></fw-textarea>;
+          cmp = (
+            <fw-textarea
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-textarea>
+          );
         }
         break;
 
@@ -126,7 +131,12 @@ export class FormControl {
             ),
             ref: this.crayonsControlRef,
           };
-          cmp = <fw-datepicker {...componentProps}></fw-datepicker>;
+          cmp = (
+            <fw-datepicker
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-datepicker>
+          );
         }
         break;
 
@@ -145,7 +155,14 @@ export class FormControl {
             ),
             ref: this.crayonsControlRef,
           };
-          cmp = <fw-checkbox {...componentProps}>{this.label}</fw-checkbox>;
+          cmp = (
+            <fw-checkbox
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            >
+              {this.label}
+            </fw-checkbox>
+          );
         }
         break;
 
@@ -166,7 +183,11 @@ export class FormControl {
             'ref': this.crayonsControlRef,
           };
           cmp = (
-            <fw-radio-group {...componentProps} label={this.name}>
+            <fw-radio-group
+              {...componentProps}
+              label={this.name}
+              ref={(el) => (this.crayonsControlRef = el)}
+            >
               {this.choices?.map((ch) => {
                 const val = ch[componentProps.optionValuePath] || ch.value;
                 return (
@@ -204,6 +225,7 @@ export class FormControl {
                 text: f.value,
               }))}
               multiple={this.type === 'MULTI_SELECT'}
+              ref={(el) => (this.crayonsControlRef = el)}
             ></fw-select>
           );
         }
@@ -231,12 +253,7 @@ export class FormControl {
   }
 
   componentWillLoad(): void {
-    console.log('form control will load');
     this.handleSlotChange();
-  }
-
-  componentDidLoad() {
-    console.log(' form control did load');
   }
 
   /**
@@ -244,7 +261,6 @@ export class FormControl {
    */
   @Method()
   async setFocus() {
-    console.log(' ref ', this.crayonsControlRef);
     if (!this.hasSlot) {
       await this.crayonsControlRef?.setFocus?.();
     } else {
@@ -254,11 +270,12 @@ export class FormControl {
 
   private handleSlotChange() {
     this.hasSlot = hasSlot(this.el);
-    this.slotElement = this.el.querySelector('*');
+    this.slotElement = [...this.el.querySelectorAll('*')].filter((el: any) => {
+      return NATIVE_CONTROLS.includes(el?.tagName?.toLowerCase());
+    })?.[0];
   }
 
   render(): JSX.Element {
-    console.log('render form control');
     return (
       <div class='form-control-container'>
         {this.type !== 'CHECKBOX' && (

@@ -6,6 +6,7 @@ import {
   Host,
   Prop,
   Watch,
+  Method,
   h,
   Listen,
 } from '@stencil/core';
@@ -234,6 +235,16 @@ export class RadioGroup {
   private onBlur = () => {
     PubSub.publish('handleBlur', { field: this.name, value: this.value });
   };
+
+  /**
+   * Sets focus on a specific `fw-radio`.
+   */
+  @Method()
+  async setFocus() {
+    const radios = this.radios;
+    radios[0].tabIndex = '0';
+    radios[0]?.setFocus?.();
+  }
 
   render() {
     const { host, name, value } = this;
