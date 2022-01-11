@@ -142,7 +142,7 @@ export class DataTable {
     if (event.detail) {
       if (
         event.detail.value === 'select-all' &&
-        event.path[0].id === 'select-all'
+        this.getEventPath(event)[0].id === 'select-all'
       ) {
         const checkboxSelector = event.detail.checked
           ? 'tr > td:first-child > fw-checkbox:not([checked])'
@@ -156,10 +156,10 @@ export class DataTable {
       } else {
         if (event.detail.checked) {
           this.selected.push(event.detail.value);
-          event.path[0].closest('tr').classList.add('active');
+          this.getEventPath(event)[0].closest('tr').classList.add('active');
         } else {
           this.selected.splice(this.selected.indexOf(event.detail.value), 1);
-          event.path[0].closest('tr').classList.remove('active');
+          this.getEventPath(event)[0].closest('tr').classList.remove('active');
         }
         if (!this.selectAllProgressCount) {
           this.fwSelectionChange.emit({
@@ -186,8 +186,10 @@ export class DataTable {
    */
   @Listen('keydown')
   keyDownHandler(event) {
-    const currentElement: HTMLElement = event.path[0];
-    const currentCell: HTMLElement = this.closestTableCell(event.path);
+    const currentElement: HTMLElement = this.getEventPath(event)[0];
+    const currentCell: HTMLElement = this.closestTableCell(
+      this.getEventPath(event)
+    );
     let cellFocusChange = false;
 
     // Switch focus between components inside a cell
@@ -370,6 +372,14 @@ export class DataTable {
   }
 
   /**
+   * get event's path which is an array of the objects
+   * event.path unsupported in safari
+   */
+  getEventPath(event) {
+    return event.path ? event.path : event.composedPath();
+  }
+
+  /**
    * WorkAround for wait until next render in stenciljs
    * https://github.com/ionic-team/stencil/issues/2744
    */
@@ -511,11 +521,11 @@ export class DataTable {
     action: DataTableAction,
     rowData: DataTableRow
   ) {
-    const tableRow = this.closestTableCell(event.path).parentNode;
+    const tableRow = this.closestTableCell(this.getEventPath(event)).parentNode;
     const tableRowHeight = window.getComputedStyle(tableRow).height;
     tableRow.style.height = tableRowHeight;
     const skeletonHeight = this.getShimmerHeight(
-      this.closestTableCell(event.path)
+      this.closestTableCell(this.getEventPath(event))
     );
     const selectAll: any = this.el.shadowRoot.querySelector(
       'fw-checkbox#select-all'
