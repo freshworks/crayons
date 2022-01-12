@@ -134,7 +134,7 @@ export class Textarea {
 
   private onBlur = () => {
     this.hasFocus = false;
-    this.fwBlur.emit();
+    this.fwBlur.emit({ value: this.getValue() });
     this.formId &&
       EventStore.publish(`${this.formId}::handleBlur`, {
         field: this.name,
