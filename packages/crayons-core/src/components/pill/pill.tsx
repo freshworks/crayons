@@ -11,18 +11,21 @@ export class Pill {
   /**
    * Theme based on which the pill is styled.
    */
-  @Prop() color: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom' =
-    'grey';
+  @Prop() color: 'blue' | 'red' | 'green' | 'yellow' | 'grey';
 
   hasIcon: boolean;
+  pillClass: string;
 
   componentWillLoad() {
     this.hasIcon = !!this.el.querySelector('[slot="icon"');
+    this.pillClass = this.color
+      ? `pill pill--${this.color.toLowerCase()}`
+      : 'pill';
   }
 
   render() {
     return (
-      <span class={`pill pill--${this.color.toLowerCase()}`}>
+      <span class={this.pillClass}>
         {this.hasIcon && (
           <div class='pill-icon'>
             <slot name='icon' />

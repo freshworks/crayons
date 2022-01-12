@@ -22,6 +22,8 @@
   background-color: $color-milk;
   margin-bottom: 16px;
   box-sizing: border-box;
+  box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06),
+    0px 2px 16px rgba(18, 52, 77, 0.16);
 
   &.success {
     border-top: 5px solid $color-jungle-500;

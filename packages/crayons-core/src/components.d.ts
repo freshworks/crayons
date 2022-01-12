@@ -753,7 +753,7 @@ export namespace Components {
         /**
           * Theme based on which the pill is styled.
          */
-        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom';
+        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey';
     }
     interface FwPopover {
         /**
@@ -2370,7 +2370,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the value in the input box is modified.
          */
@@ -2634,7 +2634,7 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the pill is styled.
          */
-        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom';
+        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey';
     }
     interface FwPopover {
         /**
@@ -3149,7 +3149,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the value in the input box is modified.
          */

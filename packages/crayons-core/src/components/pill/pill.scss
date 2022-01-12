@@ -10,8 +10,8 @@
   --pill-border: none;
   --pill-border-radius: 16px;
   --pill-padding: 5px 12px 5px 8px;
-  --pill-color: $color-elephant-900;
-  --pill-background-color: $color-milk;
+  --pill-color: #{$color-smoke-700};
+  --pill-background-color: #{$color-smoke-50};
 }
 
 .pill {
@@ -40,6 +40,7 @@
 
   ::slotted(fw-icon) {
     --icon-size: 14px;
+    --icon-color: #{$color-smoke-700};
   }
 
   &--blue {
