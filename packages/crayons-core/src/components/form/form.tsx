@@ -15,6 +15,7 @@ import {
   yupToFormErrors,
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
+  createGuid,
 } from './form-util';
 import { debounce } from '../../utils';
 
@@ -59,6 +60,10 @@ export class Form {
   /** The number of milliseconds to delay before doing validation on Input */
   @Prop() wait = 1000;
 
+  /**
+   * Id to uniquely identify the Form. If not set, a random Id will be generated.
+   */
+  @Prop() formId = createGuid();
   @State() isValid = false;
   @State() isValidating = false;
   @State() isSubmitting = false;
@@ -76,10 +81,10 @@ export class Form {
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
-    PubSub.subscribe('handleInput', this.debouncedHandleInput);
-    PubSub.subscribe('handleBlur', this.handleBlur);
-    PubSub.subscribe('handleChange', this.debouncedHandleInput);
-    PubSub.subscribe('handhandleFocus', this.handleFocus);
+    PubSub.subscribe(`${this.formId}::handleInput`, this.debouncedHandleInput);
+    PubSub.subscribe(`${this.formId}::handleBlur`, this.handleBlur);
+    PubSub.subscribe(`${this.formId}::handleChange`, this.debouncedHandleInput);
+    PubSub.subscribe(`${this.formId}::handhandleFocus`, this.handleFocus);
 
     this.formValidationSchema =
       generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
@@ -265,24 +270,28 @@ export class Form {
 
   private composedUtils = (): FormUtils => {
     const inputProps = (field: string) => ({
-      value: this.values[field],
+      'value': this.values[field],
+      'form-id': this.formId,
     });
 
     const radioProps = (field: string) => ({
-      value: this.values[field],
+      'value': this.values[field],
+      'form-id': this.formId,
     });
 
     const checkboxProps = (field: string) => ({
-      checked: !!this.values[field],
+      'checked': !!this.values[field],
+      'form-id': this.formId,
     });
 
     const selectProps = (field: string, inputType) => ({
-      value:
+      'value':
         inputType === 'multi_select' // for multiselect pass Array
           ? this.values[field]?.map((v) => v.value || v) || []
           : Array.isArray(this.values[field]) // single select but the value is an array, pass 0th index
           ? this.values[field]?.map((v) => v.value || v)[0] || ''
           : this.values[field] || '',
+      'form-id': this.formId,
     });
 
     const formProps: FormProps = {

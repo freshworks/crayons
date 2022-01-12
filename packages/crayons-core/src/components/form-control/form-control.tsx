@@ -140,6 +140,10 @@ export class FormControl {
 
       case 'RADIO':
         {
+          const controlProps = this.controlProps?.radioProps(
+            this.name,
+            this.type?.toLowerCase()
+          );
           const componentProps = {
             ...this.fieldProps,
             'name': this.name,
@@ -148,17 +152,18 @@ export class FormControl {
             'required': this.required,
             'hint': '',
             'allow-empty': true,
-            ...this.controlProps?.radioProps(
-              this.name,
-              this.type?.toLowerCase()
-            ),
+            ...controlProps,
           };
           cmp = (
             <fw-radio-group {...componentProps} label={this.name}>
               {this.choices?.map((ch) => {
                 const val = ch[componentProps.optionValuePath] || ch.value;
                 return (
-                  <fw-radio name={val} value={val}>
+                  <fw-radio
+                    form-id={controlProps['form-id']}
+                    name={val}
+                    value={val}
+                  >
                     {val}
                   </fw-radio>
                 );

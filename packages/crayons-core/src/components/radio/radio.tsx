@@ -42,6 +42,11 @@ export class Radio {
   @Prop() name = '';
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    * Triggered when the radio button in focus is selected.
    */
   @Event() fwSelect!: EventEmitter;
@@ -103,9 +108,17 @@ export class Radio {
       this.checked = !this.checked;
     }
     if (this.checked) {
-      PubSub.publish('handleChange', { field: this.name, value: this.value });
+      this.formId &&
+        PubSub.publish(`${this.formId}::handleChange`, {
+          field: this.name,
+          value: this.value,
+        });
     } else {
-      PubSub.publish('handleChange', { field: this.name, value: undefined });
+      this.formId &&
+        PubSub.publish(`${this.formId}::handleChange`, {
+          field: this.name,
+          value: undefined,
+        });
     }
   }
 

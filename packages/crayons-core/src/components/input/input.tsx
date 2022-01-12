@@ -107,6 +107,11 @@ export class Input {
   @Prop() iconRight: string = undefined;
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    * Triggered when the value in the input box is modified.
    */
   @Event() fwChange: EventEmitter;
@@ -148,10 +153,12 @@ export class Input {
       this.nativeInput.value = this.value;
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    PubSub.publish('handleInput', {
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleInput`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
   private handleMinAndMaxCheck(value) {
     const { min = -Infinity, max = Infinity } = this;
@@ -162,19 +169,21 @@ export class Input {
   private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    PubSub.publish('handleFocus', {
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleFocus`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private onBlur = () => {
     this.hasFocus = false;
     this.fwBlur.emit();
-    PubSub.publish('handleBlur', {
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private showClearButton() {

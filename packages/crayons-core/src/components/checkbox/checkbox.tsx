@@ -50,6 +50,11 @@ export class Checkbox {
   @Prop() required = false;
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    * Triggered when the check box’s value is modified.
    */
   @Event() fwChange!: EventEmitter;
@@ -103,28 +108,31 @@ export class Checkbox {
 
   private onFocus = () => {
     this.fwFocus.emit();
-    PubSub.publish('handleFocus', {
-      field: this.name,
-      value: this.checkbox.checked,
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleFocus`, {
+        field: this.name,
+        value: this.checkbox.checked,
+      });
   };
 
   private onBlur = () => {
     this.fwBlur.emit();
-    PubSub.publish('handleBlur', {
-      field: this.name,
-      value: this.checkbox.checked,
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.checkbox.checked,
+      });
   };
 
   private toggle = () => {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
-    PubSub.publish('handleChange', {
-      field: this.name,
-      value: this.checkbox.checked,
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleChange`, {
+        field: this.name,
+        value: this.checkbox.checked,
+      });
   };
 
   render() {

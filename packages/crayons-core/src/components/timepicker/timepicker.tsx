@@ -61,6 +61,11 @@ export class Timepicker {
   @Prop() required = false;
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    * Boolean representing whethere it is default end time
    */
   @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
@@ -108,7 +113,11 @@ export class Timepicker {
     const { value } = e.detail;
     this.value = value;
     if (this.value)
-      PubSub.publish('handleChange', { field: this.name, value: this.value });
+      this.formId &&
+        PubSub.publish(`${this.formId}::handleChange`, {
+          field: this.name,
+          value: this.value,
+        });
   }
 
   private setEndTime() {
@@ -118,11 +127,19 @@ export class Timepicker {
   }
 
   onBlur = (): void => {
-    PubSub.publish('handleBlur', { field: this.name, value: this.value });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.value,
+      });
   };
 
   onFocus = (): void => {
-    PubSub.publish('handleFocus', { field: this.name, value: this.value });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleFocus`, {
+        field: this.name,
+        value: this.value,
+      });
   };
 
   componentWillLoad() {

@@ -43,9 +43,10 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
-      PubSub.publish('handleFocus', {
-        field: this.name,
-      });
+      this.formId &&
+        PubSub.publish(`${this.formId}::handleFocus`, {
+          field: this.name,
+        });
     }
   };
 
@@ -60,10 +61,11 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
-      PubSub.publish('handleBlur', {
-        field: this.name,
-        value: await this.getSelectedItem(),
-      });
+      this.formId &&
+        PubSub.publish(`${this.formId}::handleBlur`, {
+          field: this.name,
+          value: await this.getSelectedItem(),
+        });
     }
   };
 
@@ -206,6 +208,11 @@ export class Select {
    */
   @Prop() labelledBy = '';
 
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -258,10 +265,11 @@ export class Select {
       });
 
       if (this.selectedOptionsState?.length)
-        PubSub.publish('handleChange', {
-          field: this.name,
-          value: this.selectedOptionsState,
-        });
+        this.formId &&
+          PubSub.publish(`${this.formId}::handleChange`, {
+            field: this.name,
+            value: this.selectedOptionsState,
+          });
     }
   }
 

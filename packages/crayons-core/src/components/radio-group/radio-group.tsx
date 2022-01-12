@@ -54,6 +54,11 @@ export class RadioGroup {
    */
   @Prop() required = false;
 
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
   @Watch('value')
   async valueChanged(value: any | undefined) {
     await this.updateRadios();
@@ -121,7 +126,11 @@ export class RadioGroup {
         break;
     }
 
-    PubSub.publish('handleChange', { field: this.name, value: this.value });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleChange`, {
+        field: this.name,
+        value: this.value,
+      });
   }
 
   async connectedCallback() {
@@ -232,7 +241,11 @@ export class RadioGroup {
   };
 
   private onBlur = () => {
-    PubSub.publish('handleBlur', { field: this.name, value: this.value });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.value,
+      });
   };
 
   render() {

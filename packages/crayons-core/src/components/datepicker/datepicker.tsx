@@ -100,6 +100,11 @@ export class Datepicker {
   @Prop() required = false;
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    *   Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
@@ -145,7 +150,11 @@ export class Datepicker {
 
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
-    PubSub.publish('handleInput', { field: this.name, value: eventDetails });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleInput`, {
+        field: this.name,
+        value: eventDetails,
+      });
   }
 
   focusElement(element: HTMLElement) {
@@ -799,10 +808,11 @@ export class Datepicker {
   }
 
   private onBlur = async () => {
-    PubSub.publish('handleBlur', {
-      field: this.name,
-      value: await this.getValue(),
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: await this.getValue(),
+      });
   };
 
   render() {

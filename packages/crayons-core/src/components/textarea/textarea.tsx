@@ -83,6 +83,11 @@ export class Textarea {
   @Prop() disabled = false;
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    * Triggered when the value in the input box is modified.
    */
   @Event() fwChange: EventEmitter;
@@ -110,28 +115,31 @@ export class Textarea {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    PubSub.publish('handleInput', {
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleInput`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    PubSub.publish('handleFocus', {
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleFocus`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private onBlur = () => {
     this.hasFocus = false;
     this.fwBlur.emit();
-    PubSub.publish('handleBlur', {
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    this.formId &&
+      PubSub.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private getValue(): string {
