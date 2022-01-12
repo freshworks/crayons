@@ -148,9 +148,10 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name            | Description                 |
-| --------------- | --------------------------- |
-| `--input-color` | Color of the textarea input |
+| Name                       | Description                    |
+| -------------------------- | ------------------------------ |
+| `--input-color`            | Color of the textarea input    |
+| `--textarea-margin-bottom` | Bottom margin for the textarea |
 
 
 ## Dependencies
