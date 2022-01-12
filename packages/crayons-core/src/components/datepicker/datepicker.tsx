@@ -11,7 +11,7 @@ import {
   Watch,
 } from '@stencil/core';
 import moment from 'moment-mini';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 import {
   handleKeyDown,
   renderHiddenField,
@@ -151,7 +151,7 @@ export class Datepicker {
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
     this.formId &&
-      PubSub.publish(`${this.formId}::handleInput`, {
+      EventStore.publish(`${this.formId}::handleInput`, {
         field: this.name,
         value: eventDetails,
       });
@@ -809,7 +809,7 @@ export class Datepicker {
 
   private onBlur = async () => {
     this.formId &&
-      PubSub.publish(`${this.formId}::handleBlur`, {
+      EventStore.publish(`${this.formId}::handleBlur`, {
         field: this.name,
         value: await this.getValue(),
       });

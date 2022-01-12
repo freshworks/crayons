@@ -7,7 +7,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio',
@@ -109,13 +109,13 @@ export class Radio {
     }
     if (this.checked) {
       this.formId &&
-        PubSub.publish(`${this.formId}::handleChange`, {
+        EventStore.publish(`${this.formId}::handleChange`, {
           field: this.name,
           value: this.value,
         });
     } else {
       this.formId &&
-        PubSub.publish(`${this.formId}::handleChange`, {
+        EventStore.publish(`${this.formId}::handleChange`, {
           field: this.name,
           value: undefined,
         });

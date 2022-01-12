@@ -1,3 +1,6 @@
+/**
+  @prop --input-margin-bottom: Bottom margin for the input
+**/
 $label-font: $font-stack-sans !default;
 $placeholder-color: $muted-secondary;
 $help-color: $muted-secondary;
@@ -37,15 +40,16 @@ $input-color: $app-primary-black;
 }
 
 .input-container {
-  // margin-bottom: 16px;
+  margin-bottom: var(--input-margin-bottom, 0px);
   width: inherit;
   height: inherit;
 }
+
 // Label Style
 label {
   font-size: 12px;
   color: $label-default;
-  font-weight: $font-weight-semibold;
+  font-weight: $font-weight-600;
   margin-bottom: 0;
   padding-bottom: 4px;
   padding-left: 2px;

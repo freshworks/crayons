@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
@@ -109,7 +109,7 @@ export class Checkbox {
   private onFocus = () => {
     this.fwFocus.emit();
     this.formId &&
-      PubSub.publish(`${this.formId}::handleFocus`, {
+      EventStore.publish(`${this.formId}::handleFocus`, {
         field: this.name,
         value: this.checkbox.checked,
       });
@@ -118,7 +118,7 @@ export class Checkbox {
   private onBlur = () => {
     this.fwBlur.emit();
     this.formId &&
-      PubSub.publish(`${this.formId}::handleBlur`, {
+      EventStore.publish(`${this.formId}::handleBlur`, {
         field: this.name,
         value: this.checkbox.checked,
       });
@@ -129,7 +129,7 @@ export class Checkbox {
       this.checked = !this.checked;
     }
     this.formId &&
-      PubSub.publish(`${this.formId}::handleChange`, {
+      EventStore.publish(`${this.formId}::handleChange`, {
         field: this.name,
         value: this.checkbox.checked,
       });
@@ -138,9 +138,9 @@ export class Checkbox {
   render() {
     const { host, name, value } = this;
 
-    //if (this.checked) {
-    renderHiddenField(host, name, value);
-    //}
+    if (this.checked) {
+      renderHiddenField(host, name, value);
+    }
 
     return (
       <Host

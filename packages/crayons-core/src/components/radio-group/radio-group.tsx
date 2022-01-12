@@ -15,7 +15,7 @@ import {
   renderHiddenField,
   watchForOptions,
 } from '../../utils';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio-group',
@@ -127,7 +127,7 @@ export class RadioGroup {
     }
 
     this.formId &&
-      PubSub.publish(`${this.formId}::handleChange`, {
+      EventStore.publish(`${this.formId}::handleChange`, {
         field: this.name,
         value: this.value,
       });
@@ -242,7 +242,7 @@ export class RadioGroup {
 
   private onBlur = () => {
     this.formId &&
-      PubSub.publish(`${this.formId}::handleBlur`, {
+      EventStore.publish(`${this.formId}::handleBlur`, {
         field: this.name,
         value: this.value,
       });

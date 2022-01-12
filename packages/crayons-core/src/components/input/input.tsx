@@ -12,7 +12,7 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
-import PubSub from '../../utils/pub-sub';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-input',
@@ -124,7 +124,7 @@ export class Input {
   /**
    * Triggered when the input box loses focus.
    */
-  @Event() fwBlur: EventEmitter<void>;
+  @Event() fwBlur: EventEmitter;
 
   /**
    * Triggered when a value is entered in the input box.
@@ -153,9 +153,8 @@ export class Input {
       this.nativeInput.value = this.value;
     }
     this.fwInput.emit(ev as KeyboardEvent);
-
     this.formId &&
-      PubSub.publish(`${this.formId}::handleInput`, {
+      EventStore.publish(`${this.formId}::handleInput`, {
         field: this.name,
         value: this.nativeInput.value,
       });
@@ -170,7 +169,7 @@ export class Input {
     this.hasFocus = true;
     this.fwFocus.emit();
     this.formId &&
-      PubSub.publish(`${this.formId}::handleFocus`, {
+      EventStore.publish(`${this.formId}::handleFocus`, {
         field: this.name,
         value: this.nativeInput.value,
       });
@@ -178,9 +177,9 @@ export class Input {
 
   private onBlur = () => {
     this.hasFocus = false;
-    this.fwBlur.emit();
+    this.fwBlur.emit({ value: this.getValue() });
     this.formId &&
-      PubSub.publish(`${this.formId}::handleBlur`, {
+      EventStore.publish(`${this.formId}::handleBlur`, {
         field: this.name,
         value: this.nativeInput.value,
       });

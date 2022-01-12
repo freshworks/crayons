@@ -183,7 +183,7 @@ function App() {
 
 | Event          | Description                                            | Type                         |
 | -------------- | ------------------------------------------------------ | ---------------------------- |
-| `fwBlur`       | Triggered when the input box loses focus.              | `CustomEvent<void>`          |
+| `fwBlur`       | Triggered when the input box loses focus.              | `CustomEvent<any>`           |
 | `fwChange`     | Triggered when the value in the input box is modified. | `CustomEvent<any>`           |
 | `fwFocus`      | Triggered when the input box comes into focus.         | `CustomEvent<void>`          |
 | `fwInput`      | Triggered when a value is entered in the input box.    | `CustomEvent<KeyboardEvent>` |
@@ -201,6 +201,13 @@ Sets focus on a specific `fw-input`. Use this method instead of the global `inpu
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                    | Description                 |
+| ----------------------- | --------------------------- |
+| `--input-margin-bottom` | Bottom margin for the input |
 
 
 ## Dependencies
