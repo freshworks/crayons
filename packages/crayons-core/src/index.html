@@ -12,8 +12,7 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
-    <fw-button expand color="primary">Primary Button</fw-button>
-
+  <fw-button expand color="primary">Primary Button</fw-button>
     <br />
     <!-- <h3>Pattern 1</h3>
 
@@ -486,6 +485,7 @@
     <!-- <fw-form-text>Text hint</fw-form-text> -->
 
     <!-- <br />
+
   <fw-button-group>
     <fw-button color="secondary"> Test 1</fw-button>
     <fw-button color="secondary">Test 2</fw-button>
@@ -499,7 +499,7 @@
     <fw-button size="icon" color="secondary"> <fw-icon name="more-horizontal"  library="system" ></fw-icon></fw-button>
   </fw-button-group> -->
 
-    <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
+  <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
 
    <fw-select
       label="Select App type"
@@ -662,5 +662,181 @@
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
   </script> 
 -->
-  </body>
+
+  <!-- <div style="display: flex; align-items: center; justify-content: center;">
+    <div style="width: 1200px; margin-top: 80px;">
+      <fw-data-table id="datatable-0" is-selectable="true" is-all-selectable="true" label="Data table 0">
+      </fw-data-table>
+
+      <fw-data-table id="datatable-1"></fw-data-table>
+    </div>
+  </div> -->
+
+  <!-- <script>
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "position": 2
+      }, {
+        "key": "group",
+        "text": "Group",
+        "position": 3
+      }, {
+        "key": "role",
+        "text": "Role",
+        "position": 1
+      }, {
+        "key": "school",
+        "text": "School"
+      }, {
+        "key": "place",
+        "text": "Place",
+        "position": 5
+      }],
+      persons: [
+        {
+          "id": "61c443eac41891ee584cc2c2",
+          "name": "dolore",
+          "role": "est",
+          "group": "sunt",
+          "school": "cillum",
+          "place": "non"
+        },
+        {
+          "id": "61c443eade33a3b23e1ba388",
+          "name": "et",
+          "role": "quis",
+          "group": "ipsum",
+          "school": "mollit",
+          "place": "sit"
+        },
+        {
+          "id": "61c443eaf6ffceda052527ca",
+          "name": "velit",
+          "role": "id",
+          "group": "incididunt",
+          "school": "culpa",
+          "place": "eiusmod"
+        },
+        {
+          "id": "61c443ea9f6d4df981cb697d",
+          "name": "do",
+          "role": "in",
+          "group": "veniam",
+          "school": "sit",
+          "place": "qui"
+        },
+        {
+          "id": "61c443eab03c9692f3782ce3",
+          "name": "nostrud",
+          "role": "ea",
+          "group": "fugiat",
+          "school": "mollit",
+          "place": "et"
+        },
+        {
+          "id": "61c443eadc0aa4d77f9ce50b",
+          "name": "ex",
+          "role": "pariatur",
+          "group": "sint",
+          "school": "mollit",
+          "place": "non"
+        },
+        {
+          "id": "61c443eafa776aa88180fb93",
+          "name": "sit",
+          "role": "eiusmod",
+          "group": "enim",
+          "school": "occaecat",
+          "place": "elit"
+        },
+        {
+          "id": "61c443ea47480024fb82103f",
+          "name": "anim",
+          "role": "nisi",
+          "group": "minim",
+          "school": "excepteur",
+          "place": "ad"
+        },
+        {
+          "id": "61c443ea7cd7ad9b57a25c30",
+          "name": "amet",
+          "role": "qui",
+          "group": "laborum",
+          "school": "Lorem",
+          "place": "ipsum"
+        },
+        {
+          "id": "61c443ea06902015b1d10b0a",
+          "name": "sit",
+          "role": "reprehenderit",
+          "group": "reprehenderit",
+          "school": "incididunt",
+          "place": "velit"
+        },
+        {
+          "id": "61c443ea499fa2176088b569",
+          "name": "ipsum",
+          "role": "aute",
+          "group": "eu",
+          "school": "amet",
+          "place": "eu"
+        }
+      ]
+    };
+
+    var datatable = document.getElementById('datatable-0');
+    datatable.columns = data.columns;
+    datatable.rows = data.persons;
+    datatable.rowActions = [{
+      name: 'Edit',
+      handler: (rowData) => {
+        console.log(rowData);
+      }
+    }, {
+      name: 'Delete',
+      handler: async (rowData) => {
+        let deleteActionPromise = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            console.log(rowData);
+            resolve();
+          }, 5000);
+        });
+        return deleteActionPromise;
+      },
+      hideForRowIds: ['61c443ea499fa2176088b569']
+    }];
+
+    var data1 = {
+      columns: [{
+        "key": "search",
+        "text": "Search Engine",
+        "position": 1,
+        "variant": "anchor"
+      }, {
+        "key": "rank",
+        "text": "Rank",
+        "position": 2
+      }],
+      rows: [{
+        "id": "001",
+        "search": { "text": "Google", "href": "https://www.google.com" },
+        "rank": 1
+      }, {
+        "id": "002",
+        "search": { "text": "Bing", "href": "https://www.bing.com" },
+        "rank": 2
+      }, {
+        "id": "003",
+        "search": { "text": "DuckDuckGo", "href": "https://www.duckduckgo.com" },
+        "rank": 3
+      }]
+    };
+
+    var datatable1 = document.getElementById('datatable-1');
+    datatable1.columns = data1.columns;
+    datatable1.rows = data1.rows;
+  </script> -->
+</body>
 </html>

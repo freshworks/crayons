@@ -11,7 +11,11 @@ import {
   Method,
 } from '@stencil/core';
 
-import { DataTableColumn, DataTableRow } from '../../utils/types';
+import {
+  DataTableColumn,
+  DataTableRow,
+  DataTableAction,
+} from '../../utils/types';
 
 const PREDEFINED_VARIANTS_META = {
   anchor: {
@@ -39,6 +43,11 @@ export class DataTable {
    * Label attribute is not visible on screen. There for accessibility purposes.
    */
   @Prop({ mutable: true, reflect: false }) label = '';
+
+  /**
+   * To enable bulk actions on the table.
+   */
+  @Prop({ mutable: false }) rowActions: DataTableAction[] = [];
 
   /**
    * Rows Array of objects to be displayed in the table.
@@ -71,6 +80,16 @@ export class DataTable {
   @State() selected: string[] = [];
 
   /**
+   * To disable table during async operations
+   */
+  @State() isLoading = false;
+
+  /**
+   * Collection of rows loading
+   */
+  @State() rowsLoading = {};
+
+  /**
    * fwSelectionChange Emits this event when row is selected/unselected.
    */
   @Event() fwSelectionChange: EventEmitter;
@@ -92,10 +111,27 @@ export class DataTable {
   selectAllProgressCount = 0;
 
   /**
+   * Private
+   * To perform actions after a render
+   * WorkAround for stencil wait for next render
+   * https://github.com/ionic-team/stencil/issues/2744
+   */
+  renderPromiseResolve = null;
+
+  /**
    * componentWillLoad lifecycle event
    */
   componentWillLoad() {
     this.columnOrdering(this.columns);
+  }
+
+  /**
+   * componentDidRender lifecycle event
+   */
+  componentDidRender() {
+    if (this.renderPromiseResolve) {
+      this.renderPromiseResolve();
+    }
   }
 
   /**
@@ -150,18 +186,52 @@ export class DataTable {
    */
   @Listen('keydown')
   keyDownHandler(event) {
-    const currentElement: HTMLElement = this.closestTableCell(event.path);
-    if (currentElement) {
+    const currentElement: HTMLElement = event.path[0];
+    const currentCell: HTMLElement = this.closestTableCell(event.path);
+    let cellFocusChange = false;
+
+    // Switch focus between components inside a cell
+    if (currentElement !== currentCell) {
+      let nextFocusElement = null;
+      switch (event.code) {
+        case 'ArrowRight':
+          if (currentElement.nextElementSibling) {
+            nextFocusElement = currentElement.nextElementSibling as any;
+          } else {
+            cellFocusChange = true;
+          }
+          break;
+        case 'ArrowLeft':
+          if (currentElement.previousElementSibling) {
+            nextFocusElement = currentElement.previousElementSibling as any;
+          } else {
+            cellFocusChange = true;
+          }
+          break;
+        default:
+          cellFocusChange = true;
+          break;
+      }
+      if (nextFocusElement) {
+        nextFocusElement.setAttribute('tabIndex', '0');
+        nextFocusElement.focus();
+      }
+    } else {
+      cellFocusChange = true;
+    }
+
+    // Switch focus between cells
+    if (cellFocusChange && currentCell) {
       const currentRowIndex: number =
-        +currentElement.parentElement.getAttribute('aria-rowIndex');
+        +currentCell.parentElement.getAttribute('aria-rowIndex');
       const currentColIndex: number =
-        +currentElement.getAttribute('aria-colIndex');
+        +currentCell.getAttribute('aria-colIndex');
       let nextRowIndex: number;
       let nextColIndex: number;
-      const columnLength: number = this.isSelectable
-        ? this.orderedColumns.length + 1
-        : this.orderedColumns.length;
-      switch (event.key) {
+      let columnLength: number = this.orderedColumns.length;
+      columnLength = this.isSelectable ? columnLength + 1 : columnLength;
+      columnLength = this.rowActions.length ? columnLength + 1 : columnLength;
+      switch (event.code) {
         case 'ArrowDown':
           nextRowIndex = currentRowIndex + 1;
           nextColIndex = currentColIndex;
@@ -195,18 +265,8 @@ export class DataTable {
         `[aria-rowIndex="${nextRowIndex}"] > [aria-colIndex="${nextColIndex}"]`
       );
       if (nextCell) {
-        currentElement.setAttribute('tabIndex', '-1');
-        if (
-          nextCell.dataset.hasFocusableChild &&
-          nextCell.dataset.hasFocusableChild === 'true'
-        ) {
-          nextCell.removeAttribute('tabIndex');
-          nextCell.firstChild.setAttribute('tabIndex', 0);
-          nextCell.firstChild.focus();
-        } else {
-          nextCell.setAttribute('tabIndex', '0');
-          nextCell.focus();
-        }
+        this.removeFocusCell(currentCell);
+        this.focusCell(nextCell, event.code);
       }
     }
   }
@@ -249,6 +309,61 @@ export class DataTable {
       columnConfig[column.key] = { position: column.position };
     });
     return columnConfig;
+  }
+
+  /**
+   * loadTable - Method to call when we want to change table loading state
+   * @param state to load table or not
+   * @returns isLoading current state
+   */
+  @Method()
+  async loadTable(state: boolean) {
+    this.isLoading = state;
+    return this.isLoading;
+  }
+
+  /**
+   * WorkAround for wait until next render in stenciljs
+   * https://github.com/ionic-team/stencil/issues/2744
+   */
+  waitForNextRender() {
+    return new Promise((resolve) => (this.renderPromiseResolve = resolve));
+  }
+
+  /**
+   * Function to call when removing the focus of a table cell
+   * @param cell table cell
+   */
+  removeFocusCell(cell: HTMLElement) {
+    cell.setAttribute('tabIndex', '-1');
+  }
+
+  /**
+   * Function to call when focusing a table cell
+   * @param cell table cell
+   * @param direction key direction when focus comes into cell
+   */
+  focusCell(cell: HTMLElement, direction = 'ArrowRight') {
+    if (
+      cell.dataset.hasFocusableChild &&
+      cell.dataset.hasFocusableChild === 'true'
+    ) {
+      cell.removeAttribute('tabIndex');
+      let childElement = null;
+      switch (direction) {
+        case 'ArrowLeft':
+          childElement = cell.children[cell.children.length - 1];
+          break;
+        default:
+          childElement = cell.children[0];
+          break;
+      }
+      childElement.setAttribute('tabIndex', '0');
+      childElement.focus();
+    } else {
+      cell.setAttribute('tabIndex', '0');
+      cell.focus();
+    }
   }
 
   /**
@@ -319,6 +434,61 @@ export class DataTable {
     if (positionChangedColumns.length) {
       this.fwColumnsPositionChange.emit(positionChangedColumns);
     }
+  }
+
+  /**
+   * getShimmerHeight from one of the table's cell
+   * @param tableCell one of the table cell
+   * @returns {string} shimmer height
+   */
+  getShimmerHeight(tableCell) {
+    const tableRow = tableCell.parentNode;
+    const tableHeight = parseFloat(window.getComputedStyle(tableRow).height);
+    const tablCellTopPadding = parseFloat(
+      window.getComputedStyle(tableCell).paddingTop
+    );
+    const tableCellBottomPadding = parseFloat(
+      window.getComputedStyle(tableCell).paddingBottom
+    );
+    return tableHeight - tablCellTopPadding - tableCellBottomPadding + 'px';
+  }
+
+  /**
+   * performRowAction
+   * @param event UI event
+   * @param action action object - has information related to the action to be performed
+   * @param rowData rowData - complete data of the current row
+   */
+  async performRowAction(
+    event: any,
+    action: DataTableAction,
+    rowData: DataTableRow
+  ) {
+    const tableRow = this.closestTableCell(event.path).parentNode;
+    const tableRowHeight = window.getComputedStyle(tableRow).height;
+    tableRow.style.height = tableRowHeight;
+    const skeletonHeight = this.getShimmerHeight(
+      this.closestTableCell(event.path)
+    );
+    const selectAll: any = this.el.shadowRoot.querySelector(
+      'fw-checkbox#select-all'
+    );
+    if (selectAll) {
+      selectAll.disabled = true;
+    }
+    this.rowsLoading = { ...this.rowsLoading, [rowData.id]: skeletonHeight };
+    try {
+      await action.handler(rowData);
+    } catch (error) {
+      console.log(error.message);
+    }
+    delete this.rowsLoading[rowData.id];
+    this.rowsLoading = { ...this.rowsLoading };
+    if (selectAll && Object.keys(this.rowsLoading).length === 0) {
+      selectAll.disabled = false;
+    }
+    await this.waitForNextRender(); // To avoid UI jitter when shimmer disappears.
+    tableRow.style.height = 'auto';
   }
 
   /**
@@ -408,6 +578,18 @@ export class DataTable {
             {column.text}
           </th>
         ))}
+        {this.rowActions.length !== 0 && (
+          <th
+            role='columnheader'
+            aria-colindex={
+              this.isSelectable
+                ? this.orderedColumns.length + 2
+                : this.orderedColumns.length + 1
+            }
+          >
+            Actions
+          </th>
+        )}
       </tr>
     ) : null;
   }
@@ -426,7 +608,15 @@ export class DataTable {
                 aria-colindex={1}
                 data-has-focusable-child='true'
               >
-                <fw-checkbox value={row.id ? row.id : ''}></fw-checkbox>
+                {!this.rowsLoading[row.id] ? (
+                  <fw-checkbox value={row.id ? row.id : ''}></fw-checkbox>
+                ) : (
+                  <fw-skeleton
+                    style={{ '--skeleton-margin-bottom': '0px' }}
+                    height={this.rowsLoading[row.id]}
+                    variant='rect'
+                  ></fw-skeleton>
+                )}
               </td>
             )}
             {this.orderedColumns.map((orderedColumn, columnIndex) => {
@@ -448,10 +638,64 @@ export class DataTable {
                 : 'false';
               return (
                 <td role='gridcell' {...attrs}>
-                  {this.renderTableCell(orderedColumn, row[orderedColumn.key])}
+                  {!this.rowsLoading[row.id] ? (
+                    this.renderTableCell(orderedColumn, row[orderedColumn.key])
+                  ) : (
+                    <fw-skeleton
+                      style={{ '--skeleton-margin-bottom': '0px' }}
+                      height={this.rowsLoading[row.id]}
+                      variant='rect'
+                    ></fw-skeleton>
+                  )}
                 </td>
               );
             })}
+            {this.rowActions.length !== 0 && (
+              <td
+                class='row-actions'
+                data-has-focusable-child='true'
+                aria-colindex={
+                  this.isSelectable
+                    ? this.orderedColumns.length + 2
+                    : this.orderedColumns.length + 1
+                }
+              >
+                {!this.rowsLoading[row.id] ? (
+                  this.rowActions.map((action: DataTableAction) => {
+                    let actionTemplate = null;
+                    if (
+                      !action.hideForRowIds ||
+                      (action.hideForRowIds &&
+                        !action.hideForRowIds.includes(row.id))
+                    ) {
+                      actionTemplate = (
+                        <fw-button
+                          size='small'
+                          color='secondary'
+                          onKeyUp={(event) =>
+                            (event.code === 'Space' ||
+                              event.code === 'Enter') &&
+                            this.performRowAction(event, action, row)
+                          }
+                          onClick={(event) =>
+                            this.performRowAction(event, action, row)
+                          }
+                        >
+                          {action.name}
+                        </fw-button>
+                      );
+                    }
+                    return actionTemplate;
+                  })
+                ) : (
+                  <fw-skeleton
+                    style={{ '--skeleton-margin-bottom': '0px' }}
+                    height={this.rowsLoading[row.id]}
+                    variant='rect'
+                  ></fw-skeleton>
+                )}
+              </td>
+            )}
           </tr>
         ))
       : null;
@@ -472,6 +716,7 @@ export class DataTable {
           <thead>{this.renderTableHeader()}</thead>
           <tbody>{this.renderTableBody()}</tbody>
         </table>
+        {this.isLoading && <div class='fw-data-table--loading'></div>}
       </div>
     );
   }

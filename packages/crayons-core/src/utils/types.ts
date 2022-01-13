@@ -60,3 +60,9 @@ export type DataTableColumn = {
   hasFocusableComponent?: boolean;
   customTemplate?: customTemplateFunc<VNode>;
 };
+
+export type DataTableAction = {
+  name: string;
+  handler: (row: DataTableRow) => any;
+  hideForRowIds?: string[];
+};
