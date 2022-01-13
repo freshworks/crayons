@@ -713,7 +713,7 @@ loadTable - Method to call when we want to change table loading state
 
 Type: `Promise<boolean>`
 
-isTableLoading current state
+isLoading current state
 
 
 ## Dependencies
