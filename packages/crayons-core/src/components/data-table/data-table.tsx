@@ -82,7 +82,7 @@ export class DataTable {
   /**
    * To disable table during async operations
    */
-  @State() isTableLoading = false;
+  @State() isLoading = false;
 
   /**
    * Collection of rows loading
@@ -314,12 +314,12 @@ export class DataTable {
   /**
    * loadTable - Method to call when we want to change table loading state
    * @param state to load table or not
-   * @returns isTableLoading current state
+   * @returns isLoading current table loading state
    */
   @Method()
   async loadTable(state: boolean) {
-    this.isTableLoading = state;
-    return this.isTableLoading;
+    this.isLoading = state;
+    return this.isLoading;
   }
 
   /**
@@ -716,7 +716,7 @@ export class DataTable {
           <thead>{this.renderTableHeader()}</thead>
           <tbody>{this.renderTableBody()}</tbody>
         </table>
-        {this.isTableLoading && <div class='fw-data-table-disable'></div>}
+        {this.isLoading && <div class='fw-data-table--loading'></div>}
       </div>
     );
   }
