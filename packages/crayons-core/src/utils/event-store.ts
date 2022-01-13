@@ -16,7 +16,7 @@ class EventStore {
     this.subscribers[event].push(callback);
 
     return {
-      unsubscribe() {
+      unsubscribe: () => {
         this.subscribers[event] = this.subscribers[event].filter(
           (subscriberCallback) => subscriberCallback !== callback
         );

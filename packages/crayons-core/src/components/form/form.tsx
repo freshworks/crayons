@@ -15,9 +15,8 @@ import {
   yupToFormErrors,
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
-  createGuid,
 } from './form-util';
-import { debounce } from '../../utils';
+import { debounce, createGuid } from '../../utils';
 
 import EventStore from '../../utils/event-store';
 
@@ -77,20 +76,30 @@ export class Form {
   @State() formInitialValues;
 
   private debouncedHandleInput: any;
+  private handleInputSubscriber: any;
+  private handleFocusSubscriber: any;
+  private handleBlurSubscriber: any;
+  private handleChangeSubscriber: any;
 
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
-    EventStore.subscribe(
+    this.handleInputSubscriber = EventStore.subscribe(
       `${this.formId}::handleInput`,
       this.debouncedHandleInput
     );
-    EventStore.subscribe(`${this.formId}::handleBlur`, this.handleBlur);
-    EventStore.subscribe(
+    this.handleBlurSubscriber = EventStore.subscribe(
+      `${this.formId}::handleBlur`,
+      this.handleBlur
+    );
+    this.handleChangeSubscriber = EventStore.subscribe(
       `${this.formId}::handleChange`,
       this.debouncedHandleInput
     );
-    EventStore.subscribe(`${this.formId}::handhandleFocus`, this.handleFocus);
+    this.handleFocusSubscriber = EventStore.subscribe(
+      `${this.formId}::handhandleFocus`,
+      this.handleFocus
+    );
 
     this.formValidationSchema =
       generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
@@ -127,6 +136,12 @@ export class Form {
     this.passPropsToChildren(this.controls);
   }
 
+  disconnectedCallback() {
+    this.handleFocusSubscriber.unsubscribe();
+    this.handleChangeSubscriber.unsubscribe();
+    this.handleInputSubscriber.unsubscribe();
+    this.handleBlurSubscriber.unsubscribe();
+  }
   setSubmitting = (value: boolean) => {
     this.isSubmitting = value;
   };
