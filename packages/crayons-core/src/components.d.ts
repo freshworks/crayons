@@ -161,7 +161,7 @@ export namespace Components {
         /**
           * loadTable - Method to call when we want to change table loading state
           * @param state to load table or not
-          * @returns isTableLoading current state
+          * @returns isLoading current table loading state
          */
         "loadTable": (state: boolean) => Promise<boolean>;
         /**
