@@ -57,7 +57,7 @@ export class Form {
   @Prop() validateOnBlur? = true;
 
   /** The number of milliseconds to delay before doing validation on Input */
-  @Prop() wait = 1000;
+  @Prop() wait = 400;
 
   /**
    * Id to uniquely identify the Form. If not set, a random Id will be generated.
@@ -137,10 +137,10 @@ export class Form {
   }
 
   disconnectedCallback() {
-    this.handleFocusSubscriber.unsubscribe();
-    this.handleChangeSubscriber.unsubscribe();
-    this.handleInputSubscriber.unsubscribe();
-    this.handleBlurSubscriber.unsubscribe();
+    this.handleFocusSubscriber?.unsubscribe();
+    this.handleChangeSubscriber?.unsubscribe();
+    this.handleInputSubscriber?.unsubscribe();
+    this.handleBlurSubscriber?.unsubscribe();
   }
   setSubmitting = (value: boolean) => {
     this.isSubmitting = value;
@@ -382,7 +382,7 @@ export class Form {
     const utils: FormUtils = this.composedUtils();
 
     return (
-      <form id='fw_form_wrapper' {...utils.formProps}>
+      <form id={`form-${this.formId}`} {...utils.formProps}>
         {this.formSchema && Object.keys(this.formSchema).length > 0 ? (
           this.formSchema?.fields
             ?.sort((a, b) => a.position - b.position)
