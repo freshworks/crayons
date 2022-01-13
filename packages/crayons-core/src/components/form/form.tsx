@@ -94,7 +94,7 @@ export class Form {
     );
     this.handleChangeSubscriber = EventStore.subscribe(
       `${this.formId}::handleChange`,
-      this.debouncedHandleInput
+      this.handleInput
     );
     this.handleFocusSubscriber = EventStore.subscribe(
       `${this.formId}::handhandleFocus`,

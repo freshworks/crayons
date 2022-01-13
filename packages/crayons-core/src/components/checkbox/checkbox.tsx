@@ -55,6 +55,12 @@ export class Checkbox {
   @Prop() formId = '';
 
   /**
+   * Theme based on which the checkbox is styled.
+   */
+  @Prop() state: 'normal' | 'error' = 'normal';
+  /**
+
+  /**
    * Triggered when the check box’s value is modified.
    */
   @Event() fwChange!: EventEmitter;
@@ -162,7 +168,7 @@ export class Checkbox {
             name={this.name}
             id={this.name}
           ></input>
-          <label>
+          <label class={{ error: this.state === 'error' }}>
             <span
               id='label'
               class={{

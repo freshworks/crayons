@@ -40,25 +40,26 @@ function App() {
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                                                                               | Type      | Default |
-| ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `checked`     | `checked`     | Sets the state to selected. If the attribute’s value is undefined, the value is set to false.                                             | `boolean` | `false` |
-| `description` | `description` | Description to be displayed for the checkbox.                                                                                             | `string`  | `''`    |
-| `disabled`    | `disabled`    | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                | `boolean` | `false` |
-| `formId`      | `form-id`     | id for the form using this component. This prop is set from the `fw-form`                                                                 | `string`  | `''`    |
-| `label`       | `label`       | <span style="color:red">**[DEPRECATED]**</span> Use `description` instead. Label displayed on the interface, for the check box.<br/><br/> | `string`  | `''`    |
-| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                        | `string`  | `''`    |
-| `value`       | `value`       | Identifier corresponding to the component, that is saved when the form data is saved.                                                     | `string`  | `''`    |
+| Property      | Attribute     | Description                                                                                                                               | Type                  | Default    |
+| ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ---------- |
+| `checked`     | `checked`     | Sets the state to selected. If the attribute’s value is undefined, the value is set to false.                                             | `boolean`             | `false`    |
+| `description` | `description` | Description to be displayed for the checkbox.                                                                                             | `string`              | `''`       |
+| `disabled`    | `disabled`    | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                | `boolean`             | `false`    |
+| `formId`      | `form-id`     | id for the form using this component. This prop is set from the `fw-form`                                                                 | `string`              | `''`       |
+| `label`       | `label`       | <span style="color:red">**[DEPRECATED]**</span> Use `description` instead. Label displayed on the interface, for the check box.<br/><br/> | `string`              | `''`       |
+| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                        | `string`              | `''`       |
+| `state`       | `state`       | Theme based on which the radio button is styled.                                                                                          | `"error" \| "normal"` | `'normal'` |
+| `value`       | `value`       | Identifier corresponding to the component, that is saved when the form data is saved.                                                     | `string`              | `''`       |
 
 
 ## Events
 
-| Event        | Description                                           | Type                |
-| ------------ | ----------------------------------------------------- | ------------------- |
-| `fwBlur`     | Triggered when the radio button loses focus.          | `CustomEvent<void>` |
-| `fwDeselect` | Triggered when the radio button in focus is cleared.  | `CustomEvent<any>`  |
-| `fwFocus`    | Triggered when the radio button comes into focus.     | `CustomEvent<void>` |
-| `fwSelect`   | Triggered when the radio button in focus is selected. | `CustomEvent<any>`  |
+| Event        | Description                                                 | Type                |
+| ------------ | ----------------------------------------------------------- | ------------------- |
+| `fwBlur`     | Triggered when the radio button loses focus.                | `CustomEvent<void>` |
+| `fwDeselect` | Triggered when the radio button in focus is cleared.        | `CustomEvent<any>`  |
+| `fwFocus`    | Triggered when the radio button comes into focus.           | `CustomEvent<void>` |
+| `fwSelect`   | /**   Triggered when the radio button in focus is selected. | `CustomEvent<any>`  |
 
 
 ## Dependencies

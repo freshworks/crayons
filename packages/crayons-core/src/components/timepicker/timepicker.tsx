@@ -66,6 +66,12 @@ export class Timepicker {
   @Prop() formId = '';
 
   /**
+   * Theme based on which the input of the timepicker is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  /**
+
+  /**
    * Boolean representing whethere it is default end time
    */
   @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
@@ -163,6 +169,7 @@ export class Timepicker {
         onFwChange={(e) => this.setTimeValue(e)}
         onFwBlur={this.onBlur}
         onFwFocus={this.onFocus}
+        state={this.state}
       >
         {this.timeValues.map((time) => (
           <fw-select-option value={this.currentTimeValue(time)}>

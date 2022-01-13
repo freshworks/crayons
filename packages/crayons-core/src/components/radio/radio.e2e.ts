@@ -67,7 +67,7 @@ describe('fw-radio', () => {
     const element = await page.find('fw-radio >>> div');
     expect(element).toEqualHtml(`<div class="radio-container">
     <input type="radio">
-    <label for="">
+    <label>
       <span id="label">
       <slot></slot>
       </span>

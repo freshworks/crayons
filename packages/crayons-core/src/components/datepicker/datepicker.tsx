@@ -105,6 +105,12 @@ export class Datepicker {
   @Prop() formId = '';
 
   /**
+   * Theme based on which the input of the datepicker is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  /**
+
+  /**
    *   Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
@@ -836,8 +842,12 @@ export class Datepicker {
           placeholder={this.placeholder}
           title={this.placeholder}
           iconRight='calendar'
+          style={{
+            '--icon-color': this.state === 'error' && '#d72d30',
+          }}
           required={this.required}
           onBlur={this.onBlur}
+          state={this.state}
         ></fw-input>
         {this.showSingleDatePicker() ? (
           <div class='datepicker' slot='popover-content'>

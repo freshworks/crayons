@@ -90,6 +90,24 @@ input[type='radio'] {
       background: $app-action-icon-bg;
       transition: all 0.3s ease;
     }
+
+    &.error {
+      @media screen and (prefers-reduced-motion: reduce) {
+        &::before {
+          transition: none;
+        }
+      }
+      &::before {
+        left: 0;
+        border: 1px solid $app-error;
+        border-radius: 50px;
+        top: 4px;
+        width: 14px;
+        height: 14px;
+        background: $app-action-icon-bg;
+        transition: all 0.3s ease;
+      }
+    }
     @media screen and (prefers-reduced-motion: reduce) {
       &::after {
         transition: none;

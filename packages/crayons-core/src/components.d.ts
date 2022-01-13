@@ -121,6 +121,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Theme based on which the checkbox is styled.
+         */
+        "state": 'normal' | 'error';
+        /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
@@ -210,6 +214,10 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Theme based on which the input of the datepicker is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -903,6 +911,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Theme based on which the radio button is styled.
+         */
+        "state": 'normal' | 'error';
+        /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
@@ -1335,6 +1347,10 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Theme based on which the input of the timepicker is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Time output value
          */
@@ -1999,7 +2015,7 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the check box’s value is modified.
+          * /**   Triggered when the check box’s value is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
@@ -2010,6 +2026,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Theme based on which the checkbox is styled.
+         */
+        "state"?: 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -2089,7 +2109,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Triggered when the update button clicked
+          * /**    Triggered when the update button clicked
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
@@ -2100,6 +2120,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Theme based on which the input of the datepicker is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -2822,9 +2846,13 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the radio button in focus is selected.
+          * /**   Triggered when the radio button in focus is selected.
          */
         "onFwSelect"?: (event: CustomEvent<any>) => void;
+        /**
+          * Theme based on which the radio button is styled.
+         */
+        "state"?: 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -3296,6 +3324,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Theme based on which the input of the timepicker is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Time output value
          */

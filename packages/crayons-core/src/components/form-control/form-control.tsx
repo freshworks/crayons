@@ -79,6 +79,7 @@ export class FormControl {
           hint: '',
           type: type,
           ...this.controlProps?.inputProps(this.name, type),
+          state: this.touched && this.error && 'error',
         };
 
         cmp = <fw-input {...componentProps}></fw-input>;
@@ -97,6 +98,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            state: this.touched && this.error && 'error',
           };
           cmp = <fw-textarea {...componentProps}></fw-textarea>;
         }
@@ -115,6 +117,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            state: this.touched && this.error && 'error',
           };
           cmp = <fw-datepicker {...componentProps}></fw-datepicker>;
         }
@@ -133,6 +136,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            state: this.touched && this.error && 'error',
           };
           cmp = <fw-checkbox {...componentProps}>{this.label}</fw-checkbox>;
         }
@@ -158,13 +162,16 @@ export class FormControl {
             <fw-radio-group {...componentProps} label={this.name}>
               {this.choices?.map((ch) => {
                 const val = ch[componentProps.optionValuePath] || ch.value;
+                const label = ch[componentProps.optionLabelPath] || ch.value;
+                console.log(this.touched && this.error);
                 return (
                   <fw-radio
                     form-id={controlProps['form-id']}
-                    name={val}
+                    name={this.name}
                     value={val}
+                    state={this.touched && this.error ? 'error' : 'normal'}
                   >
-                    {val}
+                    {label}
                   </fw-radio>
                 );
               })}
@@ -187,6 +194,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            state: this.touched && this.error && 'error',
           };
           cmp = (
             <fw-select
@@ -213,6 +221,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            state: this.touched && this.error && 'error',
           };
           cmp = <fw-timepicker {...componentProps}></fw-timepicker>;
         }

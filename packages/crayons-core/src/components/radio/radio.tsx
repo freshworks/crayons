@@ -47,6 +47,12 @@ export class Radio {
   @Prop() formId = '';
 
   /**
+   * Theme based on which the radio button is styled.
+   */
+  @Prop() state: 'normal' | 'error' = 'normal';
+  /**
+
+  /**
    * Triggered when the radio button in focus is selected.
    */
   @Event() fwSelect!: EventEmitter;
@@ -139,10 +145,9 @@ export class Radio {
           <input
             type='radio'
             ref={(el) => (this.radio = el)}
-            id={this.name}
             name={this.name}
           ></input>
-          <label htmlFor={this.name}>
+          <label class={{ error: this.state === 'error' }}>
             <span id='label'>
               <slot />
             </span>
