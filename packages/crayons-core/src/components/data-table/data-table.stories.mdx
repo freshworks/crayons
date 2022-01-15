@@ -1,20 +1,12 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { html } from 'lit-html';
 
-export const Template = (args) => (
-  html`
-    <!-- 
-      We cannot pass objects to props in HTML. So, initially load the template empty and then load the props later like in example below,
-      var cmp = document.querySelector('my-comp');
-      cmp.data = arr; // arr is the array you are want to pass
-      (or)
-      React: <fw-data-table {...args}></fw-data-table>
-      Vue: <fw-data-table v-bind="args"></fw-data-table>
-      Lit: Template below is compiled using lit-html. No spread operator available for passing complex args.
-    -->
-    <fw-data-table .rows=${args.rows} .columns=${args.columns} is-selectable=${args.isSelectable}></fw-data-table>
-  `
-);
+export const Template = args => {
+  setTimeout(() => {
+    const dataTable = document.querySelector('fw-data-table');
+    Object.assign(dataTable, args);
+  });
+  return `<fw-data-table></fw-data-table>`;
+};
 
 export const args = {
   rows: [{
@@ -103,6 +95,12 @@ export const argsWithStickyHeader = Object.assign({}, args, {
   <Story 
     name='Default'
     args={args}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div>${story}</div>`;
+      }
+    ]}
   >
     {Template.bind({})}
   </Story>
@@ -113,6 +111,12 @@ export const argsWithStickyHeader = Object.assign({}, args, {
   <Story 
     name='Selectable'
     args={argsWithSelect}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div>${story}</div>`;
+      }
+    ]}
   >
     {Template.bind({})}
   </Story>
@@ -126,8 +130,7 @@ export const argsWithStickyHeader = Object.assign({}, args, {
     decorators={[
       (Story) => {
         const story = Story();
-        console.log(story);
-        return html`<div style="width: 100%; height: 270px;">${story}</div>`;
+        return `<div style="width: 100%; height: 270px;">${story}</div>`;
       }
     ]}
   >
