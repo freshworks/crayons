@@ -184,6 +184,7 @@ export class Input {
     return (
       <Host
         aria-disabled={this.disabled}
+        dir='rtl'
         class={{
           'has-value': this.hasValue(),
           'has-focus': this.hasFocus,

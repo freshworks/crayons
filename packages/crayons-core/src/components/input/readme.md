@@ -7,7 +7,7 @@ fw-input displays a single-line input box on the user interface and enables assi
 ```html live
 <fw-input
   label="Name"
-  icon-left="add-contact"
+  icon-right="add-contact"
   state-text="Do not enter your user ID"
   state="warning"
   placeholder="Enter your official name"
