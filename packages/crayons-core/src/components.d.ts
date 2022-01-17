@@ -896,7 +896,7 @@ export namespace Components {
          */
         "notFoundText": string;
         /**
-          * Allow to search for value. Default is true.
+          * The data for the select component, the options will be of type array of fw-select-options.
          */
         "options": any;
         /**
@@ -2725,7 +2725,7 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
-          * Allow to search for value. Default is true.
+          * The data for the select component, the options will be of type array of fw-select-options.
          */
         "options"?: any;
         /**

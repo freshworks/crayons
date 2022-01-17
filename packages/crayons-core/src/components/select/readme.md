@@ -905,7 +905,7 @@ export default Select;
 | `name`             | `name`              | Name of the component, saved as part of form data.                                                                                                                                                                                        | `string`                                                                                                                                                             | `''`                  |
 | `noDataText`       | `no-data-text`      | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                                                                                                                                                             | `'No Data available'` |
 | `notFoundText`     | `not-found-text`    | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                                                                                                                                                             | `'No items Found'`    |
-| `options`          | `options`           | Allow to search for value. Default is true.                                                                                                                                                                                               | `any`                                                                                                                                                                | `undefined`           |
+| `options`          | `options`           | The data for the select component, the options will be of type array of fw-select-options.                                                                                                                                                | `any`                                                                                                                                                                | `undefined`           |
 | `optionsPlacement` | `options-placement` | Placement of the options list with respect to select.                                                                                                                                                                                     | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`            |
 | `optionsVariant`   | `options-variant`   | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                                                                                                                                   | `'standard'`          |
 | `placeholder`      | `placeholder`       | Text displayed in the list box before an option is selected.                                                                                                                                                                              | `string`                                                                                                                                                             | `undefined`           |
@@ -977,10 +977,13 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name           | Description                            |
-| -------------- | -------------------------------------- |
-| `--max-height` | Maximum height of the select component |
-| `--min-height` | Minimum height of the select component |
+| Name                     | Description                            |
+| ------------------------ | -------------------------------------- |
+| `--max-height`           | Maximum height of the select component |
+| `--min-height`           | Minimum height of the select component |
+| `--select-border`        | Border of the select component         |
+| `--select-border-radius` | Border radius of the select component  |
+| `--select-margin-bottom` | Bottom margin of the select component  |
 
 
 ## Dependencies
