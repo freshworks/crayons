@@ -27,6 +27,7 @@ div.fw-data-table-container {
     box-sizing: border-box;
     min-width: 100%;
     width: max-content;
+    --checkbox-margin-bottom: 0px;
 
     thead {
       position: sticky;
