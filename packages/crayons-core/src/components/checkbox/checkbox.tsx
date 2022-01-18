@@ -11,7 +11,6 @@ import {
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
-import EventStore from '../../utils/event-store';
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
@@ -48,12 +47,6 @@ export class Checkbox {
    * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() required = false;
-
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
   /**
    * Theme based on which the checkbox is styled.
    */
@@ -69,11 +62,22 @@ export class Checkbox {
    * Triggered when the check box comes into focus.
    */
   @Event() fwFocus!: EventEmitter<void>;
-
   /**
    * Triggered when the check box loses focus.
    */
   @Event() fwBlur!: EventEmitter<void>;
+  /**
+   * Triggered when the check box’s value is modified. It can used with `fw-form`.
+   */
+  @Event() fwFormChange!: EventEmitter;
+  /**
+   * Triggered when the check box comes into focus. It can used with `fw-form`.
+   */
+  @Event() fwFormFocus!: EventEmitter;
+  /**
+   * Triggered when the check box loses focus. It can used with `fw-form`.
+   */
+  @Event() fwFormBlur!: EventEmitter;
 
   private checkbox!: HTMLInputElement;
 
@@ -114,31 +118,28 @@ export class Checkbox {
 
   private onFocus = () => {
     this.fwFocus.emit();
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleFocus`, {
-        field: this.name,
-        value: this.checkbox.checked,
-      });
+    this.fwFormFocus.emit({
+      field: this.name,
+      value: this.checkbox.checked,
+    });
   };
 
   private onBlur = () => {
     this.fwBlur.emit();
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: this.checkbox.checked,
-      });
+    this.fwFormBlur.emit({
+      field: this.name,
+      value: this.checkbox.checked,
+    });
   };
 
   private toggle = () => {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleChange`, {
-        field: this.name,
-        value: this.checkbox.checked,
-      });
+    this.fwFormChange.emit({
+      field: this.name,
+      value: this.checkbox.checked,
+    });
   };
 
   render() {

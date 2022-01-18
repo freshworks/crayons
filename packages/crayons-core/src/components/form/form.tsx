@@ -18,8 +18,6 @@ import {
 } from './form-util';
 import { debounce, createGuid } from '../../utils';
 
-import EventStore from '../../utils/event-store';
-
 @Component({
   tag: 'fw-form',
   shadow: true,
@@ -76,28 +74,28 @@ export class Form {
   @State() formInitialValues;
 
   private debouncedHandleInput: any;
-  private handleInputSubscriber: any;
-  private handleFocusSubscriber: any;
-  private handleBlurSubscriber: any;
-  private handleChangeSubscriber: any;
+  private handleInputListener: any;
+  private handleFocusListener: any;
+  private handleBlurListener: any;
+  private handleChangeListener: any;
 
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
-    this.handleInputSubscriber = EventStore.subscribe(
-      `${this.formId}::handleInput`,
+    this.handleInputListener = this.el.addEventListener(
+      'fwFormInput',
       this.debouncedHandleInput
     );
-    this.handleBlurSubscriber = EventStore.subscribe(
-      `${this.formId}::handleBlur`,
+    this.handleBlurListener = this.el.addEventListener(
+      'fwFormBlur',
       this.handleBlur
     );
-    this.handleChangeSubscriber = EventStore.subscribe(
-      `${this.formId}::handleChange`,
+    this.handleChangeListener = this.el.addEventListener(
+      'fwFormChange',
       this.handleInput
     );
-    this.handleFocusSubscriber = EventStore.subscribe(
-      `${this.formId}::handhandleFocus`,
+    this.handleFocusListener = this.el.addEventListener(
+      'fwFormFocus',
       this.handleFocus
     );
 
@@ -128,6 +126,10 @@ export class Form {
     this.passPropsToChildren(this.controls);
   }
 
+  private handleSlotChange() {
+    this.controls = this.getFormControls();
+  }
+
   // pass props to form-control children
   componentWillUpdate() {
     if (!this.controls) {
@@ -137,11 +139,12 @@ export class Form {
   }
 
   disconnectedCallback() {
-    this.handleFocusSubscriber?.unsubscribe();
-    this.handleChangeSubscriber?.unsubscribe();
-    this.handleInputSubscriber?.unsubscribe();
-    this.handleBlurSubscriber?.unsubscribe();
+    this.el.removeEventListener('fwFormFocus', this.handleFocusListener);
+    this.el.removeEventListener('fwFormBlur', this.handleBlurListener);
+    this.el.removeEventListener('fwFormInput', this.handleInputListener);
+    this.el.removeEventListener('fwFormChange', this.handleChangeListener);
   }
+
   setSubmitting = (value: boolean) => {
     this.isSubmitting = value;
   };
@@ -239,7 +242,9 @@ export class Form {
     return validationErrors;
   };
 
-  handleInput = async ({ field, value }) => {
+  handleInput = async (event: Event) => {
+    event.stopPropagation();
+    const { field, value } = (event as any).detail;
     this.values = { ...this.values, [field]: value };
 
     /** Validate, if user wants to validateOnInput */
@@ -249,7 +254,9 @@ export class Form {
     }
   };
 
-  handleBlur = async ({ field, value }) => {
+  handleBlur = async (event: Event) => {
+    event.stopPropagation();
+    const { field, value } = (event as any).detail;
     if (this.focused) this.focused = null;
     this.values = { ...this.values, [field]: value };
 
@@ -260,7 +267,9 @@ export class Form {
     }
   };
 
-  handleFocus = ({ field }) => {
+  handleFocus = (event) => {
+    event.stopPropagation();
+    const { field } = (event as any).detail;
     this.focused = field;
   };
 
@@ -291,28 +300,24 @@ export class Form {
 
   private composedUtils = (): FormUtils => {
     const inputProps = (field: string) => ({
-      'value': this.values[field],
-      'form-id': this.formId,
+      value: this.values[field],
     });
 
     const radioProps = (field: string) => ({
-      'value': this.values[field],
-      'form-id': this.formId,
+      value: this.values[field],
     });
 
     const checkboxProps = (field: string) => ({
-      'checked': !!this.values[field],
-      'form-id': this.formId,
+      checked: !!this.values[field],
     });
 
     const selectProps = (field: string, inputType) => ({
-      'value':
+      value:
         inputType === 'multi_select' // for multiselect pass Array
           ? this.values[field]?.map((v) => v.value || v) || []
           : Array.isArray(this.values[field]) // single select but the value is an array, pass 0th index
           ? this.values[field]?.map((v) => v.value || v)[0] || ''
           : this.values[field] || '',
-      'form-id': this.formId,
     });
 
     const formProps: FormProps = {
@@ -409,7 +414,7 @@ export class Form {
               );
             })
         ) : (
-          <slot></slot>
+          <slot onSlotchange={() => this.handleSlotChange()}></slot>
         )}
       </form>
     );

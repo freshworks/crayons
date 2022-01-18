@@ -7,7 +7,6 @@ import {
   Watch,
   h,
 } from '@stencil/core';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio',
@@ -40,12 +39,6 @@ export class Radio {
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
-
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
   /**
    * Theme based on which the radio button is styled.
    */
@@ -60,16 +53,18 @@ export class Radio {
    * Triggered when the radio button in focus is cleared.
    */
   @Event() fwDeselect!: EventEmitter;
-
   /**
    * Triggered when the radio button comes into focus.
    */
   @Event() fwFocus!: EventEmitter<void>;
-
   /**
    * Triggered when the radio button loses focus.
    */
   @Event() fwBlur!: EventEmitter<void>;
+  /**
+   * Trigged when a radio button is toggeled. It can used with `fw-form`.
+   */
+  @Event() fwFormChange: EventEmitter;
 
   private radio!: HTMLInputElement;
 
@@ -114,17 +109,15 @@ export class Radio {
       this.checked = !this.checked;
     }
     if (this.checked) {
-      this.formId &&
-        EventStore.publish(`${this.formId}::handleChange`, {
-          field: this.name,
-          value: this.value,
-        });
+      this.fwFormChange.emit({
+        field: this.name,
+        value: this.value,
+      });
     } else {
-      this.formId &&
-        EventStore.publish(`${this.formId}::handleChange`, {
-          field: this.name,
-          value: undefined,
-        });
+      this.fwFormChange.emit({
+        field: this.name,
+        value: undefined,
+      });
     }
   }
 

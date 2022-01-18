@@ -42,7 +42,6 @@ function App() {
 | `checked`     | `checked`     | Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.                                             | `boolean`             | `false`    |
 | `description` | `description` | Description to be displayed for the checkbox.                                                                                                              | `string`              | `''`       |
 | `disabled`    | `disabled`    | Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.                                                 | `boolean`             | `false`    |
-| `formId`      | `form-id`     | id for the form using this component. This prop is set from the `fw-form`                                                                                  | `string`              | `''`       |
 | `label`       | `label`       | <span style="color:red">**[DEPRECATED]**</span> Use `description` instead. Label displayed on the interface, for the check box.<br/><br/>                  | `string`              | `''`       |
 | `name`        | `name`        | Name of the component, saved as part of form data.                                                                                                         | `string`              | `''`       |
 | `required`    | `required`    | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false. | `boolean`             | `false`    |
@@ -52,11 +51,14 @@ function App() {
 
 ## Events
 
-| Event      | Description                                             | Type                |
-| ---------- | ------------------------------------------------------- | ------------------- |
-| `fwBlur`   | Triggered when the check box loses focus.               | `CustomEvent<void>` |
-| `fwChange` | /**   Triggered when the check box’s value is modified. | `CustomEvent<any>`  |
-| `fwFocus`  | Triggered when the check box comes into focus.          | `CustomEvent<void>` |
+| Event          | Description                                                                   | Type                |
+| -------------- | ----------------------------------------------------------------------------- | ------------------- |
+| `fwBlur`       | Triggered when the check box loses focus.                                     | `CustomEvent<void>` |
+| `fwChange`     | /**   Triggered when the check box’s value is modified.                       | `CustomEvent<any>`  |
+| `fwFocus`      | Triggered when the check box comes into focus.                                | `CustomEvent<void>` |
+| `fwFormBlur`   | Triggered when the check box loses focus. It can used with `fw-form`.         | `CustomEvent<any>`  |
+| `fwFormChange` | Triggered when the check box’s value is modified. It can used with `fw-form`. | `CustomEvent<any>`  |
+| `fwFormFocus`  | Triggered when the check box comes into focus. It can used with `fw-form`.    | `CustomEvent<any>`  |
 
 
 ## Dependencies
