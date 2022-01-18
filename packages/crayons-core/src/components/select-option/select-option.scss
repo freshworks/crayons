@@ -71,6 +71,10 @@ $bg-color-disabled: $color-smoke-25;
     background-color: $bg-color-disabled;
   }
 
+  .option-checkbox {
+    --checkbox-margin-bottom: 0px;
+  }
+
   .description {
     display: flex;
     flex-direction: column;
