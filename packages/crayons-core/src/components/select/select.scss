@@ -1,6 +1,4 @@
 /**
-  @prop --min-height: Minimum height of the select component
-  @prop --max-height: Maximum height of the select component
   @prop --select-border: Border of the select component
   @prop --select-border-radius: Border radius of the select component
   @prop --select-margin-bottom: Bottom margin of the select component
@@ -16,11 +14,6 @@ $input-hover-color: $color-smoke-700;
 $input-focus-color: $color-azure-800;
 $input-border: $color-smoke-100;
 $warning-color: $color-casablanca-300;
-
-:host {
-  --min-height: 10px;
-  --max-height: 200px;
-}
 
 @mixin stateStyle($_color) {
   border-color: $_color;
@@ -62,7 +55,7 @@ label {
   padding: 4px 0 4px 10px;
   background-color: $input-bg;
   box-shadow: none;
-  min-height: 24px;
+  min-height: 22px;
   display: inline-flex;
   align-items: center;
 
@@ -83,6 +76,7 @@ label {
       min-height: 22px;
       box-sizing: border-box;
       overflow: hidden;
+      padding: 0px;
 
       &:focus {
         border: none;

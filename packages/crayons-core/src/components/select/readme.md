@@ -886,6 +886,11 @@ export default Select;
 </script>
 ```
 
+## Styling
+
+Refer the css variables in fw-popover to control the height and width of the select popup.
+Refer the [css variables](#css-custom-properties) for modifying the appearance of the the fw-select.
+
 <!-- Auto Generated Below -->
 
 
@@ -977,13 +982,11 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name                     | Description                            |
-| ------------------------ | -------------------------------------- |
-| `--max-height`           | Maximum height of the select component |
-| `--min-height`           | Minimum height of the select component |
-| `--select-border`        | Border of the select component         |
-| `--select-border-radius` | Border radius of the select component  |
-| `--select-margin-bottom` | Bottom margin of the select component  |
+| Name                     | Description                           |
+| ------------------------ | ------------------------------------- |
+| `--select-border`        | Border of the select component        |
+| `--select-border-radius` | Border radius of the select component |
+| `--select-margin-bottom` | Bottom margin of the select component |
 
 
 ## Dependencies
