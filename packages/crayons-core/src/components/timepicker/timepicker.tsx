@@ -1,8 +1,17 @@
-import { Component, Element, Prop, State, Method, h } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Prop,
+  State,
+  h,
+  Event,
+  EventEmitter,
+  Method,
+} from '@stencil/core';
+
 import moment from 'moment-mini';
 
 import { renderHiddenField } from '../../utils';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-timepicker',
@@ -61,6 +70,25 @@ export class Timepicker {
   @Prop() required = false;
 
   /**
+   * Theme based on which the input of the timepicker is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  /**
+
+  /**
+   * Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
+   */
+  @Event() fwFormChange: EventEmitter;
+  /**
+   * Triggered when the list box comes into focus. It can used with `fw-form`.
+   */
+  @Event() fwFormFocus: EventEmitter;
+  /**
+   * Triggered when the list box loses focus. It can used with `fw-form`.
+   */
+  @Event() fwFormBlur: EventEmitter;
+
+  /**
    * Boolean representing whethere it is default end time
    */
   @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
@@ -110,7 +138,7 @@ export class Timepicker {
     const { value } = e.detail;
     this.value = value;
     if (this.value)
-      EventStore.publish('handleChange', {
+      this.fwFormChange.emit({
         field: this.name,
         value: this.value,
       });
@@ -133,11 +161,17 @@ export class Timepicker {
   }
 
   onBlur = (): void => {
-    EventStore.publish('handleBlur', { field: this.name, value: this.value });
+    this.fwFormBlur.emit({
+      field: this.name,
+      value: this.value,
+    });
   };
 
   onFocus = (): void => {
-    EventStore.publish('handleFocus', { field: this.name, value: this.value });
+    this.fwFormFocus.emit({
+      field: this.name,
+      value: this.value,
+    });
   };
 
   componentWillLoad() {
@@ -162,6 +196,7 @@ export class Timepicker {
         onFwBlur={this.onBlur}
         onFwFocus={this.onFocus}
         ref={(el) => (this.nativeInput = el)}
+        state={this.state}
       >
         {this.timeValues.map((time) => (
           <fw-select-option value={this.currentTimeValue(time)}>

@@ -229,6 +229,19 @@ function App() {
 | `--skeleton-width`         | Skeleton width: Default: 100% for the text and rect, 32px for the circle                  |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-data-table](../data-table)
+
+### Graph
+```mermaid
+graph TD;
+  fw-data-table --> fw-skeleton
+  style fw-skeleton fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

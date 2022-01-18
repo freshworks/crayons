@@ -1,0 +1,21 @@
+/**
+  @prop --menu-min-width: Minimum width of the menu content.
+  @prop --menu-max-width: Maximum width of the menu content.
+  @prop --menu-min-height: Minimum height of the menu content.
+  @prop --menu-max-height: Maximum height of the menu content.
+  @prop --menu-border: Border of the menu content.
+  @prop --menu-border-radius: Border radius of the menu content.
+  @prop --menu-box-shadow: Box Shadow of the menu content.
+*/
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  min-width: var(--menu-min-width);
+  max-width: var(--menu-max-width);
+  min-height: var(--menu-min-height, 10px);
+  max-height: var(--menu-max-height, 400px);
+  border: var(--menu-border, 1px solid $app-border-secondary);
+  border-radius: var(--menu-border-radius);
+  box-shadow: var(--menu-box-shadow);
+}

@@ -108,6 +108,28 @@ input[type='checkbox'] {
       border-radius: 2px;
     }
 
+    &.error {
+      @media screen and (prefers-reduced-motion: reduce) {
+        &::before {
+          transition: none;
+        }
+      }
+      &::before {
+        position: absolute;
+        left: 0;
+        top: 3px;
+        display: block;
+        content: '';
+        border: $checkbox-border-width solid $app-error;
+        height: 14px;
+        width: 14px;
+        background-color: $input-bg;
+        box-sizing: border-box;
+        border-radius: 2px;
+        transition: all 0.2s ease;
+      }
+    }
+
     @media screen and (prefers-reduced-motion: reduce) {
       &::after {
         transition: none;

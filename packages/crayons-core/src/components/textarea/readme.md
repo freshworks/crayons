@@ -125,12 +125,15 @@ function App() {
 
 ## Events
 
-| Event      | Description                                            | Type                         |
-| ---------- | ------------------------------------------------------ | ---------------------------- |
-| `fwBlur`   | Triggered when the input box loses focus.              | `CustomEvent<void>`          |
-| `fwChange` | Triggered when the value in the input box is modified. | `CustomEvent<any>`           |
-| `fwFocus`  | Triggered when the input box comes into focus.         | `CustomEvent<void>`          |
-| `fwInput`  | Triggered when a value is entered in the input box.    | `CustomEvent<KeyboardEvent>` |
+| Event         | Description                                                                    | Type                         |
+| ------------- | ------------------------------------------------------------------------------ | ---------------------------- |
+| `fwBlur`      | Triggered when the input box loses focus.                                      | `CustomEvent<any>`           |
+| `fwChange`    | Triggered when the value in the input box is modified.                         | `CustomEvent<any>`           |
+| `fwFocus`     | Triggered when the input box comes into focus.                                 | `CustomEvent<void>`          |
+| `fwFormBlur`  | Triggered when the textarea loses focus. It can used with `fw-form`.           | `CustomEvent<any>`           |
+| `fwFormFocus` | Triggered when the textarea comes into focus. It can used with `fw-form`.      | `CustomEvent<any>`           |
+| `fwFormInput` | Triggered when a value is entered in the textarea. It can used with `fw-form`. | `CustomEvent<any>`           |
+| `fwInput`     | Triggered when a value is entered in the input box.                            | `CustomEvent<KeyboardEvent>` |
 
 
 ## Methods
@@ -148,9 +151,10 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name            | Description                 |
-| --------------- | --------------------------- |
-| `--input-color` | Color of the textarea input |
+| Name                       | Description                    |
+| -------------------------- | ------------------------------ |
+| `--input-color`            | Color of the textarea input    |
+| `--textarea-margin-bottom` | Bottom margin for the textarea |
 
 
 ## Dependencies

@@ -925,11 +925,14 @@ export default Select;
 
 ## Events
 
-| Event      | Description                                                                 | Type               |
-| ---------- | --------------------------------------------------------------------------- | ------------------ |
-| `fwBlur`   | Triggered when the list box loses focus.                                    | `CustomEvent<any>` |
-| `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
-| `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
+| Event          | Description                                                                                             | Type               |
+| -------------- | ------------------------------------------------------------------------------------------------------- | ------------------ |
+| `fwBlur`       | Triggered when the list box loses focus.                                                                | `CustomEvent<any>` |
+| `fwChange`     | Triggered when a value is selected or deselected from the list box options.                             | `CustomEvent<any>` |
+| `fwFocus`      | Triggered when the list box comes into focus.                                                           | `CustomEvent<any>` |
+| `fwFormBlur`   | Triggered when the list box loses focus. It can used with `fw-form`.                                    | `CustomEvent<any>` |
+| `fwFormChange` | Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`. | `CustomEvent<any>` |
+| `fwFormFocus`  | Triggered when the list box comes into focus. It can used with `fw-form`.                               | `CustomEvent<any>` |
 
 
 ## Methods

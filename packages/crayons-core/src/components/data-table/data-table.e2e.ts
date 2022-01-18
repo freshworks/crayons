@@ -245,4 +245,83 @@ describe('fw-data-table', () => {
     expect(anchorComponent).toBeTruthy();
     expect(userComponent).toBeTruthy();
   });
+
+  it('should display action column when rowActions is passed to datatable', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+      rowActions: [
+        {
+          name: 'Edit',
+          handler: (rowData) => {
+            console.log(rowData.name);
+          },
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const actionColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:last-child'
+    );
+    const actionButton = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions > fw-button'
+    );
+    expect(actionColumn.innerText).toEqual('Actions');
+    expect(actionButton).toBeTruthy();
+  });
+
+  it('should call the handler when action button is clicked', async () => {
+    const myMock = jest.fn();
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+      rowActions: [
+        {
+          name: 'Edit',
+          handler: (rowData) => {
+            console.log(rowData.name);
+          },
+        },
+      ],
+    };
+    await page.exposeFunction('actionHandler', () => {
+      myMock();
+    });
+    await page.$eval(
+      'fw-data-table',
+      (elm: any, data: any) => {
+        data.rowActions[0].handler = (window as any).actionHandler;
+        Object.assign(elm, data);
+      },
+      data
+    );
+    await page.waitForChanges();
+    const actionButton = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions > fw-button'
+    );
+    actionButton.click();
+    await page.waitForChanges();
+    expect(myMock).toHaveBeenCalled();
+  });
 });

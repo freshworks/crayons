@@ -6,16 +6,21 @@ Following features are available as part of the implementation of the fw-icon.
 1. Enable `fw-icon` as an optimized renderer for SVG with built-in functions such as `Intersection-Observer` and `Fetch-API Memoization`.
    Go through the docs to understand the various props it supports.
 2. Providing icon-support for crayons-system components and also exposing crayons-icon set/tooling for public use.
-3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the` accessibility tree`, just 
+3. Icons can convey all sorts of semantic meaningful information rather than just being decorational. In order to keep icons on the` accessibility tree`, just
    pass the `label` props and fw-icon does the a11y attribute mapping.
-4. Enable `Crayons-Icon` as an iconlib to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons. 
+4. Enable `Crayons-Icon` as an iconlib to support external icon libraries. You can register/unregister external icon libraries and also apply mutation to all/selected icons.
    See usage docs.
 
 ## Examples Live
 
 ```html live
-<fw-icon name="twitter" size=18 color="blue" ></fw-icon>
-<fw-icon name="feather" src = "https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons" size=18 color="blue" ></fw-icon>
+<fw-icon name="twitter" size="18" color="blue"></fw-icon>
+<fw-icon
+  name="feather"
+  src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons"
+  size="18"
+  color="blue"
+></fw-icon>
 ```
 
 ## Usage in Code
@@ -55,7 +60,7 @@ React
 
 Use prop `lazy` to enable Intersection-Observer. `By default it is disabled`. You may choose to give the intersection root-margin for icons i.e via prop `x-root-margin` as preloading threshold.Default value is **50px**.
 
-## Crayons Icon Assets 
+## Crayons Icon Assets
 
 The following icons are presently part of the Crayons-Icon library. These are optimized using SVGO.
 Use the name of an icon as listed below it.
@@ -72,6 +77,7 @@ it will default to `crayons`. You can even pass the CDN URL of SVG to `src` prop
 The library registration happens via a `resolver` function. If you wish to apply some mutation to the icons , you may choose to pass the `mutator` function.
 
 ### Usage in HTML/React Page
+
 <code-group>
 <code-block title="HTML">
 ``` html
@@ -100,26 +106,27 @@ import './App.css';
 import { FwIcon, registerIconLibrary, unregisterIconLibrary } from '@freshworks/crayons/react';
 
 registerIconLibrary('feather', {
-      resolver : (  name  ) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
-      mutator  : (svg,name) => {(name==='feather') ? svg.setAttribute('fill', 'currentColor') : false}
+resolver : ( name ) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
+mutator : (svg,name) => {(name==='feather') ? svg.setAttribute('fill', 'currentColor') : false}
 });
 
 registerIconLibrary('heroicons', {
-      resolver : (  name  ) => `https://cdn.jsdelivr.net/npm/heroicons@0.4.2/outline/${name}.svg`
+resolver : ( name ) => `https://cdn.jsdelivr.net/npm/heroicons@0.4.2/outline/${name}.svg`
 });
 
 unregisterIconLibrary('heroicons');
 
 function App() {
-    return ( 
-             <div >
-                <FwIcon name = "feather"   library="feather" color = 'red'  label = "feather"   />
-                <FwIcon name = "pie-chart" library="feather" color = 'blue' label = "pie-chart" />
-             </div> 
-           );
+return (
+<div >
+<FwIcon name = "feather"   library="feather" color = 'red'  label = "feather"   />
+<FwIcon name = "pie-chart" library="feather" color = 'blue' label = "pie-chart" />
+</div>
+);
 }
 export default App;
-```
+
+````
 </code-block>
 </code-group>
 
@@ -136,8 +143,8 @@ Some implementations via Icon Lib are as below:-
 
 ## Importing Icons from '@freshworks/crayons-icon'. [ Supports Tree-Shaking ].
 
-You can also import Crayons Icons as an esm module. In case you wish to use your own `svg+xml` source, please pass the source string to `data-svg` props. 
-See the code below for implementation. 
+You can also import Crayons Icons as an esm module. In case you wish to use your own `svg+xml` source, please pass the source string to `data-svg` props.
+See the code below for implementation.
 
 ### Usage in HTML/React Page
 <code-group>
@@ -148,9 +155,9 @@ See the code below for implementation.
    <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
    <script type="module">
        import { header, add_contact } from '@freshworks/crayons-icon';
-       const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`;  
+       const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`;
    </script>
-</head>   
+</head>
 <body>
       <div>
         <fw-icon data-svg={ header }  label="Crayons Icon Header" />
@@ -159,7 +166,8 @@ See the code below for implementation.
       </div>
 </body>
 </html>
-```
+````
+
 </code-block>
 
 <code-block title="React">
@@ -167,33 +175,34 @@ See the code below for implementation.
 import React from 'react';
 import { FwIcon } from '@freshworks/crayons/react'; 
 import { header, add_contact } from '@freshworks/crayons-icon';
-const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`; 
+const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`;
 
 function App() {
-    return ( 
-        <div>
-            <FwIcon dataSvg={ header }  label="Crayons Icon Header" />
-            <FwIcon dataSvg={ add_contact }  label="Crayons Icon Add-Contact" />
-            <FwIcon dataSvg={ circle } />
-        </div>
-    );
+return (
+<div>
+<FwIcon dataSvg={ header } label="Crayons Icon Header" />
+<FwIcon dataSvg={ add_contact } label="Crayons Icon Add-Contact" />
+<FwIcon dataSvg={ circle } />
+</div>
+);
 }
 export default App;
-```
+
+````
 </code-block>
 </code-group>
 
-### Example: Rendered in Sample Page as Component 
+### Example: Rendered in Sample Page as Component
 
 <IconJSExportsShowcase/>
 
 ## CLI Tool for processing SVGs
 
-`@freshworks/crayons-icon` is also available as a CLI Tool for processing SVGs with a friendlier interface, options and easily customizable config to optimize your SVGs. See the usage below. 
+`@freshworks/crayons-icon` is also available as a CLI Tool for processing SVGs with a friendlier interface, options and easily customizable config to optimize your SVGs. See the usage below.
 It comes packed with a ultra tuned svgo-config. We support YML Config convention as its better in readability and easy to modify than a JSON. You may use the in-built CLI command to get the default YML File at your command root/ desired location, which you can further customize and use to optimze your SVGs via this CLI Tool.
 
 `See the usage below :-`
- 
+
 <IconCLIShowcase/>
 
 <!-- Auto Generated Below -->
@@ -234,6 +243,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-dropdown-button](../dropdown-button)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
+ - [fw-menu-item](../menu-item)
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
  - [fw-pagination](../pagination)
@@ -259,6 +269,7 @@ graph TD;
   fw-dropdown-button --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
+  fw-menu-item --> fw-icon
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon
   fw-pagination --> fw-icon

@@ -20,7 +20,6 @@ import {
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-select',
@@ -43,7 +42,7 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
-      EventStore.publish('handleFocus', {
+      this.fwFormFocus.emit({
         field: this.name,
       });
     }
@@ -60,7 +59,7 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
-      EventStore.publish('handleBlur', {
+      this.fwFormBlur.emit({
         field: this.name,
         value: await this.getSelectedItem(),
       });
@@ -219,6 +218,18 @@ export class Select {
    * Triggered when the list box loses focus.
    */
   @Event() fwBlur: EventEmitter;
+  /**
+   * Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
+   */
+  @Event() fwFormChange: EventEmitter;
+  /**
+   * Triggered when the list box comes into focus. It can used with `fw-form`.
+   */
+  @Event() fwFormFocus: EventEmitter;
+  /**
+   * Triggered when the list box loses focus. It can used with `fw-form`.
+   */
+  @Event() fwFormBlur: EventEmitter;
 
   @Listen('fwHide')
   onDropdownClose() {
@@ -256,8 +267,7 @@ export class Select {
         value: this.value,
         selectedOptions: this.selectedOptionsState,
       });
-
-      EventStore.publish('handleChange', {
+      this.fwFormChange.emit({
         field: this.name,
         value: this.selectedOptionsState,
       });

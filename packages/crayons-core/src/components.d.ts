@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
-import { DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
 import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -121,6 +121,10 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Theme based on which the checkbox is styled.
+         */
+        "state": 'normal' | 'error';
+        /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
@@ -168,6 +172,16 @@ export namespace Components {
          */
         "label": string;
         /**
+          * loadTable - Method to call when we want to change table loading state
+          * @param state to load table or not
+          * @returns isLoading current state
+         */
+        "loadTable": (state: boolean) => Promise<boolean>;
+        /**
+          * To enable bulk actions on the table.
+         */
+        "rowActions": DataTableAction[];
+        /**
           * Rows Array of objects to be displayed in the table.
          */
         "rows": DataTableRow[];
@@ -210,6 +224,10 @@ export namespace Components {
           * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Theme based on which the input of the datepicker is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -284,6 +302,10 @@ export namespace Components {
     interface FwForm {
         "doReset": (e: any) => Promise<void>;
         "doSubmit": (e: any) => Promise<FormSubmit>;
+        /**
+          * Id to uniquely identify the Form. If not set, a random Id will be generated.
+         */
+        "formId": string;
         /**
           * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
          */
@@ -625,6 +647,18 @@ export namespace Components {
          */
         "variant": DropdownVariant;
     }
+    interface FwMenu {
+    }
+    interface FwMenuItem {
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selectable": boolean;
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected": boolean;
+    }
     interface FwModal {
         /**
           * The text for the cancel button
@@ -765,7 +799,7 @@ export namespace Components {
         /**
           * Theme based on which the pill is styled.
          */
-        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom';
+        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey';
     }
     interface FwPopover {
         /**
@@ -898,6 +932,10 @@ export namespace Components {
           * Sets focus on a specific `fw-radio`.
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Theme based on which the radio button is styled.
+         */
+        "state": 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -1324,6 +1362,10 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Theme based on which the input of the timepicker is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
           * Time output value
          */
         "value"?: string;
@@ -1658,6 +1700,18 @@ declare global {
         prototype: HTMLFwListOptionsElement;
         new (): HTMLFwListOptionsElement;
     };
+    interface HTMLFwMenuElement extends Components.FwMenu, HTMLStencilElement {
+    }
+    var HTMLFwMenuElement: {
+        prototype: HTMLFwMenuElement;
+        new (): HTMLFwMenuElement;
+    };
+    interface HTMLFwMenuItemElement extends Components.FwMenuItem, HTMLStencilElement {
+    }
+    var HTMLFwMenuItemElement: {
+        prototype: HTMLFwMenuItemElement;
+        new (): HTMLFwMenuItemElement;
+    };
     interface HTMLFwModalElement extends Components.FwModal, HTMLStencilElement {
     }
     var HTMLFwModalElement: {
@@ -1837,6 +1891,8 @@ declare global {
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-list-options": HTMLFwListOptionsElement;
+        "fw-menu": HTMLFwMenuElement;
+        "fw-menu-item": HTMLFwMenuItemElement;
         "fw-modal": HTMLFwModalElement;
         "fw-modal-content": HTMLFwModalContentElement;
         "fw-modal-footer": HTMLFwModalFooterElement;
@@ -1983,7 +2039,7 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the check box’s value is modified.
+          * /**   Triggered when the check box’s value is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
@@ -1991,9 +2047,25 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
+          * Triggered when the check box loses focus. It can used with `fw-form`.
+         */
+        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the check box’s value is modified. It can used with `fw-form`.
+         */
+        "onFwFormChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the check box comes into focus. It can used with `fw-form`.
+         */
+        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
+        /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Theme based on which the checkbox is styled.
+         */
+        "state"?: 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -2039,6 +2111,10 @@ declare namespace LocalJSX {
          */
         "onFwSelectionChange"?: (event: CustomEvent<any>) => void;
         /**
+          * To enable bulk actions on the table.
+         */
+        "rowActions"?: DataTableAction[];
+        /**
           * Rows Array of objects to be displayed in the table.
          */
         "rows"?: DataTableRow[];
@@ -2069,9 +2145,17 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Triggered when the update button clicked
+          * /**    Triggered when the update button clicked
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the input loses focus. It can used with `fw-form`.
+         */
+        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the value is entered in the input. It can used with `fw-form`.
+         */
+        "onFwFormInput"?: (event: CustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user selects a date or date range.
          */
@@ -2080,6 +2164,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Theme based on which the input of the datepicker is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -2164,6 +2252,10 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface FwForm {
+        /**
+          * Id to uniquely identify the Form. If not set, a random Id will be generated.
+         */
+        "formId"?: string;
         /**
           * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
          */
@@ -2394,7 +2486,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the value in the input box is modified.
          */
@@ -2403,6 +2495,18 @@ declare namespace LocalJSX {
           * Triggered when the input box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when the input box loses focus. It can used with `fw-form`.
+         */
+        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the input box comes into focus. It can used with `fw-form`.
+         */
+        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when a value is entered in the input box. It can used with `fw-form`.
+         */
+        "onFwFormInput"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when a value is entered in the input box.
          */
@@ -2519,6 +2623,18 @@ declare namespace LocalJSX {
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant"?: DropdownVariant;
+    }
+    interface FwMenu {
+    }
+    interface FwMenuItem {
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selectable"?: boolean;
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected"?: boolean;
     }
     interface FwModal {
         /**
@@ -2658,7 +2774,7 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the pill is styled.
          */
-        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey' | 'custom';
+        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey';
     }
     interface FwPopover {
         /**
@@ -2790,9 +2906,17 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the radio button in focus is selected.
+          * Trigged when a radio button is toggeled. It can used with `fw-form`.
+         */
+        "onFwFormChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * /**   Triggered when the radio button in focus is selected.
          */
         "onFwSelect"?: (event: CustomEvent<any>) => void;
+        /**
+          * Theme based on which the radio button is styled.
+         */
+        "state"?: 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -2815,6 +2939,14 @@ declare namespace LocalJSX {
           * Triggered when an option in the Radio Group is selected or deselected.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Trigged when focus is lost. It can used with `fw-form`.
+         */
+        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the radio is changed through keyboard. It can used with `fw-form`.
+         */
+        "onFwFormChange"?: (event: CustomEvent<any>) => void;
         /**
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
@@ -2889,6 +3021,18 @@ declare namespace LocalJSX {
           * Triggered when the list box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the list box loses focus. It can used with `fw-form`.
+         */
+        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
+         */
+        "onFwFormChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the list box comes into focus. It can used with `fw-form`.
+         */
+        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Allow to search for value. Default is true.
          */
@@ -3173,7 +3317,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the value in the input box is modified.
          */
@@ -3182,6 +3326,18 @@ declare namespace LocalJSX {
           * Triggered when the input box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when the textarea loses focus. It can used with `fw-form`.
+         */
+        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the textarea comes into focus. It can used with `fw-form`.
+         */
+        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when a value is entered in the textarea. It can used with `fw-form`.
+         */
+        "onFwFormInput"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when a value is entered in the input box.
          */
@@ -3245,9 +3401,25 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * Triggered when the list box loses focus. It can used with `fw-form`.
+         */
+        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * /**   Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
+         */
+        "onFwFormChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the list box comes into focus. It can used with `fw-form`.
+         */
+        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
+        /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Theme based on which the input of the timepicker is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Time output value
          */
@@ -3476,6 +3648,8 @@ declare namespace LocalJSX {
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-list-options": FwListOptions;
+        "fw-menu": FwMenu;
+        "fw-menu-item": FwMenuItem;
         "fw-modal": FwModal;
         "fw-modal-content": FwModalContent;
         "fw-modal-footer": FwModalFooter;
@@ -3530,6 +3704,8 @@ declare module "@stencil/core" {
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;
+            "fw-menu": LocalJSX.FwMenu & JSXBase.HTMLAttributes<HTMLFwMenuElement>;
+            "fw-menu-item": LocalJSX.FwMenuItem & JSXBase.HTMLAttributes<HTMLFwMenuItemElement>;
             "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
             "fw-modal-content": LocalJSX.FwModalContent & JSXBase.HTMLAttributes<HTMLFwModalContentElement>;
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;

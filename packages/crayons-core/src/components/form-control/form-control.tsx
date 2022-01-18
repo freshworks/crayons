@@ -83,6 +83,7 @@ export class FormControl {
           hint: '',
           type: type,
           ...this.controlProps?.inputProps(this.name, type),
+          state: this.touched && this.error && 'error',
         };
 
         cmp = (
@@ -106,6 +107,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
+            state: this.touched && this.error && 'error',
           };
           cmp = (
             <fw-textarea
@@ -129,7 +131,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
-            ref: this.crayonsControlRef,
+            state: this.touched && this.error && 'error',
           };
           cmp = (
             <fw-datepicker
@@ -153,7 +155,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
-            ref: this.crayonsControlRef,
+            state: this.touched && this.error && 'error',
           };
           cmp = (
             <fw-checkbox
@@ -168,6 +170,10 @@ export class FormControl {
 
       case 'RADIO':
         {
+          const controlProps = this.controlProps?.radioProps(
+            this.name,
+            this.type?.toLowerCase()
+          );
           const componentProps = {
             ...this.fieldProps,
             'name': this.name,
@@ -176,11 +182,7 @@ export class FormControl {
             'required': this.required,
             'hint': '',
             'allow-empty': true,
-            ...this.controlProps?.radioProps(
-              this.name,
-              this.type?.toLowerCase()
-            ),
-            'ref': this.crayonsControlRef,
+            ...controlProps,
           };
           cmp = (
             <fw-radio-group
@@ -190,9 +192,15 @@ export class FormControl {
             >
               {this.choices?.map((ch) => {
                 const val = ch[componentProps.optionValuePath] || ch.value;
+                const label = ch[componentProps.optionLabelPath] || ch.value;
                 return (
-                  <fw-radio name={val} value={val}>
-                    {val}
+                  <fw-radio
+                    form-id={controlProps['form-id']}
+                    name={this.name}
+                    value={val}
+                    state={this.touched && this.error ? 'error' : 'normal'}
+                  >
+                    {label}
                   </fw-radio>
                 );
               })}
@@ -215,7 +223,7 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
-            ref: this.crayonsControlRef,
+            state: this.touched && this.error && 'error',
           };
           cmp = (
             <fw-select
@@ -243,9 +251,14 @@ export class FormControl {
               this.name,
               this.type?.toLowerCase()
             ),
-            ref: this.crayonsControlRef,
+            state: this.touched && this.error && 'error',
           };
-          cmp = <fw-timepicker {...componentProps}></fw-timepicker>;
+          cmp = (
+            <fw-timepicker
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-timepicker>
+          );
         }
         break;
     }

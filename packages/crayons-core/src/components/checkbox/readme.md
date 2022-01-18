@@ -37,24 +37,41 @@ function App() {
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                                                                                                | Type      | Default |
-| ------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `checked`     | `checked`     | Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.                                             | `boolean` | `false` |
-| `description` | `description` | Description to be displayed for the checkbox.                                                                                                              | `string`  | `''`    |
-| `disabled`    | `disabled`    | Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.                                                 | `boolean` | `false` |
-| `label`       | `label`       | <span style="color:red">**[DEPRECATED]**</span> Use `description` instead. Label displayed on the interface, for the check box.<br/><br/>                  | `string`  | `''`    |
-| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                                         | `string`  | `''`    |
-| `required`    | `required`    | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false. | `boolean` | `false` |
-| `value`       | `value`       | Identifier corresponding to the component, that is saved when the form data is saved.                                                                      | `string`  | `''`    |
+| Property      | Attribute     | Description                                                                                                                                                | Type                  | Default    |
+| ------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ---------- |
+| `checked`     | `checked`     | Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.                                             | `boolean`             | `false`    |
+| `description` | `description` | Description to be displayed for the checkbox.                                                                                                              | `string`              | `''`       |
+| `disabled`    | `disabled`    | Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.                                                 | `boolean`             | `false`    |
+| `label`       | `label`       | <span style="color:red">**[DEPRECATED]**</span> Use `description` instead. Label displayed on the interface, for the check box.<br/><br/>                  | `string`              | `''`       |
+| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                                         | `string`              | `''`       |
+| `required`    | `required`    | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false. | `boolean`             | `false`    |
+| `state`       | `state`       | Theme based on which the checkbox is styled.                                                                                                               | `"error" \| "normal"` | `'normal'` |
+| `value`       | `value`       | Identifier corresponding to the component, that is saved when the form data is saved.                                                                      | `string`              | `''`       |
 
 
 ## Events
 
-| Event      | Description                                       | Type                |
-| ---------- | ------------------------------------------------- | ------------------- |
-| `fwBlur`   | Triggered when the check box loses focus.         | `CustomEvent<void>` |
-| `fwChange` | Triggered when the check box’s value is modified. | `CustomEvent<any>`  |
-| `fwFocus`  | Triggered when the check box comes into focus.    | `CustomEvent<void>` |
+| Event          | Description                                                                   | Type                |
+| -------------- | ----------------------------------------------------------------------------- | ------------------- |
+| `fwBlur`       | Triggered when the check box loses focus.                                     | `CustomEvent<void>` |
+| `fwChange`     | /**   Triggered when the check box’s value is modified.                       | `CustomEvent<any>`  |
+| `fwFocus`      | Triggered when the check box comes into focus.                                | `CustomEvent<void>` |
+| `fwFormBlur`   | Triggered when the check box loses focus. It can used with `fw-form`.         | `CustomEvent<any>`  |
+| `fwFormChange` | Triggered when the check box’s value is modified. It can used with `fw-form`. | `CustomEvent<any>`  |
+| `fwFormFocus`  | Triggered when the check box comes into focus. It can used with `fw-form`.    | `CustomEvent<any>`  |
+
+
+## Methods
+
+### `setFocus() => Promise<void>`
+
+Sets focus on a `fw-checkbox`.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies

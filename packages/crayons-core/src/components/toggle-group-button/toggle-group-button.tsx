@@ -80,7 +80,7 @@ export class ToggleGroupButton {
     this.button.focus();
   }
 
-  @Listen('click', { capture: true })
+  @Listen('click')
   listenClickHandler(event: MouseEvent): void {
     if (this.disabled) {
       event.preventDefault();
@@ -185,7 +185,7 @@ export class ToggleGroupButton {
             class={strButtonClassName}
             aria-disabled={this.disabled}
           >
-            <fw-icon size={14} name={this.iconName} color='black' />
+            <fw-icon size={15} name={this.iconName} color='black' />
           </button>
         )}
         {strBtnType === 'custom' && <slot></slot>}

@@ -16,9 +16,7 @@ import {
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
 } from './form-util';
-import { debounce } from '../../utils';
-
-import EventStore from '../../utils/event-store';
+import { debounce, createGuid } from '../../utils';
 
 @Component({
   tag: 'fw-form',
@@ -58,8 +56,12 @@ export class Form {
   @Prop() validateOnBlur? = true;
 
   /** The number of milliseconds to delay before doing validation on Input */
-  @Prop() wait = 1000;
+  @Prop() wait = 400;
 
+  /**
+   * Id to uniquely identify the Form. If not set, a random Id will be generated.
+   */
+  @Prop() formId = createGuid();
   @State() isValid = false;
   @State() isValidating = false;
   @State() isSubmitting = false;
@@ -73,14 +75,30 @@ export class Form {
   @State() formInitialValues;
 
   private debouncedHandleInput: any;
+  private handleInputListener: any;
+  private handleFocusListener: any;
+  private handleBlurListener: any;
+  private handleChangeListener: any;
 
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
-    EventStore.subscribe('handleInput', this.debouncedHandleInput);
-    EventStore.subscribe('handleBlur', this.handleBlur);
-    EventStore.subscribe('handleChange', this.handleInput);
-    EventStore.subscribe('handhandleFocus', this.handleFocus);
+    this.handleInputListener = this.el.addEventListener(
+      'fwFormInput',
+      this.debouncedHandleInput
+    );
+    this.handleBlurListener = this.el.addEventListener(
+      'fwFormBlur',
+      this.handleBlur
+    );
+    this.handleChangeListener = this.el.addEventListener(
+      'fwFormChange',
+      this.handleInput
+    );
+    this.handleFocusListener = this.el.addEventListener(
+      'fwFormFocus',
+      this.handleFocus
+    );
 
     this.fields = this.formSchema?.fields?.reduce((acc, field) => {
       return { ...acc, [field.name]: field };
@@ -116,12 +134,23 @@ export class Form {
     }, 10);
   }
 
+  private handleSlotChange() {
+    this.controls = this.getFormControls();
+  }
+
   // pass props to form-control children
   componentWillUpdate() {
     if (!this.controls) {
       this.controls = this.getFormControls();
     }
     this.passPropsToChildren(this.controls);
+  }
+
+  disconnectedCallback() {
+    this.el.removeEventListener('fwFormFocus', this.handleFocusListener);
+    this.el.removeEventListener('fwFormBlur', this.handleBlurListener);
+    this.el.removeEventListener('fwFormInput', this.handleInputListener);
+    this.el.removeEventListener('fwFormChange', this.handleChangeListener);
   }
 
   setSubmitting = (value: boolean) => {
@@ -223,7 +252,9 @@ export class Form {
     return validationErrors;
   };
 
-  handleInput = async ({ field, value }) => {
+  handleInput = async (event: Event) => {
+    event.stopPropagation();
+    const { field, value } = (event as any).detail;
     this.values = { ...this.values, [field]: value };
 
     /** Validate, if user wants to validateOnInput */
@@ -233,7 +264,9 @@ export class Form {
     }
   };
 
-  handleBlur = async ({ field, value }) => {
+  handleBlur = async (event: Event) => {
+    event.stopPropagation();
+    const { field, value } = (event as any).detail;
     if (this.focused) this.focused = null;
     this.values = { ...this.values, [field]: value };
 
@@ -244,7 +277,9 @@ export class Form {
     }
   };
 
-  handleFocus = ({ field }) => {
+  handleFocus = (event) => {
+    event.stopPropagation();
+    const { field } = (event as any).detail;
     this.focused = field;
   };
 
@@ -380,7 +415,7 @@ export class Form {
     const utils: FormUtils = this.composedUtils();
 
     return (
-      <form id='fw_form_wrapper' {...utils.formProps}>
+      <form id={`form-${this.formId}`} {...utils.formProps}>
         {this.formSchema && Object.keys(this.formSchema).length > 0 ? (
           this.formSchema?.fields
             ?.sort((a, b) => a.position - b.position)
@@ -407,7 +442,7 @@ export class Form {
               );
             })
         ) : (
-          <slot></slot>
+          <slot onSlotchange={() => this.handleSlotChange()}></slot>
         )}
       </form>
     );

@@ -9,7 +9,6 @@ import {
   Element,
   h,
 } from '@stencil/core';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio',
@@ -43,6 +42,11 @@ export class Radio {
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
+  /**
+   * Theme based on which the radio button is styled.
+   */
+  @Prop() state: 'normal' | 'error' = 'normal';
+  /**
 
   /**
    * Triggered when the radio button in focus is selected.
@@ -52,16 +56,18 @@ export class Radio {
    * Triggered when the radio button in focus is cleared.
    */
   @Event() fwDeselect!: EventEmitter;
-
   /**
    * Triggered when the radio button comes into focus.
    */
   @Event() fwFocus!: EventEmitter<void>;
-
   /**
    * Triggered when the radio button loses focus.
    */
   @Event() fwBlur!: EventEmitter<void>;
+  /**
+   * Trigged when a radio button is toggeled. It can used with `fw-form`.
+   */
+  @Event() fwFormChange: EventEmitter;
 
   private radio!: HTMLInputElement;
 
@@ -106,12 +112,12 @@ export class Radio {
       this.checked = !this.checked;
     }
     if (this.checked) {
-      EventStore.publish('handleChange', {
+      this.fwFormChange.emit({
         field: this.name,
         value: this.value,
       });
     } else {
-      EventStore.publish('handleChange', {
+      this.fwFormChange.emit({
         field: this.name,
         value: undefined,
       });
@@ -140,8 +146,12 @@ export class Radio {
         onBlur={() => this.onBlur()}
       >
         <div class='radio-container'>
-          <input type='radio' ref={(el) => (this.radio = el)}></input>
-          <label>
+          <input
+            type='radio'
+            ref={(el) => (this.radio = el)}
+            name={this.name}
+          ></input>
+          <label class={{ error: this.state === 'error' }}>
             <span id='label'>
               <slot />
             </span>

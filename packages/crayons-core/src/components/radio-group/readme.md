@@ -59,9 +59,24 @@ function App() {
 
 ## Events
 
-| Event      | Description                                                            | Type               |
-| ---------- | ---------------------------------------------------------------------- | ------------------ |
-| `fwChange` | Triggered when an option in the Radio Group is selected or deselected. | `CustomEvent<any>` |
+| Event          | Description                                                                       | Type               |
+| -------------- | --------------------------------------------------------------------------------- | ------------------ |
+| `fwChange`     | Triggered when an option in the Radio Group is selected or deselected.            | `CustomEvent<any>` |
+| `fwFormBlur`   | Trigged when focus is lost. It can used with `fw-form`.                           | `CustomEvent<any>` |
+| `fwFormChange` | Triggered when the radio is changed through keyboard. It can used with `fw-form`. | `CustomEvent<any>` |
+
+
+## Methods
+
+### `setFocus() => Promise<void>`
+
+Sets focus on a specific `fw-radio`.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies

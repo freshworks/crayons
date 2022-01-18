@@ -22,6 +22,19 @@
 | `type`         | `type`          |                                                                                                                                                                             | `"CHECKBOX" \| "DATE" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "TEL" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
 
 
+## Methods
+
+### `setFocus() => Promise<void>`
+
+Set Focus on the child
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

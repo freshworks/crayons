@@ -11,7 +11,6 @@ import {
   Watch,
 } from '@stencil/core';
 import moment from 'moment-mini';
-import EventStore from '../../utils/event-store';
 import {
   handleKeyDown,
   renderHiddenField,
@@ -100,9 +99,23 @@ export class Datepicker {
   @Prop() required = false;
 
   /**
+   * Theme based on which the input of the datepicker is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  /**
+
+  /**
    *   Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
+  /**
+   * Triggered when the value is entered in the input. It can used with `fw-form`.
+   */
+  @Event() fwFormInput: EventEmitter;
+  /**
+   * Triggered when the input loses focus. It can used with `fw-form`.
+   */
+  @Event() fwFormBlur: EventEmitter;
 
   private shortMonthNames;
   private longMonthNames;
@@ -146,7 +159,7 @@ export class Datepicker {
 
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
-    EventStore.publish('handleChange', {
+    this.fwFormInput.emit({
       field: this.name,
       value: eventDetails,
     });
@@ -813,7 +826,7 @@ export class Datepicker {
   }
 
   private onBlur = async () => {
-    EventStore.publish('handleBlur', {
+    this.fwFormBlur.emit({
       field: this.name,
       value: await this.getValue(),
     });
@@ -840,9 +853,13 @@ export class Datepicker {
           placeholder={this.placeholder}
           title={this.placeholder}
           iconRight='calendar'
+          style={{
+            '--icon-color': this.state === 'error' && '#d72d30',
+          }}
           required={this.required}
           onBlur={this.onBlur}
           ref={(el) => (this.nativeInput = el)}
+          state={this.state}
         ></fw-input>
         {this.showSingleDatePicker() ? (
           <div class='datepicker' slot='popover-content'>

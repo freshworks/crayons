@@ -16,7 +16,6 @@ import {
   renderHiddenField,
   watchForOptions,
 } from '../../utils';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio-group',
@@ -55,6 +54,15 @@ export class RadioGroup {
    */
   @Prop() required = false;
 
+  /**
+   * Triggered when the radio is changed through keyboard. It can used with `fw-form`.
+   */
+  @Event() fwFormChange: EventEmitter;
+  /**
+   * Trigged when focus is lost. It can used with `fw-form`.
+   */
+  @Event() fwFormBlur: EventEmitter;
+
   @Watch('value')
   async valueChanged(value: any | undefined) {
     await this.updateRadios();
@@ -82,6 +90,13 @@ export class RadioGroup {
   @Listen('keyup')
   handleKeyup(event: KeyboardEvent) {
     const radios = this.radios;
+    const supportedKeyStrokes = [
+      'ArrowDown',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowLeft',
+      'Space',
+    ];
     const previousSelected = this.selectedIndex;
     switch (event.code) {
       case 'ArrowDown':
@@ -122,7 +137,12 @@ export class RadioGroup {
         break;
     }
 
-    EventStore.publish('handleChange', { field: this.name, value: this.value });
+    if (supportedKeyStrokes.includes(event.code)) {
+      this.fwFormChange.emit({
+        field: this.name,
+        value: this.value,
+      });
+    }
   }
 
   async connectedCallback() {
@@ -233,7 +253,10 @@ export class RadioGroup {
   };
 
   private onBlur = () => {
-    EventStore.publish('handleBlur', { field: this.name, value: this.value });
+    this.fwFormBlur.emit({
+      field: this.name,
+      value: this.value,
+    });
   };
 
   /**
