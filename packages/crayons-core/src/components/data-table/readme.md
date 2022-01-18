@@ -574,6 +574,8 @@ This codeblock shows how to use custom cell function to display HTML content in 
 
 You can easily add an actions column by passing in rowActions prop to the component.
 
+*You can also use icons instead of text in buttons. Pass 'iconName' and 'iconLibrary' properties as part of configuration.*
+
 ```html live
   <fw-data-table id="datatable-4"  is-selectable="true" is-all-selectable="true" label="Data table 4">
   </fw-data-table>
@@ -1230,6 +1232,7 @@ isLoading current state
 - [fw-checkbox](../checkbox)
 - [fw-skeleton](../skeleton)
 - [fw-button](../button)
+- [fw-icon](../icon)
 
 ### Graph
 ```mermaid
@@ -1237,6 +1240,7 @@ graph TD;
   fw-data-table --> fw-checkbox
   fw-data-table --> fw-skeleton
   fw-data-table --> fw-button
+  fw-data-table --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-icon --> fw-toast-message

@@ -739,9 +739,12 @@ export class DataTable {
                       (action.hideForRowIds &&
                         !action.hideForRowIds.includes(row.id))
                     ) {
+                      const buttonSize: 'icon' | 'small' = action.iconName
+                        ? 'icon'
+                        : 'small';
                       actionTemplate = (
                         <fw-button
-                          size='small'
+                          size={buttonSize}
                           color='secondary'
                           onKeyUp={(event) =>
                             (event.code === 'Space' ||
@@ -751,8 +754,21 @@ export class DataTable {
                           onClick={(event) =>
                             this.performRowAction(event, action, row)
                           }
+                          title={action.name}
+                          aria-label={action.name}
                         >
-                          {action.name}
+                          {action.iconName ? (
+                            <fw-icon
+                              name={action.iconName}
+                              library={
+                                action.iconLibrary
+                                  ? action.iconLibrary
+                                  : 'crayons'
+                              }
+                            ></fw-icon>
+                          ) : (
+                            action.name
+                          )}
                         </fw-button>
                       );
                     }
