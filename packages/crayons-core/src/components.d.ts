@@ -78,7 +78,7 @@ export namespace Components {
         /**
           * Size of the button.
          */
-        "size": 'normal' | 'small' | 'icon';
+        "size": 'normal' | 'small' | 'icon' | 'icon-small';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -2041,7 +2041,7 @@ declare namespace LocalJSX {
         /**
           * Size of the button.
          */
-        "size"?: 'normal' | 'small' | 'icon';
+        "size"?: 'normal' | 'small' | 'icon' | 'icon-small';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */

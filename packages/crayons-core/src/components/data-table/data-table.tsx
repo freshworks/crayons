@@ -739,8 +739,8 @@ export class DataTable {
                       (action.hideForRowIds &&
                         !action.hideForRowIds.includes(row.id))
                     ) {
-                      const buttonSize: 'icon' | 'small' = action.iconName
-                        ? 'icon'
+                      const buttonSize: 'icon-small' | 'small' = action.iconName
+                        ? 'icon-small'
                         : 'small';
                       actionTemplate = (
                         <fw-button
@@ -765,6 +765,7 @@ export class DataTable {
                                   ? action.iconLibrary
                                   : 'crayons'
                               }
+                              size={10}
                             ></fw-icon>
                           ) : (
                             action.name
