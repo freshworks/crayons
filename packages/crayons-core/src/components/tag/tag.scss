@@ -2,10 +2,10 @@
   display: inline-flex;
   align-items: center;
   width: auto;
-  margin: 2px;
+  padding: 4px;
   border: none;
   color: $color-elephant-900;
-  font-size: $font-size-12;
+  font-size: $font-size-14;
   font-weight: 500;
   background-color: $color-smoke-50;
   word-break: break-all;
@@ -13,22 +13,22 @@
 
   &-standard {
     border-radius: 4px;
-    padding: 3px 0 4px 8px;
   }
 
   &-avatar {
     border-radius: 8px;
 
-    span {
-      display: inline-block;
-      vertical-align: middle;
-      height: 100%;
-    }
-
     fw-avatar {
-      margin: 6px 8px 6px 6px;
+      padding-right: 8px;
     }
   }
+
+  // .content {
+  //   display: inline-block;
+  //   vertical-align: middle;
+  //   height: 100%;
+  //   border: 1px solid red;
+  // }
 
   .remove-btn {
     opacity: 1;
