@@ -56,6 +56,13 @@ function App() {
 | `fwFocus`  | Triggered when the check box comes into focus.    | `CustomEvent<void>` |
 
 
+## CSS Custom Properties
+
+| Name                       | Description                    |
+| -------------------------- | ------------------------------ |
+| `--checkbox-margin-bottom` | Bottom Margin of the checkbox. |
+
+
 ## Dependencies
 
 ### Used by
