@@ -1314,10 +1314,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
-        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format": 'hh:mm A' | 'HH:mm';
@@ -3361,10 +3357,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
-        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format"?: 'hh:mm A' | 'HH:mm';
@@ -3384,6 +3376,18 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Triggered when the list box loses focus. It can used with `fw-form`.
+         */
+        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * /**   Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
+         */
+        "onFwFormChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the list box comes into focus. It can used with `fw-form`.
+         */
+        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
