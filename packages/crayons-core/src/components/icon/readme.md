@@ -239,6 +239,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
 
  - [fw-accordion-title](../accordion-title)
  - [fw-button](../button)
+ - [fw-custom-cell-icon](../data-table/custom-cells/icon)
  - [fw-drag-item](../drag-item)
  - [fw-dropdown-button](../dropdown-button)
  - [fw-inline-message](../inline-message)
@@ -265,6 +266,7 @@ graph TD;
   fw-toast-message --> fw-icon
   fw-accordion-title --> fw-icon
   fw-button --> fw-icon
+  fw-custom-cell-icon --> fw-icon
   fw-drag-item --> fw-icon
   fw-dropdown-button --> fw-icon
   fw-inline-message --> fw-icon

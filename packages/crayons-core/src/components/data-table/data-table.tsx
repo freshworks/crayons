@@ -26,6 +26,10 @@ const PREDEFINED_VARIANTS_META = {
     componentName: 'fw-custom-cell-user',
     isFocusable: false,
   },
+  icon: {
+    componentName: 'fw-custom-cell-icon',
+    isFocusable: false,
+  },
 };
 
 @Component({

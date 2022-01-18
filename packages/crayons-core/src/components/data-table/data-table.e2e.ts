@@ -222,6 +222,12 @@ describe('fw-data-table', () => {
           position: 2,
           variant: 'user',
         },
+        {
+          key: 'icon',
+          text: 'Icon',
+          position: 3,
+          variant: 'icon',
+        },
       ],
       rows: [
         {
@@ -231,6 +237,7 @@ describe('fw-data-table', () => {
             name: 'Alexander Goodman',
             email: 'alexander.goodman@freshworks.com',
           },
+          icon: { name: 'agent' },
         },
       ],
     };
@@ -242,8 +249,12 @@ describe('fw-data-table', () => {
     const userComponent = await page.find(
       'fw-data-table >>> tbody > tr:first-child > td:nth-child(2) > fw-custom-cell-user'
     );
+    const iconComponent = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:nth-child(3) > fw-custom-cell-icon'
+    );
     expect(anchorComponent).toBeTruthy();
     expect(userComponent).toBeTruthy();
+    expect(iconComponent).toBeTruthy();
   });
 
   it('should display action column when rowActions is passed to datatable', async () => {
