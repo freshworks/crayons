@@ -254,7 +254,7 @@ function App() {
   };
 
   return (
-    <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 2">
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 2">
     </FwDataTable>
   );
 }
@@ -428,7 +428,117 @@ function App() {
   };
 
   return (
-    <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 3">
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 3">
+    </FwDataTable>
+  );
+}
+```
+</code-block>
+</code-group>
+
+#### Icon column variant
+
+```html live
+  <fw-data-table id="datatable-31" label="Data table 31">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "position": 1,
+        "variant": "icon"
+      }, {
+        "key": "name",
+        "text": "Name",
+        "position": 2
+      }],
+      rows: [{
+        "id": "0011",
+        "icon": { "name": "agent" },
+        "name": "Agent"
+      }, {
+        "id": "0022",
+        "icon": { "name": "chat-online" },
+        "name": "Chat"
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-31');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-data-table id="datatable-31" label="Data table 31">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+      columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "position": 1,
+        "variant": "icon"
+      }, {
+        "key": "name",
+        "text": "Name",
+        "position": 2
+      }],
+      rows: [{
+        "id": "0011",
+        "icon": { "name": "agent" },
+        "name": "Agent"
+      }, {
+        "id": "0022",
+        "icon": { "name": "chat-online" },
+        "name": "Chat"
+      }]
+    }; 
+
+  var datatable = document.getElementById('datatable-31');
+  datatable.columns = data.columns;
+  datatable.rows = data.rows;
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwDataTable } from "@freshworks/crayons/react";
+function App() {
+
+  var data = {
+      columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "position": 1,
+        "variant": "icon"
+      }, {
+        "key": "name",
+        "text": "Name",
+        "position": 2
+      }],
+      rows: [{
+        "id": "0011",
+        "icon": { "name": "agent" },
+        "name": "Agent"
+      }, {
+        "id": "0022",
+        "icon": { "name": "chat-online" },
+        "name": "Chat"
+      }]
+    }; 
+
+  return (
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 31">
     </FwDataTable>
   );
 }
@@ -640,7 +750,7 @@ You can easily add an actions column by passing in rowActions prop to the compon
     }
 
     return (
-      <FwDataTable columns={data.columns} rows={data.persons} rowActions={data.rowActions} label="Data Table 3">
+      <FwDataTable columns={data.columns} rows={data.rows} rowActions={data.rowActions} label="Data Table 3">
       </FwDataTable>
     );
   }
@@ -750,7 +860,7 @@ To hide certain columns, we can pass the 'hide' property set to true in the colu
     }
 
     return (
-      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 5">
+      <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 5">
       </FwDataTable>
     );
   }
@@ -890,7 +1000,7 @@ We can pass width for every column using 'widthProperties' in column's configura
     }
 
     return (
-      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 6">
+      <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 6">
       </FwDataTable>
     );
   }
@@ -1037,7 +1147,7 @@ We can format row's data before rendering into a cell by passing 'formatData' in
     }
 
     return (
-      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 7">
+      <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 7">
       </FwDataTable>
     );
   }
