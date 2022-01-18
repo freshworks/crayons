@@ -89,6 +89,13 @@ export class RadioGroup {
   @Listen('keyup')
   handleKeyup(event: KeyboardEvent) {
     const radios = this.radios;
+    const supportedKeyStrokes = [
+      'ArrowDown',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowLeft',
+      'Space',
+    ];
     const previousSelected = this.selectedIndex;
     switch (event.code) {
       case 'ArrowDown':
@@ -129,10 +136,12 @@ export class RadioGroup {
         break;
     }
 
-    this.fwFormChange.emit({
-      field: this.name,
-      value: this.value,
-    });
+    if (supportedKeyStrokes.includes(event.code)) {
+      this.fwFormChange.emit({
+        field: this.name,
+        value: this.value,
+      });
+    }
   }
 
   async connectedCallback() {
