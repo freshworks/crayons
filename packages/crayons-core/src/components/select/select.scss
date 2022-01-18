@@ -58,7 +58,6 @@ label {
 .input-container {
   width: calc(100% - 10px);
   border: var(--select-border, 1px solid $input-border);
-  margin: 5px 0 0;
   border-radius: var(--select-border-radius, 4px);
   padding: 4px 0 4px 10px;
   background-color: $input-bg;
@@ -75,7 +74,6 @@ label {
     input {
       flex-grow: 1;
       border: none;
-      margin-top: 3px;
       font-size: $font-size-14;
       font-weight: $font-weight-500;
       letter-spacing: 0;
