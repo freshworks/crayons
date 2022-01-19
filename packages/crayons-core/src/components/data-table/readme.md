@@ -1224,6 +1224,16 @@ Type: `Promise<boolean>`
 
 isLoading current state
 
+### `selectAllRows(checked?: boolean) => Promise<void>`
+
+selectAllRows method we can use to select/unselect rows in the table
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
