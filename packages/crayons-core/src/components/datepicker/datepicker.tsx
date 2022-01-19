@@ -11,6 +11,7 @@ import {
   Watch,
 } from '@stencil/core';
 import moment from 'moment-mini';
+import EventStore from '../../utils/event-store';
 import {
   handleKeyDown,
   renderHiddenField,
@@ -99,6 +100,11 @@ export class Datepicker {
   @Prop() required = false;
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    * Theme based on which the input of the datepicker is styled.
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
@@ -108,14 +114,6 @@ export class Datepicker {
    *   Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
-  /**
-   * Triggered when the value is entered in the input. It can used with `fw-form`.
-   */
-  @Event() fwFormInput: EventEmitter;
-  /**
-   * Triggered when the input loses focus. It can used with `fw-form`.
-   */
-  @Event() fwFormBlur: EventEmitter;
 
   private shortMonthNames;
   private longMonthNames;
@@ -158,10 +156,11 @@ export class Datepicker {
 
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
-    this.fwFormInput.emit({
-      field: this.name,
-      value: eventDetails,
-    });
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleInput`, {
+        field: this.name,
+        value: eventDetails,
+      });
   }
 
   focusElement(element: HTMLElement) {
@@ -815,10 +814,11 @@ export class Datepicker {
   }
 
   private onBlur = async () => {
-    this.fwFormBlur.emit({
-      field: this.name,
-      value: await this.getValue(),
-    });
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: await this.getValue(),
+      });
   };
 
   render() {

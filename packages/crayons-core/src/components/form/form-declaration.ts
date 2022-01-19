@@ -23,17 +23,12 @@ export type FormTouched<Values> = {
 };
 
 export interface FormState<Values> {
-  focused: string | null;
   /** Form values */
   values: Values | unknown;
   /** map of field names to specific error for that field */
   errors: FormErrors<Values>;
   /** map of field names to whether the field has been touched */
   touched: FormTouched<Values>;
-  /** whether the form is currently validating */
-  isValidating: boolean;
-  /** whether the form is currently submitting */
-  isSubmitting: boolean;
 }
 
 export interface FormHandlers<Values> {
@@ -41,10 +36,6 @@ export interface FormHandlers<Values> {
   handleReset: (e?: Event) => Promise<any>;
   handleInput(field: keyof Values, type: string): (e: Event, ref: any) => void;
   handleBlur(field: keyof Values, type: string): (e: Event, ref: any) => void;
-  handleFocus(
-    field: keyof Values,
-    type: string
-  ): (e?: Event, ref?: any) => void;
 }
 
 export interface FormProps {

@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-textarea',
@@ -82,6 +83,11 @@ export class Textarea {
   @Prop() disabled = false;
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    * Triggered when the value in the input box is modified.
    */
   @Event() fwChange: EventEmitter;
@@ -97,18 +103,6 @@ export class Textarea {
    * Triggered when a value is entered in the input box.
    */
   @Event() fwInput: EventEmitter<KeyboardEvent>;
-  /**
-   * Triggered when the textarea comes into focus. It can used with `fw-form`.
-   */
-  @Event() fwFormFocus: EventEmitter;
-  /**
-   * Triggered when the textarea loses focus. It can used with `fw-form`.
-   */
-  @Event() fwFormBlur: EventEmitter;
-  /**
-   * Triggered when a value is entered in the textarea. It can used with `fw-form`.
-   */
-  @Event() fwFormInput: EventEmitter;
 
   @Watch('value')
   watchHandler(newValue: string) {
@@ -121,28 +115,26 @@ export class Textarea {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
-    this.fwFormInput.emit({
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleInput`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    this.fwFormFocus.emit({
-      field: this.name,
-      value: this.nativeInput.value,
-    });
   };
 
   private onBlur = () => {
     this.hasFocus = false;
     this.fwBlur.emit({ value: this.getValue() });
-    this.fwFormBlur.emit({
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private getValue(): string {

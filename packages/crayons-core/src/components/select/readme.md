@@ -898,6 +898,7 @@ export default Select;
 | `debounceTimer`    | `debounce-timer`    | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                                                                                                                                             | `300`                 |
 | `disabled`         | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                                                                                                                                            | `false`               |
 | `forceSelect`      | `force-select`      | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                                                                                                                                                            | `true`                |
+| `formId`           | `form-id`           | id for the form using this component. This prop is set from the `fw-form`                                                                                                                                                                 | `string`                                                                                                                                                             | `''`                  |
 | `label`            | `label`             | Label displayed on the interface, for the component.                                                                                                                                                                                      | `string`                                                                                                                                                             | `''`                  |
 | `labelledBy`       | `labelled-by`       | If the default label prop is not used, then use this prop to pass the id of the label.                                                                                                                                                    | `string`                                                                                                                                                             | `''`                  |
 | `max`              | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                                                                                                                                             | `Number.MAX_VALUE`    |
@@ -925,14 +926,11 @@ export default Select;
 
 ## Events
 
-| Event          | Description                                                                                             | Type               |
-| -------------- | ------------------------------------------------------------------------------------------------------- | ------------------ |
-| `fwBlur`       | Triggered when the list box loses focus.                                                                | `CustomEvent<any>` |
-| `fwChange`     | Triggered when a value is selected or deselected from the list box options.                             | `CustomEvent<any>` |
-| `fwFocus`      | Triggered when the list box comes into focus.                                                           | `CustomEvent<any>` |
-| `fwFormBlur`   | Triggered when the list box loses focus. It can used with `fw-form`.                                    | `CustomEvent<any>` |
-| `fwFormChange` | Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`. | `CustomEvent<any>` |
-| `fwFormFocus`  | Triggered when the list box comes into focus. It can used with `fw-form`.                               | `CustomEvent<any>` |
+| Event      | Description                                                                 | Type               |
+| ---------- | --------------------------------------------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the list box loses focus.                                    | `CustomEvent<any>` |
+| `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
+| `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
 
 ## Methods

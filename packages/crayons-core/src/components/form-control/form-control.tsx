@@ -163,7 +163,6 @@ export class FormControl {
               {this.choices?.map((ch) => {
                 const val = ch[componentProps.optionValuePath] || ch.value;
                 const label = ch[componentProps.optionLabelPath] || ch.value;
-                console.log(this.touched && this.error);
                 return (
                   <fw-radio
                     form-id={controlProps['form-id']}

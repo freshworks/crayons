@@ -160,6 +160,7 @@ function App() {
 | `autocomplete` | `autocomplete` | Specifies whether the browser can display suggestions to autocomplete the text value.                                                                                                                                                                                                                                     | `"off" \| "on"`                          | `'off'`     |
 | `clearInput`   | `clear-input`  | Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.                                       | `boolean`                                | `false`     |
 | `disabled`     | `disabled`     | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                | `boolean`                                | `false`     |
+| `formId`       | `form-id`      | id for the form using this component. This prop is set from the `fw-form`                                                                                                                                                                                                                                                 | `string`                                 | `''`        |
 | `iconLeft`     | `icon-left`    | Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).                                                                                                                                                            | `string`                                 | `undefined` |
 | `iconRight`    | `icon-right`   | Identifier of the icon that is displayed in the right side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).                                                                                                                                                           | `string`                                 | `undefined` |
 | `label`        | `label`        | Label displayed on the interface, for the component.                                                                                                                                                                                                                                                                      | `string`                                 | `''`        |
@@ -180,16 +181,13 @@ function App() {
 
 ## Events
 
-| Event          | Description                                                                     | Type                         |
-| -------------- | ------------------------------------------------------------------------------- | ---------------------------- |
-| `fwBlur`       | Triggered when the input box loses focus.                                       | `CustomEvent<any>`           |
-| `fwChange`     | Triggered when the value in the input box is modified.                          | `CustomEvent<any>`           |
-| `fwFocus`      | Triggered when the input box comes into focus.                                  | `CustomEvent<void>`          |
-| `fwFormBlur`   | Triggered when the input box loses focus. It can used with `fw-form`.           | `CustomEvent<any>`           |
-| `fwFormFocus`  | Triggered when the input box comes into focus. It can used with `fw-form`.      | `CustomEvent<any>`           |
-| `fwFormInput`  | Triggered when a value is entered in the input box. It can used with `fw-form`. | `CustomEvent<any>`           |
-| `fwInput`      | Triggered when a value is entered in the input box.                             | `CustomEvent<KeyboardEvent>` |
-| `fwInputClear` | Triggered when clear icon is clicked.                                           | `CustomEvent<any>`           |
+| Event          | Description                                            | Type                         |
+| -------------- | ------------------------------------------------------ | ---------------------------- |
+| `fwBlur`       | Triggered when the input box loses focus.              | `CustomEvent<any>`           |
+| `fwChange`     | Triggered when the value in the input box is modified. | `CustomEvent<any>`           |
+| `fwFocus`      | Triggered when the input box comes into focus.         | `CustomEvent<void>`          |
+| `fwInput`      | Triggered when a value is entered in the input box.    | `CustomEvent<KeyboardEvent>` |
+| `fwInputClear` | Triggered when clear icon is clicked.                  | `CustomEvent<any>`           |
 
 
 ## Methods
