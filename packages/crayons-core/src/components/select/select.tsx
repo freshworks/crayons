@@ -154,7 +154,7 @@ export class Select {
    */
   @Prop() searchable = true;
   /**
-   * Allow to search for value. Default is true.
+   * The data for the select component, the options will be of type array of fw-select-options.
    */
   @Prop({ reflect: true }) options: any;
   /**
