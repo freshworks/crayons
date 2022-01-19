@@ -16,6 +16,7 @@ import {
   renderHiddenField,
   watchForOptions,
 } from '../../utils';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio-group',
@@ -55,13 +56,9 @@ export class RadioGroup {
   @Prop() required = false;
 
   /**
-   * Triggered when the radio is changed through keyboard. It can used with `fw-form`.
+   * id for the form using this component. This prop is set from the `fw-form`
    */
-  @Event() fwFormChange: EventEmitter;
-  /**
-   * Trigged when focus is lost. It can used with `fw-form`.
-   */
-  @Event() fwFormBlur: EventEmitter;
+  @Prop() formId = '';
 
   @Watch('value')
   async valueChanged(value: any | undefined) {
@@ -138,10 +135,11 @@ export class RadioGroup {
     }
 
     if (supportedKeyStrokes.includes(event.code)) {
-      this.fwFormChange.emit({
-        field: this.name,
-        value: this.value,
-      });
+      this.formId &&
+        EventStore.publish(`${this.formId}::handleChange`, {
+          field: this.name,
+          value: this.value,
+        });
     }
   }
 
@@ -253,10 +251,11 @@ export class RadioGroup {
   };
 
   private onBlur = () => {
-    this.fwFormBlur.emit({
-      field: this.name,
-      value: this.value,
-    });
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.value,
+      });
   };
 
   /**

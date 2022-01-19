@@ -20,6 +20,7 @@ import {
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-select',
@@ -42,9 +43,6 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
-      this.fwFormFocus.emit({
-        field: this.name,
-      });
     }
   };
 
@@ -55,14 +53,15 @@ export class Select {
     }
   };
 
-  private innerOnBlur = async (e: Event) => {
+  private innerOnBlur = (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
-      this.fwFormBlur.emit({
-        field: this.name,
-        value: await this.getSelectedItem(),
-      });
+      this.formId &&
+        EventStore.publish(`${this.formId}::handleBlur`, {
+          field: this.name,
+          value: this.value,
+        });
     }
   };
 
@@ -155,7 +154,7 @@ export class Select {
    */
   @Prop() searchable = true;
   /**
-   * Allow to search for value. Default is true.
+   * The data for the select component, the options will be of type array of fw-select-options.
    */
   @Prop({ reflect: true }) options: any;
   /**
@@ -205,6 +204,11 @@ export class Select {
    */
   @Prop() labelledBy = '';
 
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -218,18 +222,6 @@ export class Select {
    * Triggered when the list box loses focus.
    */
   @Event() fwBlur: EventEmitter;
-  /**
-   * Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
-   */
-  @Event() fwFormChange: EventEmitter;
-  /**
-   * Triggered when the list box comes into focus. It can used with `fw-form`.
-   */
-  @Event() fwFormFocus: EventEmitter;
-  /**
-   * Triggered when the list box loses focus. It can used with `fw-form`.
-   */
-  @Event() fwFormBlur: EventEmitter;
 
   @Listen('fwHide')
   onDropdownClose() {
@@ -267,10 +259,13 @@ export class Select {
         value: this.value,
         selectedOptions: this.selectedOptionsState,
       });
-      this.fwFormChange.emit({
-        field: this.name,
-        value: this.selectedOptionsState,
-      });
+      if (this.selectedOptionsState.length > 0) {
+        this.formId &&
+          EventStore.publish(`${this.formId}::handleChange`, {
+            field: this.name,
+            value: this.value,
+          });
+      }
     }
   }
 

@@ -886,6 +886,11 @@ export default Select;
 </script>
 ```
 
+## Styling
+
+Refer the css variables in fw-popover to control the height and width of the select popup.
+Refer the [css variables](#css-custom-properties) for modifying the appearance of the the fw-select.
+
 <!-- Auto Generated Below -->
 
 
@@ -898,6 +903,7 @@ export default Select;
 | `debounceTimer`    | `debounce-timer`    | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                                                                                                                                             | `300`                 |
 | `disabled`         | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                                                                                                                                            | `false`               |
 | `forceSelect`      | `force-select`      | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                                                                                                                                                            | `true`                |
+| `formId`           | `form-id`           | id for the form using this component. This prop is set from the `fw-form`                                                                                                                                                                 | `string`                                                                                                                                                             | `''`                  |
 | `label`            | `label`             | Label displayed on the interface, for the component.                                                                                                                                                                                      | `string`                                                                                                                                                             | `''`                  |
 | `labelledBy`       | `labelled-by`       | If the default label prop is not used, then use this prop to pass the id of the label.                                                                                                                                                    | `string`                                                                                                                                                             | `''`                  |
 | `max`              | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                                                                                                                                             | `Number.MAX_VALUE`    |
@@ -905,7 +911,7 @@ export default Select;
 | `name`             | `name`              | Name of the component, saved as part of form data.                                                                                                                                                                                        | `string`                                                                                                                                                             | `''`                  |
 | `noDataText`       | `no-data-text`      | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                                                                                                                                                             | `'No Data available'` |
 | `notFoundText`     | `not-found-text`    | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                                                                                                                                                             | `'No items Found'`    |
-| `options`          | `options`           | Allow to search for value. Default is true.                                                                                                                                                                                               | `any`                                                                                                                                                                | `undefined`           |
+| `options`          | `options`           | The data for the select component, the options will be of type array of fw-select-options.                                                                                                                                                | `any`                                                                                                                                                                | `undefined`           |
 | `optionsPlacement` | `options-placement` | Placement of the options list with respect to select.                                                                                                                                                                                     | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`            |
 | `optionsVariant`   | `options-variant`   | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                                                                                                                                   | `'standard'`          |
 | `placeholder`      | `placeholder`       | Text displayed in the list box before an option is selected.                                                                                                                                                                              | `string`                                                                                                                                                             | `undefined`           |
@@ -925,14 +931,11 @@ export default Select;
 
 ## Events
 
-| Event          | Description                                                                                             | Type               |
-| -------------- | ------------------------------------------------------------------------------------------------------- | ------------------ |
-| `fwBlur`       | Triggered when the list box loses focus.                                                                | `CustomEvent<any>` |
-| `fwChange`     | Triggered when a value is selected or deselected from the list box options.                             | `CustomEvent<any>` |
-| `fwFocus`      | Triggered when the list box comes into focus.                                                           | `CustomEvent<any>` |
-| `fwFormBlur`   | Triggered when the list box loses focus. It can used with `fw-form`.                                    | `CustomEvent<any>` |
-| `fwFormChange` | Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`. | `CustomEvent<any>` |
-| `fwFormFocus`  | Triggered when the list box comes into focus. It can used with `fw-form`.                               | `CustomEvent<any>` |
+| Event      | Description                                                                 | Type               |
+| ---------- | --------------------------------------------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the list box loses focus.                                    | `CustomEvent<any>` |
+| `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
+| `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
 
 ## Methods
@@ -980,10 +983,11 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name           | Description                            |
-| -------------- | -------------------------------------- |
-| `--max-height` | Maximum height of the select component |
-| `--min-height` | Minimum height of the select component |
+| Name                     | Description                           |
+| ------------------------ | ------------------------------------- |
+| `--select-border`        | Border of the select component        |
+| `--select-border-radius` | Border radius of the select component |
+| `--select-margin-bottom` | Bottom margin of the select component |
 
 
 ## Dependencies

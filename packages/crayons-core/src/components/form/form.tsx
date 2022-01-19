@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Prop, State, Element, h, Method } from '@stencil/core';
+import { v4 as uuidv4 } from 'uuid';
 import {
   FormValues,
   FormTouched,
@@ -16,7 +17,8 @@ import {
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
 } from './form-util';
-import { debounce, createGuid } from '../../utils';
+import { debounce } from '../../utils';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-form',
@@ -61,12 +63,8 @@ export class Form {
   /**
    * Id to uniquely identify the Form. If not set, a random Id will be generated.
    */
-  @Prop() formId = createGuid();
-  @State() isValid = false;
-  @State() isValidating = false;
-  @State() isSubmitting = false;
+  @Prop() formId = uuidv4();
 
-  @State() focused: keyof FormValues = null;
   @State() values: FormValues = {} as any;
   @State() touched: FormTouched<FormValues> = {} as any;
   @State() errors: FormErrors<FormValues> = {} as any;
@@ -75,29 +73,24 @@ export class Form {
   @State() formInitialValues;
 
   private debouncedHandleInput: any;
-  private handleInputListener: any;
-  private handleFocusListener: any;
-  private handleBlurListener: any;
-  private handleChangeListener: any;
+  private handleInputSubscriber: any;
+  private handleBlurSubscriber: any;
+  private handleChangeSubscriber: any;
 
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
-    this.handleInputListener = this.el.addEventListener(
-      'fwFormInput',
+    this.handleInputSubscriber = EventStore.subscribe(
+      `${this.formId}::handleInput`,
       this.debouncedHandleInput
     );
-    this.handleBlurListener = this.el.addEventListener(
-      'fwFormBlur',
+    this.handleBlurSubscriber = EventStore.subscribe(
+      `${this.formId}::handleBlur`,
       this.handleBlur
     );
-    this.handleChangeListener = this.el.addEventListener(
-      'fwFormChange',
+    this.handleChangeSubscriber = EventStore.subscribe(
+      `${this.formId}::handleChange`,
       this.handleInput
-    );
-    this.handleFocusListener = this.el.addEventListener(
-      'fwFormFocus',
-      this.handleFocus
     );
 
     this.fields = this.formSchema?.fields?.reduce((acc, field) => {
@@ -134,10 +127,6 @@ export class Form {
     }, 10);
   }
 
-  private handleSlotChange() {
-    this.controls = this.getFormControls();
-  }
-
   // pass props to form-control children
   componentWillUpdate() {
     if (!this.controls) {
@@ -146,22 +135,19 @@ export class Form {
     this.passPropsToChildren(this.controls);
   }
 
-  disconnectedCallback() {
-    this.el.removeEventListener('fwFormFocus', this.handleFocusListener);
-    this.el.removeEventListener('fwFormBlur', this.handleBlurListener);
-    this.el.removeEventListener('fwFormInput', this.handleInputListener);
-    this.el.removeEventListener('fwFormChange', this.handleChangeListener);
+  handleSlotChange() {
+    this.controls = this.getFormControls();
   }
 
-  setSubmitting = (value: boolean) => {
-    this.isSubmitting = value;
-  };
+  disconnectedCallback() {
+    this.handleChangeSubscriber?.unsubscribe();
+    this.handleInputSubscriber?.unsubscribe();
+    this.handleBlurSubscriber?.unsubscribe();
+  }
 
   handleSubmit = async (event: Event): Promise<FormSubmit> => {
     event?.preventDefault();
     event?.stopPropagation();
-
-    this.isSubmitting = true;
 
     let isValid = false,
       touchedState = {};
@@ -182,17 +168,12 @@ export class Form {
       this.setFocusOnError();
     }
 
-    console.log({ values: this.values, errors: this.errors, isValid });
-
-    this.isSubmitting = false;
-
     return { values: this.values, errors: this.errors, isValid };
   };
 
   handleReset = async (event?: Event): Promise<void> => {
     event?.preventDefault();
     event?.stopPropagation();
-    this.isSubmitting = false;
     this.values = this.formInitialValues;
 
     let touchedState = {};
@@ -207,13 +188,9 @@ export class Form {
       await this.handleValidation();
       this.setFocusOnError();
     }
-
-    this.focused = null;
   };
 
   handleValidation = async () => {
-    this.isValidating = true;
-
     let validationErrors = {};
 
     // run validations against validationSchema if present
@@ -248,13 +225,10 @@ export class Form {
 
     this.errors = validationErrors;
 
-    this.isValidating = false;
     return validationErrors;
   };
 
-  handleInput = async (event: Event) => {
-    event.stopPropagation();
-    const { field, value } = (event as any).detail;
+  handleInput = async ({ field, value }) => {
     this.values = { ...this.values, [field]: value };
 
     /** Validate, if user wants to validateOnInput */
@@ -264,10 +238,7 @@ export class Form {
     }
   };
 
-  handleBlur = async (event: Event) => {
-    event.stopPropagation();
-    const { field, value } = (event as any).detail;
-    if (this.focused) this.focused = null;
+  handleBlur = async ({ field, value }) => {
     this.values = { ...this.values, [field]: value };
 
     /** Validate, if user wants to validateOnBlur */
@@ -275,12 +246,6 @@ export class Form {
       this.touched = { ...this.touched, [field]: true };
       await this.handleValidation();
     }
-  };
-
-  handleFocus = (event) => {
-    event.stopPropagation();
-    const { field } = (event as any).detail;
-    this.focused = field;
   };
 
   setFocus = (field) => {
@@ -327,24 +292,28 @@ export class Form {
 
   private composedUtils = (): FormUtils => {
     const inputProps = (field: string) => ({
-      value: this.values[field],
+      'value': this.values[field],
+      'form-id': this.formId,
     });
 
     const radioProps = (field: string) => ({
-      value: this.values[field],
+      'value': this.values[field],
+      'form-id': this.formId,
     });
 
     const checkboxProps = (field: string) => ({
-      checked: !!this.values[field],
+      'checked': !!this.values[field],
+      'form-id': this.formId,
     });
 
     const selectProps = (field: string, inputType) => ({
-      value:
+      'value':
         inputType === 'multi_select' // for multiselect pass Array
           ? this.values[field]?.map((v) => v.value || v) || []
           : Array.isArray(this.values[field]) // single select but the value is an array, pass 0th index
           ? this.values[field]?.map((v) => v.value || v)[0] || ''
           : this.values[field] || '',
+      'form-id': this.formId,
     });
 
     const formProps: FormProps = {
@@ -395,22 +364,6 @@ export class Form {
     this.handleReset(e);
   }
 
-  // renderCustomComponent(componentName: string, props: any) {
-  //   let template: JSX.Element;
-  //   if (window.customElements?.get(componentName)) {
-  //     const CustomComponent = `${componentName}`;
-  //     let slotText: JSX.Element;
-  //     if (props.slotText) {
-  //       slotText = props.slotText;
-  //       delete props.slotText;
-  //     }
-  //     template = <CustomComponent {...props}>{slotText}</CustomComponent>;
-  //   } else {
-  //     template = null;
-  //   }
-  //   return template;
-  // }
-
   render() {
     const utils: FormUtils = this.composedUtils();
 
@@ -432,13 +385,7 @@ export class Form {
                   choices={field.choices}
                   fieldProps={field}
                   controlProps={utils}
-                >
-                  {/* {field.component &&
-                    this.renderCustomComponent(
-                      field.component,
-                      field.componentProps
-                    )} */}
-                </fw-form-control>
+                ></fw-form-control>
               );
             })
         ) : (

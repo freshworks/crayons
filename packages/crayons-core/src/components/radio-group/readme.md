@@ -50,6 +50,7 @@ function App() {
 | Property      | Attribute     | Description                                                                                                                                                                                 | Type                | Default     |
 | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------- |
 | `allowEmpty`  | `allow-empty` | If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false. | `boolean`           | `false`     |
+| `formId`      | `form-id`     | id for the form using this component. This prop is set from the `fw-form`                                                                                                                   | `string`            | `''`        |
 | `label`       | `label`       | Label for the component, that can be used by screen readers.                                                                                                                                | `string`            | `''`        |
 | `name`        | `name`        | Name of the component, saved as part of form data.                                                                                                                                          | `string`            | `''`        |
 | `orientation` | `orientation` | Indicates the direction of the radio buttons alignment, defaults to vertical alignment.                                                                                                     | `"column" \| "row"` | `'column'`  |
@@ -59,11 +60,9 @@ function App() {
 
 ## Events
 
-| Event          | Description                                                                       | Type               |
-| -------------- | --------------------------------------------------------------------------------- | ------------------ |
-| `fwChange`     | Triggered when an option in the Radio Group is selected or deselected.            | `CustomEvent<any>` |
-| `fwFormBlur`   | Trigged when focus is lost. It can used with `fw-form`.                           | `CustomEvent<any>` |
-| `fwFormChange` | Triggered when the radio is changed through keyboard. It can used with `fw-form`. | `CustomEvent<any>` |
+| Event      | Description                                                            | Type               |
+| ---------- | ---------------------------------------------------------------------- | ------------------ |
+| `fwChange` | Triggered when an option in the Radio Group is selected or deselected. | `CustomEvent<any>` |
 
 
 ## Methods
