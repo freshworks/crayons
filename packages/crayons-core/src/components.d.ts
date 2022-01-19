@@ -191,6 +191,11 @@ export namespace Components {
           * Rows Array of objects to be displayed in the table.
          */
         "rows": DataTableRow[];
+        /**
+          * selectAllRows method we can use to select/unselect rows in the table
+          * @param checked denotes if we want to check or uncheck the rows
+         */
+        "selectAllRows": (checked?: boolean) => Promise<void>;
     }
     interface FwDatepicker {
         /**

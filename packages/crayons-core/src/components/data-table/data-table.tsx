@@ -334,6 +334,31 @@ export class DataTable {
   }
 
   /**
+   * selectAllRows method we can use to select/unselect rows in the table
+   * @param checked denotes if we want to check or uncheck the rows
+   */
+  @Method()
+  async selectAllRows(checked = true) {
+    if (this.isAllSelectable) {
+      const selectAll: HTMLFwCheckboxElement = this.el.shadowRoot.querySelector(
+        'tr > th > fw-checkbox'
+      );
+      if (selectAll) {
+        selectAll.checked = checked;
+      }
+    } else if (this.isSelectable) {
+      const checkboxSelector = checked
+        ? 'tr > td:first-child > fw-checkbox:not([checked])'
+        : 'tr > td:first-child > fw-checkbox[checked]';
+      const checkboxes = this.el.shadowRoot.querySelectorAll(checkboxSelector);
+      this.selectAllProgressCount = checkboxes.length;
+      checkboxes.forEach((checkbox: HTMLFwCheckboxElement) => {
+        checkbox.checked = checked;
+      });
+    }
+  }
+
+  /**
    * getSelectedRows
    * @returns selected rows from the data table
    */
