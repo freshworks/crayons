@@ -182,12 +182,7 @@ export class SelectOption {
   }
 
   createCheckbox() {
-    return (
-      <fw-checkbox
-        class='option-checkbox'
-        checked={this.selected}
-      ></fw-checkbox>
-    );
+    return <fw-checkbox checked={this.selected}></fw-checkbox>;
   }
 
   createAvatar() {
