@@ -123,24 +123,24 @@ export class Input {
   /**
    * Triggered when a value is entered in the input box.
    */
-  @Event() fwInput: EventEmitter<KeyboardEvent>;
+  @Event() fwInput: EventEmitter;
 
   /**
    * Triggered when clear icon is clicked.
    */
   @Event() fwInputClear: EventEmitter;
-  /**
-   * Triggered when a value is entered in the input box. It can used with `fw-form`.
-   */
-  @Event() fwFormInput: EventEmitter;
-  /**
-   * Triggered when the input box loses focus. It can used with `fw-form`.
-   */
-  @Event() fwFormBlur: EventEmitter;
-  /**
-   * Triggered when the input box comes into focus. It can used with `fw-form`.
-   */
-  @Event() fwFormFocus: EventEmitter;
+  // /**
+  //  * Triggered when a value is entered in the input box. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormInput: EventEmitter;
+  // /**
+  //  * Triggered when the input box loses focus. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormBlur: EventEmitter;
+  // /**
+  //  * Triggered when the input box comes into focus. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormFocus: EventEmitter;
 
   @Watch('value')
   watchHandler(newValue: string) {
@@ -158,11 +158,15 @@ export class Input {
     if (this.nativeInput) {
       this.nativeInput.value = this.value;
     }
-    this.fwInput.emit(ev as KeyboardEvent);
-    this.fwFormInput.emit({
+    this.fwInput.emit({
+      event: ev as KeyboardEvent,
       field: this.name,
-      value: this.nativeInput.value,
+      value: this.getValue(),
     });
+    // this.fwFormInput.emit({
+    //   field: this.name,
+    //   value: this.nativeInput.value,
+    // });
   };
   private handleMinAndMaxCheck(value) {
     const { min = -Infinity, max = Infinity } = this;
@@ -173,19 +177,23 @@ export class Input {
   private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    this.fwFormFocus.emit({
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    // this.fwFormFocus.emit({
+    //   field: this.name,
+    //   value: this.nativeInput.value,
+    // });
   };
 
-  private onBlur = () => {
+  private onBlur = (ev) => {
     this.hasFocus = false;
-    this.fwBlur.emit({ value: this.getValue() });
-    this.fwFormBlur.emit({
+    this.fwBlur.emit({
+      event: ev as KeyboardEvent,
       field: this.name,
-      value: this.nativeInput.value,
+      value: this.getValue(),
     });
+    // this.fwFormBlur.emit({
+    //   field: this.name,
+    //   value: this.nativeInput.value,
+    // });
   };
 
   private showClearButton() {

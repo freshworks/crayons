@@ -194,7 +194,7 @@ function createYupSchema(schema: any, config: any) {
   const yupMethod = yupType as keyof typeof Yup;
   let validator = Yup[yupMethod] as any;
 
-  validator = validator().nullable();
+  validator = validator();
 
   if (required)
     validator = validator['required'](...[`${label || name} is required`]);
@@ -208,7 +208,7 @@ function createYupSchema(schema: any, config: any) {
   if (type === 'CHECKBOX' && required)
     validator = validator['oneOf']([true], `${label || name} is required`);
 
-  if ((type === 'DROPDOWN' || type === 'MULTI_SELECT') && required)
+  if (type === 'MULTI_SELECT' && required)
     validator = validator.min(1, `${label || name} is required`);
 
   schema[name] = validator;

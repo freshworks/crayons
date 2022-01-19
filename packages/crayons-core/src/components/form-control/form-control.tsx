@@ -183,6 +183,12 @@ export class FormControl {
       case 'DROPDOWN':
       case 'MULTI_SELECT':
         {
+          const controlProps = this.controlProps?.selectProps(
+            this.name,
+            this.type?.toLowerCase()
+          );
+
+          console.log('CONTROL PROPS:', controlProps);
           const componentProps = {
             ...this.fieldProps,
             name: this.name,
@@ -190,10 +196,7 @@ export class FormControl {
             label: '',
             required: this.required,
             hint: '',
-            ...this.controlProps?.selectProps(
-              this.name,
-              this.type?.toLowerCase()
-            ),
+            ...controlProps,
             state: this.touched && this.error && 'error',
           };
           cmp = (

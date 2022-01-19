@@ -232,6 +232,7 @@ export class ListOptions {
 
   @Watch('value')
   onValueChange(newValue, oldValue) {
+    console.log('INSIDE VALUE WATCHer', newValue);
     if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
       if (newValue) {
         this.validateValue(newValue);

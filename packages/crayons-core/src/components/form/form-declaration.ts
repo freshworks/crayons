@@ -41,10 +41,10 @@ export interface FormHandlers<Values> {
   handleReset: (e?: Event) => Promise<any>;
   handleInput(field: keyof Values, type: string): (e: Event, ref: any) => void;
   handleBlur(field: keyof Values, type: string): (e: Event, ref: any) => void;
-  handleFocus(
-    field: keyof Values,
-    type: string
-  ): (e?: Event, ref?: any) => void;
+  // handleFocus(
+  //   field: keyof Values,
+  //   type: string
+  // ): (e?: Event, ref?: any) => void;
 }
 
 export interface FormProps {

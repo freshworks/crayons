@@ -42,9 +42,9 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
-      this.fwFormFocus.emit({
-        field: this.name,
-      });
+      // this.fwFormFocus.emit({
+      //   field: this.name,
+      // });
     }
   };
 
@@ -55,14 +55,18 @@ export class Select {
     }
   };
 
-  private innerOnBlur = async (e: Event) => {
+  private innerOnBlur = (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = false;
-      this.fwBlur.emit(e);
-      this.fwFormBlur.emit({
+      this.fwBlur.emit({
+        event: e,
         field: this.name,
-        value: await this.getSelectedItem(),
+        value: this.value,
       });
+      // this.fwFormBlur.emit({
+      //   field: this.name,
+      //   value: await this.getSelectedItem(),
+      // });
     }
   };
 
@@ -218,18 +222,18 @@ export class Select {
    * Triggered when the list box loses focus.
    */
   @Event() fwBlur: EventEmitter;
-  /**
-   * Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
-   */
-  @Event() fwFormChange: EventEmitter;
-  /**
-   * Triggered when the list box comes into focus. It can used with `fw-form`.
-   */
-  @Event() fwFormFocus: EventEmitter;
-  /**
-   * Triggered when the list box loses focus. It can used with `fw-form`.
-   */
-  @Event() fwFormBlur: EventEmitter;
+  // /**
+  //  * Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormChange: EventEmitter;
+  // /**
+  //  * Triggered when the list box comes into focus. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormFocus: EventEmitter;
+  // /**
+  //  * Triggered when the list box loses focus. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormBlur: EventEmitter;
 
   @Listen('fwHide')
   onDropdownClose() {
@@ -253,6 +257,7 @@ export class Select {
 
   @Listen('fwChange')
   fwSelectedHandler(selectedItem) {
+    console.log('INSIDE FWCHANGE');
     if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
       this.selectedOptionsState = selectedItem.detail.selectedOptions;
       this.value = selectedItem.detail.value;
@@ -263,14 +268,24 @@ export class Select {
       selectedItem.stopImmediatePropagation();
       selectedItem.stopPropagation();
       selectedItem.preventDefault();
-      this.fwChange.emit({
-        value: this.value,
-        selectedOptions: this.selectedOptionsState,
-      });
-      this.fwFormChange.emit({
-        field: this.name,
-        value: this.selectedOptionsState,
-      });
+      if (this.selectedOptionsState.length > 0) {
+        this.fwChange.emit({
+          field: this.name,
+          value: this.value,
+          selectedOptions: this.selectedOptionsState,
+        });
+      } else {
+        this.fwChange.emit({
+          shouldValidate: false,
+          field: this.name,
+          value: this.value,
+          selectedOptions: this.selectedOptionsState,
+        });
+      }
+      // this.fwFormChange.emit({
+      //   field: this.name,
+      //   value: this.selectedOptionsState,
+      // });
     }
   }
 
@@ -314,6 +329,7 @@ export class Select {
 
   @Listen('fwBlur')
   onOptionBlur(event) {
+    console.log('inside fwBlur fw-select');
     if (event.composedPath()[0].tagName === 'FW-SELECT-OPTION') {
       this.focusedOptionId = '';
     }
@@ -508,6 +524,7 @@ export class Select {
         selectedDataSourceValues.length > 0 &&
         JSON.stringify(this.value) !== JSON.stringify(selected)
       ) {
+        console.log('SELECTED:', selected);
         this.value = selected;
         this.selectedOptionsState = selectedDataSource;
       }

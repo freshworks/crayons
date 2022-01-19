@@ -79,25 +79,27 @@ export class Form {
   private handleBlurListener: any;
   private handleChangeListener: any;
 
+  // Standardise the events
+
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
     this.handleInputListener = this.el.addEventListener(
-      'fwFormInput',
+      'fwInput',
       this.debouncedHandleInput
     );
     this.handleBlurListener = this.el.addEventListener(
-      'fwFormBlur',
+      'fwBlur',
       this.handleBlur
     );
     this.handleChangeListener = this.el.addEventListener(
-      'fwFormChange',
+      'fwChange',
       this.handleInput
     );
-    this.handleFocusListener = this.el.addEventListener(
-      'fwFormFocus',
-      this.handleFocus
-    );
+    // this.handleFocusListener = this.el.addEventListener(
+    //   'fwFormFocus',
+    //   this.handleFocus
+    // );
 
     this.formValidationSchema =
       generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
@@ -242,10 +244,34 @@ export class Form {
     return validationErrors;
   };
 
+  // handleFOrmInput = async (event: Event) => {
+  //   event.stopPropagation();
+  //   const { field, value, type } = (event as any).detail;
+  //   if (type === 'input') {
+  //     this.debouncedHandleInput();
+  //   }
+  //   this.values = { ...this.values, [field]: value };
+
+  //   /** Validate, if user wants to validateOnInput */
+  //   if (this.validateOnInput) {
+  //     this.touched = { ...this.touched, [field]: true };
+  //     await this.handleValidation();
+  //   }
+  // };
+
   handleInput = async (event: Event) => {
-    event.stopPropagation();
-    const { field, value } = (event as any).detail;
-    this.values = { ...this.values, [field]: value };
+    // event.stopPropagation();
+    const details = (event as any).detail;
+    const { field, value, shouldValidate } = details;
+
+    if (shouldValidate === false) {
+      return;
+    }
+    console.log('DETAILS:', field, value);
+    this.values = {
+      ...this.values,
+      [field]: 'checked' in details ? details.checked : value,
+    };
 
     /** Validate, if user wants to validateOnInput */
     if (this.validateOnInput) {
@@ -255,10 +281,11 @@ export class Form {
   };
 
   handleBlur = async (event: Event) => {
-    event.stopPropagation();
-    const { field, value } = (event as any).detail;
-    if (this.focused) this.focused = null;
-    this.values = { ...this.values, [field]: value };
+    // event.stopPropagation();
+    console.log('INSIDE BLUR');
+    const { field } = (event as any).detail;
+    // if (this.focused) this.focused = null;
+    // this.values = { ...this.values, [field]: value };
 
     /** Validate, if user wants to validateOnBlur */
     if (this.validateOnBlur) {
@@ -267,11 +294,11 @@ export class Form {
     }
   };
 
-  handleFocus = (event) => {
-    event.stopPropagation();
-    const { field } = (event as any).detail;
-    this.focused = field;
-  };
+  // handleFocus = (event) => {
+  //   event.stopPropagation();
+  //   const { field } = (event as any).detail;
+  //   this.focused = field;
+  // };
 
   private getFormControls() {
     let children = [];

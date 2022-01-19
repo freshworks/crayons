@@ -65,19 +65,19 @@ export class Checkbox {
   /**
    * Triggered when the check box loses focus.
    */
-  @Event() fwBlur!: EventEmitter<void>;
-  /**
-   * Triggered when the check box’s value is modified. It can used with `fw-form`.
-   */
-  @Event() fwFormChange!: EventEmitter;
-  /**
-   * Triggered when the check box comes into focus. It can used with `fw-form`.
-   */
-  @Event() fwFormFocus!: EventEmitter;
-  /**
-   * Triggered when the check box loses focus. It can used with `fw-form`.
-   */
-  @Event() fwFormBlur!: EventEmitter;
+  @Event() fwBlur!: EventEmitter;
+  // /**
+  //  * Triggered when the check box’s value is modified. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormChange!: EventEmitter;
+  // /**
+  //  * Triggered when the check box comes into focus. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormFocus!: EventEmitter;
+  // /**
+  //  * Triggered when the check box loses focus. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormBlur!: EventEmitter;
 
   private checkbox!: HTMLInputElement;
 
@@ -91,6 +91,7 @@ export class Checkbox {
     if (!this.disabled) {
       this.fwChange.emit({
         value: this.value,
+        field: this.name,
         checked: isChecked,
       });
     }
@@ -118,28 +119,33 @@ export class Checkbox {
 
   private onFocus = () => {
     this.fwFocus.emit();
-    this.fwFormFocus.emit({
-      field: this.name,
-      value: this.checkbox.checked,
-    });
+    // this.fwFormFocus.emit({
+    //   field: this.name,
+    //   value: this.checkbox.checked,
+    // });
   };
 
-  private onBlur = () => {
-    this.fwBlur.emit();
-    this.fwFormBlur.emit({
+  private onBlur = (e: Event) => {
+    this.fwBlur.emit({
+      event: e,
+      value: this.value,
       field: this.name,
-      value: this.checkbox.checked,
+      checked: this.checkbox.checked,
     });
+    // this.fwFormBlur.emit({
+    //   field: this.name,
+    //   value: this.checkbox.checked,
+    // });
   };
 
   private toggle = () => {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
-    this.fwFormChange.emit({
-      field: this.name,
-      value: this.checkbox.checked,
-    });
+    // this.fwFormChange.emit({
+    //   field: this.name,
+    //   value: this.checkbox.checked,
+    // });
   };
 
   render() {

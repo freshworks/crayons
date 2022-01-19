@@ -96,19 +96,19 @@ export class Textarea {
   /**
    * Triggered when a value is entered in the input box.
    */
-  @Event() fwInput: EventEmitter<KeyboardEvent>;
-  /**
-   * Triggered when the textarea comes into focus. It can used with `fw-form`.
-   */
-  @Event() fwFormFocus: EventEmitter;
-  /**
-   * Triggered when the textarea loses focus. It can used with `fw-form`.
-   */
-  @Event() fwFormBlur: EventEmitter;
-  /**
-   * Triggered when a value is entered in the textarea. It can used with `fw-form`.
-   */
-  @Event() fwFormInput: EventEmitter;
+  @Event() fwInput: EventEmitter;
+  // /**
+  //  * Triggered when the textarea comes into focus. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormFocus: EventEmitter;
+  // /**
+  //  * Triggered when the textarea loses focus. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormBlur: EventEmitter;
+  // /**
+  //  * Triggered when a value is entered in the textarea. It can used with `fw-form`.
+  //  */
+  // @Event() fwFormInput: EventEmitter;
 
   @Watch('value')
   watchHandler(newValue: string) {
@@ -120,29 +120,38 @@ export class Textarea {
     if (input) {
       this.value = input.value || '';
     }
-    this.fwInput.emit(ev as KeyboardEvent);
-    this.fwFormInput.emit({
+    this.fwInput.emit({
+      event: ev as KeyboardEvent,
       field: this.name,
-      value: this.nativeInput.value,
+      value: this.getValue(),
     });
+    // this.fwFormInput.emit({
+    //   field: this.name,
+    //   value: this.nativeInput.value,
+    // });
   };
 
   private onFocus = () => {
     this.hasFocus = true;
     this.fwFocus.emit();
-    this.fwFormFocus.emit({
-      field: this.name,
-      value: this.nativeInput.value,
-    });
+    // this.fwFormFocus.emit({
+    //   field: this.name,
+    //   value: this.nativeInput.value,
+    // });
   };
 
-  private onBlur = () => {
+  private onBlur = (ev) => {
     this.hasFocus = false;
-    this.fwBlur.emit({ value: this.getValue() });
-    this.fwFormBlur.emit({
+    this.fwBlur.emit({
+      event: ev as KeyboardEvent,
       field: this.name,
-      value: this.nativeInput.value,
+      value: this.getValue(),
     });
+    // this.fwFormBlur.emit({
+    //   event: ev as KeyboardEvent,
+    //   field: this.name,
+    //   value: this.nativeInput.value,
+    // });
   };
 
   private getValue(): string {
