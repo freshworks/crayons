@@ -336,35 +336,6 @@ describe('fw-form', () => {
     expect(result.values['pincode']).toEqual(123345);
     expect(result.values['amount_paid']).toEqual(10);
   });
-  it('should set focus on first error field when submit is pressed with invalid field values', async () => {
-    const page = await newE2EPage();
-
-    await page.setContent(`<fw-form></fw-form>`);
-
-    await page.$eval(
-      'fw-form',
-      (elm: any, { formSchema }) => {
-        elm.formSchema = formSchema;
-        elm.initialValues = {
-          first_name: '',
-          is_indian_citizen: false,
-          gender: '',
-          pincode: '',
-          order_status: '',
-          amount_paid: '',
-        };
-      },
-      props
-    );
-
-    await page.waitForChanges();
-
-    const element = await page.find('fw-form');
-    await element.callMethod('doSubmit');
-    const formControl = await page.findAll('fw-form >>> fw-form-control');
-    const fwInput = formControl[0].shadowRoot.querySelector('fw-input');
-    expect(fwInput).toHaveClass('has-focus');
-  });
   it('should render slot when formSchema is not passed in', async () => {
     const page = await newE2EPage();
 

@@ -152,7 +152,6 @@ export class Textarea {
   async setFocus() {
     if (this.nativeInput) {
       this.nativeInput.focus();
-      this.hasFocus = true;
     }
   }
 

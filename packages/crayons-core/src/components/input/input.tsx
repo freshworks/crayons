@@ -215,7 +215,6 @@ export class Input {
   async setFocus() {
     if (this.nativeInput) {
       this.nativeInput.focus();
-      this.hasFocus = true;
     }
   }
 

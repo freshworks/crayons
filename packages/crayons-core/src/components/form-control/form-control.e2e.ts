@@ -32,31 +32,6 @@ describe('fw-form-control', () => {
     expect(element).not.toBeNull();
     expect(element.tagName.toLowerCase()).toEqual('fw-checkbox');
   });
-  it('Should setfocus on the element', async () => {
-    const props = {
-      type: 'TEXT',
-      name: 'name',
-    };
-    const page = await newE2EPage();
-
-    await page.setContent('<fw-form-control></fw-form-control>');
-
-    await page.$eval(
-      'fw-form-control',
-      (elm: any, { type, name }) => {
-        elm.type = type;
-        elm.name = name;
-      },
-      props
-    );
-    await page.waitForChanges();
-
-    const element = await page.find('fw-form-control');
-    await element.callMethod('setFocus');
-    await page.waitForChanges();
-    const input = element.shadowRoot.querySelector('fw-input');
-    expect(input).toHaveClass('has-focus');
-  });
   it('should render appropriate html if type is passed', async () => {
     const props = {
       type: 'TEXT',
