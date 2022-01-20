@@ -151,12 +151,14 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name             | Description                    |
-| ---------------- | ------------------------------ |
-| `--tab-height`   | height of the tab container.   |
-| `--tab-margin-l` | left margin for the tab items  |
-| `--tab-margin-r` | right margin for the tab items |
-| `--tab-width`    | width of the tab container.    |
+| Name                  | Description                     |
+| --------------------- | ------------------------------- |
+| `--tab-height`        | height of the tab container.    |
+| `--tab-margin-l`      | left margin for the tab items   |
+| `--tab-margin-r`      | right margin for the tab items  |
+| `--tab-padding-left`  | left padding for the tab items  |
+| `--tab-padding-right` | right padding for the tab items |
+| `--tab-width`         | width of the tab container.     |
 
 
 ## Dependencies

@@ -205,9 +205,11 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                    | Description                 |
-| ----------------------- | --------------------------- |
-| `--input-margin-bottom` | Bottom margin for the input |
+| Name                              | Description                           |
+| --------------------------------- | ------------------------------------- |
+| `--input-container-margin-bottom` | Bottom margin for the input container |
+| `--input-margin-bottom`           | Bottom margin for the input           |
+| `--input-margin-top`              | Top margin for the input              |
 
 
 ## Dependencies
