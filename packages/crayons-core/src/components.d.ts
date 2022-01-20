@@ -851,6 +851,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
+        /**
           * Whether the arrow/caret should be shown in the select.
          */
         "caret": boolean;
@@ -2676,6 +2680,10 @@ declare namespace LocalJSX {
         "value"?: any | null;
     }
     interface FwSelect {
+        /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
         /**
           * Whether the arrow/caret should be shown in the select.
          */
