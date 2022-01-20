@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Prop, State, Element, h, Method } from '@stencil/core';
+import {
+  Component,
+  Prop,
+  State,
+  Element,
+  h,
+  Method,
+  Watch,
+} from '@stencil/core';
 import { v4 as uuidv4 } from 'uuid';
 import {
   FormValues,
@@ -16,6 +24,7 @@ import {
   yupToFormErrors,
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
+  serializeForm,
 } from './form-util';
 import { debounce } from '../../utils';
 import EventStore from '../../utils/event-store';
@@ -93,19 +102,41 @@ export class Form {
       this.handleInput
     );
 
-    this.fields = this.formSchema?.fields?.reduce((acc, field) => {
+    await this.handleFormSchemaAndInitialValuesChange(
+      this.formSchema,
+      this.initialValues
+    );
+  }
+
+  @Watch('formSchema')
+  async formSchemaHandler(formSchema) {
+    await this.handleFormSchemaAndInitialValuesChange(
+      formSchema,
+      this.initialValues
+    );
+  }
+
+  @Watch('initialValues')
+  async initialValuesHandler(initialValues) {
+    await this.handleFormSchemaAndInitialValuesChange(
+      this.formSchema,
+      initialValues
+    );
+  }
+
+  async handleFormSchemaAndInitialValuesChange(formSchema, initialValues) {
+    this.fields = formSchema?.fields?.reduce((acc, field) => {
       return { ...acc, [field.name]: field };
     }, {});
 
     this.formValidationSchema =
-      generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
-      {};
+      generateDynamicValidationSchema(formSchema, this.validationSchema) || {};
     this.formInitialValues =
-      generateDynamicInitialValues(this.formSchema, this.initialValues) || {};
+      generateDynamicInitialValues(formSchema, initialValues) || {};
 
     this.values = this.formInitialValues;
 
-    const initialValuesKeys = Object.keys(this.initialValues);
+    const initialValuesKeys = Object.keys(initialValues);
 
     for (const field of Object.keys(this.formInitialValues)) {
       this.errors[field] = null;
@@ -129,7 +160,7 @@ export class Form {
 
   // pass props to form-control children
   componentWillUpdate() {
-    if (!this.controls) {
+    if (!this.controls || !this.controls.length) {
       this.controls = this.getFormControls();
     }
     this.passPropsToChildren(this.controls);
@@ -170,7 +201,13 @@ export class Form {
       this.setFocusOnError();
     }
 
-    return { values: this.values, errors: this.errors, isValid };
+    let serailizedValues = { ...this.values };
+
+    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+      serailizedValues = serializeForm(serailizedValues, this.fields);
+    }
+
+    return { values: serailizedValues, errors: this.errors, isValid };
   };
 
   handleReset = async (event?: Event): Promise<void> => {
@@ -268,8 +305,7 @@ export class Form {
   };
 
   private getFormControls() {
-    let children = [];
-    children = Array.from([
+    const children = Array.from([
       ...this.el.shadowRoot.querySelectorAll('*'),
       ...this.el.querySelectorAll('*'),
     ]).filter((el: HTMLElement) =>
@@ -279,7 +315,7 @@ export class Form {
   }
 
   private passPropsToChildren(controls) {
-    controls.forEach((control: any) => {
+    controls?.forEach((control: any) => {
       this.passPropsToChild(control);
     });
   }

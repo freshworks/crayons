@@ -339,6 +339,7 @@ export class Select {
   @Method()
   async setFocus(): Promise<any> {
     this.selectInput?.focus();
+    this.hasFocus = true;
   }
 
   tagContainerKeyDown = (ev) => {
