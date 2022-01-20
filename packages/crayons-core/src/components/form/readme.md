@@ -1167,27 +1167,26 @@ For `custom` input controls, pass the custom input as `slot` to `fw-form-control
       // reset the form if required if success
       // formRef.current.doReset(e);
     }
+  });
+  document.querySelector('#reset-static-form').addEventListener('click', (e) => {
+    if (document.querySelector('#cin'))
+    document.querySelector('#cin').value = '';
+    formStatic.doReset(e);
+  });
 
-});
-document.querySelector('#reset-static-form').addEventListener('click', (e) => {
-if (document.querySelector('#cin'))
-document.querySelector('#cin').value = '';
-formStatic.doReset(e);
-});
+  var initialValues = {
+    first_name: "John",
+  };
+  formStatic.initialValues = initialValues;
 
-var initialValues = {
-first_name: "John",
-};
-formStatic.initialValues = initialValues;
+  function handleCustomInput(e) {
+    console.log('handle input');
+    formStatic.setFieldValue([e.target.name], e.target.value);
+  }
 
-function handleCustomInput(e) {
-console.log('handle input');
-formStatic.setFieldValue([e.target.name], e.target.value);
-}
-
-document.querySelector('#cin').addEventListener('input', handleCustomInput);
-document.querySelector('#cin').addEventListener('change', handleCustomInput);
-document.querySelector('#cin').addEventListener('blur', handleCustomInput);
+  document.querySelector('#cin').addEventListener('input', handleCustomInput);
+  document.querySelector('#cin').addEventListener('change', handleCustomInput);
+  document.querySelector('#cin').addEventListener('blur', handleCustomInput);
 </script>
 
 ````
@@ -1199,76 +1198,74 @@ import React, {useRef} from "react";
 import ReactDOM from "react-dom";
 import {FwForm, FwFormControl,FwButton} from "@freshworks/crayons/react";
 function App() {
-
-const initialValues = {
-  first_name:"John"
-};
-const formRef = useRef<any>(null);
-  const handleFormSubmit = async (e: any) => {
-    const { values, isValid, errors } = await formRef.current.doSubmit(e);
-    console.log({ result: values, errors });
-
-    // make ajax post end point with values
-    // fetch("/post",values);
-
-    // if error from backend , set Errors - passing key value pair
-    if (isValid) {
-      // set Errors on the form
-      formRef.current.setFieldErrors({
-        first_name: "First Name must be unique <<Server Error>>",
-      });
-      // reset the form if required if success
-      // formRef.current.doReset(e);
-    }
+  
+  const initialValues = {
+    first_name:"John"
   };
-const handleFormReset = (e: any) => {
-  formRef.current.doReset(e);
-};
-return (<div>
-          <FwForm ref={formRef} initialValues={initialValues}
-          validate={async (values:any) => { // do custom validation and return error or {}
-            if(!cin || !cin.length) {
-              return {
-                cin: "cin is required",
-              };
-            }
-            return {}
-          }}>
-            <FwFormControl
-                type="TEXT"
-                name="first_name"
-                required
-                label="Name"
-                placeholder="Enter First Name"
-                fieldProps={{ maxlength: 5 }}
-            ></FwFormControl>
+  const formRef = useRef<any>(null);
+    const handleFormSubmit = async (e: any) => {
+      const { values, isValid, errors } = await formRef.current.doSubmit(e);
+      console.log({ result: values, errors });
 
-            <FwFormControl
-                type="TEXT"
-                name="cin"
-                required
-                label="Custom Input"
-            >
-                <input
-                  placeholder="cin"
-                  id="cin"
-                  maxLength={5}
+      // make ajax post end point with values
+      // fetch("/post",values);
+
+      // if error from backend , set Errors - passing key value pair
+      if (isValid) {
+        // set Errors on the form
+        formRef.current.setFieldErrors({
+          first_name: "First Name must be unique <<Server Error>>",
+        });
+        // reset the form if required if success
+        // formRef.current.doReset(e);
+      }
+    };
+  const handleFormReset = (e: any) => {
+    formRef.current.doReset(e);
+  };
+  return (<div>
+            <FwForm ref={formRef} initialValues={initialValues}
+            validate={async (values:any) => { // do custom validation and return error or {}
+              if(!cin || !cin.length) {
+                return {
+                  cin: "cin is required",
+                };
+              }
+              return {}
+            }}>
+              <FwFormControl
+                  type="TEXT"
+                  name="first_name"
+                  required
+                  label="Name"
+                  placeholder="Enter First Name"
+                  fieldProps={{ maxlength: 5 }}
+              ></FwFormControl>
+
+              <FwFormControl
+                  type="TEXT"
                   name="cin"
                   required
-                  onChange={(e) =>
-                    formRef.current.setFieldValue("cin", e.target.value, true)
-                  }
-                  onBlur={(e) =>
-                    formRef.current.setFieldValue("cin", e.target.value, true)
-                  }
-                ></input>
-            </FwFormControl>
-          </FwForm>
-      <FwButton color="secondary" onClick={handleFormReset}>
-      Reset Form
-      </FwButton>
-      <FwButton onClick={handleFormSubmit}>Submit Form</FwButton>
-</div>);
+                  label="Custom Input"
+              >
+                  <input
+                    placeholder="cin"
+                    id="cin"
+                    maxLength={5}
+                    name="cin"
+                    required
+                    onChange={(e) =>
+                      formRef.current.setFieldValue("cin", e.target.value, true)
+                    }
+                    onBlur={(e) =>
+                      formRef.current.setFieldValue("cin", e.target.value, true)
+                    }
+                  ></input>
+              </FwFormControl>
+            </FwForm>
+            <FwButton color="secondary" onClick={handleFormReset}>Reset Form</FwButton>
+            <FwButton onClick={handleFormSubmit}>Submit Form</FwButton>
+  </div>);
 }
 
 ````
