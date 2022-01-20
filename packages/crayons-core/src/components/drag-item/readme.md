@@ -17,9 +17,11 @@ fw-drag-item can be dragged via clicking and holding the mouse on the drag-icon.
 
 ## Properties
 
-| Property   | Attribute  | Description                          | Type      | Default |
-| ---------- | ---------- | ------------------------------------ | --------- | ------- |
-| `disabled` | `disabled` | Whether the drag is disabled or not. | `boolean` | `false` |
+| Property       | Attribute        | Description                                                                           | Type                | Default     |
+| -------------- | ---------------- | ------------------------------------------------------------------------------------- | ------------------- | ----------- |
+| `disabled`     | `disabled`       | Whether the drag is disabled or not.                                                  | `boolean`           | `false`     |
+| `pinned`       | `pinned`         | Pinned position of the drag item, other drag item cannot be placed above or below it. | `"bottom" \| "top"` | `undefined` |
+| `showDragIcon` | `show-drag-icon` | Whether the drag icon should be visible.                                              | `boolean`           | `true`      |
 
 
 ## Dependencies
