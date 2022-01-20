@@ -60,7 +60,7 @@ export class Tabs {
     this.assignAriaLabels();
 
     // set active tab
-    this.setActiveTab(this.getActiveTab() || this.tabs[0]);
+    this.setActiveTab(this.getActiveTab() || this.tabs[0], false);
   }
 
   createPanelIfRequired() {
@@ -100,10 +100,10 @@ export class Tabs {
   async activateTab(index?: number, name?: string) {
     index && (this.activeTabIndex = index);
     name && (this.activeTabName = name);
-    this.setActiveTab(this.getActiveTab());
+    this.setActiveTab(this.getActiveTab(), false);
   }
 
-  setActiveTab(tab) {
+  setActiveTab(tab, shouldEmit = true) {
     if (tab && tab !== this.activeTab && !tab.disabled) {
       this.activeTab = tab;
       this.activeTabIndex = this.tabs.indexOf(tab);
@@ -115,10 +115,12 @@ export class Tabs {
       this.panels.map((el) => (el.active = el.name === activePanel));
 
       // Emit events
-      this.fwChange.emit({
-        tabIndex: this.activeTabIndex,
-        tabName: this.activeTab.id,
-      });
+      if (shouldEmit) {
+        this.fwChange.emit({
+          tabIndex: this.activeTabIndex,
+          tabName: this.activeTab.id,
+        });
+      }
     }
   }
 
