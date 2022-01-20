@@ -107,4 +107,53 @@ describe('fw-input', () => {
     await page.waitForChanges();
     expect(fwInput).toHaveReceivedEvent();
   });
+
+  it('allow decimal values for Input element', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-input value="0.01" step="1" type="decimal"> </fw-input>'
+    );
+    const fwChange = await page.spyOnEvent('fwChange');
+    const element = await page.find('fw-input');
+
+    await element.click();
+    element.setProperty('value', 1.01);
+
+    await page.waitForChanges();
+
+    expect(fwChange).toHaveReceivedEventDetail({ value: '1.01' });
+  });
+
+  it('allow number/integer values for Input element', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-input value="1" type="number"> </fw-input>');
+    const fwChange = await page.spyOnEvent('fwChange');
+    const element = await page.find('fw-input');
+
+    await element.click();
+    element.setProperty('value', 2);
+
+    await page.waitForChanges();
+
+    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
+  });
+
+  it('set max value of number/integer values for Input element', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-input value="1" type="number" max="5"> </fw-input>'
+    );
+    const fwChange = await page.spyOnEvent('fwChange');
+    const element = await page.find('fw-input');
+
+    await element.click();
+    await element.press('7');
+
+    await page.waitForChanges();
+
+    expect(fwChange).toHaveReceivedEventDetail({ value: '5' });
+  });
 });

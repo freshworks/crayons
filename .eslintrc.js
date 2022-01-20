@@ -52,6 +52,8 @@ module.exports = {
         'react/no-jsx-bind': 0,
         'jsx-quotes': [1, 'prefer-single'],
         'eqeqeq': 2,
+        'no-empty-function': 'off',
+        '@typescript-eslint/no-empty-function': ['off'],
       },
     },
   ],

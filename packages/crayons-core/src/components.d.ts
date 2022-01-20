@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -104,6 +105,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -111,6 +116,14 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Theme based on which the checkbox is styled.
+         */
+        "state": 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -179,6 +192,10 @@ export namespace Components {
          */
         "displayFormat": string;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
@@ -203,6 +220,14 @@ export namespace Components {
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder": string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Theme based on which the input of the datepicker is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -273,6 +298,75 @@ export namespace Components {
           * Value of the dropdown button
          */
         "value": any;
+    }
+    interface FwForm {
+        "doReset": (e: any) => Promise<void>;
+        "doSubmit": (e: any) => Promise<FormSubmit>;
+        /**
+          * Id to uniquely identify the Form. If not set, a random Id will be generated.
+         */
+        "formId": any;
+        /**
+          * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
+         */
+        "formSchema"?: any;
+        /**
+          * Initial field values of the form. It is an object with keys pointing to field name
+         */
+        "initialValues"?: any;
+        "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
+        "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
+         */
+        "validate"?: any;
+        /**
+          * Tells Form to validate the form on each input's onBlur event
+         */
+        "validateOnBlur"?: boolean;
+        /**
+          * Tells Form to validate the form on each input's onInput event
+         */
+        "validateOnInput"?: boolean;
+        /**
+          * YUP based validation schema for handling validation
+         */
+        "validationSchema"?: any;
+        /**
+          * The number of milliseconds to delay before doing validation on Input
+         */
+        "wait": number;
+    }
+    interface FwFormControl {
+        "choices": any;
+        /**
+          * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
+         */
+        "controlProps"?: any;
+        "error": string;
+        /**
+          * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
+         */
+        "fieldProps"?: any;
+        "hint": string;
+        "label": any;
+        "name": any;
+        "placeholder": string;
+        "required": boolean;
+        "touched": boolean;
+        "type": | 'TEXT'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'PARAGRAPH'
+    | 'EMAIL'
+    | 'URL'
+    | 'TEL'
+    | 'TIME';
     }
     interface FwFormatNumber {
         /**
@@ -404,6 +498,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft": string;
@@ -416,9 +514,17 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Specifies a maximum value that can be entered for the number/decimal input.
+         */
+        "max"?: number;
+        /**
           * Maximum number of characters a user can enter in the text box.
          */
         "maxlength"?: number;
+        /**
+          * Specifies a minimum value that can be entered for the number/decimal input.
+         */
+        "min"?: number;
         /**
           * Minimum number of characters a user must enter in the text box for the value to be valid.
          */
@@ -452,9 +558,13 @@ export namespace Components {
          */
         "stateText": string;
         /**
+          * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
+         */
+        "step": string;
+        /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type": 'text' | 'number';
+        "type": 'text' | 'number' | 'email' | 'url';
         /**
           * Default value displayed in the input box.
          */
@@ -815,6 +925,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -822,6 +936,10 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Theme based on which the radio button is styled.
+         */
+        "state": 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -832,6 +950,10 @@ export namespace Components {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty": boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -844,6 +966,10 @@ export namespace Components {
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
         "orientation": 'row' | 'column';
+        /**
+          * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -874,6 +1000,10 @@ export namespace Components {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
         "getSelectedItem": () => Promise<any>;
         /**
           * Label displayed on the interface, for the component.
@@ -1162,6 +1292,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -1220,6 +1354,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format": 'hh:mm A' | 'HH:mm';
@@ -1239,6 +1377,14 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Theme based on which the input of the timepicker is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Time output value
          */
@@ -1526,6 +1672,18 @@ declare global {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
     };
+    interface HTMLFwFormElement extends Components.FwForm, HTMLStencilElement {
+    }
+    var HTMLFwFormElement: {
+        prototype: HTMLFwFormElement;
+        new (): HTMLFwFormElement;
+    };
+    interface HTMLFwFormControlElement extends Components.FwFormControl, HTMLStencilElement {
+    }
+    var HTMLFwFormControlElement: {
+        prototype: HTMLFwFormControlElement;
+        new (): HTMLFwFormControlElement;
+    };
     interface HTMLFwFormatNumberElement extends Components.FwFormatNumber, HTMLStencilElement {
     }
     var HTMLFwFormatNumberElement: {
@@ -1745,6 +1903,8 @@ declare global {
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-drag-item": HTMLFwDragItemElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-form": HTMLFwFormElement;
+        "fw-form-control": HTMLFwFormControlElement;
         "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
@@ -1887,6 +2047,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -1899,13 +2063,21 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the check box’s value is modified.
+          * /**   Triggered when the check box’s value is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the check box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * Theme based on which the checkbox is styled.
+         */
+        "state"?: 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -1965,6 +2137,10 @@ declare namespace LocalJSX {
          */
         "displayFormat"?: string;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
@@ -1985,13 +2161,21 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Triggered when the update button clicked
+          * /**    Triggered when the update button clicked
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * Theme based on which the input of the datepicker is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -2074,6 +2258,71 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
+    }
+    interface FwForm {
+        /**
+          * Id to uniquely identify the Form. If not set, a random Id will be generated.
+         */
+        "formId"?: any;
+        /**
+          * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
+         */
+        "formSchema"?: any;
+        /**
+          * Initial field values of the form. It is an object with keys pointing to field name
+         */
+        "initialValues"?: any;
+        /**
+          * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
+         */
+        "validate"?: any;
+        /**
+          * Tells Form to validate the form on each input's onBlur event
+         */
+        "validateOnBlur"?: boolean;
+        /**
+          * Tells Form to validate the form on each input's onInput event
+         */
+        "validateOnInput"?: boolean;
+        /**
+          * YUP based validation schema for handling validation
+         */
+        "validationSchema"?: any;
+        /**
+          * The number of milliseconds to delay before doing validation on Input
+         */
+        "wait"?: number;
+    }
+    interface FwFormControl {
+        "choices"?: any;
+        /**
+          * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
+         */
+        "controlProps"?: any;
+        "error"?: string;
+        /**
+          * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
+         */
+        "fieldProps"?: any;
+        "hint"?: string;
+        "label"?: any;
+        "name"?: any;
+        "placeholder"?: string;
+        "required"?: boolean;
+        "touched"?: boolean;
+        "type"?: | 'TEXT'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'PARAGRAPH'
+    | 'EMAIL'
+    | 'URL'
+    | 'TEL'
+    | 'TIME';
     }
     interface FwFormatNumber {
         /**
@@ -2211,6 +2460,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft"?: string;
@@ -2223,9 +2476,17 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Specifies a maximum value that can be entered for the number/decimal input.
+         */
+        "max"?: number;
+        /**
           * Maximum number of characters a user can enter in the text box.
          */
         "maxlength"?: number;
+        /**
+          * Specifies a minimum value that can be entered for the number/decimal input.
+         */
+        "min"?: number;
         /**
           * Minimum number of characters a user must enter in the text box for the value to be valid.
          */
@@ -2275,9 +2536,13 @@ declare namespace LocalJSX {
          */
         "stateText"?: string;
         /**
+          * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
+         */
+        "step"?: string;
+        /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type"?: 'text' | 'number';
+        "type"?: 'text' | 'number' | 'email' | 'url';
         /**
           * Default value displayed in the input box.
          */
@@ -2625,6 +2890,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -2645,9 +2914,13 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the radio button in focus is selected.
+          * /**   Triggered when the radio button in focus is selected.
          */
         "onFwSelect"?: (event: CustomEvent<any>) => void;
+        /**
+          * Theme based on which the radio button is styled.
+         */
+        "state"?: 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -2658,6 +2931,10 @@ declare namespace LocalJSX {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty"?: boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -2674,6 +2951,10 @@ declare namespace LocalJSX {
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
         "orientation"?: 'row' | 'column';
+        /**
+          * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -2704,6 +2985,10 @@ declare namespace LocalJSX {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -3014,6 +3299,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
@@ -3084,6 +3373,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format"?: 'hh:mm A' | 'HH:mm';
@@ -3103,6 +3396,14 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * Theme based on which the input of the timepicker is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Time output value
          */
@@ -3323,6 +3624,8 @@ declare namespace LocalJSX {
         "fw-drag-container": FwDragContainer;
         "fw-drag-item": FwDragItem;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-form": FwForm;
+        "fw-form-control": FwFormControl;
         "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
@@ -3377,6 +3680,8 @@ declare module "@stencil/core" {
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
+            "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
             "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
