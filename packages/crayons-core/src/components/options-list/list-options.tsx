@@ -107,6 +107,10 @@ export class ListOptions {
    */
   @Prop() selectedOptions = [];
   /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
+  /**
    * Triggered when a value is selected or deselected from the list box options.
    */
   @Event({ cancelable: true }) fwChange: EventEmitter;
@@ -332,6 +336,7 @@ export class ListOptions {
           disabled:
             option.disabled ||
             (this.multiple && this.value?.length >= this.max),
+          allowDeselect: this.allowDeselect,
         },
       };
     });
