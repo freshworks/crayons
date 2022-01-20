@@ -69,6 +69,10 @@ export class SelectOption {
    * Place a checkbox.
    */
   @Prop() checkbox = false;
+  /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
 
   /**
    * Triggered when an option is selected.
@@ -100,6 +104,9 @@ export class SelectOption {
 
   private onOptionSelected() {
     if (this.disabled) {
+      return;
+    }
+    if (this.selected && !this.allowDeselect) {
       return;
     }
     this.selected = !this.selected;

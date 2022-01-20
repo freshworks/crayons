@@ -472,6 +472,10 @@ export namespace Components {
     }
     interface FwListOptions {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox": boolean;
@@ -964,6 +968,10 @@ export namespace Components {
         "variant": 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
+        /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
         /**
           * Place a checkbox.
          */
@@ -2283,6 +2291,10 @@ declare namespace LocalJSX {
     }
     interface FwListOptions {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox"?: boolean;
@@ -2790,6 +2802,10 @@ declare namespace LocalJSX {
         "variant"?: 'button' | 'standard' | 'mail';
     }
     interface FwSelectOption {
+        /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
         /**
           * Place a checkbox.
          */
