@@ -196,6 +196,10 @@ export class Select {
    * If the default label prop is not used, then use this prop to pass the id of the label.
    */
   @Prop() labelledBy = '';
+  /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -642,6 +646,7 @@ export class Select {
               multiple={this.multiple}
               max={this.max}
               checkbox={this.checkbox}
+              allowDeselect={this.allowDeselect}
               slot='popover-content'
             ></fw-list-options>
           </fw-popover>
