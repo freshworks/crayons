@@ -152,9 +152,12 @@ export class Form {
     let isValid = false,
       touchedState = {};
 
-    await this.handleValidation();
+    const validationErrors = await this.handleValidation();
 
-    const keys = [...Object.keys(this.values), ...Object.keys(this.errors)];
+    const keys = [
+      ...Object.keys(this.values),
+      ...Object.keys(validationErrors),
+    ];
 
     keys.forEach(
       (k: string) => (touchedState = { ...touchedState, [k]: true })
@@ -162,8 +165,7 @@ export class Form {
     // on clicking submit, mark all fields as touched
     this.touched = { ...this.touched, ...touchedState };
 
-    isValid = !this.errors || Object.keys(this.errors).length === 0;
-
+    isValid = !validationErrors || Object.keys(validationErrors).length === 0;
     if (!isValid) {
       this.setFocusOnError();
     }
