@@ -8,9 +8,10 @@ import {
   State,
   h,
   Method,
+  Watch,
 } from '@stencil/core';
 import moment from 'moment-mini';
-
+import EventStore from '../../utils/event-store';
 import {
   handleKeyDown,
   renderHiddenField,
@@ -92,6 +93,23 @@ export class Datepicker {
    *   Text displayed in the input box before a user selects a date or date range.
    */
   @Prop({ mutable: true }) placeholder: string;
+
+  /**
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
+   * Theme based on which the input of the datepicker is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  /**
+
   /**
    *   Triggered when the update button clicked
    */
@@ -138,6 +156,11 @@ export class Datepicker {
 
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleInput`, {
+        field: this.name,
+        value: eventDetails,
+      });
   }
 
   focusElement(element: HTMLElement) {
@@ -149,6 +172,7 @@ export class Datepicker {
   }
 
   private formatDate(value) {
+    if (!value) return value;
     return this.displayFormat
       ? moment(value, this.displayFormat).format()
       : moment(value).format();
@@ -158,13 +182,19 @@ export class Datepicker {
   async getValue() {
     if (this.mode === 'range') {
       return {
-        fromDate: moment(this.startDate).format(),
-        toDate: moment(this.endDate).format(),
+        fromDate:
+          (this.startDate &&
+            moment(this.startDate, this.displayFormat).format()) ||
+          undefined,
+        toDate:
+          (this.endDate && moment(this.endDate, this.displayFormat).format()) ||
+          undefined,
       };
     }
     return this.displayFormat
-      ? moment(this.value, this.displayFormat).format()
-      : moment(this.value).format();
+      ? (this.value && moment(this.value, this.displayFormat).format()) ||
+          undefined
+      : (this.value && moment(this.value).format()) || undefined;
   }
 
   @Listen('keydown')
@@ -207,9 +237,6 @@ export class Datepicker {
         toDate: this.formatDate(this.endDateFormatted),
       });
     } else if (isUpdateDate) {
-      this.value = moment([this.year, this.month, this.selectedDay]).format(
-        this.displayFormat
-      );
       this.emitEvent(this.formatDate(this.value));
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
@@ -232,9 +259,14 @@ export class Datepicker {
       if (e.composedPath()[0].classList.value.includes('range-date-input')) {
         // Range input
         const val = e.path[0].value;
-        let [fromDate, toDate] = val.split('to');
-        fromDate = fromDate.trim();
-        toDate = toDate.trim();
+
+        if (!val) {
+          this.value = undefined;
+        }
+
+        let [fromDate, toDate] = val?.split('to') || [];
+        fromDate = fromDate?.trim();
+        toDate = toDate?.trim();
 
         if (
           !moment(fromDate, this.displayFormat, true).isValid() ||
@@ -255,6 +287,11 @@ export class Datepicker {
       } else {
         // Single Date input
         const val = e.path[0].value;
+
+        if (!val) {
+          this.value = undefined;
+        }
+
         if (!moment(val, this.displayFormat, true).isValid()) {
           // Invalid date format
           return;
@@ -452,6 +489,31 @@ export class Datepicker {
       );
       const formattedToDate = moment(this.endDate).format(this.displayFormat);
       this.value = `${formattedFromDate} to ${formattedToDate}`;
+    }
+  }
+
+  @Watch('value')
+  watchValueChanged(value) {
+    if (!value) {
+      this.startDate = undefined;
+      this.endDate = undefined;
+      this.selectedDay = undefined;
+      this.value = undefined;
+      this.year = moment().year().toString();
+      this.month = moment().month();
+      this.monthDetails = this.getMonthDetails(this.year, this.month);
+    } else {
+      if (this.mode !== 'range') {
+        this.value = moment([this.year, this.month, this.selectedDay]).format(
+          this.displayFormat
+        );
+      } else {
+        const formattedFromDate = moment(this.startDate).format(
+          this.displayFormat
+        );
+        const formattedToDate = moment(this.endDate).format(this.displayFormat);
+        this.value = `${formattedFromDate} to ${formattedToDate}`;
+      }
     }
   }
 
@@ -750,6 +812,15 @@ export class Datepicker {
   private showDateRangePicker() {
     return this.showDatePicker && this.mode === 'range';
   }
+
+  private onBlur = async () => {
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: await this.getValue(),
+      });
+  };
+
   render() {
     const { host, name, value } = this;
 
@@ -766,10 +837,17 @@ export class Datepicker {
         <fw-input
           slot='popover-trigger'
           value={this.value}
+          name={this.name}
           class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
           placeholder={this.placeholder}
           title={this.placeholder}
           iconRight='calendar'
+          style={{
+            '--icon-color': this.state === 'error' && '#d72d30',
+          }}
+          required={this.required}
+          onBlur={this.onBlur}
+          state={this.state}
         ></fw-input>
         {this.showSingleDatePicker() ? (
           <div class='datepicker' slot='popover-content'>

@@ -154,7 +154,7 @@ label {
 }
 
 .select-container {
-  margin-bottom: var(--select-margin-bottom, 16px);
+  margin-bottom: var(--select-margin-bottom, 0px);
   width: inherit;
   height: inherit;
   position: relative;

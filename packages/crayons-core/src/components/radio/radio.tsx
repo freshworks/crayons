@@ -7,6 +7,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio',
@@ -39,6 +40,17 @@ export class Radio {
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
+
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
+   * Theme based on which the radio button is styled.
+   */
+  @Prop() state: 'normal' | 'error' = 'normal';
+  /**
 
   /**
    * Triggered when the radio button in focus is selected.
@@ -101,6 +113,11 @@ export class Radio {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleChange`, {
+        field: this.name,
+        value: this.checked ? this.value : undefined,
+      });
   }
 
   render() {
@@ -117,8 +134,12 @@ export class Radio {
         onBlur={() => this.onBlur()}
       >
         <div class='radio-container'>
-          <input type='radio' ref={(el) => (this.radio = el)}></input>
-          <label>
+          <input
+            type='radio'
+            ref={(el) => (this.radio = el)}
+            name={this.name}
+          ></input>
+          <label class={{ error: this.state === 'error' }}>
             <span id='label'>
               <slot />
             </span>

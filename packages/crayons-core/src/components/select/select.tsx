@@ -20,6 +20,8 @@ import {
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
+import EventStore from '../../utils/event-store';
+
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -55,6 +57,11 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
+      this.formId &&
+        EventStore.publish(`${this.formId}::handleBlur`, {
+          field: this.name,
+          value: this.value,
+        });
     }
   };
 
@@ -196,6 +203,12 @@ export class Select {
    * If the default label prop is not used, then use this prop to pass the id of the label.
    */
   @Prop() labelledBy = '';
+
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -246,6 +259,13 @@ export class Select {
         value: this.value,
         selectedOptions: this.selectedOptionsState,
       });
+      if (this.selectedOptionsState.length > 0) {
+        this.formId &&
+          EventStore.publish(`${this.formId}::handleChange`, {
+            field: this.name,
+            value: this.value,
+          });
+      }
     }
   }
 
@@ -582,13 +602,13 @@ export class Select {
                     )}
                     <input
                       ref={(selectInput) => (this.selectInput = selectInput)}
-                      id={`${this.hostId}-input`}
                       class={{
                         'multiple-select': this.multiple,
                       }}
                       autoComplete='off'
                       disabled={this.disabled}
                       name={this.name}
+                      id={this.name}
                       placeholder={
                         this.valueExists() ? '' : this.placeholder || ''
                       }

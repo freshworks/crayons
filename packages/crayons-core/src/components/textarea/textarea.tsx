@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-textarea',
@@ -80,6 +81,12 @@ export class Textarea {
    * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() disabled = false;
+
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
   /**
    * Triggered when the value in the input box is modified.
    */
@@ -108,6 +115,11 @@ export class Textarea {
       this.value = input.value || '';
     }
     this.fwInput.emit(ev as KeyboardEvent);
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleInput`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private onFocus = () => {
@@ -118,6 +130,11 @@ export class Textarea {
   private onBlur = () => {
     this.hasFocus = false;
     this.fwBlur.emit({ value: this.getValue() });
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private getValue(): string {
@@ -182,12 +199,13 @@ export class Textarea {
               readOnly={this.readonly}
               required={this.required}
               value={this.value}
-              onInput={(e) => this.onInput(e)}
+              onInput={this.onInput}
               onBlur={this.onBlur}
               onFocus={this.onFocus}
               rows={this.rows}
               cols={this.cols}
               wrap={this.wrap}
+              id={this.name}
             />
           </div>
           {this.stateText !== '' ? (
