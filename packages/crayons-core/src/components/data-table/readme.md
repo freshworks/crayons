@@ -451,7 +451,7 @@ function App() {
         "variant": "icon"
       }, {
         "key": "name",
-        "text": "Name",
+        "text": "Icon name",
         "position": 2
       }],
       rows: [{
@@ -487,7 +487,7 @@ function App() {
         "variant": "icon"
       }, {
         "key": "name",
-        "text": "Name",
+        "text": "Icon name",
         "position": 2
       }],
       rows: [{
@@ -523,7 +523,7 @@ function App() {
         "variant": "icon"
       }, {
         "key": "name",
-        "text": "Name",
+        "text": "Icon name",
         "position": 2
       }],
       rows: [{
@@ -569,6 +569,138 @@ This codeblock shows how to use custom cell function to display HTML content in 
   createElement('div', {className: 'greeting'}, [createElement('h2', 'Hello')]);
 ```
 
+## Column text alignment
+
+You can set text alignment in the column by passing the textAlign in column configuration. In the below example, column 'Icon' is center aligned.
+
+```html live
+  <fw-data-table id="data-table-40" label="Data table 40">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "variant": "icon",
+        "textAlign": "center",
+        "widthProperties": {
+          "width": "140px"
+        }
+      }, {
+        "key": "name",
+        "text": "Object Name"
+      }, {
+        "key": "description",
+        "text": "description"
+      }],
+      rows: [{
+        "id": "01",
+        "icon": { "name": "company" },
+        "name": "Company",
+        "description": "Contains information about the company."
+      }, {
+        "id": "02",
+        "icon": { "name": "calendar" },
+        "name": "Bookings",
+        "description": "Contains information about the booking made."
+      }]
+    };
+
+    var datatable = document.getElementById('data-table-40');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-data-table id="datatable-40" label="Data table 40">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "icon",
+      "text": "Icon",
+      "variant": "icon",
+      "textAlign": "center",
+      "widthProperties": {
+        "width": "140px"
+      }
+    }, {
+      "key": "name",
+      "text": "Object Name"
+    }, {
+      "key": "description",
+      "text": "description"
+    }],
+    rows: [{
+      "id": "01",
+      "icon": { "name": "company" },
+      "name": "Company",
+      "description": "Contains information about the company."
+    }, {
+      "id": "02",
+      "icon": { "name": "calendar" },
+      "name": "Bookings",
+      "description": "Contains information about the booking made."
+    }]
+  };
+
+  var datatable = document.getElementById('data-table-40');
+  datatable.columns = data.columns;
+  datatable.rows = data.rows;
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwDataTable } from "@freshworks/crayons/react";
+function App() {
+
+  var data = {
+    columns: [{
+      "key": "icon",
+      "text": "Icon",
+      "variant": "icon",
+      "textAlign": "center",
+      "widthProperties": {
+        "width": "140px"
+      }
+    }, {
+      "key": "name",
+      "text": "Object Name"
+    }, {
+      "key": "description",
+      "text": "description"
+    }],
+    rows: [{
+      "id": "01",
+      "icon": { "name": "company" },
+      "name": "Company",
+      "description": "Contains information about the company."
+    }, {
+      "id": "02",
+      "icon": { "name": "calendar" },
+      "name": "Bookings",
+      "description": "Contains information about the booking made."
+    }]
+  };
+
+  return (
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 40">
+    </FwDataTable>
+  );
+}
+```
+</code-block>
+</code-group>
 
 ## Row Actions:
 

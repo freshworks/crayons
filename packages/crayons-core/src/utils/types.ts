@@ -65,6 +65,7 @@ export type DataTableColumn = {
   position?: number;
   hide?: boolean;
   widthProperties?: WidthStyles;
+  textAlign?: 'left' | 'center' | 'right';
   hasFocusableComponent?: boolean;
   formatData?: (cellValue: any) => string;
   customTemplate?: customTemplateFunc<VNode>;

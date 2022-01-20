@@ -257,6 +257,37 @@ describe('fw-data-table', () => {
     expect(iconComponent).toBeTruthy();
   });
 
+  it('should align text in a column when textAlign is passed as a column configuration', async () => {
+    const data = {
+      columns: [
+        {
+          key: 'icon',
+          text: 'Icon',
+          variant: 'icon',
+          textAlign: 'center',
+        },
+      ],
+      rows: [
+        {
+          id: '01',
+          icon: { name: 'agent' },
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const textAlign = await page.evaluate(
+      (component, selector) => {
+        const cmpEl = document.querySelector(component);
+        const headerCell = cmpEl.shadowRoot.querySelector(selector);
+        return headerCell.style.textAlign;
+      },
+      'fw-data-table',
+      'td'
+    );
+    expect(textAlign).toEqual('center');
+  });
+
   it('should display action column when rowActions is passed to datatable', async () => {
     const data = {
       rows: [

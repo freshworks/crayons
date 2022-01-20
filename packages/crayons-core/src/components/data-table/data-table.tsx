@@ -25,6 +25,7 @@ const PREDEFINED_VARIANTS_META = {
   user: {
     componentName: 'fw-custom-cell-user',
     isFocusable: false,
+    skipTextAlign: true,
   },
   icon: {
     componentName: 'fw-custom-cell-icon',
@@ -654,7 +655,21 @@ export class DataTable {
           </th>
         )}
         {this.orderedColumns.map((column, columnIndex) => {
-          const headerStyles = column.widthProperties;
+          let textAlign = null;
+          if (
+            column.textAlign &&
+            !(
+              column.variant &&
+              PREDEFINED_VARIANTS_META[column.variant].skipTextAlign
+            )
+          ) {
+            textAlign = column.textAlign;
+          }
+          const headerStyles = Object.assign(
+            {},
+            column.widthProperties ? column.widthProperties : {},
+            textAlign ? { textAlign } : {}
+          );
           return (
             <th
               role='columnheader'
@@ -728,10 +743,25 @@ export class DataTable {
               attrs['data-has-focusable-child'] = isFocusable
                 ? 'true'
                 : 'false';
+              let textAlign = null;
+              if (
+                orderedColumn.textAlign &&
+                !(
+                  orderedColumn.variant &&
+                  PREDEFINED_VARIANTS_META[orderedColumn.variant].skipTextAlign
+                )
+              ) {
+                textAlign = orderedColumn.textAlign;
+              }
+              const cellStyle: any = Object.assign(
+                {},
+                textAlign ? { textAlign } : {}
+              );
               return (
                 <td
                   role='gridcell'
                   class={{ hidden: orderedColumn.hide }}
+                  style={cellStyle}
                   {...attrs}
                 >
                   {!this.rowsLoading[row.id] ? (
