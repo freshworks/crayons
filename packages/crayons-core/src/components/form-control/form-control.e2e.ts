@@ -8,4 +8,94 @@ describe('fw-form-control', () => {
     const element = await page.find('fw-form-control');
     expect(element).toHaveClass('hydrated');
   });
+  it('should render appropriate crayons component based on the type', async () => {
+    const props = {
+      type: 'CHECKBOX',
+      name: 'checkbox',
+    };
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-form-control></fw-form-control>');
+
+    await page.$eval(
+      'fw-form-control',
+      (elm: any, { type, name }) => {
+        elm.type = type;
+        elm.name = name;
+      },
+      props
+    );
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form-control >>> fw-checkbox');
+
+    expect(element).not.toBeNull();
+    expect(element.tagName.toLowerCase()).toEqual('fw-checkbox');
+  });
+  it('Should setfocus on the element', async () => {
+    const props = {
+      type: 'TEXT',
+      name: 'name',
+    };
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-form-control></fw-form-control>');
+
+    await page.$eval(
+      'fw-form-control',
+      (elm: any, { type, name }) => {
+        elm.type = type;
+        elm.name = name;
+      },
+      props
+    );
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form-control');
+    await element.callMethod('setFocus');
+    await page.waitForChanges();
+    const input = element.shadowRoot.querySelector('fw-input');
+    expect(input).toHaveClass('has-focus');
+  });
+  it('should render appropriate html if type is passed', async () => {
+    const props = {
+      type: 'TEXT',
+      name: 'name',
+    };
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-form-control></fw-form-control>');
+    await page.$eval(
+      'fw-form-control',
+      (elm: any, { type, name }) => {
+        elm.type = type;
+        elm.name = name;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-form-control');
+
+    expect(element.shadowRoot).toEqualHtml(`<div class="form-control-container">
+      <label class="label" for="name"></label>
+      <fw-input class="hydrated" hint="">
+      <input class="hidden-input" name="name" type="hidden" value="">
+      </fw-input>
+      <slot></slot>
+      <div class="hint"></div>
+    </div>`);
+  });
+  it('should render appropriate html if slotted content is passed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-form-control><input type="text"/></fw-form-control>'
+    );
+    const element = await page.find('fw-form-control');
+    expect(element.shadowRoot).toEqualHtml(`<div class="form-control-container">
+      <label class="label"></label>
+      <slot></slot>
+      <div class="hint"></div>
+    </div>`);
+  });
 });
