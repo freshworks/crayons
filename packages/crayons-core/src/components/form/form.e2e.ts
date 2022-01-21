@@ -343,7 +343,7 @@ describe('fw-form', () => {
 
     await page.$eval(
       'fw-form',
-      (elm: any, { id }) => {
+      (elm: any) => {
         elm.formId = 'fw-form';
       },
       props
@@ -355,5 +355,51 @@ describe('fw-form', () => {
            <slot></slot>
          </form>
        `);
+  });
+  it('should return appropriate values when multiple forms are present', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form id="form1"></fw-form><fw-form id="form2"></fw-form>`
+    );
+
+    const form1 = await page.find('fw-form#form1');
+    const form2 = await page.find('fw-form#form2');
+
+    //Form1
+    await page.$eval(
+      'fw-form#form1',
+      (elm: any, { formSchema }) => {
+        elm.initialValues = {
+          first_name: 'form1-first',
+          last_name: 'form1-last',
+        };
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+    await page.waitForChanges();
+
+    //Form2
+    await page.$eval(
+      'fw-form#form2',
+      (elm: any, { formSchema }) => {
+        elm.initialValues = {
+          first_name: 'form2-first',
+          last_name: 'form2-last',
+        };
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+    await page.waitForChanges();
+
+    const result1 = await form1.callMethod('doSubmit');
+    expect(result1.values['first_name']).toEqual('form1-first');
+    expect(result1.values['last_name']).toEqual('form1-last');
+
+    const result2 = await form2.callMethod('doSubmit');
+    expect(result2.values['first_name']).toEqual('form2-first');
+    expect(result2.values['last_name']).toEqual('form2-last');
   });
 });
