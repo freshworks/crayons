@@ -341,10 +341,8 @@ export class Form {
 
     const selectProps = (field: string, inputType) => ({
       'value':
-        inputType === 'multi_select' // for multiselect pass Array
-          ? this.values[field]?.map((v) => v.value || v) || []
-          : Array.isArray(this.values[field]) // single select but the value is an array, pass 0th index
-          ? this.values[field]?.map((v) => v.value || v)[0] || ''
+        inputType === 'multi_select'
+          ? this.values[field] || []
           : this.values[field] || '',
       'form-id': this.formId,
     });
