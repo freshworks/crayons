@@ -161,8 +161,8 @@ describe('fw-dropdown-button', () => {
     const dropdownCheckboxes = await page.findAll(
       'fw-dropdown-button >>> fw-checkbox'
     );
-    dropdownCheckboxes[0].setProperty('checked', true);
-    dropdownCheckboxes[2].setProperty('checked', true);
+    await dropdownCheckboxes[0].click();
+    await dropdownCheckboxes[2].click();
 
     await addButton.click();
 
