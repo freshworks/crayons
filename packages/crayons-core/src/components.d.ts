@@ -2013,7 +2013,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the check box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * /**   Triggered when the check box’s value is modified.
          */
@@ -2022,18 +2022,6 @@ declare namespace LocalJSX {
           * Triggered when the check box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
-        /**
-          * Triggered when the check box loses focus. It can used with `fw-form`.
-         */
-        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the check box’s value is modified. It can used with `fw-form`.
-         */
-        "onFwFormChange"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the check box comes into focus. It can used with `fw-form`.
-         */
-        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
@@ -2121,17 +2109,13 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * Triggered when the input box loses focus.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
           * /**    Triggered when the update button clicked
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the input loses focus. It can used with `fw-form`.
-         */
-        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the value is entered in the input. It can used with `fw-form`.
-         */
-        "onFwFormInput"?: (event: CustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user selects a date or date range.
          */
@@ -2472,21 +2456,9 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the input box loses focus. It can used with `fw-form`.
-         */
-        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the input box comes into focus. It can used with `fw-form`.
-         */
-        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when a value is entered in the input box. It can used with `fw-form`.
-         */
-        "onFwFormInput"?: (event: CustomEvent<any>) => void;
-        /**
           * Triggered when a value is entered in the input box.
          */
-        "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
+        "onFwInput"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when clear icon is clicked.
          */
@@ -2872,7 +2844,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when the radio button loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the radio button is toggled.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the radio button in focus is cleared.
          */
@@ -2881,10 +2857,6 @@ declare namespace LocalJSX {
           * Triggered when the radio button comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
-        /**
-          * Trigged when a radio button is toggeled. It can used with `fw-form`.
-         */
-        "onFwFormChange"?: (event: CustomEvent<any>) => void;
         /**
           * /**   Triggered when the radio button in focus is selected.
          */
@@ -2997,18 +2969,6 @@ declare namespace LocalJSX {
           * Triggered when the list box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the list box loses focus. It can used with `fw-form`.
-         */
-        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when a value is selected or deselected from the list box options. It can used with `fw-form`.
-         */
-        "onFwFormChange"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the list box comes into focus. It can used with `fw-form`.
-         */
-        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Allow to search for value. Default is true.
          */
@@ -3303,21 +3263,9 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the textarea loses focus. It can used with `fw-form`.
-         */
-        "onFwFormBlur"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the textarea comes into focus. It can used with `fw-form`.
-         */
-        "onFwFormFocus"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when a value is entered in the textarea. It can used with `fw-form`.
-         */
-        "onFwFormInput"?: (event: CustomEvent<any>) => void;
-        /**
           * Triggered when a value is entered in the input box.
          */
-        "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
+        "onFwInput"?: (event: CustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user enters a value.
          */
