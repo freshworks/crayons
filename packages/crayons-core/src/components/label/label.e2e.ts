@@ -7,6 +7,13 @@ describe('fw-label', () => {
     await page.setContent('<fw-label></fw-label>');
     const element = await page.find('fw-label');
     expect(element).toHaveClass('hydrated');
+    const results = await page.compareScreenshot();
+    // Finally, we can test against the previous screenshots.
+    // Test against hard pixels
+    expect(results).toMatchScreenshot({ allowableMismatchedPixels: 100 });
+
+    // Test against the percentage of changes. if 'allowableMismatchedRatio' is above 20% changed,
+    expect(results).toMatchScreenshot({ allowableMismatchedRatio: 0.2 });
   });
 
   it('renders value string', async () => {

@@ -46,6 +46,7 @@
     "start": "stencil build --dev --watch --serve --port=3333",
     "test:watch": "stencil test --spec --e2e --watchAll",
     "test": "stencil test --spec --e2e",
+    "test:screenshot": "stencil test --e2e --screenshot",
     "clean:react": "rimraf react",
     "clean:css": "rimraf css",
     "add:react": "npm run clean:react && npx mkdirp react",

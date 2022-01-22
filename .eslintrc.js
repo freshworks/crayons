@@ -4,13 +4,16 @@ module.exports = {
     'plugin:vue/essential',
     'eslint:recommended',
     'plugin:prettier/recommended',
+    'plugin:storybook/recommended',
   ],
   rules: {
     eqeqeq: 2,
   },
   parserOptions: {
-    ecmaVersion: 2021, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module', // Allows for the use of imports
+    ecmaVersion: 2021,
+    // Allows for the parsing of modern ECMAScript features
+    sourceType: 'module',
+    // Allows for the use of imports
     useJSXTextNode: true,
     ecmaFeatures: {
       jsx: true,
@@ -26,8 +29,10 @@ module.exports = {
       files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        ecmaVersion: 'latest', // Allows for the parsing of modern ECMAScript features
-        sourceType: 'module', // Allows for the use of imports
+        ecmaVersion: 'latest',
+        // Allows for the parsing of modern ECMAScript features
+        sourceType: 'module',
+        // Allows for the use of imports
         useJSXTextNode: true,
         ecmaFeatures: {
           jsx: true,

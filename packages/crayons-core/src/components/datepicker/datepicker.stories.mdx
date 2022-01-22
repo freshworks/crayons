@@ -1,34 +1,45 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { within, userEvent } from '@storybook/testing-library';
+
+export const Template = (args) =>{
+  setTimeout(1,1000);
+  return `<fw-datepicker-uitest></fw-datepicker-uitest>`;
+};
 
 # Datepicker
 
 <Meta
   title='Datepicker'
-  component='fw-datepicker'
+  component='fw-datepicker-uitest'
 />
 
 ## Props
 
-<Props of="fw-datepicker"/>
+<Props of="fw-datepicker-uitest"/>
 
 ## Usage
 
 ### Default
-<Preview>
-<Story name='Default'>{() => '<fw-datepicker></fw-datepicker>'}</Story>
-</Preview>
 
-### DateRangePicker
-<Preview>
-<Story name='DateRangePicker'>{() => '<fw-datepicker mode="range"></fw-datepicker>'}</Story>
-</Preview>
-
-### minDate and maxDate specified
-<Preview>
-<Story name='minDate and maxDate specified'>{() => '<fw-datepicker min-date="10-04-2020" max-date="29-09-2020"></fw-datepicker>'}</Story>
-</Preview>
-
-### Date Format and Placeholder specified
-<Preview>
-<Story name='Date Format and Placeholder specified'>{() => '<fw-datepicker date-format="DD-MMMM-YYYY" placeholder="Pick a Date"></fw-datepicker>'}</Story>
-</Preview>
+<Canvas>
+  <Story
+    name="Filled Form"
+    play={async ({ canvasElement }) => {
+      // Starts querying the component from it's root element
+      setTimeout(() => {
+        
+        canvasElement.querySelector('fw-datepicker-uitest').testShowSingleDatePicker();
+        //const datePicker = canvasElement.querySelector('fw-datepicker-uitest').shadowRoot.querySelector('fw-datepicker');
+        //console.log(datePicker);
+        //const rect = dataTable.getBoundingClientRect();
+        //const x = rect.left + window.scrollX;
+        //const y = rect.top + window.scrollY;
+        //console.log(x,y);
+        //document.elementFromPoint(x,y).click();
+      },1000);
+       
+  }}>
+  {Template.bind({})}
+  </Story>
+</Canvas>

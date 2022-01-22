@@ -3,10 +3,12 @@
     <div v-for="icon in icons" :key="icon.refIcon" class="card" @click="copyToClipboard(icon.name, icon.importByName, icon.refIcon, icon.refText)">
       <div :ref="icon.refIcon">
         <fw-icon :data-svg="icon.src" size = "16" alt="Crayons-Icon"  :label = "icon.name"></fw-icon>
+       
       </div>
       <span :ref="icon.refIcon" class="name">{{ icon.name }}</span>
       <span :ref="icon.refText" class="copied">{{ copyText }}</span>
     </div>
+     <fw-datepicker id="id"></fw-datepicker>
   </div>
 </template>
 
@@ -22,6 +24,7 @@ export default {
   },
   methods: {
     getIconList() {
+      console.log(document.getElementById('id').shadowRoot.innerHTML);
       const context = require.context('@freshworks/crayons-icon/icons/', true, /\.svg$/);
       return context.keys().map((key) => {
         let svgName= key.substring(2, key.length - 4);

@@ -185,7 +185,9 @@ export class Datepicker {
   }
 
   @Listen('fwClick')
-  handleButtonClick(e) {
+  @Method()
+  async handleButtonClick(e) {
+    console.log('hi', e);
     const isUpdateRange = e
       .composedPath()[0]
       .classList.value.includes('update-range-value');
@@ -345,7 +347,7 @@ export class Datepicker {
     return resultYear.toString();
   }
 
-  getSupportedYears = () => {
+  getSupportedYears() {
     const yearsArr = [];
     let year = new Date().getFullYear() - 10;
     const lastYear = year + 20;
@@ -354,7 +356,7 @@ export class Datepicker {
       year++;
     }
     return yearsArr;
-  };
+  }
 
   componentWillLoad() {
     if (this.mode === 'range') {
@@ -455,7 +457,7 @@ export class Datepicker {
     }
   }
 
-  getDayDetails = (args) => {
+  getDayDetails(args) {
     const date = args.index - args.firstDay;
     const day = args.index % 7;
     let prevMonth = args.month - 1;
@@ -471,7 +473,7 @@ export class Datepicker {
     const month = this._getValidDateInMonth(date, args);
     const timestamp = moment([args.year, args.month, _date]).valueOf();
     return { date: _date, day, month, timestamp };
-  };
+  }
 
   private _getValidDateInMonth(date, args) {
     if (this.minDate !== undefined && this.maxDate !== undefined) {
@@ -491,7 +493,7 @@ export class Datepicker {
     return date < 0 ? -1 : date >= args.numberOfDays ? 1 : 0;
   }
 
-  private getMonthDetails = (year, month) => {
+  getMonthDetails(year, month) {
     const firstDay = new Date(year, month).getDay();
     const numberOfDays = moment([year, month]).daysInMonth() || 0;
     const monthArray = [];
@@ -514,9 +516,9 @@ export class Datepicker {
       }
     }
     return monthArray;
-  };
+  }
 
-  setMonth = (offset) => {
+  setMonth(offset) {
     let year = Number(this.year);
     let month = this.month + offset;
     if (month === -1) {
@@ -536,13 +538,13 @@ export class Datepicker {
       this.month === 11
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
-  };
+  }
 
-  isCurrentDay = (day) => {
+  isCurrentDay(day) {
     return day.timestamp === this.todayTimestamp;
-  };
+  }
 
-  isSelectedDay = ({ date, timestamp }) => {
+  isSelectedDay({ date, timestamp }) {
     if (this.mode !== 'range') {
       return moment(this.value, this.displayFormat).isValid()
         ? date === this.selectedDay &&
@@ -553,9 +555,9 @@ export class Datepicker {
         : date === this.selectedDay;
     }
     return timestamp === this.startDate || timestamp === this.endDate;
-  };
+  }
 
-  handleDateHover = (day): void => {
+  handleDateHover(day): void {
     if (this.startDate && !this.endDate) {
       if (this.startDate > day.timestamp) {
         this.endDate = this.startDate;
@@ -569,7 +571,7 @@ export class Datepicker {
       }
       this.dateHovered = day.timestamp;
     }
-  };
+  }
 
   handleKeyUp(e, day) {
     if (e.code === 'Enter') {
@@ -608,14 +610,14 @@ export class Datepicker {
     }
   }
 
-  isInRange = ({ timestamp }) => {
+  isInRange({ timestamp }) {
     const { endDate } = this;
     const { startDate } = this;
 
     return (
       startDate && endDate && timestamp >= startDate && timestamp <= endDate
     );
-  };
+  }
 
   isHoverInRange({ timestamp }) {
     const { startDate, endDate, dateHovered } = this;
@@ -632,7 +634,7 @@ export class Datepicker {
     return startDateCondtion || endDateCondition;
   }
 
-  onDateClick = ({ date, timestamp }) => {
+  onDateClick({ date, timestamp }) {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
       this.value = moment([this.year, this.month, this.selectedDay]).format(
@@ -648,7 +650,7 @@ export class Datepicker {
       }
       this.dateHovered = '';
     }
-  };
+  }
 
   private handleRangeSelection(timestamp) {
     if (this.startDate && this.endDate) {
@@ -744,9 +746,12 @@ export class Datepicker {
       </div>
     );
   }
-  private showSingleDatePicker() {
+  @Method()
+  async showSingleDatePicker() {
+    console.log();
     return this.showDatePicker && this.mode !== 'range';
   }
+
   private showDateRangePicker() {
     return this.showDatePicker && this.mode === 'range';
   }
