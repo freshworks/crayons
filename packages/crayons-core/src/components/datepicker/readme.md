@@ -59,9 +59,41 @@ function App() {
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property        | Attribute        | Description                                                                                                                                                    | Type                       | Default         |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------- |
+| `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.                                          | `string`                   | `'YYYY-MM-DD'`  |
+| `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                   | `undefined`     |
+| `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                   | `undefined`     |
+| `minDate`       | `min-date`       | Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                     | `string`                   | `undefined`     |
+| `mode`          | `mode`           | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"` | `'single date'` |
+| `name`          | `name`           | Name of the component, saved as part of form data.                                                                                                             | `string`                   | `''`            |
+| `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                   | `undefined`     |
+| `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                   | `undefined`     |
+| `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                   | `undefined`     |
+
+
+## Events
+
+| Event      | Description                              | Type               |
+| ---------- | ---------------------------------------- | ------------------ |
+| `fwChange` | Triggered when the update button clicked | `CustomEvent<any>` |
+
+
 ## Methods
 
-### `testShowSingleDatePicker() => Promise<void>`
+### `getValue() => Promise<string | { fromDate: string; toDate: string; }>`
+
+
+
+#### Returns
+
+Type: `Promise<string | { fromDate: string; toDate: string; }>`
+
+
+
+### `handleButtonClick(e: any) => Promise<void>`
 
 
 
@@ -71,17 +103,34 @@ Type: `Promise<void>`
 
 
 
+### `showSingleDatePicker() => Promise<boolean>`
+
+
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+
+
 
 ## Dependencies
 
+### Used by
+
+ - [fw-datepicker-uitest](test)
+
 ### Depends on
 
-- [fw-datepicker](.)
+- [fw-popover](../popover)
+- [fw-input](../input)
+- [fw-select](../select)
+- [fw-select-option](../select-option)
+- [fw-button](../button)
 
 ### Graph
 ```mermaid
 graph TD;
-  fw-datepicker-uitest --> fw-datepicker
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-input
   fw-datepicker --> fw-select
@@ -106,7 +155,8 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
-  style fw-datepicker-uitest fill:#f9f,stroke:#333,stroke-width:4px
+  fw-datepicker-uitest --> fw-datepicker
+  style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
