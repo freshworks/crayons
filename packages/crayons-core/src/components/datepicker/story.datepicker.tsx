@@ -6,12 +6,12 @@ import {
     Method,
     h
   } from '@stencil/core';
-import { Datepicker } from '../datepicker';
+import { Datepicker } from './datepicker';
 export interface TestDatePicker extends Datepicker {}
 
 @Component({
   tag: 'fw-datepicker-uitest',
-  styleUrl: '../datepicker.scss',
+  styleUrl: 'datepicker.scss',
   shadow: true,
 })
 export class TestDatePicker {
