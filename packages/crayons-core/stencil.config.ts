@@ -52,7 +52,7 @@ export const config: Config = {
     reactOutputTarget({
       componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
       proxiesFile: './crayons-react/components.ts',
-
+      excludeComponents: ['fw-datepicker-uitest'],
       // lazy load -> code splitting
       // includeDefineCustomElements: true,
       // includePolyfills: true,

@@ -118,7 +118,7 @@ Type: `Promise<boolean>`
 
 ### Used by
 
- - [fw-datepicker-uitest](test)
+ - [fw-datepicker-uitest](__tests__)
 
 ### Depends on
 
