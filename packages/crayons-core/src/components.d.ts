@@ -195,7 +195,7 @@ export namespace Components {
           * selectAllRows method we can use to select/unselect rows in the table
           * @param checked denotes if we want to check or uncheck the rows
          */
-        "selectAllRows": (checked?: boolean) => Promise<void>;
+        "selectAllRows": (checked?: boolean) => Promise<string[]>;
     }
     interface FwDatepicker {
         /**
