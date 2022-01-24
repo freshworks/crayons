@@ -47,7 +47,6 @@ export class Draggable {
   constructor(container, options) {
     this.dragContainer = container;
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
-    this.childElements = Array.from(this.dragContainer.children);
     this.acceptFrom = this.options.acceptFrom
       ? this.options.acceptFrom.split(',')
       : [];
@@ -63,19 +62,22 @@ export class Draggable {
     e.dataTransfer.setData('text/plain', dragElement.id);
 
     // Set all items inside the drag container except the current element
+    this.childElements = Array.from(this.dragContainer.children);
     const draggingElementIndex = this.childElements.indexOf(dragElement);
     this.nextSibling = this.childElements[draggingElementIndex + 1];
     this.childElements.splice(draggingElementIndex, 1);
+    e.stopPropagation();
   };
 
   private onDragEnter = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const sortContainer = e
       .composedPath()
       .find((el) => el.id === this.dragContainer.id);
     if (sortContainer && sortContainer !== this.previousContainer) {
+      this.childElements = Array.from(this.dragContainer.children);
       // the drag element have entered or re-entered current drag container
       this.cancelDebouncedDrag = false;
     }
@@ -83,7 +85,7 @@ export class Draggable {
   };
 
   private onDragLeave = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const outTarget = e.fromElement || e.relatedTarget;
@@ -111,7 +113,7 @@ export class Draggable {
 
   private onDragOver = (e) => {
     e.preventDefault();
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const sortContainerId = dragElement.parentElement.id;
@@ -127,13 +129,10 @@ export class Draggable {
   };
 
   private onDrop = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const sortContainerId = dragElement.parentElement.id;
-    if (!this.acceptFrom.includes(sortContainerId)) {
-      return;
-    }
     const newElement = this.placeholder || dragElement;
     const droppedIndex = [...this.dragContainer.children].indexOf(newElement);
     if (this.placeholder) {
@@ -160,35 +159,21 @@ export class Draggable {
   };
 
   addListeners() {
-    this.dragContainer.addEventListener('dragstart', (e) =>
-      this.onDragStart(e)
-    );
-    this.dragContainer.addEventListener('dragend', (e) => this.onDragEnd(e));
-    this.dragContainer.addEventListener('dragenter', (e) =>
-      this.onDragEnter(e)
-    );
-    this.dragContainer.addEventListener('dragleave', (e) =>
-      this.onDragLeave(e)
-    );
-    this.dragContainer.addEventListener('dragover', (e) => this.onDragOver(e));
-    this.dragContainer.addEventListener('drop', (e) => this.onDrop(e));
+    this.dragContainer.addEventListener('dragstart', this.onDragStart);
+    this.dragContainer.addEventListener('dragend', this.onDragEnd);
+    this.dragContainer.addEventListener('dragenter', this.onDragEnter);
+    this.dragContainer.addEventListener('dragleave', this.onDragLeave);
+    this.dragContainer.addEventListener('dragover', this.onDragOver);
+    this.dragContainer.addEventListener('drop', this.onDrop);
   }
 
   removeListeners() {
-    this.dragContainer.removeEventListener('dragstart', (e) =>
-      this.onDragStart(e)
-    );
-    this.dragContainer.removeEventListener('dragend', (e) => this.onDragEnd(e));
-    this.dragContainer.removeEventListener('dragenter', (e) =>
-      this.onDragEnter(e)
-    );
-    this.dragContainer.removeEventListener('dragleave', (e) =>
-      this.onDragLeave(e)
-    );
-    this.dragContainer.removeEventListener('dragover', (e) =>
-      this.onDragOver(e)
-    );
-    this.dragContainer.removeEventListener('drop', (e) => this.onDrop(e));
+    this.dragContainer.removeEventListener('dragstart', this.onDragStart);
+    this.dragContainer.removeEventListener('dragend', this.onDragEnd);
+    this.dragContainer.removeEventListener('dragenter', this.onDragEnter);
+    this.dragContainer.removeEventListener('dragleave', this.onDragLeave);
+    this.dragContainer.removeEventListener('dragover', this.onDragOver);
+    this.dragContainer.removeEventListener('drop', this.onDrop);
   }
 
   getDragAfterElement(elements, y) {
@@ -248,6 +233,14 @@ export class Draggable {
       this.dragContainer.appendChild(newElement);
   }
 
+  canAcceptDragElement() {
+    if (!dragElement) {
+      return false;
+    }
+    const sortContainerId = dragElement.parentElement.id;
+    return this.acceptFrom.includes(sortContainerId);
+  }
+
   canInsertBefore(element) {
     return element && element.pinned !== 'top';
   }
@@ -273,7 +266,6 @@ export class Draggable {
 
   resetData(e) {
     e.dataTransfer.clearData();
-    this.childElements = Array.from(this.dragContainer.children);
     this.previousContainer = undefined;
     dragElement = undefined;
     this.placeholder = undefined;
