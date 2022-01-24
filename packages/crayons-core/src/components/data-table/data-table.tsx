@@ -618,7 +618,7 @@ export class DataTable {
     return this.orderedColumns.length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
-          <th key='isSelectable' aria-colindex={1} style={{ width: '42px' }}>
+          <th key='isSelectable' aria-colindex={1} style={{ width: '40px' }}>
             {this.isAllSelectable && (
               <fw-checkbox id='select-all' value={'select-all'}></fw-checkbox>
             )}

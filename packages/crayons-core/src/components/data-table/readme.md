@@ -761,7 +761,7 @@ To hide certain columns, we can pass the 'hide' property set to true in the colu
 
 ## Column width
 
-We can pass width for every column using 'widthProperties' in column's configuration. Every column has a minimum width of 50px and maximum width of 1000px by default. We can override min/max width for every column using the 'widthProperties' too.
+We can pass width for every column using 'widthProperties' in column's configuration. Every column has a minimum width of 40px and maximum width of 1000px by default. We can override min/max width for every column using the 'widthProperties' too.
 
 ```html live
   <span>'Name' column has 400px width and 'Role' column has 200px width.</span> <br><br>
