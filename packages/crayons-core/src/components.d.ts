@@ -649,11 +649,11 @@ export namespace Components {
         /**
           * Pass an array of string in case of multi-select or string for single-select.
          */
-        "setSelectedValues": (values: string | string[]) => Promise<any>;
+        "setSelectedValues": (values: any) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value": string | string[];
+        "value": any;
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -1158,7 +1158,7 @@ export namespace Components {
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
-        "value": string;
+        "value": string | number;
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -2638,7 +2638,7 @@ declare namespace LocalJSX {
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value"?: string | string[];
+        "value"?: any;
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -3170,7 +3170,7 @@ declare namespace LocalJSX {
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
-        "value"?: string;
+        "value"?: string | number;
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
