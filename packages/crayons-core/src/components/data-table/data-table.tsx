@@ -142,7 +142,7 @@ export class DataTable {
     if (event.detail) {
       if (
         event.detail.value === 'select-all' &&
-        event.path[0].id === 'select-all'
+        this.getEventPath(event)[0].id === 'select-all'
       ) {
         const checkboxSelector = event.detail.checked
           ? 'tr > td:first-child > fw-checkbox:not([checked])'
@@ -156,10 +156,10 @@ export class DataTable {
       } else {
         if (event.detail.checked) {
           this.selected.push(event.detail.value);
-          event.path[0].closest('tr').classList.add('active');
+          this.getEventPath(event)[0].closest('tr').classList.add('active');
         } else {
           this.selected.splice(this.selected.indexOf(event.detail.value), 1);
-          event.path[0].closest('tr').classList.remove('active');
+          this.getEventPath(event)[0].closest('tr').classList.remove('active');
         }
         if (!this.selectAllProgressCount) {
           this.fwSelectionChange.emit({
@@ -186,8 +186,10 @@ export class DataTable {
    */
   @Listen('keydown')
   keyDownHandler(event) {
-    const currentElement: HTMLElement = event.path[0];
-    const currentCell: HTMLElement = this.closestTableCell(event.path);
+    const currentElement: HTMLElement = this.getEventPath(event)[0];
+    const currentCell: HTMLElement = this.closestTableCell(
+      this.getEventPath(event)
+    );
     let cellFocusChange = false;
 
     // Switch focus between components inside a cell
@@ -222,10 +224,9 @@ export class DataTable {
 
     // Switch focus between cells
     if (cellFocusChange && currentCell) {
-      const currentRowIndex: number =
+      let currentRowIndex: number =
         +currentCell.parentElement.getAttribute('aria-rowIndex');
-      const currentColIndex: number =
-        +currentCell.getAttribute('aria-colIndex');
+      let currentColIndex: number = +currentCell.getAttribute('aria-colIndex');
       let nextRowIndex: number;
       let nextColIndex: number;
       let columnLength: number = this.orderedColumns.length;
@@ -241,21 +242,69 @@ export class DataTable {
           nextColIndex = currentColIndex;
           break;
         case 'ArrowRight':
-          if (currentColIndex !== columnLength) {
-            nextRowIndex = currentRowIndex;
-            nextColIndex = currentColIndex + 1;
-          } else {
-            nextRowIndex = currentRowIndex + 1;
-            nextColIndex = 1;
+          {
+            const getNextCellIndex = (currentRowIndex, currentColIndex) => {
+              if (currentColIndex !== columnLength) {
+                nextRowIndex = currentRowIndex;
+                nextColIndex = currentColIndex + 1;
+              } else {
+                nextRowIndex = currentRowIndex + 1;
+                nextColIndex = 1;
+              }
+              return { nextRowIndex, nextColIndex };
+            };
+            let currentColumnHidden = false;
+            do {
+              const nextCellIndex = getNextCellIndex(
+                currentRowIndex,
+                currentColIndex
+              );
+              const currentColumn =
+                event.currentTarget.shadowRoot.querySelector(
+                  `th[aria-colIndex="${nextColIndex}"]`
+                );
+              currentColumnHidden = currentColumn.classList.contains('hidden');
+              if (currentColumnHidden) {
+                currentRowIndex = nextCellIndex.nextRowIndex;
+                currentColIndex = nextCellIndex.nextColIndex;
+              } else {
+                nextRowIndex = nextCellIndex.nextRowIndex;
+                nextColIndex = nextCellIndex.nextColIndex;
+              }
+            } while (currentColumnHidden); // Loop till next visible column
           }
           break;
         case 'ArrowLeft':
-          if (currentColIndex !== 1) {
-            nextRowIndex = currentRowIndex;
-            nextColIndex = currentColIndex - 1;
-          } else {
-            nextRowIndex = currentRowIndex - 1;
-            nextColIndex = columnLength;
+          {
+            const getPreviousCellIndex = (currentRowIndex, currentColIndex) => {
+              if (currentColIndex !== 1) {
+                nextRowIndex = currentRowIndex;
+                nextColIndex = currentColIndex - 1;
+              } else {
+                nextRowIndex = currentRowIndex - 1;
+                nextColIndex = columnLength;
+              }
+              return { nextRowIndex, nextColIndex };
+            };
+            let currentColumnHidden = false;
+            do {
+              const previousCellIndex = getPreviousCellIndex(
+                currentRowIndex,
+                currentColIndex
+              );
+              const currentColumn =
+                event.currentTarget.shadowRoot.querySelector(
+                  `th[aria-colIndex="${nextColIndex}"]`
+                );
+              currentColumnHidden = currentColumn.classList.contains('hidden');
+              if (currentColumnHidden) {
+                currentRowIndex = previousCellIndex.nextRowIndex;
+                currentColIndex = previousCellIndex.nextColIndex;
+              } else {
+                nextRowIndex = previousCellIndex.nextRowIndex;
+                nextColIndex = previousCellIndex.nextColIndex;
+              }
+            } while (currentColumnHidden); // Loop till next visible column
           }
           break;
         default:
@@ -320,6 +369,14 @@ export class DataTable {
   async loadTable(state: boolean) {
     this.isLoading = state;
     return this.isLoading;
+  }
+
+  /**
+   * get event's path which is an array of the objects
+   * event.path unsupported in safari
+   */
+  getEventPath(event) {
+    return event.path ? event.path : event.composedPath();
   }
 
   /**
@@ -464,11 +521,11 @@ export class DataTable {
     action: DataTableAction,
     rowData: DataTableRow
   ) {
-    const tableRow = this.closestTableCell(event.path).parentNode;
+    const tableRow = this.closestTableCell(this.getEventPath(event)).parentNode;
     const tableRowHeight = window.getComputedStyle(tableRow).height;
     tableRow.style.height = tableRowHeight;
     const skeletonHeight = this.getShimmerHeight(
-      this.closestTableCell(event.path)
+      this.closestTableCell(this.getEventPath(event))
     );
     const selectAll: any = this.el.shadowRoot.querySelector(
       'fw-checkbox#select-all'
@@ -548,7 +605,7 @@ export class DataTable {
     } else if (column.customTemplate) {
       template = this.renderCustomTemplate(column.customTemplate, cellValue);
     } else {
-      template = cellValue;
+      template = column.formatData ? column.formatData(cellValue) : cellValue;
     }
     return template;
   }
@@ -561,25 +618,31 @@ export class DataTable {
     return this.orderedColumns.length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
-          <th key='isSelectable' aria-colindex={1}>
+          <th key='isSelectable' aria-colindex={1} style={{ width: '40px' }}>
             {this.isAllSelectable && (
               <fw-checkbox id='select-all' value={'select-all'}></fw-checkbox>
             )}
           </th>
         )}
-        {this.orderedColumns.map((column, columnIndex) => (
-          <th
-            role='columnheader'
-            key={column.key}
-            aria-colindex={
-              this.isSelectable ? columnIndex + 2 : columnIndex + 1
-            }
-          >
-            {column.text}
-          </th>
-        ))}
+        {this.orderedColumns.map((column, columnIndex) => {
+          const headerStyles = column.widthProperties;
+          return (
+            <th
+              role='columnheader'
+              key={column.key}
+              aria-colindex={
+                this.isSelectable ? columnIndex + 2 : columnIndex + 1
+              }
+              class={{ hidden: column.hide }}
+              style={headerStyles}
+            >
+              {column.text}
+            </th>
+          );
+        })}
         {this.rowActions.length !== 0 && (
           <th
+            class='row-actions'
             role='columnheader'
             aria-colindex={
               this.isSelectable
@@ -637,7 +700,11 @@ export class DataTable {
                 ? 'true'
                 : 'false';
               return (
-                <td role='gridcell' {...attrs}>
+                <td
+                  role='gridcell'
+                  class={{ hidden: orderedColumn.hide }}
+                  {...attrs}
+                >
                   {!this.rowsLoading[row.id] ? (
                     this.renderTableCell(orderedColumn, row[orderedColumn.key])
                   ) : (
@@ -708,7 +775,7 @@ export class DataTable {
     return (
       <div class='fw-data-table-container'>
         <table
-          class='fw-data-table'
+          class={{ 'fw-data-table': true, 'is-selectable': this.isSelectable }}
           role='grid'
           aria-colcount={this.orderedColumns.length}
           aria-label={this.label}
