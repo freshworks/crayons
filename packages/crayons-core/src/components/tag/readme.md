@@ -75,7 +75,7 @@ export default App;
 | `focusable`     | `focusable` | Whether the Tag is focusable.                                                                                                           | `boolean`                | `true`       |
 | `graphicsProps` | --          | The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component. | `{}`                     | `{}`         |
 | `text`          | `text`      | Display text in the tag component.                                                                                                      | `string`                 | `undefined`  |
-| `value`         | `value`     | Value associated with the tag component, that is saved when the form data is saved.                                                     | `string`                 | `undefined`  |
+| `value`         | `value`     | Value associated with the tag component, that is saved when the form data is saved.                                                     | `number \| string`       | `undefined`  |
 | `variant`       | `variant`   | The variant of tag to be displayed.                                                                                                     | `"avatar" \| "standard"` | `'standard'` |
 
 

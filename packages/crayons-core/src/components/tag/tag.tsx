@@ -23,7 +23,7 @@ export class Tag {
   /**
    * Display text in the tag component.
    */
-  @Prop({ reflect: true }) text: string;
+  @Prop() text: string;
 
   /**
    * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
@@ -33,12 +33,12 @@ export class Tag {
   /**
    * Value associated with the tag component, that is saved when the form data is saved.
    */
-  @Prop({ reflect: true }) value: string;
+  @Prop() value: string | number;
 
   /**
    * The variant of tag to be displayed.
    */
-  @Prop({ reflect: true }) variant: TagVariant = 'standard';
+  @Prop() variant: TagVariant = 'standard';
 
   /**
    * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
