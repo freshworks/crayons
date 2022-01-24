@@ -66,10 +66,11 @@ export class Draggable {
     const draggingElementIndex = this.childElements.indexOf(dragElement);
     this.nextSibling = this.childElements[draggingElementIndex + 1];
     this.childElements.splice(draggingElementIndex, 1);
+    e.stopPropagation();
   };
 
   private onDragEnter = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const sortContainer = e
@@ -84,7 +85,7 @@ export class Draggable {
   };
 
   private onDragLeave = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const outTarget = e.fromElement || e.relatedTarget;
@@ -112,7 +113,7 @@ export class Draggable {
 
   private onDragOver = (e) => {
     e.preventDefault();
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const sortContainerId = dragElement.parentElement.id;
@@ -128,13 +129,10 @@ export class Draggable {
   };
 
   private onDrop = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const sortContainerId = dragElement.parentElement.id;
-    if (!this.acceptFrom.includes(sortContainerId)) {
-      return;
-    }
     const newElement = this.placeholder || dragElement;
     const droppedIndex = [...this.dragContainer.children].indexOf(newElement);
     if (this.placeholder) {
@@ -233,6 +231,14 @@ export class Draggable {
     }
     this.canAppendTo(this.dragContainer) &&
       this.dragContainer.appendChild(newElement);
+  }
+
+  canAcceptDragElement() {
+    if (!dragElement) {
+      return false;
+    }
+    const sortContainerId = dragElement.parentElement.id;
+    return this.acceptFrom.includes(sortContainerId);
   }
 
   canInsertBefore(element) {
