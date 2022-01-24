@@ -13,12 +13,20 @@
       font-weight: 600;
       font-size: 14px;
       line-height: 20px;
+      width: 250px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .name-box-email {
       font-size: 12px;
       color: #475867;
       line-height: 18px;
+      width: 250px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }

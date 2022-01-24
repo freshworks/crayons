@@ -1,7 +1,7 @@
 # DataTable (fw-data-table)
 fw-data-table are used for data visualization.
 
-## Usage
+## Basic Usage
 
 ```html live
   <fw-data-table id="datatable" is-selectable="true" label="Data table 1">
@@ -91,7 +91,7 @@ fw-data-table are used for data visualization.
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FWDataTable } from "@freshworks/crayons/react";
+import { FwDataTable } from "@freshworks/crayons/react";
 function App() {
 
   let data = {
@@ -124,8 +124,8 @@ function App() {
     };
 
   return (
-    <FWDataTable columns={data.columns} rows={data.persons} label="Data Table 1" isSelectable>
-    </FWDataTable>
+    <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 1" isSelectable>
+    </FwDataTable>
   );
 }
 ```
@@ -224,7 +224,7 @@ Row value for this column variant should be an object with the following propert
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FWDataTable } from "@freshworks/crayons/react";
+import { FwDataTable } from "@freshworks/crayons/react";
 function App() {
 
   var data = {
@@ -254,8 +254,8 @@ function App() {
   };
 
   return (
-    <FWDataTable columns={data.columns} rows={data.persons} label="Data Table 2">
-    </FWDataTable>
+    <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 2">
+    </FwDataTable>
   );
 }
 ```
@@ -383,7 +383,7 @@ Row value for this column variant should be an object with the following propert
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FWDataTable } from "@freshworks/crayons/react";
+import { FwDataTable } from "@freshworks/crayons/react";
 function App() {
 
   var data = {
@@ -428,8 +428,8 @@ function App() {
   };
 
   return (
-    <FWDataTable columns={data.columns} rows={data.persons} label="Data Table 3">
-    </FWDataTable>
+    <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 3">
+    </FwDataTable>
   );
 }
 ```
@@ -460,7 +460,7 @@ This codeblock shows how to use custom cell function to display HTML content in 
 ```
 
 
-### Row Actions:
+## Row Actions:
 
 You can easily add an actions column by passing in rowActions prop to the component.
 
@@ -590,7 +590,7 @@ You can easily add an actions column by passing in rowActions prop to the compon
 ```jsx
   import React from "react";
   import ReactDOM from "react-dom";
-  import { FWDataTable } from "@freshworks/crayons/react";
+  import { FwDataTable } from "@freshworks/crayons/react";
   function App() {
 
     var data = {
@@ -640,8 +640,405 @@ You can easily add an actions column by passing in rowActions prop to the compon
     }
 
     return (
-      <FWDataTable columns={data.columns} rows={data.persons} rowActions={data.rowActions} label="Data Table 3">
-      </FWDataTable>
+      <FwDataTable columns={data.columns} rows={data.persons} rowActions={data.rowActions} label="Data Table 3">
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+## Hide columns
+
+To hide certain columns, we can pass the 'hide' property set to true in the column's configuration.
+
+```html live
+  <span>'Role' column hidden in below table.</span> <br><br>
+  <fw-data-table id="datatable-5" label="Data table 5">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role",
+        "hide": true
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }]
+    }
+
+    var datatable5 = document.getElementById('datatable-5');
+    datatable5.columns = data.columns;
+    datatable5.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-5" label="Data table 5">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name"
+    }, {
+      "key": "role",
+      "text": "Role",
+      "hide": true
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "role": "Member"
+    }, {
+      "id": "0002",
+      "name": "Ambrose Wayne",
+      "role": "Member"
+    }]
+  }
+
+  var datatable5 = document.getElementById('datatable-5');
+  datatable5.columns = data.columns;
+  datatable5.rows = data.rows;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role",
+        "hide": true
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }]
+    }
+
+    return (
+      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 5">
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+## Column width
+
+We can pass width for every column using 'widthProperties' in column's configuration. Every column has a minimum width of 40px and maximum width of 1000px by default. We can override min/max width for every column using the 'widthProperties' too.
+
+```html live
+  <span>'Name' column has 400px width and 'Role' column has 200px width.</span> <br><br>
+  <fw-data-table id="datatable-6" label="Data table 6">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "widthProperties": {
+          "minWidth": "400px"
+        }
+      }, {
+        "key": "role",
+        "text": "Role",
+        "widthProperties": {
+          "width": "200px"
+        }
+      }, {
+        "key": "level",
+        "text": "Level"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member",
+        "level": "L1"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member",
+        "level": "L2"
+      }]
+    }
+
+    var datatable6 = document.getElementById('datatable-6');
+    datatable6.columns = data.columns;
+    datatable6.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-6" label="Data table 6">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "widthProperties": {
+          "minWidth": "400px"
+        }
+      }, {
+        "key": "role",
+        "text": "Role",
+        "widthProperties": {
+          "width": "200px"
+        }
+      }, {
+        "key": "level",
+        "text": "Level"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member",
+        "level": "L1"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member",
+        "level": "L2"
+      }]
+    }
+
+  var datatable6 = document.getElementById('datatable-6');
+  datatable6.columns = data.columns;
+  datatable6.rows = data.rows;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "widthProperties": {
+          "minWidth": "400px"
+        }
+      }, {
+        "key": "role",
+        "text": "Role",
+        "widthProperties": {
+          "width": "200px"
+        }
+      }, {
+        "key": "level",
+        "text": "Level"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member",
+        "level": "L1"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member",
+        "level": "L2"
+      }]
+    }
+
+    return (
+      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 6">
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+## Formatting data 
+
+We can format row's data before rendering into a cell by passing 'formatData' in column's configuration. 
+
+*This option wont work when using this with 'variant' or 'customTemplate' properties in column's configuration.*
+
+```html live
+  <fw-data-table id="datatable-7" label="Data table 7">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "courses",
+        "text": "Courses",
+        "formatData": (courses) => {
+          return courses.join(', ');
+        }
+      }, {
+        "key": "appliedon",
+        "text": "Applied on",
+        "formatData": (ISOString) => {
+          const date = new Date(ISOString);
+          return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "courses": ["HTML", "CSS", "JS"],
+        "appliedon": "2021-10-21T14:48:00.000Z"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "courses": ["Ruby on Rails", "PostgreSQL"],
+        "appliedon": "2022-01-14T16:14:00.000Z"
+      }]
+    }
+
+    var datatable7 = document.getElementById('datatable-7');
+    datatable7.columns = data.columns;
+    datatable7.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-7" label="Data table 7">
+  </fw-data-table>
+```
+
+```javascript
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name"
+    }, {
+      "key": "courses",
+      "text": "Courses",
+      "formatData": (courses) => {
+        return courses.join(', ');
+      }
+    }, {
+      "key": "appliedon",
+      "text": "Applied on",
+      "formatData": (ISOString) => {
+        const date = new Date(ISOString);
+        return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+      }
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "courses": ["HTML", "CSS", "JS"],
+      "appliedon": "2021-10-21T14:48:00.000Z"
+    }, {
+      "id": "0002",
+      "name": "Ambrose Wayne",
+      "courses": ["Ruby on Rails", "PostgreSQL"],
+      "appliedon": "2022-01-14T16:14:00.000Z"
+    }]
+  }
+
+  var datatable7 = document.getElementById('datatable-7');
+  datatable7.columns = data.columns;
+  datatable7.rows = data.rows;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "courses",
+        "text": "Courses",
+        "formatData": (courses) => {
+          return courses.join(', ');
+        }
+      }, {
+        "key": "appliedon",
+        "text": "Applied on",
+        "formatData": (ISOString) => {
+          const date = new Date(ISOString);
+          return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "courses": ["HTML", "CSS", "JS"],
+        "appliedon": "2021-10-21T14:48:00.000Z"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "courses": ["Ruby on Rails", "PostgreSQL"],
+        "appliedon": "2022-01-14T16:14:00.000Z"
+      }]
+    }
+
+    return (
+      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 7">
+      </FwDataTable>
     );
   }
 ```
