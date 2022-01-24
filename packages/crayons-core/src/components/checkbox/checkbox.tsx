@@ -84,12 +84,6 @@ export class Checkbox {
 
   @Watch('checked')
   checkChanged(isChecked: boolean) {
-    if (!this.disabled) {
-      this.fwChange.emit({
-        value: this.value,
-        checked: isChecked,
-      });
-    }
     this.checkbox.checked = isChecked;
   }
 
@@ -128,6 +122,10 @@ export class Checkbox {
   private toggle = () => {
     if (!this.disabled) {
       this.checked = !this.checked;
+      this.fwChange.emit({
+        value: this.value,
+        checked: this.checked,
+      });
     }
     this.formId &&
       EventStore.publish(`${this.formId}::handleChange`, {
