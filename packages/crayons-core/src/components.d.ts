@@ -1284,7 +1284,7 @@ export namespace Components {
         /**
           * Value associated with the tag component, that is saved when the form data is saved.
          */
-        "value": string;
+        "value": string | number;
         /**
           * The variant of tag to be displayed.
          */
@@ -3299,7 +3299,7 @@ declare namespace LocalJSX {
         /**
           * Value associated with the tag component, that is saved when the form data is saved.
          */
-        "value"?: string;
+        "value"?: string | number;
         /**
           * The variant of tag to be displayed.
          */
