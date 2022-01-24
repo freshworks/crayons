@@ -23,7 +23,7 @@ export class SelectOption {
   /**
    * Value corresponding to the option, that is saved  when the form data is saved.
    */
-  @Prop({ reflect: true }) value: string;
+  @Prop() value: string | number;
   /**
    * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
    */
@@ -69,6 +69,10 @@ export class SelectOption {
    * Place a checkbox.
    */
   @Prop() checkbox = false;
+  /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
 
   /**
    * Triggered when an option is selected.
@@ -100,6 +104,9 @@ export class SelectOption {
 
   private onOptionSelected() {
     if (this.disabled) {
+      return;
+    }
+    if (this.selected && !this.allowDeselect) {
       return;
     }
     this.selected = !this.selected;

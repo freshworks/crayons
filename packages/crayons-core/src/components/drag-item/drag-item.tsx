@@ -15,14 +15,26 @@ export class DragItem {
    * Whether the drag is disabled or not.
    */
   @Prop() disabled = false;
+  /**
+   * Whether the drag icon should be visible.
+   */
+  @Prop() showDragIcon = true;
+  /**
+   * Pinned position of the drag item, other drag item cannot be placed above or below it.
+   */
+  @Prop() pinned: 'top' | 'bottom';
 
   componentDidLoad() {
-    this.dragIcon.addEventListener(
+    if (this.pinned) return;
+    this.dragIcon?.addEventListener(
       'mousedown',
       this.toggleDraggable.bind(this)
     );
 
-    this.dragIcon.addEventListener('mouseout', this.toggleDraggable.bind(this));
+    this.dragIcon?.addEventListener(
+      'mouseout',
+      this.toggleDraggable.bind(this)
+    );
   }
 
   toggleDraggable() {
@@ -30,15 +42,8 @@ export class DragItem {
   }
 
   disconnectedCallback() {
-    this.dragIcon.removeEventListener(
-      'mousedown',
-      this.toggleDraggable.bind(this)
-    );
-
-    this.dragIcon.removeEventListener(
-      'mouseout',
-      this.toggleDraggable.bind(this)
-    );
+    this.dragIcon?.removeEventListener('mousedown', this.toggleDraggable);
+    this.dragIcon?.removeEventListener('mouseout', this.toggleDraggable);
   }
 
   render() {
@@ -50,13 +55,15 @@ export class DragItem {
           }}
           draggable={this.draggable}
         >
-          <span class='drag-item__prefix'>
-            <fw-icon
-              class='drag-icon'
-              name='drag'
-              ref={(dragIcon) => (this.dragIcon = dragIcon)}
-            ></fw-icon>
-          </span>
+          {this.showDragIcon && !this.pinned && (
+            <span class='drag-item__prefix'>
+              <fw-icon
+                class='drag-icon'
+                name='drag'
+                ref={(dragIcon) => (this.dragIcon = dragIcon)}
+              ></fw-icon>
+            </span>
+          )}
           <span class='drag-item__label'>
             <slot></slot>
           </span>

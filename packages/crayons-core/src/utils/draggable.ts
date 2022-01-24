@@ -10,7 +10,7 @@ const DEFAULT_OPTIONS = {
   addOnDrop: true,
 };
 export class Draggable {
-  host: HTMLElement;
+  dragContainer: HTMLElement;
   options;
   childElements = [];
   acceptFrom = [];
@@ -30,7 +30,7 @@ export class Draggable {
       let newElement;
       // dragging inside the same container, so no need to add placeholder
       if (
-        draggingElement.parentElement.id === this.host.id ||
+        draggingElement.parentElement.id === this.dragContainer.id ||
         !this.options.copy
       ) {
         newElement = draggingElement;
@@ -45,13 +45,12 @@ export class Draggable {
   );
 
   constructor(container, options) {
-    this.host = container;
+    this.dragContainer = container;
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
-    this.childElements = Array.from(this.host.children);
     this.acceptFrom = this.options.acceptFrom
       ? this.options.acceptFrom.split(',')
       : [];
-    this.options.sortable && this.acceptFrom.push(this.host.id);
+    this.options.sortable && this.acceptFrom.push(this.dragContainer.id);
     this.addListeners();
   }
 
@@ -63,25 +62,30 @@ export class Draggable {
     e.dataTransfer.setData('text/plain', dragElement.id);
 
     // Set all items inside the drag container except the current element
+    this.childElements = Array.from(this.dragContainer.children);
     const draggingElementIndex = this.childElements.indexOf(dragElement);
     this.nextSibling = this.childElements[draggingElementIndex + 1];
     this.childElements.splice(draggingElementIndex, 1);
+    e.stopPropagation();
   };
 
   private onDragEnter = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
-    const sortContainer = e.composedPath().find((el) => el.id === this.host.id);
+    const sortContainer = e
+      .composedPath()
+      .find((el) => el.id === this.dragContainer.id);
     if (sortContainer && sortContainer !== this.previousContainer) {
-      // the drag element have entered or re-entered current container(this.host)
+      this.childElements = Array.from(this.dragContainer.children);
+      // the drag element have entered or re-entered current drag container
       this.cancelDebouncedDrag = false;
     }
     this.previousContainer = sortContainer;
   };
 
   private onDragLeave = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const outTarget = e.fromElement || e.relatedTarget;
@@ -89,14 +93,14 @@ export class Draggable {
       // Check whether the outTarget's host (in case of shadow dom) exists in currentTarget
       const parentHost = this.getMatchingHost(
         outTarget,
-        this.host.children[0].tagName
+        this.dragContainer.children[0].tagName
       );
       if (!e.currentTarget.contains(parentHost)) {
         // the drag element have left the current container(this.host)
         this.previousContainer = undefined;
         this.cancelDebouncedDrag = true;
 
-        if (dragElement.parentElement.id !== this.host.id) {
+        if (dragElement.parentElement.id !== this.dragContainer.id) {
           // dragElement from another container
           this.removePlaceholder();
         } else {
@@ -109,7 +113,7 @@ export class Draggable {
 
   private onDragOver = (e) => {
     e.preventDefault();
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const sortContainerId = dragElement.parentElement.id;
@@ -125,15 +129,12 @@ export class Draggable {
   };
 
   private onDrop = (e) => {
-    if (!dragElement) {
+    if (!this.canAcceptDragElement()) {
       return;
     }
     const sortContainerId = dragElement.parentElement.id;
-    if (!this.acceptFrom.includes(sortContainerId)) {
-      return;
-    }
     const newElement = this.placeholder || dragElement;
-    const droppedIndex = [...this.host.children].indexOf(newElement);
+    const droppedIndex = [...this.dragContainer.children].indexOf(newElement);
     if (this.placeholder) {
       if (this.options.addOnDrop) {
         const clone = cloneNodeWithEvents(dragElement, true, true);
@@ -142,7 +143,7 @@ export class Draggable {
         this.removePlaceholder();
       }
     }
-    this.host.dispatchEvent(
+    this.dragContainer.dispatchEvent(
       new CustomEvent('fwDropBase', {
         cancelable: true,
         bubbles: false,
@@ -150,7 +151,7 @@ export class Draggable {
           droppedElement: dragElement,
           droppedIndex,
           dragFromId: sortContainerId,
-          dropToId: this.host.id,
+          dropToId: this.dragContainer.id,
         },
       })
     );
@@ -158,27 +159,21 @@ export class Draggable {
   };
 
   addListeners() {
-    this.host.addEventListener('dragstart', (e) => this.onDragStart(e));
-    this.host.addEventListener('dragend', (e) => this.onDragEnd(e));
-    this.host.addEventListener('dragenter', (e) => this.onDragEnter(e));
-    this.host.addEventListener('dragleave', (e) => this.onDragLeave(e));
-
-    if (this.options.sortable) {
-      this.host.addEventListener('dragover', (e) => this.onDragOver(e));
-      this.host.addEventListener('drop', (e) => this.onDrop(e));
-    }
+    this.dragContainer.addEventListener('dragstart', this.onDragStart);
+    this.dragContainer.addEventListener('dragend', this.onDragEnd);
+    this.dragContainer.addEventListener('dragenter', this.onDragEnter);
+    this.dragContainer.addEventListener('dragleave', this.onDragLeave);
+    this.dragContainer.addEventListener('dragover', this.onDragOver);
+    this.dragContainer.addEventListener('drop', this.onDrop);
   }
 
   removeListeners() {
-    this.host.removeEventListener('dragstart', (e) => this.onDragStart(e));
-    this.host.removeEventListener('dragend', (e) => this.onDragEnd(e));
-    this.host.removeEventListener('dragenter', (e) => this.onDragEnter(e));
-    this.host.removeEventListener('dragleave', (e) => this.onDragLeave(e));
-
-    if (this.options.sortable) {
-      this.host.removeEventListener('dragover', (e) => this.onDragOver(e));
-      this.host.removeEventListener('drop', (e) => this.onDrop(e));
-    }
+    this.dragContainer.removeEventListener('dragstart', this.onDragStart);
+    this.dragContainer.removeEventListener('dragend', this.onDragEnd);
+    this.dragContainer.removeEventListener('dragenter', this.onDragEnter);
+    this.dragContainer.removeEventListener('dragleave', this.onDragLeave);
+    this.dragContainer.removeEventListener('dragover', this.onDragOver);
+    this.dragContainer.removeEventListener('drop', this.onDrop);
   }
 
   getDragAfterElement(elements, y) {
@@ -200,7 +195,7 @@ export class Draggable {
 
   createPlaceholder(sourceElement) {
     const placeholderClass = this.options.placeholderClass;
-    const containerTag = this.host.tagName;
+    const containerTag = this.dragContainer.tagName;
     let placeholder;
     if (['UL', 'OL'].includes(containerTag)) {
       placeholder = document.createElement('li');
@@ -224,15 +219,34 @@ export class Draggable {
 
   removePlaceholder(element?) {
     const removeElement = element || this.placeholder;
-    this.host.contains(removeElement) && this.host.removeChild(removeElement);
+    this.dragContainer.contains(removeElement) &&
+      this.dragContainer.removeChild(removeElement);
   }
 
   addElement(newElement, nextElement) {
     if (nextElement) {
-      this.host.insertBefore(newElement, nextElement);
-    } else {
-      this.host.appendChild(newElement);
+      this.canInsertBefore(nextElement) &&
+        this.dragContainer.insertBefore(newElement, nextElement);
+      return;
     }
+    this.canAppendTo(this.dragContainer) &&
+      this.dragContainer.appendChild(newElement);
+  }
+
+  canAcceptDragElement() {
+    if (!dragElement) {
+      return false;
+    }
+    const sortContainerId = dragElement.parentElement.id;
+    return this.acceptFrom.includes(sortContainerId);
+  }
+
+  canInsertBefore(element) {
+    return element && element.pinned !== 'top';
+  }
+
+  canAppendTo(container) {
+    return container.lastElementChild.pinned !== 'bottom';
   }
 
   getHost(element) {
@@ -252,7 +266,6 @@ export class Draggable {
 
   resetData(e) {
     e.dataTransfer.clearData();
-    this.childElements = Array.from(this.host.children);
     this.previousContainer = undefined;
     dragElement = undefined;
     this.placeholder = undefined;

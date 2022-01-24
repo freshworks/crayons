@@ -95,7 +95,7 @@ export class Select {
   /**
    * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
-  @Prop({ reflect: true, mutable: true }) value: any;
+  @Prop({ mutable: true }) value: any;
   /**
    * Name of the component, saved as part of form data.
    */
@@ -203,7 +203,10 @@ export class Select {
    * If the default label prop is not used, then use this prop to pass the id of the label.
    */
   @Prop() labelledBy = '';
-
+  /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
   /**
    * id for the form using this component. This prop is set from the `fw-form`
    */
@@ -386,6 +389,12 @@ export class Select {
     this.selectInput.value = '';
   }
 
+  isValueEqual(value, option) {
+    return this.multiple
+      ? value.includes(option.value)
+      : value === option.value;
+  }
+
   valueExists() {
     return this.value && (this.multiple ? this.value.length > 0 : !!this.value);
   }
@@ -402,7 +411,7 @@ export class Select {
   renderTags() {
     if (this.multiple && Array.isArray(this.value)) {
       return this.selectedOptionsState.map((option) => {
-        if (this.value.includes(option.value)) {
+        if (this.isValueEqual(this.value, option)) {
           return (
             <fw-tag
               variant={this.tagVariant}
@@ -466,10 +475,7 @@ export class Select {
         html: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
-        selected:
-          (this.multiple
-            ? this.value.includes(option.value)
-            : this.value === option.value) || option.selected,
+        selected: this.isValueEqual(this.value, option) || option.selected,
         disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
         htmlContent: option.html ? option.innerHTML : '',
       };
@@ -485,7 +491,7 @@ export class Select {
       this.value.length !== this.selectedOptions.length
     ) {
       this.selectedOptionsState = this.dataSource.filter((option) =>
-        this.value.includes(option.value)
+        this.isValueEqual(this.value, option)
       );
     }
     if (this.dataSource?.length > 0) {
@@ -662,6 +668,7 @@ export class Select {
               multiple={this.multiple}
               max={this.max}
               checkbox={this.checkbox}
+              allowDeselect={this.allowDeselect}
               slot='popover-content'
             ></fw-list-options>
           </fw-popover>

@@ -1,5 +1,7 @@
 /**
+  @prop --input-container-margin-bottom: Bottom margin for the input container
   @prop --input-margin-bottom: Bottom margin for the input
+  @prop --input-margin-top: Top margin for the input
 **/
 $label-font: $font-stack-sans !default;
 $placeholder-color: $muted-secondary;
@@ -40,7 +42,7 @@ $input-color: $app-primary-black;
 }
 
 .input-container {
-  margin-bottom: var(--input-margin-bottom, 0px);
+  margin-bottom: var(--input-container-margin-bottom, 0px);
   width: inherit;
   height: inherit;
 }
@@ -77,7 +79,9 @@ label {
     width: 100%;
     border: 0;
     border: 1px solid $input-border;
-    margin: 5px 0 0;
+    margin: 0 0;
+    margin-top: var(--input-margin-top, 5px);
+    margin-bottom: var(--input-margin-bottom, 0px);
     border-radius: 4px;
     padding: 4px 12px 5px;
     resize: none;

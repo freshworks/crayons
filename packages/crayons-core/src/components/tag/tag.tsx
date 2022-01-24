@@ -83,7 +83,7 @@ export class Tag {
   renderContent() {
     switch (this.variant) {
       case 'standard':
-        return this.text;
+        return <span class='content'>{this.text}</span>;
       case 'avatar': {
         return [
           <fw-avatar size='xxsmall' {...this.graphicsProps}></fw-avatar>,
