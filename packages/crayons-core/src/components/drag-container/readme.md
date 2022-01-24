@@ -74,7 +74,7 @@ Demo for dragging items from one container to another container
 ```html live
 <span>Retain the original drag element on drop</span>
 <template>
-  <div class="fw-flex flex-container-border fw-justify-between">
+  <div class="fw-flex flex-container-border fw-justify-around">
     <fw-drag-container
       id="source-field-copy"
       sortable="false"
@@ -136,7 +136,7 @@ Demo for dragging items from one container to another container
 <span>Remove the drag element on drop</span>
 
 <template>
-  <div class="fw-flex flex-container-border fw-justify-between">
+  <div class="fw-flex flex-container-border fw-justify-around">
     <fw-drag-container
       id="source-field-move"
       sortable="false"
