@@ -82,7 +82,7 @@ The data-source and the visual variant for the list options can be altered via t
 | `searchText`      | `search-text`    | Placeholder to placed on the search text box.                                                                                                                                                                                             | `string`                                              | `'Search...'`                |
 | `searchable`      | `searchable`     | Enables the input with in the popup for filtering the options.                                                                                                                                                                            | `boolean`                                             | `false`                      |
 | `selectedOptions` | --               | The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                            | `any[]`                                               | `[]`                         |
-| `value`           | `value`          | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `string \| string[]`                                  | `''`                         |
+| `value`           | `value`          | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                                                 | `''`                         |
 | `variant`         | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                    | `'standard'`                 |
 
 
@@ -146,7 +146,7 @@ Type: `Promise<any>`
 
 
 
-### `setSelectedValues(values: string | string[]) => Promise<any>`
+### `setSelectedValues(values: any) => Promise<any>`
 
 Pass an array of string in case of multi-select or string for single-select.
 

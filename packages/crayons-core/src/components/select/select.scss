@@ -64,6 +64,10 @@ label {
     flex-grow: 1;
     flex-wrap: wrap;
 
+    fw-tag {
+      margin-right: 4px;
+    }
+
     input {
       flex-grow: 1;
       border: none;
