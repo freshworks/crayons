@@ -50,11 +50,15 @@ export class Tabs {
    */
   @Event() fwChange: EventEmitter;
 
-  init() {
+  private syncTabsAndPanels() {
     this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(
       (tab) => !tab.disabled
     );
     this.panels = Array.from(this.el.querySelectorAll('fw-tab-panel'));
+  }
+
+  init() {
+    this.syncTabsAndPanels();
 
     // Assign aria attributes
     this.assignAriaLabels();
@@ -81,7 +85,7 @@ export class Tabs {
   }
 
   assignAriaLabels() {
-    this.tabs.map((tab) => {
+    Array.from(this.el.querySelectorAll('fw-tab')).map((tab) => {
       const panel = this.panels.find(
         (p) => p.name === tab.getAttribute('panel') || tab.panel
       );
@@ -133,11 +137,13 @@ export class Tabs {
     this.createPanelIfRequired();
 
     this.mutationO = new MutationObserver(() => {
-      this.init();
+      this.syncTabsAndPanels();
     });
+
     this.mutationO.observe(this.el, {
       childList: true,
       attributes: true,
+      subtree: true,
     });
   }
 
@@ -159,6 +165,11 @@ export class Tabs {
   handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
     const tab = target.closest('fw-tab');
+    const tabs = tab?.closest('fw-tabs');
+
+    if (tabs !== this.el) {
+      return;
+    }
 
     if (tab) {
       this.setActiveTab(tab);
@@ -167,6 +178,14 @@ export class Tabs {
 
   @Listen('keydown')
   handleKeyDown(event: KeyboardEvent) {
+    const target = event.target as HTMLElement;
+    const tab = target.closest('fw-tab');
+    const tabs = tab?.closest('fw-tabs');
+
+    if (tabs !== this.el) {
+      return;
+    }
+
     switch (event.code) {
       case 'ArrowDown':
       case 'ArrowUp':
@@ -179,6 +198,13 @@ export class Tabs {
 
   @Listen('keyup')
   handleKeyUp(e: KeyboardEvent) {
+    const target = e.target as HTMLElement;
+    const tab = target.closest('fw-tab');
+    const tabs = tab?.closest('fw-tabs');
+
+    if (tabs !== this.el) {
+      return;
+    }
     if (this.activeTabIndex !== undefined) {
       let index = this.activeTabIndex;
       switch (e.code) {
