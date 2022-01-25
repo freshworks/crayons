@@ -27,7 +27,8 @@ export class FormControl {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME' = 'TEXT';
+    | 'TIME'
+    | 'RELATIONSHIP' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
   @Prop()
@@ -228,11 +229,49 @@ export class FormControl {
           cmp = (
             <fw-select
               {...componentProps}
-              options={this.choices?.map((f) => ({
-                ...f,
-                text: f.value,
-              }))}
+              options={this.choices}
+              /*
+                this.choices?.map((f) => ({
+                  ...f,
+                  text: f.value,
+                }))
+              */
               multiple={this.type === 'MULTI_SELECT'}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-select>
+          );
+        }
+        break;
+      case 'RELATIONSHIP':
+        {
+          const controlProps = this.controlProps?.selectProps(
+            this.name,
+            this.type?.toLowerCase()
+          );
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            placeholder: this.placeholder,
+            label: '',
+            required: this.required,
+            hint: '',
+            state: this.touched && this.error && 'error',
+            search: this.fieldProps.search,
+          };
+
+          if (typeof controlProps.value === 'object') {
+            componentProps.selectedOptions = [controlProps.value];
+          }
+
+          if (componentProps.selectedOptions?.length > 0)
+            this.crayonsControlRef?.setSelectedOptions(
+              componentProps.selectedOptions
+            );
+
+          cmp = (
+            <fw-select
+              {...componentProps}
+              form-id={controlProps['form-id']}
               ref={(el) => (this.crayonsControlRef = el)}
             ></fw-select>
           );
