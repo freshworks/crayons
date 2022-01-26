@@ -265,13 +265,15 @@ export const serializeForm = (
           return { ...acc, [key]: undefined };
         }
         const year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        let dt = date.getDate();
+        let month: string | number = date.getMonth() + 1;
+        let dt: string | number = date.getDate();
+
+        /** prepend 0 if the date/month is less than 10 */
         if (dt < 10) {
-          dt = parseInt('0' + dt);
+          dt = `0${dt}`;
         }
         if (month < 10) {
-          month = parseInt('0' + month);
+          month = `0${month}`;
         }
         return { ...acc, [key]: `${year}-${month}-${dt}` };
       default:
