@@ -198,13 +198,13 @@ export class Form {
       this.setFocusOnError();
     }
 
-    let serailizedValues = { ...this.values };
+    let serializedValues = { ...this.values };
 
     if (this.formSchema && Object.keys(this.formSchema).length > 0) {
-      serailizedValues = serializeForm(serailizedValues, this.fields);
+      serializedValues = serializeForm(serializedValues, this.fields);
     }
 
-    return { values: serailizedValues, errors: this.errors, isValid };
+    return { values: serializedValues, errors: this.errors, isValid };
   };
 
   handleReset = async (event?: Event): Promise<void> => {
