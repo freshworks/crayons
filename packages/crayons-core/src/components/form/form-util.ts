@@ -269,12 +269,9 @@ export const serializeForm = (
         let dt: string | number = date.getDate();
 
         /** prepend 0 if the date/month is less than 10 */
-        if (dt < 10) {
-          dt = `0${dt}`;
-        }
-        if (month < 10) {
-          month = `0${month}`;
-        }
+        dt = ('0' + dt).slice(-2);
+        month = ('0' + month).slice(-2);
+
         return { ...acc, [key]: `${year}-${month}-${dt}` };
       default:
         return { ...acc, [key]: val };

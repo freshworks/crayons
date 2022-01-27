@@ -248,6 +248,9 @@ export class Datepicker {
         toDate: this.formatDate(this.endDateFormatted),
       });
     } else if (isUpdateDate) {
+      this.value = moment([this.year, this.month, this.selectedDay]).format(
+        this.displayFormat
+      );
       this.emitEvent(this.formatDate(this.value));
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
@@ -708,17 +711,8 @@ export class Datepicker {
   onDateClick = ({ date, timestamp }) => {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
-      this.value = moment([this.year, this.month, this.selectedDay]).format(
-        this.displayFormat
-      );
     } else if (this.showDateRangePicker()) {
       this.handleRangeSelection(timestamp);
-      if (this.startDate && this.endDate) {
-        this.value =
-          moment(this.startDate).format(this.displayFormat) +
-          ' to ' +
-          moment(this.endDate).format(this.displayFormat);
-      }
       this.dateHovered = '';
     }
   };
@@ -851,7 +845,6 @@ export class Datepicker {
           name={this.name}
           class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
           placeholder={this.placeholder}
-          title={this.placeholder}
           iconRight='calendar'
           style={{
             '--icon-color': this.state === 'error' && '#d72d30',
