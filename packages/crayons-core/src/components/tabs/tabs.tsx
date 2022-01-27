@@ -17,8 +17,8 @@ import {
 export class Tabs {
   @Element()
   el!: HTMLElement;
-  private mutationO?: MutationObserver;
-  private mutation1?: MutationObserver;
+  private tabsMutation?: MutationObserver;
+  private tabMutation?: MutationObserver;
 
   private activeTab;
 
@@ -137,34 +137,32 @@ export class Tabs {
     // Create fw-tab-panel component explictly if tab-header attribute is present.
     this.createPanelIfRequired();
 
-    this.mutationO = new MutationObserver(() => {
+    this.tabsMutation = new MutationObserver(() => {
       this.init();
     });
 
-    this.mutation1 = new MutationObserver((mutations) => {
+    this.tabMutation = new MutationObserver((mutations) => {
       if (mutations.some((m) => m.attributeName === 'disabled')) {
         this.syncTabsAndPanels();
       }
     });
 
-    this.mutationO.observe(this.el, {
+    this.tabsMutation.observe(this.el, {
       childList: true,
       attributes: true,
     });
     Array.from(this.el.querySelectorAll('fw-tab')).forEach((tab) => {
-      this.mutation1.observe(tab, {
+      this.tabMutation.observe(tab, {
         attributes: true,
       });
     });
   }
 
   disconnectedCallback() {
-    if (this.mutationO) {
-      this.mutationO.disconnect();
-      this.mutation1.disconnect();
-      this.mutationO = undefined;
-      this.mutation1 = undefined;
-    }
+    this.tabsMutation?.disconnect();
+    this.tabMutation?.disconnect();
+    this.tabsMutation = undefined;
+    this.tabMutation = undefined;
   }
 
   getActiveTab() {
