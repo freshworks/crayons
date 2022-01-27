@@ -157,10 +157,11 @@ export class Checkbox {
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         aria-labelledby='label'
-        aria-describedby={this.description}
+        aria-describedby={`description hint-${this.name} error-${this.name}`}
         onClick={this.toggle}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
+        aria-invalid={this.state === 'error'}
       >
         <div class='checkbox-container'>
           <input

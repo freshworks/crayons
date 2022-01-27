@@ -133,16 +133,18 @@ export class Radio {
 
   render() {
     return (
+      // eslint-disable-next-line jsx-a11y/role-supports-aria-props
       <Host
         onClick={() => this.toggle()}
         role='radio'
         tabIndex='-1'
         aria-labelledby='label'
-        aria-describedby={this.description}
+        aria-describedby={`description hint-${this.name} error-${this.name}`}
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
+        aria-invalid={this.state === 'error'}
       >
         <div class='radio-container'>
           <input

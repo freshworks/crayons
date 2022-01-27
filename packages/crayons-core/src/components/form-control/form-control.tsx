@@ -343,8 +343,16 @@ export class FormControl {
         )}
         {this.renderControl()}
         <slot></slot>
-        {!(this.touched && this.error) && <div class='hint'>{this.hint}</div>}
-        {this.touched && this.error && <div class='error'>{this.error}</div>}
+        {!(this.touched && this.error) && (
+          <div class='hint' id={`hint-${this.name}`}>
+            {this.hint}
+          </div>
+        )}
+        {this.touched && this.error && (
+          <div class='error' id={`error-${this.name}`}>
+            {this.error}
+          </div>
+        )}
       </div>
     );
   }
