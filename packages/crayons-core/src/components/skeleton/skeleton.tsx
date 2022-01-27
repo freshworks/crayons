@@ -111,6 +111,7 @@ export class Skeleton {
                 skeleton: true,
                 pulse: this.effect === 'pulse',
                 sheen: this.effect === 'sheen',
+                only: this.count === 1,
               }}
               aria-busy='true'
               aria-live='polite'
