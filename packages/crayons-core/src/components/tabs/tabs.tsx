@@ -18,6 +18,7 @@ export class Tabs {
   @Element()
   el!: HTMLElement;
   private mutationO?: MutationObserver;
+  private mutation1?: MutationObserver;
 
   private activeTab;
 
@@ -137,20 +138,32 @@ export class Tabs {
     this.createPanelIfRequired();
 
     this.mutationO = new MutationObserver(() => {
-      this.syncTabsAndPanels();
+      this.init();
+    });
+
+    this.mutation1 = new MutationObserver((mutations) => {
+      if (mutations.some((m) => m.attributeName === 'disabled')) {
+        this.syncTabsAndPanels();
+      }
     });
 
     this.mutationO.observe(this.el, {
       childList: true,
       attributes: true,
-      subtree: true,
+    });
+    Array.from(this.el.querySelectorAll('fw-tab')).forEach((tab) => {
+      this.mutation1.observe(tab, {
+        attributes: true,
+      });
     });
   }
 
   disconnectedCallback() {
     if (this.mutationO) {
       this.mutationO.disconnect();
+      this.mutation1.disconnect();
       this.mutationO = undefined;
+      this.mutation1 = undefined;
     }
   }
 
