@@ -259,6 +259,14 @@ $input-height-mini: 16px;
     padding: 0;
     line-height: calc(32px - #{$btn-border-width} * 2);
   }
+
+  &--icon-small {
+    min-width: 24px;
+    width: 24px;
+    height: 22px;
+    padding: 0;
+    line-height: calc(22px - #{$btn-border-width} * 2);
+  }
 }
 
 .fw-btn--before,

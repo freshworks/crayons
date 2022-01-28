@@ -254,7 +254,7 @@ function App() {
   };
 
   return (
-    <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 2">
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 2">
     </FwDataTable>
   );
 }
@@ -428,7 +428,117 @@ function App() {
   };
 
   return (
-    <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 3">
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 3">
+    </FwDataTable>
+  );
+}
+```
+</code-block>
+</code-group>
+
+#### Icon column variant
+
+```html live
+  <fw-data-table id="datatable-31" label="Data table 31">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "position": 1,
+        "variant": "icon"
+      }, {
+        "key": "name",
+        "text": "Icon name",
+        "position": 2
+      }],
+      rows: [{
+        "id": "0011",
+        "icon": { "name": "agent" },
+        "name": "Agent"
+      }, {
+        "id": "0022",
+        "icon": { "name": "chat-online" },
+        "name": "Chat"
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-31');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-data-table id="datatable-31" label="Data table 31">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+      columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "position": 1,
+        "variant": "icon"
+      }, {
+        "key": "name",
+        "text": "Icon name",
+        "position": 2
+      }],
+      rows: [{
+        "id": "0011",
+        "icon": { "name": "agent" },
+        "name": "Agent"
+      }, {
+        "id": "0022",
+        "icon": { "name": "chat-online" },
+        "name": "Chat"
+      }]
+    }; 
+
+  var datatable = document.getElementById('datatable-31');
+  datatable.columns = data.columns;
+  datatable.rows = data.rows;
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwDataTable } from "@freshworks/crayons/react";
+function App() {
+
+  var data = {
+      columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "position": 1,
+        "variant": "icon"
+      }, {
+        "key": "name",
+        "text": "Icon name",
+        "position": 2
+      }],
+      rows: [{
+        "id": "0011",
+        "icon": { "name": "agent" },
+        "name": "Agent"
+      }, {
+        "id": "0022",
+        "icon": { "name": "chat-online" },
+        "name": "Chat"
+      }]
+    }; 
+
+  return (
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 31">
     </FwDataTable>
   );
 }
@@ -459,10 +569,144 @@ This codeblock shows how to use custom cell function to display HTML content in 
   createElement('div', {className: 'greeting'}, [createElement('h2', 'Hello')]);
 ```
 
+## Column text alignment
+
+You can set text alignment in the column by passing the textAlign in column configuration. In the below example, column 'Icon' is center aligned.
+
+```html live
+  <fw-data-table id="data-table-40" label="Data table 40">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "variant": "icon",
+        "textAlign": "center",
+        "widthProperties": {
+          "width": "140px"
+        }
+      }, {
+        "key": "name",
+        "text": "Object Name"
+      }, {
+        "key": "description",
+        "text": "description"
+      }],
+      rows: [{
+        "id": "01",
+        "icon": { "name": "company" },
+        "name": "Company",
+        "description": "Contains information about the company."
+      }, {
+        "id": "02",
+        "icon": { "name": "calendar" },
+        "name": "Bookings",
+        "description": "Contains information about the booking made."
+      }]
+    };
+
+    var datatable = document.getElementById('data-table-40');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-data-table id="datatable-40" label="Data table 40">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "icon",
+      "text": "Icon",
+      "variant": "icon",
+      "textAlign": "center",
+      "widthProperties": {
+        "width": "140px"
+      }
+    }, {
+      "key": "name",
+      "text": "Object Name"
+    }, {
+      "key": "description",
+      "text": "description"
+    }],
+    rows: [{
+      "id": "01",
+      "icon": { "name": "company" },
+      "name": "Company",
+      "description": "Contains information about the company."
+    }, {
+      "id": "02",
+      "icon": { "name": "calendar" },
+      "name": "Bookings",
+      "description": "Contains information about the booking made."
+    }]
+  };
+
+  var datatable = document.getElementById('data-table-40');
+  datatable.columns = data.columns;
+  datatable.rows = data.rows;
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwDataTable } from "@freshworks/crayons/react";
+function App() {
+
+  var data = {
+    columns: [{
+      "key": "icon",
+      "text": "Icon",
+      "variant": "icon",
+      "textAlign": "center",
+      "widthProperties": {
+        "width": "140px"
+      }
+    }, {
+      "key": "name",
+      "text": "Object Name"
+    }, {
+      "key": "description",
+      "text": "description"
+    }],
+    rows: [{
+      "id": "01",
+      "icon": { "name": "company" },
+      "name": "Company",
+      "description": "Contains information about the company."
+    }, {
+      "id": "02",
+      "icon": { "name": "calendar" },
+      "name": "Bookings",
+      "description": "Contains information about the booking made."
+    }]
+  };
+
+  return (
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 40">
+    </FwDataTable>
+  );
+}
+```
+</code-block>
+</code-group>
 
 ## Row Actions:
 
 You can easily add an actions column by passing in rowActions prop to the component.
+
+*You can also use icons instead of text in buttons. Pass 'iconName' and 'iconLibrary' properties as part of configuration.*
 
 ```html live
   <fw-data-table id="datatable-4"  is-selectable="true" is-all-selectable="true" label="Data table 4">
@@ -640,7 +884,7 @@ You can easily add an actions column by passing in rowActions prop to the compon
     }
 
     return (
-      <FwDataTable columns={data.columns} rows={data.persons} rowActions={data.rowActions} label="Data Table 3">
+      <FwDataTable columns={data.columns} rows={data.rows} rowActions={data.rowActions} label="Data Table 3">
       </FwDataTable>
     );
   }
@@ -750,7 +994,7 @@ To hide certain columns, we can pass the 'hide' property set to true in the colu
     }
 
     return (
-      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 5">
+      <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 5">
       </FwDataTable>
     );
   }
@@ -890,7 +1134,7 @@ We can pass width for every column using 'widthProperties' in column's configura
     }
 
     return (
-      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 6">
+      <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 6">
       </FwDataTable>
     );
   }
@@ -1037,7 +1281,7 @@ We can format row's data before rendering into a cell by passing 'formatData' in
     }
 
     return (
-      <FwDataTable columns={data.columns} rows={data.persons} label="Data Table 7">
+      <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 7">
       </FwDataTable>
     );
   }
@@ -1112,6 +1356,16 @@ Type: `Promise<boolean>`
 
 isLoading current state
 
+### `selectAllRows(checked?: boolean) => Promise<string[]>`
+
+selectAllRows method we can use to select/unselect rows in the table
+
+#### Returns
+
+Type: `Promise<string[]>`
+
+
+
 
 ## Dependencies
 
@@ -1120,6 +1374,7 @@ isLoading current state
 - [fw-checkbox](../checkbox)
 - [fw-skeleton](../skeleton)
 - [fw-button](../button)
+- [fw-icon](../icon)
 
 ### Graph
 ```mermaid
@@ -1127,6 +1382,7 @@ graph TD;
   fw-data-table --> fw-checkbox
   fw-data-table --> fw-skeleton
   fw-data-table --> fw-button
+  fw-data-table --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-icon --> fw-toast-message

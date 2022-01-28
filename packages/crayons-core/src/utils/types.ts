@@ -45,7 +45,7 @@ interface HyperFunc<T> {
 export type AllowedStyles = 'width' | 'minWidth' | 'maxWidth';
 
 export type WidthStyles = {
-  [prop in AllowedStyles]: any;
+  [prop in AllowedStyles]: string;
 };
 
 export type DataTableRow = {
@@ -65,6 +65,7 @@ export type DataTableColumn = {
   position?: number;
   hide?: boolean;
   widthProperties?: WidthStyles;
+  textAlign?: 'left' | 'center' | 'right';
   hasFocusableComponent?: boolean;
   formatData?: (cellValue: any) => string;
   customTemplate?: customTemplateFunc<VNode>;
@@ -72,6 +73,8 @@ export type DataTableColumn = {
 
 export type DataTableAction = {
   name: string;
-  handler: (row: DataTableRow) => any;
+  iconName?: string;
+  iconLibrary?: string;
   hideForRowIds?: string[];
+  handler: (row: DataTableRow) => any;
 };

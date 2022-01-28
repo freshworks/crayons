@@ -25,6 +25,11 @@ const PREDEFINED_VARIANTS_META = {
   user: {
     componentName: 'fw-custom-cell-user',
     isFocusable: false,
+    skipTextAlign: true,
+  },
+  icon: {
+    componentName: 'fw-custom-cell-icon',
+    isFocusable: false,
   },
 };
 
@@ -106,12 +111,6 @@ export class DataTable {
 
   /**
    * Private
-   * To understand when select all event completes.
-   */
-  selectAllProgressCount = 0;
-
-  /**
-   * Private
    * To perform actions after a render
    * WorkAround for stencil wait for next render
    * https://github.com/ionic-team/stencil/issues/2744
@@ -144,38 +143,9 @@ export class DataTable {
         event.detail.value === 'select-all' &&
         this.getEventPath(event)[0].id === 'select-all'
       ) {
-        const checkboxSelector = event.detail.checked
-          ? 'tr > td:first-child > fw-checkbox:not([checked])'
-          : 'tr > td:first-child > fw-checkbox[checked]';
-        const checkboxes =
-          this.el.shadowRoot.querySelectorAll(checkboxSelector);
-        this.selectAllProgressCount = checkboxes.length;
-        checkboxes.forEach((checkbox: HTMLFwCheckboxElement) => {
-          checkbox.checked = event.detail.checked;
-        });
+        this.selectAllRows(event.detail.checked);
       } else {
-        if (event.detail.checked) {
-          this.selected.push(event.detail.value);
-          this.getEventPath(event)[0].closest('tr').classList.add('active');
-        } else {
-          this.selected.splice(this.selected.indexOf(event.detail.value), 1);
-          this.getEventPath(event)[0].closest('tr').classList.remove('active');
-        }
-        if (!this.selectAllProgressCount) {
-          this.fwSelectionChange.emit({
-            rowId: event.detail.value,
-            checked: event.detail.checked,
-            selected: this.selected,
-          });
-        } else {
-          this.selectAllProgressCount = this.selectAllProgressCount - 1;
-          if (!this.selectAllProgressCount) {
-            this.fwSelectAllChange.emit({
-              checked: event.detail.checked,
-              selected: this.selected,
-            });
-          }
-        }
+        this.selectRow(event.detail.value, event.detail.checked);
       }
     }
   }
@@ -327,6 +297,55 @@ export class DataTable {
   @Watch('columns')
   columnsChangeHandler(newColumns: DataTableColumn[]) {
     this.columnOrdering(newColumns);
+  }
+
+  /**
+   * Private
+   * selectRow
+   * @param rowId Id of row to select/unselect in the table
+   * @param checked option to select/unselct
+   * @returns currently selected rows
+   */
+  selectRow(rowId: string, checked = true) {
+    if (checked) {
+      if (this.selected.indexOf(rowId) < 0) {
+        this.selected = [...this.selected, rowId];
+      }
+    } else {
+      const selected = this.selected.filter((selected) => selected !== rowId);
+      this.selected = [...selected];
+    }
+    this.fwSelectionChange.emit({
+      rowId: rowId,
+      checked: checked,
+      selected: this.selected,
+    });
+    return this.selected;
+  }
+
+  /**
+   * selectAllRows method we can use to select/unselect rows in the table
+   * @param checked denotes if we want to check or uncheck the rows
+   */
+  @Method()
+  async selectAllRows(checked = true) {
+    if (checked === true) {
+      let selectedRowCount = 0;
+      const newlySelected = this.rows
+        .filter((row: DataTableRow) => !this.selected.includes(row.id))
+        .map((filteredRow) => {
+          selectedRowCount = selectedRowCount + 1;
+          return filteredRow.id;
+        });
+      this.selected = [...this.selected, ...newlySelected];
+    } else {
+      this.selected = [];
+    }
+    this.fwSelectAllChange.emit({
+      checked: checked,
+      selected: this.selected,
+    });
+    return this.selected;
   }
 
   /**
@@ -615,17 +634,38 @@ export class DataTable {
    * @returns {JSX.Element} table header row
    */
   renderTableHeader() {
+    const selectAllChecked = this.rows
+      .map((row) => row.id)
+      .every((rowId) => this.selected.includes(rowId));
     return this.orderedColumns.length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
           <th key='isSelectable' aria-colindex={1} style={{ width: '40px' }}>
             {this.isAllSelectable && (
-              <fw-checkbox id='select-all' value={'select-all'}></fw-checkbox>
+              <fw-checkbox
+                id='select-all'
+                value={'select-all'}
+                checked={selectAllChecked}
+              ></fw-checkbox>
             )}
           </th>
         )}
         {this.orderedColumns.map((column, columnIndex) => {
-          const headerStyles = column.widthProperties;
+          let textAlign = null;
+          if (
+            column.textAlign &&
+            !(
+              column.variant &&
+              PREDEFINED_VARIANTS_META[column.variant].skipTextAlign
+            )
+          ) {
+            textAlign = column.textAlign;
+          }
+          const headerStyles = Object.assign(
+            {},
+            column.widthProperties ? column.widthProperties : {},
+            textAlign ? { textAlign } : {}
+          );
           return (
             <th
               role='columnheader'
@@ -664,7 +704,11 @@ export class DataTable {
   renderTableBody() {
     return this.orderedColumns.length
       ? this.rows.map((row, rowIndex) => (
-          <tr role='row' aria-rowindex={rowIndex + 1}>
+          <tr
+            role='row'
+            class={{ active: this.selected.includes(row.id) }}
+            aria-rowindex={rowIndex + 1}
+          >
             {this.orderedColumns.length && this.isSelectable && (
               <td
                 class='data-table-checkbox'
@@ -672,7 +716,10 @@ export class DataTable {
                 data-has-focusable-child='true'
               >
                 {!this.rowsLoading[row.id] ? (
-                  <fw-checkbox value={row.id ? row.id : ''}></fw-checkbox>
+                  <fw-checkbox
+                    value={row.id ? row.id : ''}
+                    checked={this.selected.includes(row.id)}
+                  ></fw-checkbox>
                 ) : (
                   <fw-skeleton
                     style={{ '--skeleton-margin-bottom': '0px' }}
@@ -699,10 +746,25 @@ export class DataTable {
               attrs['data-has-focusable-child'] = isFocusable
                 ? 'true'
                 : 'false';
+              let textAlign = null;
+              if (
+                orderedColumn.textAlign &&
+                !(
+                  orderedColumn.variant &&
+                  PREDEFINED_VARIANTS_META[orderedColumn.variant].skipTextAlign
+                )
+              ) {
+                textAlign = orderedColumn.textAlign;
+              }
+              const cellStyle: any = Object.assign(
+                {},
+                textAlign ? { textAlign } : {}
+              );
               return (
                 <td
                   role='gridcell'
                   class={{ hidden: orderedColumn.hide }}
+                  style={cellStyle}
                   {...attrs}
                 >
                   {!this.rowsLoading[row.id] ? (
@@ -735,9 +797,12 @@ export class DataTable {
                       (action.hideForRowIds &&
                         !action.hideForRowIds.includes(row.id))
                     ) {
+                      const buttonSize: 'icon-small' | 'small' = action.iconName
+                        ? 'icon-small'
+                        : 'small';
                       actionTemplate = (
                         <fw-button
-                          size='small'
+                          size={buttonSize}
                           color='secondary'
                           onKeyUp={(event) =>
                             (event.code === 'Space' ||
@@ -747,8 +812,22 @@ export class DataTable {
                           onClick={(event) =>
                             this.performRowAction(event, action, row)
                           }
+                          title={action.name}
+                          aria-label={action.name}
                         >
-                          {action.name}
+                          {action.iconName ? (
+                            <fw-icon
+                              name={action.iconName}
+                              library={
+                                action.iconLibrary
+                                  ? action.iconLibrary
+                                  : 'crayons'
+                              }
+                              size={10}
+                            ></fw-icon>
+                          ) : (
+                            action.name
+                          )}
                         </fw-button>
                       );
                     }

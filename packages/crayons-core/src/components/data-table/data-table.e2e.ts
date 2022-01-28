@@ -83,18 +83,28 @@ describe('fw-data-table', () => {
     expect(checkbox).toBeTruthy();
   });
 
-  // it('should trigger fwSelectAllChange when select-all checkbox is checked/unchecked', async () => {
-  //   const currentData = { ...data, isSelectable: true, isAllSelectable: true };
-  //   await loadDataIntoGrid(currentData);
-  //   await page.waitForChanges();
-  //   const checkbox = await page.find(
-  //     'fw-data-table >>> thead > tr:first-child > th:first-child > fw-checkbox'
-  //   );
-  //   const changedEvent = await page.spyOnEvent('fwSelectAllChange');
-  //   checkbox.click();
-  //   await page.waitForChanges();
-  //   expect(changedEvent).toHaveReceivedEventTimes(1);
-  // });
+  it('should trigger fwSelectAllChange when select-all checkbox is checked/unchecked', async () => {
+    const currentData = { ...data, isSelectable: true, isAllSelectable: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const checkbox = await page.find(
+      'fw-data-table >>> thead > tr:first-child > th:first-child > fw-checkbox'
+    );
+    const changedEvent = await page.spyOnEvent('fwSelectAllChange');
+    checkbox.click();
+    await page.waitForChanges();
+    expect(changedEvent).toHaveReceivedEventTimes(1);
+  });
+
+  it('should trigger fwSelectAllChange when selectAllRows method is called', async () => {
+    const currentData = { ...data, isSelectable: true };
+    await loadDataIntoGrid(currentData);
+    const changedEvent = await page.spyOnEvent('fwSelectAllChange');
+    const dataTable = await page.find('fw-data-table');
+    await dataTable.callMethod('selectAllRows');
+    await page.waitForChanges();
+    expect(changedEvent).toHaveReceivedEventTimes(1);
+  });
 
   it('should render in the right column order', async () => {
     const data = {
@@ -222,6 +232,12 @@ describe('fw-data-table', () => {
           position: 2,
           variant: 'user',
         },
+        {
+          key: 'icon',
+          text: 'Icon',
+          position: 3,
+          variant: 'icon',
+        },
       ],
       rows: [
         {
@@ -231,6 +247,7 @@ describe('fw-data-table', () => {
             name: 'Alexander Goodman',
             email: 'alexander.goodman@freshworks.com',
           },
+          icon: { name: 'agent' },
         },
       ],
     };
@@ -242,8 +259,43 @@ describe('fw-data-table', () => {
     const userComponent = await page.find(
       'fw-data-table >>> tbody > tr:first-child > td:nth-child(2) > fw-custom-cell-user'
     );
+    const iconComponent = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:nth-child(3) > fw-custom-cell-icon'
+    );
     expect(anchorComponent).toBeTruthy();
     expect(userComponent).toBeTruthy();
+    expect(iconComponent).toBeTruthy();
+  });
+
+  it('should align text in a column when textAlign is passed as a column configuration', async () => {
+    const data = {
+      columns: [
+        {
+          key: 'icon',
+          text: 'Icon',
+          variant: 'icon',
+          textAlign: 'center',
+        },
+      ],
+      rows: [
+        {
+          id: '01',
+          icon: { name: 'agent' },
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const textAlign = await page.evaluate(
+      (component, selector) => {
+        const cmpEl = document.querySelector(component);
+        const headerCell = cmpEl.shadowRoot.querySelector(selector);
+        return headerCell.style.textAlign;
+      },
+      'fw-data-table',
+      'td'
+    );
+    expect(textAlign).toEqual('center');
   });
 
   it('should display action column when rowActions is passed to datatable', async () => {
