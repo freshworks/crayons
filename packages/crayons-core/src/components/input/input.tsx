@@ -273,6 +273,8 @@ export class Input {
               onInput={this.onInput}
               onBlur={this.onBlur}
               onFocus={this.onFocus}
+              aria-invalid={this.state === 'error'}
+              aria-describedby={`hint-${this.name} error-${this.name}`}
             />
             {this.iconLeft !== undefined ? (
               <fw-icon class='icon left' name={this.iconLeft}></fw-icon>
@@ -303,7 +305,9 @@ export class Input {
             )}
           </div>
           {this.stateText !== '' ? (
-            <span class='help-block'>{this.stateText}</span>
+            <span class='help-block' id={`hint-${this.name}`}>
+              {this.stateText}
+            </span>
           ) : (
             ''
           )}

@@ -62,6 +62,19 @@ function App() {
 | `fwSelect`   | /**   Triggered when the radio button in focus is selected. | `CustomEvent<any>`  |
 
 
+## Methods
+
+### `setFocus() => Promise<void>`
+
+Sets focus on a specific `fw-radio`.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

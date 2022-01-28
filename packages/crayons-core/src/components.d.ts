@@ -121,6 +121,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Sets focus on a `fw-checkbox`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
           * Theme based on which the checkbox is styled.
          */
         "state": 'normal' | 'error';
@@ -235,6 +239,10 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
+         */
+        "setFocus": () => Promise<void>;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
@@ -372,6 +380,10 @@ export namespace Components {
         "name": any;
         "placeholder": string;
         "required": boolean;
+        /**
+          * Set Focus on the child
+         */
+        "setFocus": () => Promise<void>;
         "touched": boolean;
         "type": | 'TEXT'
     | 'NUMBER'
@@ -385,7 +397,8 @@ export namespace Components {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME';
+    | 'TIME'
+    | 'RELATIONSHIP';
     }
     interface FwFormatNumber {
         /**
@@ -956,6 +969,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Sets focus on a specific `fw-radio`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
           * Theme based on which the radio button is styled.
          */
         "state": 'normal' | 'error';
@@ -989,6 +1006,10 @@ export namespace Components {
           * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Sets focus on a specific `fw-radio`.
+         */
+        "setFocus": () => Promise<void>;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -1400,6 +1421,10 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Sets focus on a specific `fw-timepicker`.
+         */
+        "setFocus": () => Promise<void>;
         /**
           * Theme based on which the input of the timepicker is styled.
          */
@@ -2362,7 +2387,8 @@ declare namespace LocalJSX {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME';
+    | 'TIME'
+    | 'RELATIONSHIP';
     }
     interface FwFormatNumber {
         /**

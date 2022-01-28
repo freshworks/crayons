@@ -8,6 +8,7 @@ import {
   Watch,
   h,
   Listen,
+  Method,
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
@@ -87,6 +88,14 @@ export class Checkbox {
     this.checkbox.checked = isChecked;
   }
 
+  /**
+   * Sets focus on a `fw-checkbox`.
+   */
+  @Method()
+  async setFocus() {
+    this.host?.focus();
+  }
+
   @Watch('disabled')
   disabledChanged(isDisabled: boolean) {
     this.checkbox.disabled = isDisabled;
@@ -148,10 +157,11 @@ export class Checkbox {
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         aria-labelledby='label'
-        aria-describedby={this.description}
+        aria-describedby={`description hint-${this.name} error-${this.name}`}
         onClick={this.toggle}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
+        aria-invalid={this.state === 'error'}
       >
         <div class='checkbox-container'>
           <input

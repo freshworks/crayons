@@ -145,8 +145,7 @@ label {
 
     &.error {
       @include stateStyle($error-color);
-
-      box-shadow: 0 0 0 1px $error-color;
+      box-shadow: none;
     }
 
     &.warning {
