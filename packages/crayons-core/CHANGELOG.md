@@ -31,6 +31,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **fw-select:** added support for integer dataype for value ([#384](https://github.com/freshworks/crayons/issues/384)) ([ca1a4a0](https://github.com/freshworks/crayons/commit/ca1a4a0e9a23ce6286b482933aed3370ca0678f6))
 - **input:** expose css variables for margin and padding for input, tabs ([#380](https://github.com/freshworks/crayons/issues/380)) ([49a1741](https://github.com/freshworks/crayons/commit/49a17418882d05260f73426f738008be98f1df82))
 
+### BREAKING CHANGES
+
+***fw-checkbox***: On programatically changing the checked attribute of the checkbox `fwChange` will not be fired anymore.
+
 ## [3.0.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.9...@freshworks/crayons@3.0.0-beta.10) (2022-01-07)
 
 ### Bug Fixes
