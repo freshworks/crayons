@@ -13,6 +13,11 @@ import {
   ProgressLoaderOptions,
 } from '../components/progress-loader/progress-loader-util';
 
+import {
+  dateOptions,
+  formatDate,
+} from '../components/format-date/format-date-util';
+
 export function ToastController(
   config: ToastOptions = { position: 'top-center' }
 ): ToastResult {
@@ -31,6 +36,19 @@ export function ProgressLoaderController(
   return createProgressLoaderContainer(config);
 }
 
+export function DateFormatController(
+  {
+    date,
+    locale,
+    options,
+  }: { date: string | Date; locale: string | []; options: dateOptions } = {
+    date: new Date(),
+    locale: [],
+    options: {},
+  }
+): string {
+  return formatDate({ date, locale, options });
+}
 export {
   registerIconLibrary,
   unregisterIconLibrary,

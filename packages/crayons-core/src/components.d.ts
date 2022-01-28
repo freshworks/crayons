@@ -376,6 +376,56 @@ export namespace Components {
     | 'TEL'
     | 'TIME';
     }
+    interface FwFormatDate {
+        /**
+          * The date/time to format. If not set, the current date and time will be used.
+         */
+        "date": Date | string;
+        /**
+          * The format for displaying the day.
+         */
+        "day": 'numeric' | '2-digit';
+        /**
+          * The format for displaying the hour.
+         */
+        "hour": 'numeric' | '2-digit';
+        /**
+          * When set, 24 hour time will always be used.
+         */
+        "hourFormat": 'auto' | '12' | '24';
+        /**
+          * The locale to use when formatting the date/time.
+         */
+        "locale": string;
+        /**
+          * The format for displaying the minute.
+         */
+        "minute": 'numeric' | '2-digit';
+        /**
+          * The format for displaying the month.
+         */
+        "month": 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the second.
+         */
+        "second": 'numeric' | '2-digit';
+        /**
+          * The time zone to express the time in.
+         */
+        "timeZone": string;
+        /**
+          * The format for displaying the time.
+         */
+        "timeZoneName": 'short' | 'long';
+        /**
+          * The format for displaying the weekday.
+         */
+        "weekday": 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the year.
+         */
+        "year": 'numeric' | '2-digit';
+    }
     interface FwFormatNumber {
         /**
           * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
@@ -1692,6 +1742,12 @@ declare global {
         prototype: HTMLFwFormControlElement;
         new (): HTMLFwFormControlElement;
     };
+    interface HTMLFwFormatDateElement extends Components.FwFormatDate, HTMLStencilElement {
+    }
+    var HTMLFwFormatDateElement: {
+        prototype: HTMLFwFormatDateElement;
+        new (): HTMLFwFormatDateElement;
+    };
     interface HTMLFwFormatNumberElement extends Components.FwFormatNumber, HTMLStencilElement {
     }
     var HTMLFwFormatNumberElement: {
@@ -1913,6 +1969,7 @@ declare global {
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-form": HTMLFwFormElement;
         "fw-form-control": HTMLFwFormControlElement;
+        "fw-format-date": HTMLFwFormatDateElement;
         "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
@@ -2339,6 +2396,56 @@ declare namespace LocalJSX {
     | 'URL'
     | 'TEL'
     | 'TIME';
+    }
+    interface FwFormatDate {
+        /**
+          * The date/time to format. If not set, the current date and time will be used.
+         */
+        "date"?: Date | string;
+        /**
+          * The format for displaying the day.
+         */
+        "day"?: 'numeric' | '2-digit';
+        /**
+          * The format for displaying the hour.
+         */
+        "hour"?: 'numeric' | '2-digit';
+        /**
+          * When set, 24 hour time will always be used.
+         */
+        "hourFormat"?: 'auto' | '12' | '24';
+        /**
+          * The locale to use when formatting the date/time.
+         */
+        "locale"?: string;
+        /**
+          * The format for displaying the minute.
+         */
+        "minute"?: 'numeric' | '2-digit';
+        /**
+          * The format for displaying the month.
+         */
+        "month"?: 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the second.
+         */
+        "second"?: 'numeric' | '2-digit';
+        /**
+          * The time zone to express the time in.
+         */
+        "timeZone"?: string;
+        /**
+          * The format for displaying the time.
+         */
+        "timeZoneName"?: 'short' | 'long';
+        /**
+          * The format for displaying the weekday.
+         */
+        "weekday"?: 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the year.
+         */
+        "year"?: 'numeric' | '2-digit';
     }
     interface FwFormatNumber {
         /**
@@ -3642,6 +3749,7 @@ declare namespace LocalJSX {
         "fw-dropdown-button": FwDropdownButton;
         "fw-form": FwForm;
         "fw-form-control": FwFormControl;
+        "fw-format-date": FwFormatDate;
         "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
@@ -3698,6 +3806,7 @@ declare module "@stencil/core" {
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
             "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
+            "fw-format-date": LocalJSX.FwFormatDate & JSXBase.HTMLAttributes<HTMLFwFormatDateElement>;
             "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
