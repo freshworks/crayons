@@ -722,7 +722,6 @@ export class DataTable {
                   ></fw-checkbox>
                 ) : (
                   <fw-skeleton
-                    style={{ '--skeleton-margin-bottom': '0px' }}
                     height={this.rowsLoading[row.id]}
                     variant='rect'
                   ></fw-skeleton>
@@ -771,7 +770,6 @@ export class DataTable {
                     this.renderTableCell(orderedColumn, row[orderedColumn.key])
                   ) : (
                     <fw-skeleton
-                      style={{ '--skeleton-margin-bottom': '0px' }}
                       height={this.rowsLoading[row.id]}
                       variant='rect'
                     ></fw-skeleton>
@@ -835,7 +833,6 @@ export class DataTable {
                   })
                 ) : (
                   <fw-skeleton
-                    style={{ '--skeleton-margin-bottom': '0px' }}
                     height={this.rowsLoading[row.id]}
                     variant='rect'
                   ></fw-skeleton>
