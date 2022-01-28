@@ -7,7 +7,7 @@ import { formatDate } from './format-date-util';
 })
 export class FormatDate {
   /** The date/time to format. If not set, the current date and time will be used. */
-  @Prop() date: Date | string = new Date();
+  @Prop() date: Date | string | number = new Date();
 
   /** The locale to use when formatting the date/time. */
   @Prop() locale: string;

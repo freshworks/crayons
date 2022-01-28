@@ -216,7 +216,7 @@ interface dateOptions {
 
 | Property       | Attribute        | Description                                                                  | Type                                                      | Default      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- | ------------ |
-| `date`         | `date`           | The date/time to format. If not set, the current date and time will be used. | `Date \| string`                                          | `new Date()` |
+| `date`         | `date`           | The date/time to format. If not set, the current date and time will be used. | `Date \| number \| string`                                | `new Date()` |
 | `day`          | `day`            | The format for displaying the day.                                           | `"2-digit" \| "numeric"`                                  | `undefined`  |
 | `hour`         | `hour`           | The format for displaying the hour.                                          | `"2-digit" \| "numeric"`                                  | `undefined`  |
 | `hourFormat`   | `hour-format`    | When set, 24 hour time will always be used.                                  | `"12" \| "24" \| "auto"`                                  | `'auto'`     |
