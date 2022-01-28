@@ -41,7 +41,11 @@ export function DateFormatController(
     date,
     locale,
     options,
-  }: { date: string | Date; locale: string | []; options: dateOptions } = {
+  }: {
+    date: string | Date | number;
+    locale: string | [];
+    options: dateOptions;
+  } = {
     date: new Date(),
     locale: [],
     options: {},

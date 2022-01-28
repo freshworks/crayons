@@ -16,7 +16,7 @@ When using strings, avoid ambiguous dates such as `05/04/2021` which can be inte
 <fw-format-date month="long" day="numeric" year="numeric"></fw-format-date>
 ```
 
-<label><strong>Formatting options</strong></label>
+<strong>Formatting options</strong>
 
 ```html live
 <!-- Format Time -->
@@ -35,7 +35,7 @@ When using strings, avoid ambiguous dates such as `05/04/2021` which can be inte
 <fw-format-date></fw-format-date>
 ```
 
-<label><strong>Hour Format</strong></label>
+<strong>Hour Format</strong>
 
 ```html live
 <div>
@@ -56,7 +56,7 @@ When using strings, avoid ambiguous dates such as `05/04/2021` which can be inte
 </div>
 ```
 
-<label><strong>Locale</strong></label>
+<strong>Locale</strong>
 
 ```html live
 <div>
