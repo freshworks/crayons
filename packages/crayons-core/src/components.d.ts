@@ -380,7 +380,7 @@ export namespace Components {
         /**
           * The date/time to format. If not set, the current date and time will be used.
          */
-        "date": Date | string;
+        "date": Date | string | number;
         /**
           * The format for displaying the day.
          */
@@ -2401,7 +2401,7 @@ declare namespace LocalJSX {
         /**
           * The date/time to format. If not set, the current date and time will be used.
          */
-        "date"?: Date | string;
+        "date"?: Date | string | number;
         /**
           * The format for displaying the day.
          */

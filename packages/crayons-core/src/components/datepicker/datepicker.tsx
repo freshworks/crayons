@@ -857,7 +857,7 @@ export class Datepicker {
                 <div class='mdpch-container'>
                   <span class='mdpchc-month'>
                     <fw-select
-                      class='single-month-selector'
+                      class='first'
                       readonly={true}
                       value={this.shortMonthNames[this.month]}
                       same-width='false'
@@ -878,7 +878,7 @@ export class Datepicker {
 
                   <span class='mdpchc-year'>
                     <fw-select
-                      class='single-year-selector'
+                      class='last'
                       readonly={true}
                       value={this.year}
                       same-width='false'
