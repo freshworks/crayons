@@ -18,6 +18,7 @@ $accordion-title-icon-color: #475867;
   border: var(--accordion-title-border, none);
   border-radius: $accordion-border-radius $accordion-border-radius 0 0;
   padding: 10px 20px;
+  cursor: pointer;
 
   &.collapsed {
     border-radius: $accordion-border-radius;
