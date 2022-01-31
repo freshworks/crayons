@@ -529,6 +529,17 @@ export class Select {
     this.host.removeEventListener('focus', this.setFocus);
   }
 
+  @Watch('isExpanded')
+  expandWatcher(expanded: boolean): void {
+    if (this.variant === 'button') {
+      const icon = this.host.shadowRoot
+        ?.querySelector('.select-container')
+        ?.querySelector('fw-button')
+        ?.shadowRoot?.querySelector('fw-icon');
+      icon && (icon.name = expanded ? 'chevron-up' : 'chevron-down');
+    }
+  }
+
   render() {
     const { host, name, value } = this;
 
@@ -579,13 +590,12 @@ export class Select {
               onKeyDown={handleKeyDown(this.innerOnClick)}
             >
               {this.variant === 'button' ? (
-                //TODO: Make this behavior generic.
                 <fw-button
-                  id={`${this.hostId}-btn`}
                   show-caret-icon
+                  id={`${this.hostId}-btn`}
                   color='secondary'
                   class={
-                    this.host.classList.value.includes('month')
+                    this.host.classList.value.includes('first')
                       ? 'fw-button-group__button--first'
                       : 'fw-button-group__button--last'
                   }

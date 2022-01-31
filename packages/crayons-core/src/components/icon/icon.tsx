@@ -1,4 +1,12 @@
-import { Build, Component, Element, Prop, State, h } from '@stencil/core';
+import {
+  Build,
+  Component,
+  Element,
+  Prop,
+  State,
+  h,
+  Watch,
+} from '@stencil/core';
 import { fetchIcon, waitUntilVisible } from './icon.utils';
 import {
   getIconLibrary,
@@ -17,7 +25,7 @@ export class Icon {
   /**
    * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
    */
-  @Prop() name: string;
+  @Prop({ reflect: true }) name: string;
   /**
    * An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.
    */
@@ -89,6 +97,11 @@ export class Icon {
           this.applyIconPropstoState();
         }
       );
+  }
+
+  @Watch('name')
+  nameChangeHandler() {
+    this.applyIconPropstoState();
   }
 
   disconnectedCallback(): void {

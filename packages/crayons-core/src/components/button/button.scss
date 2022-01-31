@@ -1,3 +1,7 @@
+/**
+  @prop --btn-min-width: minimum width for the button
+*/
+
 //=== Button Style ===//
 $btn-primary-color: $color-milk;
 $btn-primary-bg: $color-elephant-800;
@@ -247,7 +251,7 @@ $input-height-mini: 16px;
   }
 
   &--normal {
-    min-width: 80px;
+    min-width: var(--btn-min-width, 80px);
     height: 32px;
     line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
   }
