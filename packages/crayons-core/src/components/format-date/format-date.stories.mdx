@@ -1,0 +1,51 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# FormatDate
+
+<Meta
+  title='FormatDate'
+  component='fw-format-date'
+/>
+
+## Props 
+
+<Props of="fw-format-date"/>
+
+## Usage
+
+### Date Formatting options
+<Preview>
+  <Story name='date-formats'>
+  {() => `<fw-format-date></fw-format-date><br/>
+            <fw-format-date weekday="long"></fw-format-date><br>
+            <fw-format-date month="long"></fw-format-date><br>
+            <fw-format-date year="numeric"></fw-format-date><br>
+            `}
+  </Story>
+</Preview>
+
+
+### Hour Format options
+<Preview>
+  <Story name='hour-formats'>
+    {
+      () => `<fw-format-date hour="numeric"
+  minute="numeric"
+  hour-format="12"></fw-format-date><br>
+  <fw-format-date hour="numeric"
+  minute="numeric"
+  hour-format="24"></fw-format-date><br/>`
+    }
+  </Story>
+</Preview>
+
+
+### Locale Format options
+<Preview>
+  <Story name='locale-formats'>
+    {
+      () => `<fw-format-date locale='en-US'></fw-format-date><br>
+      <fw-format-date locale='en-GB'></fw-format-date><br>`
+    }
+  </Story>
+</Preview>

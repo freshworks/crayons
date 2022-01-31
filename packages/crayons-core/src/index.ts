@@ -5,4 +5,5 @@ export {
   ProgressLoaderController,
   registerIconLibrary,
   unregisterIconLibrary,
+  DateFormatController,
 } from './global/crayons';
