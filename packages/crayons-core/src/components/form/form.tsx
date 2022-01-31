@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Prop, State, Element, h, Method } from '@stencil/core';
+import {
+  Component,
+  Prop,
+  State,
+  Element,
+  h,
+  Method,
+  Watch,
+} from '@stencil/core';
 import { v4 as uuidv4 } from 'uuid';
 import {
   FormValues,
@@ -16,6 +24,7 @@ import {
   yupToFormErrors,
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
+  serializeForm,
 } from './form-util';
 import { debounce } from '../../utils';
 import EventStore from '../../utils/event-store';
@@ -28,6 +37,7 @@ export class Form {
   @Element() el!: any;
 
   private controls: any;
+  private fields: any;
 
   /**
    * Initial field values of the form. It is an object with keys pointing to field name
@@ -92,15 +102,41 @@ export class Form {
       this.handleInput
     );
 
+    await this.handleFormSchemaAndInitialValuesChange(
+      this.formSchema,
+      this.initialValues
+    );
+  }
+
+  @Watch('formSchema')
+  async formSchemaHandler(formSchema) {
+    await this.handleFormSchemaAndInitialValuesChange(
+      formSchema,
+      this.initialValues
+    );
+  }
+
+  @Watch('initialValues')
+  async initialValuesHandler(initialValues) {
+    await this.handleFormSchemaAndInitialValuesChange(
+      this.formSchema,
+      initialValues
+    );
+  }
+
+  async handleFormSchemaAndInitialValuesChange(formSchema, initialValues) {
+    this.fields = formSchema?.fields?.reduce((acc, field) => {
+      return { ...acc, [field.name]: field };
+    }, {});
+
     this.formValidationSchema =
-      generateDynamicValidationSchema(this.formSchema, this.validationSchema) ||
-      {};
+      generateDynamicValidationSchema(formSchema, this.validationSchema) || {};
     this.formInitialValues =
-      generateDynamicInitialValues(this.formSchema, this.initialValues) || {};
+      generateDynamicInitialValues(formSchema, initialValues) || {};
 
     this.values = this.formInitialValues;
 
-    const initialValuesKeys = Object.keys(this.initialValues);
+    const initialValuesKeys = Object.keys(initialValues);
 
     for (const field of Object.keys(this.formInitialValues)) {
       this.errors[field] = null;
@@ -108,20 +144,23 @@ export class Form {
       else this.touched[field] = false;
     }
 
-    const validationErrors = await this.handleValidation();
-
-    this.errors = { ...this.errors, ...validationErrors };
+    await this.handleValidation();
   }
 
   // get Form Controls and pass props to children
   componentDidLoad() {
     this.controls = this.getFormControls();
     this.passPropsToChildren(this.controls);
+    // adding a timeout since this lifecycle method is called before its child in React apps.
+    // Bug with react wrapper.
+    setTimeout(() => {
+      this.setFocusOnError();
+    }, 10);
   }
 
   // pass props to form-control children
   componentWillUpdate() {
-    if (!this.controls) {
+    if (!this.controls || !this.controls.length) {
       this.controls = this.getFormControls();
     }
     this.passPropsToChildren(this.controls);
@@ -144,12 +183,9 @@ export class Form {
     let isValid = false,
       touchedState = {};
 
-    const validationErrors = await this.handleValidation();
+    await this.handleValidation();
 
-    const keys = [
-      ...Object.keys(this.values),
-      ...Object.keys(validationErrors),
-    ];
+    const keys = [...Object.keys(this.values), ...Object.keys(this.errors)];
 
     keys.forEach(
       (k: string) => (touchedState = { ...touchedState, [k]: true })
@@ -157,9 +193,18 @@ export class Form {
     // on clicking submit, mark all fields as touched
     this.touched = { ...this.touched, ...touchedState };
 
-    isValid = !validationErrors || Object.keys(validationErrors).length === 0;
+    isValid = !this.errors || Object.keys(this.errors).length === 0;
+    if (!isValid) {
+      this.setFocusOnError();
+    }
 
-    return { values: this.values, errors: this.errors, isValid };
+    let serializedValues = { ...this.values };
+
+    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+      serializedValues = serializeForm(serializedValues, this.fields);
+    }
+
+    return { values: serializedValues, errors: this.errors, isValid };
   };
 
   handleReset = async (event?: Event): Promise<void> => {
@@ -176,7 +221,8 @@ export class Form {
     this.touched = touchedState;
 
     if (initialValuesKeys && initialValuesKeys.length > 0) {
-      this.errors = await this.handleValidation();
+      await this.handleValidation();
+      this.setFocusOnError();
     }
   };
 
@@ -214,8 +260,6 @@ export class Form {
     }
 
     this.errors = validationErrors;
-
-    return validationErrors;
   };
 
   handleInput = async ({ field, value }) => {
@@ -238,9 +282,25 @@ export class Form {
     }
   };
 
+  setFocus = (field) => {
+    const control = this.controls?.find((control) => control.name === field);
+    control?.setFocus();
+  };
+
+  setFocusOnError = () => {
+    const firstErrorField = Object.keys(this.errors || {})
+      .sort((a, b) => {
+        return this.fields?.[a]?.position - this.fields?.[b]?.position;
+      })
+      .find((field) => {
+        return this.touched[field] === true;
+      });
+
+    if (firstErrorField) this.setFocus(firstErrorField);
+  };
+
   private getFormControls() {
-    let children = [];
-    children = Array.from([
+    const children = Array.from([
       ...this.el.shadowRoot.querySelectorAll('*'),
       ...this.el.querySelectorAll('*'),
     ]).filter((el: HTMLElement) =>
@@ -250,7 +310,7 @@ export class Form {
   }
 
   private passPropsToChildren(controls) {
-    controls.forEach((control: any) => {
+    controls?.forEach((control: any) => {
       this.passPropsToChild(control);
     });
   }
@@ -281,10 +341,8 @@ export class Form {
 
     const selectProps = (field: string, inputType) => ({
       'value':
-        inputType === 'multi_select' // for multiselect pass Array
-          ? this.values[field]?.map((v) => v.value || v) || []
-          : Array.isArray(this.values[field]) // single select but the value is an array, pass 0th index
-          ? this.values[field]?.map((v) => v.value || v)[0] || ''
+        inputType === 'multi_select'
+          ? this.values[field] || []
           : this.values[field] || '',
       'form-id': this.formId,
     });
@@ -324,6 +382,7 @@ export class Form {
       this.errors = { ...this.errors, [field]: value as string };
       this.touched = { ...this.touched, [field]: true };
     });
+    this.setFocusOnError();
   }
 
   @Method()

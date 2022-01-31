@@ -78,7 +78,7 @@ export namespace Components {
         /**
           * Size of the button.
          */
-        "size": 'normal' | 'small' | 'icon';
+        "size": 'normal' | 'small' | 'icon' | 'icon-small';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -121,6 +121,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Sets focus on a `fw-checkbox`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
           * Theme based on which the checkbox is styled.
          */
         "state": 'normal' | 'error';
@@ -132,6 +136,12 @@ export namespace Components {
     interface FwCustomCellAnchor {
         "href": string;
         "text": string;
+    }
+    interface FwCustomCellIcon {
+        "color": string;
+        "library": string;
+        "name": string;
+        "size": number;
     }
     interface FwCustomCellUser {
         "alt": string;
@@ -185,6 +195,11 @@ export namespace Components {
           * Rows Array of objects to be displayed in the table.
          */
         "rows": DataTableRow[];
+        /**
+          * selectAllRows method we can use to select/unselect rows in the table
+          * @param checked denotes if we want to check or uncheck the rows
+         */
+        "selectAllRows": (checked?: boolean) => Promise<string[]>;
     }
     interface FwDatepicker {
         /**
@@ -224,6 +239,10 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
+         */
+        "setFocus": () => Promise<void>;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
@@ -361,6 +380,10 @@ export namespace Components {
         "name": any;
         "placeholder": string;
         "required": boolean;
+        /**
+          * Set Focus on the child
+         */
+        "setFocus": () => Promise<void>;
         "touched": boolean;
         "type": | 'TEXT'
     | 'NUMBER'
@@ -374,7 +397,58 @@ export namespace Components {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME';
+    | 'TIME'
+    | 'RELATIONSHIP';
+    }
+    interface FwFormatDate {
+        /**
+          * The date/time to format. If not set, the current date and time will be used.
+         */
+        "date": Date | string;
+        /**
+          * The format for displaying the day.
+         */
+        "day": 'numeric' | '2-digit';
+        /**
+          * The format for displaying the hour.
+         */
+        "hour": 'numeric' | '2-digit';
+        /**
+          * When set, 24 hour time will always be used.
+         */
+        "hourFormat": 'auto' | '12' | '24';
+        /**
+          * The locale to use when formatting the date/time.
+         */
+        "locale": string;
+        /**
+          * The format for displaying the minute.
+         */
+        "minute": 'numeric' | '2-digit';
+        /**
+          * The format for displaying the month.
+         */
+        "month": 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the second.
+         */
+        "second": 'numeric' | '2-digit';
+        /**
+          * The time zone to express the time in.
+         */
+        "timeZone": string;
+        /**
+          * The format for displaying the time.
+         */
+        "timeZoneName": 'short' | 'long';
+        /**
+          * The format for displaying the weekday.
+         */
+        "weekday": 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the year.
+         */
+        "year": 'numeric' | '2-digit';
     }
     interface FwFormatDate {
         /**
@@ -995,6 +1069,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Sets focus on a specific `fw-radio`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
           * Theme based on which the radio button is styled.
          */
         "state": 'normal' | 'error';
@@ -1028,6 +1106,10 @@ export namespace Components {
           * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Sets focus on a specific `fw-radio`.
+         */
+        "setFocus": () => Promise<void>;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -1440,6 +1522,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Sets focus on a specific `fw-timepicker`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
           * Theme based on which the input of the timepicker is styled.
          */
         "state": 'normal' | 'warning' | 'error';
@@ -1693,6 +1779,12 @@ declare global {
     var HTMLFwCustomCellAnchorElement: {
         prototype: HTMLFwCustomCellAnchorElement;
         new (): HTMLFwCustomCellAnchorElement;
+    };
+    interface HTMLFwCustomCellIconElement extends Components.FwCustomCellIcon, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellIconElement: {
+        prototype: HTMLFwCustomCellIconElement;
+        new (): HTMLFwCustomCellIconElement;
     };
     interface HTMLFwCustomCellUserElement extends Components.FwCustomCellUser, HTMLStencilElement {
     }
@@ -1961,6 +2053,7 @@ declare global {
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
+        "fw-custom-cell-icon": HTMLFwCustomCellIconElement;
         "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
@@ -2085,7 +2178,7 @@ declare namespace LocalJSX {
         /**
           * Size of the button.
          */
-        "size"?: 'normal' | 'small' | 'icon';
+        "size"?: 'normal' | 'small' | 'icon' | 'icon-small';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -2151,6 +2244,12 @@ declare namespace LocalJSX {
     interface FwCustomCellAnchor {
         "href"?: string;
         "text"?: string;
+    }
+    interface FwCustomCellIcon {
+        "color"?: string;
+        "library"?: string;
+        "name"?: string;
+        "size"?: number;
     }
     interface FwCustomCellUser {
         "alt"?: string;
@@ -2395,7 +2494,58 @@ declare namespace LocalJSX {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME';
+    | 'TIME'
+    | 'RELATIONSHIP';
+    }
+    interface FwFormatDate {
+        /**
+          * The date/time to format. If not set, the current date and time will be used.
+         */
+        "date"?: Date | string;
+        /**
+          * The format for displaying the day.
+         */
+        "day"?: 'numeric' | '2-digit';
+        /**
+          * The format for displaying the hour.
+         */
+        "hour"?: 'numeric' | '2-digit';
+        /**
+          * When set, 24 hour time will always be used.
+         */
+        "hourFormat"?: 'auto' | '12' | '24';
+        /**
+          * The locale to use when formatting the date/time.
+         */
+        "locale"?: string;
+        /**
+          * The format for displaying the minute.
+         */
+        "minute"?: 'numeric' | '2-digit';
+        /**
+          * The format for displaying the month.
+         */
+        "month"?: 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the second.
+         */
+        "second"?: 'numeric' | '2-digit';
+        /**
+          * The time zone to express the time in.
+         */
+        "timeZone"?: string;
+        /**
+          * The format for displaying the time.
+         */
+        "timeZoneName"?: 'short' | 'long';
+        /**
+          * The format for displaying the weekday.
+         */
+        "weekday"?: 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the year.
+         */
+        "year"?: 'numeric' | '2-digit';
     }
     interface FwFormatDate {
         /**
@@ -3741,6 +3891,7 @@ declare namespace LocalJSX {
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
         "fw-custom-cell-anchor": FwCustomCellAnchor;
+        "fw-custom-cell-icon": FwCustomCellIcon;
         "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
@@ -3798,6 +3949,7 @@ declare module "@stencil/core" {
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
+            "fw-custom-cell-icon": LocalJSX.FwCustomCellIcon & JSXBase.HTMLAttributes<HTMLFwCustomCellIconElement>;
             "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;

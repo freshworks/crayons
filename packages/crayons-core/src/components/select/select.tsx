@@ -637,6 +637,8 @@ export class Select {
                       onInput={() => this.onInput()}
                       onFocus={(e) => this.innerOnFocus(e)}
                       onBlur={(e) => this.innerOnBlur(e)}
+                      aria-invalid={this.state === 'error'}
+                      aria-describedby={`hint-${this.name} error-${this.name}`}
                     />
                   </div>
                   {this.isLoading ? (
@@ -683,7 +685,9 @@ export class Select {
             ></fw-list-options>
           </fw-popover>
           {this.stateText !== '' ? (
-            <span class='help-block'>{this.stateText}</span>
+            <span class='help-block' id={`hint-${this.name}`}>
+              {this.stateText}
+            </span>
           ) : (
             ''
           )}

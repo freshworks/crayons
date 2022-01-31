@@ -59,6 +59,19 @@ function App() {
 | `fwFocus`  | Triggered when the check box comes into focus.          | `CustomEvent<void>` |
 
 
+## Methods
+
+### `setFocus() => Promise<void>`
+
+Sets focus on a `fw-checkbox`.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

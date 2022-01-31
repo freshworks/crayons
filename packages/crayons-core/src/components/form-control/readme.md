@@ -1,5 +1,6 @@
-# fw-form-control
+# Form Control (fw-form-control)
 
+`Form Control` component used with `fw-form` component. Please refer [fw-form](../form/#demo-static-form) for usage 
 
 
 <!-- Auto Generated Below -->
@@ -7,19 +8,32 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                                                                                 | Type                                                                                                                                                       | Default     |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `choices`      | `choices`       |                                                                                                                                                                             | `any`                                                                                                                                                      | `[]`        |
-| `controlProps` | `control-props` | Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots. | `any`                                                                                                                                                      | `undefined` |
-| `error`        | `error`         |                                                                                                                                                                             | `string`                                                                                                                                                   | `''`        |
-| `fieldProps`   | `field-props`   | Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.                                           | `any`                                                                                                                                                      | `{}`        |
-| `hint`         | `hint`          |                                                                                                                                                                             | `string`                                                                                                                                                   | `''`        |
-| `label`        | `label`         |                                                                                                                                                                             | `any`                                                                                                                                                      | `undefined` |
-| `name`         | `name`          |                                                                                                                                                                             | `any`                                                                                                                                                      | `undefined` |
-| `placeholder`  | `placeholder`   |                                                                                                                                                                             | `string`                                                                                                                                                   | `''`        |
-| `required`     | `required`      |                                                                                                                                                                             | `boolean`                                                                                                                                                  | `false`     |
-| `touched`      | `touched`       |                                                                                                                                                                             | `boolean`                                                                                                                                                  | `false`     |
-| `type`         | `type`          |                                                                                                                                                                             | `"CHECKBOX" \| "DATE" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "TEL" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
+| Property       | Attribute       | Description                                                                                                                                                                 | Type                                                                                                                                                                         | Default     |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `choices`      | `choices`       |                                                                                                                                                                             | `any`                                                                                                                                                                        | `[]`        |
+| `controlProps` | `control-props` | Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots. | `any`                                                                                                                                                                        | `undefined` |
+| `error`        | `error`         |                                                                                                                                                                             | `string`                                                                                                                                                                     | `''`        |
+| `fieldProps`   | `field-props`   | Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.                                           | `any`                                                                                                                                                                        | `{}`        |
+| `hint`         | `hint`          |                                                                                                                                                                             | `string`                                                                                                                                                                     | `''`        |
+| `label`        | `label`         |                                                                                                                                                                             | `any`                                                                                                                                                                        | `undefined` |
+| `name`         | `name`          |                                                                                                                                                                             | `any`                                                                                                                                                                        | `undefined` |
+| `placeholder`  | `placeholder`   |                                                                                                                                                                             | `string`                                                                                                                                                                     | `''`        |
+| `required`     | `required`      |                                                                                                                                                                             | `boolean`                                                                                                                                                                    | `false`     |
+| `touched`      | `touched`       |                                                                                                                                                                             | `boolean`                                                                                                                                                                    | `false`     |
+| `type`         | `type`          |                                                                                                                                                                             | `"CHECKBOX" \| "DATE" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "RELATIONSHIP" \| "TEL" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
+
+
+## Methods
+
+### `setFocus() => Promise<void>`
+
+Set Focus on the child
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies

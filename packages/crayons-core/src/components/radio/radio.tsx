@@ -5,6 +5,8 @@ import {
   Host,
   Prop,
   Watch,
+  Method,
+  Element,
   h,
 } from '@stencil/core';
 import EventStore from '../../utils/event-store';
@@ -15,6 +17,7 @@ import EventStore from '../../utils/event-store';
   shadow: true,
 })
 export class Radio {
+  @Element() host!: HTMLElement;
   /**
    * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
    */
@@ -120,18 +123,28 @@ export class Radio {
       });
   }
 
+  /**
+   * Sets focus on a specific `fw-radio`.
+   */
+  @Method()
+  async setFocus() {
+    this.host?.focus();
+  }
+
   render() {
     return (
+      // eslint-disable-next-line jsx-a11y/role-supports-aria-props
       <Host
         onClick={() => this.toggle()}
         role='radio'
         tabIndex='-1'
         aria-labelledby='label'
-        aria-describedby={this.description}
+        aria-describedby={`description hint-${this.name} error-${this.name}`}
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
+        aria-invalid={this.state === 'error'}
       >
         <div class='radio-container'>
           <input

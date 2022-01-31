@@ -60,6 +60,19 @@ function App() {
 | `value`    | `value`    | Time output value                                                                                                                                                                              | `string`                           | `undefined`                                    |
 
 
+## Methods
+
+### `setFocus() => Promise<void>`
+
+Sets focus on a specific `fw-timepicker`.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

@@ -65,6 +65,19 @@ function App() {
 | `fwChange` | Triggered when an option in the Radio Group is selected or deselected. | `CustomEvent<any>` |
 
 
+## Methods
+
+### `setFocus() => Promise<void>`
+
+Sets focus on a specific `fw-radio`.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

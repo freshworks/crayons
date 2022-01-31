@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, h } from '@stencil/core';
+import { Component, Element, Prop, State, h, Method } from '@stencil/core';
 import moment from 'moment-mini';
 
 import { renderHiddenField } from '../../utils';
@@ -76,6 +76,8 @@ export class Timepicker {
    */
   @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
 
+  private nativeInput;
+
   private getTimeOptionsMeta = (nonMeridianFormat) => {
     const preferredFormat = this.format;
     const timeIntervalArgs = {
@@ -132,6 +134,16 @@ export class Timepicker {
     }
   }
 
+  /**
+   * Sets focus on a specific `fw-timepicker`.
+   */
+  @Method()
+  async setFocus() {
+    if (this.nativeInput) {
+      this.nativeInput.focus();
+    }
+  }
+
   onBlur = (): void => {
     this.formId &&
       EventStore.publish(`${this.formId}::handleBlur`, {
@@ -160,6 +172,7 @@ export class Timepicker {
         required={this.required}
         onFwChange={(e) => this.setTimeValue(e)}
         onFwBlur={this.onBlur}
+        ref={(el) => (this.nativeInput = el)}
         state={this.state}
       >
         {this.timeValues.map((time) => (

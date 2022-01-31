@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Prop, h, Element, State } from '@stencil/core';
+import { Component, Prop, h, Element, State, Method } from '@stencil/core';
 
 import { hasSlot } from '../../utils';
+
+const NATIVE_CONTROLS = ['input', 'select', 'textarea'];
 @Component({
   tag: 'fw-form-control',
   styleUrl: 'form-control.scss',
@@ -25,8 +27,9 @@ export class FormControl {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME' = 'TEXT';
-  @Prop()
+    | 'TIME'
+    | 'RELATIONSHIP' = 'TEXT';
+  @Prop({ reflect: true })
   name: any;
   @Prop()
   label: any;
@@ -53,6 +56,8 @@ export class FormControl {
   touched = false;
   @Prop()
   error = '';
+  private slotElement;
+  private crayonsControlRef;
 
   @State() hasSlot = false;
 
@@ -82,7 +87,12 @@ export class FormControl {
           state: this.touched && this.error && 'error',
         };
 
-        cmp = <fw-input {...componentProps}></fw-input>;
+        cmp = (
+          <fw-input
+            {...componentProps}
+            ref={(el) => (this.crayonsControlRef = el)}
+          ></fw-input>
+        );
         break;
       }
       case 'PARAGRAPH':
@@ -100,7 +110,12 @@ export class FormControl {
             ),
             state: this.touched && this.error && 'error',
           };
-          cmp = <fw-textarea {...componentProps}></fw-textarea>;
+          cmp = (
+            <fw-textarea
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-textarea>
+          );
         }
         break;
 
@@ -119,7 +134,12 @@ export class FormControl {
             ),
             state: this.touched && this.error && 'error',
           };
-          cmp = <fw-datepicker {...componentProps}></fw-datepicker>;
+          cmp = (
+            <fw-datepicker
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-datepicker>
+          );
         }
         break;
 
@@ -138,7 +158,14 @@ export class FormControl {
             ),
             state: this.touched && this.error && 'error',
           };
-          cmp = <fw-checkbox {...componentProps}>{this.label}</fw-checkbox>;
+          cmp = (
+            <fw-checkbox
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            >
+              {this.label}
+            </fw-checkbox>
+          );
         }
         break;
 
@@ -159,7 +186,11 @@ export class FormControl {
             ...controlProps,
           };
           cmp = (
-            <fw-radio-group {...componentProps} label={this.name}>
+            <fw-radio-group
+              {...componentProps}
+              label={this.name}
+              ref={(el) => (this.crayonsControlRef = el)}
+            >
               {this.choices?.map((ch) => {
                 const val = ch[componentProps.optionValuePath] || ch.value;
                 const label = ch[componentProps.optionLabelPath] || ch.value;
@@ -198,11 +229,50 @@ export class FormControl {
           cmp = (
             <fw-select
               {...componentProps}
-              options={this.choices?.map((f) => ({
-                ...f,
-                text: f.value,
-              }))}
+              options={this.choices}
+              /*
+                this.choices?.map((f) => ({
+                  ...f,
+                  text: f.value,
+                }))
+              */
               multiple={this.type === 'MULTI_SELECT'}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-select>
+          );
+        }
+        break;
+      case 'RELATIONSHIP':
+        {
+          const controlProps = this.controlProps?.selectProps(
+            this.name,
+            this.type?.toLowerCase()
+          );
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            placeholder: this.placeholder,
+            label: '',
+            required: this.required,
+            hint: '',
+            state: this.touched && this.error && 'error',
+            search: this.fieldProps.search,
+          };
+
+          if (typeof controlProps.value === 'object') {
+            componentProps.selectedOptions = [controlProps.value];
+          }
+
+          if (componentProps.selectedOptions?.length > 0)
+            this.crayonsControlRef?.setSelectedOptions(
+              componentProps.selectedOptions
+            );
+
+          cmp = (
+            <fw-select
+              {...componentProps}
+              form-id={controlProps['form-id']}
+              ref={(el) => (this.crayonsControlRef = el)}
             ></fw-select>
           );
         }
@@ -222,7 +292,12 @@ export class FormControl {
             ),
             state: this.touched && this.error && 'error',
           };
-          cmp = <fw-timepicker {...componentProps}></fw-timepicker>;
+          cmp = (
+            <fw-timepicker
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-timepicker>
+          );
         }
         break;
     }
@@ -233,8 +308,23 @@ export class FormControl {
     this.handleSlotChange();
   }
 
+  /**
+   * Set Focus on the child
+   */
+  @Method()
+  async setFocus() {
+    if (!this.hasSlot) {
+      await this.crayonsControlRef?.setFocus?.();
+    } else {
+      this.slotElement?.focus?.();
+    }
+  }
+
   private handleSlotChange() {
     this.hasSlot = hasSlot(this.el);
+    this.slotElement = [...this.el.querySelectorAll('*')].filter((el: any) => {
+      return NATIVE_CONTROLS.includes(el?.tagName?.toLowerCase());
+    })?.[0];
   }
 
   render(): JSX.Element {
@@ -253,8 +343,16 @@ export class FormControl {
         )}
         {this.renderControl()}
         <slot></slot>
-        {!(this.touched && this.error) && <div class='hint'>{this.hint}</div>}
-        {this.touched && this.error && <div class='error'>{this.error}</div>}
+        {!(this.touched && this.error) && (
+          <div class='hint' id={`hint-${this.name}`}>
+            {this.hint}
+          </div>
+        )}
+        {this.touched && this.error && (
+          <div class='error' id={`error-${this.name}`}>
+            {this.error}
+          </div>
+        )}
       </div>
     );
   }

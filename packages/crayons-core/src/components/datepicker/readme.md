@@ -95,6 +95,16 @@ Type: `Promise<string | { fromDate: string; toDate: string; }>`
 
 
 
+### `setFocus() => Promise<void>`
+
+Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 

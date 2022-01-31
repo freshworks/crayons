@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import isPlainObject from 'lodash/isPlainObject';
 import clone from 'lodash/clone';
@@ -243,4 +244,39 @@ export const generateDynamicInitialValues = (
     }, {}) || {};
   const formInitialValues = { ...dynamicInitialValues, ...initialValues };
   return formInitialValues;
+};
+
+export const serializeForm = (
+  values: FormValues = {},
+  fields: any = {}
+): FormValues => {
+  let newValues = { ...values };
+
+  newValues = Object.entries(newValues).reduce((acc, [key, val]) => {
+    const type = fields[key]?.type;
+    switch (type) {
+      case 'NUMBER':
+      case 'DECIMAL':
+        const parsed = parseFloat(val);
+        return { ...acc, [key]: isNaN(parsed) ? undefined : parsed };
+      case 'DATE':
+        const date = new Date(val);
+        if (date.toString() === 'Invalid Date') {
+          return { ...acc, [key]: undefined };
+        }
+        const year = date.getFullYear();
+        let month: string | number = date.getMonth() + 1;
+        let dt: string | number = date.getDate();
+
+        /** prepend 0 if the date/month is less than 10 */
+        dt = ('0' + dt).slice(-2);
+        month = ('0' + month).slice(-2);
+
+        return { ...acc, [key]: `${year}-${month}-${dt}` };
+      default:
+        return { ...acc, [key]: val };
+    }
+  }, {});
+
+  return newValues;
 };

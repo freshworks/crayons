@@ -119,6 +119,7 @@ export class Datepicker {
   private longMonthNames;
   private escapeHandler = null;
   private madeInert;
+  private nativeInput;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -197,6 +198,16 @@ export class Datepicker {
       : (this.value && moment(this.value).format()) || undefined;
   }
 
+  /**
+   * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
+   */
+  @Method()
+  async setFocus() {
+    if (this.nativeInput) {
+      this.nativeInput.focus();
+    }
+  }
+
   @Listen('keydown')
   handleKeyDown(event: KeyboardEvent) {
     switch (event.code) {
@@ -237,6 +248,9 @@ export class Datepicker {
         toDate: this.formatDate(this.endDateFormatted),
       });
     } else if (isUpdateDate) {
+      this.value = moment([this.year, this.month, this.selectedDay]).format(
+        this.displayFormat
+      );
       this.emitEvent(this.formatDate(this.value));
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
@@ -697,17 +711,8 @@ export class Datepicker {
   onDateClick = ({ date, timestamp }) => {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
-      this.value = moment([this.year, this.month, this.selectedDay]).format(
-        this.displayFormat
-      );
     } else if (this.showDateRangePicker()) {
       this.handleRangeSelection(timestamp);
-      if (this.startDate && this.endDate) {
-        this.value =
-          moment(this.startDate).format(this.displayFormat) +
-          ' to ' +
-          moment(this.endDate).format(this.displayFormat);
-      }
       this.dateHovered = '';
     }
   };
@@ -840,13 +845,13 @@ export class Datepicker {
           name={this.name}
           class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
           placeholder={this.placeholder}
-          title={this.placeholder}
           iconRight='calendar'
           style={{
             '--icon-color': this.state === 'error' && '#d72d30',
           }}
           required={this.required}
           onBlur={this.onBlur}
+          ref={(el) => (this.nativeInput = el)}
           state={this.state}
         ></fw-input>
         {this.showSingleDatePicker() ? (

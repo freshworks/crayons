@@ -272,7 +272,7 @@ function App() {
 | `loading`        | `loading`          | Loading state for the button, Default value is false.                        | `boolean`                                                  | `false`     |
 | `modalTriggerId` | `modal-trigger-id` | Accepts the id of the fw-modal component to open it on click.                | `string`                                                   | `''`        |
 | `showCaretIcon`  | `show-caret-icon`  | Caret indicator for the button, Default value is false.                      | `boolean`                                                  | `false`     |
-| `size`           | `size`             | Size of the button.                                                          | `"icon" \| "normal" \| "small"`                            | `'normal'`  |
+| `size`           | `size`             | Size of the button.                                                          | `"icon" \| "icon-small" \| "normal" \| "small"`            | `'normal'`  |
 | `throttleDelay`  | `throttle-delay`   | Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.   | `number`                                                   | `200`       |
 | `type`           | `type`             | Button type based on which actions are performed when the button is clicked. | `"button" \| "submit"`                                     | `'button'`  |
 
