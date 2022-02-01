@@ -212,6 +212,7 @@ interface dateOptions {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property       | Attribute        | Description                                                                  | Type                                                      | Default      |
@@ -229,6 +230,7 @@ interface dateOptions {
 | `weekday`      | `weekday`        | The format for displaying the weekday.                                       | `"long" \| "narrow" \| "short"`                           | `undefined`  |
 | `year`         | `year`           | The format for displaying the year.                                          | `"2-digit" \| "numeric"`                                  | `undefined`  |
 
----
+
+----------------------------------------------
 
 Built with ❤ at Freshworks

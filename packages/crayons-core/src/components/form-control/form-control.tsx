@@ -27,8 +27,7 @@ export class FormControl {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME'
-    | 'RELATIONSHIP' = 'TEXT';
+    | 'TIME' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
   @Prop()
@@ -213,42 +212,14 @@ export class FormControl {
       case 'DROPDOWN':
       case 'MULTI_SELECT':
         {
-          const componentProps = {
-            ...this.fieldProps,
-            name: this.name,
-            placeholder: this.placeholder,
-            label: '',
-            required: this.required,
-            hint: '',
-            ...this.controlProps?.selectProps(
-              this.name,
-              this.type?.toLowerCase()
-            ),
-            state: this.touched && this.error && 'error',
-          };
-          cmp = (
-            <fw-select
-              {...componentProps}
-              options={this.choices}
-              /*
-                this.choices?.map((f) => ({
-                  ...f,
-                  text: f.value,
-                }))
-              */
-              multiple={this.type === 'MULTI_SELECT'}
-              ref={(el) => (this.crayonsControlRef = el)}
-            ></fw-select>
-          );
-        }
-        break;
-      case 'RELATIONSHIP':
-        {
+          const isRelationshipField = !!this.fieldProps?.search;
+
           const controlProps = this.controlProps?.selectProps(
             this.name,
             this.type?.toLowerCase()
           );
-          const componentProps = {
+
+          let componentProps = {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
@@ -256,27 +227,45 @@ export class FormControl {
             required: this.required,
             hint: '',
             state: this.touched && this.error && 'error',
-            search: this.fieldProps.search,
+            multiple: this.type === 'MULTI_SELECT',
           };
+          if (!isRelationshipField) {
+            componentProps = {
+              ...componentProps,
+              ...controlProps,
+              options: this.choices,
+            };
+          } else {
+            if (
+              Array.isArray(controlProps.value) &&
+              typeof controlProps.value[0] === 'object' &&
+              typeof controlProps.value === 'object'
+              // handle multi_select [{}] and single select {} initialValues
+            ) {
+              componentProps.selectedOptions =
+                this.type === 'MULTI_SELECT'
+                  ? controlProps.value
+                  : [controlProps.value];
+            }
 
-          if (typeof controlProps.value === 'object') {
-            componentProps.selectedOptions = [controlProps.value];
+            if (componentProps.selectedOptions?.length > 0)
+              this.crayonsControlRef?.setSelectedOptions(
+                componentProps.selectedOptions
+              );
+            componentProps.noDataText = 'Start Typing...';
+
+            componentProps['form-id'] = controlProps['form-id'];
           }
-
-          if (componentProps.selectedOptions?.length > 0)
-            this.crayonsControlRef?.setSelectedOptions(
-              componentProps.selectedOptions
-            );
 
           cmp = (
             <fw-select
               {...componentProps}
-              form-id={controlProps['form-id']}
               ref={(el) => (this.crayonsControlRef = el)}
             ></fw-select>
           );
         }
         break;
+
       case 'TIME':
         {
           const componentProps = {
