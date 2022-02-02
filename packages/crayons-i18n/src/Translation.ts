@@ -82,6 +82,20 @@ export class TranslationController {
       this.setDateLangModule(await this.fetchDateLangModule(lang));
     });
 
+    this.onChange('customTranslations', async (customTranslations: string) => {
+      const lang = this.state.lang || getBrowserLang();
+      if (!this.state.globalStrings) {
+        await this.fetchTranslations(lang);
+      }
+
+      const customLangStrings = (customTranslations as any)?.[lang] || {};
+      const finalLangStrings = {
+        ...this.state.globalStrings,
+        ...customLangStrings,
+      };
+      this.state.globalStrings = finalLangStrings;
+    });
+
     if ('MutationObserver' in window) {
       const mo = new MutationObserver(async (data) => {
         if (data[0].attributeName === 'lang') {
@@ -98,6 +112,8 @@ export class TranslationController {
         attributeOldValue: true,
       });
     }
+
+    this.fetchTranslations();
   }
 
   /**
@@ -235,6 +251,10 @@ export class TranslationController {
    */
   setTranslations(json: i18nConfig): void {
     this.state.customTranslations = json;
+  }
+
+  t(keyName: string): string {
+    return getVal(keyName.toLowerCase(), this.state.globalStrings);
   }
 
   /** Decorator to handle i18n support */
