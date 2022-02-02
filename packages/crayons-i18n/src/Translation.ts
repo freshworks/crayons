@@ -252,16 +252,16 @@ export class TranslationController {
           await that.fetchTranslations(that.state.lang || getBrowserLang());
         }
 
-        let isDefaultValueUsed = false;
+        let isDefaultValueUsed = true;
         if (!this[propName]) {
           this[propName] =
             getVal(keyName.toLowerCase(), that.state.globalStrings) ||
             defaultValue;
-          isDefaultValueUsed = true;
+          isDefaultValueUsed = false;
         }
 
         that.onChange('globalStrings', async () => {
-          if (isDefaultValueUsed) {
+          if (!isDefaultValueUsed) {
             this[propName] =
               getVal(keyName.toLowerCase(), that.state.globalStrings) ||
               defaultValue;
