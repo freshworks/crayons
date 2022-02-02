@@ -26,7 +26,7 @@ describe('fw-dropdown-button', () => {
     <fw-button class="hydrated">
       Click me
       <span class="down-arrow">
-        <fw-icon class="hydrated"></fw-icon>
+        <fw-icon class="hydrated" name="chevron-down"></fw-icon>
       </span>
     </fw-button>
   </div>
@@ -161,8 +161,8 @@ describe('fw-dropdown-button', () => {
     const dropdownCheckboxes = await page.findAll(
       'fw-dropdown-button >>> fw-checkbox'
     );
-    dropdownCheckboxes[0].setProperty('checked', true);
-    dropdownCheckboxes[2].setProperty('checked', true);
+    await dropdownCheckboxes[0].click();
+    await dropdownCheckboxes[2].click();
 
     await addButton.click();
 

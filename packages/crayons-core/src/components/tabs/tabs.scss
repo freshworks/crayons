@@ -1,9 +1,24 @@
+/**
+  @prop --tab-width: width of the tab container.
+  @prop --tab-height: height of the tab container.
+  @prop --tab-margin-l: left margin for the tab items
+  @prop --tab-margin-r: right margin for the tab items
+  @prop --tab-padding-left: left padding for the tab items
+  @prop --tab-padding-right: right padding for the tab items
+*/
+
 .tabs {
   display: flex;
   flex-direction: column;
+  width: var(--tab-width, 'inherit');
+  height: var(--tab-height, 'inherit');
 
   &__items__nav {
-    padding: 0px 12px;
+    padding: 0;
+    padding-left: var(--tab-padding-left, 12px);
+    padding-right: var(--tab-padding-right, 12px);
+    margin-left: var(--tab-margin-l, 0);
+    margin-right: var(--tab-margin-r, 0);
     display: flex;
     border-bottom: 1px solid $color-smoke-50;
     overflow-x: auto;

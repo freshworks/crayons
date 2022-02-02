@@ -13,6 +13,11 @@ import {
   ProgressLoaderOptions,
 } from '../components/progress-loader/progress-loader-util';
 
+import {
+  dateOptions,
+  formatDate,
+} from '../components/format-date/format-date-util';
+
 export function ToastController(
   config: ToastOptions = { position: 'top-center' }
 ): ToastResult {
@@ -30,3 +35,28 @@ export function ProgressLoaderController(
 ): ProgressLoaderMethods {
   return createProgressLoaderContainer(config);
 }
+
+export function DateFormatController(
+  {
+    date,
+    locale,
+    options,
+  }: {
+    date: string | Date | number;
+    locale: string | [];
+    options: dateOptions;
+  } = {
+    date: new Date(),
+    locale: [],
+    options: {},
+  }
+): string {
+  return formatDate({ date, locale, options });
+}
+export {
+  registerIconLibrary,
+  unregisterIconLibrary,
+} from '../components/icon/library.icon.utils';
+
+export const CRAYONS_ICONS_ASSET_PATH =
+  'https://cdn.jsdelivr.net/npm/@freshworks/crayons-icon@canary/dist/icons';

@@ -6,6 +6,7 @@ import {
   h,
   Listen,
   Prop,
+  Method,
 } from '@stencil/core';
 
 @Component({
@@ -16,7 +17,8 @@ import {
 export class Tabs {
   @Element()
   el!: HTMLElement;
-  private mutationO?: MutationObserver;
+  private tabsMutation?: MutationObserver;
+  private tabMutation?: MutationObserver;
 
   private activeTab;
 
@@ -49,17 +51,21 @@ export class Tabs {
    */
   @Event() fwChange: EventEmitter;
 
-  init() {
+  private syncTabsAndPanels() {
     this.tabs = Array.from(this.el.querySelectorAll('fw-tab')).filter(
       (tab) => !tab.disabled
     );
     this.panels = Array.from(this.el.querySelectorAll('fw-tab-panel'));
+  }
+
+  init() {
+    this.syncTabsAndPanels();
 
     // Assign aria attributes
     this.assignAriaLabels();
 
     // set active tab
-    this.setActiveTab(this.getActiveTab() || this.tabs[0]);
+    this.setActiveTab(this.getActiveTab() || this.tabs[0], false);
   }
 
   createPanelIfRequired() {
@@ -73,16 +79,16 @@ export class Tabs {
         const panel = document.createElement('fw-tab-panel');
         panel.innerHTML = tab.innerHTML;
         panel.setAttribute('id', `fw-tab-panel-${counter++}`);
-        panel.setAttribute('name', tab.getAttribute('panel'));
+        panel.setAttribute('name', tab.getAttribute('panel') || tab.panel);
         this.el.appendChild(panel);
       }
     });
   }
 
   assignAriaLabels() {
-    this.tabs.map((tab) => {
+    Array.from(this.el.querySelectorAll('fw-tab')).map((tab) => {
       const panel = this.panels.find(
-        (p) => p.name === tab.getAttribute('panel')
+        (p) => p.name === tab.getAttribute('panel') || tab.panel
       );
 
       if (panel) {
@@ -92,22 +98,34 @@ export class Tabs {
     });
   }
 
-  setActiveTab(tab) {
+  /**
+   * Activates the tab based based on tabindex or name.
+   */
+  @Method()
+  async activateTab(index?: number, name?: string) {
+    index && (this.activeTabIndex = index);
+    name && (this.activeTabName = name);
+    this.setActiveTab(this.getActiveTab(), false);
+  }
+
+  setActiveTab(tab, shouldEmit = true) {
     if (tab && tab !== this.activeTab && !tab.disabled) {
       this.activeTab = tab;
       this.activeTabIndex = this.tabs.indexOf(tab);
 
       // Sync active tab and panel
       this.tabs.map((el) => (el.active = el === this.activeTab));
-      this.panels.map(
-        (el) => (el.active = el.name === this.activeTab.getAttribute('panel'))
-      );
+      const activePanel =
+        this.activeTab.getAttribute('panel') || this.activeTab.panel;
+      this.panels.map((el) => (el.active = el.name === activePanel));
 
       // Emit events
-      this.fwChange.emit({
-        tabIndex: this.activeTabIndex,
-        tabName: this.activeTab.id,
-      });
+      if (shouldEmit) {
+        this.fwChange.emit({
+          tabIndex: this.activeTabIndex,
+          tabName: this.activeTab.id,
+        });
+      }
     }
   }
 
@@ -119,19 +137,32 @@ export class Tabs {
     // Create fw-tab-panel component explictly if tab-header attribute is present.
     this.createPanelIfRequired();
 
-    this.mutationO = new MutationObserver(() => {
+    this.tabsMutation = new MutationObserver(() => {
       this.init();
     });
-    this.mutationO.observe(this.el, {
+
+    this.tabMutation = new MutationObserver((mutations) => {
+      if (mutations.some((m) => m.attributeName === 'disabled')) {
+        this.syncTabsAndPanels();
+      }
+    });
+
+    this.tabsMutation.observe(this.el, {
       childList: true,
+      attributes: true,
+    });
+    Array.from(this.el.querySelectorAll('fw-tab')).forEach((tab) => {
+      this.tabMutation.observe(tab, {
+        attributes: true,
+      });
     });
   }
 
   disconnectedCallback() {
-    if (this.mutationO) {
-      this.mutationO.disconnect();
-      this.mutationO = undefined;
-    }
+    this.tabsMutation?.disconnect();
+    this.tabMutation?.disconnect();
+    this.tabsMutation = undefined;
+    this.tabMutation = undefined;
   }
 
   getActiveTab() {
@@ -145,6 +176,11 @@ export class Tabs {
   handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
     const tab = target.closest('fw-tab');
+    const tabs = tab?.closest('fw-tabs');
+
+    if (tabs !== this.el) {
+      return;
+    }
 
     if (tab) {
       this.setActiveTab(tab);
@@ -153,6 +189,14 @@ export class Tabs {
 
   @Listen('keydown')
   handleKeyDown(event: KeyboardEvent) {
+    const target = event.target as HTMLElement;
+    const tab = target.closest('fw-tab');
+    const tabs = tab?.closest('fw-tabs');
+
+    if (tabs !== this.el) {
+      return;
+    }
+
     switch (event.code) {
       case 'ArrowDown':
       case 'ArrowUp':
@@ -165,6 +209,13 @@ export class Tabs {
 
   @Listen('keyup')
   handleKeyUp(e: KeyboardEvent) {
+    const target = e.target as HTMLElement;
+    const tab = target.closest('fw-tab');
+    const tabs = tab?.closest('fw-tabs');
+
+    if (tabs !== this.el) {
+      return;
+    }
     if (this.activeTabIndex !== undefined) {
       let index = this.activeTabIndex;
       switch (e.code) {

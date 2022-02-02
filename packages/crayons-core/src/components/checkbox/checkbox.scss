@@ -3,12 +3,14 @@
   position: relative;
 }
 
-.checkbox-container {
-  margin-bottom: 4px;
-}
-
 /* Focus event occurs on the root element */
+/* stylelint-disable-next-line a11y/no-outline-none -- currently on focus, 
+  outline is on checkbox. if we dont remove outline on host there will be a
+  second outline wrapping label and description.
+*/
 :host(:focus) {
+  outline: none;
+
   input[type='checkbox'] + label {
     &::before {
       border: 1px solid transparent;
@@ -32,8 +34,8 @@
   position: relative;
   font-weight: 400;
   word-wrap: break-word;
+  padding-left: 22px;
 }
-
 /* Hover event occurs on the root element */
 :host(:hover) {
   input[type='checkbox'] + label {
@@ -64,10 +66,25 @@ input[type='checkbox'] {
     font-size: 14px;
     color: #12344d;
     line-height: 20px;
-    font-weight: 600;
+    font-weight: 400;
+
+    .with-description {
+      font-weight: 600;
+    }
 
     #label {
       padding-left: 22px;
+
+      &.required::after {
+        content: '*';
+        position: relative;
+        display: inline-block;
+        top: 2px;
+        font-size: 14px;
+        color: $app-error;
+        padding-left: 2px;
+        font-weight: $font-weight-bold;
+      }
     }
 
     @media screen and (prefers-reduced-motion: reduce) {
@@ -89,6 +106,28 @@ input[type='checkbox'] {
       transition: all 0.2s ease;
       box-sizing: border-box;
       border-radius: 2px;
+    }
+
+    &.error {
+      @media screen and (prefers-reduced-motion: reduce) {
+        &::before {
+          transition: none;
+        }
+      }
+      &::before {
+        position: absolute;
+        left: 0;
+        top: 3px;
+        display: block;
+        content: '';
+        border: $checkbox-border-width solid $app-error;
+        height: 14px;
+        width: 14px;
+        background-color: $input-bg;
+        box-sizing: border-box;
+        border-radius: 2px;
+        transition: all 0.2s ease;
+      }
     }
 
     @media screen and (prefers-reduced-motion: reduce) {

@@ -22,17 +22,17 @@ export class Tab {
   /**
    * Disables this tab
    */
-  @Prop() disabled: boolean;
+  @Prop({ reflect: true }) disabled: boolean;
 
   /**
    * Determines whether the tab is active.
    */
-  @Prop() active: boolean;
+  @Prop({ reflect: true }) active: boolean;
 
   /**
    * The name of the tab panel which this tab controls.
    */
-  @Prop() panel: string;
+  @Prop({ reflect: true }) panel: string;
 
   connectedCallback() {
     if (!this.tabName) {

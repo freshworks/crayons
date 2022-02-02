@@ -17,7 +17,8 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
       state="warning"
       placeholder="Enter your official name"
       required
-      clear-input>
+      clear-input
+    >
     </fw-input>
     <fw-button color="secondary">Submit</fw-button>
     <fw-button color="secondary">Save</fw-button>
@@ -107,7 +108,9 @@ function App() {
             </FwTabPanel>
           </FwTabs>
     </div>);
+
 }
+
 ```
 </code-block>
 </code-group>
@@ -131,6 +134,31 @@ function App() {
 | Event      | Description                                      | Type               |
 | ---------- | ------------------------------------------------ | ------------------ |
 | `fwChange` | Triggered when a the view switches to a new tab. | `CustomEvent<any>` |
+
+
+## Methods
+
+### `activateTab(index?: number, name?: string) => Promise<void>`
+
+Activates the tab based based on tabindex or name.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## CSS Custom Properties
+
+| Name                  | Description                     |
+| --------------------- | ------------------------------- |
+| `--tab-height`        | height of the tab container.    |
+| `--tab-margin-l`      | left margin for the tab items   |
+| `--tab-margin-r`      | right margin for the tab items  |
+| `--tab-padding-left`  | left padding for the tab items  |
+| `--tab-padding-right` | right padding for the tab items |
+| `--tab-width`         | width of the tab container.     |
 
 
 ## Dependencies

@@ -225,9 +225,22 @@ function App() {
 | `--skeleton-background`    | Skeleton background: Default: #cfd7df                                                     |
 | `--skeleton-border-radius` | Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect |
 | `--skeleton-height`        | Skeleton height: Default: 16px for the text and rect, 32px for the circle                 |
-| `--skeleton-margin-bottom` | Skeleton margin-bottom: Default: 8px                                                      |
+| `--skeleton-margin-bottom` | Skeleton margin-bottom: Default: 8px/0px(when count is 1)                                 |
 | `--skeleton-width`         | Skeleton width: Default: 100% for the text and rect, 32px for the circle                  |
 
+
+## Dependencies
+
+### Used by
+
+ - [fw-data-table](../data-table)
+
+### Graph
+```mermaid
+graph TD;
+  fw-data-table --> fw-skeleton
+  style fw-skeleton fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

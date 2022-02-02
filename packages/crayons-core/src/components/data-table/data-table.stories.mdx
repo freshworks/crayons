@@ -1,0 +1,136 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { html } from 'lit-html';
+
+export const Template = (args) => (
+  html`
+    <!-- 
+      We cannot pass objects to props in HTML. So, initially load the template empty and then load the props later like in example below,
+      var cmp = document.querySelector('my-comp');
+      cmp.data = arr; // arr is the array you are want to pass
+      (or)
+      React: <fw-data-table {...args}></fw-data-table>
+      Vue: <fw-data-table v-bind="args"></fw-data-table>
+      Lit: Template below is compiled using lit-html. No spread operator available for passing complex args.
+    -->
+    <fw-data-table .rows=${args.rows} .columns=${args.columns} is-selectable=${args.isSelectable}></fw-data-table>
+  `
+);
+
+export const args = {
+  rows: [{
+    "id": "1234",
+    "name": "Alexander Goodman", 
+    "role": "Administrator", 
+    "group": "L1 Support"
+  }, {
+    "id": "2345",
+    "name": "Ambrose Wayne", 
+    "role": "Supervisor", 
+    "group": "L1 Support"
+  }, {
+    "id": "3456",
+    "name": "August hines",
+    "role": "Agent",
+    "group": "L1 support"
+  }],
+  columns: [{
+    "key": "name",
+    "text": "Name",
+    "position": 1
+  }, {
+    "key": "group",
+    "text": "Group",
+    "position": 3
+  }, {
+    "key": "role",
+    "text": "Role",
+    "position": 2
+  }],
+  isSelectable: false
+};
+
+export const argsWithSelect = Object.assign({}, args, { isSelectable: true });
+
+export const argsWithStickyHeader = Object.assign({}, args, { 
+  rows: [{
+    "id": "1234",
+    "name": "Alexander Goodman", 
+    "role": "Administrator", 
+    "group": "L1 Support"
+  }, {
+    "id": "2345",
+    "name": "Ambrose Wayne", 
+    "role": "Supervisor", 
+    "group": "L1 Support"
+  }, {
+    "id": "3456",
+    "name": "August hines",
+    "role": "Agent",
+    "group": "L1 support"
+  }, {
+    "id": "4567",
+    "name": "Jack Newman", 
+    "role": "Administrator", 
+    "group": "L1 Support"
+  }, {
+    "id": "5678",
+    "name": "Rose Pointing", 
+    "role": "Agent", 
+    "group": "L1 Support"
+  }, {
+    "id": "6789",
+    "name": "John Pollock", 
+    "role": "Supervisor", 
+    "group": "L1 Support"
+  }] 
+});
+
+# DataTable
+
+<Meta
+  title='DataTable'
+  component='fw-data-table'
+/>
+
+## Props 
+
+<Props of="fw-data-table"/>
+
+## Usage
+
+### Default 
+<Preview>
+  <Story 
+    name='Default'
+    args={args}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+## with select option
+<Preview>
+  <Story 
+    name='Selectable'
+    args={argsWithSelect}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+## Sticky Header
+<Preview>
+  <Story 
+    name='Sticky header'
+    args={argsWithStickyHeader}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        console.log(story);
+        return html`<div style="width: 100%; height: 270px;">${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>

@@ -685,7 +685,7 @@ export default App;
 
 ```jsx
 function Select() {
-  let baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  var baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
   const searchFn = (value, source) => {
     // Sample function to mimic the dynamic filter over network
     return fetch(baseURL)
@@ -873,18 +873,23 @@ export default Select;
   multiple
 ></fw-select>
 <script type="application/javascript">
-  let years = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
+  var yearsData = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
     return { value: x.toString(), text: x.toString() };
   });
 
-  let longSelect = document.getElementById('longSelect');
-  longSelect.options = years;
+  var longSelect = document.getElementById('longSelect');
+  longSelect.options = yearsData;
   longSelect.value = '2021';
 
-  let longSelectMulti = document.getElementById('longSelectMulti');
-  longSelectMulti.options = years;
+  var longSelectMulti = document.getElementById('longSelectMulti');
+  longSelectMulti.options = yearsData;
 </script>
 ```
+
+## Styling
+
+Refer the css variables in fw-popover to control the height and width of the select popup.
+Refer the [css variables](#css-custom-properties) for modifying the appearance of the the fw-select.
 
 <!-- Auto Generated Below -->
 
@@ -893,11 +898,13 @@ export default Select;
 
 | Property           | Attribute           | Description                                                                                                                                                                                                                               | Type                                                                                                                                                                 | Default            |
 | ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `allowDeselect`    | `allow-deselect`    | Whether clicking on the already selected option disables it.                                                                                                                                                                              | `boolean`                                                                                                                                                            | `true`             |
 | `caret`            | `caret`             | Whether the arrow/caret should be shown in the select.                                                                                                                                                                                    | `boolean`                                                                                                                                                            | `true`             |
 | `checkbox`         | `checkbox`          | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                                                                                                                                                            | `false`            |
 | `debounceTimer`    | `debounce-timer`    | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                                                                                                                                             | `300`              |
 | `disabled`         | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                                                                                                                                            | `false`            |
 | `forceSelect`      | `force-select`      | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                | `boolean`                                                                                                                                                            | `true`             |
+| `formId`           | `form-id`           | id for the form using this component. This prop is set from the `fw-form`                                                                                                                                                                 | `string`                                                                                                                                                             | `''`               |
 | `label`            | `label`             | Label displayed on the interface, for the component.                                                                                                                                                                                      | `string`                                                                                                                                                             | `''`               |
 | `labelledBy`       | `labelled-by`       | If the default label prop is not used, then use this prop to pass the id of the label.                                                                                                                                                    | `string`                                                                                                                                                             | `''`               |
 | `max`              | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                                                                                                                                             | `Number.MAX_VALUE` |
@@ -905,7 +912,7 @@ export default Select;
 | `name`             | `name`              | Name of the component, saved as part of form data.                                                                                                                                                                                        | `string`                                                                                                                                                             | `''`               |
 | `noDataText`       | `no-data-text`      | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                                                                                                                                                             | `''`               |
 | `notFoundText`     | `not-found-text`    | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                                                                                                                                                             | `''`               |
-| `options`          | `options`           | Allow to search for value. Default is true.                                                                                                                                                                                               | `any`                                                                                                                                                                | `undefined`        |
+| `options`          | `options`           | The data for the select component, the options will be of type array of fw-select-options.                                                                                                                                                | `any`                                                                                                                                                                | `undefined`        |
 | `optionsPlacement` | `options-placement` | Placement of the options list with respect to select.                                                                                                                                                                                     | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`         |
 | `optionsVariant`   | `options-variant`   | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                                                                                                                                   | `'standard'`       |
 | `placeholder`      | `placeholder`       | Text displayed in the list box before an option is selected.                                                                                                                                                                              | `string`                                                                                                                                                             | `undefined`        |
@@ -977,10 +984,11 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name           | Description                            |
-| -------------- | -------------------------------------- |
-| `--max-height` | Maximum height of the select component |
-| `--min-height` | Minimum height of the select component |
+| Name                     | Description                           |
+| ------------------------ | ------------------------------------- |
+| `--select-border`        | Border of the select component        |
+| `--select-border-radius` | Border radius of the select component |
+| `--select-margin-bottom` | Bottom margin of the select component |
 
 
 ## Dependencies
@@ -988,6 +996,7 @@ Type: `Promise<any>`
 ### Used by
 
  - [fw-datepicker](../datepicker)
+ - [fw-form-control](../form-control)
  - [fw-timepicker](../timepicker)
 
 ### Depends on
@@ -996,6 +1005,7 @@ Type: `Promise<any>`
 - [fw-popover](../popover)
 - [fw-button](../button)
 - [fw-spinner](../spinner)
+- [fw-icon](../icon)
 - [fw-list-options](../options-list)
 
 ### Graph
@@ -1005,9 +1015,13 @@ graph TD;
   fw-select --> fw-popover
   fw-select --> fw-button
   fw-select --> fw-spinner
+  fw-select --> fw-icon
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-list-options --> fw-select-option
@@ -1017,6 +1031,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-input --> fw-icon
   fw-datepicker --> fw-select
+  fw-form-control --> fw-select
   fw-timepicker --> fw-select
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```

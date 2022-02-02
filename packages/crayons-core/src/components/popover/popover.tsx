@@ -19,7 +19,7 @@ import { PopoverPlacementType, PopoverTriggerType } from '../../utils/types';
 })
 export class Popover {
   private popperDiv: HTMLElement;
-  private contentRef: HTMLFwListOptionsElement | HTMLElement;
+  private contentRef: any;
   private triggerRef: any;
   private triggerRefSlot: any = null;
   private overlay: HTMLElement;
@@ -77,6 +77,14 @@ export class Popover {
    */
   @Prop() disableTransition = false;
   /**
+   * Whether to focus on the element in popover-content slot on opening the dropdown.
+   */
+  @Prop() autoFocusOnContent = false;
+  /**
+   * Indicates whether popover contents should be hidden on pressing Tab.
+   */
+  @Prop() hideOnTab = true;
+  /**
    * Triggered whenever the popover contents is open/displayed.
    */
   @Event() fwShow: EventEmitter;
@@ -88,6 +96,9 @@ export class Popover {
   @Listen('keydown')
   onKeyDown(ev) {
     switch (ev.key) {
+      case 'Tab':
+        this.hideOnTab && this.hide();
+        break;
       case 'Escape':
         this.hide();
         break;
@@ -122,6 +133,10 @@ export class Popover {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
         listOptionsElement.scrollToLastSelected();
       }
+      this.autoFocusOnContent &&
+        (this.contentRef.setFocus
+          ? this.contentRef.setFocus()
+          : this.contentRef.focus?.());
       this.fwShow.emit();
     }
   }
@@ -146,6 +161,10 @@ export class Popover {
         const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
         listOptionsElement.clearFilter();
       }
+      this.autoFocusOnContent &&
+        (this.triggerRef.setFocus
+          ? this.triggerRef.setFocus()
+          : this.triggerRef.focus?.());
       this.fwHide.emit();
     }
   }

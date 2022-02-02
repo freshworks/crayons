@@ -12,7 +12,7 @@
     "components"
   ],
   "author": "Freshworks Inc",
-  "version": "3.0.0-beta.7",
+  "version": "3.0.0-beta.11",
   "description": "Crayons for Developer Platform",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -30,33 +30,33 @@
     "css/"
   ],
   "scripts": {
-    "a11y": "run-p start a11y:install a11y:run",
+    "add:react": "npm run clean:react && npx mkdirp react",
+    "add:css": "npm run clean:css && npx mkdirp css",
     "a11y:install": "npm i -g @axe-core/cli",
     "a11y:run": "wait-on -d 30000 http://localhost:3333/ && axe http://localhost:3333 --show-errors --exit --tags wcag2aa",
-    "add:css": "npm run clean:css && npx mkdirp css",
-    "add:react": "npm run clean:react && npx mkdirp react",
-    "build": "gulp && npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
+    "a11y": "run-p start a11y:install a11y:run",
     "build:autoprefix": "postcss css/*.css --use autoprefixer --dir css",
     "build:components": "stencil build --docs",
     "build:mincss": "cleancss -b css/*.css css",
-    "build:react": "npm run tscdisable && tsc --project tsconfig-react.json",
+    "build:react": "npm run file:util && tsc --project tsconfig-react.json",
     "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css",
     "build:styles": "npm run build:scss && npm run build:autoprefix && npm run build:mincss && npx copy css/crayons-min.css ../../www/.vuepress/public",
+    "build": "npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
     "clean:css": "rimraf css",
     "clean:react": "rimraf react",
     "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm run start",
+    "file:util": "node fileutil",
     "generate": "plop",
     "local": "stencil build --dev --watch",
     "prestart": "kill-port 3333",
     "semantic-release": "semantic-release",
     "start": "stencil build --dev --watch --serve --port=3333",
-    "storybook": "run-p local storybook:start",
     "storybook:start": "wait-on -d 30000 loader/index.js && start-storybook -p 9001 -c .storybook",
-    "test": "gulp && stencil test --spec --e2e",
-    "test:watch": "gulp && stencil test --spec --e2e --watchAll",
-    "tscdisable": "node fileutil"
+    "storybook": "run-p local storybook:start",
+    "test:watch": "stencil test --spec --e2e --watchAll",
+    "test": "stencil test --spec --e2e"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
@@ -91,8 +91,10 @@
     "semantic-release": "^17.4.2",
     "ts-loader": "9.2.1",
     "typescript": "^4.2.4",
+    "uuid": "^8.3.2",
     "web-component-analyzer": "^1.1.6",
-    "workbox-build": "^4.3.1"
+    "workbox-build": "^4.3.1",
+    "yup": "^0.32.11"
   },
   "license": "MIT",
   "dependencies": {

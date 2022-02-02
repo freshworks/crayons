@@ -5,8 +5,11 @@ import {
   Host,
   Prop,
   Watch,
+  Method,
+  Element,
   h,
 } from '@stencil/core';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio',
@@ -14,6 +17,7 @@ import {
   shadow: true,
 })
 export class Radio {
+  @Element() host!: HTMLElement;
   /**
    * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
    */
@@ -39,6 +43,17 @@ export class Radio {
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
+
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
+   * Theme based on which the radio button is styled.
+   */
+  @Prop() state: 'normal' | 'error' = 'normal';
+  /**
 
   /**
    * Triggered when the radio button in focus is selected.
@@ -101,24 +116,43 @@ export class Radio {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleChange`, {
+        field: this.name,
+        value: this.checked ? this.value : undefined,
+      });
+  }
+
+  /**
+   * Sets focus on a specific `fw-radio`.
+   */
+  @Method()
+  async setFocus() {
+    this.host?.focus();
   }
 
   render() {
     return (
+      // eslint-disable-next-line jsx-a11y/role-supports-aria-props
       <Host
         onClick={() => this.toggle()}
         role='radio'
         tabIndex='-1'
         aria-labelledby='label'
-        aria-describedby={this.description}
+        aria-describedby={`description hint-${this.name} error-${this.name}`}
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         onFocus={() => this.onFocus()}
         onBlur={() => this.onBlur()}
+        aria-invalid={this.state === 'error'}
       >
         <div class='radio-container'>
-          <input type='radio' ref={(el) => (this.radio = el)}></input>
-          <label>
+          <input
+            type='radio'
+            ref={(el) => (this.radio = el)}
+            name={this.name}
+          ></input>
+          <label class={{ error: this.state === 'error' }}>
             <span id='label'>
               <slot />
             </span>

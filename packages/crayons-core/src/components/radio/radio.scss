@@ -3,44 +3,43 @@
   position: relative;
   padding-left: 22px;
   margin-right: 10px;
-  margin-bottom: 8px;
   max-width: 80ch;
   word-wrap: break-word;
+}
 
-  /* Focus event occurs on the root element */
-  &:focus {
-    input[type='radio'] + label {
-      &::before {
-        border: 1px solid transparent;
-        box-shadow: 0 0 0 2px rgb(44, 92, 197);
-        border-color: darken($app-icon-color, 10%);
-      }
-    }
-
-    input[type='radio'][disabled] + label {
-      &::before {
-        box-shadow: none;
-        border: 1px solid #dadfe3;
-      }
+/* Focus event occurs on the root element */
+:host(:focus) {
+  input[type='radio'] + label {
+    &::before {
+      border: 1px solid transparent;
+      box-shadow: 0 0 0 2px rgb(44, 92, 197);
+      border-color: darken($app-icon-color, 10%);
     }
   }
 
-  /* Hover event occurs on the root element */
-  &:hover {
-    input[type='radio'] + label {
-      &::before {
-        box-shadow: 0 0 0 5px rgb(235, 239, 243);
-        border-color: darken($app-icon-color, 10%);
-      }
+  input[type='radio'][disabled] + label {
+    &::before {
+      box-shadow: none;
+      border: 1px solid #dadfe3;
     }
+  }
+}
 
-    input[type='radio'][disabled] + label {
-      cursor: not-allowed;
+/* Hover event occurs on the root element */
+:host(:hover) {
+  input[type='radio'] + label {
+    &::before {
+      box-shadow: 0 0 0 5px rgb(235, 239, 243);
+      border-color: darken($app-icon-color, 10%);
+    }
+  }
 
-      &::before {
-        box-shadow: none;
-        border: 1px solid #dadfe3;
-      }
+  input[type='radio'][disabled] + label {
+    cursor: not-allowed;
+
+    &::before {
+      box-shadow: none;
+      border: 1px solid #dadfe3;
     }
   }
 }
@@ -90,6 +89,24 @@ input[type='radio'] {
       height: 14px;
       background: $app-action-icon-bg;
       transition: all 0.3s ease;
+    }
+
+    &.error {
+      @media screen and (prefers-reduced-motion: reduce) {
+        &::before {
+          transition: none;
+        }
+      }
+      &::before {
+        left: 0;
+        border: 1px solid $app-error;
+        border-radius: 50px;
+        top: 4px;
+        width: 14px;
+        height: 14px;
+        background: $app-action-icon-bg;
+        transition: all 0.3s ease;
+      }
     }
     @media screen and (prefers-reduced-motion: reduce) {
       &::after {
@@ -157,4 +174,12 @@ input[type='radio'] {
       color: #92a2b1;
     }
   }
+}
+
+:host(:not(.fw-radio-group__radio--last)) {
+  margin-bottom: 8px;
+}
+
+:host(.fw-radio-group__radio--last) {
+  margin-bottom: 0px;
 }

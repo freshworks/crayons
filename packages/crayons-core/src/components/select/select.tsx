@@ -11,6 +11,7 @@ import {
   State,
   Watch,
   h,
+  Fragment,
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
@@ -20,7 +21,10 @@ import {
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
+
 import { i18n } from '../../global/Translation';
+import EventStore from '../../utils/event-store';
+
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -56,6 +60,11 @@ export class Select {
     if (this.changeEmittable()) {
       this.hasFocus = false;
       this.fwBlur.emit(e);
+      this.formId &&
+        EventStore.publish(`${this.formId}::handleBlur`, {
+          field: this.name,
+          value: this.value,
+        });
     }
   };
 
@@ -89,7 +98,7 @@ export class Select {
   /**
    * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
-  @Prop({ reflect: true, mutable: true }) value: any;
+  @Prop({ mutable: true }) value: any;
   /**
    * Name of the component, saved as part of form data.
    */
@@ -148,7 +157,7 @@ export class Select {
    */
   @Prop() searchable = true;
   /**
-   * Allow to search for value. Default is true.
+   * The data for the select component, the options will be of type array of fw-select-options.
    */
   @Prop({ reflect: true }) options: any;
   /**
@@ -204,6 +213,15 @@ export class Select {
    * If the default label prop is not used, then use this prop to pass the id of the label.
    */
   @Prop() labelledBy = '';
+  /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -254,6 +272,13 @@ export class Select {
         value: this.value,
         selectedOptions: this.selectedOptionsState,
       });
+      if (this.selectedOptionsState.length > 0) {
+        this.formId &&
+          EventStore.publish(`${this.formId}::handleChange`, {
+            field: this.name,
+            value: this.value,
+          });
+      }
     }
   }
 
@@ -374,8 +399,14 @@ export class Select {
     this.selectInput.value = '';
   }
 
+  isValueEqual(value, option) {
+    return this.multiple
+      ? value.includes(option.value)
+      : value === option.value;
+  }
+
   valueExists() {
-    return this.multiple ? this.value.length > 0 : !!this.value;
+    return this.value && (this.multiple ? this.value.length > 0 : !!this.value);
   }
 
   onInput() {
@@ -388,9 +419,9 @@ export class Select {
   }
 
   renderTags() {
-    if (this.multiple) {
+    if (this.multiple && Array.isArray(this.value)) {
       return this.selectedOptionsState.map((option) => {
-        if (this.value.includes(option.value)) {
+        if (this.isValueEqual(this.value, option)) {
           return (
             <fw-tag
               variant={this.tagVariant}
@@ -413,6 +444,10 @@ export class Select {
         this.selectInput.value = this.multiple
           ? this.selectInput.value
           : this.selectedOptionsState[0].text || '';
+      }
+    } else {
+      if (this.selectInput) {
+        this.selectInput.value = '';
       }
     }
   }
@@ -450,10 +485,7 @@ export class Select {
         html: option.html,
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
-        selected:
-          (this.multiple
-            ? this.value.includes(option.value)
-            : this.value === option.value) || option.selected,
+        selected: this.isValueEqual(this.value, option) || option.selected,
         disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
         htmlContent: option.html ? option.innerHTML : '',
       };
@@ -469,7 +501,7 @@ export class Select {
       this.value.length !== this.selectedOptions.length
     ) {
       this.selectedOptionsState = this.dataSource.filter((option) =>
-        this.value.includes(option.value)
+        this.isValueEqual(this.value, option)
       );
     }
     if (this.dataSource?.length > 0) {
@@ -505,6 +537,17 @@ export class Select {
 
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
+  }
+
+  @Watch('isExpanded')
+  expandWatcher(expanded: boolean): void {
+    if (this.variant === 'button') {
+      const icon = this.host.shadowRoot
+        ?.querySelector('.select-container')
+        ?.querySelector('fw-button')
+        ?.shadowRoot?.querySelector('fw-icon');
+      icon && (icon.name = expanded ? 'chevron-up' : 'chevron-down');
+    }
   }
 
   render() {
@@ -557,13 +600,12 @@ export class Select {
               onKeyDown={handleKeyDown(this.innerOnClick)}
             >
               {this.variant === 'button' ? (
-                //TODO: Make this behavior generic.
                 <fw-button
-                  id={`${this.hostId}-btn`}
                   show-caret-icon
+                  id={`${this.hostId}-btn`}
                   color='secondary'
                   class={
-                    this.host.classList.value.includes('month')
+                    this.host.classList.value.includes('first')
                       ? 'fw-button-group__button--first'
                       : 'fw-button-group__button--last'
                   }
@@ -571,38 +613,44 @@ export class Select {
                   {this.value}
                 </fw-button>
               ) : (
-                <div class='input-container-inner'>
-                  {this.multiple && (
-                    <div
-                      onFocus={this.focusOnTagContainer}
-                      ref={(tagContainer) => (this.tagContainer = tagContainer)}
-                      onKeyDown={this.tagContainerKeyDown}
-                    >
-                      {this.renderTags()}
-                    </div>
-                  )}
-                  <input
-                    ref={(selectInput) => (this.selectInput = selectInput)}
-                    id={`${this.hostId}-input`}
-                    class={{
-                      'multiple-select': this.multiple,
-                    }}
-                    autoComplete='off'
-                    disabled={this.disabled}
-                    name={this.name}
-                    placeholder={
-                      this.valueExists() ? '' : this.placeholder || ''
-                    }
-                    readOnly={this.readonly}
-                    required={this.required}
-                    type={this.type}
-                    value=''
-                    aria-autocomplete='list'
-                    aria-activedescendant={this.focusedOptionId}
-                    onInput={() => this.onInput()}
-                    onFocus={(e) => this.innerOnFocus(e)}
-                    onBlur={(e) => this.innerOnBlur(e)}
-                  />
+                <Fragment>
+                  <div class='input-container-inner'>
+                    {this.multiple && (
+                      <div
+                        onFocus={this.focusOnTagContainer}
+                        ref={(tagContainer) =>
+                          (this.tagContainer = tagContainer)
+                        }
+                        onKeyDown={this.tagContainerKeyDown}
+                      >
+                        {this.renderTags()}
+                      </div>
+                    )}
+                    <input
+                      ref={(selectInput) => (this.selectInput = selectInput)}
+                      class={{
+                        'multiple-select': this.multiple,
+                      }}
+                      autoComplete='off'
+                      disabled={this.disabled}
+                      name={this.name}
+                      id={this.name}
+                      placeholder={
+                        this.valueExists() ? '' : this.placeholder || ''
+                      }
+                      readOnly={this.readonly}
+                      required={this.required}
+                      type={this.type}
+                      value=''
+                      aria-autocomplete='list'
+                      aria-activedescendant={this.focusedOptionId}
+                      onInput={() => this.onInput()}
+                      onFocus={(e) => this.innerOnFocus(e)}
+                      onBlur={(e) => this.innerOnBlur(e)}
+                      aria-invalid={this.state === 'error'}
+                      aria-describedby={`hint-${this.name} error-${this.name}`}
+                    />
+                  </div>
                   {this.isLoading ? (
                     <fw-spinner size='small'></fw-spinner>
                   ) : (
@@ -612,10 +660,17 @@ export class Select {
                           'dropdown-status-icon': true,
                           'expanded': this.isExpanded,
                         }}
-                      ></span>
+                      >
+                        <fw-icon
+                          name='chevron-down'
+                          color='#264966'
+                          size={8}
+                          library='system'
+                        ></fw-icon>
+                      </span>
                     )
                   )}
-                </div>
+                </Fragment>
               )}
             </div>
             <fw-list-options
@@ -635,11 +690,14 @@ export class Select {
               multiple={this.multiple}
               max={this.max}
               checkbox={this.checkbox}
+              allowDeselect={this.allowDeselect}
               slot='popover-content'
             ></fw-list-options>
           </fw-popover>
           {this.stateText !== '' ? (
-            <span class='help-block'>{this.stateText}</span>
+            <span class='help-block' id={`hint-${this.name}`}>
+              {this.stateText}
+            </span>
           ) : (
             ''
           )}

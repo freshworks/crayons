@@ -5,14 +5,45 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { AccordionToggleEvent } from "./components/accordion/accordion";
+import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
+    interface FwAccordion {
+        /**
+          * To manage accordion expanded or collapsed state
+         */
+        "expanded": boolean;
+        /**
+          * Method available from the component to toggle expanded or collapsed state of accordion
+          * @returns promise that resolves to true
+         */
+        "toggle": () => Promise<boolean>;
+        /**
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
+         */
+        "type": 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionBody {
+        "expanded": boolean;
+        "type": 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionTitle {
+        "expanded": boolean;
+        "toggleState": any;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow": boolean;
+        "type": 'default' | 'no_bounding_box';
+    }
     interface FwAvatar {
         "alt": string;
         "image": string;
         "initials": string;
         "mode": 'dark' | 'light';
+        "name": string;
         "shape": 'circle' | 'square' | 'rounded';
         "size": | 'xxlarge'
     | 'xlarge'
@@ -39,6 +70,7 @@ export namespace Components {
           * Accepts the id of the fw-modal component to open it on click.
          */
         "modalTriggerId": string;
+        "setFocus": () => Promise<any>;
         /**
           * Caret indicator for the button, Default value is false.
          */
@@ -46,7 +78,7 @@ export namespace Components {
         /**
           * Size of the button.
          */
-        "size": 'normal' | 'small' | 'icon';
+        "size": 'normal' | 'small' | 'icon' | 'icon-small';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -73,6 +105,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -81,15 +117,99 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Sets focus on a `fw-checkbox`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * Theme based on which the checkbox is styled.
+         */
+        "state": 'normal' | 'error';
+        /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+    }
+    interface FwCustomCellAnchor {
+        "href": string;
+        "text": string;
+    }
+    interface FwCustomCellIcon {
+        "color": string;
+        "library": string;
+        "name": string;
+        "size": number;
+    }
+    interface FwCustomCellUser {
+        "alt": string;
+        "email": string;
+        "image": any;
+        "name": string;
+    }
+    interface FwDataTable {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns": DataTableColumn[];
+        /**
+          * getColumnConfig
+          * @returns columnConfig object
+         */
+        "getColumnConfig": () => Promise<{}>;
+        /**
+          * getSelectedIds
+          * @returns an array of selected row IDs
+         */
+        "getSelectedIds": () => Promise<string[]>;
+        /**
+          * getSelectedRows
+          * @returns selected rows from the data table
+         */
+        "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable": boolean;
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable": boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label": string;
+        /**
+          * loadTable - Method to call when we want to change table loading state
+          * @param state to load table or not
+          * @returns isLoading current state
+         */
+        "loadTable": (state: boolean) => Promise<boolean>;
+        /**
+          * To enable bulk actions on the table.
+         */
+        "rowActions": DataTableAction[];
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows": DataTableRow[];
+        /**
+          * selectAllRows method we can use to select/unselect rows in the table
+          * @param checked denotes if we want to check or uncheck the rows
+         */
+        "selectAllRows": (checked?: boolean) => Promise<string[]>;
     }
     interface FwDatepicker {
         /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
         "displayFormat": string;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
         /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
@@ -116,6 +236,18 @@ export namespace Components {
          */
         "placeholder": string;
         /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * Theme based on which the input of the datepicker is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
@@ -123,6 +255,42 @@ export namespace Components {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
+    }
+    interface FwDragContainer {
+        /**
+          * Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.
+         */
+        "acceptFrom": string;
+        /**
+          * Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.
+         */
+        "addOnDrop": boolean;
+        /**
+          * Whether the drag element should be moved or copied.
+         */
+        "copy": boolean;
+        /**
+          * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
+         */
+        "placeholderClass": string;
+        /**
+          * Whether the list should be sortable.
+         */
+        "sortable": boolean;
+    }
+    interface FwDragItem {
+        /**
+          * Whether the drag is disabled or not.
+         */
+        "disabled": boolean;
+        /**
+          * Pinned position of the drag item, other drag item cannot be placed above or below it.
+         */
+        "pinned": 'top' | 'bottom';
+        /**
+          * Whether the drag icon should be visible.
+         */
+        "showDragIcon": boolean;
     }
     interface FwDropdownButton {
         /**
@@ -158,19 +326,225 @@ export namespace Components {
          */
         "value": any;
     }
+    interface FwForm {
+        "doReset": (e: any) => Promise<void>;
+        "doSubmit": (e: any) => Promise<FormSubmit>;
+        /**
+          * Id to uniquely identify the Form. If not set, a random Id will be generated.
+         */
+        "formId": any;
+        /**
+          * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
+         */
+        "formSchema"?: any;
+        /**
+          * Initial field values of the form. It is an object with keys pointing to field name
+         */
+        "initialValues"?: any;
+        "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
+        "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
+         */
+        "validate"?: any;
+        /**
+          * Tells Form to validate the form on each input's onBlur event
+         */
+        "validateOnBlur"?: boolean;
+        /**
+          * Tells Form to validate the form on each input's onInput event
+         */
+        "validateOnInput"?: boolean;
+        /**
+          * YUP based validation schema for handling validation
+         */
+        "validationSchema"?: any;
+        /**
+          * The number of milliseconds to delay before doing validation on Input
+         */
+        "wait": number;
+    }
+    interface FwFormControl {
+        "choices": any;
+        /**
+          * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
+         */
+        "controlProps"?: any;
+        "error": string;
+        /**
+          * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
+         */
+        "fieldProps"?: any;
+        "hint": string;
+        "label": any;
+        "name": any;
+        "placeholder": string;
+        "required": boolean;
+        /**
+          * Set Focus on the child
+         */
+        "setFocus": () => Promise<void>;
+        "touched": boolean;
+        "type": | 'TEXT'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'PARAGRAPH'
+    | 'EMAIL'
+    | 'URL'
+    | 'TEL'
+    | 'TIME'
+    | 'RELATIONSHIP';
+    }
+    interface FwFormatDate {
+        /**
+          * The date/time to format. If not set, the current date and time will be used.
+         */
+        "date": Date | string | number;
+        /**
+          * The format for displaying the day.
+         */
+        "day": 'numeric' | '2-digit';
+        /**
+          * The format for displaying the hour.
+         */
+        "hour": 'numeric' | '2-digit';
+        /**
+          * When set, 24 hour time will always be used.
+         */
+        "hourFormat": 'auto' | '12' | '24';
+        /**
+          * The locale to use when formatting the date/time.
+         */
+        "locale": string;
+        /**
+          * The format for displaying the minute.
+         */
+        "minute": 'numeric' | '2-digit';
+        /**
+          * The format for displaying the month.
+         */
+        "month": 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the second.
+         */
+        "second": 'numeric' | '2-digit';
+        /**
+          * The time zone to express the time in.
+         */
+        "timeZone": string;
+        /**
+          * The format for displaying the time.
+         */
+        "timeZoneName": 'short' | 'long';
+        /**
+          * The format for displaying the weekday.
+         */
+        "weekday": 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the year.
+         */
+        "year": 'numeric' | '2-digit';
+    }
+    interface FwFormatNumber {
+        /**
+          * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
+         */
+        "currency": string;
+        /**
+          * Currency display formatting.
+         */
+        "currencyDisplay": 'symbol' | 'narrowSymbol' | 'code' | 'name';
+        /**
+          * In many locales, accounting format means to wrap the number with parentheses instead of appending a minus sign. You can enable the above by setting the currencySign option to `accounting`. The default value is `standard`
+         */
+        "currencySign": 'accounting' | 'standard';
+        /**
+          * `Locale` used for formatting the number
+         */
+        "locale": string;
+        /**
+          * The maximum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "maximumFractionDigits": number;
+        /**
+          * The maximum number of significant digits to use,. Possible values are 1 - 21. Default is 21
+         */
+        "maximumSignificantDigits": number;
+        /**
+          * The minimum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "minimumFractionDigits": number;
+        /**
+          * The minimum number of integer digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumIntegerDigits": number;
+        /**
+          * The minimum number of significant digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumSignificantDigits": number;
+        /**
+          * Formatting style
+         */
+        "type": 'currency' | 'decimal' | 'percent';
+        /**
+          * Turns on/off grouping separators.
+         */
+        "useGrouping": boolean;
+        /**
+          * Number to format.
+         */
+        "value": number;
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
          */
         "color": string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
+          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+         */
+        "dataSvg": string;
+        /**
+          * Height of the icon, specified in number of  pixels.
+         */
+        "height": number;
+        /**
+          * An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.
+         */
+        "label": string;
+        /**
+          * Enable Intersection Observer. Default is false.
+         */
+        "lazy": boolean;
+        /**
+          * Name of External Library to be used
+         */
+        "library": string;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
          */
         "name": string;
         /**
-          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
+          * Size of the icon, specified in number of  pixels. This will be square coordinates of (w X h) = size X size
          */
         "size": number;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid path to svg file.
+         */
+        "src": string;
+        /**
+          * Width of the icon, specified in number of  pixels.
+         */
+        "width": number;
+        /**
+          * Root Margin in px or percentage for Intersection-Observer. This means from ref to bottom of loaded view , the item loads when it crosses above the negative y margin.
+         */
+        "xRootMargin": string;
     }
     interface FwInlineMessage {
         /**
@@ -206,6 +580,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft": string;
@@ -218,9 +596,17 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Specifies a maximum value that can be entered for the number/decimal input.
+         */
+        "max"?: number;
+        /**
           * Maximum number of characters a user can enter in the text box.
          */
         "maxlength"?: number;
+        /**
+          * Specifies a minimum value that can be entered for the number/decimal input.
+         */
+        "min"?: number;
         /**
           * Minimum number of characters a user must enter in the text box for the value to be valid.
          */
@@ -254,9 +640,13 @@ export namespace Components {
          */
         "stateText": string;
         /**
+          * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
+         */
+        "step": string;
+        /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type": 'text' | 'number';
+        "type": 'text' | 'number' | 'email' | 'url';
         /**
           * Default value displayed in the input box.
          */
@@ -273,6 +663,10 @@ export namespace Components {
         "value": string;
     }
     interface FwListOptions {
+        /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
         /**
           * Place a checkbox.
          */
@@ -329,15 +723,27 @@ export namespace Components {
         /**
           * Pass an array of string in case of multi-select or string for single-select.
          */
-        "setSelectedValues": (values: string | string[]) => Promise<any>;
+        "setSelectedValues": (values: any) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value": string | string[];
+        "value": any;
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant": DropdownVariant;
+    }
+    interface FwMenu {
+    }
+    interface FwMenuItem {
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selectable": boolean;
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected": boolean;
     }
     interface FwModal {
         /**
@@ -437,7 +843,55 @@ export namespace Components {
          */
         "titleText": string;
     }
+    interface FwPagination {
+        /**
+          * Aria Label to be used for the button group.
+         */
+        "buttonGroupLabel": string;
+        /**
+          * Indicates if the records in current page are being fetched.
+         */
+        "isLoading": boolean;
+        /**
+          * Aria Label to be used for next button.
+         */
+        "nextButtonLabel": string;
+        /**
+          * Navigates to next set of records if available.
+         */
+        "nextPage": () => Promise<void>;
+        /**
+          * The current page number.
+         */
+        "page": number;
+        /**
+          * The number of records to be shown per page. Defaults to 10.
+         */
+        "perPage": number;
+        /**
+          * Aria Label to be used for previous button.
+         */
+        "previousButtonLabel": string;
+        /**
+          * Navigates to previous set of records if available.
+         */
+        "previousPage": () => Promise<void>;
+        /**
+          * The total number of records. This is a mandatory parameter.
+         */
+        "total": number;
+    }
+    interface FwPill {
+        /**
+          * Theme based on which the pill is styled.
+         */
+        "color": 'blue' | 'red' | 'green' | 'yellow' | 'grey';
+    }
     interface FwPopover {
+        /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent": boolean;
         /**
           * The area that the popup will be checked for overflow relative to.
          */
@@ -459,6 +913,10 @@ export namespace Components {
          */
         "hasBorder": boolean;
         "hide": () => Promise<void>;
+        /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab": boolean;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
@@ -549,6 +1007,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -556,6 +1018,14 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Sets focus on a specific `fw-radio`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * Theme based on which the radio button is styled.
+         */
+        "state": 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -566,6 +1036,10 @@ export namespace Components {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty": boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -578,6 +1052,14 @@ export namespace Components {
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
         "orientation": 'row' | 'column';
+        /**
+          * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Sets focus on a specific `fw-radio`.
+         */
+        "setFocus": () => Promise<void>;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -599,6 +1081,10 @@ export namespace Components {
     }
     interface FwSelect {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
+        /**
           * Whether the arrow/caret should be shown in the select.
          */
         "caret": boolean;
@@ -618,6 +1104,10 @@ export namespace Components {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
         "getSelectedItem": () => Promise<any>;
         /**
           * Label displayed on the interface, for the component.
@@ -648,7 +1138,7 @@ export namespace Components {
          */
         "notFoundText": string;
         /**
-          * Allow to search for value. Default is true.
+          * The data for the select component, the options will be of type array of fw-select-options.
          */
         "options": any;
         /**
@@ -717,6 +1207,10 @@ export namespace Components {
     }
     interface FwSelectOption {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox": boolean;
@@ -760,7 +1254,7 @@ export namespace Components {
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
-        "value": string;
+        "value": string | number;
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -841,6 +1335,10 @@ export namespace Components {
     }
     interface FwTabs {
         /**
+          * Activates the tab based based on tabindex or name.
+         */
+        "activateTab": (index?: number, name?: string) => Promise<void>;
+        /**
           * The index of the activated Tab(Starts from 0)
          */
         "activeTabIndex": number;
@@ -882,7 +1380,7 @@ export namespace Components {
         /**
           * Value associated with the tag component, that is saved when the form data is saved.
          */
-        "value": string;
+        "value": string | number;
         /**
           * The variant of tag to be displayed.
          */
@@ -897,6 +1395,10 @@ export namespace Components {
           * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -956,6 +1458,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId": string;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format": 'hh:mm A' | 'HH:mm';
@@ -975,6 +1481,18 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Sets focus on a specific `fw-timepicker`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * Theme based on which the input of the timepicker is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Time output value
          */
@@ -1067,6 +1585,79 @@ export namespace Components {
          */
         "size": 'small' | 'medium' | 'large';
     }
+    interface FwToggleGroup {
+        /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label": string;
+        /**
+          * Boolean value to allow multiple selection or single child selection
+         */
+        "multiple": boolean;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name": string;
+        "setSelectedValues": (values: string | string[]) => Promise<void>;
+        /**
+          * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
+         */
+        "value": any;
+    }
+    interface FwToggleGroupButton {
+        /**
+          * sets the default base class name and the rest of the class names for the other states are automatically appended to this
+         */
+        "baseClassName": string;
+        /**
+          * Label displayed as description in the card.
+         */
+        "description": string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
+          * Label displayed as header in the card.
+         */
+        "header": string;
+        /**
+          * If the button type is icon, set the icon path to be used
+         */
+        "iconName": string;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
+        /**
+          * Enables the component to be used as a part of multi selection group
+         */
+        "isCheckbox": boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name": string;
+        /**
+          * Enables the component to be used as a toggle button or just to be used as a normal button
+         */
+        "selectable": boolean;
+        /**
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected": boolean;
+        /**
+          * Public method exposed to set the focus for the button component - to be used for accessibility
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * sets the type of the button
+         */
+        "type": 'card' | 'icon' | 'custom';
+        /**
+          * Identifier corresponding to the component, that is saved when the form data is saved.
+         */
+        "value": string;
+    }
     interface FwTooltip {
         /**
           * Content of the tooltip.
@@ -1105,6 +1696,24 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwAccordionElement extends Components.FwAccordion, HTMLStencilElement {
+    }
+    var HTMLFwAccordionElement: {
+        prototype: HTMLFwAccordionElement;
+        new (): HTMLFwAccordionElement;
+    };
+    interface HTMLFwAccordionBodyElement extends Components.FwAccordionBody, HTMLStencilElement {
+    }
+    var HTMLFwAccordionBodyElement: {
+        prototype: HTMLFwAccordionBodyElement;
+        new (): HTMLFwAccordionBodyElement;
+    };
+    interface HTMLFwAccordionTitleElement extends Components.FwAccordionTitle, HTMLStencilElement {
+    }
+    var HTMLFwAccordionTitleElement: {
+        prototype: HTMLFwAccordionTitleElement;
+        new (): HTMLFwAccordionTitleElement;
+    };
     interface HTMLFwAvatarElement extends Components.FwAvatar, HTMLStencilElement {
     }
     var HTMLFwAvatarElement: {
@@ -1129,17 +1738,77 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwCustomCellAnchorElement extends Components.FwCustomCellAnchor, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellAnchorElement: {
+        prototype: HTMLFwCustomCellAnchorElement;
+        new (): HTMLFwCustomCellAnchorElement;
+    };
+    interface HTMLFwCustomCellIconElement extends Components.FwCustomCellIcon, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellIconElement: {
+        prototype: HTMLFwCustomCellIconElement;
+        new (): HTMLFwCustomCellIconElement;
+    };
+    interface HTMLFwCustomCellUserElement extends Components.FwCustomCellUser, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellUserElement: {
+        prototype: HTMLFwCustomCellUserElement;
+        new (): HTMLFwCustomCellUserElement;
+    };
+    interface HTMLFwDataTableElement extends Components.FwDataTable, HTMLStencilElement {
+    }
+    var HTMLFwDataTableElement: {
+        prototype: HTMLFwDataTableElement;
+        new (): HTMLFwDataTableElement;
+    };
     interface HTMLFwDatepickerElement extends Components.FwDatepicker, HTMLStencilElement {
     }
     var HTMLFwDatepickerElement: {
         prototype: HTMLFwDatepickerElement;
         new (): HTMLFwDatepickerElement;
     };
+    interface HTMLFwDragContainerElement extends Components.FwDragContainer, HTMLStencilElement {
+    }
+    var HTMLFwDragContainerElement: {
+        prototype: HTMLFwDragContainerElement;
+        new (): HTMLFwDragContainerElement;
+    };
+    interface HTMLFwDragItemElement extends Components.FwDragItem, HTMLStencilElement {
+    }
+    var HTMLFwDragItemElement: {
+        prototype: HTMLFwDragItemElement;
+        new (): HTMLFwDragItemElement;
+    };
     interface HTMLFwDropdownButtonElement extends Components.FwDropdownButton, HTMLStencilElement {
     }
     var HTMLFwDropdownButtonElement: {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
+    };
+    interface HTMLFwFormElement extends Components.FwForm, HTMLStencilElement {
+    }
+    var HTMLFwFormElement: {
+        prototype: HTMLFwFormElement;
+        new (): HTMLFwFormElement;
+    };
+    interface HTMLFwFormControlElement extends Components.FwFormControl, HTMLStencilElement {
+    }
+    var HTMLFwFormControlElement: {
+        prototype: HTMLFwFormControlElement;
+        new (): HTMLFwFormControlElement;
+    };
+    interface HTMLFwFormatDateElement extends Components.FwFormatDate, HTMLStencilElement {
+    }
+    var HTMLFwFormatDateElement: {
+        prototype: HTMLFwFormatDateElement;
+        new (): HTMLFwFormatDateElement;
+    };
+    interface HTMLFwFormatNumberElement extends Components.FwFormatNumber, HTMLStencilElement {
+    }
+    var HTMLFwFormatNumberElement: {
+        prototype: HTMLFwFormatNumberElement;
+        new (): HTMLFwFormatNumberElement;
     };
     interface HTMLFwIconElement extends Components.FwIcon, HTMLStencilElement {
     }
@@ -1171,6 +1840,18 @@ declare global {
         prototype: HTMLFwListOptionsElement;
         new (): HTMLFwListOptionsElement;
     };
+    interface HTMLFwMenuElement extends Components.FwMenu, HTMLStencilElement {
+    }
+    var HTMLFwMenuElement: {
+        prototype: HTMLFwMenuElement;
+        new (): HTMLFwMenuElement;
+    };
+    interface HTMLFwMenuItemElement extends Components.FwMenuItem, HTMLStencilElement {
+    }
+    var HTMLFwMenuItemElement: {
+        prototype: HTMLFwMenuItemElement;
+        new (): HTMLFwMenuItemElement;
+    };
     interface HTMLFwModalElement extends Components.FwModal, HTMLStencilElement {
     }
     var HTMLFwModalElement: {
@@ -1194,6 +1875,18 @@ declare global {
     var HTMLFwModalTitleElement: {
         prototype: HTMLFwModalTitleElement;
         new (): HTMLFwModalTitleElement;
+    };
+    interface HTMLFwPaginationElement extends Components.FwPagination, HTMLStencilElement {
+    }
+    var HTMLFwPaginationElement: {
+        prototype: HTMLFwPaginationElement;
+        new (): HTMLFwPaginationElement;
+    };
+    interface HTMLFwPillElement extends Components.FwPill, HTMLStencilElement {
+    }
+    var HTMLFwPillElement: {
+        prototype: HTMLFwPillElement;
+        new (): HTMLFwPillElement;
     };
     interface HTMLFwPopoverElement extends Components.FwPopover, HTMLStencilElement {
     }
@@ -1303,6 +1996,18 @@ declare global {
         prototype: HTMLFwToggleElement;
         new (): HTMLFwToggleElement;
     };
+    interface HTMLFwToggleGroupElement extends Components.FwToggleGroup, HTMLStencilElement {
+    }
+    var HTMLFwToggleGroupElement: {
+        prototype: HTMLFwToggleGroupElement;
+        new (): HTMLFwToggleGroupElement;
+    };
+    interface HTMLFwToggleGroupButtonElement extends Components.FwToggleGroupButton, HTMLStencilElement {
+    }
+    var HTMLFwToggleGroupButtonElement: {
+        prototype: HTMLFwToggleGroupButtonElement;
+        new (): HTMLFwToggleGroupButtonElement;
+    };
     interface HTMLFwTooltipElement extends Components.FwTooltip, HTMLStencilElement {
     }
     var HTMLFwTooltipElement: {
@@ -1310,21 +2015,38 @@ declare global {
         new (): HTMLFwTooltipElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-accordion": HTMLFwAccordionElement;
+        "fw-accordion-body": HTMLFwAccordionBodyElement;
+        "fw-accordion-title": HTMLFwAccordionTitleElement;
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
+        "fw-custom-cell-icon": HTMLFwCustomCellIconElement;
+        "fw-custom-cell-user": HTMLFwCustomCellUserElement;
+        "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
+        "fw-drag-container": HTMLFwDragContainerElement;
+        "fw-drag-item": HTMLFwDragItemElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-form": HTMLFwFormElement;
+        "fw-form-control": HTMLFwFormControlElement;
+        "fw-format-date": HTMLFwFormatDateElement;
+        "fw-format-number": HTMLFwFormatNumberElement;
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
         "fw-label": HTMLFwLabelElement;
         "fw-list-options": HTMLFwListOptionsElement;
+        "fw-menu": HTMLFwMenuElement;
+        "fw-menu-item": HTMLFwMenuItemElement;
         "fw-modal": HTMLFwModalElement;
         "fw-modal-content": HTMLFwModalContentElement;
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
+        "fw-pagination": HTMLFwPaginationElement;
+        "fw-pill": HTMLFwPillElement;
         "fw-popover": HTMLFwPopoverElement;
         "fw-progress-loader": HTMLFwProgressLoaderElement;
         "fw-radio": HTMLFwRadioElement;
@@ -1343,15 +2065,45 @@ declare global {
         "fw-toast": HTMLFwToastElement;
         "fw-toast-message": HTMLFwToastMessageElement;
         "fw-toggle": HTMLFwToggleElement;
+        "fw-toggle-group": HTMLFwToggleGroupElement;
+        "fw-toggle-group-button": HTMLFwToggleGroupButtonElement;
         "fw-tooltip": HTMLFwTooltipElement;
     }
 }
 declare namespace LocalJSX {
+    interface FwAccordion {
+        /**
+          * To manage accordion expanded or collapsed state
+         */
+        "expanded"?: boolean;
+        /**
+          * Triggered when the accordion is expanded or collapsed
+         */
+        "onFwAccordionToggle"?: (event: CustomEvent<AccordionToggleEvent>) => void;
+        /**
+          * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
+         */
+        "type"?: 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionBody {
+        "expanded"?: boolean;
+        "type"?: 'default' | 'no_bounding_box';
+    }
+    interface FwAccordionTitle {
+        "expanded"?: boolean;
+        "toggleState"?: any;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow"?: boolean;
+        "type"?: 'default' | 'no_bounding_box';
+    }
     interface FwAvatar {
         "alt"?: string;
         "image"?: string;
         "initials"?: string;
         "mode"?: 'dark' | 'light';
+        "name"?: string;
         "shape"?: 'circle' | 'square' | 'rounded';
         "size"?: | 'xxlarge'
     | 'xlarge'
@@ -1397,7 +2149,7 @@ declare namespace LocalJSX {
         /**
           * Size of the button.
          */
-        "size"?: 'normal' | 'small' | 'icon';
+        "size"?: 'normal' | 'small' | 'icon' | 'icon-small';
         /**
           * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
          */
@@ -1424,6 +2176,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -1436,7 +2192,7 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the check box’s value is modified.
+          * /**   Triggered when the check box’s value is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
@@ -1444,15 +2200,81 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * Theme based on which the checkbox is styled.
+         */
+        "state"?: 'normal' | 'error';
+        /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+    }
+    interface FwCustomCellAnchor {
+        "href"?: string;
+        "text"?: string;
+    }
+    interface FwCustomCellIcon {
+        "color"?: string;
+        "library"?: string;
+        "name"?: string;
+        "size"?: number;
+    }
+    interface FwCustomCellUser {
+        "alt"?: string;
+        "email"?: string;
+        "image"?: any;
+        "name"?: string;
+    }
+    interface FwDataTable {
+        /**
+          * Columns Array of objects that provides information regarding the columns in the table.
+         */
+        "columns"?: DataTableColumn[];
+        /**
+          * isAllSelectable Booleam based on which select all option appears in the table header
+         */
+        "isAllSelectable"?: boolean;
+        /**
+          * isSelectable Boolean based on which selectable options appears for rows in the table.
+         */
+        "isSelectable"?: boolean;
+        /**
+          * Label attribute is not visible on screen. There for accessibility purposes.
+         */
+        "label"?: string;
+        /**
+          * fwColumnsPositionChange Emits this event when columns position changes.
+         */
+        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * fwSelectAllChange Emits this event when select all is checked.
+         */
+        "onFwSelectAllChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * fwSelectionChange Emits this event when row is selected/unselected.
+         */
+        "onFwSelectionChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * To enable bulk actions on the table.
+         */
+        "rowActions"?: DataTableAction[];
+        /**
+          * Rows Array of objects to be displayed in the table.
+         */
+        "rows"?: DataTableRow[];
     }
     interface FwDatepicker {
         /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
         "displayFormat"?: string;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
         /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
@@ -1474,13 +2296,21 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Triggered when the update button clicked
+          * canary    /**    Triggered when the update button clicked
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * Theme based on which the input of the datepicker is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -1489,6 +2319,46 @@ declare namespace LocalJSX {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
+    }
+    interface FwDragContainer {
+        /**
+          * Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.
+         */
+        "acceptFrom"?: string;
+        /**
+          * Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.
+         */
+        "addOnDrop"?: boolean;
+        /**
+          * Whether the drag element should be moved or copied.
+         */
+        "copy"?: boolean;
+        /**
+          * Triggered when an draggable item is dropped inside the container.
+         */
+        "onFwDrop"?: (event: CustomEvent<void>) => void;
+        /**
+          * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
+         */
+        "placeholderClass"?: string;
+        /**
+          * Whether the list should be sortable.
+         */
+        "sortable"?: boolean;
+    }
+    interface FwDragItem {
+        /**
+          * Whether the drag is disabled or not.
+         */
+        "disabled"?: boolean;
+        /**
+          * Pinned position of the drag item, other drag item cannot be placed above or below it.
+         */
+        "pinned"?: 'top' | 'bottom';
+        /**
+          * Whether the drag icon should be visible.
+         */
+        "showDragIcon"?: boolean;
     }
     interface FwDropdownButton {
         /**
@@ -1532,19 +2402,217 @@ declare namespace LocalJSX {
          */
         "value"?: any;
     }
+    interface FwForm {
+        /**
+          * Id to uniquely identify the Form. If not set, a random Id will be generated.
+         */
+        "formId"?: any;
+        /**
+          * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
+         */
+        "formSchema"?: any;
+        /**
+          * Initial field values of the form. It is an object with keys pointing to field name
+         */
+        "initialValues"?: any;
+        /**
+          * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
+         */
+        "validate"?: any;
+        /**
+          * Tells Form to validate the form on each input's onBlur event
+         */
+        "validateOnBlur"?: boolean;
+        /**
+          * Tells Form to validate the form on each input's onInput event
+         */
+        "validateOnInput"?: boolean;
+        /**
+          * YUP based validation schema for handling validation
+         */
+        "validationSchema"?: any;
+        /**
+          * The number of milliseconds to delay before doing validation on Input
+         */
+        "wait"?: number;
+    }
+    interface FwFormControl {
+        "choices"?: any;
+        /**
+          * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
+         */
+        "controlProps"?: any;
+        "error"?: string;
+        /**
+          * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
+         */
+        "fieldProps"?: any;
+        "hint"?: string;
+        "label"?: any;
+        "name"?: any;
+        "placeholder"?: string;
+        "required"?: boolean;
+        "touched"?: boolean;
+        "type"?: | 'TEXT'
+    | 'NUMBER'
+    | 'DECIMAL'
+    | 'DROPDOWN'
+    | 'MULTI_SELECT'
+    | 'RADIO'
+    | 'CHECKBOX'
+    | 'DATE'
+    | 'PARAGRAPH'
+    | 'EMAIL'
+    | 'URL'
+    | 'TEL'
+    | 'TIME'
+    | 'RELATIONSHIP';
+    }
+    interface FwFormatDate {
+        /**
+          * The date/time to format. If not set, the current date and time will be used.
+         */
+        "date"?: Date | string | number;
+        /**
+          * The format for displaying the day.
+         */
+        "day"?: 'numeric' | '2-digit';
+        /**
+          * The format for displaying the hour.
+         */
+        "hour"?: 'numeric' | '2-digit';
+        /**
+          * When set, 24 hour time will always be used.
+         */
+        "hourFormat"?: 'auto' | '12' | '24';
+        /**
+          * The locale to use when formatting the date/time.
+         */
+        "locale"?: string;
+        /**
+          * The format for displaying the minute.
+         */
+        "minute"?: 'numeric' | '2-digit';
+        /**
+          * The format for displaying the month.
+         */
+        "month"?: 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the second.
+         */
+        "second"?: 'numeric' | '2-digit';
+        /**
+          * The time zone to express the time in.
+         */
+        "timeZone"?: string;
+        /**
+          * The format for displaying the time.
+         */
+        "timeZoneName"?: 'short' | 'long';
+        /**
+          * The format for displaying the weekday.
+         */
+        "weekday"?: 'narrow' | 'short' | 'long';
+        /**
+          * The format for displaying the year.
+         */
+        "year"?: 'numeric' | '2-digit';
+    }
+    interface FwFormatNumber {
+        /**
+          * The currency to use in currency formatting. Possible values are the `ISO 4217` currency codes, such as `USD` for the US dollar, `EUR` for the euro. If the style is "currency", the currency property must be provided.
+         */
+        "currency"?: string;
+        /**
+          * Currency display formatting.
+         */
+        "currencyDisplay"?: 'symbol' | 'narrowSymbol' | 'code' | 'name';
+        /**
+          * In many locales, accounting format means to wrap the number with parentheses instead of appending a minus sign. You can enable the above by setting the currencySign option to `accounting`. The default value is `standard`
+         */
+        "currencySign"?: 'accounting' | 'standard';
+        /**
+          * `Locale` used for formatting the number
+         */
+        "locale"?: string;
+        /**
+          * The maximum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "maximumFractionDigits"?: number;
+        /**
+          * The maximum number of significant digits to use,. Possible values are 1 - 21. Default is 21
+         */
+        "maximumSignificantDigits"?: number;
+        /**
+          * The minimum number of fraction digits to use. Possible values are 0 - 20.
+         */
+        "minimumFractionDigits"?: number;
+        /**
+          * The minimum number of integer digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumIntegerDigits"?: number;
+        /**
+          * The minimum number of significant digits to use. Possible values are 1 - 21. Default is 1
+         */
+        "minimumSignificantDigits"?: number;
+        /**
+          * Formatting style
+         */
+        "type"?: 'currency' | 'decimal' | 'percent';
+        /**
+          * Turns on/off grouping separators.
+         */
+        "useGrouping"?: boolean;
+        /**
+          * Number to format.
+         */
+        "value"?: number;
+    }
     interface FwIcon {
         /**
           * Color in which the icon is displayed, specified as a standard CSS color or as a HEX code.
          */
         "color"?: string;
         /**
-          * Identifier of the icon. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
+          * Identifier of the icon. The attribute’s value must be a valid JS Import Name of the svg in the named export from @freshworks/crayons-icon.
+         */
+        "dataSvg"?: string;
+        /**
+          * Height of the icon, specified in number of  pixels.
+         */
+        "height"?: number;
+        /**
+          * An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices.
+         */
+        "label"?: string;
+        /**
+          * Enable Intersection Observer. Default is false.
+         */
+        "lazy"?: boolean;
+        /**
+          * Name of External Library to be used
+         */
+        "library"?: string;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid svg Name in the Crayons-Icon set.
          */
         "name"?: string;
         /**
-          * Size of the icon, specified in number of  pixels. Default value is 12px defined using the --icon-size css variable.
+          * Size of the icon, specified in number of  pixels. This will be square coordinates of (w X h) = size X size
          */
         "size"?: number;
+        /**
+          * Identifier of the icon. The attribute’s value must be a valid path to svg file.
+         */
+        "src"?: string;
+        /**
+          * Width of the icon, specified in number of  pixels.
+         */
+        "width"?: number;
+        /**
+          * Root Margin in px or percentage for Intersection-Observer. This means from ref to bottom of loaded view , the item loads when it crosses above the negative y margin.
+         */
+        "xRootMargin"?: string;
     }
     interface FwInlineMessage {
         /**
@@ -1586,6 +2654,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft"?: string;
@@ -1598,9 +2670,17 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Specifies a maximum value that can be entered for the number/decimal input.
+         */
+        "max"?: number;
+        /**
           * Maximum number of characters a user can enter in the text box.
          */
         "maxlength"?: number;
+        /**
+          * Specifies a minimum value that can be entered for the number/decimal input.
+         */
+        "min"?: number;
         /**
           * Minimum number of characters a user must enter in the text box for the value to be valid.
          */
@@ -1612,7 +2692,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the value in the input box is modified.
          */
@@ -1650,9 +2730,13 @@ declare namespace LocalJSX {
          */
         "stateText"?: string;
         /**
+          * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
+         */
+        "step"?: string;
+        /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
-        "type"?: 'text' | 'number';
+        "type"?: 'text' | 'number' | 'email' | 'url';
         /**
           * Default value displayed in the input box.
          */
@@ -1669,6 +2753,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface FwListOptions {
+        /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
         /**
           * Place a checkbox.
          */
@@ -1728,11 +2816,23 @@ declare namespace LocalJSX {
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
-        "value"?: string | string[];
+        "value"?: any;
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant"?: DropdownVariant;
+    }
+    interface FwMenu {
+    }
+    interface FwMenuItem {
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selectable"?: boolean;
+        /**
+          * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected"?: boolean;
     }
     interface FwModal {
         /**
@@ -1834,7 +2934,51 @@ declare namespace LocalJSX {
          */
         "titleText"?: string;
     }
+    interface FwPagination {
+        /**
+          * Aria Label to be used for the button group.
+         */
+        "buttonGroupLabel"?: string;
+        /**
+          * Indicates if the records in current page are being fetched.
+         */
+        "isLoading"?: boolean;
+        /**
+          * Aria Label to be used for next button.
+         */
+        "nextButtonLabel"?: string;
+        /**
+          * Triggered when either previous or next button is clicked.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * The current page number.
+         */
+        "page"?: number;
+        /**
+          * The number of records to be shown per page. Defaults to 10.
+         */
+        "perPage"?: number;
+        /**
+          * Aria Label to be used for previous button.
+         */
+        "previousButtonLabel"?: string;
+        /**
+          * The total number of records. This is a mandatory parameter.
+         */
+        "total"?: number;
+    }
+    interface FwPill {
+        /**
+          * Theme based on which the pill is styled.
+         */
+        "color"?: 'blue' | 'red' | 'green' | 'yellow' | 'grey';
+    }
     interface FwPopover {
+        /**
+          * Whether to focus on the element in popover-content slot on opening the dropdown.
+         */
+        "autoFocusOnContent"?: boolean;
         /**
           * The area that the popup will be checked for overflow relative to.
          */
@@ -1855,6 +2999,10 @@ declare namespace LocalJSX {
           * Option to determine if popover-content has a border.
          */
         "hasBorder"?: boolean;
+        /**
+          * Indicates whether popover contents should be hidden on pressing Tab.
+         */
+        "hideOnTab"?: boolean;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */
@@ -1936,6 +3084,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -1956,9 +3108,13 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
-          * Triggered when the radio button in focus is selected.
+          * /**   Triggered when the radio button in focus is selected.
          */
         "onFwSelect"?: (event: CustomEvent<any>) => void;
+        /**
+          * Theme based on which the radio button is styled.
+         */
+        "state"?: 'normal' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
@@ -1969,6 +3125,10 @@ declare namespace LocalJSX {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty"?: boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -1985,6 +3145,10 @@ declare namespace LocalJSX {
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
         "orientation"?: 'row' | 'column';
+        /**
+          * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
         /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
@@ -2006,6 +3170,10 @@ declare namespace LocalJSX {
     }
     interface FwSelect {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
+        /**
           * Whether the arrow/caret should be shown in the select.
          */
         "caret"?: boolean;
@@ -2025,6 +3193,10 @@ declare namespace LocalJSX {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -2066,7 +3238,7 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
-          * Allow to search for value. Default is true.
+          * The data for the select component, the options will be of type array of fw-select-options.
          */
         "options"?: any;
         /**
@@ -2132,6 +3304,10 @@ declare namespace LocalJSX {
     }
     interface FwSelectOption {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox"?: boolean;
@@ -2186,7 +3362,7 @@ declare namespace LocalJSX {
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
-        "value"?: string;
+        "value"?: string | number;
         /**
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
@@ -2315,7 +3491,7 @@ declare namespace LocalJSX {
         /**
           * Value associated with the tag component, that is saved when the form data is saved.
          */
-        "value"?: string;
+        "value"?: string | number;
         /**
           * The variant of tag to be displayed.
          */
@@ -2330,6 +3506,10 @@ declare namespace LocalJSX {
           * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -2349,7 +3529,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the value in the input box is modified.
          */
@@ -2401,6 +3581,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * id for the form using this component. This prop is set from the `fw-form`
+         */
+        "formId"?: string;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format"?: 'hh:mm A' | 'HH:mm';
@@ -2420,6 +3604,14 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * Theme based on which the input of the timepicker is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Time output value
          */
@@ -2523,6 +3715,82 @@ declare namespace LocalJSX {
          */
         "size"?: 'small' | 'medium' | 'large';
     }
+    interface FwToggleGroup {
+        /**
+          * Label for the component, that can be used by screen readers.
+         */
+        "label"?: string;
+        /**
+          * Boolean value to allow multiple selection or single child selection
+         */
+        "multiple"?: boolean;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when an option in the Toggle Group is selected or deselected.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
+         */
+        "value"?: any;
+    }
+    interface FwToggleGroupButton {
+        /**
+          * sets the default base class name and the rest of the class names for the other states are automatically appended to this
+         */
+        "baseClassName"?: string;
+        /**
+          * Label displayed as description in the card.
+         */
+        "description"?: string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * Label displayed as header in the card.
+         */
+        "header"?: string;
+        /**
+          * If the button type is icon, set the icon path to be used
+         */
+        "iconName"?: string;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
+        /**
+          * Enables the component to be used as a part of multi selection group
+         */
+        "isCheckbox"?: boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when the card in focus is selected.
+         */
+        "onFwToggled"?: (event: CustomEvent<any>) => void;
+        /**
+          * Enables the component to be used as a toggle button or just to be used as a normal button
+         */
+        "selectable"?: boolean;
+        /**
+          * Sets the state to selected. If the attribute’s value is undefined, the value is set to false.
+         */
+        "selected"?: boolean;
+        /**
+          * sets the type of the button
+         */
+        "type"?: 'card' | 'icon' | 'custom';
+        /**
+          * Identifier corresponding to the component, that is saved when the form data is saved.
+         */
+        "value"?: string;
+    }
     interface FwTooltip {
         /**
           * Content of the tooltip.
@@ -2550,21 +3818,38 @@ declare namespace LocalJSX {
         "trigger"?: PopoverTriggerType;
     }
     interface IntrinsicElements {
+        "fw-accordion": FwAccordion;
+        "fw-accordion-body": FwAccordionBody;
+        "fw-accordion-title": FwAccordionTitle;
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-custom-cell-anchor": FwCustomCellAnchor;
+        "fw-custom-cell-icon": FwCustomCellIcon;
+        "fw-custom-cell-user": FwCustomCellUser;
+        "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
+        "fw-drag-container": FwDragContainer;
+        "fw-drag-item": FwDragItem;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-form": FwForm;
+        "fw-form-control": FwFormControl;
+        "fw-format-date": FwFormatDate;
+        "fw-format-number": FwFormatNumber;
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
         "fw-label": FwLabel;
         "fw-list-options": FwListOptions;
+        "fw-menu": FwMenu;
+        "fw-menu-item": FwMenuItem;
         "fw-modal": FwModal;
         "fw-modal-content": FwModalContent;
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
+        "fw-pagination": FwPagination;
+        "fw-pill": FwPill;
         "fw-popover": FwPopover;
         "fw-progress-loader": FwProgressLoader;
         "fw-radio": FwRadio;
@@ -2583,6 +3868,8 @@ declare namespace LocalJSX {
         "fw-toast": FwToast;
         "fw-toast-message": FwToastMessage;
         "fw-toggle": FwToggle;
+        "fw-toggle-group": FwToggleGroup;
+        "fw-toggle-group-button": FwToggleGroupButton;
         "fw-tooltip": FwTooltip;
     }
 }
@@ -2590,21 +3877,38 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-accordion": LocalJSX.FwAccordion & JSXBase.HTMLAttributes<HTMLFwAccordionElement>;
+            "fw-accordion-body": LocalJSX.FwAccordionBody & JSXBase.HTMLAttributes<HTMLFwAccordionBodyElement>;
+            "fw-accordion-title": LocalJSX.FwAccordionTitle & JSXBase.HTMLAttributes<HTMLFwAccordionTitleElement>;
             "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
+            "fw-custom-cell-icon": LocalJSX.FwCustomCellIcon & JSXBase.HTMLAttributes<HTMLFwCustomCellIconElement>;
+            "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
+            "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
+            "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
+            "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
+            "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
+            "fw-format-date": LocalJSX.FwFormatDate & JSXBase.HTMLAttributes<HTMLFwFormatDateElement>;
+            "fw-format-number": LocalJSX.FwFormatNumber & JSXBase.HTMLAttributes<HTMLFwFormatNumberElement>;
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;
+            "fw-menu": LocalJSX.FwMenu & JSXBase.HTMLAttributes<HTMLFwMenuElement>;
+            "fw-menu-item": LocalJSX.FwMenuItem & JSXBase.HTMLAttributes<HTMLFwMenuItemElement>;
             "fw-modal": LocalJSX.FwModal & JSXBase.HTMLAttributes<HTMLFwModalElement>;
             "fw-modal-content": LocalJSX.FwModalContent & JSXBase.HTMLAttributes<HTMLFwModalContentElement>;
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
+            "fw-pagination": LocalJSX.FwPagination & JSXBase.HTMLAttributes<HTMLFwPaginationElement>;
+            "fw-pill": LocalJSX.FwPill & JSXBase.HTMLAttributes<HTMLFwPillElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
             "fw-progress-loader": LocalJSX.FwProgressLoader & JSXBase.HTMLAttributes<HTMLFwProgressLoaderElement>;
             "fw-radio": LocalJSX.FwRadio & JSXBase.HTMLAttributes<HTMLFwRadioElement>;
@@ -2623,6 +3927,8 @@ declare module "@stencil/core" {
             "fw-toast": LocalJSX.FwToast & JSXBase.HTMLAttributes<HTMLFwToastElement>;
             "fw-toast-message": LocalJSX.FwToastMessage & JSXBase.HTMLAttributes<HTMLFwToastMessageElement>;
             "fw-toggle": LocalJSX.FwToggle & JSXBase.HTMLAttributes<HTMLFwToggleElement>;
+            "fw-toggle-group": LocalJSX.FwToggleGroup & JSXBase.HTMLAttributes<HTMLFwToggleGroupElement>;
+            "fw-toggle-group-button": LocalJSX.FwToggleGroupButton & JSXBase.HTMLAttributes<HTMLFwToggleGroupButtonElement>;
             "fw-tooltip": LocalJSX.FwTooltip & JSXBase.HTMLAttributes<HTMLFwTooltipElement>;
         }
     }

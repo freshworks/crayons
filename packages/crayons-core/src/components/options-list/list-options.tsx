@@ -54,7 +54,7 @@ export class ListOptions {
   /**
    * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
-  @Prop({ reflect: true, mutable: true }) value: string | string[] = '';
+  @Prop({ mutable: true }) value: any = '';
   /**
    * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
    */
@@ -102,7 +102,12 @@ export class ListOptions {
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @Prop() noDataText = 'No Data available';
+  @i18n({
+    defaultValue: 'No data available',
+    keyName: 'search.no_data_available',
+  })
+  @Prop({ mutable: true })
+  noDataText = 'No Data available';
   /**
    * Debounce timer for the search promise function.
    */
@@ -111,6 +116,10 @@ export class ListOptions {
    * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
   @Prop() selectedOptions = [];
+  /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
   /**
    * Triggered when a value is selected or deselected from the list box options.
    */
@@ -179,7 +188,11 @@ export class ListOptions {
   async scrollToLastSelected() {
     if (this.filteredOptions.length > 0 && this.valueExists()) {
       this.container
-        .querySelector(`fw-select-option[id='${this.getLastSelectedValue()}']`)
+        .querySelector(
+          `fw-select-option[id='${
+            this.host.id
+          }-option-${this.getLastSelectedValue()}']`
+        )
         ?.scrollIntoView({ block: 'nearest' });
     }
   }
@@ -192,13 +205,11 @@ export class ListOptions {
    * Pass an array of string in case of multi-select or string for single-select.
    */
   @Method()
-  async setSelectedValues(values: string | string[]): Promise<any> {
+  async setSelectedValues(values: any): Promise<any> {
     if (this.options) {
-      this.selectedOptionsState = this.options.filter((option) => {
-        return this.multiple
-          ? values.includes(option.value)
-          : values === option.value;
-      });
+      this.selectedOptionsState = this.options.filter((option) =>
+        this.isValueEqual(values, option)
+      );
       this.isInternalValueChange = true;
       this.setValue(this.selectedOptionsState);
     }
@@ -234,23 +245,24 @@ export class ListOptions {
   @Watch('value')
   onValueChange(newValue, oldValue) {
     if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+      if (newValue) {
+        this.validateValue(newValue);
+      } else {
+        newValue = this.multiple ? [] : '';
+      }
       this.selectOptions = this.selectOptions.map((option) => {
-        option.selected = newValue.includes(option.value);
+        option.selected = this.isValueEqual(newValue, option);
         return option;
       });
       // Warning: Before mutating this.value inside this file set the  isInternalValueChange to true.
       // This is to prevent triggering the below code which is executed whenever there is a change in the prop this.value
       if (!this.isInternalValueChange) {
-        if (this.options.length > 0) {
-          this.selectedOptionsState = this.options.filter((option) =>
-            newValue.includes(option.value)
-          );
-        } else {
-          // This usually occurs during dynamic select
-          this.selectedOptionsState = this.selectedOptionsState.filter(
-            (option) => newValue.includes(option.value)
-          );
-        }
+        // source might change during dynamic select
+        const source =
+          this.options.length > 0 ? this.options : this.selectedOptionsState;
+        this.selectedOptionsState = source.filter((option) =>
+          this.isValueEqual(newValue, option)
+        );
       }
       this.fwChange.emit({
         value: newValue,
@@ -267,6 +279,19 @@ export class ListOptions {
 
   valueExists() {
     return this.multiple ? this.value.length > 0 : !!this.value;
+  }
+
+  validateValue(value) {
+    if (this.multiple && !Array.isArray(value)) {
+      throw new Error('Value must be a array for multi-select');
+    }
+    if (
+      !this.multiple &&
+      typeof value !== 'string' &&
+      typeof value !== 'number'
+    ) {
+      throw new Error('Value must be a string for single-select');
+    }
   }
 
   handleSearchWithDebounce = debounce(
@@ -295,11 +320,9 @@ export class ListOptions {
 
   setSelectedOptionsByValue(values) {
     if (this.options) {
-      this.selectedOptionsState = this.options.filter((option) => {
-        return this.multiple
-          ? values.includes(option.value)
-          : values === option.value;
-      });
+      this.selectedOptionsState = this.options.filter((option) =>
+        this.isValueEqual(values, option)
+      );
     } else {
       throw new Error('Options must be passed if value is set');
     }
@@ -312,16 +335,20 @@ export class ListOptions {
         ...{
           checkbox: option.checkbox || this.checkbox,
           variant: option.variant || this.variant,
-          selected:
-            (this.multiple
-              ? this.value.includes(option.value)
-              : this.value === option.value) || option.selected,
+          selected: this.isValueEqual(this.value, option) || option.selected,
           disabled:
             option.disabled ||
             (this.multiple && this.value?.length >= this.max),
+          allowDeselect: this.allowDeselect,
         },
       };
     });
+  }
+
+  isValueEqual(value, option) {
+    return this.multiple
+      ? value.includes(option.value)
+      : value === option.value;
   }
 
   setValue(options) {
@@ -364,6 +391,7 @@ export class ListOptions {
   }
 
   componentWillLoad() {
+    this.validateValue(this.value);
     if (this.selectedOptions.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.multiple

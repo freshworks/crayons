@@ -1,3 +1,7 @@
+/**
+  @prop --btn-min-width: minimum width for the button
+*/
+
 //=== Button Style ===//
 $btn-primary-color: $color-milk;
 $btn-primary-bg: $color-elephant-800;
@@ -247,7 +251,7 @@ $input-height-mini: 16px;
   }
 
   &--normal {
-    min-width: 80px;
+    min-width: var(--btn-min-width, 80px);
     height: 32px;
     line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
   }
@@ -258,6 +262,14 @@ $input-height-mini: 16px;
     height: 32px;
     padding: 0;
     line-height: calc(32px - #{$btn-border-width} * 2);
+  }
+
+  &--icon-small {
+    min-width: 24px;
+    width: 24px;
+    height: 22px;
+    padding: 0;
+    line-height: calc(22px - #{$btn-border-width} * 2);
   }
 }
 
@@ -283,10 +295,7 @@ $input-height-mini: 16px;
 
 // Padding and Spacing
 // stylelint-disable
-$sizes:
-  "normal" 12px 8px,
-  "small" 8px 6px,
-  "mini" 6px 4px;
+$sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 // stylelint-enable
 
 @each $className, $labelOnlySize, $innerOnlySize in $sizes {
@@ -372,7 +381,6 @@ $sizes:
 
 :host(.fw-button-group__button--inner) .fw-btn {
   border-radius: 0;
-  margin-left: -1px;
   border-left: 0;
 }
 
@@ -380,6 +388,5 @@ $sizes:
   .fw-btn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  margin-left: -1px;
   border-left: 0;
 }

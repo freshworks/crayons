@@ -6,6 +6,7 @@ import {
   Host,
   Prop,
   Watch,
+  Method,
   h,
   Listen,
 } from '@stencil/core';
@@ -15,6 +16,7 @@ import {
   renderHiddenField,
   watchForOptions,
 } from '../../utils';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio-group',
@@ -48,6 +50,16 @@ export class RadioGroup {
    */
   @Prop({ mutable: true }) value?: any | null;
 
+  /**
+   * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
   @Watch('value')
   async valueChanged(value: any | undefined) {
     await this.updateRadios();
@@ -75,6 +87,13 @@ export class RadioGroup {
   @Listen('keyup')
   handleKeyup(event: KeyboardEvent) {
     const radios = this.radios;
+    const supportedKeyStrokes = [
+      'ArrowDown',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowLeft',
+      'Space',
+    ];
     const previousSelected = this.selectedIndex;
     switch (event.code) {
       case 'ArrowDown':
@@ -114,6 +133,14 @@ export class RadioGroup {
       default:
         break;
     }
+
+    if (supportedKeyStrokes.includes(event.code)) {
+      this.formId &&
+        EventStore.publish(`${this.formId}::handleChange`, {
+          field: this.name,
+          value: this.value,
+        });
+    }
   }
 
   async connectedCallback() {
@@ -152,6 +179,17 @@ export class RadioGroup {
         }
       }
     );
+  }
+
+  componentDidLoad() {
+    const slottedElements = this.host.querySelectorAll('fw-radio');
+    slottedElements.forEach((radio, index) => {
+      radio.classList.add('fw-radio-group__radio');
+      radio.classList.toggle(
+        'fw-radio-group__radio--last',
+        index === slottedElements.length - 1
+      );
+    });
   }
 
   disconnectedCallback() {
@@ -212,6 +250,23 @@ export class RadioGroup {
     await this.updateRadios();
   };
 
+  private onBlur = () => {
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.value,
+      });
+  };
+
+  /**
+   * Sets focus on a specific `fw-radio`.
+   */
+  @Method()
+  async setFocus() {
+    const radios = this.radios;
+    radios[0]?.setFocus?.();
+  }
+
   render() {
     const { host, name, value } = this;
 
@@ -223,6 +278,8 @@ export class RadioGroup {
         aria-label={this.label}
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
+        onFwBlur={this.onBlur}
+        id={this.label}
       ></Host>
     );
   }

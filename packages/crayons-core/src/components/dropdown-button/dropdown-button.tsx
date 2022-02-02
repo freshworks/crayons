@@ -199,6 +199,7 @@ export class DropdownButton {
           name={`chevron-${direction}`}
           color={iconColor}
           size={iconSize}
+          library='system'
         >
           {' '}
         </fw-icon>

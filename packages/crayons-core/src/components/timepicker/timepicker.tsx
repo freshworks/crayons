@@ -1,7 +1,8 @@
-import { Component, Element, Prop, State, h } from '@stencil/core';
+import { Component, Element, Prop, State, h, Method } from '@stencil/core';
 import moment from 'moment-mini';
 
 import { renderHiddenField } from '../../utils';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-timepicker',
@@ -11,7 +12,7 @@ export class Timepicker {
   @Element() host: HTMLElement;
 
   /**
-   * State for all the time value\s
+   * State for all the time values
    */
   @State() timeValues: any[] = [];
 
@@ -53,10 +54,29 @@ export class Timepicker {
    * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
    */
   @Prop() maxTime?: string = this.isMeridianFormat ? '11:30 PM' : '23:30';
+
+  /**
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
+   * Theme based on which the input of the timepicker is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  /**
+
   /**
    * Boolean representing whethere it is default end time
    */
   @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
+
+  private nativeInput;
 
   private getTimeOptionsMeta = (nonMeridianFormat) => {
     const preferredFormat = this.format;
@@ -100,6 +120,12 @@ export class Timepicker {
   private setTimeValue(e: any) {
     const { value } = e.detail;
     this.value = value;
+    if (this.value)
+      this.formId &&
+        EventStore.publish(`${this.formId}::handleChange`, {
+          field: this.name,
+          value: this.value,
+        });
   }
 
   private setEndTime() {
@@ -107,6 +133,24 @@ export class Timepicker {
       this.maxTime = this.isMeridianFormat ? `11:59 PM` : `23:59`;
     }
   }
+
+  /**
+   * Sets focus on a specific `fw-timepicker`.
+   */
+  @Method()
+  async setFocus() {
+    if (this.nativeInput) {
+      this.nativeInput.focus();
+    }
+  }
+
+  onBlur = (): void => {
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.value,
+      });
+  };
 
   componentWillLoad() {
     if (this.interval !== 30) {
@@ -122,9 +166,14 @@ export class Timepicker {
 
     return (
       <fw-select
+        name={this.name}
         disabled={this.disabled}
         value={this.value}
+        required={this.required}
         onFwChange={(e) => this.setTimeValue(e)}
+        onFwBlur={this.onBlur}
+        ref={(el) => (this.nativeInput = el)}
+        state={this.state}
       >
         {this.timeValues.map((time) => (
           <fw-select-option value={this.currentTimeValue(time)}>

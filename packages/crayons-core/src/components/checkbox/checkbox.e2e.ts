@@ -37,7 +37,7 @@ describe('fw-checkbox', () => {
     expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
   });
 
-  it('it emits fwChange when property is set', async () => {
+  it('it should not emit fwChange when property is set', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-checkbox value="1">1</fw-checkbox>');
@@ -45,7 +45,7 @@ describe('fw-checkbox', () => {
     const fwChange = await page.spyOnEvent('fwChange');
     element.setProperty('checked', true);
     await page.waitForChanges();
-    expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
+    expect(fwChange).not.toHaveReceivedEvent();
   });
 
   it('it should not emit fwChange when disabled', async () => {
@@ -69,7 +69,7 @@ describe('fw-checkbox', () => {
     expect(element).toEqualHtml(`<div class="checkbox-container">
     <input type="checkbox">
     <label>
-    <span id="label">
+    <span id="label" class="with-description">
       <slot></slot>
     </span>
     <div id="description">

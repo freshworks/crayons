@@ -1,0 +1,90 @@
+/**
+  @prop --pill-color: Pill color
+  @prop --pill-background-color: Pill background color
+  @prop --pill-padding: Pill padding
+  @prop --pill-border: Pill border
+  @prop --pill-border-radius: Pill border radius
+*/
+
+:host {
+  --pill-border: none;
+  --pill-border-radius: 16px;
+  --pill-padding: 5px 12px 5px 8px;
+  --pill-color: #{$color-smoke-700};
+  --pill-background-color: #{$color-smoke-50};
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pill-color);
+  background-color: var(--pill-background-color);
+  padding: var(--pill-padding);
+  border: var(--pill-border);
+  border-radius: var(--pill-border-radius);
+  font-weight: 600;
+  font-size: $font-size-12;
+  line-height: 1.5;
+
+  ::slotted(*) {
+    height: 14px;
+    width: 14px;
+  }
+
+  .pill-icon {
+    height: 14px;
+    width: 14px;
+    margin-right: 6px;
+  }
+
+  ::slotted(fw-icon) {
+    --icon-size: 14px;
+    --icon-color: #{$color-smoke-700};
+  }
+
+  &--blue {
+    background-color: $color-azure-50;
+    color: $color-azure-800;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-azure-800};
+    }
+  }
+
+  &--red {
+    background-color: $color-persimmon-50;
+    color: $color-persimmon-800;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-persimmon-800};
+    }
+  }
+
+  &--green {
+    background-color: $color-jungle-50;
+    color: $color-jungle-800;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-jungle-800};
+    }
+  }
+
+  &--yellow {
+    background-color: $color-casablanca-50;
+    color: $color-casablanca-700;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-casablanca-700};
+    }
+  }
+
+  &--grey {
+    background-color: $color-smoke-50;
+    color: $color-smoke-700;
+
+    ::slotted(fw-icon) {
+      --icon-color: #{$color-smoke-700};
+    }
+  }
+}

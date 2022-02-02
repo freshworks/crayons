@@ -1,7 +1,7 @@
 /**
  * @prop --skeleton-height: Skeleton height: Default: 16px for the text and rect, 32px for the circle
  * @prop --skeleton-width: Skeleton width: Default: 100% for the text and rect, 32px for the circle
- * @prop --skeleton-margin-bottom: Skeleton margin-bottom: Default: 8px
+ * @prop --skeleton-margin-bottom: Skeleton margin-bottom: Default: 8px/0px(when count is 1)
  * @prop --skeleton-border-radius: Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect
  * @prop --skeleton-background: Skeleton background: Default: #cfd7df
  * @prop --sheen-color: Skeleton Sheen effect color: Default: #b1bdc8
@@ -34,6 +34,10 @@
 
   &.rect {
     border-radius: var(--skeleton-border-radius, 0px);
+  }
+
+  &.only {
+    margin-bottom: var(--skeleton-margin-bottom, 0px);
   }
 
   // stylelint-disable a11y/media-prefers-reduced-motion

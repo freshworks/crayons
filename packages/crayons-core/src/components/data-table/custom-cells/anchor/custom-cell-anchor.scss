@@ -1,0 +1,10 @@
+@import '../../../../../../../styles/mixins/typography';
+
+.anchor {
+  @include anchor;
+  display: inline-block;
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

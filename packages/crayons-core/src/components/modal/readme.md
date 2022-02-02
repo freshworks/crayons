@@ -296,6 +296,61 @@ function App() {
 </code-block>
 </code-group>
 
+#### Using modal methods 
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-modal id='modal-slider' slider='true'>
+    <fw-modal-title>
+      <span>Header text</span>
+    </fw-modal-title>
+    <fw-modal-content>
+      <div>
+        Context text.
+      </div>
+    </fw-modal-content>
+    <fw-modal-footer>
+      <fw-button>OK</fw-button>
+    </fw-modal-footer>
+  </fw-modal>
+```
+
+```js
+  document.querySelector('fw-modal#modal-slider').open();
+  document.querySelector('fw-modal#modal-slider').close()
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React, { useRef } from "react";
+import ReactDOM from "react-dom";
+import { FwButton, FwModal, FwModalTitle, FwModalContent, FwModalFooter } from "@freshworks/crayons/react";
+function App() {
+
+  const modal = useRef(null);
+  return (<div>
+      <FwButton onClick={() => modal.current.open() }>Open Modal using methods</FwButton>
+      <FwModal id='modal-slider' slider ref={modal}>
+        <FwModalTitle>
+          <span>Header text</span>
+        </FwModalTitle>
+        <FwModalContent>
+          <div>
+            Context text.
+          </div>
+        </FwModalContent>
+        <FwModalFooter>
+          <FwButton>OK</FwButton>
+        </FwModalFooter>
+      </FwModal>
+ </div>);
+}
+```
+</code-block>
+</code-group>
+
 <!-- Auto Generated Below -->
 
 
@@ -364,6 +419,9 @@ graph TD;
   fw-modal --> fw-modal-title
   fw-modal --> fw-modal-content
   fw-modal --> fw-modal-footer
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-modal-title --> fw-icon
   fw-modal-footer --> fw-button
   fw-button --> fw-spinner

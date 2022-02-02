@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
+import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-input',
@@ -34,7 +35,7 @@ export class Input {
   /**
    * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
    */
-  @Prop() type: 'text' | 'number' = 'text';
+  @Prop() type: 'text' | 'number' | 'email' | 'url' = 'text';
   /**
    * Specifies whether the browser can display suggestions to autocomplete the text value.
    */
@@ -51,6 +52,21 @@ export class Input {
    * Minimum number of characters a user must enter in the text box for the value to be valid.
    */
   @Prop() minlength?: number;
+  /**
+   * Specifies a maximum value that can be entered for the number/decimal input.
+   */
+  @Prop() max?: number;
+  /**
+   * Specifies a minimum value that can be entered for the number/decimal input.
+   */
+  @Prop() min?: number;
+  /**
+   * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element.
+   * Works with the min and max attributes to limit the increments at which a value can be set.
+   * Possible values are `any` or a positive floating point number.
+   * Default value is `any`
+   */
+  @Prop() step = 'any';
   /**
    * Name of the component, saved as part of form data.
    */
@@ -91,6 +107,11 @@ export class Input {
   @Prop() iconRight: string = undefined;
 
   /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
    * Triggered when the value in the input box is modified.
    */
   @Event() fwChange: EventEmitter;
@@ -103,7 +124,7 @@ export class Input {
   /**
    * Triggered when the input box loses focus.
    */
-  @Event() fwBlur: EventEmitter<void>;
+  @Event() fwBlur: EventEmitter;
 
   /**
    * Triggered when a value is entered in the input box.
@@ -122,11 +143,27 @@ export class Input {
 
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
-    if (input) {
+    // handle number and decimal input type
+    if (this.type === 'number') {
+      this.value = this.handleMinAndMaxCheck(input.value);
+    } else {
       this.value = input.value || '';
     }
+    if (this.nativeInput) {
+      this.nativeInput.value = this.value;
+    }
     this.fwInput.emit(ev as KeyboardEvent);
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleInput`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
+  private handleMinAndMaxCheck(value) {
+    const { min = -Infinity, max = Infinity } = this;
+    value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+    return value;
+  }
 
   private onFocus = () => {
     this.hasFocus = true;
@@ -135,7 +172,12 @@ export class Input {
 
   private onBlur = () => {
     this.hasFocus = false;
-    this.fwBlur.emit();
+    this.fwBlur.emit({ value: this.getValue() });
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.nativeInput.value,
+      });
   };
 
   private showClearButton() {
@@ -207,23 +249,32 @@ export class Input {
               [this.state]: true,
               'left-icon': this.iconLeft !== undefined,
               'right-icon': this.iconRight !== undefined,
+              'has-value': this.showClearButton(),
             }}
           >
             <input
-              ref={(input) => (this.nativeInput = input)}
+              ref={(input) => {
+                this.nativeInput = input;
+              }}
+              id={this.name}
               autoComplete={this.autocomplete}
               disabled={this.disabled}
               name={this.name}
               placeholder={this.placeholder || ''}
               minLength={this.minlength}
               maxLength={this.maxlength}
+              min={this.min}
+              max={this.max}
               readOnly={this.readonly}
               required={this.required}
+              step={this.step}
               type={this.type}
               value={this.value}
-              onInput={(e) => this.onInput(e)}
+              onInput={this.onInput}
               onBlur={this.onBlur}
               onFocus={this.onFocus}
+              aria-invalid={this.state === 'error'}
+              aria-describedby={`hint-${this.name} error-${this.name}`}
             />
             {this.iconLeft !== undefined ? (
               <fw-icon class='icon left' name={this.iconLeft}></fw-icon>
@@ -243,22 +294,20 @@ export class Input {
                 onClick={(e) => this.clearTextInput(e)}
                 onKeyDown={handleKeyDown(this.clearTextInput)}
               >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='32'
-                  height='32'
-                  viewBox='0 0 32 32'
-                  class='clear-button-img'
-                >
-                  <path d='M17.992 16l8.796-8.796a1.409 1.409 0 0 0-1.992-1.992L16 14.008 7.204 5.212a1.409 1.409 0 0 0-1.992 1.992L14.008 16l-8.796 8.796a1.409 1.409 0 0 0 1.992 1.992L16 17.992l8.796 8.796a1.409 1.409 0 0 0 1.992-1.992L17.992 16z'></path>
-                </svg>
+                <fw-icon
+                  class='clear-img'
+                  name='cross'
+                  library='system'
+                ></fw-icon>
               </div>
             ) : (
               ''
             )}
           </div>
           {this.stateText !== '' ? (
-            <span class='help-block'>{this.stateText}</span>
+            <span class='help-block' id={`hint-${this.name}`}>
+              {this.stateText}
+            </span>
           ) : (
             ''
           )}

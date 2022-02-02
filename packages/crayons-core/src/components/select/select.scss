@@ -1,6 +1,7 @@
 /**
-  @prop --min-height: Minimum height of the select component
-  @prop --max-height: Maximum height of the select component
+  @prop --select-border: Border of the select component
+  @prop --select-border-radius: Border radius of the select component
+  @prop --select-margin-bottom: Bottom margin of the select component
 */
 
 $label-font: $font-stack;
@@ -13,11 +14,6 @@ $input-hover-color: $color-smoke-700;
 $input-focus-color: $color-azure-800;
 $input-border: $color-smoke-100;
 $warning-color: $color-casablanca-300;
-
-:host {
-  --min-height: 10px;
-  --max-height: 200px;
-}
 
 @mixin stateStyle($_color) {
   border-color: $_color;
@@ -52,59 +48,60 @@ label {
   }
 }
 
-// Input Container Style
-.input-container-inner {
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-  position: relative;
+.input-container {
+  width: calc(100% - 10px);
+  border: var(--select-border, 1px solid $input-border);
+  border-radius: var(--select-border-radius, 4px);
+  padding: 4px 0 4px 10px;
+  background-color: $input-bg;
+  box-shadow: none;
+  min-height: 22px;
+  display: inline-flex;
   align-items: center;
 
-  input {
+  .input-container-inner {
+    display: flex;
     flex-grow: 1;
-    border: none;
-    margin-top: 3px;
-    font-size: $font-size-12;
-    font-weight: $font-weight-500;
-    letter-spacing: 0;
-    line-height: 1.4;
-    background-color: $input-bg;
-    min-width: 20px;
-    box-sizing: border-box;
-    overflow: hidden;
+    flex-wrap: wrap;
 
-    &:focus {
+    fw-tag {
+      margin-right: 4px;
+    }
+
+    input {
+      flex-grow: 1;
       border: none;
-      outline: none;
-    }
+      font-size: $font-size-14;
+      font-weight: $font-weight-500;
+      letter-spacing: 0;
+      line-height: 1.4;
+      background-color: $input-bg;
+      min-width: 20px;
+      min-height: 22px;
+      box-sizing: border-box;
+      overflow: hidden;
+      padding: 0px;
 
-    &.multi-select {
-      width: auto;
-    }
+      &:focus {
+        border: none;
+        outline: none;
+      }
 
-    &:disabled {
-      background-color: $input-disabled-bg !important;
-      border-color: transparent;
-      cursor: not-allowed;
+      &.multi-select {
+        width: auto;
+      }
+
+      &:disabled {
+        background-color: $input-disabled-bg !important;
+        border-color: transparent;
+        cursor: not-allowed;
+      }
     }
   }
 
   fw-spinner {
     margin-right: 8px;
   }
-}
-
-.input-container {
-  width: calc(100% - 10px);
-  border: 0;
-  border: 1px solid $input-border;
-  margin: 5px 0 0;
-  border-radius: 4px;
-  padding: 4px 0 4px 10px;
-  background-color: $input-bg;
-  box-shadow: none;
-  min-height: 24px;
-  display: inline-block;
 
   @media (prefers-reduced-motion) {
     &:hover,
@@ -148,8 +145,7 @@ label {
 
     &.error {
       @include stateStyle($error-color);
-
-      box-shadow: 0 0 0 1px $error-color;
+      box-shadow: none;
     }
 
     &.warning {
@@ -161,7 +157,7 @@ label {
 }
 
 .select-container {
-  margin-bottom: 16px;
+  margin-bottom: var(--select-margin-bottom, 0px);
   width: inherit;
   height: inherit;
   position: relative;
@@ -171,19 +167,11 @@ label {
   }
 
   .dropdown-status-icon {
-    position: absolute;
-    display: inline-block;
-    right: 12px;
-    content: '';
-    top: 45%;
-    width: 5px;
-    height: 5px;
-    background-color: transparent;
-    border-style: inherit;
-    border-top: 1px solid #12344d;
-    border-right: 1px solid #12344d;
-    border-left: transparent;
-    transform: rotate(135deg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    min-height: 20px;
     transition: all 0.15s;
   }
 
@@ -199,7 +187,7 @@ label {
   }
 
   .dropdown-status-icon.expanded {
-    transform: rotate(315deg);
+    transform: rotate(180deg);
   }
 }
 

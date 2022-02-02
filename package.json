@@ -1,7 +1,7 @@
 {
   "name": "crayons",
-  "version": "3.0.0-beta.7",
   "description": "Crayons for Developer Platform",
+  "version": "3.0.0-beta.8",
   "main": "index.js",
   "engines": {
     "node": ">=14.7.0",

@@ -8,10 +8,11 @@ import {
   Watch,
   h,
   Listen,
+  Method,
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
-
+import EventStore from '../../utils/event-store';
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
@@ -44,6 +45,21 @@ export class Checkbox {
    * Identifier corresponding to the component, that is saved when the form data is saved.
    */
   @Prop() value = '';
+  /**
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+
+  /**
+   * id for the form using this component. This prop is set from the `fw-form`
+   */
+  @Prop() formId = '';
+
+  /**
+   * Theme based on which the checkbox is styled.
+   */
+  @Prop() state: 'normal' | 'error' = 'normal';
+  /**
 
   /**
    * Triggered when the check box’s value is modified.
@@ -69,13 +85,15 @@ export class Checkbox {
 
   @Watch('checked')
   checkChanged(isChecked: boolean) {
-    if (!this.disabled) {
-      this.fwChange.emit({
-        value: this.value,
-        checked: isChecked,
-      });
-    }
     this.checkbox.checked = isChecked;
+  }
+
+  /**
+   * Sets focus on a `fw-checkbox`.
+   */
+  @Method()
+  async setFocus() {
+    this.host?.focus();
   }
 
   @Watch('disabled')
@@ -97,19 +115,33 @@ export class Checkbox {
     }
   }
 
-  private onFocus() {
+  private onFocus = () => {
     this.fwFocus.emit();
-  }
+  };
 
-  private onBlur() {
+  private onBlur = () => {
     this.fwBlur.emit();
-  }
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleBlur`, {
+        field: this.name,
+        value: this.checkbox.checked,
+      });
+  };
 
-  private toggle() {
+  private toggle = () => {
     if (!this.disabled) {
       this.checked = !this.checked;
+      this.fwChange.emit({
+        value: this.value,
+        checked: this.checked,
+      });
     }
-  }
+    this.formId &&
+      EventStore.publish(`${this.formId}::handleChange`, {
+        field: this.name,
+        value: this.checkbox.checked,
+      });
+  };
 
   render() {
     const { host, name, value } = this;
@@ -120,20 +152,33 @@ export class Checkbox {
 
     return (
       <Host
-        onClick={() => this.toggle()}
         role='checkbox'
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         aria-labelledby='label'
-        aria-describedby={this.description}
-        onFocus={() => this.onFocus()}
-        onBlur={() => this.onBlur()}
+        aria-describedby={`description hint-${this.name} error-${this.name}`}
+        onClick={this.toggle}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        aria-invalid={this.state === 'error'}
       >
         <div class='checkbox-container'>
-          <input type='checkbox' ref={(el) => (this.checkbox = el)}></input>
-          <label>
-            <span id='label'>
+          <input
+            type='checkbox'
+            ref={(el) => (this.checkbox = el)}
+            required={this.required}
+            name={this.name}
+            id={this.name}
+          ></input>
+          <label class={{ error: this.state === 'error' }}>
+            <span
+              id='label'
+              class={{
+                'with-description': this.description !== '',
+                'required': this.required,
+              }}
+            >
               <slot />
             </span>
             {this.description !== '' || this.label !== '' ? (

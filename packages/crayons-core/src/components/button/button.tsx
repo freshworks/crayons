@@ -7,6 +7,7 @@ import {
   Prop,
   State,
   h,
+  Method,
 } from '@stencil/core';
 import { throttle, hasSlot } from '../../utils';
 
@@ -19,6 +20,7 @@ export class Button {
   @Element() host: HTMLElement;
 
   private handleClickWithThrottle;
+  private button: HTMLButtonElement;
 
   /**
    *  Button type based on which actions are performed when the button is clicked.
@@ -34,7 +36,7 @@ export class Button {
   /**
    * Size of the button.
    */
-  @Prop() size: 'normal' | 'small' | 'icon' = 'normal';
+  @Prop() size: 'normal' | 'small' | 'icon' | 'icon-small' = 'normal';
 
   /**
    * Disables the button on the interface. Default value is false.
@@ -79,6 +81,11 @@ export class Button {
   @State() private hasLabel = false;
   @State() private hasBeforeLabel = false;
   @State() private hasAfterLabel = false;
+
+  @Method()
+  async setFocus(): Promise<any> {
+    this.button.focus();
+  }
 
   private onFocus() {
     this.fwFocus.emit();
@@ -162,6 +169,7 @@ export class Button {
           }
           onFocus={() => this.onFocus()}
           onBlur={() => this.onBlur()}
+          ref={(button) => (this.button = button)}
           aria-disabled={this.disabled}
           disabled={this.disabled}
         >
@@ -181,7 +189,11 @@ export class Button {
             ></slot>
           </span>
           {this.loading ? <fw-spinner class='fw-btn--loader'></fw-spinner> : ''}
-          {this.showCaretIcon ? <fw-icon name='chevron-down' /> : ''}
+          {this.showCaretIcon ? (
+            <fw-icon name='chevron-down' library='system' />
+          ) : (
+            ''
+          )}
         </button>
       </Host>
     );

@@ -109,6 +109,7 @@ function App() {
 | ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
 | `cols`        | `cols`        | Width of the input box, specified as number of columns.                                                                                                                                                                                                           | `number`                           | `undefined` |
 | `disabled`    | `disabled`    | Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                        | `boolean`                          | `false`     |
+| `formId`      | `form-id`     | id for the form using this component. This prop is set from the `fw-form`                                                                                                                                                                                         | `string`                           | `''`        |
 | `label`       | `label`       | Label displayed on the interface, for the component.                                                                                                                                                                                                              | `string`                           | `''`        |
 | `maxlength`   | `maxlength`   | Maximum number of characters a user can enter in the input box.                                                                                                                                                                                                   | `number`                           | `undefined` |
 | `minlength`   | `minlength`   | Minimum number of characters a user must enter in the input box for the value to be valid.                                                                                                                                                                        | `number`                           | `undefined` |
@@ -127,7 +128,7 @@ function App() {
 
 | Event      | Description                                            | Type                         |
 | ---------- | ------------------------------------------------------ | ---------------------------- |
-| `fwBlur`   | Triggered when the input box loses focus.              | `CustomEvent<void>`          |
+| `fwBlur`   | Triggered when the input box loses focus.              | `CustomEvent<any>`           |
 | `fwChange` | Triggered when the value in the input box is modified. | `CustomEvent<any>`           |
 | `fwFocus`  | Triggered when the input box comes into focus.         | `CustomEvent<void>`          |
 | `fwInput`  | Triggered when a value is entered in the input box.    | `CustomEvent<KeyboardEvent>` |
@@ -148,10 +149,24 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name            | Description                 |
-| --------------- | --------------------------- |
-| `--input-color` | Color of the textarea input |
+| Name                       | Description                    |
+| -------------------------- | ------------------------------ |
+| `--input-color`            | Color of the textarea input    |
+| `--textarea-margin-bottom` | Bottom margin for the textarea |
 
+
+## Dependencies
+
+### Used by
+
+ - [fw-form-control](../form-control)
+
+### Graph
+```mermaid
+graph TD;
+  fw-form-control --> fw-textarea
+  style fw-textarea fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

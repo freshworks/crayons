@@ -100,6 +100,7 @@ function App() {
 
 | Property        | Attribute        | Description                                                                                                                                                                                                                               | Type                               | Default      |
 | --------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------ |
+| `allowDeselect` | `allow-deselect` | Whether clicking on the already selected option disables it.                                                                                                                                                                              | `boolean`                          | `true`       |
 | `checkbox`      | `checkbox`       | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                          | `false`      |
 | `disabled`      | `disabled`       | Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.                                                                               | `boolean`                          | `false`      |
 | `graphicsProps` | `graphics-props` | The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'                                                                                                                                                      | `any`                              | `undefined`  |
@@ -110,7 +111,7 @@ function App() {
 | `selected`      | `selected`       | Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.                                                  | `boolean`                          | `false`      |
 | `subText`       | `sub-text`       | Second line text can be description etc.                                                                                                                                                                                                  | `string`                           | `undefined`  |
 | `text`          | `text`           | The text to be displayed in the option.                                                                                                                                                                                                   | `string`                           | `undefined`  |
-| `value`         | `value`          | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                                                                            | `string`                           | `undefined`  |
+| `value`         | `value`          | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                                                                            | `number \| string`                 | `undefined`  |
 | `variant`       | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"` | `'standard'` |
 
 
@@ -156,6 +157,9 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-datepicker --> fw-select-option
   fw-list-options --> fw-select-option
   fw-timepicker --> fw-select-option

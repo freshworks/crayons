@@ -1,0 +1,67 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Accordion
+
+<Meta
+  title='Accordion'
+  component='fw-accordion'
+/>
+
+## Props 
+
+<Props of="fw-accordion"/>
+
+## Usage
+
+### Default
+<Preview>
+  <Story name='Default'>
+    {
+      () => `<fw-accordion expanded="true">
+              <fw-accordion-title>Header Text</fw-accordion-title>
+              <fw-accordion-body>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+              </fw-accordion-body>
+            </fw-accordion>`
+    }
+  </Story>
+</Preview>
+
+### Accordion with custom icons
+<Preview>
+  <Story name='Accordion with custom icons'>
+    {
+      () => `<fw-accordion expanded="true">
+              <fw-accordion-title>
+                <fw-icon
+                  name='minus'
+                  size="14"
+                  slot="expanded-icon" ></fw-icon>
+                <fw-icon
+                  name='plus'
+                  size="14"
+                  slot="collapsed-icon" ></fw-icon>
+                Header Text
+              </fw-accordion-title>
+              <fw-accordion-body>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+              </fw-accordion-body>
+            </fw-accordion>`
+    }
+  </Story>
+</Preview>
+
+### No Bounding Box Accordion (Borders at top and bottom only)
+<Preview>
+  <Story name='No Bounding Box Accordion'>
+    {
+      () => `<fw-accordion type="no_bounding_box">
+              <fw-accordion-title>Header Text</fw-accordion-title>
+              <fw-accordion-body>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+              </fw-accordion-body>
+            </fw-accordion>`
+    }
+  </Story>
+</Preview>
+

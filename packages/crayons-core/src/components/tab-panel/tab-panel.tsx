@@ -12,7 +12,7 @@ export class Panel {
   /**
    * The panel name.
    */
-  @Prop() name = '';
+  @Prop({ reflect: true }) name = '';
 
   /**
    * If true sets the panel display to block, none otherwise.

@@ -1,0 +1,32 @@
+.name-box-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .name-box {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0 12px;
+
+    .name-box-text {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      width: 250px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .name-box-email {
+      font-size: 12px;
+      color: #475867;
+      line-height: 18px;
+      width: 250px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
