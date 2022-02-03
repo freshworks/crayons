@@ -232,7 +232,7 @@ export class Input {
         }}
       >
         <div class='input-container'>
-          {this.label !== '' ? (
+          {this.label !== '' && (
             <label
               class={{
                 required: this.required,
@@ -240,8 +240,6 @@ export class Input {
             >
               {this.label}
             </label>
-          ) : (
-            ''
           )}
           <div
             class={{
@@ -276,17 +274,13 @@ export class Input {
               aria-invalid={this.state === 'error'}
               aria-describedby={`hint-${this.name} error-${this.name}`}
             />
-            {this.iconLeft !== undefined ? (
+            {this.iconLeft !== undefined && (
               <fw-icon class='icon left' name={this.iconLeft}></fw-icon>
-            ) : (
-              ''
             )}
-            {this.iconRight !== undefined ? (
+            {this.iconRight !== undefined && (
               <fw-icon class='icon right' name={this.iconRight}></fw-icon>
-            ) : (
-              ''
             )}
-            {this.showClearButton() ? (
+            {this.showClearButton() && (
               <div
                 class='clear-button'
                 role='button'
@@ -301,16 +295,12 @@ export class Input {
                   library='system'
                 ></fw-icon>
               </div>
-            ) : (
-              ''
             )}
           </div>
-          {this.stateText !== '' ? (
+          {this.stateText !== '' && (
             <span class='help-block' id={`hint-${this.name}`}>
               {this.stateText}
             </span>
-          ) : (
-            ''
           )}
         </div>
       </Host>
