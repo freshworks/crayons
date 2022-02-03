@@ -290,6 +290,17 @@ export const serializeForm = (
         month = ('0' + month).slice(-2);
 
         return { ...acc, [key]: `${year}-${month}-${dt}` };
+      case 'RELATIONSHIP':
+        if (Array.isArray(val) && typeof val[0] === 'object') {
+          if (val.length > 1) {
+            // multiselect
+            return { ...acc, [key]: val?.map((v) => v.value) };
+          }
+          return { ...acc, [key]: val?.map((v) => v.value)[0] };
+        }
+
+        return { ...acc, [key]: val };
+
       default:
         return { ...acc, [key]: val };
     }
