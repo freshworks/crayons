@@ -27,7 +27,8 @@ export class FormControl {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME' = 'TEXT';
+    | 'TIME'
+    | 'RELATIONSHIP' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
   @Prop()
@@ -212,8 +213,6 @@ export class FormControl {
       case 'DROPDOWN':
       case 'MULTI_SELECT':
         {
-          const isRelationshipField = !!this.fieldProps?.search;
-
           const controlProps = this.controlProps?.selectProps(
             this.name,
             this.type?.toLowerCase()
@@ -229,33 +228,54 @@ export class FormControl {
             state: this.touched && this.error && 'error',
             multiple: this.type === 'MULTI_SELECT',
           };
-          if (!isRelationshipField) {
-            componentProps = {
-              ...componentProps,
-              ...controlProps,
-              options: this.choices,
-            };
-          } else {
-            if (
-              Array.isArray(controlProps.value) &&
-              typeof controlProps.value[0] === 'object' &&
-              typeof controlProps.value === 'object'
-              // handle multi_select [{}] and single select {} initialValues
-            ) {
-              componentProps.selectedOptions =
-                this.type === 'MULTI_SELECT'
-                  ? controlProps.value
-                  : [controlProps.value];
-            }
 
-            if (componentProps.selectedOptions?.length > 0)
-              this.crayonsControlRef?.setSelectedOptions(
-                componentProps.selectedOptions
-              );
-            componentProps.noDataText = 'Start Typing...';
+          componentProps = {
+            ...componentProps,
+            ...controlProps,
+            options: this.choices,
+          };
 
-            componentProps['form-id'] = controlProps['form-id'];
+          cmp = (
+            <fw-select
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-select>
+          );
+        }
+        break;
+
+      case 'RELATIONSHIP':
+        {
+          const controlProps = this.controlProps?.selectProps(
+            this.name,
+            this.type?.toLowerCase()
+          );
+
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            placeholder: this.placeholder,
+            label: '',
+            required: this.required,
+            hint: '',
+            state: this.touched && this.error && 'error',
+          };
+
+          if (
+            Array.isArray(controlProps.value) &&
+            typeof controlProps.value[0] === 'object'
+            // handle multi_select, select [{}] initialValues
+          ) {
+            componentProps.selectedOptions = controlProps.value;
           }
+
+          if (componentProps.selectedOptions?.length > 0)
+            this.crayonsControlRef?.setSelectedOptions(
+              componentProps.selectedOptions
+            );
+          componentProps.noDataText = 'Start Typing...';
+
+          componentProps['form-id'] = controlProps['form-id'];
 
           cmp = (
             <fw-select

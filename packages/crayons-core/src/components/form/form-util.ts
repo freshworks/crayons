@@ -177,6 +177,7 @@ function createYupSchema(schema: any, config: any) {
       yupType = 'string';
       break;
     case 'MULTI_SELECT':
+    case 'RELATIONSHIP':
       yupType = 'array';
       break;
     case 'NUMBER':
@@ -209,8 +210,24 @@ function createYupSchema(schema: any, config: any) {
   if (type === 'CHECKBOX' && required)
     validator = validator['oneOf']([true], `${label || name} is required`);
 
-  if ((type === 'DROPDOWN' || type === 'MULTI_SELECT') && required)
+  if (
+    (type === 'DROPDOWN' ||
+      type === 'MULTI_SELECT' ||
+      type === 'RELATIONSHIP') &&
+    required
+  )
     validator = validator.min(1, `${label || name} is required`);
+
+  if (type === 'RELATIONSHIP')
+    validator = validator.transform((_value, originalVal) => {
+      return Array.isArray(originalVal)
+        ? originalVal
+        : originalVal !== '' &&
+          originalVal !== null &&
+          originalVal !== undefined
+        ? [originalVal]
+        : [];
+    });
 
   schema[name] = validator;
   return schema;

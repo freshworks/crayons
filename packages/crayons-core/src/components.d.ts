@@ -397,7 +397,8 @@ export namespace Components {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME';
+    | 'TIME'
+    | 'RELATIONSHIP';
     }
     interface FwFormatDate {
         /**
@@ -2443,7 +2444,8 @@ declare namespace LocalJSX {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
-    | 'TIME';
+    | 'TIME'
+    | 'RELATIONSHIP';
     }
     interface FwFormatDate {
         /**
