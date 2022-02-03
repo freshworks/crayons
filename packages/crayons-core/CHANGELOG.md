@@ -3,22 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.11...@freshworks/crayons@3.0.0-beta.12) (2022-02-03)
-
+## [3.0.0-beta.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.11...@freshworks/crayons@3.0.0-beta.12) (2022-02-03)
 
 ### Bug Fixes
 
-* **accordion:** added pointed cursor to accordion title ([#392](https://github.com/freshworks/crayons/issues/392)) ([d1e792c](https://github.com/freshworks/crayons/commit/d1e792caaf6f44d4ec4247e312c955f37a73a701))
-* **fw-form:** handle relationship type in form render ([#394](https://github.com/freshworks/crayons/issues/394)) ([f3b3f52](https://github.com/freshworks/crayons/commit/f3b3f5277aa1bad6de8ac8aa850ec33a0043b665))
-
+- **accordion:** added pointed cursor to accordion title ([#392](https://github.com/freshworks/crayons/issues/392)) ([d1e792c](https://github.com/freshworks/crayons/commit/d1e792caaf6f44d4ec4247e312c955f37a73a701))
+- **fw-form:** handle relationship type in form render ([#394](https://github.com/freshworks/crayons/issues/394)) ([f3b3f52](https://github.com/freshworks/crayons/commit/f3b3f5277aa1bad6de8ac8aa850ec33a0043b665))
 
 ### Features
 
-* **format-date:** format date using Intl.DateTimeFormat API ([#391](https://github.com/freshworks/crayons/issues/391)) ([4d5da20](https://github.com/freshworks/crayons/commit/4d5da20afb3a271aa19afdbffc1ca76f3ab1394a))
-
-
-
-
+- **format-date:** format date using Intl.DateTimeFormat API ([#391](https://github.com/freshworks/crayons/issues/391)) ([4d5da20](https://github.com/freshworks/crayons/commit/4d5da20afb3a271aa19afdbffc1ca76f3ab1394a))
 
 ## [3.0.0-beta.11](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.10...@freshworks/crayons@3.0.0-beta.11) (2022-01-28)
 
