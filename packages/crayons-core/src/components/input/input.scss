@@ -152,11 +152,12 @@ label {
   //Help Block
   & + .help-block {
     font-family: $label-font;
-    font-size: 11px;
-    margin-top: 3px;
+    font-size: 12px;
+    line-height: 20px;
+    margin-top: 4px;
+    margin-bottom: 0;
     color: $help-color;
     position: inherit;
-    margin-bottom: 0;
     display: block;
     padding-left: 2px;
     -webkit-font-smoothing: antialiased;
