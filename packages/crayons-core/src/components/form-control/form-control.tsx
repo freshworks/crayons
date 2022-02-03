@@ -213,41 +213,44 @@ export class FormControl {
       case 'DROPDOWN':
       case 'MULTI_SELECT':
         {
-          const componentProps = {
+          const controlProps = this.controlProps?.selectProps(
+            this.name,
+            this.type?.toLowerCase()
+          );
+
+          let componentProps = {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
             label: '',
             required: this.required,
             hint: '',
-            ...this.controlProps?.selectProps(
-              this.name,
-              this.type?.toLowerCase()
-            ),
             state: this.touched && this.error && 'error',
+            multiple: this.type === 'MULTI_SELECT',
           };
+
+          componentProps = {
+            ...componentProps,
+            ...controlProps,
+            options: this.choices,
+          };
+
           cmp = (
             <fw-select
               {...componentProps}
-              options={this.choices}
-              /*
-                this.choices?.map((f) => ({
-                  ...f,
-                  text: f.value,
-                }))
-              */
-              multiple={this.type === 'MULTI_SELECT'}
               ref={(el) => (this.crayonsControlRef = el)}
             ></fw-select>
           );
         }
         break;
+
       case 'RELATIONSHIP':
         {
           const controlProps = this.controlProps?.selectProps(
             this.name,
             this.type?.toLowerCase()
           );
+
           const componentProps = {
             ...this.fieldProps,
             name: this.name,
@@ -256,27 +259,33 @@ export class FormControl {
             required: this.required,
             hint: '',
             state: this.touched && this.error && 'error',
-            search: this.fieldProps.search,
           };
 
-          if (typeof controlProps.value === 'object') {
-            componentProps.selectedOptions = [controlProps.value];
+          if (
+            Array.isArray(controlProps.value) &&
+            typeof controlProps.value[0] === 'object'
+            // handle multi_select, select [{}] initialValues
+          ) {
+            componentProps.selectedOptions = controlProps.value;
           }
 
           if (componentProps.selectedOptions?.length > 0)
             this.crayonsControlRef?.setSelectedOptions(
               componentProps.selectedOptions
             );
+          componentProps.noDataText = 'Start Typing...';
+
+          componentProps['form-id'] = controlProps['form-id'];
 
           cmp = (
             <fw-select
               {...componentProps}
-              form-id={controlProps['form-id']}
               ref={(el) => (this.crayonsControlRef = el)}
             ></fw-select>
           );
         }
         break;
+
       case 'TIME':
         {
           const componentProps = {
