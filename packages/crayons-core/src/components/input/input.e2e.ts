@@ -150,7 +150,7 @@ describe('fw-input', () => {
     const element = await page.find('fw-input');
 
     await element.click();
-    await element.press('5');
+    element.setProperty('value', 5);
 
     await page.waitForChanges();
 
