@@ -297,6 +297,7 @@ export class Input {
                 <fw-icon
                   class='clear-img'
                   name='cross'
+                  size={8}
                   library='system'
                 ></fw-icon>
               </div>

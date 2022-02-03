@@ -1,8 +1,3 @@
-/**
-  @prop --input-container-margin-bottom: Bottom margin for the input container
-  @prop --input-margin-bottom: Bottom margin for the input
-  @prop --input-margin-top: Top margin for the input
-**/
 $label-font: $font-stack-sans !default;
 $placeholder-color: $muted-secondary;
 $help-color: $muted-secondary;
@@ -42,7 +37,6 @@ $input-color: $app-primary-black;
 }
 
 .input-container {
-  margin-bottom: var(--input-container-margin-bottom, 0px);
   width: inherit;
   height: inherit;
 }
@@ -52,9 +46,9 @@ label {
   font-size: 12px;
   color: $label-default;
   font-weight: $font-weight-600;
-  margin-bottom: 0;
-  padding-bottom: 4px;
+  margin-bottom: 4px;
   padding-left: 2px;
+  line-height: 20px;
   display: block;
 
   &.required::after {
@@ -71,7 +65,8 @@ label {
 
 // Input Container Style
 .input-container-inner {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   position: relative;
 
@@ -80,15 +75,13 @@ label {
     border: 0;
     border: 1px solid $input-border;
     margin: 0 0;
-    margin-top: var(--input-margin-top, 5px);
-    margin-bottom: var(--input-margin-bottom, 0px);
     border-radius: 4px;
-    padding: 4px 12px 5px;
+    padding: 6px 12px;
     resize: none;
     background-color: $app-light-bg;
     box-shadow: none;
     min-height: 24px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: $font-weight-semibold;
     letter-spacing: 0;
     line-height: 20px;
@@ -118,6 +111,7 @@ label {
     }
 
     &[disabled] {
+      font-weight: $font-weight-default;
       color: $disabled-color;
       background-color: $input-disabled-bg;
       border-style: solid;
@@ -132,7 +126,6 @@ label {
 
   // Clear button
   .clear-button {
-    top: 12px;
     position: absolute;
     right: 8px;
     display: flex;
@@ -181,23 +174,26 @@ label {
 
 ::-webkit-input-placeholder {
   color: $muted-secondary;
+  font-weight: $font-weight-default;
 }
 
 ::-moz-placeholder {
   color: $muted-secondary;
+  font-weight: $font-weight-default;
 }
 
 :-ms-input-placeholder {
   color: $muted-secondary;
+  font-weight: $font-weight-default;
 }
 
 :-moz-placeholder {
   color: $muted-secondary;
+  font-weight: $font-weight-default;
 }
 
 .icon {
   position: absolute;
-  top: 12px;
   left: 3px;
   width: 16px;
   height: 16px;
