@@ -147,10 +147,13 @@ describe('fw-input', () => {
       '<fw-input value="1" type="number" max="5"> </fw-input>'
     );
     const fwChange = await page.spyOnEvent('fwChange');
-    const element = await page.find('fw-input');
+    const element = await page.find('fw-input >>> input');
 
-    await element.click();
-    await element.press('7');
+    await element.press('ArrowUp');
+    await element.press('ArrowUp');
+    await element.press('ArrowUp');
+    await element.press('ArrowUp');
+    await element.press('ArrowUp');
 
     await page.waitForChanges();
 
