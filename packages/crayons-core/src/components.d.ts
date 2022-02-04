@@ -202,6 +202,7 @@ export namespace Components {
         "selectAllRows": (checked?: boolean) => Promise<string[]>;
     }
     interface FwDatepicker {
+        "cancelText": string;
         /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
@@ -251,6 +252,7 @@ export namespace Components {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
+        "updateText": string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
@@ -293,6 +295,8 @@ export namespace Components {
         "showDragIcon": boolean;
     }
     interface FwDropdownButton {
+        "addText": string;
+        "cancelText": string;
         /**
           * Dropdown Button color
          */
@@ -2267,6 +2271,7 @@ declare namespace LocalJSX {
         "rows"?: DataTableRow[];
     }
     interface FwDatepicker {
+        "cancelText"?: string;
         /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
          */
@@ -2315,6 +2320,7 @@ declare namespace LocalJSX {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
+        "updateText"?: string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
@@ -2361,6 +2367,8 @@ declare namespace LocalJSX {
         "showDragIcon"?: boolean;
     }
     interface FwDropdownButton {
+        "addText"?: string;
+        "cancelText"?: string;
         /**
           * Dropdown Button color
          */

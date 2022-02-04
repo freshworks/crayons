@@ -87,9 +87,9 @@ export class DropdownButton {
   @Event() fwOptionsAdd: EventEmitter<any>;
 
   @i18n({ defaultValue: 'Add', keyName: 'dropdown.add' })
-  @State()
+  @Prop({ mutable: true })
   addText: string;
-  @State()
+  @Prop({ mutable: true })
   @i18n({ defaultValue: 'Cancel', keyName: 'dropdown.cancel' })
   cancelText: string;
 

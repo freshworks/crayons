@@ -55,10 +55,32 @@ function getBrowserLang(): string {
   return locale || 'en';
 }
 
-function getVal(path: string, obj: any) {
+function getVal(path: string, obj: any = {}) {
+  if (!path) return '';
   return path?.split('.').reduce((r, val) => {
     return r ? r[val] : undefined;
   }, obj);
+}
+
+function interpolate(text: string, values: any) {
+  return Object.entries(values).reduce(
+    (text, [key, value]) =>
+      text.replace(
+        new RegExp(`{{[  ]*${key}[  ]*}}`, `gm`),
+        String(extract(value))
+      ),
+    text
+  );
+}
+function extract(obj: any) {
+  return typeof obj === 'function' ? obj() : obj;
+}
+
+function get(key: string, values: any, obj: any) {
+  const translatedText = getVal(key, obj) || '';
+
+  // Interpolate the values and return the translation
+  return values ? interpolate(translatedText, values) : translatedText;
 }
 
 export class TranslationController {
@@ -253,8 +275,8 @@ export class TranslationController {
     this.state.customTranslations = json;
   }
 
-  t(keyName: string): string {
-    return getVal(keyName.toLowerCase(), this.state.globalStrings);
+  t(keyName = '', values: any): string {
+    return get(keyName.toLowerCase(), values, this.state.globalStrings) || '';
   }
 
   /** Decorator to handle i18n support */
@@ -275,7 +297,7 @@ export class TranslationController {
         let isDefaultValueUsed = true;
         if (!this[propName]) {
           this[propName] =
-            getVal(keyName.toLowerCase(), that.state.globalStrings) ||
+            get(keyName.toLowerCase(), null, that.state.globalStrings) ||
             defaultValue;
           isDefaultValueUsed = false;
         }
@@ -283,7 +305,7 @@ export class TranslationController {
         that.onChange('globalStrings', async () => {
           if (!isDefaultValueUsed) {
             this[propName] =
-              getVal(keyName.toLowerCase(), that.state.globalStrings) ||
+              get(keyName.toLowerCase(), null, that.state.globalStrings) ||
               defaultValue;
           }
         });

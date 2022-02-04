@@ -16,4 +16,10 @@ export default {
     no_items_found: 'Keine Elemente gefunden',
     no_data_available: 'Keine Daten vorhanden',
   },
+  form: {
+    required: '{{field}} is required',
+  },
+  pagination: {
+    content: `{{start}} to {{end}} of {{total}}`,
+  },
 };
