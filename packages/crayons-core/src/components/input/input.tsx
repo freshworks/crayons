@@ -144,12 +144,7 @@ export class Input {
 
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
-    // handle number and decimal input type
-    if (this.type === 'number') {
-      this.value = this.handleMinAndMaxCheck(input.value);
-    } else {
-      this.value = input.value || '';
-    }
+    this.value = input.value || '';
     if (this.nativeInput) {
       this.nativeInput.value = this.value;
     }
@@ -160,11 +155,6 @@ export class Input {
         value: this.nativeInput.value,
       });
   };
-  private handleMinAndMaxCheck(value) {
-    const { min = -Infinity, max = Infinity } = this;
-    value = Math.max(Number(min), Math.min(Number(max), Number(value)));
-    return value;
-  }
 
   private onFocus = () => {
     this.hasFocus = true;

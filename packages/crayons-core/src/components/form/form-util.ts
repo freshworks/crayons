@@ -177,6 +177,7 @@ function createYupSchema(schema: any, config: any) {
       yupType = 'string';
       break;
     case 'MULTI_SELECT':
+    case 'RELATIONSHIP':
       yupType = 'array';
       break;
     case 'NUMBER':
@@ -209,8 +210,24 @@ function createYupSchema(schema: any, config: any) {
   if (type === 'CHECKBOX' && required)
     validator = validator['oneOf']([true], `${label || name} is required`);
 
-  if ((type === 'DROPDOWN' || type === 'MULTI_SELECT') && required)
+  if (
+    (type === 'DROPDOWN' ||
+      type === 'MULTI_SELECT' ||
+      type === 'RELATIONSHIP') &&
+    required
+  )
     validator = validator.min(1, `${label || name} is required`);
+
+  if (type === 'RELATIONSHIP')
+    validator = validator.transform((_value, originalVal) => {
+      return Array.isArray(originalVal)
+        ? originalVal
+        : originalVal !== '' &&
+          originalVal !== null &&
+          originalVal !== undefined
+        ? [originalVal]
+        : [];
+    });
 
   schema[name] = validator;
   return schema;
@@ -273,6 +290,17 @@ export const serializeForm = (
         month = ('0' + month).slice(-2);
 
         return { ...acc, [key]: `${year}-${month}-${dt}` };
+      case 'RELATIONSHIP':
+        if (Array.isArray(val) && typeof val[0] === 'object') {
+          if (val.length > 1) {
+            // multiselect
+            return { ...acc, [key]: val?.map((v) => v.value) };
+          }
+          return { ...acc, [key]: val?.map((v) => v.value)[0] };
+        }
+
+        return { ...acc, [key]: val };
+
       default:
         return { ...acc, [key]: val };
     }
