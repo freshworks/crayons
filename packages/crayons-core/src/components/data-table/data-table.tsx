@@ -1215,7 +1215,7 @@ export class DataTable {
               ev.key === 'Enter' && this.toggleSettings(!this.isSettingsOpen)
             }
           >
-            <fw-icon name='table'></fw-icon>
+            <fw-icon name='settings' library='system' size={16}></fw-icon>
           </button>
           <div
             ref={(el) => (this.settings = el)}
@@ -1318,7 +1318,11 @@ export class DataTable {
                             draggable={true}
                           >
                             <div class='table-settings-drag-item-icon'>
-                              <fw-icon name='drag'></fw-icon>
+                              <fw-icon
+                                library='system'
+                                name='drag'
+                                size={11}
+                              ></fw-icon>
                             </div>
                             <div
                               class='table-settings-drag-item-text'
@@ -1341,7 +1345,11 @@ export class DataTable {
                                 this.settingsToggleColumn(column.key, false)
                               }
                             >
-                              <fw-icon name='cross-big' size={8}></fw-icon>
+                              <fw-icon
+                                library='system'
+                                name='cross-big'
+                                size={7}
+                              ></fw-icon>
                             </button>
                           </div>
                         );
