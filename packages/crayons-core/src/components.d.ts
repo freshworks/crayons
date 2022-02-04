@@ -200,6 +200,15 @@ export namespace Components {
           * @param checked denotes if we want to check or uncheck the rows
          */
         "selectAllRows": (checked?: boolean) => Promise<string[]>;
+        /**
+          * setColumnConfig
+          * @param columnConfig columnConfig object
+         */
+        "setColumnConfig": (columnConfig: any) => Promise<DataTableColumn[]>;
+        /**
+          * showSettings is used to show the settings button on the table.
+         */
+        "showSettings": boolean;
     }
     interface FwDatepicker {
         /**
@@ -2225,10 +2234,6 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * fwColumnsPositionChange Emits this event when columns position changes.
-         */
-        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
-        /**
           * fwSelectAllChange Emits this event when select all is checked.
          */
         "onFwSelectAllChange"?: (event: CustomEvent<any>) => void;
@@ -2244,6 +2249,10 @@ declare namespace LocalJSX {
           * Rows Array of objects to be displayed in the table.
          */
         "rows"?: DataTableRow[];
+        /**
+          * showSettings is used to show the settings button on the table.
+         */
+        "showSettings"?: boolean;
     }
     interface FwDatepicker {
         /**

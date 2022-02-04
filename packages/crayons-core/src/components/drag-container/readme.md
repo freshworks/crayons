@@ -225,6 +225,19 @@ Demo for dragging items from one container to another container
 | `fwDrop` | Triggered when an draggable item is dropped inside the container. | `CustomEvent<void>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [fw-data-table](../data-table)
+
+### Graph
+```mermaid
+graph TD;
+  fw-data-table --> fw-drag-container
+  style fw-drag-container fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

@@ -1290,6 +1290,164 @@ We can format row's data before rendering into a cell by passing 'formatData' in
 </code-block>
 </code-group>
 
+## Table settings
+
+Table settings help with reordering and hide/show of columns. To enable table settings, pass the 'show-settings' prop to the table.
+
+```html live 
+  <fw-data-table id="datatable-8" label="Data table 8" show-settings="true">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "courses",
+        "text": "Courses",
+        "formatData": (courses) => {
+          return courses.join(', ');
+        }
+      }, {
+        "key": "appliedon",
+        "text": "Applied on",
+        "formatData": (ISOString) => {
+          const date = new Date(ISOString);
+          return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "courses": ["HTML", "CSS", "JS"],
+        "appliedon": "2021-10-21T14:48:00.000Z"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "courses": ["Ruby on Rails", "PostgreSQL"],
+        "appliedon": "2022-01-14T16:14:00.000Z"
+      }]
+    }
+
+    var datatable8 = document.getElementById('datatable-8');
+    datatable8.columns = data.columns;
+    datatable8.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-8" label="Data table 8" show-settings="true">
+  </fw-data-table>
+```
+
+```javascript
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name"
+    }, {
+      "key": "courses",
+      "text": "Courses",
+      "formatData": (courses) => {
+        return courses.join(', ');
+      } 
+    }, {
+      "key": "appliedon",
+      "text": "Applied on",
+      "formatData": (ISOString) => {
+        const date = new Date(ISOString);
+        return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+      }
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "courses": ["HTML", "CSS", "JS"],
+      "appliedon": "2021-10-21T14:48:00.000Z"
+    }, {
+      "id": "0002",
+      "name": "Ambrose Wayne",
+      "courses": ["Ruby on Rails", "PostgreSQL"],
+      "appliedon": "2022-01-14T16:14:00.000Z"
+    }]
+  }
+
+  var datatable8 = document.getElementById('datatable-8');
+  datatable8.columns = data.columns;
+  datatable8.rows = data.rows;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "courses",
+        "text": "Courses",
+        "formatData": (courses) => {
+          return courses.join(', ');
+        }
+      }, {
+        "key": "appliedon",
+        "text": "Applied on",
+        "formatData": (ISOString) => {
+          const date = new Date(ISOString);
+          return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "courses": ["HTML", "CSS", "JS"],
+        "appliedon": "2021-10-21T14:48:00.000Z"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "courses": ["Ruby on Rails", "PostgreSQL"],
+        "appliedon": "2022-01-14T16:14:00.000Z"
+      }]
+    }
+
+    return (
+      <FwDataTable columns={data.columns} rows={data.rows} showSettings={true} label="Data Table 8">
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+
+## Saving column configuration
+
+Data table exposes couple of method to get and set column configuration.
+
+``` js{2-3}
+  let dataTable = document.querySelector('data-table#config');
+  // getColumnConfig helps retrive configuration in JSON format
+  let dataTableConfiguration = dataTable.getColumnConfig(); 
+  // setColumnConfig helps set the configuration. 
+  dataTable.setColumnConfig(dataTableConfiguration); 
+```
+
 <!-- Auto Generated Below -->
 
 
@@ -1303,15 +1461,15 @@ We can format row's data before rendering into a cell by passing 'formatData' in
 | `label`           | `label`             | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
 | `rowActions`      | --                  | To enable bulk actions on the table.                                                   | `DataTableAction[]` | `[]`    |
 | `rows`            | --                  | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
+| `showSettings`    | `show-settings`     | showSettings is used to show the settings button on the table.                         | `boolean`           | `false` |
 
 
 ## Events
 
-| Event                     | Description                                                             | Type               |
-| ------------------------- | ----------------------------------------------------------------------- | ------------------ |
-| `fwColumnsPositionChange` | fwColumnsPositionChange Emits this event when columns position changes. | `CustomEvent<any>` |
-| `fwSelectAllChange`       | fwSelectAllChange Emits this event when select all is checked.          | `CustomEvent<any>` |
-| `fwSelectionChange`       | fwSelectionChange Emits this event when row is selected/unselected.     | `CustomEvent<any>` |
+| Event               | Description                                                         | Type               |
+| ------------------- | ------------------------------------------------------------------- | ------------------ |
+| `fwSelectAllChange` | fwSelectAllChange Emits this event when select all is checked.      | `CustomEvent<any>` |
+| `fwSelectionChange` | fwSelectionChange Emits this event when row is selected/unselected. | `CustomEvent<any>` |
 
 
 ## Methods
@@ -1366,6 +1524,16 @@ Type: `Promise<string[]>`
 
 
 
+### `setColumnConfig(columnConfig: any) => Promise<DataTableColumn[]>`
+
+setColumnConfig
+
+#### Returns
+
+Type: `Promise<DataTableColumn[]>`
+
+
+
 
 ## Dependencies
 
@@ -1375,6 +1543,8 @@ Type: `Promise<string[]>`
 - [fw-skeleton](../skeleton)
 - [fw-button](../button)
 - [fw-icon](../icon)
+- [fw-input](../input)
+- [fw-drag-container](../drag-container)
 
 ### Graph
 ```mermaid
@@ -1383,12 +1553,15 @@ graph TD;
   fw-data-table --> fw-skeleton
   fw-data-table --> fw-button
   fw-data-table --> fw-icon
+  fw-data-table --> fw-input
+  fw-data-table --> fw-drag-container
   fw-checkbox --> fw-icon
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
+  fw-input --> fw-icon
   style fw-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
