@@ -18,16 +18,15 @@ $input-color: $app-primary-black;
 }
 
 @mixin stateStyle($_color) {
-  & > input {
-    border-color: $_color;
-  }
+  border-color: $_color;
 
-  & > input:focus {
+  &.has-focus {
     box-shadow: none;
     border-color: $_color;
   }
 
-  & > input:hover {
+  &:hover,
+  &:focus {
     border-color: $_color;
   }
 
@@ -65,69 +64,107 @@ label {
 
 // Input Container Style
 .input-container-inner {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   width: 100%;
+  border: 1px solid $input-border;
   position: relative;
+  border-radius: 4px;
 
-  input {
-    width: 100%;
-    border: 0;
-    border: 1px solid $input-border;
-    margin: 0 0;
-    border-radius: 4px;
-    padding: 6px 12px;
-    resize: none;
-    background-color: $app-light-bg;
-    box-shadow: none;
-    min-height: 24px;
-    font-size: 14px;
-    font-weight: $font-weight-semibold;
-    letter-spacing: 0;
-    line-height: 20px;
-    color: $input-color;
-    box-sizing: border-box;
-    cursor: text;
-    display: inline-block;
-    font-family: inherit;
+  &.error {
+    @include stateStyle($error-color);
+  }
 
-    @media (prefers-reduced-motion) {
-      /* stylelint-disable */
-      &:hover {
-        transition: none;
+  &.warning {
+    @include stateStyle($warning-message-marker);
+  }
+
+  .inner-container {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+
+    .input__label {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+
+      input {
+        width: 100%;
+        padding: 6px 0px;
+        resize: none;
+        border: none;
+        outline: none;
+        background-color: $app-light-bg;
+        box-shadow: none;
+        min-height: 24px;
+        font-size: 14px;
+        font-weight: $font-weight-semibold;
+        letter-spacing: 0;
+        line-height: 20px;
+        color: $input-color;
+        box-sizing: border-box;
+        cursor: text;
+        display: inline-block;
+        font-family: inherit;
+
+        &[disabled] {
+          font-weight: $font-weight-default;
+          color: $disabled-color;
+          background-color: $input-disabled-bg;
+          pointer-events: none;
+        }
       }
     }
-    &:hover {
-      border: 1px $input-hover-color solid;
-      transition: 0.2s linear;
-    }
 
-    &:focus {
-      outline: none;
-      background: $input-bg;
-      background-color: $app-light-bg;
-      border: 1px solid transparent;
-      box-shadow: 0 0 0 2px $input-focus-color;
-    }
+    .input__prefix {
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
+      margin-right: 4px;
 
-    &[disabled] {
-      font-weight: $font-weight-default;
-      color: $disabled-color;
-      background-color: $input-disabled-bg;
-      border-style: solid;
-      pointer-events: none;
-
-      &:hover,
-      &:focus {
-        border: 1px solid $input-border;
+      &.hasContent {
+        margin-right: 8px;
       }
     }
   }
 
+  .input__suffix {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  @media (prefers-reduced-motion) {
+    /* stylelint-disable */
+    &:hover {
+      transition: none;
+    }
+  }
+  &:hover {
+    border: 1px $input-hover-color solid;
+    transition: 0.2s linear;
+  }
+
+  &.has-focus {
+    outline: none;
+    background: $input-bg;
+    background-color: $app-light-bg;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 2px $input-focus-color;
+  }
+
+  &.disabled {
+    font-weight: $font-weight-default;
+    color: $disabled-color;
+    background-color: $input-disabled-bg;
+    border-style: solid;
+    pointer-events: none;
+  }
+
   // Clear button
   .clear-button {
-    position: absolute;
-    right: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,14 +200,6 @@ label {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  &.error {
-    @include stateStyle($error-color);
-  }
-
-  &.warning {
-    @include stateStyle($warning-message-marker);
-  }
 }
 
 ::-webkit-input-placeholder {
@@ -191,44 +220,4 @@ label {
 :-moz-placeholder {
   color: $muted-secondary;
   font-weight: $font-weight-default;
-}
-
-.icon {
-  position: absolute;
-  left: 3px;
-  width: 16px;
-  height: 16px;
-  display: flex;
-  justify-content: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-
-  &.left {
-    left: 8px;
-  }
-
-  &.right {
-    left: auto;
-    right: 8px;
-  }
-}
-
-.left-icon {
-  input {
-    padding-left: 32px;
-  }
-}
-
-.right-icon {
-  input {
-    padding-right: 32px;
-  }
-}
-
-.has-value {
-  input {
-    padding-right: 32px;
-  }
 }

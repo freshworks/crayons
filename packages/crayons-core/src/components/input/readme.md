@@ -1,5 +1,6 @@
 # Input (fw-input)
-fw-input displays a single-line input box on the user interface and enables assigning a value to it. 
+
+fw-input displays a single-line input box on the user interface and enables assigning a value to it.
 
 ## Demo
 
@@ -13,40 +14,48 @@ You can use Input component for handling `Text`, `Number`, `Decimal` user input.
   state="warning"
   placeholder="Enter your official name"
   required
-  clear-input>
+  clear-input
+>
 </fw-input>
 <fw-input
   label="Password"
   state-text="Password is incorrect"
   state="error"
   required
-  clear-input>
+  clear-input
+>
 </fw-input>
 <fw-input
   label="Verification Code"
-placeholder="Enter the verification code sent to the registered email address"
+  placeholder="Enter the verification code sent to the registered email address"
   state="normal"
-  clear-input>
+  clear-input
+>
 </fw-input>
-<fw-input
-  label="Deprecated Field"
-  disabled
-  state="normal"
-  clear-input>
+<fw-input label="Deprecated Field" disabled state="normal" clear-input>
 </fw-input>
 <fw-input
   label="Do Not Modify"
   value="Not applicable"
   readonly
   state="normal"
-  clear-input>
+  clear-input
+>
 </fw-input>
 <fw-input value="123" type="number" label="Number Input"></fw-input>
-<fw-input type="number" min="0" max="10" label="Number Input with min and max"></fw-input>
-<fw-input value="3.001" type="number" step="0.1" max="5"
-label="Decimal Input with step and max"
+<fw-input
+  type="number"
+  min="0"
+  max="10"
+  label="Number Input with min and max"
 ></fw-input>
-
+<fw-input
+  value="3.001"
+  type="number"
+  step="0.1"
+  max="5"
+  label="Decimal Input with step and max"
+></fw-input>
 ```
 
 ## Usage
@@ -149,6 +158,61 @@ function App() {
 </code-block>
 </code-group>
 
+### Slots
+
+Slots can be used to create complex use cases.
+
+```html live
+<template>
+  <div>
+    <fw-input value="Searching..." icon-left="search" clear-input>
+      <fw-spinner slot="input-suffix" size="small"></fw-spinner>
+    </fw-input>
+
+    <fw-input placeholder="DD/MM/YYYY">
+      <div slot="input-suffix" class="calenderContainer">
+        <span class="separator"></span>
+        <fw-icon name="calendar" size="16"></fw-icon>
+      </div>
+    </fw-input>
+    <fw-input placeholder="Type to search">
+      <div slot="input-prefix" class="tagContainer">
+        <fw-tag text="Option 1"></fw-tag>
+        <fw-tag text="Option 2"></fw-tag>
+      </div>
+      <fw-icon slot="input-suffix" name="chevron-down" size="8"></fw-icon>
+    </fw-input>
+  </div>
+</template>
+<style>
+  fw-input {
+    margin: 12px;
+  }
+
+  .calenderContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .separator {
+    background-color: #cfd7df;
+    width: 1px;
+    height: 20px;
+    margin-right: 4px;
+  }
+
+  .tagContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 4px;
+  }
+
+  fw-tag {
+    margin: 0 4px;
+  }
+</style>
+```
 
 <!-- Auto Generated Below -->
 
