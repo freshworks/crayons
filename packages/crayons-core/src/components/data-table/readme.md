@@ -1438,14 +1438,21 @@ Table settings help with reordering and hide/show of columns. To enable table se
 
 ## Saving column configuration
 
+For auto saving configuration into localStorage, you can add 'autoSaveSettings' prop to the table.
+
+```html
+  <data-table id="data-table-10" label="data table 10" auto-save-settings="true"> 
+  </data-table>
+```
+
 Data table exposes couple of method to get and set column configuration.
 
 ``` js{2-3}
   let dataTable = document.querySelector('data-table#config');
   // getColumnConfig helps retrive configuration in JSON format
-  let dataTableConfiguration = dataTable.getColumnConfig(); 
+  let dataTableConfiguration = dataTable.getTableSettings(); 
   // setColumnConfig helps set the configuration. 
-  dataTable.setColumnConfig(dataTableConfiguration); 
+  dataTable.setTableSettings(dataTableConfiguration); 
 ```
 
 <!-- Auto Generated Below -->
@@ -1453,15 +1460,16 @@ Data table exposes couple of method to get and set column configuration.
 
 ## Properties
 
-| Property          | Attribute           | Description                                                                            | Type                | Default |
-| ----------------- | ------------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
-| `columns`         | --                  | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
-| `isAllSelectable` | `is-all-selectable` | isAllSelectable Booleam based on which select all option appears in the table header   | `boolean`           | `false` |
-| `isSelectable`    | `is-selectable`     | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
-| `label`           | `label`             | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
-| `rowActions`      | --                  | To enable bulk actions on the table.                                                   | `DataTableAction[]` | `[]`    |
-| `rows`            | --                  | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
-| `showSettings`    | `show-settings`     | showSettings is used to show the settings button on the table.                         | `boolean`           | `false` |
+| Property           | Attribute            | Description                                                                            | Type                | Default |
+| ------------------ | -------------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
+| `autoSaveSettings` | `auto-save-settings` | autoSaveSettings                                                                       | `boolean`           | `false` |
+| `columns`          | --                   | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
+| `isAllSelectable`  | `is-all-selectable`  | isAllSelectable Booleam based on which select all option appears in the table header   | `boolean`           | `false` |
+| `isSelectable`     | `is-selectable`      | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
+| `label`            | `label`              | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
+| `rowActions`       | --                   | To enable bulk actions on the table.                                                   | `DataTableAction[]` | `[]`    |
+| `rows`             | --                   | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
+| `showSettings`     | `show-settings`      | showSettings is used to show the settings button on the table.                         | `boolean`           | `false` |
 
 
 ## Events
@@ -1473,16 +1481,6 @@ Data table exposes couple of method to get and set column configuration.
 
 
 ## Methods
-
-### `getColumnConfig() => Promise<{}>`
-
-getColumnConfig
-
-#### Returns
-
-Type: `Promise<{}>`
-
-columnConfig object
 
 ### `getSelectedIds() => Promise<string[]>`
 
@@ -1504,6 +1502,16 @@ Type: `Promise<DataTableRow[]>`
 
 selected rows from the data table
 
+### `getTableSettings() => Promise<{}>`
+
+getTableSettings
+
+#### Returns
+
+Type: `Promise<{}>`
+
+columnConfig object
+
 ### `loadTable(state: boolean) => Promise<boolean>`
 
 loadTable - Method to call when we want to change table loading state
@@ -1524,9 +1532,9 @@ Type: `Promise<string[]>`
 
 
 
-### `setColumnConfig(columnConfig: any) => Promise<DataTableColumn[]>`
+### `setTableSettings(columnConfig: any) => Promise<DataTableColumn[]>`
 
-setColumnConfig
+setTableSettings
 
 #### Returns
 

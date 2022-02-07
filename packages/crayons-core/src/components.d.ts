@@ -151,14 +151,13 @@ export namespace Components {
     }
     interface FwDataTable {
         /**
+          * autoSaveSettings
+         */
+        "autoSaveSettings": boolean;
+        /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns": DataTableColumn[];
-        /**
-          * getColumnConfig
-          * @returns columnConfig object
-         */
-        "getColumnConfig": () => Promise<{}>;
         /**
           * getSelectedIds
           * @returns an array of selected row IDs
@@ -169,6 +168,11 @@ export namespace Components {
           * @returns selected rows from the data table
          */
         "getSelectedRows": () => Promise<DataTableRow[]>;
+        /**
+          * getTableSettings
+          * @returns columnConfig object
+         */
+        "getTableSettings": () => Promise<{}>;
         /**
           * isAllSelectable Booleam based on which select all option appears in the table header
          */
@@ -201,10 +205,10 @@ export namespace Components {
          */
         "selectAllRows": (checked?: boolean) => Promise<string[]>;
         /**
-          * setColumnConfig
+          * setTableSettings
           * @param columnConfig columnConfig object
          */
-        "setColumnConfig": (columnConfig: any) => Promise<DataTableColumn[]>;
+        "setTableSettings": (columnConfig: any) => Promise<DataTableColumn[]>;
         /**
           * showSettings is used to show the settings button on the table.
          */
@@ -2217,6 +2221,10 @@ declare namespace LocalJSX {
         "name"?: string;
     }
     interface FwDataTable {
+        /**
+          * autoSaveSettings
+         */
+        "autoSaveSettings"?: boolean;
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */

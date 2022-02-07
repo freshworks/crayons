@@ -47,6 +47,8 @@ const TABLE_POPPER_CONFIG: any = {
   ],
 };
 
+const localStorage = window.localStorage;
+
 @Component({
   tag: 'fw-data-table',
   styleUrl: 'data-table.scss',
@@ -92,6 +94,11 @@ export class DataTable {
    * showSettings is used to show the settings button on the table.
    */
   @Prop() showSettings = false;
+
+  /**
+   * autoSaveSettings
+   */
+  @Prop() autoSaveSettings = false;
 
   /**
    * orderedColumns Maintains a collection of ordered columns.
@@ -177,6 +184,11 @@ export class DataTable {
    */
   componentWillLoad() {
     this.columnOrdering(this.columns);
+    if (localStorage && this.autoSaveSettings) {
+      const tableId = this.el.id ? `-${this.el.id}` : '';
+      const tableSettings = localStorage.getItem(`fw-table${tableId}`);
+      tableSettings && this.setTableSettings(JSON.parse(tableSettings));
+    }
   }
 
   /**
@@ -308,11 +320,11 @@ export class DataTable {
   }
 
   /**
-   * getColumnConfig
+   * getTableSettings
    * @returns columnConfig object
    */
   @Method()
-  async getColumnConfig() {
+  async getTableSettings() {
     const columnConfig = {};
     this.orderedColumns.map((column) => {
       if (!columnConfig[column.key]) {
@@ -325,12 +337,12 @@ export class DataTable {
   }
 
   /**
-   * setColumnConfig
+   * setTableSettings
    * @param columnConfig columnConfig object
    */
   @Method()
-  async setColumnConfig(columnConfig) {
-    let orderedColumns = { ...this.orderedColumns };
+  async setTableSettings(columnConfig) {
+    let orderedColumns = [...this.orderedColumns];
     for (const key in columnConfig) {
       if (Object.prototype.hasOwnProperty.call(columnConfig, key)) {
         const config = columnConfig[key];
@@ -342,7 +354,7 @@ export class DataTable {
         orderedColumns = modifiedOrderColumn;
       }
     }
-    this.orderedColumns = { ...orderedColumns };
+    this.orderedColumns = [...orderedColumns];
     return this.orderedColumns;
   }
 
@@ -414,7 +426,7 @@ export class DataTable {
 
   /**
    * Private
-   * lockFocusInside locak the focus inside modal overlay
+   * lockFocusInside lock the focus inside modal overlay
    */
   lockFocusInsideSettings() {
     const resetFocus = (event) => {
@@ -492,6 +504,18 @@ export class DataTable {
       );
       this.orderedColumns = [...newColumnState];
     });
+    if (localStorage && this.autoSaveSettings) {
+      try {
+        const tableId = this.el.id ? `-${this.el.id}` : '';
+        const columnConfig = await this.getTableSettings();
+        localStorage.setItem(
+          `fw-table${tableId}`,
+          JSON.stringify(columnConfig)
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
     this.toggleSettings(false);
   }
 
