@@ -836,7 +836,7 @@ export class DataTable {
    * @param checked value for checked
    * @param event event that is triggering this action
    */
-  async settingsToggleColumn(columnKey: string, checked: boolean, event?: any) {
+  async settingsColumnToggle(columnKey: string, checked: boolean, event?: any) {
     let changePair;
     if (checked) {
       let lastCheckedPosition = 1;
@@ -879,13 +879,13 @@ export class DataTable {
           .parentElement.previousSibling;
         const nextDragItem = (event.currentTarget as HTMLElement).parentElement
           .nextSibling;
+        await this.waitForNextRender();
         if (previousDragItem || nextDragItem) {
           const focusItem = (
             (previousDragItem || nextDragItem) as HTMLElement
           ).querySelector('.table-settings-drag-item-close');
           (focusItem as HTMLElement).focus();
         } else {
-          await this.waitForNextRender();
           const focusItem = this.tableContainer.querySelector(
             '.table-settings-content-checkboxes div:last-child fw-checkbox'
           );
@@ -1267,7 +1267,7 @@ export class DataTable {
                             <fw-checkbox
                               value={column.key}
                               onFwChange={(event) =>
-                                this.settingsToggleColumn(
+                                this.settingsColumnToggle(
                                   column.key,
                                   event.detail.checked,
                                   event
@@ -1335,14 +1335,14 @@ export class DataTable {
                               tabIndex={0}
                               onKeyDown={(event) =>
                                 event.key === 'Enter' &&
-                                this.settingsToggleColumn(
+                                this.settingsColumnToggle(
                                   column.key,
                                   false,
                                   event
                                 )
                               }
                               onClick={() =>
-                                this.settingsToggleColumn(column.key, false)
+                                this.settingsColumnToggle(column.key, false)
                               }
                             >
                               <fw-icon
