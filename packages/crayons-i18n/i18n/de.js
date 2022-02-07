@@ -25,6 +25,7 @@ export default {
     buttonGroupLabel: 'Pagination controls DE',
     previousButtonLabel: 'Previous DE',
     nextButtonLabel: 'Next DE',
-    content: `{{start}} to {{end}} of {{total}} DE`,
+    //content: `{{start}} to {{end}} of {{total}} DE`,
+    content: `DE Total {{total}} - <span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> DE`,
   },
 };
