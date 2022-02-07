@@ -17,9 +17,11 @@ export default {
     no_data_available: 'Keine Daten vorhanden',
   },
   form: {
-    required: '{{field}} is required',
+    REQUIRED: '{{field}} is required DE',
+    INVALID_URL: 'Enter a valid URL DE',
+    INVALID_EMAIL: 'Enter a valid email DE',
   },
   pagination: {
-    content: `{{start}} to {{end}} of {{total}}`,
+    content: `{{start}} to {{end}} of {{total}} DE`,
   },
 };

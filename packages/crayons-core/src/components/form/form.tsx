@@ -25,6 +25,7 @@ import {
   generateDynamicInitialValues,
   generateDynamicValidationSchema,
   serializeForm,
+  translateErrors,
 } from './form-util';
 import { debounce } from '../../utils';
 import EventStore from '../../utils/event-store';
@@ -204,7 +205,9 @@ export class Form {
       serializedValues = serializeForm(serializedValues, this.fields);
     }
 
-    return { values: serializedValues, errors: this.errors, isValid };
+    const translatedErrors = await translateErrors(this.errors, this.fields);
+
+    return { values: serializedValues, errors: translatedErrors, isValid };
   };
 
   handleReset = async (event?: Event): Promise<void> => {

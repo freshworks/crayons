@@ -276,7 +276,7 @@ export class TranslationController {
   }
 
   t(keyName = '', values: any): string {
-    return get(keyName.toLowerCase(), values, this.state.globalStrings) || '';
+    return get(keyName, values, this.state.globalStrings) || '';
   }
 
   /** Decorator to handle i18n support */
@@ -297,16 +297,14 @@ export class TranslationController {
         let isDefaultValueUsed = true;
         if (!this[propName]) {
           this[propName] =
-            get(keyName.toLowerCase(), null, that.state.globalStrings) ||
-            defaultValue;
+            get(keyName, null, that.state.globalStrings) || defaultValue;
           isDefaultValueUsed = false;
         }
 
         that.onChange('globalStrings', async () => {
           if (!isDefaultValueUsed) {
             this[propName] =
-              get(keyName.toLowerCase(), null, that.state.globalStrings) ||
-              defaultValue;
+              get(keyName, null, that.state.globalStrings) || defaultValue;
           }
         });
 

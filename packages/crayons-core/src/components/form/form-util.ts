@@ -5,7 +5,7 @@ import clone from 'lodash/clone';
 import toPath from 'lodash/toPath';
 import * as Yup from 'yup';
 import { FormValues } from './form-declaration';
-
+import { TranslationController } from '../../global/Translation';
 export const isSelectType = (type: string): boolean =>
   !!type && type === 'select';
 
@@ -162,7 +162,7 @@ function mergeSchema(first: any = {}, second: any = {}) {
 }
 
 function createYupSchema(schema: any, config: any) {
-  const { type, required, name, label } = config;
+  const { type, required, name } = config;
   let yupType;
   switch (type) {
     case 'TEXT':
@@ -198,17 +198,15 @@ function createYupSchema(schema: any, config: any) {
 
   validator = validator().nullable();
 
-  if (required)
-    validator = validator['required'](...[`${label || name} is required`]);
+  if (required) validator = validator['required']('form.REQUIRED');
   else validator = validator['notRequired']();
 
-  if (type === 'URL') validator = validator['url'](...[`Enter a valid url`]);
+  if (type === 'URL') validator = validator['url']('form.INVALID_URL');
 
-  if (type === 'EMAIL')
-    validator = validator['email'](...[`Enter a valid Email`]);
+  if (type === 'EMAIL') validator = validator['email']('form.INVALID_EMAIL');
 
   if (type === 'CHECKBOX' && required)
-    validator = validator['oneOf']([true], `${label || name} is required`);
+    validator = validator['oneOf']([true], `form.REQUIRED`);
 
   if (
     (type === 'DROPDOWN' ||
@@ -216,7 +214,7 @@ function createYupSchema(schema: any, config: any) {
       type === 'RELATIONSHIP') &&
     required
   )
-    validator = validator.min(1, `${label || name} is required`);
+    validator = validator.min(1, `form.REQUIRED`);
 
   if (type === 'RELATIONSHIP')
     validator = validator.transform((_value, originalVal) => {
@@ -307,4 +305,28 @@ export const serializeForm = (
   }, {});
 
   return newValues;
+};
+
+export const translateErrors = async (errors = {}, fields) => {
+  if (!errors) return {};
+
+  return Object.keys(errors)?.reduce(
+    (
+      acc: {
+        [key: string]: string;
+      },
+      key: string
+    ) => {
+      if (key && errors[key]) {
+        return {
+          ...acc,
+          [key]: TranslationController.t(errors[key], {
+            field: fields?.[key]?.label || fields?.[key]?.name || '',
+          }),
+        };
+      }
+      return { ...acc };
+    },
+    {}
+  );
 };
