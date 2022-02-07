@@ -22,6 +22,9 @@ export default {
     INVALID_EMAIL: 'Enter a valid email',
   },
   pagination: {
+    buttonGroupLabel: 'Pagination controls',
+    previousButtonLabel: 'Previous',
+    nextButtonLabel: 'Next',
     content: `{{start}} to {{end}} of {{total}}`,
   },
 };

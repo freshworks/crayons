@@ -97,10 +97,10 @@ export class Datepicker {
 
   @i18n({ defaultValue: 'Update', keyName: 'datepicker.update' })
   @Prop({ mutable: true })
-  updateText: string;
+  updateText = '';
   @i18n({ defaultValue: 'Cancel', keyName: 'datepicker.cancel' })
   @Prop({ mutable: true })
-  cancelText: string;
+  cancelText = '';
 
   /**
    * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.

@@ -88,10 +88,10 @@ export class DropdownButton {
 
   @i18n({ defaultValue: 'Add', keyName: 'dropdown.add' })
   @Prop({ mutable: true })
-  addText: string;
+  addText = '';
   @Prop({ mutable: true })
   @i18n({ defaultValue: 'Cancel', keyName: 'dropdown.cancel' })
-  cancelText: string;
+  cancelText = '';
 
   @Watch('isDropdownOpen')
   setInitialState(newVal) {

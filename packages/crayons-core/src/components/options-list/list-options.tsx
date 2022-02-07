@@ -107,7 +107,7 @@ export class ListOptions {
     keyName: 'search.no_data_available',
   })
   @Prop({ mutable: true })
-  noDataText = 'No Data available';
+  noDataText = '';
   /**
    * Debounce timer for the search promise function.
    */
