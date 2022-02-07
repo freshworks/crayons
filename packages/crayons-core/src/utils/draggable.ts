@@ -2,6 +2,7 @@ import { debounce, cloneNodeWithEvents } from './index';
 
 //Global Variables
 let dragElement;
+let placeholders = [];
 const DEFAULT_OPTIONS = {
   sortable: false,
   acceptFrom: '',
@@ -18,6 +19,7 @@ export class Draggable {
   nextSibling: HTMLElement;
   previousContainer;
   cancelDebouncedDrag;
+  dropped = false;
 
   debouncedSetElement = debounce(
     (childElements, draggingElement, y) => {
@@ -56,6 +58,7 @@ export class Draggable {
 
   private onDragStart = (e) => {
     dragElement = e.target;
+    this.dropped = false;
     this.cancelDebouncedDrag = false;
 
     // Set dragElementId for Firefox
@@ -98,15 +101,6 @@ export class Draggable {
       if (!e.currentTarget.contains(parentHost)) {
         // the drag element have left the current container(this.host)
         this.previousContainer = undefined;
-        this.cancelDebouncedDrag = true;
-
-        if (dragElement.parentElement.id !== this.dragContainer.id) {
-          // dragElement from another container
-          this.removePlaceholder();
-        } else {
-          // Sort within the same container
-          this.addElement(dragElement, this.nextSibling);
-        }
       }
     }
   };
@@ -116,15 +110,20 @@ export class Draggable {
     if (!this.canAcceptDragElement()) {
       return;
     }
-    const sortContainerId = dragElement.parentElement.id;
-    if (this.acceptFrom.includes(sortContainerId)) {
-      this.debouncedSetElement(this.childElements, dragElement, e.clientY);
-    }
+    this.debouncedSetElement(this.childElements, dragElement, e.clientY);
   };
 
   // Both dragend and drop need to used as the drop will be fired only on the container on which the drag is dropped
   // and no on the container where drag is originated.
   private onDragEnd = (e) => {
+    if (!this.dropped) {
+      // The drag element is dropped outside the drag container
+      this.addElement(dragElement, this.nextSibling);
+      placeholders.forEach((placeholder) => {
+        placeholder.remove();
+      });
+      placeholders = [];
+    }
     this.resetData(e);
   };
 
@@ -132,6 +131,7 @@ export class Draggable {
     if (!this.canAcceptDragElement()) {
       return;
     }
+    this.dropped = true;
     const sortContainerId = dragElement.parentElement.id;
     const newElement = this.placeholder || dragElement;
     const droppedIndex = [...this.dragContainer.children].indexOf(newElement);
@@ -213,7 +213,7 @@ export class Draggable {
       placeholder.style.height = this.getElementHeight(sourceElement) + 'px';
       placeholder.style.width = this.getElementWidth(sourceElement) + 'px';
     }
-
+    placeholders.push(placeholder);
     return placeholder;
   }
 
@@ -225,8 +225,12 @@ export class Draggable {
 
   addElement(newElement, nextElement) {
     if (nextElement) {
-      this.canInsertBefore(nextElement) &&
+      if (
+        this.canInsertBefore(nextElement) &&
+        !newElement?.isSameNode(nextElement)
+      ) {
         this.dragContainer.insertBefore(newElement, nextElement);
+      }
       return;
     }
     this.canAppendTo(this.dragContainer) &&
