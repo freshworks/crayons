@@ -31,9 +31,11 @@
   .drag-icon {
     padding-right: 12px;
 
-    &:hover,
-    &:focus {
-      cursor: grab;
+    &.drag {
+      &:hover,
+      &:focus {
+        cursor: grab;
+      }
     }
   }
 }
