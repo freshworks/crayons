@@ -8,200 +8,144 @@ fw-drag-container is a custom component with an open shadow that acts as a wrapp
 
 ```html live
 <template>
-  <fw-drag-container>
-    <div
-      draggable="true"
-      class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-    >
-      <div class="fw-flex-grow fw-type-h5">Booking ID</div>
-      <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-    </div>
-    <div
-      draggable="false"
-      class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-    >
-      <div class="fw-flex-grow fw-type-h5">Customer Name</div>
-      <fw-icon class="fw-flex-grow-0" name="lock"></fw-icon>
-    </div>
-    <div
-      draggable="false"
-      class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-    >
-      <div class="fw-flex-grow fw-type-h5">Hotel</div>
-      <fw-icon class="fw-flex-grow-0" name="lock"></fw-icon>
-    </div>
-    <div
-      draggable="true"
-      class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-    >
-      <div class="fw-flex-grow fw-type-h5">Number of Rooms</div>
-      <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-    </div>
-    <div
-      draggable="true"
-      class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-    >
-      <div class="fw-flex-grow fw-type-h5">ID Number</div>
-      <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-    </div>
-    <div
-      draggable="true"
-      class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-    >
-      <div class="fw-flex-grow fw-type-h5">Payment Type</div>
-      <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-    </div>
-    <div
-      draggable="true"
-      class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-    >
-      <div class="fw-flex-grow fw-type-h5">Room Preference</div>
-      <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-    </div>
-    <div
-      draggable="true"
-      class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-    >
-      <div class="fw-flex-grow fw-type-h5">Check</div>
-      <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-    </div>
-  </fw-drag-container>
+  <div>
+    <fw-label value="Sort items within a container"></fw-label>
+    <fw-drag-container class="drag-container" id="defaultSort">
+      <fw-drag-item>Item 1</fw-drag-item>
+      <fw-drag-item>Item 2</fw-drag-item>
+      <fw-drag-item>Item 3</fw-drag-item>
+      <fw-drag-item
+        >Item 4 <fw-icon slot="suffix" name="bulb"></fw-icon>
+      </fw-drag-item>
+    </fw-drag-container>
+    <br />
+    <fw-label value="Pinned items within a container"></fw-label>
+    <fw-drag-container class="drag-container" id="pinnedSort">
+      <fw-drag-item pinned="top">Item 1</fw-drag-item>
+      <fw-drag-item>Item 2</fw-drag-item>
+      <fw-drag-item>Item 3</fw-drag-item>
+      <fw-drag-item>Item 4</fw-drag-item>
+      <fw-drag-item pinned="bottom">Item 5</fw-drag-item>
+    </fw-drag-container>
+  </div>
 </template>
+<style>
+  .drag-container {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid black;
+  }
+  fw-drag-item {
+    margin-bottom: 8px;
+  }
+</style>
 ```
 
-Demo for dragging items from one container to another container
+Demo for dragging items from one container to another container.
 
 ```html live
-<span>Retain the original drag element on drop</span>
 <template>
-  <div class="fw-flex flex-container-border fw-justify-around">
-    <fw-drag-container
-      id="source-field-copy"
-      sortable="false"
-      class="fw-b-1 fw-b-solid"
-    >
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Input field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Select field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-      <div
-        draggable=""
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Decimal field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Date & Time field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Button</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-    </fw-drag-container>
+  <div>
+    <fw-label value="Copying items from on container to another"></fw-label>
+    <fw-label
+      value="Item 1-5 are allows to be sorted with Item 6-9 but not the other way around."
+    ></fw-label>
+    <div class="container">
+      <fw-drag-container class="drag-container" sortable="false" id="from">
+        <fw-drag-item>Item 1</fw-drag-item>
+        <fw-drag-item>Item 2</fw-drag-item>
+        <fw-drag-item>Item 3</fw-drag-item>
+        <fw-drag-item>Item 4</fw-drag-item>
+        <fw-drag-item>Item 5</fw-drag-item>
+      </fw-drag-container>
 
-    <fw-drag-container
-      accept-from="source-field-copy"
-      add-on-drop="true"
-      class="fw-b-1 fw-b-solid fw-b-casablanca-100"
-    >
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
+      <fw-drag-container
+        class="drag-container"
+        id="to"
+        accept-from="from"
+        placeholder-class="placeholder"
       >
-        <div class="fw-flex-grow fw-type-h5">Input field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-    </fw-drag-container>
+        <fw-drag-item>Item 6</fw-drag-item>
+        <fw-drag-item>Item 7</fw-drag-item>
+        <fw-drag-item>Item 8</fw-drag-item>
+        <fw-drag-item>Item 9</fw-drag-item>
+      </fw-drag-container>
+    </div>
+    <fw-label value="Moving items from on container to another"></fw-label>
+    <fw-label
+      value="Item 1-5 are allows to be sorted with Item 6-9 but not the other way around."
+    ></fw-label>
+    <div class="container">
+      <fw-drag-container class="drag-container" sortable="false" id="moveFrom">
+        <fw-drag-item>Item 1</fw-drag-item>
+        <fw-drag-item>Item 2</fw-drag-item>
+        <fw-drag-item>Item 3</fw-drag-item>
+        <fw-drag-item>Item 4</fw-drag-item>
+        <fw-drag-item>Item 5</fw-drag-item>
+      </fw-drag-container>
+
+      <fw-drag-container
+        class="drag-container"
+        id="moveTo"
+        accept-from="moveFrom"
+        placeholder-class="placeholder"
+        copy="false"
+      >
+        <fw-drag-item>Item 6</fw-drag-item>
+        <fw-drag-item>Item 7</fw-drag-item>
+        <fw-drag-item>Item 8</fw-drag-item>
+        <fw-drag-item>Item 9</fw-drag-item>
+      </fw-drag-container>
+    </div>
   </div>
 </template>
+<style>
+  .container {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+  }
+  .drag-container {
+    width: 150px;
+    padding: 20px;
+    border: 1px solid black;
+  }
+  fw-drag-item {
+    margin-bottom: 8px;
+  }
+  .placeholder {
+    width: 150px;
+    background-color: blueviolet;
+    height: 5px;
+  }
+</style>
+```
 
-<span>Remove the drag element on drop</span>
+`fwDrop` event will be emitted during a successful drop event, and can be used to detect the dropped item.
 
-<template>
-  <div class="fw-flex flex-container-border fw-justify-around">
-    <fw-drag-container
-      id="source-field-move"
-      sortable="false"
-      class="fw-b-1 fw-b-solid"
-    >
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Input field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-      <div
-        draggable=""
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Select field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-      <div
-        draggable=""
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Decimal field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Date & Time field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Button</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-    </fw-drag-container>
-
-    <fw-drag-container
-      id="drop-move"
-      accept-from="source-field-move"
-      add-on-drop="true"
-      copy="false"
-      class="fw-b-1 fw-b-solid fw-b-casablanca-100"
-    >
-      <div
-        draggable="true"
-        class="fw-card-1 fw-p-24 fw-flex fw-flex-row fw-content-center"
-      >
-        <div class="fw-flex-grow fw-type-h5">Input field</div>
-        <fw-icon class="fw-flex-grow-0" name="drag"></fw-icon>
-      </div>
-    </fw-drag-container>
-  </div>
-</template>
+```html live
+<fw-drag-container id="drop">
+  <fw-drag-item>Item 1</fw-drag-item>
+  <fw-drag-item>Item 2</fw-drag-item>
+  <fw-drag-item>Item 3</fw-drag-item>
+  <fw-drag-item>Item 4</fw-drag-item>
+  <fw-drag-item>Item 5</fw-drag-item>
+</fw-drag-container>
 <script type="application/javascript">
-  var drop = document.getElementById('drop-move');
+  var drop = document.getElementById('drop');
   drop.addEventListener('fwDrop', (e) => {
     console.log(e.detail);
   });
 </script>
+```
+
+```javascript
+var drop = document.getElementById('drop');
+drop.addEventListener('fwDrop', (e) => {
+  console.log(e.detail);
+});
 ```
 
 <!-- Auto Generated Below -->
