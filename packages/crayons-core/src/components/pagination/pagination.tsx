@@ -86,6 +86,11 @@ export class Pagination {
     this.end = this.getEndRecord();
   }
 
+  @Watch('total')
+  handleTotal() {
+    this.end = this.getEndRecord();
+  }
+
   componentWillLoad() {
     this.page = Math.min(this.page, this.getLastPage());
     this.start = this.getStartRecord();
