@@ -1512,7 +1512,7 @@ Type: `Promise<{}>`
 
 columnConfig object
 
-### `loadTable(state: boolean) => Promise<boolean>`
+### `loadTable(state?: boolean) => Promise<boolean>`
 
 loadTable - Method to call when we want to change table loading state
 
