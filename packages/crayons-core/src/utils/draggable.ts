@@ -31,10 +31,7 @@ export class Draggable {
 
       let newElement;
       // dragging inside the same container, so no need to add placeholder
-      if (
-        draggingElement.parentElement.id === this.dragContainer.id ||
-        !this.options.copy
-      ) {
+      if (draggingElement.parentElement.id === this.dragContainer.id) {
         newElement = draggingElement;
       } else {
         this.placeholder ||= this.createPlaceholder(draggingElement);
@@ -116,13 +113,10 @@ export class Draggable {
   // Both dragend and drop need to used as the drop will be fired only on the container on which the drag is dropped
   // and no on the container where drag is originated.
   private onDragEnd = (e) => {
-    if (!this.dropped) {
+    if (!this.dropped || placeholders.length > 0) {
       // The drag element is dropped outside the drag container
       this.addElement(dragElement, this.nextSibling);
-      placeholders.forEach((placeholder) => {
-        placeholder.remove();
-      });
-      placeholders = [];
+      this.removePlaceholder();
     }
     this.resetData(e);
   };
@@ -137,7 +131,9 @@ export class Draggable {
     const droppedIndex = [...this.dragContainer.children].indexOf(newElement);
     if (this.placeholder) {
       if (this.options.addOnDrop) {
-        const clone = cloneNodeWithEvents(dragElement, true, true);
+        const clone = this.options.copy
+          ? cloneNodeWithEvents(dragElement, true, true)
+          : dragElement;
         this.placeholder.replaceWith(clone);
       } else {
         this.removePlaceholder();
@@ -217,10 +213,11 @@ export class Draggable {
     return placeholder;
   }
 
-  removePlaceholder(element?) {
-    const removeElement = element || this.placeholder;
-    this.dragContainer.contains(removeElement) &&
-      this.dragContainer.removeChild(removeElement);
+  removePlaceholder() {
+    placeholders.forEach((placeholder) => {
+      placeholder.remove();
+    });
+    placeholders = [];
   }
 
   addElement(newElement, nextElement) {
