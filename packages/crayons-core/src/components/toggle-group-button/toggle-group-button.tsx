@@ -61,10 +61,6 @@ export class ToggleGroupButton {
    */
   @Prop() description = '';
   /**
-   * If the button type is icon, set the icon path to be used
-   */
-  @Prop() iconName = '';
-  /**
    * Name of the component, saved as part of the form data.
    */
   @Prop() name = '';
@@ -185,7 +181,7 @@ export class ToggleGroupButton {
             class={strButtonClassName}
             aria-disabled={this.disabled}
           >
-            <fw-icon size={15} name={this.iconName} color='black' />
+            <slot name='toggle-icon'></slot>
           </button>
         )}
         {strBtnType === 'custom' && <slot></slot>}

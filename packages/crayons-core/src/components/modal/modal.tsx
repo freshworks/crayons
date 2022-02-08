@@ -48,6 +48,11 @@ export class Modal {
   @State() lastFocusElement: HTMLElement = null;
 
   /**
+   * Property to add or remove the top right close icon button
+   */
+  @Prop() hasCloseIconButton = true;
+
+  /**
    * The title text to be displayed on the modal
    */
   @Prop() titleText: string;
@@ -369,22 +374,24 @@ export class Modal {
         }}
       >
         <div class={{ modal: true, [this.size]: true }} aria-modal='true'>
-          <button class='close-btn' onClick={() => this.close()}>
-            <fw-icon
-              name='cross-big'
-              library='system'
-              color={
-                this.slider
-                  ? variation.closeColor.slider
-                  : variation.closeColor.modal
-              }
-              size={
-                this.slider
-                  ? variation.closeSize.slider
-                  : variation.closeSize.modal
-              }
-            />
-          </button>
+          {this.hasCloseIconButton && (
+            <button class='close-btn' onClick={() => this.close()}>
+              <fw-icon
+                name='cross-big'
+                library='system'
+                color={
+                  this.slider
+                    ? variation.closeColor.slider
+                    : variation.closeColor.modal
+                }
+                size={
+                  this.slider
+                    ? variation.closeSize.slider
+                    : variation.closeSize.modal
+                }
+              />
+            </button>
+          )}
           <div class='modal-container'>
             {this.modalTitle ? '' : this.renderTitle()}
             {this.modalContent ? <slot></slot> : this.renderContent()}

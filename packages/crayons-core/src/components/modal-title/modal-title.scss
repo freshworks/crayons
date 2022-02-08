@@ -1,6 +1,6 @@
 /* stylelint-disable a11y/media-prefers-reduced-motion */
 .modal-header-container {
-  padding: 32px 32px 12px;
+  padding: 32px 32px 0;
   position: relative;
   background: #fff;
   border-radius: 4px 4px 0 0;
@@ -10,21 +10,50 @@
   flex: none;
 
   .modal-header {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-    line-height: 1.1;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
     display: flex;
+    font-size: $font-size-18;
+    font-weight: $font-weight-600;
+    line-height: 24px;
 
-    .description {
-      font-size: 12px;
-      font-weight: 300;
-      color: #475867;
-      line-height: 1.6;
+    .modal-header-body {
+      width: 100%;
+      height: auto;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+
+      .modal-title {
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        display: flex;
+        gap: 10px;
+
+        .modal-title-icon {
+          width: auto;
+          height: 24px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+        }
+
+        .title-label {
+          font-size: $font-size-18;
+          font-weight: $font-weight-600;
+          line-height: 24px;
+        }
+      }
+
+      .description {
+        font-size: $font-size-14;
+        font-weight: $font-weight-default;
+        color: $color-smoke-700;
+        line-height: 32px;
+      }
     }
-  }
-
-  .icon {
-    margin-right: 8px;
   }
 }

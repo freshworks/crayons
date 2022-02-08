@@ -4,8 +4,8 @@
 */
 
 :host {
-  --label-padding-vertical: 0;
-  --label-padding-horizontal: 5px;
+  --label-padding-vertical: 5px;
+  --label-padding-horizontal: 8px;
 }
 
 .label {
@@ -13,11 +13,11 @@
   border: 1px solid #dadfe3;
   background-color: $color-milk;
   font-weight: 600;
+  line-height: 14px;
   font-size: $font-size-12;
   padding: var(--label-padding-vertical) var(--label-padding-horizontal);
-  line-height: 1.5;
   display: inline-block;
-  border-radius: 2px;
+  border-radius: 4px;
 
   &--blue {
     background-color: $color-azure-50;
@@ -46,6 +46,6 @@
   &--grey {
     background-color: $color-smoke-50;
     color: $color-smoke-700;
-    border: 1px solid $color-smoke-100;
+    border: none;
   }
 }

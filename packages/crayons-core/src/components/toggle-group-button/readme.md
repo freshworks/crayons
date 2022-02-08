@@ -7,16 +7,12 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
 ```html live
 <section>
   <fw-label value="Icon button"></fw-label>
-  <fw-toggle-group-button
-    icon-name="phone"
-    value="aa"
-    type="icon"
-  ></fw-toggle-group-button>
-  <fw-toggle-group-button
-    icon-name="delete"
-    value="dd"
-    type="icon"
-  ></fw-toggle-group-button>
+  <fw-toggle-group-button value="aa" type="icon">
+    <fw-icon slot="toggle-icon" size="16" name="phone" />
+  </fw-toggle-group-button>
+  <fw-toggle-group-button value="dd" type="icon">
+    <fw-icon slot="toggle-icon" size="16" name="delete" />
+  </fw-toggle-group-button>
 </section>
 
 <br />
@@ -27,7 +23,7 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
     header="Header A"
     description="This is a sample description of the card component."
     value="aa"
-    is-checkbox={true}
+    is-checkbox
   ></fw-toggle-group-button>
 </section>
 ```
@@ -40,11 +36,11 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
         <fw-toggle-group-button
           header="Header A"
           description="This is a sample description of the card component."
-          value="aa"></fw-toggle-group-button>
-          <fw-toggle-group-button
-            icon-name="agent"
-            value="bb"
-            type="icon"></fw-toggle-group-button>
+          value="aa">
+        </fw-toggle-group-button>
+        <fw-toggle-group-button value="bb" type="icon">
+          <fw-icon slot="toggle-icon" size="16" name="agent" />
+        </fw-toggle-group-button>
 ````
 </code-block>
 
@@ -56,7 +52,7 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
     function App() {
     return (<div>
             <FWToggleGroupButton key="aa" value="aa" header="Header 1" description="This is a sample description 1" isCheckbox={true}/>
-            <FWToggleGroupButton key="cc" value="cc" iconName="agent" type="icon"/>
+            <FWToggleGroupButton key="cc" value="cc" type="icon"><FwIcon slot="toggle-icon" size={16} name="agent" /></FWToggleGroupButton>
         </div>);
     }
 ````
@@ -74,7 +70,6 @@ fw-toggle-group-button displays a button on the user interface and enables perfo
 | `description`   | `description`     | Label displayed as description in the card.                                                                              | `string`                       | `''`              |
 | `disabled`      | `disabled`        | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.               | `boolean`                      | `false`           |
 | `header`        | `header`          | Label displayed as header in the card.                                                                                   | `string`                       | `''`              |
-| `iconName`      | `icon-name`       | If the button type is icon, set the icon path to be used                                                                 | `string`                       | `''`              |
 | `index`         | `index`           | index attached inside the parent group component                                                                         | `number`                       | `-1`              |
 | `isCheckbox`    | `is-checkbox`     | Enables the component to be used as a part of multi selection group                                                      | `boolean`                      | `false`           |
 | `name`          | `name`            | Name of the component, saved as part of the form data.                                                                   | `string`                       | `''`              |

@@ -760,6 +760,10 @@ export namespace Components {
          */
         "description": string;
         /**
+          * Property to add or remove the top right close icon button
+         */
+        "hasCloseIconButton": boolean;
+        /**
           * Hide footer for the modal
          */
         "hideFooter": boolean;
@@ -1607,10 +1611,6 @@ export namespace Components {
           * Label displayed as header in the card.
          */
         "header": string;
-        /**
-          * If the button type is icon, set the icon path to be used
-         */
-        "iconName": string;
         /**
           * index attached inside the parent group component
          */
@@ -2823,6 +2823,10 @@ declare namespace LocalJSX {
          */
         "description"?: string;
         /**
+          * Property to add or remove the top right close icon button
+         */
+        "hasCloseIconButton"?: boolean;
+        /**
           * Hide footer for the modal
          */
         "hideFooter"?: boolean;
@@ -3719,10 +3723,6 @@ declare namespace LocalJSX {
           * Label displayed as header in the card.
          */
         "header"?: string;
-        /**
-          * If the button type is icon, set the icon path to be used
-         */
-        "iconName"?: string;
         /**
           * index attached inside the parent group component
          */

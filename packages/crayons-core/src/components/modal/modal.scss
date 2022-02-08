@@ -21,6 +21,7 @@
   display: flex;
   max-height: 70vh;
   background: $color-milk;
+  box-shadow: 0px 2px 18px rgba(18, 52, 77, 0.2);
   border-radius: 4px;
   z-index: 999;
   animation: 'modal-entry' 0.5s 1;

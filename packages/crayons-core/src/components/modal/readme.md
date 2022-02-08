@@ -356,19 +356,20 @@ function App() {
 
 ## Properties
 
-| Property         | Attribute         | Description                                       | Type                                                       | Default      |
-| ---------------- | ----------------- | ------------------------------------------------- | ---------------------------------------------------------- | ------------ |
-| `cancelText`     | `cancel-text`     | The text for the cancel button                    | `string`                                                   | `'Cancel'`   |
-| `description`    | `description`     | The description text to be displayed on the modal | `string`                                                   | `undefined`  |
-| `hideFooter`     | `hide-footer`     | Hide footer for the modal                         | `boolean`                                                  | `false`      |
-| `icon`           | `icon`            | The icon to be displayed with the title           | `string`                                                   | `''`         |
-| `isOpen`         | `is-open`         | Toggle the visibility of the modal                | `boolean`                                                  | `false`      |
-| `size`           | `size`            | Size of the modal                                 | `"large" \| "small" \| "standard"`                         | `'standard'` |
-| `slider`         | `slider`          | Convert modal to slider                           | `boolean`                                                  | `false`      |
-| `submitColor`    | `submit-color`    | The color of submit button                        | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'`  |
-| `submitDisabled` | `submit-disabled` | Default state of submit button                    | `boolean`                                                  | `false`      |
-| `submitText`     | `submit-text`     | The text for the submit button                    | `string`                                                   | `'OK'`       |
-| `titleText`      | `title-text`      | The title text to be displayed on the modal       | `string`                                                   | `undefined`  |
+| Property             | Attribute               | Description                                               | Type                                                       | Default      |
+| -------------------- | ----------------------- | --------------------------------------------------------- | ---------------------------------------------------------- | ------------ |
+| `cancelText`         | `cancel-text`           | The text for the cancel button                            | `string`                                                   | `'Cancel'`   |
+| `description`        | `description`           | The description text to be displayed on the modal         | `string`                                                   | `undefined`  |
+| `hasCloseIconButton` | `has-close-icon-button` | Property to add or remove the top right close icon button | `boolean`                                                  | `true`       |
+| `hideFooter`         | `hide-footer`           | Hide footer for the modal                                 | `boolean`                                                  | `false`      |
+| `icon`               | `icon`                  | The icon to be displayed with the title                   | `string`                                                   | `''`         |
+| `isOpen`             | `is-open`               | Toggle the visibility of the modal                        | `boolean`                                                  | `false`      |
+| `size`               | `size`                  | Size of the modal                                         | `"large" \| "small" \| "standard"`                         | `'standard'` |
+| `slider`             | `slider`                | Convert modal to slider                                   | `boolean`                                                  | `false`      |
+| `submitColor`        | `submit-color`          | The color of submit button                                | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'`  |
+| `submitDisabled`     | `submit-disabled`       | Default state of submit button                            | `boolean`                                                  | `false`      |
+| `submitText`         | `submit-text`           | The text for the submit button                            | `string`                                                   | `'OK'`       |
+| `titleText`          | `title-text`            | The title text to be displayed on the modal               | `string`                                                   | `undefined`  |
 
 
 ## Events
