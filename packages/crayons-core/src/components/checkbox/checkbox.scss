@@ -17,6 +17,13 @@
       box-shadow: 0 0 0 2px rgb(44, 92, 197);
     }
   }
+  input[type='checkbox'] {
+    &:checked + label {
+      &::before {
+        border: 1px solid #ffffff;
+      }
+    }
+  }
 
   input[type='checkbox'][disabled] + label {
     &::before {
@@ -40,8 +47,16 @@
 :host(:hover) {
   input[type='checkbox'] + label {
     &::before {
-      border-color: $input-hover-color;
+      border-color: $checkbox-color;
       box-shadow: 0 0 0 5px rgb(235, 239, 243);
+    }
+  }
+
+  input[type='checkbox'] {
+    &:checked + label {
+      &::before {
+        border-color: $color-azure-800;
+      }
     }
   }
 
@@ -99,7 +114,7 @@ input[type='checkbox'] {
       top: 3px;
       display: block;
       content: '';
-      border: $checkbox-border-width solid $checkbox-color;
+      border: $checkbox-border-width solid $color-smoke-700;
       height: 14px;
       width: 14px;
       background-color: $input-bg;
@@ -131,20 +146,19 @@ input[type='checkbox'] {
     }
 
     @media screen and (prefers-reduced-motion: reduce) {
-      &::after {
+      .after {
         transition: none;
       }
     }
 
-    &::after {
+    .after {
       position: absolute;
       display: block;
       content: '';
-      left: 4px;
-      top: 5px;
-      width: 5px;
-      height: 7px;
-      transform: rotate(45deg);
+      left: 3px;
+      top: -1px;
+      width: 8px;
+      height: 8px;
       opacity: 0;
       transition: opacity 0.2s ease-in-out;
       box-sizing: border-box;
@@ -158,24 +172,19 @@ input[type='checkbox'] {
       box-shadow: none;
     }
 
-    &::after {
-      border-right: $checkbox-mark-width solid $input-bg;
-      border-bottom: $checkbox-mark-width solid $input-bg;
+    .after {
       opacity: 1;
-      top: 5px;
     }
   }
 
   &:checked:hover + label {
     &::before {
+      border-color: $color-azure-800;
       box-shadow: 0 0 0 5px rgb(235, 239, 243);
     }
 
-    &::after {
-      border-right: $checkbox-mark-width solid $input-bg;
-      border-bottom: $checkbox-mark-width solid $input-bg;
+    .after {
       opacity: 1;
-      top: 5px;
     }
   }
 
@@ -186,20 +195,17 @@ input[type='checkbox'] {
       box-shadow: 0 0 0 1px rgb(44, 92, 197);
     }
 
-    &::after {
-      border-right: $checkbox-mark-width solid $input-bg;
-      border-bottom: $checkbox-mark-width solid $input-bg;
+    .after {
       opacity: 1;
-      top: 5px;
     }
   }
 
   &[disabled] {
     & + label {
-      color: #92a2b1;
+      color: $color-smoke-300;
 
       .label-field {
-        color: #92a2b1;
+        color: $color-smoke-300;
       }
 
       &::before {
@@ -209,7 +215,7 @@ input[type='checkbox'] {
     }
 
     &:checked + label {
-      color: #92a2b1;
+      color: $color-smoke-300;
 
       &::before {
         background: $disabled-color;
