@@ -210,9 +210,17 @@ export namespace Components {
          */
         "setTableSettings": (columnConfig: any) => Promise<DataTableColumn[]>;
         /**
+          * shimmerCount number of shimmer rows to show during initial loading
+         */
+        "shimmerCount": number;
+        /**
           * showSettings is used to show the settings button on the table.
          */
         "showSettings": boolean;
+        /**
+          * showShimmer show shimmer on loading
+         */
+        "showShimmer": boolean;
     }
     interface FwDatepicker {
         /**
@@ -2258,9 +2266,17 @@ declare namespace LocalJSX {
          */
         "rows"?: DataTableRow[];
         /**
+          * shimmerCount number of shimmer rows to show during initial loading
+         */
+        "shimmerCount"?: number;
+        /**
           * showSettings is used to show the settings button on the table.
          */
         "showSettings"?: boolean;
+        /**
+          * showShimmer show shimmer on loading
+         */
+        "showShimmer"?: boolean;
     }
     interface FwDatepicker {
         /**

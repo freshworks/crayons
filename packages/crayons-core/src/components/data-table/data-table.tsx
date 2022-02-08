@@ -100,6 +100,16 @@ export class DataTable {
    * If set to `true`, make sure `id` attribute is also set to the `data-table`
    */
   @Prop() autoSaveSettings = false;
+  
+  /**
+   * shimmerCount number of shimmer rows to show during initial loading
+   */
+  @Prop() shimmerCount = 4;
+
+  /**
+   * showShimmer show shimmer on loading
+   */
+  @Prop() showShimmer = false;
 
   /**
    * orderedColumns Maintains a collection of ordered columns.
@@ -1423,6 +1433,45 @@ export class DataTable {
       </div>
     );
   }
+  
+  /**
+   * private
+   * @returns table body shimmer
+   */
+  renderTableShimmer() {
+    const shimmerTemplate = [];
+    let columnsLength = this.orderedColumns.length;
+    columnsLength = this.isSelectable ? columnsLength + 1 : columnsLength;
+    columnsLength =
+      this.rowActions && this.rowActions.length
+        ? columnsLength + 1
+        : columnsLength;
+    const shimmerCount = this.rows.length || this.shimmerCount;
+    for (let index = 1; index <= shimmerCount; index++) {
+      if (columnsLength === 0) {
+        shimmerTemplate.push(
+          <tr>
+            <td>
+              <fw-skeleton height='20px' variant='rect'></fw-skeleton>
+            </td>
+          </tr>
+        );
+      } else {
+        shimmerTemplate.push(
+          <tr>
+            {[...Array(columnsLength).keys()].map(() => {
+              return (
+                <td>
+                  <fw-skeleton height='20px' variant='rect'></fw-skeleton>
+                </td>
+              );
+            })}
+          </tr>
+        );
+      }
+    }
+    return shimmerTemplate;
+  }
 
   /**
    * render method
@@ -1443,7 +1492,11 @@ export class DataTable {
           aria-label={this.label}
         >
           <thead>{this.renderTableHeader()}</thead>
-          <tbody>{this.renderTableBody()}</tbody>
+          <tbody>
+            {this.showShimmer && this.isLoading
+              ? this.renderTableShimmer()
+              : this.renderTableBody()}
+          </tbody>
         </table>
         {this.showSettings && this.renderTableSettings()}
         {this.isLoading && <div class='fw-data-table--loading'></div>}
