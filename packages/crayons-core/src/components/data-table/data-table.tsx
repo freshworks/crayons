@@ -379,14 +379,10 @@ export class DataTable {
    * @returns modifies state object
    */
   getColumnsState(state, stateKey, keyValuePairs) {
-    let currentElementIndex;
-    const currentElement = state.filter((stateElement, elementIndex) => {
-      const isCurrentElement = stateElement.key === stateKey;
-      if (isCurrentElement) {
-        currentElementIndex = elementIndex;
-      }
-      return isCurrentElement;
-    })[0];
+    const currentElementIndex = state.findIndex(
+      (stateElement) => stateElement.key === stateKey
+    );
+    const currentElement = state[currentElementIndex];
     const modifiedCurrentElement = { ...currentElement, ...keyValuePairs };
     const otherElements = state.filter(
       (stateElement) => stateElement.key !== stateKey
@@ -397,24 +393,24 @@ export class DataTable {
       otherElements.length
     );
     if (modifiedCurrentElement.position !== currentElement.position) {
-      preElements.map((preElement) => {
+      for (let index = 0; index < preElements.length; index++) {
+        const preElement = preElements[index];
         if (
           preElement.position >= modifiedCurrentElement.position &&
           preElement.position <= currentElement.position
         ) {
           preElement.position = preElement.position + 1;
         }
-        return preElement;
-      });
-      postElements.map((postElement) => {
+      }
+      for (let index = 0; index < postElements.length; index++) {
+        const postElement = postElements[index];
         if (
           postElement.position <= modifiedCurrentElement.position &&
           postElement.position >= currentElement.position
         ) {
           postElement.position = postElement.position - 1;
         }
-        return postElement;
-      });
+      }
     }
     const newStateOrder = [
       ...preElements,
@@ -470,23 +466,25 @@ export class DataTable {
     this.settingSearchText = '';
     this.columnsDragSetting = [];
     this.columnsHideSetting = [];
-    this.orderedColumns.forEach((column) => {
+    const modifiedColumnsDragSettings = this.orderedColumns.map((column) => {
       const columnInfo: any = {};
       columnInfo.key = column.key;
       columnInfo.text = column.text;
       columnInfo.position = column.position;
       columnInfo.hide = column.hide || false;
-      this.columnsDragSetting = [...this.columnsDragSetting, columnInfo];
+      return columnInfo;
     });
-    this.columns.forEach((column) => {
+    this.columnsDragSetting = modifiedColumnsDragSettings;
+    const modifiedColumnsHideSettings = this.columns.map((column) => {
       const columnInfo: any = {};
       columnInfo.key = column.key;
       columnInfo.text = column.text;
       columnInfo.hide = this.orderedColumns.filter(
         (orderedColumn) => orderedColumn.key === column.key
       )[0].hide;
-      this.columnsHideSetting = [...this.columnsHideSetting, columnInfo];
+      return columnInfo;
     });
+    this.columnsHideSetting = modifiedColumnsHideSettings;
   }
 
   /**
@@ -506,12 +504,18 @@ export class DataTable {
     });
     if (localStorage && this.autoSaveSettings) {
       try {
-        const tableId = this.el.id ? `-${this.el.id}` : '';
-        const columnConfig = await this.getTableSettings();
-        localStorage.setItem(
-          `fw-table${tableId}`,
-          JSON.stringify(columnConfig)
-        );
+        const tableId = this.el.id ? `-${this.el.id}` : null;
+        if (tableId) {
+          const columnConfig = await this.getTableSettings();
+          localStorage.setItem(
+            `fw-table${tableId}`,
+            JSON.stringify(columnConfig)
+          );
+        } else {
+          throw new Error(
+            "Table must have an 'id' attribute to autosave settings"
+          );
+        }
       } catch (error) {
         console.log(error.message);
       }
@@ -1394,8 +1398,7 @@ export class DataTable {
                   this.toggleSettings(false);
                 }}
               >
-                {' '}
-                Cancel{' '}
+                Cancel
               </fw-button>
               <fw-button
                 color='primary'
@@ -1404,8 +1407,7 @@ export class DataTable {
                 ref={(el) => (this.settingsUpdateButton = el)}
                 onClick={() => this.applySettings()}
               >
-                {' '}
-                Update{' '}
+                Update
               </fw-button>
             </div>
           </div>

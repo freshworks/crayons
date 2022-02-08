@@ -198,11 +198,12 @@ div.fw-data-table-container {
 
       .table-settings-options {
         width: 500px;
+        box-sizing: border-box;
         background: $color-milk;
         border: 1px solid $color-smoke-50;
         border-radius: 4px;
         box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
-        padding: 26px 0px 0px 0px;
+        padding: 22px 0px 0px 0px;
         display: none;
         animation: appear 0.3s;
 
@@ -247,7 +248,7 @@ div.fw-data-table-container {
         .table-settings-content {
           display: flex;
           width: 100%;
-          height: 343px;
+          height: 342px;
           box-sizing: border-box;
           padding: 0px 22px;
           gap: 14px;
@@ -364,7 +365,6 @@ div.fw-data-table-container {
           padding: 12px 16px;
           gap: 12px;
           justify-content: flex-end;
-          margin-top: 1px;
         }
       }
 
