@@ -14,6 +14,9 @@
     height: auto;
     box-sizing: border-box;
     display: flex;
+    font-size: $font-size-18;
+    font-weight: $font-weight-600;
+    line-height: 24px;
 
     .modal-header-body {
       width: 100%;
@@ -21,7 +24,7 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 0px;
 
       .modal-title {
         width: 100%;
@@ -48,8 +51,8 @@
       .description {
         font-size: $font-size-14;
         font-weight: $font-weight-default;
-        color: $color-elephant-900;
-        line-height: 20px;
+        color: $color-smoke-700;
+        line-height: 32px;
       }
     }
   }
