@@ -24,7 +24,7 @@ describe('fw-toggle-group-button', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-toggle-group-button icon-name="phone" value="aa" type="icon" selected="true"></fw-toggle-group-button>'
+      '<fw-toggle-group-button value="aa" type="icon" selected="true"><fw-icon slot="toggle-icon" size={16} name="phone"/></fw-toggle-group-button>'
     );
     const element = await page.find('fw-toggle-group-button');
     const isSelected = await element.getProperty('selected');
