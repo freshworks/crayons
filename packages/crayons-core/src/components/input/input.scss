@@ -22,6 +22,10 @@ $input-color: $app-primary-black;
   box-sizing: border-box;
 }
 
+:host {
+  display: block;
+}
+
 @mixin stateStyle($_color) {
   border-color: $_color;
 
