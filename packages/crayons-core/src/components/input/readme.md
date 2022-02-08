@@ -267,6 +267,14 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                     | Description         |
+| ------------------------ | ------------------- |
+| `--fw-input-hint-color`  | Color of the hint.  |
+| `--fw-input-label-color` | Color of the label. |
+
+
 ## Dependencies
 
 ### Used by

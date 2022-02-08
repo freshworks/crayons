@@ -1,3 +1,8 @@
+/**
+  @prop --fw-input-label-color: Color of the label.
+  @prop --fw-input-hint-color: Color of the hint.
+*/
+
 $label-font: $font-stack-sans !default;
 $placeholder-color: $muted-secondary;
 $help-color: $muted-secondary;
@@ -43,7 +48,7 @@ $input-color: $app-primary-black;
 // Label Style
 label {
   font-size: 12px;
-  color: $label-default;
+  color: var(--fw-input-label-color, $label-default);
   font-weight: $font-weight-600;
   margin-bottom: 4px;
   padding-left: 2px;
@@ -193,7 +198,7 @@ label {
     line-height: 20px;
     margin-top: 4px;
     margin-bottom: 0;
-    color: $help-color;
+    color: var(--fw-input-hint-color, $help-color);
     position: inherit;
     display: block;
     padding-left: 2px;
