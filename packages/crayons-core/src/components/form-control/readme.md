@@ -88,6 +88,7 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
   fw-form --> fw-form-control

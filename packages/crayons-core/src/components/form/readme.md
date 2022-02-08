@@ -1407,6 +1407,7 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
