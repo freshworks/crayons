@@ -384,6 +384,10 @@ div.fw-data-table-container {
       z-index: 95;
     }
   }
+  
+  &.loading {
+    opacity: 0.65;
+  }
 }
 
 @keyframes appear {

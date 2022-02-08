@@ -365,7 +365,7 @@ export class DataTable {
    * @returns isLoading current state
    */
   @Method()
-  async loadTable(state: boolean) {
+  async loadTable(state = true) {
     this.isLoading = state;
     return this.isLoading;
   }
@@ -1430,7 +1430,10 @@ export class DataTable {
   render() {
     return (
       <div
-        class='fw-data-table-container'
+        class={{
+          'fw-data-table-container': true,
+          'loading': this.isLoading,
+        }}
         ref={(el) => (this.tableContainer = el)}
       >
         <table
