@@ -279,6 +279,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
  - [fw-dropdown-button](../dropdown-button)
  - [fw-form-control](../form-control)
@@ -295,6 +296,7 @@ graph TD;
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-data-table --> fw-input
   fw-datepicker --> fw-input
   fw-dropdown-button --> fw-input
   fw-form-control --> fw-input

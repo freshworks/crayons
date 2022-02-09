@@ -151,14 +151,13 @@ export namespace Components {
     }
     interface FwDataTable {
         /**
+          * autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`
+         */
+        "autoSaveSettings": boolean;
+        /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns": DataTableColumn[];
-        /**
-          * getColumnConfig
-          * @returns columnConfig object
-         */
-        "getColumnConfig": () => Promise<{}>;
         /**
           * getSelectedIds
           * @returns an array of selected row IDs
@@ -170,7 +169,12 @@ export namespace Components {
          */
         "getSelectedRows": () => Promise<DataTableRow[]>;
         /**
-          * isAllSelectable Booleam based on which select all option appears in the table header
+          * getTableSettings
+          * @returns columnConfig object
+         */
+        "getTableSettings": () => Promise<{}>;
+        /**
+          * isAllSelectable Boolean based on which select all option appears in the table header
          */
         "isAllSelectable": boolean;
         /**
@@ -200,6 +204,15 @@ export namespace Components {
           * @param checked denotes if we want to check or uncheck the rows
          */
         "selectAllRows": (checked?: boolean) => Promise<string[]>;
+        /**
+          * setTableSettings
+          * @param columnConfig columnConfig object
+         */
+        "setTableSettings": (columnConfig: any) => Promise<DataTableColumn[]>;
+        /**
+          * showSettings is used to show the settings button on the table.
+         */
+        "showSettings": boolean;
     }
     interface FwDatepicker {
         /**
@@ -2209,11 +2222,15 @@ declare namespace LocalJSX {
     }
     interface FwDataTable {
         /**
+          * autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`
+         */
+        "autoSaveSettings"?: boolean;
+        /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns"?: DataTableColumn[];
         /**
-          * isAllSelectable Booleam based on which select all option appears in the table header
+          * isAllSelectable Boolean based on which select all option appears in the table header
          */
         "isAllSelectable"?: boolean;
         /**
@@ -2224,10 +2241,6 @@ declare namespace LocalJSX {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label"?: string;
-        /**
-          * fwColumnsPositionChange Emits this event when columns position changes.
-         */
-        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
         /**
           * fwSelectAllChange Emits this event when select all is checked.
          */
@@ -2244,6 +2257,10 @@ declare namespace LocalJSX {
           * Rows Array of objects to be displayed in the table.
          */
         "rows"?: DataTableRow[];
+        /**
+          * showSettings is used to show the settings button on the table.
+         */
+        "showSettings"?: boolean;
     }
     interface FwDatepicker {
         /**

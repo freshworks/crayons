@@ -45,7 +45,7 @@ interface HyperFunc<T> {
 export type AllowedStyles = 'width' | 'minWidth' | 'maxWidth';
 
 export type WidthStyles = {
-  [prop in AllowedStyles]: string;
+  [prop in AllowedStyles]?: string;
 };
 
 export type DataTableRow = {
