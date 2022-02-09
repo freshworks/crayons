@@ -1460,16 +1460,16 @@ Data table exposes couple of method to get and set column configuration.
 
 ## Properties
 
-| Property           | Attribute            | Description                                                                            | Type                | Default |
-| ------------------ | -------------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
-| `autoSaveSettings` | `auto-save-settings` | autoSaveSettings                                                                       | `boolean`           | `false` |
-| `columns`          | --                   | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
-| `isAllSelectable`  | `is-all-selectable`  | isAllSelectable Booleam based on which select all option appears in the table header   | `boolean`           | `false` |
-| `isSelectable`     | `is-selectable`      | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
-| `label`            | `label`              | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
-| `rowActions`       | --                   | To enable bulk actions on the table.                                                   | `DataTableAction[]` | `[]`    |
-| `rows`             | --                   | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
-| `showSettings`     | `show-settings`      | showSettings is used to show the settings button on the table.                         | `boolean`           | `false` |
+| Property           | Attribute            | Description                                                                                                                                            | Type                | Default |
+| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | ------- |
+| `autoSaveSettings` | `auto-save-settings` | autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table` | `boolean`           | `false` |
+| `columns`          | --                   | Columns Array of objects that provides information regarding the columns in the table.                                                                 | `DataTableColumn[]` | `[]`    |
+| `isAllSelectable`  | `is-all-selectable`  | isAllSelectable Boolean based on which select all option appears in the table header                                                                   | `boolean`           | `false` |
+| `isSelectable`     | `is-selectable`      | isSelectable Boolean based on which selectable options appears for rows in the table.                                                                  | `boolean`           | `false` |
+| `label`            | `label`              | Label attribute is not visible on screen. There for accessibility purposes.                                                                            | `string`            | `''`    |
+| `rowActions`       | --                   | To enable bulk actions on the table.                                                                                                                   | `DataTableAction[]` | `[]`    |
+| `rows`             | --                   | Rows Array of objects to be displayed in the table.                                                                                                    | `DataTableRow[]`    | `[]`    |
+| `showSettings`     | `show-settings`      | showSettings is used to show the settings button on the table.                                                                                         | `boolean`           | `false` |
 
 
 ## Events

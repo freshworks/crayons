@@ -86,7 +86,7 @@ export class DataTable {
   @Prop() isSelectable = false;
 
   /**
-   * isAllSelectable Booleam based on which select all option appears in the table header
+   * isAllSelectable Boolean based on which select all option appears in the table header
    */
   @Prop() isAllSelectable = false;
 
@@ -96,7 +96,8 @@ export class DataTable {
   @Prop() showSettings = false;
 
   /**
-   * autoSaveSettings
+   * autoSaveSettings to enable auto saving of table settings to `localstorage`.
+   * If set to `true`, make sure `id` attribute is also set to the `data-table`
    */
   @Prop() autoSaveSettings = false;
 

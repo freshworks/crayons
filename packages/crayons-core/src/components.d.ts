@@ -151,7 +151,7 @@ export namespace Components {
     }
     interface FwDataTable {
         /**
-          * autoSaveSettings
+          * autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`
          */
         "autoSaveSettings": boolean;
         /**
@@ -174,7 +174,7 @@ export namespace Components {
          */
         "getTableSettings": () => Promise<{}>;
         /**
-          * isAllSelectable Booleam based on which select all option appears in the table header
+          * isAllSelectable Boolean based on which select all option appears in the table header
          */
         "isAllSelectable": boolean;
         /**
@@ -2222,7 +2222,7 @@ declare namespace LocalJSX {
     }
     interface FwDataTable {
         /**
-          * autoSaveSettings
+          * autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`
          */
         "autoSaveSettings"?: boolean;
         /**
@@ -2230,7 +2230,7 @@ declare namespace LocalJSX {
          */
         "columns"?: DataTableColumn[];
         /**
-          * isAllSelectable Booleam based on which select all option appears in the table header
+          * isAllSelectable Boolean based on which select all option appears in the table header
          */
         "isAllSelectable"?: boolean;
         /**
