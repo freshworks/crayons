@@ -6,6 +6,7 @@ import {
   Prop,
   Method,
   h,
+  Watch,
 } from '@stencil/core';
 
 export interface AccordionToggleEvent {
@@ -34,7 +35,7 @@ export class Accordion {
   /**
    * To manage accordion expanded or collapsed state
    */
-  @Prop({ mutable: true }) expanded = false;
+  @Prop({ mutable: true, reflect: true }) expanded = false;
 
   /**
    * Triggered when the accordion is expanded or collapsed
@@ -49,6 +50,12 @@ export class Accordion {
   async toggle() {
     this.toggleState();
     return true;
+  }
+
+  @Watch('expanded')
+  watchExpanded(newValue: boolean): void {
+    this.expanded = newValue;
+    this.updateState();
   }
 
   toggleState = (): void => {
