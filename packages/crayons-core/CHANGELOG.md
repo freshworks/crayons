@@ -3,32 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.12...@freshworks/crayons@3.0.0-beta.13) (2022-02-09)
-
+## [3.0.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.12...@freshworks/crayons@3.0.0-beta.13) (2022-02-09)
 
 ### Bug Fixes
 
-* **accordion:** add watcher for expanded attribute ([#408](https://github.com/freshworks/crayons/issues/408)) ([06cf48f](https://github.com/freshworks/crayons/commit/06cf48f6e94d417808c84065004454d02a419267))
-* **checkbox:** fix checkbox styles based on style guide ([#406](https://github.com/freshworks/crayons/issues/406)) ([cb85870](https://github.com/freshworks/crayons/commit/cb85870befc8d0f24ba94d8a1a4bcb1a5cb4984b))
-* **component-style-fixes:** modal style, label style, toggle icon button fixes as per DSM ([#404](https://github.com/freshworks/crayons/issues/404)) ([78d7ebf](https://github.com/freshworks/crayons/commit/78d7ebf21b17f4b75a21ddfb9729e0554a5c863c))
-* **data-table:** row hover cursor pointer fix ([#398](https://github.com/freshworks/crayons/issues/398)) ([823e3ca](https://github.com/freshworks/crayons/commit/823e3ca8e51f95cd1c9f164fc6bc048ada175e93))
-* **datepicker:** fix datepicker month/year updates ([#397](https://github.com/freshworks/crayons/issues/397)) ([1248ee8](https://github.com/freshworks/crayons/commit/1248ee8e2585d87757aa269966dedb867ace5256))
-* **fw-input:** handle decimal input usecase ([#396](https://github.com/freshworks/crayons/issues/396)) ([56ff3d3](https://github.com/freshworks/crayons/commit/56ff3d3ea0c45e57a92d2370162ba7f204ba7385))
-* **fw-pagination:** End value not updated on total prop change ([#400](https://github.com/freshworks/crayons/issues/400)) ([549bf84](https://github.com/freshworks/crayons/commit/549bf84632c7b00c9b07e427f13354061ee2bdde))
-* **fw-select:** fixed the padding issue on multi-select ([#407](https://github.com/freshworks/crayons/issues/407)) ([f365462](https://github.com/freshworks/crayons/commit/f36546203a54aa8d3af2a2347dbe5b83d2129d13))
-* **fw-tag:** fixed the style based on DSM ([#405](https://github.com/freshworks/crayons/issues/405)) ([6ec87f1](https://github.com/freshworks/crayons/commit/6ec87f199715097dc1a26edccf71435d4f119c42))
-* **fw-toast-message:** updated styles for toast-message ([#402](https://github.com/freshworks/crayons/issues/402)) ([acf41a8](https://github.com/freshworks/crayons/commit/acf41a8d68930a60b5e73ca511f27bf78537017b))
-* **tabs:** remove vertical scrollbar for tabs nav ([#401](https://github.com/freshworks/crayons/issues/401)) ([70f9446](https://github.com/freshworks/crayons/commit/70f9446cb8962a8e547c64afb278e09fe6320061))
-
+- **accordion:** add watcher for expanded attribute ([#408](https://github.com/freshworks/crayons/issues/408)) ([06cf48f](https://github.com/freshworks/crayons/commit/06cf48f6e94d417808c84065004454d02a419267))
+- **checkbox:** fix checkbox styles based on style guide ([#406](https://github.com/freshworks/crayons/issues/406)) ([cb85870](https://github.com/freshworks/crayons/commit/cb85870befc8d0f24ba94d8a1a4bcb1a5cb4984b))
+- **component-style-fixes:** modal style, label style, toggle icon button fixes as per DSM ([#404](https://github.com/freshworks/crayons/issues/404)) ([78d7ebf](https://github.com/freshworks/crayons/commit/78d7ebf21b17f4b75a21ddfb9729e0554a5c863c))
+- **data-table:** row hover cursor pointer fix ([#398](https://github.com/freshworks/crayons/issues/398)) ([823e3ca](https://github.com/freshworks/crayons/commit/823e3ca8e51f95cd1c9f164fc6bc048ada175e93))
+- **datepicker:** fix datepicker month/year updates ([#397](https://github.com/freshworks/crayons/issues/397)) ([1248ee8](https://github.com/freshworks/crayons/commit/1248ee8e2585d87757aa269966dedb867ace5256))
+- **fw-input:** handle decimal input usecase ([#396](https://github.com/freshworks/crayons/issues/396)) ([56ff3d3](https://github.com/freshworks/crayons/commit/56ff3d3ea0c45e57a92d2370162ba7f204ba7385))
+- **fw-pagination:** End value not updated on total prop change ([#400](https://github.com/freshworks/crayons/issues/400)) ([549bf84](https://github.com/freshworks/crayons/commit/549bf84632c7b00c9b07e427f13354061ee2bdde))
+- **fw-select:** fixed the padding issue on multi-select ([#407](https://github.com/freshworks/crayons/issues/407)) ([f365462](https://github.com/freshworks/crayons/commit/f36546203a54aa8d3af2a2347dbe5b83d2129d13))
+- **fw-tag:** fixed the style based on DSM ([#405](https://github.com/freshworks/crayons/issues/405)) ([6ec87f1](https://github.com/freshworks/crayons/commit/6ec87f199715097dc1a26edccf71435d4f119c42))
+- **fw-toast-message:** updated styles for toast-message ([#402](https://github.com/freshworks/crayons/issues/402)) ([acf41a8](https://github.com/freshworks/crayons/commit/acf41a8d68930a60b5e73ca511f27bf78537017b))
+- **tabs:** remove vertical scrollbar for tabs nav ([#401](https://github.com/freshworks/crayons/issues/401)) ([70f9446](https://github.com/freshworks/crayons/commit/70f9446cb8962a8e547c64afb278e09fe6320061))
 
 ### Features
 
-* **data-table:** add table settings option to data table ([#399](https://github.com/freshworks/crayons/issues/399)) ([dbb11e2](https://github.com/freshworks/crayons/commit/dbb11e2dd974e75e2be4a961dbb379a32a80917a))
-* **fw-input:** Added slots and modified styles for fw-input based on DSM ([#395](https://github.com/freshworks/crayons/issues/395)) ([1f5b846](https://github.com/freshworks/crayons/commit/1f5b8462f3a2781714adca13709d9b46bd89e8e4))
-
-
-
-
+- **data-table:** add table settings option to data table ([#399](https://github.com/freshworks/crayons/issues/399)) ([dbb11e2](https://github.com/freshworks/crayons/commit/dbb11e2dd974e75e2be4a961dbb379a32a80917a))
+- **fw-input:** Added slots and modified styles for fw-input based on DSM ([#395](https://github.com/freshworks/crayons/issues/395)) ([1f5b846](https://github.com/freshworks/crayons/commit/1f5b8462f3a2781714adca13709d9b46bd89e8e4))
 
 ## [3.0.0-beta.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.11...@freshworks/crayons@3.0.0-beta.12) (2022-02-03)
 
