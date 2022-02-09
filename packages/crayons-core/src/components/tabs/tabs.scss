@@ -22,6 +22,7 @@
     display: flex;
     border-bottom: 1px solid $color-smoke-50;
     overflow-x: auto;
+    overflow-y: hidden;
 
     &__box {
       background-color: $app-header-bg-secondary;
