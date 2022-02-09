@@ -52,7 +52,7 @@ label {
   width: calc(100% - 10px);
   border: var(--select-border, 1px solid $input-border);
   border-radius: var(--select-border-radius, 4px);
-  padding: 4px 0 4px 10px;
+  padding-left: 10px;
   background-color: $input-bg;
   box-shadow: none;
   min-height: 22px;
@@ -64,8 +64,13 @@ label {
     flex-grow: 1;
     flex-wrap: wrap;
 
-    fw-tag {
-      margin-right: 4px;
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+
+      fw-tag {
+        margin: 4px 4px 4px 0px;
+      }
     }
 
     input {
@@ -80,7 +85,7 @@ label {
       min-height: 22px;
       box-sizing: border-box;
       overflow: hidden;
-      padding: 0px;
+      margin: 4px 0px;
 
       &:focus {
         border: none;
