@@ -147,6 +147,7 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-form-control --> fw-datepicker
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```

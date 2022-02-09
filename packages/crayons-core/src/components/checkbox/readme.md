@@ -81,9 +81,17 @@ Type: `Promise<void>`
  - [fw-form-control](../form-control)
  - [fw-select-option](../select-option)
 
+### Depends on
+
+- [fw-icon](../icon)
+
 ### Graph
 ```mermaid
 graph TD;
+  fw-checkbox --> fw-icon
+  fw-icon --> fw-toast-message
+  fw-toast-message --> fw-spinner
+  fw-toast-message --> fw-icon
   fw-data-table --> fw-checkbox
   fw-dropdown-button --> fw-checkbox
   fw-form-control --> fw-checkbox

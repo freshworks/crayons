@@ -107,6 +107,7 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-input --> fw-icon
   fw-form-control --> fw-timepicker
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px

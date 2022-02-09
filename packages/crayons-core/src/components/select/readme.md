@@ -1029,6 +1029,7 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-input --> fw-icon
   fw-datepicker --> fw-select
   fw-form-control --> fw-select

@@ -1383,11 +1383,12 @@ graph TD;
   fw-data-table --> fw-skeleton
   fw-data-table --> fw-button
   fw-data-table --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
+  fw-checkbox --> fw-icon
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
   style fw-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -160,6 +160,7 @@ graph TD;
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-checkbox --> fw-icon
   fw-datepicker --> fw-select-option
   fw-list-options --> fw-select-option
   fw-timepicker --> fw-select-option

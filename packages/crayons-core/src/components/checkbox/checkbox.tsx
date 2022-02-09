@@ -188,6 +188,15 @@ export class Checkbox {
             ) : (
               ''
             )}
+            {this.checked && (
+              <span class='after'>
+                <fw-icon
+                  name='check'
+                  color={this.disabled ? '#000000' : '#ffffff'}
+                  size={8}
+                ></fw-icon>
+              </span>
+            )}
           </label>
         </div>
       </Host>
