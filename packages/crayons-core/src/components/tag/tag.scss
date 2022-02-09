@@ -1,49 +1,51 @@
 .tag {
   display: inline-flex;
   align-items: center;
-  width: auto;
-  padding: 4px;
-  border: none;
   color: $color-elephant-900;
   font-size: $font-size-14;
-  font-weight: 500;
-  background-color: $color-smoke-50;
   word-break: break-all;
-  line-height: 1.4;
+
+  .content {
+    line-height: 20px;
+    vertical-align: middle;
+  }
 
   &-standard {
+    padding: 2px 2px 2px 8px;
     border-radius: 4px;
+    font-weight: 600;
+    background-color: $color-smoke-50;
   }
 
   &-avatar {
-    border-radius: 8px;
+    padding: 4px;
+    border-radius: 24px;
+    font-weight: 400;
+    background: linear-gradient(180deg, $color-smoke-25 2.56%, #f3f5f7 95.75%);
 
     fw-avatar {
-      padding-right: 8px;
+      margin-right: 8px;
     }
   }
 
   .remove-btn {
-    opacity: 1;
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: $color-elephant-800;
     font-size: $font-size-16;
-    line-height: normal;
-    position: relative;
-    right: 0;
 
     &.standard {
-      height: 100%;
-      margin-left: 4px;
-      padding: 0px 8px 5px;
+      min-height: 20px;
+      min-width: 20px;
       border-radius: 4px;
     }
 
     &.avatar {
-      min-width: 24px;
       min-height: 24px;
-      margin: 4px 4px 4px 8px;
-      border-radius: 8px;
-      text-align: center;
+      min-width: 24px;
+      border-radius: 16px;
 
       &:hover,
       &:focus {
