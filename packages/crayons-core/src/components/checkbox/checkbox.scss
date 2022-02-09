@@ -218,7 +218,8 @@ input[type='checkbox'] {
       color: $color-smoke-300;
 
       &::before {
-        background: $disabled-color;
+        background-color: $ticket-tag-background;
+        border-color: $disabled-color;
       }
     }
   }

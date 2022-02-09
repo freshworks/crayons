@@ -192,7 +192,7 @@ export class Checkbox {
               <span class='after'>
                 <fw-icon
                   name='check'
-                  color={this.disabled ? '#000000' : '#ffffff'}
+                  color={this.disabled ? '#92A2B1' : '#ffffff'}
                   size={8}
                 ></fw-icon>
               </span>
