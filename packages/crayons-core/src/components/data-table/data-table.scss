@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 div.fw-data-table-container {
   $grid-header-bg: $color-smoke-25;
   $grid-body-bg: $color-milk;
@@ -384,7 +388,7 @@ div.fw-data-table-container {
       z-index: 95;
     }
   }
-  
+
   &.loading {
     opacity: 0.65;
   }
