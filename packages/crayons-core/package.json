@@ -102,6 +102,9 @@
     "moment-mini": "^2.24.0",
     "multi-nprogress": "0.3.5"
   },
+  "peerDependencies": {
+    "yup": "^0.32.11"
+  },
   "publishConfig": {
     "access": "public"
   },
