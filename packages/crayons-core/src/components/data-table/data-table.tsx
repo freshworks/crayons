@@ -100,7 +100,7 @@ export class DataTable {
    * If set to `true`, make sure `id` attribute is also set to the `data-table`
    */
   @Prop() autoSaveSettings = false;
-  
+
   /**
    * shimmerCount number of shimmer rows to show during initial loading
    */
@@ -1433,14 +1433,16 @@ export class DataTable {
       </div>
     );
   }
-  
+
   /**
    * private
    * @returns table body shimmer
    */
   renderTableShimmer() {
     const shimmerTemplate = [];
-    let columnsLength = this.orderedColumns.length;
+    let columnsLength = this.orderedColumns.filter(
+      (column) => !column.hide
+    ).length;
     columnsLength = this.isSelectable ? columnsLength + 1 : columnsLength;
     columnsLength =
       this.rowActions && this.rowActions.length
