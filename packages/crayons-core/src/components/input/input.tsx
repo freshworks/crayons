@@ -273,7 +273,7 @@ export class Input {
               [this.state]: true,
             }}
           >
-            <div class='inner-container'>
+            <div class='inner__content'>
               <div class={{ input__prefix: true, hasContent: this.hasPrefix }}>
                 {this.iconLeft && this.renderIcon(this.iconLeft)}
                 <slot name='input-prefix' />
@@ -306,7 +306,7 @@ export class Input {
                 {this.showClearButton() && this.renderClearButton()}
               </div>
             </div>
-            <div class='input__suffix'>
+            <div class='inner__suffix'>
               {this.iconRight && this.renderIcon(this.iconRight)}
               <slot name='input-suffix' />
             </div>

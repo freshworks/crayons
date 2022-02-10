@@ -90,15 +90,16 @@ label {
     @include stateStyle($warning-message-marker);
   }
 
-  .inner-container {
+  .inner__content {
     display: flex;
-    flex-grow: 1;
+    flex: 1 1 auto;
     flex-wrap: wrap;
 
     .input__label {
-      flex: 1 1 auto;
+      flex: 1 1 40%;
       display: flex;
       align-items: center;
+      margin-left: 8px;
 
       input {
         width: 100%;
@@ -130,17 +131,17 @@ label {
     .input__prefix {
       display: flex;
       align-items: center;
-      margin-left: 8px;
-      margin-right: 4px;
+      flex: 0 1 auto;
+      margin-left: 4px;
 
       &.hasContent {
-        margin-right: 8px;
+        margin-left: 8px;
       }
     }
   }
 
-  .input__suffix {
-    flex: 0 0 auto;
+  .inner__suffix {
+    flex: 0 1 auto;
     display: flex;
     align-items: center;
     margin-right: 8px;
