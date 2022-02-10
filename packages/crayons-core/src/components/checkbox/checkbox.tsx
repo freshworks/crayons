@@ -163,7 +163,7 @@ export class Checkbox {
         onBlur={this.onBlur}
         aria-invalid={this.state === 'error'}
       >
-        <div class='checkbox-container'>
+        <div class={{ 'checkbox-container': true, 'disabled': this.disabled }}>
           <input
             type='checkbox'
             ref={(el) => (this.checkbox = el)}

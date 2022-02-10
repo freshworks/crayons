@@ -62,6 +62,10 @@
 
 .checkbox-container {
   cursor: pointer;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
 
 #description {
@@ -86,6 +90,7 @@ input[type='checkbox'] {
     color: #12344d;
     line-height: 20px;
     font-weight: 400;
+    cursor: inherit;
 
     .with-description {
       font-weight: 600;
