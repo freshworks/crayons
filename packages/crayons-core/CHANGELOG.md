@@ -3,24 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.13...@freshworks/crayons@3.0.0-beta.14) (2022-02-10)
-
+## [3.0.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.13...@freshworks/crayons@3.0.0-beta.14) (2022-02-10)
 
 ### Bug Fixes
 
-* **checkbox:** fix checkbox disabled state color ([#409](https://github.com/freshworks/crayons/issues/409)) ([83119dc](https://github.com/freshworks/crayons/commit/83119dcacba9035146ee6f83147876f653a0e674))
-* **checkbox:** fix cursor style for disabled state ([#412](https://github.com/freshworks/crayons/issues/412)) ([16391c5](https://github.com/freshworks/crayons/commit/16391c57f1a92d1a8d97d569ef92fbb74ed076eb))
-* **fw-input:** fixed the transparent background color of input ([#410](https://github.com/freshworks/crayons/issues/410)) ([cc04ec0](https://github.com/freshworks/crayons/commit/cc04ec0374a7164dd60cc335d2bd4469dd8f0585))
-* **modal:** modal description line height reduced to support multiline  ([#413](https://github.com/freshworks/crayons/issues/413)) ([d25e74e](https://github.com/freshworks/crayons/commit/d25e74e03bf68f0c65db45a863e2f088b7bab64e))
-
+- **checkbox:** fix checkbox disabled state color ([#409](https://github.com/freshworks/crayons/issues/409)) ([83119dc](https://github.com/freshworks/crayons/commit/83119dcacba9035146ee6f83147876f653a0e674))
+- **checkbox:** fix cursor style for disabled state ([#412](https://github.com/freshworks/crayons/issues/412)) ([16391c5](https://github.com/freshworks/crayons/commit/16391c57f1a92d1a8d97d569ef92fbb74ed076eb))
+- **fw-input:** fixed the transparent background color of input ([#410](https://github.com/freshworks/crayons/issues/410)) ([cc04ec0](https://github.com/freshworks/crayons/commit/cc04ec0374a7164dd60cc335d2bd4469dd8f0585))
+- **modal:** modal description line height reduced to support multiline  ([#413](https://github.com/freshworks/crayons/issues/413)) ([d25e74e](https://github.com/freshworks/crayons/commit/d25e74e03bf68f0c65db45a863e2f088b7bab64e))
 
 ### Features
 
-* **checkbox:** adding pointer cursor for checkbox container ([#411](https://github.com/freshworks/crayons/issues/411)) ([e9df0a5](https://github.com/freshworks/crayons/commit/e9df0a589830e3e41d8270bc08e6b79c92b994ab))
-
-
-
-
+- **checkbox:** adding pointer cursor for checkbox container ([#411](https://github.com/freshworks/crayons/issues/411)) ([e9df0a5](https://github.com/freshworks/crayons/commit/e9df0a589830e3e41d8270bc08e6b79c92b994ab))
 
 ## [3.0.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.12...@freshworks/crayons@3.0.0-beta.13) (2022-02-09)
 
