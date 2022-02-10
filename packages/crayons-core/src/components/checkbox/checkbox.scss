@@ -33,16 +33,6 @@
   }
 }
 
-#description {
-  font-size: 12px;
-  color: #475867;
-  letter-spacing: 0;
-  line-height: 20px;
-  position: relative;
-  font-weight: 400;
-  word-wrap: break-word;
-  padding-left: 22px;
-}
 /* Hover event occurs on the root element */
 :host(:hover) {
   input[type='checkbox'] + label {
@@ -70,12 +60,26 @@
   }
 }
 
+.checkbox-container {
+  cursor: pointer;
+}
+
+#description {
+  font-size: 12px;
+  color: #475867;
+  letter-spacing: 0;
+  line-height: 20px;
+  position: relative;
+  font-weight: 400;
+  word-wrap: break-word;
+  padding-left: 22px;
+}
+
 input[type='checkbox'] {
   display: none;
 
   & + label {
     user-select: none;
-    cursor: pointer;
     margin-bottom: 0;
     vertical-align: middle;
     font-size: 14px;
