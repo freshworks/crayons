@@ -1448,7 +1448,7 @@ We can load a table using the 'loadTable' method available on the table. To show
       <span class="fw-ml-8">Load table</span>
     </span>
     <br><br>
-    <fw-data-table id="datatable-9"  is-selectable="true" is-all-selectable="true" show-shimmer-on-load="true" label="Data table 9">
+    <fw-data-table id="datatable-9"  is-selectable="true" is-all-selectable="true" label="Data table 9">
     </fw-data-table>
   </div>
 
@@ -1521,7 +1521,7 @@ We can load a table using the 'loadTable' method available on the table. To show
       <span class="fw-ml-8">Load table</span>
     </span>
     <br><br>
-    <fw-data-table id="datatable-9"  is-selectable="true" is-all-selectable="true" show-shimmer-on-load="true" label="Data table 9">
+    <fw-data-table id="datatable-9"  is-selectable="true" is-all-selectable="true" label="Data table 9">
     </fw-data-table>
   </div>
 ```
@@ -1645,7 +1645,7 @@ We can load a table using the 'loadTable' method available on the table. To show
     return (
       <>
         <FwToggle onFwChange={toggle}></FwToggle><br></br>
-        <FwDataTable columns={data.columns} rows={data.rows} rowActions={data.rowActions} isSelectable showShimmerOnLoad label="Data Table 2" ref={dataTable}>
+        <FwDataTable columns={data.columns} rows={data.rows} rowActions={data.rowActions} isSelectable label="Data Table 2" ref={dataTable}>
         </FwDataTable>
       </>
     );
