@@ -54,7 +54,7 @@ function App() {
 
 | Event      | Description                                             | Type                |
 | ---------- | ------------------------------------------------------- | ------------------- |
-| `fwBlur`   | Triggered when the check box loses focus.               | `CustomEvent<void>` |
+| `fwBlur`   | Triggered when the check box loses focus.               | `CustomEvent<any>`  |
 | `fwChange` | /**   Triggered when the check box’s value is modified. | `CustomEvent<any>`  |
 | `fwFocus`  | Triggered when the check box comes into focus.          | `CustomEvent<void>` |
 

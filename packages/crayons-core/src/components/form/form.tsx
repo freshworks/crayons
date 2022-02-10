@@ -27,7 +27,6 @@ import {
   serializeForm,
 } from './form-util';
 import { debounce } from '../../utils';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-form',
@@ -82,23 +81,23 @@ export class Form {
   @State() formInitialValues;
 
   private debouncedHandleInput: any;
-  private handleInputSubscriber: any;
-  private handleBlurSubscriber: any;
-  private handleChangeSubscriber: any;
+  private handleInputListener: any;
+  private handleBlurListener: any;
+  private handleChangeListener: any;
 
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
-    this.handleInputSubscriber = EventStore.subscribe(
-      `${this.formId}::handleInput`,
+    this.handleInputListener = this.el.addEventListener(
+      'fwInput',
       this.debouncedHandleInput
     );
-    this.handleBlurSubscriber = EventStore.subscribe(
-      `${this.formId}::handleBlur`,
+    this.handleBlurListener = this.el.addEventListener(
+      'fwBlur',
       this.handleBlur
     );
-    this.handleChangeSubscriber = EventStore.subscribe(
-      `${this.formId}::handleChange`,
+    this.handleChangeListener = this.el.addEventListener(
+      'fwChange',
       this.handleInput
     );
 
@@ -171,9 +170,9 @@ export class Form {
   }
 
   disconnectedCallback() {
-    this.handleChangeSubscriber?.unsubscribe();
-    this.handleInputSubscriber?.unsubscribe();
-    this.handleBlurSubscriber?.unsubscribe();
+    this.el?.removeEventListener?.('fwFormBlur', this.handleBlurListener);
+    this.el?.removeEventListener?.('fwFormInput', this.handleInputListener);
+    this.el?.removeEventListener?.('fwFormChange', this.handleChangeListener);
   }
 
   handleSubmit = async (event: Event): Promise<FormSubmit> => {
@@ -262,22 +261,33 @@ export class Form {
     this.errors = validationErrors;
   };
 
-  handleInput = async ({ field, value }) => {
-    this.values = { ...this.values, [field]: value };
+  handleInput = async (event: Event) => {
+    const details = (event as any).detail;
+    const { name, value, shouldValidate } = details;
+
+    if (shouldValidate === false) {
+      return;
+    }
+
+    this.values = {
+      ...this.values,
+      [name]: 'checked' in details ? details.checked : value,
+    };
 
     /** Validate, if user wants to validateOnInput */
     if (this.validateOnInput) {
-      this.touched = { ...this.touched, [field]: true };
+      this.touched = { ...this.touched, [name]: true };
       await this.handleValidation();
     }
   };
 
-  handleBlur = async ({ field, value }) => {
-    this.values = { ...this.values, [field]: value };
+  handleBlur = async (event: Event) => {
+    const { name, value } = (event as any).detail;
 
+    this.values = { ...this.values, [name]: value };
     /** Validate, if user wants to validateOnBlur */
     if (this.validateOnBlur) {
-      this.touched = { ...this.touched, [field]: true };
+      this.touched = { ...this.touched, [name]: true };
       await this.handleValidation();
     }
   };

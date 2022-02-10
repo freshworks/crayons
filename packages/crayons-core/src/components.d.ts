@@ -2182,7 +2182,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the check box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * /**   Triggered when the check box’s value is modified.
          */
@@ -2291,6 +2291,10 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Triggered when the input box loses focus.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * /**    Triggered when the update button clicked
          */
@@ -2700,7 +2704,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a value is entered in the input box.
          */
-        "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
+        "onFwInput"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when clear icon is clicked.
          */
@@ -3098,7 +3102,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when the radio button loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the radio button is toggled.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the radio button in focus is cleared.
          */
@@ -3527,7 +3535,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a value is entered in the input box.
          */
-        "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
+        "onFwInput"?: (event: CustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user enters a value.
          */
@@ -3590,6 +3598,18 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Triggered when the list box loses focus.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * /**   Triggered when a value is selected or deselected from the list box options.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the list box comes into focus.
+         */
+        "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */

@@ -12,7 +12,6 @@ import {
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
-import EventStore from '../../utils/event-store';
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
@@ -74,7 +73,7 @@ export class Checkbox {
   /**
    * Triggered when the check box loses focus.
    */
-  @Event() fwBlur!: EventEmitter<void>;
+  @Event() fwBlur!: EventEmitter;
 
   private checkbox!: HTMLInputElement;
 
@@ -119,13 +118,13 @@ export class Checkbox {
     this.fwFocus.emit();
   };
 
-  private onBlur = () => {
-    this.fwBlur.emit();
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: this.checkbox.checked,
-      });
+  private onBlur = (e: Event) => {
+    this.fwBlur.emit({
+      event: e,
+      value: this.value,
+      name: this.name,
+      checked: this.checkbox.checked,
+    });
   };
 
   private toggle = () => {
@@ -133,14 +132,10 @@ export class Checkbox {
       this.checked = !this.checked;
       this.fwChange.emit({
         value: this.value,
+        name: this.name,
         checked: this.checked,
       });
     }
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleChange`, {
-        field: this.name,
-        value: this.checkbox.checked,
-      });
   };
 
   render() {

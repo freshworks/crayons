@@ -78,7 +78,7 @@ describe('fw-input', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: '2', name: '' });
   });
 
   it('it emits fwFocus when the focus is on the component', async () => {
@@ -122,13 +122,15 @@ describe('fw-input', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '1.01' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: '1.01', name: '' });
   });
 
   it('allow number/integer values for Input element', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-input value="1" type="number"> </fw-input>');
+    await page.setContent(
+      '<fw-input value="1" name="num" type="number"> </fw-input>'
+    );
     const fwChange = await page.spyOnEvent('fwChange');
     const element = await page.find('fw-input');
 
@@ -137,14 +139,14 @@ describe('fw-input', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: '2', name: 'num' });
   });
 
   it('set max value of number/integer values for Input element', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-input value="1" type="number" max="5"> </fw-input>'
+      '<fw-input value="1" name="max" type="number" max="5"> </fw-input>'
     );
     const fwChange = await page.spyOnEvent('fwChange');
     const element = await page.find('fw-input >>> input');
@@ -157,6 +159,6 @@ describe('fw-input', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '5' });
+    expect(fwChange).toHaveReceivedEventDetail({ value: '5', name: 'max' });
   });
 });

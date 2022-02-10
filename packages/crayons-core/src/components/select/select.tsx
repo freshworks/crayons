@@ -20,7 +20,6 @@ import {
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-select',
@@ -56,12 +55,11 @@ export class Select {
   private innerOnBlur = (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = false;
-      this.fwBlur.emit(e);
-      this.formId &&
-        EventStore.publish(`${this.formId}::handleBlur`, {
-          field: this.name,
-          value: this.value,
-        });
+      this.fwBlur.emit({
+        event: e,
+        name: this.name,
+        value: this.value,
+      });
     }
   };
 
@@ -258,16 +256,19 @@ export class Select {
       selectedItem.stopImmediatePropagation();
       selectedItem.stopPropagation();
       selectedItem.preventDefault();
-      this.fwChange.emit({
-        value: this.value,
-        selectedOptions: this.selectedOptionsState,
-      });
       if (this.selectedOptionsState.length > 0) {
-        this.formId &&
-          EventStore.publish(`${this.formId}::handleChange`, {
-            field: this.name,
-            value: this.value,
-          });
+        this.fwChange.emit({
+          name: this.name,
+          value: this.value,
+          selectedOptions: this.selectedOptionsState,
+        });
+      } else {
+        this.fwChange.emit({
+          shouldValidate: false,
+          name: this.name,
+          value: this.value,
+          selectedOptions: this.selectedOptionsState,
+        });
       }
     }
   }

@@ -80,6 +80,7 @@ function App() {
 
 | Event      | Description                                     | Type               |
 | ---------- | ----------------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the input box loses focus.       | `CustomEvent<any>` |
 | `fwChange` | /**    Triggered when the update button clicked | `CustomEvent<any>` |
 
 

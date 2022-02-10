@@ -56,7 +56,8 @@ function App() {
 
 | Event        | Description                                                 | Type                |
 | ------------ | ----------------------------------------------------------- | ------------------- |
-| `fwBlur`     | Triggered when the radio button loses focus.                | `CustomEvent<void>` |
+| `fwBlur`     | Triggered when the radio button loses focus.                | `CustomEvent<any>`  |
+| `fwChange`   | Triggered when the radio button is toggled.                 | `CustomEvent<any>`  |
 | `fwDeselect` | Triggered when the radio button in focus is cleared.        | `CustomEvent<any>`  |
 | `fwFocus`    | Triggered when the radio button comes into focus.           | `CustomEvent<void>` |
 | `fwSelect`   | /**   Triggered when the radio button in focus is selected. | `CustomEvent<any>`  |

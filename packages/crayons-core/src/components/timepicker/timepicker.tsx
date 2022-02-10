@@ -1,9 +1,16 @@
-import { Component, Element, Prop, State, h, Method } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Prop,
+  State,
+  h,
+  Method,
+  Event,
+  EventEmitter,
+} from '@stencil/core';
 import moment from 'moment-mini';
 
 import { renderHiddenField } from '../../utils';
-import EventStore from '../../utils/event-store';
-
 @Component({
   tag: 'fw-timepicker',
   shadow: true,
@@ -72,6 +79,21 @@ export class Timepicker {
   /**
 
   /**
+   * Triggered when a value is selected or deselected from the list box options.
+   */
+  @Event() fwChange: EventEmitter;
+
+  /**
+   * Triggered when the list box loses focus.
+   */
+  @Event() fwBlur: EventEmitter;
+
+  /**
+   * Triggered when the list box comes into focus.
+   */
+  @Event() fwFocus: EventEmitter;
+
+  /**
    * Boolean representing whethere it is default end time
    */
   @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
@@ -121,11 +143,11 @@ export class Timepicker {
     const { value } = e.detail;
     this.value = value;
     if (this.value)
-      this.formId &&
-        EventStore.publish(`${this.formId}::handleChange`, {
-          field: this.name,
-          value: this.value,
-        });
+      this.fwChange.emit({
+        event: e,
+        name: this.name,
+        value: this.value,
+      });
   }
 
   private setEndTime() {
@@ -144,12 +166,16 @@ export class Timepicker {
     }
   }
 
-  onBlur = (): void => {
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: this.value,
-      });
+  onBlur = (e: Event): void => {
+    this.fwChange.emit({
+      event: e,
+      name: this.name,
+      value: this.value,
+    });
+  };
+
+  onFocus = (): void => {
+    this.fwFocus.emit();
   };
 
   componentWillLoad() {

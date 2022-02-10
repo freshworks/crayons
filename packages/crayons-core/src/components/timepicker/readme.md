@@ -60,6 +60,15 @@ function App() {
 | `value`    | `value`    | Time output value                                                                                                                                                                              | `string`                           | `undefined`                                    |
 
 
+## Events
+
+| Event      | Description                                                                       | Type               |
+| ---------- | --------------------------------------------------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the list box loses focus.                                          | `CustomEvent<any>` |
+| `fwChange` | /**   Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
+| `fwFocus`  | Triggered when the list box comes into focus.                                     | `CustomEvent<any>` |
+
+
 ## Methods
 
 ### `setFocus() => Promise<void>`

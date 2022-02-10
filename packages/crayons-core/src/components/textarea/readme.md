@@ -126,12 +126,12 @@ function App() {
 
 ## Events
 
-| Event      | Description                                            | Type                         |
-| ---------- | ------------------------------------------------------ | ---------------------------- |
-| `fwBlur`   | Triggered when the input box loses focus.              | `CustomEvent<any>`           |
-| `fwChange` | Triggered when the value in the input box is modified. | `CustomEvent<any>`           |
-| `fwFocus`  | Triggered when the input box comes into focus.         | `CustomEvent<void>`          |
-| `fwInput`  | Triggered when a value is entered in the input box.    | `CustomEvent<KeyboardEvent>` |
+| Event      | Description                                            | Type                |
+| ---------- | ------------------------------------------------------ | ------------------- |
+| `fwBlur`   | Triggered when the input box loses focus.              | `CustomEvent<any>`  |
+| `fwChange` | Triggered when the value in the input box is modified. | `CustomEvent<any>`  |
+| `fwFocus`  | Triggered when the input box comes into focus.         | `CustomEvent<void>` |
+| `fwInput`  | Triggered when a value is entered in the input box.    | `CustomEvent<any>`  |
 
 
 ## Methods
