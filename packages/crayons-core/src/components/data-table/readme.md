@@ -1438,7 +1438,9 @@ Table settings help with reordering and hide/show of columns. To enable table se
 
 ## Loading table
 
-We can load a table using the 'loadTable' method available on the table. 
+We can load a table using the 'loadTable' method available on the table. To show shimmer for rows on load set 'showShimmer' prop to true. If rows is empty, shimmer will be shown for 4 rows. To modify this use the 'shimmerCount' value.
+
+*Note: Show shimmer only on page load. On subsequent table loads, disable shimmer and show normal loading state.*
 
 ```html live
   <div style="width: 590px;">
