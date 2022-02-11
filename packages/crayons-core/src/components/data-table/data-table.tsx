@@ -107,6 +107,16 @@ export class DataTable {
   @Prop() isLoading = false;
 
   /**
+   * shimmerCount number of shimmer rows to show during initial loading
+   */
+  @Prop() shimmerCount = 4;
+
+  /**
+   * showShimmer show shimmer on loading
+   */
+  @Prop() showShimmer = false;
+
+  /**
    * orderedColumns Maintains a collection of ordered columns.
    */
   @State() orderedColumns: DataTableColumn[] = [];
@@ -1425,6 +1435,39 @@ export class DataTable {
   }
 
   /**
+   * private
+   * @returns table body shimmer
+   */
+  renderTableShimmer() {
+    const shimmerTemplate = [];
+    const shimmerCount = this.rows.length || this.shimmerCount;
+    let columnsLength = this.orderedColumns.filter(
+      (column) => !column.hide
+    ).length;
+    if (columnsLength) {
+      columnsLength = this.isSelectable ? columnsLength + 1 : columnsLength;
+      columnsLength =
+        this.rowActions && this.rowActions.length
+          ? columnsLength + 1
+          : columnsLength;
+      for (let index = 1; index <= shimmerCount; index++) {
+        shimmerTemplate.push(
+          <tr>
+            {[...Array(columnsLength).keys()].map(() => {
+              return (
+                <td>
+                  <fw-skeleton height='20px' variant='rect'></fw-skeleton>
+                </td>
+              );
+            })}
+          </tr>
+        );
+      }
+    }
+    return shimmerTemplate;
+  }
+
+  /**
    * render method
    */
   render() {
@@ -1443,7 +1486,11 @@ export class DataTable {
           aria-label={this.label}
         >
           <thead>{this.renderTableHeader()}</thead>
-          <tbody>{this.renderTableBody()}</tbody>
+          <tbody>
+            {this.showShimmer && this.isLoading
+              ? this.renderTableShimmer()
+              : this.renderTableBody()}
+          </tbody>
         </table>
         {this.showSettings && this.renderTableSettings()}
         {this.isLoading && <div class='fw-data-table--loading'></div>}
