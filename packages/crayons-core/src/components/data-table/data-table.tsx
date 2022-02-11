@@ -1022,9 +1022,9 @@ export class DataTable {
    * @returns {JSX.Element} table header row
    */
   renderTableHeader() {
-    const selectAllChecked = this.rows.every((row) =>
-      this.selected.includes(row.id)
-    );
+    const selectAllChecked =
+      this.rows.length &&
+      this.rows.every((row) => this.selected.includes(row.id));
     return this.orderedColumns.filter((column) => !column.hide).length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
