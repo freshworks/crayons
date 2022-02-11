@@ -58,7 +58,6 @@ export class Select {
       this.fwBlur.emit({
         event: e,
         name: this.name,
-        value: this.value,
       });
     }
   };
@@ -264,7 +263,7 @@ export class Select {
         });
       } else {
         this.fwChange.emit({
-          shouldValidate: false,
+          shouldValidate: false, // for handling validation with form during reset. watcher in list-options is firing.
           name: this.name,
           value: this.value,
           selectedOptions: this.selectedOptionsState,

@@ -7,7 +7,6 @@ import {
   Method,
   Prop,
   State,
-  Watch,
   h,
 } from '@stencil/core';
 
@@ -112,11 +111,6 @@ export class Input {
   @Prop() formId = '';
 
   /**
-   * Triggered when the value in the input box is modified.
-   */
-  @Event() fwChange: EventEmitter;
-
-  /**
    * Triggered when the input box comes into focus.
    */
   @Event() fwFocus: EventEmitter<void>;
@@ -135,11 +129,6 @@ export class Input {
    * Triggered when clear icon is clicked.
    */
   @Event() fwInputClear: EventEmitter;
-
-  @Watch('value')
-  watchHandler(newValue: string) {
-    this.fwChange.emit({ value: newValue, name: this.name });
-  }
 
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
@@ -164,7 +153,6 @@ export class Input {
     this.fwBlur.emit({
       event: ev,
       name: this.name,
-      value: this.getValue(),
     });
   };
 

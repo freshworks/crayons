@@ -116,7 +116,6 @@ export class Radio {
     this.fwBlur.emit({
       event: e,
       name: this.name,
-      value: this.checked ? this.value : undefined,
     });
   }
 

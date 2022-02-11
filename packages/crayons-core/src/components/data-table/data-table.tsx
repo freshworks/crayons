@@ -1273,7 +1273,7 @@ export class DataTable {
                     icon-left='search'
                     placeholder='Search'
                     ref={(el) => (this.settingsInput = el)}
-                    onFwChange={(event) =>
+                    onFwInput={(event: CustomEvent) =>
                       this.settingsSearch(event.detail.value)
                     }
                     clear-input

@@ -167,10 +167,9 @@ export class Timepicker {
   }
 
   onBlur = (e: Event): void => {
-    this.fwChange.emit({
+    this.fwBlur.emit({
       event: e,
       name: this.name,
-      value: this.value,
     });
   };
 

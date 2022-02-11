@@ -825,7 +825,6 @@ export class Datepicker {
     this.fwBlur.emit({
       event: e,
       name: this.name,
-      value: await this.getValue(),
     });
   };
 

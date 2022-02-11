@@ -121,9 +121,8 @@ export class Checkbox {
   private onBlur = (e: Event) => {
     this.fwBlur.emit({
       event: e,
-      value: this.value,
       name: this.name,
-      checked: this.checkbox.checked,
+      checked: this.checked,
     });
   };
 

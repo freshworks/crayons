@@ -2694,10 +2694,6 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * Triggered when the value in the input box is modified.
-         */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
-        /**
           * Triggered when the input box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
@@ -3524,10 +3520,6 @@ declare namespace LocalJSX {
           * Triggered when the input box loses focus.
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when the value in the input box is modified.
-         */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the input box comes into focus.
          */

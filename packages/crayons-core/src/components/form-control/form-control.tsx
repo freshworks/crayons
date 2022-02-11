@@ -269,10 +269,13 @@ export class FormControl {
             componentProps.selectedOptions = controlProps.value;
           }
 
-          if (componentProps.selectedOptions?.length > 0)
+          if (componentProps.selectedOptions?.length > 0) {
             this.crayonsControlRef?.setSelectedOptions(
               componentProps.selectedOptions
             );
+          } else if (!controlProps.value) {
+            this.crayonsControlRef?.setSelectedOptions([]);
+          }
           componentProps.noDataText = 'Start Typing...';
 
           componentProps['form-id'] = controlProps['form-id'];

@@ -66,7 +66,7 @@ export class Form {
   @Prop() validateOnBlur? = true;
 
   /** The number of milliseconds to delay before doing validation on Input */
-  @Prop() wait = 400;
+  @Prop() wait = 200;
 
   /**
    * Id to uniquely identify the Form. If not set, a random Id will be generated.
@@ -263,16 +263,17 @@ export class Form {
 
   handleInput = async (event: Event) => {
     const details = (event as any).detail;
+    if (!details || !details.name) return;
     const { name, value, shouldValidate } = details;
-
-    if (shouldValidate === false) {
-      return;
-    }
 
     this.values = {
       ...this.values,
       [name]: 'checked' in details ? details.checked : value,
     };
+
+    if (shouldValidate === false) {
+      return;
+    }
 
     /** Validate, if user wants to validateOnInput */
     if (this.validateOnInput) {
@@ -282,9 +283,10 @@ export class Form {
   };
 
   handleBlur = async (event: Event) => {
-    const { name, value } = (event as any).detail;
+    const details = (event as any).detail;
+    if (!details || !details.name) return;
+    const { name } = details;
 
-    this.values = { ...this.values, [name]: value };
     /** Validate, if user wants to validateOnBlur */
     if (this.validateOnBlur) {
       this.touched = { ...this.touched, [name]: true };

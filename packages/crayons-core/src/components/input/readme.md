@@ -245,13 +245,12 @@ Slots can be used to create complex use cases.
 
 ## Events
 
-| Event          | Description                                            | Type                |
-| -------------- | ------------------------------------------------------ | ------------------- |
-| `fwBlur`       | Triggered when the input box loses focus.              | `CustomEvent<any>`  |
-| `fwChange`     | Triggered when the value in the input box is modified. | `CustomEvent<any>`  |
-| `fwFocus`      | Triggered when the input box comes into focus.         | `CustomEvent<void>` |
-| `fwInput`      | Triggered when a value is entered in the input box.    | `CustomEvent<any>`  |
-| `fwInputClear` | Triggered when clear icon is clicked.                  | `CustomEvent<any>`  |
+| Event          | Description                                         | Type                |
+| -------------- | --------------------------------------------------- | ------------------- |
+| `fwBlur`       | Triggered when the input box loses focus.           | `CustomEvent<any>`  |
+| `fwFocus`      | Triggered when the input box comes into focus.      | `CustomEvent<void>` |
+| `fwInput`      | Triggered when a value is entered in the input box. | `CustomEvent<any>`  |
+| `fwInputClear` | Triggered when clear icon is clicked.               | `CustomEvent<any>`  |
 
 
 ## Methods

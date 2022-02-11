@@ -7,7 +7,6 @@ import {
   Method,
   Prop,
   State,
-  Watch,
   h,
 } from '@stencil/core';
 
@@ -87,10 +86,6 @@ export class Textarea {
   @Prop() formId = '';
 
   /**
-   * Triggered when the value in the input box is modified.
-   */
-  @Event() fwChange: EventEmitter;
-  /**
    * Triggered when the input box comes into focus.
    */
   @Event() fwFocus: EventEmitter<void>;
@@ -102,11 +97,6 @@ export class Textarea {
    * Triggered when a value is entered in the input box.
    */
   @Event() fwInput: EventEmitter;
-
-  @Watch('value')
-  watchHandler(newValue: string) {
-    this.fwChange.emit({ value: newValue });
-  }
 
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
@@ -130,7 +120,6 @@ export class Textarea {
     this.fwBlur.emit({
       event: ev,
       name: this.name,
-      value: this.getValue(),
     });
   };
 

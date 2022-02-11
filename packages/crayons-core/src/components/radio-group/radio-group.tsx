@@ -1,14 +1,14 @@
 import {
   Component,
   Element,
-  Event,
-  EventEmitter,
   Host,
   Prop,
   Watch,
   Method,
   h,
   Listen,
+  Event,
+  EventEmitter,
 } from '@stencil/core';
 
 import {
@@ -16,7 +16,6 @@ import {
   renderHiddenField,
   watchForOptions,
 } from '../../utils';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio-group',
@@ -61,9 +60,9 @@ export class RadioGroup {
   @Prop() formId = '';
 
   @Watch('value')
-  async valueChanged(value: any | undefined) {
+  async valueChanged(_value: any | undefined) {
     await this.updateRadios();
-    this.fwChange.emit({ value });
+    //this.fwChange.emit({ value });
   }
 
   /**
@@ -135,11 +134,10 @@ export class RadioGroup {
     }
 
     if (supportedKeyStrokes.includes(event.code)) {
-      this.formId &&
-        EventStore.publish(`${this.formId}::handleChange`, {
-          field: this.name,
-          value: this.value,
-        });
+      this.fwChange.emit({
+        field: this.name,
+        value: this.value,
+      });
     }
   }
 
@@ -250,14 +248,6 @@ export class RadioGroup {
     await this.updateRadios();
   };
 
-  private onBlur = () => {
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: this.value,
-      });
-  };
-
   /**
    * Sets focus on a specific `fw-radio`.
    */
@@ -278,7 +268,6 @@ export class RadioGroup {
         aria-label={this.label}
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
-        onFwBlur={this.onBlur}
         id={this.label}
       ></Host>
     );
