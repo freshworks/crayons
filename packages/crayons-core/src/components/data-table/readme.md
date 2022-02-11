@@ -1688,7 +1688,9 @@ Data table exposes couple of method to get and set column configuration.
 | `label`            | `label`              | Label attribute is not visible on screen. There for accessibility purposes.                                                                            | `string`            | `''`    |
 | `rowActions`       | --                   | To enable bulk actions on the table.                                                                                                                   | `DataTableAction[]` | `[]`    |
 | `rows`             | --                   | Rows Array of objects to be displayed in the table.                                                                                                    | `DataTableRow[]`    | `[]`    |
+| `shimmerCount`     | `shimmer-count`      | shimmerCount number of shimmer rows to show during initial loading                                                                                     | `number`            | `4`     |
 | `showSettings`     | `show-settings`      | showSettings is used to show the settings button on the table.                                                                                         | `boolean`           | `false` |
+| `showShimmer`      | `show-shimmer`       | showShimmer show shimmer on loading                                                                                                                    | `boolean`           | `false` |
 
 
 ## Events
