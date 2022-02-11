@@ -178,6 +178,10 @@ export namespace Components {
          */
         "isAllSelectable": boolean;
         /**
+          * To disable table during async operations
+         */
+        "isLoading": boolean;
+        /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
         "isSelectable": boolean;
@@ -2233,6 +2237,10 @@ declare namespace LocalJSX {
           * isAllSelectable Boolean based on which select all option appears in the table header
          */
         "isAllSelectable"?: boolean;
+        /**
+          * To disable table during async operations
+         */
+        "isLoading"?: boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */

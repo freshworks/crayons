@@ -102,6 +102,11 @@ export class DataTable {
   @Prop() autoSaveSettings = false;
 
   /**
+   * To disable table during async operations
+   */
+  @Prop() isLoading = false;
+
+  /**
    * orderedColumns Maintains a collection of ordered columns.
    */
   @State() orderedColumns: DataTableColumn[] = [];
@@ -110,11 +115,6 @@ export class DataTable {
    * selected Array of selected row id.
    */
   @State() selected: string[] = [];
-
-  /**
-   * To disable table during async operations
-   */
-  @State() isLoading = false;
 
   /**
    * Collection of rows loading
