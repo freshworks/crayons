@@ -547,4 +547,22 @@ describe('fw-data-table', () => {
     );
     expect(checkboxes.length).toBe(1);
   });
+
+  it('should disable table on calling loadTable', async () => {
+    const currentData = { ...manyColumnData, isSelectable: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const dataTable = await page.find('fw-data-table');
+    await dataTable.callMethod('loadTable');
+    await page.waitForChanges();
+    const checkbox = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:first-child'
+    );
+    checkbox.click();
+    await page.waitForChanges();
+    const selectedRow = await page.find(
+      'fw-data-table >>> tbody > tr:first-child.active'
+    );
+    expect(selectedRow).toBeFalsy();
+  });
 });

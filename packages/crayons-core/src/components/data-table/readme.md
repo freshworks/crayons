@@ -1436,6 +1436,224 @@ Table settings help with reordering and hide/show of columns. To enable table se
 </code-group>
 
 
+## Loading table
+
+We can load a table using the 'loadTable' method available on the table. 
+
+```html live
+  <div style="width: 590px;">
+     <span>
+      <fw-toggle id="toggle-table" size="medium"></fw-toggle>
+      <span class="fw-ml-8">Load table</span>
+    </span>
+    <br><br>
+    <fw-data-table id="datatable-9"  is-selectable="true" is-all-selectable="true" label="Data table 9">
+    </fw-data-table>
+  </div>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "widthProperties": {
+          "width": "200px"
+        }
+      }, {
+        "key": "role",
+        "text": "Role",
+        "widthProperties": {
+          "width": "200px"
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"]
+      }],
+      actionsColumn: { "width": "150px" }
+    }
+
+    var datatable9 = document.getElementById('datatable-9');
+    datatable9.columns = data.columns;
+    datatable9.rows = data.rows;
+    datatable9.rowActions = data.rowActions;
+    datatable9.actionsColumnProperties = data.actionsColumn;
+
+    var toggle = document.getElementById('toggle-table');
+    toggle.addEventListener('fwChange', (event) => {
+        datatable9.loadTable(event.detail.checked);
+    });
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <div style="width: 590px;">
+     <span>
+      <fw-toggle id="toggle-table" size="medium"></fw-toggle>
+      <span class="fw-ml-8">Load table</span>
+    </span>
+    <br><br>
+    <fw-data-table id="datatable-9"  is-selectable="true" is-all-selectable="true" label="Data table 9">
+    </fw-data-table>
+  </div>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name",
+      "widthProperties": {
+        "width": "300px"
+      }
+    }, {
+      "key": "role",
+      "text": "Role",
+      "widthProperties": {
+        "width": "300px"
+      }
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "role": "Member"
+    }],
+    rowActions: [{
+      "name": "Alert",
+      "handler": (rowData) => {
+        window.alert(rowData.name);
+      }
+    }, {
+      "name": "Delete",
+      "handler": async (rowData) => {
+        let deletePromise = new Promise((resolve, reject) => {
+          const dataTable = document.querySelector('#datatable-4');
+          setTimeout(() => {
+            if (dataTable) {
+              dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+              resolve();
+            } else {
+              reject();
+            }
+          }, 3000); 
+        });
+        await deletePromise;
+      },
+      "hideForRowIds": ["0003"]
+    }]
+  }
+
+  var datatable9 = document.getElementById('datatable-9');
+  datatable9.columns = data.columns;
+  datatable9.rows = data.rows;
+  datatable9.rowActions = data.rowActions;
+
+  var toggle = document.getElementById('toggle-table');
+  toggle.addEventListener('fwChange', (event) => {
+      datatable9.loadTable(event.detail.checked);
+  });
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React, { useRef } from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var dataTable = useRef(null);
+
+    var toggle = (event) => {
+      dataTable.current.loadTable(event.detail.checked);
+    }
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "widthProperties": {
+          "width": "300px"
+        }
+      }, {
+        "key": "role",
+        "text": "Role",
+        "widthProperties": {
+          "width": "300px"
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"]
+      }]
+    }
+
+    return (
+      <>
+        <FwToggle onFwChange={toggle}></FwToggle><br></br>
+        <FwDataTable columns={data.columns} rows={data.rows} rowActions={data.rowActions} isSelectable  label="Data Table 2" ref={dataTable}>
+        </FwDataTable>
+      </>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
 ## Saving column configuration
 
 For auto saving configuration into localStorage, you can add 'autoSaveSettings' prop to the table.
@@ -1465,6 +1683,7 @@ Data table exposes couple of method to get and set column configuration.
 | `autoSaveSettings` | `auto-save-settings` | autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table` | `boolean`           | `false` |
 | `columns`          | --                   | Columns Array of objects that provides information regarding the columns in the table.                                                                 | `DataTableColumn[]` | `[]`    |
 | `isAllSelectable`  | `is-all-selectable`  | isAllSelectable Boolean based on which select all option appears in the table header                                                                   | `boolean`           | `false` |
+| `isLoading`        | `is-loading`         | To disable table during async operations                                                                                                               | `boolean`           | `false` |
 | `isSelectable`     | `is-selectable`      | isSelectable Boolean based on which selectable options appears for rows in the table.                                                                  | `boolean`           | `false` |
 | `label`            | `label`              | Label attribute is not visible on screen. There for accessibility purposes.                                                                            | `string`            | `''`    |
 | `rowActions`       | --                   | To enable bulk actions on the table.                                                                                                                   | `DataTableAction[]` | `[]`    |
@@ -1512,7 +1731,7 @@ Type: `Promise<{}>`
 
 columnConfig object
 
-### `loadTable(state: boolean) => Promise<boolean>`
+### `loadTable(state?: boolean) => Promise<boolean>`
 
 loadTable - Method to call when we want to change table loading state
 

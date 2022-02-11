@@ -102,6 +102,11 @@ export class DataTable {
   @Prop() autoSaveSettings = false;
 
   /**
+   * To disable table during async operations
+   */
+  @Prop() isLoading = false;
+
+  /**
    * orderedColumns Maintains a collection of ordered columns.
    */
   @State() orderedColumns: DataTableColumn[] = [];
@@ -110,11 +115,6 @@ export class DataTable {
    * selected Array of selected row id.
    */
   @State() selected: string[] = [];
-
-  /**
-   * To disable table during async operations
-   */
-  @State() isLoading = false;
 
   /**
    * Collection of rows loading
@@ -365,7 +365,7 @@ export class DataTable {
    * @returns isLoading current state
    */
   @Method()
-  async loadTable(state: boolean) {
+  async loadTable(state = true) {
     this.isLoading = state;
     return this.isLoading;
   }
@@ -1430,7 +1430,10 @@ export class DataTable {
   render() {
     return (
       <div
-        class='fw-data-table-container'
+        class={{
+          'fw-data-table-container': true,
+          'loading': this.isLoading,
+        }}
         ref={(el) => (this.tableContainer = el)}
       >
         <table
