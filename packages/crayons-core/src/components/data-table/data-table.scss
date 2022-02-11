@@ -100,6 +100,10 @@ div.fw-data-table-container {
           background: $grid-row-active;
         }
 
+        &:last-child {
+          border-bottom: 0px;
+        }
+
         td {
           color: $grid-row-txt-color;
           font-size: $grid-row-txt-size;
