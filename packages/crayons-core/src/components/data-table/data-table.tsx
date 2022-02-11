@@ -104,7 +104,7 @@ export class DataTable {
   /**
    * To disable table during async operations
    */
-  @Prop() isLoading = false;
+  @Prop({ mutable: true, reflect: true }) isLoading = false;
 
   /**
    * orderedColumns Maintains a collection of ordered columns.
