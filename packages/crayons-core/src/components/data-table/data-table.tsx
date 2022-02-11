@@ -1025,7 +1025,7 @@ export class DataTable {
     const selectAllChecked = this.rows.every((row) =>
       this.selected.includes(row.id)
     );
-    return this.orderedColumns.length ? (
+    return this.orderedColumns.filter((column) => !column.hide).length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
           <th key='isSelectable' aria-colindex={1} style={{ width: '40px' }}>
@@ -1091,7 +1091,7 @@ export class DataTable {
    * @returns table body rows
    */
   renderTableBody() {
-    return this.orderedColumns.length
+    return this.orderedColumns.filter((column) => !column.hide).length
       ? this.rows.map((row, rowIndex) => (
           <tr
             role='row'
