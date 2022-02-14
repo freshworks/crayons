@@ -1006,15 +1006,6 @@ export class DataTable {
 
   /**
    * private
-   * renderRowOverlay
-   * @returns {JSX.Element} render row overlay
-   */
-  renderRowOverlay(rowHeight) {
-    return <div class='row-loading' style={{ height: rowHeight }}></div>;
-  }
-
-  /**
-   * private
    * @returns {JSX.Element} table header row
    */
   renderTableHeader() {
