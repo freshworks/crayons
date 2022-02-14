@@ -142,16 +142,18 @@ describe('fw-select', () => {
     expect(fwChange).toHaveReceivedEventDetail({
       value: 'lannisters',
       name: 'sel',
-      selectedOptions: [
-        {
-          disabled: false,
-          html: false,
-          htmlContent: '',
-          selected: false,
-          text: 'Lannisters',
-          value: 'lannisters',
-        },
-      ],
+      meta: {
+        selectedOptions: [
+          {
+            disabled: false,
+            html: false,
+            htmlContent: '',
+            selected: false,
+            text: 'Lannisters',
+            value: 'lannisters',
+          },
+        ],
+      },
     });
   });
 

@@ -62,7 +62,6 @@ export class RadioGroup {
   @Watch('value')
   async valueChanged(_value: any | undefined) {
     await this.updateRadios();
-    //this.fwChange.emit({ value });
   }
 
   /**
@@ -135,7 +134,8 @@ export class RadioGroup {
 
     if (supportedKeyStrokes.includes(event.code)) {
       this.fwChange.emit({
-        field: this.name,
+        event,
+        name: this.name,
         value: this.value,
       });
     }

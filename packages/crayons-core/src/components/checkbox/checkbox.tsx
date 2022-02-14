@@ -122,7 +122,7 @@ export class Checkbox {
     this.fwBlur.emit({
       event: e,
       name: this.name,
-      checked: this.checked,
+      meta: { checked: this.checked },
     });
   };
 
@@ -132,7 +132,7 @@ export class Checkbox {
       this.fwChange.emit({
         value: this.value,
         name: this.name,
-        checked: this.checked,
+        meta: { checked: this.checked },
       });
     }
   };

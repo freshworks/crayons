@@ -170,9 +170,9 @@ export class Form {
   }
 
   disconnectedCallback() {
-    this.el?.removeEventListener?.('fwFormBlur', this.handleBlurListener);
-    this.el?.removeEventListener?.('fwFormInput', this.handleInputListener);
-    this.el?.removeEventListener?.('fwFormChange', this.handleChangeListener);
+    this.el?.removeEventListener?.('fwBlur', this.handleBlurListener);
+    this.el?.removeEventListener?.('fwInput', this.handleInputListener);
+    this.el?.removeEventListener?.('fwChange', this.handleChangeListener);
   }
 
   handleSubmit = async (event: Event): Promise<FormSubmit> => {
@@ -264,14 +264,14 @@ export class Form {
   handleInput = async (event: Event) => {
     const details = (event as any).detail;
     if (!details || !details.name) return;
-    const { name, value, shouldValidate } = details;
+    const { name, value, meta } = details;
 
     this.values = {
       ...this.values,
-      [name]: 'checked' in details ? details.checked : value,
+      [name]: 'checked' in meta ? meta.checked : value,
     };
 
-    if (shouldValidate === false) {
+    if (meta && meta.shouldValidate === false) {
       return;
     }
 

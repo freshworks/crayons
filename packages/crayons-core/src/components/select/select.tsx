@@ -259,14 +259,16 @@ export class Select {
         this.fwChange.emit({
           name: this.name,
           value: this.value,
-          selectedOptions: this.selectedOptionsState,
+          meta: { selectedOptions: this.selectedOptionsState },
         });
       } else {
         this.fwChange.emit({
-          shouldValidate: false, // for handling validation with form during reset. watcher in list-options is firing.
           name: this.name,
           value: this.value,
-          selectedOptions: this.selectedOptionsState,
+          meta: {
+            shouldValidate: false, // for handling validation with form during reset. watcher in list-options is firing.
+            selectedOptions: this.selectedOptionsState,
+          },
         });
       }
     }

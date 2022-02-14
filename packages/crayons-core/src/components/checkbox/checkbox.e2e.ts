@@ -26,7 +26,7 @@ describe('fw-checkbox', () => {
     const fwChange = await page.spyOnEvent('fwChange');
     await element.click();
     expect(fwChange).toHaveReceivedEventDetail({
-      checked: true,
+      meta: { checked: true },
       value: '1',
       name: 'test',
     });
@@ -39,7 +39,7 @@ describe('fw-checkbox', () => {
     const fwChange = await page.spyOnEvent('fwChange');
     await element.press('Space');
     expect(fwChange).toHaveReceivedEventDetail({
-      checked: true,
+      meta: { checked: true },
       value: '1',
       name: '',
     });
