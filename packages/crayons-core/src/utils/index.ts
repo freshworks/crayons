@@ -259,18 +259,3 @@ export const cyclicDecrement = (value: number, maxValue: number): number => {
   value--;
   return value < 0 ? maxValue : value;
 };
-
-export const getTextNodeHeight = (textNode: HTMLElement) => {
-  let height = 0;
-  if (document.createRange) {
-    const range = document.createRange();
-    range.selectNodeContents(textNode);
-    if (range.getBoundingClientRect) {
-      const rect = range.getBoundingClientRect();
-      if (rect) {
-        height = rect.bottom - rect.top;
-      }
-    }
-  }
-  return height;
-};

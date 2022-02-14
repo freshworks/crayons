@@ -152,7 +152,7 @@ export class DataTable {
   @State() disabledColumnHide = false;
 
   /**
-   * show shimmer on set to true when table is loading.
+   * show shimmer on set to false after intial table load.
    */
   @State() showShimmer = true;
 
