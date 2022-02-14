@@ -214,6 +214,10 @@ export namespace Components {
          */
         "setTableSettings": (columnConfig: any) => Promise<DataTableColumn[]>;
         /**
+          * shimmerCount number of shimmer rows to show during initial loading
+         */
+        "shimmerCount": number;
+        /**
           * showSettings is used to show the settings button on the table.
          */
         "showSettings": boolean;
@@ -2265,6 +2269,10 @@ declare namespace LocalJSX {
           * Rows Array of objects to be displayed in the table.
          */
         "rows"?: DataTableRow[];
+        /**
+          * shimmerCount number of shimmer rows to show during initial loading
+         */
+        "shimmerCount"?: number;
         /**
           * showSettings is used to show the settings button on the table.
          */

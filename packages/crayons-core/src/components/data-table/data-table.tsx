@@ -107,6 +107,11 @@ export class DataTable {
   @Prop({ mutable: true, reflect: true }) isLoading = false;
 
   /**
+   * shimmerCount number of shimmer rows to show during initial loading
+   */
+  @Prop() shimmerCount = 4;
+
+  /**
    * orderedColumns Maintains a collection of ordered columns.
    */
   @State() orderedColumns: DataTableColumn[] = [];
@@ -147,6 +152,11 @@ export class DataTable {
   @State() disabledColumnHide = false;
 
   /**
+   * show shimmer on set to true when table is loading.
+   */
+  @State() showShimmer = true;
+
+  /**
    * fwSelectionChange Emits this event when row is selected/unselected.
    */
   @Event() fwSelectionChange: EventEmitter;
@@ -184,6 +194,7 @@ export class DataTable {
    * componentWillLoad lifecycle event
    */
   componentWillLoad() {
+    this.isLoading = true;
     this.columnOrdering(this.columns);
     if (localStorage && this.autoSaveSettings) {
       const tableId = this.el.id ? `-${this.el.id}` : '';
@@ -227,6 +238,10 @@ export class DataTable {
     }
   }
 
+  /**
+   * showSettingsHandler
+   * @param showSettings
+   */
   @Watch('showSettings')
   showSettingsHandler(showSettings) {
     if (showSettings) {
@@ -251,6 +266,18 @@ export class DataTable {
   @Watch('columns')
   columnsChangeHandler(newColumns: DataTableColumn[]) {
     this.columnOrdering(newColumns);
+  }
+
+  /**
+   * watchChangeHandler
+   * @param newRows recent datatable columns value
+   */
+  @Watch('rows')
+  rowsChangeHandler(newRows: DataTableRow[]) {
+    if (newRows.length && this.showShimmer) {
+      this.showShimmer = false;
+      this.isLoading = false;
+    }
   }
 
   /**
@@ -797,46 +824,18 @@ export class DataTable {
   }
 
   /**
-   * getShimmerHeight from one of the table's cell
-   * @param tableCell one of the table cell
-   * @returns {string} shimmer height
-   */
-  getShimmerHeight(tableCell) {
-    const tableRow = tableCell.parentNode;
-    const tableHeight = parseFloat(window.getComputedStyle(tableRow).height);
-    const tablCellTopPadding = parseFloat(
-      window.getComputedStyle(tableCell).paddingTop
-    );
-    const tableCellBottomPadding = parseFloat(
-      window.getComputedStyle(tableCell).paddingBottom
-    );
-    return tableHeight - tablCellTopPadding - tableCellBottomPadding + 'px';
-  }
-
-  /**
    * performRowAction
-   * @param event UI event
    * @param action action object - has information related to the action to be performed
    * @param rowData rowData - complete data of the current row
    */
-  async performRowAction(
-    event: any,
-    action: DataTableAction,
-    rowData: DataTableRow
-  ) {
-    const tableRow = this.closestTableCell(this.getEventPath(event)).parentNode;
-    const tableRowHeight = window.getComputedStyle(tableRow).height;
-    tableRow.style.height = tableRowHeight;
-    const skeletonHeight = this.getShimmerHeight(
-      this.closestTableCell(this.getEventPath(event))
-    );
+  async performRowAction(action: DataTableAction, rowData: DataTableRow) {
     const selectAll: any = this.el.shadowRoot.querySelector(
       'fw-checkbox#select-all'
     );
-    if (selectAll) {
+    if (selectAll && !selectAll.disabled) {
       selectAll.disabled = true;
     }
-    this.rowsLoading = { ...this.rowsLoading, [rowData.id]: skeletonHeight };
+    this.rowsLoading = { ...this.rowsLoading, [rowData.id]: true };
     try {
       await action.handler(rowData);
     } catch (error) {
@@ -847,8 +846,6 @@ export class DataTable {
     if (selectAll && Object.keys(this.rowsLoading).length === 0) {
       selectAll.disabled = false;
     }
-    await this.waitForNextRender(); // To avoid UI jitter when shimmer disappears.
-    tableRow.style.height = 'auto';
   }
 
   /**
@@ -1009,13 +1006,22 @@ export class DataTable {
 
   /**
    * private
+   * renderRowOverlay
+   * @returns {JSX.Element} render row overlay
+   */
+  renderRowOverlay(rowHeight) {
+    return <div class='row-loading' style={{ height: rowHeight }}></div>;
+  }
+
+  /**
+   * private
    * @returns {JSX.Element} table header row
    */
   renderTableHeader() {
-    const selectAllChecked = this.rows.every((row) =>
-      this.selected.includes(row.id)
-    );
-    return this.orderedColumns.length ? (
+    const selectAllChecked =
+      this.rows.length &&
+      this.rows.every((row) => this.selected.includes(row.id));
+    return this.orderedColumns.filter((column) => !column.hide).length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
           <th key='isSelectable' aria-colindex={1} style={{ width: '40px' }}>
@@ -1081,20 +1087,23 @@ export class DataTable {
    * @returns table body rows
    */
   renderTableBody() {
-    return this.orderedColumns.length
-      ? this.rows.map((row, rowIndex) => (
-          <tr
-            role='row'
-            class={{ active: this.selected.includes(row.id) }}
-            aria-rowindex={rowIndex + 1}
-          >
-            {this.orderedColumns.length && this.isSelectable && (
-              <td
-                class='data-table-checkbox'
-                aria-colindex={1}
-                data-has-focusable-child='true'
-              >
-                {!this.rowsLoading[row.id] ? (
+    return this.orderedColumns.filter((column) => !column.hide).length
+      ? this.rows.map((row, rowIndex) => {
+          return (
+            <tr
+              role='row'
+              class={{
+                active: this.selected.includes(row.id),
+                loading: this.rowsLoading[row.id] ? true : false,
+              }}
+              aria-rowindex={rowIndex + 1}
+            >
+              {this.orderedColumns.length && this.isSelectable && (
+                <td
+                  class='data-table-checkbox'
+                  aria-colindex={1}
+                  data-has-focusable-child='true'
+                >
                   <fw-checkbox
                     value={row.id ? row.id : ''}
                     checked={this.selected.includes(row.id)}
@@ -1102,75 +1111,65 @@ export class DataTable {
                       this.selectRow(event.detail.value, event.detail.checked)
                     }
                   ></fw-checkbox>
-                ) : (
-                  <fw-skeleton
-                    height={this.rowsLoading[row.id]}
-                    variant='rect'
-                  ></fw-skeleton>
-                )}
-              </td>
-            )}
-            {this.orderedColumns.map((orderedColumn, columnIndex) => {
-              const attrs: any = {};
-              const isFocusable = this.hasFocusableComponent(orderedColumn)
-                ? true
-                : false;
-              if (!isFocusable) {
-                attrs.tabindex =
-                  !this.isSelectable && rowIndex === 0 && columnIndex === 0
-                    ? '0'
-                    : '-2';
-              }
-              attrs['aria-colindex'] = this.isSelectable
-                ? columnIndex + 2
-                : columnIndex + 1;
-              attrs['data-has-focusable-child'] = isFocusable
-                ? 'true'
-                : 'false';
-              let textAlign = null;
-              if (
-                orderedColumn.textAlign &&
-                !(
-                  orderedColumn.variant &&
-                  PREDEFINED_VARIANTS_META[orderedColumn.variant].skipTextAlign
-                )
-              ) {
-                textAlign = orderedColumn.textAlign;
-              }
-              const cellStyle: any = Object.assign(
-                {},
-                textAlign ? { textAlign } : {}
-              );
-              return (
-                <td
-                  role='gridcell'
-                  class={{ hidden: orderedColumn.hide }}
-                  style={cellStyle}
-                  {...attrs}
-                >
-                  {!this.rowsLoading[row.id] ? (
-                    this.renderTableCell(orderedColumn, row[orderedColumn.key])
-                  ) : (
-                    <fw-skeleton
-                      height={this.rowsLoading[row.id]}
-                      variant='rect'
-                    ></fw-skeleton>
-                  )}
                 </td>
-              );
-            })}
-            {this.rowActions.length !== 0 && (
-              <td
-                class='row-actions'
-                data-has-focusable-child='true'
-                aria-colindex={
-                  this.isSelectable
-                    ? this.orderedColumns.length + 2
-                    : this.orderedColumns.length + 1
+              )}
+              {this.orderedColumns.map((orderedColumn, columnIndex) => {
+                const attrs: any = {};
+                const isFocusable = this.hasFocusableComponent(orderedColumn)
+                  ? true
+                  : false;
+                if (!isFocusable) {
+                  attrs.tabindex =
+                    !this.isSelectable && rowIndex === 0 && columnIndex === 0
+                      ? '0'
+                      : '-2';
                 }
-              >
-                {!this.rowsLoading[row.id] ? (
-                  this.rowActions.map((action: DataTableAction) => {
+                attrs['aria-colindex'] = this.isSelectable
+                  ? columnIndex + 2
+                  : columnIndex + 1;
+                attrs['data-has-focusable-child'] = isFocusable
+                  ? 'true'
+                  : 'false';
+                let textAlign = null;
+                if (
+                  orderedColumn.textAlign &&
+                  !(
+                    orderedColumn.variant &&
+                    PREDEFINED_VARIANTS_META[orderedColumn.variant]
+                      .skipTextAlign
+                  )
+                ) {
+                  textAlign = orderedColumn.textAlign;
+                }
+                const cellStyle: any = Object.assign(
+                  {},
+                  textAlign ? { textAlign } : {}
+                );
+                return (
+                  <td
+                    role='gridcell'
+                    class={{ hidden: orderedColumn.hide }}
+                    style={cellStyle}
+                    {...attrs}
+                  >
+                    {this.renderTableCell(
+                      orderedColumn,
+                      row[orderedColumn.key]
+                    )}
+                  </td>
+                );
+              })}
+              {this.rowActions.length !== 0 && (
+                <td
+                  class='row-actions'
+                  data-has-focusable-child='true'
+                  aria-colindex={
+                    this.isSelectable
+                      ? this.orderedColumns.length + 2
+                      : this.orderedColumns.length + 1
+                  }
+                >
+                  {this.rowActions.map((action: DataTableAction) => {
                     let actionTemplate = null;
                     if (
                       !action.hideForRowIds ||
@@ -1188,11 +1187,9 @@ export class DataTable {
                           onKeyUp={(event) =>
                             (event.code === 'Space' ||
                               event.code === 'Enter') &&
-                            this.performRowAction(event, action, row)
+                            this.performRowAction(action, row)
                           }
-                          onClick={(event) =>
-                            this.performRowAction(event, action, row)
-                          }
+                          onClick={() => this.performRowAction(action, row)}
                           title={action.name}
                           aria-label={action.name}
                         >
@@ -1213,17 +1210,12 @@ export class DataTable {
                       );
                     }
                     return actionTemplate;
-                  })
-                ) : (
-                  <fw-skeleton
-                    height={this.rowsLoading[row.id]}
-                    variant='rect'
-                  ></fw-skeleton>
-                )}
-              </td>
-            )}
-          </tr>
-        ))
+                  })}
+                </td>
+              )}
+            </tr>
+          );
+        })
       : null;
   }
 
@@ -1425,6 +1417,38 @@ export class DataTable {
   }
 
   /**
+   * private
+   * @returns table shimmer
+   */
+  renderTableShimmer() {
+    const shimmerTemplate = [];
+    const shimmerCount = this.rows.length || this.shimmerCount;
+    let columnsLength = this.orderedColumns.filter(
+      (column) => !column.hide
+    ).length;
+    if (columnsLength) {
+      columnsLength = this.isSelectable ? columnsLength + 1 : columnsLength;
+      if (this.rowActions && this.rowActions.length) {
+        columnsLength = columnsLength + 1;
+      }
+      for (let index = 1; index <= shimmerCount; index++) {
+        shimmerTemplate.push(
+          <tr>
+            {[...Array(columnsLength).keys()].map(() => {
+              return (
+                <td>
+                  <fw-skeleton height='12px'></fw-skeleton>
+                </td>
+              );
+            })}
+          </tr>
+        );
+      }
+    }
+    return shimmerTemplate;
+  }
+
+  /**
    * render method
    */
   render() {
@@ -1443,7 +1467,11 @@ export class DataTable {
           aria-label={this.label}
         >
           <thead>{this.renderTableHeader()}</thead>
-          <tbody>{this.renderTableBody()}</tbody>
+          <tbody>
+            {this.showShimmer && this.isLoading
+              ? this.renderTableShimmer()
+              : this.renderTableBody()}
+          </tbody>
         </table>
         {this.showSettings && this.renderTableSettings()}
         {this.isLoading && <div class='fw-data-table--loading'></div>}

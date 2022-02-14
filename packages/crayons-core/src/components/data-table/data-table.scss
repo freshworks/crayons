@@ -153,6 +153,31 @@ div.fw-data-table-container {
           display: none;
         }
       }
+
+      tr.loading {
+        cursor: not-allowed;
+
+        td {
+          position: relative;
+          opacity: 0.65;
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+          }
+        }
+      }
+
+      fw-skeleton {
+        display: block;
+        height: 10px;
+        padding: 4px 0px;
+        box-sizing: content-box;
+      }
     }
 
     &.is-selectable {
