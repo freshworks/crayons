@@ -45,7 +45,6 @@ function App() {
 | `checked`     | `checked`     | Sets the state to selected. If the attribute’s value is undefined, the value is set to false.                                             | `boolean`             | `false`    |
 | `description` | `description` | Description to be displayed for the checkbox.                                                                                             | `string`              | `''`       |
 | `disabled`    | `disabled`    | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                | `boolean`             | `false`    |
-| `formId`      | `form-id`     | id for the form using this component. This prop is set from the `fw-form`                                                                 | `string`              | `''`       |
 | `label`       | `label`       | <span style="color:red">**[DEPRECATED]**</span> Use `description` instead. Label displayed on the interface, for the check box.<br/><br/> | `string`              | `''`       |
 | `name`        | `name`        | Name of the component, saved as part of form data.                                                                                        | `string`              | `''`       |
 | `state`       | `state`       | Theme based on which the radio button is styled.                                                                                          | `"error" \| "normal"` | `'normal'` |

@@ -106,11 +106,6 @@ export class Input {
   @Prop() iconRight: string = undefined;
 
   /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
-  /**
    * Triggered when the input box comes into focus.
    */
   @Event() fwFocus: EventEmitter<void>;

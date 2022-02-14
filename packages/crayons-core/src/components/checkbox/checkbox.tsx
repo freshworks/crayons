@@ -50,11 +50,6 @@ export class Checkbox {
   @Prop() required = false;
 
   /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
-  /**
    * Theme based on which the checkbox is styled.
    */
   @Prop() state: 'normal' | 'error' = 'normal';

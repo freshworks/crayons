@@ -54,11 +54,6 @@ export class RadioGroup {
    */
   @Prop() required = false;
 
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
   @Watch('value')
   async valueChanged(_value: any | undefined) {
     await this.updateRadios();

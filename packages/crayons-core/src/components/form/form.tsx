@@ -337,26 +337,22 @@ export class Form {
 
   private composedUtils = (): FormUtils => {
     const inputProps = (field: string) => ({
-      'value': this.values[field],
-      'form-id': this.formId,
+      value: this.values[field],
     });
 
     const radioProps = (field: string) => ({
-      'value': this.values[field],
-      'form-id': this.formId,
+      value: this.values[field],
     });
 
     const checkboxProps = (field: string) => ({
-      'checked': !!this.values[field],
-      'form-id': this.formId,
+      checked: !!this.values[field],
     });
 
     const selectProps = (field: string, inputType) => ({
-      'value':
+      value:
         inputType === 'multi_select'
           ? this.values[field] || []
           : this.values[field] || '',
-      'form-id': this.formId,
     });
 
     const formProps: FormProps = {

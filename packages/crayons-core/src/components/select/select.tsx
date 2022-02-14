@@ -204,10 +204,6 @@ export class Select {
    * Whether clicking on the already selected option disables it.
    */
   @Prop() allowDeselect = true;
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
 
   // Events
   /**

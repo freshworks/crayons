@@ -42,12 +42,6 @@ export class Radio {
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
-
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
   /**
    * Theme based on which the radio button is styled.
    */
