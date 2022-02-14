@@ -268,7 +268,7 @@ export class Form {
 
     this.values = {
       ...this.values,
-      [name]: 'checked' in meta ? meta.checked : value,
+      [name]: meta && 'checked' in meta ? meta.checked : value,
     };
 
     if (meta && meta.shouldValidate === false) {
