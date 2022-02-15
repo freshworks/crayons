@@ -86,25 +86,36 @@
     animation: 'modal-entry-right' 0.5s 1;
 
     .close-btn {
-      height: 40px;
-      width: 40px;
+      height: 24px;
+      width: 24px;
+      box-sizing: border-box;
       top: 0px;
       right: 600px;
       background-color: $color-elephant-900;
       border-radius: 2px 0px 0px 2px;
+      padding: 0px;
+      margin: 0px;
+      line-height: 24px;
+      text-align: center;
 
       &:hover,
       &:focus,
       &:focus-visible {
         background-color: $color-elephant-900;
         border-radius: 2px 0px 0px 2px;
-        border: 0px;
+        border-color: $color-elephant-900;
+        outline: 0px;
       }
 
       &:focus,
       &:focus-visible {
         border: 1px solid $color-azure-800;
         box-shadow: $color-azure-800 0px 0px 0px 1px;
+      }
+
+      fw-icon {
+        height: 12px;
+        width: 12px;
       }
     }
 

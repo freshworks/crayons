@@ -122,7 +122,7 @@ export class Button {
     const modal: any = document.querySelector(
       `fw-modal#${this.modalTriggerId}`
     );
-    modal.open();
+    modal?.open();
   }
 
   private async fakeSubmit(event: Event) {
