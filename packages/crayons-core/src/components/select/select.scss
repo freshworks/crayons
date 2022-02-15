@@ -30,9 +30,10 @@ $warning-color: $color-casablanca-300;
 // Label Style
 label {
   font-size: $font-size-12;
-  font-weight: $font-weight-500;
+  font-weight: $font-weight-600;
   color: $color-elephant-900;
   margin-bottom: 0;
+  line-height: 20px;
   padding-bottom: 4px;
   padding-left: 2px;
   display: block;
