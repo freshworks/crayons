@@ -528,7 +528,7 @@ describe('fw-data-table', () => {
     expect(checkboxes.length).toBe(1);
   });
 
-  it('should remove column from choose columns section in settings when drag item is remove in settings', async () => {
+  it('should remove column from choose columns section in settings when drag item is removed in settings', async () => {
     const currentData = { ...manyColumnData, showSettings: true };
     await loadDataIntoGrid(currentData);
     await page.waitForChanges();
@@ -564,5 +564,22 @@ describe('fw-data-table', () => {
       'fw-data-table >>> tbody > tr:first-child.active'
     );
     expect(selectedRow).toBeFalsy();
+  });
+
+  it('should show shimmer on initial table load', async () => {
+    const data = {
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const shimmer = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:first-child > fw-skeleton'
+    );
+    expect(shimmer).toBeTruthy();
   });
 });
