@@ -1,7 +1,9 @@
 export default {
   datepicker: {
-    cancel: 'Cancel',
-    update: 'Update',
+    cancel_one: 'Cancel',
+    cancel_other: 'Cancels',
+    update_one: 'Update',
+    update_other: 'Updates',
   },
   dropdown: {
     add: 'Add',

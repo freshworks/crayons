@@ -2,6 +2,10 @@ import { Build as BUILD, ComponentInterface } from '@stencil/core';
 
 import { createStore } from '@stencil/store';
 
+import LanguageUtils from './util/LanguageUtils';
+
+import PluralResolver from './util/PluralResolver';
+
 interface i18nConfig {
   [key: string]: {
     [key: string]: Record<string, unknown> | string;
@@ -76,8 +80,26 @@ function extract(obj: any) {
   return typeof obj === 'function' ? obj() : obj;
 }
 
-function get(key: string, values: any, obj: any) {
-  const translatedText = getVal(key, obj) || '';
+function get({
+  key,
+  values,
+  obj,
+  lang,
+  context,
+}: {
+  key: string;
+  values: any;
+  obj: any;
+  lang: string;
+  context: any;
+}) {
+  const pr = new PluralResolver(new LanguageUtils({}), { prepend: key + '_' });
+
+  const updatedKey = pr.getSuffix(lang, (context && context.count) ?? 1); // by default use singular
+
+  console.log({ key, suffixes: pr.getSuffixes(lang) });
+
+  const translatedText = getVal(updatedKey, obj) || '';
 
   // Interpolate the values and return the translation
   return values ? interpolate(translatedText, values) : translatedText;
@@ -101,7 +123,7 @@ export class TranslationController {
     this.onChange('lang', async (lang: string) => {
       console.log('Detected Lang Change. New Lang: ', lang);
       this.fetchTranslations(lang);
-      this.setDateLangModule(await this.fetchDateLangModule(lang));
+      await this.fetchDateLangModule(lang);
     });
 
     this.onChange('customTranslations', async (customTranslations: string) => {
@@ -136,6 +158,7 @@ export class TranslationController {
     }
 
     this.fetchTranslations();
+    this.fetchDateLangModule();
   }
 
   /**
@@ -171,6 +194,7 @@ export class TranslationController {
 
   async fetchTranslations(lang?: string): Promise<any> {
     const locale = lang || getBrowserLang();
+    this.state.lang = locale;
 
     return this.fetchDefaultTranslations(locale).then((defaultLangStrings) => {
       const customLangStrings =
@@ -205,23 +229,36 @@ export class TranslationController {
     return req;
   }
 
-  async fetchDateLangModule(lang: string): Promise<any> {
-    let req = this.requests.get('date_' + lang);
+  async fetchDateLangModule(lang?: string): Promise<any> {
+    const locale = lang || getBrowserLang();
+    let req = this.requests.get('date_' + locale);
     if (!req) {
-      req = import(`../../../node_modules/date-fns/esm/locale/${lang}/index.js`)
+      req = import(
+        `../../../node_modules/date-fns/esm/locale/${locale}/index.js`
+      )
         .then((result) => result.default)
         .then((data) => {
+          this.state.dateLangModule = data;
           return data;
         })
         .catch(async (err) => {
           console.warn(
-            `Error loading date lang module for : ${lang} from date-fns set`,
+            `Error loading date lang module for : ${locale} from date-fns set`,
             err
           );
           // fallback to en default strings in case of exception
-          return await this.fetchDateLangModule('en-US');
+          const langModule = await this.fetchDateLangModule('en-US').catch(
+            (err) => {
+              console.log(
+                ' Error in fetching default date lang module ',
+                err.message
+              );
+              return {};
+            }
+          );
+          this.state.dateLangModule = langModule;
         });
-      this.requests.set('date_' + lang, req);
+      this.requests.set('date_' + locale, req);
     }
 
     return req;
@@ -275,8 +312,16 @@ export class TranslationController {
     this.state.customTranslations = json;
   }
 
-  t(keyName = '', values: any): string {
-    return get(keyName, values, this.state.globalStrings) || '';
+  t(key = '', values: any, context: any): string {
+    return (
+      get({
+        key,
+        values,
+        obj: this.state.globalStrings,
+        lang: this.state.lang,
+        context,
+      }) || ''
+    );
   }
 
   /** Decorator to handle i18n support */
@@ -297,14 +342,26 @@ export class TranslationController {
         let isDefaultValueUsed = true;
         if (!this[propName]) {
           this[propName] =
-            get(keyName, null, that.state.globalStrings) || defaultValue;
+            get({
+              key: keyName,
+              values: null,
+              obj: that.state.globalStrings,
+              lang: that.state.lang,
+              context: null,
+            }) || defaultValue;
           isDefaultValueUsed = false;
         }
 
         that.onChange('globalStrings', async () => {
           if (!isDefaultValueUsed) {
             this[propName] =
-              get(keyName, null, that.state.globalStrings) || defaultValue;
+              get({
+                key: keyName,
+                values: null,
+                obj: that.state.globalStrings,
+                lang: that.state.lang,
+                context: null,
+              }) || defaultValue;
           }
         });
 
