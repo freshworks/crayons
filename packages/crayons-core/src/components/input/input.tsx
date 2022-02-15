@@ -233,7 +233,6 @@ export class Input {
   }
 
   componentWillLoad() {
-    console.log(this.host.querySelector('[slot="input-prefix"]'));
     this.hasPrefix =
       !!this.host.querySelector('[slot="input-prefix"]') || !!this.iconLeft;
   }
