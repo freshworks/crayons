@@ -95,11 +95,12 @@ function get({
 }) {
   const pr = new PluralResolver(new LanguageUtils({}), { prepend: key + '_' });
 
-  const updatedKey = pr.getSuffix(lang, (context && context.count) ?? 1); // by default use singular
+  const updatedKey =
+    (context && `count` in context && pr.getSuffix(lang, context.count)) || key; // by default use singular
 
-  console.log({ key, suffixes: pr.getSuffixes(lang) });
+  console.log({ key: updatedKey, suffixes: pr.getSuffixes(lang) });
 
-  const translatedText = getVal(updatedKey, obj) || '';
+  const translatedText = getVal(updatedKey, obj) || getVal(key, obj) || '';
 
   // Interpolate the values and return the translation
   return values ? interpolate(translatedText, values) : translatedText;

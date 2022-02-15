@@ -1,6 +1,7 @@
 export default {
   datepicker: {
-    cancel_one: 'Cancel',
+    cancel: 'Cancel',
+    cancel_one: 'Cancel 1',
     cancel_other: 'Cancels',
     update_one: 'Update',
     update_other: 'Updates',
