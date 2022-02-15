@@ -11,6 +11,7 @@ import { Draggable } from '../../utils/draggable';
 
 @Component({
   tag: 'fw-drag-container',
+  styleUrl: 'drag-container.scss',
 })
 export class DragContainer {
   @Element() host: HTMLElement;
@@ -63,6 +64,6 @@ export class DragContainer {
   }
 
   render() {
-    return <Host></Host>;
+    return <Host class='drag-container'></Host>;
   }
 }
