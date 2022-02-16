@@ -55,7 +55,7 @@ export class RadioGroup {
   @Prop() required = false;
 
   @Watch('value')
-  async valueChanged(_value: any | undefined) {
+  async valueChanged() {
     await this.updateRadios();
   }
 
