@@ -207,6 +207,7 @@ export class DataTable {
    * componentDidLoad lifecycle event
    */
   componentDidLoad() {
+    this.rows.length && this.hideShimmer();
     if (this.showSettings) {
       this.popperInstance = createPopper(
         this.settingsButton,
@@ -274,10 +275,7 @@ export class DataTable {
    */
   @Watch('rows')
   rowsChangeHandler(newRows: DataTableRow[]) {
-    if (newRows.length && this.showShimmer) {
-      this.showShimmer = false;
-      this.isLoading = false;
-    }
+    newRows.length && this.hideShimmer();
   }
 
   /**
@@ -395,6 +393,16 @@ export class DataTable {
   async loadTable(state = true) {
     this.isLoading = state;
     return this.isLoading;
+  }
+
+  /**
+   * hideShimmer
+   */
+  hideShimmer() {
+    if (this.showShimmer) {
+      this.showShimmer = false;
+      this.isLoading = false;
+    }
   }
 
   /**
@@ -1226,6 +1234,7 @@ export class DataTable {
             onKeyDown={(ev) =>
               ev.key === 'Enter' && this.toggleSettings(!this.isSettingsOpen)
             }
+            disabled={this.isLoading}
           >
             <fw-icon name='settings' library='system' size={16}></fw-icon>
           </button>
@@ -1444,28 +1453,34 @@ export class DataTable {
    */
   render() {
     return (
-      <div
-        class={{
-          'fw-data-table-container': true,
-          'loading': this.isLoading,
-        }}
-        ref={(el) => (this.tableContainer = el)}
-      >
-        <table
-          class={{ 'fw-data-table': true, 'is-selectable': this.isSelectable }}
-          role='grid'
-          aria-colcount={this.orderedColumns.length}
-          aria-label={this.label}
+      <div class={'fw-data-table-container'}>
+        <div
+          class={{
+            'fw-data-table-scrollable': true,
+            'loading': this.isLoading,
+            'shimmer': this.showShimmer,
+          }}
+          ref={(el) => (this.tableContainer = el)}
         >
-          <thead>{this.renderTableHeader()}</thead>
-          <tbody>
-            {this.showShimmer && this.isLoading
-              ? this.renderTableShimmer()
-              : this.renderTableBody()}
-          </tbody>
-        </table>
-        {this.showSettings && this.renderTableSettings()}
+          <table
+            class={{
+              'fw-data-table': true,
+              'is-selectable': this.isSelectable,
+            }}
+            role='grid'
+            aria-colcount={this.orderedColumns.length}
+            aria-label={this.label}
+          >
+            <thead>{this.renderTableHeader()}</thead>
+            <tbody>
+              {this.showShimmer && this.isLoading
+                ? this.renderTableShimmer()
+                : this.renderTableBody()}
+            </tbody>
+          </table>
+        </div>
         {this.isLoading && <div class='fw-data-table--loading'></div>}
+        {this.showSettings && this.renderTableSettings()}
       </div>
     );
   }
