@@ -27,6 +27,9 @@ describe('fw-checkbox', () => {
     await element.click();
     expect(fwChange).toHaveReceivedEventDetail({
       meta: { checked: true },
+      event: {
+        isTrusted: true,
+      },
       value: '1',
       name: 'test',
     });
@@ -42,6 +45,9 @@ describe('fw-checkbox', () => {
       meta: { checked: true },
       value: '1',
       name: '',
+      event: {
+        isTrusted: true,
+      },
     });
   });
 

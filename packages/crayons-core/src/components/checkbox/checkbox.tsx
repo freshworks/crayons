@@ -105,7 +105,7 @@ export class Checkbox {
   @Listen('keyup')
   handleKeyup(ev: KeyboardEvent) {
     if (ev.code === 'Space') {
-      this.toggle();
+      this.toggle(ev);
     }
   }
 
@@ -117,14 +117,14 @@ export class Checkbox {
     this.fwBlur.emit({
       event: e,
       name: this.name,
-      meta: { checked: this.checked },
     });
   };
 
-  private toggle = () => {
+  private toggle = (e: any) => {
     if (!this.disabled) {
       this.checked = !this.checked;
       this.fwChange.emit({
+        event: e,
         value: this.value,
         name: this.name,
         meta: { checked: this.checked },
