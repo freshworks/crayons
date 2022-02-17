@@ -1428,7 +1428,6 @@ export class DataTable {
    * @returns table shimmer
    */
   renderTableShimmer() {
-    console.log('Hellow rold');
     const shimmerTemplate = [];
     const shimmerCount = this.rows.length || this.shimmerCount;
     let columnsLength = this.orderedColumns.filter(
