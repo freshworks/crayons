@@ -1460,7 +1460,7 @@ export class DataTable {
    */
   render() {
     return (
-      <div class={'fw-data-table-container'}>
+      <div class='fw-data-table-container'>
         <div
           class={{
             'fw-data-table-scrollable': true,
