@@ -278,6 +278,13 @@ export class DataTable {
     newRows.length && this.hideShimmer();
   }
 
+  @Watch('isLoading')
+  loadingHandler() {
+    if (this.isSettingsOpen) {
+      this.toggleSettings(false);
+    }
+  }
+
   /**
    * Private
    * selectRow
@@ -1479,8 +1486,8 @@ export class DataTable {
             </tbody>
           </table>
         </div>
-        {this.isLoading && <div class='fw-data-table--loading'></div>}
         {this.showSettings && this.renderTableSettings()}
+        {this.isLoading && <div class='fw-data-table--loading'></div>}
       </div>
     );
   }
