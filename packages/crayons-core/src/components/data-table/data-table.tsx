@@ -201,13 +201,13 @@ export class DataTable {
       const tableSettings = localStorage.getItem(`fw-table${tableId}`);
       tableSettings && this.setTableSettings(JSON.parse(tableSettings));
     }
+    this.rows.length && this.hideShimmer();
   }
 
   /**
    * componentDidLoad lifecycle event
    */
   componentDidLoad() {
-    this.rows.length && this.hideShimmer();
     if (this.showSettings) {
       this.popperInstance = createPopper(
         this.settingsButton,
@@ -1428,6 +1428,7 @@ export class DataTable {
    * @returns table shimmer
    */
   renderTableShimmer() {
+    console.log('Hellow rold');
     const shimmerTemplate = [];
     const shimmerCount = this.rows.length || this.shimmerCount;
     let columnsLength = this.orderedColumns.filter(
