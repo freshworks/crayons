@@ -5,6 +5,7 @@ import { createStore } from '@stencil/store';
 import LanguageUtils from './util/LanguageUtils';
 
 import PluralResolver from './util/PluralResolver';
+//import i18next from 'i18next';
 
 interface i18nConfig {
   [key: string]: {
@@ -93,12 +94,21 @@ function get({
   lang: string;
   context: any;
 }) {
-  const pr = new PluralResolver(new LanguageUtils({}), { prepend: key + '_' });
+  //const pluralResolver = i18next?.services?.pluralResolver;
+  const pluralResolver = new PluralResolver(new LanguageUtils({}), {
+    prepend: key + '_',
+  });
 
-  const updatedKey =
-    (context && `count` in context && pr.getSuffix(lang, context.count)) || key; // by default use singular
+  let updatedKey =
+    pluralResolver &&
+    context &&
+    `count` in context &&
+    pluralResolver.getSuffix(lang, context.count);
 
-  console.log({ key: updatedKey, suffixes: pr.getSuffixes(lang) });
+  if (!updatedKey) updatedKey = key;
+  else updatedKey = `${key}${updatedKey}`;
+
+  console.log({ key: updatedKey, suffixes: pluralResolver?.getSuffixes(lang) });
 
   const translatedText = getVal(updatedKey, obj) || getVal(key, obj) || '';
 
@@ -158,8 +168,17 @@ export class TranslationController {
       });
     }
 
-    this.fetchTranslations();
-    this.fetchDateLangModule();
+    this.initialize();
+  }
+
+  async initialize(): Promise<void> {
+    const results = await Promise.all([
+      this.fetchTranslations(),
+      this.fetchDateLangModule(),
+      // i18next.init(),
+    ]).catch((err) =>
+      console.error(`Error occurred in intialising i18n lib ${err.message}`)
+    );
   }
 
   /**
@@ -234,9 +253,9 @@ export class TranslationController {
     const locale = lang || getBrowserLang();
     let req = this.requests.get('date_' + locale);
     if (!req) {
-      req = import(
-        `../../../node_modules/date-fns/esm/locale/${locale}/index.js`
-      )
+      let lng = locale;
+      if (lng === 'en') lng = 'en-US';
+      req = import(`../../../node_modules/date-fns/esm/locale/${lng}/index.js`)
         .then((result) => result.default)
         .then((data) => {
           this.state.dateLangModule = data;
@@ -244,7 +263,7 @@ export class TranslationController {
         })
         .catch(async (err) => {
           console.warn(
-            `Error loading date lang module for : ${locale} from date-fns set`,
+            `Error loading date lang module for : ${lng} from date-fns set`,
             err
           );
           // fallback to en default strings in case of exception
@@ -339,6 +358,9 @@ export class TranslationController {
         if (!that.state.globalStrings) {
           await that.fetchTranslations(that.state.lang || getBrowserLang());
         }
+        // if (!i18next?.services?.pluralResolver) {
+        //   await i18next.init();
+        // }
 
         let isDefaultValueUsed = true;
         if (!this[propName]) {
