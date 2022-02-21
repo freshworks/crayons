@@ -258,62 +258,67 @@ export class Datepicker {
     }
   }
 
-  /* Listener to handle Month Year dropdown and input changes
+  /**
+   * Listener to handle input changes
+   */
+  @Listen('fwInput')
+  handleInputChanges(e) {
+    if (e.composedPath()[0].classList.value.includes('range-date-input')) {
+      // Range input
+      const val = e.path[0].value;
+
+      if (!val) {
+        this.value = undefined;
+      }
+
+      let [fromDate, toDate] = val?.split('to') || [];
+      fromDate = fromDate?.trim();
+      toDate = toDate?.trim();
+
+      if (
+        !moment(fromDate, this.displayFormat, true).isValid() ||
+        !moment(toDate, this.displayFormat, true).isValid()
+      ) {
+        // Invalid Date format
+        return;
+      }
+
+      this.year = `${moment(val, this.displayFormat).get('year')}`;
+      this.month = moment(val, this.displayFormat).get('month');
+      this.startDate = moment(fromDate, this.displayFormat).valueOf();
+      this.endDate = moment(toDate, this.displayFormat).valueOf();
+
+      this.toMonth = this.month === 11 ? 0 : this.month + 1;
+      this.toYear =
+        this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
+    } else {
+      // Single Date input
+      const val = e.path[0].value;
+
+      if (!val) {
+        this.value = undefined;
+      }
+
+      if (!moment(val, this.displayFormat, true).isValid()) {
+        // Invalid date format
+        return;
+      }
+      this.year = `${moment(val, this.displayFormat).get('year')}`;
+      this.month = moment(val, this.displayFormat).get('month');
+      this.selectedDay = moment(val, this.displayFormat).get('date');
+      this.value = moment([this.year, this.month, this.selectedDay]).format(
+        this.displayFormat
+      );
+    }
+  }
+
+  /**
+   * Listener to handle Month Year dropdown.
    */
   @Listen('fwChange')
   handleMonthYearDropDownSelection(e) {
     if (e.path[0].tagName !== 'FW-DATEPICKER') {
       e.stopImmediatePropagation();
-    }
-
-    if (e.path[0].tagName === 'FW-INPUT') {
-      if (e.composedPath()[0].classList.value.includes('range-date-input')) {
-        // Range input
-        const val = e.path[0].value;
-
-        if (!val) {
-          this.value = undefined;
-        }
-
-        let [fromDate, toDate] = val?.split('to') || [];
-        fromDate = fromDate?.trim();
-        toDate = toDate?.trim();
-
-        if (
-          !moment(fromDate, this.displayFormat, true).isValid() ||
-          !moment(toDate, this.displayFormat, true).isValid()
-        ) {
-          // Invalid Date format
-          return;
-        }
-
-        this.year = `${moment(val, this.displayFormat).get('year')}`;
-        this.month = moment(val, this.displayFormat).get('month');
-        this.startDate = moment(fromDate, this.displayFormat).valueOf();
-        this.endDate = moment(toDate, this.displayFormat).valueOf();
-
-        this.toMonth = this.month === 11 ? 0 : this.month + 1;
-        this.toYear =
-          this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
-      } else {
-        // Single Date input
-        const val = e.path[0].value;
-
-        if (!val) {
-          this.value = undefined;
-        }
-
-        if (!moment(val, this.displayFormat, true).isValid()) {
-          // Invalid date format
-          return;
-        }
-        this.year = `${moment(val, this.displayFormat).get('year')}`;
-        this.month = moment(val, this.displayFormat).get('month');
-        this.selectedDay = moment(val, this.displayFormat).get('date');
-        this.value = moment([this.year, this.month, this.selectedDay]).format(
-          this.displayFormat
-        );
-      }
     }
 
     const newValue = e.detail && e.detail.value;
