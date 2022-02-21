@@ -11,7 +11,6 @@ import {
   Watch,
 } from '@stencil/core';
 import moment from 'moment-mini';
-import EventStore from '../../utils/event-store';
 import {
   handleKeyDown,
   renderHiddenField,
@@ -98,12 +97,6 @@ export class Datepicker {
    * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() required = false;
-
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
   /**
    * Theme based on which the input of the datepicker is styled.
    */
@@ -114,6 +107,11 @@ export class Datepicker {
    *   Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
+
+  /**
+   *   Triggered when the input box loses focus.
+   */
+  @Event() fwBlur: EventEmitter;
 
   private shortMonthNames;
   private longMonthNames;
@@ -155,13 +153,12 @@ export class Datepicker {
     document.addEventListener('keydown', this.escapeHandler);
   }
 
-  private emitEvent(eventDetails) {
-    this.fwChange.emit(eventDetails);
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleInput`, {
-        field: this.name,
-        value: eventDetails,
-      });
+  private emitEvent(event, eventDetails) {
+    this.fwChange.emit({
+      event: event,
+      name: this.name,
+      value: eventDetails,
+    });
   }
 
   focusElement(element: HTMLElement) {
@@ -243,7 +240,7 @@ export class Datepicker {
       }
       this.fromDate = this.startDateFormatted;
       this.toDate = this.endDateFormatted;
-      this.emitEvent({
+      this.emitEvent(e, {
         fromDate: this.formatDate(this.startDateFormatted),
         toDate: this.formatDate(this.endDateFormatted),
       });
@@ -251,7 +248,7 @@ export class Datepicker {
       this.value = moment([this.year, this.month, this.selectedDay]).format(
         this.displayFormat
       );
-      this.emitEvent(this.formatDate(this.value));
+      this.emitEvent(e, this.formatDate(this.value));
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
@@ -664,7 +661,7 @@ export class Datepicker {
         this.endDateFormatted = moment(this.endDate).format(this.displayFormat);
         if (this.startDate && this.endDate) {
           this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
-          this.emitEvent({
+          this.emitEvent(e, {
             fromDate: this.formatDate(this.startDateFormatted),
             toDate: this.formatDate(this.endDateFormatted),
           });
@@ -677,7 +674,7 @@ export class Datepicker {
         this.value = moment([this.year, this.month, this.selectedDay]).format(
           this.displayFormat
         );
-        this.emitEvent(this.formatDate(this.value));
+        this.emitEvent(e, this.formatDate(this.value));
         this.showDatePicker = false;
         this.host.shadowRoot.querySelector('fw-popover').hide();
       }
@@ -818,12 +815,11 @@ export class Datepicker {
     return this.showDatePicker && this.mode === 'range';
   }
 
-  private onBlur = async () => {
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: await this.getValue(),
-      });
+  private onBlur = async (e: Event) => {
+    this.fwBlur.emit({
+      event: e,
+      name: this.name,
+    });
   };
 
   render() {

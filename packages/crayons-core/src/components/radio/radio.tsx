@@ -9,7 +9,6 @@ import {
   Element,
   h,
 } from '@stencil/core';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-radio',
@@ -43,12 +42,6 @@ export class Radio {
    * Name of the component, saved as part of form data.
    */
   @Prop() name = '';
-
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
   /**
    * Theme based on which the radio button is styled.
    */
@@ -72,7 +65,12 @@ export class Radio {
   /**
    * Triggered when the radio button loses focus.
    */
-  @Event() fwBlur!: EventEmitter<void>;
+  @Event() fwBlur!: EventEmitter;
+
+  /**
+   * Triggered when the radio button is toggled.
+   */
+  @Event() fwChange!: EventEmitter;
 
   private radio!: HTMLInputElement;
 
@@ -108,19 +106,22 @@ export class Radio {
     this.fwFocus.emit();
   }
 
-  private onBlur() {
-    this.fwBlur.emit();
+  private onBlur(e: Event) {
+    this.fwBlur.emit({
+      event: e,
+      name: this.name,
+    });
   }
 
-  private toggle() {
+  private toggle(e) {
     if (!this.disabled) {
       this.checked = !this.checked;
     }
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleChange`, {
-        field: this.name,
-        value: this.checked ? this.value : undefined,
-      });
+    this.fwChange.emit({
+      event: e,
+      name: this.name,
+      value: this.checked ? this.value : undefined,
+    });
   }
 
   /**
@@ -135,7 +136,7 @@ export class Radio {
     return (
       // eslint-disable-next-line jsx-a11y/role-supports-aria-props
       <Host
-        onClick={() => this.toggle()}
+        onClick={(e) => this.toggle(e)}
         role='radio'
         tabIndex='-1'
         aria-labelledby='label'
@@ -143,7 +144,7 @@ export class Radio {
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         onFocus={() => this.onFocus()}
-        onBlur={() => this.onBlur()}
+        onBlur={(e) => this.onBlur(e)}
         aria-invalid={this.state === 'error'}
       >
         <div class='radio-container'>

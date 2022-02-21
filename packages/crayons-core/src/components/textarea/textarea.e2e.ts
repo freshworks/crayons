@@ -68,7 +68,7 @@ describe('fw-textarea', () => {
     expect(fwBlur).toHaveReceivedEvent();
   });
 
-  it('it emits fwChange when the value is changed in the component', async () => {
+  it('it should not emit fwChange when the value is changed in the component', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-textarea value="1"> </fw-textarea>');
@@ -79,6 +79,6 @@ describe('fw-textarea', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
+    expect(fwChange).not.toHaveReceivedEvent();
   });
 });

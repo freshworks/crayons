@@ -37,27 +37,6 @@ describe('fw-radio-group', () => {
     expect(fwBlur).toHaveReceivedEvent();
   });
 
-  it('it checks the radio group value', async () => {
-    const page = await newE2EPage();
-
-    await page.setContent(`<fw-radio-group>
-    <fw-radio value="yes">Yes</fw-radio>
-    <fw-radio value="no">No</fw-radio>
-    <fw-radio value="maybe">Maybe</fw-radio>
-  </fw-radio-group>`);
-
-    const fwChange = await page.spyOnEvent('fwChange');
-    const element = await page.find('fw-radio-group');
-
-    await element.click();
-    element.setProperty('value', 'maybe');
-    await page.keyboard.press('Tab');
-
-    await page.waitForChanges();
-
-    expect(fwChange).toHaveReceivedEventDetail({ value: 'maybe' });
-  });
-
   it('it checks if value can be set', async () => {
     const page = await newE2EPage();
 

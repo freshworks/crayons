@@ -1,9 +1,16 @@
-import { Component, Element, Prop, State, h, Method } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Prop,
+  State,
+  h,
+  Method,
+  Event,
+  EventEmitter,
+} from '@stencil/core';
 import moment from 'moment-mini';
 
 import { renderHiddenField } from '../../utils';
-import EventStore from '../../utils/event-store';
-
 @Component({
   tag: 'fw-timepicker',
   shadow: true,
@@ -59,17 +66,26 @@ export class Timepicker {
    * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() required = false;
-
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
   /**
    * Theme based on which the input of the timepicker is styled.
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
+
+  /**
+   * Triggered when a value is selected or deselected from the list box options.
+   */
+  @Event() fwChange: EventEmitter;
+
+  /**
+   * Triggered when the list box loses focus.
+   */
+  @Event() fwBlur: EventEmitter;
+
+  /**
+   * Triggered when the list box comes into focus.
+   */
+  @Event() fwFocus: EventEmitter;
 
   /**
    * Boolean representing whethere it is default end time
@@ -121,11 +137,11 @@ export class Timepicker {
     const { value } = e.detail;
     this.value = value;
     if (this.value)
-      this.formId &&
-        EventStore.publish(`${this.formId}::handleChange`, {
-          field: this.name,
-          value: this.value,
-        });
+      this.fwChange.emit({
+        event: e,
+        name: this.name,
+        value: this.value,
+      });
   }
 
   private setEndTime() {
@@ -144,12 +160,15 @@ export class Timepicker {
     }
   }
 
-  onBlur = (): void => {
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: this.value,
-      });
+  onBlur = (e: Event): void => {
+    this.fwBlur.emit({
+      event: e,
+      name: this.name,
+    });
+  };
+
+  onFocus = (): void => {
+    this.fwFocus.emit();
   };
 
   componentWillLoad() {

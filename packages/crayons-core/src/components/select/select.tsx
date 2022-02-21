@@ -20,7 +20,6 @@ import {
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-select',
@@ -56,12 +55,10 @@ export class Select {
   private innerOnBlur = (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = false;
-      this.fwBlur.emit(e);
-      this.formId &&
-        EventStore.publish(`${this.formId}::handleBlur`, {
-          field: this.name,
-          value: this.value,
-        });
+      this.fwBlur.emit({
+        event: e,
+        name: this.name,
+      });
     }
   };
 
@@ -207,10 +204,6 @@ export class Select {
    * Whether clicking on the already selected option disables it.
    */
   @Prop() allowDeselect = true;
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
 
   // Events
   /**
@@ -258,16 +251,21 @@ export class Select {
       selectedItem.stopImmediatePropagation();
       selectedItem.stopPropagation();
       selectedItem.preventDefault();
-      this.fwChange.emit({
-        value: this.value,
-        selectedOptions: this.selectedOptionsState,
-      });
       if (this.selectedOptionsState.length > 0) {
-        this.formId &&
-          EventStore.publish(`${this.formId}::handleChange`, {
-            field: this.name,
-            value: this.value,
-          });
+        this.fwChange.emit({
+          name: this.name,
+          value: this.value,
+          meta: { selectedOptions: this.selectedOptionsState },
+        });
+      } else {
+        this.fwChange.emit({
+          name: this.name,
+          value: this.value,
+          meta: {
+            shouldValidate: false, // for handling validation with form during reset. watcher in list-options is firing.
+            selectedOptions: this.selectedOptionsState,
+          },
+        });
       }
     }
   }

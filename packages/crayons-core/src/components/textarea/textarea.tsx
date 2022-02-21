@@ -7,12 +7,10 @@ import {
   Method,
   Prop,
   State,
-  Watch,
   h,
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-textarea',
@@ -83,15 +81,6 @@ export class Textarea {
   @Prop() disabled = false;
 
   /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
-  /**
-   * Triggered when the value in the input box is modified.
-   */
-  @Event() fwChange: EventEmitter;
-  /**
    * Triggered when the input box comes into focus.
    */
   @Event() fwFocus: EventEmitter<void>;
@@ -102,24 +91,18 @@ export class Textarea {
   /**
    * Triggered when a value is entered in the input box.
    */
-  @Event() fwInput: EventEmitter<KeyboardEvent>;
-
-  @Watch('value')
-  watchHandler(newValue: string) {
-    this.fwChange.emit({ value: newValue });
-  }
+  @Event() fwInput: EventEmitter;
 
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
     if (input) {
       this.value = input.value || '';
     }
-    this.fwInput.emit(ev as KeyboardEvent);
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleInput`, {
-        field: this.name,
-        value: this.nativeInput.value,
-      });
+    this.fwInput.emit({
+      event: ev,
+      name: this.name,
+      value: this.getValue(),
+    });
   };
 
   private onFocus = () => {
@@ -127,14 +110,12 @@ export class Textarea {
     this.fwFocus.emit();
   };
 
-  private onBlur = () => {
+  private onBlur = (ev: Event) => {
     this.hasFocus = false;
-    this.fwBlur.emit({ value: this.getValue() });
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: this.nativeInput.value,
-      });
+    this.fwBlur.emit({
+      event: ev,
+      name: this.name,
+    });
   };
 
   private getValue(): string {
