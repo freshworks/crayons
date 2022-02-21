@@ -228,14 +228,11 @@ export namespace Components {
          */
         "displayFormat": string;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
-        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
+        "handleButtonClick": (e: any) => Promise<void>;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
@@ -256,18 +253,7 @@ export namespace Components {
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder": string;
-        /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
-         */
-        "required": boolean;
-        /**
-          * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
-         */
-        "setFocus": () => Promise<void>;
-        /**
-          * Theme based on which the input of the datepicker is styled.
-         */
-        "state": 'normal' | 'warning' | 'error';
+        "showSingleDatePicker": () => Promise<boolean>;
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -276,6 +262,9 @@ export namespace Components {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
+    }
+    interface FwDatepickerUitest {
+        "testShowSingleDatePicker": () => Promise<void>;
     }
     interface FwDragContainer {
         /**
@@ -1775,6 +1764,12 @@ declare global {
         prototype: HTMLFwDatepickerElement;
         new (): HTMLFwDatepickerElement;
     };
+    interface HTMLFwDatepickerUitestElement extends Components.FwDatepickerUitest, HTMLStencilElement {
+    }
+    var HTMLFwDatepickerUitestElement: {
+        prototype: HTMLFwDatepickerUitestElement;
+        new (): HTMLFwDatepickerUitestElement;
+    };
     interface HTMLFwDragContainerElement extends Components.FwDragContainer, HTMLStencilElement {
     }
     var HTMLFwDragContainerElement: {
@@ -2028,6 +2023,7 @@ declare global {
         "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
+        "fw-datepicker-uitest": HTMLFwDatepickerUitestElement;
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-drag-item": HTMLFwDragItemElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
@@ -2284,10 +2280,6 @@ declare namespace LocalJSX {
          */
         "displayFormat"?: string;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
-        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
@@ -2308,21 +2300,13 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * /**    Triggered when the update button clicked
+          * Triggered when the update button clicked
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
-        /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
-         */
-        "required"?: boolean;
-        /**
-          * Theme based on which the input of the datepicker is styled.
-         */
-        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -2331,6 +2315,8 @@ declare namespace LocalJSX {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
+    }
+    interface FwDatepickerUitest {
     }
     interface FwDragContainer {
         /**
@@ -3828,6 +3814,7 @@ declare namespace LocalJSX {
         "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
+        "fw-datepicker-uitest": FwDatepickerUitest;
         "fw-drag-container": FwDragContainer;
         "fw-drag-item": FwDragItem;
         "fw-dropdown-button": FwDropdownButton;
@@ -3886,6 +3873,7 @@ declare module "@stencil/core" {
             "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
+            "fw-datepicker-uitest": LocalJSX.FwDatepickerUitest & JSXBase.HTMLAttributes<HTMLFwDatepickerUitestElement>;
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;

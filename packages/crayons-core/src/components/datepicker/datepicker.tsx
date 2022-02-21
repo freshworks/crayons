@@ -8,10 +8,9 @@ import {
   State,
   h,
   Method,
-  Watch,
 } from '@stencil/core';
 import moment from 'moment-mini';
-import EventStore from '../../utils/event-store';
+
 import {
   handleKeyDown,
   renderHiddenField,
@@ -93,23 +92,6 @@ export class Datepicker {
    *   Text displayed in the input box before a user selects a date or date range.
    */
   @Prop({ mutable: true }) placeholder: string;
-
-  /**
-   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
-   */
-  @Prop() required = false;
-
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
-  /**
-   * Theme based on which the input of the datepicker is styled.
-   */
-  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
-  /**
-
   /**
    *   Triggered when the update button clicked
    */
@@ -119,7 +101,6 @@ export class Datepicker {
   private longMonthNames;
   private escapeHandler = null;
   private madeInert;
-  private nativeInput;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -157,11 +138,6 @@ export class Datepicker {
 
   private emitEvent(eventDetails) {
     this.fwChange.emit(eventDetails);
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleInput`, {
-        field: this.name,
-        value: eventDetails,
-      });
   }
 
   focusElement(element: HTMLElement) {
@@ -173,7 +149,6 @@ export class Datepicker {
   }
 
   private formatDate(value) {
-    if (!value) return value;
     return this.displayFormat
       ? moment(value, this.displayFormat).format()
       : moment(value).format();
@@ -183,29 +158,13 @@ export class Datepicker {
   async getValue() {
     if (this.mode === 'range') {
       return {
-        fromDate:
-          (this.startDate &&
-            moment(this.startDate, this.displayFormat).format()) ||
-          undefined,
-        toDate:
-          (this.endDate && moment(this.endDate, this.displayFormat).format()) ||
-          undefined,
+        fromDate: moment(this.startDate).format(),
+        toDate: moment(this.endDate).format(),
       };
     }
     return this.displayFormat
-      ? (this.value && moment(this.value, this.displayFormat).format()) ||
-          undefined
-      : (this.value && moment(this.value).format()) || undefined;
-  }
-
-  /**
-   * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
-   */
-  @Method()
-  async setFocus() {
-    if (this.nativeInput) {
-      this.nativeInput.focus();
-    }
+      ? moment(this.value, this.displayFormat).format()
+      : moment(this.value).format();
   }
 
   @Listen('keydown')
@@ -226,7 +185,8 @@ export class Datepicker {
   }
 
   @Listen('fwClick')
-  handleButtonClick(e) {
+  @Method()
+  async handleButtonClick(e) {
     const isUpdateRange = e
       .composedPath()[0]
       .classList.value.includes('update-range-value');
@@ -273,14 +233,9 @@ export class Datepicker {
       if (e.composedPath()[0].classList.value.includes('range-date-input')) {
         // Range input
         const val = e.path[0].value;
-
-        if (!val) {
-          this.value = undefined;
-        }
-
-        let [fromDate, toDate] = val?.split('to') || [];
-        fromDate = fromDate?.trim();
-        toDate = toDate?.trim();
+        let [fromDate, toDate] = val.split('to');
+        fromDate = fromDate.trim();
+        toDate = toDate.trim();
 
         if (
           !moment(fromDate, this.displayFormat, true).isValid() ||
@@ -301,11 +256,6 @@ export class Datepicker {
       } else {
         // Single Date input
         const val = e.path[0].value;
-
-        if (!val) {
-          this.value = undefined;
-        }
-
         if (!moment(val, this.displayFormat, true).isValid()) {
           // Invalid date format
           return;
@@ -396,7 +346,7 @@ export class Datepicker {
     return resultYear.toString();
   }
 
-  getSupportedYears = () => {
+  getSupportedYears() {
     const yearsArr = [];
     let year = new Date().getFullYear() - 10;
     const lastYear = year + 20;
@@ -405,7 +355,7 @@ export class Datepicker {
       year++;
     }
     return yearsArr;
-  };
+  }
 
   componentWillLoad() {
     if (this.mode === 'range') {
@@ -506,32 +456,7 @@ export class Datepicker {
     }
   }
 
-  @Watch('value')
-  watchValueChanged(value) {
-    if (!value) {
-      this.startDate = undefined;
-      this.endDate = undefined;
-      this.selectedDay = undefined;
-      this.value = undefined;
-      this.year = moment().year().toString();
-      this.month = moment().month();
-      this.monthDetails = this.getMonthDetails(this.year, this.month);
-    } else {
-      if (this.mode !== 'range') {
-        this.value = moment([this.year, this.month, this.selectedDay]).format(
-          this.displayFormat
-        );
-      } else {
-        const formattedFromDate = moment(this.startDate).format(
-          this.displayFormat
-        );
-        const formattedToDate = moment(this.endDate).format(this.displayFormat);
-        this.value = `${formattedFromDate} to ${formattedToDate}`;
-      }
-    }
-  }
-
-  getDayDetails = (args) => {
+  getDayDetails(args) {
     const date = args.index - args.firstDay;
     const day = args.index % 7;
     let prevMonth = args.month - 1;
@@ -547,7 +472,7 @@ export class Datepicker {
     const month = this._getValidDateInMonth(date, args);
     const timestamp = moment([args.year, args.month, _date]).valueOf();
     return { date: _date, day, month, timestamp };
-  };
+  }
 
   private _getValidDateInMonth(date, args) {
     if (this.minDate !== undefined && this.maxDate !== undefined) {
@@ -567,7 +492,7 @@ export class Datepicker {
     return date < 0 ? -1 : date >= args.numberOfDays ? 1 : 0;
   }
 
-  private getMonthDetails = (year, month) => {
+  private getMonthDetails(year, month) {
     const firstDay = new Date(year, month).getDay();
     const numberOfDays = moment([year, month]).daysInMonth() || 0;
     const monthArray = [];
@@ -590,9 +515,9 @@ export class Datepicker {
       }
     }
     return monthArray;
-  };
+  }
 
-  setMonth = (offset) => {
+  setMonth(offset) {
     let year = Number(this.year);
     let month = this.month + offset;
     if (month === -1) {
@@ -612,13 +537,13 @@ export class Datepicker {
       this.month === 11
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
-  };
+  }
 
-  isCurrentDay = (day) => {
+  isCurrentDay(day) {
     return day.timestamp === this.todayTimestamp;
-  };
+  }
 
-  isSelectedDay = ({ date, timestamp }) => {
+  isSelectedDay({ date, timestamp }) {
     if (this.mode !== 'range') {
       return moment(this.value, this.displayFormat).isValid()
         ? date === this.selectedDay &&
@@ -629,9 +554,9 @@ export class Datepicker {
         : date === this.selectedDay;
     }
     return timestamp === this.startDate || timestamp === this.endDate;
-  };
+  }
 
-  handleDateHover = (day): void => {
+  handleDateHover(day): void {
     if (this.startDate && !this.endDate) {
       if (this.startDate > day.timestamp) {
         this.endDate = this.startDate;
@@ -645,7 +570,7 @@ export class Datepicker {
       }
       this.dateHovered = day.timestamp;
     }
-  };
+  }
 
   handleKeyUp(e, day) {
     if (e.code === 'Enter') {
@@ -684,14 +609,14 @@ export class Datepicker {
     }
   }
 
-  isInRange = ({ timestamp }) => {
+  isInRange({ timestamp }) {
     const { endDate } = this;
     const { startDate } = this;
 
     return (
       startDate && endDate && timestamp >= startDate && timestamp <= endDate
     );
-  };
+  }
 
   isHoverInRange({ timestamp }) {
     const { startDate, endDate, dateHovered } = this;
@@ -708,14 +633,23 @@ export class Datepicker {
     return startDateCondtion || endDateCondition;
   }
 
-  onDateClick = ({ date, timestamp }) => {
+  onDateClick({ date, timestamp }) {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
+      this.value = moment([this.year, this.month, this.selectedDay]).format(
+        this.displayFormat
+      );
     } else if (this.showDateRangePicker()) {
       this.handleRangeSelection(timestamp);
+      if (this.startDate && this.endDate) {
+        this.value =
+          moment(this.startDate).format(this.displayFormat) +
+          ' to ' +
+          moment(this.endDate).format(this.displayFormat);
+      }
       this.dateHovered = '';
     }
-  };
+  }
 
   private handleRangeSelection(timestamp) {
     if (this.startDate && this.endDate) {
@@ -811,21 +745,14 @@ export class Datepicker {
       </div>
     );
   }
-  private showSingleDatePicker() {
+  @Method()
+  async showSingleDatePicker() {
     return this.showDatePicker && this.mode !== 'range';
   }
+
   private showDateRangePicker() {
     return this.showDatePicker && this.mode === 'range';
   }
-
-  private onBlur = async () => {
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: await this.getValue(),
-      });
-  };
-
   render() {
     const { host, name, value } = this;
 
@@ -842,17 +769,10 @@ export class Datepicker {
         <fw-input
           slot='popover-trigger'
           value={this.value}
-          name={this.name}
           class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
           placeholder={this.placeholder}
+          title={this.placeholder}
           iconRight='calendar'
-          style={{
-            '--icon-color': this.state === 'error' && '#d72d30',
-          }}
-          required={this.required}
-          onBlur={this.onBlur}
-          ref={(el) => (this.nativeInput = el)}
-          state={this.state}
         ></fw-input>
         {this.showSingleDatePicker() ? (
           <div class='datepicker' slot='popover-content'>
@@ -862,7 +782,7 @@ export class Datepicker {
                 <div class='mdpch-container'>
                   <span class='mdpchc-month'>
                     <fw-select
-                      class='first single-month-selector'
+                      class='single-month-selector'
                       readonly={true}
                       value={this.shortMonthNames[this.month]}
                       same-width='false'
@@ -883,7 +803,7 @@ export class Datepicker {
 
                   <span class='mdpchc-year'>
                     <fw-select
-                      class='last single-year-selector'
+                      class='single-year-selector'
                       readonly={true}
                       value={this.year}
                       same-width='false'

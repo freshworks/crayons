@@ -1,34 +1,63 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { html } from 'lit';
+import { Meta, Story, Canvas } from '@storybook/web-components';
+
+export const Template = () =>{
+  return `<fw-datepicker-uitest value="2021-12-02"></fw-datepicker-uitest>`;
+};
+
 
 # Datepicker
 
 <Meta
   title='Datepicker'
-  component='fw-datepicker'
+  component='fw-datepicker-uitest'
 />
 
 ## Props
 
-<Props of="fw-datepicker"/>
+<Props of="fw-datepicker-uitest"/>
 
 ## Usage
 
-### Default
+## datepicker open
 <Preview>
-<Story name='Default'>{() => '<fw-datepicker></fw-datepicker>'}</Story>
+  <Story 
+    name='Default'
+    play={ async ({ canvasElement }) => {
+        const datePicker = document.querySelector('fw-datepicker-uitest');
+        datePicker.testShowSingleDatePicker();
+    }}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div>${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
 </Preview>
 
-### DateRangePicker
+### datepicker month ddopen
 <Preview>
-<Story name='DateRangePicker'>{() => '<fw-datepicker mode="range"></fw-datepicker>'}</Story>
+  <Story 
+    name='Datepicker Open'
+    play={ async ({ canvasElement }) => {
+      // Starts querying the component from it's root element
+      const datePicker = document.querySelector('fw-datepicker-uitest');
+      datePicker.testShowSingleDatePicker();
+      setTimeout(() => {
+        datePicker.shadowRoot.querySelector('fw-datepicker').shadowRoot.querySelector('fw-popover').querySelector('fw-select').shadowRoot.querySelector('fw-popover').querySelector('fw-button').click();
+      },300);
+    }}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div>${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
 </Preview>
 
-### minDate and maxDate specified
-<Preview>
-<Story name='minDate and maxDate specified'>{() => '<fw-datepicker min-date="10-04-2020" max-date="29-09-2020"></fw-datepicker>'}</Story>
-</Preview>
-
-### Date Format and Placeholder specified
-<Preview>
-<Story name='Date Format and Placeholder specified'>{() => '<fw-datepicker date-format="DD-MMMM-YYYY" placeholder="Pick a Date"></fw-datepicker>'}</Story>
-</Preview>
