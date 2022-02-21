@@ -20,177 +20,192 @@ div.fw-data-table-container {
   $grid-density-lg: 16px 8px;
 
   position: relative;
-  display: inline-block;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: visible;
 
-  table.fw-data-table {
-    table-layout: fixed;
-    border-collapse: collapse;
-    box-sizing: border-box;
-    min-width: 100%;
-    width: max-content;
+  div.fw-data-table-scrollable {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 
-    thead {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      border-radius: 4px;
+    table.fw-data-table {
+      table-layout: fixed;
+      border-collapse: collapse;
+      box-sizing: border-box;
+      min-width: 100%;
+      width: max-content;
 
-      tr {
-        th {
-          color: $grid-header-txt-color;
-          font-size: $grid-header-txt-size;
-          line-height: $grid-line-height;
-          padding: $grid-density-md;
-          font-weight: 600;
-          letter-spacing: 0.2px;
-          text-overflow: ellipsis;
-          text-align: left;
-          z-index: 1;
-          box-sizing: border-box;
-          min-width: 40px;
-          max-width: 1000px;
-          background: $grid-header-bg;
+      thead {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        border-radius: 4px;
 
-          &:first-of-type {
-            padding-left: 16px;
-            border-radius: 4px 0px 0px 0px;
-          }
-
-          &:last-of-type {
-            padding-right: 16px;
-            border-radius: 0px 4px 0px 0px;
-          }
-
-          &.data-grid-sm {
-            padding: $grid-density-sm;
-          }
-
-          &.data-grid-md {
+        tr {
+          th {
+            color: $grid-header-txt-color;
+            font-size: $grid-header-txt-size;
+            line-height: $grid-line-height;
             padding: $grid-density-md;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            text-overflow: ellipsis;
+            text-align: left;
+            z-index: 1;
+            box-sizing: border-box;
+            min-width: 40px;
+            max-width: 1000px;
+            background: $grid-header-bg;
+
+            &:first-of-type {
+              padding-left: 16px;
+              border-radius: 4px 0px 0px 0px;
+            }
+
+            &:last-of-type {
+              padding-right: 16px;
+              border-radius: 0px 4px 0px 0px;
+            }
+
+            &.data-grid-sm {
+              padding: $grid-density-sm;
+            }
+
+            &.data-grid-md {
+              padding: $grid-density-md;
+            }
+
+            &.data-grid-lg {
+              padding: $grid-density-lg;
+            }
           }
 
-          &.data-grid-lg {
-            padding: $grid-density-lg;
+          th.hidden {
+            display: none;
           }
-        }
-
-        th.hidden {
-          display: none;
         }
       }
-    }
 
-    tbody {
-      width: 100%;
-      background: $grid-body-bg;
-
-      tr {
+      tbody {
         width: 100%;
-        border-bottom: 1px solid $grid-row-border;
+        background: $grid-body-bg;
 
-        &:hover,
-        &:focus {
-          background: $grid-header-bg;
-        }
+        tr {
+          width: 100%;
+          border-bottom: 1px solid $grid-row-border;
 
-        &.active {
-          background: $grid-row-active;
-        }
-
-        &:last-child {
-          border-bottom: 0px;
-        }
-
-        td {
-          color: $grid-row-txt-color;
-          font-size: $grid-row-txt-size;
-          line-height: $grid-line-height;
-          padding: $grid-density-md;
-          text-overflow: ellipsis;
-          box-sizing: border-box;
-          z-index: 0;
-
-          &.data-grid-checkbox {
-            text-align: center;
-            width: 20px;
+          &:hover,
+          &:focus {
+            background: $grid-header-bg;
           }
 
-          &.data-grid-sm {
-            padding: $grid-density-sm;
-          }
-
-          &.data-grid-md {
-            padding: $grid-density-md;
-          }
-
-          &.data-grid-lg {
-            padding: $grid-density-lg;
-          }
-
-          &:first-child {
-            padding-left: 16px;
+          &.active {
+            background: $grid-row-active;
           }
 
           &:last-child {
-            padding-right: 16px;
+            border-bottom: 0px;
+          }
+
+          td {
+            color: $grid-row-txt-color;
+            font-size: $grid-row-txt-size;
+            line-height: $grid-line-height;
+            padding: $grid-density-md;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+            z-index: 0;
+
+            &.data-grid-checkbox {
+              text-align: center;
+              width: 20px;
+            }
+
+            &.data-grid-sm {
+              padding: $grid-density-sm;
+            }
+
+            &.data-grid-md {
+              padding: $grid-density-md;
+            }
+
+            &.data-grid-lg {
+              padding: $grid-density-lg;
+            }
+
+            &:first-child {
+              padding-left: 16px;
+            }
+
+            &:last-child {
+              padding-right: 16px;
+            }
+          }
+
+          td.row-actions {
+            // column has to take up only required space
+            width: 1px;
+            white-space: nowrap;
+
+            & > fw-button {
+              margin-right: 5px;
+            }
+          }
+
+          td.hidden {
+            display: none;
           }
         }
 
-        td.row-actions {
-          // column has to take up only required space
-          width: 1px;
-          white-space: nowrap;
+        tr.loading {
+          cursor: not-allowed;
 
-          & > fw-button {
-            margin-right: 5px;
+          td {
+            position: relative;
+            opacity: 0.65;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              bottom: 0px;
+              right: 0px;
+            }
           }
         }
 
-        td.hidden {
-          display: none;
+        fw-skeleton {
+          display: block;
+          height: 10px;
+          padding: 4px 0px;
+          box-sizing: content-box;
         }
       }
 
-      tr.loading {
-        cursor: not-allowed;
+      &.is-selectable {
+        td:first-child,
+        th:first-child {
+          text-align: center;
 
-        td {
-          position: relative;
-          opacity: 0.65;
-
-          &::after {
-            content: '';
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            bottom: 0px;
-            right: 0px;
+          fw-checkbox {
+            display: block;
+            width: 16px;
+            height: 20px;
           }
         }
-      }
-
-      fw-skeleton {
-        display: block;
-        height: 10px;
-        padding: 4px 0px;
-        box-sizing: content-box;
       }
     }
 
-    &.is-selectable {
-      td:first-child,
-      th:first-child {
-        text-align: center;
+    &.loading {
+      opacity: 0.65;
+    }
 
-        fw-checkbox {
-          display: block;
-          width: 16px;
-          height: 20px;
-        }
-      }
+    &.shimmer {
+      overflow: hidden;
     }
   }
 
@@ -210,6 +225,9 @@ div.fw-data-table-container {
     .table-settings-container {
       position: relative;
       z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
 
       .table-settings-button {
         width: 40px;
@@ -226,6 +244,11 @@ div.fw-data-table-container {
         &:focus,
         &:hover {
           cursor: pointer;
+        }
+
+        &:disabled {
+          cursor: default;
+          opacity: 0.65;
         }
       }
 
@@ -416,10 +439,6 @@ div.fw-data-table-container {
       left: 0px;
       z-index: 95;
     }
-  }
-
-  &.loading {
-    opacity: 0.65;
   }
 }
 
