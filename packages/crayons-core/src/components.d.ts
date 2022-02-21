@@ -204,9 +204,9 @@ export namespace Components {
     interface FwDatepicker {
         "cancelText": string;
         /**
-          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
-        "displayFormat": string;
+        "displayFormat": any;
         /**
           * id for the form using this component. This prop is set from the `fw-form`
          */
@@ -215,15 +215,17 @@ export namespace Components {
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
-        "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
+        "getValue": () => Promise<string | { fromDate: { locale: any; }; toDate: { locale: any; }; locale?: undefined; } | { locale: any; fromDate?: undefined; toDate?: undefined; }>;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate": string;
+        "maxYear": number;
         /**
           * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate": string;
+        "minYear": number;
         /**
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
@@ -2273,9 +2275,9 @@ declare namespace LocalJSX {
     interface FwDatepicker {
         "cancelText"?: string;
         /**
-          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
-        "displayFormat"?: string;
+        "displayFormat"?: any;
         /**
           * id for the form using this component. This prop is set from the `fw-form`
          */
@@ -2288,10 +2290,12 @@ declare namespace LocalJSX {
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate"?: string;
+        "maxYear"?: number;
         /**
           * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate"?: string;
+        "minYear"?: number;
         /**
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
@@ -2301,7 +2305,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * canary    /**    Triggered when the update button clicked
+          * Triggered when the update button clicked
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**

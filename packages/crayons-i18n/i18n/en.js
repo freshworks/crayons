@@ -1,10 +1,14 @@
 export default {
   datepicker: {
-    cancel: 'Cancel',
-    cancel_one: 'Cancel 1',
+    cancel_zero: 'Cancel',
+    cancel_one: 'Cancel',
+    cancel_two: 'Cancel',
+    cancel_few: 'Cancel',
+    cancel_many: 'Cancel',
     cancel_other: 'Cancels',
     update_one: 'Update',
     update_other: 'Updates',
+    to: 'to',
   },
   dropdown: {
     add: 'Add',

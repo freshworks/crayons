@@ -208,8 +208,12 @@ export class TranslationController {
   /**
    * @returns the selected date lang module
    */
-  getDateLangModule(): any {
-    return this.state.dateLangModule;
+  async getDateLangModule(): Promise<any> {
+    if (!this.state.dateLangModule) {
+      return await this.fetchDateLangModule(this.state.lang);
+    } else {
+      return this.state.dateLangModule;
+    }
   }
 
   async fetchTranslations(lang?: string): Promise<any> {

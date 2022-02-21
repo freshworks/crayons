@@ -1,10 +1,14 @@
 export default {
   datepicker: {
-    cancel: 'Stornieren',
-    cancel_one: 'Stornieren 1',
-    cancel_other: 'Stornieren s',
+    cancel_zero: 'Stornieren',
+    cancel_one: 'Stornieren',
+    cancel_two: 'Stornieren',
+    cancel_few: 'Stornieren',
+    cancel_many: 'Stornieren',
+    cancel_other: 'Stornierens',
     update: 'Aktualisierung',
     update_other: 'Aktualisierung s',
+    to: 'zu',
   },
   modal: {
     ok: 'OK',
