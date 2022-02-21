@@ -242,7 +242,7 @@ export class Select {
   @Listen('fwChange')
   fwSelectedHandler(selectedItem) {
     if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
-      this.selectedOptionsState = selectedItem.detail.selectedOptions;
+      this.selectedOptionsState = selectedItem.detail?.meta?.selectedOptions;
       this.value = selectedItem.detail.value;
       this.renderInput();
       if (!this.multiple || this.variant === 'mail') {
