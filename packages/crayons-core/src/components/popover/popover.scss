@@ -1,23 +1,23 @@
 /**
-  @prop --popover-min-width: Minimum width of the popover content.
-  @prop --popover-max-width: Maximum width of the popover content.
-  @prop --popover-min-height: Minimum height of the popover content.
-  @prop --popover-max-height: Maximum height of the popover content.
-  @prop --popover-border-radius: border radius of the popover content.
+  @prop --fw-popover-min-width: Minimum width of the popover content.
+  @prop --fw-popover-max-width: Maximum width of the popover content.
+  @prop --fw-popover-min-height: Minimum height of the popover content.
+  @prop --fw-popover-max-height: Maximum height of the popover content.
+  @prop --fw-popover-border-radius: border radius of the popover content.
 */
 
 .popper-content {
   display: none;
   z-index: 99;
-  min-width: var(--popover-min-width);
-  max-width: var(--popover-max-width);
-  min-height: var(--popover-min-height, 10px);
-  max-height: var(--popover-max-height, 400px);
+  min-width: var(--fw-popover-min-width);
+  max-width: var(--fw-popover-max-width);
+  min-height: var(--fw-popover-min-height, 10px);
+  max-height: var(--fw-popover-max-height, 400px);
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior-y: contain;
   margin: 0px;
-  border-radius: var(--popover-border-radius, 8px);
+  border-radius: var(--fw-popover-border-radius, 8px);
   border: 1px solid $app-border-secondary;
   position: absolute;
   background: $popover-background;

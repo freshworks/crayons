@@ -171,8 +171,8 @@
   color: $color-smoke-700;
   text-align: center;
   width: 74px;
-  --popover-max-height: 146px;
-  --popover-min-width: 170px;
+  --fw-popover-max-height: 146px;
+  --fw-popover-min-width: 170px;
 }
 
 .mdpchc-month {
@@ -182,8 +182,8 @@
   color: $color-smoke-700;
   text-align: center;
   width: 65px;
-  --popover-max-height: 146px;
-  --popover-min-width: 170px;
+  --fw-popover-max-height: 146px;
+  --fw-popover-min-width: 170px;
 
   fw-select .input-container-inner input {
     width: 98%;

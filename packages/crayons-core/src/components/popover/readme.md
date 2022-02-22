@@ -34,7 +34,7 @@ Also the width of the content can be modified via the css variables as shown bel
 ```html live
 <fw-popover
   same-width="false"
-  style="--popover-min-width: 150px"
+  style="--fw-popover-min-width: 150px"
   placement="bottom-start"
 >
   <fw-button slot="popover-trigger">Units</fw-button>
@@ -66,7 +66,7 @@ Set the `autoFocusOnContent` prop as true to shift the focus to the content on p
 <fw-popover
   same-width="false"
   auto-focus-on-content="true"
-  style="--popover-min-width: 150px"
+  style="--fw-popover-min-width: 150px"
   placement="top-start"
 >
   <fw-button slot="popover-trigger">Payment Option</fw-button>
@@ -93,11 +93,11 @@ The above event can be handled manually via the listeners.
 <fw-popover
   id="status-popover"
   same-width="false"
-  style="--popover-min-width: 150px"
+  style="--fw-popover-min-width: 150px"
   placement="top-start"
 >
   <fw-button id="status-icon" size="icon" slot="popover-trigger"
-    ><fw-icon name="agent" color="white" ></fw-icon>
+    ><fw-icon name="agent" color="white"></fw-icon>
   </fw-button>
   <fw-list-options id="status-options" slot="popover-content"></fw-list-options>
 </fw-popover>
@@ -132,11 +132,11 @@ The above event can be handled manually via the listeners.
 <fw-popover
   id="status-popover"
   same-width="false"
-  style="--popover-min-width: 150px"
+  style="--fw-popover-min-width: 150px"
   placement="top-start"
 >
   <fw-button id="status-icon" size="icon" slot="popover-trigger"
-    ><fw-icon name="agent" color="white" ></fw-icon>
+    ><fw-icon name="agent" color="white"></fw-icon>
   </fw-button>
   <fw-list-options id="status-options" slot="popover-content"></fw-list-options>
 </fw-popover>
@@ -190,7 +190,7 @@ const Popover = () => {
     <div>
       <FwPopover
         sameWidth='false'
-        style={{ '--popover-min-width': '150px' }}
+        style={{ '--fw-popover-min-width': '150px' }}
         placement='top-start'
         onFwShow={() => statusOptions.current.setFocus()}
         onFwHide={() => statusIcon.current.setFocus()}
@@ -223,7 +223,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
       id="buttonIcon"
       slot="before-label"
       name="vertical-align-bottom"
-     ></fw-icon>
+    ></fw-icon>
     <span id="buttonContent">Premier Accounts</span>
   </fw-button>
   <div slot="popover-content">
@@ -322,7 +322,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
       id="buttonIcon"
       slot="before-label"
       name="vertical-align-bottom"
-     ></fw-icon>
+    ></fw-icon>
     <span id="buttonContent">Premier Accounts</span>
   </fw-button>
   <div slot="popover-content">
@@ -578,13 +578,13 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                      | Description                            |
-| ------------------------- | -------------------------------------- |
-| `--popover-border-radius` | border radius of the popover content.  |
-| `--popover-max-height`    | Maximum height of the popover content. |
-| `--popover-max-width`     | Maximum width of the popover content.  |
-| `--popover-min-height`    | Minimum height of the popover content. |
-| `--popover-min-width`     | Minimum width of the popover content.  |
+| Name                         | Description                            |
+| ---------------------------- | -------------------------------------- |
+| `--fw-popover-border-radius` | border radius of the popover content.  |
+| `--fw-popover-max-height`    | Maximum height of the popover content. |
+| `--fw-popover-max-width`     | Maximum width of the popover content.  |
+| `--fw-popover-min-height`    | Minimum height of the popover content. |
+| `--fw-popover-min-width`     | Minimum width of the popover content.  |
 
 
 ## Dependencies
