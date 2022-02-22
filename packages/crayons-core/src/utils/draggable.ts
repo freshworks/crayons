@@ -2,7 +2,7 @@ import { debounce, cloneNodeWithEvents } from './index';
 
 //Global Variables
 let dragElement;
-let placeholders = [];
+const placeholders = [];
 const DEFAULT_OPTIONS = {
   sortable: false,
   acceptFrom: '',
@@ -217,7 +217,7 @@ export class Draggable {
     placeholders.forEach((placeholder) => {
       placeholder.remove();
     });
-    placeholders = [];
+    // TODO: better way of removing the this.placeholder
   }
 
   addElement(newElement, nextElement) {
