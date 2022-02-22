@@ -167,7 +167,11 @@ export class Input {
       if (this.nativeInput) {
         this.nativeInput.value = '';
       }
-      this.fwInputClear.emit();
+      this.fwInputClear.emit({
+        event: ev,
+        name: this.name,
+        value: this.value,
+      });
     }
   };
 
