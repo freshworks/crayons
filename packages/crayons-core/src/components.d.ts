@@ -2156,7 +2156,7 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * /**   Triggered when the check box’s value is modified.
+          * /**   Triggered when the checkbox state is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**

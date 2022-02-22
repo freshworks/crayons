@@ -1036,7 +1036,9 @@ export class DataTable {
                 id='select-all'
                 value={'select-all'}
                 checked={selectAllChecked}
-                onFwChange={(event) => this.selectAllRows(event.detail.checked)}
+                onFwChange={(event) =>
+                  this.selectAllRows(event.detail?.meta?.checked)
+                }
               ></fw-checkbox>
             )}
           </th>
@@ -1114,7 +1116,10 @@ export class DataTable {
                     value={row.id ? row.id : ''}
                     checked={this.selected.includes(row.id)}
                     onFwChange={(event) =>
-                      this.selectRow(event.detail.value, event.detail.checked)
+                      this.selectRow(
+                        event.detail.value,
+                        event.detail?.meta?.checked
+                      )
                     }
                   ></fw-checkbox>
                 </td>
@@ -1275,6 +1280,9 @@ export class DataTable {
                     onFwInput={(event: CustomEvent) =>
                       this.settingsSearch(event.detail.value)
                     }
+                    onFwInputClear={(event: CustomEvent) =>
+                      this.settingsSearch(event.detail.value)
+                    }
                     clear-input
                   ></fw-input>
                 </div>
@@ -1297,7 +1305,7 @@ export class DataTable {
                               onFwChange={(event) =>
                                 this.settingsColumnToggle(
                                   column.key,
-                                  event.detail.checked,
+                                  event.detail?.meta?.checked,
                                   event
                                 )
                               }
