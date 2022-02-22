@@ -25,6 +25,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **event-standardisation:** Event Standardisation of input controls ([#423](https://github.com/freshworks/crayons/issues/423)) ([a04e7c3](https://github.com/freshworks/crayons/commit/a04e7c3a9d08ec9c8f752a006f82cb8c3f7968fd))
 - **list-options:** applying event standardisation for list-options as well ([#432](https://github.com/freshworks/crayons/issues/432)) ([a8e1d7e](https://github.com/freshworks/crayons/commit/a8e1d7ec840a8905999cff2d5f9a0cbd71323ee2))
 
+### BREAKING CHANGES
+
+`fw-input`: `fwChange` event will no longer be emitted on changing value programatically.
+`fw-textarea`: `fwChange` event will no longer be emitted on changing value programatically.
+`fw-radio-group`: `fwChange` event will no longer be emitted on changing value programatically.
+`fw-checkbox`:  `checked` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`.
+`fw-select` : `selectedOptions` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.selectedOptions` instead of `event.detail.selectedOptions`.
+`fw-list-options` : `selectedOptions` field will now be part of meta field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.selectedOptions` instead of `event.detail.selectedOptions`
+
 ## [3.0.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.13...@freshworks/crayons@3.0.0-beta.14) (2022-02-10)
 
 ### Bug Fixes
