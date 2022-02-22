@@ -128,9 +128,6 @@ export class Input {
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
     this.value = input.value || '';
-    if (this.nativeInput) {
-      this.nativeInput.value = this.value;
-    }
     this.fwInput.emit({
       event: ev,
       name: this.name,
