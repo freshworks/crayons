@@ -113,7 +113,7 @@ export class Draggable {
   // Both dragend and drop need to used as the drop will be fired only on the container on which the drag is dropped
   // and no on the container where drag is originated.
   private onDragEnd = (e) => {
-    if (!this.dropped || placeholders.length > 0) {
+    if ((!this.dropped || placeholders.length > 0) && dragElement) {
       // The drag element is dropped outside the drag container
       this.addElement(dragElement, this.nextSibling);
       this.removePlaceholder();
