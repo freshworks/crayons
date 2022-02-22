@@ -56,7 +56,7 @@ export class Checkbox {
   /**
 
   /**
-   * Triggered when the check box’s value is modified.
+   * Triggered when the checkbox state is modified.
    */
   @Event() fwChange!: EventEmitter;
 
