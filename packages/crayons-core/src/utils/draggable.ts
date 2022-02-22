@@ -2,7 +2,7 @@ import { debounce, cloneNodeWithEvents } from './index';
 
 //Global Variables
 let dragElement;
-let placeholders = [];
+const placeholders = [];
 const DEFAULT_OPTIONS = {
   sortable: false,
   acceptFrom: '',
@@ -113,7 +113,7 @@ export class Draggable {
   // Both dragend and drop need to used as the drop will be fired only on the container on which the drag is dropped
   // and no on the container where drag is originated.
   private onDragEnd = (e) => {
-    if (!this.dropped || placeholders.length > 0) {
+    if ((!this.dropped || placeholders.length > 0) && dragElement) {
       // The drag element is dropped outside the drag container
       this.addElement(dragElement, this.nextSibling);
       this.removePlaceholder();
@@ -217,7 +217,7 @@ export class Draggable {
     placeholders.forEach((placeholder) => {
       placeholder.remove();
     });
-    placeholders = [];
+    // TODO: better way of removing the this.placeholder
   }
 
   addElement(newElement, nextElement) {
