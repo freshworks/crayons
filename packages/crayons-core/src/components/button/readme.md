@@ -301,9 +301,9 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name              | Description                  |
-| ----------------- | ---------------------------- |
-| `--btn-min-width` | minimum width for the button |
+| Name                    | Description                  |
+| ----------------------- | ---------------------------- |
+| `--fw-button-min-width` | minimum width for the button |
 
 
 ## Dependencies

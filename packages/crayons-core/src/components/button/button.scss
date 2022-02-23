@@ -1,5 +1,5 @@
 /**
-  @prop --btn-min-width: minimum width for the button
+  @prop --fw-button-min-width: minimum width for the button
 */
 
 //=== Button Style ===//
@@ -251,7 +251,7 @@ $input-height-mini: 16px;
   }
 
   &--normal {
-    min-width: var(--btn-min-width, 80px);
+    min-width: var(--fw-button-min-width, 80px);
     height: 32px;
     line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
   }
