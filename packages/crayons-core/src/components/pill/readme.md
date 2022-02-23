@@ -39,9 +39,13 @@ Icon inside the pill must be set with attribute `slot="icon"` and it could eithe
 ```
 
 ### Styling Pills with custom CSS
+
 Pill can be customized with custom colors by using custom CSS properties listed further below in the page.
+
 ```html live
-<fw-pill style="--pill-background-color: #fff;--pill-border: 1px solid gray;--pill-padding: 4px 12px 4px 8px;">
+<fw-pill
+  style="--fw-pill-background-color: #fff;--fw-pill-border: 1px solid gray;--fw-pill-padding: 4px 12px 4px 8px;"
+>
   <fw-icon name="info" slot="icon"></fw-icon>
   Custom Styled Pill
 </fw-pill>
@@ -109,13 +113,13 @@ function App() {
 
 ## CSS Custom Properties
 
-| Name                      | Description           |
-| ------------------------- | --------------------- |
-| `--pill-background-color` | Pill background color |
-| `--pill-border`           | Pill border           |
-| `--pill-border-radius`    | Pill border radius    |
-| `--pill-color`            | Pill color            |
-| `--pill-padding`          | Pill padding          |
+| Name                         | Description           |
+| ---------------------------- | --------------------- |
+| `--fw-pill-background-color` | Pill background color |
+| `--fw-pill-border`           | Pill border           |
+| `--fw-pill-border-radius`    | Pill border radius    |
+| `--fw-pill-color`            | Pill color            |
+| `--fw-pill-padding`          | Pill padding          |
 
 
 ----------------------------------------------
