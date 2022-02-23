@@ -1,68 +1,63 @@
 # Skeleton (fw-skeleton)
-fw-skeleton provides a way to render placeholder content until the original content is available. Provides a good UX when dealing with progessive loading of contents.
 
+fw-skeleton provides a way to render placeholder content until the original content is available. Provides a good UX when dealing with progessive loading of contents.
 
 ## Demo
 
 Skeleton with multiple variants
 
 ```html live
+<label>Default text variant</label> <fw-skeleton></fw-skeleton> <br />
+<label>Circle variant</label>
+<fw-skeleton variant="circle"></fw-skeleton> <br />
+<label>Rectangle variant with custom height</label>
+<fw-skeleton variant="rect" height="200px"></fw-skeleton> <br />
+<label>Pass count to repeat the item</label>
+<fw-skeleton variant="rect" height="30px" count="3"></fw-skeleton> <br />
 
- <label>Default text variant</label>
- <fw-skeleton></fw-skeleton> <br/>
- <label>Circle variant</label>
- <fw-skeleton variant="circle"></fw-skeleton> <br/>
- <label>Rectangle variant with custom height</label>
- <fw-skeleton variant="rect" height="200px"></fw-skeleton> <br/>
- <label>Pass count to repeat the item</label>
- <fw-skeleton variant="rect" height="30px" count=3></fw-skeleton> <br/>
-
- <label>Pass Custom styles as props</label>
- <fw-skeleton id="custom-skeleton"></fw-skeleton>
+<label>Pass Custom styles as props</label>
+<fw-skeleton id="custom-skeleton"></fw-skeleton>
 
 <script type="application/javascript">
   const el = document.querySelector('#custom-skeleton');
-     el.customStyles = {
-       display: 'inline-block',
-       'box-shadow': '0 2px 4px #ccc',
-       'background-color': '#1b2b34de',
-       'width':"33%"
-     };
-     el.count = 2;
+  el.customStyles = {
+    'display': 'inline-block',
+    'box-shadow': '0 2px 4px #ccc',
+    'background-color': '#1b2b34de',
+    'width': '33%',
+  };
+  el.count = 2;
 </script>
 ```
+
 Skeleton with different effects
 
 ```html live
-
- <label>Default Pulse Effect</label>
- <fw-skeleton></fw-skeleton> <br/>
- <label>Sheen Effect</label>
- <fw-skeleton effect="sheen"></fw-skeleton> <br/>
- <label>No Effect</label>
- <fw-skeleton effect="none"></fw-skeleton> <br/>
+<label>Default Pulse Effect</label> <fw-skeleton></fw-skeleton> <br />
+<label>Sheen Effect</label>
+<fw-skeleton effect="sheen"></fw-skeleton> <br />
+<label>No Effect</label>
+<fw-skeleton effect="none"></fw-skeleton> <br />
 ```
 
 Skeleton with custom properties
 
 ```html live
-
- <label>Pass Custom Css Properties</label>
- <fw-skeleton style="--skeleton-background:red; --skeleton-height:20px; --skeleton-width:500px"></fw-skeleton> <br/>
+<label>Pass Custom Css Properties</label>
+<fw-skeleton
+  style="--fw-skeleton-background:red; --fw-skeleton-height:20px; --fw-skeleton-width:500px"
+></fw-skeleton>
+<br />
 ```
 
 Card Layout
 
 ```html live
-
 <div class="card">
   <div class="card-header" style="display: flex;align-items:center;">
-    <fw-skeleton
-      variant="circle"
-      height="64px"
-      width="64px"
-    ></fw-skeleton>
-     <fw-skeleton style="  flex: 0 0 auto;width: 40%;margin-left:1em"> </fw-skeleton>
+    <fw-skeleton variant="circle" height="64px" width="64px"></fw-skeleton>
+    <fw-skeleton style="  flex: 0 0 auto;width: 40%;margin-left:1em">
+    </fw-skeleton>
   </div>
 
   <fw-skeleton
@@ -71,11 +66,12 @@ Card Layout
     custom-styles='"margin-top": "10px",
     "box-shadow": "0px 1px 2px rgba(0,0,0,0.1)"'
   ></fw-skeleton>
-  <fw-skeleton count=2> </fw-skeleton>
+  <fw-skeleton count="2"> </fw-skeleton>
 </div>
 ```
 
 Multi Para Layout
+
 ```html live
 <div class="multi-para">
   <fw-skeleton> </fw-skeleton>
@@ -85,26 +81,23 @@ Multi Para Layout
 </div>
 ```
 
-
-
 ## Usage
 
 <code-group>
 <code-block title="HTML">
-```html 
+```html
 
- <label>Default text variant</label>
- <fw-skeleton></fw-skeleton> <br/>
- <label>Circle variant</label>
- <fw-skeleton variant="circle"></fw-skeleton> <br/>
- <label>Rectangle variant</label>
- <fw-skeleton variant="rect"></fw-skeleton> <br/>
- <label>Pass count to repeat the item</label>
- <fw-skeleton variant="rect" height="30px" count=3></fw-skeleton> <br/>
+<label>Default text variant</label>
+<fw-skeleton></fw-skeleton> <br/>
+<label>Circle variant</label>
+<fw-skeleton variant="circle"></fw-skeleton> <br/>
+<label>Rectangle variant</label>
+<fw-skeleton variant="rect"></fw-skeleton> <br/>
+<label>Pass count to repeat the item</label>
+<fw-skeleton variant="rect" height="30px" count=3></fw-skeleton> <br/>
 
-
- <label>Pass Custom styles as props</label>
- <fw-skeleton id="custom-skeleton"></fw-skeleton>
+<label>Pass Custom styles as props</label>
+<fw-skeleton id="custom-skeleton"></fw-skeleton>
 
 <script type="application/javascript">
   const el = document.querySelector('#custom-skeleton');
@@ -116,7 +109,8 @@ Multi Para Layout
      };
      el.count = 2;
 </script>
-```
+
+````
 </code-block>
 
 <code-block title="React">
@@ -189,13 +183,12 @@ function App() {
 
     </div>);
 }
-```
+````
+
 </code-block>
 </code-group>
 
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -209,39 +202,37 @@ function App() {
 | `variant`      | `variant`       | Variant of the skeleton - circle or rectangle or text    | `"circle" \| "rect" \| "text"`         | `'text'`  |
 | `width`        | `width`         | Width of the skeleton ex. 100px, 100%, auto etc.         | `string`                               | `null`    |
 
-
 ## Shadow Parts
 
 | Part     | Description |
 | -------- | ----------- |
 | `"base"` |             |
 
-
 ## CSS Custom Properties
 
-| Name                       | Description                                                                               |
-| -------------------------- | ----------------------------------------------------------------------------------------- |
-| `--sheen-color`            | Skeleton Sheen effect color: Default: #b1bdc8                                             |
-| `--skeleton-background`    | Skeleton background: Default: #cfd7df                                                     |
-| `--skeleton-border-radius` | Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect |
-| `--skeleton-height`        | Skeleton height: Default: 16px for the text and rect, 32px for the circle                 |
-| `--skeleton-margin-bottom` | Skeleton margin-bottom: Default: 8px/0px(when count is 1)                                 |
-| `--skeleton-width`         | Skeleton width: Default: 100% for the text and rect, 32px for the circle                  |
-
+| Name                          | Description                                                                               |
+| ----------------------------- | ----------------------------------------------------------------------------------------- |
+| `--fw-skeleton-background`    | Skeleton background: Default: #cfd7df                                                     |
+| `--fw-skeleton-border-radius` | Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect |
+| `--fw-skeleton-height`        | Skeleton height: Default: 16px for the text and rect, 32px for the circle                 |
+| `--fw-skeleton-margin-bottom` | Skeleton margin-bottom: Default: 8px/0px(when count is 1)                                 |
+| `--fw-skeleton-sheen-color`   | Skeleton Sheen effect color: Default: #b1bdc8                                             |
+| `--fw-skeleton-width`         | Skeleton width: Default: 100% for the text and rect, 32px for the circle                  |
 
 ## Dependencies
 
 ### Used by
 
- - [fw-data-table](../data-table)
+- [fw-data-table](../data-table)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-data-table --> fw-skeleton
   style fw-skeleton fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
