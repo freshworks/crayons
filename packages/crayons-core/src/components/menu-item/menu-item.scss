@@ -1,8 +1,8 @@
 /**
-  @prop --menu-item-background: Border of the fw-menu-item popover content.
-  @prop --menu-item-border: Border of the fw-menu-item popover content.
-  @prop --menu-item-box-shadow: Box Shadow of the fw-menu-item popover content.
-  @prop --menu-item-border-radius: Border Radius of the fw-menu-item popover content.
+  @prop --fw-menu-item-background: Border of the fw-menu-item popover content.
+  @prop --fw-menu-item-border: Border of the fw-menu-item popover content.
+  @prop --fw-menu-item-box-shadow: Box Shadow of the fw-menu-item popover content.
+  @prop --fw-menu-item-border-radius: Border Radius of the fw-menu-item popover content.
 */
 
 .menu-item {
@@ -12,10 +12,10 @@
   margin-bottom: 4px;
   line-height: 1.45;
   align-items: center;
-  background: var(--menu-item-background, #ffffff);
-  border: var(--menu-item-border);
-  box-shadow: var(--menu-item-box-shadow);
-  border-radius: var(--menu-item-border-radius);
+  background: var(--fw-menu-item-background, #ffffff);
+  border: var(--fw-menu-item-border);
+  box-shadow: var(--fw-menu-item-box-shadow);
+  border-radius: var(--fw-menu-item-border-radius);
   font-size: $font-size-14;
   word-break: break-word;
   word-wrap: break-word;
