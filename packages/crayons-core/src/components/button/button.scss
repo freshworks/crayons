@@ -343,7 +343,7 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
   }
 
   .fw-btn--loader {
-    --spinner-color: currentColor;
+    --fw-spinner-color: currentColor;
     opacity: 1;
     line-height: 0;
   }

@@ -55,9 +55,9 @@ function App() {
 
 ## CSS Custom Properties
 
-| Name              | Description          |
-| ----------------- | -------------------- |
-| `--spinner-color` | Color of the spinner |
+| Name                 | Description          |
+| -------------------- | -------------------- |
+| `--fw-spinner-color` | Color of the spinner |
 
 
 ## Dependencies
