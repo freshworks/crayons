@@ -848,7 +848,7 @@ export class Datepicker {
           placeholder={this.placeholder}
           iconRight='calendar'
           style={{
-            '--icon-color': this.state === 'error' && '#d72d30',
+            '--fw-icon-color': this.state === 'error' && '#d72d30',
           }}
           required={this.required}
           onBlur={this.onBlur}

@@ -80,7 +80,7 @@ $input-height-mini: 16px;
   letter-spacing: 0;
   outline: 0;
   border-radius: 4px;
-  --icon-color: currentColor;
+  --fw-icon-color: currentColor;
 
   .fw-btn--label {
     white-space: nowrap;
@@ -282,15 +282,15 @@ $input-height-mini: 16px;
 }
 
 .fw-btn--normal ::slotted(fw-icon) {
-  --icon-size: 12px;
+  --fw-icon-size: 12px;
 }
 
 .fw-btn--small ::slotted(fw-icon) {
-  --icon-size: 10px;
+  --fw-icon-size: 10px;
 }
 
 .fw-btn--mini ::slotted(fw-icon) {
-  --icon-size: 8px;
+  --fw-icon-size: 8px;
 }
 
 // Padding and Spacing
@@ -323,11 +323,11 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 }
 
 .fw-btn--caret fw-icon {
-  --icon-size: 9px;
+  --fw-icon-size: 9px;
 }
 
 .fw-btn--caret.fw-btn--mini fw-icon {
-  --icon-size: 6px;
+  --fw-icon-size: 6px;
 }
 
 // Loading button implementation

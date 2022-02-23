@@ -39,8 +39,8 @@
   }
 
   ::slotted(fw-icon) {
-    --icon-size: 14px;
-    --icon-color: #{$color-smoke-700};
+    --fw-icon-size: 14px;
+    --fw-icon-color: #{$color-smoke-700};
   }
 
   &--blue {
@@ -48,7 +48,7 @@
     color: $color-azure-800;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-azure-800};
+      --fw-icon-color: #{$color-azure-800};
     }
   }
 
@@ -57,7 +57,7 @@
     color: $color-persimmon-800;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-persimmon-800};
+      --fw-icon-color: #{$color-persimmon-800};
     }
   }
 
@@ -66,7 +66,7 @@
     color: $color-jungle-800;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-jungle-800};
+      --fw-icon-color: #{$color-jungle-800};
     }
   }
 
@@ -75,7 +75,7 @@
     color: $color-casablanca-700;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-casablanca-700};
+      --fw-icon-color: #{$color-casablanca-700};
     }
   }
 
@@ -84,7 +84,7 @@
     color: $color-smoke-700;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-smoke-700};
+      --fw-icon-color: #{$color-smoke-700};
     }
   }
 }

@@ -24,7 +24,7 @@ $accordion-title-icon-color: #475867;
     border-radius: $accordion-border-radius;
 
     .accordion-icon {
-      --icon-color: var(
+      --fw-icon-color: var(
         --fw-accordion-title-collapsed-icon-color,
         $accordion-title-icon-color
       );
@@ -50,7 +50,7 @@ $accordion-title-icon-color: #475867;
 
   .accordion-icon {
     flex-grow: 0;
-    --icon-color: var(
+    --fw-icon-color: var(
       --fw-accordion-title-expanded-icon-color,
       $accordion-title-icon-color
     );

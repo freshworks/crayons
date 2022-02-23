@@ -227,10 +227,10 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
 
 ## CSS Custom Properties
 
-| Name           | Description       |
-| -------------- | ----------------- |
-| `--icon-color` | Color of the icon |
-| `--icon-size`  | Size of the icon  |
+| Name              | Description       |
+| ----------------- | ----------------- |
+| `--fw-icon-color` | Color of the icon |
+| `--fw-icon-size`  | Size of the icon  |
 
 
 ## Dependencies
