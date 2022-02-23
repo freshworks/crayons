@@ -593,6 +593,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft": string;
@@ -660,6 +668,10 @@ export namespace Components {
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwLabel {
         /**
@@ -2630,6 +2642,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft"?: string;
@@ -2709,6 +2729,10 @@ declare namespace LocalJSX {
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwLabel {
         /**

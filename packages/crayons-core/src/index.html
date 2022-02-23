@@ -12,7 +12,21 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
-  <fw-button expand color="primary">Primary Button</fw-button>
+    <fw-button expand color="primary">Primary Button</fw-button>
+
+    <fw-input
+      placeholder="input"
+      hint-text="Do not enter your user ID"
+      warning-text="Warning"
+      error-text="error"
+      label="label"
+      required
+      name="oin"
+      state="warning"
+    >
+      <div slot="warning-text">Wrning ASLOT</div>
+    </fw-input>
+
     <br />
     <!-- <h3>Pattern 1</h3>
 
@@ -499,7 +513,7 @@
     <fw-button size="icon" color="secondary"> <fw-icon name="more-horizontal"  library="system" ></fw-icon></fw-button>
   </fw-button-group> -->
 
-  <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
+    <!--  <fw-input value="kjhgfdrftgyjhkujlnhbgvhfcty kjghfcftgh"></fw-input>
 
    <fw-select
       label="Select App type"
@@ -663,7 +677,7 @@
   </script> 
 -->
 
-  <!-- <div style="display: flex; align-items: center; justify-content: center;">
+    <!-- <div style="display: flex; align-items: center; justify-content: center;">
     <div style="width: 1200px; margin-top: 80px;">
       <fw-data-table id="datatable-0" is-selectable="true" is-all-selectable="true" label="Data table 0">
       </fw-data-table>
@@ -672,7 +686,7 @@
     </div>
   </div> -->
 
-  <!-- <script>
+    <!-- <script>
     var data = {
       columns: [{
         "key": "name",
@@ -838,5 +852,5 @@
     datatable1.columns = data1.columns;
     datatable1.rows = data1.rows;
   </script> -->
-</body>
+  </body>
 </html>
