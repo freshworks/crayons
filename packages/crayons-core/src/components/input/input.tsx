@@ -82,10 +82,10 @@ export class Input {
    * Theme based on which the text box is styled.
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
-  /**
-   * Descriptive or instructional text displayed below the text box.
-   */
-  @Prop() stateText = '';
+  // /**
+  //  * Descriptive or instructional text displayed below the text box.
+  //  */
+  // @Prop() stateText = '';
   /**
    * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
@@ -235,6 +235,13 @@ export class Input {
     this.handleSlotChange();
   }
 
+  getAriaDescribedBy(): string {
+    if (this.state === 'normal') return `hint-${this.name}`;
+    else if (this.state === 'error') return `error-${this.name}`;
+    else if (this.state === 'warning') return `warning-${this.name}`;
+    return null;
+  }
+
   handleSlotChange() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
@@ -256,7 +263,7 @@ export class Input {
       <FieldControl
         inputId={this.name}
         label={this.label}
-        labelId={this.label}
+        labelId={`${this.label}-${this.name}`}
         state={this.state}
         hintTextId={`hint-${this.name}`}
         hintText={this.hintText}
@@ -328,7 +335,7 @@ export class Input {
                     onBlur={this.onBlur}
                     onFocus={this.onFocus}
                     aria-invalid={this.state === 'error'}
-                    aria-describedby={`hint-${this.name} error-${this.name}`}
+                    aria-describedby={this.getAriaDescribedBy()}
                   />
                   {this.showClearButton() && this.renderClearButton()}
                 </div>

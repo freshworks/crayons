@@ -15,7 +15,10 @@ import {
   handleKeyDown,
   renderHiddenField,
   getFocusableChildren,
+  hasSlot,
 } from '../../utils';
+
+import FieldControl from '../../function-components/field-control';
 
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -53,6 +56,9 @@ export class Datepicker {
   @State() toMonth: number;
   @State() firstFocusElement: HTMLElement = null;
   @State() lastFocusElement: HTMLElement = null;
+  @State() hasHintTextSlot = false;
+  @State() hasWarningTextSlot = false;
+  @State() hasErrorTextSlot = false;
 
   @Element() host: HTMLElement;
 
@@ -102,6 +108,21 @@ export class Datepicker {
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
+   * Hint text displayed below the text box.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the text box.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the text box.
+   */
+  @Prop() errorText = '';
+  /**
+   * Label displayed on the interface, for the component.
+   */
+  @Prop() label = '';
 
   /**
    *   Triggered when the update button clicked
@@ -167,6 +188,10 @@ export class Datepicker {
 
   disconnectedCallback() {
     document.removeEventListener('keydown', this.escapeHandler);
+    this.host.shadowRoot.removeEventListener(
+      'slotchange',
+      this.handleSlotChange
+    );
   }
 
   private formatDate(value) {
@@ -410,6 +435,7 @@ export class Datepicker {
   };
 
   componentWillLoad() {
+    this.handleSlotChange();
     if (this.mode === 'range') {
       if (
         (this.fromDate &&
@@ -827,264 +853,289 @@ export class Datepicker {
     });
   };
 
+  handleSlotChange() {
+    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
+    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
+    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
+  }
+
   render() {
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
 
     return (
-      <fw-popover
-        same-width='false'
-        distance='8'
-        placement='bottom-start'
-        fallbackPlacements={['top-start']}
-        hide-on-tab='false'
+      <FieldControl
+        inputId={this.name}
+        label={this.label}
+        labelId={`${this.label}-${this.name}`}
+        state={this.state}
+        hintTextId={`hint-${this.name}`}
+        hintText={this.hintText}
+        hasHintTextSlot={this.hasHintTextSlot}
+        errorTextId={`error-${this.name}`}
+        errorText={this.errorText}
+        hasErrorTextSlot={this.hasErrorTextSlot}
+        warningTextId={`warning-${this.name}`}
+        warningText={this.warningText}
+        hasWarningTextSlot={this.hasWarningTextSlot}
+        required={this.required}
       >
-        <fw-input
-          slot='popover-trigger'
-          value={this.value}
-          name={this.name}
-          class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
-          placeholder={this.placeholder}
-          iconRight='calendar'
-          style={{
-            '--icon-color': this.state === 'error' && '#d72d30',
-          }}
-          required={this.required}
-          onBlur={this.onBlur}
-          ref={(el) => (this.nativeInput = el)}
-          state={this.state}
-        ></fw-input>
-        {this.showSingleDatePicker() ? (
-          <div class='datepicker' slot='popover-content'>
-            <div class='mdp-container'>
-              {/* Head section */}
-              <div class='mdpc-head'>
-                <div class='mdpch-container'>
-                  <span class='mdpchc-month'>
-                    <fw-select
-                      class='first single-month-selector'
-                      readonly={true}
-                      value={this.shortMonthNames[this.month]}
-                      same-width='false'
-                      variant='button'
-                      options-placement='bottom-start'
-                    >
-                      {this.longMonthNames.map((month, i) => (
-                        <fw-select-option
-                          value={month.slice(0, 3)}
-                          key={i}
-                          selected={month === this.longMonthNames[this.month]}
-                        >
-                          {month}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
+        <fw-popover
+          same-width='false'
+          distance='8'
+          placement='bottom-start'
+          fallbackPlacements={['top-start']}
+          hide-on-tab='false'
+        >
+          <fw-input
+            slot='popover-trigger'
+            value={this.value}
+            name={this.name}
+            class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
+            placeholder={this.placeholder}
+            iconRight='calendar'
+            style={{
+              '--icon-color': this.state === 'error' && '#d72d30',
+            }}
+            required={this.required}
+            onBlur={this.onBlur}
+            ref={(el) => (this.nativeInput = el)}
+            state={this.state}
+          ></fw-input>
+          {this.showSingleDatePicker() ? (
+            <div class='datepicker' slot='popover-content'>
+              <div class='mdp-container'>
+                {/* Head section */}
+                <div class='mdpc-head'>
+                  <div class='mdpch-container'>
+                    <span class='mdpchc-month'>
+                      <fw-select
+                        class='first single-month-selector'
+                        readonly={true}
+                        value={this.shortMonthNames[this.month]}
+                        same-width='false'
+                        variant='button'
+                        options-placement='bottom-start'
+                      >
+                        {this.longMonthNames.map((month, i) => (
+                          <fw-select-option
+                            value={month.slice(0, 3)}
+                            key={i}
+                            selected={month === this.longMonthNames[this.month]}
+                          >
+                            {month}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
 
-                  <span class='mdpchc-year'>
-                    <fw-select
-                      class='last single-year-selector'
-                      readonly={true}
-                      value={this.year}
-                      same-width='false'
-                      options-placement='bottom'
-                      variant='button'
-                    >
-                      {this.supportedYears.map((year, i) => (
-                        <fw-select-option
-                          value={year}
-                          key={i}
-                          selected={year === this.year}
-                        >
-                          {year}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
-                </div>
-                <div class='btns'>
-                  <div class='mdpch-button'>
-                    <div
-                      role='button'
-                      tabindex='0'
-                      class='mdpchb-inner'
-                      onClick={() => this.setMonth(-1)}
-                      onKeyDown={handleKeyDown(() => this.setMonth(-1))}
-                    >
-                      <span class='mdpchbi-left-arrow'></span>
-                    </div>
+                    <span class='mdpchc-year'>
+                      <fw-select
+                        class='last single-year-selector'
+                        readonly={true}
+                        value={this.year}
+                        same-width='false'
+                        options-placement='bottom'
+                        variant='button'
+                      >
+                        {this.supportedYears.map((year, i) => (
+                          <fw-select-option
+                            value={year}
+                            key={i}
+                            selected={year === this.year}
+                          >
+                            {year}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
                   </div>
-                  <div class='mdpch-button-right'>
-                    <div
-                      role='button'
-                      tabindex='0'
-                      class='mdpchb-inner'
-                      onClick={() => this.setMonth(1)}
-                      onKeyDown={handleKeyDown(() => this.setMonth(1))}
-                    >
-                      <span class='mdpchbi-right-arrow'></span>
+                  <div class='btns'>
+                    <div class='mdpch-button'>
+                      <div
+                        role='button'
+                        tabindex='0'
+                        class='mdpchb-inner'
+                        onClick={() => this.setMonth(-1)}
+                        onKeyDown={handleKeyDown(() => this.setMonth(-1))}
+                      >
+                        <span class='mdpchbi-left-arrow'></span>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              {/* Body Section */}
-              <div class='mdpc-body'>
-                {this.renderCalendar(this.monthDetails)}
-              </div>
-            </div>
-            {/* Footer Section */}
-            <div class='mdpc-footer'>
-              <fw-button color='secondary' class='close-date-picker'>
-                Cancel
-              </fw-button>
-              <fw-button color='primary' class='update-date-value'>
-                Update
-              </fw-button>
-            </div>
-          </div>
-        ) : (
-          ''
-        )}
-
-        {this.showDateRangePicker() ? (
-          <div class='daterangepicker' slot='popover-content'>
-            <div class='mdp-range-container'>
-              {/* Head section */}
-              <div class='mdpc-head'>
-                <div class='mdpch-container'>
-                  <span class='mdpchc-month'>
-                    <fw-select
-                      class='from-month-selector'
-                      readonly={true}
-                      value={this.shortMonthNames[this.month]}
-                      same-width='false'
-                      options-placement='bottom-start'
-                      variant='button'
-                    >
-                      {this.longMonthNames.map((month, i) => (
-                        <fw-select-option
-                          value={month.slice(0, 3)}
-                          key={i}
-                          selected={month === this.longMonthNames[this.month]}
-                        >
-                          {month}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
-                  <span class='mdpchc-year'>
-                    <fw-select
-                      class='from-year-selector'
-                      readonly={true}
-                      value={this.year}
-                      same-width='false'
-                      options-placement='bottom'
-                      variant='button'
-                    >
-                      {this.supportedYears.map((year, i) => (
-                        <fw-select-option
-                          value={year}
-                          key={i}
-                          selected={year === this.year}
-                        >
-                          {year}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
-                </div>
-                <div class='mdpch-container-right'>
-                  <span class='mdpchc-month'>
-                    <fw-select
-                      class='to-month-selector'
-                      readonly={true}
-                      value={this.shortMonthNames[this.toMonth]}
-                      same-width='false'
-                      options-placement='bottom-start'
-                      variant='button'
-                    >
-                      {this.longMonthNames.map((month, i) => (
-                        <fw-select-option
-                          value={month.slice(0, 3)}
-                          key={i}
-                          selected={month === this.longMonthNames[this.toMonth]}
-                        >
-                          {month}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
-                  <span class='mdpchc-year'>
-                    <fw-select
-                      class='to-year-selector'
-                      readonly={true}
-                      value={this.toYear}
-                      same-width='false'
-                      options-placement='bottom'
-                      variant='button'
-                    >
-                      {this.supportedYears.map((year, i) => (
-                        <fw-select-option
-                          value={year}
-                          key={i}
-                          selected={year === this.toYear}
-                        >
-                          {year}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
-                </div>
-                <div class='btns'>
-                  <div class='mdpch-button'>
-                    <div
-                      role='button'
-                      tabindex='0'
-                      class='mdpchb-inner'
-                      onClick={() => this.setMonth(-1)}
-                      onKeyDown={handleKeyDown(() => this.setMonth(-1))}
-                    >
-                      <span class='mdpchbi-left-arrow'></span>
-                    </div>
-                  </div>
-                  <div class='mdpch-button-right'>
-                    <div
-                      role='button'
-                      tabindex='0'
-                      class='mdpchb-inner'
-                      onClick={() => this.setMonth(1)}
-                      onKeyDown={handleKeyDown(() => this.setMonth(1))}
-                    >
-                      <span class='mdpchbi-right-arrow'></span>
+                    <div class='mdpch-button-right'>
+                      <div
+                        role='button'
+                        tabindex='0'
+                        class='mdpchb-inner'
+                        onClick={() => this.setMonth(1)}
+                        onKeyDown={handleKeyDown(() => this.setMonth(1))}
+                      >
+                        <span class='mdpchbi-right-arrow'></span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Body Section */}
-              <div class='body-container'>
+                {/* Body Section */}
                 <div class='mdpc-body'>
                   {this.renderCalendar(this.monthDetails)}
                 </div>
-                <div class='mdpc-body mdpc-body-right'>
-                  {this.renderCalendar(this.nextMonthDetails)}
-                </div>
+              </div>
+              {/* Footer Section */}
+              <div class='mdpc-footer'>
+                <fw-button color='secondary' class='close-date-picker'>
+                  Cancel
+                </fw-button>
+                <fw-button color='primary' class='update-date-value'>
+                  Update
+                </fw-button>
               </div>
             </div>
-            {/* Footer Section */}
-            <div class='mdpc-range-footer'>
-              <fw-button color='secondary' class='close-date-picker'>
-                Cancel
-              </fw-button>
-              <fw-button color='primary' class='update-range-value'>
-                Update
-              </fw-button>
+          ) : (
+            ''
+          )}
+
+          {this.showDateRangePicker() ? (
+            <div class='daterangepicker' slot='popover-content'>
+              <div class='mdp-range-container'>
+                {/* Head section */}
+                <div class='mdpc-head'>
+                  <div class='mdpch-container'>
+                    <span class='mdpchc-month'>
+                      <fw-select
+                        class='from-month-selector'
+                        readonly={true}
+                        value={this.shortMonthNames[this.month]}
+                        same-width='false'
+                        options-placement='bottom-start'
+                        variant='button'
+                      >
+                        {this.longMonthNames.map((month, i) => (
+                          <fw-select-option
+                            value={month.slice(0, 3)}
+                            key={i}
+                            selected={month === this.longMonthNames[this.month]}
+                          >
+                            {month}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
+                    <span class='mdpchc-year'>
+                      <fw-select
+                        class='from-year-selector'
+                        readonly={true}
+                        value={this.year}
+                        same-width='false'
+                        options-placement='bottom'
+                        variant='button'
+                      >
+                        {this.supportedYears.map((year, i) => (
+                          <fw-select-option
+                            value={year}
+                            key={i}
+                            selected={year === this.year}
+                          >
+                            {year}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
+                  </div>
+                  <div class='mdpch-container-right'>
+                    <span class='mdpchc-month'>
+                      <fw-select
+                        class='to-month-selector'
+                        readonly={true}
+                        value={this.shortMonthNames[this.toMonth]}
+                        same-width='false'
+                        options-placement='bottom-start'
+                        variant='button'
+                      >
+                        {this.longMonthNames.map((month, i) => (
+                          <fw-select-option
+                            value={month.slice(0, 3)}
+                            key={i}
+                            selected={
+                              month === this.longMonthNames[this.toMonth]
+                            }
+                          >
+                            {month}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
+                    <span class='mdpchc-year'>
+                      <fw-select
+                        class='to-year-selector'
+                        readonly={true}
+                        value={this.toYear}
+                        same-width='false'
+                        options-placement='bottom'
+                        variant='button'
+                      >
+                        {this.supportedYears.map((year, i) => (
+                          <fw-select-option
+                            value={year}
+                            key={i}
+                            selected={year === this.toYear}
+                          >
+                            {year}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
+                  </div>
+                  <div class='btns'>
+                    <div class='mdpch-button'>
+                      <div
+                        role='button'
+                        tabindex='0'
+                        class='mdpchb-inner'
+                        onClick={() => this.setMonth(-1)}
+                        onKeyDown={handleKeyDown(() => this.setMonth(-1))}
+                      >
+                        <span class='mdpchbi-left-arrow'></span>
+                      </div>
+                    </div>
+                    <div class='mdpch-button-right'>
+                      <div
+                        role='button'
+                        tabindex='0'
+                        class='mdpchb-inner'
+                        onClick={() => this.setMonth(1)}
+                        onKeyDown={handleKeyDown(() => this.setMonth(1))}
+                      >
+                        <span class='mdpchbi-right-arrow'></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Body Section */}
+                <div class='body-container'>
+                  <div class='mdpc-body'>
+                    {this.renderCalendar(this.monthDetails)}
+                  </div>
+                  <div class='mdpc-body mdpc-body-right'>
+                    {this.renderCalendar(this.nextMonthDetails)}
+                  </div>
+                </div>
+              </div>
+              {/* Footer Section */}
+              <div class='mdpc-range-footer'>
+                <fw-button color='secondary' class='close-date-picker'>
+                  Cancel
+                </fw-button>
+                <fw-button color='primary' class='update-range-value'>
+                  Update
+                </fw-button>
+              </div>
             </div>
-          </div>
-        ) : (
-          ''
-        )}
-      </fw-popover>
+          ) : (
+            ''
+          )}
+        </fw-popover>
+      </FieldControl>
     );
   }
 }

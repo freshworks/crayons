@@ -83,7 +83,7 @@ const FieldControl: FunctionalComponent<FieldControlProps> = (
 
       <div class='field-control-input'>{children}</div>
 
-      {showHintText && (
+      {showHintText && hasHintText && (
         <div
           id={props.hintTextId}
           class='field-control-hint-text'
@@ -93,19 +93,17 @@ const FieldControl: FunctionalComponent<FieldControlProps> = (
         </div>
       )}
 
-      {showErrorText && (
+      {showErrorText && hasErrorText && (
         <div
           id={props.errorTextId}
           class='field-control-error-text'
           aria-hidden={hasErrorText ? 'false' : 'true'}
         >
-          <div class='text'>
-            <slot name='error-text'>{props.errorText}</slot>
-          </div>
+          <slot name='error-text'>{props.errorText}</slot>
         </div>
       )}
 
-      {showWarningText && (
+      {showWarningText && hasWarningText && (
         <div
           id={props.warningTextId}
           class='field-control-warning-text'

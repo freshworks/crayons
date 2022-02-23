@@ -21,11 +21,66 @@
       error-text="error"
       label="label"
       required
-      name="oin"
+      name="inp"
       state="warning"
     >
       <div slot="warning-text">Wrning ASLOT</div>
     </fw-input>
+
+    <fw-textarea
+      placeholder="textarea"
+      hint-text="Do not enter your user ID"
+      warning-text="Warning"
+      error-text="error textss"
+      label="label"
+      required
+      name="para"
+      state="error"
+    >
+      <div slot="error-text">Error ASLOT</div>
+    </fw-textarea>
+
+    <fw-datepicker
+      placeholder="datepicker"
+      hint-text="Do not enter your user ID"
+      warning-text="Warning"
+      error-text="error textss"
+      label="label"
+      required
+      name="para"
+      state="error"
+    >
+      <div slot="error-text">Error ASLOT</div>
+    </fw-datepicker>
+
+    <fw-select
+      label="Select Label"
+      required
+      value="1"
+      placeholder="Your choice"
+      hint-text="select hint"
+      warning-text="select Warning"
+      error-text="select error"
+      state="warning"
+    >
+      <fw-select-option value="1">Starks</fw-select-option>
+      <fw-select-option value="2">Lannisters</fw-select-option>
+      <div slot="warning-text">warning select SLOT</div>
+    </fw-select>
+
+    <fw-timepicker
+      label="Select Timepicker"
+      required
+      placeholder="Your timepicker"
+      hint-text="timepicker hint"
+      warning-text="timepicker Warning"
+      error-text="timepicker error"
+      state="error"
+    >
+      <div slot="warning-text">warning timepicker SLOT</div>
+      <div slot="hint-text">hint timepicker SLOT</div>
+      <div slot="error-text">error timepicker SLOT</div>
+    </fw-timepicker>
 
     <br />
     <!-- <h3>Pattern 1</h3>

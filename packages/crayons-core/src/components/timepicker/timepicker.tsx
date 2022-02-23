@@ -10,9 +10,12 @@ import {
 } from '@stencil/core';
 import moment from 'moment-mini';
 
-import { renderHiddenField } from '../../utils';
+import { renderHiddenField, hasSlot } from '../../utils';
+import FieldControl from '../../function-components/field-control';
+
 @Component({
   tag: 'fw-timepicker',
+  styleUrl: 'timepicker.scss',
   shadow: true,
 })
 export class Timepicker {
@@ -22,6 +25,9 @@ export class Timepicker {
    * State for all the time values
    */
   @State() timeValues: any[] = [];
+  @State() hasHintTextSlot = false;
+  @State() hasWarningTextSlot = false;
+  @State() hasErrorTextSlot = false;
 
   /**
    * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
@@ -70,7 +76,28 @@ export class Timepicker {
    * Theme based on which the input of the timepicker is styled.
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+
   /**
+   * Hint text displayed below the text box.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the text box.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the text box.
+   */
+  @Prop() errorText = '';
+  /**
+   * Label displayed on the interface, for the component.
+   */
+  @Prop() label = '';
+
+  /**
+   * Text displayed in the select before an option is selected.
+   */
+  @Prop() placeholder?: string | null;
 
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -176,6 +203,20 @@ export class Timepicker {
       this.setEndTime();
     }
     this.setTimeValues();
+
+    this.handleSlotChange();
+  }
+
+  handleSlotChange() {
+    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
+    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
+    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
+  }
+  disconnectedCallback() {
+    this.host.shadowRoot.removeEventListener(
+      'slotchange',
+      this.handleSlotChange
+    );
   }
 
   render() {
@@ -184,22 +225,40 @@ export class Timepicker {
     renderHiddenField(host, name, value);
 
     return (
-      <fw-select
-        name={this.name}
-        disabled={this.disabled}
-        value={this.value}
-        required={this.required}
-        onFwChange={(e) => this.setTimeValue(e)}
-        onFwBlur={this.onBlur}
-        ref={(el) => (this.nativeInput = el)}
+      <FieldControl
+        inputId={this.name}
+        label={this.label}
+        labelId={`${this.label}-${this.name}`}
         state={this.state}
+        hintTextId={`hint-${this.name}`}
+        hintText={this.hintText}
+        hasHintTextSlot={this.hasHintTextSlot}
+        errorTextId={`error-${this.name}`}
+        errorText={this.errorText}
+        hasErrorTextSlot={this.hasErrorTextSlot}
+        warningTextId={`warning-${this.name}`}
+        warningText={this.warningText}
+        hasWarningTextSlot={this.hasWarningTextSlot}
+        required={this.required}
       >
-        {this.timeValues.map((time) => (
-          <fw-select-option value={this.currentTimeValue(time)}>
-            {this.currentTimeLabel(time)}
-          </fw-select-option>
-        ))}
-      </fw-select>
+        <fw-select
+          name={this.name}
+          disabled={this.disabled}
+          value={this.value}
+          required={this.required}
+          onFwChange={(e) => this.setTimeValue(e)}
+          onFwBlur={this.onBlur}
+          ref={(el) => (this.nativeInput = el)}
+          state={this.state}
+          placeholder={this.placeholder}
+        >
+          {this.timeValues.map((time) => (
+            <fw-select-option value={this.currentTimeValue(time)}>
+              {this.currentTimeLabel(time)}
+            </fw-select-option>
+          ))}
+        </fw-select>
+      </FieldControl>
     );
   }
 }

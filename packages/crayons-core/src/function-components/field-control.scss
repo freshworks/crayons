@@ -2,6 +2,7 @@ $error-color: $app-error;
 $input-color: $app-primary-black;
 $label-font: $font-stack-sans !default;
 $help-color: $muted-secondary;
+$warning-color: $color-casablanca-300;
 
 .field-control {
   .field-control-label {
@@ -84,7 +85,7 @@ $help-color: $muted-secondary;
     line-height: 20px;
     margin-top: 4px;
     margin-bottom: 0;
-    color: var(--fw-input-warning-color, $warning-message-marker);
+    color: var(--fw-input-warning-color, $warning-color);
     position: inherit;
     display: block;
     padding-left: 2px;
