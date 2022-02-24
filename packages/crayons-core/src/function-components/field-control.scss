@@ -5,6 +5,7 @@ $help-color: $muted-secondary;
 $warning-color: $color-casablanca-300;
 
 .field-control {
+  position: relative;
   .field-control-label {
     display: none;
   }

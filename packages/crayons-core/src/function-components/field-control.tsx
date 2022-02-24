@@ -81,8 +81,7 @@ const FieldControl: FunctionalComponent<FieldControlProps> = (
         </label>
       )}
 
-      <div class='field-control-input'>{children}</div>
-
+      {children}
       {showHintText && hasHintText && (
         <div
           id={props.hintTextId}
