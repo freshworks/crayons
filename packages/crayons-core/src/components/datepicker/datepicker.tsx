@@ -891,6 +891,7 @@ export class Datepicker {
                       same-width='false'
                       variant='button'
                       options-placement='bottom-start'
+                      allow-deselect='false'
                     >
                       {this.longMonthNames.map((month, i) => (
                         <fw-select-option
@@ -912,6 +913,7 @@ export class Datepicker {
                       same-width='false'
                       options-placement='bottom'
                       variant='button'
+                      allow-deselect='false'
                     >
                       {this.supportedYears.map((year, i) => (
                         <fw-select-option
@@ -983,6 +985,7 @@ export class Datepicker {
                       same-width='false'
                       options-placement='bottom-start'
                       variant='button'
+                      allow-deselect='false'
                     >
                       {this.longMonthNames.map((month, i) => (
                         <fw-select-option
@@ -1003,6 +1006,7 @@ export class Datepicker {
                       same-width='false'
                       options-placement='bottom'
                       variant='button'
+                      allow-deselect='false'
                     >
                       {this.supportedYears.map((year, i) => (
                         <fw-select-option
@@ -1025,6 +1029,7 @@ export class Datepicker {
                       same-width='false'
                       options-placement='bottom-start'
                       variant='button'
+                      allow-deselect='false'
                     >
                       {this.longMonthNames.map((month, i) => (
                         <fw-select-option
@@ -1045,6 +1050,7 @@ export class Datepicker {
                       same-width='false'
                       options-placement='bottom'
                       variant='button'
+                      allow-deselect='false'
                     >
                       {this.supportedYears.map((year, i) => (
                         <fw-select-option
