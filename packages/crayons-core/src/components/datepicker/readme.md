@@ -116,6 +116,7 @@ Type: `Promise<void>`
 
 - [fw-popover](../popover)
 - [fw-input](../input)
+- [fw-icon](../icon)
 - [fw-select](../select)
 - [fw-select-option](../select-option)
 - [fw-button](../button)
@@ -125,6 +126,7 @@ Type: `Promise<void>`
 graph TD;
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-input
+  fw-datepicker --> fw-icon
   fw-datepicker --> fw-select
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
