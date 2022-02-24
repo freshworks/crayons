@@ -245,10 +245,12 @@ export class Datepicker {
         toDate: this.formatDate(this.endDateFormatted),
       });
     } else if (isUpdateDate) {
-      this.value = moment([this.year, this.month, this.selectedDay]).format(
-        this.displayFormat
-      );
-      this.emitEvent(e, this.formatDate(this.value));
+      if (this.year && this.month && this.selectedDay) {
+        this.value = moment([this.year, this.month, this.selectedDay]).format(
+          this.displayFormat
+        );
+        this.emitEvent(e, this.formatDate(this.value));
+      }
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
@@ -821,10 +823,13 @@ export class Datepicker {
   }
 
   private onBlur = async (e: Event) => {
-    this.fwBlur.emit({
-      event: e,
-      name: this.name,
-    });
+    e.stopImmediatePropagation();
+    if ((e as any)?.detail?.event?.relatedTarget?.tagName !== 'SPAN') {
+      this.fwBlur.emit({
+        event: e,
+        name: this.name,
+      });
+    }
   };
 
   render() {
@@ -840,21 +845,38 @@ export class Datepicker {
         fallbackPlacements={['top-start']}
         hide-on-tab='false'
       >
-        <fw-input
+        <div
           slot='popover-trigger'
-          value={this.value}
-          name={this.name}
-          class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
-          placeholder={this.placeholder}
-          iconRight='calendar'
           style={{
-            '--icon-color': this.state === 'error' && '#d72d30',
+            display: 'flex',
+            alignItems: 'center',
           }}
-          required={this.required}
-          onBlur={this.onBlur}
-          ref={(el) => (this.nativeInput = el)}
-          state={this.state}
-        ></fw-input>
+        >
+          <fw-input
+            value={this.value}
+            name={this.name}
+            class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
+            placeholder={this.placeholder}
+            required={this.required}
+            onFwBlur={this.onBlur}
+            ref={(el) => (this.nativeInput = el)}
+            state={this.state}
+          ></fw-input>
+          <div class='icon-calendar'>
+            <div
+              class='separator'
+              style={{
+                borderLeftColor: this.state === 'error' ? '#d72d30' : '#ebeff3',
+              }}
+            ></div>
+            <fw-icon
+              onClick={() => (this.showDatePicker = true)}
+              name='calendar'
+              class='date-icon'
+              style={{ '--icon-color': this.state === 'error' && '#d72d30' }}
+            ></fw-icon>
+          </div>
+        </div>
         {this.showSingleDatePicker() ? (
           <div class='datepicker' slot='popover-content'>
             <div class='mdp-container'>
