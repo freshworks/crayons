@@ -102,6 +102,11 @@ export class Datepicker {
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
+   
+  /**
+   * Make the input box as readonly. Default `false`
+   */
+  @Prop() readonly = false;
 
   /**
    *   Triggered when the update button clicked
@@ -272,6 +277,7 @@ export class Datepicker {
    */
   @Listen('fwInput')
   handleInputChanges(e) {
+    e.stopImmediatePropagation();
     if (e.composedPath()[0].classList.value.includes('range-date-input')) {
       // Range input
       const val = e.path[0].value;
@@ -736,15 +742,12 @@ export class Datepicker {
         let [fromDateStr, toDateStr] = this.value?.split('to') || [];
         fromDateStr = fromDateStr?.trim();
         toDateStr = toDateStr?.trim();
-
         const startDate = moment(this.startDate, this.displayFormat).get(
           'date'
         );
         const endDate = moment(this.endDate, this.displayFormat).get('date');
-
         const fromDate = moment(fromDateStr, this.displayFormat).get('date');
         const toDate = moment(toDateStr, this.displayFormat).get('date');
-
         if (startDate !== fromDate) {
           this.startDate = fromDate;
         }
@@ -904,6 +907,7 @@ export class Datepicker {
             onFwBlur={this.onBlur}
             ref={(el) => (this.nativeInput = el)}
             state={this.state}
+            readonly={this.readonly}
           ></fw-input>
           <div class='icon-calendar'>
             <div
