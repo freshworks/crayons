@@ -245,10 +245,12 @@ export class Datepicker {
         toDate: this.formatDate(this.endDateFormatted),
       });
     } else if (isUpdateDate) {
-      this.value = moment([this.year, this.month, this.selectedDay]).format(
-        this.displayFormat
-      );
-      this.emitEvent(e, this.formatDate(this.value));
+      if (this.year && this.month && this.selectedDay) {
+        this.value = moment([this.year, this.month, this.selectedDay]).format(
+          this.displayFormat
+        );
+        this.emitEvent(e, this.formatDate(this.value));
+      }
     }
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
@@ -862,7 +864,7 @@ export class Datepicker {
           ></fw-input>
           <div class='icon-calendar'>
             <div
-              class='seperator'
+              class='separator'
               style={{
                 borderLeftColor: this.state === 'error' ? '#d72d30' : '#ebeff3',
               }}

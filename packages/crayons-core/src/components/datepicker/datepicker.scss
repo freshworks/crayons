@@ -278,11 +278,11 @@
   transform: translateX(calc(-100%));
   display: flex;
   align-self: stretch;
-  background-color: #ebeff3;
+  background-color: $color-smoke-50;
   margin: 4px -4px;
   border-radius: 4px;
 
-  .seperator {
+  .separator {
     border-left-width: 1px;
     border-left-style: solid;
     transform: translateX(-4px);
