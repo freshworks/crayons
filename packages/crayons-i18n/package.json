@@ -39,13 +39,15 @@
     "@rollup/plugin-node-resolve": "^11.1.0",
     "@rollup/plugin-typescript": "^8.1.0",
     "@stencil/store": "^1.5.0",
+    "@types/pluralize": "^0.0.29",
     "date-fns": "^2.27.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.38.0",
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@stencil/core": "^2.9.0"
+    "@stencil/core": "^2.9.0",
+    "pluralize": "^8.0.0"
   },
   "sideEffects": false
 }

@@ -330,21 +330,33 @@ export class Datepicker {
 
       this.fromDate = this.startDateFormatted;
       this.toDate = this.endDateFormatted;
-      this.emitEvent({
-        fromDate: this.formatDate(this.startDateFormatted),
-        toDate: this.formatDate(this.endDateFormatted),
-      });
-    } else if (isUpdateDate) {
-      this.value = format(
-        new Date(this.year, this.month, this.selectedDay),
-        this.displayFormat,
-        {
-          locale: this.langModule,
-        }
-      );
 
-      this.emitEvent(this.formatDate(this.value));
+      if (this.startDate && this.endDate)
+        this.emitEvent({
+          fromDate: this.formatDate(this.startDateFormatted),
+          toDate: this.formatDate(this.endDateFormatted),
+        });
+    } else if (isUpdateDate) {
+      if (this.selectedDay) {
+        this.value = format(
+          new Date(this.year, this.month, this.selectedDay),
+          this.displayFormat,
+          {
+            locale: this.langModule,
+          }
+        );
+
+        this.emitEvent(this.formatDate(this.value));
+      }
     }
+    if (e.path[0].innerText === this.cancelText && !this.value) {
+      if (this.mode === 'range') {
+        this.startDate = this.endDate = undefined;
+      } else {
+        this.selectedDay = undefined;
+      }
+    }
+
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
     if (
@@ -592,15 +604,14 @@ export class Datepicker {
     this.listener = onChange('dateLangModule', (newLang) => {
       console.log('new lang ', newLang);
       this.langModule = newLang;
-      this.displayFormat = this.placeholder =
-        (this.isDisplayFormatSet && this.displayFormat) ||
-        this.langModule?.formatLong?.date({ width: 'short' });
+      this.displayFormat = this.placeholder = this.isDisplayFormatSet
+        ? this.displayFormat
+        : this.langModule?.formatLong?.date({ width: 'short' });
 
-      this.placeholder =
-        this.mode === 'range' &&
-        `${this.placeholder} ${TranslationController.t('datepicker.to')} ${
-          this.placeholder
-        }`;
+      if (this.mode === 'range')
+        this.placeholder = `${this.placeholder} ${TranslationController.t(
+          'datepicker.to'
+        )} ${this.placeholder}`;
 
       const monthNames = getMonthNames(this.langModule);
       this.shortMonthNames = monthNames.shortMonthNames;
@@ -662,12 +673,11 @@ export class Datepicker {
       this.month === 11
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
-    this.placeholder =
-      this.mode === 'range' &&
-      `${this.placeholder}` &&
-      `${this.placeholder} ${TranslationController.t('datepicker.to')} ${
-        this.placeholder
-      }`;
+    if (this.mode === 'range')
+      this.placeholder = `${this.placeholder} ${TranslationController.t(
+        'datepicker.to'
+      )} ${this.placeholder}`;
+
     this.supportedYears = this.getSupportedYears();
     this.startDate =
       this.fromDate !== undefined
