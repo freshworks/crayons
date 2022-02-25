@@ -3,6 +3,7 @@
   @prop --popover-max-width: Maximum width of the popover content.
   @prop --popover-min-height: Minimum height of the popover content.
   @prop --popover-max-height: Maximum height of the popover content.
+  @prop --popover-border-radius: border radius of the popover content.
 */
 
 .popper-content {
@@ -16,7 +17,7 @@
   overflow-x: hidden;
   overscroll-behavior-y: contain;
   margin: 0px;
-  border-radius: 8px;
+  border-radius: var(--popover-border-radius, 8px);
   border: 1px solid $app-border-secondary;
   position: absolute;
   background: $popover-background;
@@ -42,8 +43,8 @@
 }
 
 .overlay {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: none;
   position: fixed;
   top: 0;

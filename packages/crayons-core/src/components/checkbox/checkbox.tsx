@@ -12,7 +12,6 @@ import {
 } from '@stencil/core';
 
 import { renderHiddenField } from '../../utils';
-import EventStore from '../../utils/event-store';
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
@@ -51,18 +50,13 @@ export class Checkbox {
   @Prop() required = false;
 
   /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
-  /**
    * Theme based on which the checkbox is styled.
    */
   @Prop() state: 'normal' | 'error' = 'normal';
   /**
 
   /**
-   * Triggered when the check box’s value is modified.
+   * Triggered when the checkbox state is modified.
    */
   @Event() fwChange!: EventEmitter;
 
@@ -74,7 +68,7 @@ export class Checkbox {
   /**
    * Triggered when the check box loses focus.
    */
-  @Event() fwBlur!: EventEmitter<void>;
+  @Event() fwBlur!: EventEmitter;
 
   private checkbox!: HTMLInputElement;
 
@@ -111,7 +105,7 @@ export class Checkbox {
   @Listen('keyup')
   handleKeyup(ev: KeyboardEvent) {
     if (ev.code === 'Space') {
-      this.toggle();
+      this.toggle(ev);
     }
   }
 
@@ -119,28 +113,23 @@ export class Checkbox {
     this.fwFocus.emit();
   };
 
-  private onBlur = () => {
-    this.fwBlur.emit();
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: this.checkbox.checked,
-      });
+  private onBlur = (e: Event) => {
+    this.fwBlur.emit({
+      event: e,
+      name: this.name,
+    });
   };
 
-  private toggle = () => {
+  private toggle = (e: any) => {
     if (!this.disabled) {
       this.checked = !this.checked;
       this.fwChange.emit({
+        event: e,
         value: this.value,
-        checked: this.checked,
+        name: this.name,
+        meta: { checked: this.checked },
       });
     }
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleChange`, {
-        field: this.name,
-        value: this.checkbox.checked,
-      });
   };
 
   render() {
@@ -163,7 +152,7 @@ export class Checkbox {
         onBlur={this.onBlur}
         aria-invalid={this.state === 'error'}
       >
-        <div class='checkbox-container'>
+        <div class={{ 'checkbox-container': true, 'disabled': this.disabled }}>
           <input
             type='checkbox'
             ref={(el) => (this.checkbox = el)}
@@ -187,6 +176,15 @@ export class Checkbox {
               </div>
             ) : (
               ''
+            )}
+            {this.checked && (
+              <span class='after'>
+                <fw-icon
+                  name='check'
+                  color={this.disabled ? '#92A2B1' : '#ffffff'}
+                  size={8}
+                ></fw-icon>
+              </span>
             )}
           </label>
         </div>

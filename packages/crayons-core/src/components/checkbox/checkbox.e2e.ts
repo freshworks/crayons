@@ -21,11 +21,18 @@ describe('fw-checkbox', () => {
   it('it emits fwChange when clicked', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-checkbox value="1">1</fw-checkbox>');
+    await page.setContent('<fw-checkbox value="1" name="test">1</fw-checkbox>');
     const element = await page.find('fw-checkbox');
     const fwChange = await page.spyOnEvent('fwChange');
     await element.click();
-    expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
+    expect(fwChange).toHaveReceivedEventDetail({
+      meta: { checked: true },
+      event: {
+        isTrusted: true,
+      },
+      value: '1',
+      name: 'test',
+    });
   });
 
   it('it emits fwChange when space is pressed', async () => {
@@ -34,7 +41,14 @@ describe('fw-checkbox', () => {
     const element = await page.find('fw-checkbox');
     const fwChange = await page.spyOnEvent('fwChange');
     await element.press('Space');
-    expect(fwChange).toHaveReceivedEventDetail({ checked: true, value: '1' });
+    expect(fwChange).toHaveReceivedEventDetail({
+      meta: { checked: true },
+      value: '1',
+      name: '',
+      event: {
+        isTrusted: true,
+      },
+    });
   });
 
   it('it should not emit fwChange when property is set', async () => {

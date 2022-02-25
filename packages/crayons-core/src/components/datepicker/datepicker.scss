@@ -274,6 +274,28 @@
   width: 200px;
 }
 
+.icon-calendar {
+  transform: translateX(calc(-100%));
+  display: flex;
+  align-self: stretch;
+  background-color: $color-smoke-50;
+  margin: 4px -4px;
+  border-radius: 4px;
+
+  .separator {
+    border-left-width: 1px;
+    border-left-style: solid;
+    transform: translateX(-4px);
+    margin: 2px 0;
+  }
+}
+
+.date-icon {
+  display: flex;
+  align-items: center;
+  padding: 0 7px;
+}
+
 .range-date-input {
   width: 235px;
 }

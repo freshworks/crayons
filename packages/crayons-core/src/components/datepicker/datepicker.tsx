@@ -10,7 +10,6 @@ import {
   Method,
   Watch,
 } from '@stencil/core';
-import EventStore from '../../utils/event-store';
 import {
   isValid,
   parse,
@@ -150,12 +149,6 @@ export class Datepicker {
    * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() required = false;
-
-  /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
   /**
    * Theme based on which the input of the datepicker is styled.
    */
@@ -171,9 +164,19 @@ export class Datepicker {
   @Prop({ mutable: true }) locale: string;
 
   /**
+   * Make the input box as readonly. Default `false`
+   */
+  @Prop() readonly = false;
+
+  /**
    *   Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
+
+  /**
+   *   Triggered when the input is blurred out
+   */
+  @Event() fwBlur: EventEmitter;
 
   private escapeHandler = null;
   private madeInert;
@@ -215,13 +218,12 @@ export class Datepicker {
     document.addEventListener('keydown', this.escapeHandler);
   }
 
-  private emitEvent(eventDetails) {
-    this.fwChange.emit(eventDetails);
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleInput`, {
-        field: this.name,
-        value: eventDetails,
-      });
+  private emitEvent(event, eventDetails) {
+    this.fwChange.emit({
+      event: event,
+      name: this.name,
+      value: eventDetails,
+    });
   }
 
   focusElement(element: HTMLElement) {
@@ -322,25 +324,24 @@ export class Datepicker {
       .composedPath()[0]
       .classList.value.includes('update-date-value');
     if (isUpdateRange) {
-      this.startDateFormatted = format(this.startDate, this.displayFormat, {
-        locale: this.langModule,
-      });
-
-      this.endDateFormatted = format(this.endDate, this.displayFormat, {
-        locale: this.langModule,
-      });
       if (this.startDate && this.endDate) {
+        this.startDateFormatted = format(this.startDate, this.displayFormat, {
+          locale: this.langModule,
+        });
+
+        this.endDateFormatted = format(this.endDate, this.displayFormat, {
+          locale: this.langModule,
+        });
+
+        this.fromDate = this.startDateFormatted;
+        this.toDate = this.endDateFormatted;
+
         this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
-      }
-
-      this.fromDate = this.startDateFormatted;
-      this.toDate = this.endDateFormatted;
-
-      if (this.startDate && this.endDate)
-        this.emitEvent({
+        this.emitEvent(e, {
           fromDate: this.formatDate(this.startDateFormatted),
           toDate: this.formatDate(this.endDateFormatted),
         });
+      }
     } else if (isUpdateDate) {
       if (this.selectedDay) {
         this.value = format(
@@ -350,8 +351,7 @@ export class Datepicker {
             locale: this.langModule,
           }
         );
-
-        this.emitEvent(this.formatDate(this.value));
+        this.emitEvent(e, this.formatDate(this.value));
       }
     }
     if (e.path[0].innerText === this.cancelText && !this.value) {
@@ -360,6 +360,10 @@ export class Datepicker {
       } else {
         this.selectedDay = undefined;
       }
+    }
+
+    if (e.path[0].innerText === 'Cancel') {
+      this.handlePopoverClose(e);
     }
 
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
@@ -373,137 +377,143 @@ export class Datepicker {
     }
   }
 
-  /* Listener to handle Month Year dropdown and input changes
+  /**
+   * Listener to handle input changes
+   */
+  @Listen('fwInput')
+  handleInputChanges(e) {
+    e.stopImmediatePropagation();
+    if (e.composedPath()[0].classList.value.includes('range-date-input')) {
+      // Range input
+      const val = e.path[0].value;
+
+      if (!val) {
+        this.value = undefined;
+      }
+
+      let [fromDate, toDate] = val?.split('to') || [];
+      fromDate = fromDate?.trim();
+      toDate = toDate?.trim();
+
+      if (
+        !isMatch(fromDate, this.displayFormat, {
+          locale: this.langModule,
+        }) ||
+        !isMatch(toDate, this.displayFormat, {
+          locale: this.langModule,
+        })
+      )
+        return;
+
+      const parsedFromDate = parse(fromDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      });
+
+      const parsedToDate = parse(toDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      });
+
+      const isValidFromDate = isValid(parsedFromDate);
+      const isValidToDate = isValid(parsedToDate);
+
+      if (!isValidFromDate || !isValidToDate) {
+        // Invalid date format
+        return;
+      }
+
+      const year = getYear(
+        parse(fromDate, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        })
+      );
+
+      if (year < this.minYear || year > this.maxYear) {
+        return;
+      }
+
+      this.year = year;
+
+      this.month = getMonth(
+        parse(fromDate, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        })
+      );
+      this.startDate = parse(fromDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      }).valueOf();
+
+      this.endDate = parse(toDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      }).valueOf();
+
+      this.toMonth = this.month === 11 ? 0 : this.month + 1;
+      this.toYear =
+        this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
+    } else {
+      // Single Date input
+      const val = e.path[0].value;
+
+      if (!val) {
+        this.value = undefined;
+      }
+
+      if (
+        !isMatch(val, this.displayFormat, {
+          locale: this.langModule,
+        })
+      )
+        return;
+
+      const parsedDate = parse(val, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      });
+
+      const isValidDate = isValid(parsedDate);
+
+      if (!isValidDate) {
+        // Invalid date format
+        return;
+      }
+
+      const year = getYear(
+        parse(val, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        })
+      );
+
+      if (year < this.minYear || year > this.maxYear) {
+        return;
+      }
+
+      this.year = year;
+
+      this.month = getMonth(
+        parse(val, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        })
+      );
+      this.selectedDay = getDate(
+        parse(val, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        })
+      );
+      this.value = format(
+        new Date(this.year, this.month, this.selectedDay),
+        this.displayFormat,
+        {
+          locale: this.langModule,
+        }
+      );
+    }
+  }
+
+  /**
+   * Listener to handle Month Year dropdown.
    */
   @Listen('fwChange')
   handleMonthYearDropDownSelection(e) {
     if (e.path[0].tagName !== 'FW-DATEPICKER') {
       e.stopImmediatePropagation();
-    }
-
-    if (e.path[0].tagName === 'FW-INPUT') {
-      if (e.composedPath()[0].classList.value.includes('range-date-input')) {
-        // Range input
-        const val = e.path[0].value;
-
-        if (!val) {
-          this.value = undefined;
-        }
-
-        let [fromDate, toDate] = val?.split('to') || [];
-        fromDate = fromDate?.trim();
-        toDate = toDate?.trim();
-
-        if (
-          !isMatch(fromDate, this.displayFormat, {
-            locale: this.langModule,
-          }) ||
-          !isMatch(toDate, this.displayFormat, {
-            locale: this.langModule,
-          })
-        )
-          return;
-
-        const parsedFromDate = parse(fromDate, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        });
-
-        const parsedToDate = parse(toDate, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        });
-
-        const isValidFromDate = isValid(parsedFromDate);
-        const isValidToDate = isValid(parsedToDate);
-
-        if (!isValidFromDate || !isValidToDate) {
-          // Invalid date format
-          return;
-        }
-
-        const year = getYear(
-          parse(fromDate, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-
-        if (year < this.minYear || year > this.maxYear) {
-          return;
-        }
-
-        this.year = year;
-
-        this.month = getMonth(
-          parse(fromDate, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        this.startDate = parse(fromDate, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        }).valueOf();
-
-        this.endDate = parse(toDate, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        }).valueOf();
-
-        this.toMonth = this.month === 11 ? 0 : this.month + 1;
-        this.toYear =
-          this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
-      } else {
-        // Single Date input
-        const val = e.path[0].value;
-
-        if (!val) {
-          this.value = undefined;
-        }
-
-        if (
-          !isMatch(val, this.displayFormat, {
-            locale: this.langModule,
-          })
-        )
-          return;
-
-        const parsedDate = parse(val, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        });
-
-        const isValidDate = isValid(parsedDate);
-
-        if (!isValidDate) {
-          // Invalid date format
-          return;
-        }
-
-        const year = getYear(
-          parse(val, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-
-        if (year < this.minYear || year > this.maxYear) {
-          return;
-        }
-
-        this.year = year;
-
-        this.month = getMonth(
-          parse(val, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        this.selectedDay = getDate(
-          parse(val, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        this.value = format(
-          new Date(this.year, this.month, this.selectedDay),
-          this.displayFormat,
-          {
-            locale: this.langModule,
-          }
-        );
-      }
     }
 
     const newValue = e.detail && e.detail.value;
@@ -908,7 +918,7 @@ export class Datepicker {
         );
         if (this.startDate && this.endDate) {
           this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
-          this.emitEvent({
+          this.emitEvent(e, {
             fromDate: this.formatDate(this.startDateFormatted),
             toDate: this.formatDate(this.endDateFormatted),
           });
@@ -925,8 +935,7 @@ export class Datepicker {
             locale: this.langModule,
           }
         );
-
-        this.emitEvent(this.formatDate(this.value));
+        this.emitEvent(e, this.formatDate(this.value));
         this.showDatePicker = false;
         this.host.shadowRoot.querySelector('fw-popover').hide();
       }
@@ -963,6 +972,57 @@ export class Datepicker {
     } else if (this.showDateRangePicker()) {
       this.handleRangeSelection(timestamp);
       this.dateHovered = '';
+    }
+  };
+
+  // handle cancel and popover close
+  handlePopoverClose = (_e: any) => {
+    if (this.mode === 'range') {
+      // handle resetting of startDate and endDate on clicking cancel
+      if (this.value) {
+        let [fromDateStr, toDateStr] = this.value?.split('to') || [];
+        fromDateStr = fromDateStr?.trim();
+        toDateStr = toDateStr?.trim();
+        const startDate = getDate(
+          parse(this.startDate, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          })
+        );
+
+        const endDate = getDate(
+          parse(this.endDate, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          })
+        );
+        const fromDate = getDate(
+          parse(fromDateStr, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          })
+        );
+        const toDate = getDate(
+          parse(toDateStr, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          })
+        );
+        if (startDate !== fromDate) {
+          this.startDate = fromDate;
+        }
+        if (endDate !== toDate) {
+          this.endDate = toDate;
+        }
+      } else this.startDate = this.endDate = undefined;
+    } else {
+      // handle resetting of selectedDay on clicking cancel
+      if (this.value) {
+        const date = getDate(
+          parse(this.value, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          })
+        );
+        if (this.selectedDay !== date) {
+          this.selectedDay = date;
+        }
+      } else this.selectedDay = undefined;
     }
   };
 
@@ -1067,12 +1127,14 @@ export class Datepicker {
     return this.showDatePicker && this.mode === 'range';
   }
 
-  private onBlur = async () => {
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: await this.getValue(),
+  private onBlur = async (e: Event) => {
+    e.stopImmediatePropagation();
+    if ((e as any)?.detail?.event?.relatedTarget?.tagName !== 'SPAN') {
+      this.fwBlur.emit({
+        event: e,
+        name: this.name,
       });
+    }
   };
 
   render() {
@@ -1087,22 +1149,41 @@ export class Datepicker {
         placement='bottom-start'
         fallbackPlacements={['top-start']}
         hide-on-tab='false'
+        onFwHide={this.handlePopoverClose}
       >
-        <fw-input
+        <div
           slot='popover-trigger'
-          value={this.value}
-          name={this.name}
-          class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
-          placeholder={this.placeholder}
-          iconRight='calendar'
           style={{
-            '--icon-color': this.state === 'error' && '#d72d30',
+            display: 'flex',
+            alignItems: 'center',
           }}
-          required={this.required}
-          onBlur={this.onBlur}
-          ref={(el) => (this.nativeInput = el)}
-          state={this.state}
-        ></fw-input>
+        >
+          <fw-input
+            value={this.value}
+            name={this.name}
+            class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
+            placeholder={this.placeholder}
+            required={this.required}
+            onFwBlur={this.onBlur}
+            ref={(el) => (this.nativeInput = el)}
+            state={this.state}
+            readonly={this.readonly}
+          ></fw-input>
+          <div class='icon-calendar'>
+            <div
+              class='separator'
+              style={{
+                borderLeftColor: this.state === 'error' ? '#d72d30' : '#ebeff3',
+              }}
+            ></div>
+            <fw-icon
+              onClick={() => (this.showDatePicker = true)}
+              name='calendar'
+              class='date-icon'
+              style={{ '--icon-color': this.state === 'error' && '#d72d30' }}
+            ></fw-icon>
+          </div>
+        </div>
         {this.showSingleDatePicker() ? (
           <div class='datepicker' slot='popover-content'>
             <div class='mdp-container'>
@@ -1123,6 +1204,7 @@ export class Datepicker {
                         selected: month === this.longMonthNames[this.month],
                         text: month,
                       }))}
+                      allowDeselect={false}
                     ></fw-select>
                   </span>
 
@@ -1134,6 +1216,7 @@ export class Datepicker {
                       same-width='false'
                       options-placement='bottom'
                       variant='button'
+                      allow-deselect='false'
                     >
                       {this.supportedYears.map((year, i) => (
                         <fw-select-option
@@ -1211,6 +1294,7 @@ export class Datepicker {
                         selected: month === this.longMonthNames[this.month],
                         text: month,
                       }))}
+                      allowDeselect={false}
                     ></fw-select>
                   </span>
                   <span class='mdpchc-year'>
@@ -1221,6 +1305,7 @@ export class Datepicker {
                       same-width='false'
                       options-placement='bottom'
                       variant='button'
+                      allow-deselect='false'
                     >
                       {this.supportedYears.map((year, i) => (
                         <fw-select-option
@@ -1249,6 +1334,7 @@ export class Datepicker {
                         selected: month === this.longMonthNames[this.toMonth],
                         text: month,
                       }))}
+                      allowDeselect={false}
                     ></fw-select>
                   </span>
                   <span class='mdpchc-year'>
@@ -1259,6 +1345,7 @@ export class Datepicker {
                       same-width='false'
                       options-placement='bottom'
                       variant='button'
+                      allow-deselect='false'
                     >
                       {this.supportedYears.map((year, i) => (
                         <fw-select-option

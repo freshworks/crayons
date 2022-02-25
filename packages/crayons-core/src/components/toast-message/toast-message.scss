@@ -43,6 +43,7 @@
 }
 
 .toast-container {
+  margin-top: 16px;
   display: flex;
   align-items: flex-start;
   place-content: center;
@@ -50,20 +51,18 @@
   .content {
     color: $color-elephant-900;
     line-height: 20px;
-    flex: auto;
-    margin: 16px 0px 0px 16px;
+    flex: 1 1 auto;
     font-size: $font-size-14;
     font-weight: $font-weight-500;
+    vertical-align: top;
   }
 
   .icon {
-    margin: 20px 0px 0px 16px;
+    margin: 5px 16px 0px 16px;
   }
 
   .remove {
-    float: right;
-    cursor: pointer;
-    margin: 16px 12px 0px 12px;
+    margin: 5px 12px 0px 12px;
   }
 }
 

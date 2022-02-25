@@ -64,8 +64,8 @@ function App() {
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
 | `cancelText`    | `cancel-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.                       | `any`                              | `undefined`                |
-| `formId`        | `form-id`        | id for the form using this component. This prop is set from the `fw-form`                                                                                      | `string`                           | `''`                       |
 | `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                           | `undefined`                |
+| `locale`        | `locale`         | Locale for which datepicker needs to be shown.                                                                                                                 | `string`                           | `undefined`                |
 | `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                           | `undefined`                |
 | `maxYear`       | `max-year`       |                                                                                                                                                                | `number`                           | `new Date().getFullYear()` |
 | `minDate`       | `min-date`       | Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                     | `string`                           | `undefined`                |
@@ -73,6 +73,7 @@ function App() {
 | `mode`          | `mode`           | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"`         | `'single date'`            |
 | `name`          | `name`           | Name of the component, saved as part of form data.                                                                                                             | `string`                           | `''`                       |
 | `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                           | `undefined`                |
+| `readonly`      | `readonly`       | Make the input box as readonly. Default `false`                                                                                                                | `boolean`                          | `false`                    |
 | `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`                    |
 | `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`                 |
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`                |
@@ -84,6 +85,7 @@ function App() {
 
 | Event      | Description                              | Type               |
 | ---------- | ---------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the input is blurred out  | `CustomEvent<any>` |
 | `fwChange` | Triggered when the update button clicked | `CustomEvent<any>` |
 
 
@@ -120,6 +122,7 @@ Type: `Promise<void>`
 
 - [fw-popover](../popover)
 - [fw-input](../input)
+- [fw-icon](../icon)
 - [fw-select](../select)
 - [fw-select-option](../select-option)
 - [fw-button](../button)
@@ -129,6 +132,7 @@ Type: `Promise<void>`
 graph TD;
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-input
+  fw-datepicker --> fw-icon
   fw-datepicker --> fw-select
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
@@ -151,6 +155,7 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-form-control --> fw-datepicker
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -205,6 +205,9 @@ function createYupSchema(schema: any, config: any) {
 
   if (type === 'EMAIL') validator = validator['email']('form.INVALID_EMAIL');
 
+  if (type === 'NUMBER')
+    validator = validator['integer']('form.INVALID_NUMBER');
+
   if (type === 'CHECKBOX' && required)
     validator = validator['oneOf']([true], `form.REQUIRED`);
 

@@ -67,7 +67,7 @@ describe('fw-input', () => {
     expect(fwBlur).toHaveReceivedEvent();
   });
 
-  it('it emits fwChange when the value is changed in the component', async () => {
+  it('it should not emit fwChange when the value is changed in the component', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<fw-input value="1"> </fw-input>');
@@ -78,7 +78,7 @@ describe('fw-input', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
+    expect(fwChange).not.toHaveReceivedEvent();
   });
 
   it('it emits fwFocus when the focus is on the component', async () => {
@@ -114,39 +114,45 @@ describe('fw-input', () => {
     await page.setContent(
       '<fw-input value="0.01" step="1" type="decimal"> </fw-input>'
     );
-    const fwChange = await page.spyOnEvent('fwChange');
     const element = await page.find('fw-input');
 
     await element.click();
-    element.setProperty('value', 1.01);
+    element.setProperty('value', '1.01');
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '1.01' });
+    const value = await element.getProperty('value');
+    expect(value).toBe('1.01');
   });
 
   it('allow number/integer values for Input element', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<fw-input value="1" type="number"> </fw-input>');
-    const fwChange = await page.spyOnEvent('fwChange');
+    await page.setContent('<fw-input name="num" type="number"> </fw-input>');
+    const fwInput = await page.spyOnEvent('fwInput');
     const element = await page.find('fw-input');
 
     await element.click();
-    element.setProperty('value', 2);
+    await element.press('2');
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '2' });
+    expect(fwInput).toHaveReceivedEventDetail({
+      event: {
+        isTrusted: true,
+      },
+      value: '2',
+      name: 'num',
+    });
   });
 
   it('set max value of number/integer values for Input element', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-input value="1" type="number" max="5"> </fw-input>'
+      '<fw-input value="1" name="max" type="number" max="5"> </fw-input>'
     );
-    const fwChange = await page.spyOnEvent('fwChange');
+    const fwInput = await page.spyOnEvent('fwInput');
     const element = await page.find('fw-input >>> input');
 
     await element.press('ArrowUp');
@@ -157,6 +163,12 @@ describe('fw-input', () => {
 
     await page.waitForChanges();
 
-    expect(fwChange).toHaveReceivedEventDetail({ value: '5' });
+    expect(fwInput).toHaveReceivedEventDetail({
+      event: {
+        isTrusted: true,
+      },
+      value: '5',
+      name: 'max',
+    });
   });
 });

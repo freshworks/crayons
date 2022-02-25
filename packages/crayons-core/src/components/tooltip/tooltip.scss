@@ -1,8 +1,13 @@
+:host {
+  --popover-border-radius: 4px;
+}
+
 .tooltip {
   color: $color-milk;
   background: $color-elephant-900;
   border-radius: 4px;
   font-size: 12px;
+  font-weight: 600;
   line-height: 18px;
   padding: 6px 8px;
   max-width: 236px;

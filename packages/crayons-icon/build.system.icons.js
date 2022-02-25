@@ -36,6 +36,9 @@ const generateIconsExportData = async () => {
       'info',
       'success',
       'warning',
+      'settings',
+      'search',
+      'drag',
     ];
 
     let indexData = 'const crayons_system_icons = {';

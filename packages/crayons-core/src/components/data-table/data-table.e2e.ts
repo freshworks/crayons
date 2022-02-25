@@ -17,6 +17,25 @@ describe('fw-data-table', () => {
       },
     ],
   };
+  const manyColumnData: any = {
+    rows: [
+      {
+        id: '1234',
+        name: 'Alexander Goodman',
+        job: 'Lead designer',
+      },
+    ],
+    columns: [
+      {
+        key: 'name',
+        text: 'Name',
+      },
+      {
+        key: 'job',
+        text: 'Job',
+      },
+    ],
+  };
 
   const loadDataIntoGrid = async (gridData: any) => {
     await page.$eval(
@@ -170,51 +189,6 @@ describe('fw-data-table', () => {
     );
     expect(firstColumn.innerText).toEqual('Name');
     expect(secondColumn.innerText).toEqual('Job');
-  });
-
-  it('should render columns in right order even if only some of the columns have position values', async () => {
-    const changedEvent = await page.spyOnEvent('fwColumnsPositionChange');
-    const data = {
-      rows: [
-        {
-          id: '1234',
-          name: 'Alexander Goodman',
-          job: 'Lead designer',
-          place: 'London',
-        },
-      ],
-      columns: [
-        {
-          key: 'place',
-          text: 'Place',
-          position: 2,
-        },
-        {
-          key: 'name',
-          text: 'Name',
-        },
-        {
-          key: 'job',
-          text: 'Job',
-          position: 1,
-        },
-      ],
-    };
-    await loadDataIntoGrid(data);
-    await page.waitForChanges();
-    const firstColumn = await page.find(
-      'fw-data-table >>> thead > tr > th:nth-child(1)'
-    );
-    const secondColumn = await page.find(
-      'fw-data-table >>> thead > tr > th:nth-child(2)'
-    );
-    const thirdColumn = await page.find(
-      'fw-data-table >>> thead > tr > th:nth-child(3)'
-    );
-    expect(firstColumn.innerText).toEqual('Job');
-    expect(secondColumn.innerText).toEqual('Place');
-    expect(thirdColumn.innerText).toEqual('Name');
-    expect(changedEvent).toHaveReceivedEventTimes(1);
   });
 
   it('should render predefined components when column has variant name', async () => {
@@ -487,5 +461,125 @@ describe('fw-data-table', () => {
     expect(myMockFn).toHaveBeenCalled();
     expect(myMockFn.mock.results[0].value).toBe(formatDataResult);
     expect(formattedCell.innerText).toEqual(formatDataResult);
+  });
+
+  it('should show settings button when showSettings prop is passed', async () => {
+    const currentData = { ...data, showSettings: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    expect(settingsButton).toBeTruthy();
+  });
+
+  it('should show settings dropdown when settings button is clicked', async () => {
+    const currentData = { ...data, showSettings: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const settingsContainer = await page.find(
+      'fw-data-table >>> .table-settings-options'
+    );
+    expect(settingsContainer).toHaveClass('show');
+  });
+
+  it('should hide column on unselecting a column from table settings', async () => {
+    const currentData = { ...manyColumnData, showSettings: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const firstCheckbox = await page.find('fw-data-table >>> fw-checkbox');
+    const applySettings = await page.find('fw-data-table >>> #apply-settings');
+    firstCheckbox.click();
+    await page.waitForChanges();
+    applySettings.click();
+    await page.waitForChanges();
+    const columns = await page.findAll('fw-data-table >>> th:not(.hidden)');
+    expect(columns.length).toBe(1);
+  });
+
+  it('should display only columns that include text from search box in column list in settings container', async () => {
+    const currentData = { ...manyColumnData, showSettings: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const settingsInputShadowRoot = await page.find(
+      'fw-data-table >>> .table-settings-content-search fw-input >>> :first-child'
+    );
+    const input = await settingsInputShadowRoot.find('input');
+    await input.press('KeyJ');
+    await page.waitForChanges();
+    const checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox'
+    );
+    expect(checkboxes.length).toBe(1);
+  });
+
+  it('should remove column from choose columns section in settings when drag item is removed in settings', async () => {
+    const currentData = { ...manyColumnData, showSettings: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const dragClose = await page.find(
+      'fw-data-table >>> .table-settings-content-draggable .table-settings-drag-item:first-child .table-settings-drag-item-close'
+    );
+    dragClose.click();
+    await page.waitForChanges();
+    const checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    expect(checkboxes.length).toBe(1);
+  });
+
+  it('should disable table on calling loadTable', async () => {
+    const currentData = { ...manyColumnData, isSelectable: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const dataTable = await page.find('fw-data-table');
+    await dataTable.callMethod('loadTable');
+    await page.waitForChanges();
+    const checkbox = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:first-child'
+    );
+    checkbox.click();
+    await page.waitForChanges();
+    const selectedRow = await page.find(
+      'fw-data-table >>> tbody > tr:first-child.active'
+    );
+    expect(selectedRow).toBeFalsy();
+  });
+
+  it('should show shimmer on initial table load', async () => {
+    const data = {
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const shimmer = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:first-child > fw-skeleton'
+    );
+    expect(shimmer).toBeTruthy();
   });
 });

@@ -7,10 +7,17 @@ fw-accordion displays a collapsible accordion component, which expands/collapses
 ### Default Accordion
 
 ```html live
-<fw-accordion expanded="true">
+<fw-accordion expanded>
   <fw-accordion-title>Header Text</fw-accordion-title>
   <fw-accordion-body>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the
+    1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type specimen book. It has survived not only five centuries, but also
+    the leap into electronic typesetting, remaining essentially unchanged. It
+    was popularised in the 1960s with the release of Letraset sheets containing
+    Lorem Ipsum passages, and more recently with desktop publishing software
+    like Aldus PageMaker including versions of Lorem Ipsum
   </fw-accordion-body>
 </fw-accordion>
 ```
@@ -20,28 +27,29 @@ fw-accordion displays a collapsible accordion component, which expands/collapses
 ```html live
 <fw-accordion>
   <fw-accordion-title>
-     <fw-icon
-      name='minus'
-      size="14"
-      slot="expanded-icon"></fw-icon>
-    <fw-icon
-      name='plus'
-      size="14"
-      slot="collapsed-icon"></fw-icon>
+    <fw-icon name="minus" size="14" slot="expanded-icon"></fw-icon>
+    <fw-icon name="plus" size="14" slot="collapsed-icon"></fw-icon>
     Header Text
   </fw-accordion-title>
   <fw-accordion-body>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the
+    1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type specimen book. It has survived not only five centuries, but also
+    the leap into electronic typesetting, remaining essentially unchanged. It
+    was popularised in the 1960s with the release of Letraset sheets containing
+    Lorem Ipsum passages, and more recently with desktop publishing software
+    like Aldus PageMaker including versions of Lorem Ipsum
   </fw-accordion-body>
 </fw-accordion>
 ```
 
 Toggle icons can be customized using named slots.
 
-| Icon                        | Slot Name               |
-| --------------------------- | ----------------------- |
-| Expanded Icon               |  expanded-icon          |
-| Collapsed Icon              |  collapsed-icon         |
+| Icon           | Slot Name      |
+| -------------- | -------------- |
+| Expanded Icon  | expanded-icon  |
+| Collapsed Icon | collapsed-icon |
 
 ### No Bounding Box Accordion (Borders at top and bottom only)
 
@@ -49,7 +57,14 @@ Toggle icons can be customized using named slots.
 <fw-accordion type="no_bounding_box">
   <fw-accordion-title>Header Text</fw-accordion-title>
   <fw-accordion-body>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the
+    1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type specimen book. It has survived not only five centuries, but also
+    the leap into electronic typesetting, remaining essentially unchanged. It
+    was popularised in the 1960s with the release of Letraset sheets containing
+    Lorem Ipsum passages, and more recently with desktop publishing software
+    like Aldus PageMaker including versions of Lorem Ipsum
   </fw-accordion-body>
 </fw-accordion>
 ```
@@ -57,15 +72,26 @@ Toggle icons can be customized using named slots.
 ### Accordion with custom CSS properties
 
 ```html live
-<fw-accordion style="--accordion-border: 1px solid #F5F7F9; --accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --accordion-border-radius: 4px;" expanded="true">
-  <fw-accordion-title truncate-on-overflow="true" style="--accordion-title-background-color: #F5F7F9; --accordion-title-expanded-icon-color: #2C5CC5; --accordion-title-collapsed-icon-color: #264966;">
-    <fw-icon
-    name='rewards'
-     ></fw-icon>
+<fw-accordion
+  style="--accordion-border: 1px solid #F5F7F9; --accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --accordion-border-radius: 4px;"
+  expanded
+>
+  <fw-accordion-title
+    truncate-on-overflow="true"
+    style="--accordion-title-background-color: #F5F7F9; --accordion-title-expanded-icon-color: #2C5CC5; --accordion-title-collapsed-icon-color: #264966;"
+  >
+    <fw-icon name="rewards"></fw-icon>
     <span style="padding-left: 5px;">Header Text</span>
   </fw-accordion-title>
   <fw-accordion-body style="--accordion-body-background-color: #FFFFFF">
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the
+    1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type specimen book. It has survived not only five centuries, but also
+    the leap into electronic typesetting, remaining essentially unchanged. It
+    was popularised in the 1960s with the release of Letraset sheets containing
+    Lorem Ipsum passages, and more recently with desktop publishing software
+    like Aldus PageMaker including versions of Lorem Ipsum
   </fw-accordion-body>
 </fw-accordion>
 ```

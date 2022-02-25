@@ -290,7 +290,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
   sortBy.value = '1';
   sortBy.options = sortByData;
   sortBy.addEventListener('fwChange', (e) => {
-    const selectedOptions = e.detail.selectedOptions;
+    const selectedOptions = e.detail?.meta?.selectedOptions;
     const text =
       selectedOptions.length > 0
         ? e.detail.selectedOptions[0].text
@@ -302,7 +302,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
   sortOrder.options = sortOrderData;
   sortOrder.value = '1';
   sortOrder.addEventListener('fwChange', (e) => {
-    const selectedOptions = e.detail.selectedOptions;
+    const selectedOptions = e.detail?.meta?.selectedOptions;
     const iconName =
       selectedOptions.length > 0
         ? e.detail.selectedOptions[0].graphicsProps.name
@@ -389,7 +389,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
   sortBy.value = '1';
   sortBy.options = sortByData;
   sortBy.addEventListener('fwChange', (e) => {
-    const selectedOptions = e.detail.selectedOptions;
+    const selectedOptions = e.detail?.meta?.selectedOptions;
     const text =
       selectedOptions.length > 0
         ? e.detail.selectedOptions[0].text
@@ -401,7 +401,7 @@ Even a complex dropdown can be created via popover. Below example contains two d
   sortOrder.options = sortOrderData;
   sortOrder.value = '1';
   sortOrder.addEventListener('fwChange', (e) => {
-    const selectedOptions = e.detail.selectedOptions;
+    const selectedOptions = e.detail?.meta?.selectedOptions;
     const iconName =
       selectedOptions.length > 0
         ? e.detail.selectedOptions[0].graphicsProps.name
@@ -469,11 +469,11 @@ const Popover = () => {
   const [sortOrder, setSortOrder] = useState(sortOrderData[0]);
 
   const onSortChange = (event) => {
-    setSortBy(event.detail.selectedOptions[0]);
+    setSortBy(event.detail?.meta?.selectedOptions[0]);
   };
 
   const onSortOrderChange = (event) => {
-    setSortOrder(event.detail.selectedOptions[0]);
+    setSortOrder(event.detail?.meta?.selectedOptions[0]);
   };
 
   return (
@@ -578,12 +578,13 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                   | Description                            |
-| ---------------------- | -------------------------------------- |
-| `--popover-max-height` | Maximum height of the popover content. |
-| `--popover-max-width`  | Maximum width of the popover content.  |
-| `--popover-min-height` | Minimum height of the popover content. |
-| `--popover-min-width`  | Minimum width of the popover content.  |
+| Name                      | Description                            |
+| ------------------------- | -------------------------------------- |
+| `--popover-border-radius` | border radius of the popover content.  |
+| `--popover-max-height`    | Maximum height of the popover content. |
+| `--popover-max-width`     | Maximum width of the popover content.  |
+| `--popover-min-height`    | Minimum height of the popover content. |
+| `--popover-min-width`     | Minimum width of the popover content.  |
 
 
 ## Dependencies

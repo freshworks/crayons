@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.0 (2022-02-09)
+
+### Features
+
+- **data-table:** add table settings option to data table ([#399](https://github.com/freshworks/crayons/issues/399)) ([dbb11e2](https://github.com/freshworks/crayons/commit/dbb11e2dd974e75e2be4a961dbb379a32a80917a))
+
 ## 1.1.0 (2021-12-17)
 
 ### Features

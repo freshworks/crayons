@@ -1,8 +1,8 @@
 /**
-  @prop --input-container-margin-bottom: Bottom margin for the input container
-  @prop --input-margin-bottom: Bottom margin for the input
-  @prop --input-margin-top: Top margin for the input
-**/
+  @prop --fw-input-label-color: Color of the label.
+  @prop --fw-input-hint-color: Color of the hint.
+*/
+
 $label-font: $font-stack-sans !default;
 $placeholder-color: $muted-secondary;
 $help-color: $muted-secondary;
@@ -22,17 +22,20 @@ $input-color: $app-primary-black;
   box-sizing: border-box;
 }
 
-@mixin stateStyle($_color) {
-  & > input {
-    border-color: $_color;
-  }
+:host {
+  display: block;
+}
 
-  & > input:focus {
+@mixin stateStyle($_color) {
+  border-color: $_color;
+
+  &.has-focus {
     box-shadow: none;
     border-color: $_color;
   }
 
-  & > input:hover {
+  &:hover,
+  &:focus {
     border-color: $_color;
   }
 
@@ -42,7 +45,6 @@ $input-color: $app-primary-black;
 }
 
 .input-container {
-  margin-bottom: var(--input-container-margin-bottom, 0px);
   width: inherit;
   height: inherit;
 }
@@ -50,11 +52,11 @@ $input-color: $app-primary-black;
 // Label Style
 label {
   font-size: 12px;
-  color: $label-default;
+  color: var(--fw-input-label-color, $label-default);
   font-weight: $font-weight-600;
-  margin-bottom: 0;
-  padding-bottom: 4px;
+  margin-bottom: 4px;
   padding-left: 2px;
+  line-height: 20px;
   display: block;
 
   &.required::after {
@@ -71,70 +73,110 @@ label {
 
 // Input Container Style
 .input-container-inner {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
+  border: 1px solid $input-border;
+  background-color: $app-light-bg;
   position: relative;
+  border-radius: 4px;
+  box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05);
 
-  input {
-    width: 100%;
-    border: 0;
-    border: 1px solid $input-border;
-    margin: 0 0;
-    margin-top: var(--input-margin-top, 5px);
-    margin-bottom: var(--input-margin-bottom, 0px);
-    border-radius: 4px;
-    padding: 4px 12px 5px;
-    resize: none;
-    background-color: $app-light-bg;
-    box-shadow: none;
-    min-height: 24px;
-    font-size: 12px;
-    font-weight: $font-weight-semibold;
-    letter-spacing: 0;
-    line-height: 20px;
-    color: $input-color;
-    box-sizing: border-box;
-    cursor: text;
-    display: inline-block;
-    font-family: inherit;
+  &.error {
+    @include stateStyle($error-color);
+  }
 
-    @media (prefers-reduced-motion) {
-      /* stylelint-disable */
-      &:hover {
-        transition: none;
+  &.warning {
+    @include stateStyle($warning-message-marker);
+  }
+
+  .inner__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+
+    .input__label {
+      flex: 1 1 40%;
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
+
+      input {
+        width: 100%;
+        padding: 6px 0px;
+        resize: none;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        min-height: 24px;
+        font-size: 14px;
+        font-weight: $font-weight-semibold;
+        letter-spacing: 0;
+        line-height: 20px;
+        color: $input-color;
+        box-sizing: border-box;
+        cursor: text;
+        display: inline-block;
+        font-family: inherit;
+
+        &[disabled] {
+          font-weight: $font-weight-default;
+          color: $disabled-color;
+          background-color: $input-disabled-bg;
+          pointer-events: none;
+        }
       }
     }
-    &:hover {
-      border: 1px $input-hover-color solid;
-      transition: 0.2s linear;
-    }
 
-    &:focus {
-      outline: none;
-      background: $input-bg;
-      background-color: $app-light-bg;
-      border: 1px solid transparent;
-      box-shadow: 0 0 0 2px $input-focus-color;
-    }
+    .input__prefix {
+      display: flex;
+      align-items: center;
+      flex: 0 1 auto;
+      margin-left: 4px;
 
-    &[disabled] {
-      color: $disabled-color;
-      background-color: $input-disabled-bg;
-      border-style: solid;
-      pointer-events: none;
-
-      &:hover,
-      &:focus {
-        border: 1px solid $input-border;
+      &.hasContent {
+        margin-left: 8px;
       }
     }
   }
 
+  .inner__suffix {
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  @media (prefers-reduced-motion) {
+    /* stylelint-disable */
+    &:hover {
+      transition: none;
+    }
+  }
+  &:hover {
+    border: 1px $input-hover-color solid;
+    transition: 0.2s linear;
+  }
+
+  &.has-focus {
+    outline: none;
+    background: $input-bg;
+    background-color: $app-light-bg;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 2px $input-focus-color;
+  }
+
+  &.disabled {
+    font-weight: $font-weight-default;
+    color: $disabled-color;
+    border: 1px solid $color-smoke-50;
+    background-color: $input-disabled-bg;
+    border-style: solid;
+    pointer-events: none;
+  }
+
   // Clear button
   .clear-button {
-    top: 12px;
-    position: absolute;
-    right: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -159,79 +201,35 @@ label {
   //Help Block
   & + .help-block {
     font-family: $label-font;
-    font-size: 11px;
-    margin-top: 3px;
-    color: $help-color;
-    position: inherit;
+    font-size: 12px;
+    line-height: 20px;
+    margin-top: 4px;
     margin-bottom: 0;
+    color: var(--fw-input-hint-color, $help-color);
+    position: inherit;
     display: block;
     padding-left: 2px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  &.error {
-    @include stateStyle($error-color);
-  }
-
-  &.warning {
-    @include stateStyle($warning-message-marker);
-  }
 }
 
 ::-webkit-input-placeholder {
   color: $muted-secondary;
+  font-weight: $font-weight-default;
 }
 
 ::-moz-placeholder {
   color: $muted-secondary;
+  font-weight: $font-weight-default;
 }
 
 :-ms-input-placeholder {
   color: $muted-secondary;
+  font-weight: $font-weight-default;
 }
 
 :-moz-placeholder {
   color: $muted-secondary;
-}
-
-.icon {
-  position: absolute;
-  top: 12px;
-  left: 3px;
-  width: 16px;
-  height: 16px;
-  display: flex;
-  justify-content: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-
-  &.left {
-    left: 8px;
-  }
-
-  &.right {
-    left: auto;
-    right: 8px;
-  }
-}
-
-.left-icon {
-  input {
-    padding-left: 32px;
-  }
-}
-
-.right-icon {
-  input {
-    padding-right: 32px;
-  }
-}
-
-.has-value {
-  input {
-    padding-right: 32px;
-  }
+  font-weight: $font-weight-default;
 }

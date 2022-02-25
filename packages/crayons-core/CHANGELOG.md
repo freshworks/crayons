@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.16](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.15...@freshworks/crayons@3.0.0-beta.16) (2022-02-24)
+
+### Bug Fixes
+
+- **datepicker:** fix blur event emit and trigger for show datepicker popup ([#437](https://github.com/freshworks/crayons/issues/437)) ([b1254ed](https://github.com/freshworks/crayons/commit/b1254ed581970358af28b646d08196244b012121))
+- **popover:** make overlay height to 100% of parent height not 100vh,use allowDeselect in datepicker ([#438](https://github.com/freshworks/crayons/issues/438)) ([5773c95](https://github.com/freshworks/crayons/commit/5773c9543cd46c0cff903311d057193d32eba4f4))
+
+## [3.0.0-beta.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.14...@freshworks/crayons@3.0.0-beta.15) (2022-02-22)
+
+### Bug Fixes
+
+- **data-table:** fix for table setting moving on horizontal scroll ([#427](https://github.com/freshworks/crayons/issues/427)) ([d569801](https://github.com/freshworks/crayons/commit/d569801cf2fe14c15e17366243603bfb48d34420))
+- **data-table:** isloading as mutable property ([#420](https://github.com/freshworks/crayons/issues/420)) ([2ef8029](https://github.com/freshworks/crayons/commit/2ef8029498e4d597ce65c3803b9527dab5623bd5))
+- **datepicker:** fix datepicker behaviour after event standardisation ([#431](https://github.com/freshworks/crayons/issues/431)) ([d74a235](https://github.com/freshworks/crayons/commit/d74a23542a102940bd0628ab4eaa5365ba040bbb))
+- **event-changes:** updated the components to follow event standards ([#433](https://github.com/freshworks/crayons/issues/433)) ([b783d7c](https://github.com/freshworks/crayons/commit/b783d7c1d230ea2425e37251cc71b6c933b9523b))
+- **fw-drag-container:** fixed the drag issue in safari  ([#403](https://github.com/freshworks/crayons/issues/403)) ([154b51f](https://github.com/freshworks/crayons/commit/154b51fd9decf0699343c98ae6c56a03a8b212b0))
+- **fw-drag-container:** fixed the insertElement issue on Drop ([#435](https://github.com/freshworks/crayons/issues/435)) ([a08ed51](https://github.com/freshworks/crayons/commit/a08ed51d0a306027335f3cd9002141300c787e56))
+- **fw-input:** fix fw-input cursor resetting on typing `.` for decimal input ([#434](https://github.com/freshworks/crayons/issues/434)) ([4a915de](https://github.com/freshworks/crayons/commit/4a915de37c4351efb80e7b7be29d8afa054f8bfa))
+- **fw-input:** fixed the flex-flow bug when width is <= 200px ([#417](https://github.com/freshworks/crayons/issues/417)) ([db45160](https://github.com/freshworks/crayons/commit/db451606ae449d0ce5b94fc1dc2e2a8cf34aa72f))
+- **fw-input:** fixed the hint/error text padding ([#428](https://github.com/freshworks/crayons/issues/428)) ([e2ddce5](https://github.com/freshworks/crayons/commit/e2ddce569c9aaaefbac9ea4e3dca9e44f7a392cd))
+- **tooltip:** updating tooltip radius, modal close button styling ([#424](https://github.com/freshworks/crayons/issues/424)) ([a39405a](https://github.com/freshworks/crayons/commit/a39405a0ca33544bcfd46f33798879065631ccc7))
+
+### Features
+
+- **data-table:** adding style to the loading state of table ([#418](https://github.com/freshworks/crayons/issues/418)) ([febb9f2](https://github.com/freshworks/crayons/commit/febb9f2743a7c8120dbade2ff9aeaf279d4f7094))
+- **data-table:** showing shimmer on initial table load ([#422](https://github.com/freshworks/crayons/issues/422)) ([d2d7ff4](https://github.com/freshworks/crayons/commit/d2d7ff4a2e417f7bce8b5ac1a40b592d9b6cdcf5))
+- **event-standardisation:** Event Standardisation of input controls ([#423](https://github.com/freshworks/crayons/issues/423)) ([a04e7c3](https://github.com/freshworks/crayons/commit/a04e7c3a9d08ec9c8f752a006f82cb8c3f7968fd))
+- **list-options:** applying event standardisation for list-options as well ([#432](https://github.com/freshworks/crayons/issues/432)) ([a8e1d7e](https://github.com/freshworks/crayons/commit/a8e1d7ec840a8905999cff2d5f9a0cbd71323ee2))
+
+### BREAKING CHANGES
+
+`fw-input`: `fwChange` event will no longer be emitted on changing value programatically.
+`fw-textarea`: `fwChange` event will no longer be emitted on changing value programatically.
+`fw-radio-group`: `fwChange` event will no longer be emitted on changing value programatically.
+`fw-checkbox`:  `checked` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`.
+`fw-select` : `selectedOptions` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.selectedOptions` instead of `event.detail.selectedOptions`.
+`fw-list-options` : `selectedOptions` field will now be part of meta field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.selectedOptions` instead of `event.detail.selectedOptions`
+
+## [3.0.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.13...@freshworks/crayons@3.0.0-beta.14) (2022-02-10)
+
+### Bug Fixes
+
+- **checkbox:** fix checkbox disabled state color ([#409](https://github.com/freshworks/crayons/issues/409)) ([83119dc](https://github.com/freshworks/crayons/commit/83119dcacba9035146ee6f83147876f653a0e674))
+- **checkbox:** fix cursor style for disabled state ([#412](https://github.com/freshworks/crayons/issues/412)) ([16391c5](https://github.com/freshworks/crayons/commit/16391c57f1a92d1a8d97d569ef92fbb74ed076eb))
+- **fw-input:** fixed the transparent background color of input ([#410](https://github.com/freshworks/crayons/issues/410)) ([cc04ec0](https://github.com/freshworks/crayons/commit/cc04ec0374a7164dd60cc335d2bd4469dd8f0585))
+- **modal:** modal description line height reduced to support multiline  ([#413](https://github.com/freshworks/crayons/issues/413)) ([d25e74e](https://github.com/freshworks/crayons/commit/d25e74e03bf68f0c65db45a863e2f088b7bab64e))
+
+### Features
+
+- **checkbox:** adding pointer cursor for checkbox container ([#411](https://github.com/freshworks/crayons/issues/411)) ([e9df0a5](https://github.com/freshworks/crayons/commit/e9df0a589830e3e41d8270bc08e6b79c92b994ab))
+
+## [3.0.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.12...@freshworks/crayons@3.0.0-beta.13) (2022-02-09)
+
+### Bug Fixes
+
+- **accordion:** add watcher for expanded attribute ([#408](https://github.com/freshworks/crayons/issues/408)) ([06cf48f](https://github.com/freshworks/crayons/commit/06cf48f6e94d417808c84065004454d02a419267))
+- **checkbox:** fix checkbox styles based on style guide ([#406](https://github.com/freshworks/crayons/issues/406)) ([cb85870](https://github.com/freshworks/crayons/commit/cb85870befc8d0f24ba94d8a1a4bcb1a5cb4984b))
+- **component-style-fixes:** modal style, label style, toggle icon button fixes as per DSM ([#404](https://github.com/freshworks/crayons/issues/404)) ([78d7ebf](https://github.com/freshworks/crayons/commit/78d7ebf21b17f4b75a21ddfb9729e0554a5c863c))
+- **data-table:** row hover cursor pointer fix ([#398](https://github.com/freshworks/crayons/issues/398)) ([823e3ca](https://github.com/freshworks/crayons/commit/823e3ca8e51f95cd1c9f164fc6bc048ada175e93))
+- **datepicker:** fix datepicker month/year updates ([#397](https://github.com/freshworks/crayons/issues/397)) ([1248ee8](https://github.com/freshworks/crayons/commit/1248ee8e2585d87757aa269966dedb867ace5256))
+- **fw-input:** handle decimal input usecase ([#396](https://github.com/freshworks/crayons/issues/396)) ([56ff3d3](https://github.com/freshworks/crayons/commit/56ff3d3ea0c45e57a92d2370162ba7f204ba7385))
+- **fw-pagination:** End value not updated on total prop change ([#400](https://github.com/freshworks/crayons/issues/400)) ([549bf84](https://github.com/freshworks/crayons/commit/549bf84632c7b00c9b07e427f13354061ee2bdde))
+- **fw-select:** fixed the padding issue on multi-select ([#407](https://github.com/freshworks/crayons/issues/407)) ([f365462](https://github.com/freshworks/crayons/commit/f36546203a54aa8d3af2a2347dbe5b83d2129d13))
+- **fw-tag:** fixed the style based on DSM ([#405](https://github.com/freshworks/crayons/issues/405)) ([6ec87f1](https://github.com/freshworks/crayons/commit/6ec87f199715097dc1a26edccf71435d4f119c42))
+- **fw-toast-message:** updated styles for toast-message ([#402](https://github.com/freshworks/crayons/issues/402)) ([acf41a8](https://github.com/freshworks/crayons/commit/acf41a8d68930a60b5e73ca511f27bf78537017b))
+- **tabs:** remove vertical scrollbar for tabs nav ([#401](https://github.com/freshworks/crayons/issues/401)) ([70f9446](https://github.com/freshworks/crayons/commit/70f9446cb8962a8e547c64afb278e09fe6320061))
+
+### Features
+
+- **data-table:** add table settings option to data table ([#399](https://github.com/freshworks/crayons/issues/399)) ([dbb11e2](https://github.com/freshworks/crayons/commit/dbb11e2dd974e75e2be4a961dbb379a32a80917a))
+- **fw-input:** Added slots and modified styles for fw-input based on DSM ([#395](https://github.com/freshworks/crayons/issues/395)) ([1f5b846](https://github.com/freshworks/crayons/commit/1f5b8462f3a2781714adca13709d9b46bd89e8e4))
+
 ## [3.0.0-beta.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.11...@freshworks/crayons@3.0.0-beta.12) (2022-02-03)
 
 ### Bug Fixes

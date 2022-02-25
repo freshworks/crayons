@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 div.fw-data-table-container {
   $grid-header-bg: $color-smoke-25;
   $grid-body-bg: $color-milk;
@@ -16,145 +20,192 @@ div.fw-data-table-container {
   $grid-density-lg: 16px 8px;
 
   position: relative;
-  display: inline-block;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: visible;
 
-  table.fw-data-table {
-    table-layout: fixed;
-    border-collapse: collapse;
-    box-sizing: border-box;
-    min-width: 100%;
-    width: max-content;
+  div.fw-data-table-scrollable {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 
-    thead {
-      position: sticky;
-      top: 0;
-      background: $grid-header-bg;
-      width: 100%;
-      border-radius: 4px;
+    table.fw-data-table {
+      table-layout: fixed;
+      border-collapse: collapse;
+      box-sizing: border-box;
+      min-width: 100%;
+      width: max-content;
 
-      tr {
-        th {
-          color: $grid-header-txt-color;
-          font-size: $grid-header-txt-size;
-          line-height: $grid-line-height;
-          padding: $grid-density-md;
-          font-weight: 600;
-          letter-spacing: 0.2px;
-          text-overflow: ellipsis;
-          text-align: left;
-          z-index: 1;
-          box-sizing: border-box;
-          min-width: 40px;
-          max-width: 1000px;
-
-          &.data-grid-sm {
-            padding: $grid-density-sm;
-          }
-
-          &.data-grid-md {
-            padding: $grid-density-md;
-          }
-
-          &.data-grid-lg {
-            padding: $grid-density-lg;
-          }
-
-          &:first-child {
-            padding-left: 16px;
-          }
-
-          &:last-child {
-            padding-right: 16px;
-          }
-        }
-
-        th.hidden {
-          display: none;
-        }
-      }
-    }
-
-    tbody {
-      width: 100%;
-      background: $grid-body-bg;
-
-      tr {
+      thead {
+        position: sticky;
+        top: 0;
         width: 100%;
-        border-bottom: 1px solid $grid-row-border;
+        border-radius: 4px;
 
-        &:hover,
-        &:focus {
-          background: $grid-header-bg;
-        }
-
-        &.active {
-          background: $grid-row-active;
-        }
-
-        td {
-          color: $grid-row-txt-color;
-          font-size: $grid-row-txt-size;
-          line-height: $grid-line-height;
-          padding: $grid-density-md;
-          text-overflow: ellipsis;
-          box-sizing: border-box;
-          z-index: 0;
-
-          &.data-grid-checkbox {
-            text-align: center;
-            width: 20px;
-          }
-
-          &.data-grid-sm {
-            padding: $grid-density-sm;
-          }
-
-          &.data-grid-md {
+        tr {
+          th {
+            color: $grid-header-txt-color;
+            font-size: $grid-header-txt-size;
+            line-height: $grid-line-height;
             padding: $grid-density-md;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            text-overflow: ellipsis;
+            text-align: left;
+            z-index: 1;
+            box-sizing: border-box;
+            min-width: 40px;
+            max-width: 1000px;
+            background: $grid-header-bg;
+
+            &:first-of-type {
+              padding-left: 16px;
+              border-radius: 4px 0px 0px 0px;
+            }
+
+            &:last-of-type {
+              padding-right: 16px;
+              border-radius: 0px 4px 0px 0px;
+            }
+
+            &.data-grid-sm {
+              padding: $grid-density-sm;
+            }
+
+            &.data-grid-md {
+              padding: $grid-density-md;
+            }
+
+            &.data-grid-lg {
+              padding: $grid-density-lg;
+            }
           }
 
-          &.data-grid-lg {
-            padding: $grid-density-lg;
+          th.hidden {
+            display: none;
+          }
+        }
+      }
+
+      tbody {
+        width: 100%;
+        background: $grid-body-bg;
+
+        tr {
+          width: 100%;
+          border-bottom: 1px solid $grid-row-border;
+
+          &:hover,
+          &:focus {
+            background: $grid-header-bg;
           }
 
-          &:first-child {
-            padding-left: 16px;
+          &.active {
+            background: $grid-row-active;
           }
 
           &:last-child {
-            padding-right: 16px;
+            border-bottom: 0px;
+          }
+
+          td {
+            color: $grid-row-txt-color;
+            font-size: $grid-row-txt-size;
+            line-height: $grid-line-height;
+            padding: $grid-density-md;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+            z-index: 0;
+
+            &.data-grid-checkbox {
+              text-align: center;
+              width: 20px;
+            }
+
+            &.data-grid-sm {
+              padding: $grid-density-sm;
+            }
+
+            &.data-grid-md {
+              padding: $grid-density-md;
+            }
+
+            &.data-grid-lg {
+              padding: $grid-density-lg;
+            }
+
+            &:first-child {
+              padding-left: 16px;
+            }
+
+            &:last-child {
+              padding-right: 16px;
+            }
+          }
+
+          td.row-actions {
+            // column has to take up only required space
+            width: 1px;
+            white-space: nowrap;
+
+            & > fw-button {
+              margin-right: 5px;
+            }
+          }
+
+          td.hidden {
+            display: none;
           }
         }
 
-        td.row-actions {
-          // column has to take up only required space
-          width: 1px;
-          white-space: nowrap;
+        tr.loading {
+          cursor: not-allowed;
 
-          & > fw-button {
-            margin-right: 5px;
+          td {
+            position: relative;
+            opacity: 0.65;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              bottom: 0px;
+              right: 0px;
+            }
           }
         }
 
-        td.hidden {
-          display: none;
+        fw-skeleton {
+          display: block;
+          height: 10px;
+          padding: 4px 0px;
+          box-sizing: content-box;
+        }
+      }
+
+      &.is-selectable {
+        td:first-child,
+        th:first-child {
+          text-align: center;
+
+          fw-checkbox {
+            display: block;
+            width: 16px;
+            height: 20px;
+          }
         }
       }
     }
 
-    &.is-selectable {
-      td:first-child,
-      th:first-child {
-        text-align: center;
+    &.loading {
+      opacity: 0.65;
+    }
 
-        fw-checkbox {
-          width: 16px;
-          height: 20px;
-        }
-      }
+    &.shimmer {
+      overflow: hidden;
     }
   }
 
@@ -164,5 +215,238 @@ div.fw-data-table-container {
     left: 0px;
     width: 100%;
     height: 100%;
+  }
+
+  .table-settings {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+
+    .table-settings-container {
+      position: relative;
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .table-settings-button {
+        width: 40px;
+        min-height: 44px;
+        background: $color-milk;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        border: 1px solid $color-smoke-50;
+        border-radius: 0px 4px 0px 0px;
+        margin: 0px;
+
+        &:focus,
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:disabled {
+          cursor: default;
+          opacity: 0.65;
+        }
+      }
+
+      .table-settings-options {
+        width: 500px;
+        box-sizing: border-box;
+        background: $color-milk;
+        border: 1px solid $color-smoke-50;
+        border-radius: 4px;
+        box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
+        padding: 22px 0px 0px 0px;
+        display: none;
+        animation: appear 0.3s;
+
+        &.show {
+          display: block;
+        }
+
+        .table-settings-header {
+          display: flex;
+          width: 100%;
+          box-sizing: border-box;
+          font-weight: 600;
+          align-items: flex-end;
+          padding: 0px 22px;
+          margin-bottom: 16px;
+
+          span.title {
+            flex-grow: 1;
+            font-size: 16px;
+            line-height: 24px;
+          }
+
+          button.reset {
+            flex-grow: 0;
+            color: $color-azure-800;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            line-height: 17px;
+            padding-right: 4px;
+            margin: 0px;
+            background: $color-milk;
+            border: 0px;
+
+            &:focus,
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+
+        .table-settings-content {
+          display: flex;
+          width: 100%;
+          height: 342px;
+          box-sizing: border-box;
+          padding: 0px 22px;
+          gap: 14px;
+
+          .table-settings-content-left {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+
+            .table-settings-content-title {
+              box-sizing: border-box;
+              padding-bottom: 5px;
+            }
+
+            .table-settings-content-search {
+              position: relative;
+              top: -3px;
+            }
+
+            .table-settings-content-choose {
+              display: flex;
+              flex-direction: column;
+              flex-grow: 1;
+              margin-top: 14px;
+              overflow-y: hidden;
+
+              .table-settings-content-checkboxes {
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+
+                div {
+                  margin: 5px 0px;
+                }
+              }
+            }
+          }
+
+          .table-settings-content-right {
+            display: flex;
+            flex-direction: column;
+            width: 220px;
+            box-sizing: border-box;
+            background: $color-smoke-50;
+            border-radius: 4px 4px 0px 0px;
+
+            .table-settings-content-title {
+              box-sizing: border-box;
+              padding: 8px 12px 5px;
+            }
+
+            .table-settings-content-draggable {
+              width: 100%;
+              flex-grow: 1;
+              padding: 0px 12px;
+              box-sizing: border-box;
+              overflow-y: auto;
+
+              .table-settings-drag-item {
+                display: flex;
+                background: $color-milk;
+                border-radius: 4px;
+                box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
+                border: 1px solid $color-smoke-50;
+                padding: 7px 14px;
+                margin: 8px 0px;
+                font-size: 14px;
+
+                .table-settings-drag-item-icon,
+                .table-settings-drag-item-close {
+                  width: 16px;
+                  flex-grow: 0;
+                  text-align: center;
+
+                  &:focus,
+                  &:hover {
+                    cursor: pointer;
+                  }
+                }
+
+                .table-settings-drag-item-close {
+                  background: $color-milk;
+                  border: 0px;
+                  padding: 0px;
+                  margin: 0px;
+                }
+
+                .table-settings-drag-item-text {
+                  flex-grow: 1;
+                  color: $color-elephant-900;
+                  padding: 0px 10px;
+                  box-sizing: border-box;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  white-space: nowrap;
+                }
+              }
+            }
+          }
+
+          .table-settings-content-title {
+            font-size: 14px;
+            line-height: 20px;
+            color: $color-smoke-700;
+            font-weight: 600;
+          }
+        }
+
+        .table-settings-footer {
+          display: flex;
+          width: 100%;
+          box-sizing: border-box;
+          background: $color-smoke-25;
+          padding: 12px 16px;
+          gap: 12px;
+          justify-content: flex-end;
+        }
+      }
+
+      @media (prefers-reduced-motion) {
+        .table-settings-options {
+          animation: none;
+        }
+      }
+    }
+
+    .table-settings-overlay {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0px;
+      left: 0px;
+      z-index: 95;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

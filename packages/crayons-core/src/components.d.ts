@@ -105,10 +105,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
-        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -151,14 +147,13 @@ export namespace Components {
     }
     interface FwDataTable {
         /**
+          * autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`
+         */
+        "autoSaveSettings": boolean;
+        /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns": DataTableColumn[];
-        /**
-          * getColumnConfig
-          * @returns columnConfig object
-         */
-        "getColumnConfig": () => Promise<{}>;
         /**
           * getSelectedIds
           * @returns an array of selected row IDs
@@ -170,9 +165,18 @@ export namespace Components {
          */
         "getSelectedRows": () => Promise<DataTableRow[]>;
         /**
-          * isAllSelectable Booleam based on which select all option appears in the table header
+          * getTableSettings
+          * @returns columnConfig object
+         */
+        "getTableSettings": () => Promise<{}>;
+        /**
+          * isAllSelectable Boolean based on which select all option appears in the table header
          */
         "isAllSelectable": boolean;
+        /**
+          * To disable table during async operations
+         */
+        "isLoading": boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -186,7 +190,7 @@ export namespace Components {
           * @param state to load table or not
           * @returns isLoading current state
          */
-        "loadTable": (state: boolean) => Promise<boolean>;
+        "loadTable": (state?: boolean) => Promise<boolean>;
         /**
           * To enable bulk actions on the table.
          */
@@ -200,6 +204,19 @@ export namespace Components {
           * @param checked denotes if we want to check or uncheck the rows
          */
         "selectAllRows": (checked?: boolean) => Promise<string[]>;
+        /**
+          * setTableSettings
+          * @param columnConfig columnConfig object
+         */
+        "setTableSettings": (columnConfig: any) => Promise<DataTableColumn[]>;
+        /**
+          * shimmerCount number of shimmer rows to show during initial loading
+         */
+        "shimmerCount": number;
+        /**
+          * showSettings is used to show the settings button on the table.
+         */
+        "showSettings": boolean;
     }
     interface FwDatepicker {
         "cancelText": string;
@@ -208,14 +225,14 @@ export namespace Components {
          */
         "displayFormat": any;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
-        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
         "getValue": () => Promise<string | { fromDate: { locale: any; }; toDate: { locale: any; }; locale?: undefined; } | { locale: any; fromDate?: undefined; toDate?: undefined; }>;
+        /**
+          * Locale for which datepicker needs to be shown.
+         */
+        "locale": string;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
@@ -238,6 +255,10 @@ export namespace Components {
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder": string;
+        /**
+          * Make the input box as readonly. Default `false`
+         */
+        "readonly": boolean;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
@@ -373,7 +394,7 @@ export namespace Components {
     interface FwFormControl {
         "choices": any;
         /**
-          * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
+          * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
         "error": string;
@@ -586,10 +607,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
-        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft": string;
@@ -765,6 +782,10 @@ export namespace Components {
           * The description text to be displayed on the modal
          */
         "description": string;
+        /**
+          * Property to add or remove the top right close icon button
+         */
+        "hasCloseIconButton": boolean;
         /**
           * Hide footer for the modal
          */
@@ -1013,10 +1034,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
-        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -1042,10 +1059,6 @@ export namespace Components {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty": boolean;
-        /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -1110,10 +1123,6 @@ export namespace Components {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
-        /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
         "getSelectedItem": () => Promise<any>;
         /**
           * Label displayed on the interface, for the component.
@@ -1402,10 +1411,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
-        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -1463,10 +1468,6 @@ export namespace Components {
           * Set true to disable the element
          */
         "disabled": boolean;
-        /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId": string;
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
@@ -1627,10 +1628,6 @@ export namespace Components {
           * Label displayed as header in the card.
          */
         "header": string;
-        /**
-          * If the button type is icon, set the icon path to be used
-         */
-        "iconName": string;
         /**
           * index attached inside the parent group component
          */
@@ -2182,10 +2179,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
-        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -2196,9 +2189,9 @@ declare namespace LocalJSX {
         /**
           * Triggered when the check box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * /**   Triggered when the check box’s value is modified.
+          * /**   Triggered when the checkbox state is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
@@ -2236,13 +2229,21 @@ declare namespace LocalJSX {
     }
     interface FwDataTable {
         /**
+          * autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`
+         */
+        "autoSaveSettings"?: boolean;
+        /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns"?: DataTableColumn[];
         /**
-          * isAllSelectable Booleam based on which select all option appears in the table header
+          * isAllSelectable Boolean based on which select all option appears in the table header
          */
         "isAllSelectable"?: boolean;
+        /**
+          * To disable table during async operations
+         */
+        "isLoading"?: boolean;
         /**
           * isSelectable Boolean based on which selectable options appears for rows in the table.
          */
@@ -2251,10 +2252,6 @@ declare namespace LocalJSX {
           * Label attribute is not visible on screen. There for accessibility purposes.
          */
         "label"?: string;
-        /**
-          * fwColumnsPositionChange Emits this event when columns position changes.
-         */
-        "onFwColumnsPositionChange"?: (event: CustomEvent<any>) => void;
         /**
           * fwSelectAllChange Emits this event when select all is checked.
          */
@@ -2271,6 +2268,14 @@ declare namespace LocalJSX {
           * Rows Array of objects to be displayed in the table.
          */
         "rows"?: DataTableRow[];
+        /**
+          * shimmerCount number of shimmer rows to show during initial loading
+         */
+        "shimmerCount"?: number;
+        /**
+          * showSettings is used to show the settings button on the table.
+         */
+        "showSettings"?: boolean;
     }
     interface FwDatepicker {
         "cancelText"?: string;
@@ -2279,13 +2284,13 @@ declare namespace LocalJSX {
          */
         "displayFormat"?: any;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
-        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
+        /**
+          * Locale for which datepicker needs to be shown.
+         */
+        "locale"?: string;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
@@ -2305,6 +2310,10 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * Triggered when the input is blurred out
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
           * Triggered when the update button clicked
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
@@ -2312,6 +2321,10 @@ declare namespace LocalJSX {
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
+        /**
+          * Make the input box as readonly. Default `false`
+         */
+        "readonly"?: boolean;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
@@ -2451,7 +2464,7 @@ declare namespace LocalJSX {
     interface FwFormControl {
         "choices"?: any;
         /**
-          * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
+          * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
         "error"?: string;
@@ -2666,10 +2679,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
-        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft"?: string;
@@ -2706,17 +2715,13 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * Triggered when the value in the input box is modified.
-         */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
-        /**
           * Triggered when the input box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when a value is entered in the input box.
          */
-        "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
+        "onFwInput"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when clear icon is clicked.
          */
@@ -2855,6 +2860,10 @@ declare namespace LocalJSX {
           * The description text to be displayed on the modal
          */
         "description"?: string;
+        /**
+          * Property to add or remove the top right close icon button
+         */
+        "hasCloseIconButton"?: boolean;
         /**
           * Hide footer for the modal
          */
@@ -3096,10 +3105,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
-        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -3110,7 +3115,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when the radio button loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the radio button is toggled.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the radio button in focus is cleared.
          */
@@ -3137,10 +3146,6 @@ declare namespace LocalJSX {
           * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
          */
         "allowEmpty"?: boolean;
-        /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
         /**
           * Label for the component, that can be used by screen readers.
          */
@@ -3205,10 +3210,6 @@ declare namespace LocalJSX {
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
-        /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -3519,10 +3520,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
-        /**
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
@@ -3543,17 +3540,13 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * Triggered when the value in the input box is modified.
-         */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
-        /**
           * Triggered when the input box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when a value is entered in the input box.
          */
-        "onFwInput"?: (event: CustomEvent<KeyboardEvent>) => void;
+        "onFwInput"?: (event: CustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user enters a value.
          */
@@ -3593,10 +3586,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * id for the form using this component. This prop is set from the `fw-form`
-         */
-        "formId"?: string;
-        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format"?: 'hh:mm A' | 'HH:mm';
@@ -3616,6 +3605,18 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Triggered when the list box loses focus.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * /**   Triggered when a value is selected or deselected from the list box options.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the list box comes into focus.
+         */
+        "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
@@ -3766,10 +3767,6 @@ declare namespace LocalJSX {
           * Label displayed as header in the card.
          */
         "header"?: string;
-        /**
-          * If the button type is icon, set the icon path to be used
-         */
-        "iconName"?: string;
         /**
           * index attached inside the parent group component
          */

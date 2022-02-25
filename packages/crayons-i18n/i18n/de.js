@@ -27,6 +27,7 @@ export default {
     REQUIRED: '{{field}} is required DE',
     INVALID_URL: 'Enter a valid URL DE',
     INVALID_EMAIL: 'Enter a valid email DE',
+    INVALID_NUMBER: 'Enter a valid number DE',
   },
   pagination: {
     buttonGroupLabel: 'Pagination controls DE',

@@ -266,7 +266,7 @@ export class ListOptions {
       }
       this.fwChange.emit({
         value: newValue,
-        selectedOptions: this.selectedOptionsState,
+        meta: { selectedOptions: this.selectedOptionsState },
       });
       this.isInternalValueChange = false;
     }

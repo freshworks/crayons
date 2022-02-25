@@ -86,7 +86,7 @@ export class Tag {
         return <span class='content'>{this.text}</span>;
       case 'avatar': {
         return [
-          <fw-avatar size='xxsmall' {...this.graphicsProps}></fw-avatar>,
+          <fw-avatar size='xsmall' {...this.graphicsProps}></fw-avatar>,
           <span class='content'>{this.text}</span>,
         ];
       }

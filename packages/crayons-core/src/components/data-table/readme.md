@@ -1290,41 +1290,417 @@ We can format row's data before rendering into a cell by passing 'formatData' in
 </code-block>
 </code-group>
 
+## Table settings
+
+Table settings help with reordering and hide/show of columns. To enable table settings, pass the 'show-settings' prop to the table.
+
+```html live 
+  <fw-data-table id="datatable-8" label="Data table 8" show-settings="true">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "courses",
+        "text": "Courses",
+        "formatData": (courses) => {
+          return courses.join(', ');
+        }
+      }, {
+        "key": "appliedon",
+        "text": "Applied on",
+        "formatData": (ISOString) => {
+          const date = new Date(ISOString);
+          return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "courses": ["HTML", "CSS", "JS"],
+        "appliedon": "2021-10-21T14:48:00.000Z"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "courses": ["Ruby on Rails", "PostgreSQL"],
+        "appliedon": "2022-01-14T16:14:00.000Z"
+      }]
+    }
+
+    var datatable8 = document.getElementById('datatable-8');
+    datatable8.columns = data.columns;
+    datatable8.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-8" label="Data table 8" show-settings="true">
+  </fw-data-table>
+```
+
+```javascript
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name"
+    }, {
+      "key": "courses",
+      "text": "Courses",
+      "formatData": (courses) => {
+        return courses.join(', ');
+      } 
+    }, {
+      "key": "appliedon",
+      "text": "Applied on",
+      "formatData": (ISOString) => {
+        const date = new Date(ISOString);
+        return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+      }
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "courses": ["HTML", "CSS", "JS"],
+      "appliedon": "2021-10-21T14:48:00.000Z"
+    }, {
+      "id": "0002",
+      "name": "Ambrose Wayne",
+      "courses": ["Ruby on Rails", "PostgreSQL"],
+      "appliedon": "2022-01-14T16:14:00.000Z"
+    }]
+  }
+
+  var datatable8 = document.getElementById('datatable-8');
+  datatable8.columns = data.columns;
+  datatable8.rows = data.rows;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "courses",
+        "text": "Courses",
+        "formatData": (courses) => {
+          return courses.join(', ');
+        }
+      }, {
+        "key": "appliedon",
+        "text": "Applied on",
+        "formatData": (ISOString) => {
+          const date = new Date(ISOString);
+          return date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "courses": ["HTML", "CSS", "JS"],
+        "appliedon": "2021-10-21T14:48:00.000Z"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "courses": ["Ruby on Rails", "PostgreSQL"],
+        "appliedon": "2022-01-14T16:14:00.000Z"
+      }]
+    }
+
+    return (
+      <FwDataTable columns={data.columns} rows={data.rows} showSettings={true} label="Data Table 8">
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+
+## Loading table
+
+We can load a table using the 'loadTable' method available on the table. 
+
+```html live
+  <div style="width: 590px;">
+     <span>
+      <fw-toggle id="toggle-table" size="medium"></fw-toggle>
+      <span class="fw-ml-8">Load table</span>
+    </span>
+    <br><br>
+    <fw-data-table id="datatable-9"  is-selectable="true" is-all-selectable="true" label="Data table 9">
+    </fw-data-table>
+  </div>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "widthProperties": {
+          "width": "200px"
+        }
+      }, {
+        "key": "role",
+        "text": "Role",
+        "widthProperties": {
+          "width": "200px"
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"]
+      }],
+      actionsColumn: { "width": "150px" }
+    }
+
+    var datatable9 = document.getElementById('datatable-9');
+    datatable9.columns = data.columns;
+    datatable9.rows = data.rows;
+    datatable9.rowActions = data.rowActions;
+    datatable9.actionsColumnProperties = data.actionsColumn;
+
+    var toggle = document.getElementById('toggle-table');
+    toggle.addEventListener('fwChange', (event) => {
+        datatable9.loadTable(event.detail.checked);
+    });
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <div style="width: 590px;">
+     <span>
+      <fw-toggle id="toggle-table" size="medium"></fw-toggle>
+      <span class="fw-ml-8">Load table</span>
+    </span>
+    <br><br>
+    <fw-data-table id="datatable-9"  is-selectable="true" is-all-selectable="true" label="Data table 9">
+    </fw-data-table>
+  </div>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name",
+      "widthProperties": {
+        "width": "300px"
+      }
+    }, {
+      "key": "role",
+      "text": "Role",
+      "widthProperties": {
+        "width": "300px"
+      }
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "role": "Member"
+    }],
+    rowActions: [{
+      "name": "Alert",
+      "handler": (rowData) => {
+        window.alert(rowData.name);
+      }
+    }, {
+      "name": "Delete",
+      "handler": async (rowData) => {
+        let deletePromise = new Promise((resolve, reject) => {
+          const dataTable = document.querySelector('#datatable-4');
+          setTimeout(() => {
+            if (dataTable) {
+              dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+              resolve();
+            } else {
+              reject();
+            }
+          }, 3000); 
+        });
+        await deletePromise;
+      },
+      "hideForRowIds": ["0003"]
+    }]
+  }
+
+  var datatable9 = document.getElementById('datatable-9');
+  datatable9.columns = data.columns;
+  datatable9.rows = data.rows;
+  datatable9.rowActions = data.rowActions;
+
+  var toggle = document.getElementById('toggle-table');
+  toggle.addEventListener('fwChange', (event) => {
+      datatable9.loadTable(event.detail.checked);
+  });
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React, { useRef } from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var dataTable = useRef(null);
+
+    var toggle = (event) => {
+      dataTable.current.loadTable(event.detail.checked);
+    }
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "widthProperties": {
+          "width": "300px"
+        }
+      }, {
+        "key": "role",
+        "text": "Role",
+        "widthProperties": {
+          "width": "300px"
+        }
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"]
+      }]
+    }
+
+    return (
+      <>
+        <FwToggle onFwChange={toggle}></FwToggle><br></br>
+        <FwDataTable columns={data.columns} rows={data.rows} rowActions={data.rowActions} isSelectable  label="Data Table 2" ref={dataTable}>
+        </FwDataTable>
+      </>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+## Saving column configuration
+
+For auto saving configuration into localStorage, you can add 'autoSaveSettings' prop to the table.
+
+```html
+  <data-table id="data-table-10" label="data table 10" auto-save-settings="true"> 
+  </data-table>
+```
+
+Data table exposes couple of method to get and set column configuration.
+
+``` js{2-3}
+  let dataTable = document.querySelector('data-table#config');
+  // getColumnConfig helps retrive configuration in JSON format
+  let dataTableConfiguration = dataTable.getTableSettings(); 
+  // setColumnConfig helps set the configuration. 
+  dataTable.setTableSettings(dataTableConfiguration); 
+```
+
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property          | Attribute           | Description                                                                            | Type                | Default |
-| ----------------- | ------------------- | -------------------------------------------------------------------------------------- | ------------------- | ------- |
-| `columns`         | --                  | Columns Array of objects that provides information regarding the columns in the table. | `DataTableColumn[]` | `[]`    |
-| `isAllSelectable` | `is-all-selectable` | isAllSelectable Booleam based on which select all option appears in the table header   | `boolean`           | `false` |
-| `isSelectable`    | `is-selectable`     | isSelectable Boolean based on which selectable options appears for rows in the table.  | `boolean`           | `false` |
-| `label`           | `label`             | Label attribute is not visible on screen. There for accessibility purposes.            | `string`            | `''`    |
-| `rowActions`      | --                  | To enable bulk actions on the table.                                                   | `DataTableAction[]` | `[]`    |
-| `rows`            | --                  | Rows Array of objects to be displayed in the table.                                    | `DataTableRow[]`    | `[]`    |
+| Property           | Attribute            | Description                                                                                                                                            | Type                | Default |
+| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | ------- |
+| `autoSaveSettings` | `auto-save-settings` | autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table` | `boolean`           | `false` |
+| `columns`          | --                   | Columns Array of objects that provides information regarding the columns in the table.                                                                 | `DataTableColumn[]` | `[]`    |
+| `isAllSelectable`  | `is-all-selectable`  | isAllSelectable Boolean based on which select all option appears in the table header                                                                   | `boolean`           | `false` |
+| `isLoading`        | `is-loading`         | To disable table during async operations                                                                                                               | `boolean`           | `false` |
+| `isSelectable`     | `is-selectable`      | isSelectable Boolean based on which selectable options appears for rows in the table.                                                                  | `boolean`           | `false` |
+| `label`            | `label`              | Label attribute is not visible on screen. There for accessibility purposes.                                                                            | `string`            | `''`    |
+| `rowActions`       | --                   | To enable bulk actions on the table.                                                                                                                   | `DataTableAction[]` | `[]`    |
+| `rows`             | --                   | Rows Array of objects to be displayed in the table.                                                                                                    | `DataTableRow[]`    | `[]`    |
+| `shimmerCount`     | `shimmer-count`      | shimmerCount number of shimmer rows to show during initial loading                                                                                     | `number`            | `4`     |
+| `showSettings`     | `show-settings`      | showSettings is used to show the settings button on the table.                                                                                         | `boolean`           | `false` |
 
 
 ## Events
 
-| Event                     | Description                                                             | Type               |
-| ------------------------- | ----------------------------------------------------------------------- | ------------------ |
-| `fwColumnsPositionChange` | fwColumnsPositionChange Emits this event when columns position changes. | `CustomEvent<any>` |
-| `fwSelectAllChange`       | fwSelectAllChange Emits this event when select all is checked.          | `CustomEvent<any>` |
-| `fwSelectionChange`       | fwSelectionChange Emits this event when row is selected/unselected.     | `CustomEvent<any>` |
+| Event               | Description                                                         | Type               |
+| ------------------- | ------------------------------------------------------------------- | ------------------ |
+| `fwSelectAllChange` | fwSelectAllChange Emits this event when select all is checked.      | `CustomEvent<any>` |
+| `fwSelectionChange` | fwSelectionChange Emits this event when row is selected/unselected. | `CustomEvent<any>` |
 
 
 ## Methods
-
-### `getColumnConfig() => Promise<{}>`
-
-getColumnConfig
-
-#### Returns
-
-Type: `Promise<{}>`
-
-columnConfig object
 
 ### `getSelectedIds() => Promise<string[]>`
 
@@ -1346,7 +1722,17 @@ Type: `Promise<DataTableRow[]>`
 
 selected rows from the data table
 
-### `loadTable(state: boolean) => Promise<boolean>`
+### `getTableSettings() => Promise<{}>`
+
+getTableSettings
+
+#### Returns
+
+Type: `Promise<{}>`
+
+columnConfig object
+
+### `loadTable(state?: boolean) => Promise<boolean>`
 
 loadTable - Method to call when we want to change table loading state
 
@@ -1366,28 +1752,44 @@ Type: `Promise<string[]>`
 
 
 
+### `setTableSettings(columnConfig: any) => Promise<DataTableColumn[]>`
+
+setTableSettings
+
+#### Returns
+
+Type: `Promise<DataTableColumn[]>`
+
+
+
 
 ## Dependencies
 
 ### Depends on
 
 - [fw-checkbox](../checkbox)
-- [fw-skeleton](../skeleton)
 - [fw-button](../button)
 - [fw-icon](../icon)
+- [fw-input](../input)
+- [fw-drag-container](../drag-container)
+- [fw-skeleton](../skeleton)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-data-table --> fw-checkbox
-  fw-data-table --> fw-skeleton
   fw-data-table --> fw-button
   fw-data-table --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
+  fw-data-table --> fw-input
+  fw-data-table --> fw-drag-container
+  fw-data-table --> fw-skeleton
+  fw-checkbox --> fw-icon
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
+  fw-input --> fw-icon
   style fw-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

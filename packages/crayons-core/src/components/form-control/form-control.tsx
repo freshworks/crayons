@@ -49,7 +49,7 @@ export class FormControl {
   @Prop({ mutable: true })
   fieldProps?: any = {};
   /**
-   * Contains value and Event handlers for crayons components. Useful when rendering crayons components implicitly via form-control.
+   * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control.
    * Not required when using controls via slots.
    */
   @Prop()
@@ -139,6 +139,7 @@ export class FormControl {
           cmp = (
             <fw-datepicker
               {...componentProps}
+              readonly
               ref={(el) => (this.crayonsControlRef = el)}
             ></fw-datepicker>
           );
@@ -198,7 +199,6 @@ export class FormControl {
                 const label = ch[componentProps.optionLabelPath] || ch.value;
                 return (
                   <fw-radio
-                    form-id={controlProps['form-id']}
                     name={this.name}
                     value={val}
                     state={this.touched && this.error ? 'error' : 'normal'}
@@ -271,13 +271,14 @@ export class FormControl {
             componentProps.selectedOptions = controlProps.value;
           }
 
-          if (componentProps.selectedOptions?.length > 0)
+          if (componentProps.selectedOptions?.length > 0) {
             this.crayonsControlRef?.setSelectedOptions(
               componentProps.selectedOptions
             );
+          } else if (!controlProps.value) {
+            this.crayonsControlRef?.setSelectedOptions([]);
+          }
           componentProps.noDataText = 'Start Typing...';
-
-          componentProps['form-id'] = controlProps['form-id'];
 
           cmp = (
             <fw-select

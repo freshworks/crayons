@@ -7,12 +7,10 @@ import {
   Method,
   Prop,
   State,
-  Watch,
   h,
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
-import EventStore from '../../utils/event-store';
 
 @Component({
   tag: 'fw-input',
@@ -24,6 +22,7 @@ export class Input {
   private nativeInput?: HTMLInputElement;
 
   @State() hasFocus = false;
+  @State() hasPrefix = false;
   /**
    * Label displayed on the interface, for the component.
    */
@@ -107,16 +106,6 @@ export class Input {
   @Prop() iconRight: string = undefined;
 
   /**
-   * id for the form using this component. This prop is set from the `fw-form`
-   */
-  @Prop() formId = '';
-
-  /**
-   * Triggered when the value in the input box is modified.
-   */
-  @Event() fwChange: EventEmitter;
-
-  /**
    * Triggered when the input box comes into focus.
    */
   @Event() fwFocus: EventEmitter<void>;
@@ -129,30 +118,21 @@ export class Input {
   /**
    * Triggered when a value is entered in the input box.
    */
-  @Event() fwInput: EventEmitter<KeyboardEvent>;
+  @Event() fwInput: EventEmitter;
 
   /**
    * Triggered when clear icon is clicked.
    */
   @Event() fwInputClear: EventEmitter;
 
-  @Watch('value')
-  watchHandler(newValue: string) {
-    this.fwChange.emit({ value: newValue });
-  }
-
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
     this.value = input.value || '';
-    if (this.nativeInput) {
-      this.nativeInput.value = this.value;
-    }
-    this.fwInput.emit(ev as KeyboardEvent);
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleInput`, {
-        field: this.name,
-        value: this.nativeInput.value,
-      });
+    this.fwInput.emit({
+      event: ev,
+      name: this.name,
+      value: this.getValue(),
+    });
   };
 
   private onFocus = () => {
@@ -160,14 +140,12 @@ export class Input {
     this.fwFocus.emit();
   };
 
-  private onBlur = () => {
+  private onBlur = (ev: Event) => {
     this.hasFocus = false;
-    this.fwBlur.emit({ value: this.getValue() });
-    this.formId &&
-      EventStore.publish(`${this.formId}::handleBlur`, {
-        field: this.name,
-        value: this.nativeInput.value,
-      });
+    this.fwBlur.emit({
+      event: ev,
+      name: this.name,
+    });
   };
 
   private showClearButton() {
@@ -186,7 +164,11 @@ export class Input {
       if (this.nativeInput) {
         this.nativeInput.value = '';
       }
-      this.fwInputClear.emit();
+      this.fwInputClear.emit({
+        event: ev,
+        name: this.name,
+        value: this.value,
+      });
     }
   };
 
@@ -208,6 +190,34 @@ export class Input {
     }
   }
 
+  renderClearButton() {
+    return (
+      <div
+        class='clear-button'
+        role='button'
+        tabindex='0'
+        onClick={(e) => this.clearTextInput(e)}
+        onKeyDown={handleKeyDown(this.clearTextInput)}
+      >
+        <fw-icon
+          class='clear-img'
+          name='cross'
+          size={8}
+          library='system'
+        ></fw-icon>
+      </div>
+    );
+  }
+
+  renderIcon(iconName) {
+    return <fw-icon name={iconName}></fw-icon>;
+  }
+
+  componentWillLoad() {
+    this.hasPrefix =
+      !!this.host.querySelector('[slot="input-prefix"]') || !!this.iconLeft;
+  }
+
   render() {
     const { host, name, value } = this;
 
@@ -221,8 +231,12 @@ export class Input {
           'has-focus': this.hasFocus,
         }}
       >
-        <div class='input-container'>
-          {this.label !== '' ? (
+        <div
+          class={{
+            'input-container': true,
+          }}
+        >
+          {this.label !== '' && (
             <label
               class={{
                 required: this.required,
@@ -230,76 +244,57 @@ export class Input {
             >
               {this.label}
             </label>
-          ) : (
-            ''
           )}
           <div
             class={{
               'input-container-inner': true,
+              'has-focus': this.hasFocus,
+              'disabled': this.disabled,
               [this.state]: true,
-              'left-icon': this.iconLeft !== undefined,
-              'right-icon': this.iconRight !== undefined,
-              'has-value': this.showClearButton(),
             }}
           >
-            <input
-              ref={(input) => {
-                this.nativeInput = input;
-              }}
-              id={this.name}
-              autoComplete={this.autocomplete}
-              disabled={this.disabled}
-              name={this.name}
-              placeholder={this.placeholder || ''}
-              minLength={this.minlength}
-              maxLength={this.maxlength}
-              min={this.min}
-              max={this.max}
-              readOnly={this.readonly}
-              required={this.required}
-              step={this.step}
-              type={this.type}
-              value={this.value}
-              onInput={this.onInput}
-              onBlur={this.onBlur}
-              onFocus={this.onFocus}
-              aria-invalid={this.state === 'error'}
-              aria-describedby={`hint-${this.name} error-${this.name}`}
-            />
-            {this.iconLeft !== undefined ? (
-              <fw-icon class='icon left' name={this.iconLeft}></fw-icon>
-            ) : (
-              ''
-            )}
-            {this.iconRight !== undefined ? (
-              <fw-icon class='icon right' name={this.iconRight}></fw-icon>
-            ) : (
-              ''
-            )}
-            {this.showClearButton() ? (
-              <div
-                class='clear-button'
-                role='button'
-                tabindex='0'
-                onClick={(e) => this.clearTextInput(e)}
-                onKeyDown={handleKeyDown(this.clearTextInput)}
-              >
-                <fw-icon
-                  class='clear-img'
-                  name='cross'
-                  library='system'
-                ></fw-icon>
+            <div class='inner__content'>
+              <div class={{ input__prefix: true, hasContent: this.hasPrefix }}>
+                {this.iconLeft && this.renderIcon(this.iconLeft)}
+                <slot name='input-prefix' />
               </div>
-            ) : (
-              ''
-            )}
+              <div class='input__label'>
+                <input
+                  ref={(input) => {
+                    this.nativeInput = input;
+                  }}
+                  id={this.name}
+                  autoComplete={this.autocomplete}
+                  disabled={this.disabled}
+                  name={this.name}
+                  placeholder={this.placeholder || ''}
+                  minLength={this.minlength}
+                  maxLength={this.maxlength}
+                  min={this.min}
+                  max={this.max}
+                  readOnly={this.readonly}
+                  required={this.required}
+                  step={this.step}
+                  type={this.type}
+                  value={this.value}
+                  onInput={this.onInput}
+                  onBlur={this.onBlur}
+                  onFocus={this.onFocus}
+                  aria-invalid={this.state === 'error'}
+                  aria-describedby={`hint-${this.name} error-${this.name}`}
+                />
+                {this.showClearButton() && this.renderClearButton()}
+              </div>
+            </div>
+            <div class='inner__suffix'>
+              {this.iconRight && this.renderIcon(this.iconRight)}
+              <slot name='input-suffix' />
+            </div>
           </div>
-          {this.stateText !== '' ? (
+          {this.stateText !== '' && (
             <span class='help-block' id={`hint-${this.name}`}>
               {this.stateText}
             </span>
-          ) : (
-            ''
           )}
         </div>
       </Host>

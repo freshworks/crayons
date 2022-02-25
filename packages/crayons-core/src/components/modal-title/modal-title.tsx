@@ -43,7 +43,11 @@ export class ModalTitle {
    * @returns {JSX.Element}
    */
   renderIcon(): JSX.Element {
-    return <fw-icon class='icon' name={this.icon} size={16}></fw-icon>;
+    return (
+      <span class={'modal-title-icon'}>
+        <fw-icon name={this.icon} size={16}></fw-icon>
+      </span>
+    );
   }
 
   /**
@@ -58,12 +62,12 @@ export class ModalTitle {
           {this.custom ? (
             <slot></slot>
           ) : (
-            <div>
-              {this.icon !== '' ? this.renderIcon() : ''}
-              <div>
-                {this.titleText}
-                <div class='description'>{this.description}</div>
+            <div class='modal-header-body'>
+              <div class='modal-title'>
+                {this.icon !== '' ? this.renderIcon() : null}
+                <label class='title-label'>{this.titleText}</label>
               </div>
+              <label class='description'>{this.description}</label>
             </div>
           )}
         </div>

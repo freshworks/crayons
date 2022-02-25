@@ -126,7 +126,7 @@ describe('fw-select', () => {
   it('it emits fwChange when the value is changed in the component', async () => {
     const page = await newE2EPage();
 
-    await page.setContent(`<fw-select label="Select the house" required="true" value="1">
+    await page.setContent(`<fw-select name="sel" label="Select the house" required="true" value="1">
                               <fw-select-option value="starks">Starks</fw-select-option>
                               <fw-select-option value="lannisters">Lannisters</fw-select-option>
                             </fw-select>`);
@@ -141,16 +141,19 @@ describe('fw-select', () => {
 
     expect(fwChange).toHaveReceivedEventDetail({
       value: 'lannisters',
-      selectedOptions: [
-        {
-          disabled: false,
-          html: false,
-          htmlContent: '',
-          selected: false,
-          text: 'Lannisters',
-          value: 'lannisters',
-        },
-      ],
+      name: 'sel',
+      meta: {
+        selectedOptions: [
+          {
+            disabled: false,
+            html: false,
+            htmlContent: '',
+            selected: false,
+            text: 'Lannisters',
+            value: 'lannisters',
+          },
+        ],
+      },
     });
   });
 

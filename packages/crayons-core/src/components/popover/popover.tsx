@@ -196,7 +196,10 @@ export class Popover {
          * popovercontent might trigger mouseLeave callback of triggerRef during transition.
          * This condition avoids flicker that might happen because of the mentioned case.
          */
-        if (!event.relatedTarget.matches('*[slot="popover-content"]')) {
+        if (
+          event.relatedTarget === null ||
+          !event.relatedTarget.matches('*[slot="popover-content"]')
+        ) {
           this.hide();
         }
       });
