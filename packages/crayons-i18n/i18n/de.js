@@ -1,13 +1,7 @@
 export default {
   datepicker: {
-    cancel_zero: 'Stornieren',
-    cancel_one: 'Stornieren',
-    cancel_two: 'Stornieren',
-    cancel_few: 'Stornieren',
-    cancel_many: 'Stornieren',
-    cancel_other: 'Stornierens',
+    cancel: 'Stornieren',
     update: 'Aktualisierung',
-    update_other: 'Aktualisierung s',
     to: 'zu',
   },
   modal: {
@@ -33,7 +27,6 @@ export default {
     buttonGroupLabel: 'Pagination controls DE',
     previousButtonLabel: 'Previous DE',
     nextButtonLabel: 'Next DE',
-    //content: `{{start}} to {{end}} of {{total}} DE`,
     content: `DE Total {{total}} - <span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> DE`,
   },
 };
