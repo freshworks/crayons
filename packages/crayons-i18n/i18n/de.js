@@ -29,4 +29,9 @@ export default {
     nextButtonLabel: 'Next DE',
     content: `DE Total {{total}} - <span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> DE`,
   },
+  platform_table: {
+    delete: 'Delete DE',
+    sortby: 'Sort By DE',
+    orderby: 'Order by DE',
+  },
 };

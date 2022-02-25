@@ -29,4 +29,9 @@ export default {
     nextButtonLabel: 'Next',
     content: `<span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> of {{total}}`,
   },
+  platform_table: {
+    delete: 'Delete',
+    sortby: 'Sort By',
+    orderby: 'Order by',
+  },
 };
