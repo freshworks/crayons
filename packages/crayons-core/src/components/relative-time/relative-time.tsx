@@ -54,8 +54,8 @@ export class RelativeTime {
     }
   }
 
-  componentWillLoad(): void {
-    this.langModule = TranslationController.getDateLangModule();
+  async componentWillLoad(): Promise<void> {
+    this.langModule = await TranslationController.getDateLangModule();
 
     const onChange = TranslationController.onChange.bind(TranslationController);
     this.listener = onChange('dateLangModule', (newLang) => {

@@ -129,7 +129,6 @@ export class TranslationController {
       lang: '',
       globalStrings: null,
       customTranslations: {},
-      dateLangModule: '',
     });
     this.state = state;
     this.onChange = onChange;
@@ -202,25 +201,13 @@ export class TranslationController {
   }
 
   /**
-   * set date lang module
-   * @param langModule
-   */
-  setDateLangModule(langModule: any): void {
-    this.state.dateLangModule = langModule;
-  }
-
-  /**
    * @returns the selected date lang module
    */
-  async getDateLangModule(lang: string): Promise<any> {
-    if (lang || !this.state.dateLangModule) {
-      return await this.fetchDateLangModule(lang || this.state.lang);
-    } else {
-      return this.state.dateLangModule;
-    }
+  async getDateLangModule(lang: string): Promise<void> {
+    return await this.fetchDateLangModule(lang || this.state.lang);
   }
 
-  async fetchTranslations(lang?: string): Promise<any> {
+  async fetchTranslations(lang?: string): Promise<void> {
     const locale = lang || getBrowserLang();
     this.state.lang = locale;
 
@@ -266,7 +253,6 @@ export class TranslationController {
       req = import(`../../../node_modules/date-fns/esm/locale/${lng}/index.js`)
         .then((result) => result.default)
         .then((data) => {
-          this.state.dateLangModule = data;
           return data;
         })
         .catch(async (err) => {
@@ -284,7 +270,6 @@ export class TranslationController {
               return {};
             }
           );
-          this.state.dateLangModule = langModule;
         });
       this.requests.set('date_' + locale, req);
     }

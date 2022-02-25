@@ -8,14 +8,19 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 
 ```html live
 <fw-label value="Single date picker" color="yellow"></fw-label><br />
-<fw-datepicker value="2021-12-02" display-format="DD-MM-YYYY"></fw-datepicker>
+<fw-datepicker value="2021-12-02" display-format="dd-MM-yyyy"></fw-datepicker>
 <fw-label value="A date range picker" color="yellow"></fw-label><br />
 <fw-datepicker
   mode="range"
   from-date="2022-01-02"
   to-date="2022-01-04"
-  display-format="DD-MM-YYYY"
+  display-format="dd-MM-yyyy"
 ></fw-datepicker>
+<fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
+><br />
+<fw-datepicker readonly></fw-datepicker>
+<fw-label value="Date picker with locale" color="yellow"></fw-label><br />
+<fw-datepicker locale="fr"></fw-datepicker>
 ```
 
 ## Usage
@@ -32,6 +37,11 @@ All the date formats passed as attribute's values must be valid [ISO Date format
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"
 ></fw-datepicker>
+<fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
+><br />
+<fw-datepicker readonly></fw-datepicker>
+<fw-label value="Date picker with locale" color="yellow"></fw-label><br />
+<fw-datepicker locale="fr"></fw-datepicker>
 ```
 </code-block>
 
@@ -49,6 +59,10 @@ function App() {
   from-date="2022-01-02"
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"></FwDatepicker>
+  <label value="Date picker with readonly attribute" color="yellow"></label><br />
+  <FwDatepicker readonly></FwDatepicker>
+  <label value="Date picker with locale" color="yellow"></label><br />
+  <FwDatepicker locale="fr"></FwDatepicker>
   </div>)
 }
 ```
@@ -56,7 +70,6 @@ function App() {
 </code-group>
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -80,7 +93,6 @@ function App() {
 | `updateText`    | `update-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
 
-
 ## Events
 
 | Event      | Description                              | Type               |
@@ -88,18 +100,13 @@ function App() {
 | `fwBlur`   | Triggered when the input is blurred out  | `CustomEvent<any>` |
 | `fwChange` | Triggered when the update button clicked | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `getValue() => Promise<string | { fromDate: { locale: any; }; toDate: { locale: any; }; locale?: undefined; } | { locale: any; fromDate?: undefined; toDate?: undefined; }>`
 
-
-
 #### Returns
 
 Type: `Promise<string | { fromDate: { locale: any; }; toDate: { locale: any; }; locale?: undefined; } | { locale: any; fromDate?: undefined; toDate?: undefined; }>`
-
-
 
 ### `setFocus() => Promise<void>`
 
@@ -109,14 +116,11 @@ Sets focus on a specific `fw-datepicker`. Use this method instead of the global 
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Used by
 
- - [fw-form-control](../form-control)
+- [fw-form-control](../form-control)
 
 ### Depends on
 
@@ -128,6 +132,7 @@ Type: `Promise<void>`
 - [fw-button](../button)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-datepicker --> fw-popover
@@ -160,6 +165,6 @@ graph TD;
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
