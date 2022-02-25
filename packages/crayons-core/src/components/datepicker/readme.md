@@ -69,6 +69,7 @@ function App() {
 | `mode`          | `mode`           | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"`         | `'single date'` |
 | `name`          | `name`           | Name of the component, saved as part of form data.                                                                                                             | `string`                           | `''`            |
 | `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                           | `undefined`     |
+| `readonly`      | `readonly`       | /**   Make the input box as readonly. Default `false`                                                                                                          | `boolean`                          | `false`         |
 | `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`         |
 | `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`      |
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`     |
@@ -77,10 +78,10 @@ function App() {
 
 ## Events
 
-| Event      | Description                                     | Type               |
-| ---------- | ----------------------------------------------- | ------------------ |
-| `fwBlur`   | Triggered when the input box loses focus.       | `CustomEvent<any>` |
-| `fwChange` | /**    Triggered when the update button clicked | `CustomEvent<any>` |
+| Event      | Description                               | Type               |
+| ---------- | ----------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the input box loses focus. | `CustomEvent<any>` |
+| `fwChange` | Triggered when the update button clicked  | `CustomEvent<any>` |
 
 
 ## Methods
