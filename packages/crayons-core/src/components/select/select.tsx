@@ -601,6 +601,7 @@ export class Select {
             >
               {this.variant === 'button' ? (
                 <fw-button
+                  style={{ '--btn-label-r-padding': '7px' }}
                   show-caret-icon
                   id={`${this.hostId}-btn`}
                   color='secondary'

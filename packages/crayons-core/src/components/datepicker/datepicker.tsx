@@ -166,6 +166,11 @@ export class Datepicker {
   @Prop() maxYear = new Date().getFullYear();
 
   /**
+   *   Locale for which datepicker needs to be shown.
+   */
+  @Prop({ mutable: true }) locale: string;
+
+  /**
    *   Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
@@ -589,8 +594,15 @@ export class Datepicker {
     return yearsArr;
   };
 
+  @Watch('locale')
+  async handleLocaleChange(newLocale) {
+    this.langModule = await TranslationController.getDateLangModule(newLocale);
+  }
+
   async componentWillLoad() {
-    this.langModule = await TranslationController.getDateLangModule();
+    this.langModule = await TranslationController.getDateLangModule(
+      this.locale
+    );
 
     if (this.displayFormat) {
       this.isDisplayFormatSet = true;

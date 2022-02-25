@@ -300,7 +300,7 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 
 @each $className, $labelOnlySize, $innerOnlySize in $sizes {
   .fw-btn--has-label.fw-btn--#{$className} .fw-btn--label {
-    padding: 0 #{$labelOnlySize};
+    padding: 0 var(--btn-label-r-padding, #{$labelOnlySize});
   }
 
   .fw-btn--has-before.fw-btn--#{$className} {
