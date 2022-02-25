@@ -362,7 +362,7 @@ export class Datepicker {
       }
     }
 
-    if (e.path[0].innerText === 'Cancel') {
+    if (e.path[0].innerText === this.cancelText) {
       this.handlePopoverClose(e);
     }
 
