@@ -1771,6 +1771,7 @@ Type: `Promise<DataTableColumn[]>`
 - [fw-custom-cell-user](./custom-cells/user)
 - [fw-custom-cell-icon](./custom-cells/icon)
 - [fw-checkbox](../checkbox)
+- [fw-tooltip](../tooltip)
 - [fw-button](../button)
 - [fw-icon](../icon)
 - [fw-input](../input)
@@ -1784,6 +1785,7 @@ graph TD;
   fw-data-table --> fw-custom-cell-user
   fw-data-table --> fw-custom-cell-icon
   fw-data-table --> fw-checkbox
+  fw-data-table --> fw-tooltip
   fw-data-table --> fw-button
   fw-data-table --> fw-icon
   fw-data-table --> fw-input
@@ -1795,6 +1797,7 @@ graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-checkbox --> fw-icon
+  fw-tooltip --> fw-popover
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-input --> fw-icon
