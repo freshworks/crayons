@@ -335,7 +335,9 @@ Pass `formSchema` to render Dynamic Form. You can also pass `initialValues` to t
     is_indian_citizen: true,
   };
   formContainer.prepend(form);
+  // do any customisation on the field schema to match the props of crayons components.
   var fields = formSchema.fields.map((field) => {
+    // select expects `text` and `value` prop
     if (field.type === "DROPDOWN" || field.type === "MULTI_SELECT") {
       return {
         ...field,
@@ -694,8 +696,9 @@ var initialValues = {
 is_indian_citizen: true,
 };
 formContainer.prepend(form);
-
+// do any customisation on the field schema to match the props of crayons components.
 const fields = formSchema?.fields?.map((field) => {
+    // select expects `text` and `value` prop
     if (field.type === "DROPDOWN" || field.type === "MULTI_SELECT") {
       return {
         ...field,
@@ -1024,7 +1027,9 @@ function App() {
     }
   ],
 };
+// do any customisation on the field schema to match the props of crayons components.
 var fields = formSchema?.fields?.map((field) => {
+  // select expects `text` and `value` prop
   if (field.type === "DROPDOWN" || field.type === "MULTI_SELECT") {
     return {
       ...field,
