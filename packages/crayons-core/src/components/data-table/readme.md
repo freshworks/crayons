@@ -1767,6 +1767,9 @@ Type: `Promise<DataTableColumn[]>`
 
 ### Depends on
 
+- [fw-custom-cell-anchor](./custom-cells/anchor)
+- [fw-custom-cell-user](./custom-cells/user)
+- [fw-custom-cell-icon](./custom-cells/icon)
 - [fw-checkbox](../checkbox)
 - [fw-button](../button)
 - [fw-icon](../icon)
@@ -1777,16 +1780,21 @@ Type: `Promise<DataTableColumn[]>`
 ### Graph
 ```mermaid
 graph TD;
+  fw-data-table --> fw-custom-cell-anchor
+  fw-data-table --> fw-custom-cell-user
+  fw-data-table --> fw-custom-cell-icon
   fw-data-table --> fw-checkbox
   fw-data-table --> fw-button
   fw-data-table --> fw-icon
   fw-data-table --> fw-input
   fw-data-table --> fw-drag-container
   fw-data-table --> fw-skeleton
-  fw-checkbox --> fw-icon
+  fw-custom-cell-user --> fw-avatar
+  fw-custom-cell-icon --> fw-icon
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-checkbox --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-input --> fw-icon
