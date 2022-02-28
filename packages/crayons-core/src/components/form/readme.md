@@ -335,7 +335,28 @@ Pass `formSchema` to render Dynamic Form. You can also pass `initialValues` to t
     is_indian_citizen: true,
   };
   formContainer.prepend(form);
-  form.formSchema = formSchema;
+  // do any customisation on the field schema to match the props of crayons components.
+  var fields = formSchema.fields.map((field) => {
+    // select expects `text` and `value` prop
+    if (field.type === "DROPDOWN" || field.type === "MULTI_SELECT") {
+      return {
+        ...field,
+        choices: field.choices?.map((f) =>{
+          return {
+            ...f,
+            text: f.value,
+            value: f.id
+          }
+        })
+      };
+    } else return field;
+  });
+
+  var formSchema1 = {
+    ...formSchema,
+    fields: fields,
+  };
+  form.formSchema = formSchema1;
   form.initialValues = initialValues;
 </script>
 ```
@@ -675,7 +696,29 @@ var initialValues = {
 is_indian_citizen: true,
 };
 formContainer.prepend(form);
-form.formSchema = formSchema;
+// do any customisation on the field schema to match the props of crayons components.
+const fields = formSchema?.fields?.map((field) => {
+    // select expects `text` and `value` prop
+    if (field.type === "DROPDOWN" || field.type === "MULTI_SELECT") {
+      return {
+        ...field,
+        choices: field.choices?.map((f) =>{
+          return {
+            ...f,
+            text: f.value,
+            value: f.id
+          }
+        })
+      };
+    } else return field;
+});
+
+const formSchema1 = {
+  ...formSchema,
+  fields: fields,
+};
+form.formSchema = formSchema1;
+
 form.initialValues = initialValues;
 </script>
 
@@ -984,6 +1027,28 @@ function App() {
     }
   ],
 };
+// do any customisation on the field schema to match the props of crayons components.
+var fields = formSchema?.fields?.map((field) => {
+  // select expects `text` and `value` prop
+  if (field.type === "DROPDOWN" || field.type === "MULTI_SELECT") {
+    return {
+      ...field,
+      choices: field.choices?.map((f) =>{
+        return {
+          ...f,
+          text: f.value,
+          value: f.id
+        }
+      })
+    };
+  } else return field;
+});
+
+ var formSchema1 = {
+  ...formSchema,
+  fields: fields,
+};
+  
 const initialValues = {
   is_indian_citizen: true,
   email: "test",
@@ -1010,7 +1075,7 @@ const formRef = useRef<any>(null);
     formRef.current.doReset(e);
   };
   return (<div>
-    <FwForm ref={formRef} formSchema={formSchema} initialValues={initialValues}
+    <FwForm ref={formRef} formSchema={formSchema1} initialValues={initialValues}
      validate={async (values:any) => { // do custom validation and return error or {}
       return {
         // last_name: "last name is errored",
