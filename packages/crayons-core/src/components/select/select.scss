@@ -19,10 +19,10 @@ $warning-color: $color-casablanca-300;
   border-color: $_color;
 
   & span.dropdown-status-icon {
-    border-color: $_color;
+    --icon-color: #{$_color};
   }
 
-  & ~ span.help-block {
+  & > span.help-block {
     color: $_color;
   }
 }
@@ -156,7 +156,6 @@ label {
 
     &.warning {
       @include stateStyle($warning-color);
-
       box-shadow: 0 0 0 1px $warning-color;
     }
   }
@@ -179,6 +178,7 @@ label {
     min-width: 20px;
     min-height: 20px;
     transition: all 0.15s;
+    --icon-color: $color-elephant-800;
   }
 
   //Help Block
@@ -194,6 +194,14 @@ label {
 
   .dropdown-status-icon.expanded {
     transform: rotate(180deg);
+  }
+
+  &.error {
+    @include stateStyle($error-color);
+  }
+
+  &.warning {
+    @include stateStyle($warning-color);
   }
 }
 
