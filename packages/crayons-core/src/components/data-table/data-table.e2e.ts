@@ -301,7 +301,7 @@ describe('fw-data-table', () => {
       'fw-data-table >>> thead > tr > th:last-child'
     );
     const actionButton = await page.find(
-      'fw-data-table >>> tbody > tr > td.row-actions > fw-button'
+      'fw-data-table >>> tbody > tr > td.row-actions fw-button'
     );
     expect(actionColumn.innerText).toEqual('Actions');
     expect(actionButton).toBeTruthy();
@@ -344,7 +344,7 @@ describe('fw-data-table', () => {
     );
     await page.waitForChanges();
     const actionButton = await page.find(
-      'fw-data-table >>> tbody > tr > td.row-actions > fw-button'
+      'fw-data-table >>> tbody > tr > td.row-actions fw-button'
     );
     actionButton.click();
     await page.waitForChanges();
