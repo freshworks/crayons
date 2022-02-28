@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import { cyclicDecrement, cyclicIncrement, debounce } from '../../utils';
 import { DropdownVariant } from '../../utils/types';
-
+import { i18n } from '../../global/Translation';
 @Component({
   tag: 'fw-list-options',
   styleUrl: 'list-options.scss',
@@ -83,7 +83,9 @@ export class ListOptions {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @Prop() notFoundText = 'No items Found';
+  @i18n({ defaultValue: 'No items Found', keyName: 'search.no_items_found' })
+  @Prop({ mutable: true })
+  notFoundText = '';
   /**
    * Filter function which takes in filterText and dataSource and return a Promise.
    * Where filter text is the text to filter the value in dataSource array.
@@ -93,11 +95,19 @@ export class ListOptions {
   /**
    * Placeholder to placed on the search text box.
    */
-  @Prop() searchText = 'Search...';
+  @i18n({ defaultValue: 'Search', keyName: 'search.search' })
+  @Prop({ mutable: true })
+  searchText = '';
+
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @Prop() noDataText = 'No Data available';
+  @i18n({
+    defaultValue: 'No data available',
+    keyName: 'search.no_data_available',
+  })
+  @Prop({ mutable: true })
+  noDataText = '';
   /**
    * Debounce timer for the search promise function.
    */

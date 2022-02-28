@@ -8,14 +8,19 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 
 ```html live
 <fw-label value="Single date picker" color="yellow"></fw-label><br />
-<fw-datepicker value="2021-12-02" display-format="DD-MM-YYYY"></fw-datepicker>
+<fw-datepicker value="2021-12-02" display-format="dd-MM-yyyy"></fw-datepicker>
 <fw-label value="A date range picker" color="yellow"></fw-label><br />
 <fw-datepicker
   mode="range"
   from-date="2022-01-02"
   to-date="2022-01-04"
-  display-format="DD-MM-YYYY"
+  display-format="dd-MM-yyyy"
 ></fw-datepicker>
+<fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
+><br />
+<fw-datepicker readonly></fw-datepicker>
+<fw-label value="Date picker with locale" color="yellow"></fw-label><br />
+<fw-datepicker locale="fr"></fw-datepicker>
 ```
 
 ## Usage
@@ -32,6 +37,11 @@ All the date formats passed as attribute's values must be valid [ISO Date format
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"
 ></fw-datepicker>
+<fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
+><br />
+<fw-datepicker readonly></fw-datepicker>
+<fw-label value="Date picker with locale" color="yellow"></fw-label><br />
+<fw-datepicker locale="fr"></fw-datepicker>
 ```
 </code-block>
 
@@ -49,6 +59,10 @@ function App() {
   from-date="2022-01-02"
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"></FwDatepicker>
+  <label value="Date picker with readonly attribute" color="yellow"></label><br />
+  <FwDatepicker readonly></FwDatepicker>
+  <label value="Date picker with locale" color="yellow"></label><br />
+  <FwDatepicker locale="fr"></FwDatepicker>
   </div>)
 }
 ```

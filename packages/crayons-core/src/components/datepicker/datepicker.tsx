@@ -17,6 +17,7 @@ import {
   getFocusableChildren,
 } from '../../utils';
 
+import { i18n } from '../../global/Translation';
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 const monthDetails = [
@@ -107,6 +108,13 @@ export class Datepicker {
    * Make the input box as readonly. Default `false`
    */
   @Prop() readonly = false;
+
+  @i18n({ defaultValue: 'Update', keyName: 'datepicker.update' })
+  @Prop({ mutable: true })
+  updateText = '';
+  @i18n({ defaultValue: 'Cancel', keyName: 'datepicker.cancel' })
+  @Prop({ mutable: true })
+  cancelText = '';
 
   /**
    *   Triggered when the update button clicked
@@ -260,13 +268,16 @@ export class Datepicker {
       }
     }
 
-    if (e.path[0].innerText === 'Cancel') {
+    if (e.path[0].innerText === this.cancelText) {
       this.handlePopoverClose(e);
     }
 
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
-    if (e.path[0].innerText === 'Update' || e.path[0].innerText === 'Cancel') {
+    if (
+      e.path[0].innerText === this.updateText ||
+      e.path[0].innerText === this.cancelText
+    ) {
       this.showDatePicker = false;
       this.host.shadowRoot.querySelector('fw-popover').hide();
     }
@@ -1007,10 +1018,10 @@ export class Datepicker {
             {/* Footer Section */}
             <div class='mdpc-footer'>
               <fw-button color='secondary' class='close-date-picker'>
-                Cancel
+                {this.cancelText}
               </fw-button>
               <fw-button color='primary' class='update-date-value'>
-                Update
+                {this.updateText}
               </fw-button>
             </div>
           </div>
@@ -1149,10 +1160,10 @@ export class Datepicker {
             {/* Footer Section */}
             <div class='mdpc-range-footer'>
               <fw-button color='secondary' class='close-date-picker'>
-                Cancel
+                {this.cancelText}
               </fw-button>
               <fw-button color='primary' class='update-range-value'>
-                Update
+                {this.updateText}
               </fw-button>
             </div>
           </div>
