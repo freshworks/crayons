@@ -994,11 +994,14 @@ export class DataTable {
    */
   renderPredefinedVariant(columnVariant: string, cellValue: any) {
     let template: JSX.Element;
-    if (PREDEFINED_VARIANTS_META[columnVariant]) {
-      template = this.renderWebComponent(
-        PREDEFINED_VARIANTS_META[columnVariant].componentName,
-        cellValue
-      );
+    if (columnVariant === 'anchor') {
+      template = <fw-custom-cell-anchor {...cellValue}></fw-custom-cell-anchor>;
+    } else if (columnVariant === 'user') {
+      template = <fw-custom-cell-user {...cellValue}></fw-custom-cell-user>;
+    } else if (columnVariant === 'icon') {
+      template = <fw-custom-cell-icon {...cellValue}></fw-custom-cell-icon>;
+    } else {
+      template = null;
     }
     return template;
   }

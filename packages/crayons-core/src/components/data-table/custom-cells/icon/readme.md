@@ -17,6 +17,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [fw-data-table](../..)
+
 ### Depends on
 
 - [fw-icon](../../../icon)
@@ -28,6 +32,7 @@ graph TD;
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-data-table --> fw-custom-cell-icon
   style fw-custom-cell-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
