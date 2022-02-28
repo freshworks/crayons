@@ -18,10 +18,6 @@ $warning-color: $color-casablanca-300;
 @mixin stateStyle($_color) {
   border-color: $_color;
 
-  & span.dropdown-status-icon {
-    --icon-color: #{$_color};
-  }
-
   & > span.help-block {
     color: $_color;
   }
