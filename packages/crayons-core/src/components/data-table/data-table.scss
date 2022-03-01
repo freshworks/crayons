@@ -26,7 +26,7 @@ div.fw-data-table-container {
 
   div.fw-data-table-scrollable {
     position: relative;
-    display: inline-block;
+    display: block;
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -118,6 +118,7 @@ div.fw-data-table-container {
             text-overflow: ellipsis;
             box-sizing: border-box;
             z-index: 0;
+            height: 64px;
 
             &.data-grid-checkbox {
               text-align: center;
@@ -150,7 +151,7 @@ div.fw-data-table-container {
             width: 1px;
             white-space: nowrap;
 
-            & > fw-button {
+            & fw-button {
               margin-right: 5px;
             }
           }

@@ -605,13 +605,28 @@ export class DataTable {
     let nextFocusElement = null;
     switch (eventCode) {
       case 'ArrowRight':
-        if (currentElement.nextElementSibling) {
+        if (currentElement.parentElement.nodeName === 'FW-TOOLTIP') {
+          if (currentElement.parentElement.nextElementSibling) {
+            nextFocusElement =
+              currentElement.parentElement.nextElementSibling.children[0];
+          } else {
+            cellFocusChange = true;
+          }
+        } else if (currentElement.nextElementSibling) {
           nextFocusElement = currentElement.nextElementSibling as any;
         } else {
           cellFocusChange = true;
         }
         break;
       case 'ArrowLeft':
+        if (currentElement.parentElement.nodeName === 'FW-TOOLTIP') {
+          if (currentElement.parentElement.previousElementSibling) {
+            nextFocusElement =
+              currentElement.parentElement.previousElementSibling.children[0];
+          } else {
+            cellFocusChange = true;
+          }
+        }
         if (currentElement.previousElementSibling) {
           nextFocusElement = currentElement.previousElementSibling as any;
         } else {
@@ -771,6 +786,9 @@ export class DataTable {
         default:
           childElement = cell.children[0];
           break;
+      }
+      if (childElement.nodeName === 'FW-TOOLTIP') {
+        childElement = childElement.children[0];
       }
       childElement.setAttribute('tabIndex', '0');
       childElement.focus();
@@ -1194,33 +1212,34 @@ export class DataTable {
                         ? 'icon-small'
                         : 'small';
                       actionTemplate = (
-                        <fw-button
-                          tabIndex={0}
-                          size={buttonSize}
-                          color='secondary'
-                          onKeyUp={(event) =>
-                            (event.code === 'Space' ||
-                              event.code === 'Enter') &&
-                            this.performRowAction(action, row)
-                          }
-                          onClick={() => this.performRowAction(action, row)}
-                          title={action.name}
-                          aria-label={action.name}
-                        >
-                          {action.iconName ? (
-                            <fw-icon
-                              name={action.iconName}
-                              library={
-                                action.iconLibrary
-                                  ? action.iconLibrary
-                                  : 'crayons'
-                              }
-                              size={10}
-                            ></fw-icon>
-                          ) : (
-                            action.name
-                          )}
-                        </fw-button>
+                        <fw-tooltip content={action.name} distance='5'>
+                          <fw-button
+                            tabIndex={0}
+                            size={buttonSize}
+                            color='secondary'
+                            onKeyUp={(event) =>
+                              (event.code === 'Space' ||
+                                event.code === 'Enter') &&
+                              this.performRowAction(action, row)
+                            }
+                            onClick={() => this.performRowAction(action, row)}
+                            aria-label={action.name}
+                          >
+                            {action.iconName ? (
+                              <fw-icon
+                                name={action.iconName}
+                                library={
+                                  action.iconLibrary
+                                    ? action.iconLibrary
+                                    : 'crayons'
+                                }
+                                size={10}
+                              ></fw-icon>
+                            ) : (
+                              action.name
+                            )}
+                          </fw-button>
+                        </fw-tooltip>
                       );
                     }
                     return actionTemplate;
