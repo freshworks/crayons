@@ -35,7 +35,7 @@ export class RadioGroup {
    */
   @Prop() allowEmpty = false;
   /**
-   * Label for the component, that can be used by screen readers.
+   * Label for the component
    */
   @Prop() label = '';
   /**
@@ -226,7 +226,7 @@ export class RadioGroup {
       this.mutationO.disconnect();
       this.mutationO = undefined;
     }
-    this.host.shadowRoot.removeEventListener(
+    this.host.shadowRoot?.removeEventListener(
       'slotchange',
       this.handleSlotChange
     );
@@ -315,10 +315,10 @@ export class RadioGroup {
     return (
       <Host
         role='radiogroup'
-        aria-label={this.label}
+        aria-label={this.label || this.name}
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
-        id={this.label}
+        id={this.label || this.name}
       >
         <div
           class={{

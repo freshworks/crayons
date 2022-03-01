@@ -1090,7 +1090,7 @@ export namespace Components {
          */
         "hintText": string;
         /**
-          * Label for the component, that can be used by screen readers.
+          * Label for the component
          */
         "label": string;
         /**
@@ -3230,7 +3230,7 @@ declare namespace LocalJSX {
          */
         "hintText"?: string;
         /**
-          * Label for the component, that can be used by screen readers.
+          * Label for the component
          */
         "label"?: string;
         /**

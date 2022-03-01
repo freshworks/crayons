@@ -188,7 +188,6 @@ export class FormControl {
           cmp = (
             <fw-radio-group
               {...componentProps}
-              label={this.name}
               ref={(el) => (this.crayonsControlRef = el)}
             >
               {this.choices?.map((ch) => {
