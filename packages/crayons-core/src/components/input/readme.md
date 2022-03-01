@@ -224,6 +224,8 @@ Slots can be used to create complex use cases.
 | `autocomplete` | `autocomplete` | Specifies whether the browser can display suggestions to autocomplete the text value.                                                                                                                                                                                                                                     | `"off" \| "on"`                          | `'off'`     |
 | `clearInput`   | `clear-input`  | Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.                                       | `boolean`                                | `false`     |
 | `disabled`     | `disabled`     | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                | `boolean`                                | `false`     |
+| `errorText`    | `error-text`   | Error text displayed below the text box.                                                                                                                                                                                                                                                                                  | `string`                                 | `''`        |
+| `hintText`     | `hint-text`    | Hint text displayed below the text box.                                                                                                                                                                                                                                                                                   | `string`                                 | `''`        |
 | `iconLeft`     | `icon-left`    | Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).                                                                                                                                                            | `string`                                 | `undefined` |
 | `iconRight`    | `icon-right`   | Identifier of the icon that is displayed in the right side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).                                                                                                                                                           | `string`                                 | `undefined` |
 | `label`        | `label`        | Label displayed on the interface, for the component.                                                                                                                                                                                                                                                                      | `string`                                 | `''`        |
@@ -236,10 +238,10 @@ Slots can be used to create complex use cases.
 | `readonly`     | `readonly`     | If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                | `boolean`                                | `false`     |
 | `required`     | `required`     | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                | `boolean`                                | `false`     |
 | `state`        | `state`        | Theme based on which the text box is styled.                                                                                                                                                                                                                                                                              | `"error" \| "normal" \| "warning"`       | `'normal'`  |
-| `stateText`    | `state-text`   | Descriptive or instructional text displayed below the text box.                                                                                                                                                                                                                                                           | `string`                                 | `''`        |
 | `step`         | `step`         | The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any` | `string`                                 | `'any'`     |
 | `type`         | `type`         | Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.                                                                                                                                                                                        | `"email" \| "number" \| "text" \| "url"` | `'text'`    |
 | `value`        | `value`        | Default value displayed in the input box.                                                                                                                                                                                                                                                                                 | `string`                                 | `''`        |
+| `warningText`  | `warning-text` | Warning text displayed below the text box.                                                                                                                                                                                                                                                                                | `string`                                 | `''`        |
 
 
 ## Events
@@ -267,10 +269,12 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                     | Description         |
-| ------------------------ | ------------------- |
-| `--fw-input-hint-color`  | Color of the hint.  |
-| `--fw-input-label-color` | Color of the label. |
+| Name                       | Description                |
+| -------------------------- | -------------------------- |
+| `--fw-input-error-color`   | Color of the error text.   |
+| `--fw-input-hint-color`    | Color of the hint text.    |
+| `--fw-input-label-color`   | Color of the label.        |
+| `--fw-input-warning-color` | Color of the warning text. |
 
 
 ## Dependencies

@@ -63,24 +63,29 @@ function App() {
 | Property        | Attribute        | Description                                                                                                                                                    | Type                               | Default         |
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | --------------- |
 | `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.                                          | `string`                           | `'YYYY-MM-DD'`  |
+| `errorText`     | `error-text`     | Error text displayed below the text box.                                                                                                                       | `string`                           | `''`            |
 | `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                           | `undefined`     |
+| `hintText`      | `hint-text`      | Hint text displayed below the text box.                                                                                                                        | `string`                           | `''`            |
+| `label`         | `label`          | Label displayed on the interface, for the component.                                                                                                           | `string`                           | `''`            |
 | `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                           | `undefined`     |
 | `minDate`       | `min-date`       | Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                     | `string`                           | `undefined`     |
 | `mode`          | `mode`           | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"`         | `'single date'` |
 | `name`          | `name`           | Name of the component, saved as part of form data.                                                                                                             | `string`                           | `''`            |
 | `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                           | `undefined`     |
+| `readonly`      | `readonly`       | /**   Make the input box as readonly. Default `false`                                                                                                          | `boolean`                          | `false`         |
 | `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`         |
 | `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`      |
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`     |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`     |
+| `warningText`   | `warning-text`   | Warning text displayed below the text box.                                                                                                                     | `string`                           | `''`            |
 
 
 ## Events
 
-| Event      | Description                                     | Type               |
-| ---------- | ----------------------------------------------- | ------------------ |
-| `fwBlur`   | Triggered when the input box loses focus.       | `CustomEvent<any>` |
-| `fwChange` | /**    Triggered when the update button clicked | `CustomEvent<any>` |
+| Event      | Description                               | Type               |
+| ---------- | ----------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the input box loses focus. | `CustomEvent<any>` |
+| `fwChange` | Triggered when the update button clicked  | `CustomEvent<any>` |
 
 
 ## Methods
@@ -106,6 +111,16 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                       | Description                |
+| -------------------------- | -------------------------- |
+| `--fw-input-error-color`   | Color of the error text.   |
+| `--fw-input-hint-color`    | Color of the hint text.    |
+| `--fw-input-label-color`   | Color of the label.        |
+| `--fw-input-warning-color` | Color of the warning text. |
+
+
 ## Dependencies
 
 ### Used by
@@ -116,6 +131,7 @@ Type: `Promise<void>`
 
 - [fw-popover](../popover)
 - [fw-input](../input)
+- [fw-icon](../icon)
 - [fw-select](../select)
 - [fw-select-option](../select-option)
 - [fw-button](../button)
@@ -125,6 +141,7 @@ Type: `Promise<void>`
 graph TD;
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-input
+  fw-datepicker --> fw-icon
   fw-datepicker --> fw-select
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button

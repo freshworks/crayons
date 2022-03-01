@@ -204,6 +204,9 @@ function createYupSchema(schema: any, config: any) {
 
   if (type === 'URL') validator = validator['url'](...[`Enter a valid url`]);
 
+  if (type === 'NUMBER')
+    validator = validator['integer']('Must be a valid number');
+
   if (type === 'EMAIL')
     validator = validator['email'](...[`Enter a valid Email`]);
 

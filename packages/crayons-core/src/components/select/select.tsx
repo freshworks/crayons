@@ -543,7 +543,7 @@ export class Select {
 
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
-    this.host.shadowRoot.removeEventListener(
+    this.host.shadowRoot?.removeEventListener(
       'slotchange',
       this.handleSlotChange
     );
@@ -614,7 +614,7 @@ export class Select {
           {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
         moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
           <div
-            class='select-container'
+            class={{ 'select-container': true, [this.state]: true }}
             role='combobox'
             aria-controls={`${this.hostId}-listbox`}
             aria-haspopup='listbox'
@@ -703,7 +703,6 @@ export class Select {
                         >
                           <fw-icon
                             name='chevron-down'
-                            color='#264966'
                             size={8}
                             library='system'
                           ></fw-icon>

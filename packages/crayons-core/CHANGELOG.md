@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.17](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.16...@freshworks/crayons@3.0.0-beta.17) (2022-02-28)
+
+### Bug Fixes
+
+- **data-table:** adding cell variants as dependency to data-table ([#443](https://github.com/freshworks/crayons/issues/443)) ([25dc39d](https://github.com/freshworks/crayons/commit/25dc39d99f0f9e7e71284368799f2e54679970e0))
+- **fw-datepicker:** handle cancel and popover hide usecase and added readonly prop ([#440](https://github.com/freshworks/crayons/issues/440)) ([8ec4011](https://github.com/freshworks/crayons/commit/8ec40115385f2021a62a1942ef2a913949119f51))
+
+## [3.0.0-beta.16](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.15...@freshworks/crayons@3.0.0-beta.16) (2022-02-24)
+
+### Bug Fixes
+
+- **datepicker:** fix blur event emit and trigger for show datepicker popup ([#437](https://github.com/freshworks/crayons/issues/437)) ([b1254ed](https://github.com/freshworks/crayons/commit/b1254ed581970358af28b646d08196244b012121))
+- **popover:** make overlay height to 100% of parent height not 100vh,use allowDeselect in datepicker ([#438](https://github.com/freshworks/crayons/issues/438)) ([5773c95](https://github.com/freshworks/crayons/commit/5773c9543cd46c0cff903311d057193d32eba4f4))
+
 ## [3.0.0-beta.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.14...@freshworks/crayons@3.0.0-beta.15) (2022-02-22)
 
 ### Bug Fixes

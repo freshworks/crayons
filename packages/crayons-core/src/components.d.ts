@@ -273,6 +273,10 @@ export namespace Components {
          */
         "placeholder": string;
         /**
+          * /**   Make the input box as readonly. Default `false`
+         */
+        "readonly": boolean;
+        /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
@@ -2391,6 +2395,10 @@ declare namespace LocalJSX {
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
+        /**
+          * /**   Make the input box as readonly. Default `false`
+         */
+        "readonly"?: boolean;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */

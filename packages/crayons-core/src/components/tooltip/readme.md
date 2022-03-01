@@ -380,6 +380,10 @@ promise that resolves to true
 
 ## Dependencies
 
+### Used by
+
+ - [fw-data-table](../data-table)
+
 ### Depends on
 
 - [fw-popover](../popover)
@@ -388,6 +392,7 @@ promise that resolves to true
 ```mermaid
 graph TD;
   fw-tooltip --> fw-popover
+  fw-data-table --> fw-tooltip
   style fw-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

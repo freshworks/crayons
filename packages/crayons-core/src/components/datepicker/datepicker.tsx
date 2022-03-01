@@ -17,7 +17,6 @@ import {
   getFocusableChildren,
   hasSlot,
 } from '../../utils';
-
 import FieldControl from '../../function-components/field-control';
 
 const weekDay = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -108,6 +107,13 @@ export class Datepicker {
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
+   
+  /**
+   * Make the input box as readonly. Default `false`
+   */
+  @Prop() readonly = false;
+
+  /**
    * Hint text displayed below the text box.
    */
   @Prop() hintText = '';
@@ -188,7 +194,7 @@ export class Datepicker {
 
   disconnectedCallback() {
     document.removeEventListener('keydown', this.escapeHandler);
-    this.host.shadowRoot.removeEventListener(
+    this.host.shadowRoot?.removeEventListener(
       'slotchange',
       this.handleSlotChange
     );
@@ -256,25 +262,34 @@ export class Datepicker {
       .composedPath()[0]
       .classList.value.includes('update-date-value');
     if (isUpdateRange) {
-      this.startDateFormatted = moment(this.startDate).format(
-        this.displayFormat
-      );
-      this.endDateFormatted = moment(this.endDate).format(this.displayFormat);
       if (this.startDate && this.endDate) {
+        this.startDateFormatted = moment(this.startDate).format(
+          this.displayFormat
+        );
+        this.endDateFormatted = moment(this.endDate).format(this.displayFormat);
+
+        this.fromDate = this.startDateFormatted;
+        this.toDate = this.endDateFormatted;
+
         this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
+        this.emitEvent(e, {
+          fromDate: this.formatDate(this.startDateFormatted),
+          toDate: this.formatDate(this.endDateFormatted),
+        });
       }
-      this.fromDate = this.startDateFormatted;
-      this.toDate = this.endDateFormatted;
-      this.emitEvent(e, {
-        fromDate: this.formatDate(this.startDateFormatted),
-        toDate: this.formatDate(this.endDateFormatted),
-      });
     } else if (isUpdateDate) {
-      this.value = moment([this.year, this.month, this.selectedDay]).format(
-        this.displayFormat
-      );
-      this.emitEvent(e, this.formatDate(this.value));
+      if (this.selectedDay) {
+        this.value = moment([this.year, this.month, this.selectedDay]).format(
+          this.displayFormat
+        );
+        this.emitEvent(e, this.formatDate(this.value));
+      }
     }
+
+    if (e.path[0].innerText === 'Cancel') {
+      this.handlePopoverClose(e);
+    }
+
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
     if (e.path[0].innerText === 'Update' || e.path[0].innerText === 'Cancel') {
@@ -288,6 +303,7 @@ export class Datepicker {
    */
   @Listen('fwInput')
   handleInputChanges(e) {
+    e.stopImmediatePropagation();
     if (e.composedPath()[0].classList.value.includes('range-date-input')) {
       // Range input
       const val = e.path[0].value;
@@ -745,6 +761,38 @@ export class Datepicker {
     }
   };
 
+  // handle cancel and popover close
+  handlePopoverClose = (_e: any) => {
+    if (this.mode === 'range') {
+      // handle resetting of startDate and endDate on clicking cancel
+      if (this.value) {
+        let [fromDateStr, toDateStr] = this.value?.split('to') || [];
+        fromDateStr = fromDateStr?.trim();
+        toDateStr = toDateStr?.trim();
+        const startDate = moment(this.startDate, this.displayFormat).get(
+          'date'
+        );
+        const endDate = moment(this.endDate, this.displayFormat).get('date');
+        const fromDate = moment(fromDateStr, this.displayFormat).get('date');
+        const toDate = moment(toDateStr, this.displayFormat).get('date');
+        if (startDate !== fromDate) {
+          this.startDate = fromDate;
+        }
+        if (endDate !== toDate) {
+          this.endDate = toDate;
+        }
+      } else this.startDate = this.endDate = undefined;
+    } else {
+      // handle resetting of selectedDay on clicking cancel
+      if (this.value) {
+        const date = moment(this.value, this.displayFormat).get('date');
+        if (this.selectedDay !== date) {
+          this.selectedDay = date;
+        }
+      } else this.selectedDay = undefined;
+    }
+  };
+
   private handleRangeSelection(timestamp) {
     if (this.startDate && this.endDate) {
       this.endDate = undefined;
@@ -847,10 +895,13 @@ export class Datepicker {
   }
 
   private onBlur = async (e: Event) => {
-    this.fwBlur.emit({
-      event: e,
-      name: this.name,
-    });
+    e.stopImmediatePropagation();
+    if ((e as any)?.detail?.event?.relatedTarget?.tagName !== 'SPAN') {
+      this.fwBlur.emit({
+        event: e,
+        name: this.name,
+      });
+    }
   };
 
   handleSlotChange() {
@@ -887,22 +938,42 @@ export class Datepicker {
           placement='bottom-start'
           fallbackPlacements={['top-start']}
           hide-on-tab='false'
+          onFwHide={this.handlePopoverClose}
         >
-          <fw-input
+          <div
             slot='popover-trigger'
-            value={this.value}
-            name={this.name}
-            class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
-            placeholder={this.placeholder}
-            iconRight='calendar'
             style={{
-              '--icon-color': this.state === 'error' && '#d72d30',
+              display: 'flex',
+              alignItems: 'center',
             }}
-            required={this.required}
-            onBlur={this.onBlur}
-            ref={(el) => (this.nativeInput = el)}
-            state={this.state}
-          ></fw-input>
+          >
+            <fw-input
+              value={this.value}
+              name={this.name}
+              class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
+              placeholder={this.placeholder}
+              required={this.required}
+              onFwBlur={this.onBlur}
+              ref={(el) => (this.nativeInput = el)}
+              state={this.state}
+              readonly={this.readonly}
+            ></fw-input>
+            <div class='icon-calendar'>
+              <div
+                class='separator'
+                style={{
+                  borderLeftColor:
+                    this.state === 'error' ? '#d72d30' : '#ebeff3',
+                }}
+              ></div>
+              <fw-icon
+                onClick={() => (this.showDatePicker = true)}
+                name='calendar'
+                class='date-icon'
+                style={{ '--icon-color': this.state === 'error' && '#d72d30' }}
+              ></fw-icon>
+            </div>
+          </div>
           {this.showSingleDatePicker() ? (
             <div class='datepicker' slot='popover-content'>
               <div class='mdp-container'>
@@ -917,6 +988,7 @@ export class Datepicker {
                         same-width='false'
                         variant='button'
                         options-placement='bottom-start'
+                        allow-deselect='false'
                       >
                         {this.longMonthNames.map((month, i) => (
                           <fw-select-option
@@ -938,6 +1010,7 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom'
                         variant='button'
+                        allow-deselect='false'
                       >
                         {this.supportedYears.map((year, i) => (
                           <fw-select-option
@@ -1009,6 +1082,7 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom-start'
                         variant='button'
+                        allow-deselect='false'
                       >
                         {this.longMonthNames.map((month, i) => (
                           <fw-select-option
@@ -1029,6 +1103,7 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom'
                         variant='button'
+                        allow-deselect='false'
                       >
                         {this.supportedYears.map((year, i) => (
                           <fw-select-option
@@ -1051,6 +1126,7 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom-start'
                         variant='button'
+                        allow-deselect='false'
                       >
                         {this.longMonthNames.map((month, i) => (
                           <fw-select-option
@@ -1073,6 +1149,7 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom'
                         variant='button'
+                        allow-deselect='false'
                       >
                         {this.supportedYears.map((year, i) => (
                           <fw-select-option
