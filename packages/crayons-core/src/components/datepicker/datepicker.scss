@@ -275,25 +275,27 @@
 }
 
 .icon-calendar {
-  transform: translateX(calc(-100%));
   display: flex;
-  align-self: stretch;
-  background-color: $color-smoke-50;
-  margin: 4px -4px;
-  border-radius: 4px;
+  align-items: center;
+  align-content: stretch;
+  margin: 4px 0px;
 
   .separator {
     border-left-width: 1px;
     border-left-style: solid;
-    transform: translateX(-4px);
-    margin: 2px 0;
+    height: 20px;
+    margin: 0px 4px;
   }
 }
 
 .date-icon {
   display: flex;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
   align-items: center;
-  padding: 0 7px;
+  justify-content: center;
+  background-color: $color-smoke-50;
 }
 
 .range-date-input {

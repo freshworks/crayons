@@ -265,6 +265,10 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
+          * Descriptive or instructional text displayed below the date picker box.
+         */
+        "stateText": any;
+        /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
@@ -2295,6 +2299,10 @@ declare namespace LocalJSX {
           * Theme based on which the input of the datepicker is styled.
          */
         "state"?: 'normal' | 'warning' | 'error';
+        /**
+          * Descriptive or instructional text displayed below the date picker box.
+         */
+        "stateText"?: any;
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
