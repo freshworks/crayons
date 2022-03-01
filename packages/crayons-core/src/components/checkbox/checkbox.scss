@@ -1,3 +1,11 @@
+/**
+  @prop --fw-input-hint-color: Color of the hint text.
+  @prop --fw-input-warning-color: Color of the warning text.
+  @prop --fw-input-error-color: Color of the error text.
+*/
+
+@import '../../function-components/field-control.scss';
+
 :host {
   display: inline-block;
   position: relative;

@@ -9,9 +9,10 @@ import {
   h,
   Listen,
   Method,
+  State,
 } from '@stencil/core';
 
-import { renderHiddenField } from '../../utils';
+import { renderHiddenField, hasSlot } from '../../utils';
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
@@ -52,8 +53,25 @@ export class Checkbox {
   /**
    * Theme based on which the checkbox is styled.
    */
-  @Prop() state: 'normal' | 'error' = 'normal';
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
+
+  /**
+   * Hint text displayed below the radio group.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the radio group.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the radio group.
+   */
+  @Prop() errorText = '';
+
+  @State() hasHintTextSlot = false;
+  @State() hasWarningTextSlot = false;
+  @State() hasErrorTextSlot = false;
 
   /**
    * Triggered when the checkbox state is modified.
@@ -80,6 +98,21 @@ export class Checkbox {
   @Watch('checked')
   checkChanged(isChecked: boolean) {
     this.checkbox.checked = isChecked;
+  }
+
+  componentWillLoad() {
+    this.handleSlotChange();
+  }
+  handleSlotChange() {
+    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
+    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
+    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
+  }
+  disconnectedCallback() {
+    this.host.shadowRoot.removeEventListener(
+      'slotchange',
+      this.handleSlotChange
+    );
   }
 
   /**
@@ -132,12 +165,31 @@ export class Checkbox {
     }
   };
 
+  getAriaDescribedBy(): string {
+    if (this.state === 'normal') return `hint-${this.name}`;
+    else if (this.state === 'error') return `error-${this.name}`;
+    else if (this.state === 'warning') return `warning-${this.name}`;
+    return null;
+  }
+
   render() {
     const { host, name, value } = this;
 
     if (this.checked) {
       renderHiddenField(host, name, value);
     }
+
+    const hasHintText = this.hintText ? true : this.hasHintTextSlot;
+    const hasErrorText = this.errorText ? true : this.hasErrorTextSlot;
+    const hasWarningText = this.warningText ? true : this.hasWarningTextSlot;
+
+    const showHintText = this.state === 'normal' ? true : false;
+    const showErrorText = this.state === 'error' ? true : false;
+    const showWarningText = this.state === 'warning' ? true : false;
+
+    const hintTextId = `hint-${this.name}`;
+    const warningTextId = `warning-${this.name}`;
+    const errorTextId = `error-${this.name}`;
 
     return (
       <Host
@@ -146,7 +198,7 @@ export class Checkbox {
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         aria-labelledby='label'
-        aria-describedby={`description hint-${this.name} error-${this.name}`}
+        aria-describedby={`description ${this.getAriaDescribedBy()}`}
         onClick={this.toggle}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
@@ -188,6 +240,35 @@ export class Checkbox {
             )}
           </label>
         </div>
+        {showHintText && hasHintText && (
+          <div
+            id={hintTextId}
+            class='field-control-hint-text'
+            aria-hidden={hasHintText ? 'false' : 'true'}
+          >
+            <slot name='hint-text'>{this.hintText}</slot>
+          </div>
+        )}
+
+        {showErrorText && hasErrorText && (
+          <div
+            id={errorTextId}
+            class='field-control-error-text'
+            aria-hidden={hasErrorText ? 'false' : 'true'}
+          >
+            <slot name='error-text'>{this.errorText}</slot>
+          </div>
+        )}
+
+        {showWarningText && hasWarningText && (
+          <div
+            id={warningTextId}
+            class='field-control-warning-text'
+            aria-hidden={hasWarningText ? 'false' : 'true'}
+          >
+            <slot name='warning-text'>{this.warningText}</slot>
+          </div>
+        )}
       </Host>
     );
   }

@@ -105,6 +105,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the radio group.
+         */
+        "errorText": string;
+        /**
+          * /**   Hint text displayed below the radio group.
+         */
+        "hintText": string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -123,11 +131,15 @@ export namespace Components {
         /**
           * Theme based on which the checkbox is styled.
          */
-        "state": 'normal' | 'error';
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText": string;
     }
     interface FwCustomCellAnchor {
         "href": string;
@@ -2204,6 +2216,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the radio group.
+         */
+        "errorText"?: string;
+        /**
+          * /**   Hint text displayed below the radio group.
+         */
+        "hintText"?: string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -2216,7 +2236,7 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * /**   Triggered when the checkbox state is modified.
+          * Triggered when the checkbox state is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
@@ -2230,11 +2250,15 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the checkbox is styled.
          */
-        "state"?: 'normal' | 'error';
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText"?: string;
     }
     interface FwCustomCellAnchor {
         "href"?: string;

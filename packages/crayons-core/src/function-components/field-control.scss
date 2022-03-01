@@ -6,91 +6,71 @@ $warning-color: $color-casablanca-300;
 
 .field-control {
   position: relative;
-  .field-control-label {
-    display: none;
-  }
-
-  .field-control-hint-text {
-    display: none;
-  }
-
-  .field-control-error-text {
-    display: none;
-  }
-  .field-control-warning-text {
-    display: none;
-  }
 }
 
 // Label
-.field-control-has-label {
-  .field-control-label {
-    display: block;
-    font-size: 12px;
-    color: var(--fw-input-label-color, $label-default);
-    font-weight: $font-weight-600;
-    margin-bottom: 4px;
-    padding-left: 2px;
-    line-height: 20px;
 
-    &.required::after {
-      content: '*';
-      position: relative;
-      display: inline-block;
-      top: 2px;
-      font-size: 14px;
-      color: $app-error;
-      padding-left: 2px;
-      font-weight: $font-weight-bold;
-    }
+.field-control-label {
+  display: block;
+  font-size: 12px;
+  color: var(--fw-input-label-color, $label-default);
+  font-weight: $font-weight-600;
+  margin-bottom: 4px;
+  padding-left: 2px;
+  line-height: 20px;
+
+  &.required::after {
+    content: '*';
+    position: relative;
+    display: inline-block;
+    top: 2px;
+    font-size: 14px;
+    color: $app-error;
+    padding-left: 2px;
+    font-weight: $font-weight-bold;
   }
 }
 
 // Hint text
-.field-control-has-hint-text {
-  .field-control-hint-text {
-    font-family: $label-font;
-    font-size: 12px;
-    line-height: 20px;
-    margin-top: 4px;
-    margin-bottom: 0;
-    color: var(--fw-input-hint-color, $help-color);
-    position: inherit;
-    display: block;
-    padding-left: 2px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+
+.field-control-hint-text {
+  font-family: $label-font;
+  font-size: 12px;
+  line-height: 20px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  color: var(--fw-input-hint-color, $help-color);
+  position: inherit;
+  display: block;
+  padding-left: 2px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.field-control-has-error-text {
-  .field-control-error-text {
-    font-family: $label-font;
-    font-size: 12px;
-    line-height: 20px;
-    margin-top: 4px;
-    margin-bottom: 0;
-    color: var(--fw-input-error-color, $app-error);
-    position: inherit;
-    display: block;
-    padding-left: 2px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+.field-control-error-text {
+  font-family: $label-font;
+  font-size: 12px;
+  line-height: 20px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  color: var(--fw-input-error-color, $app-error);
+  position: inherit;
+  display: block;
+  padding-left: 2px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.field-control-has-warning-text {
-  .field-control-warning-text {
-    font-family: $label-font;
-    font-size: 12px;
-    line-height: 20px;
-    margin-top: 4px;
-    margin-bottom: 0;
-    color: var(--fw-input-warning-color, $warning-color);
-    position: inherit;
-    display: block;
-    padding-left: 2px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+.field-control-warning-text {
+  font-family: $label-font;
+  font-size: 12px;
+  line-height: 20px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  color: var(--fw-input-warning-color, $warning-color);
+  position: inherit;
+  display: block;
+  padding-left: 2px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

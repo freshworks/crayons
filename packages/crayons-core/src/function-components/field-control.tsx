@@ -64,10 +64,6 @@ const FieldControl: FunctionalComponent<FieldControlProps> = (
     <div
       class={{
         'field-control': true,
-        'field-control-has-label': hasLabel,
-        'field-control-has-hint-text': hasHintText,
-        'field-control-has-error-text': hasErrorText,
-        'field-control-has-warning-text': hasWarningText,
       }}
     >
       {hasLabel && (

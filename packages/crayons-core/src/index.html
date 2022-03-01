@@ -12,8 +12,41 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
-    <fw-button expand color="primary">Primary Button</fw-button>
+    <fw-checkbox
+      name="checkox"
+      hint-text="checkbox hint"
+      warning-text="checkbox Warning text"
+      error-text="checkbox error"
+      required
+      state="warning"
+    >
+      checkbox
+      <div slot="warning-text">Wrning chkbox ASLOT</div>
+    </fw-checkbox>
 
+    <br />
+    <h3>sss</h3>
+    <br />
+    <fw-button expand color="primary">Primary Button</fw-button>
+    <br />
+    <fw-radio-group
+      name="Profile"
+      value="au"
+      allow-empty
+      hint-text="radio group hint"
+      warning-text="Warning text"
+      error-text="error"
+      label="radio group label"
+      required
+      state="warning"
+    >
+      <fw-radio value="au">Auditory</fw-radio>
+      <fw-radio value="vi">Visual</fw-radio>
+      <fw-radio value="re">Restless</fw-radio>
+    </fw-radio-group>
+
+    <br />
+    <h3>hshshsh ohso</h3>
     <fw-input
       placeholder="input"
       hint-text="Do not enter your user ID"
