@@ -1082,6 +1082,14 @@ export namespace Components {
          */
         "allowEmpty": boolean;
         /**
+          * Error text displayed below the radio group.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the radio group.
+         */
+        "hintText": string;
+        /**
           * Label for the component, that can be used by screen readers.
          */
         "label": string;
@@ -1102,9 +1110,17 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Theme based on which the radio group is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText": string;
     }
     interface FwSelect {
         /**
@@ -3206,6 +3222,14 @@ declare namespace LocalJSX {
          */
         "allowEmpty"?: boolean;
         /**
+          * Error text displayed below the radio group.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the radio group.
+         */
+        "hintText"?: string;
+        /**
           * Label for the component, that can be used by screen readers.
          */
         "label"?: string;
@@ -3226,9 +3250,17 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
+          * Theme based on which the radio group is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
+        /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText"?: string;
     }
     interface FwSelect {
         /**

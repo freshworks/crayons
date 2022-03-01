@@ -9,16 +9,18 @@ import {
   Listen,
   Event,
   EventEmitter,
+  State,
 } from '@stencil/core';
 
 import {
   findCheckedOption,
   renderHiddenField,
   watchForOptions,
+  hasSlot,
 } from '../../utils';
-
 @Component({
   tag: 'fw-radio-group',
+  styleUrl: 'radio-group.scss',
 })
 export class RadioGroup {
   private mutationO?: MutationObserver;
@@ -53,6 +55,27 @@ export class RadioGroup {
    * Specifies the input radio group as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() required = false;
+
+  /**
+   * Hint text displayed below the radio group.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the radio group.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the radio group.
+   */
+  @Prop() errorText = '';
+  /**
+   * Theme based on which the radio group is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+
+  @State() hasHintTextSlot = false;
+  @State() hasWarningTextSlot = false;
+  @State() hasErrorTextSlot = false;
 
   @Watch('value')
   async valueChanged() {
@@ -141,8 +164,6 @@ export class RadioGroup {
     this.radios = Array.from(this.host.querySelectorAll('fw-radio')).filter(
       (radio) => !radio.disabled
     );
-    this.host.style.display = 'flex';
-    this.host.style.flexDirection = this.orientation;
 
     if (this.value === undefined) {
       const radio = findCheckedOption(el, 'fw-radio') as
@@ -175,6 +196,12 @@ export class RadioGroup {
   }
 
   componentDidLoad() {
+    const fieldControl = this.host.querySelector('.field-input') as HTMLElement;
+
+    if (fieldControl) {
+      fieldControl.style.display = 'flex';
+      fieldControl.style.flexDirection = this.orientation;
+    }
     const slottedElements = this.host.querySelectorAll('fw-radio');
     slottedElements.forEach((radio, index) => {
       radio.classList.add('fw-radio-group__radio');
@@ -185,11 +212,24 @@ export class RadioGroup {
     });
   }
 
+  componentWillLoad() {
+    this.handleSlotChange();
+  }
+  handleSlotChange() {
+    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
+    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
+    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
+  }
+
   disconnectedCallback() {
     if (this.mutationO) {
       this.mutationO.disconnect();
       this.mutationO = undefined;
     }
+    this.host.shadowRoot.removeEventListener(
+      'slotchange',
+      this.handleSlotChange
+    );
   }
 
   private async updateRadios() {
@@ -255,6 +295,21 @@ export class RadioGroup {
   render() {
     const { host, name, value } = this;
 
+    const hasLabel = !!this.label;
+    const hasHintText = this.hintText ? true : this.hasHintTextSlot;
+    const hasErrorText = this.errorText ? true : this.hasErrorTextSlot;
+    const hasWarningText = this.warningText ? true : this.hasWarningTextSlot;
+
+    const showHintText = this.state === 'normal' ? true : false;
+    const showErrorText = this.state === 'error' ? true : false;
+    const showWarningText = this.state === 'warning' ? true : false;
+
+    const labelId = `${this.label}-${this.name}`;
+    const inputId = this.name;
+    const hintTextId = `hint-${this.name}`;
+    const warningTextId = `warning-${this.name}`;
+    const errorTextId = `error-${this.name}`;
+
     renderHiddenField(host, name, value);
 
     return (
@@ -264,7 +319,60 @@ export class RadioGroup {
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
         id={this.label}
-      ></Host>
+      >
+        <div
+          class={{
+            'field-control': true,
+          }}
+        >
+          {hasLabel && (
+            <label
+              id={labelId}
+              class={{
+                'field-control-label': true,
+                'required': this.required,
+              }}
+              htmlFor={inputId}
+              aria-hidden={hasLabel ? 'false' : 'true'}
+            >
+              {this.label}
+            </label>
+          )}
+          <div class='field-input'>
+            <slot></slot>
+          </div>
+
+          {showHintText && hasHintText && (
+            <div
+              id={hintTextId}
+              class='field-control-hint-text'
+              aria-hidden={hasHintText ? 'false' : 'true'}
+            >
+              <slot name='hint-text'>{this.hintText}</slot>
+            </div>
+          )}
+
+          {showErrorText && hasErrorText && (
+            <div
+              id={errorTextId}
+              class='field-control-error-text'
+              aria-hidden={hasErrorText ? 'false' : 'true'}
+            >
+              <slot name='error-text'>{this.errorText}</slot>
+            </div>
+          )}
+
+          {showWarningText && hasWarningText && (
+            <div
+              id={warningTextId}
+              class='field-control-warning-text'
+              aria-hidden={hasWarningText ? 'false' : 'true'}
+            >
+              <slot name='warning-text'>{this.warningText}</slot>
+            </div>
+          )}
+        </div>
+      </Host>
     );
   }
 }
