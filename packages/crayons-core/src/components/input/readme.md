@@ -10,7 +10,9 @@ You can use Input component for handling `Text`, `Number`, `Decimal` user input.
 <fw-input
   label="Name"
   icon-left="add-contact"
-  state-text="Do not enter your user ID"
+  hint-text="Do not enter your user ID"
+  warning-text="Please use numbers for user ID"
+  error-text="Invalid user ID"
   state="warning"
   placeholder="Enter your official name"
   required
@@ -19,18 +21,20 @@ You can use Input component for handling `Text`, `Number`, `Decimal` user input.
 </fw-input>
 <fw-input
   label="Password"
-  state-text="Password is incorrect"
+  error-text="Password is incorrect"
   state="error"
   required
   clear-input
 >
 </fw-input>
+<h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
 <fw-input
   label="Verification Code"
   placeholder="Enter the verification code sent to the registered email address"
   state="normal"
   clear-input
 >
+<div slot="hint-text">use the verification code sent to your email address</div>
 </fw-input>
 <fw-input label="Deprecated Field" disabled state="normal" clear-input>
 </fw-input>
@@ -66,42 +70,55 @@ You can use Input component for handling `Text`, `Number`, `Decimal` user input.
 <fw-input
   label="Name"
   icon-left="add-contact"
-  state-text="Do not enter your user ID"
+  hint-text="Do not enter your user ID"
+  warning-text="Please use numbers for user ID"
+  error-text="Invalid user ID"
   state="warning"
   placeholder="Enter your official name"
   required
-  clear-input>
+  clear-input
+>
 </fw-input>
 <fw-input
   label="Password"
-  state-text="Password is incorrect"
+  error-text="Password is incorrect"
   state="error"
   required
-  clear-input>
+  clear-input
+>
 </fw-input>
+<h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
 <fw-input
   label="Verification Code"
-placeholder="Enter the verification code sent to the registered email address"
+  placeholder="Enter the verification code sent to the registered email address"
   state="normal"
-  clear-input>
+  clear-input
+>
+<div slot="hint-text">use the verification code sent to your email address</div>
 </fw-input>
-<fw-input
-  label="Deprecated Field"
-  disabled
-  state="normal"
-  clear-input>
+<fw-input label="Deprecated Field" disabled state="normal" clear-input>
 </fw-input>
 <fw-input
   label="Do Not Modify"
   value="Not applicable"
   readonly
   state="normal"
-  clear-input>
+  clear-input
+>
 </fw-input>
 <fw-input value="123" type="number" label="Number Input"></fw-input>
-<fw-input type="number" min="0" max="10" label="Number Input with min and max"></fw-input>
-<fw-input value="3.001" type="number" step="0.1" max="5"
-label="Decimal Input with step and max"
+<fw-input
+  type="number"
+  min="0"
+  max="10"
+  label="Number Input with min and max"
+></fw-input>
+<fw-input
+  value="3.001"
+  type="number"
+  step="0.1"
+  max="5"
+  label="Decimal Input with step and max"
 ></fw-input>
 ```
 </code-block>
@@ -116,7 +133,9 @@ function App() {
       <FwInput
       label="Name"
       iconLeft="add-contact"
-      stateText="Do not enter your user ID"
+      hintText="Do not enter your user ID"
+      warningText="Use only numbers for user ID"
+      errorText="Invalid user ID"
       state="warning"
       placeholder="Enter your official name"
       required
@@ -124,16 +143,18 @@ function App() {
     </FwInput>
     <FwInput
       label="Password"
-      stateText="Password is incorrect"
+      errorText="Password is incorrect"
       state="error"
       required
       clearInput>
     </FwInput>
+    <h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
     <FwInput
       label="Verification Code"
       placeholder="Enter the verification code sent to the registered email address"
       state="normal"
       clearInput>
+      <div slot="hint-text">Please use the code sent to your email address</div>
     </FwInput>
     <FwInput
       label="Deprecated Field"
@@ -181,6 +202,16 @@ Slots can be used to create complex use cases.
         <fw-tag text="Option 2"></fw-tag>
       </div>
       <fw-icon slot="input-suffix" name="chevron-down" size="8"></fw-icon>
+    </fw-input>
+
+    <h3>`hint-text`, `warning-text`, `error-text` can also be passed as slots</h3>
+    <fw-input
+      label="Verification Code"
+      placeholder="Enter the verification code sent to the registered email address"
+      state="normal"
+      clear-input
+    >
+    <div slot="hint-text">use the verification code sent to your email address</div>
     </fw-input>
   </div>
 </template>

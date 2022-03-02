@@ -27,7 +27,7 @@ describe('fw-tab-panel', () => {
           class="hydrated"
           label='Name'
           icon-left="add-contact"
-          state-text="Do not enter your user ID"
+          warning-text="Do not enter your user ID"
           state="warning"
           placeholder="Enter your official name"
           required
@@ -42,7 +42,7 @@ describe('fw-tab-panel', () => {
       `<fw-tab-panel>
         <div>
           <fw-input
-            label='Name' icon-left="add-contact" state-text="Do not enter your user ID"
+            label='Name' icon-left="add-contact" warning-text="Do not enter your user ID"
             state="warning"
             placeholder="Enter your official name"
             required

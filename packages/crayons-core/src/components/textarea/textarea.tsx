@@ -67,10 +67,6 @@ export class Textarea {
    * Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved.
    */
   @Prop() wrap: 'soft' | 'hard' = 'soft';
-  // /**
-  //  * Descriptive or instructional text displayed below the input box.
-  //  */
-  // @Prop() stateText = '';
   /**
    * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
@@ -205,17 +201,6 @@ export class Textarea {
           }}
         >
           <div class='textarea-container'>
-            {/* {this.label !== '' ? (
-              <label
-                class={{
-                  required: this.required,
-                }}
-              >
-                {this.label}
-              </label>
-            ) : (
-              ''
-            )} */}
             <div
               class={{
                 'textarea-container-inner': true,
@@ -246,13 +231,6 @@ export class Textarea {
                 aria-describedby={this.getAriaDescribedBy()}
               />
             </div>
-            {/* {this.stateText !== '' ? (
-              <span class='help-block' id={`hint-${this.name}`}>
-                {this.stateText}
-              </span>
-            ) : (
-              ''
-            )} */}
           </div>
         </div>
       </FieldControl>

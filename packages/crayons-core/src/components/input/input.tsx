@@ -82,10 +82,6 @@ export class Input {
    * Theme based on which the text box is styled.
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
-  // /**
-  //  * Descriptive or instructional text displayed below the text box.
-  //  */
-  // @Prop() stateText = '';
   /**
    * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
@@ -288,15 +284,6 @@ export class Input {
               'input-container': true,
             }}
           >
-            {/* {this.label !== '' && (
-              <label
-                class={{
-                  required: this.required,
-                }}
-              >
-                {this.label}
-              </label>
-            )} */}
             <div
               class={{
                 'input-container-inner': true,
@@ -345,11 +332,6 @@ export class Input {
                 <slot name='input-suffix' />
               </div>
             </div>
-            {/* {this.stateText !== '' && (
-              <span class='help-block' id={`hint-${this.name}`}>
-                {this.stateText}
-              </span>
-            )} */}
           </div>
         </div>
       </FieldControl>

@@ -113,10 +113,6 @@ export class Select {
    * Theme based on which the list box is styled.
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
-  // /**
-  //  * Descriptive or instructional text displayed below the list box.
-  //  */
-  // @Prop() stateText = '';
   /**
    * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
    */
@@ -530,7 +526,7 @@ export class Select {
       }
     }
     this.host.addEventListener('focus', this.setFocus);
-    this.host.innerHTML = '';
+    //this.host.innerHTML = '';
 
     //Get id
     this.hostId = this.host.id || '';
@@ -601,16 +597,6 @@ export class Select {
             'has-focus': this.hasFocus,
           }}
         >
-          {/* {this.label !== '' ? (
-            <label
-              id={`${this.hostId}-label`}
-              class={{ required: this.required }}
-            >
-              {this.label}
-            </label>
-          ) : (
-            ''
-          )} */}
           {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
         moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
           <div
@@ -733,13 +719,6 @@ export class Select {
                 slot='popover-content'
               ></fw-list-options>
             </fw-popover>
-            {/* {this.stateText !== '' ? (
-              <span class='help-block' id={`hint-${this.name}`}>
-                {this.stateText}
-              </span>
-            ) : (
-              ''
-            )} */}
           </div>
         </div>
       </FieldControl>

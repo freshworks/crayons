@@ -2,91 +2,112 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 # Input
 
-<Meta
-  title='Input'
-  component='fw-input'
-  />
+<Meta title='Input' component='fw-input' />
 
 ## Props
 
-<Props of="fw-input"/>
+<Props of='fw-input' />
 
 ## Usage
 
 ### Default
+
 <Preview>
-<Story name='Default'>
-{() => '<fw-input label="Name" placeholder="Enter your first name"></fw-input>'}
-</Story>
+  <Story name='Default'>
+    {() =>
+      '<fw-input label="Name" placeholder="Enter your first name"></fw-input>'
+    }
+  </Story>
 </Preview>
 
 ### Required
+
 <Preview>
-<Story name='Required'>
-{() => '<fw-input label="Name" required="true" placeholder="Enter your first name"></fw-input>'}
-</Story>
+  <Story name='Required'>
+    {() =>
+      '<fw-input label="Name" required="true" placeholder="Enter your first name"></fw-input>'
+    }
+  </Story>
 </Preview>
 
 ### Disabled
+
 <Preview>
-<Story name='Disabled'>
-{() => '<fw-input label="Name" required="true" disabled="disabled" placeholder="Enter your first name"></fw-input>'}
-</Story>
+  <Story name='Disabled'>
+    {() =>
+      '<fw-input label="Name" required="true" disabled="disabled" placeholder="Enter your first name"></fw-input>'
+    }
+  </Story>
 </Preview>
 
-### With State text
+### With Hint text
+
 <Preview>
-<Story name='StateText'>
-{() => '<fw-input label="Name" state-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'}
-</Story>
+  <Story name='HintText'>
+    {() =>
+      '<fw-input label="Name" hint-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'
+    }
+  </Story>
 </Preview>
 
 ### With Clear Input Button
-<Preview>
-<Story name='ClearInput'>
-{() => '<fw-input label="Name" clear-input="true" state-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'}
-</Story>
-</Preview>
 
+<Preview>
+  <Story name='ClearInput'>
+    {() =>
+      '<fw-input label="Name" clear-input="true" hint-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'
+    }
+  </Story>
+</Preview>
 
 ### Error State
+
 <Preview>
-<Story name='ErrorState'>
-{() => '<fw-input label="Name" state="error" state-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'}
-</Story>
+  <Story name='ErrorState'>
+    {() =>
+      '<fw-input label="Name" state="error" error-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'
+    }
+  </Story>
 </Preview>
 
+### Warning State
 
-### Warining State
 <Preview>
-<Story name='WarningState'>
-{() => '<fw-input label="Name" state="warning" state-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'}
-</Story>
+  <Story name='WarningState'>
+    {() =>
+      '<fw-input label="Name" state="warning" warning-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'
+    }
+  </Story>
 </Preview>
 
 ### MaxLength limitation
+
 <Preview>
-<Story name='MaxLength'>
-{() => '<fw-input label="Name" maxlength="10" state-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'}
-</Story>
+  <Story name='MaxLength'>
+    {() =>
+      '<fw-input label="Name" maxlength="10" hint-text="It has to be your name" required="true"  placeholder="Enter your first name"></fw-input>'
+    }
+  </Story>
 </Preview>
 
 ### With Multiple Inputs
+
 <Preview>
-<Story name='MultipleInputs'>
-{() => `<fw-input label="First Name" maxlength="10" state-text="It has to be your first name" required="true"  placeholder="Enter your first name">
+  <Story name='MultipleInputs'>
+    {() => `<fw-input label="First Name" maxlength="10" hint-text="It has to be your first name" required="true"  placeholder="Enter your first name">
 </fw-input>
-<fw-input label="Last Name" maxlength="10" state-text="It has to be your last name" required="true"  placeholder="Enter your last name">
+<fw-input label="Last Name" maxlength="10" hint-text="It has to be your last name" required="true"  placeholder="Enter your last name">
 </fw-input>`}
-</Story>
+  </Story>
 </Preview>
 
 ### With Icons
+
 <Preview>
-<Story name='withIcons'>
-{() => `<fw-input icon-left="add-contact" label="First Name" maxlength="10" state-text="It has to be your first name" required="true"  placeholder="Enter your first name">
+  <Story name='withIcons'>
+    {() => `<fw-input icon-left="add-contact" label="First Name" maxlength="10" hint-text="It has to be your first name" required="true"  placeholder="Enter your first name">
 </fw-input>
-<fw-input icon-right="add-note" label="Last Name" state-text="It has to be your last name" required="true"  placeholder="Enter your last name">
+<fw-input icon-right="add-note" label="Last Name" hint-text="It has to be your last name" required="true"  placeholder="Enter your last name">
 </fw-input>`}
-</Story>
+  </Story>
 </Preview>

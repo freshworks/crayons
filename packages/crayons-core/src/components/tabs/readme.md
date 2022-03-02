@@ -13,7 +13,7 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
     <fw-input
       label="Name"
       icon-left="add-contact"
-      state-text="Do not enter your user ID"
+      warning-text="Do not enter your user ID"
       state="warning"
       placeholder="Enter your official name"
       required
@@ -49,7 +49,7 @@ fw-tabs displays a series of tabs on the user interface and enables tab-style na
     <fw-input
       label="Name"
       icon-left="add-contact"
-      state-text="Do not enter your user ID"
+      warning-text="Do not enter your user ID"
       state="warning"
       placeholder="Enter your official name"
       required
@@ -87,7 +87,7 @@ function App() {
               <FwInput
                 label="Name"
                 iconLeft="add-contact"
-                stateText="Do not enter your user ID"
+                warningText="Do not enter your user ID"
                 state="warning"
                 placeholder="Enter your official name"
                 required

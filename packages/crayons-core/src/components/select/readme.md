@@ -12,7 +12,7 @@ The data for the select can either be passed as a child or via a datasource whic
   required="true"
   value="1"
   placeholder="Your choice"
-  state-text="Select singluar option"
+  hint-text="Select singluar option"
 >
   <fw-select-option value="1">Starks</fw-select-option>
   <fw-select-option value="2">Lannisters</fw-select-option>
@@ -20,7 +20,7 @@ The data for the select can either be passed as a child or via a datasource whic
 <fw-select
   label="Names"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   multiple
 >
   <fw-select-option value="1" selected>Starks</fw-select-option>
@@ -28,6 +28,30 @@ The data for the select can either be passed as a child or via a datasource whic
   <fw-select-option value="3">Sand</fw-select-option>
   <fw-select-option value="4">Greyjoys</fw-select-option>
   <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+
+<fw-select
+  label="House Name"
+  required="true"
+  value="1"
+  placeholder="Your choice"
+  error-text="Select singluar option"
+  state="error"
+>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+</fw-select>
+<h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
+<fw-select
+  label="House Name"
+  required="true"
+  value="1"
+  placeholder="Your choice"
+  state="error"
+>
+<div slot="error-text">Select singluar option</div>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
 </fw-select>
 ```
 
@@ -42,7 +66,7 @@ The data for the select can either be passed as a child or via a datasource whic
   required="true"
   value="1"
   placeholder="Your choice"
-  state-text="Select singluar option"
+  hint-text="Select singluar option"
 >
   <fw-select-option value="1">Starks</fw-select-option>
   <fw-select-option value="2">Lannisters</fw-select-option>
@@ -50,7 +74,7 @@ The data for the select can either be passed as a child or via a datasource whic
 <fw-select
   label="Names"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   multiple
 >
   <fw-select-option value="1" selected>Starks</fw-select-option>
@@ -58,6 +82,29 @@ The data for the select can either be passed as a child or via a datasource whic
   <fw-select-option value="3">Sand</fw-select-option>
   <fw-select-option value="4">Greyjoys</fw-select-option>
   <fw-select-option value="5">Tyrell</fw-select-option>
+</fw-select>
+<fw-select
+  label="House Name"
+  required="true"
+  value="1"
+  placeholder="Your choice"
+  error-text="Select singluar option"
+  state="error"
+>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
+</fw-select>
+<h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
+<fw-select
+  label="House Name"
+  required="true"
+  value="1"
+  placeholder="Your choice"
+  state="error"
+>
+<div slot="error-text">Select singluar option</div>
+  <fw-select-option value="1">Starks</fw-select-option>
+  <fw-select-option value="2">Lannisters</fw-select-option>
 </fw-select>
 ```
 
@@ -77,7 +124,7 @@ function App() {
         required
         value='1'
         placeholder='Your choice'
-        stateText='Select singluar option'
+        hintText='Select singluar option'
       >
         <FwSelectOption value='1'>Starks</FwSelectOption>
         <FwSelectOption value='2'>Lannisters</FwSelectOption>
@@ -86,7 +133,7 @@ function App() {
       <FwSelect
         label='Names'
         placeholder='Your choices'
-        stateText='Select multiple options'
+        hintText='Select multiple options'
         multiple
       >
         <FwSelectOption value='1' selected>
@@ -96,6 +143,31 @@ function App() {
         <FwSelectOption value='3'>Sand</FwSelectOption>
         <FwSelectOption value='4'>Greyjoys</FwSelectOption>
         <FwSelectOption value='5'>Tyrell</FwSelectOption>
+      </FwSelect>
+
+
+      <FwSelect
+        label="House Name"
+        required="true"
+        value="1"
+        placeholder="Your choice"
+        errorText="Select singluar option"
+        state="error"
+      >
+        <FwSelectOption value="1">Starks</FwSelectOption>
+        <FwSelectOption value="2">Lannisters</FwSelectOption>
+      </FwSelect>
+      <h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
+      <FwSelect
+        label="House Name"
+        required="true"
+        value="1"
+        placeholder="Your choice"
+        state="error"
+      >
+      <div slot="error-text">Select singluar option</div>
+        <FwSelectOption value="1">Starks</FwSelectOption>
+        <FwSelectOption value="2">Lannisters</FwSelectOption>
       </FwSelect>
     </div>
   );
@@ -111,7 +183,7 @@ function App() {
 <fw-select
   label="Names"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   multiple
 >
   <fw-select-option value="1" selected>Starks</fw-select-option>
@@ -125,7 +197,7 @@ function App() {
   id="complexSelect"
   label="Strawhat Pirates"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   multiple
 >
 </fw-select>
@@ -165,7 +237,7 @@ function App() {
 <fw-select
   label="Names"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   multiple
 >
   <fw-select-option value="1" selected>Starks</fw-select-option>
@@ -179,7 +251,7 @@ function App() {
   id="complexSelect"
   label="Strawhat Pirates"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   options-variant="icon"
   multiple
 >
@@ -246,7 +318,7 @@ function App() {
       <FwSelect
         label='Names'
         placeholder='Your choices'
-        stateText='Select multiple options'
+        hintText='Select multiple options'
         multiple
       >
         <FwSelectOption value='1' selected>
@@ -261,7 +333,7 @@ function App() {
       <FwSelect
         label='Strawhat Pirates'
         placeholder='Your choices'
-        stateText='Select multiple options'
+        hintText='Select multiple options'
         multiple
         options={iconDataSource}
       ></FwSelect>
@@ -285,7 +357,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 <fw-select
   label="Pick one character"
   placeholder="Your choices"
-  state-text="Select Single options"
+  hint-text="Select Single options"
   value="5"
 >
   <fw-select-option value="1">Starks</fw-select-option>
@@ -298,7 +370,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 <fw-select
   label="Pick favorite characters"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   id="multiSelect"
   multiple
 >
@@ -312,7 +384,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 <fw-select
   label="Names"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   id="methodSelect"
   multiple
 >
@@ -327,7 +399,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
   id="methodOptionSelect"
   label="Strawhat Pirates"
   placeholder="Your choices"
-  state-text="Select single option"
+  hint-text="Select single option"
   options-variant="icon"
 >
 </fw-select>
@@ -384,7 +456,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 <fw-select
   label="Pick one character"
   placeholder="Your choices"
-  state-text="Select Single options"
+  hint-text="Select Single options"
   value="5"
 >
   <fw-select-option value="1">Starks</fw-select-option>
@@ -397,7 +469,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 <fw-select
   label="Pick favorite characters"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   id="multiSelect"
   multiple
 >
@@ -411,7 +483,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
 <fw-select
   label="Names"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   id="methodSelect"
   multiple
 >
@@ -426,7 +498,7 @@ To get the selected values the consuming app can listen to `fwChange` event for 
   id="methodOptionSelect"
   label="Strawhat Pirates"
   placeholder="Your choices"
-  state-text="Select single option"
+  hint-text="Select single option"
   options-variant="icon"
 >
 </fw-select>
@@ -519,7 +591,7 @@ function App() {
       <FwSelect
         label='Pick one character'
         placeholder='Your choices'
-        stateText='Select Single options'
+        hintText='Select Single options'
         value='5'
       >
         <FwSelectOption value='1'>Starks</FwSelectOption>
@@ -532,7 +604,7 @@ function App() {
       <FwSelect
         label='Pick favorite characters'
         placeholder='Your choices'
-        stateText='Select multiple options'
+        hintText='Select multiple options'
         id='multiSelect'
         multiple
         value={['2', '3']}
@@ -547,7 +619,7 @@ function App() {
       <FwSelect
         label='Names'
         placeholder='Your choices'
-        stateText='Select multiple options'
+        hintText='Select multiple options'
         id='methodSelect'
         ref={methodSelect}
         multiple
@@ -564,7 +636,7 @@ function App() {
         onFwChange={onSelectChange}
         label='Strawhat Pirates'
         placeholder='Your choices'
-        stateText='Select single option'
+        hintText='Select single option'
         options={iconDataSource}
         optionsVariant='icon'
       ></FwSelect>
@@ -586,7 +658,7 @@ export default App;
   no-data-text="Type to search.."
   not-found-text="Not available in this universe"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   options-variant="avatar"
   tag-variant="avatar"
   multiple
@@ -639,7 +711,7 @@ export default App;
   no-data-text="Type to search.."
   not-found-text="Not available in this universe"
   placeholder="Your choices"
-  state-text="Select multiple options"
+  hint-text="Select multiple options"
   options-variant="avatar"
   tag-variant="avatar"
   multiple
@@ -711,7 +783,7 @@ function Select() {
       noDataText='Type to search..'
       notFoundText='Not available in this universe'
       placeholder='Your choices'
-      stateText='Select multiple options'
+      hintText='Select multiple options'
       optionsVariant='avatar'
       tagVariant='avatar'
       search={searchFn}

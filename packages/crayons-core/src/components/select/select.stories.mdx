@@ -1,20 +1,19 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 # Select
-<Meta
-  title="Select"
-  component="fw-select"
-/>
+
+<Meta title='Select' component='fw-select' />
 
 ## Props
 
-<Props of="fw-select"/>
+<Props of='fw-select' />
 
 ## Usage
 
 ### Default
+
 <Preview>
-  <Story name="Default">
+  <Story name='Default'>
     {() => `
     <fw-select>
     </fw-select>
@@ -23,8 +22,9 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 </Preview>
 
 ### With options
+
 <Preview>
-  <Story name="WithSelectOptions">
+  <Story name='WithSelectOptions'>
     {() => `
     <fw-select label="Select the house" required="true" value="1">
         <fw-select-option value="1">Starks</fw-select-option>
@@ -35,8 +35,9 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 </Preview>
 
 ### Disabled
+
 <Preview>
-  <Story name="Disabled">
+  <Story name='Disabled'>
     {() => `
     <fw-select label="Select the house" required="true" value="1" disabled>
         <fw-select-option value="1">Starks</fw-select-option>
@@ -47,8 +48,9 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 </Preview>
 
 ### Readonly
+
 <Preview>
-  <Story name="Readonly">
+  <Story name='Readonly'>
     {() => `
     <fw-select label="Select the house" required="true" value="1" readonly>
         <fw-select-option value="1">Starks</fw-select-option>
@@ -59,10 +61,11 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 </Preview>
 
 ### Multi-Select Mode
+
 <Preview>
-  <Story name="MultiSelect">
+  <Story name='MultiSelect'>
     {() => `
-    <fw-select multiple max="2" label="Select the GOT house" state-text="Choose the house where you belong" required="true">
+    <fw-select multiple max="2" label="Select the GOT house" hint-text="Choose the house where you belong" required="true">
         <fw-select-option value="1">Starks</fw-select-option>
         <fw-select-option value="2">Lannisters</fw-select-option>
         <fw-select-option value="3" selected>Sand</fw-select-option>
@@ -74,10 +77,10 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 </Preview>
 
 ### With options and selected key
+
 <Preview>
-  <Story name="WithOptionsAndSelectedKey">
-    {
-      () => `<fw-select label="Select the GOT house" state-text="Choose the house where you belong" required="true">
+  <Story name='WithOptionsAndSelectedKey'>
+    {() => `<fw-select label="Select the GOT house" hint-text="Choose the house where you belong" required="true">
                 <fw-select-option value="1">Starks</fw-select-option>
                 <fw-select-option value="2" disabled>Lannisters</fw-select-option>
                 <fw-select-option value="3">Sand</fw-select-option>
@@ -97,7 +100,6 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
                 <fw-select-option value="12:30" disabled>12:30</fw-select-option>
                 <fw-select-option value="12:45">12:45</fw-select-option>
                 <fw-select-option value="22:55">22:55</fw-select-option>
-            </fw-select>`
-    }
+            </fw-select>`}
   </Story>
 </Preview>

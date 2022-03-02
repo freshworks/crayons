@@ -6,21 +6,23 @@ fw-textarea displays an input box on the user interface and enables assigning mu
 ```html live
 <fw-textarea cols=75 rows=5 maxlength=190 minlength=5
   label="Address"
-  state-text="Do not enter your temporary address"
+  warning-text="Do not enter your temporary address"
   state="warning"
   placeholder="Enter your permanent address"
   required>
 </fw-textarea>
 <fw-textarea cols=75 rows=5
   label="Passcode"
-  state-text="Passcode is incorrect"
+  error-text="Passcode is incorrect"
   state="error"
   required>
 </fw-textarea>
+<h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
 <fw-textarea cols=75 rows=5
   label="Location identifier"
 placeholder="Enter landmark details"
   state="normal">
+  <div slot="hint-text">Enter location details</div>
 </fw-textarea>
 <fw-textarea cols=75 rows=1
   label="Plot number"
@@ -37,21 +39,23 @@ placeholder="Enter landmark details"
 ```html 
 <fw-textarea cols=75 rows=5 maxlength=190 minlength=5
   label="Address"
-  state-text="Do not enter your temporary address"
+  warning-text="Do not enter your temporary address"
   state="warning"
   placeholder="Enter your permanent address"
   required>
 </fw-textarea>
 <fw-textarea cols=75 rows=5
   label="Passcode"
-  state-text="Passcode is incorrect"
+  error-text="Passcode is incorrect"
   state="error"
   required>
 </fw-textarea>
+<h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
 <fw-textarea cols=75 rows=5
   label="Location identifier"
 placeholder="Enter landmark details"
   state="normal">
+  <div slot="hint-text">Enter location details</div>
 </fw-textarea>
 <fw-textarea cols=75 rows=1
   label="Plot number"
@@ -71,21 +75,23 @@ function App() {
   return (<div>
             <FwTextarea cols={75} rows={5} maxlength={190} minlength={5}
               label="Address"
-              stateText="Do not enter your temporary address"
+              warningText="Do not enter your temporary address"
               state="warning"
               placeholder="Enter your permanent address"
               required>
             </FwTextarea>
             <FwTextarea cols={75} rows={5}
               label="Passcode"
-              stateText="Passcode is incorrect"
+              errorText="Passcode is incorrect"
               state="error"
               required>
             </FwTextarea>
+            <h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
             <FwTextarea cols={75} rows={5}
               label="Location identifier"
               placeholder="Enter landmark details"
               state="normal">
+              <div slot="hint-text">Enter location details</div>
             </FwTextarea>
             <FwTextarea cols={75} rows={1}
               label="Plot number"
