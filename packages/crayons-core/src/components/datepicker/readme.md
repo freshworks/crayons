@@ -71,6 +71,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property        | Attribute        | Description                                                                                                                                                    | Type                               | Default                    |
@@ -93,6 +94,7 @@ function App() {
 | `updateText`    | `update-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
 
+
 ## Events
 
 | Event      | Description                              | Type               |
@@ -100,13 +102,18 @@ function App() {
 | `fwBlur`   | Triggered when the input is blurred out  | `CustomEvent<any>` |
 | `fwChange` | Triggered when the update button clicked | `CustomEvent<any>` |
 
+
 ## Methods
 
-### `getValue() => Promise<string | { fromDate: { locale: any; }; toDate: { locale: any; }; locale?: undefined; } | { locale: any; fromDate?: undefined; toDate?: undefined; }>`
+### `getValue() => Promise<string | { fromDate: string; toDate: string; }>`
+
+
 
 #### Returns
 
-Type: `Promise<string | { fromDate: { locale: any; }; toDate: { locale: any; }; locale?: undefined; } | { locale: any; fromDate?: undefined; toDate?: undefined; }>`
+Type: `Promise<string | { fromDate: string; toDate: string; }>`
+
+
 
 ### `setFocus() => Promise<void>`
 
@@ -116,11 +123,14 @@ Sets focus on a specific `fw-datepicker`. Use this method instead of the global 
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
-- [fw-form-control](../form-control)
+ - [fw-form-control](../form-control)
 
 ### Depends on
 
@@ -132,7 +142,6 @@ Type: `Promise<void>`
 - [fw-button](../button)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-datepicker --> fw-popover
@@ -165,6 +174,6 @@ graph TD;
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks

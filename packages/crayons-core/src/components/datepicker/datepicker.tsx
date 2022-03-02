@@ -256,22 +256,24 @@ export class Datepicker {
               parse(this.startDate, this.displayFormat, new Date(), {
                 locale: this.langModule,
               }),
-              this.displayFormat
-            ),
-          {
-            locale: this.langModule,
-          }) || undefined,
+              this.displayFormat,
+              {
+                locale: this.langModule,
+              }
+            )) ||
+          undefined,
         toDate:
           (this.endDate &&
             format(
               parse(this.endDate, this.displayFormat, new Date(), {
                 locale: this.langModule,
               }),
-              this.displayFormat
-            ),
-          {
-            locale: this.langModule,
-          }) || undefined,
+              this.displayFormat,
+              {
+                locale: this.langModule,
+              }
+            )) ||
+          undefined,
       };
     }
     return this.displayFormat
@@ -280,11 +282,12 @@ export class Datepicker {
             parse(this.value, this.displayFormat, new Date(), {
               locale: this.langModule,
             }),
-            this.displayFormat
-          ),
-        {
-          locale: this.langModule,
-        }) || undefined
+            this.displayFormat,
+            {
+              locale: this.langModule,
+            }
+          )) ||
+          undefined
       : (this.value && formatISO(new Date(this.value))) || undefined;
   }
 

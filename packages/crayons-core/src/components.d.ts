@@ -228,7 +228,7 @@ export namespace Components {
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
-        "getValue": () => Promise<string | { fromDate: { locale: any; }; toDate: { locale: any; }; locale?: undefined; } | { locale: any; fromDate?: undefined; toDate?: undefined; }>;
+        "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
         /**
           * Locale for which datepicker needs to be shown.
          */
