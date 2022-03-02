@@ -957,22 +957,26 @@ export class Datepicker {
               ref={(el) => (this.nativeInput = el)}
               state={this.state}
               readonly={this.readonly}
-            ></fw-input>
-            <div class='icon-calendar'>
-              <div
-                class='separator'
-                style={{
-                  borderLeftColor:
-                    this.state === 'error' ? '#d72d30' : '#ebeff3',
-                }}
-              ></div>
-              <fw-icon
-                onClick={() => (this.showDatePicker = true)}
-                name='calendar'
-                class='date-icon'
-                style={{ '--icon-color': this.state === 'error' && '#d72d30' }}
-              ></fw-icon>
-            </div>
+            >
+              <div class='icon-calendar' slot='input-suffix'>
+                <div
+                  class='separator'
+                  style={{
+                    borderLeftColor:
+                      this.state === 'error' ? '#d72d30' : '#ebeff3',
+                  }}
+                ></div>
+                <span class='date-icon'>
+                  <fw-icon
+                    onClick={() => (this.showDatePicker = true)}
+                    name='calendar'
+                    style={{
+                      '--icon-color': this.state === 'error' && '#d72d30',
+                    }}
+                  ></fw-icon>
+                </span>
+              </div>
+            </fw-input>
           </div>
           {this.showSingleDatePicker() ? (
             <div class='datepicker' slot='popover-content'>

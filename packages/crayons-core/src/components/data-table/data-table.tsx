@@ -47,7 +47,14 @@ const TABLE_POPPER_CONFIG: any = {
   ],
 };
 
-const localStorage = window.localStorage;
+let localStorage = null;
+try {
+  if (window.localStorage) {
+    localStorage = window.localStorage;
+  }
+} catch (error) {
+  console.warn('Cannot save table settings to localStorage');
+}
 
 @Component({
   tag: 'fw-data-table',

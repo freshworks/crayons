@@ -11,7 +11,7 @@
 
 $label-font: $font-stack;
 $input-bg: $color-milk;
-$help-color: $color-smoke-300;
+$help-color: $muted-secondary;
 $error-color: $color-persimmon-800;
 $input-color: $color-elephant-900;
 $input-disabled-bg: $color-smoke-25;
@@ -27,12 +27,15 @@ $warning-color: $color-casablanca-300;
     color: $_color;
   }
 }
+:host {
+  display: block;
+}
 
 // Label Style
 label {
   font-size: $font-size-12;
   font-weight: $font-weight-600;
-  color: $color-elephant-900;
+  color: $color-smoke-700;
   margin-bottom: 0;
   line-height: 20px;
   padding-bottom: 4px;
@@ -58,7 +61,7 @@ label {
   background-color: $input-bg;
   box-shadow: none;
   min-height: 22px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
 
   .input-container-inner {
@@ -173,7 +176,7 @@ label {
   }
 
   .dropdown-status-icon {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     min-width: 20px;
@@ -185,7 +188,8 @@ label {
   //Help Block
   .help-block {
     font-size: $font-size-12;
-    margin-top: 3px;
+    margin-top: 4px;
+    line-height: 20px;
     color: $help-color;
     position: inherit;
     margin-bottom: 0;
