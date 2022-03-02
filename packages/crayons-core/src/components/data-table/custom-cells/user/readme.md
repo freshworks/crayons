@@ -17,6 +17,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [fw-data-table](../..)
+
 ### Depends on
 
 - [fw-avatar](../../../avatar)
@@ -25,6 +29,7 @@
 ```mermaid
 graph TD;
   fw-custom-cell-user --> fw-avatar
+  fw-data-table --> fw-custom-cell-user
   style fw-custom-cell-user fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
