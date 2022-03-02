@@ -22,6 +22,9 @@ $warning-color: $color-casablanca-300;
     color: $_color;
   }
 }
+:host {
+  display: block;
+}
 
 // Label Style
 label {
@@ -53,7 +56,7 @@ label {
   background-color: $input-bg;
   box-shadow: none;
   min-height: 22px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
 
   .input-container-inner {
@@ -168,7 +171,7 @@ label {
   }
 
   .dropdown-status-icon {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     min-width: 20px;
