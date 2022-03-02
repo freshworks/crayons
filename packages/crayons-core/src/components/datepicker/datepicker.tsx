@@ -232,7 +232,7 @@ export class Datepicker {
   @Method()
   async setFocus() {
     if (this.nativeInput) {
-      this.nativeInput.focus();
+      this.nativeInput.setFocus?.();
     }
   }
 
