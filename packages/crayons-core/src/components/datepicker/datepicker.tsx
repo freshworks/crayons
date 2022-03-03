@@ -958,17 +958,9 @@ export class Datepicker {
         let [fromDateStr, toDateStr] = this.value?.split('to') || [];
         fromDateStr = fromDateStr?.trim();
         toDateStr = toDateStr?.trim();
-        const startDate = getDate(
-          parse(this.startDate, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
+        const startDate = getDate(new Date(this.startDate));
+        const endDate = getDate(new Date(this.endDate));
 
-        const endDate = getDate(
-          parse(this.endDate, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
         const fromDate = getDate(
           parse(fromDateStr, this.displayFormat, new Date(), {
             locale: this.langModule,
@@ -980,10 +972,14 @@ export class Datepicker {
           })
         );
         if (startDate !== fromDate) {
-          this.startDate = fromDate;
+          this.startDate = parse(fromDateStr, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          }).valueOf();
         }
         if (endDate !== toDate) {
-          this.endDate = toDate;
+          this.endDate = parse(toDateStr, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          }).valueOf();
         }
       } else this.startDate = this.endDate = undefined;
     } else {
@@ -1257,7 +1253,7 @@ export class Datepicker {
                 <div class='mdpch-container'>
                   <span class='mdpchc-month'>
                     <fw-select
-                      class='from-month-selector'
+                      class='first from-month-selector'
                       readonly={true}
                       value={this.shortMonthNames[this.month]}
                       same-width='false'
@@ -1274,7 +1270,7 @@ export class Datepicker {
                   </span>
                   <span class='mdpchc-year'>
                     <fw-select
-                      class='from-year-selector'
+                      class='last from-year-selector'
                       readonly={true}
                       value={this.year}
                       same-width='false'
@@ -1297,7 +1293,7 @@ export class Datepicker {
                 <div class='mdpch-container-right'>
                   <span class='mdpchc-month'>
                     <fw-select
-                      class='to-month-selector'
+                      class='first to-month-selector'
                       readonly={true}
                       same-width='false'
                       variant='button'
@@ -1314,7 +1310,7 @@ export class Datepicker {
                   </span>
                   <span class='mdpchc-year'>
                     <fw-select
-                      class='to-year-selector'
+                      class='last to-year-selector'
                       readonly={true}
                       value={this.toYear}
                       same-width='false'
