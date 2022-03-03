@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.17...@freshworks/crayons@3.0.0-beta.18) (2022-03-03)
+
+
+### Bug Fixes
+
+* **data-table:** adding localStorage permissions check before using it ([#453](https://github.com/freshworks/crayons/issues/453)) ([0bcdb40](https://github.com/freshworks/crayons/commit/0bcdb402d71a76deba8e81e6c7f2a139347f09bd))
+* **data-table:** fw-tooltip on hovering over data-table row action buttons ([#447](https://github.com/freshworks/crayons/issues/447)) ([7e00fd6](https://github.com/freshworks/crayons/commit/7e00fd6012d38a34dbdf355db63ec1c4f1500c43))
+* **fw-select-option, fw-textarea:** fixed the styles ([#450](https://github.com/freshworks/crayons/issues/450)) ([ab3a5a4](https://github.com/freshworks/crayons/commit/ab3a5a40f31048b5db58aacc23c8f5a5e43d51ba))
+* **fw-select:** Modified the color of the state text based on the state ([#446](https://github.com/freshworks/crayons/issues/446)) ([642e028](https://github.com/freshworks/crayons/commit/642e028714f27319b8585d79bd8ea66b84785295))
+* standardized height of all input elements to 32px ([#451](https://github.com/freshworks/crayons/issues/451)) ([e123470](https://github.com/freshworks/crayons/commit/e123470070d4052bc5d7bf94fd1f6fcf9341e89f))
+
+
+### Features
+
+* **fw-datepicker:** added stateText prop to the datepicker ([#448](https://github.com/freshworks/crayons/issues/448)) ([819b59b](https://github.com/freshworks/crayons/commit/819b59b771d9986d3c9f1dd8c92ca1b5c0b56e1d))
+
+
+
+
+
 ## [3.0.0-beta.17](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.16...@freshworks/crayons@3.0.0-beta.17) (2022-02-28)
 
 ### Bug Fixes
