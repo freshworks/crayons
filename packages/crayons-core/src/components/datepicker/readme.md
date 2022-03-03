@@ -72,6 +72,7 @@ function App() {
 | `readonly`      | `readonly`       | /**   Make the input box as readonly. Default `false`                                                                                                          | `boolean`                          | `false`         |
 | `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`         |
 | `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`      |
+| `stateText`     | `state-text`     | Descriptive or instructional text displayed below the date picker box.                                                                                         | `any`                              | `undefined`     |
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`     |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`     |
 
