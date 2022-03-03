@@ -216,6 +216,10 @@ export class DataTable {
    */
   componentDidLoad() {
     if (this.showSettings) {
+      if (this.settingsButton) {
+        this.settingsButton.style.height =
+          this.el.shadowRoot.querySelector('thead').offsetHeight + 'px';
+      }
       this.popperInstance = createPopper(
         this.settingsButton,
         this.settings,
@@ -372,6 +376,7 @@ export class DataTable {
       }
       columnConfig[column.key].position = column.position;
       columnConfig[column.key].hide = column.hide || false;
+      columnConfig[column.key].lock = column.lock || false;
     });
     return columnConfig;
   }
@@ -382,19 +387,23 @@ export class DataTable {
    */
   @Method()
   async setTableSettings(columnConfig) {
-    let orderedColumns = [...this.orderedColumns];
-    for (const key in columnConfig) {
-      if (Object.prototype.hasOwnProperty.call(columnConfig, key)) {
-        const config = columnConfig[key];
-        const modifiedOrderColumn = this.getColumnsState(
-          orderedColumns,
-          key,
-          config
-        );
-        orderedColumns = modifiedOrderColumn;
+    try {
+      let orderedColumns = [...this.orderedColumns];
+      for (const key in columnConfig) {
+        if (Object.prototype.hasOwnProperty.call(columnConfig, key)) {
+          const config = columnConfig[key];
+          const modifiedOrderColumn = this.getColumnsState(
+            orderedColumns,
+            key,
+            config
+          );
+          orderedColumns = modifiedOrderColumn;
+        }
       }
+      this.orderedColumns = [...orderedColumns];
+    } catch (error) {
+      console.warn('Save table settings was not applied');
     }
-    this.orderedColumns = [...orderedColumns];
     return this.orderedColumns;
   }
 
@@ -522,16 +531,19 @@ export class DataTable {
       columnInfo.text = column.text;
       columnInfo.position = column.position;
       columnInfo.hide = column.hide || false;
+      columnInfo.lock = column.lock;
       return columnInfo;
     });
     this.columnsDragSetting = modifiedColumnsDragSettings;
     const modifiedColumnsHideSettings = this.columns.map((column) => {
       const columnInfo: any = {};
+      const orderedColumn = this.orderedColumns.filter(
+        (orderedColumn) => orderedColumn.key === column.key
+      )[0];
       columnInfo.key = column.key;
       columnInfo.text = column.text;
-      columnInfo.hide = this.orderedColumns.filter(
-        (orderedColumn) => orderedColumn.key === column.key
-      )[0].hide;
+      columnInfo.hide = orderedColumn.hide;
+      columnInfo.lock = orderedColumn.lock;
       return columnInfo;
     });
     this.columnsHideSetting = modifiedColumnsHideSettings;
@@ -846,14 +858,23 @@ export class DataTable {
    * @param columns
    */
   columnOrdering(columns: DataTableColumn[]) {
-    this.orderedColumns = columns.sort((column1, column2) => {
+    this.orderedColumns = [...columns].sort((column1, column2) => {
       let result = 0;
-      if (column1.position && column2.position) {
-        result = column1.position - column2.position;
-      } else if (column1.position && !column2.position) {
+      if (column1.lock && !column2.lock) {
         result = -1;
-      } else if (!column1.position && column1.position) {
+      } else if (!column1.lock && column2.lock) {
         result = 1;
+      } else if (
+        (!column1.lock && !column2.lock) ||
+        (column1.lock && column2.lock)
+      ) {
+        if (column1.position && column2.position) {
+          result = column1.position - column2.position;
+        } else if (column1.position && !column2.position) {
+          result = -1;
+        } else if (!column1.position && column2.position) {
+          result = 1;
+        }
       }
       return result;
     });
@@ -971,11 +992,14 @@ export class DataTable {
    * @param droppedIndex value for position
    */
   async settingsColumnDrop(columnKey: string, droppedIndex: number) {
+    const lockedColumnsLength = this.columnsDragSetting.filter(
+      (column) => column.lock
+    ).length;
     const newColumnState = this.getColumnsState(
       this.columnsDragSetting,
       columnKey,
       {
-        position: droppedIndex + 1,
+        position: droppedIndex + 1 + lockedColumnsLength,
       }
     );
     this.columnsDragSetting = [...newColumnState];
@@ -1339,6 +1363,7 @@ export class DataTable {
                                 )
                               }
                               checked={!column.hide}
+                              disabled={column.lock}
                             >
                               {column.text}
                             </fw-checkbox>
@@ -1363,6 +1388,29 @@ export class DataTable {
                   </span>
                 </div>
                 <div class='table-settings-content-draggable'>
+                  {this.columnsDragSetting
+                    .filter((column) => column.lock)
+                    .map((column: any) => {
+                      let lockTemplate = null;
+                      lockTemplate = (
+                        <div
+                          key={column.key}
+                          class='table-settings-drag-item'
+                          data-column-key={column.key}
+                        >
+                          <div class='table-settings-drag-item-icon non-drag'>
+                            <fw-icon name='lock' size={11}></fw-icon>
+                          </div>
+                          <div
+                            class='table-settings-drag-item-text'
+                            title={column.text}
+                          >
+                            {column.text}
+                          </div>
+                        </div>
+                      );
+                      return lockTemplate;
+                    })}
                   <fw-drag-container
                     ref={(el) => (this.settingsDragContainer = el)}
                     onFwDrop={(event: any) =>
@@ -1372,55 +1420,57 @@ export class DataTable {
                       )
                     }
                   >
-                    {this.columnsDragSetting.map((column: any) => {
-                      let dragTemplate = null;
-                      if (!column.hide) {
-                        dragTemplate = (
-                          <div
-                            key={column.key}
-                            class='table-settings-drag-item'
-                            data-column-key={column.key}
-                            draggable={true}
-                          >
-                            <div class='table-settings-drag-item-icon'>
-                              <fw-icon
-                                library='system'
-                                name='drag'
-                                size={11}
-                              ></fw-icon>
-                            </div>
+                    {this.columnsDragSetting
+                      .filter((column) => !column.lock)
+                      .map((column: any) => {
+                        let dragTemplate = null;
+                        if (!column.hide) {
+                          dragTemplate = (
                             <div
-                              class='table-settings-drag-item-text'
-                              title={column.text}
+                              key={column.key}
+                              class='table-settings-drag-item'
+                              data-column-key={column.key}
+                              draggable={true}
                             >
-                              {column.text}
+                              <div class='table-settings-drag-item-icon'>
+                                <fw-icon
+                                  library='system'
+                                  name='drag'
+                                  size={11}
+                                ></fw-icon>
+                              </div>
+                              <div
+                                class='table-settings-drag-item-text'
+                                title={column.text}
+                              >
+                                {column.text}
+                              </div>
+                              <button
+                                class='table-settings-drag-item-close'
+                                tabIndex={0}
+                                onKeyDown={(event) =>
+                                  event.key === 'Enter' &&
+                                  this.settingsColumnToggle(
+                                    column.key,
+                                    false,
+                                    event
+                                  )
+                                }
+                                onClick={() =>
+                                  this.settingsColumnToggle(column.key, false)
+                                }
+                              >
+                                <fw-icon
+                                  library='system'
+                                  name='cross-big'
+                                  size={7}
+                                ></fw-icon>
+                              </button>
                             </div>
-                            <button
-                              class='table-settings-drag-item-close'
-                              tabIndex={0}
-                              onKeyDown={(event) =>
-                                event.key === 'Enter' &&
-                                this.settingsColumnToggle(
-                                  column.key,
-                                  false,
-                                  event
-                                )
-                              }
-                              onClick={() =>
-                                this.settingsColumnToggle(column.key, false)
-                              }
-                            >
-                              <fw-icon
-                                library='system'
-                                name='cross-big'
-                                size={7}
-                              ></fw-icon>
-                            </button>
-                          </div>
-                        );
-                      }
-                      return dragTemplate;
-                    })}
+                          );
+                        }
+                        return dragTemplate;
+                      })}
                   </fw-drag-container>
                 </div>
               </div>
