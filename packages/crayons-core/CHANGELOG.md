@@ -3,17 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.18...@freshworks/crayons@3.0.0-beta.19) (2022-03-04)
-
+## [3.0.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.18...@freshworks/crayons@3.0.0-beta.19) (2022-03-04)
 
 ### Features
 
-* **crayons-i18n:** crayons-i18n package to handle i18n translations ([#449](https://github.com/freshworks/crayons/issues/449)) ([74d0e5b](https://github.com/freshworks/crayons/commit/74d0e5b2c95ef6571e47b5cf140008995332f5b4))
-* **datepicker:** replacing moment-mini with date-fns to handle locale support ([#452](https://github.com/freshworks/crayons/issues/452)) ([306c432](https://github.com/freshworks/crayons/commit/306c432e376a290ee0707a0de973c1b997b605b0))
-
-
-
-
+- **crayons-i18n:** crayons-i18n package to handle i18n translations ([#449](https://github.com/freshworks/crayons/issues/449)) ([74d0e5b](https://github.com/freshworks/crayons/commit/74d0e5b2c95ef6571e47b5cf140008995332f5b4))
+- **datepicker:** replacing moment-mini with date-fns to handle locale support ([#452](https://github.com/freshworks/crayons/issues/452)) ([306c432](https://github.com/freshworks/crayons/commit/306c432e376a290ee0707a0de973c1b997b605b0))
 
 ## [3.0.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.17...@freshworks/crayons@3.0.0-beta.18) (2022-03-03)
 
