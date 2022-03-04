@@ -11,7 +11,7 @@ import {
   Method,
 } from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
-
+import { TranslationController } from '../../global/Translation';
 import {
   DataTableColumn,
   DataTableRow,
@@ -1086,7 +1086,7 @@ export class DataTable {
                 : this.orderedColumns.length + 1
             }
           >
-            Actions
+            {TranslationController.t('data_table.actions')}
           </th>
         )}
       </tr>
@@ -1290,7 +1290,9 @@ export class DataTable {
                   ></fw-input>
                 </div>
                 <div class='table-settings-content-choose'>
-                  <div class='table-settings-content-title'>Choose columns</div>
+                  <div class='table-settings-content-title'>
+                    {TranslationController.t('data_table.choose_columns')}
+                  </div>
                   <div class='table-settings-content-checkboxes'>
                     {this.columnsHideSetting.map((column: any) => {
                       let dragItemTemplate = null;
