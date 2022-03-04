@@ -95,6 +95,7 @@ function App() {
 | `updateText`    | `update-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
 
+
 ## Events
 
 | Event      | Description                               | Type               |
