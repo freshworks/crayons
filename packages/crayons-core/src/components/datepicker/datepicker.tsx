@@ -174,13 +174,6 @@ export class Datepicker {
    */
   @Prop() readonly = false;
 
-  @i18n({ defaultValue: 'Update', keyName: 'datepicker.update' })
-  @Prop({ mutable: true })
-  updateText = '';
-  @i18n({ defaultValue: 'Cancel', keyName: 'datepicker.cancel' })
-  @Prop({ mutable: true })
-  cancelText = '';
-
   /**
    * Descriptive or instructional text displayed below the date picker box.
    */
