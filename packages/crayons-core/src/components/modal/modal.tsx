@@ -393,7 +393,7 @@ export class Modal {
             </button>
           )}
           <div class='modal-container'>
-            {this.modalTitle ? '' : this.renderTitle()}
+            {this.modalTitle ? '' : this.titleText ? this.renderTitle() : ''}
             {this.modalContent ? <slot></slot> : this.renderContent()}
             {this.hideFooter ? '' : this.modalFooter ? '' : this.renderFooter()}
           </div>
