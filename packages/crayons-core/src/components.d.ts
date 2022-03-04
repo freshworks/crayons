@@ -221,22 +221,37 @@ export namespace Components {
     interface FwDatepicker {
         "cancelText": string;
         /**
-          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat": string;
         /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
+        /**
+          * Returns the date value in ISO format.
+         */
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
+        /**
+          * Locale for which datepicker needs to be shown.
+         */
+        "locale": string;
         /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate": string;
         /**
+          * Maximum year that needs to be displayed in the year dropdown.
+         */
+        "maxYear": number;
+        /**
           * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate": string;
+        /**
+          * Minimum year that needs to be displayed in the year dropdown.
+         */
+        "minYear": number;
         /**
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
@@ -250,7 +265,7 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * /**   Make the input box as readonly. Default `false`
+          * Make the input box as readonly. Default `false`
          */
         "readonly": boolean;
         /**
@@ -2257,7 +2272,7 @@ declare namespace LocalJSX {
     interface FwDatepicker {
         "cancelText"?: string;
         /**
-          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat"?: string;
         /**
@@ -2265,13 +2280,25 @@ declare namespace LocalJSX {
          */
         "fromDate"?: string;
         /**
+          * Locale for which datepicker needs to be shown.
+         */
+        "locale"?: string;
+        /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate"?: string;
         /**
+          * Maximum year that needs to be displayed in the year dropdown.
+         */
+        "maxYear"?: number;
+        /**
           * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate"?: string;
+        /**
+          * Minimum year that needs to be displayed in the year dropdown.
+         */
+        "minYear"?: number;
         /**
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
@@ -2293,7 +2320,7 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * /**   Make the input box as readonly. Default `false`
+          * Make the input box as readonly. Default `false`
          */
         "readonly"?: boolean;
         /**
