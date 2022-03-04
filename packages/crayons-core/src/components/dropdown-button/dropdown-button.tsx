@@ -8,7 +8,9 @@ import {
   Watch,
   h,
 } from '@stencil/core';
+
 import { handleKeyDown } from '../../utils';
+import { i18n } from '../../global/Translation';
 
 @Component({
   tag: 'fw-dropdown-button',
@@ -83,6 +85,13 @@ export class DropdownButton {
    * Triggered when Add button for searchable dropdown is clicked
    */
   @Event() fwOptionsAdd: EventEmitter<any>;
+
+  @i18n({ defaultValue: 'Add', keyName: 'dropdown.add' })
+  @Prop({ mutable: true })
+  addText = '';
+  @Prop({ mutable: true })
+  @i18n({ defaultValue: 'Cancel', keyName: 'dropdown.cancel' })
+  cancelText = '';
 
   @Watch('isDropdownOpen')
   setInitialState(newVal) {
@@ -219,7 +228,7 @@ export class DropdownButton {
               onClick={() => this.handleAddClick()}
             >
               {' '}
-              Add{' '}
+              {this.addText}{' '}
             </fw-button>
             <fw-button
               id='cancelBtn'
@@ -228,7 +237,7 @@ export class DropdownButton {
               onClick={() => this.handleDropdownToggle()}
             >
               {' '}
-              Cancel{' '}
+              {this.cancelText}{' '}
             </fw-button>
           </div>
         );

@@ -8,14 +8,19 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 
 ```html live
 <fw-label value="Single date picker" color="yellow"></fw-label><br />
-<fw-datepicker value="2021-12-02" display-format="DD-MM-YYYY"></fw-datepicker>
+<fw-datepicker value="2021-12-02" display-format="dd-MM-yyyy"></fw-datepicker>
 <fw-label value="A date range picker" color="yellow"></fw-label><br />
 <fw-datepicker
   mode="range"
   from-date="2022-01-02"
   to-date="2022-01-04"
-  display-format="DD-MM-YYYY"
+  display-format="dd-MM-yyyy"
 ></fw-datepicker>
+<fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
+><br />
+<fw-datepicker readonly></fw-datepicker>
+<fw-label value="Date picker with locale" color="yellow"></fw-label><br />
+<fw-datepicker locale="fr"></fw-datepicker>
 ```
 
 ## Usage
@@ -32,6 +37,11 @@ All the date formats passed as attribute's values must be valid [ISO Date format
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"
 ></fw-datepicker>
+<fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
+><br />
+<fw-datepicker readonly></fw-datepicker>
+<fw-label value="Date picker with locale" color="yellow"></fw-label><br />
+<fw-datepicker locale="fr"></fw-datepicker>
 ```
 </code-block>
 
@@ -49,6 +59,10 @@ function App() {
   from-date="2022-01-02"
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"></FwDatepicker>
+  <label value="Date picker with readonly attribute" color="yellow"></label><br />
+  <FwDatepicker readonly></FwDatepicker>
+  <label value="Date picker with locale" color="yellow"></label><br />
+  <FwDatepicker locale="fr"></FwDatepicker>
   </div>)
 }
 ```
@@ -62,6 +76,7 @@ function App() {
 
 | Property        | Attribute        | Description                                                                                                                                                    | Type                               | Default         |
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | --------------- |
+| `cancelText`    | `cancel-text`    |                                                                                                                                                                | `string`                           | `''`            |
 | `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.                                          | `string`                           | `'YYYY-MM-DD'`  |
 | `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                           | `undefined`     |
 | `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                           | `undefined`     |
@@ -74,6 +89,7 @@ function App() {
 | `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`      |
 | `stateText`     | `state-text`     | Descriptive or instructional text displayed below the date picker box.                                                                                         | `any`                              | `undefined`     |
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`     |
+| `updateText`    | `update-text`    |                                                                                                                                                                | `string`                           | `''`            |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`     |
 
 
