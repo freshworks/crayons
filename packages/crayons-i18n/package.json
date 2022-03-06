@@ -49,5 +49,8 @@
     "@stencil/core": "^2.9.0",
     "pluralize": "^8.0.0"
   },
+  "peerDependencies": {
+    "@stencil/store": "^1.5.0"
+  },
   "sideEffects": false
 }
