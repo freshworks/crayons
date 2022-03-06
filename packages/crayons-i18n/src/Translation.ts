@@ -77,7 +77,7 @@ function get({
   lang: string;
   context: any;
 }) {
-  const translatedText = getVal(key, obj) || '';
+  const translatedText = getVal(key, obj) ?? '';
   return translatedText;
 }
 
@@ -253,7 +253,7 @@ export class TranslationController {
         obj: this.state.globalStrings,
         lang: this.state.lang,
         context,
-      }) || ''
+      }) ?? ''
     );
   }
 
