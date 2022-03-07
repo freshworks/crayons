@@ -12,12 +12,12 @@
 }
 
 /**
-  @prop --fw-toggle-grp-btn-card-width: width of the card.
-  @prop --fw-toggle-grp-btn-card-height: height of the content.
-  @prop --fw-toggle-grp-btn-card-description-max-height: maximum height for the description text.
-  @prop --fw-toggle-grp-btn-card-description-max-lines: maximum lines that can be displayed for description text.
-  @prop --fw-toggle-grp-btn-icon-button-width: defines the width of the icon toggle button - default is 42px
-  @prop --fw-toggle-grp-btn-icon-button-height: defines the height of the icon toggle button - default is 36px
+  @prop --fw-toggle-group-button-card-width: width of the card.
+  @prop --fw-toggle-group-button-card-height: height of the content.
+  @prop --fw-toggle-group-button-card-description-max-height: maximum height for the description text.
+  @prop --fw-toggle-group-button-card-description-max-lines: maximum lines that can be displayed for description text.
+  @prop --fw-toggle-group-button-icon-button-width: defines the width of the icon toggle button - default is 42px
+  @prop --fw-toggle-group-button-icon-button-height: defines the height of the icon toggle button - default is 36px
 */
 
 // Styles for card button
@@ -28,8 +28,8 @@
 }
 
 .fw-toggle-card-button {
-  width: var(--fw-toggle-grp-btn-card-width, 240px);
-  height: var(--fw-toggle-grp-btn-card-height, 112px);
+  width: var(--fw-toggle-group-button-card-width, 240px);
+  height: var(--fw-toggle-group-button-card-height, 112px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -75,8 +75,11 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     line-height: 16px;
-    max-height: var(--fw-toggle-grp-btn-card-description-max-height, 48px);
-    -webkit-line-clamp: var(--fw-toggle-grp-btn-card-description-max-lines, 3);
+    max-height: var(--fw-toggle-group-button-card-description-max-height, 48px);
+    -webkit-line-clamp: var(
+      --fw-toggle-group-button-card-description-max-lines,
+      3
+    );
     -webkit-box-orient: vertical;
   }
 
@@ -160,8 +163,8 @@
 }
 
 .fw-toggle-icon-button {
-  width: var(--fw-toggle-grp-btn-icon-button-width, 42px);
-  height: var(--fw-toggle-grp-btn-icon-button-height, 36px);
+  width: var(--fw-toggle-group-button-icon-button-width, 42px);
+  height: var(--fw-toggle-group-button-icon-button-height, 36px);
   box-sizing: border-box;
   display: flex;
   align-items: center;
