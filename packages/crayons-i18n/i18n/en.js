@@ -46,7 +46,8 @@ export default {
     fb_field_filter: 'Display in filters',
     fb_field_filter_tag: 'Filterable',
     fb_field_type_relationship: 'Lookup Relationship',
-    fb_field_type_relationship_desc: 'Create relationship between objects',
+    fb_field_type_relationship_desc:
+      'Create relationships between objects using a lookup field',
     fb_field_type_text: 'Text',
     fb_field_type_paragraph: 'Paragraph',
     fb_field_type_number: 'Number',
@@ -59,7 +60,7 @@ export default {
     fb_primary_field_tag: 'Primary Field',
     fb_primary_field_header: 'Primary Field',
     fb_primary_field_name_hint:
-      'This is your primary field. This field will appear in lookups and search results.',
+      "This is the object's primary field and cannot be deleted. It is meant to be a unique representation of each record and will appear in lookups and search results.",
     fb_delete_field_title: 'Are you sure you want to delete the field',
     fb_delete_field_message:
       'This field will be permanently deleted and all associated data will be lost. Do you still want to continue?',
@@ -78,7 +79,8 @@ export default {
     fb_add_field_btn: 'Add Field',
     fb_save_field_btn: 'Save',
     fb_cancel_field_btn: 'Cancel',
-    fb_disabled_filter_check: 'Unique field will always be filterable',
+    fb_disabled_filter_check:
+      'Unique fields will always be available for filtering records in the list view',
     fb_lookup_source_object: 'Source object',
     fb_lookup_relationship_placeholder: 'Select relationship',
     fb_lookup_relationship_label: 'Relationship type',
@@ -105,8 +107,9 @@ export default {
       field_name_exists: 'A field with the same label already exists!',
     },
     fb_maximum_limits: {
-      filterable: 'Maximum of 25 fields can be used as filters.',
-      unique: 'Maximum of 5 fields can be used as unique.',
+      filterable:
+        'Maximum of 25 fields can be used to filter records in the list view.',
+      unique: 'Maximum of 5 fields can be marked as unique.',
       fields:
         'Reached maximum limit of 100 fields. Delete an existing field to create a new one.',
       lookups:
