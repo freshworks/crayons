@@ -42,12 +42,18 @@ export default {
     fb_field_required: 'Required when submitting the form',
     fb_field_required_tag: 'Required',
     fb_field_unique: 'Accept unique values',
+    fb_field_unique_hover_text:
+      'If set, the system will not let two records have the same value for the field. Please note that this behaviour cannot be updated once the field is created.',
     fb_field_unique_tag: 'Unique',
     fb_field_filter: 'Display in filters',
+    fb_field_filter_hover_text:
+      'If set, you can filter your records list view using this field. Please note that this behaviour cannot be updated once the field is created.',
     fb_field_filter_tag: 'Filterable',
     fb_field_type_relationship: 'Lookup Relationship',
     fb_field_type_relationship_desc:
       'Create relationships between objects using a lookup field',
+    fb_field_type_relationship_desc_hover_text:
+      'This field will allow users to click on a lookup icon to select a value from a list. The target object is the source of the values in the list.',
     fb_field_type_text: 'Text',
     fb_field_type_paragraph: 'Paragraph',
     fb_field_type_number: 'Number',
