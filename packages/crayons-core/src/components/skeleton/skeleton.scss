@@ -1,10 +1,10 @@
 /**
- * @prop --skeleton-height: Skeleton height: Default: 16px for the text and rect, 32px for the circle
- * @prop --skeleton-width: Skeleton width: Default: 100% for the text and rect, 32px for the circle
- * @prop --skeleton-margin-bottom: Skeleton margin-bottom: Default: 8px/0px(when count is 1)
- * @prop --skeleton-border-radius: Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect
- * @prop --skeleton-background: Skeleton background: Default: #cfd7df
- * @prop --sheen-color: Skeleton Sheen effect color: Default: #b1bdc8
+ * @prop --fw-skeleton-height: Skeleton height: Default: 16px for the text and rect, 32px for the circle
+ * @prop --fw-skeleton-width: Skeleton width: Default: 100% for the text and rect, 32px for the circle
+ * @prop --fw-skeleton-margin-bottom: Skeleton margin-bottom: Default: 8px/0px(when count is 1)
+ * @prop --fw-skeleton-border-radius: Skeleton border-radius: Default: 999px for the text, 50% for the circle, 0px for the rect
+ * @prop --fw-skeleton-background: Skeleton background: Default: #cfd7df
+ * @prop --fw-skeleton-sheen-color: Skeleton Sheen effect color: Default: #b1bdc8
  */
 
 .skeleton {
@@ -12,12 +12,12 @@
   outline: none;
   overflow: hidden;
   position: relative;
-  background: var(--skeleton-background, $color-smoke-100);
-  border-radius: var(--skeleton-border-radius, 999px);
-  width: var(--skeleton-width, 100%);
-  height: var(--skeleton-height, 16px);
+  background: var(--fw-skeleton-background, $color-smoke-100);
+  border-radius: var(--fw-skeleton-border-radius, 999px);
+  width: var(--fw-skeleton-width, 100%);
+  height: var(--fw-skeleton-height, 16px);
   display: block;
-  margin-bottom: var(--skeleton-margin-bottom, 8px);
+  margin-bottom: var(--fw-skeleton-margin-bottom, 8px);
   will-change: auto;
 
   &:after,
@@ -26,18 +26,18 @@
   }
 
   &.circle {
-    width: var(--skeleton-width, 32px);
-    height: var(--skeleton-height, 32px);
-    margin-bottom: var(--skeleton-margin-bottom, 8px);
-    border-radius: var(--skeleton-border-radius, 50%);
+    width: var(--fw-skeleton-width, 32px);
+    height: var(--fw-skeleton-height, 32px);
+    margin-bottom: var(--fw-skeleton-margin-bottom, 8px);
+    border-radius: var(--fw-skeleton-border-radius, 50%);
   }
 
   &.rect {
-    border-radius: var(--skeleton-border-radius, 0px);
+    border-radius: var(--fw-skeleton-border-radius, 0px);
   }
 
   &.only {
-    margin-bottom: var(--skeleton-margin-bottom, 0px);
+    margin-bottom: var(--fw-skeleton-margin-bottom, 0px);
   }
 
   // stylelint-disable a11y/media-prefers-reduced-motion
@@ -55,10 +55,10 @@
   &.sheen {
     background: linear-gradient(
       270deg,
-      var(--sheen-color, $color-smoke-200),
-      var(--skeleton-background, $color-smoke-100),
-      var(--skeleton-background, $color-smoke-100),
-      var(--sheen-color, $color-smoke-200)
+      var(--fw-skeleton-sheen-color, $color-smoke-200),
+      var(--fw-skeleton-background, $color-smoke-100),
+      var(--fw-skeleton-background, $color-smoke-100),
+      var(--fw-skeleton-sheen-color, $color-smoke-200)
     );
 
     animation: sheen 8s ease-in-out infinite;

@@ -983,11 +983,11 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name                     | Description                           |
-| ------------------------ | ------------------------------------- |
-| `--select-border`        | Border of the select component        |
-| `--select-border-radius` | Border radius of the select component |
-| `--select-margin-bottom` | Bottom margin of the select component |
+| Name                        | Description                           |
+| --------------------------- | ------------------------------------- |
+| `--fw-select-border`        | Border of the select component        |
+| `--fw-select-border-radius` | Border radius of the select component |
+| `--fw-select-margin-bottom` | Bottom margin of the select component |
 
 
 ## Dependencies

@@ -1159,7 +1159,7 @@ export class Datepicker {
                   onClick={() => (this.showDatePicker = true)}
                   name='calendar'
                   style={{
-                    '--icon-color': this.state === 'error' && '#d72d30',
+                    '--fw-icon-color': this.state === 'error' && '#d72d30',
                   }}
                 ></fw-icon>
               </span>

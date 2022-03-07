@@ -6,7 +6,7 @@ Menu is a container for `fw-menu-item` components.
 
 ```html live
 <template>
-  <fw-menu style="--menu-max-width: 300px">
+  <fw-menu style="--fw-menu-max-width: 300px">
     <fw-menu-item
       >Messages
       <fw-icon name="email" size="16" slot="prefix"></fw-icon>
@@ -64,15 +64,15 @@ Menu is a container for `fw-menu-item` components.
 
 ## CSS Custom Properties
 
-| Name                   | Description                         |
-| ---------------------- | ----------------------------------- |
-| `--menu-border`        | Border of the menu content.         |
-| `--menu-border-radius` | Border radius of the menu content.  |
-| `--menu-box-shadow`    | Box Shadow of the menu content.     |
-| `--menu-max-height`    | Maximum height of the menu content. |
-| `--menu-max-width`     | Maximum width of the menu content.  |
-| `--menu-min-height`    | Minimum height of the menu content. |
-| `--menu-min-width`     | Minimum width of the menu content.  |
+| Name                      | Description                         |
+| ------------------------- | ----------------------------------- |
+| `--fw-menu-border`        | Border of the menu content.         |
+| `--fw-menu-border-radius` | Border radius of the menu content.  |
+| `--fw-menu-box-shadow`    | Box Shadow of the menu content.     |
+| `--fw-menu-max-height`    | Maximum height of the menu content. |
+| `--fw-menu-max-width`     | Maximum width of the menu content.  |
+| `--fw-menu-min-height`    | Minimum height of the menu content. |
+| `--fw-menu-min-width`     | Minimum width of the menu content.  |
 
 
 ----------------------------------------------

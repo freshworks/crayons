@@ -101,14 +101,14 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                                   | Description                                                    |
-| -------------------------------------- | -------------------------------------------------------------- |
-| `--toggle-card-description-max-height` | maximum height for the description text.                       |
-| `--toggle-card-description-max-lines`  | maximum lines that can be displayed for description text.      |
-| `--toggle-card-height`                 | height of the content.                                         |
-| `--toggle-card-width`                  | width of the card.                                             |
-| `--toggle-icon-button-height`          | defines the height of the icon toggle button - default is 36px |
-| `--toggle-icon-button-width`           | defines the width of the icon toggle button - default is 42px  |
+| Name                                                   | Description                                                    |
+| ------------------------------------------------------ | -------------------------------------------------------------- |
+| `--fw-toggle-group-button-card-description-max-height` | maximum height for the description text.                       |
+| `--fw-toggle-group-button-card-description-max-lines`  | maximum lines that can be displayed for description text.      |
+| `--fw-toggle-group-button-card-height`                 | height of the content.                                         |
+| `--fw-toggle-group-button-card-width`                  | width of the card.                                             |
+| `--fw-toggle-group-button-icon-button-height`          | defines the height of the icon toggle button - default is 36px |
+| `--fw-toggle-group-button-icon-button-width`           | defines the width of the icon toggle button - default is 42px  |
 
 
 ## Dependencies

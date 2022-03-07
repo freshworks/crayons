@@ -196,9 +196,9 @@ export class Icon {
       accessibilityProps['role'] = 'img';
       accessibilityProps['aria-label'] = this.label;
     }
-    if (this.size !== undefined) style['--icon-size'] = `${this.size}px`;
+    if (this.size !== undefined) style['--fw-icon-size'] = `${this.size}px`;
 
-    if (this.color !== undefined) style['--icon-color'] = this.color;
+    if (this.color !== undefined) style['--fw-icon-color'] = this.color;
     return (
       <div
         class='icon'

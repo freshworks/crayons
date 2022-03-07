@@ -1,21 +1,21 @@
 /**
-  @prop --accordion-title-font-size: Accordion title font size
-  @prop --accordion-title-font-weight: Accordion title font weight
-  @prop --accordion-title-line-height: Accordion title line height
-  @prop --accordion-title-background-color: Accordion title background color
-  @prop --accordion-title-border: Accordion title border
-  @prop --accordion-title-expanded-icon-color: Accordion title expanded icon color
-  @prop --accordion-title-collapsed-icon-color: Accordion title collapsed icon color
+  @prop --fw-accordion-title-font-size: Accordion title font size
+  @prop --fw-accordion-title-font-weight: Accordion title font weight
+  @prop --fw-accordion-title-line-height: Accordion title line height
+  @prop --fw-accordion-title-background-color: Accordion title background color
+  @prop --fw-accordion-title-border: Accordion title border
+  @prop --fw-accordion-title-expanded-icon-color: Accordion title expanded icon color
+  @prop --fw-accordion-title-collapsed-icon-color: Accordion title collapsed icon color
 */
 
-$accordion-border-radius: var(--accordion-border-radius, 8px);
+$accordion-border-radius: var(--fw-accordion-border-radius, 8px);
 $accordion-title-icon-color: #475867;
 
 .accordion-header {
   display: flex;
   align-items: center;
-  background: var(--accordion-title-background-color, #ffffff);
-  border: var(--accordion-title-border, none);
+  background: var(--fw-accordion-title-background-color, #ffffff);
+  border: var(--fw-accordion-title-border, none);
   border-radius: $accordion-border-radius $accordion-border-radius 0 0;
   padding: 10px 20px;
   cursor: pointer;
@@ -24,8 +24,8 @@ $accordion-title-icon-color: #475867;
     border-radius: $accordion-border-radius;
 
     .accordion-icon {
-      --icon-color: var(
-        --accordion-title-collapsed-icon-color,
+      --fw-icon-color: var(
+        --fw-accordion-title-collapsed-icon-color,
         $accordion-title-icon-color
       );
     }
@@ -37,9 +37,9 @@ $accordion-title-icon-color: #475867;
 
   .accordion-title {
     flex-grow: 1;
-    line-height: var(--accordion-title-line-height, 19px);
-    font-size: var(--accordion-title-font-size, 16px);
-    font-weight: var(--accordion-title-font-weight, bold);
+    line-height: var(--fw-accordion-title-line-height, 19px);
+    font-size: var(--fw-accordion-title-font-size, 16px);
+    font-weight: var(--fw-accordion-title-font-weight, bold);
 
     &.truncate {
       text-overflow: ellipsis;
@@ -50,8 +50,8 @@ $accordion-title-icon-color: #475867;
 
   .accordion-icon {
     flex-grow: 0;
-    --icon-color: var(
-      --accordion-title-expanded-icon-color,
+    --fw-icon-color: var(
+      --fw-accordion-title-expanded-icon-color,
       $accordion-title-icon-color
     );
   }

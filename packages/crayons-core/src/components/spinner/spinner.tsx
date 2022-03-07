@@ -37,7 +37,7 @@ export class Spinner {
           style={{
             'width': `${diameter}px`,
             'height': `${diameter}px`,
-            '--spinner-color': `${this.color}`,
+            '--fw-spinner-color': `${this.color}`,
           }}
           viewBox={`0 0 50 50`}
         >
