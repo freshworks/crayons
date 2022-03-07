@@ -956,7 +956,8 @@ export class Datepicker {
   };
 
   // handle cancel and popover close
-  handlePopoverClose = (_e: any) => {
+  handlePopoverClose = (e: any) => {
+    if (e.target?.tagName === 'FW-SELECT') return;
     if (this.mode === 'range') {
       // handle resetting of startDate and endDate on clicking cancel
       if (this.value) {
@@ -986,7 +987,9 @@ export class Datepicker {
             locale: this.langModule,
           }).valueOf();
         }
-      } else this.startDate = this.endDate = undefined;
+      } else if (!this.startDate && !this.endDate) {
+        this.startDate = this.endDate = undefined;
+      }
     } else {
       // handle resetting of selectedDay on clicking cancel
       if (this.value) {
