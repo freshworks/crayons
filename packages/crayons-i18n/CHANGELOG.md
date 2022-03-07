@@ -3,14 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.1.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@1.1.2...@freshworks/crayons-i18n@1.1.3) (2022-03-07)
-
-**Note:** Version bump only for package @freshworks/crayons-i18n
-
-
-
-
-
 ## 1.1.0 (2022-03-04)
 
 ### Features
