@@ -3,17 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.24](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.23...@freshworks/crayons@3.0.0-beta.24) (2022-03-07)
-
+## [3.0.0-beta.24](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.23...@freshworks/crayons@3.0.0-beta.24) (2022-03-07)
 
 ### Features
 
-* **css-variables:** Namespace css variables ([#441](https://github.com/freshworks/crayons/issues/441)) ([4d4a910](https://github.com/freshworks/crayons/commit/4d4a9103825f6a015f6b61afbc9d4446dec11c83))
-* **timepicker:** replace moment-mini with date-fns ([#459](https://github.com/freshworks/crayons/issues/459)) ([d668420](https://github.com/freshworks/crayons/commit/d668420a5ff90e41a0b1c4ef0a2c3f6602ef41dc))
-
-
-
-
+- **css-variables:** Namespace css variables ([#441](https://github.com/freshworks/crayons/issues/441)) ([4d4a910](https://github.com/freshworks/crayons/commit/4d4a9103825f6a015f6b61afbc9d4446dec11c83))
+- **timepicker:** replace moment-mini with date-fns ([#459](https://github.com/freshworks/crayons/issues/459)) ([d668420](https://github.com/freshworks/crayons/commit/d668420a5ff90e41a0b1c4ef0a2c3f6602ef41dc))
 
 ## [3.0.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.18...@freshworks/crayons@3.0.0-beta.19) (2022-03-04)
 
