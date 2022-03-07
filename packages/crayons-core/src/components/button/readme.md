@@ -304,7 +304,7 @@ Type: `Promise<any>`
 | Name                    | Description                  |
 | ----------------------- | ---------------------------- |
 | `--fw-button-min-width` | minimum width for the button |
-
+| `--fw-button-label-vertical-padding` | vertical padding for the button label |
 
 ## Dependencies
 

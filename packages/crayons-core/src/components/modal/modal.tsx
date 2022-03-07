@@ -10,6 +10,7 @@ import {
   h,
 } from '@stencil/core';
 import { isFocusable } from '../../utils';
+import { i18n } from '../../global/Translation';
 
 @Component({
   tag: 'fw-modal',
@@ -75,12 +76,16 @@ export class Modal {
   /**
    * The text for the submit button
    */
-  @Prop() submitText = 'OK';
+  @i18n({ defaultValue: 'OK', keyName: 'modal.ok' })
+  @Prop({ mutable: true })
+  submitText = '';
 
   /**
    * The text for the cancel button
    */
-  @Prop() cancelText = 'Cancel';
+  @i18n({ defaultValue: 'Cancel', keyName: 'modal.cancel' })
+  @Prop({ mutable: true })
+  cancelText = '';
 
   /**
    * Default state of submit button

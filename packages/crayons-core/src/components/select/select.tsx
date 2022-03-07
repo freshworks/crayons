@@ -15,12 +15,14 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField } from '../../utils';
+
 import {
   DropdownVariant,
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
 
+import { i18n } from '../../global/Translation';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -161,7 +163,9 @@ export class Select {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @Prop() notFoundText = 'No items Found';
+  @i18n({ defaultValue: 'No items found', keyName: 'search.no_items_found' })
+  @Prop({ mutable: true })
+  notFoundText = '';
   /**
    * Filter function which takes in filterText and dataSource and return a Promise.
    * Where filter text is the text to filter the value in dataSource array.
@@ -171,7 +175,12 @@ export class Select {
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @Prop() noDataText = 'No Data available';
+  @i18n({
+    defaultValue: 'No data available',
+    keyName: 'search.no_data_available',
+  })
+  @Prop({ mutable: true })
+  noDataText = '';
   /**
    * Debounce timer for the search promise function.
    */
@@ -576,6 +585,7 @@ export class Select {
             ref={(popover) => (this.popover = popover)}
             same-width={this.sameWidth}
             placement={this.optionsPlacement}
+            onFwHide={(e) => e.stopImmediatePropagation()}
           >
             <div
               slot='popover-trigger'
@@ -589,6 +599,7 @@ export class Select {
             >
               {this.variant === 'button' ? (
                 <fw-button
+                  style={{ '--btn-label-v-padding': '7px' }}
                   show-caret-icon
                   id={`${this.hostId}-btn`}
                   color='secondary'

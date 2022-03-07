@@ -48,15 +48,15 @@ function App() {
 
 ## Properties
 
-| Property              | Attribute               | Description                                                 | Type      | Default                 |
-| --------------------- | ----------------------- | ----------------------------------------------------------- | --------- | ----------------------- |
-| `buttonGroupLabel`    | `button-group-label`    | Aria Label to be used for the button group.                 | `string`  | `'Pagination controls'` |
-| `isLoading`           | `is-loading`            | Indicates if the records in current page are being fetched. | `boolean` | `false`                 |
-| `nextButtonLabel`     | `next-button-label`     | Aria Label to be used for next button.                      | `string`  | `'Next'`                |
-| `page`                | `page`                  | The current page number.                                    | `number`  | `1`                     |
-| `perPage`             | `per-page`              | The number of records to be shown per page. Defaults to 10. | `number`  | `10`                    |
-| `previousButtonLabel` | `previous-button-label` | Aria Label to be used for previous button.                  | `string`  | `'Previous'`            |
-| `total`               | `total`                 | The total number of records. This is a mandatory parameter. | `number`  | `undefined`             |
+| Property              | Attribute               | Description                                                 | Type      | Default     |
+| --------------------- | ----------------------- | ----------------------------------------------------------- | --------- | ----------- |
+| `buttonGroupLabel`    | `button-group-label`    | Aria Label to be used for the button group.                 | `string`  | `''`        |
+| `isLoading`           | `is-loading`            | Indicates if the records in current page are being fetched. | `boolean` | `false`     |
+| `nextButtonLabel`     | `next-button-label`     | Aria Label to be used for next button.                      | `string`  | `''`        |
+| `page`                | `page`                  | The current page number.                                    | `number`  | `1`         |
+| `perPage`             | `per-page`              | The number of records to be shown per page. Defaults to 10. | `number`  | `10`        |
+| `previousButtonLabel` | `previous-button-label` | Aria Label to be used for previous button.                  | `string`  | `''`        |
+| `total`               | `total`                 | The total number of records. This is a mandatory parameter. | `number`  | `undefined` |
 
 
 ## Events

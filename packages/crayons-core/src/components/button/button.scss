@@ -1,5 +1,6 @@
 /**
   @prop --fw-button-min-width: minimum width for the button
+  @prop --fw-button-label-vertical-padding: vertical padding for the button label
 */
 
 //=== Button Style ===//
@@ -300,7 +301,7 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 
 @each $className, $labelOnlySize, $innerOnlySize in $sizes {
   .fw-btn--has-label.fw-btn--#{$className} .fw-btn--label {
-    padding: 0 #{$labelOnlySize};
+    padding: 0 var(--fw-button-label-vertical-padding, #{$labelOnlySize});
   }
 
   .fw-btn--has-before.fw-btn--#{$className} {

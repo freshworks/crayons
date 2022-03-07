@@ -1,0 +1,53 @@
+{
+  "name": "@freshworks/crayons-i18n",
+  "version": "1.1.2",
+  "description": "Crayons i18n Library",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freshworks/crayons.git"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "i18n"
+  ],
+  "scripts": {
+    "build": "rimraf dist && rollup -c"
+  },
+  "keywords": [
+    "crayons",
+    "i18n",
+    "typescript",
+    "stenciljs"
+  ],
+  "author": "Freshworks Inc",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/freshworks/crayons/issues"
+  },
+  "homepage": "https://github.com/freshworks/crayons#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-dynamic-import-vars": "^1.4.1",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "@rollup/plugin-typescript": "^8.1.0",
+    "@types/pluralize": "^0.0.29",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.38.0",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@stencil/core": "^2.9.0",
+    "@stencil/store": "^1.5.0",
+    "date-fns": "^2.28.0",
+    "pluralize": "^8.0.0"
+  },
+  "sideEffects": false
+}
