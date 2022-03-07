@@ -14,14 +14,14 @@ export default {
   },
   search: {
     search: 'Search',
-    no_items_found: 'No items found',
-    no_data_available: 'No data available',
+    noItemsFound: 'No items found',
+    noDataAvailable: 'No data available',
   },
   form: {
-    REQUIRED: '{{field}} is required',
-    INVALID_URL: 'Enter a valid URL',
-    INVALID_EMAIL: 'Enter a valid email',
-    INVALID_NUMBER: 'Enter a valid number',
+    required: '{{field}} is required',
+    invalidUrl: 'Enter a valid URL',
+    invalidEmail: 'Enter a valid email',
+    invalidNumber: 'Enter a valid number',
   },
   pagination: {
     buttonGroupLabel: 'Pagination controls',
@@ -29,90 +29,90 @@ export default {
     nextButtonLabel: 'Next',
     content: `<span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> of {{total}}`,
   },
-  data_table: {
-    choose_columns: 'Choose columns',
+  datatable: {
+    chooseColumns: 'Choose columns',
     actions: 'Actions',
   },
-  platform_table: {
+  platformTable: {
     delete: 'Delete',
     sortby: 'Sort By',
     orderby: 'Order by',
   },
-  form_builder: {
-    fb_field_required: 'Required when submitting the form',
-    fb_field_required_tag: 'Required',
-    fb_field_unique: 'Accept unique values',
-    fb_field_unique_hover_text:
+  formBuilder: {
+    fbFieldRequired: 'Required when submitting the form',
+    fbFieldRequiredTag: 'Required',
+    fbFieldUnique: 'Accept unique values',
+    fbFieldUniqueHoverText:
       'If set, the system will not let two records have the same value for the field. Please note that this behaviour cannot be updated once the field is created.',
-    fb_field_unique_tag: 'Unique',
-    fb_field_filter: 'Display in filters',
-    fb_field_filter_hover_text:
+    fbFieldUniqueTag: 'Unique',
+    fbFieldFilter: 'Display in filters',
+    fbFieldFilterHoverText:
       'If set, you can filter your records list view using this field. Please note that this behaviour cannot be updated once the field is created.',
-    fb_field_filter_tag: 'Filterable',
-    fb_field_type_relationship: 'Lookup Relationship',
-    fb_field_type_relationship_desc:
+    fbFieldFilterTag: 'Filterable',
+    fbFieldTypeRelationship: 'Lookup Relationship',
+    fbFieldTypeRelationshipDesc:
       'Create relationships between objects using a lookup field',
-    fb_field_type_relationship_desc_hover_text:
+    fbFieldTypeRelationshipDescHoverText:
       'This field will allow users to click on a lookup icon to select a value from a list. The target object is the source of the values in the list.',
-    fb_field_type_text: 'Text',
-    fb_field_type_paragraph: 'Paragraph',
-    fb_field_type_number: 'Number',
-    fb_field_type_decimal: 'Decimal',
-    fb_field_type_date: 'Date',
-    fb_field_type_dropdown: 'Dropdown',
-    fb_field_type_checkbox: 'Checkbox',
-    fb_field_type_multiselect: 'Multi select',
-    fb_lookup_unique_tag: 'Unique',
-    fb_primary_field_tag: 'Primary Field',
-    fb_primary_field_header: 'Primary Field',
-    fb_primary_field_name_hint:
+    fbFieldTypeText: 'Text',
+    fbFieldTypeParagraph: 'Paragraph',
+    fbFieldTypeNumber: 'Number',
+    fbFieldTypeDecimal: 'Decimal',
+    fbFieldTypeDate: 'Date',
+    fbFieldTypeDropdown: 'Dropdown',
+    fbFieldTypeCheckbox: 'Checkbox',
+    fbFieldTypeMultiselect: 'Multi select',
+    fbLookupUniqueTag: 'Unique',
+    fbPrimaryFieldTag: 'Primary Field',
+    fbPrimaryFieldHeader: 'Primary Field',
+    fbPrimaryFieldNameHint:
       "This is the object's primary field and cannot be deleted. It is meant to be a unique representation of each record and will appear in lookups and search results.",
-    fb_delete_field_title: 'Are you sure you want to delete the field',
-    fb_delete_field_message:
+    fbDeleteFieldTitle: 'Are you sure you want to delete the field',
+    fbDeleteFieldMessage:
       'This field will be permanently deleted and all associated data will be lost. Do you still want to continue?',
-    fb_delete_field_submit: 'Delete',
-    fb_search_fields: 'Search Fields',
-    fb_customize_widget: 'Customize Widget',
-    fb_add_choices: 'Add Choices',
-    fb_add_choice: 'Add Choice',
-    fb_choice_placeholder_suffix: 'Choice',
-    fb_header_field_types: 'Field types',
-    fb_header_fields: 'Fields',
-    fb_field_types_drag_drop: 'Drag and drop from here',
-    fb_behaviour: 'Behaviour',
-    fb_field_label: 'Field Label',
-    fb_field_label_placeholder: 'Enter the label name',
-    fb_add_field_btn: 'Add Field',
-    fb_save_field_btn: 'Save',
-    fb_cancel_field_btn: 'Cancel',
-    fb_disabled_filter_check:
+    fbDeleteFieldSubmit: 'Delete',
+    fbSearchFields: 'Search Fields',
+    fbCustomizeWidget: 'Customize Widget',
+    fbAddChoices: 'Add Choices',
+    fbAddChoice: 'Add Choice',
+    fbChoicePlaceholderSuffix: 'Choice',
+    fbHeaderFieldTypes: 'Field types',
+    fbHeaderFields: 'Fields',
+    fbFieldTypesDragDrop: 'Drag and drop from here',
+    fbBehaviour: 'Behaviour',
+    fbFieldLabel: 'Field Label',
+    fbFieldLabelPlaceholder: 'Enter the label name',
+    fbAddFieldBtn: 'Add Field',
+    fbSaveFieldBtn: 'Save',
+    fbCancelFieldBtn: 'Cancel',
+    fbDisabledFilterCheck:
       'Unique fields will always be available for filtering records in the list view',
-    fb_lookup_source_object: 'Source object',
-    fb_lookup_relationship_placeholder: 'Select relationship',
-    fb_lookup_relationship_label: 'Relationship type',
-    fb_lookup_target_placeholder: 'Select target object',
-    fb_lookup_target_label: 'Target object',
-    fb_dropdown_choice_delete_message:
+    fbLookupSourceObject: 'Source object',
+    fbLookupRelationshipPlaceholder: 'Select relationship',
+    fbLookupRelationshipLabel: 'Relationship type',
+    fbLookupTargetPlaceholder: 'Select target object',
+    fbLookupTargetLabel: 'Target object',
+    fbDropdownChoiceDeleteMessage:
       'Deleting a choice will impact related tickets, automation and reports.',
-    fb_relationship_many_to_one: 'Many to one',
-    fb_relationship_many_to_one_desc:
+    fbRelationshipManyToOne: 'Many to one',
+    fbRelationshipManyToOneDesc:
       'Link many records of the source object with one record of the target object. i.e Many tickets can be created by a customer.',
-    fb_relationship_one_to_one: 'One to one',
-    fb_relationship_one_to_one_desc:
+    fbRelationshipOneToOne: 'One to one',
+    fbRelationshipOneToOneDesc:
       'Link one record of the source object with only one record of the target object. i.e An individual can have only one Passport.',
-    customize_widget_modal_header: 'Customize Widget',
-    customize_widget_modal_hint:
+    customizeWidgetModalHeader: 'Customize Widget',
+    customizeWidgetModalHint:
       'Select upto 5 fields to display on the widget and search results',
-    customize_widget_modal_save_btn: 'Save',
-    customize_widget_modal_cancel_btn: 'Cancel',
-    fb_errors: {
+    customizeWidgetModalSaveBtn: 'Save',
+    customizeWidgetModalCancelBtn: 'Cancel',
+    fbErrors: {
       empty: 'This field name is mandatory!',
       duplicate: 'Dropdown choice already exists!',
       minimum: 'Enter a minimum of one choice!',
-      form_errors: 'Form contains errors!',
-      field_name_exists: 'A field with the same label already exists!',
+      formErrors: 'Form contains errors!',
+      fieldNameExists: 'A field with the same label already exists!',
     },
-    fb_maximum_limits: {
+    fbMaximumLimits: {
       filterable:
         'Maximum of 25 fields can be used to filter records in the list view.',
       unique: 'Maximum of 5 fields can be marked as unique.',

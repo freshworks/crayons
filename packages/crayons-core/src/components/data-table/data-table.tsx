@@ -1111,7 +1111,7 @@ export class DataTable {
                 : this.orderedColumns.length + 1
             }
           >
-            {TranslationController.t('data_table.actions')}
+            {TranslationController.t('datatable.actions')}
           </th>
         )}
       </tr>
@@ -1317,7 +1317,7 @@ export class DataTable {
                 </div>
                 <div class='table-settings-content-choose'>
                   <div class='table-settings-content-title'>
-                    {TranslationController.t('data_table.choose_columns')}
+                    {TranslationController.t('datatable.chooseColumns')}
                   </div>
                   <div class='table-settings-content-checkboxes'>
                     {this.columnsHideSetting.map((column: any) => {
