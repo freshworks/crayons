@@ -585,7 +585,6 @@ export class Select {
             ref={(popover) => (this.popover = popover)}
             same-width={this.sameWidth}
             placement={this.optionsPlacement}
-            onFwHide={(e) => e.stopImmediatePropagation()}
           >
             <div
               slot='popover-trigger'

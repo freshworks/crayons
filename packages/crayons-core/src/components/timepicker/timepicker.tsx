@@ -8,7 +8,8 @@ import {
   Event,
   EventEmitter,
 } from '@stencil/core';
-import moment from 'moment-mini';
+import { parse, format, addMinutes } from 'date-fns';
+import { enUS } from 'date-fns/locale';
 
 import { renderHiddenField } from '../../utils';
 @Component({
@@ -26,7 +27,7 @@ export class Timepicker {
   /**
    * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
    */
-  @Prop() format: 'hh:mm A' | 'HH:mm' = 'hh:mm A';
+  @Prop() format: 'hh:mm a' | 'HH:mm' = 'hh:mm a';
 
   /**
    * Set true to disable the element
@@ -36,7 +37,7 @@ export class Timepicker {
   /**
    * Represent the intervals and can be a number or array of numbers representing the minute values in an hour
    */
-  @State() isMeridianFormat?: boolean = this.format === 'hh:mm A';
+  @State() isMeridianFormat?: boolean = this.format === 'hh:mm a';
 
   /**
    * Time output value
@@ -53,17 +54,17 @@ export class Timepicker {
    */
   @Prop() interval = 30;
   /**
-   * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+   * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
    */
   @Prop() minTime?: string = this.isMeridianFormat ? '12:00 AM' : '00:00';
 
   /**
-   * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+   * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
    */
   @Prop() maxTime?: string = this.isMeridianFormat ? '11:30 PM' : '23:30';
 
   /**
-   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
    */
   @Prop() required = false;
   /**
@@ -98,30 +99,47 @@ export class Timepicker {
     const preferredFormat = this.format;
     const timeIntervalArgs = {
       interval: this.interval,
-      startTime: moment(this.minTime, preferredFormat).format(
-        nonMeridianFormat
+      startTime: format(
+        parse(this.minTime, preferredFormat, new Date()),
+        nonMeridianFormat,
+        {
+          locale: enUS,
+        }
       ),
-      endTime: moment(this.maxTime, preferredFormat).format(nonMeridianFormat),
+      endTime: format(
+        parse(this.maxTime, preferredFormat, new Date()),
+        nonMeridianFormat,
+        {
+          locale: enUS,
+        }
+      ),
     };
     return timeIntervalArgs;
   };
 
   private setTimeValues = () => {
-    const meridianFormat = 'hh:mm A';
+    const meridianFormat = 'hh:mm a';
     const nonMeridianFormat = 'HH:mm';
     const { interval, startTime, endTime } =
       this.getTimeOptionsMeta(nonMeridianFormat);
-    let currentTimeInMs = moment(startTime, nonMeridianFormat).valueOf();
-    const endTimeInMs = moment(endTime, nonMeridianFormat).valueOf();
+    parse(startTime, nonMeridianFormat, new Date()).valueOf();
+    let currentTimeInMs = parse(
+      startTime,
+      nonMeridianFormat,
+      new Date()
+    ).valueOf();
+    const endTimeInMs = parse(endTime, nonMeridianFormat, new Date()).valueOf();
 
     while (currentTimeInMs <= endTimeInMs) {
       this.timeValues.push({
-        meridianFormat: moment(currentTimeInMs).format(meridianFormat),
-        nonMeridianFormat: moment(currentTimeInMs).format(nonMeridianFormat),
+        meridianFormat: format(currentTimeInMs, meridianFormat, {
+          locale: enUS,
+        }),
+        nonMeridianFormat: format(currentTimeInMs, nonMeridianFormat, {
+          locale: enUS,
+        }),
       });
-      currentTimeInMs = moment(currentTimeInMs)
-        .add(interval, 'minutes')
-        .valueOf();
+      currentTimeInMs = addMinutes(currentTimeInMs, interval).valueOf();
     }
   };
 
