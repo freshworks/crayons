@@ -190,6 +190,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property       | Attribute       | Description                                              | Type                                   | Default   |
@@ -202,11 +203,13 @@ function App() {
 | `variant`      | `variant`       | Variant of the skeleton - circle or rectangle or text    | `"circle" \| "rect" \| "text"`         | `'text'`  |
 | `width`        | `width`         | Width of the skeleton ex. 100px, 100%, auto etc.         | `string`                               | `null`    |
 
+
 ## Shadow Parts
 
 | Part     | Description |
 | -------- | ----------- |
 | `"base"` |             |
+
 
 ## CSS Custom Properties
 
@@ -219,20 +222,20 @@ function App() {
 | `--fw-skeleton-sheen-color`   | Skeleton Sheen effect color: Default: #b1bdc8                                             |
 | `--fw-skeleton-width`         | Skeleton width: Default: 100% for the text and rect, 32px for the circle                  |
 
+
 ## Dependencies
 
 ### Used by
 
-- [fw-data-table](../data-table)
+ - [fw-data-table](../data-table)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-data-table --> fw-skeleton
   style fw-skeleton fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks

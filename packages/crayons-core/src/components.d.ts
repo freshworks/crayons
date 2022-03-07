@@ -1470,17 +1470,17 @@ export namespace Components {
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
-        "format": 'hh:mm A' | 'HH:mm';
+        "format": 'hh:mm a' | 'HH:mm';
         /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
         "interval": number;
         /**
-          * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "maxTime"?: string;
         /**
-          * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "minTime"?: string;
         /**
@@ -1488,7 +1488,7 @@ export namespace Components {
          */
         "name": string;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required": boolean;
         /**
@@ -3576,17 +3576,17 @@ declare namespace LocalJSX {
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
-        "format"?: 'hh:mm A' | 'HH:mm';
+        "format"?: 'hh:mm a' | 'HH:mm';
         /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
         "interval"?: number;
         /**
-          * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "maxTime"?: string;
         /**
-          * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "minTime"?: string;
         /**
@@ -3606,7 +3606,7 @@ declare namespace LocalJSX {
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required"?: boolean;
         /**
