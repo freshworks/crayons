@@ -4,6 +4,8 @@ import { Component, Prop, h, Element, State, Method } from '@stencil/core';
 
 import { hasSlot } from '../../utils';
 
+import { TranslationController } from '../../global/Translation';
+
 const NATIVE_CONTROLS = ['input', 'select', 'textarea'];
 @Component({
   tag: 'fw-form-control',
@@ -360,7 +362,9 @@ export class FormControl {
         )}
         {this.touched && this.error && (
           <div class='error' id={`error-${this.name}`}>
-            {this.error}
+            {TranslationController.t(this.error, {
+              field: this.label || this.name,
+            })}
           </div>
         )}
       </div>

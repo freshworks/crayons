@@ -8,7 +8,7 @@ import {
   Method,
   Watch,
 } from '@stencil/core';
-import { i18n } from '../../global/Translation';
+import { i18n, TranslationController } from '../../global/Translation';
 @Component({
   tag: 'fw-pagination',
   styleUrl: 'pagination.scss',
@@ -125,9 +125,16 @@ export class Pagination {
   render() {
     return (
       <Host>
-        <div class='current-record'>
-          <span class='record'>{this.start}</span> to{' '}
-          <span class='record'>{this.end}</span> of {this.total}
+        <div
+          class='current-record'
+          innerHTML={TranslationController.t('pagination.content', {
+            start: this.start,
+            end: this.end,
+            total: this.total,
+          })}
+        >
+          {/*  <span class='record'>{this.start}</span> to{' '}
+          <span class='record'>{this.end}</span> of {this.total} */}
         </div>
         <fw-button-group label={this.buttonGroupLabel}>
           <fw-button
