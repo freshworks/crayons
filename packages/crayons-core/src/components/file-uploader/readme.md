@@ -111,11 +111,11 @@ fw-file-uploader can be used to upload files to a server.
 
 ## Events
 
-| Event            | Description                                                         | Type               |
-| ---------------- | ------------------------------------------------------------------- | ------------------ |
-| `fileReuploaded` | fileReuploaded - event that gets emitted when file is reuploaded    | `CustomEvent<any>` |
-| `filesUploaded`  | filesUploaded - event that gets emitted when files get uploaded     | `CustomEvent<any>` |
-| `stageChanged`   | stageChanged - event that gets emitted when component stage changes | `CustomEvent<any>` |
+| Event              | Description                                                         | Type               |
+| ------------------ | ------------------------------------------------------------------- | ------------------ |
+| `fwFileReuploaded` | fileReuploaded - event that gets emitted when file is reuploaded    | `CustomEvent<any>` |
+| `fwFilesUploaded`  | filesUploaded - event that gets emitted when files get uploaded     | `CustomEvent<any>` |
+| `fwStageChanged`   | stageChanged - event that gets emitted when component stage changes | `CustomEvent<any>` |
 
 
 ## Methods

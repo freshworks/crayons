@@ -29,14 +29,14 @@ export class FileUploaderProgress {
   /**
    * retryUpload event to emit in case of a retry
    */
-  @Event() retryUpload: EventEmitter;
+  @Event() fwRetryUpload: EventEmitter;
 
   /**
    * private
    * @param fileId
    */
   retryFileUpload(fileId) {
-    this.retryUpload.emit({ fileId });
+    this.fwRetryUpload.emit({ fileId });
   }
 
   /**

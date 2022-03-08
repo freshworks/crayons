@@ -120,17 +120,17 @@ export class FileUploader {
   /**
    * filesUploaded - event that gets emitted when files get uploaded
    */
-  @Event() filesUploaded: EventEmitter;
+  @Event() fwFilesUploaded: EventEmitter;
 
   /**
    * fileReuploaded - event that gets emitted when file is reuploaded
    */
-  @Event() fileReuploaded: EventEmitter;
+  @Event() fwFileReuploaded: EventEmitter;
 
   /**
    * stageChanged - event that gets emitted when component stage changes
    */
-  @Event() stageChanged: EventEmitter;
+  @Event() fwStageChanged: EventEmitter;
 
   /**
    * private
@@ -168,7 +168,7 @@ export class FileUploader {
       default:
         break;
     }
-    this.stageChanged.emit({ stage: newStage });
+    this.fwStageChanged.emit({ stage: newStage });
   }
 
   /**
@@ -237,7 +237,7 @@ export class FileUploader {
     const uploadPromise = this.uploadFile(fileId);
     this.fileUploadPromises = [uploadPromise];
     Promise.allSettled(this.fileUploadPromises).then((responses: any) => {
-      this.fileReuploaded.emit(responses[0].value);
+      this.fwFileReuploaded.emit(responses[0].value);
     });
   }
 
@@ -262,7 +262,7 @@ export class FileUploader {
         const responseValue = this.multiple
           ? responseValues
           : responseValues[0];
-        this.filesUploaded.emit(responseValue);
+        this.fwFilesUploaded.emit(responseValue);
         this.isFileUploadInProgress = false;
       });
     }
@@ -515,7 +515,7 @@ export class FileUploader {
               fileName={file.name}
               progress={file.progress}
               error={file.error}
-              onRetryUpload={(event) =>
+              onFwRetryUpload={(event) =>
                 this.retryFileUpload(event.detail.fileId)
               }
             ></fw-file-uploader-progress>
@@ -540,7 +540,7 @@ export class FileUploader {
             <fw-file-uploader-file
               fileId={file.id}
               name={file.name}
-              onRemoveFile={(event) => {
+              onFwRemoveFile={(event) => {
                 event.stopPropagation();
                 this.removeFile(event.detail.fileId);
               }}

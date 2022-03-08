@@ -2608,15 +2608,15 @@ declare namespace LocalJSX {
         /**
           * fileReuploaded - event that gets emitted when file is reuploaded
          */
-        "onFileReuploaded"?: (event: CustomEvent<any>) => void;
+        "onFwFileReuploaded"?: (event: CustomEvent<any>) => void;
         /**
           * filesUploaded - event that gets emitted when files get uploaded
          */
-        "onFilesUploaded"?: (event: CustomEvent<any>) => void;
+        "onFwFilesUploaded"?: (event: CustomEvent<any>) => void;
         /**
           * stageChanged - event that gets emitted when component stage changes
          */
-        "onStageChanged"?: (event: CustomEvent<any>) => void;
+        "onFwStageChanged"?: (event: CustomEvent<any>) => void;
         /**
           * text - file uploader text.
          */
@@ -2634,7 +2634,7 @@ declare namespace LocalJSX {
         /**
           * removeFile - event that gets triggered on file removal
          */
-        "onRemoveFile"?: (event: CustomEvent<any>) => void;
+        "onFwRemoveFile"?: (event: CustomEvent<any>) => void;
     }
     interface FwFileUploaderProgress {
         /**
@@ -2652,7 +2652,7 @@ declare namespace LocalJSX {
         /**
           * retryUpload event to emit in case of a retry
          */
-        "onRetryUpload"?: (event: CustomEvent<any>) => void;
+        "onFwRetryUpload"?: (event: CustomEvent<any>) => void;
         /**
           * file upload progress
          */

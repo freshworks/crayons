@@ -20,14 +20,14 @@ export class FileUploaderFile {
   /**
    * removeFile - event that gets triggered on file removal
    */
-  @Event() removeFile: EventEmitter;
+  @Event() fwRemoveFile: EventEmitter;
 
   /**
    * private
    * remove
    */
   remove() {
-    this.removeFile.emit({
+    this.fwRemoveFile.emit({
       fileId: this.fileId,
     });
   }

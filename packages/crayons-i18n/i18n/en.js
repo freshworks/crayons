@@ -14,7 +14,7 @@ export default {
     acceptError: 'File format not accepted',
     maxFileSizeError: 'Exceeded maximum file size',
     maxFilesLimitError: 'Exceeding maximum files limit',
-    fileUploadError: 'file upload failed',
+    fileUploadError: 'File upload failed',
     uploading: 'Uploading',
     selectedFiles: 'Selected files',
     remove: 'remove',

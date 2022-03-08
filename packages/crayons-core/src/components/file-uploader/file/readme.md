@@ -15,9 +15,9 @@
 
 ## Events
 
-| Event        | Description                                            | Type               |
-| ------------ | ------------------------------------------------------ | ------------------ |
-| `removeFile` | removeFile - event that gets triggered on file removal | `CustomEvent<any>` |
+| Event          | Description                                            | Type               |
+| -------------- | ------------------------------------------------------ | ------------------ |
+| `fwRemoveFile` | removeFile - event that gets triggered on file removal | `CustomEvent<any>` |
 
 
 ## Dependencies

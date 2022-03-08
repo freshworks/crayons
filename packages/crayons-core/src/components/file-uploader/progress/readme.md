@@ -17,9 +17,9 @@
 
 ## Events
 
-| Event         | Description                                  | Type               |
-| ------------- | -------------------------------------------- | ------------------ |
-| `retryUpload` | retryUpload event to emit in case of a retry | `CustomEvent<any>` |
+| Event           | Description                                  | Type               |
+| --------------- | -------------------------------------------- | ------------------ |
+| `fwRetryUpload` | retryUpload event to emit in case of a retry | `CustomEvent<any>` |
 
 
 ## Dependencies
