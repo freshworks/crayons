@@ -8,6 +8,7 @@ import {
   h,
   Method,
 } from '@stencil/core';
+import { i18n, TranslationController } from '../../global/Translation';
 
 let fileCount = 1;
 
@@ -25,12 +26,16 @@ export class FileUploader {
   /**
    * text - file uploader text.
    */
-  @Prop() text = 'Upload file';
+  @i18n({ keyName: 'file_uploader.text' })
+  @Prop({ mutable: true })
+  text;
 
   /**
    * description - file uploader description.
    */
-  @Prop() description = 'or drag and drop here';
+  @i18n({ keyName: 'file_uploader.description' })
+  @Prop({ mutable: true })
+  description;
 
   /**
    * hint - file uploader hint text.
@@ -50,12 +55,23 @@ export class FileUploader {
   /**
    * acceptError - Error message to display when format is invalid.
    */
-  @Prop() acceptError = 'File format not accepted';
+  @i18n({ keyName: 'file_uploader.accept_error' })
+  @Prop({ mutable: true })
+  acceptError;
 
   /**
    * maxFileSizeError - Error message to display when file size exceeds limit
    */
-  @Prop() maxFileSizeError = 'Exceeded maximum file size';
+  @i18n({ keyName: 'file_uploader.max_file_size_error' })
+  @Prop({ mutable: true })
+  maxFileSizeError;
+
+  /**
+   * maxFilesLimitError - Error message when going beyond files limit.
+   */
+  @i18n({ keyName: 'file_uploader.max_files_limit_error' })
+  @Prop({ mutable: true })
+  maxFilesLimitError;
 
   /**
    * actionURL - URL to make server call.
@@ -71,6 +87,11 @@ export class FileUploader {
    * multiple - upload multiple files.
    */
   @Prop() multiple = false;
+
+  /**
+   * Max files allowed to upload.
+   */
+  @Prop() filesLimit = 10;
 
   /**
    * modify request
@@ -140,7 +161,7 @@ export class FileUploader {
       default:
         break;
     }
-    this.stageChanged.emit(newStage);
+    this.stageChanged.emit({ stage: newStage });
   }
 
   /**
@@ -231,8 +252,10 @@ export class FileUploader {
       }
       Promise.allSettled(this.fileUploadPromises).then((responses: any) => {
         const responseValues = responses.map((response: any) => response.value);
-        const response = this.multiple ? responseValues : responseValues[0];
-        this.filesUploaded.emit(response);
+        const responseValue = this.multiple
+          ? responseValues
+          : responseValues[0];
+        this.filesUploaded.emit(responseValue);
         this.isFileUploadInProgress = false;
       });
     }
@@ -263,7 +286,6 @@ export class FileUploader {
    * @returns
    */
   fileValidation(file) {
-    this.errors = [];
     let isPassed = true;
     const fileExtension = file.name;
     const fileSize = file.size;
@@ -326,12 +348,18 @@ export class FileUploader {
     let passed = true;
     const tempFiles = event.target.files || event.dataTransfer.files;
     const files = this.multiple ? tempFiles : [tempFiles[0]];
-    for (let index = 0; index < files.length; index++) {
-      const file = files[index];
-      passed = this.fileValidation(file);
-      if (!passed) {
-        break;
+    this.errors = [];
+    if (files.length <= this.filesLimit) {
+      for (let index = 0; index < files.length; index++) {
+        const file = files[index];
+        passed = this.fileValidation(file);
+        if (!passed) {
+          break;
+        }
       }
+    } else {
+      this.errors = [this.maxFilesLimitError];
+      passed = false;
     }
     if (passed) {
       for (let index = 0; index < files.length; index++) {
@@ -471,7 +499,9 @@ export class FileUploader {
     return (
       <div class='progress' key='progress'>
         <div class='progress-center'>
-          <div class='progress-title'>Uploading</div>
+          <div class='progress-title'>
+            {TranslationController.t('file_uploader.uploading')}
+          </div>
           {this.files.map((file) => (
             <fw-file-uploader-progress
               fileId={file.id}
@@ -496,7 +526,9 @@ export class FileUploader {
     return (
       <div class='files' key='files'>
         <div class='files-center'>
-          <div class='files-title'>Selected files</div>
+          <div class='files-title'>
+            {TranslationController.t('file_uploader.selected_files')}
+          </div>
           {this.files.map((file) => (
             <fw-file-uploader-file
               fileId={file.id}

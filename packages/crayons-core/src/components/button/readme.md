@@ -302,10 +302,11 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name                    | Description                  |
-| ----------------------- | ---------------------------- |
-| `--fw-button-min-width` | minimum width for the button |
+| Name                                 | Description                           |
+| ------------------------------------ | ------------------------------------- |
 | `--fw-button-label-vertical-padding` | vertical padding for the button label |
+| `--fw-button-min-width`              | minimum width for the button          |
+
 
 ## Dependencies
 

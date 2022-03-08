@@ -1,4 +1,5 @@
 import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
+import { TranslationController } from '../../../global/Translation';
 
 @Component({
   tag: 'fw-file-uploader-file',
@@ -48,7 +49,7 @@ export class FileUploaderFile {
             class='files-content-file-remove'
             onClick={() => this.remove()}
           >
-            Remove
+            {TranslationController.t('file_uploader.remove')}
           </button>
         </div>
       </div>

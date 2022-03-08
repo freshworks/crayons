@@ -378,7 +378,7 @@ export namespace Components {
         /**
           * acceptError - Error message to display when format is invalid.
          */
-        "acceptError": string;
+        "acceptError": any;
         /**
           * actionParams - additional information to send to server other than the file.
          */
@@ -390,7 +390,11 @@ export namespace Components {
         /**
           * description - file uploader description.
          */
-        "description": string;
+        "description": any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit": number;
         /**
           * hint - file uploader hint text.
          */
@@ -402,7 +406,11 @@ export namespace Components {
         /**
           * maxFileSizeError - Error message to display when file size exceeds limit
          */
-        "maxFileSizeError": string;
+        "maxFileSizeError": any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError": any;
         /**
           * modify request
           * @param xhr
@@ -416,7 +424,7 @@ export namespace Components {
         /**
           * text - file uploader text.
          */
-        "text": string;
+        "text": any;
         /**
           * uploadFiles - uploads the files to the server. emits an after file is uploaded.
          */
@@ -2546,7 +2554,7 @@ declare namespace LocalJSX {
         /**
           * acceptError - Error message to display when format is invalid.
          */
-        "acceptError"?: string;
+        "acceptError"?: any;
         /**
           * actionParams - additional information to send to server other than the file.
          */
@@ -2558,7 +2566,11 @@ declare namespace LocalJSX {
         /**
           * description - file uploader description.
          */
-        "description"?: string;
+        "description"?: any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit"?: number;
         /**
           * hint - file uploader hint text.
          */
@@ -2570,7 +2582,11 @@ declare namespace LocalJSX {
         /**
           * maxFileSizeError - Error message to display when file size exceeds limit
          */
-        "maxFileSizeError"?: string;
+        "maxFileSizeError"?: any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError"?: any;
         /**
           * modify request
           * @param xhr
@@ -2596,7 +2612,7 @@ declare namespace LocalJSX {
         /**
           * text - file uploader text.
          */
-        "text"?: string;
+        "text"?: any;
     }
     interface FwFileUploaderFile {
         /**

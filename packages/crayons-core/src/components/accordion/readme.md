@@ -138,6 +138,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property   | Attribute  | Description                                                                                                                                | Type                             | Default     |
@@ -145,11 +146,13 @@ function App() {
 | `expanded` | `expanded` | To manage accordion expanded or collapsed state                                                                                            | `boolean`                        | `false`     |
 | `type`     | `type`     | The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only | `"default" \| "no_bounding_box"` | `'default'` |
 
+
 ## Events
 
 | Event               | Description                                           | Type                                |
 | ------------------- | ----------------------------------------------------- | ----------------------------------- |
 | `fwAccordionToggle` | Triggered when the accordion is expanded or collapsed | `CustomEvent<AccordionToggleEvent>` |
+
 
 ## Methods
 
@@ -163,6 +166,7 @@ Type: `Promise<boolean>`
 
 promise that resolves to true
 
+
 ## CSS Custom Properties
 
 | Name                           | Description             |
@@ -171,6 +175,7 @@ promise that resolves to true
 | `--fw-accordion-border-radius` | Accordion border radius |
 | `--fw-accordion-box-shadow`    | Accordion box shadow    |
 
----
+
+----------------------------------------------
 
 Built with ❤ at Freshworks
