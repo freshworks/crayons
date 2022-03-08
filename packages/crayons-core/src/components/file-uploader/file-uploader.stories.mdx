@@ -1,0 +1,50 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# FileUploader
+
+<Meta
+  title='FileUploader'
+  component='fw-file-uploader'
+/>
+
+## Props 
+
+<Props of="fw-file-uploader"/>
+
+## Usage
+
+### Default
+<Preview>
+  <Story name='Default'>
+    {
+      () => `
+        <fw-file-uploader 
+          text="Upload CSV"
+          description="or drag and drop your csv file here"
+          hint="File size must be within 5MB"
+          max-file-size="5"
+        >
+        </fw-file-uploader>
+      `
+    }
+  </Story>
+</Preview>
+
+
+### Multifile
+<Preview>
+  <Story name='Multifile'>
+    {
+      () => `
+        <fw-file-uploader 
+          text="Upload CSV"
+          description="or drag and drop your csv file here"
+          hint="File size must be within 5MB"
+          max-file-size="5"
+          multiple
+        >
+        </fw-file-uploader>
+      `
+    }
+  </Story>
+</Preview>

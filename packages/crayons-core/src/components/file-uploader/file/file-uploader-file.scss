@@ -1,0 +1,49 @@
+:host {
+  display: inline-block;
+}
+
+.files-content {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  margin-top: 7px;
+
+  &-icon {
+    width: 14px;
+    height: 14px;
+    margin: 3px 0px;
+  }
+
+  &-file {
+    display: flex;
+    flex-direction: column;
+    padding-left: 8px;
+    box-sizing: border-box;
+
+    &-name {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: $color-elephant-900;
+    }
+
+    &-remove {
+      text-decoration: none;
+      font-weight: 400;
+      color: $color-azure-800;
+      margin-top: 5px;
+      font-size: 12px;
+      line-height: 20px;
+      background: transparent;
+      border: none;
+      display: inline-block;
+      padding: 0px;
+      width: fit-content;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+      }
+    }
+  }
+}

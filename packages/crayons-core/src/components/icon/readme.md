@@ -245,6 +245,8 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-datepicker](../datepicker)
  - [fw-drag-item](../drag-item)
  - [fw-dropdown-button](../dropdown-button)
+ - [fw-file-uploader-file](../file-uploader/file)
+ - [fw-file-uploader-progress](../file-uploader/progress)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
  - [fw-menu-item](../menu-item)
@@ -275,6 +277,8 @@ graph TD;
   fw-datepicker --> fw-icon
   fw-drag-item --> fw-icon
   fw-dropdown-button --> fw-icon
+  fw-file-uploader-file --> fw-icon
+  fw-file-uploader-progress --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
   fw-menu-item --> fw-icon

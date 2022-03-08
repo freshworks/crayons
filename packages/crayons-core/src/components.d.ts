@@ -63,6 +63,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Accepts the id of the fw-file-uploader component to upload the file.
+         */
+        "fileUploaderId": string;
+        /**
           * Loading state for the button, Default value is false.
          */
         "loading": boolean;
@@ -365,6 +369,98 @@ export namespace Components {
           * Value of the dropdown button
          */
         "value": any;
+    }
+    interface FwFileUploader {
+        /**
+          * accept - comma separated string. tells us what file formats file uploader should accept.
+         */
+        "accept": string;
+        /**
+          * acceptError - Error message to display when format is invalid.
+         */
+        "acceptError": any;
+        /**
+          * actionParams - additional information to send to server other than the file.
+         */
+        "actionParams": any;
+        /**
+          * actionURL - URL to make server call.
+         */
+        "actionURL": string;
+        /**
+          * description - file uploader description.
+         */
+        "description": any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError": any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit": number;
+        /**
+          * hint - file uploader hint text.
+         */
+        "hint": string;
+        /**
+          * maxFileSize - maximum file size the file uploader must accept.
+         */
+        "maxFileSize": number;
+        /**
+          * maxFileSizeError - Error message to display when file size exceeds limit
+         */
+        "maxFileSizeError": any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError": any;
+        /**
+          * modify request
+          * @param xhr
+          * @returns xhr
+         */
+        "modifyRequest": (xhr: any) => any;
+        /**
+          * multiple - upload multiple files.
+         */
+        "multiple": boolean;
+        /**
+          * text - file uploader text.
+         */
+        "text": any;
+        /**
+          * uploadFiles - uploads the files to the server. emits an after file is uploaded.
+         */
+        "uploadFiles": () => Promise<void>;
+    }
+    interface FwFileUploaderFile {
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "name": string;
+    }
+    interface FwFileUploaderProgress {
+        /**
+          * error text for the file upload
+         */
+        "error": string;
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "fileName": string;
+        /**
+          * file upload progress
+         */
+        "progress": number;
     }
     interface FwForm {
         "doReset": (e: any) => Promise<void>;
@@ -1788,6 +1884,24 @@ declare global {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
     };
+    interface HTMLFwFileUploaderElement extends Components.FwFileUploader, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderElement: {
+        prototype: HTMLFwFileUploaderElement;
+        new (): HTMLFwFileUploaderElement;
+    };
+    interface HTMLFwFileUploaderFileElement extends Components.FwFileUploaderFile, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderFileElement: {
+        prototype: HTMLFwFileUploaderFileElement;
+        new (): HTMLFwFileUploaderFileElement;
+    };
+    interface HTMLFwFileUploaderProgressElement extends Components.FwFileUploaderProgress, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderProgressElement: {
+        prototype: HTMLFwFileUploaderProgressElement;
+        new (): HTMLFwFileUploaderProgressElement;
+    };
     interface HTMLFwFormElement extends Components.FwForm, HTMLStencilElement {
     }
     var HTMLFwFormElement: {
@@ -2026,6 +2140,9 @@ declare global {
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-drag-item": HTMLFwDragItemElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-file-uploader": HTMLFwFileUploaderElement;
+        "fw-file-uploader-file": HTMLFwFileUploaderFileElement;
+        "fw-file-uploader-progress": HTMLFwFileUploaderProgressElement;
         "fw-form": HTMLFwFormElement;
         "fw-form-control": HTMLFwFormControlElement;
         "fw-format-date": HTMLFwFormatDateElement;
@@ -2117,6 +2234,10 @@ declare namespace LocalJSX {
           * Disables the button on the interface. Default value is false.
          */
         "disabled"?: boolean;
+        /**
+          * Accepts the id of the fw-file-uploader component to upload the file.
+         */
+        "fileUploaderId"?: string;
         /**
           * Loading state for the button, Default value is false.
          */
@@ -2428,6 +2549,114 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
+    }
+    interface FwFileUploader {
+        /**
+          * accept - comma separated string. tells us what file formats file uploader should accept.
+         */
+        "accept"?: string;
+        /**
+          * acceptError - Error message to display when format is invalid.
+         */
+        "acceptError"?: any;
+        /**
+          * actionParams - additional information to send to server other than the file.
+         */
+        "actionParams"?: any;
+        /**
+          * actionURL - URL to make server call.
+         */
+        "actionURL"?: string;
+        /**
+          * description - file uploader description.
+         */
+        "description"?: any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError"?: any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit"?: number;
+        /**
+          * hint - file uploader hint text.
+         */
+        "hint"?: string;
+        /**
+          * maxFileSize - maximum file size the file uploader must accept.
+         */
+        "maxFileSize"?: number;
+        /**
+          * maxFileSizeError - Error message to display when file size exceeds limit
+         */
+        "maxFileSizeError"?: any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError"?: any;
+        /**
+          * modify request
+          * @param xhr
+          * @returns xhr
+         */
+        "modifyRequest"?: (xhr: any) => any;
+        /**
+          * multiple - upload multiple files.
+         */
+        "multiple"?: boolean;
+        /**
+          * fileReuploaded - event that gets emitted when file is reuploaded
+         */
+        "onFwFileReuploaded"?: (event: CustomEvent<any>) => void;
+        /**
+          * filesUploaded - event that gets emitted when files get uploaded
+         */
+        "onFwFilesUploaded"?: (event: CustomEvent<any>) => void;
+        /**
+          * stageChanged - event that gets emitted when component stage changes
+         */
+        "onFwStageChanged"?: (event: CustomEvent<any>) => void;
+        /**
+          * text - file uploader text.
+         */
+        "text"?: any;
+    }
+    interface FwFileUploaderFile {
+        /**
+          * file Id
+         */
+        "fileId"?: number;
+        /**
+          * file name
+         */
+        "name"?: string;
+        /**
+          * removeFile - event that gets triggered on file removal
+         */
+        "onFwRemoveFile"?: (event: CustomEvent<any>) => void;
+    }
+    interface FwFileUploaderProgress {
+        /**
+          * error text for the file upload
+         */
+        "error"?: string;
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "fileName"?: string;
+        /**
+          * retryUpload event to emit in case of a retry
+         */
+        "onFwRetryUpload"?: (event: CustomEvent<any>) => void;
+        /**
+          * file upload progress
+         */
+        "progress"?: number;
     }
     interface FwForm {
         /**
@@ -3830,6 +4059,9 @@ declare namespace LocalJSX {
         "fw-drag-container": FwDragContainer;
         "fw-drag-item": FwDragItem;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-file-uploader": FwFileUploader;
+        "fw-file-uploader-file": FwFileUploaderFile;
+        "fw-file-uploader-progress": FwFileUploaderProgress;
         "fw-form": FwForm;
         "fw-form-control": FwFormControl;
         "fw-format-date": FwFormatDate;
@@ -3888,6 +4120,9 @@ declare module "@stencil/core" {
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-file-uploader": LocalJSX.FwFileUploader & JSXBase.HTMLAttributes<HTMLFwFileUploaderElement>;
+            "fw-file-uploader-file": LocalJSX.FwFileUploaderFile & JSXBase.HTMLAttributes<HTMLFwFileUploaderFileElement>;
+            "fw-file-uploader-progress": LocalJSX.FwFileUploaderProgress & JSXBase.HTMLAttributes<HTMLFwFileUploaderProgressElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
             "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
             "fw-format-date": LocalJSX.FwFormatDate & JSXBase.HTMLAttributes<HTMLFwFormatDateElement>;

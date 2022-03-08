@@ -8,6 +8,17 @@ export default {
     add: 'Add',
     cancel: 'Cancel',
   },
+  fileUploader: {
+    text: 'Upload file',
+    description: 'or drag and drop here',
+    acceptError: 'File format not accepted',
+    maxFileSizeError: 'Exceeded maximum file size',
+    maxFilesLimitError: 'Exceeding maximum files limit',
+    fileUploadError: 'File upload failed',
+    uploading: 'Uploading',
+    selectedFiles: 'Selected files',
+    remove: 'remove',
+  },
   modal: {
     cancel: 'Cancel',
     ok: 'OK',
