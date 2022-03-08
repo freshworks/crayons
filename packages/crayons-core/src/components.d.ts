@@ -1351,10 +1351,6 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the list box.
-         */
-        "stateText": string;
-        /**
           * The variant of tag to be used.
          */
         "tagVariant": TagVariant;
@@ -3655,10 +3651,6 @@ declare namespace LocalJSX {
           * Theme based on which the list box is styled.
          */
         "state"?: 'normal' | 'warning' | 'error';
-        /**
-          * Descriptive or instructional text displayed below the list box.
-         */
-        "stateText"?: string;
         /**
           * The variant of tag to be used.
          */
