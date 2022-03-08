@@ -72,7 +72,7 @@ describe('fw-file-uploader', () => {
     const fileChooser = await futureFileChooser;
     await fileChooser.accept([`${__dirname}/test.csv`]);
     await page.waitForChanges();
-    const filesUploadedEvent = await page.spyOnEvent('filesUploaded');
+    const filesUploadedEvent = await page.spyOnEvent('fwFilesUploaded');
     await fileUploader.callMethod('uploadFiles');
     await page.waitForChanges();
     expect(filesUploadedEvent).toHaveReceivedEventTimes(1);
