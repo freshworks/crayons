@@ -233,7 +233,7 @@ export namespace Components {
          */
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
         /**
-          * Locale for which datepicker needs to be shown.
+          * Locale for which datepicker needs to be shown. Defaults to browser's current locale.
          */
         "locale": string;
         /**
@@ -2280,7 +2280,7 @@ declare namespace LocalJSX {
          */
         "fromDate"?: string;
         /**
-          * Locale for which datepicker needs to be shown.
+          * Locale for which datepicker needs to be shown. Defaults to browser's current locale.
          */
         "locale"?: string;
         /**
