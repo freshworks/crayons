@@ -35,7 +35,7 @@ export default {
   },
   platformTable: {
     delete: 'Delete',
-    sortby: 'Sort By',
+    sortby: 'Sort by',
     orderby: 'Order by',
   },
   formBuilder: {
@@ -120,6 +120,25 @@ export default {
         'Reached maximum limit of 100 fields. Delete an existing field to create a new one.',
       lookups:
         'Reached maximum limit of 5 lookup fields. Delete an existing lookup field to create a new one.',
+    },
+  },
+  filters: {
+    title: 'Filter',
+    addFilter: 'Add Filter',
+    noFilter: 'You have not added any filters yet',
+    validation: {
+      required: 'Required Field',
+      minMax: 'Must be greater than {{fromValue}}',
+    },
+    placeholder: {
+      startRange: 'Start Range',
+      endRange: 'End Range',
+      and: 'and',
+    },
+  },
+  searchDropdown: {
+    placeholder: {
+      search: 'Type to search',
     },
   },
 };
