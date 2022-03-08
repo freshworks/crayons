@@ -52,12 +52,10 @@ describe('fw-form-control', () => {
     const element = await page.find('fw-form-control');
 
     expect(element.shadowRoot).toEqualHtml(`<div class="form-control-container">
-      <label class="label" for="name"></label>
-      <fw-input class="hydrated" hint="">
+      <fw-input class="hydrated" error-text="" hint-text="">
       <input class="hidden-input" name="name" type="hidden" value="">
       </fw-input>
       <slot></slot>
-      <div class="hint" id="hint-name"></div>
     </div>`);
   });
   it('should render appropriate html if slotted content is passed', async () => {

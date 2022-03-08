@@ -3,14 +3,15 @@ import {
   Element,
   Event,
   EventEmitter,
-  Host,
   Method,
   Prop,
   State,
   h,
 } from '@stencil/core';
 
-import { renderHiddenField } from '../../utils';
+import { renderHiddenField, hasSlot } from '../../utils';
+
+import FieldControl from '../../function-components/field-control';
 
 @Component({
   tag: 'fw-textarea',
@@ -23,6 +24,9 @@ export class Textarea {
   private nativeInput?: HTMLTextAreaElement;
 
   @State() hasFocus = false;
+  @State() hasHintTextSlot = false;
+  @State() hasWarningTextSlot = false;
+  @State() hasErrorTextSlot = false;
   /**
    * Label displayed on the interface, for the component.
    */
@@ -64,10 +68,6 @@ export class Textarea {
    */
   @Prop() wrap: 'soft' | 'hard' = 'soft';
   /**
-   * Descriptive or instructional text displayed below the input box.
-   */
-  @Prop() stateText = '';
-  /**
    * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() readonly = false;
@@ -79,6 +79,18 @@ export class Textarea {
    * Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() disabled = false;
+  /**
+   * Hint text displayed below the text box.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the text box.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the text box.
+   */
+  @Prop() errorText = '';
 
   /**
    * Triggered when the input box comes into focus.
@@ -136,70 +148,92 @@ export class Textarea {
     }
   }
 
+  componentWillLoad() {
+    this.handleSlotChange();
+  }
+
+  handleSlotChange() {
+    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
+    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
+    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
+  }
+  disconnectedCallback() {
+    this.host.shadowRoot.removeEventListener(
+      'slotchange',
+      this.handleSlotChange
+    );
+  }
+
+  getAriaDescribedBy(): string {
+    if (this.state === 'normal') return `hint-${this.name}`;
+    else if (this.state === 'error') return `error-${this.name}`;
+    else if (this.state === 'warning') return `warning-${this.name}`;
+    return null;
+  }
+
   render() {
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
 
     return (
-      <Host
-        aria-disabled={this.disabled}
-        class={{
-          'has-value': this.hasValue(),
-          'has-focus': this.hasFocus,
-        }}
+      <FieldControl
+        inputId={this.name}
+        label={this.label}
+        labelId={`${this.label}-${this.name}`}
+        state={this.state}
+        hintTextId={`hint-${this.name}`}
+        hintText={this.hintText}
+        hasHintTextSlot={this.hasHintTextSlot}
+        errorTextId={`error-${this.name}`}
+        errorText={this.errorText}
+        hasErrorTextSlot={this.hasErrorTextSlot}
+        warningTextId={`warning-${this.name}`}
+        warningText={this.warningText}
+        hasWarningTextSlot={this.hasWarningTextSlot}
+        required={this.required}
       >
-        <div class='textarea-container'>
-          {this.label !== '' ? (
-            <label
+        <div
+          aria-disabled={this.disabled}
+          class={{
+            'has-value': this.hasValue(),
+            'has-focus': this.hasFocus,
+          }}
+        >
+          <div class='textarea-container'>
+            <div
               class={{
-                required: this.required,
+                'textarea-container-inner': true,
+                [this.state]: true,
               }}
             >
-              {this.label}
-            </label>
-          ) : (
-            ''
-          )}
-          <div
-            class={{
-              'textarea-container-inner': true,
-              [this.state]: true,
-            }}
-          >
-            <textarea
-              class={{
-                responsive: this.cols === undefined,
-              }}
-              ref={(input) => (this.nativeInput = input)}
-              disabled={this.disabled}
-              name={this.name}
-              placeholder={this.placeholder || ''}
-              minLength={this.minlength}
-              maxLength={this.maxlength}
-              readOnly={this.readonly}
-              required={this.required}
-              value={this.value}
-              onInput={this.onInput}
-              onBlur={this.onBlur}
-              onFocus={this.onFocus}
-              rows={this.rows}
-              cols={this.cols}
-              wrap={this.wrap}
-              id={this.name}
-              aria-invalid={this.state === 'error'}
-              aria-describedby={`hint-${this.name} error-${this.name}`}
-            />
+              <textarea
+                class={{
+                  responsive: this.cols === undefined,
+                }}
+                ref={(input) => (this.nativeInput = input)}
+                disabled={this.disabled}
+                name={this.name}
+                placeholder={this.placeholder || ''}
+                minLength={this.minlength}
+                maxLength={this.maxlength}
+                readOnly={this.readonly}
+                required={this.required}
+                value={this.value}
+                onInput={this.onInput}
+                onBlur={this.onBlur}
+                onFocus={this.onFocus}
+                rows={this.rows}
+                cols={this.cols}
+                wrap={this.wrap}
+                id={this.name}
+                aria-invalid={this.state === 'error'}
+                aria-describedby={this.getAriaDescribedBy()}
+              />
+            </div>
           </div>
-          {this.stateText !== '' ? (
-            <span class='help-block' id={`hint-${this.name}`}>
-              {this.stateText}
-            </span>
-          ) : (
-            ''
-          )}
         </div>
-      </Host>
+      </FieldControl>
     );
   }
 }

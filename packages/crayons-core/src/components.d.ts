@@ -109,6 +109,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the radio group.
+         */
+        "errorText": string;
+        /**
+          * /**   Hint text displayed below the radio group.
+         */
+        "hintText": string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -127,11 +135,15 @@ export namespace Components {
         /**
           * Theme based on which the checkbox is styled.
          */
-        "state": 'normal' | 'error';
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText": string;
     }
     interface FwCustomCellAnchor {
         "href": string;
@@ -229,6 +241,10 @@ export namespace Components {
          */
         "displayFormat": string;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
@@ -236,6 +252,14 @@ export namespace Components {
           * Returns the date value in ISO format.
          */
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
+          * Label displayed on the interface, for the component.
+         */
+        "label": string;
         /**
           * Locale for which datepicker needs to be shown.
          */
@@ -285,10 +309,6 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the date picker box.
-         */
-        "stateText": any;
-        /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
@@ -297,6 +317,10 @@ export namespace Components {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwDragContainer {
         /**
@@ -716,6 +740,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft": string;
@@ -768,10 +800,6 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the text box.
-         */
-        "stateText": string;
-        /**
           * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
          */
         "step": string;
@@ -783,6 +811,10 @@ export namespace Components {
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwLabel {
         /**
@@ -1169,7 +1201,15 @@ export namespace Components {
          */
         "allowEmpty": boolean;
         /**
-          * Label for the component, that can be used by screen readers.
+          * Error text displayed below the radio group.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the radio group.
+         */
+        "hintText": string;
+        /**
+          * Label for the component
          */
         "label": string;
         /**
@@ -1189,9 +1229,17 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Theme based on which the radio group is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText": string;
     }
     interface FwSelect {
         /**
@@ -1215,10 +1263,18 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -1314,6 +1370,10 @@ export namespace Components {
           * The UI variant of the select to be used.
          */
         "variant": 'button' | 'standard' | 'mail';
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwSelectOption {
         /**
@@ -1506,6 +1566,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -1546,13 +1614,13 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the input box.
-         */
-        "stateText": string;
-        /**
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
         /**
           * Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved.
          */
@@ -1564,13 +1632,25 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format": 'hh:mm a' | 'HH:mm';
         /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
         "interval": number;
+        /**
+          * Label displayed on the interface, for the component.
+         */
+        "label": string;
         /**
           * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
@@ -1583,6 +1663,10 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Text displayed in the select before an option is selected.
+         */
+        "placeholder"?: string | null;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
@@ -1599,6 +1683,10 @@ export namespace Components {
           * Time output value
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwToast {
         /**
@@ -2292,6 +2380,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the radio group.
+         */
+        "errorText"?: string;
+        /**
+          * /**   Hint text displayed below the radio group.
+         */
+        "hintText"?: string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -2304,7 +2400,7 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * /**   Triggered when the checkbox state is modified.
+          * Triggered when the checkbox state is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
@@ -2318,11 +2414,15 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the checkbox is styled.
          */
-        "state"?: 'normal' | 'error';
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText"?: string;
     }
     interface FwCustomCellAnchor {
         "href"?: string;
@@ -2397,9 +2497,21 @@ declare namespace LocalJSX {
          */
         "displayFormat"?: string;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
+          * Label displayed on the interface, for the component.
+         */
+        "label"?: string;
         /**
           * Locale for which datepicker needs to be shown.
          */
@@ -2453,10 +2565,6 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the date picker box.
-         */
-        "stateText"?: any;
-        /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
@@ -2465,6 +2573,10 @@ declare namespace LocalJSX {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwDragContainer {
         /**
@@ -2910,6 +3022,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft"?: string;
@@ -2974,10 +3094,6 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the text box.
-         */
-        "stateText"?: string;
-        /**
           * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
          */
         "step"?: string;
@@ -2989,6 +3105,10 @@ declare namespace LocalJSX {
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwLabel {
         /**
@@ -3378,7 +3498,15 @@ declare namespace LocalJSX {
          */
         "allowEmpty"?: boolean;
         /**
-          * Label for the component, that can be used by screen readers.
+          * Error text displayed below the radio group.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the radio group.
+         */
+        "hintText"?: string;
+        /**
+          * Label for the component
          */
         "label"?: string;
         /**
@@ -3398,9 +3526,17 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
+          * Theme based on which the radio group is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
+        /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText"?: string;
     }
     interface FwSelect {
         /**
@@ -3424,9 +3560,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -3531,6 +3675,10 @@ declare namespace LocalJSX {
           * The UI variant of the select to be used.
          */
         "variant"?: 'button' | 'standard' | 'mail';
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwSelectOption {
         /**
@@ -3737,6 +3885,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
@@ -3785,13 +3941,13 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the input box.
-         */
-        "stateText"?: string;
-        /**
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
         /**
           * Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved.
          */
@@ -3803,13 +3959,25 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format"?: 'hh:mm a' | 'HH:mm';
         /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
         "interval"?: number;
+        /**
+          * Label displayed on the interface, for the component.
+         */
+        "label"?: string;
         /**
           * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
@@ -3827,13 +3995,17 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * /**   Triggered when a value is selected or deselected from the list box options.
+          * Triggered when a value is selected or deselected from the list box options.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the list box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Text displayed in the select before an option is selected.
+         */
+        "placeholder"?: string | null;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
@@ -3846,6 +4018,10 @@ declare namespace LocalJSX {
           * Time output value
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwToast {
         /**

@@ -4,7 +4,6 @@ import {
   Element,
   Event,
   EventEmitter,
-  Host,
   Listen,
   Method,
   Prop,
@@ -14,7 +13,8 @@ import {
   Fragment,
 } from '@stencil/core';
 
-import { handleKeyDown, renderHiddenField } from '../../utils';
+import { handleKeyDown, renderHiddenField, hasSlot } from '../../utils';
+import FieldControl from '../../function-components/field-control';
 
 import {
   DropdownVariant,
@@ -87,6 +87,10 @@ export class Select {
   @State() selectedOptionsState = [];
   @State() isLoading = false;
   @State() focusedOptionId = '';
+  @State() hasHintTextSlot = false;
+  @State() hasWarningTextSlot = false;
+  @State() hasErrorTextSlot = false;
+
   /**
    * Label displayed on the interface, for the component.
    */
@@ -210,6 +214,18 @@ export class Select {
    * Whether clicking on the already selected option disables it.
    */
   @Prop() allowDeselect = true;
+  /**
+   * Hint text displayed below the text box.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the text box.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the text box.
+   */
+  @Prop() errorText = '';
 
   // Events
   /**
@@ -447,6 +463,7 @@ export class Select {
   }
 
   componentWillLoad() {
+    this.handleSlotChange();
     if (this.variant === 'mail') {
       this.caret = false;
       this.multiple = true;
@@ -518,7 +535,7 @@ export class Select {
       }
     }
     this.host.addEventListener('focus', this.setFocus);
-    this.host.innerHTML = '';
+    //this.host.innerHTML = '';
 
     //Get id
     this.hostId = this.host.id || '';
@@ -531,6 +548,10 @@ export class Select {
 
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
+    this.host.shadowRoot?.removeEventListener(
+      'slotchange',
+      this.handleSlotChange
+    );
   }
 
   @Watch('isExpanded')
@@ -544,160 +565,189 @@ export class Select {
     }
   }
 
+  handleSlotChange() {
+    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
+    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
+    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
+  }
+
+  getAriaDescribedBy(): string {
+    if (this.state === 'normal') return `hint-${this.name}`;
+    else if (this.state === 'error') return `error-${this.name}`;
+    else if (this.state === 'warning') return `warning-${this.name}`;
+    return null;
+  }
   render() {
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
 
     return (
-      <Host
-        aria-disabled={this.disabled}
-        class={{
-          'has-focus': this.hasFocus,
-        }}
+      <FieldControl
+        inputId={this.name}
+        label={this.label}
+        labelId={`${this.label}-${this.name}`}
+        state={this.state}
+        hintTextId={`hint-${this.name}`}
+        hintText={this.hintText}
+        hasHintTextSlot={this.hasHintTextSlot}
+        errorTextId={`error-${this.name}`}
+        errorText={this.errorText}
+        hasErrorTextSlot={this.hasErrorTextSlot}
+        warningTextId={`warning-${this.name}`}
+        warningText={this.warningText}
+        hasWarningTextSlot={this.hasWarningTextSlot}
+        required={this.required}
       >
-        {this.label !== '' ? (
-          <label
-            id={`${this.hostId}-label`}
-            class={{ required: this.required }}
-          >
-            {this.label}
-          </label>
-        ) : (
-          ''
-        )}
-        {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
-        moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
         <div
-          class={{ 'select-container': true, [this.state]: true }}
-          role='combobox'
-          aria-controls={`${this.hostId}-listbox`}
-          aria-haspopup='listbox'
-          aria-expanded={this.isExpanded}
-          aria-owns={`${this.hostId}-listbox`}
+          aria-disabled={this.disabled}
+          class={{
+            'has-focus': this.hasFocus,
+          }}
         >
-          <fw-popover
-            distance='8'
-            trigger='manual'
-            ref={(popover) => (this.popover = popover)}
-            same-width={this.sameWidth}
-            placement={this.optionsPlacement}
-          >
-            <div
-              slot='popover-trigger'
-              class={{
-                'input-container': this.variant !== 'button',
-                [this.state]: true,
-                'select-disabled': this.disabled,
-              }}
-              onClick={() => this.innerOnClick()}
-              onKeyDown={handleKeyDown(this.innerOnClick)}
+          {this.label !== '' ? (
+            <label
+              id={`${this.hostId}-label`}
+              class={{ required: this.required }}
             >
-              {this.variant === 'button' ? (
-                <fw-button
-                  style={{ '--fw-button-label-vertical-padding': '7px' }}
-                  show-caret-icon
-                  id={`${this.hostId}-btn`}
-                  color='secondary'
-                  class={
-                    this.host.classList.value.includes('first')
-                      ? 'fw-button-group__button--first'
-                      : 'fw-button-group__button--last'
-                  }
-                >
-                  {this.value}
-                </fw-button>
-              ) : (
-                <Fragment>
-                  <div class='input-container-inner'>
-                    {this.multiple && (
-                      <div
-                        class='tag-container'
-                        onFocus={this.focusOnTagContainer}
-                        ref={(tagContainer) =>
-                          (this.tagContainer = tagContainer)
-                        }
-                        onKeyDown={this.tagContainerKeyDown}
-                      >
-                        {this.renderTags()}
-                      </div>
-                    )}
-                    <input
-                      ref={(selectInput) => (this.selectInput = selectInput)}
-                      class={{
-                        'multiple-select': this.multiple,
-                      }}
-                      autoComplete='off'
-                      disabled={this.disabled}
-                      name={this.name}
-                      id={this.name}
-                      placeholder={
-                        this.valueExists() ? '' : this.placeholder || ''
-                      }
-                      readOnly={this.readonly}
-                      required={this.required}
-                      type={this.type}
-                      value=''
-                      aria-autocomplete='list'
-                      aria-activedescendant={this.focusedOptionId}
-                      onInput={() => this.onInput()}
-                      onFocus={(e) => this.innerOnFocus(e)}
-                      onBlur={(e) => this.innerOnBlur(e)}
-                      aria-invalid={this.state === 'error'}
-                      aria-describedby={`hint-${this.name} error-${this.name}`}
-                    />
-                  </div>
-                  {this.isLoading ? (
-                    <fw-spinner size='small'></fw-spinner>
-                  ) : (
-                    this.caret && (
-                      <span
-                        class={{
-                          'dropdown-status-icon': true,
-                          'expanded': this.isExpanded,
-                        }}
-                      >
-                        <fw-icon
-                          name='chevron-down'
-                          size={8}
-                          library='system'
-                        ></fw-icon>
-                      </span>
-                    )
-                  )}
-                </Fragment>
-              )}
-            </div>
-            <fw-list-options
-              ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
-              id={`${this.hostId}-listbox`}
-              role='listbox'
-              aria-labelledby={this.labelledBy || `${this.hostId}-label`}
-              notFoundText={this.notFoundText}
-              debounceTimer={this.debounceTimer}
-              noDataText={this.noDataText}
-              search={this.search}
-              selectedOptions={this.selectedOptions}
-              variant={this.optionsVariant}
-              filter-text={this.searchValue}
-              options={this.dataSource}
-              value={this.value}
-              multiple={this.multiple}
-              max={this.max}
-              checkbox={this.checkbox}
-              allowDeselect={this.allowDeselect}
-              slot='popover-content'
-            ></fw-list-options>
-          </fw-popover>
-          {this.stateText !== '' ? (
-            <span class='help-block' id={`hint-${this.name}`}>
-              {this.stateText}
-            </span>
+              {this.label}
+            </label>
           ) : (
             ''
           )}
+          {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
+        moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
+          <div
+            class={{ 'select-container': true, [this.state]: true }}
+            role='combobox'
+            aria-controls={`${this.hostId}-listbox`}
+            aria-haspopup='listbox'
+            aria-expanded={this.isExpanded}
+            aria-owns={`${this.hostId}-listbox`}
+          >
+            <fw-popover
+              distance='8'
+              trigger='manual'
+              ref={(popover) => (this.popover = popover)}
+              same-width={this.sameWidth}
+              placement={this.optionsPlacement}
+            >
+              <div
+                slot='popover-trigger'
+                class={{
+                  'input-container': this.variant !== 'button',
+                  [this.state]: true,
+                  'select-disabled': this.disabled,
+                }}
+                onClick={() => this.innerOnClick()}
+                onKeyDown={handleKeyDown(this.innerOnClick)}
+              >
+                {this.variant === 'button' ? (
+                  <fw-button
+                    style={{ '--fw-button-label-vertical-padding': '7px' }}
+                    show-caret-icon
+                    id={`${this.hostId}-btn`}
+                    color='secondary'
+                    class={
+                      this.host.classList.value.includes('first')
+                        ? 'fw-button-group__button--first'
+                        : 'fw-button-group__button--last'
+                    }
+                  >
+                    {this.value}
+                  </fw-button>
+                ) : (
+                  <Fragment>
+                    <div class='input-container-inner'>
+                      {this.multiple && (
+                        <div
+                          class='tag-container'
+                          onFocus={this.focusOnTagContainer}
+                          ref={(tagContainer) =>
+                            (this.tagContainer = tagContainer)
+                          }
+                          onKeyDown={this.tagContainerKeyDown}
+                        >
+                          {this.renderTags()}
+                        </div>
+                      )}
+                      <input
+                        ref={(selectInput) => (this.selectInput = selectInput)}
+                        class={{
+                          'multiple-select': this.multiple,
+                        }}
+                        autoComplete='off'
+                        disabled={this.disabled}
+                        name={this.name}
+                        id={this.name}
+                        placeholder={
+                          this.valueExists() ? '' : this.placeholder || ''
+                        }
+                        readOnly={this.readonly}
+                        required={this.required}
+                        type={this.type}
+                        value=''
+                        aria-autocomplete='list'
+                        aria-activedescendant={this.focusedOptionId}
+                        onInput={() => this.onInput()}
+                        onFocus={(e) => this.innerOnFocus(e)}
+                        onBlur={(e) => this.innerOnBlur(e)}
+                        aria-invalid={this.state === 'error'}
+                        aria-describedby={`hint-${this.name} error-${this.name}`}
+                      />
+                    </div>
+                    {this.isLoading ? (
+                      <fw-spinner size='small'></fw-spinner>
+                    ) : (
+                      this.caret && (
+                        <span
+                          class={{
+                            'dropdown-status-icon': true,
+                            'expanded': this.isExpanded,
+                          }}
+                        >
+                          <fw-icon
+                            name='chevron-down'
+                            size={8}
+                            library='system'
+                          ></fw-icon>
+                        </span>
+                      )
+                    )}
+                  </Fragment>
+                )}
+              </div>
+              <fw-list-options
+                ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
+                id={`${this.hostId}-listbox`}
+                role='listbox'
+                aria-labelledby={this.labelledBy || `${this.hostId}-label`}
+                notFoundText={this.notFoundText}
+                debounceTimer={this.debounceTimer}
+                noDataText={this.noDataText}
+                search={this.search}
+                selectedOptions={this.selectedOptions}
+                variant={this.optionsVariant}
+                filter-text={this.searchValue}
+                options={this.dataSource}
+                value={this.value}
+                multiple={this.multiple}
+                max={this.max}
+                checkbox={this.checkbox}
+                allowDeselect={this.allowDeselect}
+                slot='popover-content'
+              ></fw-list-options>
+            </fw-popover>
+            {this.stateText !== '' ? (
+              <span class='help-block' id={`hint-${this.name}`}>
+                {this.stateText}
+              </span>
+            ) : (
+              ''
+            )}
+          </div>
         </div>
-      </Host>
+      </FieldControl>
     );
   }
 }

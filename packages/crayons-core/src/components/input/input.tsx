@@ -3,14 +3,15 @@ import {
   Element,
   Event,
   EventEmitter,
-  Host,
   Method,
   Prop,
   State,
   h,
 } from '@stencil/core';
 
-import { handleKeyDown, renderHiddenField } from '../../utils';
+import { handleKeyDown, renderHiddenField, hasSlot } from '../../utils';
+
+import FieldControl from '../../function-components/field-control';
 
 @Component({
   tag: 'fw-input',
@@ -23,6 +24,9 @@ export class Input {
 
   @State() hasFocus = false;
   @State() hasPrefix = false;
+  @State() hasHintTextSlot = false;
+  @State() hasWarningTextSlot = false;
+  @State() hasErrorTextSlot = false;
   /**
    * Label displayed on the interface, for the component.
    */
@@ -79,10 +83,6 @@ export class Input {
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
-   * Descriptive or instructional text displayed below the text box.
-   */
-  @Prop() stateText = '';
-  /**
    * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() readonly = false;
@@ -104,6 +104,18 @@ export class Input {
    * Identifier of the icon that is displayed in the right side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
    */
   @Prop() iconRight: string = undefined;
+  /**
+   * Hint text displayed below the text box.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the text box.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the text box.
+   */
+  @Prop() errorText = '';
 
   /**
    * Triggered when the input box comes into focus.
@@ -216,6 +228,26 @@ export class Input {
   componentWillLoad() {
     this.hasPrefix =
       !!this.host.querySelector('[slot="input-prefix"]') || !!this.iconLeft;
+    this.handleSlotChange();
+  }
+
+  getAriaDescribedBy(): string {
+    if (this.state === 'normal') return `hint-${this.name}`;
+    else if (this.state === 'error') return `error-${this.name}`;
+    else if (this.state === 'warning') return `warning-${this.name}`;
+    return null;
+  }
+
+  handleSlotChange() {
+    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
+    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
+    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
+  }
+  disconnectedCallback() {
+    this.host.shadowRoot.removeEventListener(
+      'slotchange',
+      this.handleSlotChange
+    );
   }
 
   render() {
@@ -224,80 +256,85 @@ export class Input {
     renderHiddenField(host, name, value);
 
     return (
-      <Host
-        aria-disabled={this.disabled}
-        class={{
-          'has-value': this.hasValue(),
-          'has-focus': this.hasFocus,
-        }}
+      <FieldControl
+        inputId={this.name}
+        label={this.label}
+        labelId={`${this.label}-${this.name}`}
+        state={this.state}
+        hintTextId={`hint-${this.name}`}
+        hintText={this.hintText}
+        hasHintTextSlot={this.hasHintTextSlot}
+        errorTextId={`error-${this.name}`}
+        errorText={this.errorText}
+        hasErrorTextSlot={this.hasErrorTextSlot}
+        warningTextId={`warning-${this.name}`}
+        warningText={this.warningText}
+        hasWarningTextSlot={this.hasWarningTextSlot}
+        required={this.required}
       >
         <div
+          aria-disabled={this.disabled}
           class={{
-            'input-container': true,
+            'has-value': this.hasValue(),
+            'has-focus': this.hasFocus,
           }}
         >
-          {this.label !== '' && (
-            <label
-              class={{
-                required: this.required,
-              }}
-            >
-              {this.label}
-            </label>
-          )}
           <div
             class={{
-              'input-container-inner': true,
-              'has-focus': this.hasFocus,
-              'disabled': this.disabled,
-              [this.state]: true,
+              'input-container': true,
             }}
           >
-            <div class='inner__content'>
-              <div class={{ input__prefix: true, hasContent: this.hasPrefix }}>
-                {this.iconLeft && this.renderIcon(this.iconLeft)}
-                <slot name='input-prefix' />
+            <div
+              class={{
+                'input-container-inner': true,
+                'has-focus': this.hasFocus,
+                'disabled': this.disabled,
+                [this.state]: true,
+              }}
+            >
+              <div class='inner__content'>
+                <div
+                  class={{ input__prefix: true, hasContent: this.hasPrefix }}
+                >
+                  {this.iconLeft && this.renderIcon(this.iconLeft)}
+                  <slot name='input-prefix' />
+                </div>
+                <div class='input__label'>
+                  <input
+                    ref={(input) => {
+                      this.nativeInput = input;
+                    }}
+                    id={this.name}
+                    autoComplete={this.autocomplete}
+                    disabled={this.disabled}
+                    name={this.name}
+                    placeholder={this.placeholder || ''}
+                    minLength={this.minlength}
+                    maxLength={this.maxlength}
+                    min={this.min}
+                    max={this.max}
+                    readOnly={this.readonly}
+                    required={this.required}
+                    step={this.step}
+                    type={this.type}
+                    value={this.value}
+                    onInput={this.onInput}
+                    onBlur={this.onBlur}
+                    onFocus={this.onFocus}
+                    aria-invalid={this.state === 'error'}
+                    aria-describedby={this.getAriaDescribedBy()}
+                  />
+                  {this.showClearButton() && this.renderClearButton()}
+                </div>
               </div>
-              <div class='input__label'>
-                <input
-                  ref={(input) => {
-                    this.nativeInput = input;
-                  }}
-                  id={this.name}
-                  autoComplete={this.autocomplete}
-                  disabled={this.disabled}
-                  name={this.name}
-                  placeholder={this.placeholder || ''}
-                  minLength={this.minlength}
-                  maxLength={this.maxlength}
-                  min={this.min}
-                  max={this.max}
-                  readOnly={this.readonly}
-                  required={this.required}
-                  step={this.step}
-                  type={this.type}
-                  value={this.value}
-                  onInput={this.onInput}
-                  onBlur={this.onBlur}
-                  onFocus={this.onFocus}
-                  aria-invalid={this.state === 'error'}
-                  aria-describedby={`hint-${this.name} error-${this.name}`}
-                />
-                {this.showClearButton() && this.renderClearButton()}
+              <div class='inner__suffix'>
+                {this.iconRight && this.renderIcon(this.iconRight)}
+                <slot name='input-suffix' />
               </div>
-            </div>
-            <div class='inner__suffix'>
-              {this.iconRight && this.renderIcon(this.iconRight)}
-              <slot name='input-suffix' />
             </div>
           </div>
-          {this.stateText !== '' && (
-            <span class='help-block' id={`hint-${this.name}`}>
-              {this.stateText}
-            </span>
-          )}
         </div>
-      </Host>
+      </FieldControl>
     );
   }
 }
