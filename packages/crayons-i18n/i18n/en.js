@@ -33,6 +33,17 @@ export default {
     chooseColumns: 'Choose columns',
     actions: 'Actions',
   },
+  fileUploader: {
+    text: 'Upload file',
+    description: 'or drag and drop here',
+    acceptError: 'File format not accepted',
+    maxFileSizeError: 'Exceeded maximum file size',
+    maxFilesLimitError: 'Exceeding maximum files limit',
+    fileUploadError: 'File upload failed',
+    uploading: 'Uploading',
+    selectedFiles: 'Selected files',
+    remove: 'remove',
+  },
   platformTable: {
     delete: 'Delete',
     sortby: 'Sort by',
