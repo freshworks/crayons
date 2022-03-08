@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.25](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.24...@freshworks/crayons@3.0.0-beta.25) (2022-03-08)
-
+## [3.0.0-beta.25](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.24...@freshworks/crayons@3.0.0-beta.25) (2022-03-08)
 
 ### Features
 
-* **i18n:** remove default value being passed to decorator ([#462](https://github.com/freshworks/crayons/issues/462)) ([dba8601](https://github.com/freshworks/crayons/commit/dba86010a83676c5a73753600656a5f04702d38f))
-
-
-
-
+- **i18n:** remove default value being passed to decorator ([#462](https://github.com/freshworks/crayons/issues/462)) ([dba8601](https://github.com/freshworks/crayons/commit/dba86010a83676c5a73753600656a5f04702d38f))
 
 ## [3.0.0-beta.24](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.23...@freshworks/crayons@3.0.0-beta.24) (2022-03-07)
 
