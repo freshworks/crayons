@@ -1,7 +1,7 @@
 /**
-  @prop --select-border: Border of the select component
-  @prop --select-border-radius: Border radius of the select component
-  @prop --select-margin-bottom: Bottom margin of the select component
+  @prop --fw-select-border: Border of the select component
+  @prop --fw-select-border-radius: Border radius of the select component
+  @prop --fw-select-margin-bottom: Bottom margin of the select component
   @prop --fw-input-hint-color: Color of the hint text.
   @prop --fw-input-warning-color: Color of the warning text.
   @prop --fw-input-error-color: Color of the error text.
@@ -55,8 +55,8 @@ label {
 
 .input-container {
   width: calc(100% - 10px);
-  border: var(--select-border, 1px solid $input-border);
-  border-radius: var(--select-border-radius, 4px);
+  border: var(--fw-select-border, 1px solid $input-border);
+  border-radius: var(--fw-select-border-radius, 4px);
   padding-left: 10px;
   background-color: $input-bg;
   box-shadow: none;
@@ -166,7 +166,7 @@ label {
 }
 
 .select-container {
-  margin-bottom: var(--select-margin-bottom, 0px);
+  margin-bottom: var(--fw-select-margin-bottom, 0px);
   width: inherit;
   height: inherit;
   position: relative;

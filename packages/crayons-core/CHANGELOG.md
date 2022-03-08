@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.25](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.24...@freshworks/crayons@3.0.0-beta.25) (2022-03-08)
+
+### Features
+
+- **i18n:** remove default value being passed to decorator ([#462](https://github.com/freshworks/crayons/issues/462)) ([dba8601](https://github.com/freshworks/crayons/commit/dba86010a83676c5a73753600656a5f04702d38f))
+
+## [3.0.0-beta.24](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.23...@freshworks/crayons@3.0.0-beta.24) (2022-03-07)
+
+### Features
+
+- **css-variables:** Namespace css variables ([#441](https://github.com/freshworks/crayons/issues/441)) ([4d4a910](https://github.com/freshworks/crayons/commit/4d4a9103825f6a015f6b61afbc9d4446dec11c83))
+- **timepicker:** replace moment-mini with date-fns ([#459](https://github.com/freshworks/crayons/issues/459)) ([d668420](https://github.com/freshworks/crayons/commit/d668420a5ff90e41a0b1c4ef0a2c3f6602ef41dc))
+
+## [3.0.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.18...@freshworks/crayons@3.0.0-beta.19) (2022-03-04)
+
+### Features
+
+- **crayons-i18n:** crayons-i18n package to handle i18n translations ([#449](https://github.com/freshworks/crayons/issues/449)) ([74d0e5b](https://github.com/freshworks/crayons/commit/74d0e5b2c95ef6571e47b5cf140008995332f5b4))
+- **datepicker:** replacing moment-mini with date-fns to handle locale support ([#452](https://github.com/freshworks/crayons/issues/452)) ([306c432](https://github.com/freshworks/crayons/commit/306c432e376a290ee0707a0de973c1b997b605b0))
+
+## [3.0.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.17...@freshworks/crayons@3.0.0-beta.18) (2022-03-03)
+
+### Bug Fixes
+
+- **data-table:** adding localStorage permissions check before using it ([#453](https://github.com/freshworks/crayons/issues/453)) ([0bcdb40](https://github.com/freshworks/crayons/commit/0bcdb402d71a76deba8e81e6c7f2a139347f09bd))
+- **data-table:** fw-tooltip on hovering over data-table row action buttons ([#447](https://github.com/freshworks/crayons/issues/447)) ([7e00fd6](https://github.com/freshworks/crayons/commit/7e00fd6012d38a34dbdf355db63ec1c4f1500c43))
+- **fw-select-option, fw-textarea:** fixed the styles ([#450](https://github.com/freshworks/crayons/issues/450)) ([ab3a5a4](https://github.com/freshworks/crayons/commit/ab3a5a40f31048b5db58aacc23c8f5a5e43d51ba))
+- **fw-select:** Modified the color of the state text based on the state ([#446](https://github.com/freshworks/crayons/issues/446)) ([642e028](https://github.com/freshworks/crayons/commit/642e028714f27319b8585d79bd8ea66b84785295))
+- standardized height of all input elements to 32px ([#451](https://github.com/freshworks/crayons/issues/451)) ([e123470](https://github.com/freshworks/crayons/commit/e123470070d4052bc5d7bf94fd1f6fcf9341e89f))
+
+### Features
+
+- **fw-datepicker:** added stateText prop to the datepicker ([#448](https://github.com/freshworks/crayons/issues/448)) ([819b59b](https://github.com/freshworks/crayons/commit/819b59b771d9986d3c9f1dd8c92ca1b5c0b56e1d))
+
 ## [3.0.0-beta.17](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.16...@freshworks/crayons@3.0.0-beta.17) (2022-02-28)
 
 ### Bug Fixes

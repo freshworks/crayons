@@ -1,28 +1,28 @@
 /**
-  @prop --pill-color: Pill color
-  @prop --pill-background-color: Pill background color
-  @prop --pill-padding: Pill padding
-  @prop --pill-border: Pill border
-  @prop --pill-border-radius: Pill border radius
+  @prop --fw-pill-color: Pill color
+  @prop --fw-pill-background-color: Pill background color
+  @prop --fw-pill-padding: Pill padding
+  @prop --fw-pill-border: Pill border
+  @prop --fw-pill-border-radius: Pill border radius
 */
 
 :host {
-  --pill-border: none;
-  --pill-border-radius: 16px;
-  --pill-padding: 5px 12px 5px 8px;
-  --pill-color: #{$color-smoke-700};
-  --pill-background-color: #{$color-smoke-50};
+  --fw-pill-border: none;
+  --fw-pill-border-radius: 16px;
+  --fw-pill-padding: 5px 12px 5px 8px;
+  --fw-pill-color: #{$color-smoke-700};
+  --fw-pill-background-color: #{$color-smoke-50};
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--pill-color);
-  background-color: var(--pill-background-color);
-  padding: var(--pill-padding);
-  border: var(--pill-border);
-  border-radius: var(--pill-border-radius);
+  color: var(--fw-pill-color);
+  background-color: var(--fw-pill-background-color);
+  padding: var(--fw-pill-padding);
+  border: var(--fw-pill-border);
+  border-radius: var(--fw-pill-border-radius);
   font-weight: 600;
   font-size: $font-size-12;
   line-height: 1.5;
@@ -39,8 +39,8 @@
   }
 
   ::slotted(fw-icon) {
-    --icon-size: 14px;
-    --icon-color: #{$color-smoke-700};
+    --fw-icon-size: 14px;
+    --fw-icon-color: #{$color-smoke-700};
   }
 
   &--blue {
@@ -48,7 +48,7 @@
     color: $color-azure-800;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-azure-800};
+      --fw-icon-color: #{$color-azure-800};
     }
   }
 
@@ -57,7 +57,7 @@
     color: $color-persimmon-800;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-persimmon-800};
+      --fw-icon-color: #{$color-persimmon-800};
     }
   }
 
@@ -66,7 +66,7 @@
     color: $color-jungle-800;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-jungle-800};
+      --fw-icon-color: #{$color-jungle-800};
     }
   }
 
@@ -75,7 +75,7 @@
     color: $color-casablanca-700;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-casablanca-700};
+      --fw-icon-color: #{$color-casablanca-700};
     }
   }
 
@@ -84,7 +84,7 @@
     color: $color-smoke-700;
 
     ::slotted(fw-icon) {
-      --icon-color: #{$color-smoke-700};
+      --fw-icon-color: #{$color-smoke-700};
     }
   }
 }

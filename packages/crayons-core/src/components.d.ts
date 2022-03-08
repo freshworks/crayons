@@ -63,6 +63,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Accepts the id of the fw-file-uploader component to upload the file.
+         */
+        "fileUploaderId": string;
+        /**
           * Loading state for the button, Default value is false.
          */
         "loading": boolean;
@@ -231,8 +235,9 @@ export namespace Components {
         "showSettings": boolean;
     }
     interface FwDatepicker {
+        "cancelText": string;
         /**
-          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat": string;
         /**
@@ -243,6 +248,9 @@ export namespace Components {
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
+        /**
+          * Returns the date value in ISO format.
+         */
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
         /**
           * Hint text displayed below the text box.
@@ -253,13 +261,25 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Locale for which datepicker needs to be shown.
+         */
+        "locale": string;
+        /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate": string;
         /**
+          * Maximum year that needs to be displayed in the year dropdown.
+         */
+        "maxYear": number;
+        /**
           * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate": string;
+        /**
+          * Minimum year that needs to be displayed in the year dropdown.
+         */
+        "minYear": number;
         /**
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
@@ -273,7 +293,7 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * /**   Make the input box as readonly. Default `false`
+          * Make the input box as readonly. Default `false`
          */
         "readonly": boolean;
         /**
@@ -292,6 +312,7 @@ export namespace Components {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
+        "updateText": string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
@@ -338,6 +359,8 @@ export namespace Components {
         "showDragIcon": boolean;
     }
     interface FwDropdownButton {
+        "addText": string;
+        "cancelText": string;
         /**
           * Dropdown Button color
          */
@@ -370,6 +393,98 @@ export namespace Components {
           * Value of the dropdown button
          */
         "value": any;
+    }
+    interface FwFileUploader {
+        /**
+          * accept - comma separated string. tells us what file formats file uploader should accept.
+         */
+        "accept": string;
+        /**
+          * acceptError - Error message to display when format is invalid.
+         */
+        "acceptError": any;
+        /**
+          * actionParams - additional information to send to server other than the file.
+         */
+        "actionParams": any;
+        /**
+          * actionURL - URL to make server call.
+         */
+        "actionURL": string;
+        /**
+          * description - file uploader description.
+         */
+        "description": any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError": any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit": number;
+        /**
+          * hint - file uploader hint text.
+         */
+        "hint": string;
+        /**
+          * maxFileSize - maximum file size the file uploader must accept.
+         */
+        "maxFileSize": number;
+        /**
+          * maxFileSizeError - Error message to display when file size exceeds limit
+         */
+        "maxFileSizeError": any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError": any;
+        /**
+          * modify request
+          * @param xhr
+          * @returns xhr
+         */
+        "modifyRequest": (xhr: any) => any;
+        /**
+          * multiple - upload multiple files.
+         */
+        "multiple": boolean;
+        /**
+          * text - file uploader text.
+         */
+        "text": any;
+        /**
+          * uploadFiles - uploads the files to the server. emits an after file is uploaded.
+         */
+        "uploadFiles": () => Promise<void>;
+    }
+    interface FwFileUploaderFile {
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "name": string;
+    }
+    interface FwFileUploaderProgress {
+        /**
+          * error text for the file upload
+         */
+        "error": string;
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "fileName": string;
+        /**
+          * file upload progress
+         */
+        "progress": number;
     }
     interface FwForm {
         "doReset": (e: any) => Promise<void>;
@@ -1236,6 +1351,10 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
+          * Descriptive or instructional text displayed below the list box.
+         */
+        "stateText": string;
+        /**
           * The variant of tag to be used.
          */
         "tagVariant": TagVariant;
@@ -1519,7 +1638,7 @@ export namespace Components {
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
-        "format": 'hh:mm A' | 'HH:mm';
+        "format": 'hh:mm a' | 'HH:mm';
         /**
           * Hint text displayed below the text box.
          */
@@ -1533,11 +1652,11 @@ export namespace Components {
          */
         "label": string;
         /**
-          * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "maxTime"?: string;
         /**
-          * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "minTime"?: string;
         /**
@@ -1549,7 +1668,7 @@ export namespace Components {
          */
         "placeholder"?: string | null;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required": boolean;
         /**
@@ -1853,6 +1972,24 @@ declare global {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
     };
+    interface HTMLFwFileUploaderElement extends Components.FwFileUploader, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderElement: {
+        prototype: HTMLFwFileUploaderElement;
+        new (): HTMLFwFileUploaderElement;
+    };
+    interface HTMLFwFileUploaderFileElement extends Components.FwFileUploaderFile, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderFileElement: {
+        prototype: HTMLFwFileUploaderFileElement;
+        new (): HTMLFwFileUploaderFileElement;
+    };
+    interface HTMLFwFileUploaderProgressElement extends Components.FwFileUploaderProgress, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderProgressElement: {
+        prototype: HTMLFwFileUploaderProgressElement;
+        new (): HTMLFwFileUploaderProgressElement;
+    };
     interface HTMLFwFormElement extends Components.FwForm, HTMLStencilElement {
     }
     var HTMLFwFormElement: {
@@ -2091,6 +2228,9 @@ declare global {
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-drag-item": HTMLFwDragItemElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-file-uploader": HTMLFwFileUploaderElement;
+        "fw-file-uploader-file": HTMLFwFileUploaderFileElement;
+        "fw-file-uploader-progress": HTMLFwFileUploaderProgressElement;
         "fw-form": HTMLFwFormElement;
         "fw-form-control": HTMLFwFormControlElement;
         "fw-format-date": HTMLFwFormatDateElement;
@@ -2182,6 +2322,10 @@ declare namespace LocalJSX {
           * Disables the button on the interface. Default value is false.
          */
         "disabled"?: boolean;
+        /**
+          * Accepts the id of the fw-file-uploader component to upload the file.
+         */
+        "fileUploaderId"?: string;
         /**
           * Loading state for the button, Default value is false.
          */
@@ -2347,8 +2491,9 @@ declare namespace LocalJSX {
         "showSettings"?: boolean;
     }
     interface FwDatepicker {
+        "cancelText"?: string;
         /**
-          * Format in which the date values selected in the calendar are populated in the input box. Defaults to ISO date format.
+          * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat"?: string;
         /**
@@ -2368,13 +2513,25 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Locale for which datepicker needs to be shown.
+         */
+        "locale"?: string;
+        /**
           * Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "maxDate"?: string;
         /**
+          * Maximum year that needs to be displayed in the year dropdown.
+         */
+        "maxYear"?: number;
+        /**
           * Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
          */
         "minDate"?: string;
+        /**
+          * Minimum year that needs to be displayed in the year dropdown.
+         */
+        "minYear"?: number;
         /**
           * Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.
          */
@@ -2396,7 +2553,7 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * /**   Make the input box as readonly. Default `false`
+          * Make the input box as readonly. Default `false`
          */
         "readonly"?: boolean;
         /**
@@ -2411,6 +2568,7 @@ declare namespace LocalJSX {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
+        "updateText"?: string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
@@ -2461,6 +2619,8 @@ declare namespace LocalJSX {
         "showDragIcon"?: boolean;
     }
     interface FwDropdownButton {
+        "addText"?: string;
+        "cancelText"?: string;
         /**
           * Dropdown Button color
          */
@@ -2501,6 +2661,114 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
+    }
+    interface FwFileUploader {
+        /**
+          * accept - comma separated string. tells us what file formats file uploader should accept.
+         */
+        "accept"?: string;
+        /**
+          * acceptError - Error message to display when format is invalid.
+         */
+        "acceptError"?: any;
+        /**
+          * actionParams - additional information to send to server other than the file.
+         */
+        "actionParams"?: any;
+        /**
+          * actionURL - URL to make server call.
+         */
+        "actionURL"?: string;
+        /**
+          * description - file uploader description.
+         */
+        "description"?: any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError"?: any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit"?: number;
+        /**
+          * hint - file uploader hint text.
+         */
+        "hint"?: string;
+        /**
+          * maxFileSize - maximum file size the file uploader must accept.
+         */
+        "maxFileSize"?: number;
+        /**
+          * maxFileSizeError - Error message to display when file size exceeds limit
+         */
+        "maxFileSizeError"?: any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError"?: any;
+        /**
+          * modify request
+          * @param xhr
+          * @returns xhr
+         */
+        "modifyRequest"?: (xhr: any) => any;
+        /**
+          * multiple - upload multiple files.
+         */
+        "multiple"?: boolean;
+        /**
+          * fileReuploaded - event that gets emitted when file is reuploaded
+         */
+        "onFwFileReuploaded"?: (event: CustomEvent<any>) => void;
+        /**
+          * filesUploaded - event that gets emitted when files get uploaded
+         */
+        "onFwFilesUploaded"?: (event: CustomEvent<any>) => void;
+        /**
+          * stageChanged - event that gets emitted when component stage changes
+         */
+        "onFwStageChanged"?: (event: CustomEvent<any>) => void;
+        /**
+          * text - file uploader text.
+         */
+        "text"?: any;
+    }
+    interface FwFileUploaderFile {
+        /**
+          * file Id
+         */
+        "fileId"?: number;
+        /**
+          * file name
+         */
+        "name"?: string;
+        /**
+          * removeFile - event that gets triggered on file removal
+         */
+        "onFwRemoveFile"?: (event: CustomEvent<any>) => void;
+    }
+    interface FwFileUploaderProgress {
+        /**
+          * error text for the file upload
+         */
+        "error"?: string;
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "fileName"?: string;
+        /**
+          * retryUpload event to emit in case of a retry
+         */
+        "onFwRetryUpload"?: (event: CustomEvent<any>) => void;
+        /**
+          * file upload progress
+         */
+        "progress"?: number;
     }
     interface FwForm {
         /**
@@ -3388,6 +3656,10 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
+          * Descriptive or instructional text displayed below the list box.
+         */
+        "stateText"?: string;
+        /**
           * The variant of tag to be used.
          */
         "tagVariant"?: TagVariant;
@@ -3693,7 +3965,7 @@ declare namespace LocalJSX {
         /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
-        "format"?: 'hh:mm A' | 'HH:mm';
+        "format"?: 'hh:mm a' | 'HH:mm';
         /**
           * Hint text displayed below the text box.
          */
@@ -3707,11 +3979,11 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * Upper time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "maxTime"?: string;
         /**
-          * Lower time-limit for the values displayed in the list. If this attribute’s value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
         "minTime"?: string;
         /**
@@ -3735,7 +4007,7 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string | null;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required"?: boolean;
         /**
@@ -3963,6 +4235,9 @@ declare namespace LocalJSX {
         "fw-drag-container": FwDragContainer;
         "fw-drag-item": FwDragItem;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-file-uploader": FwFileUploader;
+        "fw-file-uploader-file": FwFileUploaderFile;
+        "fw-file-uploader-progress": FwFileUploaderProgress;
         "fw-form": FwForm;
         "fw-form-control": FwFormControl;
         "fw-format-date": FwFormatDate;
@@ -4021,6 +4296,9 @@ declare module "@stencil/core" {
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-file-uploader": LocalJSX.FwFileUploader & JSXBase.HTMLAttributes<HTMLFwFileUploaderElement>;
+            "fw-file-uploader-file": LocalJSX.FwFileUploaderFile & JSXBase.HTMLAttributes<HTMLFwFileUploaderFileElement>;
+            "fw-file-uploader-progress": LocalJSX.FwFileUploaderProgress & JSXBase.HTMLAttributes<HTMLFwFileUploaderProgressElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
             "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
             "fw-format-date": LocalJSX.FwFormatDate & JSXBase.HTMLAttributes<HTMLFwFormatDateElement>;

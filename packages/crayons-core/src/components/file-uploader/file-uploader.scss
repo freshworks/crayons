@@ -1,0 +1,99 @@
+:host {
+  display: block;
+}
+
+div.file-uploader-container {
+  display: flex;
+  width: 100%;
+  min-height: 153px;
+  border: 1px dashed var(--fw-file-uploader-border, $color-azure-100);
+  background: $color-milk;
+  justify-content: center;
+
+  .dropzone,
+  .progress,
+  .files {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dropzone {
+    align-items: center;
+    cursor: pointer;
+
+    .dropzone-center {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      height: 100%;
+      justify-content: space-between;
+
+      .drop-clickable {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: auto 0;
+        transform: translateY(-5px);
+
+        .drop-clickable-text {
+          line-height: 20px;
+          font-size: 14px;
+          font-weight: 500;
+          color: $color-azure-800;
+          margin-top: 9px;
+          margin-bottom: 3px;
+        }
+
+        .drop-clickable-hint {
+          line-height: 20px;
+          font-size: 14px;
+          color: $color-smoke-300;
+        }
+      }
+
+      .dropzone-hint {
+        line-height: 20px;
+        font-size: 10px;
+        color: $color-elephant-700;
+        text-align: center;
+      }
+
+      .dropzone-error {
+        line-height: 12px;
+        font-size: 10px;
+        text-align: center;
+        padding: 5px 0px;
+        box-sizing: border-box;
+
+        span {
+          display: block;
+          color: $color-persimmon-800;
+        }
+      }
+    }
+  }
+
+  .progress,
+  .files {
+    padding: 28px;
+    box-sizing: border-box;
+    justify-content: center;
+
+    &-center {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-title {
+      line-height: 20px;
+      font-size: 12px;
+      color: $color-smoke-700;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+  }
+}

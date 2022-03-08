@@ -1,5 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
-import moment from 'moment-mini';
+import { format, addMonths, getMonth, parse } from 'date-fns';
 
 describe('fw-datepicker', () => {
   it('renders', async () => {
@@ -77,7 +77,7 @@ describe('fw-datepicker', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-datepicker date-format="YYYY-MM-DD"></fw-datepicker>'
+      '<fw-datepicker display-format="yyyy-MM-dd"></fw-datepicker>'
     );
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
@@ -93,7 +93,7 @@ describe('fw-datepicker', () => {
     await updateEle.click();
 
     const datePickerValue = await element.getProperty('value');
-    const todayValue = moment().format('YYYY-MM-DD');
+    const todayValue = format(new Date(), 'yyyy-MM-dd');
 
     expect(datePickerValue.toString()).toBe(todayValue.toString());
   });
@@ -117,9 +117,9 @@ describe('fw-datepicker', () => {
     );
     const toMonthValue = await toMonth.getProperty('value');
 
-    expect(moment(fromMonthValue, 'MMM').add(1, 'months').month()).toBe(
-      moment(toMonthValue, 'MMM').month()
-    );
+    expect(
+      getMonth(addMonths(parse(fromMonthValue, 'MMM', new Date()), 1))
+    ).toBe(getMonth(parse(toMonthValue, 'MMM', new Date())));
   });
 
   it('both calenders of daterange picker should update', async () => {
@@ -144,8 +144,8 @@ describe('fw-datepicker', () => {
     );
     const updateToMonthValue = await updatedToMonth.getProperty('value');
 
-    expect(moment(updatedFromMonthValue, 'MMM').add(1, 'M').format('MMM')).toBe(
-      updateToMonthValue
-    );
+    expect(
+      getMonth(addMonths(parse(updatedFromMonthValue, 'MMM', new Date()), 1))
+    ).toBe(getMonth(parse(updateToMonthValue, 'MMM', new Date())));
   });
 });

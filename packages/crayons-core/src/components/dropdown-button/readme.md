@@ -149,6 +149,8 @@ function App() {
 
 | Property      | Attribute     | Description                                                                          | Type                                                       | Default     |
 | ------------- | ------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------- | ----------- |
+| `addText`     | `add-text`    |                                                                                      | `string`                                                   | `''`        |
+| `cancelText`  | `cancel-text` |                                                                                      | `string`                                                   | `''`        |
 | `color`       | `color`       | Dropdown Button color                                                                | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'` |
 | `disabled`    | `disabled`    | Disables the dropdown button if its true                                             | `boolean`                                                  | `false`     |
 | `label`       | `label`       | Label for the dropdown button                                                        | `string`                                                   | `undefined` |

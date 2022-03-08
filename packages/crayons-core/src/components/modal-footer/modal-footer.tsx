@@ -1,5 +1,6 @@
 import { Component, Element, Prop, h } from '@stencil/core';
 import { hasSlot } from '../../utils';
+import { i18n } from '../../global/Translation';
 
 @Component({
   tag: 'fw-modal-footer',
@@ -12,12 +13,16 @@ export class ModalFooter {
   /**
    * The text for the submit button
    */
-  @Prop() submitText = 'OK';
+  @i18n({ keyName: 'modal.ok' })
+  @Prop({ mutable: true })
+  submitText = '';
 
   /**
    * The text for the cancel button
    */
-  @Prop() cancelText = 'Cancel';
+  @i18n({ keyName: 'modal.cancel' })
+  @Prop({ mutable: true })
+  cancelText = '';
 
   /**
    * Default state of submit button

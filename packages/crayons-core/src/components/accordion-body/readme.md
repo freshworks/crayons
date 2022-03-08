@@ -8,12 +8,12 @@ Displays the content inside the component.
 
 ## CSS Custom Properties
 
-| Name                                | Description                     |
-| ----------------------------------- | ------------------------------- |
-| `--accordion-body-background-color` | Accordion body background color |
-| `--accordion-body-font-size`        | Accordion body font size        |
-| `--accordion-body-line-height`      | Accordion body line height      |
-| `--accordion-body-padding`          | Accordion body padding          |
+| Name                                   | Description                     |
+| -------------------------------------- | ------------------------------- |
+| `--fw-accordion-body-background-color` | Accordion body background color |
+| `--fw-accordion-body-font-size`        | Accordion body font size        |
+| `--fw-accordion-body-line-height`      | Accordion body line height      |
+| `--fw-accordion-body-padding`          | Accordion body padding          |
 
 
 ----------------------------------------------

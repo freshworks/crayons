@@ -45,10 +45,10 @@ function App() {
 
 ## CSS Custom Properties
 
-| Name                 | Description                  |
-| -------------------- | ---------------------------- |
-| `--tab-panel-height` | height of the tab container. |
-| `--tab-panel-width`  | width of the tab container.  |
+| Name                    | Description                  |
+| ----------------------- | ---------------------------- |
+| `--fw-tab-panel-height` | height of the tab container. |
+| `--fw-tab-panel-width`  | width of the tab container.  |
 
 
 ## Dependencies

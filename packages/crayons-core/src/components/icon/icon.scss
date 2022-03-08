@@ -1,6 +1,6 @@
 /**
-  @prop --icon-color: Color of the icon
-  @prop --icon-size: Size of the icon
+  @prop --fw-icon-color: Color of the icon
+  @prop --fw-icon-size: Size of the icon
 */
 
 :host {
@@ -9,10 +9,10 @@
 
 .icon {
   display: block;
-  color: var(--icon-color, $color-elephant-900);
+  color: var(--fw-icon-color, $color-elephant-900);
 
-  height: var(--icon-size, 12px);
-  width: var(--icon-size, 12px);
+  height: var(--fw-icon-size, 12px);
+  width: var(--fw-icon-size, 12px);
 
   svg {
     display: block;

@@ -4,7 +4,7 @@ import { withActions } from '@storybook/addon-actions';
 import { Parser } from 'html-to-react';
 
 import theme from '../../../docs/.storybook/freshworksStorybookTheme';
-import { defineCustomElements } from '../loader';
+import { defineCustomElements } from '../loader/index.es2017';
 
 defineCustomElements(window);
 const toReact = new Parser();

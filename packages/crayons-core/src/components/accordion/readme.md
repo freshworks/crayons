@@ -73,17 +73,17 @@ Toggle icons can be customized using named slots.
 
 ```html live
 <fw-accordion
-  style="--accordion-border: 1px solid #F5F7F9; --accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --accordion-border-radius: 4px;"
+  style="--fw-accordion-border: 1px solid #F5F7F9; --fw-accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --fw-accordion-border-radius: 4px;"
   expanded
 >
   <fw-accordion-title
     truncate-on-overflow="true"
-    style="--accordion-title-background-color: #F5F7F9; --accordion-title-expanded-icon-color: #2C5CC5; --accordion-title-collapsed-icon-color: #264966;"
+    style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;"
   >
     <fw-icon name="rewards"></fw-icon>
     <span style="padding-left: 5px;">Header Text</span>
   </fw-accordion-title>
-  <fw-accordion-body style="--accordion-body-background-color: #FFFFFF">
+  <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
     Lorem Ipsum has been the industry's standard dummy text ever since the
     1500s, when an unknown printer took a galley of type and scrambled it to
@@ -169,11 +169,11 @@ promise that resolves to true
 
 ## CSS Custom Properties
 
-| Name                        | Description             |
-| --------------------------- | ----------------------- |
-| `--accordion-border`        | Accordion border        |
-| `--accordion-border-radius` | Accordion border radius |
-| `--accordion-box-shadow`    | Accordion box shadow    |
+| Name                           | Description             |
+| ------------------------------ | ----------------------- |
+| `--fw-accordion-border`        | Accordion border        |
+| `--fw-accordion-border-radius` | Accordion border radius |
+| `--fw-accordion-box-shadow`    | Accordion box shadow    |
 
 
 ----------------------------------------------

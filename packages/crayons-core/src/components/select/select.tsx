@@ -14,13 +14,15 @@ import {
 } from '@stencil/core';
 
 import { handleKeyDown, renderHiddenField, hasSlot } from '../../utils';
+import FieldControl from '../../function-components/field-control';
+
 import {
   DropdownVariant,
   TagVariant,
   PopoverPlacementType,
 } from '../../utils/types';
-import FieldControl from '../../function-components/field-control';
 
+import { i18n } from '../../global/Translation';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -114,6 +116,10 @@ export class Select {
    */
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   /**
+   * Descriptive or instructional text displayed below the list box.
+   */
+  @Prop() stateText = '';
+  /**
    * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
    */
   @Prop() readonly = false;
@@ -161,7 +167,9 @@ export class Select {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @Prop() notFoundText = 'No items Found';
+  @i18n({ keyName: 'search.noItemsFound' })
+  @Prop({ mutable: true })
+  notFoundText = '';
   /**
    * Filter function which takes in filterText and dataSource and return a Promise.
    * Where filter text is the text to filter the value in dataSource array.
@@ -171,7 +179,9 @@ export class Select {
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @Prop() noDataText = 'No Data available';
+  @i18n({ keyName: 'search.noDataAvailable' })
+  @Prop({ mutable: true })
+  noDataText = '';
   /**
    * Debounce timer for the search promise function.
    */
@@ -204,7 +214,6 @@ export class Select {
    * Whether clicking on the already selected option disables it.
    */
   @Prop() allowDeselect = true;
-
   /**
    * Hint text displayed below the text box.
    */
@@ -568,7 +577,6 @@ export class Select {
     else if (this.state === 'warning') return `warning-${this.name}`;
     return null;
   }
-
   render() {
     const { host, name, value } = this;
 
@@ -597,6 +605,16 @@ export class Select {
             'has-focus': this.hasFocus,
           }}
         >
+          {this.label !== '' ? (
+            <label
+              id={`${this.hostId}-label`}
+              class={{ required: this.required }}
+            >
+              {this.label}
+            </label>
+          ) : (
+            ''
+          )}
           {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
         moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
           <div
@@ -626,6 +644,7 @@ export class Select {
               >
                 {this.variant === 'button' ? (
                   <fw-button
+                    style={{ '--fw-button-label-vertical-padding': '7px' }}
                     show-caret-icon
                     id={`${this.hostId}-btn`}
                     color='secondary'
@@ -674,7 +693,7 @@ export class Select {
                         onFocus={(e) => this.innerOnFocus(e)}
                         onBlur={(e) => this.innerOnBlur(e)}
                         aria-invalid={this.state === 'error'}
-                        aria-describedby={this.getAriaDescribedBy()}
+                        aria-describedby={`hint-${this.name} error-${this.name}`}
                       />
                     </div>
                     {this.isLoading ? (
@@ -719,6 +738,13 @@ export class Select {
                 slot='popover-content'
               ></fw-list-options>
             </fw-popover>
+            {this.stateText !== '' ? (
+              <span class='help-block' id={`hint-${this.name}`}>
+                {this.stateText}
+              </span>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </FieldControl>

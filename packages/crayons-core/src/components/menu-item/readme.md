@@ -7,7 +7,7 @@ Menu item is a component to define each row of a `fw-menu` components. It takes 
 ```html live
 <section>
   <fw-label value="Item with prefix and suffix"></fw-label>
-  <fw-menu style="--menu-max-width: 300px">
+  <fw-menu style="--fw-menu-max-width: 300px">
     <fw-menu-item
       >Messages
       <fw-icon name="email" size="16" slot="prefix"></fw-icon>
@@ -26,7 +26,7 @@ Menu item is a component to define each row of a `fw-menu` components. It takes 
 
 <section>
   <fw-label value="Click handler on row"></fw-label>
-  <fw-menu style="--menu-max-width: 200px">
+  <fw-menu style="--fw-menu-max-width: 200px">
     <fw-menu-item onclick="showAlert('help!!')"
       >Help
       <fw-icon name="help" size="16" slot="prefix"></fw-icon>
@@ -43,7 +43,7 @@ Menu item is a component to define each row of a `fw-menu` components. It takes 
 
 <section>
   <fw-label value="Selectable Menu item"></fw-label>
-  <fw-menu style="--menu-max-width: 200px">
+  <fw-menu style="--fw-menu-max-width: 200px">
     <fw-menu-item selectable>First Option</fw-menu-item>
     <fw-menu-item selectable>Second Option</fw-menu-item>
     <fw-menu-item selectable>Third Option</fw-menu-item>
@@ -70,12 +70,12 @@ Menu item is a component to define each row of a `fw-menu` components. It takes 
 
 ## CSS Custom Properties
 
-| Name                        | Description                                        |
-| --------------------------- | -------------------------------------------------- |
-| `--menu-item-background`    | Border of the fw-menu-item popover content.        |
-| `--menu-item-border`        | Border of the fw-menu-item popover content.        |
-| `--menu-item-border-radius` | Border Radius of the fw-menu-item popover content. |
-| `--menu-item-box-shadow`    | Box Shadow of the fw-menu-item popover content.    |
+| Name                           | Description                                        |
+| ------------------------------ | -------------------------------------------------- |
+| `--fw-menu-item-background`    | Border of the fw-menu-item popover content.        |
+| `--fw-menu-item-border`        | Border of the fw-menu-item popover content.        |
+| `--fw-menu-item-border-radius` | Border Radius of the fw-menu-item popover content. |
+| `--fw-menu-item-box-shadow`    | Box Shadow of the fw-menu-item popover content.    |
 
 
 ## Dependencies

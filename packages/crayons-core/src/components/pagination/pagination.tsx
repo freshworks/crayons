@@ -8,6 +8,7 @@ import {
   Method,
   Watch,
 } from '@stencil/core';
+import { i18n } from '../../global/Translation';
 @Component({
   tag: 'fw-pagination',
   styleUrl: 'pagination.scss',
@@ -29,18 +30,28 @@ export class Pagination {
    *The number of records to be shown per page. Defaults to 10.
    */
   @Prop() perPage = 10;
+
   /**
    * Aria Label to be used for the button group.
    */
-  @Prop() buttonGroupLabel = 'Pagination controls';
+  @i18n({ keyName: 'pagination.buttonGroupLabel' })
+  @Prop({ mutable: true })
+  buttonGroupLabel = '';
+
   /**
    * Aria Label to be used for previous button.
    */
-  @Prop() previousButtonLabel = 'Previous';
+  @i18n({ keyName: 'pagination.previousButtonLabel' })
+  @Prop({ mutable: true })
+  previousButtonLabel = '';
+
   /**
    * Aria Label to be used for next button.
    */
-  @Prop() nextButtonLabel = 'Next';
+  @i18n({ keyName: 'pagination.nextButtonLabel' })
+  @Prop({ mutable: true })
+  nextButtonLabel = '';
+
   /**
    * Indicates if the records in current page are being fetched.
    */

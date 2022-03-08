@@ -94,17 +94,17 @@ This page contains examples for creating layouts by combining various css utils.
 ```html live
 <div style="width:336px;">
   <fw-accordion
-    style="--accordion-border: 1px solid #F5F7F9; --accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --accordion-border-radius: 4px;"
+    style="--fw-accordion-border: 1px solid #F5F7F9; --fw-accordion-box-shadow: 0px 1px 8px rgba(152, 152, 152, 0.13); --fw-accordion-border-radius: 4px;"
     expanded="true"
   >
     <fw-accordion-title
       truncate-on-overflow="true"
-      style="--accordion-title-background-color: #F5F7F9;"
+      style="--fw-accordion-title-background-color: #F5F7F9;"
     >
       <fw-icon name="email"></fw-icon>
       <span style="padding-left: 5px;">Tickets</span>
     </fw-accordion-title>
-    <fw-accordion-body style="--accordion-body-background-color: #FFFFFF">
+    <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
       <div>
         <div class="fw-card-1 fw-py-16 fw-px-20 fw-flex fw-flex-row">
           <div>

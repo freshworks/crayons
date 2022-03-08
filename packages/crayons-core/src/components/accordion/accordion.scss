@@ -1,12 +1,15 @@
 /**
-  @prop --accordion-box-shadow: Accordion box shadow
-  @prop --accordion-border: Accordion border
-  @prop --accordion-border-radius: Accordion border radius
+  @prop --fw-accordion-box-shadow: Accordion box shadow
+  @prop --fw-accordion-border: Accordion border
+  @prop --fw-accordion-border-radius: Accordion border radius
 */
 .accordion {
-  box-shadow: var(--accordion-box-shadow, 0px 1px 4px rgba(18, 52, 77, 0.08));
-  border: var(--accordion-border, 1px solid $app-border-primary);
-  border-radius: var(--accordion-border-radius, 8px);
+  box-shadow: var(
+    --fw-accordion-box-shadow,
+    0px 1px 4px rgba(18, 52, 77, 0.08)
+  );
+  border: var(--fw-accordion-border, 1px solid $app-border-primary);
+  border-radius: var(--fw-accordion-border-radius, 8px);
 
   &.no-bounding-box {
     border-left: 0;

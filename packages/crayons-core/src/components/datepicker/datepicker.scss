@@ -10,7 +10,7 @@
 :host {
   display: block;
   position: relative;
-  --icon-size: 14px;
+  --fw-icon-size: 14px;
 
   * {
     user-select: none;
@@ -44,7 +44,7 @@
 }
 
 .mdpc-head {
-  --select-margin-bottom: 16px;
+  --fw-select-margin-bottom: 16px;
   display: flex;
   align-items: center;
 }
@@ -174,26 +174,26 @@
 }
 
 .mdpchc-year {
-  --btn-min-width: 74px;
+  --fw-button-min-width: 74px;
   float: left;
   height: 30px;
   font-size: 16px;
   color: $color-smoke-700;
   text-align: center;
   width: 74px;
-  --popover-max-height: 146px;
-  --popover-min-width: 170px;
+  --fw-popover-max-height: 146px;
+  --fw-popover-min-width: 170px;
 }
 
 .mdpchc-month {
-  --btn-min-width: 65px;
+  --fw-button-min-width: 65px;
   float: left;
   font-size: 16px;
   color: $color-smoke-700;
   text-align: center;
   width: 65px;
-  --popover-max-height: 146px;
-  --popover-min-width: 170px;
+  --fw-popover-max-height: 146px;
+  --fw-popover-min-width: 170px;
 
   fw-select .input-container-inner input {
     width: 98%;

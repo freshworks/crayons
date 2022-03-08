@@ -1,5 +1,6 @@
 /**
-  @prop --btn-min-width: minimum width for the button
+  @prop --fw-button-min-width: minimum width for the button
+  @prop --fw-button-label-vertical-padding: vertical padding for the button label
 */
 
 //=== Button Style ===//
@@ -80,7 +81,7 @@ $input-height-mini: 16px;
   letter-spacing: 0;
   outline: 0;
   border-radius: 4px;
-  --icon-color: currentColor;
+  --fw-icon-color: currentColor;
 
   .fw-btn--label {
     white-space: nowrap;
@@ -251,7 +252,7 @@ $input-height-mini: 16px;
   }
 
   &--normal {
-    min-width: var(--btn-min-width, 80px);
+    min-width: var(--fw-button-min-width, 80px);
     height: 32px;
     line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
   }
@@ -282,15 +283,15 @@ $input-height-mini: 16px;
 }
 
 .fw-btn--normal ::slotted(fw-icon) {
-  --icon-size: 12px;
+  --fw-icon-size: 12px;
 }
 
 .fw-btn--small ::slotted(fw-icon) {
-  --icon-size: 10px;
+  --fw-icon-size: 10px;
 }
 
 .fw-btn--mini ::slotted(fw-icon) {
-  --icon-size: 8px;
+  --fw-icon-size: 8px;
 }
 
 // Padding and Spacing
@@ -300,7 +301,7 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 
 @each $className, $labelOnlySize, $innerOnlySize in $sizes {
   .fw-btn--has-label.fw-btn--#{$className} .fw-btn--label {
-    padding: 0 #{$labelOnlySize};
+    padding: 0 var(--fw-button-label-vertical-padding, #{$labelOnlySize});
   }
 
   .fw-btn--has-before.fw-btn--#{$className} {
@@ -323,11 +324,11 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 }
 
 .fw-btn--caret fw-icon {
-  --icon-size: 9px;
+  --fw-icon-size: 9px;
 }
 
 .fw-btn--caret.fw-btn--mini fw-icon {
-  --icon-size: 6px;
+  --fw-icon-size: 6px;
 }
 
 // Loading button implementation
@@ -343,7 +344,7 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
   }
 
   .fw-btn--loader {
-    --spinner-color: currentColor;
+    --fw-spinner-color: currentColor;
     opacity: 1;
     line-height: 0;
   }

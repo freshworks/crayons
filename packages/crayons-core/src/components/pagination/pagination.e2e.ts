@@ -71,8 +71,9 @@ describe('fw-pagination', () => {
     const button = await page.find(
       'fw-pagination >>> fw-button[aria-label="Next"]'
     );
-    const element = await page.findAll('fw-pagination >>> .record');
     await button.click();
+    await page.waitForChanges();
+    const element = await page.findAll('fw-pagination >>> .record');
     expect(element[0].textContent).toEqual('11');
     expect(element[1].textContent).toEqual('20');
   });
