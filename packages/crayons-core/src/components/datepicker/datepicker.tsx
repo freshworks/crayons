@@ -25,7 +25,6 @@ import {
   addDays,
   startOfWeek,
 } from 'date-fns';
-import { enUS } from 'date-fns/locale';
 import {
   handleKeyDown,
   renderHiddenField,
@@ -95,6 +94,7 @@ export class Datepicker {
   @State() toMonth: number;
   @State() firstFocusElement: HTMLElement = null;
   @State() lastFocusElement: HTMLElement = null;
+  @State() langModule: any;
   @State() shortMonthNames: any;
   @State() longMonthNames: any;
   @State() weekDays: any;
@@ -165,7 +165,7 @@ export class Datepicker {
   @Prop() maxYear = new Date().getFullYear();
 
   /**
-   *   Locale for which datepicker needs to be shown.
+   *   Locale for which datepicker needs to be shown. Defaults to browser's current locale.
    */
   @Prop({ mutable: true }) locale: string;
 
@@ -192,7 +192,7 @@ export class Datepicker {
   private escapeHandler = null;
   private madeInert;
   private nativeInput;
-  private langModule = enUS;
+  private isDisplayFormatSet = false;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -620,10 +620,41 @@ export class Datepicker {
     return yearsArr;
   };
 
+  @Watch('locale')
+  async handleLocaleChange(newLocale) {
+    this.langModule = await TranslationController.getDateLangModule(newLocale);
+  }
+
   async componentWillLoad() {
+    this.langModule = await TranslationController.getDateLangModule(
+      this.locale
+    );
+
+    if (this.displayFormat) {
+      this.isDisplayFormatSet = true;
+    }
+
     this.placeholder = this.displayFormat =
       this.displayFormat ||
       this.langModule?.formatLong?.date({ width: 'short' });
+
+    const onChange = TranslationController.onChange.bind(TranslationController);
+    onChange('dateLangModule', (newLang) => {
+      this.langModule = newLang;
+      this.displayFormat = this.placeholder = this.isDisplayFormatSet
+        ? this.displayFormat
+        : this.langModule?.formatLong?.date({ width: 'short' });
+
+      if (this.mode === 'range')
+        this.placeholder = `${this.placeholder} ${TranslationController.t(
+          'datepicker.to'
+        )} ${this.placeholder}`;
+
+      const monthNames = getMonthNames(this.langModule);
+      this.shortMonthNames = monthNames.shortMonthNames;
+      this.longMonthNames = monthNames.longMonthNames;
+      this.weekDays = getWeekDays(this.langModule);
+    });
 
     if (this.mode === 'range') {
       const today = new Date();
