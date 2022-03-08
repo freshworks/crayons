@@ -26,14 +26,14 @@ export class FileUploader {
   /**
    * text - file uploader text.
    */
-  @i18n({ keyName: 'file_uploader.text' })
+  @i18n({ keyName: 'fileUploader.text' })
   @Prop({ mutable: true })
   text;
 
   /**
    * description - file uploader description.
    */
-  @i18n({ keyName: 'file_uploader.description' })
+  @i18n({ keyName: 'fileUploader.description' })
   @Prop({ mutable: true })
   description;
 
@@ -55,28 +55,28 @@ export class FileUploader {
   /**
    * acceptError - Error message to display when format is invalid.
    */
-  @i18n({ keyName: 'file_uploader.accept_error' })
+  @i18n({ keyName: 'fileUploader.acceptError' })
   @Prop({ mutable: true })
   acceptError;
 
   /**
    * maxFileSizeError - Error message to display when file size exceeds limit
    */
-  @i18n({ keyName: 'file_uploader.max_file_size_error' })
+  @i18n({ keyName: 'fileUploader.maxFileSizeError' })
   @Prop({ mutable: true })
   maxFileSizeError;
 
   /**
    * maxFilesLimitError - Error message when going beyond files limit.
    */
-  @i18n({ keyName: 'file_uploader.max_files_limit_error' })
+  @i18n({ keyName: 'fileUploader.maxFilesLimitError' })
   @Prop({ mutable: true })
   maxFilesLimitError;
 
   /**
    * fileUploadError - Error message when a file upload fails.
    */
-  @i18n({ keyName: 'file_uploader.file_upload_error' })
+  @i18n({ keyName: 'fileUploader.fileUploadError' })
   @Prop({ mutable: true })
   fileUploadError;
 
@@ -507,7 +507,7 @@ export class FileUploader {
       <div class='progress' key='progress'>
         <div class='progress-center'>
           <div class='progress-title'>
-            {TranslationController.t('file_uploader.uploading')}
+            {TranslationController.t('fileUploader.uploading')}
           </div>
           {this.files.map((file) => (
             <fw-file-uploader-progress
@@ -534,7 +534,7 @@ export class FileUploader {
       <div class='files' key='files'>
         <div class='files-center'>
           <div class='files-title'>
-            {TranslationController.t('file_uploader.selected_files')}
+            {TranslationController.t('fileUploader.selectedFiles')}
           </div>
           {this.files.map((file) => (
             <fw-file-uploader-file

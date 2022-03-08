@@ -49,7 +49,7 @@ export class FileUploaderFile {
             class='files-content-file-remove'
             onClick={() => this.remove()}
           >
-            {TranslationController.t('file_uploader.remove')}
+            {TranslationController.t('fileUploader.remove')}
           </button>
         </div>
       </div>
