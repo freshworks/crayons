@@ -392,6 +392,10 @@ export namespace Components {
          */
         "description": any;
         /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError": any;
+        /**
           * Max files allowed to upload.
          */
         "filesLimit": number;
@@ -2567,6 +2571,10 @@ declare namespace LocalJSX {
           * description - file uploader description.
          */
         "description"?: any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError"?: any;
         /**
           * Max files allowed to upload.
          */

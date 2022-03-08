@@ -74,6 +74,13 @@ export class FileUploader {
   maxFilesLimitError;
 
   /**
+   * fileUploadError - Error message when a file upload fails.
+   */
+  @i18n({ keyName: 'file_uploader.file_upload_error' })
+  @Prop({ mutable: true })
+  fileUploadError;
+
+  /**
    * actionURL - URL to make server call.
    */
   @Prop() actionURL = '';
@@ -208,7 +215,7 @@ export class FileUploader {
           if (xhr.status === 200) {
             resolve({ uploadStatus: xhr.status, response: xhr.response });
           } else {
-            this.setFile(fileId, { error: 'file upload failed' });
+            this.setFile(fileId, { error: this.fileUploadError });
             reject({ uploadStatus: xhr.status, response: xhr.response });
           }
         }

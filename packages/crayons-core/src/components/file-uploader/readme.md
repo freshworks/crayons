@@ -98,6 +98,7 @@ fw-file-uploader can be used to upload files to a server.
 | `actionParams`       | `action-params`         | actionParams - additional information to send to server other than the file.             | `any`               | `{}`           |
 | `actionURL`          | `action-u-r-l`          | actionURL - URL to make server call.                                                     | `string`            | `''`           |
 | `description`        | `description`           | description - file uploader description.                                                 | `any`               | `undefined`    |
+| `fileUploadError`    | `file-upload-error`     | fileUploadError - Error message when a file upload fails.                                | `any`               | `undefined`    |
 | `filesLimit`         | `files-limit`           | Max files allowed to upload.                                                             | `number`            | `10`           |
 | `hint`               | `hint`                  | hint - file uploader hint text.                                                          | `string`            | `''`           |
 | `maxFileSize`        | `max-file-size`         | maxFileSize - maximum file size the file uploader must accept.                           | `number`            | `0`            |
