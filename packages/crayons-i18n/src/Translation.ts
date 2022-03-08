@@ -77,7 +77,7 @@ function get({
   lang: string;
   context: any;
 }) {
-  const translatedText = getVal(key, obj) ?? '';
+  const translatedText = getVal(key, obj) ?? key;
   return translatedText;
 }
 
@@ -253,12 +253,12 @@ export class TranslationController {
         obj: this.state.globalStrings,
         lang: this.state.lang,
         context,
-      }) ?? ''
+      }) ?? key
     );
   }
 
   /** Decorator to handle i18n support */
-  i18n({ defaultValue = '', keyName = '' } = {}): any {
+  i18n({ keyName = '' } = {}): any {
     return (proto: ComponentInterface, propName: string) => {
       (BUILD as any).cmpWillLoad = true;
 
@@ -277,27 +277,25 @@ export class TranslationController {
 
         let isDefaultValueUsed = true;
         if (!this[propName]) {
-          this[propName] =
-            get({
-              key: keyName,
-              values: null,
-              obj: that.state.globalStrings,
-              lang: that.state.lang,
-              context: null,
-            }) || defaultValue;
+          this[propName] = get({
+            key: keyName,
+            values: null,
+            obj: that.state.globalStrings,
+            lang: that.state.lang,
+            context: null,
+          });
           isDefaultValueUsed = false;
         }
 
         that.onChange('globalStrings', async () => {
           if (!isDefaultValueUsed) {
-            this[propName] =
-              get({
-                key: keyName,
-                values: null,
-                obj: that.state.globalStrings,
-                lang: that.state.lang,
-                context: null,
-              }) || defaultValue;
+            this[propName] = get({
+              key: keyName,
+              values: null,
+              obj: that.state.globalStrings,
+              lang: that.state.lang,
+              context: null,
+            });
           }
         });
 

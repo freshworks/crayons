@@ -86,11 +86,11 @@ export class DropdownButton {
    */
   @Event() fwOptionsAdd: EventEmitter<any>;
 
-  @i18n({ defaultValue: 'Add', keyName: 'dropdown.add' })
+  @i18n({ keyName: 'dropdown.add' })
   @Prop({ mutable: true })
   addText = '';
   @Prop({ mutable: true })
-  @i18n({ defaultValue: 'Cancel', keyName: 'dropdown.cancel' })
+  @i18n({ keyName: 'dropdown.cancel' })
   cancelText = '';
 
   @Watch('isDropdownOpen')

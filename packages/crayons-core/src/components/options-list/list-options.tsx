@@ -83,7 +83,7 @@ export class ListOptions {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @i18n({ defaultValue: 'No items Found', keyName: 'search.noItemsFound' })
+  @i18n({ keyName: 'search.noItemsFound' })
   @Prop({ mutable: true })
   notFoundText = '';
   /**
@@ -95,17 +95,14 @@ export class ListOptions {
   /**
    * Placeholder to placed on the search text box.
    */
-  @i18n({ defaultValue: 'Search', keyName: 'search.search' })
+  @i18n({ keyName: 'search.search' })
   @Prop({ mutable: true })
   searchText = '';
 
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @i18n({
-    defaultValue: 'No data available',
-    keyName: 'search.noDataAvailable',
-  })
+  @i18n({ keyName: 'search.noDataAvailable' })
   @Prop({ mutable: true })
   noDataText = '';
   /**

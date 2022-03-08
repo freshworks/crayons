@@ -138,10 +138,10 @@ export class Datepicker {
    */
   @Prop({ mutable: true }) placeholder: string;
 
-  @i18n({ defaultValue: 'Update', keyName: 'datepicker.update' })
+  @i18n({ keyName: 'datepicker.update' })
   @Prop({ mutable: true })
   updateText = '';
-  @i18n({ defaultValue: 'Cancel', keyName: 'datepicker.cancel' })
+  @i18n({ keyName: 'datepicker.cancel' })
   @Prop({ mutable: true })
   cancelText = '';
 
@@ -406,7 +406,8 @@ export class Datepicker {
         this.value = undefined;
       }
 
-      let [fromDate, toDate] = val?.split('to') || [];
+      let [fromDate, toDate] =
+        val?.split(TranslationController.t('datepicker.to')) || [];
       fromDate = fromDate?.trim();
       toDate = toDate?.trim();
 
@@ -961,7 +962,8 @@ export class Datepicker {
     if (this.mode === 'range') {
       // handle resetting of startDate and endDate on clicking cancel
       if (this.value) {
-        let [fromDateStr, toDateStr] = this.value?.split('to') || [];
+        let [fromDateStr, toDateStr] =
+          this.value?.split(TranslationController.t('datepicker.to')) || [];
         fromDateStr = fromDateStr?.trim();
         toDateStr = toDateStr?.trim();
         const startDate = getDate(new Date(this.startDate));

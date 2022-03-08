@@ -14,14 +14,14 @@ export default {
   },
   search: {
     search: 'Suche',
-    no_items_found: 'Keine Elemente gefunden',
+    noItemsFound: 'Keine Elemente gefunden',
     no_data_available: 'Keine Daten vorhanden',
   },
   form: {
-    REQUIRED: '{{field}} is required DE',
-    INVALID_URL: 'Enter a valid URL DE',
-    INVALID_EMAIL: 'Enter a valid email DE',
-    INVALID_NUMBER: 'Enter a valid number DE',
+    required: '{{field}} is required DE',
+    invalidUrl: 'Enter a valid URL DE',
+    invalidEmail: 'Enter a valid email DE',
+    invalidNumber: 'Enter a valid number DE',
   },
   pagination: {
     buttonGroupLabel: 'Pagination controls DE',
@@ -29,7 +29,7 @@ export default {
     nextButtonLabel: 'Next DE',
     content: `DE Total {{total}} - <span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> DE`,
   },
-  platform_table: {
+  platformTable: {
     delete: 'Delete DE',
     sortby: 'Sort By DE',
     orderby: 'Order by DE',
