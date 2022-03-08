@@ -138,10 +138,10 @@ export class Datepicker {
    */
   @Prop({ mutable: true }) placeholder: string;
 
-  @i18n({ defaultValue: 'Update', keyName: 'datepicker.update' })
+  @i18n({ keyName: 'datepicker.update' })
   @Prop({ mutable: true })
   updateText = '';
-  @i18n({ defaultValue: 'Cancel', keyName: 'datepicker.cancel' })
+  @i18n({ keyName: 'datepicker.cancel' })
   @Prop({ mutable: true })
   cancelText = '';
 

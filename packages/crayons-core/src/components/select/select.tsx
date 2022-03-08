@@ -163,7 +163,7 @@ export class Select {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @i18n({ defaultValue: 'No items found', keyName: 'search.noItemsFound' })
+  @i18n({ keyName: 'search.noItemsFound' })
   @Prop({ mutable: true })
   notFoundText = '';
   /**
@@ -175,10 +175,7 @@ export class Select {
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @i18n({
-    defaultValue: 'No data available',
-    keyName: 'search.noDataAvailable',
-  })
+  @i18n({ keyName: 'search.noDataAvailable' })
   @Prop({ mutable: true })
   noDataText = '';
   /**

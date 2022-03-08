@@ -76,14 +76,14 @@ export class Modal {
   /**
    * The text for the submit button
    */
-  @i18n({ defaultValue: 'OK', keyName: 'modal.ok' })
+  @i18n({ keyName: 'modal.ok' })
   @Prop({ mutable: true })
   submitText = '';
 
   /**
    * The text for the cancel button
    */
-  @i18n({ defaultValue: 'Cancel', keyName: 'modal.cancel' })
+  @i18n({ keyName: 'modal.cancel' })
   @Prop({ mutable: true })
   cancelText = '';
 

@@ -34,30 +34,21 @@ export class Pagination {
   /**
    * Aria Label to be used for the button group.
    */
-  @i18n({
-    defaultValue: 'Pagination controls',
-    keyName: 'pagination.buttonGroupLabel',
-  })
+  @i18n({ keyName: 'pagination.buttonGroupLabel' })
   @Prop({ mutable: true })
   buttonGroupLabel = '';
 
   /**
    * Aria Label to be used for previous button.
    */
-  @i18n({
-    defaultValue: 'Previous',
-    keyName: 'pagination.previousButtonLabel',
-  })
+  @i18n({ keyName: 'pagination.previousButtonLabel' })
   @Prop({ mutable: true })
   previousButtonLabel = '';
 
   /**
    * Aria Label to be used for next button.
    */
-  @i18n({
-    defaultValue: 'Next',
-    keyName: 'pagination.nextButtonLabel',
-  })
+  @i18n({ keyName: 'pagination.nextButtonLabel' })
   @Prop({ mutable: true })
   nextButtonLabel = '';
 
