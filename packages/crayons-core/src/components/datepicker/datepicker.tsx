@@ -634,16 +634,20 @@ export class Datepicker {
       this.isDisplayFormatSet = true;
     }
 
-    this.placeholder = this.displayFormat =
+    this.displayFormat =
       this.displayFormat ||
       this.langModule?.formatLong?.date({ width: 'short' });
+
+    if (!this.placeholder) this.placeholder = this.displayFormat;
 
     const onChange = TranslationController.onChange.bind(TranslationController);
     onChange('dateLangModule', (newLang) => {
       this.langModule = newLang;
-      this.displayFormat = this.placeholder = this.isDisplayFormatSet
+      this.displayFormat = this.isDisplayFormatSet
         ? this.displayFormat
         : this.langModule?.formatLong?.date({ width: 'short' });
+
+      if (!this.placeholder) this.placeholder = this.displayFormat;
 
       if (this.mode === 'range')
         this.placeholder = `${this.placeholder} ${TranslationController.t(
