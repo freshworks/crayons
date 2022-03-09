@@ -13,6 +13,8 @@ export class CustomCellUser {
 
   @Prop() library = 'crayons';
 
+  @Prop() src = null;
+
   render() {
     return (
       <fw-icon
@@ -20,6 +22,7 @@ export class CustomCellUser {
         size={this.size}
         color={this.color}
         library={this.library}
+        src={this.src}
       ></fw-icon>
     );
   }

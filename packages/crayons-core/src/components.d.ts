@@ -154,6 +154,7 @@ export namespace Components {
         "library": string;
         "name": string;
         "size": number;
+        "src": any;
     }
     interface FwCustomCellUser {
         "alt": string;
@@ -2429,6 +2430,7 @@ declare namespace LocalJSX {
         "library"?: string;
         "name"?: string;
         "size"?: number;
+        "src"?: any;
     }
     interface FwCustomCellUser {
         "alt"?: string;
