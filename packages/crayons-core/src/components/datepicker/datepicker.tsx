@@ -635,7 +635,7 @@ export class Datepicker {
     const yearsArr = [];
     if (this.maxYear < this.minYear) this.maxYear = this.minYear;
     let year = new Date(this.minYear).getFullYear();
-    while (year < +this.maxYear) {
+    while (year <= +this.maxYear) {
       yearsArr.push(year.toString());
       year++;
     }
@@ -1178,6 +1178,12 @@ export class Datepicker {
           onFwHide={this.handlePopoverClose}
         >
           <div
+            role='combobox'
+            aria-controls='datepicker'
+            aria-expanded={this.showDatePicker}
+            tabindex='-1'
+            onClick={() => (this.showDatePicker = true)}
+            onKeyUp={() => (this.showDatePicker = true)}
             slot='popover-trigger'
             style={{
               display: 'flex',
@@ -1205,7 +1211,6 @@ export class Datepicker {
                 ></div>
                 <span class='date-icon'>
                   <fw-icon
-                    onClick={() => (this.showDatePicker = true)}
                     name='calendar'
                     style={{
                       '--fw-icon-color': this.state === 'error' && '#d72d30',
@@ -1216,7 +1221,7 @@ export class Datepicker {
             </fw-input>
           </div>
           {this.showSingleDatePicker() ? (
-            <div class='datepicker' slot='popover-content'>
+            <div id='datepicker' class='datepicker' slot='popover-content'>
               <div class='mdp-container'>
                 {/* Head section */}
                 <div class='mdpc-head'>
@@ -1304,9 +1309,8 @@ export class Datepicker {
           ) : (
             ''
           )}
-
           {this.showDateRangePicker() ? (
-            <div class='daterangepicker' slot='popover-content'>
+            <div id='datepicker' class='daterangepicker' slot='popover-content'>
               <div class='mdp-range-container'>
                 {/* Head section */}
                 <div class='mdpc-head'>
