@@ -1,5 +1,6 @@
 import pluginTypescript from '@rollup/plugin-typescript';
 import pluginCommonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 import pluginNodeResolve from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
@@ -24,6 +25,7 @@ export default [
       ...Object.keys(pkg.devDependencies || {}),
     ],
     plugins: [
+      json(),
       dynamicImportVars({}),
       pluginTypescript(),
       pluginCommonjs({
