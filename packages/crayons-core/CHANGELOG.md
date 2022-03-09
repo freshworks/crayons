@@ -3,23 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.25...@freshworks/crayons@3.0.0-beta.26) (2022-03-09)
-
+## [3.0.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.25...@freshworks/crayons@3.0.0-beta.26) (2022-03-09)
 
 ### Bug Fixes
 
-* **modal:** display modal-title only when there is a title-text ([#464](https://github.com/freshworks/crayons/issues/464)) ([8f09641](https://github.com/freshworks/crayons/commit/8f096410b090da37f2099a5a792d034bdf64555e))
-* **select-state-text:** remove stateText prop from select and use fieldcontrol ([#467](https://github.com/freshworks/crayons/issues/467)) ([f7b0380](https://github.com/freshworks/crayons/commit/f7b0380afd548fd4d5f1239685dbb43b4db8476d))
-
+- **modal:** display modal-title only when there is a title-text ([#464](https://github.com/freshworks/crayons/issues/464)) ([8f09641](https://github.com/freshworks/crayons/commit/8f096410b090da37f2099a5a792d034bdf64555e))
+- **select-state-text:** remove stateText prop from select and use fieldcontrol ([#467](https://github.com/freshworks/crayons/issues/467)) ([f7b0380](https://github.com/freshworks/crayons/commit/f7b0380afd548fd4d5f1239685dbb43b4db8476d))
 
 ### Features
 
-* **file-uploader:** adding file-uploader component  ([#444](https://github.com/freshworks/crayons/issues/444)) ([0ac218c](https://github.com/freshworks/crayons/commit/0ac218c5da73c61714d9d4d3233e4bf927a01c3c))
-* **input-state-text:** Added `hint-text` `warning-text` `error-text` props and slots and removed `state-text` prop ([#436](https://github.com/freshworks/crayons/issues/436)) ([4841237](https://github.com/freshworks/crayons/commit/4841237ecc907f13460a6832b8ff7385d05d0729))
-
-
-
-
+- **file-uploader:** adding file-uploader component  ([#444](https://github.com/freshworks/crayons/issues/444)) ([0ac218c](https://github.com/freshworks/crayons/commit/0ac218c5da73c61714d9d4d3233e4bf927a01c3c))
+- **input-state-text:** Added `hint-text` `warning-text` `error-text` props and slots and removed `state-text` prop ([#436](https://github.com/freshworks/crayons/issues/436)) ([4841237](https://github.com/freshworks/crayons/commit/4841237ecc907f13460a6832b8ff7385d05d0729))
 
 ## [3.0.0-beta.25](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.24...@freshworks/crayons@3.0.0-beta.25) (2022-03-08)
 
