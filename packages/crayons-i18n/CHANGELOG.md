@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@1.3.0...@freshworks/crayons-i18n@1.4.0) (2022-03-09)
+
+
+### Features
+
+* **i18n:** use json instead of js files ([#468](https://github.com/freshworks/crayons/issues/468)) ([bafe409](https://github.com/freshworks/crayons/commit/bafe409b4333f28581d172de183d38ed896f0ff1))
+
+
+
+
+
 ## 1.3.0 (2022-03-09)
 
 ### Features
