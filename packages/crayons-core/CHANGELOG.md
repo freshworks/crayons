@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.26...@freshworks/crayons@3.0.0-beta.27) (2022-03-09)
-
+## [3.0.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.26...@freshworks/crayons@3.0.0-beta.27) (2022-03-09)
 
 ### Features
 
-* **i18n:** use json instead of js files ([#468](https://github.com/freshworks/crayons/issues/468)) ([bafe409](https://github.com/freshworks/crayons/commit/bafe409b4333f28581d172de183d38ed896f0ff1))
-
-
-
-
+- **i18n:** use json instead of js files ([#468](https://github.com/freshworks/crayons/issues/468)) ([bafe409](https://github.com/freshworks/crayons/commit/bafe409b4333f28581d172de183d38ed896f0ff1))
 
 ## [3.0.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.25...@freshworks/crayons@3.0.0-beta.26) (2022-03-09)
 
@@ -28,11 +23,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 1. `stateText` prop has been removed from `fw-input`, `fw-textarea`, `fw-select`.
-   
 
 2. `label` prop in `fw-radio-group` will not only be used for screen readers, passing this prop will also show a label on top of radio-group. If the label is not required to be shown, avoid passing `label` prop. The screen readers will instead use `name` prop if passed.
-
-
 
 ## [3.0.0-beta.25](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.24...@freshworks/crayons@3.0.0-beta.25) (2022-03-08)
 
