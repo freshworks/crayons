@@ -26,10 +26,15 @@ let alert = { type: '', name: '', msg: '' };
   init(console_clear);
   input.includes(`help`) ? cli.showHelp(0) : '';
 
-  const dump_yml = (defPluginOptions, destYml) => {
-    fs.promises.mkdir(destYml, { recursive: true }).catch(console.error);
+  const dump_yml = async (defPluginOptions, destYml) => {
+    console.log('destYml', destYml);
+    await fs.promises
+      .mkdir(destYml, { recursive: true })
+      .catch((err) => console.error(err));
     const data = json2yml.stringify(defPluginOptions);
+    console.log('writing svgo.yml');
     fs.writeFileSync(path.join(destYml, 'fw-crayons.icon.svgo.yml'), data);
+    console.log('finished writing svgo.yml');
     alert = {
       type: 'success',
       name: 'DONE',
@@ -69,12 +74,12 @@ let alert = { type: '', name: '', msg: '' };
     }
 
     if (input.includes(`svgoYML`)) {
-      dump_yml(pluginOptions, flags.destYml);
+      await dump_yml(pluginOptions, flags.destYml);
     }
 
     if (!flags.cli) {
       // Used for building crayons-icon system
-      dump_yml(pluginOptions, './dist');
+      await dump_yml(pluginOptions, path.join(__dirname, '../dist'));
       alert = { type: 'info', name: 'Starting Optimization', msg: `` };
       log(alert);
 
