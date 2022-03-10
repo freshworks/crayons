@@ -1,7 +1,11 @@
 /**
   @prop --fw-input-label-color: Color of the label.
-  @prop --fw-input-hint-color: Color of the hint.
+  @prop --fw-input-hint-color: Color of the hint text.
+  @prop --fw-input-warning-color: Color of the warning text.
+  @prop --fw-input-error-color: Color of the error text.
 */
+
+@import '../../function-components/field-control.scss';
 
 $label-font: $font-stack-sans !default;
 $placeholder-color: $muted-secondary;
@@ -13,6 +17,7 @@ $input-hover-color: #475867;
 $input-focus-color: #2c5cc5;
 $input-bg: #fff;
 $input-color: $app-primary-black;
+$warning-color: $color-casablanca-300;
 
 *,
 ::after,
@@ -87,7 +92,7 @@ label {
   }
 
   &.warning {
-    @include stateStyle($warning-message-marker);
+    @include stateStyle($warning-color);
   }
 
   .inner__content {

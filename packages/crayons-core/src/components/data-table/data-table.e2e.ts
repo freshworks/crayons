@@ -507,6 +507,26 @@ describe('fw-data-table', () => {
     expect(columns.length).toBe(1);
   });
 
+  it('should not be able to hide locked columns', async () => {
+    const currentData = { ...manyColumnData, showSettings: true };
+    currentData.columns[0].lock = true;
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const firstCheckbox = await page.find('fw-data-table >>> fw-checkbox');
+    const applySettings = await page.find('fw-data-table >>> #apply-settings');
+    firstCheckbox.click();
+    await page.waitForChanges();
+    applySettings.click();
+    await page.waitForChanges();
+    const columns = await page.findAll('fw-data-table >>> th:not(.hidden)');
+    expect(columns.length).toBe(2);
+  });
+
   it('should display only columns that include text from search box in column list in settings container', async () => {
     const currentData = { ...manyColumnData, showSettings: true };
     await loadDataIntoGrid(currentData);

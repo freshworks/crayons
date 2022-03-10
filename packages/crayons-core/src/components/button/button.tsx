@@ -59,6 +59,11 @@ export class Button {
   @Prop() modalTriggerId = '';
 
   /**
+   * Accepts the id of the fw-file-uploader component to upload the file.
+   */
+  @Prop() fileUploaderId = '';
+
+  /**
    * Sets the delay for throttle in milliseconds. Defaults to 200 milliseconds.
    */
   @Prop() throttleDelay = 200;
@@ -111,11 +116,21 @@ export class Button {
   private handleClick(event: Event) {
     if (this.modalTriggerId !== '') {
       this.modalTrigger();
+    }
+    if (this.fileUploaderId !== '') {
+      this.fileSubmit();
     } else if (this.type === 'submit') {
       this.fakeSubmit(event);
     }
 
     this.fwClick.emit();
+  }
+
+  private async fileSubmit() {
+    const fileUploader: any = document.querySelector(
+      `fw-file-uploader#${this.fileUploaderId}`
+    );
+    fileUploader?.uploadFiles();
   }
 
   private async modalTrigger() {

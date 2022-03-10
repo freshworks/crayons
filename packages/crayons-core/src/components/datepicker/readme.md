@@ -78,7 +78,10 @@ function App() {
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
 | `cancelText`    | `cancel-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.                       | `string`                           | `undefined`                |
+| `errorText`     | `error-text`     | Error text displayed below the text box.                                                                                                                       | `string`                           | `''`                       |
 | `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                           | `undefined`                |
+| `hintText`      | `hint-text`      | Hint text displayed below the text box.                                                                                                                        | `string`                           | `''`                       |
+| `label`         | `label`          | Label displayed on the interface, for the component.                                                                                                           | `string`                           | `''`                       |
 | `locale`        | `locale`         | Locale for which datepicker needs to be shown. Defaults to browser's current locale.                                                                           | `string`                           | `undefined`                |
 | `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                           | `undefined`                |
 | `maxYear`       | `max-year`       | Maximum year that needs to be displayed in the year dropdown.                                                                                                  | `number`                           | `new Date().getFullYear()` |
@@ -90,10 +93,10 @@ function App() {
 | `readonly`      | `readonly`       | Make the input box as readonly. Default `false`                                                                                                                | `boolean`                          | `false`                    |
 | `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`                    |
 | `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`                 |
-| `stateText`     | `state-text`     | Descriptive or instructional text displayed below the date picker box.                                                                                         | `any`                              | `undefined`                |
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`                |
 | `updateText`    | `update-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
+| `warningText`   | `warning-text`   | Warning text displayed below the text box.                                                                                                                     | `string`                           | `''`                       |
 
 
 ## Events
@@ -125,6 +128,16 @@ Sets focus on a specific `fw-datepicker`. Use this method instead of the global 
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                       | Description                |
+| -------------------------- | -------------------------- |
+| `--fw-input-error-color`   | Color of the error text.   |
+| `--fw-input-hint-color`    | Color of the hint text.    |
+| `--fw-input-label-color`   | Color of the label.        |
+| `--fw-input-warning-color` | Color of the warning text. |
 
 
 ## Dependencies

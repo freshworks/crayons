@@ -225,7 +225,6 @@ div.fw-data-table-container {
 
     .table-settings-container {
       position: relative;
-      z-index: 99;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -254,6 +253,7 @@ div.fw-data-table-container {
       }
 
       .table-settings-options {
+        z-index: 99;
         width: 500px;
         box-sizing: border-box;
         background: $color-milk;
@@ -386,6 +386,11 @@ div.fw-data-table-container {
                   }
                 }
 
+                .table-settings-drag-item-icon.non-drag:hover,
+                .table-settings-drag-item-icon.non-drag:focus {
+                  cursor: default;
+                }
+
                 .table-settings-drag-item-close {
                   background: $color-milk;
                   border: 0px;
@@ -401,6 +406,11 @@ div.fw-data-table-container {
                   text-overflow: ellipsis;
                   overflow: hidden;
                   white-space: nowrap;
+
+                  &:hover,
+                  &:focus {
+                    cursor: default;
+                  }
                 }
               }
             }

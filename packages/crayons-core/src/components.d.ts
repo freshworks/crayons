@@ -63,6 +63,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Accepts the id of the fw-file-uploader component to upload the file.
+         */
+        "fileUploaderId": string;
+        /**
           * Loading state for the button, Default value is false.
          */
         "loading": boolean;
@@ -105,6 +109,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the radio group.
+         */
+        "errorText": string;
+        /**
+          * /**   Hint text displayed below the radio group.
+         */
+        "hintText": string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -123,11 +135,15 @@ export namespace Components {
         /**
           * Theme based on which the checkbox is styled.
          */
-        "state": 'normal' | 'error';
+        "state": 'normal' | 'warning' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value": string;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText": string;
     }
     interface FwCustomCellAnchor {
         "href": string;
@@ -138,6 +154,7 @@ export namespace Components {
         "library": string;
         "name": string;
         "size": number;
+        "src": any;
     }
     interface FwCustomCellUser {
         "alt": string;
@@ -225,6 +242,10 @@ export namespace Components {
          */
         "displayFormat": string;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate": string;
@@ -232,6 +253,14 @@ export namespace Components {
           * Returns the date value in ISO format.
          */
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
+          * Label displayed on the interface, for the component.
+         */
+        "label": string;
         /**
           * Locale for which datepicker needs to be shown. Defaults to browser's current locale.
          */
@@ -281,10 +310,6 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the date picker box.
-         */
-        "stateText": any;
-        /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
@@ -293,6 +318,10 @@ export namespace Components {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value": string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwDragContainer {
         /**
@@ -365,6 +394,98 @@ export namespace Components {
           * Value of the dropdown button
          */
         "value": any;
+    }
+    interface FwFileUploader {
+        /**
+          * accept - comma separated string. tells us what file formats file uploader should accept.
+         */
+        "accept": string;
+        /**
+          * acceptError - Error message to display when format is invalid.
+         */
+        "acceptError": any;
+        /**
+          * actionParams - additional information to send to server other than the file.
+         */
+        "actionParams": any;
+        /**
+          * actionURL - URL to make server call.
+         */
+        "actionURL": string;
+        /**
+          * description - file uploader description.
+         */
+        "description": any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError": any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit": number;
+        /**
+          * hint - file uploader hint text.
+         */
+        "hint": string;
+        /**
+          * maxFileSize - maximum file size the file uploader must accept.
+         */
+        "maxFileSize": number;
+        /**
+          * maxFileSizeError - Error message to display when file size exceeds limit
+         */
+        "maxFileSizeError": any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError": any;
+        /**
+          * modify request
+          * @param xhr
+          * @returns xhr
+         */
+        "modifyRequest": (xhr: any) => any;
+        /**
+          * multiple - upload multiple files.
+         */
+        "multiple": boolean;
+        /**
+          * text - file uploader text.
+         */
+        "text": any;
+        /**
+          * uploadFiles - uploads the files to the server. emits an after file is uploaded.
+         */
+        "uploadFiles": () => Promise<void>;
+    }
+    interface FwFileUploaderFile {
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "name": string;
+    }
+    interface FwFileUploaderProgress {
+        /**
+          * error text for the file upload
+         */
+        "error": string;
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "fileName": string;
+        /**
+          * file upload progress
+         */
+        "progress": number;
     }
     interface FwForm {
         "doReset": (e: any) => Promise<void>;
@@ -620,6 +741,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft": string;
@@ -672,10 +801,6 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the text box.
-         */
-        "stateText": string;
-        /**
           * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
          */
         "step": string;
@@ -687,6 +812,10 @@ export namespace Components {
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwLabel {
         /**
@@ -1073,7 +1202,15 @@ export namespace Components {
          */
         "allowEmpty": boolean;
         /**
-          * Label for the component, that can be used by screen readers.
+          * Error text displayed below the radio group.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the radio group.
+         */
+        "hintText": string;
+        /**
+          * Label for the component
          */
         "label": string;
         /**
@@ -1093,9 +1230,17 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Theme based on which the radio group is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText": string;
     }
     interface FwSelect {
         /**
@@ -1119,10 +1264,18 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -1199,10 +1352,6 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the list box.
-         */
-        "stateText": string;
-        /**
           * The variant of tag to be used.
          */
         "tagVariant": TagVariant;
@@ -1218,6 +1367,10 @@ export namespace Components {
           * The UI variant of the select to be used.
          */
         "variant": 'button' | 'standard' | 'mail';
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwSelectOption {
         /**
@@ -1410,6 +1563,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -1450,13 +1611,13 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the input box.
-         */
-        "stateText": string;
-        /**
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
         /**
           * Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved.
          */
@@ -1468,13 +1629,25 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format": 'hh:mm a' | 'HH:mm';
         /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
         "interval": number;
+        /**
+          * Label displayed on the interface, for the component.
+         */
+        "label": string;
         /**
           * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
@@ -1487,6 +1660,10 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Text displayed in the select before an option is selected.
+         */
+        "placeholder"?: string | null;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
@@ -1503,6 +1680,10 @@ export namespace Components {
           * Time output value
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwToast {
         /**
@@ -1788,6 +1969,24 @@ declare global {
         prototype: HTMLFwDropdownButtonElement;
         new (): HTMLFwDropdownButtonElement;
     };
+    interface HTMLFwFileUploaderElement extends Components.FwFileUploader, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderElement: {
+        prototype: HTMLFwFileUploaderElement;
+        new (): HTMLFwFileUploaderElement;
+    };
+    interface HTMLFwFileUploaderFileElement extends Components.FwFileUploaderFile, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderFileElement: {
+        prototype: HTMLFwFileUploaderFileElement;
+        new (): HTMLFwFileUploaderFileElement;
+    };
+    interface HTMLFwFileUploaderProgressElement extends Components.FwFileUploaderProgress, HTMLStencilElement {
+    }
+    var HTMLFwFileUploaderProgressElement: {
+        prototype: HTMLFwFileUploaderProgressElement;
+        new (): HTMLFwFileUploaderProgressElement;
+    };
     interface HTMLFwFormElement extends Components.FwForm, HTMLStencilElement {
     }
     var HTMLFwFormElement: {
@@ -2026,6 +2225,9 @@ declare global {
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-drag-item": HTMLFwDragItemElement;
         "fw-dropdown-button": HTMLFwDropdownButtonElement;
+        "fw-file-uploader": HTMLFwFileUploaderElement;
+        "fw-file-uploader-file": HTMLFwFileUploaderFileElement;
+        "fw-file-uploader-progress": HTMLFwFileUploaderProgressElement;
         "fw-form": HTMLFwFormElement;
         "fw-form-control": HTMLFwFormControlElement;
         "fw-format-date": HTMLFwFormatDateElement;
@@ -2118,6 +2320,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Accepts the id of the fw-file-uploader component to upload the file.
+         */
+        "fileUploaderId"?: string;
+        /**
           * Loading state for the button, Default value is false.
          */
         "loading"?: boolean;
@@ -2171,6 +2377,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the radio group.
+         */
+        "errorText"?: string;
+        /**
+          * /**   Hint text displayed below the radio group.
+         */
+        "hintText"?: string;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label"?: string;
@@ -2183,7 +2397,7 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * /**   Triggered when the checkbox state is modified.
+          * Triggered when the checkbox state is modified.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
@@ -2197,11 +2411,15 @@ declare namespace LocalJSX {
         /**
           * Theme based on which the checkbox is styled.
          */
-        "state"?: 'normal' | 'error';
+        "state"?: 'normal' | 'warning' | 'error';
         /**
           * Identifier corresponding to the component, that is saved when the form data is saved.
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText"?: string;
     }
     interface FwCustomCellAnchor {
         "href"?: string;
@@ -2212,6 +2430,7 @@ declare namespace LocalJSX {
         "library"?: string;
         "name"?: string;
         "size"?: number;
+        "src"?: any;
     }
     interface FwCustomCellUser {
         "alt"?: string;
@@ -2276,9 +2495,21 @@ declare namespace LocalJSX {
          */
         "displayFormat"?: string;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
+          * Label displayed on the interface, for the component.
+         */
+        "label"?: string;
         /**
           * Locale for which datepicker needs to be shown. Defaults to browser's current locale.
          */
@@ -2332,10 +2563,6 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the date picker box.
-         */
-        "stateText"?: any;
-        /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
@@ -2344,6 +2571,10 @@ declare namespace LocalJSX {
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwDragContainer {
         /**
@@ -2428,6 +2659,114 @@ declare namespace LocalJSX {
           * Value of the dropdown button
          */
         "value"?: any;
+    }
+    interface FwFileUploader {
+        /**
+          * accept - comma separated string. tells us what file formats file uploader should accept.
+         */
+        "accept"?: string;
+        /**
+          * acceptError - Error message to display when format is invalid.
+         */
+        "acceptError"?: any;
+        /**
+          * actionParams - additional information to send to server other than the file.
+         */
+        "actionParams"?: any;
+        /**
+          * actionURL - URL to make server call.
+         */
+        "actionURL"?: string;
+        /**
+          * description - file uploader description.
+         */
+        "description"?: any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError"?: any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit"?: number;
+        /**
+          * hint - file uploader hint text.
+         */
+        "hint"?: string;
+        /**
+          * maxFileSize - maximum file size the file uploader must accept.
+         */
+        "maxFileSize"?: number;
+        /**
+          * maxFileSizeError - Error message to display when file size exceeds limit
+         */
+        "maxFileSizeError"?: any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError"?: any;
+        /**
+          * modify request
+          * @param xhr
+          * @returns xhr
+         */
+        "modifyRequest"?: (xhr: any) => any;
+        /**
+          * multiple - upload multiple files.
+         */
+        "multiple"?: boolean;
+        /**
+          * fileReuploaded - event that gets emitted when file is reuploaded
+         */
+        "onFwFileReuploaded"?: (event: CustomEvent<any>) => void;
+        /**
+          * filesUploaded - event that gets emitted when files get uploaded
+         */
+        "onFwFilesUploaded"?: (event: CustomEvent<any>) => void;
+        /**
+          * stageChanged - event that gets emitted when component stage changes
+         */
+        "onFwStageChanged"?: (event: CustomEvent<any>) => void;
+        /**
+          * text - file uploader text.
+         */
+        "text"?: any;
+    }
+    interface FwFileUploaderFile {
+        /**
+          * file Id
+         */
+        "fileId"?: number;
+        /**
+          * file name
+         */
+        "name"?: string;
+        /**
+          * removeFile - event that gets triggered on file removal
+         */
+        "onFwRemoveFile"?: (event: CustomEvent<any>) => void;
+    }
+    interface FwFileUploaderProgress {
+        /**
+          * error text for the file upload
+         */
+        "error"?: string;
+        /**
+          * file Id
+         */
+        "fileId": number;
+        /**
+          * file name
+         */
+        "fileName"?: string;
+        /**
+          * retryUpload event to emit in case of a retry
+         */
+        "onFwRetryUpload"?: (event: CustomEvent<any>) => void;
+        /**
+          * file upload progress
+         */
+        "progress"?: number;
     }
     interface FwForm {
         /**
@@ -2681,6 +3020,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
           * Identifier of the icon that is displayed in the left side of the text box. The attribute’s value must be a valid svg file in the repo of icons (assets/icons).
          */
         "iconLeft"?: string;
@@ -2745,10 +3092,6 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the text box.
-         */
-        "stateText"?: string;
-        /**
           * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
          */
         "step"?: string;
@@ -2760,6 +3103,10 @@ declare namespace LocalJSX {
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwLabel {
         /**
@@ -3149,7 +3496,15 @@ declare namespace LocalJSX {
          */
         "allowEmpty"?: boolean;
         /**
-          * Label for the component, that can be used by screen readers.
+          * Error text displayed below the radio group.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the radio group.
+         */
+        "hintText"?: string;
+        /**
+          * Label for the component
          */
         "label"?: string;
         /**
@@ -3169,9 +3524,17 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
+          * Theme based on which the radio group is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
+        /**
           * Default option that is selected when the radio group is displayed on the interface. Must be a valid value corresponding to the fw-radio components used in the Radio Group.
          */
         "value"?: any | null;
+        /**
+          * Warning text displayed below the radio group.
+         */
+        "warningText"?: string;
     }
     interface FwSelect {
         /**
@@ -3195,9 +3558,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -3283,10 +3654,6 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the list box.
-         */
-        "stateText"?: string;
-        /**
           * The variant of tag to be used.
          */
         "tagVariant"?: TagVariant;
@@ -3302,6 +3669,10 @@ declare namespace LocalJSX {
           * The UI variant of the select to be used.
          */
         "variant"?: 'button' | 'standard' | 'mail';
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwSelectOption {
         /**
@@ -3508,6 +3879,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
@@ -3556,13 +3935,13 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Descriptive or instructional text displayed below the input box.
-         */
-        "stateText"?: string;
-        /**
           * Default value displayed in the input box.
          */
         "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
         /**
           * Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved.
          */
@@ -3574,13 +3953,25 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
           * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
          */
         "format"?: 'hh:mm a' | 'HH:mm';
         /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
           * Time interval between the values displayed in the list, specified in minutes.
          */
         "interval"?: number;
+        /**
+          * Label displayed on the interface, for the component.
+         */
+        "label"?: string;
         /**
           * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
          */
@@ -3598,13 +3989,17 @@ declare namespace LocalJSX {
          */
         "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * /**   Triggered when a value is selected or deselected from the list box options.
+          * Triggered when a value is selected or deselected from the list box options.
          */
         "onFwChange"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when the list box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Text displayed in the select before an option is selected.
+         */
+        "placeholder"?: string | null;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
@@ -3617,6 +4012,10 @@ declare namespace LocalJSX {
           * Time output value
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwToast {
         /**
@@ -3830,6 +4229,9 @@ declare namespace LocalJSX {
         "fw-drag-container": FwDragContainer;
         "fw-drag-item": FwDragItem;
         "fw-dropdown-button": FwDropdownButton;
+        "fw-file-uploader": FwFileUploader;
+        "fw-file-uploader-file": FwFileUploaderFile;
+        "fw-file-uploader-progress": FwFileUploaderProgress;
         "fw-form": FwForm;
         "fw-form-control": FwFormControl;
         "fw-format-date": FwFormatDate;
@@ -3888,6 +4290,9 @@ declare module "@stencil/core" {
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
             "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
+            "fw-file-uploader": LocalJSX.FwFileUploader & JSXBase.HTMLAttributes<HTMLFwFileUploaderElement>;
+            "fw-file-uploader-file": LocalJSX.FwFileUploaderFile & JSXBase.HTMLAttributes<HTMLFwFileUploaderFileElement>;
+            "fw-file-uploader-progress": LocalJSX.FwFileUploaderProgress & JSXBase.HTMLAttributes<HTMLFwFileUploaderProgressElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;
             "fw-form-control": LocalJSX.FwFormControl & JSXBase.HTMLAttributes<HTMLFwFormControlElement>;
             "fw-format-date": LocalJSX.FwFormatDate & JSXBase.HTMLAttributes<HTMLFwFormatDateElement>;

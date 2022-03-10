@@ -6,21 +6,23 @@ fw-textarea displays an input box on the user interface and enables assigning mu
 ```html live
 <fw-textarea cols=75 rows=5 maxlength=190 minlength=5
   label="Address"
-  state-text="Do not enter your temporary address"
+  warning-text="Do not enter your temporary address"
   state="warning"
   placeholder="Enter your permanent address"
   required>
 </fw-textarea>
 <fw-textarea cols=75 rows=5
   label="Passcode"
-  state-text="Passcode is incorrect"
+  error-text="Passcode is incorrect"
   state="error"
   required>
 </fw-textarea>
+<h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
 <fw-textarea cols=75 rows=5
   label="Location identifier"
 placeholder="Enter landmark details"
   state="normal">
+  <div slot="hint-text">Enter location details</div>
 </fw-textarea>
 <fw-textarea cols=75 rows=1
   label="Plot number"
@@ -37,21 +39,23 @@ placeholder="Enter landmark details"
 ```html 
 <fw-textarea cols=75 rows=5 maxlength=190 minlength=5
   label="Address"
-  state-text="Do not enter your temporary address"
+  warning-text="Do not enter your temporary address"
   state="warning"
   placeholder="Enter your permanent address"
   required>
 </fw-textarea>
 <fw-textarea cols=75 rows=5
   label="Passcode"
-  state-text="Passcode is incorrect"
+  error-text="Passcode is incorrect"
   state="error"
   required>
 </fw-textarea>
+<h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
 <fw-textarea cols=75 rows=5
   label="Location identifier"
 placeholder="Enter landmark details"
   state="normal">
+  <div slot="hint-text">Enter location details</div>
 </fw-textarea>
 <fw-textarea cols=75 rows=1
   label="Plot number"
@@ -71,21 +75,23 @@ function App() {
   return (<div>
             <FwTextarea cols={75} rows={5} maxlength={190} minlength={5}
               label="Address"
-              stateText="Do not enter your temporary address"
+              warningText="Do not enter your temporary address"
               state="warning"
               placeholder="Enter your permanent address"
               required>
             </FwTextarea>
             <FwTextarea cols={75} rows={5}
               label="Passcode"
-              stateText="Passcode is incorrect"
+              errorText="Passcode is incorrect"
               state="error"
               required>
             </FwTextarea>
+            <h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
             <FwTextarea cols={75} rows={5}
               label="Location identifier"
               placeholder="Enter landmark details"
               state="normal">
+              <div slot="hint-text">Enter location details</div>
             </FwTextarea>
             <FwTextarea cols={75} rows={1}
               label="Plot number"
@@ -105,22 +111,24 @@ function App() {
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                                                                                                                                                                                                       | Type                               | Default     |
-| ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
-| `cols`        | `cols`        | Width of the input box, specified as number of columns.                                                                                                                                                                                                           | `number`                           | `undefined` |
-| `disabled`    | `disabled`    | Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                        | `boolean`                          | `false`     |
-| `label`       | `label`       | Label displayed on the interface, for the component.                                                                                                                                                                                                              | `string`                           | `''`        |
-| `maxlength`   | `maxlength`   | Maximum number of characters a user can enter in the input box.                                                                                                                                                                                                   | `number`                           | `undefined` |
-| `minlength`   | `minlength`   | Minimum number of characters a user must enter in the input box for the value to be valid.                                                                                                                                                                        | `number`                           | `undefined` |
-| `name`        | `name`        | Name of the component, saved as part of form data.                                                                                                                                                                                                                | `string`                           | `''`        |
-| `placeholder` | `placeholder` | Text displayed in the input box before a user enters a value.                                                                                                                                                                                                     | `string`                           | `undefined` |
-| `readonly`    | `readonly`    | If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.                                                                                                                                        | `boolean`                          | `false`     |
-| `required`    | `required`    | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                                                        | `boolean`                          | `false`     |
-| `rows`        | `rows`        | Height of the input box, specified as number of rows.                                                                                                                                                                                                             | `number`                           | `undefined` |
-| `state`       | `state`       | Theme based on which the input box is styled.                                                                                                                                                                                                                     | `"error" \| "normal" \| "warning"` | `'normal'`  |
-| `stateText`   | `state-text`  | Descriptive or instructional text displayed below the input box.                                                                                                                                                                                                  | `string`                           | `''`        |
-| `value`       | `value`       | Default value displayed in the input box.                                                                                                                                                                                                                         | `string`                           | `''`        |
-| `wrap`        | `wrap`        | Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved. | `"hard" \| "soft"`                 | `'soft'`    |
+| Property      | Attribute      | Description                                                                                                                                                                                                                                                       | Type                               | Default     |
+| ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `cols`        | `cols`         | Width of the input box, specified as number of columns.                                                                                                                                                                                                           | `number`                           | `undefined` |
+| `disabled`    | `disabled`     | Disables the text area on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                        | `boolean`                          | `false`     |
+| `errorText`   | `error-text`   | Error text displayed below the text box.                                                                                                                                                                                                                          | `string`                           | `''`        |
+| `hintText`    | `hint-text`    | Hint text displayed below the text box.                                                                                                                                                                                                                           | `string`                           | `''`        |
+| `label`       | `label`        | Label displayed on the interface, for the component.                                                                                                                                                                                                              | `string`                           | `''`        |
+| `maxlength`   | `maxlength`    | Maximum number of characters a user can enter in the input box.                                                                                                                                                                                                   | `number`                           | `undefined` |
+| `minlength`   | `minlength`    | Minimum number of characters a user must enter in the input box for the value to be valid.                                                                                                                                                                        | `number`                           | `undefined` |
+| `name`        | `name`         | Name of the component, saved as part of form data.                                                                                                                                                                                                                | `string`                           | `''`        |
+| `placeholder` | `placeholder`  | Text displayed in the input box before a user enters a value.                                                                                                                                                                                                     | `string`                           | `undefined` |
+| `readonly`    | `readonly`     | If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.                                                                                                                                        | `boolean`                          | `false`     |
+| `required`    | `required`     | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                                                        | `boolean`                          | `false`     |
+| `rows`        | `rows`         | Height of the input box, specified as number of rows.                                                                                                                                                                                                             | `number`                           | `undefined` |
+| `state`       | `state`        | Theme based on which the input box is styled.                                                                                                                                                                                                                     | `"error" \| "normal" \| "warning"` | `'normal'`  |
+| `value`       | `value`        | Default value displayed in the input box.                                                                                                                                                                                                                         | `string`                           | `''`        |
+| `warningText` | `warning-text` | Warning text displayed below the text box.                                                                                                                                                                                                                        | `string`                           | `''`        |
+| `wrap`        | `wrap`         | Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved. | `"hard" \| "soft"`                 | `'soft'`    |
 
 
 ## Events
@@ -149,6 +157,9 @@ Type: `Promise<void>`
 
 | Name                       | Description                    |
 | -------------------------- | ------------------------------ |
+| `--fw-input-error-color`   | Color of the error text.       |
+| `--fw-input-hint-color`    | Color of the hint text.        |
+| `--fw-input-warning-color` | Color of the warning text.     |
 | `--input-color`            | Color of the textarea input    |
 | `--textarea-margin-bottom` | Bottom margin for the textarea |
 

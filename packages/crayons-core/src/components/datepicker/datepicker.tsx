@@ -29,7 +29,10 @@ import {
   handleKeyDown,
   renderHiddenField,
   getFocusableChildren,
+  hasSlot,
 } from '../../utils';
+import FieldControl from '../../function-components/field-control';
+
 import { i18n, TranslationController } from '../../global/Translation';
 
 const defaultweekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -98,6 +101,9 @@ export class Datepicker {
   @State() shortMonthNames: any;
   @State() longMonthNames: any;
   @State() weekDays: any;
+  @State() hasHintTextSlot = false;
+  @State() hasWarningTextSlot = false;
+  @State() hasErrorTextSlot = false;
 
   @Element() host: HTMLElement;
 
@@ -175,9 +181,21 @@ export class Datepicker {
   @Prop() readonly = false;
 
   /**
-   * Descriptive or instructional text displayed below the date picker box.
+   * Hint text displayed below the text box.
    */
-  @Prop() stateText;
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the text box.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the text box.
+   */
+  @Prop() errorText = '';
+  /**
+   * Label displayed on the interface, for the component.
+   */
+  @Prop() label = '';
 
   /**
    *   Triggered when the update button clicked
@@ -242,6 +260,10 @@ export class Datepicker {
 
   disconnectedCallback() {
     document.removeEventListener('keydown', this.escapeHandler);
+    this.host.shadowRoot?.removeEventListener(
+      'slotchange',
+      this.handleSlotChange
+    );
   }
 
   private formatDate(value) {
@@ -309,7 +331,7 @@ export class Datepicker {
   @Method()
   async setFocus() {
     if (this.nativeInput) {
-      this.nativeInput.focus();
+      this.nativeInput.setFocus?.();
     }
   }
 
@@ -613,7 +635,7 @@ export class Datepicker {
     const yearsArr = [];
     if (this.maxYear < this.minYear) this.maxYear = this.minYear;
     let year = new Date(this.minYear).getFullYear();
-    while (year < +this.maxYear) {
+    while (year <= +this.maxYear) {
       yearsArr.push(year.toString());
       year++;
     }
@@ -633,7 +655,7 @@ export class Datepicker {
     if (this.displayFormat) {
       this.isDisplayFormatSet = true;
     }
-
+    this.handleSlotChange();
     this.displayFormat =
       this.displayFormat ||
       this.langModule?.formatLong?.date({ width: 'short' });
@@ -1153,283 +1175,309 @@ export class Datepicker {
     }
   };
 
+  handleSlotChange() {
+    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
+    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
+    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
+  }
+
   render() {
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
 
     return (
-      <fw-popover
-        same-width='false'
-        distance='8'
-        placement='bottom-start'
-        fallbackPlacements={['top-start']}
-        hide-on-tab='false'
-        onFwHide={this.handlePopoverClose}
+      <FieldControl
+        inputId={this.name}
+        label={this.label}
+        labelId={`${this.label}-${this.name}`}
+        state={this.state}
+        hintTextId={`hint-${this.name}`}
+        hintText={this.hintText}
+        hasHintTextSlot={this.hasHintTextSlot}
+        errorTextId={`error-${this.name}`}
+        errorText={this.errorText}
+        hasErrorTextSlot={this.hasErrorTextSlot}
+        warningTextId={`warning-${this.name}`}
+        warningText={this.warningText}
+        hasWarningTextSlot={this.hasWarningTextSlot}
+        required={this.required}
       >
-        <div
-          slot='popover-trigger'
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
+        <fw-popover
+          same-width='false'
+          distance='8'
+          placement='bottom-start'
+          fallbackPlacements={['top-start']}
+          hide-on-tab='false'
+          onFwHide={this.handlePopoverClose}
         >
-          <fw-input
-            value={this.value}
-            name={this.name}
-            class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
-            placeholder={this.placeholder}
-            required={this.required}
-            onFwBlur={this.onBlur}
-            ref={(el) => (this.nativeInput = el)}
-            state={this.state}
-            stateText={this.stateText}
-            readonly={this.readonly}
+          <div
+            role='combobox'
+            aria-controls='datepicker'
+            aria-expanded={this.showDatePicker}
+            tabindex='-1'
+            onClick={() => (this.showDatePicker = true)}
+            onKeyUp={() => (this.showDatePicker = true)}
+            slot='popover-trigger'
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
           >
-            <div class='icon-calendar' slot='input-suffix'>
-              <div
-                class='separator'
-                style={{
-                  borderLeftColor:
-                    this.state === 'error' ? '#d72d30' : '#ebeff3',
-                }}
-              ></div>
-              <span class='date-icon'>
-                <fw-icon
-                  onClick={() => (this.showDatePicker = true)}
-                  name='calendar'
+            <fw-input
+              value={this.value}
+              name={this.name}
+              class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
+              placeholder={this.placeholder}
+              required={this.required}
+              onFwBlur={this.onBlur}
+              ref={(el) => (this.nativeInput = el)}
+              state={this.state}
+              readonly={this.readonly}
+            >
+              <div class='icon-calendar' slot='input-suffix'>
+                <div
+                  class='separator'
                   style={{
-                    '--fw-icon-color': this.state === 'error' && '#d72d30',
+                    borderLeftColor:
+                      this.state === 'error' ? '#d72d30' : '#ebeff3',
                   }}
-                ></fw-icon>
-              </span>
-            </div>
-          </fw-input>
-        </div>
-        {this.showSingleDatePicker() ? (
-          <div class='datepicker' slot='popover-content'>
-            <div class='mdp-container'>
-              {/* Head section */}
-              <div class='mdpc-head'>
-                <div class='mdpch-container'>
-                  <span class='mdpchc-month'>
-                    <fw-select
-                      class='first single-month-selector'
-                      readonly={true}
-                      value={this.shortMonthNames[this.month]}
-                      same-width='false'
-                      variant='button'
-                      options-placement='bottom-start'
-                      options={this.longMonthNames.map((month, i) => ({
-                        value: this.shortMonthNames[i],
-                        key: i,
-                        selected: month === this.longMonthNames[this.month],
-                        text: month,
-                      }))}
-                      allowDeselect={false}
-                    ></fw-select>
-                  </span>
-
-                  <span class='mdpchc-year'>
-                    <fw-select
-                      class='last single-year-selector'
-                      readonly={true}
-                      value={this.year}
-                      same-width='false'
-                      options-placement='bottom'
-                      variant='button'
-                      allow-deselect='false'
-                    >
-                      {this.supportedYears.map((year, i) => (
-                        <fw-select-option
-                          value={year}
-                          key={i}
-                          selected={year === this.year}
-                        >
-                          {year}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
-                </div>
-                <div class='btns'>
-                  <div class='mdpch-button'>
-                    <div
-                      role='button'
-                      tabindex='0'
-                      class='mdpchb-inner'
-                      onClick={() => this.setMonth(-1)}
-                      onKeyDown={handleKeyDown(() => this.setMonth(-1))}
-                    >
-                      <span class='mdpchbi-left-arrow'></span>
-                    </div>
-                  </div>
-                  <div class='mdpch-button-right'>
-                    <div
-                      role='button'
-                      tabindex='0'
-                      class='mdpchb-inner'
-                      onClick={() => this.setMonth(1)}
-                      onKeyDown={handleKeyDown(() => this.setMonth(1))}
-                    >
-                      <span class='mdpchbi-right-arrow'></span>
-                    </div>
-                  </div>
-                </div>
+                ></div>
+                <span class='date-icon'>
+                  <fw-icon
+                    name='calendar'
+                    style={{
+                      '--fw-icon-color': this.state === 'error' && '#d72d30',
+                    }}
+                  ></fw-icon>
+                </span>
               </div>
-              {/* Body Section */}
-              <div class='mdpc-body'>
-                {this.renderCalendar(this.monthDetails)}
-              </div>
-            </div>
-            {/* Footer Section */}
-            <div class='mdpc-footer'>
-              <fw-button color='secondary' class='close-date-picker'>
-                {this.cancelText}
-              </fw-button>
-              <fw-button color='primary' class='update-date-value'>
-                {this.updateText}
-              </fw-button>
-            </div>
+            </fw-input>
           </div>
-        ) : (
-          ''
-        )}
+          {this.showSingleDatePicker() ? (
+            <div id='datepicker' class='datepicker' slot='popover-content'>
+              <div class='mdp-container'>
+                {/* Head section */}
+                <div class='mdpc-head'>
+                  <div class='mdpch-container'>
+                    <span class='mdpchc-month'>
+                      <fw-select
+                        class='first single-month-selector'
+                        readonly={true}
+                        value={this.shortMonthNames[this.month]}
+                        same-width='false'
+                        variant='button'
+                        options-placement='bottom-start'
+                        options={this.longMonthNames.map((month, i) => ({
+                          value: this.shortMonthNames[i],
+                          key: i,
+                          selected: month === this.longMonthNames[this.month],
+                          text: month,
+                        }))}
+                        allowDeselect={false}
+                      ></fw-select>
+                    </span>
 
-        {this.showDateRangePicker() ? (
-          <div class='daterangepicker' slot='popover-content'>
-            <div class='mdp-range-container'>
-              {/* Head section */}
-              <div class='mdpc-head'>
-                <div class='mdpch-container'>
-                  <span class='mdpchc-month'>
-                    <fw-select
-                      class='first from-month-selector'
-                      readonly={true}
-                      value={this.shortMonthNames[this.month]}
-                      same-width='false'
-                      variant='button'
-                      options-placement='bottom-start'
-                      options={this.longMonthNames.map((month, i) => ({
-                        value: this.shortMonthNames[i],
-                        key: i,
-                        selected: month === this.longMonthNames[this.month],
-                        text: month,
-                      }))}
-                      allowDeselect={false}
-                    ></fw-select>
-                  </span>
-                  <span class='mdpchc-year'>
-                    <fw-select
-                      class='last from-year-selector'
-                      readonly={true}
-                      value={this.year}
-                      same-width='false'
-                      options-placement='bottom'
-                      variant='button'
-                      allow-deselect='false'
-                    >
-                      {this.supportedYears.map((year, i) => (
-                        <fw-select-option
-                          value={year}
-                          key={i}
-                          selected={year === this.year}
-                        >
-                          {year}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
-                </div>
-                <div class='mdpch-container-right'>
-                  <span class='mdpchc-month'>
-                    <fw-select
-                      class='first to-month-selector'
-                      readonly={true}
-                      same-width='false'
-                      variant='button'
-                      value={this.shortMonthNames[this.toMonth]}
-                      options-placement='bottom-start'
-                      options={this.longMonthNames.map((month, i) => ({
-                        value: this.shortMonthNames[i],
-                        key: i,
-                        selected: month === this.longMonthNames[this.toMonth],
-                        text: month,
-                      }))}
-                      allowDeselect={false}
-                    ></fw-select>
-                  </span>
-                  <span class='mdpchc-year'>
-                    <fw-select
-                      class='last to-year-selector'
-                      readonly={true}
-                      value={this.toYear}
-                      same-width='false'
-                      options-placement='bottom'
-                      variant='button'
-                      allow-deselect='false'
-                    >
-                      {this.supportedYears.map((year, i) => (
-                        <fw-select-option
-                          value={year}
-                          key={i}
-                          selected={year === this.toYear}
-                        >
-                          {year}
-                        </fw-select-option>
-                      ))}
-                    </fw-select>
-                  </span>
-                </div>
-                <div class='btns'>
-                  <div class='mdpch-button'>
-                    <div
-                      role='button'
-                      tabindex='0'
-                      class='mdpchb-inner'
-                      onClick={() => this.setMonth(-1)}
-                      onKeyDown={handleKeyDown(() => this.setMonth(-1))}
-                    >
-                      <span class='mdpchbi-left-arrow'></span>
-                    </div>
+                    <span class='mdpchc-year'>
+                      <fw-select
+                        class='last single-year-selector'
+                        readonly={true}
+                        value={this.year}
+                        same-width='false'
+                        options-placement='bottom'
+                        variant='button'
+                        allow-deselect='false'
+                      >
+                        {this.supportedYears.map((year, i) => (
+                          <fw-select-option
+                            value={year}
+                            key={i}
+                            selected={year === this.year}
+                          >
+                            {year}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
                   </div>
-                  <div class='mdpch-button-right'>
-                    <div
-                      role='button'
-                      tabindex='0'
-                      class='mdpchb-inner'
-                      onClick={() => this.setMonth(1)}
-                      onKeyDown={handleKeyDown(() => this.setMonth(1))}
-                    >
-                      <span class='mdpchbi-right-arrow'></span>
+                  <div class='btns'>
+                    <div class='mdpch-button'>
+                      <div
+                        role='button'
+                        tabindex='0'
+                        class='mdpchb-inner'
+                        onClick={() => this.setMonth(-1)}
+                        onKeyDown={handleKeyDown(() => this.setMonth(-1))}
+                      >
+                        <span class='mdpchbi-left-arrow'></span>
+                      </div>
+                    </div>
+                    <div class='mdpch-button-right'>
+                      <div
+                        role='button'
+                        tabindex='0'
+                        class='mdpchb-inner'
+                        onClick={() => this.setMonth(1)}
+                        onKeyDown={handleKeyDown(() => this.setMonth(1))}
+                      >
+                        <span class='mdpchbi-right-arrow'></span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Body Section */}
-              <div class='body-container'>
+                {/* Body Section */}
                 <div class='mdpc-body'>
                   {this.renderCalendar(this.monthDetails)}
                 </div>
-                <div class='mdpc-body mdpc-body-right'>
-                  {this.renderCalendar(this.nextMonthDetails)}
-                </div>
+              </div>
+              {/* Footer Section */}
+              <div class='mdpc-footer'>
+                <fw-button color='secondary' class='close-date-picker'>
+                  {this.cancelText}
+                </fw-button>
+                <fw-button color='primary' class='update-date-value'>
+                  {this.updateText}
+                </fw-button>
               </div>
             </div>
-            {/* Footer Section */}
-            <div class='mdpc-range-footer'>
-              <fw-button color='secondary' class='close-date-picker'>
-                {this.cancelText}
-              </fw-button>
-              <fw-button color='primary' class='update-range-value'>
-                {this.updateText}
-              </fw-button>
+          ) : (
+            ''
+          )}
+          {this.showDateRangePicker() ? (
+            <div id='datepicker' class='daterangepicker' slot='popover-content'>
+              <div class='mdp-range-container'>
+                {/* Head section */}
+                <div class='mdpc-head'>
+                  <div class='mdpch-container'>
+                    <span class='mdpchc-month'>
+                      <fw-select
+                        class='first from-month-selector'
+                        readonly={true}
+                        value={this.shortMonthNames[this.month]}
+                        same-width='false'
+                        variant='button'
+                        options-placement='bottom-start'
+                        options={this.longMonthNames.map((month, i) => ({
+                          value: this.shortMonthNames[i],
+                          key: i,
+                          selected: month === this.longMonthNames[this.month],
+                          text: month,
+                        }))}
+                        allowDeselect={false}
+                      ></fw-select>
+                    </span>
+                    <span class='mdpchc-year'>
+                      <fw-select
+                        class='last from-year-selector'
+                        readonly={true}
+                        value={this.year}
+                        same-width='false'
+                        options-placement='bottom'
+                        variant='button'
+                        allow-deselect='false'
+                      >
+                        {this.supportedYears.map((year, i) => (
+                          <fw-select-option
+                            value={year}
+                            key={i}
+                            selected={year === this.year}
+                          >
+                            {year}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
+                  </div>
+                  <div class='mdpch-container-right'>
+                    <span class='mdpchc-month'>
+                      <fw-select
+                        class='first to-month-selector'
+                        readonly={true}
+                        same-width='false'
+                        variant='button'
+                        value={this.shortMonthNames[this.toMonth]}
+                        options-placement='bottom-start'
+                        options={this.longMonthNames.map((month, i) => ({
+                          value: this.shortMonthNames[i],
+                          key: i,
+                          selected: month === this.longMonthNames[this.toMonth],
+                          text: month,
+                        }))}
+                        allowDeselect={false}
+                      ></fw-select>
+                    </span>
+                    <span class='mdpchc-year'>
+                      <fw-select
+                        class='last to-year-selector'
+                        readonly={true}
+                        value={this.toYear}
+                        same-width='false'
+                        options-placement='bottom'
+                        variant='button'
+                        allow-deselect='false'
+                      >
+                        {this.supportedYears.map((year, i) => (
+                          <fw-select-option
+                            value={year}
+                            key={i}
+                            selected={year === this.toYear}
+                          >
+                            {year}
+                          </fw-select-option>
+                        ))}
+                      </fw-select>
+                    </span>
+                  </div>
+                  <div class='btns'>
+                    <div class='mdpch-button'>
+                      <div
+                        role='button'
+                        tabindex='0'
+                        class='mdpchb-inner'
+                        onClick={() => this.setMonth(-1)}
+                        onKeyDown={handleKeyDown(() => this.setMonth(-1))}
+                      >
+                        <span class='mdpchbi-left-arrow'></span>
+                      </div>
+                    </div>
+                    <div class='mdpch-button-right'>
+                      <div
+                        role='button'
+                        tabindex='0'
+                        class='mdpchb-inner'
+                        onClick={() => this.setMonth(1)}
+                        onKeyDown={handleKeyDown(() => this.setMonth(1))}
+                      >
+                        <span class='mdpchbi-right-arrow'></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Body Section */}
+                <div class='body-container'>
+                  <div class='mdpc-body'>
+                    {this.renderCalendar(this.monthDetails)}
+                  </div>
+                  <div class='mdpc-body mdpc-body-right'>
+                    {this.renderCalendar(this.nextMonthDetails)}
+                  </div>
+                </div>
+              </div>
+              {/* Footer Section */}
+              <div class='mdpc-range-footer'>
+                <fw-button color='secondary' class='close-date-picker'>
+                  {this.cancelText}
+                </fw-button>
+                <fw-button color='primary' class='update-range-value'>
+                  {this.updateText}
+                </fw-button>
+              </div>
             </div>
-          </div>
-        ) : (
-          ''
-        )}
-      </fw-popover>
+          ) : (
+            ''
+          )}
+        </fw-popover>
+      </FieldControl>
     );
   }
 }

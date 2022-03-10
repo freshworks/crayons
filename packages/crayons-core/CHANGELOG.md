@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.26...@freshworks/crayons@3.0.0-beta.27) (2022-03-09)
+
+### Features
+
+- **i18n:** use json instead of js files ([#468](https://github.com/freshworks/crayons/issues/468)) ([bafe409](https://github.com/freshworks/crayons/commit/bafe409b4333f28581d172de183d38ed896f0ff1))
+
+## [3.0.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.25...@freshworks/crayons@3.0.0-beta.26) (2022-03-09)
+
+### Bug Fixes
+
+- **modal:** display modal-title only when there is a title-text ([#464](https://github.com/freshworks/crayons/issues/464)) ([8f09641](https://github.com/freshworks/crayons/commit/8f096410b090da37f2099a5a792d034bdf64555e))
+- **select-state-text:** remove stateText prop from select and use fieldcontrol ([#467](https://github.com/freshworks/crayons/issues/467)) ([f7b0380](https://github.com/freshworks/crayons/commit/f7b0380afd548fd4d5f1239685dbb43b4db8476d))
+
+### Features
+
+- **file-uploader:** adding file-uploader component  ([#444](https://github.com/freshworks/crayons/issues/444)) ([0ac218c](https://github.com/freshworks/crayons/commit/0ac218c5da73c61714d9d4d3233e4bf927a01c3c))
+- **input-state-text:** Added `hint-text` `warning-text` `error-text` props and slots and removed `state-text` prop ([#436](https://github.com/freshworks/crayons/issues/436)) ([4841237](https://github.com/freshworks/crayons/commit/4841237ecc907f13460a6832b8ff7385d05d0729))
+
+### BREAKING CHANGES
+1. `stateText` prop has been removed from `fw-input`, `fw-textarea`, `fw-select`.
+
+2. `label` prop in `fw-radio-group` will not only be used for screen readers, passing this prop will also show a label on top of radio-group. If the label is not required to be shown, avoid passing `label` prop. The screen readers will instead use `name` prop if passed.
+
 ## [3.0.0-beta.25](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.24...@freshworks/crayons@3.0.0-beta.25) (2022-03-08)
 
 ### Features
@@ -15,6 +38,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - **css-variables:** Namespace css variables ([#441](https://github.com/freshworks/crayons/issues/441)) ([4d4a910](https://github.com/freshworks/crayons/commit/4d4a9103825f6a015f6b61afbc9d4446dec11c83))
 - **timepicker:** replace moment-mini with date-fns ([#459](https://github.com/freshworks/crayons/issues/459)) ([d668420](https://github.com/freshworks/crayons/commit/d668420a5ff90e41a0b1c4ef0a2c3f6602ef41dc))
+
+### BREAKING CHANGES
+All the css variables are prefixed with `--fw-[component_name]`
 
 ## [3.0.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.18...@freshworks/crayons@3.0.0-beta.19) (2022-03-04)
 

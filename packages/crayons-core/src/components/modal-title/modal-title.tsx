@@ -67,7 +67,9 @@ export class ModalTitle {
                 {this.icon !== '' ? this.renderIcon() : null}
                 <label class='title-label'>{this.titleText}</label>
               </div>
-              <label class='description'>{this.description}</label>
+              {this.description && (
+                <label class='description'>{this.description}</label>
+              )}
             </div>
           )}
         </div>

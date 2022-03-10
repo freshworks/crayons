@@ -201,7 +201,7 @@ export class TranslationController {
   fetchDefaultTranslations(lang: string): Promise<any> {
     let req = this.requests.get(lang);
     if (!req) {
-      req = import(`../i18n/${lang}.js`)
+      req = import(`../i18n/${lang}.json`)
         .then((result) => result.default)
         .then((data) => {
           return data;

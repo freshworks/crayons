@@ -1,0 +1,37 @@
+{
+  "datepicker": {
+    "cancel": "Stornieren",
+    "update": "Aktualisierung",
+    "to": "zu"
+  },
+  "modal": {
+    "ok": "OK",
+    "cancel": "Stornieren"
+  },
+  "dropdown": {
+    "add": "Addieren",
+    "cancel": "Stornieren"
+  },
+  "search": {
+    "search": "Suche",
+    "noItemsFound": "Keine Elemente gefunden",
+    "no_data_available": "Keine Daten vorhanden"
+  },
+  "form": {
+    "required": "{{field}} is required DE",
+    "invalidUrl": "Enter a valid URL DE",
+    "invalidEmail": "Enter a valid email DE",
+    "invalidNumber": "Enter a valid number DE"
+  },
+  "pagination": {
+    "buttonGroupLabel": "Pagination controls DE",
+    "previousButtonLabel": "Previous DE",
+    "nextButtonLabel": "Next DE",
+    "content": "DE Total {{total}} - <span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> DE"
+  },
+  "platformTable": {
+    "delete": "Delete DE",
+    "sortby": "Sort By DE",
+    "orderby": "Order by DE"
+  }
+}

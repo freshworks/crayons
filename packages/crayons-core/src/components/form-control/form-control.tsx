@@ -81,12 +81,13 @@ export class FormControl {
           ...this.fieldProps,
           name: this.name,
           placeholder: this.placeholder,
-          label: '',
+          label: this.label,
           required: this.required,
-          hint: '',
           type: type,
           ...this.controlProps?.inputProps(this.name, type),
-          state: this.touched && this.error && 'error',
+          state: (this.touched && this.error && 'error') || 'normal',
+          ['hint-text']: this.hint,
+          ['error-text']: this.error,
         };
 
         cmp = (
@@ -103,14 +104,15 @@ export class FormControl {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
-            label: '',
+            label: this.label,
             required: this.required,
-            hint: '',
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
             ),
-            state: this.touched && this.error && 'error',
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: this.error,
           };
           cmp = (
             <fw-textarea
@@ -127,14 +129,15 @@ export class FormControl {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
-            label: '',
+            label: this.label,
             required: this.required,
-            hint: '',
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
             ),
-            state: this.touched && this.error && 'error',
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: this.error,
           };
           cmp = (
             <fw-datepicker
@@ -154,12 +157,13 @@ export class FormControl {
             placeholder: this.placeholder,
             label: '',
             required: this.required,
-            hint: '',
             ...this.controlProps?.checkboxProps(
               this.name,
               this.type?.toLowerCase()
             ),
-            state: this.touched && this.error && 'error',
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: this.error,
           };
           cmp = (
             <fw-checkbox
@@ -182,16 +186,17 @@ export class FormControl {
             ...this.fieldProps,
             'name': this.name,
             'placeholder': this.placeholder,
-            'label': '',
+            'label': this.label,
             'required': this.required,
-            'hint': '',
             'allow-empty': true,
+            'state': (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: this.error,
             ...controlProps,
           };
           cmp = (
             <fw-radio-group
               {...componentProps}
-              label={this.name}
               ref={(el) => (this.crayonsControlRef = el)}
             >
               {this.choices?.map((ch) => {
@@ -224,11 +229,12 @@ export class FormControl {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
-            label: '',
+            label: this.label,
             required: this.required,
-            hint: '',
-            state: this.touched && this.error && 'error',
             multiple: this.type === 'MULTI_SELECT',
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: this.error,
           };
 
           componentProps = {
@@ -257,10 +263,11 @@ export class FormControl {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
-            label: '',
+            label: this.label,
             required: this.required,
-            hint: '',
-            state: this.touched && this.error && 'error',
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: this.error,
           };
 
           if (
@@ -295,14 +302,15 @@ export class FormControl {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
-            label: '',
+            label: this.label,
             required: this.required,
-            hint: '',
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
             ),
-            state: this.touched && this.error && 'error',
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: this.error,
           };
           cmp = (
             <fw-timepicker
@@ -342,7 +350,9 @@ export class FormControl {
   render(): JSX.Element {
     return (
       <div class='form-control-container'>
-        {this.type !== 'CHECKBOX' && (
+        {this.renderControl()}
+
+        {this.hasSlot && (
           <label
             htmlFor={this.name}
             class={{
@@ -353,14 +363,15 @@ export class FormControl {
             {this.label}
           </label>
         )}
-        {this.renderControl()}
+
         <slot></slot>
-        {!(this.touched && this.error) && (
+
+        {this.hasSlot && !(this.touched && this.error) && (
           <div class='hint' id={`hint-${this.name}`}>
             {this.hint}
           </div>
         )}
-        {this.touched && this.error && (
+        {this.hasSlot && this.touched && this.error && (
           <div class='error' id={`error-${this.name}`}>
             {TranslationController.t(this.error, {
               field: this.label || this.name,
