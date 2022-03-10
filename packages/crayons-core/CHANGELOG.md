@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.28](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.27...@freshworks/crayons@3.0.0-beta.28) (2022-03-10)
+
+
+### Bug Fixes
+
+* **datepicker:** fix placeholder for popover trigger ([#469](https://github.com/freshworks/crayons/issues/469)) ([c166384](https://github.com/freshworks/crayons/commit/c1663843e022eb37c5624f89a1d86ca6d0e761b2))
+
+
+### Features
+
+* **data-table:** adding a column lock configuration to data table ([#454](https://github.com/freshworks/crayons/issues/454)) ([9a1545a](https://github.com/freshworks/crayons/commit/9a1545aa2dc8098649f5970ed95651d1a9269b0c))
+* **data-table:** adding src prop to custom-cell-icon ([#470](https://github.com/freshworks/crayons/issues/470)) ([58d2cfa](https://github.com/freshworks/crayons/commit/58d2cfab2f3dd1dc35477b50145380bc2f5ba7f6))
+
+
+
+
+
 ## [3.0.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.26...@freshworks/crayons@3.0.0-beta.27) (2022-03-09)
 
 ### Features
