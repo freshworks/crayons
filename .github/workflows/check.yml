@@ -2,7 +2,7 @@ name: Check Build
 
 on:
   pull_request:
-    branches: [ master, next ]
+    branches: [ master, next, canary ]
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,10 @@ jobs:
   
     - uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
+
+    - name: Install npm 7
+      run: npx i npm@7
 
     # Installs the dependencies
     - name: Install Dependencies
@@ -23,11 +26,12 @@ jobs:
     # Runs lints
     - name: Run Linter
       run: npm run code-sanity
+
+    # Build
+    - name: Build
+      run: npm run build
     
     # Runs tests
     - name: Runs tests
       run: npm run test
     
-    # Builds components
-    - name: Builds Components
-      run: npm run build:components

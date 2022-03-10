@@ -25,7 +25,7 @@ export interface FieldControlProps {
   /** The error text id, used to map the input to the error text */
   errorTextId?: string;
 
-  /** The invalid text (if the error-text slot isn't used) */
+  /** The error text (if the error-text slot isn't used) */
   errorText?: string;
 
   /** Whether or not a error text slot has been provided. */
@@ -40,7 +40,7 @@ export interface FieldControlProps {
   /** Whether or not a warning text slot has been provided. */
   hasWarningTextSlot?: boolean;
 
-  /** Whether or not the invalid text should be shown instead of the help text */
+  /** Whether or not the error text should be shown instead of the help text */
   state?: 'normal' | 'warning' | 'error';
 
   /** Whether or not to display a required indicator should be shown (asterisk) */
