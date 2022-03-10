@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ master, next ]
+    branches: [ master, next, canary ]
   workflow_dispatch:
 
 jobs:
@@ -18,8 +18,11 @@ jobs:
   
     - uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
+   
+   - name: Install npm 7
+      run: npm i -g npm@7
 
     # Installs the dependencies
     - name: Install Dependencies
@@ -29,18 +32,23 @@ jobs:
     - name: Run Linter
       run: npm run code-sanity
     
+    # Build
+    - name: Build
+      run: npm run build:all
+    
     # Runs tests
     - name: Runs tests
       run: npm run test
-    
-    # Builds components
-    - name: Builds Components
-      run: npm run build:components
-    
-    # Creates Release and Publishes to NPM
-    - name: Semantic Release
-      run: npx semantic-release
+
+
+    # Creates git tags
+    - name: Create Git Tags
+      run: npm run update-version:ci
+
+    # Publish to NPM 
+    - name: NPM Publish
+      run: npm run release:ci
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    

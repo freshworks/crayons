@@ -57,7 +57,7 @@ describe('fw-format-date', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-format-date date="2020-07-15T17:30:00+05:30" hour="numeric" minute="numeric" hour-format="12"></fw-format-date>'
+      '<fw-format-date date="2020-07-15T17:30:00" hour="numeric" minute="numeric" hour-format="12"></fw-format-date>'
     );
     const element = await page.find('fw-format-date');
     expect(element.shadowRoot).toEqualText('5:30 PM');
@@ -66,7 +66,7 @@ describe('fw-format-date', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-format-date date="2020-07-15T17:30:00+05:30" hour="numeric" minute="numeric" hour-format="24"></fw-format-date>'
+      '<fw-format-date date="2020-07-15T17:30:00" hour="numeric" minute="numeric" hour-format="24"></fw-format-date>'
     );
     const element = await page.find('fw-format-date');
     expect(element.shadowRoot).toEqualText('17:30');
