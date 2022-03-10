@@ -13,6 +13,7 @@
 | `library` | `library` |             | `string` | `'crayons'` |
 | `name`    | `name`    |             | `string` | `''`        |
 | `size`    | `size`    |             | `number` | `18`        |
+| `src`     | `src`     |             | `any`    | `null`      |
 
 
 ## Dependencies
