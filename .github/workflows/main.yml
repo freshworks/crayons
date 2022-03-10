@@ -39,6 +39,8 @@ jobs:
     # Creates git tags
     - name: Create Git Tags
       run: npm run update-version:ci
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # Publish to NPM 
     - name: NPM Publish
