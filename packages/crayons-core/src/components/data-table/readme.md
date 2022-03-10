@@ -1003,6 +1003,103 @@ To hide certain columns, we can pass the 'hide' property set to true in the colu
 </code-block>
 </code-group>
 
+## Column lock
+
+We can lock column using 'lock' in column's configuration. 
+
+```html live
+  <fw-data-table id="datatable-51" label="Data table 51" show-settings="true">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "lock": true
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }]
+    }
+
+    var datatable51 = document.getElementById('datatable-51');
+    datatable51.columns = data.columns;
+    datatable51.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-51" label="Data table 51" show-settings="true">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "name",
+      "text": "Name",
+      "lock": true
+    }, {
+      "key": "role",
+      "text": "Role"
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "role": "Member"
+    }]
+  }
+
+  var datatable51 = document.getElementById('datatable-51');
+  datatable51.columns = data.columns;
+  datatable51.rows = data.rows;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name",
+        "lock": true
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }]
+    }
+
+    return (
+      <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 51" showSettings>
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
 ## Column width
 
 We can pass width for every column using 'widthProperties' in column's configuration. Every column has a minimum width of 40px and maximum width of 1000px by default. We can override min/max width for every column using the 'widthProperties' too.

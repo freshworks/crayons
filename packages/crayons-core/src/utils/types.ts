@@ -64,6 +64,7 @@ export type DataTableColumn = {
   variant?: string;
   position?: number;
   hide?: boolean;
+  lock?: boolean;
   widthProperties?: WidthStyles;
   textAlign?: 'left' | 'center' | 'right';
   hasFocusableComponent?: boolean;
