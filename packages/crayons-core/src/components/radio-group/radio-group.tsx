@@ -204,11 +204,13 @@ export class RadioGroup {
     }
     const slottedElements = this.host.querySelectorAll('fw-radio');
     slottedElements.forEach((radio, index) => {
-      radio.classList.add('fw-radio-group__radio');
-      radio.classList.toggle(
-        'fw-radio-group__radio--last',
-        index === slottedElements.length - 1
-      );
+      if (this.orientation === 'column') {
+        radio.classList.add('fw-radio-group__radio');
+        radio.classList.toggle(
+          'fw-radio-group__radio--last',
+          index === slottedElements.length - 1
+        );
+      }
     });
   }
 
