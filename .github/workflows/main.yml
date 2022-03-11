@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ master, next, canary ]
+    branches: [ master, next, canary, test-publish ]
   workflow_dispatch:
 
 jobs:
@@ -32,10 +32,19 @@ jobs:
       run: npm run build
     
     # Runs tests
-    - name: Runs tests
-      run: npm run test
+    #- name: Runs tests
+    #  run: npm run test
 
 
+   # SetGit Identity
+    - name: Set Git Identity
+      run: |
+        git config --global user.name 'runway-frontend-coe'
+        git config --global user.email 'runway-frontend-coe@freshworks.com'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    
     # Creates git tags
     - name: Create Git Tags
       run: npm run update-version:ci
