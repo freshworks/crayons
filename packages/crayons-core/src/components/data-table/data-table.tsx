@@ -32,6 +32,10 @@ const PREDEFINED_VARIANTS_META: any = {
     componentName: 'fw-custom-cell-icon',
     isFocusable: false,
   },
+  paragraph: {
+    componentName: 'fw-custom-cell-paragraph',
+    isFocusable: true,
+  },
 };
 
 const TABLE_POPPER_CONFIG: any = {
@@ -626,12 +630,20 @@ export class DataTable {
       case 'ArrowRight':
         if (currentElement.parentElement.nodeName === 'FW-TOOLTIP') {
           if (currentElement.parentElement.nextElementSibling) {
-            nextFocusElement =
-              currentElement.parentElement.nextElementSibling.children[0];
+            if (
+              currentElement.parentElement.nextElementSibling.children[0]?.getAttribute(
+                'tabindex'
+              )
+            ) {
+              nextFocusElement =
+                currentElement.parentElement.nextElementSibling.children[0];
+            }
           } else {
             cellFocusChange = true;
           }
-        } else if (currentElement.nextElementSibling) {
+        } else if (
+          currentElement.nextElementSibling?.getAttribute('tabIndex')
+        ) {
           nextFocusElement = currentElement.nextElementSibling as any;
         } else {
           cellFocusChange = true;
@@ -639,14 +651,25 @@ export class DataTable {
         break;
       case 'ArrowLeft':
         if (currentElement.parentElement.nodeName === 'FW-TOOLTIP') {
-          if (currentElement.parentElement.previousElementSibling) {
-            nextFocusElement =
-              currentElement.parentElement.previousElementSibling.children[0];
+          if (
+            currentElement.parentElement.previousElementSibling?.getAttribute(
+              'tabIndex'
+            )
+          ) {
+            if (
+              currentElement.parentElement.previousElementSibling.children[0]?.getAttribute(
+                'tabindex'
+              )
+            ) {
+              nextFocusElement =
+                currentElement.parentElement.previousElementSibling.children[0];
+            }
           } else {
             cellFocusChange = true;
           }
-        }
-        if (currentElement.previousElementSibling) {
+        } else if (
+          currentElement.previousElementSibling?.getAttribute('tabIndex')
+        ) {
           nextFocusElement = currentElement.previousElementSibling as any;
         } else {
           cellFocusChange = true;
@@ -1049,6 +1072,10 @@ export class DataTable {
       template = <fw-custom-cell-user {...cellValue}></fw-custom-cell-user>;
     } else if (columnVariant === 'icon') {
       template = <fw-custom-cell-icon {...cellValue}></fw-custom-cell-icon>;
+    } else if (columnVariant === 'paragraph') {
+      template = (
+        <fw-custom-cell-paragraph {...cellValue}></fw-custom-cell-paragraph>
+      );
     } else {
       template = null;
     }

@@ -212,6 +212,12 @@ describe('fw-data-table', () => {
           position: 3,
           variant: 'icon',
         },
+        {
+          key: 'paragraph',
+          text: 'Paragraph',
+          position: 4,
+          variant: 'paragraph',
+        },
       ],
       rows: [
         {
@@ -222,6 +228,9 @@ describe('fw-data-table', () => {
             email: 'alexander.goodman@freshworks.com',
           },
           icon: { name: 'agent' },
+          paragraph: {
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eleifend mattis mattis. Curabitur accumsan in augue vel mollis. Fusce sagittis tincidunt augue, ut tempus erat condimentum finibus. Aliquam egestas lectus vel ligula egestas, sit amet lacinia nisl dapibus. Curabitur vestibulum nibh vel turpis posuere, a pellentesque magna gravida. Vestibulum imperdiet varius dui a fringilla. Nullam placerat tortor a nulla porta, eget vulputate justo facilisis. Curabitur cursus luctus mauris, ac mollis arcu posuere sit amet. Proin pulvinar blandit lorem, ac tempor purus suscipit id.',
+          },
         },
       ],
     };
@@ -236,9 +245,13 @@ describe('fw-data-table', () => {
     const iconComponent = await page.find(
       'fw-data-table >>> tbody > tr:first-child > td:nth-child(3) > fw-custom-cell-icon'
     );
+    const paraComponent = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:nth-child(4) > fw-custom-cell-paragraph'
+    );
     expect(anchorComponent).toBeTruthy();
     expect(userComponent).toBeTruthy();
     expect(iconComponent).toBeTruthy();
+    expect(paraComponent).toBeTruthy();
   });
 
   it('should align text in a column when textAlign is passed as a column configuration', async () => {

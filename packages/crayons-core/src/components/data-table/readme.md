@@ -546,6 +546,118 @@ function App() {
 </code-block>
 </code-group>
 
+
+#### Paragraph column variant
+
+We can use this column variant when we have a bigger text and we need to trim/show this text. Row value for this column variant should be an object with the following properties:
+
+1. text: Paragraph to trim. Only first three lines from this paragraph would be visible initially. User has to expand to see the full text.
+
+```html live
+  <fw-data-table id="datatable-32" label="Data table 32">
+  </fw-data-table>
+  
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "objectname",
+        "text": "Object Name"
+      }, {
+        "key": "objectdesc",
+        "text": "Object Description",
+        "variant": "paragraph",
+        "widthProperties": {
+          "width": "600px"
+        }
+      }],
+      rows: [{
+        "id": "0011",
+        "objectname": "Hotels",
+        "objectdesc": { 
+          "text": "Fusce nec nibh ut dui rutrum lobortis. In eu lacus molestie, dignissim erat sit amet, mollis tortor. Aliquam arcu felis, sollicitudin nec venenatis eu, fermentum sit amet ligula. Donec tempus lacus a malesuada pulvinar. In risus lorem, egestas non dui sed, tempus semper nisi. Proin blandit hendrerit suscipit. Phasellus eleifend diam sed mi ultrices, id consequat eros aliquet. Nunc gravida gravida auctor. Ut gravida accumsan justo non scelerisque. Aliquam blandit nisl a tincidunt ultricies." 
+        }
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-32');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-data-table id="datatable-32" label="Data table 32">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "objectname",
+      "text": "Object Name"
+    }, {
+      "key": "objectdesc",
+      "text": "Object Description",
+      "variant": "paragraph",
+      "widthProperties": {
+        "width": "600px"
+      }
+    }],
+    rows: [{
+      "id": "0011",
+      "objectname": "Hotels",
+      "objectdesc": { 
+        "text": "Fusce nec nibh ut dui rutrum lobortis. In eu lacus molestie, dignissim erat sit amet, mollis tortor. Aliquam arcu felis, sollicitudin nec venenatis eu, fermentum sit amet ligula. Donec tempus lacus a malesuada pulvinar. In risus lorem, egestas non dui sed, tempus semper nisi. Proin blandit hendrerit suscipit. Phasellus eleifend diam sed mi ultrices, id consequat eros aliquet. Nunc gravida gravida auctor. Ut gravida accumsan justo non scelerisque. Aliquam blandit nisl a tincidunt ultricies." 
+      }
+    }]
+  }; 
+
+  var datatable = document.getElementById('datatable-32');
+  datatable.columns = data.columns;
+  datatable.rows = data.rows;
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwDataTable } from "@freshworks/crayons/react";
+function App() {
+
+  var data = {
+    columns: [{
+      "key": "objectname",
+      "text": "Object Name"
+    }, {
+      "key": "objectdesc",
+      "text": "Object Description",
+      "variant": "paragraph",
+      "widthProperties": {
+        "width": "600px"
+      }
+    }],
+    rows: [{
+      "id": "0011",
+      "objectname": "Hotels",
+      "objectdesc": { 
+        "text": "Fusce nec nibh ut dui rutrum lobortis. In eu lacus molestie, dignissim erat sit amet, mollis tortor. Aliquam arcu felis, sollicitudin nec venenatis eu, fermentum sit amet ligula. Donec tempus lacus a malesuada pulvinar. In risus lorem, egestas non dui sed, tempus semper nisi. Proin blandit hendrerit suscipit. Phasellus eleifend diam sed mi ultrices, id consequat eros aliquet. Nunc gravida gravida auctor. Ut gravida accumsan justo non scelerisque. Aliquam blandit nisl a tincidunt ultricies." 
+      }
+    }]
+  }; 
+
+  return (
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 32">
+    </FwDataTable>
+  );
+}
+```
+</code-block>
+</code-group>
+
 ### Custom templates
 
 This codeblock shows how to use custom cell function to display HTML content in a cell.
@@ -1867,6 +1979,7 @@ Type: `Promise<DataTableColumn[]>`
 - [fw-custom-cell-anchor](./custom-cells/anchor)
 - [fw-custom-cell-user](./custom-cells/user)
 - [fw-custom-cell-icon](./custom-cells/icon)
+- [fw-custom-cell-paragraph](./custom-cells/paragraph)
 - [fw-checkbox](../checkbox)
 - [fw-tooltip](../tooltip)
 - [fw-button](../button)
@@ -1881,6 +1994,7 @@ graph TD;
   fw-data-table --> fw-custom-cell-anchor
   fw-data-table --> fw-custom-cell-user
   fw-data-table --> fw-custom-cell-icon
+  fw-data-table --> fw-custom-cell-paragraph
   fw-data-table --> fw-checkbox
   fw-data-table --> fw-tooltip
   fw-data-table --> fw-button
@@ -1893,8 +2007,10 @@ graph TD;
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
-  fw-checkbox --> fw-icon
+  fw-custom-cell-paragraph --> fw-tooltip
+  fw-custom-cell-paragraph --> fw-icon
   fw-tooltip --> fw-popover
+  fw-checkbox --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-input --> fw-icon
