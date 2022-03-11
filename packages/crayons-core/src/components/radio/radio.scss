@@ -176,7 +176,7 @@ input[type='radio'] {
   }
 }
 
-:host(:not(.fw-radio-group__radio--last)) {
+:host(.fw-radio-group__radio) {
   margin-bottom: 8px;
 }
 
