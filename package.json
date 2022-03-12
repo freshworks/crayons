@@ -11,8 +11,7 @@
     "./packages/*"
   ],
   "scripts": {
-    "build:all": "lerna run build --stream && npm run storybook:build && npm run docs:build",
-    "build": "lerna run build --stream",
+    "build": "lerna run build --stream && npm run storybook:build && npm run docs:build",
     "code-sanity": "npm run lint",
     "check-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --no-git-tag-version",
     "clean-changelog": "lernacleanchangelog '**'",
