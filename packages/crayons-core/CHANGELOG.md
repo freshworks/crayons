@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.29](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.28...@freshworks/crayons@3.0.0-beta.29) (2022-03-12)
+
+
+### Bug Fixes
+
+* **label-styling:** fix label styling as per DSM ([#474](https://github.com/freshworks/crayons/issues/474)) ([b412ede](https://github.com/freshworks/crayons/commit/b412ede40ba4be19ed417c173e874057a7bce7df))
+
+
+
+
+
 ## [3.0.0-beta.28](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.27...@freshworks/crayons@3.0.0-beta.28) (2022-03-10)
 
 ### Bug Fixes
