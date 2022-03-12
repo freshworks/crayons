@@ -5,15 +5,18 @@
     "url": "https://github.com/freshworks/crayons.git"
   },
   "keywords": [
-    "web-components",
+    "crayons",
+    "webcomponents",
+    "stencil",
     "stenciljs",
+    "design system",
     "ui-kit",
-    "typescript",
-    "components"
+    "freshworks",
+    "typescript"
   ],
   "author": "Freshworks Inc",
   "version": "3.0.0-beta.29",
-  "description": "Crayons for Developer Platform",
+  "description": "Web Components library",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
