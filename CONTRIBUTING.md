@@ -50,9 +50,15 @@ When generating components, the custom element tags is prefixed with `fw-` while
 
 
 ### Branches
+
 1. **master** - stable release branch
 2. **next** - experimental pre-release branch
 3. **canary** - development branch
+
+
+### Release Process
+
+To know about the release process check [here](RELEASE_PROCESS.md)
    
 ### Raise an issue
 
@@ -126,7 +132,7 @@ The Crayons repository uses GitHub's pre-commit hooks. To commit your changes,
 
 9. Run `git push -u origin <your-branch>`, to push your changes to the forked repo. git hooks will run all the test before pushing the changes. if any test fails, rewrite the tests and ensure that all tests pass before pushing again.
 
-10. Go to the forked repo in github and raise a PR. If there are any comments on your PR, address them. Please wait for the PR to be approved.
+10. Go to the forked repo in github and raise a PR against `canary` branch. If there are any comments on your PR, address them. Please wait for the PR to be approved.
 
 ## FAQ
 
