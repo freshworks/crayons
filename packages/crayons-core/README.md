@@ -53,3 +53,7 @@ When generating components, the custom element tags is prefixed with fw- while t
 ## How to contribute
 
 [Check out the CONTRIBUTE guide](../../CONTRIBUTING.md)
+
+----------------------------------------------
+
+Built with ❤ at Freshworks

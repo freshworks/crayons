@@ -43,3 +43,7 @@ This project is built with [StencilJS](https://stenciljs.com/). You can check ou
 - [Build components](https://stenciljs.com/docs/decorators)
 - [Testing a component](https://stenciljs.com/docs/testing-overview) 
 - [Using in different frameworks](https://stenciljs.com/docs/overview)
+
+----------------------------------------------
+
+Built with ❤ at Freshworks
