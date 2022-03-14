@@ -262,7 +262,7 @@ export namespace Components {
          */
         "label": string;
         /**
-          * Locale for which datepicker needs to be shown.
+          * Locale for which datepicker needs to be shown. Defaults to browser's current locale.
          */
         "locale": string;
         /**
@@ -2511,7 +2511,7 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * Locale for which datepicker needs to be shown.
+          * Locale for which datepicker needs to be shown. Defaults to browser's current locale.
          */
         "locale"?: string;
         /**
