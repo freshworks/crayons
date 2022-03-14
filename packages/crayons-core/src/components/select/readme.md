@@ -1059,12 +1059,12 @@ Type: `Promise<any>`
 
 | Name                        | Description                           |
 | --------------------------- | ------------------------------------- |
-| `--fw-input-error-color`    | Color of the error text.              |
-| `--fw-input-hint-color`     | Color of the hint text.               |
-| `--fw-input-warning-color`  | Color of the warning text.            |
+| `--fw-error-color`          | Color of the error text.              |
+| `--fw-hint-color`           | Color of the hint text.               |
 | `--fw-select-border`        | Border of the select component        |
 | `--fw-select-border-radius` | Border radius of the select component |
 | `--fw-select-margin-bottom` | Bottom margin of the select component |
+| `--fw-warning-color`        | Color of the warning text.            |
 
 
 ## Dependencies

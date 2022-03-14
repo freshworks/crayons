@@ -122,6 +122,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property      | Attribute      | Description                                                                                                                                                                                                                                                       | Type                               | Default     |
@@ -143,6 +144,7 @@ function App() {
 | `warningText` | `warning-text` | Warning text displayed below the text box.                                                                                                                                                                                                                        | `string`                           | `''`        |
 | `wrap`        | `wrap`         | Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved. | `"hard" \| "soft"`                 | `'soft'`    |
 
+
 ## Events
 
 | Event     | Description                                         | Type                |
@@ -150,6 +152,7 @@ function App() {
 | `fwBlur`  | Triggered when the input box loses focus.           | `CustomEvent<any>`  |
 | `fwFocus` | Triggered when the input box comes into focus.      | `CustomEvent<void>` |
 | `fwInput` | Triggered when a value is entered in the input box. | `CustomEvent<any>`  |
+
 
 ## Methods
 
@@ -161,30 +164,33 @@ Sets focus on a specific `fw-textarea`. Use this method instead of the global `i
 
 Type: `Promise<void>`
 
+
+
+
 ## CSS Custom Properties
 
 | Name                          | Description                    |
 | ----------------------------- | ------------------------------ |
-| `--fw-input-error-color`      | Color of the error text.       |
-| `--fw-input-hint-color`       | Color of the hint text.        |
-| `--fw-input-warning-color`    | Color of the warning text.     |
+| `--fw-error-color`            | Color of the error text.       |
+| `--fw-hint-color`             | Color of the hint text.        |
 | `--fw-textarea-input-color`   | Color of the textarea input    |
 | `--fw-textarea-margin-bottom` | Bottom margin for the textarea |
+| `--fw-warning-color`          | Color of the warning text.     |
+
 
 ## Dependencies
 
 ### Used by
 
-- [fw-form-control](../form-control)
+ - [fw-form-control](../form-control)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-form-control --> fw-textarea
   style fw-textarea fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks

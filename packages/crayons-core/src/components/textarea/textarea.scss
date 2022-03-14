@@ -1,9 +1,9 @@
 /**
   @prop --fw-textarea-input-color: Color of the textarea input
   @prop --fw-textarea-margin-bottom: Bottom margin for the textarea
-  @prop --fw-input-hint-color: Color of the hint text.
-  @prop --fw-input-warning-color: Color of the warning text.
-  @prop --fw-input-error-color: Color of the error text.
+  @prop --fw-hint-color: Color of the hint text.
+  @prop --fw-warning-color: Color of the warning text.
+  @prop --fw-error-color: Color of the error text.
 */
 
 @import '../../function-components/field-control.scss';
@@ -41,27 +41,6 @@ $warning-color: $color-casablanca-300;
   margin-bottom: var(--fw-textarea-margin-bottom, 0px);
   width: inherit;
 }
-
-// Label Style
-// label {
-//   font-size: $font-size-12;
-//   font-weight: $font-weight-600;
-//   color: $color-elephant-900;
-//   margin-bottom: 0;
-//   padding-bottom: 4px;
-//   padding-left: 2px;
-//   display: block;
-
-//   &.required::after {
-//     content: '*';
-//     position: relative;
-//     display: inline-block;
-//     top: 2px;
-//     font-size: $font-size-14;
-//     color: $error-color;
-//     padding-left: 2px;
-//   }
-// }
 
 // textarea Container Style
 .textarea-container-inner {
