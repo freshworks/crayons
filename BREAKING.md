@@ -10,27 +10,22 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 
 ---
 
-- [Components](#components)
-  - [button](#button)
-  - [checkbox](#checkbox)
-  - [datepicker](#datepicker)
-  - [dropdown-button](#dropdown-button)
-  - [icon](#icon)
-  - [input](#input)
-  - [label](#label)
-  - [modal](#modal)
-  - [radio](#radio)
-  - [radio-group](#radio-group)
-  - [select](#select)
-  - [select-option](#select-option)
-  - [spinner](#spinner)
-  - [tab](#tab)
-  - [tabs](#tabs)
-  - [tag](#tag)
-  - [textarea](#textarea)
-  - [timepicker](#timepicker)
-  - [toast](#toast)
-  - [toggle](#toggle)
+- [Breaking Changes](#breaking-changes)
+  - [Versions](#versions)
+  - [Version 3.x](#version-3x)
+    - [Global Styles](#global-styles)
+    - [Global Events](#global-events)
+    - [Components](#components)
+      - [Button](#button)
+      - [Checkbox](#checkbox)
+      - [Datepicker](#datepicker)
+      - [Dropdown button](#dropdown-button)
+      - [Icon](#icon)
+      - [Input](#input)
+      - [Label](#label)
+      - [Spinner](#spinner)
+      - [Textarea](#textarea)
+      - [Timepicker](#timepicker)
 
 ### Global Styles
 
@@ -239,6 +234,31 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
   </script>
   ```
 
+  #### Label
+
+   - CSS variables
+
+  Below are the changes w.r.t CSS variables
+
+  | Old Variable        | Status  | New Variable                |
+  | ------------------- | ------- | --------------------------- |
+  | --label-padding-vertical | renamed | --fw-label-padding-vertical                      |
+  | --label-padding-horizontal | renamed | --fw-label-padding-horizontal                        |
+  
+
+#### Spinner 
+   - CSS variables
+
+  Below are the changes w.r.t CSS variables
+
+  | Old Variable        | Status  | New Variable                |
+  | ------------------- | ------- | --------------------------- |
+  | --spinner-color | renamed | --fw-spinner-color                    |
+ 
+  
+
+
+
 #### Textarea
 
 - Properties
@@ -317,3 +337,14 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
   | --warning-color     | removed |                             |
   | --input-color       | renamed | --fw-textarea-input-color   |
   |                     | added   | --fw-textarea-margin-bottom |
+
+
+
+
+#### Timepicker
+
+  Timepicker has been refactored to use `date-fns` instead of `moment-mini`
+
+ - Properties
+  
+   The values for `format` property has been changed from `'hh:mm A' | 'HH:mm'` to `'hh:mm a' | 'HH:mm'`. Default to `'hh:mm a'`
