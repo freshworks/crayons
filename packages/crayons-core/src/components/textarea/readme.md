@@ -1,34 +1,49 @@
 # Textarea (fw-textarea)
+
 fw-textarea displays an input box on the user interface and enables assigning multi-line text value to it. The size of the input box is based on the cols and rows attributes.
 
 ## Demo
 
 ```html live
-<fw-textarea cols=75 rows=5 maxlength=190 minlength=5
+<fw-textarea
+  cols="75"
+  rows="5"
+  maxlength="190"
+  minlength="5"
   label="Address"
   warning-text="Do not enter your temporary address"
   state="warning"
   placeholder="Enter your permanent address"
-  required>
+  required
+>
 </fw-textarea>
-<fw-textarea cols=75 rows=5
+<fw-textarea
+  cols="75"
+  rows="5"
   label="Passcode"
   error-text="Passcode is incorrect"
   state="error"
-  required>
+  required
+>
 </fw-textarea>
 <h3>`hint-text`, `warning-text`, `error-text` can be passed as slots</h3>
-<fw-textarea cols=75 rows=5
+<fw-textarea
+  cols="75"
+  rows="5"
   label="Location identifier"
-placeholder="Enter landmark details"
-  state="normal">
+  placeholder="Enter landmark details"
+  state="normal"
+>
   <div slot="hint-text">Enter location details</div>
 </fw-textarea>
-<fw-textarea cols=75 rows=1
+<fw-textarea
+  cols="75"
+  rows="1"
   label="Plot number"
   value="not applicable"
-   disabled
-  state="normal">
+  disabled
+  state="normal"
+>
 </fw-textarea>
 ```
 
@@ -105,9 +120,7 @@ function App() {
 </code-block>
 </code-group>
 
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -130,7 +143,6 @@ function App() {
 | `warningText` | `warning-text` | Warning text displayed below the text box.                                                                                                                                                                                                                        | `string`                           | `''`        |
 | `wrap`        | `wrap`         | Type of text wrapping used by the input box. If the value is hard, the text in the textarea is wrapped (contains line breaks) when the form data is saved. If the value is soft, the text in the textarea is saved as a single line, when the form data is saved. | `"hard" \| "soft"`                 | `'soft'`    |
 
-
 ## Events
 
 | Event     | Description                                         | Type                |
@@ -138,7 +150,6 @@ function App() {
 | `fwBlur`  | Triggered when the input box loses focus.           | `CustomEvent<any>`  |
 | `fwFocus` | Triggered when the input box comes into focus.      | `CustomEvent<void>` |
 | `fwInput` | Triggered when a value is entered in the input box. | `CustomEvent<any>`  |
-
 
 ## Methods
 
@@ -150,33 +161,30 @@ Sets focus on a specific `fw-textarea`. Use this method instead of the global `i
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
-| Name                       | Description                    |
-| -------------------------- | ------------------------------ |
-| `--fw-input-error-color`   | Color of the error text.       |
-| `--fw-input-hint-color`    | Color of the hint text.        |
-| `--fw-input-warning-color` | Color of the warning text.     |
-| `--input-color`            | Color of the textarea input    |
-| `--textarea-margin-bottom` | Bottom margin for the textarea |
-
+| Name                          | Description                    |
+| ----------------------------- | ------------------------------ |
+| `--fw-input-error-color`      | Color of the error text.       |
+| `--fw-input-hint-color`       | Color of the hint text.        |
+| `--fw-input-warning-color`    | Color of the warning text.     |
+| `--fw-textarea-input-color`   | Color of the textarea input    |
+| `--fw-textarea-margin-bottom` | Bottom margin for the textarea |
 
 ## Dependencies
 
 ### Used by
 
- - [fw-form-control](../form-control)
+- [fw-form-control](../form-control)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-form-control --> fw-textarea
   style fw-textarea fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
