@@ -64,6 +64,20 @@ function getVal(path: string, obj: any = {}) {
   }, obj);
 }
 
+function interpolate(text: string, values: any) {
+  return Object.entries(values).reduce(
+    (text, [key, value]) =>
+      text.replace(
+        new RegExp(`{{[  ]*${key}[  ]*}}`, `gm`),
+        String(extract(value))
+      ),
+    text
+  );
+}
+function extract(obj: any) {
+  return typeof obj === 'function' ? obj() : obj;
+}
+
 function get({
   key,
   values,
@@ -74,18 +88,18 @@ function get({
   key: string;
   values: any;
   obj: any;
-  lang: string;
-  context: any;
+  lang?: string;
+  context?: any;
 }) {
   const translatedText = getVal(key, obj) ?? key;
-  return translatedText;
+  // Interpolate the values and return the translation
+  return values ? interpolate(translatedText, values) : translatedText;
 }
 
 export class TranslationController {
   state: any;
   onChange: any;
   requests = new Map<string, Promise<any>>();
-  pluralize: any;
 
   constructor() {
     const { state, onChange } = createStore({
@@ -99,6 +113,7 @@ export class TranslationController {
     this.onChange('lang', async (lang: string) => {
       console.log('Detected Lang Change. New Lang: ', lang);
       this.fetchTranslations(lang);
+      await this.fetchDateLangModule(lang);
     });
 
     this.onChange('customTranslations', async (customTranslations: string) => {
@@ -138,7 +153,7 @@ export class TranslationController {
   async initialize(): Promise<void> {
     await Promise.all([
       this.fetchTranslations(),
-      // i18next.init(),
+      this.fetchDateLangModule(),
     ]).catch((err) =>
       console.error(`Error occurred in intialising i18n lib ${err.message}`)
     );
@@ -158,6 +173,13 @@ export class TranslationController {
    */
   getLang(): string {
     return this.state.lang;
+  }
+
+  /**
+   * @returns the selected date lang module
+   */
+  async getDateLangModule(lang: string): Promise<void> {
+    return await this.fetchDateLangModule(lang || this.state.lang);
   }
 
   async fetchTranslations(lang?: string): Promise<void> {
@@ -192,6 +214,39 @@ export class TranslationController {
           return await this.fetchDefaultTranslations('en');
         });
       this.requests.set(lang, req);
+    }
+
+    return req;
+  }
+
+  async fetchDateLangModule(lang?: string): Promise<any> {
+    const locale = lang || getBrowserLang();
+    let req = this.requests.get('date_' + locale);
+    if (!req) {
+      let lng = locale;
+      if (lng === 'en') lng = 'en-US';
+      req = import(`../../../node_modules/date-fns/esm/locale/${lng}/index.js`)
+        .then((result) => result.default)
+        .then((data) => {
+          return data;
+        })
+        .catch(async (err) => {
+          console.warn(
+            `Error loading date lang module for : ${lng} from date-fns set`,
+            err
+          );
+          // fallback to en default strings in case of exception
+          const langModule = await this.fetchDateLangModule('en-US').catch(
+            (err) => {
+              console.log(
+                ' Error in fetching default date lang module ',
+                err.message
+              );
+              return {};
+            }
+          );
+        });
+      this.requests.set('date_' + locale, req);
     }
 
     return req;
