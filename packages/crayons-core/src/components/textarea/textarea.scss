@@ -1,9 +1,9 @@
 /**
-  @prop --input-color: Color of the textarea input
-  @prop --textarea-margin-bottom: Bottom margin for the textarea
-  @prop --fw-input-hint-color: Color of the hint text.
-  @prop --fw-input-warning-color: Color of the warning text.
-  @prop --fw-input-error-color: Color of the error text.
+  @prop --fw-textarea-input-color: Color of the textarea input
+  @prop --fw-textarea-margin-bottom: Bottom margin for the textarea
+  @prop --fw-hint-color: Color of the hint text.
+  @prop --fw-warning-color: Color of the warning text.
+  @prop --fw-error-color: Color of the error text.
 */
 
 @import '../../function-components/field-control.scss';
@@ -17,10 +17,6 @@ $input-hover-color: $color-smoke-700;
 $input-focus-color: $color-azure-800;
 $input-border: $color-smoke-100;
 $warning-color: $color-casablanca-300;
-
-:host {
-  --input-color: #{$color-elephant-900};
-}
 
 @mixin stateStyle($_color) {
   & > textarea {
@@ -42,30 +38,9 @@ $warning-color: $color-casablanca-300;
 }
 
 .textarea-container {
-  margin-bottom: var(--textarea-margin-bottom, 0px);
+  margin-bottom: var(--fw-textarea-margin-bottom, 0px);
   width: inherit;
 }
-
-// Label Style
-// label {
-//   font-size: $font-size-12;
-//   font-weight: $font-weight-600;
-//   color: $color-elephant-900;
-//   margin-bottom: 0;
-//   padding-bottom: 4px;
-//   padding-left: 2px;
-//   display: block;
-
-//   &.required::after {
-//     content: '*';
-//     position: relative;
-//     display: inline-block;
-//     top: 2px;
-//     font-size: $font-size-14;
-//     color: $error-color;
-//     padding-left: 2px;
-//   }
-// }
 
 // textarea Container Style
 .textarea-container-inner {
@@ -89,7 +64,7 @@ $warning-color: $color-casablanca-300;
     font-family: inherit;
     cursor: text;
     display: inline-block;
-    color: var(--input-color);
+    color: var(--fw-textarea-input-color, $color-elephant-900);
     @media screen and (prefers-reduced-motion: reduce) {
       &:hover,
       &:focus {

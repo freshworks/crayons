@@ -1,8 +1,8 @@
 /**
-  @prop --fw-input-label-color: Color of the label.
-  @prop --fw-input-hint-color: Color of the hint text.
-  @prop --fw-input-warning-color: Color of the warning text.
-  @prop --fw-input-error-color: Color of the error text.
+  @prop --fw-label-color: Color of the label.
+  @prop --fw-hint-color: Color of the hint text.
+  @prop --fw-warning-color: Color of the warning text.
+  @prop --fw-error-color: Color of the error text.
 */
 
 @import '../../function-components/field-control.scss';
@@ -53,28 +53,6 @@ $warning-color: $color-casablanca-300;
   width: inherit;
   height: inherit;
 }
-
-// Label Style
-// label {
-//   font-size: 12px;
-//   color: var(--fw-input-label-color, $label-default);
-//   font-weight: $font-weight-600;
-//   margin-bottom: 4px;
-//   padding-left: 2px;
-//   line-height: 20px;
-//   display: block;
-
-//   &.required::after {
-//     content: '*';
-//     position: relative;
-//     display: inline-block;
-//     top: 2px;
-//     font-size: 14px;
-//     color: $app-error;
-//     padding-left: 2px;
-//     font-weight: $font-weight-bold;
-//   }
-// }
 
 // Input Container Style
 .input-container-inner {
@@ -210,7 +188,7 @@ $warning-color: $color-casablanca-300;
     line-height: 20px;
     margin-top: 4px;
     margin-bottom: 0;
-    color: var(--fw-input-hint-color, $help-color);
+    color: var(--fw-hint-color, $help-color);
     position: inherit;
     display: block;
     padding-left: 2px;

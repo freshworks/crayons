@@ -132,12 +132,12 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                       | Description                |
-| -------------------------- | -------------------------- |
-| `--fw-input-error-color`   | Color of the error text.   |
-| `--fw-input-hint-color`    | Color of the hint text.    |
-| `--fw-input-label-color`   | Color of the label.        |
-| `--fw-input-warning-color` | Color of the warning text. |
+| Name                 | Description                |
+| -------------------- | -------------------------- |
+| `--fw-error-color`   | Color of the error text.   |
+| `--fw-hint-color`    | Color of the hint text.    |
+| `--fw-label-color`   | Color of the label.        |
+| `--fw-warning-color` | Color of the warning text. |
 
 
 ## Dependencies
