@@ -1,4 +1,5 @@
 import { Component, h, Prop, State, Watch, Element, Host } from '@stencil/core';
+import { TranslationController } from '../../../../global/Translation';
 
 @Component({
   tag: 'fw-custom-cell-paragraph',
@@ -6,16 +7,32 @@ import { Component, h, Prop, State, Watch, Element, Host } from '@stencil/core';
   shadow: true,
 })
 export class CustomCellParagraph {
+  /**
+   * To get access to the host element
+   */
   @Element() el: HTMLElement;
 
+  /**
+   * text to display inside the cell
+   */
   @Prop() text = '';
 
+  /** max height to restrict trimming. 60px to allow for 3 lines (3 * 20 line-height) */
   @State() maxHeight = '60px';
 
+  /**
+   * hide and show toggle button state based on how long the text is
+   */
   @State() showToggle = false;
 
-  hide = true;
+  /**
+   * hide and show text
+   */
+  @State() hide = true;
 
+  /**
+   * toggle paragraph button
+   */
   toggleParaButton: HTMLElement = null;
 
   @Watch('text')
@@ -23,18 +40,26 @@ export class CustomCellParagraph {
     this.showToggleOnTextChange();
   }
 
+  /**
+   * componentDidLoad lifecycle event
+   */
   componentDidLoad() {
     this.showToggleOnTextChange();
   }
 
+  /** on focusing of the para variant */
   onFocus() {
     if (this.toggleParaButton) {
       this.toggleParaButton.focus();
     } else {
+      this.el.parentElement.setAttribute('tabindex', '0');
       this.el.parentElement.focus();
     }
   }
 
+  /**
+   * showToggleOnTextChange show the button based on number of lines in the paragraph
+   */
   showToggleOnTextChange() {
     const paraHeight = this.el.getBoundingClientRect().height;
     if (paraHeight >= parseInt(this.maxHeight)) {
@@ -44,7 +69,10 @@ export class CustomCellParagraph {
     }
   }
 
-  async toggleParagraph() {
+  /**
+   * toggleParagraph show and hide the longer paragraph text
+   */
+  toggleParagraph() {
     this.hide = !this.hide;
     if (this.hide) {
       this.maxHeight = '60px';
@@ -53,6 +81,9 @@ export class CustomCellParagraph {
     }
   }
 
+  /**
+   * render method
+   */
   render() {
     const para = (
       <p
@@ -84,7 +115,11 @@ export class CustomCellParagraph {
           )}
           {this.showToggle && (
             <fw-tooltip
-              content={this.hide ? 'show' : 'hide'}
+              content={
+                this.hide
+                  ? TranslationController.t('datatable.show')
+                  : TranslationController.t('datatable.hide')
+              }
               hoist={true}
               placement='bottom-start'
               fallbackPlacements={['top-start']}
@@ -103,13 +138,13 @@ export class CustomCellParagraph {
                 {this.hide ? (
                   <fw-icon
                     name='more-horizontal'
-                    library='crayons'
+                    library='system'
                     size={10}
                   ></fw-icon>
                 ) : (
                   <fw-icon
                     name='chevron-up'
-                    library='crayons'
+                    library='system'
                     size={8}
                   ></fw-icon>
                 )}

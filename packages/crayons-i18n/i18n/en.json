@@ -42,7 +42,9 @@
   },
   "datatable": {
     "chooseColumns": "Choose columns",
-    "actions": "Actions"
+    "actions": "Actions",
+    "hide": "Hide",
+    "show": "Show"
   },
   "platformTable": {
     "delete": "Delete",

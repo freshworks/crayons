@@ -157,6 +157,9 @@ export namespace Components {
         "src": any;
     }
     interface FwCustomCellParagraph {
+        /**
+          * text to display inside the cell
+         */
         "text": string;
     }
     interface FwCustomCellUser {
@@ -2443,6 +2446,9 @@ declare namespace LocalJSX {
         "src"?: any;
     }
     interface FwCustomCellParagraph {
+        /**
+          * text to display inside the cell
+         */
         "text"?: string;
     }
     interface FwCustomCellUser {

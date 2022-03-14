@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default |
-| -------- | --------- | ----------- | -------- | ------- |
-| `text`   | `text`    |             | `string` | `''`    |
+| Property | Attribute | Description                     | Type     | Default |
+| -------- | --------- | ------------------------------- | -------- | ------- |
+| `text`   | `text`    | text to display inside the cell | `string` | `''`    |
 
 
 ## Dependencies
