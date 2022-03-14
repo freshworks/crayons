@@ -523,6 +523,50 @@ export default Popover;
 </code-block>
 </code-group>
 
+A simple dropdown button can be achieved as shown below.
+
+```html live
+<fw-button-group label="Test">
+  <fw-button>Choose the sport</fw-button>
+  <fw-popover
+    id="sports-dropdown"
+    same-width="false"
+    placement="bottom-end"
+    auto-focus-on-content
+  >
+    <fw-button slot="popover-trigger" size="icon">
+      <fw-icon
+        id="chevron-icon"
+        name="chevron-down"
+        slot="after-label"
+      ></fw-icon>
+    </fw-button>
+    <fw-list-options
+      id="sports"
+      slot="popover-content"
+      searchable
+    ></fw-list-options>
+  </fw-popover>
+</fw-button-group>
+<script type="application/javascript">
+  var dropdown = document.getElementById('sports-dropdown');
+  var chevron = document.getElementById('chevron-icon');
+  dropdown.addEventListener('fwShow', () => {
+    chevron.style.cssText = 'transform: rotate(180deg)';
+  });
+  dropdown.addEventListener('fwHide', () => {
+    chevron.style.cssText = '';
+  });
+  var sports = document.getElementById('sports');
+  sports.options = [
+    { value: 1, text: 'Football' },
+    { value: 2, text: 'Vollyball' },
+    { value: 3, text: 'Cricket' },
+    { value: 4, text: 'Kabadi' },
+  ];
+</script>
+```
+
 <!-- Auto Generated Below -->
 
 

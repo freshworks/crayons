@@ -88,7 +88,6 @@ Type: `Promise<void>`
 ### Used by
 
  - [fw-data-table](../data-table)
- - [fw-dropdown-button](../dropdown-button)
  - [fw-form-control](../form-control)
  - [fw-select-option](../select-option)
 
@@ -104,7 +103,6 @@ graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-data-table --> fw-checkbox
-  fw-dropdown-button --> fw-checkbox
   fw-form-control --> fw-checkbox
   fw-select-option --> fw-checkbox
   style fw-checkbox fill:#f9f,stroke:#333,stroke-width:4px
