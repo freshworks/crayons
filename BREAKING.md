@@ -26,6 +26,7 @@ This is a comprehensive list of the breaking changes introduced in the major ver
       - [Spinner](#spinner)
       - [Textarea](#textarea)
       - [Timepicker](#timepicker)
+      - [Radio Group](#radio-group)
 
 ### Global Styles
 
@@ -236,28 +237,24 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
 
   #### Label
 
-   - CSS variables
+  - CSS variables
 
   Below are the changes w.r.t CSS variables
 
-  | Old Variable        | Status  | New Variable                |
-  | ------------------- | ------- | --------------------------- |
-  | --label-padding-vertical | renamed | --fw-label-padding-vertical                      |
-  | --label-padding-horizontal | renamed | --fw-label-padding-horizontal                        |
-  
+  | Old Variable               | Status  | New Variable                  |
+  | -------------------------- | ------- | ----------------------------- |
+  | --label-padding-vertical   | renamed | --fw-label-padding-vertical   |
+  | --label-padding-horizontal | renamed | --fw-label-padding-horizontal |
 
-#### Spinner 
-   - CSS variables
+#### Spinner
 
-  Below are the changes w.r.t CSS variables
+- CSS variables
 
-  | Old Variable        | Status  | New Variable                |
-  | ------------------- | ------- | --------------------------- |
-  | --spinner-color | renamed | --fw-spinner-color                    |
- 
-  
+Below are the changes w.r.t CSS variables
 
-
+| Old Variable    | Status  | New Variable       |
+| --------------- | ------- | ------------------ |
+| --spinner-color | renamed | --fw-spinner-color |
 
 #### Textarea
 
@@ -338,13 +335,16 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
   | --input-color       | renamed | --fw-textarea-input-color   |
   |                     | added   | --fw-textarea-margin-bottom |
 
-
-
-
 #### Timepicker
 
-  Timepicker has been refactored to use `date-fns` instead of `moment-mini`
+Timepicker has been refactored to use `date-fns` instead of `moment-mini`
 
- - Properties
-  
-   The values for `format` property has been changed from `'hh:mm A' | 'HH:mm'` to `'hh:mm a' | 'HH:mm'`. Default to `'hh:mm a'`
+- Properties
+
+  The values for `format` property has been changed from `'hh:mm A' | 'HH:mm'` to `'hh:mm a' | 'HH:mm'`. Default to `'hh:mm a'`
+
+#### Radio Group
+
+- Events
+
+  `fwChange` event will longer be emitted on changing value programatically. Instead it will be emitted only on changing value by mouse click/ Keyboard event
