@@ -2,19 +2,11 @@
 
 This is a comprehensive list of the breaking changes introduced in the major version releases of Crayons.
 
-## Versions
-
-1.  [Version 3.x](#version-3x)
-
-## Version 3.x
-
 ---
-
-- [Breaking Changes](#breaking-changes)
   - [Versions](#versions)
   - [Version 3.x](#version-3x)
     - [Global Styles](#global-styles)
-    - [Global Events](#global-events)
+    - [Input Control Events](#input-control-events)
     - [Components](#components)
       - [Button](#button)
       - [Checkbox](#checkbox)
@@ -23,16 +15,105 @@ This is a comprehensive list of the breaking changes introduced in the major ver
       - [Icon](#icon)
       - [Input](#input)
       - [Label](#label)
-      - [Spinner](#spinner)
-      - [Textarea](#textarea)
-      - [Timepicker](#timepicker)
       - [Radio Group](#radio-group)
+      - [Radio](#radio)
+      - [Spinner](#spinner)
       - [Tabs](#tabs)
       - [Tab](#tab)
+      - [Textarea](#textarea)
+      - [Timepicker](#timepicker)
 
+## Versions
+---
+1.  [Version 3.x](#version-3x)
+
+## Version 3.x
+  - [Documentation](https://crayons.freshworks.com/)
+---
 ### Global Styles
 
-### Global Events
+Below are the changes w.r.t global css variables in v3
+
+| Old Variable           | Status  | New Variable |
+| ---------------------- | ------- | ------------ |
+| --color-milk           | removed |              |
+| --color-elephant-900   | removed |              |
+| --color-elephant-800   | removed |              |
+| --color-elephant-700   | removed |              |
+| --color-elephant-600   | removed |              |
+| --color-smoke-700      | removed |              |
+| --color-smoke-300      | removed |              |
+| --color-smoke-100      | removed |              |
+| --color-smoke-50       | removed |              |
+| --color-smoke-25       | removed |              |
+| --color-jungle-800     | removed |              |
+| --color-jungle-500     | removed |              |
+| --color-jungle-100     | removed |              |
+| --color-jungle-50      | removed |              |
+| --color-azure-800      | removed |              |
+| ---color-azure-100     | removed |              |
+| --color-azure-50       | removed |              |
+| --color-persimmon-900  | removed |              |
+| --color-persimmon-800  | removed |              |
+| --color-persimmon-100  | removed |              |
+| --color-persimmon-50   | removed |              |
+| --color-casablanca-700 | removed |              |
+| --color-casablanca-300 | removed |              |
+| --color-casablanca-100 | removed |              |
+| --color-casablanca-50  | removed |              |
+| --border-color         | removed |              |
+| --border-success-color | removed |              |
+| --border-info-color    | removed |              |
+| --border-danger-color  | removed |              |
+| --border-warning-color | removed |              |
+| --bg-dark              | removed |              |
+| --bg-success           | removed |              |
+| --bg-info              | removed |              |
+| --bg-danger            | removed |              |
+| --bg-warning           | removed |              |
+| --radius               | removed |              |
+| --radius-small         | removed |              |
+| --font-stack           | removed |              |
+| --font-weight-300      | removed |              |
+| --font-weight-400      | removed |              |
+| --font-weight-500      | removed |              |
+| --font-weight-600      | removed |              |
+| --font-weight-700      | removed |              |
+| --font-size-10         | removed |              |
+| --font-size-12         | removed |              |
+| --font-size-14         | removed |              |
+| --font-size-16         | removed |              |
+| --font-size-18         | removed |              |
+| --font-size-20         | removed |              |
+| --font-size-24         | removed |              |
+| --text-default         | removed |              |
+| --text-secondary       | removed |              |
+| --text-success         | removed |              |
+| --text-info            | removed |              |
+| --text-danger          | removed |              |
+| --text-warning         | removed |              |
+| --text-link            | removed |              |
+| --icon-primary         | removed |              |
+| --icon-primary-hover   | removed |              |
+| --font-size-20         | removed |              |
+| --font-size-20         | removed |              |
+| --font-size-20         | removed |              |
+| --font-size-20         | removed |              |
+| --font-size-20         | removed |              |
+| --font-size-20         | removed |              |
+
+To check about the css variables used in each components please check the official documentation page for the components [here](https://crayons.freshworks.com/components)
+
+### Input Control Events
+---
+  Below are the breaking changes in Input Control Events
+
+- **fw-input**: `fwChange` event will no longer be emitted.
+- **fw-textarea**: `fwChange` event will no longer be emitted.
+- **fw-radio-group**: `fwChange` event will no longer be emitted on changing value programatically.
+- **fw-checkbox**: `checked` field will be a part of meta field in the event detail for fwChange. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`.
+- **fw-select**: `selectedOptions` field will be a part of meta field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.selectedOptions` instead of `event.detail.selectedOptions`.
+- **fw-list-options**: `selectedOptions` field will now be part of meta field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.selectedOptions` instead of `event.detail.selectedOptions`.
 
 ### Components
 
@@ -70,15 +151,19 @@ This is a comprehensive list of the breaking changes introduced in the major ver
   | --btn-link-bg                 | removed |                                    |
   | --active-box-shadow           | removed |                                    |
   | --btn-link-bg                 | removed |                                    |
-  |                               | added   | --fw-button-min-width              |
-  |                               | added   | --fw-button-label-vertical-padding |
-
 #### Checkbox
 
 - Events
 
   `fwChange`: This event will longer be emitted on changing value programatically. Instead it will be emitted only on changing value by mouse click/ Keyboard event.
-  The `checked` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`:
+  The `checked` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`.
+
+  `fwBlur` and `fwChange` events are emitted in the below format:
+
+  | Component   | Before                           | After                                                  |
+  | ----------- | -------------------------------- | ------------------------------------------------------ |
+  | fw-checkbox | fwBlur.emit()                    | fwBlur.emit({ event, name })                           |
+  | fw-checkbox | fwChange.emit({ value, checked } | fwChange.emit({ event, name, value, meta: {checked} }) |
 
   **Old**
 
@@ -118,7 +203,11 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
 
 - Events
 
-  `fwChange`: `value` will be a part of event detail for `fwChange`. Now it can be accessed using `event.detail.value` instead of `event.detail`:
+  `fwChange`: `value` will be a part of event detail for `fwChange`. Now it can be accessed using `event.detail.value` instead of `event.detail`
+
+  | Component     | Before               | After                                 |
+  | ------------- | -------------------- | ------------------------------------- |
+  | fw-datepicker | fwChange.emit(value) | fwChange.emit({ event, name, value }) |
 
   **Old**
 
@@ -177,6 +266,21 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
 
 #### Icon
 
+Icons architecture has been redesigned and a new package `@freshworks/crayons-icon` has been created. To know more refer [here](https://crayons.freshworks.com/components/core/icon)
+
+- Properties
+
+  `name` property's value must be a valid svg Name in the Crayons-Icon set. For the exhaustive list of icons and usage refer [here](https://crayons.freshworks.com/components/core/icon/#crayons-icon-assets)
+
+- CSS Variables
+
+  Below are the changes w.r.t CSS variables
+
+  | Old Variable | Status  | New Variable    |
+  | ------------ | ------- | --------------- |
+  | --icon-color | renamed | --fw-icon-color |
+  |              | added   | --fw-icon-size  |
+
 #### Input
 
 - Properties
@@ -203,12 +307,13 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
 
   `fwChange` event has been removed. Instead use `fwInput` and `fwBlur`
 
-  `fwInput` and `fwBlur` emits the values in the following format
+  `fwInput` and `fwBlur` events are emitted in the below format:
 
-  | Component | Before              | After                                |
-  | --------- | ------------------- | ------------------------------------ |
-  | fw-input  | fwBlur.emit()       | fwBlur.emit({ event, name })         |
-  | fw-input  | fwInput.emit(event) | fwInput.emit({ event, name, value }) |
+  | Component | Before                   | After                                |
+  | --------- | ------------------------ | ------------------------------------ |
+  | fw-input  | fwBlur.emit()            | fwBlur.emit({ event, name })         |
+  | fw-input  | fwInput.emit(event)      | fwInput.emit({ event, name, value }) |
+  | fw-input  | fwChange.emit({ value }) | -                                    |
 
   **_Old_**
 
@@ -233,7 +338,7 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
       console.log(event.detail.event, event.detail.name, event.detail.value);
     });
     document.querySelector('#input').addEventListener('fwBlur', (event) => {
-      console.log('blurred', event.detail.name, event.detail.name);
+      console.log('blurred', event.detail.event, event.detail.name);
     });
   </script>
   ```
@@ -249,15 +354,70 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
   | --label-padding-vertical   | renamed | --fw-label-padding-vertical   |
   | --label-padding-horizontal | renamed | --fw-label-padding-horizontal |
 
-#### Spinner
+  #### Radio Group
+
+  - Events
+
+  `fwChange` event will longer be emitted on changing value programatically. Instead it will be emitted only on changing value by mouse click / keyboard event.
+
+  | Component      | Before                   | After                                                                                                                                                           |
+  | -------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | fw-radio-group | fwChange.emit({ value }) | fwChange.emit({ event, name, value } - This event will be emitted only for certain keyup events such as 'ArrowDown','ArrowRight','ArrowUp','ArrowLeft','Space'. |
+
+  #### Radio
+
+  `fwBlur` event is emitted in the below format:
+
+  - Events
+
+  | Component | Before        | After                        |
+  | --------- | ------------- | ---------------------------- |
+  | fw-radio  | fwBlur.emit() | fwBlur.emit({ event, name }) |
+
+  #### Spinner
+
+  - CSS variables
+
+  Below are the changes w.r.t CSS variables
+
+  | Old Variable    | Status  | New Variable       |
+  | --------------- | ------- | ------------------ |
+  | --spinner-color | renamed | --fw-spinner-color |
+
+
+#### Tabs
 
 - CSS variables
+  Below are the changes w.r.t CSS variables
 
-Below are the changes w.r.t CSS variables
+  | Old Variable           | Status  | New Variable            |
+  | ---------------------- | ------- | ----------------------- |
+  | --tab-header-font-size | removed |                         |
+  | --tabs-color-primary   | removed |                         |
+#### Tab
 
-| Old Variable    | Status  | New Variable       |
-| --------------- | ------- | ------------------ |
-| --spinner-color | renamed | --fw-spinner-color |
+- Properties
+
+  `tabHeaderHtml` property has been removed. Instead use, `fw-tab's` slotted content for html content for tab header and use `fw-tab-panel` for panel content
+
+  **Old**
+
+  ```html
+  <fw-tab tab-header-html="<a href='#'>Google</a>">Content</fw-tab>
+  ```
+
+  **New**
+
+  ```html
+  <fw-tab pane="one"><a href="#">Google</a></fw-tab>
+  <fw-tab-panel name="one"></fw-tab-panel>
+  ```
+
+- Events
+
+  `propChanged` event has been removed.
+
+
 
 #### Textarea
 
@@ -285,12 +445,13 @@ Below are the changes w.r.t CSS variables
 
   `fwChange` event has been removed. Instead use `fwInput` and `fwBlur`
 
-  `fwInput` and `fwBlur` emits the values in the following format
+  `fwInput` and `fwBlur` events are emitted in the below format:
 
-  | Component   | Before              | After                                |
-  | ----------- | ------------------- | ------------------------------------ |
-  | fw-textarea | fwBlur.emit()       | fwBlur.emit({ event, name })         |
-  | fw-textarea | fwInput.emit(event) | fwInput.emit({ event, name, value }) |
+  | Component   | Before                   | After                                |
+  | ----------- | ------------------------ | ------------------------------------ |
+  | fw-textarea | fwBlur.emit()            | fwBlur.emit({ event, name })         |
+  | fw-textarea | fwInput.emit(event)      | fwInput.emit({ event, name, value }) |
+  | fw-textarea | fwChange.emit({ value }) | -                                    |
 
   **_Old_**
 
@@ -315,7 +476,7 @@ Below are the changes w.r.t CSS variables
       console.log(event.detail.event, event.detail.name, event.detail.value);
     });
     document.querySelector('#textarea').addEventListener('fwBlur', (event) => {
-      console.log('blurred', event.detail.name, event.detail.name);
+      console.log('blurred', event.detail.event, event.detail.name);
     });
   </script>
   ```
@@ -336,7 +497,6 @@ Below are the changes w.r.t CSS variables
   | --input-border      | removed |                             |
   | --warning-color     | removed |                             |
   | --input-color       | renamed | --fw-textarea-input-color   |
-  |                     | added   | --fw-textarea-margin-bottom |
 
 #### Timepicker
 
@@ -345,48 +505,3 @@ Timepicker has been refactored to use `date-fns` instead of `moment-mini`
 - Properties
 
   The values for `format` property has been changed from `'hh:mm A' | 'HH:mm'` to `'hh:mm a' | 'HH:mm'`. Default to `'hh:mm a'`
-
-#### Radio Group
-
-- Events
-
-  `fwChange` event will longer be emitted on changing value programatically. Instead it will be emitted only on changing value by mouse click/ Keyboard event
-
-#### Tabs
-
-- CSS variables
-  Below are the changes w.r.t CSS variables
-
-  | Old Variable           | Status  | New Variable            |
-  | ---------------------- | ------- | ----------------------- |
-  | --tab-header-font-size | removed |                         |
-  | --tabs-color-primary   | removed |                         |
-  |                        | added   | --fw-tabs-width         |
-  |                        | added   | --fw-tabs-height        |
-  |                        | added   | --fw-tabs-margin-l      |
-  |                        | added   | --fw-tabs-margin-r      |
-  |                        | added   | --fw-tabs-padding-left  |
-  |                        | added   | --fw-tabs-padding-right |
-
-#### Tab
-
-- Properties
-
-  `tabHeaderHtml` property has been removed. Instead use, `fw-tab's` slotted content for html content for tab header and use `fw-tab-panel` for panel content
-
-  **Old**
-
-  ```html
-  <fw-tab tab-header-html="<a href='#'>Google</a>">Content</fw-tab>
-  ```
-
-  **New**
-
-  ```html
-  <fw-tab pane="one"><a href="#">Google</a></fw-tab>
-  <fw-tab-panel name="one"></fw-tab-panel>
-  ```
-
-- Events
-
-  `propChanged` event has been removed.

@@ -43,6 +43,7 @@ Crayons uses `monorepo` setup. There are 3 packages under packages folder. Uses 
 9. To build storybook / docs site, go to root folder and run npm run build. `Docs site -> www-dist, Storybook -> docs/storybook-dist`
 10. Always run `npm run build` from root folder before commiting changes so that readme files are in sync.
 11. You can generate a component by running `npm run generate` in `packages/crayons-core` directory.
+12. `scss` variables and mixins are present in `styles` folder.
 
 ##### Naming Components
 
