@@ -27,6 +27,8 @@ This is a comprehensive list of the breaking changes introduced in the major ver
       - [Textarea](#textarea)
       - [Timepicker](#timepicker)
       - [Radio Group](#radio-group)
+      - [Tabs](#tabs)
+      - [Tab](#tab)
 
 ### Global Styles
 
@@ -75,7 +77,8 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 
 - Events
 
-  `fwChange`: `checked` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`:
+  `fwChange`: This event will longer be emitted on changing value programatically. Instead it will be emitted only on changing value by mouse click/ Keyboard event.
+  The `checked` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`:
 
   **Old**
 
@@ -348,3 +351,42 @@ Timepicker has been refactored to use `date-fns` instead of `moment-mini`
 - Events
 
   `fwChange` event will longer be emitted on changing value programatically. Instead it will be emitted only on changing value by mouse click/ Keyboard event
+
+#### Tabs
+
+- CSS variables
+  Below are the changes w.r.t CSS variables
+
+  | Old Variable           | Status  | New Variable            |
+  | ---------------------- | ------- | ----------------------- |
+  | --tab-header-font-size | removed |                         |
+  | --tabs-color-primary   | removed |                         |
+  |                        | added   | --fw-tabs-width         |
+  |                        | added   | --fw-tabs-height        |
+  |                        | added   | --fw-tabs-margin-l      |
+  |                        | added   | --fw-tabs-margin-r      |
+  |                        | added   | --fw-tabs-padding-left  |
+  |                        | added   | --fw-tabs-padding-right |
+
+#### Tab
+
+- Properties
+
+  `tabHeaderHtml` property has been removed. Instead use, `fw-tab's` slotted content for html content for tab header and use `fw-tab-panel` for panel content
+
+  **Old**
+
+  ```html
+  <fw-tab tab-header-html="<a href='#'>Google</a>">Content</fw-tab>
+  ```
+
+  **New**
+
+  ```html
+  <fw-tab pane="one"><a href="#">Google</a></fw-tab>
+  <fw-tab-panel name="one"></fw-tab-panel>
+  ```
+
+- Events
+
+  `propChanged` event has been removed.
