@@ -87,7 +87,9 @@ export class FormControl {
           ...this.controlProps?.inputProps(this.name, type),
           state: (this.touched && this.error && 'error') || 'normal',
           ['hint-text']: this.hint,
-          ['error-text']: this.error,
+          ['error-text']: TranslationController.t(this.error, {
+            field: this.label || this.name,
+          }),
         };
 
         cmp = (
@@ -112,7 +114,9 @@ export class FormControl {
             ),
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
-            ['error-text']: this.error,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
           };
           cmp = (
             <fw-textarea
@@ -137,7 +141,9 @@ export class FormControl {
             ),
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
-            ['error-text']: this.error,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
           };
           cmp = (
             <fw-datepicker
@@ -163,7 +169,9 @@ export class FormControl {
             ),
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
-            ['error-text']: this.error,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
           };
           cmp = (
             <fw-checkbox
@@ -191,7 +199,9 @@ export class FormControl {
             'allow-empty': true,
             'state': (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
-            ['error-text']: this.error,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
             ...controlProps,
           };
           cmp = (
@@ -234,7 +244,9 @@ export class FormControl {
             multiple: this.type === 'MULTI_SELECT',
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
-            ['error-text']: this.error,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
           };
 
           componentProps = {
@@ -267,7 +279,9 @@ export class FormControl {
             required: this.required,
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
-            ['error-text']: this.error,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
           };
 
           if (
@@ -310,7 +324,9 @@ export class FormControl {
             ),
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
-            ['error-text']: this.error,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
           };
           cmp = (
             <fw-timepicker
@@ -351,7 +367,6 @@ export class FormControl {
     return (
       <div class='form-control-container'>
         {this.renderControl()}
-
         {this.hasSlot && (
           <label
             htmlFor={this.name}
@@ -363,9 +378,7 @@ export class FormControl {
             {this.label}
           </label>
         )}
-
         <slot></slot>
-
         {this.hasSlot && !(this.touched && this.error) && (
           <div class='hint' id={`hint-${this.name}`}>
             {this.hint}
