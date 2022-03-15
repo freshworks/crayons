@@ -18,6 +18,8 @@ This is a comprehensive list of the breaking changes introduced in the major ver
       - [Radio Group](#radio-group)
       - [Radio](#radio)
       - [Spinner](#spinner)
+      - [Tabs](#tabs)
+      - [Tab](#tab)
       - [Textarea](#textarea)
       - [Timepicker](#timepicker)
 
@@ -148,14 +150,12 @@ To check about the css variables used in each components please check the offici
   | --btn-link-bg                 | removed |                                    |
   | --active-box-shadow           | removed |                                    |
   | --btn-link-bg                 | removed |                                    |
-  |                               | added   | --fw-button-min-width              |
-  |                               | added   | --fw-button-label-vertical-padding |
-
 #### Checkbox
 
 - Events
 
-  `fwChange`: `checked` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`.
+  `fwChange`: This event will longer be emitted on changing value programatically. Instead it will be emitted only on changing value by mouse click/ Keyboard event.
+  The `checked` field will be a part of `meta` field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`.
 
   `fwBlur` and `fwChange` events are emitted in the below format:
 
@@ -383,6 +383,41 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   | --------------- | ------- | ------------------ |
   | --spinner-color | renamed | --fw-spinner-color |
 
+
+#### Tabs
+
+- CSS variables
+  Below are the changes w.r.t CSS variables
+
+  | Old Variable           | Status  | New Variable            |
+  | ---------------------- | ------- | ----------------------- |
+  | --tab-header-font-size | removed |                         |
+  | --tabs-color-primary   | removed |                         |
+#### Tab
+
+- Properties
+
+  `tabHeaderHtml` property has been removed. Instead use, `fw-tab's` slotted content for html content for tab header and use `fw-tab-panel` for panel content
+
+  **Old**
+
+  ```html
+  <fw-tab tab-header-html="<a href='#'>Google</a>">Content</fw-tab>
+  ```
+
+  **New**
+
+  ```html
+  <fw-tab pane="one"><a href="#">Google</a></fw-tab>
+  <fw-tab-panel name="one"></fw-tab-panel>
+  ```
+
+- Events
+
+  `propChanged` event has been removed.
+
+
+
 #### Textarea
 
 - Properties
@@ -461,7 +496,6 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   | --input-border      | removed |                             |
   | --warning-color     | removed |                             |
   | --input-color       | renamed | --fw-textarea-input-color   |
-  |                     | added   | --fw-textarea-margin-bottom |
 
 #### Timepicker
 
