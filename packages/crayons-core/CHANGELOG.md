@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.32](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.31...@freshworks/crayons@3.0.0-beta.32) (2022-03-15)
+
+
+### Bug Fixes
+
+* **form-control:** i18n changes for form-control error texts ([02696fc](https://github.com/freshworks/crayons/commit/02696fc88329acff0e1decb51ad31f3348c71175))
+
+
+### Features
+
+* **dropdown-button:** removed dropdown-button and added example in popover ([#476](https://github.com/freshworks/crayons/issues/476)) ([d3b22ae](https://github.com/freshworks/crayons/commit/d3b22aecec278c936760087718067b40ab7dab70))
+
+
+### BREAKING CHANGES
+
+* **dropdown-button:** Depreciating the fw-dropdown-button component
+
+
+
+
+
 ## [3.0.0-beta.30](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.29...@freshworks/crayons@3.0.0-beta.30) (2022-03-14)
 
 ### Features
