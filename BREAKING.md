@@ -22,6 +22,7 @@ This is a comprehensive list of the breaking changes introduced in the major ver
       - [Tab](#tab)
       - [Textarea](#textarea)
       - [Timepicker](#timepicker)
+      - [Modal](#modal)
 
 ## Versions
 ---
@@ -505,3 +506,121 @@ Timepicker has been refactored to use `date-fns` instead of `moment-mini`
 - Properties
 
   The values for `format` property has been changed from `'hh:mm A' | 'HH:mm'` to `'hh:mm a' | 'HH:mm'`. Default to `'hh:mm a'`
+
+#### Modal
+
+- Properties
+
+  `visibility` property renamed to `is-open`.
+
+  **old**
+
+  ```html
+    <fw-modal visibility="true" title-text="Greeting">Hello world!</fw-modal>
+  ```
+
+  **new**
+
+  ```html
+    <fw-modal is-open="true" title-text="Greeting">Hello world!</fw-modal>
+  ```
+
+  `custom-footer` property has been removed. Use composition technique instead.
+
+  **old**
+
+  ```html
+    <fw-modal title-text="Greeting" custom-footer>
+      Hello world!
+      <span slot="footer">
+        <fw-button color="danger">Close</fw-button>
+      </span>
+    </fw-modal>
+  ```
+
+  **new**
+
+  ```html
+    <fw-modal title-text="Greeting">
+      <fw-modal-content>Hello World!</fw-modal-content>
+      <fw-modal-footer>
+        <fw-button color="danger">Close</fw-button>
+      </fw-modal-footer>
+    </fw-modal>
+  ```
+
+  `success-text` property changed to `submit-text`.
+
+  **old**
+
+  ```html
+    <fw-modal title-text="Greeting" success-text="Close">
+      Hello world!
+    </fw-modal>
+  ```
+
+  **new**
+
+  ```html
+    <fw-modal title-text="Greeting" submit-text="Close">
+      Hello world!
+    </fw-modal>
+  ```
+
+- Events
+
+  `onFwAction` name changed to `onFwSubmit`.
+
+  **old**
+
+  ```html
+    <fw-modal title-text="Greeting">
+      Hello world!
+    </fw-modal>
+    <script>
+      document.querySelector('fw-modal').addEventListener('fwAction', (event) => {
+        console.log('value', event.detail);
+      });
+    </script>
+  ```
+
+  **new**
+
+  ```html
+    <fw-modal title-text="Greeting">
+      Hello world!
+    </fw-modal>
+    <script>
+      document.querySelector('fw-modal').addEventListener('fwSubmit', (event) => {
+        console.log('value', event.detail);
+      });
+    </script>
+  ```
+  
+  `onFwClosed` name changed to `onFwClose`.
+
+  **old**
+
+  ```html
+    <fw-modal title-text="Greeting">
+      Hello world!
+    </fw-modal>
+    <script>
+      document.querySelector('fw-modal').addEventListener('fwClosed', (event) => {
+        console.log('value', event.detail);
+      });
+    </script>
+  ```
+
+  **new**
+
+  ```html
+    <fw-modal title-text="Greeting">
+      Hello world!
+    </fw-modal>
+    <script>
+      document.querySelector('fw-modal').addEventListener('fwClose', (event) => {
+        console.log('value', event.detail);
+      });
+    </script>
+  ```
