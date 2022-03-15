@@ -2,7 +2,7 @@ name: Check Build
 
 on:
   pull_request:
-    branches: [ master, next, canary ]
+    branches: [master, next, canary]
   workflow_dispatch:
 
 jobs:
@@ -10,28 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-  
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
+      - uses: actions/checkout@v2
 
-    - name: Install npm 7
-      run: npm i -g npm@7
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
 
-    # Installs the dependencies
-    - name: Install Dependencies
-      run: npm ci
+      - name: Install npm 7
+        run: npm i -g npm@7
 
-    # Runs lints
-    - name: Run Linter
-      run: npm run code-sanity
+      # Installs the dependencies
+      - name: Install Dependencies
+        run: npm ci
 
-    # Build
-    - name: Build
-      run: npm run build
-    
-    # Runs tests
-    - name: Runs tests
-      run: npm run test
-    
+      # Runs lints
+      - name: Run Linter
+        run: npm run code-sanity
+
+      # Build
+      - name: Build
+        run: npm run build:components
+
+      # Runs tests
+      - name: Runs tests
+        run: npm run test
