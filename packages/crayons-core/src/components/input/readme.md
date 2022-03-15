@@ -314,7 +314,6 @@ Type: `Promise<void>`
 
  - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
- - [fw-dropdown-button](../dropdown-button)
  - [fw-form-control](../form-control)
  - [fw-list-options](../options-list)
 
@@ -331,7 +330,6 @@ graph TD;
   fw-toast-message --> fw-icon
   fw-data-table --> fw-input
   fw-datepicker --> fw-input
-  fw-dropdown-button --> fw-input
   fw-form-control --> fw-input
   fw-list-options --> fw-input
   style fw-input fill:#f9f,stroke:#333,stroke-width:4px
