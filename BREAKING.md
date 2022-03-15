@@ -28,6 +28,7 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 1.  [Version 3.x](#version-3x)
 
 ## Version 3.x
+  - [Documentation](https://crayons.freshworks.com/)
 ---
 ### Global Styles
 
