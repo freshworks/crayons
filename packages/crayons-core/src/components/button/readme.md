@@ -314,7 +314,6 @@ Type: `Promise<any>`
 
  - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
- - [fw-dropdown-button](../dropdown-button)
  - [fw-modal-footer](../modal-footer)
  - [fw-pagination](../pagination)
  - [fw-select](../select)
@@ -334,7 +333,6 @@ graph TD;
   fw-toast-message --> fw-icon
   fw-data-table --> fw-button
   fw-datepicker --> fw-button
-  fw-dropdown-button --> fw-button
   fw-modal-footer --> fw-button
   fw-pagination --> fw-button
   fw-select --> fw-button

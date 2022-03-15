@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.0 (2022-03-14)
+
+### Features
+
+- **i18n-date-fns:** dynamically load date-fns lang module and interpolation related changes ([#465](https://github.com/freshworks/crayons/issues/465)) ([9510fe7](https://github.com/freshworks/crayons/commit/9510fe71d1ab0cd5ef4d5dd4f33cfdd2e6cb200e))
+
 ## 1.4.0 (2022-03-09)
 
 ### Features

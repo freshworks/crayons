@@ -2,9 +2,9 @@
   @prop --fw-select-border: Border of the select component
   @prop --fw-select-border-radius: Border radius of the select component
   @prop --fw-select-margin-bottom: Bottom margin of the select component
-  @prop --fw-input-hint-color: Color of the hint text.
-  @prop --fw-input-warning-color: Color of the warning text.
-  @prop --fw-input-error-color: Color of the error text.
+  @prop --fw-hint-color: Color of the hint text.
+  @prop --fw-warning-color: Color of the warning text.
+  @prop --fw-error-color: Color of the error text.
 */
 
 @import '../../function-components/field-control.scss';

@@ -1,6 +1,6 @@
 {
   "name": "@freshworks/crayons-i18n",
-  "version": "1.4.0",
+  "version": "1.5.1",
   "description": "Crayons i18n Library",
   "repository": {
     "type": "git",
@@ -19,7 +19,8 @@
     "crayons",
     "i18n",
     "typescript",
-    "stenciljs"
+    "stenciljs",
+    "webcomponents"
   ],
   "author": "Freshworks Inc",
   "license": "MIT",

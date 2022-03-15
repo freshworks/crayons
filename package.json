@@ -1,7 +1,7 @@
 {
   "name": "crayons",
-  "version": "3.0.0-beta.8",
-  "description": "",
+  "version": "3.0.0",
+  "description": "Crayons Packages comprising of Design system library using web components, icon library and i18n library",
   "main": "index.js",
   "engines": {
     "node": ">=14.7.0",
@@ -11,8 +11,7 @@
     "./packages/*"
   ],
   "scripts": {
-    "build:all": "lerna run build --stream && npm run storybook:build && npm run docs:build",
-    "build": "lerna run build --stream",
+    "build": "lerna run build --stream && npm run storybook:build && npm run docs:build",
     "code-sanity": "npm run lint",
     "check-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --no-git-tag-version",
     "clean-changelog": "lernacleanchangelog '**'",
@@ -33,8 +32,19 @@
     "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push && npm run clean-changelog && npm run update-lock",
     "update-version:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --yes && npm run clean-changelog && npm run update-lock"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "crayons",
+    "webcomponents",
+    "stencil",
+    "stenciljs",
+    "design system",
+    "ui-kit",
+    "freshworks",
+    "typescript",
+    "i18n",
+    "icons"
+  ],
+  "author": "Freshworks Inc",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",

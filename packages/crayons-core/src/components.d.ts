@@ -262,7 +262,7 @@ export namespace Components {
          */
         "label": string;
         /**
-          * Locale for which datepicker needs to be shown.
+          * Locale for which datepicker needs to be shown. Defaults to browser's current locale.
          */
         "locale": string;
         /**
@@ -358,42 +358,6 @@ export namespace Components {
           * Whether the drag icon should be visible.
          */
         "showDragIcon": boolean;
-    }
-    interface FwDropdownButton {
-        "addText": string;
-        "cancelText": string;
-        /**
-          * Dropdown Button color
-         */
-        "color": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
-        /**
-          * Disables the dropdown button if its true
-         */
-        "disabled": boolean;
-        /**
-          * Label for the dropdown button
-         */
-        "label": string;
-        /**
-          * Options to show in the dropdown button
-         */
-        "options": any[];
-        /**
-          * Placeholder text for search input. Validated only if dropdown and searchable is true
-         */
-        "placeholder": string;
-        /**
-          * Displays a searchable dropdown button
-         */
-        "searchable": boolean;
-        /**
-          * Displays a split dropdown button
-         */
-        "split": boolean;
-        /**
-          * Value of the dropdown button
-         */
-        "value": any;
     }
     interface FwFileUploader {
         /**
@@ -1963,12 +1927,6 @@ declare global {
         prototype: HTMLFwDragItemElement;
         new (): HTMLFwDragItemElement;
     };
-    interface HTMLFwDropdownButtonElement extends Components.FwDropdownButton, HTMLStencilElement {
-    }
-    var HTMLFwDropdownButtonElement: {
-        prototype: HTMLFwDropdownButtonElement;
-        new (): HTMLFwDropdownButtonElement;
-    };
     interface HTMLFwFileUploaderElement extends Components.FwFileUploader, HTMLStencilElement {
     }
     var HTMLFwFileUploaderElement: {
@@ -2224,7 +2182,6 @@ declare global {
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-drag-item": HTMLFwDragItemElement;
-        "fw-dropdown-button": HTMLFwDropdownButtonElement;
         "fw-file-uploader": HTMLFwFileUploaderElement;
         "fw-file-uploader-file": HTMLFwFileUploaderFileElement;
         "fw-file-uploader-progress": HTMLFwFileUploaderProgressElement;
@@ -2511,7 +2468,7 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * Locale for which datepicker needs to be shown.
+          * Locale for which datepicker needs to be shown. Defaults to browser's current locale.
          */
         "locale"?: string;
         /**
@@ -2615,50 +2572,6 @@ declare namespace LocalJSX {
           * Whether the drag icon should be visible.
          */
         "showDragIcon"?: boolean;
-    }
-    interface FwDropdownButton {
-        "addText"?: string;
-        "cancelText"?: string;
-        /**
-          * Dropdown Button color
-         */
-        "color"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
-        /**
-          * Disables the dropdown button if its true
-         */
-        "disabled"?: boolean;
-        /**
-          * Label for the dropdown button
-         */
-        "label"?: string;
-        /**
-          * Triggered when an option is clicked
-         */
-        "onFwOptionClick"?: (event: CustomEvent<any>) => void;
-        /**
-          * Triggered when Add button for searchable dropdown is clicked
-         */
-        "onFwOptionsAdd"?: (event: CustomEvent<any>) => void;
-        /**
-          * Options to show in the dropdown button
-         */
-        "options"?: any[];
-        /**
-          * Placeholder text for search input. Validated only if dropdown and searchable is true
-         */
-        "placeholder"?: string;
-        /**
-          * Displays a searchable dropdown button
-         */
-        "searchable"?: boolean;
-        /**
-          * Displays a split dropdown button
-         */
-        "split"?: boolean;
-        /**
-          * Value of the dropdown button
-         */
-        "value"?: any;
     }
     interface FwFileUploader {
         /**
@@ -4228,7 +4141,6 @@ declare namespace LocalJSX {
         "fw-datepicker": FwDatepicker;
         "fw-drag-container": FwDragContainer;
         "fw-drag-item": FwDragItem;
-        "fw-dropdown-button": FwDropdownButton;
         "fw-file-uploader": FwFileUploader;
         "fw-file-uploader-file": FwFileUploaderFile;
         "fw-file-uploader-progress": FwFileUploaderProgress;
@@ -4289,7 +4201,6 @@ declare module "@stencil/core" {
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
-            "fw-dropdown-button": LocalJSX.FwDropdownButton & JSXBase.HTMLAttributes<HTMLFwDropdownButtonElement>;
             "fw-file-uploader": LocalJSX.FwFileUploader & JSXBase.HTMLAttributes<HTMLFwFileUploaderElement>;
             "fw-file-uploader-file": LocalJSX.FwFileUploaderFile & JSXBase.HTMLAttributes<HTMLFwFileUploaderFileElement>;
             "fw-file-uploader-progress": LocalJSX.FwFileUploaderProgress & JSXBase.HTMLAttributes<HTMLFwFileUploaderProgressElement>;
