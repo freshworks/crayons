@@ -90,7 +90,11 @@ module.exports = {
         title: 'Frameworks',
         collapsable: false,
         sidebarDepth: 1,
-        children: ['/frameworks/react/'],
+        children: [
+          '/frameworks/react/',
+          '/frameworks/vue/',
+          '/frameworks/angular/',
+        ],
       },
     ],
     nav: [
