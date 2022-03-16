@@ -111,7 +111,6 @@ export class TranslationController {
     this.onChange = onChange;
 
     this.onChange('lang', async (lang: string) => {
-      console.log('Detected Lang Change. New Lang: ', lang);
       this.fetchTranslations(lang);
       await this.fetchDateLangModule(lang);
     });
@@ -238,13 +237,14 @@ export class TranslationController {
           // fallback to en default strings in case of exception
           const langModule = await this.fetchDateLangModule('en-US').catch(
             (err) => {
-              console.log(
+              console.error(
                 ' Error in fetching default date lang module ',
                 err.message
               );
               return {};
             }
           );
+          return langModule;
         });
       this.requests.set('date_' + locale, req);
     }
