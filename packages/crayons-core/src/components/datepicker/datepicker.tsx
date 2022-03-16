@@ -130,7 +130,7 @@ export class Datepicker {
   /**
    *   Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
    */
-  @Prop() displayFormat: string;
+  @Prop({ mutable: true }) displayFormat: string;
   /**
    *   Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
    */
@@ -663,8 +663,8 @@ export class Datepicker {
     if (!this.placeholder) this.placeholder = this.displayFormat;
 
     const onChange = TranslationController.onChange.bind(TranslationController);
-    onChange('dateLangModule', (newLang) => {
-      this.langModule = newLang;
+    onChange('lang', async (locale) => {
+      this.langModule = await TranslationController.getDateLangModule(locale);
       this.displayFormat = this.isDisplayFormatSet
         ? this.displayFormat
         : this.langModule?.formatLong?.date({ width: 'short' });

@@ -245,6 +245,7 @@ export class TranslationController {
               return {};
             }
           );
+          return langModule;
         });
       this.requests.set('date_' + locale, req);
     }
