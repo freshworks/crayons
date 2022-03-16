@@ -20,6 +20,8 @@
     "publishConfig": {
         "access": "public"
     },
+    "license": "MIT",
+    "author": "Freshworks Inc",
     "scripts": {
         "test-each": "jest --detectOpenHandles --testPathPattern=./__spec_tests__/__tests__",
         "test-all": "jest --detectOpenHandles --testPathPattern=./__all_tests__/__tests__",
