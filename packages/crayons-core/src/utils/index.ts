@@ -65,7 +65,7 @@ type handlerArg = (event?: KeyboardEvent) => void;
 
 // handle jsx-a11y/click-events-have-key-events
 export const handleKeyDown =
-  (handler: handlerArg) =>
+  (handler: handlerArg, skipSpace = false) =>
   (e: KeyboardEvent): void => {
     const event = e;
     const key = event.key || event.keyCode;
@@ -74,7 +74,7 @@ export const handleKeyDown =
       key === 'Enter' ||
       key === 13 ||
       key === 32 ||
-      ['Spacebar', ' '].indexOf(key as string) >= 0
+      (!skipSpace && ['Spacebar', ' '].indexOf(key as string) >= 0)
     ) {
       // In IE11 and lower, event.key will equal "Spacebar" instead of ' '
 
