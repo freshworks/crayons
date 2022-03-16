@@ -93,6 +93,19 @@ module.exports = {
         children: ['/frameworks/react/'],
       },
     ],
+    nav: [
+      {
+        text: 'Docs',
+        items: ['v3', 'v2'].map((version) => ({
+          text: version,
+          link: `https://crayons.freshworks.com/${version}`,
+        })),
+      },
+      {
+        text: 'Upgrading to V3',
+        link: '/introduction/upgrading-to-v3/',
+      },
+    ],
   },
   plugins: [
     [

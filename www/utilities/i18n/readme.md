@@ -2,6 +2,14 @@
 
 Crayons comes with `i18n` support using `@freshworks/crayons-i18n` package. 
 
+This provides:
+
+- User language detection
+- Proper pluralizations
+- Translation context
+- Nesting of keys, Interpolation (variable replacement)
+  
+
 Based on the `lang` attribute on the html element, the translation gets applied. Whenever the `lang` attribute changes, the corresponding strings of that lang will be used.
 
 To overwrite the existing translations or to add any new translations, you can use `setTranslations` method in `TranslationController`.
