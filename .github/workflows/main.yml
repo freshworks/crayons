@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    runs-on: ['self-hosted', 'linux']
+    runs-on: ['fw-shared']
 
     steps:
       - uses: actions/checkout@v2
