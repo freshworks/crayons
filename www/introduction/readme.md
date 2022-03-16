@@ -24,11 +24,11 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons/dist/crayons/crayons.esm.js">
+  src="https://unpkg.com/@freshworks/crayons@3/dist/crayons/crayons.esm.js">
 </script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons/dist/crayons/crayons.js">
+  src="https://unpkg.com/@freshworks/crayons@3/dist/crayons/crayons.js">
 </script>
 ```
 
@@ -47,7 +47,7 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 ```
  - Put a script tag similar to this 
 ```html
-<script src='node_modules/@freshworks/crayons/dist/crayons.js'></script>
+<script src='node_modules/@freshworks/crayons@3/dist/crayons.js'></script>
 ``` 
 in the head of your index.html
  - Now you can use the element anywhere in your template, JSX, html etc.
@@ -73,7 +73,7 @@ For more information please check [here](https://crayons.freshworks.com/framewor
 ```
 #### Usage via CDN
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@freshworks/crayons/css/crayons-min.css">
+<link rel="stylesheet" href="https://unpkg.com/@freshworks/crayons@3/css/crayons-min.css">
 ```
 
 > Note: CSS utils are optional. Crayons can be used without including crayons-min.css.
