@@ -4,7 +4,7 @@ Crayons will be having 3 branches:
 
 1) **master** - release branch
 2) **next** - pre-release branch (experimental branch)
-3) **canary** - dev branch
+3) **canary** - development branch
 
 **Steps**:
 
