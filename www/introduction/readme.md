@@ -4,7 +4,7 @@ Freshworks Crayons is a library of UI components that are the building blocks to
 
 ## Features
 
-* Tiny, highly optimized **30+** components built with [Stencil](https://stenciljs.com/)
+* Tiny, highly optimized **30+** web components built with [Stencil](https://stenciljs.com/)
 * No build or compiling required
 * Simply add the static files to any project
 * Tree shakable bundle for components
@@ -79,3 +79,20 @@ For more information please check [here](https://crayons.freshworks.com/framewor
 ```
 
 > Note: CSS utils are optional. Crayons can be used without including crayons-min.css.
+
+## Why Web Components?
+
+All the crayons components are built as web compponents.
+
+Web components provides a way to create our own HTML elements and use them in any framework.
+
+With every growing popularity of frameworks such as React, Vue, Angular component driven development has become a need. Components help us encapsulate styles and behaviors into reusable blocks. 
+
+Drawbacks with Framework specific components:
+
+  - The components can only be used in their specific framework.
+  - Any new framework or version changes can lead to breaking changes and require substantial effort to update the components.
+  - Web components solve these problems. 
+    - They're supported by all modern browsers.
+    - They're framework agnostic.
+    - They're a part of the web standard. 
