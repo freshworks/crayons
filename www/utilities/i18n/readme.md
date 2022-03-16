@@ -120,3 +120,15 @@ Keys, by default, are strings surrounded by curly brackets:
 TranslationController.t('key', { world: 'great' });
 // -> "hello world"
 ```
+
+## Examples
+
+### HTMl 
+```html live
+<iframe width="100%" height="300" src="//jsfiddle.net/65rghmb4/21/embedded/html,result/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+```
+
+### React
+```html live
+ <iframe width="100%" height="300" src="https://codesandbox.io/embed/crayons-i18n-react-example-vpl9k5?fontsize=14&hidenavigation=1&theme=dark"></iframe>
+```
