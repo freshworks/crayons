@@ -53,7 +53,7 @@ const generateIconsExportData = async () => {
     indexData = indexData + '};';
     fs.writeFile(path.join(out_dir, 'index-system.js'), indexData);
     console.log(
-      `Succesfully written @freshworks/crayons-icon/dist/index-system.js.`
+      `Succesfully written @freshworks/crayons-icon/dist/index-system.js`
     );
   } catch (ex) {
     console.error(`Exception occured while building : ${ex}`);
