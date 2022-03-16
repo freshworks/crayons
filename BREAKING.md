@@ -3,34 +3,41 @@
 This is a comprehensive list of the breaking changes introduced in the major version releases of Crayons.
 
 ---
-  - [Versions](#versions)
-  - [Version 3.x](#version-3x)
-    - [Global Styles](#global-styles)
-    - [Input Control Events](#input-control-events)
-    - [Components](#components)
-      - [Button](#button)
-      - [Checkbox](#checkbox)
-      - [Datepicker](#datepicker)
-      - [Dropdown button](#dropdown-button)
-      - [Icon](#icon)
-      - [Input](#input)
-      - [Label](#label)
-      - [Radio Group](#radio-group)
-      - [Radio](#radio)
-      - [Spinner](#spinner)
-      - [Tabs](#tabs)
-      - [Tab](#tab)
-      - [Textarea](#textarea)
-      - [Timepicker](#timepicker)
-      - [Modal](#modal)
+
+- [Versions](#versions)
+- [Version 3.x](#version-3x)
+  - [Global Styles](#global-styles)
+  - [Input Control Events](#input-control-events)
+  - [Components](#components)
+    - [Button](#button)
+    - [Checkbox](#checkbox)
+    - [Datepicker](#datepicker)
+    - [Dropdown button](#dropdown-button)
+    - [Icon](#icon)
+    - [Input](#input)
+    - [Label](#label)
+    - [Radio Group](#radio-group)
+    - [Radio](#radio)
+    - [Select](#select)
+    - [Spinner](#spinner)
+    - [Tabs](#tabs)
+    - [Tab](#tab)
+    - [Textarea](#textarea)
+    - [Timepicker](#timepicker)
+    - [Modal](#modal)
 
 ## Versions
+
 ---
+
 1.  [Version 3.x](#version-3x)
 
 ## Version 3.x
-  - [Documentation](https://crayons.freshworks.com/)
+
+- [Documentation](https://crayons.freshworks.com/)
+
 ---
+
 ### Global Styles
 
 Below are the changes w.r.t global css variables in v3
@@ -106,8 +113,10 @@ Below are the changes w.r.t global css variables in v3
 To check about the css variables used in each components please check the official documentation page for the components [here](https://crayons.freshworks.com/components)
 
 ### Input Control Events
+
 ---
-  Below are the breaking changes in Input Control Events
+
+Below are the breaking changes in Input Control Events
 
 - **fw-input**: `fwChange` event will no longer be emitted.
 - **fw-textarea**: `fwChange` event will no longer be emitted.
@@ -132,26 +141,27 @@ To check about the css variables used in each components please check the offici
 
   Below are the changes w.r.t CSS variables
 
-  | Old Variable                  | Status  | New Variable                       |
-  | ----------------------------- | ------- | ---------------------------------- |
-  | --btn-primary-color           | removed |                                    |
-  | --btn-primary-bg              | removed |                                    |
-  | --btn-primary-bg-dark         | removed |                                    |
-  | --btn-primary-border          | removed |                                    |
-  | --btn-primary-border-active   | removed |                                    |
-  | --btn-secondary-color         | removed |                                    |
-  | --btn-secondary-bg            | removed |                                    |
-  | --btn-secondary-bg-dark       | removed |                                    |
-  | --btn-secondary-border        | removed |                                    |
-  | --btn-secondary-border-active | removed |                                    |
-  | --btn-danger-color            | removed |                                    |
-  | --btn-danger-bg               | removed |                                    |
-  | --btn-danger-bg-dark          | removed |                                    |
-  | --btn-danger-border           | removed |                                    |
-  | --btn-link-color              | removed |                                    |
-  | --btn-link-bg                 | removed |                                    |
-  | --active-box-shadow           | removed |                                    |
-  | --btn-link-bg                 | removed |                                    |
+  | Old Variable                  | Status  | New Variable |
+  | ----------------------------- | ------- | ------------ |
+  | --btn-primary-color           | removed |              |
+  | --btn-primary-bg              | removed |              |
+  | --btn-primary-bg-dark         | removed |              |
+  | --btn-primary-border          | removed |              |
+  | --btn-primary-border-active   | removed |              |
+  | --btn-secondary-color         | removed |              |
+  | --btn-secondary-bg            | removed |              |
+  | --btn-secondary-bg-dark       | removed |              |
+  | --btn-secondary-border        | removed |              |
+  | --btn-secondary-border-active | removed |              |
+  | --btn-danger-color            | removed |              |
+  | --btn-danger-bg               | removed |              |
+  | --btn-danger-bg-dark          | removed |              |
+  | --btn-danger-border           | removed |              |
+  | --btn-link-color              | removed |              |
+  | --btn-link-bg                 | removed |              |
+  | --active-box-shadow           | removed |              |
+  | --btn-link-bg                 | removed |              |
+
 #### Checkbox
 
 - Events
@@ -375,6 +385,40 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   | --------- | ------------- | ---------------------------- |
   | fw-radio  | fwBlur.emit() | fwBlur.emit({ event, name }) |
 
+  #### Select
+
+  - Properties
+
+  `stateText` property has been removed. Instead use `hintText`, `errorText`, `warningText` property. The corresponding `text` will be shown based on the value of `state` property.
+
+  **Old**
+
+  ```html
+  <fw-select state-text="This is required!" state="error"></fw-select>
+  <fw-select state-text="This is a hint text" state="normal"></fw-select>
+  ```
+
+  **New**
+
+  ```html
+  <fw-select error-text="This is required!" state="error"></fw-select>
+  <fw-select hint-text="This is a hint text" state="normal"></fw-select>
+  ```
+
+  `autoFocus` property has been removed. You can use `setFocus()` method to set focus on the select
+
+  - Accessibility
+    Removed activating the fw-select component via space button, use can use Enter key instead.
+
+  - CSS variables
+
+  Below are the changes w.r.t CSS variables
+
+  | Old Variable | Status   | New Variable            |
+  | ------------ | -------- | ----------------------- |
+  | --max-height | replaced | --fw-popover-max-height |
+  | --min-height | replaced | --fw-popover-min-height |
+
   #### Spinner
 
   - CSS variables
@@ -385,16 +429,16 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   | --------------- | ------- | ------------------ |
   | --spinner-color | renamed | --fw-spinner-color |
 
-
 #### Tabs
 
 - CSS variables
   Below are the changes w.r.t CSS variables
 
-  | Old Variable           | Status  | New Variable            |
-  | ---------------------- | ------- | ----------------------- |
-  | --tab-header-font-size | removed |                         |
-  | --tabs-color-primary   | removed |                         |
+  | Old Variable           | Status  | New Variable |
+  | ---------------------- | ------- | ------------ |
+  | --tab-header-font-size | removed |              |
+  | --tabs-color-primary   | removed |              |
+
 #### Tab
 
 - Properties
@@ -417,8 +461,6 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
 - Events
 
   `propChanged` event has been removed.
-
-
 
 #### Textarea
 
@@ -486,18 +528,18 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
 
   Below are the changes w.r.t CSS variables
 
-  | Old Variable        | Status  | New Variable                |
-  | ------------------- | ------- | --------------------------- |
-  | --label-font        | removed |                             |
-  | --input-bg          | removed |                             |
-  | --help-color        | removed |                             |
-  | --error-color       | removed |                             |
-  | --input-disabled-bg | removed |                             |
-  | --input-hover-color | removed |                             |
-  | --input-focus-color | removed |                             |
-  | --input-border      | removed |                             |
-  | --warning-color     | removed |                             |
-  | --input-color       | renamed | --fw-textarea-input-color   |
+  | Old Variable        | Status  | New Variable              |
+  | ------------------- | ------- | ------------------------- |
+  | --label-font        | removed |                           |
+  | --input-bg          | removed |                           |
+  | --help-color        | removed |                           |
+  | --error-color       | removed |                           |
+  | --input-disabled-bg | removed |                           |
+  | --input-hover-color | removed |                           |
+  | --input-focus-color | removed |                           |
+  | --input-border      | removed |                           |
+  | --warning-color     | removed |                           |
+  | --input-color       | renamed | --fw-textarea-input-color |
 
 #### Timepicker
 
@@ -516,13 +558,13 @@ Timepicker has been refactored to use `date-fns` instead of `moment-mini`
   **old**
 
   ```html
-    <fw-modal visibility="true" title-text="Greeting">Hello world!</fw-modal>
+  <fw-modal visibility="true" title-text="Greeting">Hello world!</fw-modal>
   ```
 
   **new**
 
   ```html
-    <fw-modal is-open="true" title-text="Greeting">Hello world!</fw-modal>
+  <fw-modal is-open="true" title-text="Greeting">Hello world!</fw-modal>
   ```
 
   `custom-footer` property has been removed. Use composition technique instead.
@@ -530,23 +572,23 @@ Timepicker has been refactored to use `date-fns` instead of `moment-mini`
   **old**
 
   ```html
-    <fw-modal title-text="Greeting" custom-footer>
-      Hello world!
-      <span slot="footer">
-        <fw-button color="danger">Close</fw-button>
-      </span>
-    </fw-modal>
+  <fw-modal title-text="Greeting" custom-footer>
+    Hello world!
+    <span slot="footer">
+      <fw-button color="danger">Close</fw-button>
+    </span>
+  </fw-modal>
   ```
 
   **new**
 
   ```html
-    <fw-modal title-text="Greeting">
-      <fw-modal-content>Hello World!</fw-modal-content>
-      <fw-modal-footer>
-        <fw-button color="danger">Close</fw-button>
-      </fw-modal-footer>
-    </fw-modal>
+  <fw-modal title-text="Greeting">
+    <fw-modal-content>Hello World!</fw-modal-content>
+    <fw-modal-footer>
+      <fw-button color="danger">Close</fw-button>
+    </fw-modal-footer>
+  </fw-modal>
   ```
 
   `success-text` property changed to `submit-text`.
@@ -554,17 +596,13 @@ Timepicker has been refactored to use `date-fns` instead of `moment-mini`
   **old**
 
   ```html
-    <fw-modal title-text="Greeting" success-text="Close">
-      Hello world!
-    </fw-modal>
+  <fw-modal title-text="Greeting" success-text="Close"> Hello world! </fw-modal>
   ```
 
   **new**
 
   ```html
-    <fw-modal title-text="Greeting" submit-text="Close">
-      Hello world!
-    </fw-modal>
+  <fw-modal title-text="Greeting" submit-text="Close"> Hello world! </fw-modal>
   ```
 
 - Events
@@ -574,53 +612,45 @@ Timepicker has been refactored to use `date-fns` instead of `moment-mini`
   **old**
 
   ```html
-    <fw-modal title-text="Greeting">
-      Hello world!
-    </fw-modal>
-    <script>
-      document.querySelector('fw-modal').addEventListener('fwAction', (event) => {
-        console.log('value', event.detail);
-      });
-    </script>
+  <fw-modal title-text="Greeting"> Hello world! </fw-modal>
+  <script>
+    document.querySelector('fw-modal').addEventListener('fwAction', (event) => {
+      console.log('value', event.detail);
+    });
+  </script>
   ```
 
   **new**
 
   ```html
-    <fw-modal title-text="Greeting">
-      Hello world!
-    </fw-modal>
-    <script>
-      document.querySelector('fw-modal').addEventListener('fwSubmit', (event) => {
-        console.log('value', event.detail);
-      });
-    </script>
+  <fw-modal title-text="Greeting"> Hello world! </fw-modal>
+  <script>
+    document.querySelector('fw-modal').addEventListener('fwSubmit', (event) => {
+      console.log('value', event.detail);
+    });
+  </script>
   ```
-  
+
   `onFwClosed` name changed to `onFwClose`.
 
   **old**
 
   ```html
-    <fw-modal title-text="Greeting">
-      Hello world!
-    </fw-modal>
-    <script>
-      document.querySelector('fw-modal').addEventListener('fwClosed', (event) => {
-        console.log('value', event.detail);
-      });
-    </script>
+  <fw-modal title-text="Greeting"> Hello world! </fw-modal>
+  <script>
+    document.querySelector('fw-modal').addEventListener('fwClosed', (event) => {
+      console.log('value', event.detail);
+    });
+  </script>
   ```
 
   **new**
 
   ```html
-    <fw-modal title-text="Greeting">
-      Hello world!
-    </fw-modal>
-    <script>
-      document.querySelector('fw-modal').addEventListener('fwClose', (event) => {
-        console.log('value', event.detail);
-      });
-    </script>
+  <fw-modal title-text="Greeting"> Hello world! </fw-modal>
+  <script>
+    document.querySelector('fw-modal').addEventListener('fwClose', (event) => {
+      console.log('value', event.detail);
+    });
+  </script>
   ```
