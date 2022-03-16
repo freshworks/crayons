@@ -382,6 +382,7 @@ promise that resolves to true
 
 ### Used by
 
+ - [fw-custom-cell-paragraph](../data-table/custom-cells/paragraph)
  - [fw-data-table](../data-table)
 
 ### Depends on
@@ -392,6 +393,7 @@ promise that resolves to true
 ```mermaid
 graph TD;
   fw-tooltip --> fw-popover
+  fw-custom-cell-paragraph --> fw-tooltip
   fw-data-table --> fw-tooltip
   style fw-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```

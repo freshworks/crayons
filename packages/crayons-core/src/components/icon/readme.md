@@ -241,6 +241,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-button](../button)
  - [fw-checkbox](../checkbox)
  - [fw-custom-cell-icon](../data-table/custom-cells/icon)
+ - [fw-custom-cell-paragraph](../data-table/custom-cells/paragraph)
  - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
  - [fw-drag-item](../drag-item)
@@ -272,6 +273,7 @@ graph TD;
   fw-button --> fw-icon
   fw-checkbox --> fw-icon
   fw-custom-cell-icon --> fw-icon
+  fw-custom-cell-paragraph --> fw-icon
   fw-data-table --> fw-icon
   fw-datepicker --> fw-icon
   fw-drag-item --> fw-icon

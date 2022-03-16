@@ -156,6 +156,12 @@ export namespace Components {
         "size": number;
         "src": any;
     }
+    interface FwCustomCellParagraph {
+        /**
+          * text to display inside the cell
+         */
+        "text": string;
+    }
     interface FwCustomCellUser {
         "alt": string;
         "email": string;
@@ -1897,6 +1903,12 @@ declare global {
         prototype: HTMLFwCustomCellIconElement;
         new (): HTMLFwCustomCellIconElement;
     };
+    interface HTMLFwCustomCellParagraphElement extends Components.FwCustomCellParagraph, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellParagraphElement: {
+        prototype: HTMLFwCustomCellParagraphElement;
+        new (): HTMLFwCustomCellParagraphElement;
+    };
     interface HTMLFwCustomCellUserElement extends Components.FwCustomCellUser, HTMLStencilElement {
     }
     var HTMLFwCustomCellUserElement: {
@@ -2177,6 +2189,7 @@ declare global {
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
         "fw-custom-cell-icon": HTMLFwCustomCellIconElement;
+        "fw-custom-cell-paragraph": HTMLFwCustomCellParagraphElement;
         "fw-custom-cell-user": HTMLFwCustomCellUserElement;
         "fw-data-table": HTMLFwDataTableElement;
         "fw-datepicker": HTMLFwDatepickerElement;
@@ -2388,6 +2401,12 @@ declare namespace LocalJSX {
         "name"?: string;
         "size"?: number;
         "src"?: any;
+    }
+    interface FwCustomCellParagraph {
+        /**
+          * text to display inside the cell
+         */
+        "text"?: string;
     }
     interface FwCustomCellUser {
         "alt"?: string;
@@ -4136,6 +4155,7 @@ declare namespace LocalJSX {
         "fw-checkbox": FwCheckbox;
         "fw-custom-cell-anchor": FwCustomCellAnchor;
         "fw-custom-cell-icon": FwCustomCellIcon;
+        "fw-custom-cell-paragraph": FwCustomCellParagraph;
         "fw-custom-cell-user": FwCustomCellUser;
         "fw-data-table": FwDataTable;
         "fw-datepicker": FwDatepicker;
@@ -4196,6 +4216,7 @@ declare module "@stencil/core" {
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
             "fw-custom-cell-icon": LocalJSX.FwCustomCellIcon & JSXBase.HTMLAttributes<HTMLFwCustomCellIconElement>;
+            "fw-custom-cell-paragraph": LocalJSX.FwCustomCellParagraph & JSXBase.HTMLAttributes<HTMLFwCustomCellParagraphElement>;
             "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;
             "fw-data-table": LocalJSX.FwDataTable & JSXBase.HTMLAttributes<HTMLFwDataTableElement>;
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
