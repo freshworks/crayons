@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.3.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@1.2.2...@freshworks/crayons-icon@1.3.0) (2022-03-16)
-
+## 1.3.0 (2022-03-16)
 
 ### Features
 
-* **data-table:** Custom cell Paragraph variant added ([#473](https://github.com/freshworks/crayons/issues/473)) ([182a49e](https://github.com/freshworks/crayons/commit/182a49ef09db783fa48ddbca02e0070e0da5c987))
-
-
-
-
+- **data-table:** Custom cell Paragraph variant added ([#473](https://github.com/freshworks/crayons/issues/473)) ([182a49e](https://github.com/freshworks/crayons/commit/182a49ef09db783fa48ddbca02e0070e0da5c987))
 
 ## 1.2.0 (2022-02-09)
 
