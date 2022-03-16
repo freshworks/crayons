@@ -5,7 +5,7 @@
 
 [Crayons](https://crayons.freshworks.com/) is a library of UI components that help create an intuitive and uniform user interface for all your apps. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
 
-These components are designed to be used in traditional frontend view libraries/frameworks (Stencil, React, Angular, or Vue), or on their own through traditional JavaScript in the browser.
+These components are designed to be used in traditional frontend view libraries/frameworks or on their own through traditional JavaScript in the browser.
 
 
 ## Features
