@@ -211,6 +211,7 @@ export class Datepicker {
   private madeInert;
   private nativeInput;
   private isDisplayFormatSet = false;
+  private isPlaceholderSet = false;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -655,12 +656,15 @@ export class Datepicker {
     if (this.displayFormat) {
       this.isDisplayFormatSet = true;
     }
+    if (this.placeholder) {
+      this.isPlaceholderSet = true;
+    }
     this.handleSlotChange();
     this.displayFormat =
       this.displayFormat ||
       this.langModule?.formatLong?.date({ width: 'short' });
 
-    if (!this.placeholder) this.placeholder = this.displayFormat;
+    this.placeholder = this.placeholder || this.displayFormat;
 
     const onChange = TranslationController.onChange.bind(TranslationController);
     onChange('lang', async (locale) => {
@@ -669,7 +673,9 @@ export class Datepicker {
         ? this.displayFormat
         : this.langModule?.formatLong?.date({ width: 'short' });
 
-      if (!this.placeholder) this.placeholder = this.displayFormat;
+      this.placeholder = this.isPlaceholderSet
+        ? this.placeholder
+        : this.displayFormat;
 
       if (this.mode === 'range')
         this.placeholder = `${this.placeholder} ${TranslationController.t(
