@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.34](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.33...@freshworks/crayons@3.0.0-beta.34) (2022-03-16)
+
+
+### Bug Fixes
+
+* **datepicker-i18n:** handle placeholder and displayformat on lang change ([#484](https://github.com/freshworks/crayons/issues/484)) ([36e7015](https://github.com/freshworks/crayons/commit/36e70159844ea6f85ae0a268a18f9f847fd056e9))
+* **fw-select:** disabled select activation via space button ([#482](https://github.com/freshworks/crayons/issues/482)) ([3dacdec](https://github.com/freshworks/crayons/commit/3dacdec5fdbf7cfa940716f7045b95710e50bc10))
+
+
+### Features
+
+* **data-table:** Custom cell Paragraph variant added ([#473](https://github.com/freshworks/crayons/issues/473)) ([182a49e](https://github.com/freshworks/crayons/commit/182a49ef09db783fa48ddbca02e0070e0da5c987))
+
+
+### BREAKING CHANGES
+
+* **fw-select:** Disabled fw-select activation/open via space button
+
+* docs(fw-select): added select breaking changes
+
+
+
+
+
 ## [3.0.0-beta.32](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.31...@freshworks/crayons@3.0.0-beta.32) (2022-03-15)
 
 ### Bug Fixes

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@1.5.2...@freshworks/crayons-i18n@1.6.0) (2022-03-16)
+
+
+### Bug Fixes
+
+* **datepicker-i18n:** handle placeholder and displayformat on lang change ([#484](https://github.com/freshworks/crayons/issues/484)) ([36e7015](https://github.com/freshworks/crayons/commit/36e70159844ea6f85ae0a268a18f9f847fd056e9))
+
+
+### Features
+
+* **data-table:** Custom cell Paragraph variant added ([#473](https://github.com/freshworks/crayons/issues/473)) ([182a49e](https://github.com/freshworks/crayons/commit/182a49ef09db783fa48ddbca02e0070e0da5c987))
+
+
+
+
+
 ## 1.5.0 (2022-03-14)
 
 ### Features
