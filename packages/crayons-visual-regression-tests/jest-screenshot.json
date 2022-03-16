@@ -1,0 +1,6 @@
+{
+    "detectAntialiasing": false,
+    "colorThreshold": 0,
+    "pixelThresholdAbsolute": 150,
+    "pixelThresholdRelative": 0.5
+}

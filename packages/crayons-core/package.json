@@ -55,6 +55,7 @@
     "start": "stencil build --dev --watch --serve --port=3333",
     "storybook:start": "wait-on -d 30000 loader/index.js && start-storybook -p 9001 -c .storybook",
     "storybook": "run-p local storybook:start",
+    "story:test": "jest --config ./__tests__/jest.config.js",
     "test:watch": "stencil test --spec --e2e --watchAll",
     "test": "stencil test --spec --e2e"
   },
