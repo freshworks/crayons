@@ -4,27 +4,27 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 
 ---
 
-  - [Versions](#versions)
-  - [Version 3.x](#version-3x)
-    - [Global Styles](#global-styles)
-    - [Input Control Events](#input-control-events)
-    - [Components](#components)
-      - [Button](#button)
-      - [Checkbox](#checkbox)
-      - [Datepicker](#datepicker)
-      - [Dropdown button](#dropdown-button)
-      - [Icon](#icon)
-      - [Input](#input)
-      - [Label](#label)
-      - [Radio Group](#radio-group)
-      - [Radio](#radio)
-      - [Select](#select)
-      - [Spinner](#spinner)
-      - [Tabs](#tabs)
-      - [Tab](#tab)
-      - [Textarea](#textarea)
-      - [Timepicker](#timepicker)
-      - [Modal](#modal)
+- [Versions](#versions)
+- [Version 3.x](#version-3x)
+  - [Global Styles](#global-styles)
+  - [Input Control Events](#input-control-events)
+  - [Components](#components)
+    - [Button](#button)
+    - [Checkbox](#checkbox)
+    - [Datepicker](#datepicker)
+    - [Dropdown button](#dropdown-button)
+    - [Icon](#icon)
+    - [Input](#input)
+    - [Label](#label)
+    - [Radio Group](#radio-group)
+    - [Radio](#radio)
+    - [Select](#select)
+    - [Spinner](#spinner)
+    - [Tabs](#tabs)
+    - [Tab](#tab)
+    - [Textarea](#textarea)
+    - [Timepicker](#timepicker)
+    - [Modal](#modal)
 
 ## Versions
 
@@ -290,7 +290,6 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   | Old Variable | Status  | New Variable    |
   | ------------ | ------- | --------------- |
   | --icon-color | renamed | --fw-icon-color |
-  |              | added   | --fw-icon-size  |
 
 #### Input
 
