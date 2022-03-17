@@ -15,9 +15,9 @@ const runTestsInBand = (component, setup) => {
           global.page.setDefaultNavigationTimeout(0);
           // Wait till loaded
           await global.page.goto(
-            `http://localhost:8080/iframe.html?id=${component}${variantPrefix}`,
+            `http://localhost:8082/iframe.html?id=${component}${variantPrefix}`,
             {
-              waitUntil: 'domcontentloaded',
+              waitUntil: 'networkidle0',
               timeout: 654321,
             }
           );

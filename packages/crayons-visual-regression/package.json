@@ -25,7 +25,8 @@
     "scripts": {
         "test-each": "jest --detectOpenHandles --testPathPattern=./__spec_tests__/__tests__",
         "test-all": "jest --detectOpenHandles --testPathPattern=./__all_tests__/__tests__",
-        "build": "rm -rf ./puppeteer.data.store && rm -rf ./__tests__/__snapshots__ "
+        "build": "rm -rf ./puppeteer.data.store && rm -rf ./__tests__/__snapshots__ ",
+        "visual-regression:check": "node checkIfVisualRegressionExists.js"
     },
     "jest": {
         "collectCoverage": false,
@@ -54,9 +55,11 @@
         "babel-jest": "^25.1.0",
         "babel-polyfill": "^6.26.0",
         "babel-preset-env": "^1.6.1",
+        "child_process": "^1.0.2",
+        "fs": "^0.0.1-security",
         "jest": "^25.1.0",
         "jest-circus": "^27.5.1",
         "jest-screenshot": "^0.3.5",
-        "puppeteer": "^2.1.1"
+        "puppeteer": "^13.5.1"
     }
 }

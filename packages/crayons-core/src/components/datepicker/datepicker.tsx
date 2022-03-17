@@ -631,7 +631,7 @@ export class Datepicker {
     return resultYear.toString();
   }
 
-  getSupportedYears = () => {
+  getSupportedYears(){
     const yearsArr = [];
     if (this.maxYear < this.minYear) this.maxYear = this.minYear;
     let year = new Date(this.minYear).getFullYear();
@@ -811,7 +811,7 @@ export class Datepicker {
     }
   }
 
-  getDayDetails = (args) => {
+  getDayDetails(args){
     const date = args.index - args.firstDay;
     const day = args.index % 7;
     let prevMonth = args.month - 1;
@@ -872,7 +872,7 @@ export class Datepicker {
     return monthArray;
   };
 
-  setMonth = (offset) => {
+  setMonth(offset){
     let year = Number(this.year);
     let month = this.month + offset;
     if (month === -1) {
@@ -894,11 +894,11 @@ export class Datepicker {
         : this.getMonthDetails(this.year, this.month + 1);
   };
 
-  isCurrentDay = (day) => {
+  isCurrentDay(day){
     return day.timestamp === this.todayTimestamp;
   };
 
-  isSelectedDay = ({ date, timestamp }) => {
+  isSelectedDay({ date, timestamp }){
     if (this.mode !== 'range') {
       const parsedDate = parse(this.value, this.displayFormat, new Date(), {
         locale: this.langModule,
@@ -913,7 +913,7 @@ export class Datepicker {
     return timestamp === this.startDate || timestamp === this.endDate;
   };
 
-  handleDateHover = (day): void => {
+  handleDateHover(day): void{
     if (this.startDate && !this.endDate) {
       if (this.startDate > day.timestamp) {
         this.endDate = this.startDate;
@@ -980,7 +980,7 @@ export class Datepicker {
     }
   }
 
-  isInRange = ({ timestamp }) => {
+  isInRange({ timestamp }){
     const { endDate } = this;
     const { startDate } = this;
 
@@ -1004,7 +1004,7 @@ export class Datepicker {
     return startDateCondtion || endDateCondition;
   }
 
-  onDateClick = ({ date, timestamp }) => {
+  onDateClick({ date, timestamp }){
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
     } else if (this.showDateRangePicker()) {
@@ -1014,7 +1014,7 @@ export class Datepicker {
   };
 
   // handle cancel and popover close
-  handlePopoverClose = (e: any) => {
+  handlePopoverClose(e: any){
     if (e.target?.tagName === 'FW-SELECT') return;
     if (this.mode === 'range') {
       // handle resetting of startDate and endDate on clicking cancel
@@ -1158,10 +1158,14 @@ export class Datepicker {
       </div>
     );
   }
-  private showSingleDatePicker() {
+
+  @Method()
+  async showSingleDatePicker() {
     return this.showDatePicker && this.mode !== 'range';
   }
-  private showDateRangePicker() {
+  
+  @Method()
+  async showDateRangePicker() {
     return this.showDatePicker && this.mode === 'range';
   }
 

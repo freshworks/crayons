@@ -4,7 +4,7 @@ const setup = {
     'default',
     'required',
     'disabled',
-    'state-text',
+    'hint-text',
     'clear-input',
     'error-state',
     'warning-state',

@@ -31,7 +31,7 @@ const setup = {
   'datatable': ['default', 'selectable', 'sticky-header'],
   'dropdownbutton': [
     'default-dropdownbutton',
-    'split-sdropdownbutton',
+    'split-dropdownbutton',
     'search-dropdownbutton',
     'splitn-searchable-dropdownbutton',
   ],
@@ -43,7 +43,7 @@ const setup = {
     'default',
     'required',
     'disabled',
-    'state-text',
+    'hint-text',
     'clear-input',
     'error-state',
     'warning-state',

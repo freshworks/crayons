@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { Meta, Story, Canvas } from '@storybook/web-components';
-import { fireEvent, screen,within, userEvent } from '@storybook/testing-library';
 
 export const Template = () =>{
   return `<fw-datepicker value="2021-12-02"></fw-datepicker>`;
@@ -11,7 +10,7 @@ export const Template_Range = () =>{
             mode="range"
             from-date="2022-01-02"
             to-date="2022-01-04"
-            display-format="DD-MM-YYYY"
+            display-format="dd-mm-yyyy"
           ></fw-datepicker>`;
 };
 

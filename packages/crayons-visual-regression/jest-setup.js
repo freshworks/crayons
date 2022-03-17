@@ -5,7 +5,7 @@ import { setupJestScreenshot } from 'jest-screenshot';
 jest.retryTimes(2);
 setupJestScreenshot({
     colorThreshold: 0,
-    pixelThresholdAbsolute: 150,
+    pixelThresholdAbsolute: 1,
 });
 
 const puppeteer_minimal_args = [
