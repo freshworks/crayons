@@ -14,7 +14,7 @@ if (fs.existsSync('./jest-screenshot-report')) {
         return;
       }
       console.error(
-        `Error: Build Failed. Visual Regressions found in Crayons Components. | Number of Visual Regressions : ${stdout.trimStart()}`
+        `Error: Commit/Push Failed. Visual Regressions found in Crayons Components. | Number of Visual Regressions : ${stdout.trimStart()}`
       );
 
       process.exit(1);
