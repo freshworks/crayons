@@ -19,7 +19,7 @@ const getTags = () => [
  'Freshworks Development Kit',
 ];
 
-const websiteUrl = 'https://crayons.freshworks.com';
+const websiteUrl = 'https://crayons.freshworks.com/v2';
 
 module.exports = {
   title: 'Crayons',
@@ -56,7 +56,8 @@ module.exports = {
     [
       "live",
       {
-        layout: path.resolve(__dirname, "./previewLayout.vue")
+        layout: path.resolve(__dirname, "./previewLayout.vue"),
+        squiggles: false
       }
     ],
     ['@vuepress/active-header-links'],

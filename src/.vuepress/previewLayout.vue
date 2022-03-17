@@ -1,44 +1,99 @@
 <template>
   <div class="container">
-    <div class="preview-container">
+    <div class="preview block preview-container">
       <slot name="preview"></slot>
-      <div class="seeCode" @click="toggle">{{showCode ? 'Hide Code' : 'Show Code'}}</div>
+      <div class="seeCode" @click="toggle">
+        {{ showCode ? "Hide Code" : "Show Code" }}
+      </div>
     </div>
-    <div class="code" v-if="showCode">
-      <slot name="editor" ></slot>
+    <div :class="`language-jsx editor block code`" v-if="showCode">
+      <slot name="editor"></slot>
       <div class="copy" ref="copyBtn" @click="copyToClipboard">Copy</div>
     </div>
   </div>
 </template>
 
 <script>
+import "prismjs/themes/prism-tomorrow.css";
+import "vue-prism-editor/dist/prismeditor.min.css";
 export default {
+  squiggles: false,
   data() {
     return {
-      showCode: false
+      showCode: false,
     };
   },
   methods: {
     toggle() {
-      this.showCode =!this.showCode;
+      this.showCode = !this.showCode;
     },
     async copyToClipboard() {
-      const code =  this.$slots['editor'].reduce((code, node) => code + node.data.model.value, '');
-      const el = document.createElement('textarea');
+      const code = this.$slots["editor"].reduce(
+        (code, node) => code + node.context.model,
+        ""
+      );
+      const el = document.createElement("textarea");
       el.value = code;
       document.body.appendChild(el);
       el.select();
-      document.execCommand('copy');
+      document.execCommand("copy");
       document.body.removeChild(el);
-      this.$refs['copyBtn'].innerText = 'Copied!';
+      this.$refs["copyBtn"].innerText = "Copied!";
       await setTimeout(() => this.reset(), 2000);
     },
     reset() {
-      this.$refs['copyBtn'].innerText = 'Copy';
-    }
+      this.$refs["copyBtn"].innerText = "Copy";
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+.VueLive-squiggles-wrapper {
+  display: none;
+}
+
+.VueLive-error {
+  padding: 1.25rem 1.5rem;
+  border-radius: 6px;
+  overflow: hidden;
+  color: #fff;
+  font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+  font-size: 0.85em;
+  text-align: left;
+  white-space: pre-wrap;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.65;
+}
+
+.prism-editor-wrapper {
+  background-color: #002540;
+
+  .prism-editor__editor,
+  .prism-editor__textarea {
+    padding: 1.25rem 1.5rem;
+    border-radius: 6px;
+    overflow: hidden;
+    color: #fff;
+    font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+    font-size: 0.85em;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.65;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
   }
 }
-</script>
+</style>
 
 <style lang="scss" scoped>
 .container {
@@ -56,9 +111,15 @@ export default {
     border-color: rgb(207, 215, 223);
   }
 
+  @media screen and (prefers-reduced-motion: reduce) {
+    .code {
+      position: relative;
+      transition: none;
+    }
+  }
+
   .code {
     position: relative;
-    margin-top: -14px;
     transition: all 0.25s ease;
   }
 
@@ -101,9 +162,9 @@ export default {
   background: transparent;
   border-radius: 4px;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: #8e44ad;
   }
 }
-
 </style>
