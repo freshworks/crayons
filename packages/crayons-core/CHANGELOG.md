@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.35](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.34...@freshworks/crayons@3.0.0-beta.35) (2022-03-17)
-
+## [3.0.0-beta.35](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.34...@freshworks/crayons@3.0.0-beta.35) (2022-03-17)
 
 ### Bug Fixes
 
-* **data-table:** table settings input clearing on closing modal ([#486](https://github.com/freshworks/crayons/issues/486)) ([c17f10f](https://github.com/freshworks/crayons/commit/c17f10f4c408a692c985933a25dcb2cea7524cec))
-
-
-
-
+- **data-table:** table settings input clearing on closing modal ([#486](https://github.com/freshworks/crayons/issues/486)) ([c17f10f](https://github.com/freshworks/crayons/commit/c17f10f4c408a692c985933a25dcb2cea7524cec))
 
 ## [3.0.0-beta.34](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.33...@freshworks/crayons@3.0.0-beta.34) (2022-03-16)
 
