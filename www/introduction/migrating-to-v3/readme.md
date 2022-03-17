@@ -20,7 +20,7 @@
 
 The below covers some of the major breaking changes introduced in Crayons v3.  
 
-To view the comprehensive list, check the breaking changes [guide](https://github.com/freshworks/crayons/BREAKING.md). There were several changes to property, events and CSS Variable values that developers may need to be aware of.
+To view the comprehensive list, check the breaking changes [guide](https://github.com/freshworks/crayons/BREAKING.md). There were several changes to property, events and CSS Variables that developers may need to be aware of.
 
 ---
   - [Global Styles](#global-styles)
