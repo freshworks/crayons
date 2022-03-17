@@ -311,6 +311,8 @@ export namespace Components {
           * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
          */
         "setFocus": () => Promise<void>;
+        "showDateRangePicker": () => Promise<boolean>;
+        "showSingleDatePicker": () => Promise<boolean>;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
