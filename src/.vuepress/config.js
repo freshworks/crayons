@@ -1,6 +1,6 @@
 const path = require("path");
 const components = require('../custom-elements.json');
-
+const version = require("../../package.json").version
 
 const getComponents = () => components.tags.map(({ tag }) => {
   return `/components/${tag.substr(3)}/`;
@@ -50,6 +50,19 @@ module.exports = {
         sidebarDepth: 1, 
         children: getComponents()
       }
+    ],
+    nav: [
+      {
+        text: 'Migrating to v3',
+        link: 'https://crayons.freshworks.com/introduction/migrating-to-v3/',
+      },
+      {
+        text: `v${version?.split(".")[0]}.x`,
+        items: ['v3.x', 'v2.x'].map((version) => ({
+          text: version,
+          link: `https://crayons.freshworks.com/${version?.split(".")[0]}`,
+        })),
+      },
     ],
   },
   plugins: [
