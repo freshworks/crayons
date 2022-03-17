@@ -31,7 +31,7 @@
     "storybook:node": "npm run kill:pid && node --max_old_space_size=1024 ./docs/storybook_child_process.js",
     "kill:pid": "lsof -nti:8082 | xargs kill -9",
     "storybook:run-ui-test": "npm run storybook:stop-ui-test & ((concurrently 'npm run storybook:node' 'npm run visual-regression-test'  --success all) & echo $! > .ui-test-pid)",
-    "storybook:stop-ui-test": "kill $(cat .ui-test-pid) || true",
+    "storybook:stop-ui-test": "(npm run kill:pid || true) && (kill $(cat .ui-test-pid) || true)",
     "visual-regression-test": "cd packages/crayons-visual-regression && npm run test-all",
     "ifVisualRegressionExists": "npm --prefix ./packages/crayons-visual-regression/ run test",
     "test": "lerna run test --stream",
