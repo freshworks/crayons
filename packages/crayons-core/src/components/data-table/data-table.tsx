@@ -527,6 +527,7 @@ export class DataTable {
    */
   async resetSettings() {
     this.settingSearchText = '';
+    this.settingsInput.value = '';
     this.columnsDragSetting = [];
     this.columnsHideSetting = [];
     const modifiedColumnsDragSettings = this.orderedColumns.map((column) => {
