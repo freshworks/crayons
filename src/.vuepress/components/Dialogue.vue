@@ -29,7 +29,7 @@ export default {
       padding: 1.5625rem 3.125rem;
       line-height: 30px;
       color: #666;
-      font-family: 'National-Book', sans-serif;
+      font-family: 'System stack', sans-serif;
       font-size: 14.5px;
       font-weight: 300;
 
@@ -52,7 +52,7 @@ export default {
       .dialogue-text {
         line-height: 30px;
         color: #666;
-        font-family: 'National-Book', sans-serif;
+        font-family: 'System stack', sans-serif;
         font-size: 3vw;
         font-weight: 300;
 
@@ -76,7 +76,7 @@ export default {
       .dialogue-text {
         line-height: 30px;
         color: #666;
-        font-family: 'National-Book', sans-serif;
+        font-family: 'System stack', sans-serif;
         font-size: 3vw;
         font-weight: 300;
 
