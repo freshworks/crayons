@@ -91,7 +91,7 @@ function get({
   lang?: string;
   context?: any;
 }) {
-  const translatedText = getVal(key, obj) ?? key;
+  const translatedText = getVal(key, obj) ?? key; // return the key if the value for key is not found
   // Interpolate the values and return the translation
   return values ? interpolate(translatedText, values) : translatedText;
 }
