@@ -3,7 +3,7 @@
 
 # @freshworks/crayons
 
-[Crayons](https://crayons.freshworks.com/) is a library of UI components that help create an intuitive and uniform user interface for all your apps. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
+[Crayons](https://crayons-v3.netlify.app/) is a library of UI components that help create an intuitive and uniform user interface for all your apps. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
 
 These components are designed to be used in traditional frontend view libraries/frameworks or on their own through traditional JavaScript in the browser.
 
@@ -23,7 +23,7 @@ These components are designed to be used in traditional frontend view libraries/
 ### HTML
 
 Easiest way to start using Crayons is by adding a script tag to the CDN.
-More details [here](https://crayons.freshworks.com/introduction/)
+More details [here](https://crayons-v3.netlify.app/introduction/)
 ```html
 <script
   type="module"
@@ -45,7 +45,7 @@ To use **React wrapper** use below:
 ```js
 import { FwButton } from "@freshworks/crayons/react"
 ```
-For more information please check [here](https://crayons.freshworks.com/frameworks/react)
+For more information please check [here](https://crayons-v3.netlify.app/frameworks/react)
 
 ### Naming Components
 When generating components, the custom element tags is prefixed with `fw-` while the rest of the name is modified to support web component standards. For example, if a component is generated with the name Label, the component name would be `<fw-label>`.

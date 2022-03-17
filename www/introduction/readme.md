@@ -10,10 +10,10 @@ Freshworks Crayons is a library of UI components that are the building blocks to
 * Tree shakable bundle for components
 * Lazy-loaded components without configuration
 * Style customisation through CSS Variables
-* Framework Wrappers for [React](https://crayons.freshworks.com/frameworks/react)
-* Set of CSS [utilities](https://crayons.freshworks.com/introduction/#adding-css-utils) to speed up development 
-* [i18n](https://crayons.freshworks.com/utilities/i18n) support
-* icon [library](https://crayons.freshworks.com/components/icon) with support for using external icons
+* Framework Wrappers for [React](https://crayons-v3.netlify.app/frameworks/react)
+* Set of CSS [utilities](https://crayons-v3.netlify.app/introduction/#adding-css-utils) to speed up development 
+* [i18n](https://crayons-v3.netlify.app/utilities/i18n) support
+* icon [library](https://crayons-v3.netlify.app/components/icon) with support for using external icons
 
 ## Installation
 By default the `latest` major version of `Crayons` will be installed. If you want to install any specific version of `Crayons` please use `crayons@version`
@@ -62,7 +62,7 @@ To use **React wrapper** use below:
 ```js
 import { FwButton } from "@freshworks/crayons/react"
 ```
-For more information please check [here](https://crayons.freshworks.com/frameworks/react)
+For more information please check [here](https://crayons-v3.netlify.app/frameworks/react)
 
 
 ## Adding CSS Utils

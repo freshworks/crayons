@@ -7,7 +7,7 @@ Crayons is a component library based on Web Components. The goal of Crayons is t
 ### Crayons Important links
 
 - [Repository](https://github.com/freshworks/crayons)
-- [Documentation](https://crayons.freshworks.com)
+- [Documentation](https://crayons-v3.netlify.app)
 
 ## How to Contribute
 

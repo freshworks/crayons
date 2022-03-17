@@ -50,7 +50,7 @@ const getTags = () => [
   'Freshworks Development Kit',
 ];
 
-const websiteUrl = 'https://crayons.freshworks.com';
+const websiteUrl = 'https://crayons-v3.netlify.app';
 
 module.exports = {
   title: 'Crayons',
@@ -102,7 +102,7 @@ module.exports = {
         text: 'Docs',
         items: ['v3', 'v2'].map((version) => ({
           text: version,
-          link: `https://crayons.freshworks.com/${version}`,
+          link: `https://crayons-v3.netlify.app/${version}`,
         })),
       },
       {

@@ -3,7 +3,7 @@
 
 
 # 🖍️ Crayons
-[Freshworks Crayons](https://crayons.freshworks.com) is a library of UI components that help create an intuitive and uniform user interface for all your apps. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
+[Freshworks Crayons](https://crayons-v3.netlify.app) is a library of UI components that help create an intuitive and uniform user interface for all your apps. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
 
 ## Packages
 
@@ -15,16 +15,16 @@
 
 ### Installation
 
-Please refer to the usage guidelines [here](https://crayons.freshworks.com/components).
+Please refer to the usage guidelines [here](https://crayons-v3.netlify.app/components).
 
 ### Documentation
 
-You can refer to the documentation on the [Crayons Website](https://crayons.freshworks.com).
+You can refer to the documentation on the [Crayons Website](https://crayons-v3.netlify.app).
 
 
 ### Framework Wrappers
 
-Crayons provides a wrapper for web components for various `Frontend frameworks`. At present a wrapper for **React** is available. For more information, check [here](https://crayons.freshworks.com/frameworks/react)
+Crayons provides a wrapper for web components for various `Frontend frameworks`. At present a wrapper for **React** is available. For more information, check [here](https://crayons-v3.netlify.app/frameworks/react)
 
 
 ### Development and Contribution
