@@ -110,10 +110,10 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run test",
+      "pre-push": "npm run ifVisualRegressionExists && npm run test",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run ifVisualRegressionExists && npm run lint-staged"
+      "pre-commit": "npm run storybook:run-ui-test && npm run lint-staged"
     }
   },
   "lint-staged": {
