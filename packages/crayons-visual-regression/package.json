@@ -1,0 +1,65 @@
+{
+    "name": "@freshworks/crayons-visual-regression",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/freshworks/crayons.git"
+    },
+    "version": "1.0.0",
+    "description": "Freshworks `Crayons Visual Regression` is a Testing Suite to visually test web components. It uses Puppeteer, Jest and Jest-Screenshot libraries. The library runs lighting fast tests via ultra optimized scripts. ",
+    "main": "__tests__",
+    "keywords": [
+        "crayons-visual-regression",
+        "puppeteer",
+        "jest",
+        "jest-screenshot",
+        "jest-ui-regression-reporter"
+    ],
+    "files": [
+        "**/*/**"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "license": "MIT",
+    "author": "Freshworks Inc",
+    "scripts": {
+        "test-each": "jest --detectOpenHandles --testPathPattern=./__spec_tests__/__tests__",
+        "test-all": "jest --detectOpenHandles --testPathPattern=./__all_tests__/__tests__",
+        "build": "rm -rf ./puppeteer.data.store && rm -rf ./__tests__/__snapshots__ ",
+        "visual-regression:check": "node checkIfVisualRegressionExists.js"
+    },
+    "jest": {
+        "collectCoverage": false,
+        "testEnvironment": "node",
+        "moduleFileExtensions": [
+            "js"
+        ],
+        "testMatch": [
+            "**/__tests__/*.js"
+        ],
+        "transform": {
+            ".*\\.js$": "babel-jest"
+        },
+        "modulePaths": [
+            "node_modules"
+        ],
+        "reporters": [
+            "default",
+            "jest-screenshot/reporter"
+        ],
+        "setupFilesAfterEnv": [
+            "./jest-setup.js"
+        ]
+    },
+    "devDependencies": {
+        "babel-jest": "^25.1.0",
+        "babel-polyfill": "^6.26.0",
+        "babel-preset-env": "^1.6.1",
+        "child_process": "^1.0.2",
+        "fs": "^0.0.1-security",
+        "jest": "^25.1.0",
+        "jest-circus": "^27.5.1",
+        "jest-screenshot": "^0.3.5",
+        "puppeteer": "^13.5.1"
+    }
+}
