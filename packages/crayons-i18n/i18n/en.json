@@ -75,7 +75,7 @@
     "primaryFieldTag": "Primary Field",
     "primaryFieldHeader": "Primary Field",
     "primaryFieldNameHint": "This is the object's primary field and cannot be deleted. It is meant to be a unique representation of each record and will appear in lookups and search results.",
-    "deleteFieldTitle": "Are you sure you want to delete the field",
+    "deleteFieldTitle": "Are you sure you want to delete the field {{label}} ?",
     "deleteFieldMessage": "This field will be permanently deleted and all associated data will be lost. Do you still want to continue?",
     "deleteFieldSubmit": "Delete",
     "searchFields": "Search Fields",
