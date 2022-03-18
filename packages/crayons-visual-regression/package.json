@@ -26,6 +26,7 @@
         "test":"node checkIfVisualRegressionExists.js",
         "test-each": "jest --testPathPattern=./__spec_tests__/__tests__",
         "test-all": "jest --testPathPattern=./__all_tests__/__tests__",
+        "update:snapshots": "jest -u",
         "build": "rm -rf ./puppeteer.data.store && rm -rf ./__tests__/__snapshots__ "
     },
     "jest": {
