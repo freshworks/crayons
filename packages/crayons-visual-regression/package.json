@@ -23,11 +23,12 @@
     "license": "MIT",
     "author": "Freshworks Inc",
     "scripts": {
-        "test":"node checkIfVisualRegressionExists.js",
+        "checkIfVisualRegressionExists":"node checkIfVisualRegressionExists.js",
+        "test": "npm run test-all && npm run checkIfVisualRegressionExists",
         "test-each": "jest --testPathPattern=./__spec_tests__/__tests__",
         "test-all": "jest --testPathPattern=./__all_tests__/__tests__",
-        "update:snapshots": "jest -u",
-        "build": "rm -rf ./puppeteer.data.store && rm -rf ./__tests__/__snapshots__ "
+        "update:snapshots": "jest -u --testPathPattern=./__spec_tests__",
+        "build": "rm -rf ./puppeteer.data.store"
     },
     "jest": {
         "collectCoverage": false,

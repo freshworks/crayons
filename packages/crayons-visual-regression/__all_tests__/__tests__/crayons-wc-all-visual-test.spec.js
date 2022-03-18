@@ -35,7 +35,7 @@ const setup = {
     'search-dropdownbutton',
     'splitn-searchable-dropdownbutton',
   ],
-  'formatdate': ['date-formats', 'hour-formats', 'locale-formats'],
+  /*   'formatdate': ['date-formats', 'hour-formats', 'locale-formats'], */
   'formatnumber': ['default', 'currency'],
   'icons': ['default'],
   'inline-message': ['default', 'info', 'success', 'error', 'warning'],
@@ -75,7 +75,7 @@ const setup = {
     'with-options-and-selected-key',
   ],
   'skeleton': ['default', 'card-layout'],
-  'spinner': ['default', 'small', 'medium', 'large', 'custom-color'],
+  /* 'spinner': ['default', 'small', 'medium', 'large', 'custom-color'], */
   'tab-panel': ['default'],
   'tab': ['default', 'with-html-headers'],
   'tabs': [

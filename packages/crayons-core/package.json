@@ -59,7 +59,7 @@
     "storybook:start": "wait-on -d 30000 loader/index.js && start-storybook -p 9001 -c .storybook",
     "storybook": "run-p local storybook:start",
     "test:watch": "stencil test --spec --e2e --watchAll",
-    "test": "stencil test --spec --e2e"
+    "test": "stencil test --spec --e2e --silent"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",

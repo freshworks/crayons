@@ -11,7 +11,7 @@
     "./packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --stream && npm run storybook:build && npm run docs:build && npm run storybook:run-ui-test",
+    "build": "lerna run build --stream && (npm run storybook:build & npm run docs:build)",
     "code-sanity": "npm run lint",
     "check-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --no-git-tag-version",
     "clean-changelog": "lernacleanchangelog '**'",
@@ -25,16 +25,13 @@
     "lint-staged": "lint-staged",
     "release": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag canary",
     "release:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag canary --yes",
-    "storybook:build": "npm run storybook:stop-ui-test && rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
+    "storybook:build": "rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
-    "storybook-dist:serve": "cd docs/storybook-dist && http-server -p 8082",
-    "storybook:node": "npm run kill:pid && node --max_old_space_size=1024 ./docs/storybook_child_process.js",
-    "kill:pid": "lsof -nti:8082 | xargs kill -9",
-    "storybook:run-ui-test": "npm run storybook:stop-ui-test & ((concurrently 'npm run storybook:node' 'npm run visual-regression-test'  --success all) & echo $! > .ui-test-pid)",
-    "storybook:stop-ui-test": "(npm run kill:pid || true) && (kill $(cat .ui-test-pid) || true)",
-    "visual-regression-test": "cd packages/crayons-visual-regression && npm run test-all",
-    "ifVisualRegressionExists": "npm --prefix ./packages/crayons-visual-regression/ run test",
-    "test": "lerna run test --stream",
+    "storybook-dist:serve": "npm run kill:pid-8082 && cd docs/storybook-dist && http-server -s -p 8082",
+    "kill:pid-8082": "npx kill-port 8082",
+    "storybook:stop-ui-test": "kill $(cat .ui-test-pid) || true",
+    "visual-regressions:count": "npm --prefix ./packages/crayons-visual-regression/ run test",
+    "test": "(concurrently 'npm run storybook-dist:serve' 'lerna run test --stream' --success all) & echo $! > .ui-test-pid",
     "update-lock": "sh ./release.sh",
     "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push && npm run clean-changelog && npm run update-lock",
     "update-version:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --yes && npm run clean-changelog && npm run update-lock"
@@ -113,7 +110,7 @@
       "pre-push": "npm run test",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run ifVisualRegressionExists && npm run lint-staged"
+      "pre-commit": "npm run visual-regressions:count && npm run lint-staged"
     }
   },
   "lint-staged": {
