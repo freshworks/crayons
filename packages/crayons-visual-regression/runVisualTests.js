@@ -3,7 +3,7 @@ const { exec } = require('child_process');
 
 if (fs.existsSync('./.ui-test-flag')) {
   exec(
-    'npm run checkIfTestsSnapshotsExists && npm run test-all && npm run checkIfVisualRegressionExists',
+    'npm run checkIfTestsSnapshotsExists && npm run test-all',
     (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
