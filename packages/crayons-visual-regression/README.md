@@ -28,7 +28,8 @@ Storybook is a powerful tool for visualizing components and it is a perfect envi
         3. "update-snapshots:spec": "jest -u",
    In case you only want to update snapshots for few components, then run the command as follows:-
         1. npm run update-snapshots:spec crayons-wc-visual-test-datatable.spec.js crayons-wc-visual-test-skeleton.spec.js ... ... ...
-
+8. Running Visual Regression Tests for Crayons, requires you to first run `npm run storybook:build`. However this is done during lerna:build but one should 
+   do it prior to every checkin.
 ## Cache Resources in Puppeteer with userDataDir
 By default, when starting a new browser session Puppeteer does not reuse CSS / JS / Images assets that were downloaded during a previous session. This means that everything gets loaded from scratch with a new browser session.
 
