@@ -30,8 +30,8 @@
     "storybook-dist:serve": "npm run kill:pid-8082 && cd docs/storybook-dist && http-server -s -p 8082",
     "kill:pid-8082": "npx kill-port 8082",
     "storybook:stop-ui-test": "kill $(cat .ui-test-pid) || true",
-    "visual-regressions:count": "npm --prefix ./packages/crayons-visual-regression/ run test",
-    "test": "(concurrently 'npm run storybook-dist:serve' 'lerna run test --stream' --success all) & echo $! > .ui-test-pid",
+    "visual-regressions:count": "npm --prefix ./packages/crayons-visual-regression/ run checkIfVisualRegressionExists",
+    "test": "(concurrently 'npm run storybook-dist:serve' 'lerna run test --stream' --success first) & echo $! > .ui-test-pid",
     "update-lock": "sh ./release.sh",
     "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push && npm run clean-changelog && npm run update-lock",
     "update-version:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --yes && npm run clean-changelog && npm run update-lock"
