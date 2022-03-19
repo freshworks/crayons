@@ -20,7 +20,14 @@ Storybook is a powerful tool for visualizing components and it is a perfect envi
    achieved it using `jest-screenshot-reporter package`.
 6. After running your tests ,if there is a visual regression found a report will be created.In order to see the report, just go to 
    `__crayonsDIR__/visual-regression-tests/jest-screenshot-report` path and open the report via `http-server`. You can see the regressions and correct them. 
-7. After correcting again run the same command with `jest -u`. `-u` option helps you to save new snapshots that will be used for further integrations.
+7. After correcting the errors , again run the same command with `jest -u`. `-u` option helps you to save new snapshots that will be used for further  
+   integrations.
+   The commands are mentioned in package.json as :-
+        1. "update-snapshots:all": "jest -u --testPathPattern=./__all_tests__/__tests__",
+        2. "update-snapshots:each": "jest -u --testPathPattern=./__spec_test/__tests__",
+        3. "update-snapshots:spec": "jest -u",
+   In case you only want to update snapshots for few components, then run the command as follows:-
+        1. npm run update-snapshots:spec crayons-wc-visual-test-datatable.spec.js crayons-wc-visual-test-skeleton.spec.js ... ... ...
 
 ## Cache Resources in Puppeteer with userDataDir
 By default, when starting a new browser session Puppeteer does not reuse CSS / JS / Images assets that were downloaded during a previous session. This means that everything gets loaded from scratch with a new browser session.
