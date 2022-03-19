@@ -28,7 +28,9 @@
         "test": "npm run checkIfTestsSnapshotsExists && npm run test-all && npm run checkIfVisualRegressionExists",
         "test-each": "jest --testPathPattern=./__spec_tests__/__tests__",
         "test-all": "jest --testPathPattern=./__all_tests__/__tests__",
-        "update:snapshots": "jest -u --testPathPattern=./__all_tests__/__tests__",
+        "update-snapshots:all": "jest -u --testPathPattern=./__all_tests__/__tests__",
+        "update-snapshots:each": "jest -u --testPathPattern=./__spec_test/__tests__",
+        "update-snapshots:spec": "jest -u",
         "build": "rm -rf ./puppeteer.data.store"
     },
     "jest": {

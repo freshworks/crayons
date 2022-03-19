@@ -31,8 +31,7 @@
     "kill:pid-8082": "npx kill-port 8082",
     "storybook:stop-ui-test": "kill $(cat .ui-test-pid) || true",
     "visual-regressions:count": "npm --prefix ./packages/crayons-visual-regression/ run checkIfVisualRegressionExists",
-    "test1": "(concurrently 'npm run storybook-dist:serve' 'lerna run test --stream' --success all) & echo $! > .ui-test-pid",
-    "test": "( (sleep 5 && lerna run test --stream)  & npm run storybook-dist:serve )",
+    "test": "npm run storybook-dist:serve & ( sleep 5 && lerna run test --stream )",
     "update-lock": "sh ./release.sh",
     "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push && npm run clean-changelog && npm run update-lock",
     "update-version:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --yes && npm run clean-changelog && npm run update-lock"
@@ -86,6 +85,7 @@
     "lit-html": "^1.3.0",
     "prepend-file": "^2.0.0",
     "prettier": "^2.4.1",
+    "start-server-and-test": "^1.14.0",
     "stylelint": "^13.13.1",
     "stylelint-a11y": "^1.2.3",
     "stylelint-config-recommended": "^5.0.0",
