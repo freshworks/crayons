@@ -16,7 +16,7 @@
     "check-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --no-git-tag-version",
     "clean-changelog": "lernacleanchangelog '**'",
     "docs:build": "node www/scripts/reorganize.js && vuepress build www",
-    "docs:dev": "lerna run build --stream && node www/scripts/reorganize.js && vuepress dev www",
+    "docs:dev": "node www/scripts/reorganize.js && vuepress dev www",
     "lint": "npm run lint:ts && npm run lint:styles",
     "lint:fix": "npm run lint:ts:fix && npm run lint:styles",
     "lint:styles": "stylelint '**/*.scss' '**/.vuepress/**/*.vue'",

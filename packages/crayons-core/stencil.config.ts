@@ -4,7 +4,11 @@ import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';
 
+import { version } from '../../package.json';
+
 const packageName = 'crayons';
+const currentVersion = `v${version?.split('.')[0]}`;
+
 export const config: Config = {
   autoprefixCss: true,
   namespace: packageName,
@@ -24,7 +28,7 @@ export const config: Config = {
         the website.
       */
       type: 'docs-readme',
-      dir: '../../www/core',
+      dir: '../../www/crayons-core',
       footer: 'Built with ❤ at Freshworks',
     },
     {
@@ -43,7 +47,7 @@ export const config: Config = {
     },
     {
       type: 'www',
-      dir: `../../www/.vuepress/public/${packageName}/`,
+      dir: `../../www/.vuepress/public/${currentVersion}/${packageName}/`,
     },
     {
       type: 'docs-json',

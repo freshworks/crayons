@@ -36,13 +36,19 @@
 </template>
 
 <script>
-import constants from '../constants';
+import constants, { versions, currentVersion } from '../constants';
 
 const { urlMap } = constants;
+
+console.log(versions, currentVersion);
 
 export default {
   name: 'landingPage',
   data() {
+    let path = location?.pathname?.split('/')?.[1];
+    if (!versions.includes(path)) {
+      path = currentVersion;
+    }
     return {
       welcomeLinks: [
         {
@@ -50,7 +56,7 @@ export default {
           title: 'Get Started',
           description:
             'Craft great apps with an open-source and framework-agnostic component library.',
-          link: urlMap.docs,
+          link: `/${path}/${urlMap.docs}`,
         },
         {
           name: 'sample-app-repo',

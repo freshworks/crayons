@@ -1,3 +1,4 @@
 /components*
-/.vuepress/public/crayons*
+/.vuepress/public/v3*
 /.vuepress/public/css*
+/v3/components*

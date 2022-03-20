@@ -15,7 +15,8 @@
       "noUnusedLocals": true,
       "noUnusedParameters": true,
       "noImplicitReturns": true,
-      "skipLibCheck": true
+      "skipLibCheck": true,
+      "resolveJsonModule": true
     },
     "include": ["packages/**/*.ts", "packages/**/*.tsx"],
     "exclude": ["node_modules"]

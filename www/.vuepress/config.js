@@ -1,43 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 
-const version = require("../../package.json").version
+const versions = ['v2', 'v3'];
 
 // Retrieve list of components for the sidebar config
-const components = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../components.json'))
-);
+// const components = JSON.parse(
+//   fs.readFileSync(path.resolve(__dirname, '../components.json'))
+// );
 
-// Generate array of head-scripts based on the www builds of the
-// packages that have landed in the public directory
 const headScripts = [];
-const wwwBuilds = fs
-  .readdirSync(path.resolve(__dirname, 'public'))
-  .filter((dir) => {
-    return /^(\.\/)?crayons/.test(dir);
-  });
-for (const wwwBuild of wwwBuilds) {
-  headScripts.push([
-    'script',
-    { type: 'module', src: `/${wwwBuild}/build/${wwwBuild}.esm.js` },
-  ]);
-  headScripts.push([
-    'script',
-    { nomodule: '', src: `/${wwwBuild}/build/${wwwBuild}.js` },
-  ]);
-}
 headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
-
-const getUtils = () =>
-  [
-    'typography',
-    'spacing',
-    'border',
-    'layout',
-    'card',
-    'color',
-    'examples',
-  ].map((util) => `/css-utils/${util}/`);
 
 const getTags = () => [
   'Web Components',
@@ -54,65 +26,41 @@ const getTags = () => [
 
 const websiteUrl = 'https://crayons-v3.netlify.app';
 
+// Load sidebar based on the route
+const sidebarVersions = versions.reduce(
+  (sidebars, version) => ({
+    ...sidebars,
+    [`/${version}/`]: require(`../${version}/sidebar.js`),
+  }),
+  {}
+);
+
 module.exports = {
   title: 'Crayons',
-  base: '/',
   description: 'A refreshed design library for the Freshworks Developers.',
   dest: 'www-dist',
   head: [...headScripts, ['link', { rel: 'icon', href: '/favicon.png' }]],
   themeConfig: {
     lastUpdated: 'Last Updated',
     smoothScroll: true,
-    sidebar: [
-      {
-        title: 'Introduction',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: ['/introduction/', '/introduction/migrating-to-v3/'],
-      },
-      {
-        title: 'Components',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: components,
-      },
-      {
-        title: 'CSS Utils',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: getUtils(),
-      },
-      {
-        title: 'Utilities',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: ['utilities/i18n/'],
-      },
-      {
-        title: 'Frameworks',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: [
-          '/frameworks/react/',
-          '/frameworks/vue/',
-          '/frameworks/angular/',
-        ],
-      },
-    ],
+    sidebar: sidebarVersions,
     nav: [
       {
         text: 'Migrating to v3',
-        link: '/introduction/migrating-to-v3/',
+        link: '/v3/introduction/migrating-to-v3/',
       },
       {
-        text: `v${version?.split(".")[0]}.x`,
-        items: ['v3.x', 'v2.x'].map((version) => ({
-          text: version,
-          link: `https://crayons-v3.netlify.app/${version?.split(".")[0]}`,
+        text: `Docs`,
+        items: ['v3.x', 'v2.x'].map((v) => ({
+          text: v,
+          link: `/${v?.split('.')[0]}/`,
+          target: '_blank',
+          activeMatch: `^/${v?.split('.')[0]}`,
         })),
       },
     ],
   },
+  globalUIComponents: ['ScriptLoader'],
   plugins: [
     [
       'live',
@@ -152,6 +100,7 @@ module.exports = {
     resolve: {
       alias: {
         '@icon-assets': path.resolve(__dirname, '../../packages/crayons-icon'),
+        '@components': path.resolve(__dirname, '../v2/components'),
       },
     },
   },

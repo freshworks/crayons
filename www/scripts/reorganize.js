@@ -10,7 +10,7 @@
 
   repo-root
   |_ www
-     |_ core
+     |_ crayons-core
      |  |_ components
      |     |_ button
      |        |_ readme.md
@@ -25,6 +25,7 @@
 
   repo-root
   |_ www
+    |_ <currentVersion>
      |_ components
         |_ core
         |  |_ button
@@ -39,6 +40,8 @@
 const fsPromises = require('fs/promises');
 const path = require('path');
 const wwwRoot = path.resolve(__dirname, '..');
+const { version } = require('../../package.json');
+const currentVersion = `v${version?.split('.')[0]}`;
 
 const fetchTargets = async function () {
   const targets = [];
@@ -48,8 +51,8 @@ const fetchTargets = async function () {
     try {
       await fsPromises.readdir(path.resolve(wwwRoot, entry, 'components'));
 
-      // Skip directories which have names that start with '.' - e.g. .vuepress
-      if (!/^\./.test(entry)) {
+      // Consider only directories that start with 'crayons-' - e.g. crayons-core
+      if (/crayons-/.test(entry)) {
         targets.push(entry);
       }
     } catch (e) {
@@ -69,7 +72,7 @@ const fetchTargets = async function () {
 
 const processTargets = async function (targets) {
   const components = [];
-  const outputRoot = path.resolve(wwwRoot, 'components');
+  const outputRoot = path.resolve(wwwRoot, currentVersion, 'components');
   await fsPromises.rmdir(outputRoot, { recursive: true }); // clean-up prior builds before starting
   await fsPromises.mkdir(outputRoot);
 
@@ -110,7 +113,7 @@ const run = async function () {
   const targets = await fetchTargets();
   const components = JSON.stringify(await processTargets(targets));
   await fsPromises.writeFile(
-    path.resolve(wwwRoot, 'components.json'),
+    path.resolve(wwwRoot, currentVersion, 'components.json'),
     components
   );
 };

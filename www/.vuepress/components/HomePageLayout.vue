@@ -1,7 +1,10 @@
 <template>
   <div class="home-page-container">
-    <LandingPage />
-    <AppFooter />
+    <ClientOnly>
+      <ScriptLoader />
+      <LandingPage />
+      <AppFooter />
+    </ClientOnly>
   </div>
 </template>
 

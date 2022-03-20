@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="8px" viewBox="0 0 8 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/plus</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Icons-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons" transform="translate(-740.000000, -1336.000000)" fill="currentColor">
+            <g id="icon/plus" transform="translate(740.000000, 1336.000000)">
+                <g id="plus">
+                    <path d="M3.3,4.7 L0.7,4.7 C0.313400675,4.7 -8.8817842e-16,4.38659932 -8.8817842e-16,4 C-8.8817842e-16,3.61340068 0.313400675,3.3 0.7,3.3 L3.3,3.3 L3.3,0.7 C3.30000002,0.313400687 3.61340069,2.95026412e-08 4,2.95026412e-08 C4.38659931,2.95026412e-08 4.69999998,0.313400687 4.7,0.7 L4.7,3.3 L7.3,3.3 C7.68659932,3.3 8,3.61340068 8,4 C8,4.38659932 7.68659932,4.7 7.3,4.7 L4.7,4.7 L4.7,7.3 C4.7,7.68659932 4.38659932,8 4,8 C3.61340068,8 3.3,7.68659932 3.3,7.3 L3.3,4.7 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
