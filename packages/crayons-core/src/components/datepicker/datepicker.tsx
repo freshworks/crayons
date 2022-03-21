@@ -634,8 +634,8 @@ export class Datepicker {
 
   getSupportedYears = () => {
     const yearsArr = [];
-    if (this.maxYear < this.minYear) this.maxYear = this.minYear;
-    let year = this.minYear;
+    if (+this.maxYear < +this.minYear) this.maxYear = +this.minYear;
+    let year = +this.minYear;
     while (year <= +this.maxYear) {
       yearsArr.push(year.toString());
       year++;
