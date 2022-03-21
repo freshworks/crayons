@@ -635,7 +635,7 @@ export class Datepicker {
   getSupportedYears = () => {
     const yearsArr = [];
     if (this.maxYear < this.minYear) this.maxYear = this.minYear;
-    let year = new Date(this.minYear).getFullYear();
+    let year = this.minYear;
     while (year <= +this.maxYear) {
       yearsArr.push(year.toString());
       year++;
@@ -1298,7 +1298,7 @@ export class Datepicker {
                           <fw-select-option
                             value={year}
                             key={i}
-                            selected={year === this.year}
+                            selected={+year === +this.year}
                           >
                             {year}
                           </fw-select-option>
@@ -1386,7 +1386,7 @@ export class Datepicker {
                           <fw-select-option
                             value={year}
                             key={i}
-                            selected={year === this.year}
+                            selected={+year === +this.year}
                           >
                             {year}
                           </fw-select-option>
@@ -1426,7 +1426,7 @@ export class Datepicker {
                           <fw-select-option
                             value={year}
                             key={i}
-                            selected={year === this.toYear}
+                            selected={+year === +this.toYear}
                           >
                             {year}
                           </fw-select-option>
