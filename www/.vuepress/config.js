@@ -109,9 +109,7 @@ module.exports = {
         items: ['v3.x', 'v2.x'].map((v) => ({
           text: v,
           link: `https://crayons.freshworks.com/${
-            v !== `v${version?.split('.')[0]}.x`
-              ? `${version?.split('.')[0]}`
-              : ''
+            v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
           }`,
         })),
       },
