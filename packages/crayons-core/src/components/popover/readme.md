@@ -526,31 +526,40 @@ export default Popover;
 A simple dropdown button can be achieved as shown below.
 
 ```html live
-<fw-button-group label="Test">
-  <fw-button>Choose the sport</fw-button>
-  <fw-popover
-    id="sports-dropdown"
-    same-width="false"
-    placement="bottom-end"
-    auto-focus-on-content
-  >
-    <fw-button slot="popover-trigger" size="icon">
+<fw-popover
+  trigger="manual"
+  id="sports-dropdown"
+  same-width="false"
+  placement="bottom-start"
+  auto-focus-on-content
+>
+  <fw-button-group label="Test" slot="popover-trigger">
+    <fw-button>Choose the sport</fw-button>
+    <fw-button id="icon-btn" size="icon">
       <fw-icon
         id="chevron-icon"
         name="chevron-down"
         slot="after-label"
       ></fw-icon>
     </fw-button>
-    <fw-list-options
-      id="sports"
-      slot="popover-content"
-      searchable
-    ></fw-list-options>
-  </fw-popover>
-</fw-button-group>
+  </fw-button-group>
+  <fw-list-options
+    id="sports"
+    slot="popover-content"
+    searchable
+  ></fw-list-options>
+</fw-popover>
 <script type="application/javascript">
   var dropdown = document.getElementById('sports-dropdown');
+  var iconbtn = document.getElementById('icon-btn');
   var chevron = document.getElementById('chevron-icon');
+  iconbtn.addEventListener('click', () => {
+    if (dropdown.isOpen) {
+      dropdown.hide();
+    } else {
+      dropdown.show();
+    }
+  });
   dropdown.addEventListener('fwShow', () => {
     chevron.style.cssText = 'transform: rotate(180deg)';
   });
