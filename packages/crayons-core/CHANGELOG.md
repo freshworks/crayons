@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.38](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.37...@freshworks/crayons@3.0.0-beta.38) (2022-03-21)
+
+
+### Bug Fixes
+
+* **datepicker:** make div inline-flex to occupy only width of contents ([#488](https://github.com/freshworks/crayons/issues/488)) ([9c7b289](https://github.com/freshworks/crayons/commit/9c7b2897c33efe093c734c9b3023588a7b9dba3c))
+* **fw-form:** handle blur validation for form and fix selected year for datepicker ([#489](https://github.com/freshworks/crayons/issues/489)) ([d494f38](https://github.com/freshworks/crayons/commit/d494f3854a26b06e4c18a4a544d4b9778fe81ac2))
+
+
+
+
+
 ## [3.0.0-beta.35](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.34...@freshworks/crayons@3.0.0-beta.35) (2022-03-17)
 
 ### Bug Fixes
