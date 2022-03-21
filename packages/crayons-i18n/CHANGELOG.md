@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.7.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@1.7.1...@freshworks/crayons-i18n@1.7.2) (2022-03-21)
-
+## 1.7.2 (2022-03-21)
 
 ### Bug Fixes
 
-* **i18n-pluralize:** remove pluralize lib from crayons-i18n package ([e30a691](https://github.com/freshworks/crayons/commit/e30a691125de7c9625d7484318b762a4a82327b3))
-
-
-
-
+- **i18n-pluralize:** remove pluralize lib from crayons-i18n package ([e30a691](https://github.com/freshworks/crayons/commit/e30a691125de7c9625d7484318b762a4a82327b3))
 
 ## 1.7.1 (2022-03-21)
 
