@@ -86,6 +86,8 @@ export class Form {
   private handleBlurListener: any;
   private handleChangeListener: any;
 
+  private prevValues = {};
+
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
 
@@ -135,6 +137,7 @@ export class Form {
       generateDynamicInitialValues(formSchema, initialValues) || {};
 
     this.values = this.formInitialValues;
+    this.prevValues = this.values;
 
     const initialValuesKeys = Object.keys(initialValues);
 
@@ -204,6 +207,8 @@ export class Form {
       serializedValues = serializeForm(serializedValues, this.fields);
     }
 
+    this.prevValues = this.values;
+
     const translatedErrors = await translateErrors(this.errors, this.fields);
 
     return { values: serializedValues, errors: translatedErrors, isValid };
@@ -213,6 +218,7 @@ export class Form {
     event?.preventDefault();
     event?.stopPropagation();
     this.values = this.formInitialValues;
+    this.prevValues = this.values;
 
     let touchedState = {};
     const initialValuesKeys = Object.keys(this.initialValues);
@@ -293,7 +299,10 @@ export class Form {
     /** Validate, if user wants to validateOnBlur */
     if (this.validateOnBlur) {
       this.touched = { ...this.touched, [name]: true };
-      await this.handleValidation();
+      if (this.prevValues?.[name] !== this.values?.[name]) {
+        // validate only if the previous value is different from the current value
+        await this.handleValidation();
+      }
     }
   };
 
