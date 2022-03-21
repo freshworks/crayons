@@ -36,6 +36,7 @@ The data-source and the visual variant for the list options can be altered via t
   var standardVariant = document.getElementById('standardVariant');
   standardVariant.options = dataSource;
   standardVariant.value = ['2'];
+  standardVariant.multiple = true;
 
   var iconDataSource = [
     {
