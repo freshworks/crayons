@@ -4,7 +4,7 @@ import { createStore } from '@stencil/store';
 
 //import i18next from 'i18next';
 
-import pluralize from 'pluralize';
+//import pluralize from 'pluralize';
 
 interface i18nConfig {
   [key: string]: {
@@ -102,7 +102,7 @@ export class TranslationController {
   state: any;
   onChange: any;
   requests = new Map<string, Promise<any>>();
-  pluralize: any;
+  //pluralize: any;
 
   constructor() {
     const { state, onChange } = createStore({
@@ -112,7 +112,7 @@ export class TranslationController {
     });
     this.state = state;
     this.onChange = onChange;
-    this.pluralize = pluralize;
+    //this.pluralize = pluralize;
 
     this.onChange('lang', async (lang: string) => {
       this.fetchTranslations(lang);
