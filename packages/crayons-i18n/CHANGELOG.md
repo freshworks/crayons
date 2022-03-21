@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@1.6.3...@freshworks/crayons-i18n@1.7.0) (2022-03-21)
+
+
+### Features
+
+* **filter-i18n:** updated the value based on the new UI ([#491](https://github.com/freshworks/crayons/issues/491)) ([d50a9b1](https://github.com/freshworks/crayons/commit/d50a9b1247d22c74a2dfdd7dd9699e4d461e8799))
+
+
+
+
+
 ## 1.6.0 (2022-03-16)
 
 ### Bug Fixes
