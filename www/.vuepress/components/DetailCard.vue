@@ -68,7 +68,7 @@ export default {
       }
 
       .card-title {
-        font-family: 'National-Medium', sans-serif;
+        font-family: 'System stack', sans-serif;
         font-size: 20px;
         color: #4d4d4d;
         font-weight: 500;
@@ -76,7 +76,7 @@ export default {
       }
 
       .card-description {
-        font-family: 'National-Book', sans-serif;
+        font-family: 'System stack', sans-serif;
         color: #666;
         font-size: 15px;
         letter-spacing: 0;
@@ -85,7 +85,7 @@ export default {
       }
 
       .learn-more {
-        font-family: 'National-Medium', sans-serif;
+        font-family: 'System stack', sans-serif;
         margin-top: 10px;
 
         .learn-more-text {
@@ -125,7 +125,7 @@ export default {
     }
 
     .card-title {
-      font-family: 'National-Medium', sans-serif;
+      font-family: 'System stack', sans-serif;
       font-size: 20px;
       color: #4d4d4d;
       font-weight: 500;
@@ -133,7 +133,7 @@ export default {
     }
 
     .card-description {
-      font-family: 'National-Book', sans-serif;
+      font-family: 'System stack', sans-serif;
       color: #666;
       font-size: 15px;
       letter-spacing: 0;
@@ -142,7 +142,7 @@ export default {
     }
 
     .learn-more {
-      font-family: 'National-Medium', sans-serif;
+      font-family: 'System stack', sans-serif;
       margin-top: 10px;
 
       .learn-more-text {
@@ -196,7 +196,7 @@ export default {
         }
 
         .card-description {
-          font-family: 'National-Book', sans-serif;
+          font-family: 'System stack', sans-serif;
           color: #666;
           font-size: 1.25rem;
           letter-spacing: 0;
@@ -205,7 +205,7 @@ export default {
         }
 
         .learn-more {
-          font-family: 'National-Medium', sans-serif;
+          font-family: 'System stack', sans-serif;
           margin-top: 10px;
 
           .learn-more-text {
@@ -254,7 +254,7 @@ export default {
       }
 
       .card-description {
-        font-family: 'National-Book', sans-serif;
+        font-family: 'System stack', sans-serif;
         color: #666;
         font-size: 1.25rem;
         letter-spacing: 0;
@@ -263,7 +263,7 @@ export default {
       }
 
       .learn-more {
-        font-family: 'National-Medium', sans-serif;
+        font-family: 'System stack', sans-serif;
         margin-top: 10px;
 
         .learn-more-text {
@@ -318,7 +318,7 @@ export default {
         }
 
         .card-description {
-          font-family: 'National-Book', sans-serif;
+          font-family: 'System stack', sans-serif;
           color: #666;
           font-size: 1rem;
           letter-spacing: 0;
@@ -327,7 +327,7 @@ export default {
         }
 
         .learn-more {
-          font-family: 'National-Medium', sans-serif;
+          font-family: 'System stack', sans-serif;
           margin-top: 10px;
 
           .learn-more-text {
@@ -369,7 +369,7 @@ export default {
       }
 
       .card-description {
-        font-family: 'National-Book', sans-serif;
+        font-family: 'System stack', sans-serif;
         color: #666;
         font-size: 1rem;
         letter-spacing: 0;
@@ -378,7 +378,7 @@ export default {
       }
 
       .learn-more {
-        font-family: 'National-Medium', sans-serif;
+        font-family: 'System stack', sans-serif;
         margin-top: 10px;
 
         .learn-more-text {

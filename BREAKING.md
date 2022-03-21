@@ -290,7 +290,6 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   | Old Variable | Status  | New Variable    |
   | ------------ | ------- | --------------- |
   | --icon-color | renamed | --fw-icon-color |
-  |              | added   | --fw-icon-size  |
 
 #### Input
 
