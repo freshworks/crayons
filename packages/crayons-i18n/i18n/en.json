@@ -126,11 +126,10 @@
     }
   },
   "filters": {
-    "title": "Filter",
-    "addFilter": "Add Filter",
+    "addFilter": "+ Add Another Condition",
     "noFilter": "You have not added any filters yet",
     "validation": {
-      "required": "Required Field",
+      "required": "Value is required",
       "minMax": "Must be greater than {{fromValue}}"
     },
     "placeholder": {
