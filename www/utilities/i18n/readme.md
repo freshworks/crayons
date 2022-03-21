@@ -119,10 +119,14 @@ TranslationController.t('key', { world: 'great' });
 You can pluralize and singularize any word using the below:
 
 - `pluralize(word: string, count: number): string`
+- `pluralize.singular(word: string): string`
 
 ```
 TranslationController.pluralize('hotel', 2); 
 // -> "hotels"
+
+TranslationController.pluralize.singular('hotels'); 
+// -> "hotel"
 ```
 
 - `pluralize.isSingular`, `pluralize.isPlural` methods can be used to find if the given word is singular or plural
