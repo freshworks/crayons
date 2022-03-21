@@ -112,3 +112,25 @@ Keys, by default, are strings surrounded by curly brackets:
 TranslationController.t('key', { world: 'great' });
 // -> "hello world"
 ```
+
+
+### Pluralize
+
+You can pluralize and singularize any word using the below:
+
+- `pluralize(word: string, count: number): string`
+
+```
+TranslationController.pluralize('hotel', 2); 
+// -> "hotels"
+```
+
+- `pluralize.isSingular`, `pluralize.isPlural` methods can be used to find if the given word is singular or plural
+
+```
+TranslationController.pluralize.isPlural(('hotels'); 
+// -> true
+
+TranslationController.pluralize.isSingular(('hotel'); 
+// -> true
+```
