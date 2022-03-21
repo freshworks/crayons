@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@1.7.0...@freshworks/crayons-i18n@1.7.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* **i18n-pluralize:** add pluralize util as part of i18n ([#492](https://github.com/freshworks/crayons/issues/492)) ([677b251](https://github.com/freshworks/crayons/commit/677b251c3dc9768f1307a981acdbfb3f4e18b1b9))
+
+
+
+
+
 ## 1.7.0 (2022-03-21)
 
 ### Features
