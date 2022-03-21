@@ -1226,7 +1226,7 @@ export class Datepicker {
             onKeyUp={() => (this.showDatePicker = true)}
             slot='popover-trigger'
             style={{
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
             }}
           >
