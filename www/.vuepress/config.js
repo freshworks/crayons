@@ -52,7 +52,7 @@ const getTags = () => [
   'Freshworks Development Kit',
 ];
 
-const websiteUrl = 'https://crayons-v3.netlify.app';
+const websiteUrl = 'https://crayons.freshworks.com';
 
 module.exports = {
   title: 'Crayons',

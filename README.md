@@ -3,7 +3,7 @@
 
 
 # 🖍️ Crayons
-[Freshworks Crayons](https://crayons-v3.netlify.app) is a library of UI components that help create an intuitive and uniform user interface for all your apps. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
+[Freshworks Crayons](https://crayons.freshworks.com) is a library of UI components that help create an intuitive and uniform user interface for all your apps. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
 
 ## Packages
 
@@ -19,7 +19,7 @@ Please refer to the usage guidelines [here](https://crayons.freshworks.com/compo
 
 ### Documentation
 
-You can refer to the documentation on the [Crayons Website](https://crayons-v3.netlify.app).
+You can refer to the documentation on the [Crayons Website](https://crayons.freshworks.com).
 
 
 ### Framework Wrappers
