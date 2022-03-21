@@ -7,11 +7,11 @@
   * Existing components have been modified to ensure they are more flexible and customisable by modifying `props` , `events` , `methods` and `css variables`.
   * Tree shakable bundle for components
   * Style customisation through CSS Variables
-  * Framework Wrappers for [React](https://crayons-v3.netlify.app/frameworks/react)
+  * Framework Wrappers for [React](https://crayons.freshworks.com/frameworks/react)
   * Code samples in React for all the components
-  * Set of CSS [utilities](https://crayons-v3.netlify.app/introduction/#adding-css-utils) to speed up development 
-  * [i18n](https://crayons-v3.netlify.app/utilities/i18n) support
-  * icon [library](https://crayons-v3.netlify.app/components/icon) with support for using external icons
+  * Set of CSS [utilities](https://crayons.freshworks.com/introduction/#adding-css-utils) to speed up development 
+  * [i18n](https://crayons.freshworks.com/utilities/i18n) support
+  * icon [library](https://crayons.freshworks.com/components/icon) with support for using external icons
   * a11y support
 ---  
 <br>
@@ -101,7 +101,7 @@ Below are the changes w.r.t global css variables in v3
 | --font-size-20         | removed |              |
 | --font-size-20         | removed |              |
 
-To check about the css variables used in each components please check the official documentation page for the components [here](https://crayons-v3.netlify.app/components)
+To check about the css variables used in each components please check the official documentation page for the components [here](https://crayons.freshworks.com/components)
 
 ### Input Control Events
 

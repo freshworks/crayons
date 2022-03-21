@@ -15,7 +15,7 @@
 
 ### Installation
 
-Please refer to the usage guidelines [here](https://crayons-v3.netlify.app/components).
+Please refer to the usage guidelines [here](https://crayons.freshworks.com/components).
 
 ### Documentation
 
@@ -24,7 +24,7 @@ You can refer to the documentation on the [Crayons Website](https://crayons-v3.n
 
 ### Framework Wrappers
 
-Crayons provides a wrapper for web components for various `Frontend frameworks`. At present a wrapper for **React** is available. For more information, check [here](https://crayons-v3.netlify.app/frameworks/react)
+Crayons provides a wrapper for web components for various `Frontend frameworks`. At present a wrapper for **React** is available. For more information, check [here](https://crayons.freshworks.com/frameworks/react)
 
 
 ### Development and Contribution

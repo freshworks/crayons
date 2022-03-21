@@ -34,7 +34,7 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 
 ## Version 3.x
 
-- [Documentation](https://crayons-v3.netlify.app/)
+- [Documentation](https://crayons.freshworks.com/)
 
 ---
 
@@ -110,7 +110,7 @@ Below are the changes w.r.t global css variables in v3
 | --font-size-20         | removed |              |
 | --font-size-20         | removed |              |
 
-To check about the css variables used in each components please check the official documentation page for the components [here](https://crayons-v3.netlify.app/components)
+To check about the css variables used in each components please check the official documentation page for the components [here](https://crayons.freshworks.com/components)
 
 ### Input Control Events
 
@@ -277,11 +277,11 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
 
 #### Icon
 
-Icons architecture has been redesigned and a new package `@freshworks/crayons-icon` has been created. To know more refer [here](https://crayons-v3.netlify.app/components/core/icon)
+Icons architecture has been redesigned and a new package `@freshworks/crayons-icon` has been created. To know more refer [here](https://crayons.freshworks.com/components/core/icon)
 
 - Properties
 
-  `name` property's value must be a valid svg Name in the Crayons-Icon set. For the exhaustive list of icons and usage refer [here](https://crayons-v3.netlify.app/components/core/icon/#crayons-icon-assets)
+  `name` property's value must be a valid svg Name in the Crayons-Icon set. For the exhaustive list of icons and usage refer [here](https://crayons.freshworks.com/components/core/icon/#crayons-icon-assets)
 
 - CSS Variables
 

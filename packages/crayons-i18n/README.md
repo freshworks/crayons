@@ -18,7 +18,7 @@
 
 ### Documentation
 
-The documentation is published [here](https://crayons-v3.netlify.app/utilities/i18n)
+The documentation is published [here](https://crayons.freshworks.com/utilities/i18n)
 
 ---
 

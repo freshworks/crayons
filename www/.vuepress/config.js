@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const version = require("../../package.json").version
+const version = require('../../package.json').version;
 
 // Retrieve list of components for the sidebar config
 const components = JSON.parse(
@@ -105,10 +105,14 @@ module.exports = {
         link: '/introduction/migrating-to-v3/',
       },
       {
-        text: `v${version?.split(".")[0]}.x`,
-        items: ['v3.x', 'v2.x'].map((version) => ({
-          text: version,
-          link: `https://crayons-v3.netlify.app/${version?.split(".")[0]}`,
+        text: `v${version?.split('.')[0]}.x`,
+        items: ['v3.x', 'v2.x'].map((v) => ({
+          text: v,
+          link: `https://crayons.freshworks.com/${
+            v !== `v${version?.split('.')[0]}.x`
+              ? `${version?.split('.')[0]}`
+              : ''
+          }`,
         })),
       },
     ],
