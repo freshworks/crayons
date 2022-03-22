@@ -70,8 +70,7 @@ export class Textarea {
   /**
    * Specifies the way in which the text area can be resized
    */
-  @Prop({ reflect: true }) resize: 'none' | 'both' | 'horizontal' | 'vertical' =
-    'both';
+  @Prop() resize: 'none' | 'both' | 'horizontal' | 'vertical' = 'both';
   /**
    * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
