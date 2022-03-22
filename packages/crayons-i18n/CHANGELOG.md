@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@1.7.2...@freshworks/crayons-i18n@1.7.3) (2022-03-22)
+
+
+### Bug Fixes
+
+* **fb-coui:** Style fixes, i18n interpolate strings for form builder, added resize property for text area component ([#498](https://github.com/freshworks/crayons/issues/498)) ([6a47ea1](https://github.com/freshworks/crayons/commit/6a47ea14b329d266d1ce794d8f9067322ff85e53))
+
+
+
+
+
 ## 1.7.2 (2022-03-21)
 
 ### Bug Fixes
