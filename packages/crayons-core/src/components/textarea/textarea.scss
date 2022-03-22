@@ -118,16 +118,16 @@ $warning-color: $color-casablanca-300;
 }
 
 ::placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
   opacity: 1;
 }
 
 :-ms-input-placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
 }
 
 ::-ms-input-placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
 }
 
 .responsive {
