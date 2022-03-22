@@ -3,18 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.42](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.41...@freshworks/crayons@3.0.0-beta.42) (2022-03-22)
-
+## [3.0.0-beta.42](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.41...@freshworks/crayons@3.0.0-beta.42) (2022-03-22)
 
 ### Bug Fixes
 
-* **fb-coui:** Style fixes, i18n interpolate strings for form builder, added resize property for text area component ([#498](https://github.com/freshworks/crayons/issues/498)) ([6a47ea1](https://github.com/freshworks/crayons/commit/6a47ea14b329d266d1ce794d8f9067322ff85e53))
-* **fw-select:** prevents the dropdown from opening on removing tag in multi-select ([#497](https://github.com/freshworks/crayons/issues/497)) ([8c7989b](https://github.com/freshworks/crayons/commit/8c7989bfedb9b1d7093e2135120704a0d582ed42))
-* **modal:** hideFooter prop working for custom footer ([#495](https://github.com/freshworks/crayons/issues/495)) ([e39a14f](https://github.com/freshworks/crayons/commit/e39a14fa3c1ff5ea145123551f725dbb21f2c7e5))
-
-
-
-
+- **fb-coui:** Style fixes, i18n interpolate strings for form builder, added resize property for text area component ([#498](https://github.com/freshworks/crayons/issues/498)) ([6a47ea1](https://github.com/freshworks/crayons/commit/6a47ea14b329d266d1ce794d8f9067322ff85e53))
+- **fw-select:** prevents the dropdown from opening on removing tag in multi-select ([#497](https://github.com/freshworks/crayons/issues/497)) ([8c7989b](https://github.com/freshworks/crayons/commit/8c7989bfedb9b1d7093e2135120704a0d582ed42))
+- **modal:** hideFooter prop working for custom footer ([#495](https://github.com/freshworks/crayons/issues/495)) ([e39a14f](https://github.com/freshworks/crayons/commit/e39a14fa3c1ff5ea145123551f725dbb21f2c7e5))
 
 ## [3.0.0-beta.38](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.37...@freshworks/crayons@3.0.0-beta.38) (2022-03-21)
 
