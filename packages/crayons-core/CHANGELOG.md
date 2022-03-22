@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0-beta.43](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.42...@freshworks/crayons@3.0.0-beta.43) (2022-03-22)
-
+## [3.0.0-beta.43](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.42...@freshworks/crayons@3.0.0-beta.43) (2022-03-22)
 
 ### Bug Fixes
 
-* **textarea:** updated styling for placeholder in textarea ([f993670](https://github.com/freshworks/crayons/commit/f9936704bc98a2be38f4a1476faf4a10f7a01828))
-
-
-
-
+- **textarea:** updated styling for placeholder in textarea ([f993670](https://github.com/freshworks/crayons/commit/f9936704bc98a2be38f4a1476faf4a10f7a01828))
 
 ## [3.0.0-beta.42](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.41...@freshworks/crayons@3.0.0-beta.42) (2022-03-22)
 

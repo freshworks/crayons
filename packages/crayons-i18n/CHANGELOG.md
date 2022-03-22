@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.7.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@1.7.3...@freshworks/crayons-i18n@1.7.4) (2022-03-22)
-
+## 1.7.4 (2022-03-22)
 
 ### Bug Fixes
 
-* **textarea:** updated styling for placeholder in textarea ([f993670](https://github.com/freshworks/crayons/commit/f9936704bc98a2be38f4a1476faf4a10f7a01828))
-
-
-
-
+- **textarea:** updated styling for placeholder in textarea ([f993670](https://github.com/freshworks/crayons/commit/f9936704bc98a2be38f4a1476faf4a10f7a01828))
 
 ## 1.7.3 (2022-03-22)
 
