@@ -17,7 +17,7 @@ const runTestsInBand = (component, setup) => {
           await global.page.goto(
             `http://localhost:8082/iframe.html?id=${component}${variantPrefix}`,
             {
-              waitUntil: 'networkidle0',
+              waitUntil: 'networkidle2',
               timeout: 654321,
             }
           );
