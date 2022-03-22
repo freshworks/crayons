@@ -26,8 +26,8 @@
         "checkIfVisualRegressionExists":"node checkIfVisualRegressionExists.js",
         "checkIfTestsSnapshotsExists":"node checkIfSnapshotsExists.js",
         "test": "npm run checkIfTestsSnapshotsExists && npm run test-each && npm run checkIfVisualRegressionExists",
-        "test-each": "jest --detectOpenHandles --testPathPattern=./__spec_tests__/__tests__",
-        "test-all": "jest --testPathPattern=./__all_tests__/__tests__",
+        "test-each": "jest --detectOpenHandles --maxWorkers=50% --testPathPattern=./__spec_tests__/__tests__",
+        "test-all": "jest --maxWorkers=50% --testPathPattern=./__all_tests__/__tests__",
         "update-snapshots:all": "jest -u --testPathPattern=./__all_tests__/__tests__",
         "update-snapshots:each": "jest -u --testPathPattern=./__spec_test/__tests__",
         "update-snapshots:spec": "jest -u",
@@ -50,7 +50,8 @@
         ],
         "reporters": [
             "default",
-            "jest-screenshot/reporter"
+            "jest-screenshot/reporter",
+            "jest-github-reporter"
         ],
         "setupFilesAfterEnv": [
             "./jest-setup.js"
