@@ -54,10 +54,10 @@
   "formBuilder": {
     "fieldRequired": "Required when submitting the form",
     "fieldRequiredTag": "Required",
-    "fieldUnique": "Accept unique values",
+    "fieldUnique": "Accept unique value for every record",
     "fieldUniqueHoverText": "If set, the system will not let two records have the same value for the field. Please note that this behaviour cannot be updated once the field is created.",
     "fieldUniqueTag": "Unique",
-    "fieldFilter": "Display in filters",
+    "fieldFilter": "Use this field to filter records",
     "fieldFilterHoverText": "If set, you can filter your records list view using this field. Please note that this behaviour cannot be updated once the field is created.",
     "fieldFilterTag": "Filterable",
     "fieldTypeRelationship": "Lookup Relationship",
