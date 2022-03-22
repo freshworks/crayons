@@ -51,6 +51,10 @@ export class ModalFooter {
    */
   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   @Prop() close: any = () => {};
+  /**
+   * Function to call on close of modal
+   */
+  @Prop() hideFooter = false;
 
   /**
    * lifecycle event, called once just after the component is first connected to the DOM
@@ -67,26 +71,28 @@ export class ModalFooter {
    */
   render(): JSX.Element {
     return (
-      <div class='modal-footer-container'>
-        <div class='modal-footer'>
-          {this.custom ? (
-            <slot></slot>
-          ) : (
-            <span>
-              <fw-button color='secondary' onClick={() => this.close()}>
-                {this.cancelText}
-              </fw-button>
-              <fw-button
-                color={this.submitColor}
-                disabled={this.submitDisabled}
-                onClick={() => this.submit()}
-              >
-                {this.submitText}
-              </fw-button>
-            </span>
-          )}
+      this.hideFooter || (
+        <div class='modal-footer-container'>
+          <div class='modal-footer'>
+            {this.custom ? (
+              <slot></slot>
+            ) : (
+              <span>
+                <fw-button color='secondary' onClick={() => this.close()}>
+                  {this.cancelText}
+                </fw-button>
+                <fw-button
+                  color={this.submitColor}
+                  disabled={this.submitDisabled}
+                  onClick={() => this.submit()}
+                >
+                  {this.submitText}
+                </fw-button>
+              </span>
+            )}
+          </div>
         </div>
-      </div>
+      )
     );
   }
 }

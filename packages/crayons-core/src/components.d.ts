@@ -952,6 +952,10 @@ export namespace Components {
          */
         "close": any;
         /**
+          * Function to call on close of modal
+         */
+        "hideFooter": boolean;
+        /**
           * Function to call on submit of modal
          */
         "submit": any;
@@ -3205,6 +3209,10 @@ declare namespace LocalJSX {
           * Function to call on close of modal
          */
         "close"?: any;
+        /**
+          * Function to call on close of modal
+         */
+        "hideFooter"?: boolean;
         /**
           * Function to call on submit of modal
          */
