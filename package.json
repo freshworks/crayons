@@ -4,8 +4,8 @@
   "description": "Crayons Packages comprising of Design system library using web components, icon library and i18n library",
   "main": "index.js",
   "engines": {
-    "node": ">=14.7.0",
-    "npm": ">=7.0.0"
+    "node": ">=14.17.0",
+    "npm": ">=7.24.1"
   },
   "workspaces": [
     "./packages/*"
