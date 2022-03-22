@@ -551,6 +551,14 @@ export class Select {
     );
   }
 
+  @Watch('disabled')
+  disabledWatcher(disabled: boolean): void {
+    const options = this.dataSource;
+    options.map((option) => (option.disabled = disabled));
+    // updating the object to retrigger
+    this.dataSource = [...options];
+  }
+
   @Watch('isExpanded')
   expandWatcher(expanded: boolean): void {
     if (this.variant === 'button') {
