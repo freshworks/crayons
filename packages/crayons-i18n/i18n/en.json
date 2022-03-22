@@ -116,13 +116,14 @@
       "duplicate": "Dropdown choice already exists!",
       "minimum": "Enter a minimum of one choice!",
       "formErrors": "Form contains errors!",
-      "fieldNameExists": "A field with the same label already exists!"
+      "fieldNameExists": "There is another field with the same label in this custom object. Please use a different label.",
+      "deleteDropDownChoice": "Deleting a choice will impact related records"
     },
     "maximumLimits": {
-      "filterable": "Maximum of 25 fields can be used to filter records in the list view.",
-      "unique": "Maximum of 5 fields can be marked as unique.",
-      "fields": "Reached maximum limit of 100 fields. Delete an existing field to create a new one.",
-      "lookups": "Reached maximum limit of 5 lookup fields. Delete an existing lookup field to create a new one."
+      "filterable": "Maximum of {{count}} fields can be used to filter records in the list view.",
+      "unique": "Maximum of {{count}} fields can be marked as unique.",
+      "fields": "Reached maximum limit of {{count}} fields. Delete an existing field to create a new one.",
+      "lookups": "Reached maximum limit of {{count}} lookup fields. Delete an existing lookup field to create a new one."
     }
   },
   "filters": {
