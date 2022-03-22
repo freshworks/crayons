@@ -173,8 +173,7 @@ export class Modal {
       this.modalContent = this.el.querySelector('fw-modal-content');
     }
     if (this.hideFooter && this.modalFooter) {
-      // Removes footer when footer is added by composition.
-      this.modalFooter.parentNode.removeChild(this.modalFooter);
+      this.modalFooter.style.display = 'none';
     }
     if (!this.modalContent && (this.modalTitle || this.modalFooter)) {
       /**
@@ -200,6 +199,17 @@ export class Modal {
       document.body.style.overflow = 'hidden';
       this.addAccesibilityEvents();
       this.fwOpen.emit();
+    }
+  }
+
+  @Watch('hideFooter')
+  footerVisibilityChange(hideFooter: boolean) {
+    if (this.modalFooter) {
+      if (hideFooter) {
+        this.modalFooter.style.display = 'none';
+      } else {
+        this.modalFooter.style.display = 'block';
+      }
     }
   }
 
@@ -359,6 +369,7 @@ export class Modal {
         submitColor={this.submitColor}
         submit={this.submit.bind(this)}
         close={this.close.bind(this)}
+        style={{ display: this.hideFooter ? 'none' : 'block' }}
       ></fw-modal-footer>
     );
   }
@@ -400,7 +411,7 @@ export class Modal {
           <div class='modal-container'>
             {this.modalTitle ? '' : this.titleText ? this.renderTitle() : ''}
             {this.modalContent ? <slot></slot> : this.renderContent()}
-            {this.hideFooter ? '' : this.modalFooter ? '' : this.renderFooter()}
+            {this.modalFooter ? '' : this.renderFooter()}
           </div>
         </div>
       </div>
