@@ -19,6 +19,12 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 <fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
 ><br />
 <fw-datepicker readonly></fw-datepicker>
+<fw-label
+  value="Date picker with show-footer and clear-input attributes"
+  color="yellow"
+></fw-label
+><br />
+<fw-datepicker show-footer="false" clear-input></fw-datepicker>
 <fw-label value="Date picker with locale" color="yellow"></fw-label><br />
 <fw-datepicker locale="fr"></fw-datepicker>
 ```
@@ -40,6 +46,12 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 <fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
 ><br />
 <fw-datepicker readonly></fw-datepicker>
+<fw-label
+  value="Date picker with show-footer and clear-input attributes"
+  color="yellow"
+></fw-label
+><br />
+<fw-datepicker show-footer="false" clear-input></fw-datepicker>
 <fw-label value="Date picker with locale" color="yellow"></fw-label><br />
 <fw-datepicker locale="fr"></fw-datepicker>
 ```
@@ -49,7 +61,7 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FwDatepicker } from "@freshworks/crayons/react";
+import { FwLabel, FwDatepicker } from "@freshworks/crayons/react";
 function App() {
   return (<div>
     <label>Single date picker</label><br/>
@@ -59,8 +71,14 @@ function App() {
   from-date="2022-01-02"
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"></FwDatepicker>
-  <label value="Date picker with readonly attribute" color="yellow"></label><br />
+  <FwLabel value="Date picker with readonly attribute" color="yellow"></FwLabel><br />
   <FwDatepicker readonly></FwDatepicker>
+  <FwLabel
+  value="Date picker with show-footer and clear-input attributes"
+  color="yellow"
+></FwLabel
+><br />
+<FwDatepicker showFooter="false" clearInput></FwDatepicker>
   <label value="Date picker with locale" color="yellow"></label><br />
   <FwDatepicker locale="fr"></FwDatepicker>
   </div>)
@@ -70,7 +88,6 @@ function App() {
 </code-group>
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -100,14 +117,12 @@ function App() {
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
 | `warningText`   | `warning-text`   | Warning text displayed below the text box.                                                                                                                     | `string`                           | `''`                       |
 
-
 ## Events
 
 | Event      | Description                               | Type               |
 | ---------- | ----------------------------------------- | ------------------ |
 | `fwBlur`   | Triggered when the input box loses focus. | `CustomEvent<any>` |
 | `fwChange` | Triggered when the update button clicked  | `CustomEvent<any>` |
-
 
 ## Methods
 
@@ -119,8 +134,6 @@ Returns the date value in ISO format.
 
 Type: `Promise<string | { fromDate: string; toDate: string; }>`
 
-
-
 ### `setFocus() => Promise<void>`
 
 Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
@@ -128,9 +141,6 @@ Sets focus on a specific `fw-datepicker`. Use this method instead of the global 
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -141,12 +151,11 @@ Type: `Promise<void>`
 | `--fw-label-color`   | Color of the label.        |
 | `--fw-warning-color` | Color of the warning text. |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-form-control](../form-control)
+- [fw-form-control](../form-control)
 
 ### Depends on
 
@@ -158,6 +167,7 @@ Type: `Promise<void>`
 - [fw-select](../select)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-datepicker --> fw-select-option
@@ -190,6 +200,6 @@ graph TD;
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
