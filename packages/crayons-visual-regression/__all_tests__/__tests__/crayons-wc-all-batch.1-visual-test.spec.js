@@ -34,5 +34,5 @@ const setup = {
   'icons': ['default'],
   'inline-message': ['default', 'info', 'success', 'error', 'warning'],
 };
-
-screenshotTest(setup);
+const DELAY = 0;
+screenshotTest(setup, DELAY);

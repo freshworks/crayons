@@ -13,4 +13,5 @@ const setup = {
     'icon-text',
   ],
 };
-screenshotTest(setup);
+const DELAY = 0;
+screenshotTest(setup, DELAY);

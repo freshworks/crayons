@@ -68,4 +68,5 @@ const setup = {
   'tooltip': ['default', 'placement', 'trigger', 'html'],
 };
 
-screenshotTest(setup);
+const DELAY = 0;
+screenshotTest(setup, DELAY);

@@ -11,4 +11,5 @@ const setup = {
     'with-description-and-label-disabled',
   ],
 };
-screenshotTest(setup);
+const DELAY = 0;
+screenshotTest(setup, DELAY);

@@ -2,9 +2,11 @@
 require('events').EventEmitter.prototype._maxListeners = 250;
 require('events').defaultMaxListeners = 250;
 
-module.exports = (setup) => {
+module.exports = (setup, delayTime) => {
   const components = Object.keys(setup);
-
+  function delay(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+  }
   components.forEach((component) => {
     describe(component, () => {
       // Loop each variants for component
@@ -18,15 +20,20 @@ module.exports = (setup) => {
             global.page.setDefaultNavigationTimeout(0);
             // Go to component StoryBook page,
             // Wait till loaded
+            console.log(`id=${component}${variantPrefix}`, delayTime);
             await global.page.goto(
               `http://localhost:8082/iframe.html?id=${component}${variantPrefix}`,
               {
-                waitUntil: 'networkidle2',
+                waitUntil: 'networkidle0',
                 timeout: 654321,
               }
             );
+
             // Take screenshot
-            const screenshot = await global.page.screenshot();
+            const screenshot = await delay(delayTime).then(() => {
+              return global.page.screenshot();
+            });
+
             // Test screenshot (also save this new screenshot if -u is set)
             expect(screenshot).toMatchImageSnapshot({
               path: `./__tests__/__snapshots__/${component}${variantPrefix}.snap.jpg`,

@@ -2,4 +2,5 @@ const screenshotTest = require('../../screenshotTest');
 const setup = {
   datatable: ['default', 'selectable', 'sticky-header'],
 };
-screenshotTest(setup);
+const DELAY = 0;
+screenshotTest(setup, DELAY);

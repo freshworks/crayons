@@ -2,4 +2,5 @@ const screenshotTest = require('../../screenshotTest');
 const setup = {
   radio: ['default', 'checked', 'disabled', 'disabled-with-checked'],
 };
-screenshotTest(setup);
+const DELAY = 0;
+screenshotTest(setup, DELAY);

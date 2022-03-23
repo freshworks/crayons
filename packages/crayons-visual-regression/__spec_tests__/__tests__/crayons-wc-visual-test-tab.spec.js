@@ -2,4 +2,5 @@ const screenshotTest = require('../../screenshotTest');
 const setup = {
   tab: ['default', 'with-html-headers'],
 };
-screenshotTest(setup);
+const DELAY = 0;
+screenshotTest(setup, DELAY);

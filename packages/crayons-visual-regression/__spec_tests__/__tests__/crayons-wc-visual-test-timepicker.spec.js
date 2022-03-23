@@ -9,4 +9,5 @@ const setup = {
     'disabled-timepicker',
   ],
 };
-screenshotTest(setup);
+const DELAY = 0;
+screenshotTest(setup, DELAY);

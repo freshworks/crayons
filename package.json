@@ -29,7 +29,7 @@
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
     "storybook-dist:serve": "npm run kill:pid-8082 && cd docs/storybook-dist && http-server -s -c-1 -p 8082",
     "kill:pid-8082": "npx kill-port 8082",
-    "storybook:visual-regression": "(npm run storybook-dist:serve & npm --prefix ./packages/crayons-visual-regression/ run test-all)",
+    "storybook:visual-regression": "(npm run storybook-dist:serve & npm --prefix ./packages/crayons-visual-regression/ run test-each)",
     "storybook:stop-ui-test": "kill $(cat .ui-test-pid) || true",
     "visual-regressions:count": "npm --prefix ./packages/crayons-visual-regression/ run checkIfVisualRegressionExists",
     "visual-regressions:update-snapshots": "npm --prefix ./packages/crayons-visual-regression/ run update-snapshots:spec",
