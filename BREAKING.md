@@ -404,6 +404,24 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   <fw-select hint-text="This is a hint text" state="normal"></fw-select>
   ```
 
+  `value` property has been modified for multi-select. The value property represents the selected value. In case of single select the type of value should be string, but in case of multi-select the type of value should be an **array of strings**.
+
+  **Old**
+
+  ```html
+  <fw-select id="multi-select" label="House Name" value="1" multiple>
+    <fw-select-option value="1">Starks</fw-select-option>
+    <fw-select-option value="2">Lannisters</fw-select-option>
+  </fw-select>
+  ```
+
+  **New**
+
+  ```javascript
+  var multiSelect = document.getElementById('multi-select');
+  multiSelect.value = ['1'];
+  ```
+
   `autoFocus` property has been removed. You can use `setFocus()` method to set focus on the select
 
   - Accessibility
