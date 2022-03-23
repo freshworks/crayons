@@ -2,6 +2,7 @@ name: Check Build
 
 on:
   pull_request:
+    types: [opened, synchronize, edited, reopened]
     branches: [master, next]
   workflow_dispatch:
 
