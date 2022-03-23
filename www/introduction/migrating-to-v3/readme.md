@@ -94,12 +94,6 @@ Below are the changes w.r.t global css variables in v3
 | --text-link            | removed |              |
 | --icon-primary         | removed |              |
 | --icon-primary-hover   | removed |              |
-| --font-size-20         | removed |              |
-| --font-size-20         | removed |              |
-| --font-size-20         | removed |              |
-| --font-size-20         | removed |              |
-| --font-size-20         | removed |              |
-| --font-size-20         | removed |              |
 
 To check about the css variables used in each components please check the official documentation page for the components [here](https://crayons.freshworks.com/components)
 
