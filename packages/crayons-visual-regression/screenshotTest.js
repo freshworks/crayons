@@ -20,7 +20,6 @@ module.exports = (setup, delayTime) => {
             global.page.setDefaultNavigationTimeout(0);
             // Go to component StoryBook page,
             // Wait till loaded
-            console.log(`id=${component}${variantPrefix}`, delayTime);
             await global.page.goto(
               `http://localhost:8082/iframe.html?id=${component}${variantPrefix}`,
               {
