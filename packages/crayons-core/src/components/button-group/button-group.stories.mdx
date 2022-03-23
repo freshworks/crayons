@@ -17,7 +17,11 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
   <Story name='Default'>
     {
-      () => `<fw-button-group></fw-button-group>`
+      () => `<fw-button-group label="Test">
+              <fw-button id="b1" size="icon" color="secondary"><fw-icon name="reply" color="black" ></fw-icon> </fw-button>
+              <fw-button id="b2" size="icon" color="secondary"><fw-icon name="chat-online" color="black" ></fw-icon> </fw-button>
+              <fw-button id="b3" size="icon" color="secondary"><fw-icon name="more-horizontal" color="black" ></fw-icon> </fw-button>
+             </fw-button-group>`
     }
   </Story>
 </Preview>
