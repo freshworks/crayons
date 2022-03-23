@@ -161,16 +161,11 @@ export class Input {
   };
 
   private showClearButton() {
-    return (
-      this.clearInput &&
-      !this.readonly &&
-      !this.disabled &&
-      this.value.length > 0
-    );
+    return this.clearInput && !this.disabled && this.value?.length > 0;
   }
 
   private clearTextInput = (ev?: Event) => {
-    if (!this.readonly && !this.disabled && ev) {
+    if (!this.disabled) {
       this.value = '';
 
       if (this.nativeInput) {

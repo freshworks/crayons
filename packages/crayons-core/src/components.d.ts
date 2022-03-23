@@ -244,6 +244,10 @@ export namespace Components {
     interface FwDatepicker {
         "cancelText": string;
         /**
+          * Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`
+         */
+        "clearInput": boolean;
+        /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat": string;
@@ -311,6 +315,10 @@ export namespace Components {
           * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Indicates if footer needs to be shown. Default `true`.
+         */
+        "showFooter": boolean;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
@@ -2467,6 +2475,10 @@ declare namespace LocalJSX {
     interface FwDatepicker {
         "cancelText"?: string;
         /**
+          * Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`
+         */
+        "clearInput"?: boolean;
+        /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat"?: string;
@@ -2534,6 +2546,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Indicates if footer needs to be shown. Default `true`.
+         */
+        "showFooter"?: boolean;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
