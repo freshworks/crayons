@@ -41,6 +41,9 @@ const runTestsInBand = (component, setup, delayTime) => {
   });
 };
 
+function delay(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
 module.exports = (setup, delayTime) => {
   const components = Object.keys(setup);
   for (let i = 0; i < components.length; i++) {
