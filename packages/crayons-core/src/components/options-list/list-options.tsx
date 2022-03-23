@@ -68,6 +68,11 @@ export class ListOptions {
    */
   @Prop() searchable = false;
   /**
+   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() disabled = false;
+
+  /**
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
    */
@@ -239,6 +244,13 @@ export class ListOptions {
     this.setDataSource(newValue);
   }
 
+  @Watch('disabled')
+  disabledWatcher(): void {
+    const options = this.options;
+    // updating the object to retrigger
+    this.options = [...options];
+  }
+
   @Watch('value')
   onValueChange(newValue, oldValue) {
     if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
@@ -335,6 +347,7 @@ export class ListOptions {
           selected: this.isValueEqual(this.value, option) || option.selected,
           disabled:
             option.disabled ||
+            this.disabled ||
             (this.multiple && this.value?.length >= this.max),
           allowDeselect: this.allowDeselect,
         },
