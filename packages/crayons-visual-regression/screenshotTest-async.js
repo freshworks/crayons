@@ -2,7 +2,7 @@
 require('events').EventEmitter.prototype._maxListeners = 250;
 require('events').defaultMaxListeners = 250;
 
-const runTestsInBand = (component, setup, delayTime) => {
+const runTestsInLoop = (component, setup, delayTime) => {
   describe(component, () => {
     // Loop each variants for component
     setup[component].forEach((variant) => {
@@ -47,6 +47,6 @@ function delay(ms) {
 module.exports = (setup, delayTime) => {
   const components = Object.keys(setup);
   for (let i = 0; i < components.length; i++) {
-    runTestsInBand(components[i], setup, delayTime);
+    runTestsInLoop(components[i], setup, delayTime);
   }
 };

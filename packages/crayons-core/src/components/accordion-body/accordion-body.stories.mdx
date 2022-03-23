@@ -1,4 +1,17 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, Preview, Props  } from '@storybook/web-components';
+
+export const Template_Default = () =>{
+  return `<fw-accordion-body style="--fw-accordion-body-background-color: #FFF089">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  Lorem Ipsum has been the industry's standard dummy text ever since the
+                  1500s, when an unknown printer took a galley of type and scrambled it to
+                  make a type specimen book. It has survived not only five centuries, but also
+                  the leap into electronic typesetting, remaining essentially unchanged. It
+                  was popularised in the 1960s with the release of Letraset sheets containing
+                  Lorem Ipsum passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum
+          </fw-accordion-body>`;
+};
 
 # AccordionBody
 
@@ -15,10 +28,22 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 ### Default
 <Preview>
-  <Story name='Default'>
-    {
-      () => `<fw-accordion-body></fw-accordion-body>`
-    }
+  <Story 
+    name='Default'
+    play={ async ({ canvasElement }) => {
+        setTimeout(()=>{
+          const accordionBody =  document.querySelector('fw-accordion-body');
+          accordionBody.shadowRoot.querySelector('div').style.display="block";
+        },300);
+    }}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div>${story}</div>`;
+      }
+    ]}
+  >
+    {Template_Default.bind({})}
   </Story>
 </Preview>
 
