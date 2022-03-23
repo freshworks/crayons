@@ -60,7 +60,7 @@
     "storybook": "run-p local storybook:start",
     "test:watch": "stencil test --spec --e2e --watchAll",
     "test": "stencil test --spec --e2e",
-    "test:ci": "stencil test --spec -- --ci --e2e"
+    "test:ci": "stencil test --spec --ci --e2e --max-workers=2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
