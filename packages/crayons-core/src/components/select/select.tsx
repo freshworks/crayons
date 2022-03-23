@@ -494,7 +494,7 @@ export class Select {
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
         selected: this.isValueEqual(this.value, option) || option.selected,
-        disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
+        disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
@@ -549,14 +549,6 @@ export class Select {
       'slotchange',
       this.handleSlotChange
     );
-  }
-
-  @Watch('disabled')
-  disabledWatcher(disabled: boolean): void {
-    const options = this.dataSource;
-    options.map((option) => (option.disabled = disabled));
-    // updating the object to retrigger
-    this.dataSource = [...options];
   }
 
   @Watch('isExpanded')
@@ -728,6 +720,7 @@ export class Select {
                 value={this.value}
                 multiple={this.multiple}
                 max={this.max}
+                disabled={this.disabled}
                 checkbox={this.checkbox}
                 allowDeselect={this.allowDeselect}
                 slot='popover-content'

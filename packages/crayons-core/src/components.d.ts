@@ -812,6 +812,10 @@ export namespace Components {
          */
         "debounceTimer": number;
         /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
           * The text to filter the options.
          */
         "filterText": any;
@@ -3067,6 +3071,10 @@ declare namespace LocalJSX {
           * Debounce timer for the search promise function.
          */
         "debounceTimer"?: number;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
         /**
           * The text to filter the options.
          */
