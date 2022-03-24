@@ -59,6 +59,7 @@ div.fw-data-table-container {
             min-width: 40px;
             max-width: 1000px;
             background: $grid-header-bg;
+            overflow-wrap: break-word;
 
             &:first-of-type {
               padding-left: 16px;
@@ -119,6 +120,7 @@ div.fw-data-table-container {
             box-sizing: border-box;
             z-index: 0;
             height: 64px;
+            overflow-wrap: break-word;
 
             &.data-grid-checkbox {
               text-align: center;
