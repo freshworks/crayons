@@ -59,7 +59,8 @@
     "storybook:start": "wait-on -d 30000 loader/index.js && start-storybook -p 9001 -c .storybook",
     "storybook": "run-p local storybook:start",
     "test:watch": "stencil test --spec --e2e --watchAll",
-    "test": "stencil test --spec --e2e"
+    "test": "stencil test --spec --e2e",
+    "test:ci": "stencil test --spec --ci --e2e --max-workers=2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
@@ -83,7 +84,7 @@
     "plop": "^2.7.4",
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
-    "puppeteer": "10.2.0",
+    "puppeteer": "^13.0.1",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^17.0.2",
