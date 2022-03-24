@@ -170,7 +170,7 @@ export class Input {
   }
 
   private clearTextInput = (ev?: Event) => {
-    if (!this.readonly && !this.disabled && ev) {
+    if (!this.readonly && !this.disabled) {
       this.value = '';
 
       if (this.nativeInput) {

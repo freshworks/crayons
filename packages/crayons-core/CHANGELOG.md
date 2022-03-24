@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.44](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.43...@freshworks/crayons@3.0.0-beta.44) (2022-03-23)
+
+### Bug Fixes
+
+- **input:** remove redundant check ([#505](https://github.com/freshworks/crayons/issues/505)) ([b2abea9](https://github.com/freshworks/crayons/commit/b2abea9a6e55cea00f339106993a5a9f6e629080))
+
 ## [3.0.0-beta.43](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.42...@freshworks/crayons@3.0.0-beta.43) (2022-03-22)
 
 ### Bug Fixes
