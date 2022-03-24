@@ -10,6 +10,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **datepicker:** emit fwchange on clearing input ([#522](https://github.com/freshworks/crayons/issues/522)) ([834805a](https://github.com/freshworks/crayons/commit/834805a3f382bbcd65cd2aecc9cb75a446abd25c))
 - **datepicker:** set placeholder for datepicker based on locale ([f8a7c61](https://github.com/freshworks/crayons/commit/f8a7c619263f336ffd54d85ccfe99cf568e995ee))
 
+<<<<<<< HEAD
 ## [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.1...@freshworks/crayons@3.1.0-beta.0) (2022-03-29)
 
 ### Bug Fixes
@@ -27,6 +28,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
+=======
+### Bug Fixes
+
+>>>>>>> e317c66 (chore(release): update lock file and clean up changelogs)
 - **data-table:** checkbox breaking word for overflowing text ([#512](https://github.com/freshworks/crayons/issues/512)) ([276305c](https://github.com/freshworks/crayons/commit/276305ca4a290caeeee552209e0350cd65a9d38e))
 
 ## [3.0.0-beta.44](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.43...@freshworks/crayons@3.0.0-beta.44) (2022-03-23)
