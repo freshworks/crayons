@@ -314,6 +314,7 @@ div.fw-data-table-container {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            width: 220px;
 
             .table-settings-content-title {
               box-sizing: border-box;
@@ -339,6 +340,11 @@ div.fw-data-table-container {
 
                 div {
                   margin: 5px 0px;
+
+                  fw-checkbox {
+                    width: 100%;
+                    overflow-wrap: break-word;
+                  }
                 }
               }
             }
