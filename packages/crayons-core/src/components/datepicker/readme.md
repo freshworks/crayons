@@ -78,7 +78,7 @@ function App() {
   color="yellow"
 ></FwLabel
 ><br />
-<FwDatepicker showFooter="false" clearInput></FwDatepicker>
+<FwDatepicker showFooter={false} clearInput></FwDatepicker>
   <label value="Date picker with locale" color="yellow"></label><br />
   <FwDatepicker locale="fr"></FwDatepicker>
   </div>)
