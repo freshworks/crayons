@@ -14,6 +14,8 @@ import {
 import { cyclicDecrement, cyclicIncrement, debounce } from '../../utils';
 import { DropdownVariant } from '../../utils/types';
 import { i18n } from '../../global/Translation';
+import { SelectUtil } from '../../utils/select-util';
+
 @Component({
   tag: 'fw-list-options',
   styleUrl: 'list-options.scss',
@@ -22,10 +24,10 @@ import { i18n } from '../../global/Translation';
 export class ListOptions {
   @Element() host: HTMLElement;
   private searchInput?: HTMLFwInputElement;
-  private isInternalValueChange = false;
   private arrowKeyCounter = 0;
   private container: HTMLElement;
   private optionRefs = [];
+  private selectUtil: SelectUtil;
   private defaultSearchFunction = (
     text: string,
     dataSource: any[]
@@ -46,6 +48,7 @@ export class ListOptions {
   @State() selectOptions = [];
   @State() selectedOptionsState = [];
   @State() isLoading = false;
+  @State() valueState = '';
 
   /**
    * Value corresponding to the option, that is saved  when the form data is saved.
@@ -129,20 +132,18 @@ export class ListOptions {
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
     const { value, selected } = selectedItem.detail;
-    if (selected) {
-      const selectedObj = this.filteredOptions.filter(
-        (option) => option.value === value
-      )[0];
-      this.selectedOptionsState = this.multiple
-        ? [...this.selectedOptionsState, selectedObj]
-        : [selectedObj];
-    } else {
-      this.selectedOptionsState = this.multiple
-        ? this.selectedOptionsState.filter((option) => option.value !== value)
-        : [];
-    }
-    this.isInternalValueChange = true;
-    this.setValue(this.selectedOptionsState);
+    const optionsChange = this.selectUtil.onOptionsChange(
+      this.filteredOptions,
+      value,
+      selected
+    );
+    this.valueState = optionsChange.value;
+    this.selectedOptionsState = optionsChange.selectedOptions;
+    this.selectOptions = this.updateSource(this.valueState);
+    this.fwChange.emit({
+      value: this.valueState,
+      meta: { selectedOptions: this.selectedOptionsState },
+    });
   }
 
   @Listen('keydown')
@@ -183,12 +184,15 @@ export class ListOptions {
 
   @Method()
   async scrollToLastSelected() {
-    if (this.filteredOptions.length > 0 && this.valueExists()) {
+    if (
+      this.filteredOptions.length > 0 &&
+      this.selectUtil.isValidValue(this.valueState)
+    ) {
       this.container
         .querySelector(
           `fw-select-option[id='${
             this.host.id
-          }-option-${this.getLastSelectedValue()}']`
+          }-option-${this.selectUtil.getLastSelectedValue()}']`
         )
         ?.scrollIntoView({ block: 'nearest' });
     }
@@ -204,19 +208,17 @@ export class ListOptions {
   @Method()
   async setSelectedValues(values: any): Promise<any> {
     if (this.options) {
-      this.selectedOptionsState = this.options.filter((option) =>
-        this.isValueEqual(values, option)
-      );
-      this.isInternalValueChange = true;
-      this.setValue(this.selectedOptionsState);
+      this.selectedOptionsState =
+        this.selectUtil.setSelectedOptionByValue(values);
+      this.valueState = this.selectUtil.setValueBySelectedOptions();
     }
   }
 
   @Method()
   async setSelectedOptions(options: any[]): Promise<any> {
     this.selectedOptionsState = options;
-    this.isInternalValueChange = true;
-    this.setValue(options);
+    this.selectUtil.setSelectedOptions(options);
+    this.value = this.selectUtil.setValueBySelectedOptions();
   }
 
   @Method()
@@ -224,7 +226,7 @@ export class ListOptions {
     this.optionRefs = [
       ...this.container.getElementsByTagName('fw-select-option'),
     ];
-    const lastValue = this.getLastSelectedValue();
+    const lastValue = this.selectUtil.getLastSelectedValue();
     if (lastValue && this.optionRefs.length > 0) {
       const lastValueIndex = this.optionRefs.findIndex(
         (option) => option.value === lastValue
@@ -242,53 +244,23 @@ export class ListOptions {
   @Watch('value')
   onValueChange(newValue, oldValue) {
     if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-      if (newValue) {
-        this.validateValue(newValue);
-      } else {
-        newValue = this.multiple ? [] : '';
+      if (!this.selectUtil.isValidValue(newValue)) {
+        throw Error(`${JSON.stringify(newValue)} is not a valid value`);
       }
-      this.selectOptions = this.selectOptions.map((option) => {
-        option.selected = this.isValueEqual(newValue, option);
-        return option;
-      });
-      // Warning: Before mutating this.value inside this file set the  isInternalValueChange to true.
-      // This is to prevent triggering the below code which is executed whenever there is a change in the prop this.value
-      if (!this.isInternalValueChange) {
-        // source might change during dynamic select
-        const source =
-          this.options.length > 0 ? this.options : this.selectedOptionsState;
-        this.selectedOptionsState = source.filter((option) =>
-          this.isValueEqual(newValue, option)
-        );
-      }
-      this.fwChange.emit({
-        value: newValue,
-        meta: { selectedOptions: this.selectedOptionsState },
-      });
-      this.isInternalValueChange = false;
+      this.selectOptions = this.updateSource(newValue);
+      const source =
+        this.options.length > 0 ? this.options : this.selectedOptionsState;
+      this.selectedOptionsState = this.selectUtil.setSelectedOptionByValue(
+        newValue,
+        source
+      );
+      this.selectUtil.value = newValue;
     }
   }
 
   @Watch('filterText')
   onFilterTextChange(newValue) {
     this.handleSearchWithDebounce(newValue);
-  }
-
-  valueExists() {
-    return this.multiple ? this.value.length > 0 : !!this.value;
-  }
-
-  validateValue(value) {
-    if (this.multiple && !Array.isArray(value)) {
-      throw new Error('Value must be a array for multi-select');
-    }
-    if (
-      !this.multiple &&
-      typeof value !== 'string' &&
-      typeof value !== 'number'
-    ) {
-      throw new Error('Value must be a string for single-select');
-    }
   }
 
   handleSearchWithDebounce = debounce(
@@ -309,22 +281,6 @@ export class ListOptions {
     this.debounceTimer
   );
 
-  getLastSelectedValue() {
-    if (this.valueExists()) {
-      return this.multiple ? this.value.slice(-1)[0] : this.value;
-    }
-  }
-
-  setSelectedOptionsByValue(values) {
-    if (this.options) {
-      this.selectedOptionsState = this.options.filter((option) =>
-        this.isValueEqual(values, option)
-      );
-    } else {
-      throw new Error('Options must be passed if value is set');
-    }
-  }
-
   serializeData(dataSource) {
     return dataSource.map((option) => {
       return {
@@ -332,30 +288,24 @@ export class ListOptions {
         ...{
           checkbox: option.checkbox || this.checkbox,
           variant: option.variant || this.variant,
-          selected: this.isValueEqual(this.value, option) || option.selected,
+          selected:
+            this.selectUtil.isValueEqual(this.valueState, option) ||
+            option.selected,
           disabled:
             option.disabled ||
-            (this.multiple && this.value?.length >= this.max),
+            this.disabled ||
+            (this.multiple && this.valueState?.length >= this.max),
           allowDeselect: this.allowDeselect,
         },
       };
     });
   }
 
-  isValueEqual(value, option) {
-    return this.multiple
-      ? value.includes(option.value)
-      : value === option.value;
-  }
-
-  setValue(options) {
-    if (options?.length > 0) {
-      this.value = this.multiple
-        ? options.map((option) => option.value)
-        : options[0].value;
-    } else {
-      this.value = this.multiple ? [] : '';
-    }
+  updateSource(value) {
+    return this.selectOptions.map((option) => {
+      option.selected = this.selectUtil.isValueEqual(value, option);
+      return option;
+    });
   }
 
   setDataSource(dataSource) {
@@ -367,7 +317,7 @@ export class ListOptions {
     this.filteredOptions = this.selectOptions;
   }
 
-  renderSelectOptions(options: Array<any>) {
+  renderSelectOptions(options: Array<any>): HTMLFwSelectOptionElement[] {
     return options.map((option) => (
       <fw-select-option
         id={`${this.host.id}-option-${option.value}`}
@@ -377,7 +327,7 @@ export class ListOptions {
     ));
   }
 
-  renderSearchInput() {
+  renderSearchInput(): HTMLFwInputElement {
     return (
       <fw-input
         ref={(searchInput) => (this.searchInput = searchInput)}
@@ -388,21 +338,20 @@ export class ListOptions {
   }
 
   componentWillLoad() {
-    this.validateValue(this.value);
-    if (this.selectedOptions.length > 0) {
-      this.selectedOptionsState = this.selectedOptions;
-      this.value = this.multiple
-        ? this.selectedOptionsState.map((option) => option.value)
-        : this.selectedOptionsState[0].value;
-    } else if (this.valueExists()) {
-      this.setSelectedOptionsByValue(this.value);
-    } else {
-      this.setValue([]);
-    }
+    this.selectUtil = new SelectUtil(
+      this.options,
+      this.selectedOptions,
+      this.value,
+      this
+    );
+    this.selectUtil.validateValue(this.value);
     if (this.multiple && typeof this.value === 'string') {
       throw Error('value must be a array of string when multiple is true');
     }
-    this.setDataSource(this.options);
+    this.options = this.selectUtil.options;
+    this.selectedOptionsState = this.selectUtil.selectedOptions;
+    this.valueState = this.selectUtil.value;
+    this.setDataSource(this.selectUtil.options);
   }
 
   render() {

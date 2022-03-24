@@ -12,96 +12,88 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
-    <fw-button expand color="primary">Primary Button</fw-button>
-    <!-- <br />
-    <fw-radio-group
-      name="Profile"
-      value="au"
-      hint-text="radio group hint"
-      warning-text="Warning text"
-      error-text="error"
-      label="radio group label"
-      required
-      state="warning"
-      orientation="row"
+    <fw-list-options id="methodOptionSelect"> </fw-list-options>
+    <script>
+      var iconDataSource = [
+        {
+          value: '1',
+          text: 'Luffy',
+          subText: 'Pirate King',
+          graphicsProps: { name: 'verified' },
+        },
+        {
+          value: '2',
+          text: 'Zorro',
+          subText: 'Best Swordsman',
+          graphicsProps: { name: 'magic-wand' },
+        },
+        {
+          value: '3',
+          text: 'Sanji',
+          subText: 'Best Chef',
+          graphicsProps: { name: 'ecommerce' },
+        },
+      ];
+      var methodOptionSelect = document.getElementById('methodOptionSelect');
+      methodOptionSelect.options = iconDataSource;
+      methodOptionSelect.setSelectedOptions([
+        {
+          value: '2',
+          text: 'Zorro',
+          subText: 'Best Swordsman',
+          graphicsProps: { name: 'magic-wand' },
+        },
+      ]);
+    </script>
+    <fw-popover
+      trigger="manual"
+      id="sports-dropdown"
+      same-width="false"
+      placement="bottom-start"
+      auto-focus-on-content
     >
-      <fw-radio value="au">Auditory</fw-radio>
-      <fw-radio value="vi">Visual</fw-radio>
-      <fw-radio value="re">Restless</fw-radio>
-      <div slot="warning-text">Wrning radio ASLOT</div>
-    </fw-radio-group>
+      <fw-button-group label="Test" slot="popover-trigger">
+        <fw-button>Choose the sport</fw-button>
+        <fw-button id="icon-btn" size="icon">
+          <fw-icon
+            id="chevron-icon"
+            name="chevron-down"
+            slot="after-label"
+          ></fw-icon>
+        </fw-button>
+      </fw-button-group>
+      <fw-list-options
+        id="sports"
+        slot="popover-content"
+        searchable
+      ></fw-list-options>
+    </fw-popover>
+    <script type="application/javascript">
+      var dropdown = document.getElementById('sports-dropdown');
+      var iconbtn = document.getElementById('icon-btn');
+      var chevron = document.getElementById('chevron-icon');
+      iconbtn.addEventListener('click', () => {
+        if (dropdown.isOpen) {
+          dropdown.hide();
+        } else {
+          dropdown.show();
+        }
+      });
+      dropdown.addEventListener('fwShow', () => {
+        chevron.style.cssText = 'transform: rotate(180deg)';
+      });
+      dropdown.addEventListener('fwHide', () => {
+        chevron.style.cssText = '';
+      });
+      var sports = document.getElementById('sports');
+      sports.options = [
+        { value: 1, text: 'Football' },
+        { value: 2, text: 'Vollyball' },
+        { value: 3, text: 'Cricket' },
+        { value: 4, text: 'Kabadi' },
+      ];
+    </script>
 
-    <br />
-    <h3>hshshsh ohso</h3>
-    <fw-input
-      placeholder="input"
-      hint-text="Do not enter your user ID"
-      warning-text="Warning"
-      error-text="error"
-      label="input label"
-      required
-      name="inp"
-      state="warning"
-    >
-      <div slot="warning-text">Wrning ASLOT</div>
-    </fw-input>
-
-    <fw-textarea
-      placeholder="textarea"
-      hint-text="Do not enter your user ID"
-      warning-text="Warning"
-      error-text="error textss"
-      label="textarea label"
-      required
-      name="para"
-      state="error"
-    >
-      <div slot="error-text">Error ASLOT</div>
-    </fw-textarea>
-
-    <fw-datepicker
-      placeholder="datepicker"
-      hint-text="Do not enter your user ID"
-      warning-text="Warning"
-      error-text="error textss"
-      label="datepicker label"
-      required
-      name="para"
-      state="error"
-    >
-      <div slot="error-text">Error ASLOT</div>
-    </fw-datepicker>
-
-    <fw-select
-      label="Select Label"
-      required
-      value="1"
-      placeholder="Your choice"
-      hint-text="select hint"
-      warning-text="select Warning"
-      error-text="select error"
-      state="warning"
-    >
-      <fw-select-option value="1">Starks</fw-select-option>
-      <fw-select-option value="2">Lannisters</fw-select-option>
-      <div slot="warning-text">warning select SLOT</div>
-    </fw-select>
-
-    <fw-timepicker
-      label="Select Timepicker"
-      required
-      placeholder="Your timepicker"
-      hint-text="timepicker hint"
-      warning-text="timepicker Warning"
-      error-text="timepicker error"
-      state="error"
-    >
-      <div slot="warning-text">warning timepicker SLOT</div>
-      <div slot="hint-text">hint timepicker SLOT</div>
-      <div slot="error-text">error timepicker SLOT</div>
-    </fw-timepicker>
-
-    <br /> -->
     <!-- <h3>Pattern 1</h3>
 
     <fw-form id="fw-form"> </fw-form>
@@ -926,13 +918,5 @@
     datatable1.columns = data1.columns;
     datatable1.rows = data1.rows;
   </script> -->
-
-    <!-- <fw-file-uploader 
-      text="Upload CSV"
-      description="or drag and drop your csv file here"
-      hint="File size must be within 5MB"
-      max-file-size="5"
-    >
-  </fw-file-uploader> -->
   </body>
 </html>
