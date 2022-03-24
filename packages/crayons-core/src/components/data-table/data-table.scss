@@ -59,6 +59,7 @@ div.fw-data-table-container {
             min-width: 40px;
             max-width: 1000px;
             background: $grid-header-bg;
+            overflow-wrap: break-word;
 
             &:first-of-type {
               padding-left: 16px;
@@ -119,6 +120,7 @@ div.fw-data-table-container {
             box-sizing: border-box;
             z-index: 0;
             height: 64px;
+            overflow-wrap: break-word;
 
             &.data-grid-checkbox {
               text-align: center;
@@ -314,6 +316,7 @@ div.fw-data-table-container {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            width: 220px;
 
             .table-settings-content-title {
               box-sizing: border-box;
@@ -339,6 +342,11 @@ div.fw-data-table-container {
 
                 div {
                   margin: 5px 0px;
+
+                  fw-checkbox {
+                    width: 100%;
+                    overflow-wrap: break-word;
+                  }
                 }
               }
             }
