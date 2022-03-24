@@ -1577,6 +1577,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Specifies the way in which the text area can be resized
+         */
+        "resize": 'none' | 'both' | 'horizontal' | 'vertical';
+        /**
           * Height of the input box, specified as number of rows.
          */
         "rows"?: number;
@@ -3874,6 +3878,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Specifies the way in which the text area can be resized
+         */
+        "resize"?: 'none' | 'both' | 'horizontal' | 'vertical';
         /**
           * Height of the input box, specified as number of rows.
          */

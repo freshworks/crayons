@@ -58,7 +58,7 @@ $warning-color: $color-casablanca-300;
     box-shadow: none;
     min-height: 24px;
     font-size: $font-size-14;
-    font-weight: $font-weight-500;
+    font-weight: $font-weight-semibold;
     letter-spacing: 0;
     line-height: 20px;
     font-family: inherit;
@@ -118,16 +118,16 @@ $warning-color: $color-casablanca-300;
 }
 
 ::placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
   opacity: 1;
 }
 
 :-ms-input-placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
 }
 
 ::-ms-input-placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
 }
 
 .responsive {

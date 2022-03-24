@@ -92,7 +92,7 @@ $warning-color: $color-casablanca-300;
         outline: none;
         box-shadow: none;
         min-height: 24px;
-        font-size: 14px;
+        font-size: $font-size-14;
         font-weight: $font-weight-semibold;
         letter-spacing: 0;
         line-height: 20px;
@@ -199,20 +199,16 @@ $warning-color: $color-casablanca-300;
 
 ::-webkit-input-placeholder {
   color: $muted-secondary;
-  font-weight: $font-weight-default;
 }
 
 ::-moz-placeholder {
   color: $muted-secondary;
-  font-weight: $font-weight-default;
 }
 
 :-ms-input-placeholder {
   color: $muted-secondary;
-  font-weight: $font-weight-default;
 }
 
 :-moz-placeholder {
   color: $muted-secondary;
-  font-weight: $font-weight-default;
 }

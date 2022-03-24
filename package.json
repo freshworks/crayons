@@ -4,17 +4,19 @@
   "description": "Crayons Packages comprising of Design system library using web components, icon library and i18n library",
   "main": "index.js",
   "engines": {
-    "node": ">=14.7.0",
-    "npm": ">=7.0.0"
+    "node": ">=14.17.0",
+    "npm": ">=7.24.1"
   },
   "workspaces": [
     "./packages/*"
   ],
   "scripts": {
+    "build:packages": "lerna run build --stream",
     "build": "lerna run build --stream && npm run storybook:build && npm run docs:build",
-    "code-sanity": "npm run lint",
-    "check-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --no-git-tag-version",
+    "check-next": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-prerelease --preid beta --no-push --no-git-tag-version",
+    "check-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-graduate --no-push --no-git-tag-version",
     "clean-changelog": "lernacleanchangelog '**'",
+    "code-sanity": "npm run lint",
     "docs:build": "node www/scripts/reorganize.js && vuepress build www",
     "docs:dev": "lerna run build --stream && node www/scripts/reorganize.js && vuepress dev www",
     "lint": "npm run lint:ts && npm run lint:styles",
@@ -23,14 +25,20 @@
     "lint:ts": "eslint .",
     "lint:ts:fix": "eslint . --fix",
     "lint-staged": "lint-staged",
-    "release": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag canary",
-    "release:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag canary --yes",
+    "release-next": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag next",
+    "release-next:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag next --yes",
+    "release-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag latest",
+    "release-latest:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag latest --yes",
     "storybook:build": "rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
     "test": "lerna run test --stream",
-    "update-lock": "sh ./release.sh",
-    "update-version": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push && npm run clean-changelog && npm run update-lock",
-    "update-version:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --no-push --yes && npm run clean-changelog && npm run update-lock"
+    "test:ci": "lerna run test:ci --stream",
+    "update-next": "npm run build && HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-prerelease --preid beta --create-release github  && npm run clean-changelog && npm run update-lock:next",
+    "update-next:ci": "npm run build && HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-prerelease --preid beta --create-release github --yes && npm run clean-changelog && npm run update-lock:next",
+    "update-lock:latest": "sh ./release_latest.sh",
+    "update-lock:next": "sh ./release_next.sh",
+    "update-latest": "npm run build && HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-graduate --create-release github && npm run clean-changelog && npm run update-lock:latest",
+    "update-latest:ci": "npm run build && HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-graduate --create-release github --yes && npm run clean-changelog && npm run update-lock:latest"
   },
   "keywords": [
     "crayons",

@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0...@freshworks/crayons@3.0.1-beta.0) (2022-03-24)
+
+### Bug Fixes
+
+- **data-table:** checkbox breaking word for overflowing text ([#512](https://github.com/freshworks/crayons/issues/512)) ([276305c](https://github.com/freshworks/crayons/commit/276305ca4a290caeeee552209e0350cd65a9d38e))
+
+## [3.0.0-beta.44](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.43...@freshworks/crayons@3.0.0-beta.44) (2022-03-23)
+
+### Bug Fixes
+
+- **input:** remove redundant check ([#505](https://github.com/freshworks/crayons/issues/505)) ([b2abea9](https://github.com/freshworks/crayons/commit/b2abea9a6e55cea00f339106993a5a9f6e629080))
+
+## [3.0.0-beta.43](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.42...@freshworks/crayons@3.0.0-beta.43) (2022-03-22)
+
+### Bug Fixes
+
+- **textarea:** updated styling for placeholder in textarea ([f993670](https://github.com/freshworks/crayons/commit/f9936704bc98a2be38f4a1476faf4a10f7a01828))
+
+## [3.0.0-beta.42](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.41...@freshworks/crayons@3.0.0-beta.42) (2022-03-22)
+
+### Bug Fixes
+
+- **fb-coui:** Style fixes, i18n interpolate strings for form builder, added resize property for text area component ([#498](https://github.com/freshworks/crayons/issues/498)) ([6a47ea1](https://github.com/freshworks/crayons/commit/6a47ea14b329d266d1ce794d8f9067322ff85e53))
+- **fw-select:** prevents the dropdown from opening on removing tag in multi-select ([#497](https://github.com/freshworks/crayons/issues/497)) ([8c7989b](https://github.com/freshworks/crayons/commit/8c7989bfedb9b1d7093e2135120704a0d582ed42))
+- **modal:** hideFooter prop working for custom footer ([#495](https://github.com/freshworks/crayons/issues/495)) ([e39a14f](https://github.com/freshworks/crayons/commit/e39a14fa3c1ff5ea145123551f725dbb21f2c7e5))
+
 ## [3.0.0-beta.38](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.37...@freshworks/crayons@3.0.0-beta.38) (2022-03-21)
 
 ### Bug Fixes

@@ -61,7 +61,7 @@ export class Tag {
   onKeyDown(event) {
     switch (event.key) {
       case 'Backspace':
-        this.removeTag();
+        this.removeTag(event);
         event.preventDefault();
         break;
     }
@@ -72,12 +72,13 @@ export class Tag {
     this.tagContainer.focus();
   }
 
-  removeTag = (): void => {
+  removeTag = (e): void => {
     if (this.disabled || !this.closable) {
       return;
     }
     const { value, text } = this;
     this.fwClosed.emit({ value, text });
+    e.stopPropagation();
   };
 
   renderContent() {
@@ -111,7 +112,7 @@ export class Tag {
             class={`remove-btn ${this.variant} ${
               this.disabled ? 'disabled' : ''
             }`}
-            onClick={() => this.removeTag()}
+            onClick={(e) => this.removeTag(e)}
             onKeyDown={handleKeyDown(this.removeTag)}
           >
             <fw-icon name='cross' size={8} library='system'></fw-icon>
