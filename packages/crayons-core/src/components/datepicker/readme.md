@@ -41,7 +41,7 @@ All the date formats passed as attribute's values must be valid [ISO Date format
   mode="range"
   from-date="2022-01-02"
   to-date="2022-01-04"
-  display-format="DD-MM-YYYY"
+  display-format="dd-MM-yyyy"
 ></fw-datepicker>
 <fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
 ><br />
@@ -65,7 +65,7 @@ import { FwLabel, FwDatepicker } from "@freshworks/crayons/react";
 function App() {
   return (<div>
     <label>Single date picker</label><br/>
-    <FwDatepicker value="2021-12-02" display-format="DD-MM-YYYY"></FwDatepicker>
+    <FwDatepicker value="2021-12-02" display-format="dd-MM-yyyy"></FwDatepicker>
     <label>A date range picker</label><br/>
     <FwDatepicker mode="range"
   from-date="2022-01-02"
