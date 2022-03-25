@@ -223,6 +223,10 @@ export class Select {
    * Error text displayed below the text box.
    */
   @Prop() errorText = '';
+  /**
+   * Describes the select's boundary HTMLElement
+   */
+  @Prop() boundary: HTMLElement;
 
   // Events
   /**
@@ -460,6 +464,7 @@ export class Select {
   }
 
   componentWillLoad() {
+    this.boundary ||= this.host.parentElement;
     this.handleSlotChange();
     if (this.variant === 'mail') {
       this.caret = false;
@@ -618,6 +623,7 @@ export class Select {
               ref={(popover) => (this.popover = popover)}
               same-width={this.sameWidth}
               placement={this.optionsPlacement}
+              boundary={this.boundary}
             >
               <div
                 slot='popover-trigger'

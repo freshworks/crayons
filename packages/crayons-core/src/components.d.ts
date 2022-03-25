@@ -1218,6 +1218,10 @@ export namespace Components {
          */
         "allowDeselect": boolean;
         /**
+          * Describes the select's boundary HTMLElement
+         */
+        "boundary": HTMLElement;
+        /**
           * Whether the arrow/caret should be shown in the select.
          */
         "caret": boolean;
@@ -3477,6 +3481,10 @@ declare namespace LocalJSX {
           * Whether clicking on the already selected option disables it.
          */
         "allowDeselect"?: boolean;
+        /**
+          * Describes the select's boundary HTMLElement
+         */
+        "boundary"?: HTMLElement;
         /**
           * Whether the arrow/caret should be shown in the select.
          */
