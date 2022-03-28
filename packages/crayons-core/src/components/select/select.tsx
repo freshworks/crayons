@@ -421,8 +421,8 @@ export class Select {
   }
 
   onInput() {
+    this.searchValue = this.selectInput.value;
     if (this.selectInput.value) {
-      this.searchValue = this.selectInput.value.toLowerCase();
       this.variant !== 'mail' && this.openDropdown();
     } else {
       this.variant === 'mail' && this.closeDropdown();

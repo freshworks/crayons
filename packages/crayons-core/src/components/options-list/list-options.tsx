@@ -35,7 +35,7 @@ export class ListOptions {
       const filteredValue =
         value !== ''
           ? dataSource.filter((option) =>
-              option.text.toLowerCase().includes(value)
+              option.text.toLowerCase().includes(value.toLowerCase())
             )
           : dataSource;
       resolve(filteredValue);
@@ -307,15 +307,23 @@ export class ListOptions {
     (filterText) => {
       this.isLoading = true;
       this.fwLoading.emit({ isLoading: this.isLoading });
-      this.search(filterText, this.selectOptions).then((options) => {
+      if (filterText) {
+        this.search(filterText, this.selectOptions).then((options) => {
+          this.filteredOptions =
+            options?.length > 0
+              ? this.serializeData(options)
+              : [{ text: this.notFoundText, disabled: true }];
+          this.isLoading = false;
+          this.fwLoading.emit({ isLoading: this.isLoading });
+        });
+      } else {
         this.filteredOptions =
-          options?.length > 0
-            ? this.serializeData(options)
-            : [{ text: this.notFoundText, disabled: true }];
-
+          this.selectOptions?.length > 0
+            ? this.selectOptions
+            : [{ text: this.noDataText, disabled: true }];
         this.isLoading = false;
         this.fwLoading.emit({ isLoading: this.isLoading });
-      });
+      }
     },
     this,
     this.debounceTimer
