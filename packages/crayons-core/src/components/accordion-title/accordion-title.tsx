@@ -1,15 +1,26 @@
 import { Component, Prop, Element, h } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
 
-const ChevronArrow = ({ expanded }) => {
-  const iconSize = 14;
+const ChevronArrow = ({ expanded, iconSize }) => {
+  let size;
+  switch (iconSize) {
+    case 'small':
+      size = 7;
+      break;
+    case 'medium':
+      size = 10;
+      break;
+    case 'large':
+      size = 14;
+      break;
+  }
   const direction = expanded ? 'up' : 'down';
 
   return (
     <fw-icon
       class='accordion-icon'
       name={`chevron-${direction}`}
-      size={iconSize}
+      size={size}
       library='system'
     />
   );
@@ -43,6 +54,11 @@ export class AccordionTitle {
    * Truncate title on text overflow
    */
   @Prop() truncateOnOverflow = true;
+
+  /**
+   * The size of the default icon
+   */
+  @Prop() iconSize: 'small' | 'medium' | 'large' = 'medium';
 
   expandedIcon: HTMLElement;
   collapsedIcon: HTMLElement;
@@ -83,7 +99,7 @@ export class AccordionTitle {
             <slot name={this.expanded ? 'expanded-icon' : 'collapsed-icon'} />
           </div>
         ) : (
-          <ChevronArrow expanded={this.expanded} />
+          <ChevronArrow expanded={this.expanded} iconSize={this.iconSize} />
         )}
       </div>
     );
