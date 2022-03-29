@@ -98,7 +98,6 @@
     "lookupRelationshipLabel": "Relationship type",
     "lookupTargetPlaceholder": "Select target object",
     "lookupTargetLabel": "Target object",
-    "dropdownChoiceDeleteMessage": "Deleting a choice will impact related tickets, automation and reports.",
     "relationshipManyToOne": "Many to one",
     "relationshipManyToOneDesc": "Link many records of the source object with one record of the target object. i.e Many tickets can be created by a customer.",
     "relationshipOneToOne": "One to one",
@@ -117,7 +116,7 @@
       "minimum": "Enter a minimum of one choice!",
       "formErrors": "Form contains errors!",
       "fieldNameExists": "There is another field with the same label in this custom object. Please use a different label.",
-      "deleteDropDownChoice": "Deleting a choice will impact related records"
+      "deleteDropDownChoice": "Deleting a choice will impact related tickets, automation and reports."
     },
     "maximumLimits": {
       "filterable": "Maximum of {{count}} fields can be used to filter records in the list view.",
