@@ -50,7 +50,7 @@ export class Select {
   private innerOnClick = () => {
     this.setFocus();
     // Select the whole text in case of single select
-    this.multiple || this.selectInput.select();
+    this.multiple || this.selectInput?.select?.();
     if (this.variant !== 'mail') {
       this.openDropdown();
     }

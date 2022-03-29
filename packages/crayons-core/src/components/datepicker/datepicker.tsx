@@ -1048,7 +1048,7 @@ export class Datepicker {
   };
 
   @Listen('fwInputClear')
-  handleInputClear() {
+  handleInputClear(e: any) {
     if (this.mode !== 'range') {
       if (this.selectedDay) {
         this.selectedDay = undefined;
@@ -1059,6 +1059,7 @@ export class Datepicker {
       }
     }
     this.value = undefined;
+    this.emitEvent(e, undefined);
   }
 
   // handle cancel and popover close
@@ -1285,7 +1286,6 @@ export class Datepicker {
   }
 
   render(): JSX.Element {
-    console.log('render');
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
