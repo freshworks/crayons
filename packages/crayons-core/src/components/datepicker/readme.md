@@ -19,6 +19,12 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 <fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
 ><br />
 <fw-datepicker readonly></fw-datepicker>
+<fw-label
+  value="Date picker with show-footer and clear-input attributes"
+  color="yellow"
+></fw-label
+><br />
+<fw-datepicker show-footer="false" clear-input></fw-datepicker>
 <fw-label value="Date picker with locale" color="yellow"></fw-label><br />
 <fw-datepicker locale="fr"></fw-datepicker>
 ```
@@ -35,11 +41,17 @@ All the date formats passed as attribute's values must be valid [ISO Date format
   mode="range"
   from-date="2022-01-02"
   to-date="2022-01-04"
-  display-format="DD-MM-YYYY"
+  display-format="dd-MM-yyyy"
 ></fw-datepicker>
 <fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
 ><br />
 <fw-datepicker readonly></fw-datepicker>
+<fw-label
+  value="Date picker with show-footer and clear-input attributes"
+  color="yellow"
+></fw-label
+><br />
+<fw-datepicker show-footer="false" clear-input></fw-datepicker>
 <fw-label value="Date picker with locale" color="yellow"></fw-label><br />
 <fw-datepicker locale="fr"></fw-datepicker>
 ```
@@ -49,18 +61,24 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FwDatepicker } from "@freshworks/crayons/react";
+import { FwLabel, FwDatepicker } from "@freshworks/crayons/react";
 function App() {
   return (<div>
     <label>Single date picker</label><br/>
-    <FwDatepicker value="2021-12-02" display-format="DD-MM-YYYY"></FwDatepicker>
+    <FwDatepicker value="2021-12-02" display-format="dd-MM-yyyy"></FwDatepicker>
     <label>A date range picker</label><br/>
     <FwDatepicker mode="range"
   from-date="2022-01-02"
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"></FwDatepicker>
-  <label value="Date picker with readonly attribute" color="yellow"></label><br />
+  <FwLabel value="Date picker with readonly attribute" color="yellow"></FwLabel><br />
   <FwDatepicker readonly></FwDatepicker>
+  <FwLabel
+  value="Date picker with show-footer and clear-input attributes"
+  color="yellow"
+></FwLabel
+><br />
+<FwDatepicker showFooter={false} clearInput></FwDatepicker>
   <label value="Date picker with locale" color="yellow"></label><br />
   <FwDatepicker locale="fr"></FwDatepicker>
   </div>)
@@ -71,12 +89,12 @@ function App() {
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property        | Attribute        | Description                                                                                                                                                    | Type                               | Default                    |
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
 | `cancelText`    | `cancel-text`    |                                                                                                                                                                | `string`                           | `''`                       |
+| `clearInput`    | `clear-input`    | Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`                                                                     | `boolean`                          | `false`                    |
 | `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.                       | `string`                           | `undefined`                |
 | `errorText`     | `error-text`     | Error text displayed below the text box.                                                                                                                       | `string`                           | `''`                       |
 | `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                           | `undefined`                |
@@ -92,12 +110,12 @@ function App() {
 | `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                           | `undefined`                |
 | `readonly`      | `readonly`       | Make the input box as readonly. Default `false`                                                                                                                | `boolean`                          | `false`                    |
 | `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`                    |
+| `showFooter`    | `show-footer`    | Indicates if footer needs to be shown. Default `true`.                                                                                                         | `boolean`                          | `true`                     |
 | `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`                 |
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`                |
 | `updateText`    | `update-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
 | `warningText`   | `warning-text`   | Warning text displayed below the text box.                                                                                                                     | `string`                           | `''`                       |
-
 
 ## Events
 
@@ -105,7 +123,6 @@ function App() {
 | ---------- | ----------------------------------------- | ------------------ |
 | `fwBlur`   | Triggered when the input box loses focus. | `CustomEvent<any>` |
 | `fwChange` | Triggered when the update button clicked  | `CustomEvent<any>` |
-
 
 ## Methods
 
@@ -117,8 +134,6 @@ Returns the date value in ISO format.
 
 Type: `Promise<string | { fromDate: string; toDate: string; }>`
 
-
-
 ### `setFocus() => Promise<void>`
 
 Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
@@ -126,9 +141,6 @@ Sets focus on a specific `fw-datepicker`. Use this method instead of the global 
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## CSS Custom Properties
 
@@ -139,35 +151,41 @@ Type: `Promise<void>`
 | `--fw-label-color`   | Color of the label.        |
 | `--fw-warning-color` | Color of the warning text. |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-form-control](../form-control)
+- [fw-form-control](../form-control)
 
 ### Depends on
 
+- [fw-select-option](../select-option)
+- [fw-button](../button)
 - [fw-popover](../popover)
 - [fw-input](../input)
 - [fw-icon](../icon)
 - [fw-select](../select)
-- [fw-select-option](../select-option)
-- [fw-button](../button)
 
 ### Graph
+
 ```mermaid
 graph TD;
+  fw-datepicker --> fw-select-option
+  fw-datepicker --> fw-button
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-input
   fw-datepicker --> fw-icon
   fw-datepicker --> fw-select
-  fw-datepicker --> fw-select-option
-  fw-datepicker --> fw-button
-  fw-input --> fw-icon
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-checkbox --> fw-icon
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
+  fw-input --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-popover
   fw-select --> fw-button
@@ -176,18 +194,12 @@ graph TD;
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
-  fw-select-option --> fw-icon
-  fw-select-option --> fw-checkbox
-  fw-select-option --> fw-avatar
-  fw-checkbox --> fw-icon
   fw-form-control --> fw-datepicker
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
