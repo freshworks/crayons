@@ -11,7 +11,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **datepicker:** set placeholder for datepicker based on locale ([f8a7c61](https://github.com/freshworks/crayons/commit/f8a7c619263f336ffd54d85ccfe99cf568e995ee))
 
 
-<<<<<<< HEAD
 ## [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.1...@freshworks/crayons@3.1.0-beta.0) (2022-03-29)
 
 ### Bug Fixes
