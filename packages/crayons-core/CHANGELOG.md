@@ -3,24 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.1...@freshworks/crayons@3.1.0-beta.0) (2022-03-29)
-
+## [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.1...@freshworks/crayons@3.1.0-beta.0) (2022-03-29)
 
 ### Bug Fixes
 
-* **fw-select:** handled the empty text scenario in dynamic select ([#508](https://github.com/freshworks/crayons/issues/508)) ([421cdb3](https://github.com/freshworks/crayons/commit/421cdb389dce86a8484754ae340c7d57763e65ce))
-* **fw-select:** popup position changes for clippingParents ([#515](https://github.com/freshworks/crayons/issues/515)) ([b86bcb6](https://github.com/freshworks/crayons/commit/b86bcb6bc686fb6aec11d213c97cdc619d5c7335))
-
+- **fw-select:** handled the empty text scenario in dynamic select ([#508](https://github.com/freshworks/crayons/issues/508)) ([421cdb3](https://github.com/freshworks/crayons/commit/421cdb389dce86a8484754ae340c7d57763e65ce))
+- **fw-select:** popup position changes for clippingParents ([#515](https://github.com/freshworks/crayons/issues/515)) ([b86bcb6](https://github.com/freshworks/crayons/commit/b86bcb6bc686fb6aec11d213c97cdc619d5c7335))
 
 ### Features
 
-* **datepicker:** adding new variants to datepicker component ([#502](https://github.com/freshworks/crayons/issues/502)) ([9b170d8](https://github.com/freshworks/crayons/commit/9b170d8e26ff61229bb06dfd5979861a1d62f57b))
-* **fw-accordion-header:** added prop for different icon size ([#518](https://github.com/freshworks/crayons/issues/518)) ([5e211b2](https://github.com/freshworks/crayons/commit/5e211b27361e38caaad8eb86f4e6fd58eeacaaea))
-* **fw-select:** clear single select by clearing input ([#520](https://github.com/freshworks/crayons/issues/520)) ([d8d359b](https://github.com/freshworks/crayons/commit/d8d359b1c67f3b0b5f10d6afc8c8c8e8abc6d96e))
-
-
-
-
+- **datepicker:** adding new variants to datepicker component ([#502](https://github.com/freshworks/crayons/issues/502)) ([9b170d8](https://github.com/freshworks/crayons/commit/9b170d8e26ff61229bb06dfd5979861a1d62f57b))
+- **fw-accordion-header:** added prop for different icon size ([#518](https://github.com/freshworks/crayons/issues/518)) ([5e211b2](https://github.com/freshworks/crayons/commit/5e211b27361e38caaad8eb86f4e6fd58eeacaaea))
+- **fw-select:** clear single select by clearing input ([#520](https://github.com/freshworks/crayons/issues/520)) ([d8d359b](https://github.com/freshworks/crayons/commit/d8d359b1c67f3b0b5f10d6afc8c8c8e8abc6d96e))
 
 ## [3.0.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0...@freshworks/crayons@3.0.1-beta.0) (2022-03-24)
 
