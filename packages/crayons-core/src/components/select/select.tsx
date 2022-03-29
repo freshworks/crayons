@@ -49,6 +49,8 @@ export class Select {
 
   private innerOnClick = () => {
     this.setFocus();
+    // Select the whole text in case of single select
+    this.multiple || this.selectInput.select();
     if (this.variant !== 'mail') {
       this.openDropdown();
     }
@@ -425,6 +427,8 @@ export class Select {
     if (this.selectInput.value) {
       this.variant !== 'mail' && this.openDropdown();
     } else {
+      // Clear selected value in case of single select.
+      this.multiple || this.setSelectedValues('');
       this.variant === 'mail' && this.closeDropdown();
     }
   }
