@@ -188,7 +188,7 @@ export class TranslationController {
 
   async fetchTranslations(lang?: string): Promise<void> {
     const locale = lang || getBrowserLang();
-    const userLocale = (langCodeMapping as any)[`${locale}`];
+    const userLocale = (langCodeMapping as any)[`${locale}`] || 'en-US';
     this.state.lang = locale;
 
     return this.fetchDefaultTranslations(userLocale).then(

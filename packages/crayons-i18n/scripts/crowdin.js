@@ -34,7 +34,7 @@ const checkBuildStatus = (buildId) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Error occured while checking build status: ${err}`);
     });
 };
 
@@ -58,7 +58,7 @@ const buildTranslations = () => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Error occured while building translations: ${err}`);
     });
 };
 
@@ -76,7 +76,7 @@ const getDownloadURL = (buildId) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Error occured while getting download url: ${err}`);
     });
 };
 
@@ -93,14 +93,14 @@ const downloadTranslations = (zipURL) => {
       zipFile.extractAllTo('./tmp');
 
       shell.exec('mkdir locale');
-      //recursive traversal throgh tmp
+      //recursive traversal through tmp
       shell.exec(
         'find ./tmp -type f -name "*.json" -exec cp -r {} ./locale \\;'
       );
       shell.exec('cp ./i18n/* ./locale');
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Error occured while downloading translations: ${err}`);
     });
 };
 
