@@ -364,6 +364,7 @@ export class Select {
 
   @Method()
   async setFocus(): Promise<any> {
+    this.hasFocus = true;
     this.selectInput?.focus();
   }
 

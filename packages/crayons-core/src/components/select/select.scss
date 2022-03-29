@@ -146,7 +146,7 @@ $warning-color: $color-casablanca-300;
   }
 }
 
-:host(.has-focus) {
+.has-focus {
   .input-container {
     outline: none;
     background: $input-bg;
