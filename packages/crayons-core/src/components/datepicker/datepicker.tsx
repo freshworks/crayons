@@ -664,9 +664,11 @@ export class Datepicker {
         : this.displayFormat;
 
       if (this.mode === 'range')
-        this.placeholder = `${this.placeholder} ${TranslationController.t(
-          'datepicker.to'
-        )} ${this.placeholder}`;
+        this.placeholder = this.isPlaceholderSet
+          ? this.placeholder
+          : `${this.displayFormat} ${TranslationController.t(
+              'datepicker.to'
+            )} ${this.displayFormat}`;
 
       const monthNames = getMonthNames(this.langModule);
       this.shortMonthNames = monthNames.shortMonthNames;
@@ -727,9 +729,11 @@ export class Datepicker {
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
     if (this.mode === 'range')
-      this.placeholder = `${this.placeholder} ${TranslationController.t(
-        'datepicker.to'
-      )} ${this.placeholder}`;
+      this.placeholder = this.isPlaceholderSet
+        ? this.placeholder
+        : `${this.displayFormat} ${TranslationController.t('datepicker.to')} ${
+            this.displayFormat
+          }`;
 
     this.supportedYears = this.getSupportedYears();
     this.startDate =
