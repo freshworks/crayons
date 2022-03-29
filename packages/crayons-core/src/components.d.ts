@@ -31,6 +31,10 @@ export namespace Components {
     }
     interface FwAccordionTitle {
         "expanded": boolean;
+        /**
+          * The size of the default icon
+         */
+        "iconSize": 'small' | 'medium' | 'large';
         "toggleState": any;
         /**
           * Truncate title on text overflow
@@ -2270,6 +2274,10 @@ declare namespace LocalJSX {
     }
     interface FwAccordionTitle {
         "expanded"?: boolean;
+        /**
+          * The size of the default icon
+         */
+        "iconSize"?: 'small' | 'medium' | 'large';
         "toggleState"?: any;
         /**
           * Truncate title on text overflow
