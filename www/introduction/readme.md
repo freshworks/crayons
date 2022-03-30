@@ -16,7 +16,7 @@ Freshworks Crayons is a library of UI components that are the building blocks to
 * icon [library](https://crayons.freshworks.com/components/icon) with support for using external icons
 
 ## Installation
-By default the `latest` major version of `Crayons` will be installed. If you want to install any specific version of `Crayons` please use `crayons@version`
+You can install any specific version of `Crayons` using `crayons@v[version]`
 
 ## Getting Started
 
@@ -26,11 +26,11 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@3/dist/crayons/crayons.esm.js">
+  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js">
 </script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@3/dist/crayons/crayons.js">
+  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.js">
 </script>
 ```
 
@@ -45,7 +45,7 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 #### Usage via Node Modules
  - Install the package 
 ```bash
-  npm install @freshworks/crayons@3 --save
+  npm install @freshworks/crayons@v3 --save
 ```
  - Put a script tag similar to this 
 ```html
@@ -75,7 +75,7 @@ For more information please check [here](https://crayons.freshworks.com/framewor
 ```
 #### Usage via CDN
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@freshworks/crayons@3/css/crayons-min.css">
+<link rel="stylesheet" href="https://unpkg.com/@freshworks/crayons@v3/css/crayons-min.css">
 ```
 
 > Note: CSS utils are optional. Crayons can be used without including crayons-min.css.

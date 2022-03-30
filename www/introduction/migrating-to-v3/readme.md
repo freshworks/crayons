@@ -116,11 +116,11 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@3/dist/crayons/crayons.esm.js">
+  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js">
 </script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@3/dist/crayons/crayons.js">
+  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.js">
 </script>
 ```
 
@@ -135,7 +135,7 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 #### Usage via Node Modules
  - Install the package 
 ```bash
-  npm install @freshworks/crayons@3 --save
+  npm install @freshworks/crayons@v3 --save
 ```
  - Put a script tag similar to this 
 ```html

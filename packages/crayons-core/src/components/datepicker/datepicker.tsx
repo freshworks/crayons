@@ -664,9 +664,11 @@ export class Datepicker {
         : this.displayFormat;
 
       if (this.mode === 'range')
-        this.placeholder = `${this.placeholder} ${TranslationController.t(
-          'datepicker.to'
-        )} ${this.placeholder}`;
+        this.placeholder = this.isPlaceholderSet
+          ? this.placeholder
+          : `${this.displayFormat} ${TranslationController.t(
+              'datepicker.to'
+            )} ${this.displayFormat}`;
 
       const monthNames = getMonthNames(this.langModule);
       this.shortMonthNames = monthNames.shortMonthNames;
@@ -727,9 +729,11 @@ export class Datepicker {
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
     if (this.mode === 'range')
-      this.placeholder = `${this.placeholder} ${TranslationController.t(
-        'datepicker.to'
-      )} ${this.placeholder}`;
+      this.placeholder = this.isPlaceholderSet
+        ? this.placeholder
+        : `${this.displayFormat} ${TranslationController.t('datepicker.to')} ${
+            this.displayFormat
+          }`;
 
     this.supportedYears = this.getSupportedYears();
     this.startDate =
@@ -1048,7 +1052,7 @@ export class Datepicker {
   };
 
   @Listen('fwInputClear')
-  handleInputClear() {
+  handleInputClear(e: any) {
     if (this.mode !== 'range') {
       if (this.selectedDay) {
         this.selectedDay = undefined;
@@ -1059,6 +1063,7 @@ export class Datepicker {
       }
     }
     this.value = undefined;
+    this.emitEvent(e, undefined);
   }
 
   // handle cancel and popover close
@@ -1285,7 +1290,6 @@ export class Datepicker {
   }
 
   render(): JSX.Element {
-    console.log('render');
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
