@@ -68,12 +68,18 @@ graph TD;
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-datepicker --> fw-select-option
+  fw-datepicker --> fw-button
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-input
   fw-datepicker --> fw-icon
   fw-datepicker --> fw-select
-  fw-datepicker --> fw-select-option
-  fw-datepicker --> fw-button
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-popover
   fw-select --> fw-button
@@ -82,14 +88,8 @@ graph TD;
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
-  fw-select-option --> fw-icon
-  fw-select-option --> fw-checkbox
-  fw-select-option --> fw-avatar
-  fw-checkbox --> fw-icon
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
   fw-form --> fw-form-control

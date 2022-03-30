@@ -35,7 +35,7 @@ export class ListOptions {
       const filteredValue =
         value !== ''
           ? dataSource.filter((option) =>
-              option.text.toLowerCase().includes(value)
+              option.text.toLowerCase().includes(value.toLowerCase())
             )
           : dataSource;
       resolve(filteredValue);
@@ -67,6 +67,11 @@ export class ListOptions {
    * Enables the input with in the popup for filtering the options.
    */
   @Prop() searchable = false;
+  /**
+   * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() disabled = false;
+
   /**
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
@@ -239,6 +244,13 @@ export class ListOptions {
     this.setDataSource(newValue);
   }
 
+  @Watch('disabled')
+  disabledWatcher(): void {
+    const options = this.options;
+    // updating the object to retrigger
+    this.options = [...options];
+  }
+
   @Watch('value')
   onValueChange(newValue, oldValue) {
     if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
@@ -295,15 +307,23 @@ export class ListOptions {
     (filterText) => {
       this.isLoading = true;
       this.fwLoading.emit({ isLoading: this.isLoading });
-      this.search(filterText, this.selectOptions).then((options) => {
+      if (filterText) {
+        this.search(filterText, this.selectOptions).then((options) => {
+          this.filteredOptions =
+            options?.length > 0
+              ? this.serializeData(options)
+              : [{ text: this.notFoundText, disabled: true }];
+          this.isLoading = false;
+          this.fwLoading.emit({ isLoading: this.isLoading });
+        });
+      } else {
         this.filteredOptions =
-          options?.length > 0
-            ? this.serializeData(options)
-            : [{ text: this.notFoundText, disabled: true }];
-
+          this.selectOptions?.length > 0
+            ? this.selectOptions
+            : [{ text: this.noDataText, disabled: true }];
         this.isLoading = false;
         this.fwLoading.emit({ isLoading: this.isLoading });
-      });
+      }
     },
     this,
     this.debounceTimer
@@ -335,6 +355,7 @@ export class ListOptions {
           selected: this.isValueEqual(this.value, option) || option.selected,
           disabled:
             option.disabled ||
+            this.disabled ||
             (this.multiple && this.value?.length >= this.max),
           allowDeselect: this.allowDeselect,
         },
