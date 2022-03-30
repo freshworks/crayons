@@ -16,7 +16,7 @@ Freshworks Crayons is a library of UI components that are the building blocks to
 * icon [library](https://crayons.freshworks.com/components/icon) with support for using external icons
 
 ## Installation
-You can install any specific version of `Crayons` using `crayons@v[version]`
+You can install a specific version of `Crayons` using `crayons@v[version]`
 
 ## Getting Started
 
