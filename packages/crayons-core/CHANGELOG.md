@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.0...@freshworks/crayons@3.2.1-beta.0) (2022-03-30)
+
+
+### Bug Fixes
+
+* **data-table:** removing popper instance once table is removed from dom ([#536](https://github.com/freshworks/crayons/issues/536)) ([bbcfbff](https://github.com/freshworks/crayons/commit/bbcfbff35dfcfb4a9f7edb917eb0bbacfec02d14))
+
+
+
+
+
 ## [3.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.1.2...@freshworks/crayons@3.2.0-beta.0) (2022-03-30)
 
 ### Bug Fixes
