@@ -104,6 +104,7 @@ export class TranslationController {
   onChange: any;
   requests = new Map<string, Promise<any>>();
   //pluralize: any;
+  langCodeMapping: any;
 
   constructor() {
     const { state, onChange } = createStore({
@@ -114,6 +115,7 @@ export class TranslationController {
     this.state = state;
     this.onChange = onChange;
     //this.pluralize = pluralize;
+    this.langCodeMapping = langCodeMapping;
 
     this.onChange('lang', async (lang: string) => {
       this.fetchTranslations(lang);
@@ -188,7 +190,9 @@ export class TranslationController {
 
   async fetchTranslations(lang?: string): Promise<void> {
     const locale = lang || getBrowserLang();
-    const userLocale = (langCodeMapping as any)[`${locale}`] || 'en-US';
+    const userLocale = locale.includes('-')
+      ? locale
+      : (langCodeMapping as any)[`${locale}`] || 'en-US';
     this.state.lang = locale;
 
     return this.fetchDefaultTranslations(userLocale).then(
