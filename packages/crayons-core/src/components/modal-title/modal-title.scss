@@ -17,6 +17,7 @@
     font-size: $font-size-18;
     font-weight: $font-weight-600;
     line-height: 24px;
+    color: $color-elephant-900;
 
     .modal-header-body {
       width: 100%;
@@ -32,6 +33,7 @@
         box-sizing: border-box;
         display: flex;
         gap: 10px;
+        color: $color-elephant-900;
 
         .modal-title-icon {
           width: auto;
