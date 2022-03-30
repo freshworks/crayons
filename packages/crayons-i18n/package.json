@@ -19,8 +19,7 @@
     "crayons",
     "i18n",
     "typescript",
-    "stenciljs",
-    "webcomponents"
+    "stenciljs"
   ],
   "author": "Freshworks Inc",
   "license": "MIT",

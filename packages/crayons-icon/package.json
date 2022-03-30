@@ -19,7 +19,7 @@
     "svgo yml config",
     "svg JS Exports",
     "svg optimizer",
-    "crayons-icon-cli"
+    "icon cli"
   ],
   "files": [
     "dist/",
