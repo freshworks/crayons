@@ -241,6 +241,10 @@ export class DataTable {
     }
   }
 
+  disconnectedCallback() {
+    this.popperInstance?.destroy();
+  }
+
   /**
    * keyDownHandler
    * @param event
