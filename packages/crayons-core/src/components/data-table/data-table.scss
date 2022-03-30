@@ -321,6 +321,7 @@ div.fw-data-table-container {
             .table-settings-content-title {
               box-sizing: border-box;
               padding-bottom: 5px;
+              padding-left: 5px;
             }
 
             .table-settings-content-search {
@@ -334,11 +335,14 @@ div.fw-data-table-container {
               flex-grow: 1;
               margin-top: 14px;
               overflow-y: hidden;
+              transform: translateX(-3px);
+              width: calc(100% + 5px);
 
               .table-settings-content-checkboxes {
                 display: flex;
                 flex-direction: column;
                 overflow-y: auto;
+                padding-left: 5px;
 
                 div {
                   margin: 5px 0px;
