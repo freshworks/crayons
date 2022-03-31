@@ -1,6 +1,7 @@
 import { Build as BUILD, ComponentInterface } from '@stencil/core';
 
 import { createStore } from '@stencil/store';
+import { supportedDateLanguages, langCodeMapping } from './constants';
 
 //import i18next from 'i18next';
 
@@ -103,6 +104,7 @@ export class TranslationController {
   onChange: any;
   requests = new Map<string, Promise<any>>();
   //pluralize: any;
+  langCodeMapping: any;
 
   constructor() {
     const { state, onChange } = createStore({
@@ -113,6 +115,7 @@ export class TranslationController {
     this.state = state;
     this.onChange = onChange;
     //this.pluralize = pluralize;
+    this.langCodeMapping = langCodeMapping;
 
     this.onChange('lang', async (lang: string) => {
       this.fetchTranslations(lang);
@@ -187,24 +190,29 @@ export class TranslationController {
 
   async fetchTranslations(lang?: string): Promise<void> {
     const locale = lang || getBrowserLang();
+    const userLocale = locale.includes('-')
+      ? locale
+      : (langCodeMapping as any)[`${locale}`] || 'en-US';
     this.state.lang = locale;
 
-    return this.fetchDefaultTranslations(locale).then((defaultLangStrings) => {
-      const customLangStrings =
-        (this.state.customTranslations as any)?.[locale] || {};
-      const finalLangStrings = {
-        ...defaultLangStrings,
-        ...customLangStrings,
-      };
-      this.state.globalStrings = finalLangStrings;
-      return finalLangStrings;
-    });
+    return this.fetchDefaultTranslations(userLocale).then(
+      (defaultLangStrings) => {
+        const customLangStrings =
+          (this.state.customTranslations as any)?.[locale] || {};
+        const finalLangStrings = {
+          ...defaultLangStrings,
+          ...customLangStrings,
+        };
+        this.state.globalStrings = finalLangStrings;
+        return finalLangStrings;
+      }
+    );
   }
 
   fetchDefaultTranslations(lang: string): Promise<any> {
     let req = this.requests.get(lang);
     if (!req) {
-      req = import(`../i18n/${lang}.json`)
+      req = import(`../locale/${lang}.json`)
         .then((result) => result.default)
         .then((data) => {
           return data;
@@ -214,7 +222,7 @@ export class TranslationController {
             `Error loading config for lang: ${lang} from pre-defined set. defaulting to en-US translation`
           );
           // fallback to en default strings in case of exception
-          return await this.fetchDefaultTranslations('en');
+          return await this.fetchDefaultTranslations('en-US');
         });
       this.requests.set(lang, req);
     }
@@ -227,7 +235,15 @@ export class TranslationController {
     let req = this.requests.get('date_' + locale);
     if (!req) {
       let lng = locale;
+      const langIndex = supportedDateLanguages.indexOf(lng);
+      if (langIndex >= 0) {
+        lng = supportedDateLanguages[langIndex];
+      } else {
+        lng = lng.includes('-') ? lng.split('-')[0] : lng;
+      }
+
       if (lng === 'en') lng = 'en-US';
+
       req = import(`../../../node_modules/date-fns/esm/locale/${lng}/index.js`)
         .then((result) => result.default)
         .then((data) => {
