@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.0...@freshworks/crayons@3.2.1-beta.0) (2022-03-30)
+
+### Bug Fixes
+
+- **data-table:** removing popper instance once table is removed from dom ([#536](https://github.com/freshworks/crayons/issues/536)) ([bbcfbff](https://github.com/freshworks/crayons/commit/bbcfbff35dfcfb4a9f7edb917eb0bbacfec02d14))
+
+## [3.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.1.2...@freshworks/crayons@3.2.0-beta.0) (2022-03-30)
+
+### Bug Fixes
+
+- **data-table:** checkbox breaking word for overflowing text ([#512](https://github.com/freshworks/crayons/issues/512)) ([276305c](https://github.com/freshworks/crayons/commit/276305ca4a290caeeee552209e0350cd65a9d38e))
+- **datepicker:** emit fwchange on clearing input ([#522](https://github.com/freshworks/crayons/issues/522)) ([834805a](https://github.com/freshworks/crayons/commit/834805a3f382bbcd65cd2aecc9cb75a446abd25c))
+- **datepicker:** set placeholder for datepicker based on locale ([f8a7c61](https://github.com/freshworks/crayons/commit/f8a7c619263f336ffd54d85ccfe99cf568e995ee))
+- **fw-select:** handled the empty text scenario in dynamic select ([#508](https://github.com/freshworks/crayons/issues/508)) ([421cdb3](https://github.com/freshworks/crayons/commit/421cdb389dce86a8484754ae340c7d57763e65ce))
+- **fw-select:** popup position changes for clippingParents ([#515](https://github.com/freshworks/crayons/issues/515)) ([b86bcb6](https://github.com/freshworks/crayons/commit/b86bcb6bc686fb6aec11d213c97cdc619d5c7335))
+
+### Features
+
+- **datepicker:** adding new variants to datepicker component ([#502](https://github.com/freshworks/crayons/issues/502)) ([9b170d8](https://github.com/freshworks/crayons/commit/9b170d8e26ff61229bb06dfd5979861a1d62f57b))
+- **fw-accordion-header:** added prop for different icon size ([#518](https://github.com/freshworks/crayons/issues/518)) ([5e211b2](https://github.com/freshworks/crayons/commit/5e211b27361e38caaad8eb86f4e6fd58eeacaaea))
+- **fw-select:** clear single select by clearing input ([#520](https://github.com/freshworks/crayons/issues/520)) ([d8d359b](https://github.com/freshworks/crayons/commit/d8d359b1c67f3b0b5f10d6afc8c8c8e8abc6d96e))
+
 ## [3.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.1.0-beta.0...@freshworks/crayons@3.1.0-beta.1) (2022-03-29)
 
 ### Bug Fixes
@@ -19,6 +41,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
+=======
+>>>>>>> dd4be00 (chore(release): update lock file and clean up changelogs)
 - **datepicker:** adding new variants to datepicker component ([#502](https://github.com/freshworks/crayons/issues/502)) ([9b170d8](https://github.com/freshworks/crayons/commit/9b170d8e26ff61229bb06dfd5979861a1d62f57b))
 - **fw-accordion-header:** added prop for different icon size ([#518](https://github.com/freshworks/crayons/issues/518)) ([5e211b2](https://github.com/freshworks/crayons/commit/5e211b27361e38caaad8eb86f4e6fd58eeacaaea))
 - **fw-select:** clear single select by clearing input ([#520](https://github.com/freshworks/crayons/issues/520)) ([d8d359b](https://github.com/freshworks/crayons/commit/d8d359b1c67f3b0b5f10d6afc8c8c8e8abc6d96e))
@@ -27,6 +51,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
+=======
+### Bug Fixes
+
+>>>>>>> e317c66 (chore(release): update lock file and clean up changelogs)
 - **data-table:** checkbox breaking word for overflowing text ([#512](https://github.com/freshworks/crayons/issues/512)) ([276305c](https://github.com/freshworks/crayons/commit/276305ca4a290caeeee552209e0350cd65a9d38e))
 
 ## [3.0.0-beta.44](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.0.0-beta.43...@freshworks/crayons@3.0.0-beta.44) (2022-03-23)

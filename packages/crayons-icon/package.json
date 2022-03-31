@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/freshworks/crayons.git"
   },
-  "version": "3.0.3-beta.0",
+  "version": "3.0.4",
   "description": "Freshworks `Crayons Icon` is an Icon library of SVGs. It also provides a NodeJS CLI to optimize SVGs.",
   "main": "dist/index.js",
   "bin": {
@@ -19,7 +19,7 @@
     "svgo yml config",
     "svg JS Exports",
     "svg optimizer",
-    "crayons-icon-cli"
+    "icon cli"
   ],
   "files": [
     "dist/",
