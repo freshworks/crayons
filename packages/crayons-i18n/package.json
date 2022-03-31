@@ -1,6 +1,6 @@
 {
   "name": "@freshworks/crayons-i18n",
-  "version": "3.0.4",
+  "version": "3.1.0-beta.0",
   "description": "Crayons i18n Library",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && rollup -c",
-    "get-translations" : "node scripts/crowdin.js"
+    "get-translations": "node scripts/crowdin.js"
   },
   "keywords": [
     "crayons",
