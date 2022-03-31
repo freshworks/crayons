@@ -1,24 +1,34 @@
 # Button Group (fw-button-group)
+
 Button groups can be used to group related buttons into sections.
+
 ## Demo
-``` html live
+
+```html live
 <section>
-<fw-button-group label="Test">
-    <fw-button>Replace</fw-button>
-    <fw-button>Modify</fw-button>
-    <fw-button>Cancel</fw-button>
+  <fw-button-group label="Test">
+    <fw-button color="secondary">Replace</fw-button>
+    <fw-button color="secondary">Modify</fw-button>
+    <fw-button color="secondary">Cancel</fw-button>
   </fw-button-group>
-  </section>
-  <br/>
+</section>
+<br />
 
 <section>
-    <fw-button-group label="Test">
-    <fw-button id="b1" size="icon" color="secondary"><fw-icon name="reply" color="black" ></fw-icon> </fw-button>
-    <fw-button id="b2" size="icon" color="secondary"><fw-icon name="chat-online" color="black" ></fw-icon> </fw-button>
-    <fw-button id="b3" size="icon" color="secondary"><fw-icon name="more-horizontal" color="black" ></fw-icon> </fw-button>
+  <fw-button-group label="Test">
+    <fw-button id="b1" size="icon" color="secondary"
+      ><fw-icon name="reply" color="black"></fw-icon>
+    </fw-button>
+    <fw-button id="b2" size="icon" color="secondary"
+      ><fw-icon name="chat-online" color="black"></fw-icon>
+    </fw-button>
+    <fw-button id="b3" size="icon" color="secondary"
+      ><fw-icon name="more-horizontal" color="black"></fw-icon>
+    </fw-button>
   </fw-button-group>
 </section>
 ```
+
 ## Usage
 
 <code-group>
@@ -26,9 +36,9 @@ Button groups can be used to group related buttons into sections.
 ```html
 <section>
 <fw-button-group label="Test">
-    <fw-button>Replace</fw-button>
-    <fw-button>Modify</fw-button>
-    <fw-button>Cancel</fw-button>
+    <fw-button color="secondary">Replace</fw-button>
+    <fw-button color="secondary">Modify</fw-button>
+    <fw-button color="secondary">Cancel</fw-button>
   </fw-button-group>
   </section>
 <br/>
@@ -66,8 +76,6 @@ function App() {
 ```
 </code-block>
 </code-group>
-
-
 
 <!-- Auto Generated Below -->
 
