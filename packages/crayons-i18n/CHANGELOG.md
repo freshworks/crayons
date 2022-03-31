@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.0.4...@freshworks/crayons-i18n@3.1.0-beta.0) (2022-03-31)
-
+## [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.0.4...@freshworks/crayons-i18n@3.1.0-beta.0) (2022-03-31)
 
 ### Features
 
-* **i18n:** adding build setup to download translations from crowdin ([#521](https://github.com/freshworks/crayons/issues/521)) ([2f5f26f](https://github.com/freshworks/crayons/commit/2f5f26f1caf2e103274f7194812b902d1dafcb12))
-
-
-
-
+- **i18n:** adding build setup to download translations from crowdin ([#521](https://github.com/freshworks/crayons/issues/521)) ([2f5f26f](https://github.com/freshworks/crayons/commit/2f5f26f1caf2e103274f7194812b902d1dafcb12))
 
 ## 1.7.4 (2022-03-22)
 

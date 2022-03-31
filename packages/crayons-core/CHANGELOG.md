@@ -5,16 +5,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.2.2-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.1...@freshworks/crayons@3.2.2-beta.0) (2022-03-31)
 
-
 ### Bug Fixes
 
-* **checkbox:** handle checkbox label alignment if spanned multiple lines ([#523](https://github.com/freshworks/crayons/issues/523)) ([2d41325](https://github.com/freshworks/crayons/commit/2d413258758816301494876de02989040cf2cda3))
-* **data-table:** checkbox hover style visible in table settings ([#526](https://github.com/freshworks/crayons/issues/526)) ([f02917a](https://github.com/freshworks/crayons/commit/f02917a6cec0537627975ce78981e20dff0bc4cb))
-* **node16-support:** adding support for node 16 ([#538](https://github.com/freshworks/crayons/issues/538)) ([c60ed88](https://github.com/freshworks/crayons/commit/c60ed88fc8e549c34146ce34b0d08e6bac38a43c))
-
-
-
-
+- **checkbox:** handle checkbox label alignment if spanned multiple lines ([#523](https://github.com/freshworks/crayons/issues/523)) ([2d41325](https://github.com/freshworks/crayons/commit/2d413258758816301494876de02989040cf2cda3))
+- **data-table:** checkbox hover style visible in table settings ([#526](https://github.com/freshworks/crayons/issues/526)) ([f02917a](https://github.com/freshworks/crayons/commit/f02917a6cec0537627975ce78981e20dff0bc4cb))
+- **node16-support:** adding support for node 16 ([#538](https://github.com/freshworks/crayons/issues/538)) ([c60ed88](https://github.com/freshworks/crayons/commit/c60ed88fc8e549c34146ce34b0d08e6bac38a43c))
 
 ## [3.2.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.0...@freshworks/crayons@3.2.1-beta.0) (2022-03-30)
 
