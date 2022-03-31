@@ -146,12 +146,16 @@ export class Modal {
    */
   styleVariation = {
     closeColor: {
-      modal: '#5D7587',
+      modal: '#475867',
       slider: '#FFFFFF',
     },
     closeSize: {
       modal: 10,
       slider: 12,
+    },
+    closeName: {
+      modal: 'cross',
+      slider: 'cross-big',
     },
   };
 
@@ -393,7 +397,11 @@ export class Modal {
           {this.hasCloseIconButton && (
             <button class='close-btn' onClick={() => this.close()}>
               <fw-icon
-                name='cross-big'
+                name={
+                  this.slider
+                    ? variation.closeName.slider
+                    : variation.closeName.modal
+                }
                 library='system'
                 color={
                   this.slider
