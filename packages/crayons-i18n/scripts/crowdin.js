@@ -89,15 +89,14 @@ const downloadTranslations = (zipURL) => {
       var zipFile = new AdmZip(res.data);
 
       //Cleanup existing directories
-      shell.exec('rm -rf ./tmp ./locale');
+      shell.exec('rm -rf ./tmp');
       zipFile.extractAllTo('./tmp');
 
-      shell.exec('mkdir locale');
       //recursive traversal through tmp
-      shell.exec(
-        'find ./tmp -type f -name "*.json" -exec cp -r {} ./locale \\;'
-      );
-      shell.exec('cp ./i18n/* ./locale');
+      shell.exec('find ./tmp -type f -name "*.json" -exec cp -r {} ./i18n \\;');
+
+      // Cleanup tmp directory
+      shell.exec('rm -rf ./tmp');
     })
     .catch((err) => {
       console.log(`Error occured while downloading translations: ${err}`);
