@@ -5,14 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.2.2-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.0...@freshworks/crayons@3.2.2-beta.1) (2022-03-31)
 
-
 ### Bug Fixes
 
-* **fw-button:** added disabled border for secondary button ([#539](https://github.com/freshworks/crayons/issues/539)) ([d0154bf](https://github.com/freshworks/crayons/commit/d0154bf1cdaacdaaefd28796b2e781bb006f8464))
-
-
-
-
+- **fw-button:** added disabled border for secondary button ([#539](https://github.com/freshworks/crayons/issues/539)) ([d0154bf](https://github.com/freshworks/crayons/commit/d0154bf1cdaacdaaefd28796b2e781bb006f8464))
 
 ## [3.2.2-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.1...@freshworks/crayons@3.2.2-beta.0) (2022-03-31)
 
