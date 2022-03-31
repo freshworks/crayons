@@ -1,7 +1,7 @@
 #!groovy
 
 def runNPM(command) {
-    def NODE_VERSION = 12;
+    def NODE_VERSION = 16;
     utilObj = new Utils();
     envVersion = utilObj.getEnvVersion(NODE_VERSION);
     utilObj.runCmd(command, envVersion)
@@ -39,7 +39,7 @@ pipeline {
         stage('Checkout & Setup') {
             steps {
                 checkout scm
-                runNPM('HUSKY_SKIP_INSTALL=1 npm install')
+                runNPM('HUSKY_SKIP_INSTALL=1 npm ci')
             }
         }
 
@@ -64,7 +64,7 @@ pipeline {
         stage ('Deploy to Staging') {
             when {
                 expression {
-                    params.deployTo == 'staging' && BRANCH_NAME == 'master'
+                    params.deployTo == 'staging' && (BRANCH_NAME == 'master' || BRANCH_NAME == 'next')
                 }
             }
             steps {
@@ -75,7 +75,7 @@ pipeline {
         stage ('Deploy to Release') {
             when {
                 expression {
-                    params.deployTo == 'release' && BRANCH_NAME == 'master'
+                    params.deployTo == 'release' && (BRANCH_NAME == 'master' || BRANCH_NAME == 'next')
                 }
             }
             steps {

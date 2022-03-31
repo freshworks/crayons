@@ -74,177 +74,143 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="css">
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-
-.landing-container {
-  width: 1000px;
-  margin: 0 auto;
-
-  .landing-header {
-    display: flex;
-    justify-content: space-between;
-
-    .fw-logo {
-      margin-top: 1%;
-
-      img {
-        width: 90%;
-        height: 90%;
-      }
-    }
-
-    .github-logo {
-      float: right;
-      padding: 0;
-      margin-top: 3%;
-
-      img {
-        margin-left: 70%;
-        width: 40%;
-        height: 40%;
-        opacity: 0.5;
-
-        &:hover,
-        &:focus {
-          opacity: 1;
-        }
-      }
-    }
-  }
-
-  .crayons-logo {
-    margin-top: 6%;
-    text-align: center;
-
-    img {
-      width: 40%;
-      height: 40%;
-    }
-  }
-
-  .crayons-description {
-    color: #666;
-    font-size: 16.5px;
-    font-weight: 400;
-    line-height: 28px;
-    margin-top: 15px;
-    text-align: center;
-  }
-
-  .link-cards-container {
-    margin-top: 7%;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 320px 320px 320px;
-    grid-column-gap: 20px;
-  }
+ .landing-container {
+	 width: 1000px;
+	 margin: 0 auto;
 }
-
-@media only screen and (max-width: 48rem) {
-  .landing-container {
-    margin: 0 auto;
-    width: 95%;
-
-    .landing-header {
-      display: flex;
-      justify-content: space-between;
-
-      .fw-logo {
-        margin-left: 5%;
-
-        img {
-          width: 70%;
-          height: 70%;
-        }
-      }
-
-      .github-logo {
-        img {
-          margin-left: 40%;
-          width: 40%;
-          height: 40%;
-        }
-      }
-    }
-
-    .crayons-logo {
-      margin-top: 6%;
-      text-align: center;
-
-      img {
-        width: 70%;
-        height: 70%;
-      }
-    }
-
-    .crayons-description {
-      color: #666;
-      font-size: 1.5rem;
-      font-weight: 400;
-      line-height: 28px;
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    .link-cards-container {
-      display: block;
-    }
-  }
+ .landing-container .landing-header {
+	 display: flex;
+	 justify-content: space-between;
 }
-
-@media only screen and (max-width: 27rem) {
-  .landing-container {
-    margin: 0 auto;
-    width: 100%;
-
-    .landing-header {
-      display: flex;
-      justify-content: space-between;
-
-      .fw-logo {
-        margin-left: 5%;
-
-        img {
-          width: 60%;
-          height: 60%;
-        }
-      }
-
-      .github-logo {
-        img {
-          margin-left: 60%;
-          width: 35%;
-          height: 35%;
-        }
-      }
-    }
-
-    .crayons-logo {
-      margin-top: 6%;
-      text-align: center;
-
-      img {
-        width: 70%;
-        height: 70%;
-      }
-    }
-
-    .crayons-description {
-      color: #666;
-      font-size: 1.25rem;
-      font-weight: 400;
-      line-height: 28px;
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    .link-cards-container {
-      display: block;
-    }
-  }
+ .landing-container .landing-header .fw-logo {
+	 margin-top: 1%;
 }
+ .landing-container .landing-header .fw-logo img {
+	 width: 90%;
+	 height: 90%;
+}
+ .landing-container .landing-header .github-logo {
+	 float: right;
+	 padding: 0;
+	 margin-top: 3%;
+}
+ .landing-container .landing-header .github-logo img {
+	 margin-left: 70%;
+	 width: 40%;
+	 height: 40%;
+	 opacity: 0.5;
+}
+ .landing-container .landing-header .github-logo img:hover, .landing-container .landing-header .github-logo img:focus {
+	 opacity: 1;
+}
+ .landing-container .crayons-logo {
+	 margin-top: 6%;
+	 text-align: center;
+}
+ .landing-container .crayons-logo img {
+	 width: 40%;
+	 height: 40%;
+}
+ .landing-container .crayons-description {
+	 color: #666;
+	 font-size: 16.5px;
+	 font-weight: 400;
+	 line-height: 28px;
+	 margin-top: 15px;
+	 text-align: center;
+}
+ .landing-container .link-cards-container {
+	 margin-top: 7%;
+	 box-sizing: border-box;
+	 display: grid;
+	 grid-template-columns: 320px 320px 320px;
+	 grid-column-gap: 20px;
+}
+ @media only screen and (max-width: 48rem) {
+	 .landing-container {
+		 margin: 0 auto;
+		 width: 95%;
+	}
+	 .landing-container .landing-header {
+		 display: flex;
+		 justify-content: space-between;
+	}
+	 .landing-container .landing-header .fw-logo {
+		 margin-left: 5%;
+	}
+	 .landing-container .landing-header .fw-logo img {
+		 width: 70%;
+		 height: 70%;
+	}
+	 .landing-container .landing-header .github-logo img {
+		 margin-left: 40%;
+		 width: 40%;
+		 height: 40%;
+	}
+	 .landing-container .crayons-logo {
+		 margin-top: 6%;
+		 text-align: center;
+	}
+	 .landing-container .crayons-logo img {
+		 width: 70%;
+		 height: 70%;
+	}
+	 .landing-container .crayons-description {
+		 color: #666;
+		 font-size: 1.5rem;
+		 font-weight: 400;
+		 line-height: 28px;
+		 margin-top: 15px;
+		 text-align: center;
+	}
+	 .landing-container .link-cards-container {
+		 display: block;
+	}
+}
+ @media only screen and (max-width: 27rem) {
+	 .landing-container {
+		 margin: 0 auto;
+		 width: 100%;
+	}
+	 .landing-container .landing-header {
+		 display: flex;
+		 justify-content: space-between;
+	}
+	 .landing-container .landing-header .fw-logo {
+		 margin-left: 5%;
+	}
+	 .landing-container .landing-header .fw-logo img {
+		 width: 60%;
+		 height: 60%;
+	}
+	 .landing-container .landing-header .github-logo img {
+		 margin-left: 60%;
+		 width: 35%;
+		 height: 35%;
+	}
+	 .landing-container .crayons-logo {
+		 margin-top: 6%;
+		 text-align: center;
+	}
+	 .landing-container .crayons-logo img {
+		 width: 70%;
+		 height: 70%;
+	}
+	 .landing-container .crayons-description {
+		 color: #666;
+		 font-size: 1.25rem;
+		 font-weight: 400;
+		 line-height: 28px;
+		 margin-top: 15px;
+		 text-align: center;
+	}
+	 .landing-container .link-cards-container {
+		 display: block;
+	}
+}
+ 
 </style>
