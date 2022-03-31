@@ -88,6 +88,8 @@ $input-height-mini: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
   }
 
   &:active:not(.fw-btn--loading) {
