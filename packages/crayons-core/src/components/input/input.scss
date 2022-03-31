@@ -138,15 +138,14 @@ $warning-color: $color-casablanca-300;
   }
   &:hover {
     border: 1px $input-hover-color solid;
-    transition: 0.2s linear;
   }
 
   &.has-focus {
     outline: none;
     background: $input-bg;
     background-color: $app-light-bg;
-    border: 1px solid transparent;
-    box-shadow: 0 0 0 2px $input-focus-color;
+    border: 1px solid $input-focus-color;
+    box-shadow: 0 0 0 1px $input-focus-color;
   }
 
   &.disabled {
