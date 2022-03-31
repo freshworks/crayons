@@ -116,7 +116,7 @@
       "minimum": "Enter a minimum of one choice!",
       "formErrors": "Form contains errors!",
       "fieldNameExists": "There is another field with the same label in this custom object. Please use a different label.",
-      "deleteDropDownChoice": "Deleting a choice will impact related tickets, automation and reports."
+      "deleteDropDownChoice": "Deleting a choice will impact related records."
     },
     "maximumLimits": {
       "filterable": "Maximum of {{count}} fields can be used to filter records in the list view.",
