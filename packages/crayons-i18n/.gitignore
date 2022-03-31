@@ -2,3 +2,6 @@ node_modules/
 dist
 tmp/
 locale/
+
+i18n/*.json
+!i18n/en-US.json
