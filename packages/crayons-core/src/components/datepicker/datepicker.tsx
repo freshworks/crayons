@@ -344,6 +344,14 @@ export class Datepicker {
     }
   }
 
+  /**
+   * Clears the input value and unselects selected date.
+   */
+  @Method()
+  async clearValue(): Promise<void> {
+    this.clearInputValue();
+  }
+
   @Listen('keydown')
   handleKeyDown(event: KeyboardEvent): void {
     switch (event.code) {
@@ -1051,8 +1059,7 @@ export class Datepicker {
     }
   };
 
-  @Listen('fwInputClear')
-  handleInputClear(e: any) {
+  clearInputValue(): void {
     if (this.mode !== 'range') {
       if (this.selectedDay) {
         this.selectedDay = undefined;
@@ -1063,6 +1070,11 @@ export class Datepicker {
       }
     }
     this.value = undefined;
+  }
+
+  @Listen('fwInputClear')
+  handleInputClear(e: any) {
+    this.clearInputValue();
     this.emitEvent(e, undefined);
   }
 
