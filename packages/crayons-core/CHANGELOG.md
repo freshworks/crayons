@@ -5,14 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.2.2-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.2...@freshworks/crayons@3.2.2-beta.3) (2022-04-01)
 
-
 ### Bug Fixes
 
-* **data-table:** wrapping text in column when single word is big ([#542](https://github.com/freshworks/crayons/issues/542)) ([cae602d](https://github.com/freshworks/crayons/commit/cae602de66f7666aa95305266496583b081ef0f2))
-
-
-
-
+- **data-table:** wrapping text in column when single word is big ([#542](https://github.com/freshworks/crayons/issues/542)) ([cae602d](https://github.com/freshworks/crayons/commit/cae602de66f7666aa95305266496583b081ef0f2))
 
 ## [3.2.2-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.1...@freshworks/crayons@3.2.2-beta.2) (2022-04-01)
 
