@@ -156,6 +156,10 @@ div.fw-data-table-container {
             & fw-button {
               margin-right: 5px;
             }
+
+            & fw-button:last-child {
+              margin-right: 0px;
+            }
           }
 
           td.hidden {
