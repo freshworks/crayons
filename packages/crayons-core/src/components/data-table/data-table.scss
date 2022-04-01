@@ -59,7 +59,9 @@ div.fw-data-table-container {
             min-width: 40px;
             max-width: 1000px;
             background: $grid-header-bg;
-            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: normal;
 
             &:first-of-type {
               padding-left: 16px;
@@ -120,7 +122,9 @@ div.fw-data-table-container {
             box-sizing: border-box;
             z-index: 0;
             height: 64px;
-            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: normal;
 
             &.data-grid-checkbox {
               text-align: center;
@@ -157,7 +161,7 @@ div.fw-data-table-container {
               margin-right: 5px;
             }
 
-            & fw-button:last-child {
+            & fw-tooltip:last-child fw-button {
               margin-right: 0px;
             }
           }
@@ -347,6 +351,7 @@ div.fw-data-table-container {
                 flex-direction: column;
                 overflow-y: auto;
                 padding-left: 5px;
+                padding-right: 5px;
 
                 div {
                   margin: 5px 0px;
