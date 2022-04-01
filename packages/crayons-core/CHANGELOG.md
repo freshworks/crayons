@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.2-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.1...@freshworks/crayons@3.2.2-beta.2) (2022-04-01)
+
+
+### Bug Fixes
+
+* **data-table:** removing extra space from last rowActions button ([#541](https://github.com/freshworks/crayons/issues/541)) ([16ebcf4](https://github.com/freshworks/crayons/commit/16ebcf410047a62803b0d7adcc28a9fb824626eb))
+
+
+
+
+
 ## [3.2.2-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.0...@freshworks/crayons@3.2.2-beta.1) (2022-03-31)
 
 ### Bug Fixes
