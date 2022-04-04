@@ -1072,7 +1072,6 @@ export class Datepicker {
     this.value = undefined;
   }
 
-  @Listen('fwInputClear')
   handleInputClear(e: any) {
     this.clearInputValue();
     this.emitEvent(e, undefined);
@@ -1355,6 +1354,7 @@ export class Datepicker {
               state={this.state}
               readonly={this.readonly}
               clearInput={this.clearInput}
+              onFwInputClear={this.handleInputClear}
             >
               <div class='icon-calendar' slot='input-suffix'>
                 <div
