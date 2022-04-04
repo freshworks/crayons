@@ -1,0 +1,49 @@
+// Neutral colors
+$palette-neutral-100: $color-milk;
+
+// Primary colors
+$palette-primary-900: var(--fw-palette-primary-900, $color-elephant-900);
+$palette-primary-500: var(--fw-palette-primary-500, $color-elephant-800);
+$palette-primary-100: var(--fw-palette-primary-100, $color-elephant-700);
+$palette-primary-50: var(--fw-palette-primary-50, $color-elephant-600);
+
+// Secondary colors
+$palette-secondary-700: var(--fw-palette-secondary-700, $color-smoke-700);
+$palette-secondary-300: var(--fw-palette-secondary-300, $color-smoke-300);
+$palette-secondary-200: var(--fw-palette-secondary-200, $color-smoke-200);
+$palette-secondary-100: var(--fw-palette-secondary-100, $color-smoke-100);
+$palette-secondary-50: var(--fw-palette-secondary-50, $color-smoke-50);
+$palette-secondary-25: var(--fw-palette-secondary-25, $color-smoke-25);
+
+// Info colors
+$palette-success-900: var(--fw-palette-success-900, $color-jungle-800);
+$palette-success-500: var(--fw-palette-success-500, $color-jungle-500);
+$palette-success-100: var(--fw-palette-success-100, $color-jungle-100);
+$palette-success-50: var(--fw-palette-success-50, $color-jungle-50);
+
+// Warning colors
+$palette-warning-900: var(--fw-palette-warning-900, $color-casablanca-700);
+$palette-warning-500: var(--fw-palette-warning-500, $color-casablanca-300);
+$palette-warning-100: var(--fw-palette-warning-100, $color-casablanca-100);
+$palette-warning-50: var(--fw-palette-warning-50, $color-casablanca-50);
+
+// Warning colors
+$palette-error-900: var(--fw-palette-error-900, $color-persimmon-900);
+$palette-error-500: var(--fw-palette-error-500, $color-persimmon-800);
+$palette-error-100: var(--fw-palette-error-100, $color-persimmon-100);
+$palette-error-50: var(--fw-palette-error-50, $color-persimmon-50);
+
+// Info colors
+$palette-info-500: var(--fw-palette-info-500, $color-azure-800);
+$palette-info-100: var(--fw-palette-info-100, $color-azure-100);
+$palette-info-50: var(--fw-palette-info-50, $color-azure-50);
+
+// Elevation shadow
+$elevation-level-1: var(
+  --fw-elevation-level-1,
+  -15px 20px 40px rgba(0, 0, 0, 0.04)
+);
+$elevation-level-2: var(
+  --fw-elevation-level-2,
+  0px 2px 18px rgba(18, 52, 77, 0.2)
+);
