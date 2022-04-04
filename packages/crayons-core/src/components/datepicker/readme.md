@@ -129,6 +129,16 @@ function App() {
 
 ## Methods
 
+### `clearValue() => Promise<void>`
+
+Clears the input value and unselects selected date.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `getValue() => Promise<string | { fromDate: string; toDate: string; }>`
 
 Returns the date value in ISO format.

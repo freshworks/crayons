@@ -252,6 +252,10 @@ export namespace Components {
          */
         "clearInput": boolean;
         /**
+          * Clears the input value and unselects selected date.
+         */
+        "clearValue": () => Promise<void>;
+        /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat": string;
