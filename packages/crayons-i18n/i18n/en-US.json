@@ -26,7 +26,8 @@
   "search": {
     "search": "Search",
     "noItemsFound": "No items found",
-    "noDataAvailable": "No data available"
+    "noDataAvailable": "No data available",
+    "startTyping": "Start Typing..."
   },
   "form": {
     "required": "{{field}} is required",
