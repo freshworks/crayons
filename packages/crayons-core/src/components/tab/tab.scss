@@ -40,8 +40,8 @@
 
   &.active:not(.disabled) {
     padding-bottom: var(--fw-tab-padding-tb, 8px);
-    border-bottom: 2px solid var(--fw-tab-border-color-active, $palette-info-500);
-    color: var(--fw-tab-color-active, $palette-info-500);
+    border-bottom: 2px solid var(--fw-tab-border-color-active, $palette-info-800);
+    color: var(--fw-tab-color-active, $palette-info-800);
     font-weight: var(--fw-tab-weight-active, $font-weight-600);
     background: var(--fw-tab-background-active, transparent);
   }
