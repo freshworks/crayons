@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.0...@freshworks/crayons@3.3.0-beta.1) (2022-04-05)
+
+
+### Features
+
+* **data-table:** retaining width for select column ([#546](https://github.com/freshworks/crayons/issues/546)) ([7bac939](https://github.com/freshworks/crayons/commit/7bac939742f7fc322126d2cf1d3c5048282f12e0))
+
+
+
+
+
 ## [3.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.3...@freshworks/crayons@3.3.0-beta.0) (2022-04-05)
 
 ### Features
