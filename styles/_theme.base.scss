@@ -16,35 +16,28 @@ $palette-secondary-100: var(--fw-palette-secondary-100, $color-smoke-100);
 $palette-secondary-50: var(--fw-palette-secondary-50, $color-smoke-50);
 $palette-secondary-25: var(--fw-palette-secondary-25, $color-smoke-25);
 
-// Proposal: Color pattern for the action colors
-// Darkest - 900
-// Dark - 500
-// Base - 100
-// Light - 50
-// Lightest - 25
-
 // Success colors
-$palette-success-900: var(--fw-palette-success-900, $color-jungle-800);
+$palette-success-800: var(--fw-palette-success-800, $color-jungle-800);
 $palette-success-500: var(--fw-palette-success-500, $color-jungle-500);
 $palette-success-100: var(--fw-palette-success-100, $color-jungle-100);
 $palette-success-50: var(--fw-palette-success-50, $color-jungle-50);
 
 // Warning colors
-$palette-warning-900: var(--fw-palette-warning-900, $color-casablanca-700);
-$palette-warning-500: var(--fw-palette-warning-500, $color-casablanca-300);
+$palette-warning-700: var(--fw-palette-warning-700, $color-casablanca-700);
+$palette-warning-300: var(--fw-palette-warning-300, $color-casablanca-300);
 $palette-warning-100: var(--fw-palette-warning-100, $color-casablanca-100);
 $palette-warning-50: var(--fw-palette-warning-50, $color-casablanca-50);
 
 // Error colors
 $palette-error-900: var(--fw-palette-error-900, $color-persimmon-900);
-$palette-error-500: var(--fw-palette-error-500, $color-persimmon-800);
+$palette-error-800: var(--fw-palette-error-800, $color-persimmon-800);
 $palette-error-300: var(--fw-palette-error-300, $color-persimmon-300);
 $palette-error-200: var(--fw-palette-error-200, $color-persimmon-200);
 $palette-error-100: var(--fw-palette-error-100, $color-persimmon-100);
 $palette-error-50: var(--fw-palette-error-50, $color-persimmon-50);
 
 // Info colors
-$palette-info-900: var(--fw-palette-info-900, $color-azure-800);
+$palette-info-800: var(--fw-palette-info-800, $color-azure-800);
 $palette-info-100: var(--fw-palette-info-100, $color-azure-100);
 $palette-info-50: var(--fw-palette-info-50, $color-azure-50);
 
