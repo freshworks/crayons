@@ -1,26 +1,49 @@
+/**
+  @prop --fw-tab-padding-tb: padding top/bottom for tab item.
+  @prop --fw-tab-padding-lr: padding left/right for the tab item.
+  @prop --fw-tab-color: color of the text inside tab.
+  @prop --fw-tab-weight: font weight of the text inside tab.
+  @prop --fw-tab-weight-active: font weight of the text inside tab when tab is active.
+  @prop --fw-tab-margin-tb: margin top/bottom of the tab item.
+  @prop --fw-tab-margin-lr: margin left-right of the tab item.
+  @prop --fw-tab-top-radius: top left/right radius of the tab item.
+  @prop --fw-tab-background: background color of the tab item.
+  @prop --fw-tab-background-active: background of the tab item when tab is active.
+  @prop --fw-tab-border-color: border color of the tab item.
+  @prop --fw-tab-border-color-hover: border color of the tab item on hover.
+  @prop --fw-tab-border-color-active: border color of the tab item when tab is active.
+  @prop --fw-tab-color-active: color of the text inside tab when tab is active.
+*/
+
 .tab {
   display: inline-flex;
   white-space: nowrap;
   cursor: pointer;
   align-items: center;
-  padding: 10px 8px;
+  padding: var(--fw-tab-padding-tb, 10px) var(--fw-tab-padding-lr, 8px);
   line-height: 20px;
-  color: $color-smoke-700;
+  color: var(--fw-tab-color, $palette-secondary-700);
   font-size: $font-size-14;
-  font-weight: $font-weight-400;
-  margin: 0 4px;
+  font-weight: var(--fw-tab-weight, $font-weight-400);
+  margin: var(--fw-tab-margin-tb, 0px) var(--fw-tab-margin-lr, 4px);
+  border-radius: var(--fw-tab-top-radius, 0px) var(--fw-tab-top-radius, 0px) 0px
+    0px;
+  background: var(--fw-tab-background, transparent);
+  padding-bottom: var(--fw-tab-padding-tb, 8px);
+  border-bottom: 2px solid var(--fw-tab-border-color, transparent);
 
   /* stylelint-disable */
   &:hover:not(.disabled) {
-    padding-bottom: 8px;
-    border-bottom: 2px solid $color-smoke-300;
+    padding-bottom: var(--fw-tab-padding-tb, 8px);
+    border-bottom: 2px solid var(--fw-tab-border-color-hover, $palette-secondary-300);
   }
 
   &.active:not(.disabled) {
-    padding-bottom: 8px;
-    border-bottom: 2px solid $color-azure-800;
-    color: $color-azure-800;
-    font-weight: $font-weight-600;
+    padding-bottom: var(--fw-tab-padding-tb, 8px);
+    border-bottom: 2px solid var(--fw-tab-border-color-active, $palette-info-500);
+    color: var(--fw-tab-color-active, $palette-info-500);
+    font-weight: var(--fw-tab-weight-active, $font-weight-600);
+    background: var(--fw-tab-background-active, transparent);
   }
 
   &.disabled {
