@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.3...@freshworks/crayons@3.3.0-beta.0) (2022-04-05)
-
+## [3.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.3...@freshworks/crayons@3.3.0-beta.0) (2022-04-05)
 
 ### Features
 
-* **datepicker:** expose public method to clear input ([#543](https://github.com/freshworks/crayons/issues/543)) ([4146b74](https://github.com/freshworks/crayons/commit/4146b7445138082ef504015ad45672621e83beba))
-
-
-
-
+- **datepicker:** expose public method to clear input ([#543](https://github.com/freshworks/crayons/issues/543)) ([4146b74](https://github.com/freshworks/crayons/commit/4146b7445138082ef504015ad45672621e83beba))
 
 ## [3.2.2-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.2...@freshworks/crayons@3.2.2-beta.3) (2022-04-01)
 
