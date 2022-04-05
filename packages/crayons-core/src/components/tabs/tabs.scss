@@ -1,8 +1,15 @@
 /**
   @prop --fw-tabs-width: width of the tab container.
   @prop --fw-tabs-height: height of the tab container.
-  @prop --fw-tabs-margin-lr: left margin for the tab items
-  @prop --fw-tabs-padding-lr: left padding for the tab items
+  @prop --fw-tabs-margin-l: left margin for the tab items
+  @prop --fw-tabs-margin-r: right margin for the tab items
+  @prop --fw-tabs-padding-left: left padding for the tab items
+  @prop --fw-tabs-padding-right: right padding for the tab items
+  @prop --fw-tabs-border-width: width of border separating tabs and the tab panel.
+  @prop --fw-tabs-border-color: color of border separating tabs and the tab panel.
+  @prop --fw-tabs-box-background: box variant background color.
+  @prop --fw-tabs-box-border-width: box variant tabs container border width.
+  @prop --fw-tabs-box-border-color: box variant tabs container border color.
 */
 
 .tabs {
@@ -13,10 +20,10 @@
 
   &__items__nav {
     padding: 0;
-    padding-left: var(--fw-tabs-padding-lr, 12px);
-    padding-right: var(--fw-tabs-padding-lr, 12px);
-    margin-left: var(--fw-tabs-margin-lr, 0);
-    margin-right: var(--fw-tabs-margin-lr, 0);
+    padding-left: var(--fw-tabs-padding-left, 12px);
+    padding-right: var(--fw-tabs-padding-right, 12px);
+    margin-left: var(--fw-tabs-margin-l, 0);
+    margin-right: var(--fw-tabs-margin-r, 0);
     display: flex;
     border-bottom: var(--fw-tabs-border-width, 1px) solid
       var(--fw-tabs-border-color, $palette-secondary-50);
