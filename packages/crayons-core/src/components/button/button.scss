@@ -1,50 +1,56 @@
 /**
   @prop --fw-button-min-width: minimum width for the button
   @prop --fw-button-label-vertical-padding: vertical padding for the button label
+  @prop --fw-button-height: The height of the normal button.
+  @prop --fw-button-small-height: The height of the small button.
+  @prop --fw-button-border-radius: The height of the small button.
+  @prop --fw-button-font-weight: The font weight of the button.
+  @prop --fw-button-font-size: The font size of the normal button.
+  @prop --fw-button-small-font-size: The font size of the small button.
 */
 
 //=== Button Style ===//
-$btn-primary-color: $color-milk;
-$btn-primary-bg: $color-elephant-800;
-$btn-primary-bg-dark: $color-elephant-900;
-$btn-primary-border: $color-elephant-900;
-$btn-primary-border-active: $color-elephant-800;
+$btn-primary-color: $palette-neutral-100;
+$btn-primary-bg: $palette-primary-800;
+$btn-primary-bg-dark: $palette-primary-900;
+$btn-primary-border: $palette-primary-900;
+$btn-primary-border-active: $palette-primary-800;
 
-$btn-primary-disabled-bg: $color-smoke-300;
-$btn-primary-disabled-bg-dark: #7b8e9f;
+$btn-primary-disabled-bg: $palette-secondary-300;
+$btn-primary-disabled-bg-dark: $palette-secondary-400;
 $btn-primary-disabled-color: rgba($btn-primary-color, 0.5);
 
-$btn-secondary-color: $text-default;
-$btn-secondary-bg: $color-milk;
-$btn-secondary-bg-dark: $color-smoke-25;
-$btn-secondary-border: $border-color;
-$btn-secondary-border-active: $color-smoke-50;
-$btn-secondary-disabled-bg: $color-smoke-50;
-$btn-secondary-disabled-bg-dark: $color-smoke-100;
-$btn-secondary-disabled-color: $color-smoke-300;
+$btn-secondary-color: $palette-primary-900;
+$btn-secondary-bg: $palette-neutral-100;
+$btn-secondary-bg-dark: $palette-secondary-25;
+$btn-secondary-border: $palette-secondary-100;
+$btn-secondary-border-active: $palette-secondary-50;
+$btn-secondary-disabled-bg: $palette-secondary-50;
+$btn-secondary-disabled-bg-dark: $palette-secondary-100;
+$btn-secondary-disabled-color: $palette-secondary-300;
 
-$btn-danger-color: $color-milk;
-$btn-danger-bg: $color-persimmon-800;
-$btn-danger-bg-dark: $color-persimmon-900;
-$btn-danger-border: $color-persimmon-900;
-$btn-danger-disabled-bg: #f89fa1;
-$btn-danger-disabled-bg-dark: #f2797b;
+$btn-danger-color: $palette-neutral-100;
+$btn-danger-bg: $palette-error-500;
+$btn-danger-bg-dark: $palette-error-900;
+$btn-danger-border: $palette-error-900;
+$btn-danger-disabled-bg: $palette-error-200;
+$btn-danger-disabled-bg-dark: $palette-error-300;
 $btn-danger-disabled-color: rgba($btn-primary-color, 0.5);
 
-$btn-link-color: $color-azure-800;
-$btn-link-bg: $color-smoke-50;
+$btn-link-color: $palette-info-900;
+$btn-link-bg: $palette-secondary-50;
 
 $active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
-$btn-default-font-size: $font-size-14;
-$btn-small-font-size: $font-size-12;
+$btn-default-font-size: var(--fw-button-font-size, $font-size-14);
+$btn-small-font-size: var(--fw-button-small-font-size, $font-size-12);
 $btn-mini-font-size: $font-size-10;
 
-$btn-font-weight: $font-weight-600;
+$btn-font-weight: var(--fw-button-font-weight, $font-weight-600);
 
 $btn-border-width: 1px;
-$input-height-small: 24px;
-$input-height-normal: 32px;
+$input-height-small: var(--fw-button-small-height, 24px);
+$input-height-normal: var(--fw-button-height, 32px);
 $input-height-mini: 16px;
 
 // stylelint-disable a11y/media-prefers-reduced-motion
@@ -81,7 +87,7 @@ $input-height-mini: 16px;
   cursor: inherit;
   letter-spacing: 0;
   outline: 0;
-  border-radius: 4px;
+  border-radius: var(--fw-button-border-radius, 4px);
   --fw-icon-color: currentColor;
 
   .fw-btn--label {
@@ -129,9 +135,9 @@ $input-height-mini: 16px;
     &.disabled,
     &[disabled] {
       background-image: linear-gradient(
-        to bottom,
-        $btn-primary-disabled-bg,
-        $btn-primary-disabled-bg-dark
+        180deg,
+        $btn-primary-disabled-bg 4.39%,
+        $btn-primary-disabled-bg-dark 94.46%
       );
       border-color: $btn-primary-disabled-bg-dark;
       color: $btn-primary-disabled-color;
@@ -256,8 +262,12 @@ $input-height-mini: 16px;
 
   &--normal {
     min-width: var(--fw-button-min-width, 80px);
-    height: 32px;
+    height: $input-height-normal;
     line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
+
+    .fw-btn--label {
+      font-size: $btn-default-font-size;
+    }
   }
 
   &--icon {
