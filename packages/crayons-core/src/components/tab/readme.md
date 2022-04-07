@@ -48,6 +48,26 @@ function App() {
 | `tabName`   | `tab-name`   | Unique name of the tab.                            | `string`  | `undefined` |
 
 
+## CSS Custom Properties
+
+| Name                           | Description                                            |
+| ------------------------------ | ------------------------------------------------------ |
+| `--fw-tab-background`          | background color of the tab item.                      |
+| `--fw-tab-background-active`   | background of the tab item when tab is active.         |
+| `--fw-tab-border-color`        | border color of the tab item.                          |
+| `--fw-tab-border-color-active` | border color of the tab item when tab is active.       |
+| `--fw-tab-border-color-hover`  | border color of the tab item on hover.                 |
+| `--fw-tab-color`               | color of the text inside tab.                          |
+| `--fw-tab-color-active`        | color of the text inside tab when tab is active.       |
+| `--fw-tab-margin-lr`           | margin left-right of the tab item.                     |
+| `--fw-tab-margin-tb`           | margin top/bottom of the tab item.                     |
+| `--fw-tab-padding-lr`          | padding left/right for the tab item.                   |
+| `--fw-tab-padding-tb`          | padding top/bottom for tab item.                       |
+| `--fw-tab-top-radius`          | top left/right radius of the tab item.                 |
+| `--fw-tab-weight`              | font weight of the text inside tab.                    |
+| `--fw-tab-weight-active`       | font weight of the text inside tab when tab is active. |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks

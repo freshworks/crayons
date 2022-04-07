@@ -50,3 +50,21 @@ $elevation-level-2: var(
   --fw-elevation-level-2,
   0px 2px 18px rgba(18, 52, 77, 0.2)
 );
+
+//=== Text colors ===//
+$text-default: $color-elephant-900;
+$text-secondary: $color-smoke-700;
+$text-disabled: $color-smoke-300;
+
+$text-success: $color-jungle-800;
+$text-info: $color-azure-800;
+$text-danger: $color-persimmon-800;
+$text-warning: $color-casablanca-700;
+
+$text-link: $color-azure-800;
+//=== Text colors ===//
+
+//=== Icon colors ===//
+$icon-primary: $color-smoke-700;
+$icon-primary-hover: $color-smoke-100;
+//=== Icon colors ===//

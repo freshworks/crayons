@@ -289,8 +289,14 @@ Type: `Promise<any>`
 
 | Name                                 | Description                           |
 | ------------------------------------ | ------------------------------------- |
+| `--fw-button-border-radius`          | The height of the small button.       |
+| `--fw-button-font-size`              | The font size of the normal button.   |
+| `--fw-button-font-weight`            | The font weight of the button.        |
+| `--fw-button-height`                 | The height of the normal button.      |
 | `--fw-button-label-vertical-padding` | vertical padding for the button label |
 | `--fw-button-min-width`              | minimum width for the button          |
+| `--fw-button-small-font-size`        | The font size of the small button.    |
+| `--fw-button-small-height`           | The height of the small button.       |
 
 
 ## Dependencies

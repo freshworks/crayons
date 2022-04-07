@@ -42,6 +42,8 @@ $btn-link-bg: $palette-secondary-50;
 
 $active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
+$btn-lg-focus-border: $palette-info-800;
+
 $btn-default-font-size: var(--fw-button-font-size, $font-size-14);
 $btn-small-font-size: var(--fw-button-small-font-size, $font-size-12);
 $btn-mini-font-size: $font-size-10;
