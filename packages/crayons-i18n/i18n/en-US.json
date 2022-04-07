@@ -93,7 +93,6 @@
     "addFieldBtn": "Add field",
     "saveFieldBtn": "Save",
     "cancelFieldBtn": "Cancel",
-    "disabledFilterCheck": "Unique fields will always be available for filtering records in the list view",
     "lookupAssociationHeader": "Association",
     "lookupSourceObject": "Source object",
     "lookupRelationshipPlaceholder": "Select relationship",
