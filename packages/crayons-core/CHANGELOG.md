@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.3.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.2...@freshworks/crayons@3.3.0-beta.3) (2022-04-07)
-
+## [3.3.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.2...@freshworks/crayons@3.3.0-beta.3) (2022-04-07)
 
 ### Bug Fixes
 
-* **file-uploader:** font weight on remove link on files list updated ([#549](https://github.com/freshworks/crayons/issues/549)) ([b3b7b3a](https://github.com/freshworks/crayons/commit/b3b7b3ad3ead43a1cbb3039abbf6599a897e4679))
-
-
-
-
+- **file-uploader:** font weight on remove link on files list updated ([#549](https://github.com/freshworks/crayons/issues/549)) ([b3b7b3a](https://github.com/freshworks/crayons/commit/b3b7b3ad3ead43a1cbb3039abbf6599a897e4679))
 
 ## [3.3.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.1...@freshworks/crayons@3.3.0-beta.2) (2022-04-07)
 
