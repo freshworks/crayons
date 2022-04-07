@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.1...@freshworks/crayons@3.3.0-beta.2) (2022-04-07)
+
+
+### Bug Fixes
+
+* **toast:** breaking longer word to fit into the toast container ([#547](https://github.com/freshworks/crayons/issues/547)) ([752cbf1](https://github.com/freshworks/crayons/commit/752cbf139a80bc0ab6ec4f02ef6033a018e7ee50))
+
+
+
+
+
 ## [3.3.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.0...@freshworks/crayons@3.3.0-beta.1) (2022-04-05)
 
 ### Features
