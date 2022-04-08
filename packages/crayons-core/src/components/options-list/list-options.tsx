@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable */
 import {
   Component,
   Element,
@@ -269,7 +269,7 @@ export class ListOptions {
         // source might change during dynamic select
         const source =
           this.options.length > 0 ? this.options : this.selectedOptionsState;
-        this.selectedOptionsState = source.filter((option) =>
+          this.selectedOptionsState = source.filter((option) =>
           this.isValueEqual(newValue, option)
         );
       }
@@ -379,6 +379,24 @@ export class ListOptions {
     }
     this.filteredOptions = this.selectOptions;
   }
+  
+  renderRows = (fromRow:number, toRow:number, styles:{ [key: string]: string; }) => {
+    let _toRow = (toRow>this.filteredOptions.length)? this.filteredOptions.length:toRow;
+    let generatedRows = [];
+    for (let i = fromRow; i < _toRow; i++) {
+      generatedRows.push(<li style={styles} innerHTML={'List item ' + this.filteredOptions[i].value} />);
+    }
+    return generatedRows;
+  }
+
+  contentRenderer = (rowStyles:{ [key: string]: string; }, fromRow:number, toRow:number, parentStyles:{ [key: string]: string; }) => {
+    return (
+      <div style={parentStyles}>
+        {this.renderRows(fromRow, toRow, rowStyles)}
+      </div>
+    );
+  }
+  
 
   renderSelectOptions(options: Array<any>) {
     return options.map((option) => (
@@ -427,7 +445,12 @@ export class ListOptions {
         }}
       >
         {this.searchable && this.renderSearchInput()}
-        {this.renderSelectOptions(this.filteredOptions)}
+        <fw-virtual-scrolling
+          scrollContainerHeight={400}
+          rowHeight={30}
+          rowsLength={this.filteredOptions.length}
+          rowRenderer={this.contentRenderer}
+        />
       </div>
     );
   }

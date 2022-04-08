@@ -169,12 +169,14 @@ Type: `Promise<any>`
 
 - [fw-select-option](../select-option)
 - [fw-input](../input)
+- [fw-virtual-scrolling](../virtual-scrolling)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-list-options --> fw-virtual-scrolling
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar

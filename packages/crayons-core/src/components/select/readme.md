@@ -945,7 +945,7 @@ export default Select;
   multiple
 ></fw-select>
 <script type="application/javascript">
-  var yearsData = Array.from({ length: 101 }, (_, i) => i + 1980).map((x) => {
+  var yearsData = Array.from({ length: 500001 }, (_, i) => i + 1980).map((x) => {
     return { value: x.toString(), text: x.toString() };
   });
 
@@ -1102,6 +1102,7 @@ graph TD;
   fw-button --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-list-options --> fw-virtual-scrolling
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar

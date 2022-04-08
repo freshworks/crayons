@@ -1855,6 +1855,26 @@ export namespace Components {
          */
         "trigger": PopoverTriggerType;
     }
+    interface FwVirtualScrolling {
+        /**
+          * Fixed height of rows
+         */
+        "rowHeight": number;
+        /**
+          * Function for rendering different type of lists/rows
+         */
+        "rowRenderer": (rowStyles:{ [key: string]: string; }, fromRow: number, toRow: number, parentStyles:{ [key: string]: string; }) => any;
+        /**
+          * for now, only fixed height rows can be rendered in the component
+         */
+        "rowsLength": number;
+        /**
+          * Height of the container that would remain visible
+         */
+        "scrollContainerHeight": number;
+    }
+    interface VirtualScrollingDemo {
+    }
 }
 declare global {
     interface HTMLFwAccordionElement extends Components.FwAccordion, HTMLStencilElement {
@@ -2187,6 +2207,18 @@ declare global {
         prototype: HTMLFwTooltipElement;
         new (): HTMLFwTooltipElement;
     };
+    interface HTMLFwVirtualScrollingElement extends Components.FwVirtualScrolling, HTMLStencilElement {
+    }
+    var HTMLFwVirtualScrollingElement: {
+        prototype: HTMLFwVirtualScrollingElement;
+        new (): HTMLFwVirtualScrollingElement;
+    };
+    interface HTMLVirtualScrollingDemoElement extends Components.VirtualScrollingDemo, HTMLStencilElement {
+    }
+    var HTMLVirtualScrollingDemoElement: {
+        prototype: HTMLVirtualScrollingDemoElement;
+        new (): HTMLVirtualScrollingDemoElement;
+    };
     interface HTMLElementTagNameMap {
         "fw-accordion": HTMLFwAccordionElement;
         "fw-accordion-body": HTMLFwAccordionBodyElement;
@@ -2243,6 +2275,8 @@ declare global {
         "fw-toggle-group": HTMLFwToggleGroupElement;
         "fw-toggle-group-button": HTMLFwToggleGroupButtonElement;
         "fw-tooltip": HTMLFwTooltipElement;
+        "fw-virtual-scrolling": HTMLFwVirtualScrollingElement;
+        "virtual-scrolling-demo": HTMLVirtualScrollingDemoElement;
     }
 }
 declare namespace LocalJSX {
@@ -4161,6 +4195,26 @@ declare namespace LocalJSX {
          */
         "trigger"?: PopoverTriggerType;
     }
+    interface FwVirtualScrolling {
+        /**
+          * Fixed height of rows
+         */
+        "rowHeight"?: number;
+        /**
+          * Function for rendering different type of lists/rows
+         */
+        "rowRenderer"?: (rowStyles:{ [key: string]: string; }, fromRow: number, toRow: number, parentStyles:{ [key: string]: string; }) => any;
+        /**
+          * for now, only fixed height rows can be rendered in the component
+         */
+        "rowsLength"?: number;
+        /**
+          * Height of the container that would remain visible
+         */
+        "scrollContainerHeight"?: number;
+    }
+    interface VirtualScrollingDemo {
+    }
     interface IntrinsicElements {
         "fw-accordion": FwAccordion;
         "fw-accordion-body": FwAccordionBody;
@@ -4217,6 +4271,8 @@ declare namespace LocalJSX {
         "fw-toggle-group": FwToggleGroup;
         "fw-toggle-group-button": FwToggleGroupButton;
         "fw-tooltip": FwTooltip;
+        "fw-virtual-scrolling": FwVirtualScrolling;
+        "virtual-scrolling-demo": VirtualScrollingDemo;
     }
 }
 export { LocalJSX as JSX };
@@ -4278,6 +4334,8 @@ declare module "@stencil/core" {
             "fw-toggle-group": LocalJSX.FwToggleGroup & JSXBase.HTMLAttributes<HTMLFwToggleGroupElement>;
             "fw-toggle-group-button": LocalJSX.FwToggleGroupButton & JSXBase.HTMLAttributes<HTMLFwToggleGroupButtonElement>;
             "fw-tooltip": LocalJSX.FwTooltip & JSXBase.HTMLAttributes<HTMLFwTooltipElement>;
+            "fw-virtual-scrolling": LocalJSX.FwVirtualScrolling & JSXBase.HTMLAttributes<HTMLFwVirtualScrollingElement>;
+            "virtual-scrolling-demo": LocalJSX.VirtualScrollingDemo & JSXBase.HTMLAttributes<HTMLVirtualScrollingDemoElement>;
         }
     }
 }

@@ -126,6 +126,7 @@ graph TD;
   fw-button --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-list-options --> fw-virtual-scrolling
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar

@@ -12,7 +12,7 @@
   min-width: var(--fw-popover-min-width);
   max-width: var(--fw-popover-max-width);
   min-height: var(--fw-popover-min-height, 10px);
-  max-height: var(--fw-popover-max-height, 400px);
+  /* max-height: var(--fw-popover-max-height, 400px); */
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior-y: contain;
