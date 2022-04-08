@@ -259,3 +259,20 @@ export const cyclicDecrement = (value: number, maxValue: number): number => {
   value--;
   return value < 0 ? maxValue : value;
 };
+
+export const isEqual = (a, b) => {
+  if (Array.isArray(a)) {
+    return isArrayEquals(a, b);
+  } else {
+    return a === b;
+  }
+};
+
+export const isArrayEquals = (a, b) => {
+  return (
+    Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    a.every((val, index) => val === b[index])
+  );
+};
