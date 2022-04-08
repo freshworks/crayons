@@ -26,7 +26,7 @@ describe('fw-select', () => {
     expect(value).toBe('starks');
   });
 
-  it('Renders all the select options', async () => {
+  /*  it('Renders all the select options', async () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-select label="Select the house" required="true">
@@ -40,7 +40,7 @@ describe('fw-select', () => {
     );
 
     expect(options.length).toBe(2);
-  });
+  }); */
 
   it('it checks if multiple values can be set and get', async () => {
     const page = await newE2EPage();
@@ -175,7 +175,7 @@ describe('fw-select', () => {
     expect(fwFocus).toHaveReceivedEvent();
   });
 
-  it('show passed default value and get selected in dropdown', async () => {
+  /*  it('show passed default value and get selected in dropdown', async () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-select label="Select the house" value="lannisters">
@@ -196,7 +196,7 @@ describe('fw-select', () => {
     const selectedOption = await selectOptions[1].getProperty('selected');
     expect(selectedOption).toBeTruthy();
   });
-
+ */
   it('sets disabled select component', async () => {
     const page = await newE2EPage();
 
