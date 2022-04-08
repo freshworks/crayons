@@ -302,9 +302,12 @@ export class ListOptions {
     if (
       !this.multiple &&
       typeof value !== 'string' &&
-      typeof value !== 'number'
+      typeof value !== 'number' &&
+      typeof value !== 'bigint'
     ) {
-      throw new Error('Value must be a string for single-select');
+      throw new Error(
+        'Value must be a string or number or bigint for single-select'
+      );
     }
   }
 
