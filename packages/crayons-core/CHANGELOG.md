@@ -3,18 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.3...@freshworks/crayons@3.3.0-beta.4) (2022-04-11)
-
+## [3.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.3...@freshworks/crayons@3.3.0-beta.4) (2022-04-11)
 
 ### Bug Fixes
 
-* **fw-select:** added bigint data type support ([#551](https://github.com/freshworks/crayons/issues/551)) ([949ea40](https://github.com/freshworks/crayons/commit/949ea40370bd89327bbe3ea1c6c26f2eca65035a))
-* **fw-select:** fixed the serialize issue on bigint datatype ([#550](https://github.com/freshworks/crayons/issues/550)) ([628e0a7](https://github.com/freshworks/crayons/commit/628e0a7173735c80198ddc102a95df32caee60b9))
-* **modal:** adding overflow-wrap and break word properties for longer text ([#555](https://github.com/freshworks/crayons/issues/555)) ([c9f5662](https://github.com/freshworks/crayons/commit/c9f566271889132c4a38afc56a4d190c30dad012))
-
-
-
-
+- **fw-select:** added bigint data type support ([#551](https://github.com/freshworks/crayons/issues/551)) ([949ea40](https://github.com/freshworks/crayons/commit/949ea40370bd89327bbe3ea1c6c26f2eca65035a))
+- **fw-select:** fixed the serialize issue on bigint datatype ([#550](https://github.com/freshworks/crayons/issues/550)) ([628e0a7](https://github.com/freshworks/crayons/commit/628e0a7173735c80198ddc102a95df32caee60b9))
+- **modal:** adding overflow-wrap and break word properties for longer text ([#555](https://github.com/freshworks/crayons/issues/555)) ([c9f5662](https://github.com/freshworks/crayons/commit/c9f566271889132c4a38afc56a4d190c30dad012))
 
 ## [3.3.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.2...@freshworks/crayons@3.3.0-beta.3) (2022-04-07)
 
