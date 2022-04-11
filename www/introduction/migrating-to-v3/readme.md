@@ -20,7 +20,7 @@
 
 The below covers some of the major breaking changes introduced in Crayons v3.  
 
-To view the comprehensive list, check the breaking changes [guide](https://github.com/freshworks/crayons/BREAKING.md). There were several changes to property, events and CSS Variables that developers may need to be aware of.
+To view the comprehensive list, check the breaking changes [guide](https://github.com/freshworks/crayons/blob/master/BREAKING.md). There were several changes to property, events and CSS Variables that developers may need to be aware of.
 
 ---
   - [Global Styles](#global-styles)
@@ -103,8 +103,8 @@ To check about the css variables used in each components please check the offici
 
 Below are the breaking changes in Input Control Events
 
-- **fw-input**: `fwChange` event will no longer be emitted.
-- **fw-textarea**: `fwChange` event will no longer be emitted.
+- **fw-input**: `fwChange` event will no longer be emitted. Instead use `fwInput` and `fwBlur`
+- **fw-textarea**: `fwChange` event will no longer be emitted. Instead use `fwInput` and `fwBlur`
 - **fw-radio-group**: `fwChange` event will no longer be emitted on changing value programatically.
 - **fw-checkbox**: `checked` field will be a part of meta field in the event detail for fwChange. Now it can be accessed using `event.detail.meta.checked` instead of `event.detail.checked`.
 - **fw-select**: `selectedOptions` field will be a part of meta field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.selectedOptions` instead of `event.detail.selectedOptions`.
@@ -116,11 +116,11 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@3/dist/crayons/crayons.esm.js">
+  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js">
 </script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@3/dist/crayons/crayons.js">
+  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.js">
 </script>
 ```
 
@@ -135,7 +135,7 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 #### Usage via Node Modules
  - Install the package 
 ```bash
-  npm install @freshworks/crayons@3 --save
+  npm install @freshworks/crayons@v3 --save
 ```
  - Put a script tag similar to this 
 ```html

@@ -26,6 +26,10 @@
   z-index: 999;
   animation: 'modal-entry' 0.5s 1;
 
+  overflow-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+
   .modal-container {
     position: relative;
     width: 100%;

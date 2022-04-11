@@ -2,6 +2,7 @@ name: Check Build
 
 on:
   pull_request:
+    types: [opened, synchronize, edited, reopened]
     branches: [master, next]
   workflow_dispatch:
 
@@ -33,4 +34,4 @@ jobs:
 
       # Runs tests
       - name: Runs tests
-        run: npm run test
+        run: npm run test:ci

@@ -31,6 +31,10 @@ export namespace Components {
     }
     interface FwAccordionTitle {
         "expanded": boolean;
+        /**
+          * The size of the default icon
+         */
+        "iconSize": 'small' | 'medium' | 'large';
         "toggleState": any;
         /**
           * Truncate title on text overflow
@@ -244,6 +248,14 @@ export namespace Components {
     interface FwDatepicker {
         "cancelText": string;
         /**
+          * Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`
+         */
+        "clearInput": boolean;
+        /**
+          * Clears the input value and unselects selected date.
+         */
+        "clearValue": () => Promise<void>;
+        /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat": string;
@@ -311,6 +323,10 @@ export namespace Components {
           * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Indicates if footer needs to be shown. Default `true`.
+         */
+        "showFooter": boolean;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
@@ -1221,6 +1237,10 @@ export namespace Components {
           * Whether clicking on the already selected option disables it.
          */
         "allowDeselect": boolean;
+        /**
+          * Describes the select's boundary HTMLElement
+         */
+        "boundary": HTMLElement;
         /**
           * Whether the arrow/caret should be shown in the select.
          */
@@ -2266,6 +2286,10 @@ declare namespace LocalJSX {
     }
     interface FwAccordionTitle {
         "expanded"?: boolean;
+        /**
+          * The size of the default icon
+         */
+        "iconSize"?: 'small' | 'medium' | 'large';
         "toggleState"?: any;
         /**
           * Truncate title on text overflow
@@ -2475,6 +2499,10 @@ declare namespace LocalJSX {
     interface FwDatepicker {
         "cancelText"?: string;
         /**
+          * Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`
+         */
+        "clearInput"?: boolean;
+        /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat"?: string;
@@ -2542,6 +2570,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Indicates if footer needs to be shown. Default `true`.
+         */
+        "showFooter"?: boolean;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
@@ -3485,6 +3517,10 @@ declare namespace LocalJSX {
           * Whether clicking on the already selected option disables it.
          */
         "allowDeselect"?: boolean;
+        /**
+          * Describes the select's boundary HTMLElement
+         */
+        "boundary"?: HTMLElement;
         /**
           * Whether the arrow/caret should be shown in the select.
          */

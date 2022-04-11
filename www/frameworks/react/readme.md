@@ -6,7 +6,7 @@ Crayons offers a React version for webcomponents. You can view both `html` and `
 
 To add crayons to your React app, install the package from npm.
 
-```npm install @freshworks/crayons@3```
+```npm install @freshworks/crayons@v3```
 
 ## Usage
 

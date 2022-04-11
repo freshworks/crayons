@@ -59,37 +59,33 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .footer-container {
-  margin-top: 5%;
-  bottom: 0;
-  top: 0;
-  width: 100%;
-
-  .footer-copyrights {
-    height: 20px;
-    background-color: #f1f1f1;
-    border: solid 1px #e6e6e6;
-    color: #666;
-    padding: 15px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    .copyrights-nav,
-    .footer-copyrights-text {
-      flex: 1;
-
-      a,
-      span {
-        margin: 0 3px;
-        font-size: 0.75rem;
-        line-height: 1.61;
-        color: #697379;
-        text-decoration: none;
-      }
-    }
-  }
+	 margin-top: 5%;
+	 bottom: 0;
+	 top: 0;
+	 width: 100%;
 }
+ .footer-container .footer-copyrights {
+	 height: 20px;
+	 background-color: #f1f1f1;
+	 border: solid 1px #e6e6e6;
+	 color: #666;
+	 padding: 15px 0;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 text-align: center;
+}
+ .footer-container .footer-copyrights .copyrights-nav, .footer-container .footer-copyrights .footer-copyrights-text {
+	 flex: 1;
+}
+ .footer-container .footer-copyrights .copyrights-nav a, .footer-container .footer-copyrights .footer-copyrights-text a, .footer-container .footer-copyrights .copyrights-nav span, .footer-container .footer-copyrights .footer-copyrights-text span {
+	 margin: 0 3px;
+	 font-size: 0.75rem;
+	 line-height: 1.61;
+	 color: #697379;
+	 text-decoration: none;
+}
+ 
 </style>

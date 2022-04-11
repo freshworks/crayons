@@ -299,7 +299,8 @@ export class FormControl {
           } else if (!controlProps.value) {
             this.crayonsControlRef?.setSelectedOptions([]);
           }
-          componentProps.noDataText = 'Start Typing...';
+          componentProps.noDataText =
+            TranslationController.t('search.startTyping');
 
           cmp = (
             <fw-select

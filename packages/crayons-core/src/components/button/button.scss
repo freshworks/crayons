@@ -20,6 +20,7 @@ $btn-secondary-bg-dark: $color-smoke-25;
 $btn-secondary-border: $border-color;
 $btn-secondary-border-active: $color-smoke-50;
 $btn-secondary-disabled-bg: $color-smoke-50;
+$btn-secondary-disabled-bg-dark: $color-smoke-100;
 $btn-secondary-disabled-color: $color-smoke-300;
 
 $btn-danger-color: $color-milk;
@@ -87,6 +88,8 @@ $input-height-mini: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
   }
 
   &:active:not(.fw-btn--loading) {
@@ -158,7 +161,7 @@ $input-height-mini: 16px;
     &.disabled,
     &[disabled] {
       background: $btn-secondary-disabled-bg;
-      border-color: $btn-secondary-disabled-bg;
+      border-color: $btn-secondary-disabled-bg-dark;
       color: $btn-secondary-disabled-color;
     }
   }

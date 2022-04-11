@@ -49,6 +49,8 @@ export class Select {
 
   private innerOnClick = () => {
     this.setFocus();
+    // Select the whole text in case of single select
+    this.multiple || this.selectInput?.select?.();
     if (this.variant !== 'mail') {
       this.openDropdown();
     }
@@ -223,6 +225,10 @@ export class Select {
    * Error text displayed below the text box.
    */
   @Prop() errorText = '';
+  /**
+   * Describes the select's boundary HTMLElement
+   */
+  @Prop() boundary: HTMLElement;
 
   // Events
   /**
@@ -358,6 +364,7 @@ export class Select {
 
   @Method()
   async setFocus(): Promise<any> {
+    this.hasFocus = true;
     this.selectInput?.focus();
   }
 
@@ -417,10 +424,12 @@ export class Select {
   }
 
   onInput() {
+    this.searchValue = this.selectInput.value;
     if (this.selectInput.value) {
-      this.searchValue = this.selectInput.value.toLowerCase();
       this.variant !== 'mail' && this.openDropdown();
     } else {
+      // Clear selected value in case of single select.
+      this.multiple || this.setSelectedValues('');
       this.variant === 'mail' && this.closeDropdown();
     }
   }
@@ -460,6 +469,7 @@ export class Select {
   }
 
   componentWillLoad() {
+    this.boundary ||= this.host.parentElement;
     this.handleSlotChange();
     if (this.variant === 'mail') {
       this.caret = false;
@@ -618,6 +628,7 @@ export class Select {
               ref={(popover) => (this.popover = popover)}
               same-width={this.sameWidth}
               placement={this.optionsPlacement}
+              boundary={this.boundary}
             >
               <div
                 slot='popover-trigger'

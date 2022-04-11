@@ -106,6 +106,8 @@ input[type='checkbox'] {
 
     #label {
       padding-left: 22px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
 
       &.required::after {
         content: '*';

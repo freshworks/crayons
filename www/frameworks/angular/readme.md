@@ -4,7 +4,7 @@
 
 To add crayons to your Angular app, install the package from npm.
 
-```npm install @freshworks/crayons@3```
+```npm install @freshworks/crayons@v3```
 
 ## Usage
 
