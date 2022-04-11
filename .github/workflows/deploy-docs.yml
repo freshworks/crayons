@@ -1,0 +1,53 @@
+# .github/workflows/deploy-docs.yml
+name: Deploy docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        required: true
+        type: choice
+        description: Deploy docs
+        options:
+          - next
+
+jobs:
+  release:
+    runs-on: self-hosted
+    if: ${{ github.event.inputs.branch == 'next' }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Install npm 7
+        run: npm i -g npm@7
+
+      # Installs the dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Build
+      - name: Build
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: us-east-1
+          role-duration-seconds: 2000
+
+      - name: Get python for AWS CLI
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Run a multi-line script and Copy files to S3
+        run: |
+          echo "Test push"
+          python -m pip install --upgrade pip
+          pip install awscli
+          aws s3 cp www-dist s3://${{ secrets.AWS_S3_BUCKET_NAME }} --recursive
