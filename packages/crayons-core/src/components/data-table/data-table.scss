@@ -59,8 +59,8 @@ div.fw-data-table-container {
             min-width: 40px;
             max-width: 1000px;
             background: $grid-header-bg;
-            word-wrap: break-word;
-            word-break: break-all;
+            overflow-wrap: anywhere;
+            word-break: break-word;
             white-space: normal;
 
             &:first-of-type {
@@ -122,8 +122,8 @@ div.fw-data-table-container {
             box-sizing: border-box;
             z-index: 0;
             height: 64px;
-            word-wrap: break-word;
-            word-break: break-all;
+            overflow-wrap: anywhere;
+            word-break: break-word;
             white-space: normal;
 
             &.data-grid-checkbox {

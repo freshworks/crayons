@@ -26,8 +26,8 @@
   z-index: 999;
   animation: 'modal-entry' 0.5s 1;
 
-  overflow-wrap: break-word;
-  word-break: break-all;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   white-space: normal;
 
   .modal-container {
