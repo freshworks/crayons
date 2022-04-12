@@ -130,7 +130,7 @@
       "lookups": "Reached the maximum limit of {{count}} lookup fields. Delete an existing lookup field to create a new one."
     }
   },
-  "plaformCouiWidgets": {
+  "platformCouiWidgets": {
     "viewAllWidgetRecords": "View all records",
     "noRecordsLinked": "No records linked",
     "linkWidgetButton": "Link a new record",
@@ -144,7 +144,8 @@
     "linkModalSuccess": "Record updated successfully",
     "linkModalError": "Unable to update the record",
     "checkBoxYesValue": "Yes",
-    "checkBoxNoValue": "No"
+    "checkBoxNoValue": "No",
+    "widgetSectionHeader": "{{fieldLabel}} is {{contextLabel}}"
   },
   "filters": {
     "addFilter": "+ Add another condition",
