@@ -11,7 +11,7 @@
   * Code samples in React for all the components
   * Set of CSS [utilities](https://crayons.freshworks.com/introduction/#adding-css-utils) to speed up development 
   * [i18n](https://crayons.freshworks.com/utilities/i18n) support
-  * icon [library](https://crayons.freshworks.com/components/icon) with support for using external icons
+  * icon [library](https://crayons.freshworks.com/components/core/icon) with support for using external icons
   * a11y support
 ---  
 <br>

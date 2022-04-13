@@ -13,7 +13,7 @@ Freshworks Crayons is a library of UI components that are the building blocks to
 * Framework Wrappers for [React](https://crayons.freshworks.com/frameworks/react)
 * Set of CSS [utilities](https://crayons.freshworks.com/introduction/#adding-css-utils) to speed up development 
 * [i18n](https://crayons.freshworks.com/utilities/i18n) support
-* icon [library](https://crayons.freshworks.com/components/icon) with support for using external icons
+* icon [library](https://crayons.freshworks.com/components/core/icon) with support for using external icons
 
 ## Installation
 You can install a specific version of `Crayons` using `crayons@v[version]`
