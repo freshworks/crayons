@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.4...@freshworks/crayons-i18n@3.1.0-beta.5) (2022-04-13)
+
+
+### Bug Fixes
+
+* **widget-i18n:** i18n strings update for platform widget ([#557](https://github.com/freshworks/crayons/issues/557)) ([f5a614d](https://github.com/freshworks/crayons/commit/f5a614d34f1c9901b99a9c30e6e08e2667fb6da6))
+
+
+
+
+
 ## [3.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.0...@freshworks/crayons-i18n@3.1.0-beta.1) (2022-03-31)
 
 ### Bug Fixes
