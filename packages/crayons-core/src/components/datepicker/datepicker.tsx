@@ -1072,10 +1072,10 @@ export class Datepicker {
     this.value = undefined;
   }
 
-  handleInputClear(e: any) {
+  handleInputClear = (e: any) => {
     this.clearInputValue();
     this.emitEvent(e, undefined);
-  }
+  };
 
   // handle cancel and popover close
   handlePopoverClose = (e: any) => {
