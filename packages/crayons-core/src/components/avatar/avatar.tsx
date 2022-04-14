@@ -60,9 +60,9 @@ export class Avatar {
             alt={this.alt}
           ></img>
         ) : (
-          <span part='initials' class='avatar__initials'>
+          <div part='initials' class='avatar__initials'>
             {this.getInitials()}
-          </span>
+          </div>
         )}
       </div>
     );
