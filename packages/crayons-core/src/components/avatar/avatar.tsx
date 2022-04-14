@@ -41,15 +41,17 @@ export class Avatar {
   }
 
   render() {
+    let strBaseClassName = `avatar 
+    avatar--${this.shape}
+    avatar--${this.size}
+    avatar--${this.mode}
+    `;
+    if (!this.image) {
+      strBaseClassName += ` avatar--${this.mode}--initials`;
+    }
+
     return (
-      <div
-        class={`avatar 
-     avatar--${this.shape}
-     avatar--${this.size}
-     avatar--${this.mode}
-     `}
-        aria-label={this.alt}
-      >
+      <div class={strBaseClassName} aria-label={this.alt}>
         {this.image ? (
           <img
             part='image'
@@ -58,9 +60,9 @@ export class Avatar {
             alt={this.alt}
           ></img>
         ) : (
-          <div part='initials' class='avatar__initials'>
+          <span part='initials' class='avatar__initials'>
             {this.getInitials()}
-          </div>
+          </span>
         )}
       </div>
     );
