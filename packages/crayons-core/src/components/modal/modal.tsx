@@ -124,6 +124,10 @@ export class Modal {
    */
   modalContainer: HTMLElement = null;
 
+  /**
+   * private
+   * Handler to run on modal container opening
+   */
   modalContainerHandler = null;
 
   /**
@@ -132,6 +136,10 @@ export class Modal {
    */
   firstFocusableElement: HTMLElement = null;
 
+  /**
+   * private
+   * Handler to first focusable element. Focuses last element on tab for focus locking.
+   */
   firstFocusableElementHandler = null;
 
   /**
@@ -140,6 +148,10 @@ export class Modal {
    */
   lastFocusableElement: HTMLElement = null;
 
+  /**
+   * private
+   * Handler for last focusable element. Focus first element on shift+tab for focus locking.
+   */
   lastFocusableElementHandler = null;
 
   /**
