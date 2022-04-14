@@ -153,6 +153,10 @@ export namespace Components {
         "href": string;
         "text": string;
     }
+    interface FwCustomCellCollection {
+        "collection": any[];
+        "show": number;
+    }
     interface FwCustomCellIcon {
         "color": string;
         "library": string;
@@ -1925,6 +1929,12 @@ declare global {
         prototype: HTMLFwCustomCellAnchorElement;
         new (): HTMLFwCustomCellAnchorElement;
     };
+    interface HTMLFwCustomCellCollectionElement extends Components.FwCustomCellCollection, HTMLStencilElement {
+    }
+    var HTMLFwCustomCellCollectionElement: {
+        prototype: HTMLFwCustomCellCollectionElement;
+        new (): HTMLFwCustomCellCollectionElement;
+    };
     interface HTMLFwCustomCellIconElement extends Components.FwCustomCellIcon, HTMLStencilElement {
     }
     var HTMLFwCustomCellIconElement: {
@@ -2216,6 +2226,7 @@ declare global {
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
+        "fw-custom-cell-collection": HTMLFwCustomCellCollectionElement;
         "fw-custom-cell-icon": HTMLFwCustomCellIconElement;
         "fw-custom-cell-paragraph": HTMLFwCustomCellParagraphElement;
         "fw-custom-cell-user": HTMLFwCustomCellUserElement;
@@ -2426,6 +2437,10 @@ declare namespace LocalJSX {
     interface FwCustomCellAnchor {
         "href"?: string;
         "text"?: string;
+    }
+    interface FwCustomCellCollection {
+        "collection"?: any[];
+        "show"?: number;
     }
     interface FwCustomCellIcon {
         "color"?: string;
@@ -4206,6 +4221,7 @@ declare namespace LocalJSX {
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
         "fw-custom-cell-anchor": FwCustomCellAnchor;
+        "fw-custom-cell-collection": FwCustomCellCollection;
         "fw-custom-cell-icon": FwCustomCellIcon;
         "fw-custom-cell-paragraph": FwCustomCellParagraph;
         "fw-custom-cell-user": FwCustomCellUser;
@@ -4267,6 +4283,7 @@ declare module "@stencil/core" {
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
+            "fw-custom-cell-collection": LocalJSX.FwCustomCellCollection & JSXBase.HTMLAttributes<HTMLFwCustomCellCollectionElement>;
             "fw-custom-cell-icon": LocalJSX.FwCustomCellIcon & JSXBase.HTMLAttributes<HTMLFwCustomCellIconElement>;
             "fw-custom-cell-paragraph": LocalJSX.FwCustomCellParagraph & JSXBase.HTMLAttributes<HTMLFwCustomCellParagraphElement>;
             "fw-custom-cell-user": LocalJSX.FwCustomCellUser & JSXBase.HTMLAttributes<HTMLFwCustomCellUserElement>;

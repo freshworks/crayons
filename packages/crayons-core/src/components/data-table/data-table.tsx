@@ -36,6 +36,10 @@ const PREDEFINED_VARIANTS_META: any = {
     componentName: 'fw-custom-cell-paragraph',
     isFocusable: true,
   },
+  collection: {
+    componentName: 'fw-custom-cell-collection',
+    isFocusable: true,
+  },
 };
 
 const TABLE_POPPER_CONFIG: any = {
@@ -1103,6 +1107,10 @@ export class DataTable {
     } else if (columnVariant === 'paragraph') {
       template = (
         <fw-custom-cell-paragraph {...cellValue}></fw-custom-cell-paragraph>
+      );
+    } else if (columnVariant === 'collection') {
+      template = (
+        <fw-custom-cell-collection {...cellValue}></fw-custom-cell-collection>
       );
     } else {
       template = null;

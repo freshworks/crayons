@@ -1,0 +1,10 @@
+.show-more {
+  color: $color-azure-800;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.show-more:hover,
+.show-more:focus {
+  cursor: pointer;
+}
