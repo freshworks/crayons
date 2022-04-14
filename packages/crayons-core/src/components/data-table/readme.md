@@ -658,6 +658,158 @@ function App() {
 </code-block>
 </code-group>
 
+
+#### Collection variant
+
+Row value for this column variant should be an object with the following properties:
+
+1. collection - Array of strings.
+2. show (optional) - Number of items to show from collection initially. Default value is 2.
+
+```html live
+  <fw-data-table id="datatable-33" label="Data table 33">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "objectname",
+        "text": "Object Name"
+      }, {
+        "key": "related",
+        "text": "Related Objects",
+        "variant": "collection",
+        "widthProperties": {
+          "width": "400px"
+        },
+      },
+      {
+        "key": "count",
+        "text": "Count"
+      }],
+      rows: [{
+        "id": "0011",
+        "objectname": "Library",
+        "related": { 
+          "collection": ["Books", "Authors", "Locations", "Tags"],
+          "show": 2
+        },
+        "count": 4
+      }, {
+        "id": "0022",
+        "objectname": "Hotel",
+        "related": {
+          "collection": ["Bookings", "Contacts"]
+        },
+        "count": 5
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-33');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+```html 
+  <fw-data-table id="datatable-33" label="Data table 33">
+  </fw-data-table>
+```
+
+```javascript
+  var data = {
+    columns: [{
+      "key": "objectname",
+      "text": "Object Name"
+    }, {
+      "key": "related",
+      "text": "Related Objects",
+      "variant": "collection",
+      "widthProperties": {
+        "width": "400px"
+      },
+    },
+    {
+      "key": "count",
+      "text": "Count"
+    }],
+    rows: [{
+      "id": "0011",
+      "objectname": "Library",
+      "related": { 
+        "collection": ["Books", "Authors", "Locations", "Tags"],
+        "show": 2
+      },
+      "count": 4
+    }, {
+      "id": "0022",
+      "objectname": "Hotel",
+      "related": {
+        "collection": ["Bookings", "Contacts"]
+      },
+      "count": 5
+    }]
+  }; 
+
+  var datatable = document.getElementById('datatable-33');
+  datatable.columns = data.columns;
+  datatable.rows = data.rows;
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwDataTable } from "@freshworks/crayons/react";
+function App() {
+
+  var data = {
+    columns: [{
+      "key": "objectname",
+      "text": "Object Name"
+    }, {
+      "key": "related",
+      "text": "Related Objects",
+      "variant": "collection",
+      "widthProperties": {
+        "width": "400px"
+      },
+    },
+    {
+      "key": "count",
+      "text": "Count"
+    }],
+    rows: [{
+      "id": "0011",
+      "objectname": "Library",
+      "related": { 
+        "collection": ["Books", "Authors", "Locations", "Tags"],
+        "show": 2
+      },
+      "count": 4
+    }, {
+      "id": "0022",
+      "objectname": "Hotel",
+      "related": {
+        "collection": ["Bookings", "Contacts"]
+      },
+      "count": 5
+    }]
+  }; 
+
+  return (
+    <FwDataTable columns={data.columns} rows={data.rows} label="Data Table 33">
+    </FwDataTable>
+  );
+}
+```
+</code-block>
+</code-group>
+
 ### Custom templates
 
 This codeblock shows how to use custom cell function to display HTML content in a cell.
@@ -1980,6 +2132,7 @@ Type: `Promise<DataTableColumn[]>`
 - [fw-custom-cell-user](./custom-cells/user)
 - [fw-custom-cell-icon](./custom-cells/icon)
 - [fw-custom-cell-paragraph](./custom-cells/paragraph)
+- [fw-custom-cell-collection](./custom-cells/collection)
 - [fw-checkbox](../checkbox)
 - [fw-tooltip](../tooltip)
 - [fw-button](../button)
@@ -1995,6 +2148,7 @@ graph TD;
   fw-data-table --> fw-custom-cell-user
   fw-data-table --> fw-custom-cell-icon
   fw-data-table --> fw-custom-cell-paragraph
+  fw-data-table --> fw-custom-cell-collection
   fw-data-table --> fw-checkbox
   fw-data-table --> fw-tooltip
   fw-data-table --> fw-button

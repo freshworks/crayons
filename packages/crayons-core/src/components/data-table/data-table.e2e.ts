@@ -218,6 +218,12 @@ describe('fw-data-table', () => {
           position: 4,
           variant: 'paragraph',
         },
+        {
+          key: 'collection',
+          text: 'Collection',
+          position: 5,
+          variant: 'collection',
+        },
       ],
       rows: [
         {
@@ -230,6 +236,9 @@ describe('fw-data-table', () => {
           icon: { name: 'agent' },
           paragraph: {
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eleifend mattis mattis. Curabitur accumsan in augue vel mollis. Fusce sagittis tincidunt augue, ut tempus erat condimentum finibus. Aliquam egestas lectus vel ligula egestas, sit amet lacinia nisl dapibus. Curabitur vestibulum nibh vel turpis posuere, a pellentesque magna gravida. Vestibulum imperdiet varius dui a fringilla. Nullam placerat tortor a nulla porta, eget vulputate justo facilisis. Curabitur cursus luctus mauris, ac mollis arcu posuere sit amet. Proin pulvinar blandit lorem, ac tempor purus suscipit id.',
+          },
+          collection: {
+            collection: ['Hotels', 'Bookings'],
           },
         },
       ],
@@ -248,10 +257,14 @@ describe('fw-data-table', () => {
     const paraComponent = await page.find(
       'fw-data-table >>> tbody > tr:first-child > td:nth-child(4) > fw-custom-cell-paragraph'
     );
+    const collectionComponent = await page.find(
+      'fw-data-table >>> tbody > tr:first-child > td:nth-child(5) > fw-custom-cell-collection'
+    );
     expect(anchorComponent).toBeTruthy();
     expect(userComponent).toBeTruthy();
     expect(iconComponent).toBeTruthy();
     expect(paraComponent).toBeTruthy();
+    expect(collectionComponent).toBeTruthy();
   });
 
   it('should align text in a column when textAlign is passed as a column configuration', async () => {
