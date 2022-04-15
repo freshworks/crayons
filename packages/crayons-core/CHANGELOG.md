@@ -3,17 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.3.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.5...@freshworks/crayons@3.3.0-beta.6) (2022-04-15)
-
+## [3.3.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.5...@freshworks/crayons@3.3.0-beta.6) (2022-04-15)
 
 ### Bug Fixes
 
-* **avatar-fix:** DSM style fixes for intials with different modes ([#561](https://github.com/freshworks/crayons/issues/561)) ([fe79001](https://github.com/freshworks/crayons/commit/fe79001abd9affdc5e032bff87188f011c5a76bc))
-* **serialize-form:** handle null for date field ([#564](https://github.com/freshworks/crayons/issues/564)) ([4f22610](https://github.com/freshworks/crayons/commit/4f226104552aa699a1e12c40e13a01d790491a09))
-
-
-
-
+- **avatar-fix:** DSM style fixes for intials with different modes ([#561](https://github.com/freshworks/crayons/issues/561)) ([fe79001](https://github.com/freshworks/crayons/commit/fe79001abd9affdc5e032bff87188f011c5a76bc))
+- **serialize-form:** handle null for date field ([#564](https://github.com/freshworks/crayons/issues/564)) ([4f22610](https://github.com/freshworks/crayons/commit/4f226104552aa699a1e12c40e13a01d790491a09))
 
 ## [3.3.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.4...@freshworks/crayons@3.3.0-beta.5) (2022-04-13)
 
