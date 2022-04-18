@@ -16,6 +16,7 @@ import {
   DataTableColumn,
   DataTableRow,
   DataTableAction,
+  VariantProperties,
 } from '../../utils/types';
 
 const PREDEFINED_VARIANTS_META: any = {
@@ -1096,21 +1097,47 @@ export class DataTable {
    * private
    * @returns {JSX.Element} returns jsx from a predefined set of components
    */
-  renderPredefinedVariant(columnVariant: string, cellValue: any) {
+  renderPredefinedVariant(
+    columnVariant: string,
+    cellValue: any,
+    variantProps: VariantProperties
+  ) {
     let template: JSX.Element;
+    const columnProps = variantProps ? variantProps : {};
     if (columnVariant === 'anchor') {
-      template = <fw-custom-cell-anchor {...cellValue}></fw-custom-cell-anchor>;
+      template = (
+        <fw-custom-cell-anchor
+          {...columnProps}
+          {...cellValue}
+        ></fw-custom-cell-anchor>
+      );
     } else if (columnVariant === 'user') {
-      template = <fw-custom-cell-user {...cellValue}></fw-custom-cell-user>;
+      template = (
+        <fw-custom-cell-user
+          {...columnProps}
+          {...cellValue}
+        ></fw-custom-cell-user>
+      );
     } else if (columnVariant === 'icon') {
-      template = <fw-custom-cell-icon {...cellValue}></fw-custom-cell-icon>;
+      template = (
+        <fw-custom-cell-icon
+          {...columnProps}
+          {...cellValue}
+        ></fw-custom-cell-icon>
+      );
     } else if (columnVariant === 'paragraph') {
       template = (
-        <fw-custom-cell-paragraph {...cellValue}></fw-custom-cell-paragraph>
+        <fw-custom-cell-paragraph
+          {...columnProps}
+          {...cellValue}
+        ></fw-custom-cell-paragraph>
       );
     } else if (columnVariant === 'collection') {
       template = (
-        <fw-custom-cell-collection {...cellValue}></fw-custom-cell-collection>
+        <fw-custom-cell-collection
+          {...columnProps}
+          {...cellValue}
+        ></fw-custom-cell-collection>
       );
     } else {
       template = null;
@@ -1125,7 +1152,11 @@ export class DataTable {
   renderTableCell(column: DataTableColumn, cellValue: any) {
     let template: JSX.Element;
     if (column.variant) {
-      template = this.renderPredefinedVariant(column.variant, cellValue);
+      template = this.renderPredefinedVariant(
+        column.variant,
+        cellValue,
+        column.variantProperties
+      );
     } else if (column.customTemplate) {
       template = this.renderCustomTemplate(column.customTemplate, cellValue);
     } else {

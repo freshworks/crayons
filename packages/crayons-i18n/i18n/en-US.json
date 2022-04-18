@@ -45,7 +45,9 @@
     "chooseColumns": "Choose columns",
     "actions": "Actions",
     "hide": "Hide",
-    "show": "Show"
+    "show": "Show",
+    "showMore": "show more",
+    "showLess": "show less"
   },
   "platformTable": {
     "delete": "Delete",

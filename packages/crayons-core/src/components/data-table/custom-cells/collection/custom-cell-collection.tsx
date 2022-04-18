@@ -1,4 +1,5 @@
 import { Component, h, Prop, State, Host, Element } from '@stencil/core';
+import { TranslationController } from '../../../../global/Translation';
 
 @Component({
   tag: 'fw-custom-cell-collection',
@@ -60,7 +61,9 @@ export class CustomCellCollection {
                   }}
                   ref={(el) => (this.showMoreButton = el)}
                 >
-                  {this.open ? 'show less' : 'show more'}
+                  {this.open
+                    ? TranslationController.t('datatable.showLess')
+                    : TranslationController.t('datatable.showMore')}
                 </a>
               }
             </span>

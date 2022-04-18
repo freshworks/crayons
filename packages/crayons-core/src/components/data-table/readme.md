@@ -679,6 +679,9 @@ Row value for this column variant should be an object with the following propert
         "key": "related",
         "text": "Related Objects",
         "variant": "collection",
+        "variantProperties": {
+          "show": 2
+        },
         "widthProperties": {
           "width": "400px"
         },
@@ -692,7 +695,6 @@ Row value for this column variant should be an object with the following propert
         "objectname": "Library",
         "related": { 
           "collection": ["Books", "Authors", "Locations", "Tags"],
-          "show": 2
         },
         "count": 4
       }, {
@@ -727,6 +729,9 @@ Row value for this column variant should be an object with the following propert
       "key": "related",
       "text": "Related Objects",
       "variant": "collection",
+      "variantProperties": {
+        "show": 2
+      },
       "widthProperties": {
         "width": "400px"
       },
@@ -739,8 +744,7 @@ Row value for this column variant should be an object with the following propert
       "id": "0011",
       "objectname": "Library",
       "related": { 
-        "collection": ["Books", "Authors", "Locations", "Tags"],
-        "show": 2
+        "collection": ["Books", "Authors", "Locations", "Tags"]
       },
       "count": 4
     }, {
@@ -775,6 +779,9 @@ function App() {
       "key": "related",
       "text": "Related Objects",
       "variant": "collection",
+      "variantProperties": {
+        "show": 2
+      },
       "widthProperties": {
         "width": "400px"
       },
@@ -787,8 +794,7 @@ function App() {
       "id": "0011",
       "objectname": "Library",
       "related": { 
-        "collection": ["Books", "Authors", "Locations", "Tags"],
-        "show": 2
+        "collection": ["Books", "Authors", "Locations", "Tags"]
       },
       "count": 4
     }, {

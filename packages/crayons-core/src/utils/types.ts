@@ -53,6 +53,10 @@ export type DataTableRow = {
   [prop: string]: any;
 };
 
+export type VariantProperties = {
+  [prop: string]: any;
+};
+
 export type customTemplateFunc<T> = (
   createElement: HyperFunc<T>,
   props: DataTableRow
@@ -62,6 +66,7 @@ export type DataTableColumn = {
   key: string;
   text: string;
   variant?: string;
+  variantProperties?: VariantProperties;
   position?: number;
   hide?: boolean;
   lock?: boolean;
