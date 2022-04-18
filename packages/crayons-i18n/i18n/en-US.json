@@ -145,7 +145,8 @@
     "linkModalError": "Unable to update the record",
     "checkBoxYesValue": "Yes",
     "checkBoxNoValue": "No",
-    "widgetSectionHeader": "{{fieldLabel}} is {{contextLabel}}"
+    "widgetSectionHeader": "{{fieldLabel}} is {{contextLabel}}",
+    "linkModalLoadingText": "Fetching details..."
   },
   "filters": {
     "addFilter": "+ Add another condition",
