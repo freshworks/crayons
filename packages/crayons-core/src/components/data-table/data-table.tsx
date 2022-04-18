@@ -1103,7 +1103,7 @@ export class DataTable {
     variantProps: VariantProperties
   ) {
     let template: JSX.Element;
-    const columnProps = variantProps ? variantProps : {};
+    const columnProps = variantProps ?? {};
     if (columnVariant === 'anchor') {
       template = (
         <fw-custom-cell-anchor
