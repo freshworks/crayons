@@ -1,5 +1,5 @@
 // Neutral colors
-$palette-neutral-100: $color-milk;
+$palette-neutral-100: var(--fw-palette-neutral-100, $color-milk);
 
 // Primary colors
 $palette-primary-900: var(--fw-palette-primary-900, $color-elephant-900);
@@ -9,7 +9,7 @@ $palette-primary-600: var(--fw-palette-primary-50, $color-elephant-600);
 
 // Secondary colors
 $palette-secondary-700: var(--fw-palette-secondary-700, $color-smoke-700);
-$palette-secondary-400: var(--fw-palette-secondary-300, $color-smoke-400);
+$palette-secondary-400: var(--fw-palette-secondary-400, $color-smoke-400);
 $palette-secondary-300: var(--fw-palette-secondary-300, $color-smoke-300);
 $palette-secondary-200: var(--fw-palette-secondary-200, $color-smoke-200);
 $palette-secondary-100: var(--fw-palette-secondary-100, $color-smoke-100);
@@ -68,3 +68,14 @@ $text-link: $color-azure-800;
 $icon-primary: $color-smoke-700;
 $icon-primary-hover: $color-smoke-100;
 //=== Icon colors ===//
+
+//=== Font sizes ===//
+$font-h1: var(--fw-font-h1, 2.75rem);
+$font-h2: var(--fw-font-h2, 2rem);
+$font-h3: var(--fw-font-h3, 1.5rem);
+$font-h4: var(--fw-font-h4, 1.125rem);
+$font-h5: var(--fw-font-h5, 1rem);
+$font-h6: var(--fw-font-h6, 0.875rem);
+$font-h7: var(--fw-font-h7, 0.75rem);
+$font-h8: var(--fw-font-h8, 0.625rem);
+//=== Font sizes ===//
