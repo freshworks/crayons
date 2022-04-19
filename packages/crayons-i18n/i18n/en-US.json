@@ -124,7 +124,7 @@
       "deleteDropDownChoice": "Deleting a choice will impact all related records"
     },
     "maximumLimits": {
-      "filterable": "At most {{count}} fields can be selected to filter records in the list view.",
+      "filterable": "At most {{count}} fields (excluding lookups) can be selected to filter records in the list view.",
       "unique": "At most {{count}} fields can be marked as unique.",
       "fields": "Reached the maximum limit of {{count}} fields. Delete an existing field to create a new one.",
       "lookups": "Reached the maximum limit of {{count}} lookup fields. Delete an existing lookup field to create a new one."
