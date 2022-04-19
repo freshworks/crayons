@@ -81,6 +81,7 @@ $warning-color: $color-casablanca-300;
     input {
       flex-grow: 1;
       border: none;
+      font-family: inherit;
       font-size: $font-size-14;
       font-weight: $font-weight-500;
       letter-spacing: 0;
