@@ -250,7 +250,7 @@ $input-height-mini: 16px;
 
   // DS button specification for mini has been referenced within crayons as type small
   &--small {
-    height: 24px;
+    height: $input-height-small;
     line-height: calc(#{$input-height-small} - #{$btn-border-width} * 2);
 
     .fw-btn--label {
@@ -275,17 +275,17 @@ $input-height-mini: 16px;
   &--icon {
     min-width: 32px;
     width: 32px;
-    height: 32px;
+    height: $input-height-normal;
     padding: 0;
-    line-height: calc(32px - #{$btn-border-width} * 2);
+    line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
   }
 
   &--icon-small {
     min-width: 24px;
     width: 24px;
-    height: 22px;
+    height: $input-height-small;
     padding: 0;
-    line-height: calc(22px - #{$btn-border-width} * 2);
+    line-height: calc($input-height-small - #{$btn-border-width} * 2);
   }
 }
 

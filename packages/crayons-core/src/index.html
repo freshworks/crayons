@@ -10,9 +10,12 @@
 
     <script type="module" src="/build/crayons.esm.js"></script>
     <script nomodule src="/build/crayons.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <style>
     html {
@@ -21,7 +24,7 @@
     body {
       font-family: 'Montserrat', sans-serif;
       margin: 0px;
-      background: #FFF;
+      background: #fff;
     }
     .container {
       display: flex;
@@ -45,6 +48,15 @@
       padding: 10px 20px;
       box-sizing: border-box;
     }
+    .freshsales fw-button {
+      --fw-button-height: 34px;
+      --fw-button-font-size: 12px;
+      --fw-button-font-weight: 400;
+    }
+    .freshsales fw-button.secondary {
+      --fw-button-font-weight: 500px;
+    }
+
     .freshsales fw-tabs {
       --fw-tabs-padding-lr: 0px;
       --fw-tabs-border-width: 0px;
@@ -53,13 +65,13 @@
       --fw-tab-padding-tb: 9px;
       --fw-tabs-padding-left: 0px;
       --fw-tabs-padding-right: 0px;
-      --fw-tab-border: #FFF;
-      --fw-tab-border-color-hover: #FFF;
-      --fw-tab-border-color-active: #EBEFF3;
-      --fw-tab-color: #576C7D;
+      --fw-tab-border: #fff;
+      --fw-tab-border-color-hover: #fff;
+      --fw-tab-border-color-active: #ebeff3;
+      --fw-tab-color: #576c7d;
       --fw-tab-color-active: #384551;
-      --fw-tab-background: #FFF;
-      --fw-tab-background-active: #EBEFF3;
+      --fw-tab-background: #fff;
+      --fw-tab-background-active: #ebeff3;
       --fw-tab-weight: 500;
       --fw-tab-weight-active: 500;
       --fw-tab-border-size: 0px;
@@ -83,9 +95,7 @@
     }
   </style>
   <body>
-
     <div class="container">
-
       <div class="container-row">
         <div class="container-col container-title">Buttons:</div>
         <div class="container-col">
@@ -98,7 +108,7 @@
         </div>
         <div class="container-col freshsales">
           <fw-button color="primary"> OK </fw-button>
-          <fw-button color="secondary"> Secondary </fw-button>
+          <fw-button color="secondary" class="secondary"> Secondary </fw-button>
         </div>
       </div>
 
@@ -123,7 +133,7 @@
       <div class="container-row">
         <div class="container-col container-title">Popover:</div>
         <div class="container-col">
-          <div class="crayons" style="width: fit-content;">
+          <div class="crayons" style="width: fit-content">
             <fw-popover
               trigger="manual"
               class="sports-dropdown"
@@ -144,15 +154,15 @@
                   ></fw-icon>
                 </fw-button>
               </fw-button-group>
-              <fw-list-options
-                class="sports"
-                slot="popover-content"
-              ></fw-list-options>
+              <fw-menu class="sports" slot="popover-content">
+                <fw-menu-item>Import contacts</fw-menu-item>
+                <fw-menu-item>View import history</fw-menu-item>
+              </fw-menu>
             </fw-popover>
           </div>
         </div>
         <div class="container-col freshsales">
-          <div class="freshsales" style="width: fit-content;">
+          <div class="freshsales" style="width: fit-content">
             <fw-popover
               trigger="manual"
               class="sports-dropdown"
@@ -173,10 +183,10 @@
                   ></fw-icon>
                 </fw-button>
               </fw-button-group>
-              <fw-list-options
-                class="sports"
-                slot="popover-content"
-              ></fw-list-options>
+              <fw-menu class="sports" slot="popover-content">
+                <fw-menu-item>Import contacts</fw-menu-item>
+                <fw-menu-item>View import history</fw-menu-item>
+              </fw-menu>
             </fw-popover>
           </div>
         </div>
@@ -195,7 +205,6 @@
           </fw-tooltip>
         </div>
       </div>
-
     </div>
 
     <!-- <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
@@ -221,11 +230,6 @@
         dropdown.addEventListener('fwHide', () => {
           chevron.style.cssText = '';
         });
-        var sports = document.querySelector(`${parent} .sports`);
-        sports.options = [
-          { value: 1, text: 'Import contacts' },
-          { value: 2, text: 'View import history' }
-        ];
       }
       popover('.crayons');
       popover('.freshsales');
