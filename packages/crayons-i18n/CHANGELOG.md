@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.1.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.5...@freshworks/crayons-i18n@3.1.0-beta.6) (2022-04-20)
-
+## [3.1.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.5...@freshworks/crayons-i18n@3.1.0-beta.6) (2022-04-20)
 
 ### Bug Fixes
 
-* **data-table:** adding showmore/showless to paragraph variant ([#569](https://github.com/freshworks/crayons/issues/569)) ([8450de8](https://github.com/freshworks/crayons/commit/8450de87c33094db793600e27435f5ba2c60db48))
-
-
-
-
+- **data-table:** adding showmore/showless to paragraph variant ([#569](https://github.com/freshworks/crayons/issues/569)) ([8450de8](https://github.com/freshworks/crayons/commit/8450de87c33094db793600e27435f5ba2c60db48))
 
 ## [3.1.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.4...@freshworks/crayons-i18n@3.1.0-beta.5) (2022-04-13)
 

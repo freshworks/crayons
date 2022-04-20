@@ -3,18 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.3.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.6...@freshworks/crayons@3.3.0-beta.7) (2022-04-20)
-
+## [3.3.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.6...@freshworks/crayons@3.3.0-beta.7) (2022-04-20)
 
 ### Bug Fixes
 
-* **data-table:** adding showmore/showless to paragraph variant ([#569](https://github.com/freshworks/crayons/issues/569)) ([8450de8](https://github.com/freshworks/crayons/commit/8450de87c33094db793600e27435f5ba2c60db48))
-* **modal:** adding accessibility events when adding modal with isOpen… ([#563](https://github.com/freshworks/crayons/issues/563)) ([3d95a80](https://github.com/freshworks/crayons/commit/3d95a80f90b62726c1d5e37e7eb5a34ccd385761))
-* **select:** select input font inherits from parent ([#567](https://github.com/freshworks/crayons/issues/567)) ([098a5d6](https://github.com/freshworks/crayons/commit/098a5d6509dcf1d8d4d78e206c77d2ceaa13ea4e))
-
-
-
-
+- **data-table:** adding showmore/showless to paragraph variant ([#569](https://github.com/freshworks/crayons/issues/569)) ([8450de8](https://github.com/freshworks/crayons/commit/8450de87c33094db793600e27435f5ba2c60db48))
+- **modal:** adding accessibility events when adding modal with isOpen… ([#563](https://github.com/freshworks/crayons/issues/563)) ([3d95a80](https://github.com/freshworks/crayons/commit/3d95a80f90b62726c1d5e37e7eb5a34ccd385761))
+- **select:** select input font inherits from parent ([#567](https://github.com/freshworks/crayons/issues/567)) ([098a5d6](https://github.com/freshworks/crayons/commit/098a5d6509dcf1d8d4d78e206c77d2ceaa13ea4e))
 
 ## [3.3.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.5...@freshworks/crayons@3.3.0-beta.6) (2022-04-15)
 
