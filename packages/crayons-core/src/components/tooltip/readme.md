@@ -378,6 +378,13 @@ Type: `Promise<boolean>`
 promise that resolves to true
 
 
+## CSS Custom Properties
+
+| Name                                                                                                                                                                                                                   | Description |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `--fw-tooltip-font-weight can change the font weight inside tooltip --fw-tooltip-padding-tb can change the padding top/bottom on the tooltip --fw-tooltip-padding-lr can change the padding left/right on the tooltip` |             |
+
+
 ## Dependencies
 
 ### Used by

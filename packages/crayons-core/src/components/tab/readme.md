@@ -57,6 +57,7 @@ function App() {
 | `--fw-tab-border-color`        | border color of the tab item.                          |
 | `--fw-tab-border-color-active` | border color of the tab item when tab is active.       |
 | `--fw-tab-border-color-hover`  | border color of the tab item on hover.                 |
+| `--fw-tab-border-size`         | size of the border bottom.                             |
 | `--fw-tab-color`               | color of the text inside tab.                          |
 | `--fw-tab-color-active`        | color of the text inside tab when tab is active.       |
 | `--fw-tab-margin-lr`           | margin left-right of the tab item.                     |

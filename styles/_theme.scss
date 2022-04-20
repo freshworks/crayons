@@ -61,7 +61,7 @@ $text-info: $palette-info-800;
 $text-danger: $palette-danger-800;
 $text-warning: $palette-warning-700;
 
-$text-link: $color-azure-800;
+$text-link: $palette-info-800;
 //=== Text colors ===//
 
 //=== Font sizes ===//
@@ -73,6 +73,9 @@ $font-base: var(--fw-font-base, 1rem);
 $font-sm: var(--fw-font-sm, 0.875rem);
 $font-xs: var(--fw-font-xs, 0.75rem);
 $font-2xs: var(--fw-font-2xs, 0.625rem);
+//=== Font sizes ===//
+
+//=== Line height ===//
 $font-lh-3xl: var(--fw-font-lh-3xl, 4rem);
 $font-lh-2xl: var(--fw-font-lh-2xl, 3rem);
 $font-lh-xl: var(--fw-font-lh-xl, 2.25rem);
@@ -81,7 +84,7 @@ $font-lh-base: var(--fw-font-lh-base, 1.5rem);
 $font-lh-sm: var(--fw-font-lh-sm, 1.25rem);
 $font-lh-xs: var(--fw-font-lh-xs, 1.25rem);
 $font-lh-2xs: var(--fw-font-lh-2xs, 1rem);
-//=== Font sizes ===//
+//=== Line height ===//
 
 //=== Icon colors ===//
 $icon-primary: $color-smoke-700;

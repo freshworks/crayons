@@ -13,6 +13,7 @@
   @prop --fw-tab-border-color-hover: border color of the tab item on hover.
   @prop --fw-tab-border-color-active: border color of the tab item when tab is active.
   @prop --fw-tab-color-active: color of the text inside tab when tab is active.
+  @prop --fw-tab-border-size: size of the border bottom.
 */
 
 .tab {
@@ -21,26 +22,27 @@
   cursor: pointer;
   align-items: center;
   padding: var(--fw-tab-padding-tb, 10px) var(--fw-tab-padding-lr, 8px);
-  line-height: 20px;
+  line-height: $font-lh-sm;
   color: var(--fw-tab-color, $palette-secondary-700);
-  font-size: $font-size-14;
+  font-size: $font-sm;
   font-weight: var(--fw-tab-weight, $font-weight-400);
   margin: var(--fw-tab-margin-tb, 0px) var(--fw-tab-margin-lr, 4px);
   border-radius: var(--fw-tab-top-radius, 0px) var(--fw-tab-top-radius, 0px) 0px
     0px;
   background: var(--fw-tab-background, transparent);
   padding-bottom: var(--fw-tab-padding-tb, 8px);
-  border-bottom: 2px solid var(--fw-tab-border-color, transparent);
+  border-bottom: var(--fw-tab-border-size, 2px) solid
+    var(--fw-tab-border-color, transparent);
 
   /* stylelint-disable */
   &:hover:not(.disabled) {
     padding-bottom: var(--fw-tab-padding-tb, 8px);
-    border-bottom: 2px solid var(--fw-tab-border-color-hover, $palette-secondary-300);
+    border-bottom: var(--fw-tab-border-size, 2px) solid var(--fw-tab-border-color-hover, $palette-secondary-300);
   }
 
   &.active:not(.disabled) {
     padding-bottom: var(--fw-tab-padding-tb, 8px);
-    border-bottom: 2px solid var(--fw-tab-border-color-active, $palette-info-800);
+    border-bottom: var(--fw-tab-border-size, 2px) solid var(--fw-tab-border-color-active, $palette-info-800);
     color: var(--fw-tab-color-active, $palette-info-800);
     font-weight: var(--fw-tab-weight-active, $font-weight-600);
     background: var(--fw-tab-background-active, transparent);

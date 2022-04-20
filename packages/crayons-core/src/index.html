@@ -10,9 +10,226 @@
 
     <script type="module" src="/build/crayons.esm.js"></script>
     <script nomodule src="/build/crayons.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   </head>
+  <style>
+    html {
+      --fw-font-family: 'Montserrat';
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0px;
+      background: #FFF;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .container-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .container-col {
+      width: 40%;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+    .container-title {
+      width: 20%;
+      font-weight: 600;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+    .freshsales fw-tabs {
+      --fw-tabs-padding-lr: 0px;
+      --fw-tabs-border-width: 0px;
+      --fw-tab-top-radius: 8px;
+      --fw-tab-margin-lr: 0px;
+      --fw-tab-padding-tb: 9px;
+      --fw-tabs-padding-left: 0px;
+      --fw-tabs-padding-right: 0px;
+      --fw-tab-border: #FFF;
+      --fw-tab-border-color-hover: #FFF;
+      --fw-tab-border-color-active: #EBEFF3;
+      --fw-tab-color: #576C7D;
+      --fw-tab-color-active: #384551;
+      --fw-tab-background: #FFF;
+      --fw-tab-background-active: #EBEFF3;
+      --fw-tab-weight: 500;
+      --fw-tab-weight-active: 500;
+      --fw-tab-border-size: 0px;
+    }
+    .freshsales fw-popover {
+      --fw-font-sm: 12px;
+      --fw-popover-min-width: 198px;
+      --fw-popover-border-radius: 4px;
+      --fw-list-options-container-padding: 5px 0px;
+      --fw-select-option-border-radius: 0px;
+      --fw-select-option-margin-bottom: 0px;
+      --fw-select-option-single-line-padding-top: 3px;
+      --fw-select-option-single-line-padding-bottom: 3px;
+      --fw-popover-box-shadow: 0px 2px 10px rgba(39, 49, 58, 0.2);
+    }
+    .freshsales fw-tooltip {
+      --fw-font-sm: 12px;
+      --fw-tooltip-font-weight: 600px;
+      --fw-tooltip-padding-tb: 4px;
+      --fw-tooltip-padding-lr: 6px;
+    }
+  </style>
   <body>
-    <fw-button expand color="primary">Primary Button</fw-button>
+
+    <div class="container">
+
+      <div class="container-row">
+        <div class="container-col container-title">Buttons:</div>
+        <div class="container-col">
+          <fw-button color="primary"> OK </fw-button>
+          <fw-button color="secondary"> Secondary </fw-button>
+          <fw-button color="text">
+            <fw-icon name="agent" color="white"></fw-icon>
+            Plain Text Button
+          </fw-button>
+        </div>
+        <div class="container-col freshsales">
+          <fw-button color="primary"> OK </fw-button>
+          <fw-button color="secondary"> Secondary </fw-button>
+        </div>
+      </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Tabs:</div>
+        <div class="container-col">
+          <fw-tabs>
+            <fw-tab slot="tab" panel="personal">All Contacts</fw-tab>
+            <fw-tab slot="tab" panel="official">My Contacts</fw-tab>
+            <fw-tab slot="tab" panel="new">New Contacts</fw-tab>
+          </fw-tabs>
+        </div>
+        <div class="container-col freshsales">
+          <fw-tabs>
+            <fw-tab slot="tab" panel="personal">All Contacts</fw-tab>
+            <fw-tab slot="tab" panel="official">My Contacts</fw-tab>
+            <fw-tab slot="tab" panel="new">New Contacts</fw-tab>
+          </fw-tabs>
+        </div>
+      </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Popover:</div>
+        <div class="container-col">
+          <div class="crayons" style="width: fit-content;">
+            <fw-popover
+              trigger="manual"
+              class="sports-dropdown"
+              same-width="false"
+              placement="bottom-end"
+              distance="5"
+            >
+              <fw-button-group label="Test" slot="popover-trigger">
+                <fw-button>
+                  <fw-icon name="circle-plus" slot="before-label"></fw-icon>
+                  Add contact
+                </fw-button>
+                <fw-button class="icon-btn" size="icon">
+                  <fw-icon
+                    class="chevron-icon"
+                    name="chevron-down"
+                    slot="after-label"
+                  ></fw-icon>
+                </fw-button>
+              </fw-button-group>
+              <fw-list-options
+                class="sports"
+                slot="popover-content"
+              ></fw-list-options>
+            </fw-popover>
+          </div>
+        </div>
+        <div class="container-col freshsales">
+          <div class="freshsales" style="width: fit-content;">
+            <fw-popover
+              trigger="manual"
+              class="sports-dropdown"
+              same-width="false"
+              placement="bottom-end"
+              distance="5"
+            >
+              <fw-button-group label="Test" slot="popover-trigger">
+                <fw-button>
+                  <fw-icon name="circle-plus" slot="before-label"></fw-icon>
+                  Add contact
+                </fw-button>
+                <fw-button class="icon-btn" size="icon">
+                  <fw-icon
+                    class="chevron-icon"
+                    name="chevron-down"
+                    slot="after-label"
+                  ></fw-icon>
+                </fw-button>
+              </fw-button-group>
+              <fw-list-options
+                class="sports"
+                slot="popover-content"
+              ></fw-list-options>
+            </fw-popover>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Tooltip:</div>
+        <div class="container-col">
+          <fw-tooltip content="This is a tooltip" distance="5">
+            <span>Column name</span>
+          </fw-tooltip>
+        </div>
+        <div class="container-col freshsales">
+          <fw-tooltip content="This is a tooltip" distance="5">
+            <span>Column name</span>
+          </fw-tooltip>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
+    <fw-modal id='welcome' title-text="Welcome">
+      Hello, Welcome to Crayons
+    </fw-modal> -->
+
+    <script>
+      function popover(parent) {
+        var dropdown = document.querySelector(`${parent} .sports-dropdown`);
+        var iconbtn = document.querySelector(`${parent} .icon-btn`);
+        var chevron = document.querySelector(`${parent} .chevron-icon`);
+        iconbtn.addEventListener('click', () => {
+          if (dropdown.isOpen) {
+            dropdown.hide();
+          } else {
+            dropdown.show();
+          }
+        });
+        dropdown.addEventListener('fwShow', () => {
+          chevron.style.cssText = 'transform: rotate(180deg)';
+        });
+        dropdown.addEventListener('fwHide', () => {
+          chevron.style.cssText = '';
+        });
+        var sports = document.querySelector(`${parent} .sports`);
+        sports.options = [
+          { value: 1, text: 'Import contacts' },
+          { value: 2, text: 'View import history' }
+        ];
+      }
+      popover('.crayons');
+      popover('.freshsales');
+    </script>
     <!-- <br />
     <fw-radio-group
       name="Profile"
