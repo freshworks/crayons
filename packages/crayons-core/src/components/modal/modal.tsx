@@ -9,7 +9,7 @@ import {
   Watch,
   h,
 } from '@stencil/core';
-import { isFocusable } from '../../utils';
+import { getFocusableChildren } from '../../utils';
 import { i18n } from '../../global/Translation';
 
 @Component({
@@ -37,16 +37,6 @@ export class Modal {
    * Modal content element
    */
   @State() modalContent: HTMLFwModalContentElement;
-
-  /**
-   * Modal content element
-   */
-  @State() firstFocusElement: HTMLElement = null;
-
-  /**
-   * Modal content element
-   */
-  @State() lastFocusElement: HTMLElement = null;
 
   /**
    * Property to add or remove the top right close icon button
@@ -130,6 +120,48 @@ export class Modal {
 
   /**
    * private
+   * Modal container ref
+   */
+  modalContainer: HTMLElement = null;
+
+  /**
+   * private
+   * Handler to run on modal container opening
+   */
+  modalContainerHandler = null;
+
+  /**
+   * private
+   * Modal first focus element
+   */
+  firstFocusableElement: HTMLElement = null;
+
+  /**
+   * private
+   * Handler to first focusable element. Focuses last element on tab for focus locking.
+   */
+  firstFocusableElementHandler = null;
+
+  /**
+   * private
+   * Modal last focus element
+   */
+  lastFocusableElement: HTMLElement = null;
+
+  /**
+   * private
+   * Handler for last focusable element. Focus first element on shift+tab for focus locking.
+   */
+  lastFocusableElementHandler = null;
+
+  /**
+   * private
+   * Modal element to focus on open
+   */
+  modalOpenFocusElement: HTMLElement = null;
+
+  /**
+   * private
    * flag to add events to elements only on initial modal load
    */
   accessibilityAdded = false;
@@ -193,6 +225,20 @@ export class Modal {
     }
   }
 
+  componentDidLoad() {
+    if (this.isOpen && !this.accessibilityAdded) {
+      document.body.style.overflow = 'hidden';
+      this.addAccesibilityEvents();
+    }
+  }
+
+  disconnectedCallback() {
+    if (this.isOpen) {
+      document.body.style.overflow = 'auto';
+      this.removeAccesibilityEvents();
+    }
+  }
+
   @Watch('isOpen')
   visibilityChange(open: boolean) {
     if (!open) {
@@ -249,53 +295,74 @@ export class Modal {
    * Major actions would be to focus-lock inside modal and to focus on close button when opening the component.
    */
   addAccesibilityEvents() {
-    if (!this.accessibilityAdded) {
-      /**
-       * Focus trapping inside Modal. Below function gets all focusable elements from the modal.
-       * These include elements inside shadow dom too.
-       */
-      const getFocuableChildren = (node: HTMLElement) => {
-        let focusableElements = [];
-        const getAllNodes = (element: any, root = true) => {
-          root && (focusableElements = []);
-          element = element.shadowRoot ? element.shadowRoot : element;
-          element.querySelectorAll('*').forEach((el: any) => {
-            if (isFocusable(el)) {
-              focusableElements.push(el);
-            } else if (el.nodeName === 'SLOT') {
-              el.assignedElements({ flatten: true }).forEach(
-                (assignedEl: HTMLElement) => getAllNodes(assignedEl, false)
-              );
-            } else if (el.shadowRoot) {
-              getAllNodes(el, false);
+    if (
+      !this.accessibilityAdded ||
+      !this.firstFocusableElement?.parentNode ||
+      !this.modalOpenFocusElement?.parentNode ||
+      !this.lastFocusableElement?.parentNode
+    ) {
+      this.modalContainerHandler &&
+        this.modalContainer.removeEventListener(
+          'animationend',
+          this.modalContainerHandler
+        );
+      this.modalContainerHandler = (() => {
+        this.firstFocusableElementHandler &&
+          this.firstFocusableElement.removeEventListener(
+            'keydown',
+            this.firstFocusableElementHandler
+          );
+        this.lastFocusableElementHandler &&
+          this.lastFocusableElement.removeEventListener(
+            'keydown',
+            this.lastFocusableElementHandler
+          );
+        /**
+         * Focus trapping inside Modal. Below function gets all focusable elements from the modal.
+         * These include elements inside shadow dom too.
+         */
+        const focusableElements = getFocusableChildren(this.el);
+        if (focusableElements.length) {
+          this.firstFocusableElement = focusableElements[0];
+          this.lastFocusableElement =
+            focusableElements[focusableElements.length - 1];
+          this.modalOpenFocusElement =
+            focusableElements.length > 1 &&
+            this.firstFocusableElement.classList.contains('close-btn')
+              ? focusableElements[1]
+              : this.firstFocusableElement;
+
+          this.lastFocusableElementHandler = ((e: any) => {
+            if (!e.shiftKey && e.keyCode === 9) {
+              e.preventDefault();
+              this.focusElement(this.firstFocusableElement);
             }
-          });
-        };
-        getAllNodes(node);
-        return focusableElements;
-      };
-      const focusableElements = getFocuableChildren(this.el);
-      if (focusableElements.length) {
-        this.firstFocusElement = focusableElements[0];
-        this.lastFocusElement = focusableElements[focusableElements.length - 1];
-        this.lastFocusElement.addEventListener('keydown', (e: any) => {
-          !e.shiftKey &&
-            e.keyCode === 9 &&
-            this.focusElement(this.firstFocusElement);
-        });
-        this.firstFocusElement.addEventListener('keydown', (e: any) => {
-          e.shiftKey &&
-            e.keyCode === 9 &&
-            this.focusElement(this.lastFocusElement);
-        });
-      }
-      if (this.firstFocusElement) {
-        const modalContainer = this.el.shadowRoot.querySelector('.modal');
-        modalContainer &&
-          modalContainer.addEventListener('animationend', () => {
-            this.isOpen && this.focusElement(this.firstFocusElement);
-          });
-      }
+          }).bind(this);
+          this.firstFocusableElementHandler = ((e: any) => {
+            if (e.shiftKey && e.keyCode === 9) {
+              e.preventDefault();
+              this.focusElement(this.lastFocusableElement);
+            }
+          }).bind(this);
+          this.lastFocusableElement.addEventListener(
+            'keydown',
+            this.lastFocusableElementHandler
+          );
+          this.firstFocusableElement.addEventListener(
+            'keydown',
+            this.firstFocusableElementHandler
+          );
+        }
+
+        if (this.isOpen && this.modalOpenFocusElement) {
+          this.focusElement(this.modalOpenFocusElement);
+        }
+      }).bind(this);
+      this.modalContainer &&
+        this.modalContainer.addEventListener(
+          'animationend',
+          this.modalContainerHandler
+        );
       this.accessibilityAdded = true;
     }
     this.escapeHandler = ((e: any) => {
@@ -317,13 +384,18 @@ export class Modal {
   }
 
   /**
-   * To apply focus to HTML elements after timeout to avoid focus changing issue.
-   * When adding focus to an element inside shadow dom, the focus seems to change. The timeout
-   * helps fix this issue.
    * @param element element to focus on
    */
-  focusElement(element: HTMLElement) {
-    setTimeout(() => element.focus(), 1);
+  focusElement(element) {
+    try {
+      if (element.setFocus) {
+        element.setFocus();
+      } else {
+        element.focus();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   /**
@@ -393,7 +465,11 @@ export class Modal {
           'slider': this.slider,
         }}
       >
-        <div class={{ modal: true, [this.size]: true }} aria-modal='true'>
+        <div
+          class={{ modal: true, [this.size]: true }}
+          aria-modal='true'
+          ref={(el) => (this.modalContainer = el)}
+        >
           {this.hasCloseIconButton && (
             <button class='close-btn' onClick={() => this.close()}>
               <fw-icon
