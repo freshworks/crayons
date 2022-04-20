@@ -7,32 +7,23 @@
     margin: 0px;
   }
 
-  .paragraph-text.open {
-    margin-bottom: 15px;
+  .paragraph-text.expanded {
+    display: inline;
   }
 
   .paragraph-toggle {
-    position: absolute;
-    display: block;
-    bottom: -19px;
-    right: 5px;
-    height: 15px;
+    display: inline;
     text-decoration: none;
-    background-color: $color-smoke-25;
-    // padding: 0px 4px;
-    padding: 2px 8px;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     text-align: center;
-    border-radius: 4px;
-    border: 1px solid $color-smoke-100;
+    color: $color-azure-800;
+    white-space: nowrap;
+    font-weight: 600;
 
     &:hover,
     &:focus {
       cursor: pointer;
-    }
-
-    fw-icon {
-      display: inline;
     }
   }
 }
