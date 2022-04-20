@@ -83,6 +83,12 @@ module.exports = {
         children: getUtils(),
       },
       {
+        title: 'Theming',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: ['theme/colors/'],
+      },
+      {
         title: 'Utilities',
         collapsable: false,
         sidebarDepth: 1,
@@ -108,9 +114,8 @@ module.exports = {
         text: `v${version?.split('.')[0]}.x`,
         items: ['v3.x', 'v2.x'].map((v) => ({
           text: v,
-          link: `https://crayons.freshworks.com/${
-            v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
-          }`,
+          link: `https://crayons.freshworks.com/${v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
+            }`,
         })),
       },
     ],
