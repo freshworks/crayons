@@ -19,7 +19,7 @@
     text-align: center;
     color: $color-azure-800;
     white-space: nowrap;
-    font-weight: 600;
+    font-weight: $font-weight-600;
 
     &:hover,
     &:focus {
