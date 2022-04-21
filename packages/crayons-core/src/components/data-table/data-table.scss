@@ -269,7 +269,7 @@ div.fw-data-table-container {
         background: $color-milk;
         border: 1px solid $color-smoke-50;
         border-radius: 4px;
-        box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
+        box-shadow: $elevation-level-1;
         padding: 22px 0px 0px 0px;
         display: none;
         animation: appear 0.3s;

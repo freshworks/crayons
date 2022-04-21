@@ -40,3 +40,17 @@ Crayons makes use of several design tokens to provide a consistent appearance ac
 | --fw-palette-info-100      | azure-100      | ![#bbdcfe](https://via.placeholder.com/15/bbdcfe/bbdcfe?text=+) `#bbdcfe` |
 | --fw-palette-info-50       | azure-50       | ![#e5f2fd](https://via.placeholder.com/15/e5f2fd/e5f2fd?text=+) `#e5f2fd` |
 | --fw-palette-neutral-100   | milk           | ![#fff](https://via.placeholder.com/15/fff/fff?text=+) `#fff`             |
+
+## Surface tones
+
+Surfaces at elevation levels +1 to +2 are tinted via color which introduces tonal variation to the surface baseline.
+
+Tonal surfaces provide a few benefits:
+
+- Simulate the effect of elevation to create differentiation amongst competing content areas
+- Establish contrast for accessibility benefits
+
+| CSS Variable           | Default Shadow value                  | Usage           |
+| ---------------------- | ------------------------------------- | --------------- |
+| --fw-elevation-level-1 | `-15px 20px 40px rgba(0, 0, 0, 0.04)` | popover, select |
+| --fw-elevation-level-2 | `0px 2px 18px rgba(18, 52, 77, 0.2)`  | modal           |
