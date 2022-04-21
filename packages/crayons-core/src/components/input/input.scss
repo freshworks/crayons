@@ -3,6 +3,8 @@
   @prop --fw-hint-color: Color of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
+  @prop --fw-input-height: The height of the input element.
+  @prop --fw-input-border-radius: The border radius of the input element.
 */
 
 @import '../../function-components/field-control.scss';
@@ -59,10 +61,11 @@ $warning-color: $color-casablanca-300;
   display: flex;
   align-items: center;
   width: 100%;
+  height: var(--fw-input-height, 32px);
   border: 1px solid $input-border;
   background-color: $app-light-bg;
   position: relative;
-  border-radius: 4px;
+  border-radius: var(--fw-input-border-radius, 4px);
   box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05);
 
   &.error {
@@ -86,16 +89,16 @@ $warning-color: $color-casablanca-300;
 
       input {
         width: 100%;
-        padding: 5px 0px;
         resize: none;
         border: none;
         outline: none;
         box-shadow: none;
-        min-height: 24px;
-        font-size: $font-size-14;
+        padding: 0px;
+        margin: 0px;
+        font-size: $font-sm;
         font-weight: $font-weight-semibold;
         letter-spacing: 0;
-        line-height: 20px;
+        line-height: $font-lh-sm;
         color: $input-color;
         box-sizing: border-box;
         cursor: text;
@@ -183,8 +186,8 @@ $warning-color: $color-casablanca-300;
   //Help Block
   & + .help-block {
     font-family: $label-font;
-    font-size: 12px;
-    line-height: 20px;
+    font-size: $font-xs;
+    line-height: $font-lh-sm;
     margin-top: 4px;
     margin-bottom: 0;
     color: var(--fw-hint-color, $help-color);
