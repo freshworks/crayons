@@ -306,8 +306,8 @@ $app-selected-color: #f7fef4;
 $radio-button-border: $app-muted-grey;
 
 //dropdown
-$dropdown-hover: #ebeff3;
-$dropdown-selected: #e5f2fd;
+$dropdown-hover: var(--fw-dropdown-hover-bg, #ebeff3);
+$dropdown-selected: var(--fw-dropdown-selected-bg, #e5f2fd);
 $category-menu-bg: #ebeff3;
 $category-section-bg: #fff;
 $category-link-hover: #f3f5f7;

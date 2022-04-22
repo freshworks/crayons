@@ -45,12 +45,12 @@
 }
 
 #description {
-  font-size: 12px;
+  font-size: $font-xs;
+  line-height: $font-lh-xs;
+  font-weight: $font-weight-400;
   color: #475867;
   letter-spacing: 0;
-  line-height: 20px;
   position: relative;
-  font-weight: 400;
 }
 
 input[type='radio'] {
@@ -61,10 +61,10 @@ input[type='radio'] {
     cursor: pointer;
     margin-bottom: 4px;
     vertical-align: middle;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: $font-sm;
+    line-height: $font-lh-sm;
+    font-weight: $font-weight-600;
     color: #12344d;
-    font-weight: 600;
 
     &::before,
     &::after {

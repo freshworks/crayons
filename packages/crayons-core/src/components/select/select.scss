@@ -5,6 +5,8 @@
   @prop --fw-hint-color: Color of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
+  @prop --fw-select-input-padding-left: Padding of input container.
+  @prop --fw-select-tag-margin: Margin for the tags in multi select.
 */
 
 @import '../../function-components/field-control.scss';
@@ -54,10 +56,10 @@ $warning-color: $color-casablanca-300;
 // }
 
 .input-container {
-  width: calc(100% - 10px);
+  width: calc(100% - var(--fw-select-input-padding-left, 10px));
   border: var(--fw-select-border, 1px solid $input-border);
   border-radius: var(--fw-select-border-radius, 4px);
-  padding-left: 10px;
+  padding-left: var(--fw-select-input-padding-left, 10px);
   background-color: $input-bg;
   box-shadow: none;
   min-height: 22px;
@@ -74,17 +76,19 @@ $warning-color: $color-casablanca-300;
       flex-wrap: wrap;
 
       fw-tag {
-        margin: 4px 4px 4px 0px;
+        margin: var(--fw-select-tag-margin, 4px);
+        margin-left: 0px;
       }
     }
 
     input {
       flex-grow: 1;
       border: none;
-      font-size: $font-size-14;
+      font-family: inherit;
+      font-size: $font-sm;
+      line-height: $font-lh-sm;
       font-weight: $font-weight-500;
       letter-spacing: 0;
-      line-height: 1.4;
       background-color: $input-bg;
       min-width: 20px;
       min-height: 22px;
@@ -188,9 +192,9 @@ $warning-color: $color-casablanca-300;
 
   //Help Block
   .help-block {
-    font-size: $font-size-12;
+    font-size: $font-xs;
+    line-height: $font-lh-xs;
     margin-top: 4px;
-    line-height: 20px;
     color: $help-color;
     position: inherit;
     margin-bottom: 0;

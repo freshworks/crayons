@@ -142,6 +142,8 @@ Type: `Promise<any>`
 | Name                                                                                        | Description |
 | ------------------------------------------------------------------------------------------- | ----------- |
 | `--fw-select-option-border-radius to add radius to options`                                 |             |
+| `--fw-select-option-font-size to change font size of options`                               |             |
+| `--fw-select-option-line-height to change line height og options`                           |             |
 | `--fw-select-option-margin-bottom to add margin bottom to list option`                      |             |
 | `--fw-select-option-multi-line-padding-bottom to add padding bottom to multi line option`   |             |
 | `--fw-select-option-multi-line-padding-top to add padding top to multi line option`         |             |

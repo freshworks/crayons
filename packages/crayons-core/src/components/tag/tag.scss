@@ -2,25 +2,25 @@
   display: inline-flex;
   align-items: center;
   color: $color-elephant-900;
-  font-size: $font-size-14;
+  font-size: $font-sm;
   word-break: break-all;
 
   .content {
-    line-height: 20px;
+    line-height: $font-lh-sm;
     vertical-align: middle;
   }
 
   &-standard {
     padding: 2px 2px 2px 8px;
     border-radius: 4px;
-    font-weight: 600;
+    font-weight: $font-weight-600;
     background-color: $color-smoke-50;
   }
 
   &-avatar {
     padding: 4px;
     border-radius: 24px;
-    font-weight: 400;
+    font-weight: $font-weight-400;
     background: linear-gradient(180deg, $color-smoke-25 2.56%, #f3f5f7 95.75%);
 
     fw-avatar {
@@ -34,7 +34,7 @@
     align-items: center;
     justify-content: center;
     color: $color-elephant-800;
-    font-size: $font-size-16;
+    font-size: $font-base;
 
     &.standard {
       min-height: 20px;

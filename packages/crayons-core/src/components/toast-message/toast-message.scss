@@ -50,10 +50,10 @@
 
   .content {
     color: $color-elephant-900;
-    line-height: 20px;
-    flex: 1 1 auto;
-    font-size: $font-size-14;
+    font-size: $font-sm;
+    line-height: $font-lh-sm;
     font-weight: $font-weight-500;
+    flex: 1 1 auto;
     vertical-align: top;
   }
 
@@ -68,10 +68,10 @@
 
 .action-link {
   color: $color-azure-800;
-  line-height: 14px;
-  cursor: pointer;
-  font-size: $font-size-12;
+  font-size: $font-sm;
+  line-height: 14px; // TODO: follow DSM
   font-weight: $font-weight-600;
+  cursor: pointer;
   padding: 8px 0px;
 }
 

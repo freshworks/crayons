@@ -57,10 +57,10 @@ $warning-color: $color-casablanca-300;
     background-color: $input-bg;
     box-shadow: none;
     min-height: 24px;
-    font-size: $font-size-14;
-    font-weight: $font-weight-semibold;
+    font-size: $font-sm;
+    line-height: $font-lh-sm;
+    font-weight: $font-weight-600;
     letter-spacing: 0;
-    line-height: 20px;
     font-family: inherit;
     cursor: text;
     display: inline-block;
@@ -99,7 +99,7 @@ $warning-color: $color-casablanca-300;
 
   //Help Block
   & + .help-block {
-    font-size: $font-size-12;
+    font-size: $font-xs;
     margin-top: 3px;
     color: $help-color;
     position: inherit;

@@ -5,6 +5,8 @@
   @prop --fw-select-option-single-line-padding-bottom to add padding bottom to single line option
   @prop --fw-select-option-multi-line-padding-top to add padding top to multi line option
   @prop --fw-select-option-multi-line-padding-bottom to add padding bottom to multi line option
+  @prop --fw-select-option-font-size to change font size of options
+  @prop --fw-select-option-line-height to change line height og options
 **/
 
 $primary-color: $color-elephant-900;
@@ -24,11 +26,10 @@ $bg-color-disabled: $color-smoke-25;
   display: flex;
   align-items: center;
   color: $primary-color;
-  // font-size: $font-size-14;
-  font-size: $font-sm;
+  font-size: var(--fw-select-option-font-size, $font-sm);
+  line-height: var(--fw-select-option-line-height, $font-lh-sm);
   border-radius: var(--fw-select-option-border-radius, 4px);
   list-style: none;
-  line-height: 1.45;
   word-break: break-word;
   word-wrap: break-word;
   position: relative;
@@ -90,7 +91,6 @@ $bg-color-disabled: $color-smoke-25;
     }
     &-subText {
       font-weight: $font-weight-400;
-      // font-size: $font-size-12;
       font-size: $font-xs;
       color: $color-smoke-700;
     }

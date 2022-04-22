@@ -35,7 +35,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
     .container-col {
       width: 40%;
@@ -45,8 +45,15 @@
     .container-title {
       width: 20%;
       font-weight: 600;
-      padding: 10px 20px;
+      padding: 10px 10px;
       box-sizing: border-box;
+      display: flex;
+      align-items: center;
+    }
+    .container-header {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
     }
     .freshsales fw-button {
       --fw-button-height: 34px;
@@ -56,7 +63,6 @@
     .freshsales fw-button.secondary {
       --fw-button-font-weight: 500px;
     }
-
     .freshsales fw-tabs {
       --fw-tabs-padding-lr: 0px;
       --fw-tabs-border-width: 0px;
@@ -76,35 +82,51 @@
       --fw-tab-weight-active: 500;
       --fw-tab-border-size: 0px;
     }
-    .freshsales fw-popover {
-      --fw-font-sm: 12px;
+    .freshsales fw-popover, .freshsales fw-select {
+      --fw-select-option-font-size: 12px;
       --fw-popover-min-width: 198px;
       --fw-popover-border-radius: 4px;
+      --fw-popover-box-shadow: 0px 2px 10px rgba(39, 49, 58, 0.2);
+      --fw-menu-padding-tb: 5px;
+      --fw-menu-border-radius: 4px;
+      --fw-menu-margin-bottom: 0px;
+      --fw-menu-item-font-size: 12px;
+    }
+    .freshsales fw-tooltip {
+      --fw-tooltip-font-size: 12px;
+      --fw-tooltip-font-weight: 400;
+      --fw-tooltip-padding-tb: 4px;
+      --fw-tooltip-padding-lr: 6px;
+    }
+    .freshsales fw-select {
       --fw-list-options-container-padding: 5px 0px;
       --fw-select-option-border-radius: 0px;
       --fw-select-option-margin-bottom: 0px;
       --fw-select-option-single-line-padding-top: 3px;
       --fw-select-option-single-line-padding-bottom: 3px;
-      --fw-popover-box-shadow: 0px 2px 10px rgba(39, 49, 58, 0.2);
-    }
-    .freshsales fw-tooltip {
-      --fw-font-sm: 12px;
-      --fw-tooltip-font-weight: 600px;
-      --fw-tooltip-padding-tb: 4px;
-      --fw-tooltip-padding-lr: 6px;
+      --fw-select-input-padding-left: 5px;
+      --fw-select-tag-margin: 5px;
+      --fw-font-weight-600: 400;
     }
   </style>
   <body>
     <div class="container">
+
+      <div class="container-row">
+        <div class="container-col container-title"></div>
+        <div class="container-col">
+          <span class="container-header">Design system 2.0</span>
+        </div>
+        <div class="container-col freshsales">
+          <span class="container-header">Freshsales view 2.0</span>
+        </div>
+      </div>
+
       <div class="container-row">
         <div class="container-col container-title">Buttons:</div>
         <div class="container-col">
           <fw-button color="primary"> OK </fw-button>
           <fw-button color="secondary"> Secondary </fw-button>
-          <fw-button color="text">
-            <fw-icon name="agent" color="white"></fw-icon>
-            Plain Text Button
-          </fw-button>
         </div>
         <div class="container-col freshsales">
           <fw-button color="primary"> OK </fw-button>
@@ -195,16 +217,52 @@
       <div class="container-row">
         <div class="container-col container-title">Tooltip:</div>
         <div class="container-col">
-          <fw-tooltip content="This is a tooltip" distance="5">
-            <span>Column name</span>
+          <fw-tooltip content="This is a tooltip" distance="5" placement="top-start">
+            <span>Hover</span>
           </fw-tooltip>
         </div>
         <div class="container-col freshsales">
-          <fw-tooltip content="This is a tooltip" distance="5">
-            <span>Column name</span>
+          <fw-tooltip content="This is a tooltip" distance="5" placement="top-start">
+            <span>Hover</span>
           </fw-tooltip>
         </div>
       </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Multi select:</div>
+        <div class="container-col">
+          <div style="width: fit-content;">
+            <fw-select
+              placeholder="Your choices"
+              caret="false"
+              multiple
+            >
+              <fw-select-option value="1" selected>Starks</fw-select-option>
+              <fw-select-option value="2">Lannisters</fw-select-option>
+              <fw-select-option value="3">Sand</fw-select-option>
+              <fw-select-option value="4">Greyjoys</fw-select-option>
+              <fw-select-option value="5">Tyrell</fw-select-option>
+            </fw-select>
+          </div>
+        </div>
+
+        <div class="container-col freshsales">
+          <div style="width: fit-content;">
+            <fw-select
+              placeholder="Your choices"
+              caret="false"
+              multiple
+            >
+              <fw-select-option value="1" selected>Starks</fw-select-option>
+              <fw-select-option value="2">Lannisters</fw-select-option>
+              <fw-select-option value="3">Sand</fw-select-option>
+              <fw-select-option value="4">Greyjoys</fw-select-option>
+              <fw-select-option value="5">Tyrell</fw-select-option>
+            </fw-select>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>

@@ -47,11 +47,11 @@
     width: 100%;
     pointer-events: none;
     user-select: none;
-    line-height: 20px;
+    font-size: $font-base;
+    line-height: $font-lh-sm; // TODO: follow DSM
+    font-weight: $font-weight-600;
     text-align: left;
     color: $text-default;
-    font-size: $font-size-16;
-    font-weight: $font-weight-600;
     margin-bottom: 8px;
     white-space: nowrap;
     overflow: hidden;
@@ -67,14 +67,14 @@
     text-align: left;
 
     color: $text-secondary;
-    font-size: $font-size-14;
+    font-size: $font-sm;
+    line-height: 16px; // TODO: follow DSM
     font-weight: $font-weight-400;
 
     word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    line-height: 16px;
     max-height: var(--fw-toggle-group-button-card-description-max-height, 48px);
     -webkit-line-clamp: var(
       --fw-toggle-group-button-card-description-max-lines,

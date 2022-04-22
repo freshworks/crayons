@@ -2,11 +2,11 @@ $font-stack: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen,
   ubuntu, cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
 //=== Font weights ===//
-$font-weight-400: 400;
-$font-weight-300: 300;
-$font-weight-500: 500;
-$font-weight-600: 600;
-$font-weight-700: 700;
+$font-weight-300: var(--fw-font-weight-300, 300);
+$font-weight-400: var(--fw-font-weight-400, 400);
+$font-weight-500: var(--fw-font-weight-500, 500);
+$font-weight-600: var(--fw-font-weight-600, 600);
+$font-weight-700: var(--fw-font-weight-700, 700);
 //=== Font weights ===//
 
 //=== Font sizes ===//

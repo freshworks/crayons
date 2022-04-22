@@ -22,9 +22,9 @@
   cursor: pointer;
   align-items: center;
   padding: var(--fw-tab-padding-tb, 10px) var(--fw-tab-padding-lr, 8px);
+  font-size: $font-sm;
   line-height: $font-lh-sm;
   color: var(--fw-tab-color, $palette-secondary-700);
-  font-size: $font-sm;
   font-weight: var(--fw-tab-weight, $font-weight-400);
   margin: var(--fw-tab-margin-tb, 0px) var(--fw-tab-margin-lr, 4px);
   border-radius: var(--fw-tab-top-radius, 0px) var(--fw-tab-top-radius, 0px) 0px
