@@ -46,8 +46,8 @@
     "actions": "Actions",
     "hide": "Hide",
     "show": "Show",
-    "showMore": "show more",
-    "showLess": "show less"
+    "showMore": "Show more",
+    "showLess": "Show less"
   },
   "platformTable": {
     "delete": "Delete",
