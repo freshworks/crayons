@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.6...@freshworks/crayons-i18n@3.1.0-beta.7) (2022-04-25)
+
+
+### Bug Fixes
+
+* **data-table:** capitalizing show more text ([#571](https://github.com/freshworks/crayons/issues/571)) ([c5022c7](https://github.com/freshworks/crayons/commit/c5022c7ad60a2ddcbcd5ac871d3a96231381e072))
+
+
+
+
+
 ## [3.1.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.5...@freshworks/crayons-i18n@3.1.0-beta.6) (2022-04-20)
 
 ### Bug Fixes

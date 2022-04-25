@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.7...@freshworks/crayons@3.3.0-beta.8) (2022-04-25)
+
+
+### Bug Fixes
+
+* **data-table:** adding key to table row to avoid rendering issues ([#572](https://github.com/freshworks/crayons/issues/572)) ([1ab3cdb](https://github.com/freshworks/crayons/commit/1ab3cdb70534059bc197e086726e771e3657a3c8))
+* **tooltip:** ability to hover over tooltip content ([#570](https://github.com/freshworks/crayons/issues/570)) ([d8bba48](https://github.com/freshworks/crayons/commit/d8bba48466f640c360589ede599745ed83e4f699))
+
+
+
+
+
 ## [3.3.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.6...@freshworks/crayons@3.3.0-beta.7) (2022-04-20)
 
 ### Bug Fixes
