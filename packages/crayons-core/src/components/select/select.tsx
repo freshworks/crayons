@@ -345,6 +345,22 @@ export class Select {
     this.renderInput();
   }
 
+  @Watch('options')
+  onOptionsChange(newValue) {
+    this.dataSource = newValue;
+    const selectedValues = newValue?.filter((option) => option.selected);
+    if (selectedValues.length > 0) {
+      // selected flag is available in the datasource
+      this.selectedOptionsState = selectedValues;
+      this.value = this.multiple
+        ? this.selectedOptionsState[0]?.value
+        : this.selectedOptionsState.map((x) => x.value);
+    } else {
+      this.value = this.multiple ? [] : '';
+      this.selectedOptionsState = [];
+    }
+  }
+
   @Method()
   async getSelectedItem(): Promise<any> {
     return this.fwListOptions.getSelectedOptions();
