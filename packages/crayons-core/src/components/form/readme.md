@@ -269,7 +269,7 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
 form schema should follow the below structure:
 
 ```{
-name: '',// NAME OF THE FORM
+name: '', // Name of the form.
 fields: [ // Each item in this array corresponds to a crayons input component.
   {
     id: '2978f820-704b-46c7-9f88-110e14e34a8c', // ID of the input control
