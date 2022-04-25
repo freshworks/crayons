@@ -1226,6 +1226,7 @@ export class DataTable {
       ? this.rows.map((row, rowIndex) => {
           return (
             <tr
+              key={row.id}
               role='row'
               class={{
                 active: this.selected.includes(row.id),
