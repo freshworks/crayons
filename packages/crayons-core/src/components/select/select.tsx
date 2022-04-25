@@ -351,6 +351,7 @@ export class Select {
         : this.selectedOptionsState.map((x) => x.value);
     } else {
       this.value = this.multiple ? [] : '';
+      this.selectedOptionsState = [];
     }
   }
 
