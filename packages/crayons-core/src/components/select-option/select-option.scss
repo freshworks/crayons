@@ -7,6 +7,7 @@
   @prop --fw-select-option-multi-line-padding-bottom to add padding bottom to multi line option
   @prop --fw-select-option-font-size to change font size of options
   @prop --fw-select-option-line-height to change line height og options
+  @prop --fw-select-option-icon-display to change display of the selected option icon
 **/
 
 $primary-color: $color-elephant-900;
@@ -108,7 +109,7 @@ $bg-color-disabled: $color-smoke-25;
     min-width: 24px;
     min-height: 24px;
     margin-left: auto;
-    display: flex;
+    display: var(--fw-select-option-icon-display, flex);
     justify-content: center;
     align-items: center;
   }

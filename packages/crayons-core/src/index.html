@@ -18,7 +18,7 @@
     />
   </head>
   <style>
-    html {
+    html .freshsales {
       --fw-font-family: 'Montserrat';
     }
     body {
@@ -61,7 +61,9 @@
       --fw-button-font-weight: 400;
     }
     .freshsales fw-button.secondary {
-      --fw-button-font-weight: 500px;
+      --fw-button-font-weight: 500;
+      --fw-palette-primary-900: #333;
+      --fw-button-font-size: 14px;
     }
     .freshsales fw-input {
       --fw-input-height: 34px;
@@ -111,6 +113,7 @@
       --fw-select-input-padding-left: 5px;
       --fw-select-tag-margin: 5px;
       --fw-font-weight-600: 400;
+      --fw-select-option-icon-display: none;
     }
   </style>
   <body>
@@ -131,28 +134,32 @@
         <div class="container-col">
           <fw-button color="primary"> OK </fw-button>
           <fw-button color="secondary"> Secondary </fw-button>
+          <fw-button color="secondary" class="secondary">
+            <fw-icon name="delete" slot="before-label"></fw-icon>
+            Secondary
+          </fw-button>
         </div>
         <div class="container-col freshsales">
           <fw-button color="primary"> OK </fw-button>
           <fw-button color="secondary" class="secondary"> Secondary </fw-button>
+          <fw-button color="secondary" class="secondary">
+            <fw-icon name="edit" slot="before-label" color="#333"></fw-icon>
+            Secondary
+          </fw-button>
         </div>
       </div>
 
       <div class="container-row">
-        <div class="container-col container-title">Tabs:</div>
+        <div class="container-col container-title">Tooltip:</div>
         <div class="container-col">
-          <fw-tabs>
-            <fw-tab slot="tab" panel="personal">All Contacts</fw-tab>
-            <fw-tab slot="tab" panel="official">My Contacts</fw-tab>
-            <fw-tab slot="tab" panel="new">New Contacts</fw-tab>
-          </fw-tabs>
+          <fw-tooltip content="This is a tooltip" distance="5" placement="top-start">
+            <a href="#">Hover over me</a>
+          </fw-tooltip>
         </div>
         <div class="container-col freshsales">
-          <fw-tabs>
-            <fw-tab slot="tab" panel="personal">All Contacts</fw-tab>
-            <fw-tab slot="tab" panel="official">My Contacts</fw-tab>
-            <fw-tab slot="tab" panel="new">New Contacts</fw-tab>
-          </fw-tabs>
+          <fw-tooltip content="This is a tooltip" distance="5" placement="top-start">
+            <a href="#">Hover over me</a>
+          </fw-tooltip>
         </div>
       </div>
 
@@ -198,7 +205,7 @@
             >
               <fw-button-group label="Test" slot="popover-trigger">
                 <fw-button>
-                  <fw-icon name="circle-plus" slot="before-label"></fw-icon>
+                  <fw-icon name="circle-plus" slot="before-label" size=14></fw-icon>
                   Add contact
                 </fw-button>
                 <fw-button class="icon-btn" size="icon">
@@ -206,6 +213,7 @@
                     class="chevron-icon"
                     name="chevron-down"
                     slot="after-label"
+                    size=9
                   ></fw-icon>
                 </fw-button>
               </fw-button-group>
@@ -219,16 +227,32 @@
       </div>
 
       <div class="container-row">
-        <div class="container-col container-title">Tooltip:</div>
+        <div class="container-col container-title">Tabs:</div>
         <div class="container-col">
-          <fw-tooltip content="This is a tooltip" distance="5" placement="top-start">
-            <span>Hover</span>
-          </fw-tooltip>
+          <fw-tabs>
+            <fw-tab slot="tab" panel="personal">All Contacts</fw-tab>
+            <fw-tab slot="tab" panel="official">My Contacts</fw-tab>
+            <fw-tab slot="tab" panel="new">New Contacts</fw-tab>
+          </fw-tabs>
         </div>
         <div class="container-col freshsales">
-          <fw-tooltip content="This is a tooltip" distance="5" placement="top-start">
-            <span>Hover</span>
-          </fw-tooltip>
+          <fw-tabs>
+            <fw-tab slot="tab" panel="personal">All Contacts</fw-tab>
+            <fw-tab slot="tab" panel="official">My Contacts</fw-tab>
+            <fw-tab slot="tab" panel="new">New Contacts</fw-tab>
+          </fw-tabs>
+        </div>
+      </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Input:</div>
+        <div class="container-col">
+          <fw-input>
+          </fw-input>
+        </div>
+        <div class="container-col freshsales">
+          <fw-input>
+          </fw-input>
         </div>
       </div>
 
@@ -269,18 +293,6 @@
 
     </div>
 
-      <div class="container-row">
-        <div class="container-col container-title">Input:</div>
-        <div class="container-col">
-          <fw-input>
-          </fw-input>
-        </div>
-        <div class="container-col freshsales">
-          <fw-input>
-          </fw-input>
-        </div>
-      </div>
-    </div>
 
     <!-- <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
     <fw-modal id='welcome' title-text="Welcome">
