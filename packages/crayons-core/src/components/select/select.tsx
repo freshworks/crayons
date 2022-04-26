@@ -345,6 +345,29 @@ export class Select {
     this.renderInput();
   }
 
+  @Watch('options')
+  onOptionsChange(newValue) {
+    const selectedValues = newValue?.filter((option) => option.selected);
+    // If selected key is available in options schema use it
+    // Or check for the value
+    if (selectedValues.length > 0) {
+      this.dataSource = newValue;
+      this.selectedOptionsState = selectedValues;
+      this.value = this.multiple
+        ? this.selectedOptionsState.map((x) => x.value)
+        : this.selectedOptionsState[0]?.value;
+    } else if (this.valueExists()) {
+      this.dataSource = newValue.map((option) => {
+        option.selected = this.isValueEqual(this.value, option);
+        return option;
+      });
+    } else {
+      this.dataSource = newValue;
+      this.value = this.multiple ? [] : '';
+      this.selectedOptionsState = [];
+    }
+  }
+
   @Method()
   async getSelectedItem(): Promise<any> {
     return this.fwListOptions.getSelectedOptions();
