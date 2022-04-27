@@ -2010,8 +2010,6 @@ graph TD;
   fw-custom-cell-paragraph --> fw-tooltip
   fw-tooltip --> fw-popover
   fw-checkbox --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
   fw-input --> fw-icon
   style fw-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

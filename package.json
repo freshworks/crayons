@@ -103,6 +103,7 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
+    "@freshworks/crayons-i18n": "file:packages/crayons-i18n",
     "lerna": "^4.0.0"
   },
   "config": {

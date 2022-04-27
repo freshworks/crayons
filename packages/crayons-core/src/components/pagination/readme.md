@@ -103,8 +103,6 @@ graph TD;
   fw-pagination --> fw-button-group
   fw-pagination --> fw-button
   fw-pagination --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon

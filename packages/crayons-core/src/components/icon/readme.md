@@ -240,7 +240,6 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
 ### Used by
 
  - [fw-accordion-title](../accordion-title)
- - [fw-button](../button)
  - [fw-checkbox](../checkbox)
  - [fw-custom-cell-icon](../data-table/custom-cells/icon)
  - [fw-data-table](../data-table)
@@ -271,7 +270,6 @@ graph TD;
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-icon
   fw-accordion-title --> fw-icon
-  fw-button --> fw-icon
   fw-checkbox --> fw-icon
   fw-custom-cell-icon --> fw-icon
   fw-data-table --> fw-icon

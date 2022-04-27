@@ -9,8 +9,7 @@ import {
   h,
   Method,
 } from '@stencil/core';
-import { throttle, hasSlot } from '../../utils';
-
+import { throttle, hasSlot, transformTagName } from '../../utils';
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',
@@ -36,7 +35,7 @@ export class Button {
   /**
    * Size of the button.
    */
-  @Prop() size: 'normal' | 'small' | 'icon' | 'icon-small' = 'normal';
+  @Prop() size: 'normal' | 'small' | 'icon' | 'icon-small' = 'icon-small';
 
   /**
    * Disables the button on the interface. Default value is false.
@@ -164,6 +163,9 @@ export class Button {
   }
 
   render() {
+    const FwIcon = transformTagName('fw-icon', 'fw-button', this.host); // 'fw-button-v1'
+    const FwSpinner = transformTagName('fw-spinner', 'fw-button', this.host); // 'fw-spinner-v1'
+
     return (
       <Host>
         <button
@@ -203,12 +205,13 @@ export class Button {
               name='after-label'
             ></slot>
           </span>
-          {this.loading ? <fw-spinner class='fw-btn--loader'></fw-spinner> : ''}
+          {this.loading ? <FwSpinner class='fw-btn--loader'></FwSpinner> : ''}
           {this.showCaretIcon ? (
-            <fw-icon name='chevron-down' library='system' />
+            <FwIcon name='chevron-down' library='system' />
           ) : (
             ''
           )}
+          button text also inside
         </button>
       </Host>
     );

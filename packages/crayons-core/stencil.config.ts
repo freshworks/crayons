@@ -1,5 +1,5 @@
 import { Config } from '@stencil/core';
-import { reactOutputTarget } from 'react-output-target';
+import { reactOutputTarget } from 'react-output-target-1';
 import { sass } from '@stencil/sass';
 
 import { generateJsonDocs } from './customElementDocGenerator';
@@ -54,12 +54,13 @@ export const config: Config = {
       proxiesFile: './crayons-react/components.ts',
 
       // lazy load -> code splitting
-      // includeDefineCustomElements: true,
-      // includePolyfills: true,
+      includeDefineCustomElements: true,
+      //includePolyfills: false,
+      //      includeImportCustomElements: false,
 
       // tree shakable, need to use setassetpath
-      customElementsDir: 'dist/components',
-      includeImportCustomElements: true,
+      // customElementsDir: 'dist/components',
+      // includeImportCustomElements: true,
     }),
   ],
   plugins: [
@@ -82,19 +83,10 @@ export const config: Config = {
     ],
     coverageReporters: ['json', 'lcov', 'text', 'clover', 'text-summary'],
   },
-  buildEs5: true,
+  //buildEs5: true,
   extras: {
-    appendChildSlotFix: true,
-    cssVarsShim: true,
-    dynamicImportShim: true,
-    initializeNextTick: true,
-    safari10: true,
-    scriptDataOpts: true,
-    shadowDomShim: true,
-    cloneNodeFix: true,
-    slotChildNodesFix: true,
+    tagNameTransform: true,
   },
-  enableCache: true,
 
   //globalScript: 'src/global/crayons.ts',
 };

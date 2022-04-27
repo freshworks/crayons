@@ -1205,8 +1205,6 @@ graph TD;
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-popover
   fw-select --> fw-button

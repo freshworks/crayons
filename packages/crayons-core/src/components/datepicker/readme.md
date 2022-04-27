@@ -201,8 +201,6 @@ graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-checkbox --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
   fw-input --> fw-icon
   fw-select --> fw-tag
   fw-select --> fw-popover
