@@ -62,7 +62,7 @@
     }
     .freshsales fw-button.secondary {
       --fw-button-font-weight: 500;
-      --fw-palette-primary-900: #333;
+      --fw-color-primary-900: #333;
       --fw-button-font-size: 14px;
     }
     .freshsales fw-input {
@@ -88,7 +88,8 @@
       --fw-tab-weight-active: 500;
       --fw-tab-border-size: 0px;
     }
-    .freshsales fw-popover, .freshsales fw-select {
+    .freshsales fw-popover,
+    .freshsales fw-select {
       --fw-select-option-font-size: 12px;
       --fw-popover-min-width: 198px;
       --fw-popover-border-radius: 4px;
@@ -118,7 +119,6 @@
   </style>
   <body>
     <div class="container">
-
       <div class="container-row">
         <div class="container-col container-title"></div>
         <div class="container-col">
@@ -152,12 +152,20 @@
       <div class="container-row">
         <div class="container-col container-title">Tooltip:</div>
         <div class="container-col">
-          <fw-tooltip content="This is a tooltip" distance="5" placement="top-start">
+          <fw-tooltip
+            content="This is a tooltip"
+            distance="5"
+            placement="top-start"
+          >
             <a href="#">Hover over me</a>
           </fw-tooltip>
         </div>
         <div class="container-col freshsales">
-          <fw-tooltip content="This is a tooltip" distance="5" placement="top-start">
+          <fw-tooltip
+            content="This is a tooltip"
+            distance="5"
+            placement="top-start"
+          >
             <a href="#">Hover over me</a>
           </fw-tooltip>
         </div>
@@ -205,7 +213,11 @@
             >
               <fw-button-group label="Test" slot="popover-trigger">
                 <fw-button>
-                  <fw-icon name="circle-plus" slot="before-label" size=14></fw-icon>
+                  <fw-icon
+                    name="circle-plus"
+                    slot="before-label"
+                    size="14"
+                  ></fw-icon>
                   Add contact
                 </fw-button>
                 <fw-button class="icon-btn" size="icon">
@@ -213,7 +225,7 @@
                     class="chevron-icon"
                     name="chevron-down"
                     slot="after-label"
-                    size=9
+                    size="9"
                   ></fw-icon>
                 </fw-button>
               </fw-button-group>
@@ -247,24 +259,18 @@
       <div class="container-row">
         <div class="container-col container-title">Input:</div>
         <div class="container-col">
-          <fw-input value="Hello world">
-          </fw-input>
+          <fw-input value="Hello world"> </fw-input>
         </div>
         <div class="container-col freshsales">
-          <fw-input value="Hello world">
-          </fw-input>
+          <fw-input value="Hello world"> </fw-input>
         </div>
       </div>
 
       <div class="container-row">
         <div class="container-col container-title">Multi select:</div>
         <div class="container-col">
-          <div style="width: fit-content;">
-            <fw-select
-              placeholder="Your choices"
-              caret="false"
-              multiple
-            >
+          <div style="width: fit-content">
+            <fw-select placeholder="Your choices" caret="false" multiple>
               <fw-select-option value="1" selected>Starks</fw-select-option>
               <fw-select-option value="2" selected>Lannisters</fw-select-option>
               <fw-select-option value="3">Sand</fw-select-option>
@@ -275,12 +281,8 @@
         </div>
 
         <div class="container-col freshsales">
-          <div style="width: fit-content;">
-            <fw-select
-              placeholder="Your choices"
-              caret="false"
-              multiple
-            >
+          <div style="width: fit-content">
+            <fw-select placeholder="Your choices" caret="false" multiple>
               <fw-select-option value="1" selected>Starks</fw-select-option>
               <fw-select-option value="2" selected>Lannisters</fw-select-option>
               <fw-select-option value="3">Sand</fw-select-option>
@@ -290,9 +292,7 @@
           </div>
         </div>
       </div>
-
     </div>
-
 
     <!-- <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
     <fw-modal id='welcome' title-text="Welcome">
