@@ -10,39 +10,39 @@
 */
 
 //=== Button Style ===//
-$btn-primary-color: $palette-neutral-100;
-$btn-primary-bg: $palette-primary-800;
-$btn-primary-bg-dark: $palette-primary-900;
-$btn-primary-border: $palette-primary-900;
-$btn-primary-border-active: $palette-primary-800;
+$btn-primary-color: $color-neutral-100;
+$btn-primary-bg: $color-primary-800;
+$btn-primary-bg-dark: $color-primary-900;
+$btn-primary-border: $color-primary-900;
+$btn-primary-border-active: $color-primary-800;
 
-$btn-primary-disabled-bg: $palette-secondary-300;
-$btn-primary-disabled-bg-dark: $palette-secondary-400;
+$btn-primary-disabled-bg: $color-secondary-300;
+$btn-primary-disabled-bg-dark: $color-secondary-400;
 $btn-primary-disabled-color: rgba($btn-primary-color, 0.5);
 
-$btn-secondary-color: $palette-primary-900;
-$btn-secondary-bg: $palette-neutral-100;
-$btn-secondary-bg-dark: $palette-secondary-25;
-$btn-secondary-border: $palette-secondary-100;
-$btn-secondary-border-active: $palette-secondary-50;
-$btn-secondary-disabled-bg: $palette-secondary-50;
-$btn-secondary-disabled-bg-dark: $palette-secondary-100;
-$btn-secondary-disabled-color: $palette-secondary-300;
+$btn-secondary-color: $color-primary-900;
+$btn-secondary-bg: $color-neutral-100;
+$btn-secondary-bg-dark: $color-secondary-25;
+$btn-secondary-border: $color-secondary-100;
+$btn-secondary-border-active: $color-secondary-50;
+$btn-secondary-disabled-bg: $color-secondary-50;
+$btn-secondary-disabled-bg-dark: $color-secondary-100;
+$btn-secondary-disabled-color: $color-secondary-300;
 
-$btn-danger-color: $palette-neutral-100;
-$btn-danger-bg: $palette-danger-800;
-$btn-danger-bg-dark: $palette-danger-900;
-$btn-danger-border: $palette-danger-900;
-$btn-danger-disabled-bg: $palette-danger-200;
-$btn-danger-disabled-bg-dark: $palette-danger-300;
+$btn-danger-color: $color-neutral-100;
+$btn-danger-bg: $color-danger-800;
+$btn-danger-bg-dark: $color-danger-900;
+$btn-danger-border: $color-danger-900;
+$btn-danger-disabled-bg: $color-danger-200;
+$btn-danger-disabled-bg-dark: $color-danger-300;
 $btn-danger-disabled-color: rgba($btn-primary-color, 0.5);
 
-$btn-link-color: $palette-info-800;
-$btn-link-bg: $palette-secondary-50;
+$btn-link-color: $color-info-800;
+$btn-link-bg: $color-secondary-50;
 
 $active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
-$btn-lg-focus-border: $palette-info-800;
+$btn-lg-focus-border: $color-info-800;
 
 $btn-default-font-size: var(--fw-button-font-size, $font-size-14);
 $btn-small-font-size: var(--fw-button-small-font-size, $font-size-12);

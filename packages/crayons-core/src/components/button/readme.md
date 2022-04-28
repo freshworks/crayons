@@ -289,7 +289,7 @@ Type: `Promise<any>`
 
 | Name                                 | Description                           |
 | ------------------------------------ | ------------------------------------- |
-| `--fw-button-border-radius`          | The height of the small button.       |
+| `--fw-button-border-radius`          | The border radius of the button.      |
 | `--fw-button-font-size`              | The font size of the normal button.   |
 | `--fw-button-font-weight`            | The font weight of the button.        |
 | `--fw-button-height`                 | The height of the normal button.      |
