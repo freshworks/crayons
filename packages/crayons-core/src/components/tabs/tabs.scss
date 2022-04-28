@@ -26,14 +26,14 @@
     margin-right: var(--fw-tabs-margin-r, 0);
     display: flex;
     border-bottom: var(--fw-tabs-border-width, 1px) solid
-      var(--fw-tabs-border-color, $palette-secondary-50);
+      var(--fw-tabs-border-color, $color-secondary-50);
     overflow-x: auto;
     overflow-y: hidden;
 
     &__box {
       background-color: var(--fw-tabs-box-background, $app-header-bg-secondary);
       border: var(--fw-tabs-box-border-width, 1px) solid
-        var(--fw-tabs-box-border-color, $palette-secondary-50);
+        var(--fw-tabs-box-border-color, $color-secondary-50);
       box-sizing: border-box;
       border-radius: $radius;
     }
