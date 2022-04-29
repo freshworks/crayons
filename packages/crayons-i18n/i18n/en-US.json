@@ -148,7 +148,8 @@
     "checkBoxYesValue": "Yes",
     "checkBoxNoValue": "No",
     "widgetSectionHeader": "{{fieldLabel}} is {{contextLabel}}",
-    "linkModalLoadingText": "Fetching details..."
+    "linkModalLoadingText": "Fetching details...",
+    "relatedWidgetAccordionHeader": "Related {{schema}}"
   },
   "filters": {
     "addFilter": "+ Add another condition",
