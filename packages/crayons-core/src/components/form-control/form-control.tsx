@@ -148,7 +148,6 @@ export class FormControl {
           cmp = (
             <fw-datepicker
               {...componentProps}
-              readonly
               ref={(el) => (this.crayonsControlRef = el)}
             ></fw-datepicker>
           );
