@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.0-beta.0...@freshworks/crayons@3.4.0-beta.1) (2022-05-02)
+
+
+### Bug Fixes
+
+* **form-control:** remove hard-coded readonly property for date-picker ([#579](https://github.com/freshworks/crayons/issues/579)) ([5b42d7a](https://github.com/freshworks/crayons/commit/5b42d7a6e0ba06bd5a6d660ae15b9a767f58d682))
+
+
+
+
+
 ## [3.4.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0...@freshworks/crayons@3.4.0-beta.0) (2022-04-27)
 
 ### Features
