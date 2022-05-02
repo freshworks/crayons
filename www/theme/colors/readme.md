@@ -14,7 +14,7 @@ Crayons makes use of several design tokens to provide a consistent appearance ac
 | --fw-color-primary-900   | elephant-900   | ![#12344d](https://via.placeholder.com/15/12344d/12344d?text=+) `#12344d` |
 | --fw-color-primary-800   | elephant-800   | ![#264966](https://via.placeholder.com/15/264966/264966?text=+) `#264966` |
 | --fw-color-primary-700   | elephant-700   | ![#345c7c](https://via.placeholder.com/15/345c7c/345c7c?text=+) `#345c7c` |
-| --fw-color-primary-50    | elephant-600   | ![#447093](https://via.placeholder.com/15/447093/447093?text=+) `#447093` |
+| --fw-color-primary-600   | elephant-600   | ![#447093](https://via.placeholder.com/15/447093/447093?text=+) `#447093` |
 | --fw-color-secondary-700 | smoke-700      | ![#475867](https://via.placeholder.com/15/475867/475867?text=+) `#475867` |
 | --fw-color-secondary-400 | smoke-400      | ![#7b8e9f](https://via.placeholder.com/15/7b8e9f/7b8e9f?text=+) `#7b8e9f` |
 | --fw-color-secondary-300 | smoke-300      | ![#92a2b1](https://via.placeholder.com/15/92a2b1/92a2b1?text=+) `#92a2b1` |
