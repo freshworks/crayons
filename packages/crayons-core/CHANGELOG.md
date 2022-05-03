@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.0...@freshworks/crayons@3.4.1-beta.0) (2022-05-03)
+
+
+### Bug Fixes
+
+* **fw-select:** prevent dual trigger of onOptionsChange method ([#581](https://github.com/freshworks/crayons/issues/581)) ([e4957d8](https://github.com/freshworks/crayons/commit/e4957d84b7d298449312a15ff7566ea5f5c51314))
+
+
+
+
+
 ## [3.4.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.0-beta.0...@freshworks/crayons@3.4.0-beta.1) (2022-05-02)
 
 ### Bug Fixes
