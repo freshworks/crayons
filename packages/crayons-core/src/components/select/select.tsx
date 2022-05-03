@@ -358,8 +358,7 @@ export class Select {
         : this.selectedOptionsState[0]?.value;
     } else if (this.valueExists()) {
       this.dataSource = newValue.map((option) => {
-        option.selected = this.isValueEqual(this.value, option);
-        return option;
+        return { ...option, selected: this.isValueEqual(this.value, option) };
       });
     } else {
       this.dataSource = newValue;
