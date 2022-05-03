@@ -158,7 +158,7 @@ export class Select {
   /**
    * The data for the select component, the options will be of type array of fw-select-options.
    */
-  @Prop({ reflect: true }) options: any;
+  @Prop() options: any;
   /**
    * Place a checkbox.
    */
