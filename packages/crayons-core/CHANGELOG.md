@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.1...@freshworks/crayons@3.4.2-beta.0) (2022-05-03)
+
+
+### Bug Fixes
+
+* **fw-select:** prevented the mutation of option ([#582](https://github.com/freshworks/crayons/issues/582)) ([6f7d489](https://github.com/freshworks/crayons/commit/6f7d48928d64b2b9daf14ec93a8e35f76c5ce075))
+
+
+
+
+
 ## [3.4.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.0...@freshworks/crayons@3.4.1-beta.0) (2022-05-03)
 
 ### Bug Fixes
