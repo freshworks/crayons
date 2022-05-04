@@ -1,0 +1,20 @@
+name: Test external actions
+
+on:
+  pull_request:
+    branches: [test-ext]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - uses: actions/github-actions-hello@v1
+        with:
+          who-to-greet: 'Mona the Octocat'
