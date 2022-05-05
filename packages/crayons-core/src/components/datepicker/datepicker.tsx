@@ -988,6 +988,7 @@ export class Datepicker {
     const { endDate } = this;
     const { startDate } = this;
 
+    if (startDate === endDate) return;
     return (
       startDate && endDate && timestamp >= startDate && timestamp <= endDate
     );
@@ -1133,7 +1134,7 @@ export class Datepicker {
       this.endDate = undefined;
       this.startDate = timestamp;
     } else if (this.startDate && !this.endDate) {
-      if (timestamp > this.startDate) {
+      if (timestamp >= this.startDate) {
         this.endDate = timestamp;
       } else if (timestamp < this.startDate) {
         this.endDate = this.startDate;
