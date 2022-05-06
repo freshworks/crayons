@@ -11,8 +11,8 @@
 }
 
 .tooltip {
-  color: $color-milk;
-  background: $color-elephant-900;
+  color: $text-neutral;
+  background: $color-primary-900;
   border-radius: 4px;
   font-size: var(--fw-tooltip-font-size, $font-sm);
   line-height: var(--fw-tooltip-line-height, 18px); // TODO:  follow DSM

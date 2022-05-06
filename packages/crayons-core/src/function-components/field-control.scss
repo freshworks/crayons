@@ -1,8 +1,7 @@
-$error-color: $app-error;
-$input-color: $app-primary-black;
+$error-color: $color-danger-800;
+$input-color: $app-primary-black; // TODO: follow DSM
 $label-font: $font-stack-sans !default;
-$help-color: $muted-secondary;
-$warning-color: $color-casablanca-300;
+$help-color: $muted-secondary; // TODO: follow DSM
 
 .field-control {
   position: relative;
@@ -12,22 +11,22 @@ $warning-color: $color-casablanca-300;
 
 .field-control-label {
   display: block;
-  font-size: 12px;
-  color: var(--fw-label-color, $label-default);
+  font-size: $font-xs;
+  color: var(--fw-label-color, $color-secondary-700);
   font-weight: $font-weight-600;
   margin-bottom: 4px;
   padding-left: 2px;
-  line-height: 20px;
+  line-height: $font-lh-xs;
 
   &.required::after {
     content: '*';
     position: relative;
     display: inline-block;
     top: 2px;
-    font-size: 14px;
-    color: $app-error;
+    font-size: $font-lh-sm;
+    color: $color-danger-800;
     padding-left: 2px;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-700;
   }
 }
 
@@ -35,11 +34,11 @@ $warning-color: $color-casablanca-300;
 
 .field-control-hint-text {
   font-family: $label-font;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: $font-xs;
+  line-height: $font-lh-xs;
   margin-top: 4px;
   margin-bottom: 0;
-  color: var(--fw-hint-color, $help-color);
+  color: var(--fw-hint-color, $help-color); // TODO: follow DSM
   position: inherit;
   display: block;
   padding-left: 2px;
@@ -49,11 +48,11 @@ $warning-color: $color-casablanca-300;
 
 .field-control-error-text {
   font-family: $label-font;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: $font-xs;
+  line-height: $font-lh-xs;
   margin-top: 4px;
   margin-bottom: 0;
-  color: var(--fw-error-color, $app-error);
+  color: var(--fw-error-color, $color-persimmon-800);
   position: inherit;
   display: block;
   padding-left: 2px;
@@ -63,11 +62,11 @@ $warning-color: $color-casablanca-300;
 
 .field-control-warning-text {
   font-family: $label-font;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: $font-xs;
+  line-height: $font-lh-xs;
   margin-top: 4px;
   margin-bottom: 0;
-  color: var(--fw-warning-color, $warning-color);
+  color: var(--fw-warning-color, $color-warning-300);
   position: inherit;
   display: block;
   padding-left: 2px;

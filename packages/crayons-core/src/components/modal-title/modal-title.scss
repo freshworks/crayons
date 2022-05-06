@@ -4,7 +4,7 @@
 .modal-header-container {
   padding: 32px 32px 0;
   position: relative;
-  background: #fff;
+  background: $color-neutral-100;
   border-radius: 4px 4px 0 0;
   transition: all 0.1s linear;
   display: flex;
@@ -19,7 +19,7 @@
     font-size: $font-lg;
     line-height: $font-lh-base;
     font-weight: $font-weight-600;
-    color: $color-elephant-900;
+    color: $text-default;
 
     .modal-header-body {
       width: 100%;
@@ -35,7 +35,7 @@
         box-sizing: border-box;
         display: flex;
         gap: 10px;
-        color: $color-elephant-900;
+        color: $text-default;
 
         .modal-title-icon {
           width: auto;
@@ -56,7 +56,7 @@
         font-size: $font-sm;
         line-height: $font-lh-sm;
         font-weight: $font-weight-400;
-        color: $color-smoke-700;
+        color: $text-secondary;
         padding: 6px 0px;
       }
     }

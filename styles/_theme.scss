@@ -15,6 +15,7 @@ $color-secondary-200: var(--fw-color-secondary-200, $color-smoke-200);
 $color-secondary-100: var(--fw-color-secondary-100, $color-smoke-100);
 $color-secondary-50: var(--fw-color-secondary-50, $color-smoke-50);
 $color-secondary-25: var(--fw-color-secondary-25, $color-smoke-25);
+$color-secondary-10: var(--fw-color-secondary-10, $color-smoke-10);
 
 // Success colors
 $color-success-800: var(--fw-color-success-800, $color-jungle-800);
@@ -52,6 +53,7 @@ $elevation-level2: var(
 );
 
 //=== Text colors ===//
+$text-neutral: $color-neutral-100;
 $text-default: $color-primary-900;
 $text-secondary: $color-secondary-700;
 $text-disabled: $color-secondary-300;
@@ -306,8 +308,8 @@ $app-selected-color: #f7fef4;
 $radio-button-border: $app-muted-grey;
 
 //dropdown
-$dropdown-hover: var(--fw-dropdown-hover-bg, #ebeff3);
-$dropdown-selected: var(--fw-dropdown-selected-bg, #e5f2fd);
+$dropdown-hover: var(--fw-dropdown-hover-bg, $color-secondary-50);
+$dropdown-selected: var(--fw-dropdown-selected-bg, $color-azure-50);
 $category-menu-bg: #ebeff3;
 $category-section-bg: #fff;
 $category-link-hover: #f3f5f7;

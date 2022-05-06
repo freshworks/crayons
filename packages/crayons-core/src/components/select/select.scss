@@ -12,15 +12,15 @@
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack;
-$input-bg: $color-milk;
-$help-color: $muted-secondary;
-$error-color: $color-persimmon-800;
-$input-color: $color-elephant-900;
-$input-disabled-bg: $color-smoke-25;
-$input-hover-color: $color-smoke-700;
-$input-focus-color: $color-azure-800;
-$input-border: $color-smoke-100;
-$warning-color: $color-casablanca-300;
+$input-bg: $color-neutral-100;
+$help-color: $muted-secondary; // TODO: follow DSM : color not in text palette
+$error-color: $text-danger;
+$input-color: $text-default;
+$input-disabled-bg: $color-secondary-25;
+$input-hover-color: $color-secondary-700;
+$input-focus-color: $color-info-800;
+$input-border: $color-secondary-100;
+$warning-color: $color-warning-300; // TODO: follow DSM : color not in text palette
 
 @mixin stateStyle($_color) {
   border-color: $_color;
@@ -139,7 +139,7 @@ $warning-color: $color-casablanca-300;
   }
 
   &.select-disabled {
-    color: $color-smoke-50;
+    color: $color-smoke-50; // TODO: follow DSM : color not in text palette
     background-color: $input-disabled-bg !important;
     border-style: solid;
     cursor: not-allowed;
@@ -187,7 +187,7 @@ $warning-color: $color-casablanca-300;
     min-width: 20px;
     min-height: 20px;
     transition: all 0.15s;
-    --icon-color: $color-elephant-800;
+    --icon-color: $color-primary-800;
   }
 
   //Help Block
@@ -216,14 +216,14 @@ $warning-color: $color-casablanca-300;
 }
 
 ::placeholder {
-  color: $color-smoke-300;
+  color: $text-disabled;
   opacity: 1;
 }
 
 :-ms-input-placeholder {
-  color: $color-smoke-300;
+  color: $text-disabled;
 }
 
 ::-ms-input-placeholder {
-  color: $color-smoke-300;
+  color: $text-disabled;
 }

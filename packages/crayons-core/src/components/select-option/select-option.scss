@@ -10,12 +10,12 @@
   @prop --fw-select-option-icon-display to change display of the selected option icon
 **/
 
-$primary-color: $color-elephant-900;
-$selected-color: $color-azure-800;
-$disabled-color: $color-smoke-300;
-$bg-color: $color-azure-50;
-$bg-color-hover: $color-smoke-50;
-$bg-color-disabled: $color-smoke-25;
+$primary-color: $text-default;
+$selected-color: $text-info;
+$disabled-color: $text-disabled;
+$bg-color: $color-info-50;
+$bg-color-hover: $color-secondary-50;
+$bg-color-disabled: $color-secondary-25;
 
 .select-center {
   display: flex;
@@ -73,7 +73,7 @@ $bg-color-disabled: $color-smoke-25;
   }
   &:focus {
     background-color: $bg-color-hover;
-    outline: $color-azure-800 auto 1px;
+    outline: $color-info-800 auto 1px;
   }
 
   &.disabled {
@@ -93,7 +93,7 @@ $bg-color-disabled: $color-smoke-25;
     &-subText {
       font-weight: $font-weight-400;
       font-size: $font-xs;
-      color: $color-smoke-700;
+      color: $text-secondary;
     }
 
     &.icon-margin {

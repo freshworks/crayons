@@ -12,15 +12,15 @@
   input[type='radio'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px rgb(44, 92, 197);
-      border-color: darken($app-icon-color, 10%);
+      box-shadow: 0 0 0 2px $color-info-800;
+      border-color: $color-secondary-700;
     }
   }
 
   input[type='radio'][disabled] + label {
     &::before {
       box-shadow: none;
-      border: 1px solid #dadfe3;
+      border: 1px solid $color-secondary-300;
     }
   }
 }
@@ -29,8 +29,8 @@
 :host(:hover) {
   input[type='radio'] + label {
     &::before {
-      box-shadow: 0 0 0 5px rgb(235, 239, 243);
-      border-color: darken($app-icon-color, 10%);
+      box-shadow: 0 0 0 5px $color-secondary-50;
+      border-color: $color-secondary-700;
     }
   }
 
@@ -39,7 +39,7 @@
 
     &::before {
       box-shadow: none;
-      border: 1px solid #dadfe3;
+      border: 1px solid $color-secondary-300;
     }
   }
 }
@@ -48,7 +48,7 @@
   font-size: $font-xs;
   line-height: $font-lh-xs;
   font-weight: $font-weight-400;
-  color: #475867;
+  color: $text-secondary;
   letter-spacing: 0;
   position: relative;
 }
@@ -64,7 +64,7 @@ input[type='radio'] {
     font-size: $font-sm;
     line-height: $font-lh-sm;
     font-weight: $font-weight-600;
-    color: #12344d;
+    color: $text-default;
 
     &::before,
     &::after {
@@ -82,12 +82,12 @@ input[type='radio'] {
 
     &::before {
       left: 0;
-      border: 1px solid $app-border-primary;
+      border: 1px solid $color-secondary-100;
       border-radius: 50px;
       top: 4px;
       width: 14px;
       height: 14px;
-      background: $app-action-icon-bg;
+      background: $color-neutral-100;
       transition: all 0.3s ease;
     }
 
@@ -99,12 +99,12 @@ input[type='radio'] {
       }
       &::before {
         left: 0;
-        border: 1px solid $app-error;
+        border: 1px solid $color-danger-800;
         border-radius: 50px;
         top: 4px;
         width: 14px;
         height: 14px;
-        background: $app-action-icon-bg;
+        background: $color-neutral-100;
         transition: all 0.3s ease;
       }
     }
@@ -127,14 +127,14 @@ input[type='radio'] {
 
   &:checked + label {
     &::before {
-      background: $app-action-icon-bg;
-      border-color: $app-primary;
+      background: $color-neutral-100;
+      border-color: $color-info-800;
       box-shadow: none;
     }
 
     &::after {
       border-radius: 50%;
-      background-color: $app-primary;
+      background-color: $color-info-800;
       opacity: 1;
       top: 7px;
     }
@@ -142,36 +142,36 @@ input[type='radio'] {
 
   &:checked:focus + label {
     &::before {
-      border-color: lighten($app-primary, 5%);
-      box-shadow: 0 0 4px 1px rgba($app-primary, 0.6);
+      border-color: $color-info-800;
+      box-shadow: 0 0 4px 1px rgba($color-info-800, 0.6);
     }
 
     &::after {
-      background-color: lighten($app-primary, 5%);
+      background-color: $color-info-800;
     }
   }
 
   &[disabled] {
     & + label {
-      color: #92a2b1;
+      color: $text-disabled;
 
       .label-field {
-        color: #92a2b1;
+        color: $text-disabled;
       }
 
       &::before {
-        border-color: $disabled-color;
-        background-color: $ticket-tag-background;
+        border-color: $color-secondary-300;
+        background-color: $color-secondary-50;
       }
 
       &::after {
-        border-color: $ticket-tag-background;
-        background-color: $disabled-color;
+        border-color: $color-secondary-50;
+        background-color: $color-secondary-300;
       }
     }
 
     &:checked + label {
-      color: #92a2b1;
+      color: $text-disabled;
     }
   }
 }

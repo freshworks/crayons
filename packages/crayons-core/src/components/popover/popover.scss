@@ -19,9 +19,9 @@
   overscroll-behavior-y: contain;
   margin: 0px;
   border-radius: var(--fw-popover-border-radius, 8px);
-  border: 1px solid $app-border-secondary;
+  border: 1px solid $color-secondary-50;
   position: absolute;
-  background: $popover-background;
+  background: $color-neutral-100;
   box-sizing: border-box;
   outline: none;
   box-shadow: $elevation-level1;

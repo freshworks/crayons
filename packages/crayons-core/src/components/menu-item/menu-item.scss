@@ -16,7 +16,7 @@
   font-size: var(--fw-menu-item-font-size, $font-sm);
   line-height: var(--fw-menu-item-line-height, $font-lh-sm);
   align-items: center;
-  background: var(--fw-menu-item-background, #ffffff);
+  background: var(--fw-menu-item-background, $color-neutral-100);
   border: var(--fw-menu-item-border);
   box-shadow: var(--fw-menu-item-box-shadow);
   border-radius: var(--fw-menu-item-border-radius);
@@ -24,11 +24,11 @@
   word-wrap: break-word;
 
   &:hover {
-    background-color: $color-smoke-50;
+    background-color: $color-secondary-50;
   }
   &:focus {
-    background-color: $color-smoke-50;
-    outline: $color-azure-800 auto 1px;
+    background-color: $color-secondary-50;
+    outline: $color-info-800 auto 1px;
   }
 
   .menu-item__label {

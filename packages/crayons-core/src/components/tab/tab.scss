@@ -24,7 +24,7 @@
   padding: var(--fw-tab-padding-tb, 10px) var(--fw-tab-padding-lr, 8px);
   font-size: $font-sm;
   line-height: $font-lh-sm;
-  color: var(--fw-tab-color, $color-secondary-700);
+  color: var(--fw-tab-color, $text-secondary);
   font-weight: var(--fw-tab-weight, $font-weight-400);
   margin: var(--fw-tab-margin-tb, 0px) var(--fw-tab-margin-lr, 4px);
   border-radius: var(--fw-tab-top-radius, 0px) var(--fw-tab-top-radius, 0px) 0px
@@ -45,14 +45,14 @@
     padding-bottom: var(--fw-tab-padding-tb, 8px);
     border-bottom: var(--fw-tab-border-size, 2px) solid
       var(--fw-tab-border-color-active, $color-info-800);
-    color: var(--fw-tab-color-active, $color-info-800);
+    color: var(--fw-tab-color-active, $text-info);
     font-weight: var(--fw-tab-weight-active, $font-weight-600);
     background: var(--fw-tab-background-active, transparent);
   }
 
   &.disabled {
     cursor: not-allowed;
-    color: $color-smoke-300;
+    color: $text-disabled;
   }
 
   &:focus {
@@ -63,12 +63,12 @@
     &::after {
       outline: none;
       border-radius: 2px;
-      box-shadow: inset 0 0 0 2px $color-azure-800;
+      box-shadow: inset 0 0 0 2px $color-info-800;
     }
   }
 }
 
 ::slotted(a) {
   text-decoration: none;
-  color: $color-smoke-700;
+  color: $text-secondary;
 }

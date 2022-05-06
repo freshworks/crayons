@@ -1,7 +1,7 @@
 .tag {
   display: inline-flex;
   align-items: center;
-  color: $color-elephant-900;
+  color: $text-default;
   font-size: $font-sm;
   word-break: break-all;
 
@@ -14,14 +14,18 @@
     padding: 2px 2px 2px 8px;
     border-radius: 4px;
     font-weight: $font-weight-600;
-    background-color: $color-smoke-50;
+    background-color: $color-secondary-50;
   }
 
   &-avatar {
     padding: 4px;
     border-radius: 24px;
     font-weight: $font-weight-400;
-    background: linear-gradient(180deg, $color-smoke-25 2.56%, #f3f5f7 95.75%);
+    background: linear-gradient(
+      180deg,
+      $color-secondary-25 2.56%,
+      $color-secondary-10 95.75%
+    );
 
     fw-avatar {
       margin-right: 8px;
@@ -33,7 +37,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: $color-elephant-800;
+    color: $color-primary-800; // TODO: follow DSM. color not in text palette
     font-size: $font-base;
 
     &.standard {
@@ -49,20 +53,20 @@
 
       &:hover,
       &:focus {
-        background-color: $color-milk;
+        background-color: $color-neutral-100;
         cursor: pointer;
       }
     }
 
     &:hover,
     &:focus {
-      background-color: $color-smoke-100;
+      background-color: $color-secondary-100;
       cursor: pointer;
     }
 
     &.disabled {
-      color: $color-elephant-600;
-      background-color: $color-smoke-50;
+      color: $color-primary-600; // TODO: follow DSM. color not in text palette
+      background-color: $color-secondary-50;
       cursor: not-allowed;
     }
   }

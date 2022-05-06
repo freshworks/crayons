@@ -9,14 +9,14 @@
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack;
-$input-bg: $color-milk;
-$help-color: $color-smoke-300;
-$error-color: $color-persimmon-800;
-$input-disabled-bg: $color-smoke-25;
-$input-hover-color: $color-smoke-700;
-$input-focus-color: $color-azure-800;
-$input-border: $color-smoke-100;
-$warning-color: $color-casablanca-300;
+$input-bg: $color-neutral-100;
+$help-color: $text-disabled;
+$error-color: $text-danger;
+$input-disabled-bg: $color-secondary-25;
+$input-hover-color: $color-secondary-700;
+$input-focus-color: $color-info-800;
+$input-border: $color-secondary-100;
+$warning-color: $color-warning-300; // TODO: folow DSM : color not in text palette
 
 @mixin stateStyle($_color) {
   & > textarea {
@@ -64,7 +64,7 @@ $warning-color: $color-casablanca-300;
     font-family: inherit;
     cursor: text;
     display: inline-block;
-    color: var(--fw-textarea-input-color, $color-elephant-900);
+    color: var(--fw-textarea-input-color, $color-primary-900);
     @media screen and (prefers-reduced-motion: reduce) {
       &:hover,
       &:focus {
@@ -85,7 +85,7 @@ $warning-color: $color-casablanca-300;
     }
 
     &[disabled] {
-      color: $color-smoke-300;
+      color: $text-disabled;
       background-color: $input-disabled-bg;
       border-style: solid;
 

@@ -10,16 +10,16 @@
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack-sans !default;
-$placeholder-color: $muted-secondary;
-$help-color: $muted-secondary;
-$disabled-color: $input-disabled-color;
-$error-color: $app-error;
-$input-border: #cfd7df;
-$input-hover-color: #475867;
-$input-focus-color: #2c5cc5;
-$input-bg: #fff;
-$input-color: $app-primary-black;
-$warning-color: $color-casablanca-300;
+$placeholder-color: $muted-secondary; // TODO: follow DSM : color not in palette
+$help-color: $muted-secondary; // TODO: follow DSM : color not in palette
+$disabled-color: $text-disabled;
+$warning-color: $color-warning-300; // TODO: follow DSM : color not available in text palette
+$error-color: $text-danger;
+$input-border: $color-secondary-100;
+$input-hover-color: $color-secondary-700;
+$input-focus-color: $color-info-800;
+$input-bg: $color-neutral-100;
+$input-color: $app-primary-black; // TODO: follow DSM : not available in palette
 
 *,
 ::after,
@@ -63,10 +63,10 @@ $warning-color: $color-casablanca-300;
   width: 100%;
   height: var(--fw-input-height, 32px);
   border: 1px solid $input-border;
-  background-color: $app-light-bg;
+  background-color: $color-neutral-100;
   position: relative;
   border-radius: var(--fw-input-border-radius, 4px);
-  box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05);
+  box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05); //  TODO: follow DSM : Elevation.
 
   &.error {
     @include stateStyle($error-color);
@@ -96,7 +96,7 @@ $warning-color: $color-casablanca-300;
         padding: 0px;
         margin: 0px;
         font-size: $font-sm;
-        font-weight: $font-weight-semibold;
+        font-weight: $font-weight-500;
         letter-spacing: 0;
         line-height: $font-lh-sm;
         color: $input-color;
@@ -106,9 +106,9 @@ $warning-color: $color-casablanca-300;
         font-family: inherit;
 
         &[disabled] {
-          font-weight: $font-weight-default;
+          font-weight: $font-weight-400;
           color: $disabled-color;
-          background-color: $input-disabled-bg;
+          background-color: $input-disabled-bg; // TODO: follow DSM : not in palette
           pointer-events: none;
         }
       }
@@ -146,16 +146,16 @@ $warning-color: $color-casablanca-300;
   &.has-focus {
     outline: none;
     background: $input-bg;
-    background-color: $app-light-bg;
+    background-color: $color-neutral-100;
     border: 1px solid $input-focus-color;
     box-shadow: 0 0 0 1px $input-focus-color;
   }
 
   &.disabled {
-    font-weight: $font-weight-default;
+    font-weight: $font-weight-400;
     color: $disabled-color;
-    border: 1px solid $color-smoke-50;
-    background-color: $input-disabled-bg;
+    border: 1px solid $color-secondary-50;
+    background-color: $input-disabled-bg; // TODO: follow DSM : not in palette
     border-style: solid;
     pointer-events: none;
   }
@@ -187,7 +187,7 @@ $warning-color: $color-casablanca-300;
   & + .help-block {
     font-family: $label-font;
     font-size: $font-xs;
-    line-height: $font-lh-sm;
+    line-height: $font-lh-xs;
     margin-top: 4px;
     margin-bottom: 0;
     color: var(--fw-hint-color, $help-color);
