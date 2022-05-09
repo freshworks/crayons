@@ -44,14 +44,14 @@ $active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
 $btn-lg-focus-border: $color-info-800;
 
-$btn-default-font-size: var(--fw-button-font-size, $font-size-14);
-$btn-small-font-size: var(--fw-button-small-font-size, $font-size-12);
-$btn-mini-font-size: $font-size-10;
+$btn-default-font-size: var(--fw-button-font-size, $font-sm);
+$btn-small-font-size: var(--fw-button-small-font-size, $font-xs);
+$btn-mini-font-size: $font-2xs;
 
 $btn-font-weight: var(--fw-button-font-weight, $font-weight-600);
 
 $btn-border-width: 1px;
-$input-height-small: var(--fw-button-small-height, 24px);
+$input-height-small: var(--fw-button-small-height, $font-lh-base);
 $input-height-normal: var(--fw-button-height, 32px);
 $input-height-mini: 16px;
 
@@ -373,7 +373,7 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 .fw-btn--loader {
   opacity: 0;
   position: absolute;
-  font-size: 1em;
+  font-size: $font-base;
   height: 1em;
   width: 1em;
   top: calc(50% - 0.5em);
