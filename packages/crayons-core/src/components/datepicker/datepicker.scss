@@ -20,7 +20,7 @@
 .mdp-container,
 .mdp-range-container {
   width: 264px;
-  background: $color-milk;
+  background: $color-neutral-100;
   box-sizing: border-box;
   padding: 16px;
   overflow: hidden;
@@ -31,7 +31,7 @@
   display: flex;
   box-sizing: border-box;
   justify-content: flex-end;
-  background: $color-smoke-25;
+  background: $color-secondary-25;
 
   fw-button {
     margin: 4px;
@@ -74,7 +74,7 @@
       position: absolute;
       top: 0;
       right: 251px;
-      border-right: 1px solid #ebeff3;
+      border-right: 1px solid $color-secondary-50;
       height: 100%;
     }
   }
@@ -103,7 +103,7 @@
 .mdpchb-inner:hover,
 .mdpchb-inner:focus {
   cursor: pointer;
-  background: $color-smoke-50;
+  background: $color-secondary-50;
 }
 
 .mdpchb-inner {
@@ -126,8 +126,8 @@
   display: block;
   width: 6px;
   height: 6px;
-  border-left: 2px solid $app-primary-black;
-  border-bottom: 2px solid $app-primary-black;
+  border-left: 2px solid $app-primary-black; // TODO: follow DSM : color not available in palette
+  border-bottom: 2px solid $app-primary-black; // TODO: follow DSM : color not available in palette
   position: absolute;
 }
 
@@ -176,8 +176,8 @@
   --fw-button-min-width: 74px;
   float: left;
   height: 30px;
-  font-size: 16px;
-  color: $color-smoke-700;
+  font-size: $font-base;
+  color: $text-secondary;
   text-align: center;
   width: 74px;
   --fw-popover-max-height: 146px;
@@ -187,8 +187,8 @@
 .mdpchc-month {
   --fw-button-min-width: 65px;
   float: left;
-  font-size: 16px;
-  color: $color-smoke-700;
+  font-size: $font-base;
+  color: $text-secondary;
   text-align: center;
   width: 65px;
   --fw-popover-max-height: 146px;
@@ -228,10 +228,10 @@
 .cch-name {
   width: 14.285%;
   height: 30px;
-  line-height: 30px;
-  font-weight: 700;
-  color: $color-smoke-700;
-  font-size: 13px;
+  line-height: 30px; // TODO: follow DSM : line height does not fall in category
+  font-weight: $font-weight-700;
+  color: $text-secondary;
+  font-size: 13px; // TODO: follow DSM : size does not fall in category
   text-align: center;
 }
 
@@ -249,30 +249,30 @@
 .cdc-day {
   width: 100%;
   height: 100%;
-  font-size: 12px;
-  font-weight: 300;
-  color: $color-smoke-700;
+  font-size: $font-xs;
+  font-weight: $font-weight-300;
+  color: $text-secondary;
   text-align: center;
 }
 
 .cdc-day span:hover,
 .cdc-day span:focus {
   cursor: pointer;
-  background: $color-smoke-50;
+  background: $color-secondary-50;
 }
 
 .cdc-day span {
   width: 24px;
   height: 22px;
-  font-size: 14px;
+  font-size: $font-sm;
   margin-top: -11px;
   margin-left: -13px;
   left: 50%;
   top: 50%;
-  font-weight: 400;
+  font-weight: $font-weight-400;
   border-radius: 10%;
-  line-height: 20px;
-  color: #12344d;
+  line-height: $font-lh-sm;
+  color: $text-default;
 }
 
 .c-day-container.disabled {
@@ -303,7 +303,7 @@
   border-radius: 4px;
   align-items: center;
   justify-content: center;
-  background-color: $color-smoke-50;
+  background-color: $color-secondary-50;
 }
 
 .range-date-input {
@@ -311,17 +311,17 @@
 }
 
 .c-day-container.disabled .cdc-day span {
-  color: $color-smoke-300;
-  background: $color-milk !important;
+  color: $text-disabled;
+  background: $color-neutral-100 !important;
 }
 
 .c-day-container.highlight:not(.disabled) .cdc-day span {
-  border: 1px solid $color-smoke-100;
+  border: 1px solid $color-secondary-100;
 }
 
 .c-day-container.highlight-blue:not(.disabled) .cdc-day span {
-  background: $color-azure-800;
-  color: $color-smoke-25;
+  background: $color-info-800;
+  color: $color-smoke-25; // TODO: follow DSM : does not fall in text categories
 }
 
 .c-day-container.start-day {
@@ -345,5 +345,5 @@
 }
 
 .c-day-container.highlight-range:not(.disabled) .cdc-day {
-  background: #e4f2fd;
+  background: #e4f2fd; // TODO: follow DSM : does not fall in color categories
 }
