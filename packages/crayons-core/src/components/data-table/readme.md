@@ -2008,7 +2008,6 @@ graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-custom-cell-paragraph --> fw-tooltip
-  fw-custom-cell-paragraph --> fw-icon
   fw-tooltip --> fw-popover
   fw-checkbox --> fw-icon
   fw-button --> fw-spinner

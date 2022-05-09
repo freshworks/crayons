@@ -1,6 +1,15 @@
 # Typography
 
-We can easily add font related styles through SASS mixin and CSS Utils.
+We can easily add font related styles through CSS Utils.
+
+## Font family
+
+Use '--fw-font-family' css variable to change the font family of crayons components. As CSS variables can be scoped, we can apply font globally for all components or only to a particular component.
+
+```html live
+  <fw-button style="--fw-font-family: Courier New">Changed</fw-button>
+  <fw-button>Unchanged</fw-button>
+```
 
 ## Heading
 

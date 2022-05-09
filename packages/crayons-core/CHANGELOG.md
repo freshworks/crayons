@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.1...@freshworks/crayons@3.4.2-beta.0) (2022-05-03)
+
+### Bug Fixes
+
+- **fw-select:** prevented the mutation of option ([#582](https://github.com/freshworks/crayons/issues/582)) ([6f7d489](https://github.com/freshworks/crayons/commit/6f7d48928d64b2b9daf14ec93a8e35f76c5ce075))
+
+## [3.4.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.0...@freshworks/crayons@3.4.1-beta.0) (2022-05-03)
+
+### Bug Fixes
+
+- **fw-select:** prevent dual trigger of onOptionsChange method ([#581](https://github.com/freshworks/crayons/issues/581)) ([e4957d8](https://github.com/freshworks/crayons/commit/e4957d84b7d298449312a15ff7566ea5f5c51314))
+
+## [3.4.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.0-beta.0...@freshworks/crayons@3.4.0-beta.1) (2022-05-02)
+
+### Bug Fixes
+
+- **form-control:** remove hard-coded readonly property for date-picker ([#579](https://github.com/freshworks/crayons/issues/579)) ([5b42d7a](https://github.com/freshworks/crayons/commit/5b42d7a6e0ba06bd5a6d660ae15b9a767f58d682))
+
+## [3.4.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0...@freshworks/crayons@3.4.0-beta.0) (2022-04-27)
+
+### Features
+
+- **fw-select:** added provision to add/update the options dynamically ([#575](https://github.com/freshworks/crayons/issues/575)) ([eae58a0](https://github.com/freshworks/crayons/commit/eae58a08a52140dfb999a08685bf729d25e5916b))
+
+## [3.3.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.7...@freshworks/crayons@3.3.0-beta.8) (2022-04-25)
+
+### Bug Fixes
+
+- **data-table:** adding key to table row to avoid rendering issues ([#572](https://github.com/freshworks/crayons/issues/572)) ([1ab3cdb](https://github.com/freshworks/crayons/commit/1ab3cdb70534059bc197e086726e771e3657a3c8))
+- **tooltip:** ability to hover over tooltip content ([#570](https://github.com/freshworks/crayons/issues/570)) ([d8bba48](https://github.com/freshworks/crayons/commit/d8bba48466f640c360589ede599745ed83e4f699))
+
+## [3.3.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.6...@freshworks/crayons@3.3.0-beta.7) (2022-04-20)
+
+### Bug Fixes
+
+- **data-table:** adding showmore/showless to paragraph variant ([#569](https://github.com/freshworks/crayons/issues/569)) ([8450de8](https://github.com/freshworks/crayons/commit/8450de87c33094db793600e27435f5ba2c60db48))
+- **modal:** adding accessibility events when adding modal with isOpen… ([#563](https://github.com/freshworks/crayons/issues/563)) ([3d95a80](https://github.com/freshworks/crayons/commit/3d95a80f90b62726c1d5e37e7eb5a34ccd385761))
+- **select:** select input font inherits from parent ([#567](https://github.com/freshworks/crayons/issues/567)) ([098a5d6](https://github.com/freshworks/crayons/commit/098a5d6509dcf1d8d4d78e206c77d2ceaa13ea4e))
+
+## [3.3.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.5...@freshworks/crayons@3.3.0-beta.6) (2022-04-15)
+
+### Bug Fixes
+
+- **avatar-fix:** DSM style fixes for intials with different modes ([#561](https://github.com/freshworks/crayons/issues/561)) ([fe79001](https://github.com/freshworks/crayons/commit/fe79001abd9affdc5e032bff87188f011c5a76bc))
+- **serialize-form:** handle null for date field ([#564](https://github.com/freshworks/crayons/issues/564)) ([4f22610](https://github.com/freshworks/crayons/commit/4f226104552aa699a1e12c40e13a01d790491a09))
+
+## [3.3.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.4...@freshworks/crayons@3.3.0-beta.5) (2022-04-13)
+
+### Bug Fixes
+
+- **datepicker:** handle datepicker input clear ([#560](https://github.com/freshworks/crayons/issues/560)) ([10e95ab](https://github.com/freshworks/crayons/commit/10e95abae5d2ea03c4f11404b504a6ec87e83430))
+
+## [3.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.3...@freshworks/crayons@3.3.0-beta.4) (2022-04-11)
+
+### Bug Fixes
+
+- **fw-select:** added bigint data type support ([#551](https://github.com/freshworks/crayons/issues/551)) ([949ea40](https://github.com/freshworks/crayons/commit/949ea40370bd89327bbe3ea1c6c26f2eca65035a))
+- **fw-select:** fixed the serialize issue on bigint datatype ([#550](https://github.com/freshworks/crayons/issues/550)) ([628e0a7](https://github.com/freshworks/crayons/commit/628e0a7173735c80198ddc102a95df32caee60b9))
+- **modal:** adding overflow-wrap and break word properties for longer text ([#555](https://github.com/freshworks/crayons/issues/555)) ([c9f5662](https://github.com/freshworks/crayons/commit/c9f566271889132c4a38afc56a4d190c30dad012))
+
+## [3.3.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.2...@freshworks/crayons@3.3.0-beta.3) (2022-04-07)
+
+### Bug Fixes
+
+- **file-uploader:** font weight on remove link on files list updated ([#549](https://github.com/freshworks/crayons/issues/549)) ([b3b7b3a](https://github.com/freshworks/crayons/commit/b3b7b3ad3ead43a1cbb3039abbf6599a897e4679))
+
+## [3.3.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.1...@freshworks/crayons@3.3.0-beta.2) (2022-04-07)
+
+### Bug Fixes
+
+- **toast:** breaking longer word to fit into the toast container ([#547](https://github.com/freshworks/crayons/issues/547)) ([752cbf1](https://github.com/freshworks/crayons/commit/752cbf139a80bc0ab6ec4f02ef6033a018e7ee50))
+
+## [3.3.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.3.0-beta.0...@freshworks/crayons@3.3.0-beta.1) (2022-04-05)
+
+### Features
+
+- **data-table:** retaining width for select column ([#546](https://github.com/freshworks/crayons/issues/546)) ([7bac939](https://github.com/freshworks/crayons/commit/7bac939742f7fc322126d2cf1d3c5048282f12e0))
+
+## [3.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.3...@freshworks/crayons@3.3.0-beta.0) (2022-04-05)
+
+### Features
+
+- **datepicker:** expose public method to clear input ([#543](https://github.com/freshworks/crayons/issues/543)) ([4146b74](https://github.com/freshworks/crayons/commit/4146b7445138082ef504015ad45672621e83beba))
+
 ## [3.2.2-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.2.2-beta.2...@freshworks/crayons@3.2.2-beta.3) (2022-04-01)
 
 ### Bug Fixes

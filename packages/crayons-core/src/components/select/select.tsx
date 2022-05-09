@@ -158,7 +158,7 @@ export class Select {
   /**
    * The data for the select component, the options will be of type array of fw-select-options.
    */
-  @Prop({ reflect: true }) options: any;
+  @Prop() options: any;
   /**
    * Place a checkbox.
    */
@@ -343,6 +343,28 @@ export class Select {
   @Watch('dataSource')
   optionsChangedHandler() {
     this.renderInput();
+  }
+
+  @Watch('options')
+  onOptionsChange(newValue) {
+    const selectedValues = newValue?.filter((option) => option.selected);
+    // If selected key is available in options schema use it
+    // Or check for the value
+    if (selectedValues.length > 0) {
+      this.dataSource = newValue;
+      this.selectedOptionsState = selectedValues;
+      this.value = this.multiple
+        ? this.selectedOptionsState.map((x) => x.value)
+        : this.selectedOptionsState[0]?.value;
+    } else if (this.valueExists()) {
+      this.dataSource = newValue.map((option) => {
+        return { ...option, selected: this.isValueEqual(this.value, option) };
+      });
+    } else {
+      this.dataSource = newValue;
+      this.value = this.multiple ? [] : '';
+      this.selectedOptionsState = [];
+    }
   }
 
   @Method()

@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  box-sizing: border-box;
 
   font-size: calc(var(--size) * 0.5);
   font-weight: $font-weight-400;
@@ -17,6 +18,9 @@
 
   &__initials {
     line-height: 1;
+    font-weight: 600;
+    font-size: 32px;
+    text-align: center;
     text-transform: uppercase;
   }
   &__image {
@@ -30,12 +34,22 @@
 
   &--dark {
     background-color: $avatar-background-dark;
-    color: #fff;
+    color: $color-milk;
+
+    &--initials {
+      border: $avatar-border-dark;
+    }
   }
+
   &--light {
     background-color: $avatar-background-light;
-    color: #000;
+    color: $color-elephant-900;
+
+    &--initials {
+      border: $avatar-border-light;
+    }
   }
+
   &--circle {
     border-radius: 50%;
   }
@@ -49,29 +63,50 @@
   &--xxlarge {
     width: 96px;
     height: 96px;
+    .avatar__initials {
+      font-size: 32px;
+    }
   }
   &--xlarge {
     width: 72px;
     height: 72px;
+    .avatar__initials {
+      font-size: 24px;
+    }
   }
   &--large {
     width: 56px;
     height: 56px;
+    .avatar__initials {
+      font-size: 20px;
+    }
   }
   &--medium {
     width: 40px;
     height: 40px;
+    .avatar__initials {
+      font-size: 16px;
+    }
   }
   &--small {
     width: 32px;
     height: 32px;
+    .avatar__initials {
+      font-size: 14px;
+    }
   }
   &--xsmall {
     width: 24px;
     height: 24px;
+    .avatar__initials {
+      font-size: 12px;
+    }
   }
   &--xxsmall {
     width: 20px;
     height: 20px;
+    .avatar__initials {
+      font-size: 10px;
+    }
   }
 }
