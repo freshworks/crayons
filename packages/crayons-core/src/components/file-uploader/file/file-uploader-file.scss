@@ -21,19 +21,19 @@
     box-sizing: border-box;
 
     &-name {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
-      color: $color-elephant-900;
+      font-weight: $font-weight-600;
+      font-size: $font-sm;
+      line-height: $font-lh-sm;
+      color: $text-default;
     }
 
     &-remove {
       text-decoration: none;
-      font-weight: 600;
-      color: $color-azure-800;
+      font-weight: $font-weight-600;
+      color: $text-info;
       margin-top: 5px;
-      font-size: 12px;
-      line-height: 20px;
+      font-size: $font-xs;
+      line-height: $font-lh-xs;
       background: transparent;
       border: none;
       display: inline-block;

@@ -13,38 +13,38 @@
   background-color: transparent;
 
   &--success {
-    background: $bg-success;
-    border: 1px solid $border-success-color;
+    background: $color-success-50;
+    border: 1px solid $color-success-100;
 
     .alert__message {
-      border-left: 1px solid $border-success-color;
+      border-left: 1px solid $color-success-100;
     }
   }
 
   &--warning {
-    background: $bg-warning;
-    border: 1px solid $border-warning-color;
+    background: $color-warning-50;
+    border: 1px solid $color-warning-100;
 
     .alert__message {
-      border-left: 1px solid $border-warning-color;
+      border-left: 1px solid $color-warning-100;
     }
   }
 
   &--info {
-    background: $bg-info;
-    border: 1px solid $border-info-color;
+    background: $color-info-50;
+    border: 1px solid $color-info-100;
 
     .alert__message {
-      border-left: 1px solid $border-info-color;
+      border-left: 1px solid $color-info-100;
     }
   }
 
   &--error {
-    border: 1px solid $border-danger-color;
-    background: $bg-danger;
+    background: $color-danger-50;
+    border: 1px solid $color-danger-100;
 
     .alert__message {
-      border-left: 1px solid $border-danger-color;
+      border-left: 1px solid $color-danger-100;
     }
   }
 
@@ -58,14 +58,14 @@
   &__message {
     padding-left: 12px;
     flex: 1 1 auto;
-    color: $color-elephant-900;
-    font-size: $font-size-14;
+    color: $text-default;
+    font-size: $font-sm;
     font-weight: $font-weight-400;
-    line-height: 20px;
+    line-height: $font-lh-sm;
 
     ::slotted(a) {
       font-weight: $font-weight-500;
-      color: #365dbe;
+      color: #365dbe; // TODO: follow DSM
       text-decoration: none;
     }
   }
