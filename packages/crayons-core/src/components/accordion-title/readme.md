@@ -23,6 +23,7 @@ Displays the content inside the component.
 | `--fw-accordion-title-expanded-icon-color`  | Accordion title expanded icon color  |
 | `--fw-accordion-title-font-size`            | Accordion title font size            |
 | `--fw-accordion-title-font-weight`          | Accordion title font weight          |
+| `--fw-accordion-title-icon-color`           | Accordion title icon color           |
 | `--fw-accordion-title-line-height`          | Accordion title line height          |
 
 

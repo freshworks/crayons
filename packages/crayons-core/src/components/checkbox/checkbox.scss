@@ -2,9 +2,24 @@
   @prop --fw-hint-color: Color of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
+  @prop --fw-checkbox-border: Checkbox border color.
+  @prop --fw-checkbox-disabled-border: Checkbox disabled border color.
+  @prop --fw-checkbox-disabled-label-color: Checkbox disabled label color.
+  @prop --fw-checkbox-description: Checkbox description color.
+  @prop --fw-checkbox-description-font-size: Checkbox description font size.
+  @prop --fw-checkbox-description-line-height: Checkbox description line height.
+  @prop --fw-checkbox-description-font-weight: Checkbox description font weight.
+  @prop --fw-checkbox-label-font-size: Checkbox label font size.
+  @prop --fw-checkbox-label-color: Checkbox label text color.
+  @prop --fw-checkbox-label-line-height : Checkbox label line height.
+  @prop --fw-checkbox-label-font-weight: Checkbox label font weight.
 */
 
 @import '../../function-components/field-control.scss';
+
+$checkbox-border: var(--fw-checkbox-border, $color-info-800);
+$checkbox-disabled-border: var(--fw-checkbox-disabled-border, $disabled-color);
+$checkbox-disabled-label-color: var(--fw-checkbox-disabled-label-color, $text-disabled);
 
 :host {
   display: inline-block;
@@ -12,7 +27,7 @@
 }
 
 /* Focus event occurs on the root element */
-/* stylelint-disable-next-line a11y/no-outline-none -- currently on focus, 
+/* stylelint-disable-next-line a11y/no-outline-none -- currently on focus,
   outline is on checkbox. if we dont remove outline on host there will be a
   second outline wrapping label and description.
 */
@@ -22,13 +37,13 @@
   input[type='checkbox'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px rgb(44, 92, 197);
+      box-shadow: 0 0 0 2px $checkbox-border;
     }
   }
   input[type='checkbox'] {
     &:checked + label {
       &::before {
-        border: 1px solid #ffffff;
+        border: 1px solid $color-neutral-100;
       }
     }
   }
@@ -36,7 +51,7 @@
   input[type='checkbox'][disabled] + label {
     &::before {
       box-shadow: none;
-      border: 1px solid #dadfe3;
+      border: 1px solid $checkbox-disabled-border;
     }
   }
 }
@@ -46,14 +61,14 @@
   input[type='checkbox'] + label {
     &::before {
       border-color: $checkbox-color;
-      box-shadow: 0 0 0 5px rgb(235, 239, 243);
+      box-shadow: 0 0 0 5px $color-secondary-50;
     }
   }
 
   input[type='checkbox'] {
     &:checked + label {
       &::before {
-        border-color: $color-azure-800;
+        border-color: $checkbox-border;
       }
     }
   }
@@ -63,7 +78,7 @@
 
     &::before {
       box-shadow: none;
-      border: 1px solid #dadfe3;
+      border: 1px solid $checkbox-disabled-border;
     }
   }
 }
@@ -77,12 +92,12 @@
 }
 
 #description {
-  font-size: 12px;
-  color: #475867;
+  font-size: var(--fw-checkbox-description-font-size, $font-xs);
+  color: var(--fw-checkbox-description, $text-secondary);
   letter-spacing: 0;
-  line-height: 20px;
+  line-height: var(--fw-checkbox-description-line-height, $font-lh-xs);
   position: relative;
-  font-weight: 400;
+  font-weight: var(--fw-checkbox-description-font-weight, $font-weight-400);
   word-wrap: break-word;
   padding-left: 22px;
 }
@@ -94,14 +109,14 @@ input[type='checkbox'] {
     user-select: none;
     margin-bottom: 0;
     vertical-align: middle;
-    font-size: 14px;
-    color: #12344d;
-    line-height: 20px;
-    font-weight: 400;
+    font-size: var(--fw-checkbox-label-font-size, $font-sm);
+    color: var(--fw-checkbox-label-color, $text-default);
+    line-height: var(--fw-checkbox-label-line-height, $font-lh-sm);
+    font-weight: var(--fw-checkbox-label-font-weight, $font-weight-400);
     cursor: inherit;
 
     .with-description {
-      font-weight: 600;
+      font-weight: $font-weight-600;
     }
 
     #label {
@@ -114,10 +129,10 @@ input[type='checkbox'] {
         position: relative;
         display: inline-block;
         top: 2px;
-        font-size: 14px;
+        font-size: $font-sm;
         color: $app-error;
         padding-left: 2px;
-        font-weight: $font-weight-bold;
+        font-weight: $font-weight-700;
       }
     }
 
@@ -133,7 +148,7 @@ input[type='checkbox'] {
       top: 3px;
       display: block;
       content: '';
-      border: $checkbox-border-width solid $color-smoke-700;
+      border: $checkbox-border-width solid $color-secondary-700;
       height: 14px;
       width: 14px;
       background-color: $input-bg;
@@ -198,8 +213,8 @@ input[type='checkbox'] {
 
   &:checked:hover + label {
     &::before {
-      border-color: $color-azure-800;
-      box-shadow: 0 0 0 5px rgb(235, 239, 243);
+      border-color: $checkbox-border;
+      box-shadow: 0 0 0 5px $color-secondary-50;
     }
 
     .after {
@@ -211,7 +226,7 @@ input[type='checkbox'] {
     &::before {
       background: $checkbox-checked-color;
       border-color: $app-light-bg;
-      box-shadow: 0 0 0 1px rgb(44, 92, 197);
+      box-shadow: 0 0 0 1px $checkbox-border;
     }
 
     .after {
@@ -221,24 +236,24 @@ input[type='checkbox'] {
 
   &[disabled] {
     & + label {
-      color: $color-smoke-300;
+      color: $checkbox-disabled-label-color;
 
       .label-field {
-        color: $color-smoke-300;
+        color: $checkbox-disabled-label-color;
       }
 
       &::before {
-        border-color: $disabled-color;
+        border-color: $checkbox-disabled-border;
         background-color: $ticket-tag-background;
       }
     }
 
     &:checked + label {
-      color: $color-smoke-300;
+      color: $checkbox-disabled-label-color;
 
       &::before {
         background-color: $ticket-tag-background;
-        border-color: $disabled-color;
+        border-color: $checkbox-disabled-border;
       }
     }
   }

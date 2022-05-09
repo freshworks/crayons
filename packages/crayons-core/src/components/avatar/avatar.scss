@@ -1,3 +1,13 @@
+/**
+  @prop --fw-avatar-background-color-dark: Avatar background dark color
+  @prop --fw-avatar-background-color-light: Avatar background light color
+  @prop --fw-avatar-color-dark: Avatar dark color
+  @prop --fw-avatar-color-light: Avatar light color
+  @prop --fw-avatar-font-weight: Avatar font weight
+  @prop --fw-avatar-border-radius-circle: Avatar border radius circle
+  @prop --fw-avatar-border-radius-round: Avatar border radius round
+*/
+
 :host {
   display: inline-block;
   --size: 3rem;
@@ -11,7 +21,7 @@
   box-sizing: border-box;
 
   font-size: calc(var(--size) * 0.5);
-  font-weight: $font-weight-400;
+  font-weight: var(--fw-avatar-font-weight, $font-weight-400);
   overflow: hidden;
   user-select: none;
   vertical-align: middle;
@@ -34,7 +44,7 @@
 
   &--dark {
     background-color: $avatar-background-dark;
-    color: $color-milk;
+    color: $text-neutral;
 
     &--initials {
       border: $avatar-border-dark;
@@ -43,7 +53,7 @@
 
   &--light {
     background-color: $avatar-background-light;
-    color: $color-elephant-900;
+    color: $text-default;
 
     &--initials {
       border: $avatar-border-light;
@@ -51,10 +61,10 @@
   }
 
   &--circle {
-    border-radius: 50%;
+    border-radius: var(--fw-avatar-border-radius-circle, 50%);
   }
   &--rounded {
-    border-radius: 4px;
+    border-radius: var(--fw-avatar-border-radius-round, $radius);
   }
   &--square {
     border-radius: 0;

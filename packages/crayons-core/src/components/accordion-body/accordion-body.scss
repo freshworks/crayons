@@ -7,9 +7,9 @@ $accordion-border-radius: var(--fw-accordion-border-radius, 8px);
   @prop --fw-accordion-body-padding: Accordion body padding
 */
 .accordion-body {
-  font-size: var(--fw-accordion-body-font-size, 14px);
-  line-height: var(--fw-accordion-body-line-height, 18px);
-  background-color: var(--fw-accordion-body-background-color, #f5f7f9);
+  font-size: var(--fw-accordion-body-font-size,$font-sm);
+  line-height: var(--fw-accordion-body-line-height, 18); // TODO: follow DSM
+  background-color: var(--fw-accordion-body-background-color, $color-secondary-25);
   padding: var(--fw-accordion-body-padding, 20px);
   border-radius: 0 0 $accordion-border-radius $accordion-border-radius;
 

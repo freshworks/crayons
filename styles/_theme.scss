@@ -50,6 +50,10 @@ $elevation-level2: var(
   --fw-elevation-level2,
   0px 2px 18px rgba(18, 52, 77, 0.2)
 );
+$elevation-level3: var(
+  --fw-elevation-level2,
+  0px 1px 4px rgba(18, 52, 77, 0.08)
+);
 
 //=== Text colors ===//
 $text-neutral: $color-neutral-100;
