@@ -44,8 +44,8 @@ jobs:
         run: npm run code-sanity
 
       # Build
-      - name: Build
-        run: npm run build
+      # - name: Build
+      # run: npm run build
 
       # Runs tests
       # - name: Runs tests
