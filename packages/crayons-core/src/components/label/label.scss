@@ -33,7 +33,7 @@ $label-grey-color: $text-secondary;
   background-color: $label-bg;
   font-weight: var(--fw-label-font-weight, $font-weight-600);
   line-height: 14px; // TODO: follow DSM
-  font-size: $font-xs;
+  font-size: $font-size-12;
   padding: var(--fw-label-padding-vertical) var(--fw-label-padding-horizontal);
   display: inline-block;
   border-radius: $radius;

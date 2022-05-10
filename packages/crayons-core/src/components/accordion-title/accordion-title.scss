@@ -39,7 +39,7 @@ $accordion-title-icon-color: var(--fw-accordion-title-icon-color, $color-seconda
   .accordion-title {
     flex-grow: 1;
     line-height: var(--fw-accordion-title-line-height, 19px); // TODO: follow DSM
-    font-size: var(--fw-accordion-title-font-size, $font-base);
+    font-size: var(--fw-accordion-title-font-size, 16px);
     font-weight: var(--fw-accordion-title-font-weight, $font-weight-700);
 
     &.truncate {

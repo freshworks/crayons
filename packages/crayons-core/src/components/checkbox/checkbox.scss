@@ -37,7 +37,7 @@ $checkbox-disabled-label-color: var(--fw-checkbox-disabled-label-color, $text-di
   input[type='checkbox'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px $checkbox-border;
+      box-shadow: 0 0 0 2px rgb(44, 92, 197);
     }
   }
   input[type='checkbox'] {
@@ -61,7 +61,7 @@ $checkbox-disabled-label-color: var(--fw-checkbox-disabled-label-color, $text-di
   input[type='checkbox'] + label {
     &::before {
       border-color: $checkbox-color;
-      box-shadow: 0 0 0 5px $color-secondary-50;
+      box-shadow: 0 0 0 5px rgb(235, 239, 243);
     }
   }
 
@@ -214,7 +214,7 @@ input[type='checkbox'] {
   &:checked:hover + label {
     &::before {
       border-color: $checkbox-border;
-      box-shadow: 0 0 0 5px $color-secondary-50;
+      box-shadow: 0 0 0 5px rgb(235, 239, 243);
     }
 
     .after {
@@ -226,7 +226,7 @@ input[type='checkbox'] {
     &::before {
       background: $checkbox-checked-color;
       border-color: $app-light-bg;
-      box-shadow: 0 0 0 1px $checkbox-border;
+      box-shadow: 0 0 0 1px rgb(44, 92, 197);
     }
 
     .after {
