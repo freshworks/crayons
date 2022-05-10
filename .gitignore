@@ -3,3 +3,4 @@ node_modules/
 storybook-dist/
 www-dist/
 .idea/
+.npmrc
