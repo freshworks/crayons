@@ -49,8 +49,8 @@ div.file-uploader-container {
         }
 
         .drop-clickable-hint {
-          line-height: $font-lh-sm;
-          font-size: $font-sm;
+          line-height: 20px; // TODO: follow DSM
+          font-size: 10px;
           color: $color-secondary-300; // TODO: follow DSM : not in text color palette
         }
       }
@@ -64,7 +64,7 @@ div.file-uploader-container {
 
       .dropzone-error {
         line-height: 12px; // TODO: follow DSM
-        font-size: $font-2xs;
+        font-size: 10px;
         text-align: center;
         padding: 5px 0px;
         box-sizing: border-box;
