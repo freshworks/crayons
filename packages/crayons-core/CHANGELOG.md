@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.5.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.2...@freshworks/crayons@3.5.0-beta.0) (2022-05-10)
-
+## [3.5.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.2...@freshworks/crayons@3.5.0-beta.0) (2022-05-10)
 
 ### Features
 
-* **datepicker:** allow single date to be selected for date range picker ([#584](https://github.com/freshworks/crayons/issues/584)) ([ed9b8e4](https://github.com/freshworks/crayons/commit/ed9b8e4c2bc54fd92162217658d1af492927f25f))
-
-
-
-
+- **datepicker:** allow single date to be selected for date range picker ([#584](https://github.com/freshworks/crayons/issues/584)) ([ed9b8e4](https://github.com/freshworks/crayons/commit/ed9b8e4c2bc54fd92162217658d1af492927f25f))
 
 ## [3.4.2-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.1...@freshworks/crayons@3.4.2-beta.0) (2022-05-03)
 
