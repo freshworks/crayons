@@ -141,7 +141,7 @@
     "linkModalSelectSearchPlaceholder": "Search...",
     "linkModalSelectEmptySearch": "Start typing...",
     "linkModalSelectNoResultFound": "No records found",
-    "linkModalSubmitButton": "Link",
+    "linkModalSubmitButton": "Save",
     "linkModalCancelButton": "Cancel",
     "linkModalSuccess": "Record updated successfully",
     "linkModalError": "Unable to update the record",
