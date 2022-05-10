@@ -1058,14 +1058,16 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name                        | Description                           |
-| --------------------------- | ------------------------------------- |
-| `--fw-error-color`          | Color of the error text.              |
-| `--fw-hint-color`           | Color of the hint text.               |
-| `--fw-select-border`        | Border of the select component        |
-| `--fw-select-border-radius` | Border radius of the select component |
-| `--fw-select-margin-bottom` | Bottom margin of the select component |
-| `--fw-warning-color`        | Color of the warning text.            |
+| Name                             | Description                           |
+| -------------------------------- | ------------------------------------- |
+| `--fw-error-color`               | Color of the error text.              |
+| `--fw-hint-color`                | Color of the hint text.               |
+| `--fw-select-border`             | Border of the select component        |
+| `--fw-select-border-radius`      | Border radius of the select component |
+| `--fw-select-input-padding-left` | Padding of input container.           |
+| `--fw-select-margin-bottom`      | Bottom margin of the select component |
+| `--fw-select-tag-margin`         | Margin for the tags in multi select.  |
+| `--fw-warning-color`             | Color of the warning text.            |
 
 
 ## Dependencies

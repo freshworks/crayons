@@ -1,9 +1,21 @@
-$primary-color: $color-elephant-900;
-$selected-color: $color-azure-800;
-$disabled-color: $color-smoke-300;
-$bg-color: $color-azure-50;
-$bg-color-hover: $color-smoke-50;
-$bg-color-disabled: $color-smoke-25;
+/**
+  @prop --fw-select-option-border-radius to add radius to options
+  @prop --fw-select-option-margin-bottom to add margin bottom to list option
+  @prop --fw-select-option-single-line-padding-top to add padding top to single line option
+  @prop --fw-select-option-single-line-padding-bottom to add padding bottom to single line option
+  @prop --fw-select-option-multi-line-padding-top to add padding top to multi line option
+  @prop --fw-select-option-multi-line-padding-bottom to add padding bottom to multi line option
+  @prop --fw-select-option-font-size to change font size of options
+  @prop --fw-select-option-line-height to change line height og options
+  @prop --fw-select-option-icon-display to change display of the selected option icon
+**/
+
+$primary-color: $text-default;
+$selected-color: $text-info;
+$disabled-color: $text-disabled;
+$bg-color: $color-info-50;
+$bg-color-hover: $color-secondary-50;
+$bg-color-disabled: $color-secondary-25;
 
 .select-center {
   display: flex;
@@ -15,24 +27,24 @@ $bg-color-disabled: $color-smoke-25;
   display: flex;
   align-items: center;
   color: $primary-color;
-  font-size: $font-size-14;
-  border-radius: 4px;
+  font-size: var(--fw-select-option-font-size, $font-sm);
+  line-height: var(--fw-select-option-line-height, $font-lh-sm);
+  border-radius: var(--fw-select-option-border-radius, 4px);
   list-style: none;
-  line-height: 1.45;
   word-break: break-word;
   word-wrap: break-word;
   position: relative;
-  margin-bottom: 4px;
+  margin-bottom: var(--fw-select-option-margin-bottom, 4px);
   padding-right: 8px;
 
   &.single-line {
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: var(--fw-select-option-single-line-padding-top, 6px);
+    padding-bottom: var(--fw-select-option-single-line-padding-bottom, 6px);
   }
 
   &.multi-line {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: var(--fw-select-option-multi-line-padding-top, 8px);
+    padding-bottom: var(--fw-select-option-multi-line-padding-bottom, 8px);
   }
 
   &.standard {
@@ -61,7 +73,7 @@ $bg-color-disabled: $color-smoke-25;
   }
   &:focus {
     background-color: $bg-color-hover;
-    outline: $color-azure-800 auto 1px;
+    outline: $color-info-800 auto 1px;
   }
 
   &.disabled {
@@ -80,8 +92,8 @@ $bg-color-disabled: $color-smoke-25;
     }
     &-subText {
       font-weight: $font-weight-400;
-      font-size: $font-size-12;
-      color: $color-smoke-700;
+      font-size: $font-xs;
+      color: $text-secondary;
     }
 
     &.icon-margin {
@@ -97,7 +109,7 @@ $bg-color-disabled: $color-smoke-25;
     min-width: 24px;
     min-height: 24px;
     margin-left: auto;
-    display: flex;
+    display: var(--fw-select-option-icon-display, flex);
     justify-content: center;
     align-items: center;
   }

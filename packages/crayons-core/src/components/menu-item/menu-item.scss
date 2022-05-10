@@ -3,29 +3,32 @@
   @prop --fw-menu-item-border: Border of the fw-menu-item popover content.
   @prop --fw-menu-item-box-shadow: Box Shadow of the fw-menu-item popover content.
   @prop --fw-menu-item-border-radius: Border Radius of the fw-menu-item popover content.
+  @prop --fw-menu-item-margin-bottom: Margin bottom of the fw-menu-item popover content.
+  @prop --fw-menu-item-font-size: Font size of the fw-menu-item popover content.
+  @prop --fw-menu-item-line-height: Line height of the fw-menu-item popover content.
 */
 
 .menu-item {
   cursor: pointer;
   display: flex;
   padding: 6px 8px;
-  margin-bottom: 4px;
-  line-height: 1.45;
+  margin-bottom: var(--fw-menu-margin-bottom, 4px);
+  font-size: var(--fw-menu-item-font-size, $font-sm);
+  line-height: var(--fw-menu-item-line-height, $font-lh-sm);
   align-items: center;
-  background: var(--fw-menu-item-background, #ffffff);
+  background: var(--fw-menu-item-background, $color-neutral-100);
   border: var(--fw-menu-item-border);
   box-shadow: var(--fw-menu-item-box-shadow);
   border-radius: var(--fw-menu-item-border-radius);
-  font-size: $font-size-14;
   word-break: break-word;
   word-wrap: break-word;
 
   &:hover {
-    background-color: $color-smoke-50;
+    background-color: $color-secondary-50;
   }
   &:focus {
-    background-color: $color-smoke-50;
-    outline: $color-azure-800 auto 1px;
+    background-color: $color-secondary-50;
+    outline: $color-info-800 auto 1px;
   }
 
   .menu-item__label {
