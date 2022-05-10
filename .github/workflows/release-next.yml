@@ -1,14 +1,9 @@
 name: release-next
 
 on:
+  pull_request:
+    branches: [Adding-workflow-for-next-release]
   workflow_dispatch:
-    inputs:
-      tag:
-        required: true
-        type: choice
-        description: Which npm tag should this be published to?
-        options:
-          - next
 
 jobs:
   release:
