@@ -28,6 +28,9 @@ jobs:
       - name: Fetch git tags
         run: git fetch --all
 
+      - name: checkout to next
+        run: git checkout next
+
       # Pull the latest from the branch
       - name: Git checkout latest from next
         run: git pull origin next
