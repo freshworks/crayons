@@ -1,4 +1,4 @@
-name: release-next
+name: test-release-next
 
 on:
   pull_request:
