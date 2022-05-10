@@ -19,8 +19,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-          registry-url: https://npm.pkg.github.com/
-          scope: '@freshworksinc'
 
       - name: Update package source list
         run: sudo apt-get update
@@ -65,6 +63,7 @@ jobs:
         run: npm run update-next:ci
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          CROWDIN_TOKEN: ${{secrets.CROWDIN_TOKEN}}
 
       # Publish Next to npm registry
       - name: Release Next
