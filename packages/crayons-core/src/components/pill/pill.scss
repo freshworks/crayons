@@ -24,7 +24,7 @@
   border: var(--fw-pill-border);
   border-radius: var(--fw-pill-border-radius);
   font-weight: $font-weight-600;
-  font-size: $font-xs;
+  font-size: $font-size-12;
   line-height: 1.5; // TODO: follow DSM
 
   ::slotted(*) {

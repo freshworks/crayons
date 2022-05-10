@@ -12,7 +12,7 @@
   input[type='radio'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px $color-info-800;
+      box-shadow: 0 0 0 2px rgb(44, 92, 197); // TODO - elevation level : DSM
       border-color: $color-secondary-700;
     }
   }
