@@ -1196,7 +1196,9 @@ export class DataTable {
               style={headerStyles}
               {...optionalAttrs}
             >
-              {column.text}
+              {column.customHeader
+                ? this.renderCustomTemplate(column.customHeader, column.text)
+                : column.text}
             </th>
           );
         })}
