@@ -14,7 +14,7 @@
   color: $text-neutral;
   background: $color-primary-900;
   border-radius: 4px;
-  font-size: var(--fw-tooltip-font-size, $font-sm);
+  font-size: 12px;
   line-height: var(--fw-tooltip-line-height, 18px); // TODO:  follow DSM
   font-weight: var(--fw-tooltip-font-weight, $font-weight-600);
   padding: var(--fw-tooltip-padding-tb, 6px) var(--fw-tooltip-padding-lr, 8px);

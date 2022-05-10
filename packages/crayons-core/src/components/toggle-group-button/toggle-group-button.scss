@@ -47,8 +47,8 @@
     width: 100%;
     pointer-events: none;
     user-select: none;
-    font-size: $font-base;
-    line-height: $font-lh-sm; // TODO: follow DSM
+    font-size: $font-size-16;
+    line-height: 20px; // TODO: follow DSM
     font-weight: $font-weight-600;
     text-align: left;
     color: $text-default;
@@ -67,7 +67,7 @@
     text-align: left;
 
     color: $text-secondary;
-    font-size: $font-sm;
+    font-size: $font-size-14;
     line-height: 16px; // TODO: follow DSM
     font-weight: $font-weight-400;
 
