@@ -4,13 +4,13 @@
 }
 
 .current-record {
-  color: $app-info-color;
+  color: $text-default;
   margin-left: 10px;
   margin-right: 14px;
-  line-height: 20px;
-  font-size: 14px;
+  font-size: $font-sm;
+  line-height: $font-lh-sm;
 
   .record {
-    font-weight: 700;
+    font-weight: $font-weight-700;
   }
 }

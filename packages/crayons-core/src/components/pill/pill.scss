@@ -10,8 +10,8 @@
   --fw-pill-border: none;
   --fw-pill-border-radius: 16px;
   --fw-pill-padding: 5px 12px 5px 8px;
-  --fw-pill-color: #{$color-smoke-700};
-  --fw-pill-background-color: #{$color-smoke-50};
+  --fw-pill-color: #{$color-secondary-700};
+  --fw-pill-background-color: #{$color-secondary-50};
 }
 
 .pill {
@@ -23,9 +23,9 @@
   padding: var(--fw-pill-padding);
   border: var(--fw-pill-border);
   border-radius: var(--fw-pill-border-radius);
-  font-weight: 600;
-  font-size: $font-size-12;
-  line-height: 1.5;
+  font-weight: $font-weight-600;
+  font-size: $font-xs;
+  line-height: 1.5; // TODO: follow DSM
 
   ::slotted(*) {
     height: 14px;
@@ -40,51 +40,51 @@
 
   ::slotted(fw-icon) {
     --fw-icon-size: 14px;
-    --fw-icon-color: #{$color-smoke-700};
+    --fw-icon-color: #{$color-secondary-700};
   }
 
   &--blue {
-    background-color: $color-azure-50;
-    color: $color-azure-800;
+    background-color: $color-info-50;
+    color: $text-info;
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-azure-800};
+      --fw-icon-color: #{$color-info-800};
     }
   }
 
   &--red {
-    background-color: $color-persimmon-50;
-    color: $color-persimmon-800;
+    background-color: $color-danger-50;
+    color: $text-danger;
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-persimmon-800};
+      --fw-icon-color: #{$color-danger-800};
     }
   }
 
   &--green {
-    background-color: $color-jungle-50;
-    color: $color-jungle-800;
+    background-color: $color-success-50;
+    color: $text-success;
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-jungle-800};
+      --fw-icon-color: #{$color-success-800};
     }
   }
 
   &--yellow {
-    background-color: $color-casablanca-50;
-    color: $color-casablanca-700;
+    background-color: $color-warning-50;
+    color: $text-warning;
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-casablanca-700};
+      --fw-icon-color: #{$color-warning-700};
     }
   }
 
   &--grey {
-    background-color: $color-smoke-50;
-    color: $color-smoke-700;
+    background-color: $color-secondary-50;
+    color: $text-secondary;
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-smoke-700};
+      --fw-icon-color: #{$color-secondary-700};
     }
   }
 }
