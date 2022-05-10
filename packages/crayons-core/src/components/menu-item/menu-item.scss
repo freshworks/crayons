@@ -6,6 +6,7 @@
   @prop --fw-menu-item-margin-bottom: Margin bottom of the fw-menu-item popover content.
   @prop --fw-menu-item-font-size: Font size of the fw-menu-item popover content.
   @prop --fw-menu-item-line-height: Line height of the fw-menu-item popover content.
+  @prop --fw-menu-item-selected-background: Background of the selected menu item.
 */
 
 .menu-item {
@@ -65,10 +66,13 @@
 
   &.selected {
     font-weight: $font-weight-600;
-    background-color: $dropdown-selected;
+    background-color: var(--fw-menu-item-selected-background, $color-azure-50);
     &:hover,
     &:focus {
-      background-color: $dropdown-selected;
+      background-color: var(
+        --fw-menu-item-selected-background,
+        $color-azure-50
+      );
     }
 
     .menu-item__check {

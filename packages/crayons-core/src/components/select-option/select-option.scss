@@ -8,6 +8,7 @@
   @prop --fw-select-option-font-size to change font size of options
   @prop --fw-select-option-line-height to change line height og options
   @prop --fw-select-option-icon-display to change display of the selected option icon
+  @prop --fw-select-option-selected-background to change the background of selected single line option
 **/
 
 $primary-color: $text-default;
@@ -61,10 +62,16 @@ $bg-color-disabled: $color-secondary-25;
 
   &.selected {
     font-weight: $font-weight-600;
-    background-color: $dropdown-selected;
+    background-color: var(
+      --fw-select-option-selected-background,
+      $color-azure-50
+    );
     &:hover,
     &:focus {
-      background-color: $dropdown-selected;
+      background-color: var(
+        --fw-select-option-selected-background,
+        $color-azure-50
+      );
     }
   }
 
