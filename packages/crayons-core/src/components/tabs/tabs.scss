@@ -31,7 +31,7 @@
     overflow-y: hidden;
 
     &__box {
-      background-color: var(--fw-tabs-box-background, $app-header-bg-secondary);
+      background-color: var(--fw-tabs-box-background, $color-secondary-25);
       border: var(--fw-tabs-box-border-width, 1px) solid
         var(--fw-tabs-box-border-color, $color-secondary-50);
       box-sizing: border-box;

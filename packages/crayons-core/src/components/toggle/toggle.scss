@@ -38,7 +38,7 @@
     right: 0;
     bottom: 0;
     border-radius: 34px;
-    background: $toggle-btn-off-bg;
+    background: $toggle-btn-off-bg; // TODO: follow DSM
   }
   @media screen and (prefers-reduced-motion: reduce) {
     .before {
@@ -51,10 +51,10 @@
     content: '';
     left: 0;
     bottom: -2px;
-    border: solid 1px $toggle-btn-off-bg;
+    border: solid 1px $toggle-btn-off-bg; // TODO: follow DSM
     border-radius: 50%;
-    box-shadow: 0 1px 1px 0 $toggle-btn-shadow;
-    background-color: $app-secondary-btn;
+    box-shadow: 0 1px 1px 0 $toggle-btn-shadow; // TODO: follow DSM
+    background-color: $color-neutral-100;
     -webkit-transition-property: transform;
     transition-property: transform;
     -webkit-transition-timing-function: ease;
@@ -67,7 +67,7 @@
 
     &:hover,
     &:focus {
-      box-shadow: 0 0 4px 4px $toggle-btn-off-shadow;
+      box-shadow: 0 0 4px 4px $toggle-btn-off-shadow; // TODO: follow DSM
     }
   }
 
@@ -130,14 +130,14 @@
   }
 
   input:checked + .slider {
-    background-color: $toggle-btn-on-bg;
+    background-color: $color-azure-800;
 
     .before {
-      border: solid 1px $toggle-btn-on-bg;
+      border: solid 1px $color-azure-800;
 
       &:hover,
       &:focus {
-        box-shadow: 0 0 4px 4px $toggle-btn-on-shadow;
+        box-shadow: 0 0 4px 4px $toggle-btn-on-shadow; // TODO: follow DSM
       }
     }
   }

@@ -17,32 +17,28 @@
   top: 10px;
   width: 400px;
   padding: 0px 0px 16px 0px;
-  border: 1px solid $color-smoke-50;
+  border: 1px solid $color-secondary-50;
   border-radius: 4px;
-  background-color: $color-milk;
+  background-color: $color-neutral-100;
   margin-bottom: 16px;
   box-sizing: border-box;
   box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06),
     0px 2px 16px rgba(18, 52, 77, 0.16);
 
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  white-space: normal;
-
   &.success {
-    border-top: 5px solid $color-jungle-500;
+    border-top: 5px solid $color-success-500;
   }
 
   &.error {
-    border-top: 5px solid $color-persimmon-800;
+    border-top: 5px solid $color-danger-800;
   }
 
   &.warning {
-    border-top: 5px solid $color-casablanca-300;
+    border-top: 5px solid $color-warning-300;
   }
 
   &.inprogress {
-    border-top: 5px solid $color-azure-800;
+    border-top: 5px solid $color-info-800;
   }
 }
 
@@ -53,11 +49,11 @@
   place-content: center;
 
   .content {
-    color: $color-elephant-900;
-    line-height: 20px;
-    flex: 1 1 auto;
-    font-size: $font-size-14;
+    color: $text-default;
+    font-size: $font-sm;
+    line-height: $font-lh-sm;
     font-weight: $font-weight-500;
+    flex: 1 1 auto;
     vertical-align: top;
   }
 
@@ -71,11 +67,11 @@
 }
 
 .action-link {
-  color: $color-azure-800;
-  line-height: 14px;
-  cursor: pointer;
-  font-size: $font-size-12;
+  color: $text-info;
+  font-size: $font-sm;
+  line-height: 14px; // TODO: follow DSM : line height not in caltegory
   font-weight: $font-weight-600;
+  cursor: pointer;
   padding: 8px 0px;
 }
 
