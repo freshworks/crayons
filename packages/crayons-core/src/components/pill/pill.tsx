@@ -16,16 +16,18 @@ export class Pill {
   hasIcon: boolean;
   pillClass: string;
 
-  componentWillLoad() {
+  componentWillLoad(): void {
     this.hasIcon = !!this.el.querySelector('[slot="icon"');
-    this.pillClass = this.color
-      ? `pill pill--${this.color.toLowerCase()}`
-      : 'pill';
+    this.pillClass = this.getPillClass(this.color);
   }
 
-  render() {
+  getPillClass(color: string): string {
+    return color ? `pill pill--${color.toLowerCase()}` : 'pill';
+  }
+
+  render(): JSX.Element {
     return (
-      <span class={this.pillClass}>
+      <span class={this.getPillClass(this.color)}>
         {this.hasIcon && (
           <div class='pill-icon'>
             <slot name='icon' />
