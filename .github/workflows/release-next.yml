@@ -1,13 +1,17 @@
 name: release-next
 
 on:
-  pull_request:
-    branches: [Adding-workflow-for-next-release]
   workflow_dispatch:
+    inputs:
+      password:
+        description: password to run workflow
+        required: true
+        type: string
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: ${{github.event.inputs.password}}  == ${{secrets.NEXT_RELEASE_PASSWORD}}
     steps:
       - uses: actions/checkout@v2
 
@@ -61,9 +65,13 @@ jobs:
           CROWDIN_PROJECT_ID: ${{secrets.CROWDIN_PROJECT_ID}}
           CROWDIN_TOKEN: ${{secrets.CROWDIN_TOKEN}}
 
+      # Write token to npmrc
+      - name: Update npmrc
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       # Publish Next to npm registry
       - name: Release Next
         if: github.ref == 'refs/heads/next' || github.ref == 'refs/heads/gh-actions'
         run: npm run release-next:ci
-        env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
