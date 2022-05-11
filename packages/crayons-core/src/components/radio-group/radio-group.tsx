@@ -313,7 +313,12 @@ export class RadioGroup {
     const showErrorText = this.state === 'error' ? true : false;
     const showWarningText = this.state === 'warning' ? true : false;
 
-    const labelId = `${this.label}-${this.name}`;
+    const labelId =
+      this.label && this.name
+        ? `${this.label}-${this.name}`
+        : this.label
+        ? this.label
+        : this.name && this.name;
     const hintTextId = `hint-${this.name}`;
     const warningTextId = `warning-${this.name}`;
     const errorTextId = `error-${this.name}`;
