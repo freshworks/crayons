@@ -32,10 +32,10 @@ export class Pill {
       <span class={this.getPillClass(this.color)}>
         {this.hasIcon && (
           <div class='pill-icon'>
-            <slot name='icon' onSlotchange={this.handleSlotChange} />
+            <slot name='icon' />
           </div>
         )}
-        <slot></slot>
+        <slot onSlotchange={() => this.handleSlotChange()}></slot>
       </span>
     );
   }
