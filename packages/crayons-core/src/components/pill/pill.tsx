@@ -14,15 +14,17 @@ export class Pill {
   @Prop() color: 'blue' | 'red' | 'green' | 'yellow' | 'grey';
 
   hasIcon: boolean;
-  pillClass: string;
 
   componentWillLoad(): void {
-    this.hasIcon = !!this.el.querySelector('[slot="icon"');
-    this.pillClass = this.getPillClass(this.color);
+    this.handleSlotChange();
   }
 
   getPillClass(color: string): string {
     return color ? `pill pill--${color.toLowerCase()}` : 'pill';
+  }
+
+  handleSlotChange(): void {
+    this.hasIcon = !!this.el.querySelector('[slot="icon"');
   }
 
   render(): JSX.Element {
@@ -30,10 +32,9 @@ export class Pill {
       <span class={this.getPillClass(this.color)}>
         {this.hasIcon && (
           <div class='pill-icon'>
-            <slot name='icon' />
+            <slot name='icon' onSlotchange={this.handleSlotChange} />
           </div>
         )}
-
         <slot></slot>
       </span>
     );
