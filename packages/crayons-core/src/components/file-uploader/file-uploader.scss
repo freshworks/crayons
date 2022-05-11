@@ -51,7 +51,7 @@ div.file-uploader-container {
         .drop-clickable-hint {
           line-height: $font-lh-sm;
           font-size: $font-sm;
-          color: $color-secondary-300; // TODO: follow DSM : not in text color palette
+          color: $text-disabled;
         }
       }
 
