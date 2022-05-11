@@ -328,7 +328,7 @@ export class RadioGroup {
     return (
       <Host
         role='radiogroup'
-        aria-label={labelId}
+        aria-labelledby={labelId}
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
         aria-describedby={this.getAriaDescribedBy()}
