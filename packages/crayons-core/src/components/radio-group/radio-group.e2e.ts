@@ -128,7 +128,7 @@ describe('fw-radio-group', () => {
   </fw-radio-group>`);
 
     const element = await page.find('fw-radio-group');
-    const label = element.getAttribute('aria-label');
+    const label = element.getAttribute('aria-labelledby');
     expect(label).toBe('Attending');
   });
 });
