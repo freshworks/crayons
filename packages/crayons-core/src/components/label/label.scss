@@ -4,7 +4,7 @@
   @prop --fw-label-font-weight: Label font weight
 */
 
-$label-color: $grey;
+$label-color: $grey; // TODO : Color not in palette
 $label-bg: $color-neutral-100;
 $label-border: $app-box-shadow;
 $label-blue-bg: $color-info-50;
@@ -57,13 +57,13 @@ $label-grey-color: $text-secondary;
   }
 
   &--yellow {
-    background-color:$label-yellow-bg;
+    background-color: $label-yellow-bg;
     color: $label-yellow-color;
     border: 1px solid $label-yellow-border;
   }
 
   &--grey {
-    background-color:$label-grey-bg;
+    background-color: $label-grey-bg;
     color: $label-grey-color;
     border: none;
   }
