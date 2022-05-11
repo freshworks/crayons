@@ -3,11 +3,12 @@ name: test-release-next
 on:
   workflow_dispatch:
     inputs:
-      tag:
+      branch:
         required: true
-        type: string
-        description: Enter password
-
+        type: choice
+        description: Deploy docs
+        options:
+          - next
 jobs:
   release:
     runs-on: ubuntu-latest
