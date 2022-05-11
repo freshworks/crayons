@@ -140,7 +140,7 @@ export class Radio {
         role='radio'
         tabIndex='-1'
         aria-labelledby='label'
-        aria-describedby={`description hint-${this.name} error-${this.name}`}
+        aria-describedby={`description`}
         aria-disabled={this.disabled ? 'true' : 'false'}
         aria-checked={this.checked ? 'true' : 'false'}
         onFocus={() => this.onFocus()}
