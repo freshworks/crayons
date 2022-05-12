@@ -34,7 +34,7 @@
 
   &--dark {
     background-color: $avatar-background-dark;
-    color: $color-milk;
+    color: $text-neutral;
 
     &--initials {
       border: $avatar-border-dark;
@@ -43,7 +43,7 @@
 
   &--light {
     background-color: $avatar-background-light;
-    color: $color-elephant-900;
+    color: $text-default;
 
     &--initials {
       border: $avatar-border-light;
@@ -54,7 +54,7 @@
     border-radius: 50%;
   }
   &--rounded {
-    border-radius: 4px;
+    border-radius: $radius;
   }
   &--square {
     border-radius: 0;
