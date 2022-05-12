@@ -6,7 +6,7 @@ describe('fw-pill', () => {
 
     await page.setContent(`
       <fw-pill color="blue">
-        <fw-icon name="internet" slot="icon"></fw-icon>
+        <fw-icon name="alert" slot="icon"></fw-icon>
         Pill
       </fw-pill>`);
     const element = await page.find('fw-pill');
