@@ -1,15 +1,23 @@
+/**
+  @prop --fw-tooltip-font-size can change the font size of the tooltip
+  @prop --fw-tooltip-font-weight can change the font weight of tooltip
+  @prop --fw-tooltip-line-height can change the line height of tooltip
+  @prop --fw-tooltip-padding-tb can change the padding top/bottom on the tooltip
+  @prop --fw-tooltip-padding-lr can change the padding left/right on the tooltip
+**/
+
 :host {
   --fw-popover-border-radius: 4px;
 }
 
 .tooltip {
-  color: $color-milk;
-  background: $color-elephant-900;
+  color: $text-neutral;
+  background: $color-primary-900;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: 600;
-  line-height: 18px;
-  padding: 6px 8px;
+  line-height: var(--fw-tooltip-line-height, 18px); // TODO:  follow DSM
+  font-weight: var(--fw-tooltip-font-weight, $font-weight-600);
+  padding: var(--fw-tooltip-padding-tb, 6px) var(--fw-tooltip-padding-lr, 8px);
   max-width: 236px;
   overflow: visible;
   overflow-wrap: anywhere;

@@ -22,9 +22,9 @@
 
 // Styles for card button
 @mixin mixin-fw-toggle-card-button-selected-style {
-  background: #e5f2fd; // TODO - get from design team
-  border: 1px solid #bbdcfe; // TODO - get from design team
-  box-shadow: 0px 1px 4px #ebeff3;
+  background: $color-info-50; // TODO - get from design team
+  border: 1px solid $color-info-100; // TODO - get from design team
+  box-shadow: 0px 1px 4px $color-secondary-50;
 }
 
 .fw-toggle-card-button {
@@ -37,9 +37,9 @@
   outline: 0;
   padding: 12px;
   border-radius: 8px;
-  background: $color-milk;
-  border: 1px solid $color-smoke-100;
-  box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05);
+  background: $color-neutral-100;
+  border: 1px solid $color-secondary-100;
+  box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05); // TODO: follow DSM
   transition: background-color 0.3s;
   position: relative;
 
@@ -47,11 +47,11 @@
     width: 100%;
     pointer-events: none;
     user-select: none;
-    line-height: 20px;
+    font-size: $font-size-16;
+    line-height: 20px; // TODO: follow DSM
+    font-weight: $font-weight-600;
     text-align: left;
     color: $text-default;
-    font-size: $font-size-16;
-    font-weight: $font-weight-600;
     margin-bottom: 8px;
     white-space: nowrap;
     overflow: hidden;
@@ -68,13 +68,13 @@
 
     color: $text-secondary;
     font-size: $font-size-14;
+    line-height: 16px; // TODO: follow DSM
     font-weight: $font-weight-400;
 
     word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    line-height: 16px;
     max-height: var(--fw-toggle-group-button-card-description-max-height, 48px);
     -webkit-line-clamp: var(
       --fw-toggle-group-button-card-description-max-lines,
@@ -93,19 +93,19 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    outline: 2px solid $color-milk;
-    background-color: $color-azure-800;
+    outline: 2px solid $color-neutral-100;
+    background-color: $color-info-800;
     transition: opacity 0.3s;
     opacity: 1;
   }
 
   &:hover {
-    background: $color-smoke-50; // TODO - get from design team
+    background: $color-secondary-50; // TODO - get from design team
   }
 
   &:focus {
-    border: 1px solid #e5f2fd; // TODO - get from design team
-    box-shadow: 0 0 0 1px #e5f2fd; // TODO - get from design team
+    border: 1px solid $color-azure-50; // TODO - get from design team
+    box-shadow: 0 0 0 1px $color-azure-50; // TODO - get from design team
   }
 
   &--disabled {
@@ -157,9 +157,13 @@
 
 // Styles for icon toggle button
 @mixin mixin-fw-toggle-icon-button-selected-style {
-  background: linear-gradient(180deg, #ffffff 2.56%, #f5f7f9 95.75%);
-  border: 2px solid #2c5cc5;
-  box-shadow: 0px 1px 4px #ebeff3;
+  background: linear-gradient(
+    180deg,
+    $color-neutral-100 2.56%,
+    $color-smoke-25 95.75%
+  );
+  border: 2px solid $color-info-800;
+  box-shadow: 0px 1px 4px #ebeff3; // TODO: follow DSM
 }
 
 .fw-toggle-icon-button {
@@ -172,13 +176,17 @@
   cursor: pointer;
   outline: 0;
   padding: 0;
-  background: linear-gradient(180deg, #ffffff 2.56%, #f5f7f9 95.75%);
-  border: 1px solid #cfd7df;
+  background: linear-gradient(
+    180deg,
+    $color-neutral-100 2.56%,
+    $color-smoke-25 95.75%
+  );
+  border: 1px solid $color-secondary-100;
   border-radius: 4px;
   transition: background-color 0.3s;
 
   &:hover {
-    background: #f5f7f9;
+    background: $color-secondary-25;
   }
 
   &:focus {
@@ -197,7 +205,7 @@
   &--selected--checkbox {
     cursor: pointer;
     &:hover {
-      background: #f5f7f9;
+      background: $color-secondary-25;
     }
     &:focus {
       @include mixin-fw-toggle-icon-button-selected-style;
