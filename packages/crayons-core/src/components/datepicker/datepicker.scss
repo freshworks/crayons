@@ -228,10 +228,10 @@
 .cch-name {
   width: 14.285%;
   height: 30px;
-  line-height: 30px; // TODO: follow DSM : line height does not fall in category
+  line-height: $font-lh-xs;
   font-weight: $font-weight-700;
   color: $text-secondary;
-  font-size: 13px; // TODO: follow DSM : size does not fall in category
+  font-size: $font-xs;
   text-align: center;
 }
 
