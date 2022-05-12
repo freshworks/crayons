@@ -12,39 +12,7 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
-    <fw-tabs>
-      <fw-tab slot="tab" panel="personal">Personal</fw-tab>
-      <fw-tab slot="tab" panel="official">Official</fw-tab>
-
-      <fw-tab-panel name="personal">
-        <fw-input
-          label="Name"
-          icon-left="add-contact"
-          warning-text="Do not enter your user ID"
-          state="warning"
-          placeholder="Enter your official name"
-          required
-          clear-input
-        >
-        </fw-input>
-        <fw-button color="secondary">Submit</fw-button>
-        <fw-button color="secondary">Save</fw-button>
-      </fw-tab-panel>
-
-      <fw-tab-panel name="official">
-        <fw-select
-          multiple
-          label="Select location of preference"
-          required="true"
-        >
-          <fw-select-option value="1">Chennai</fw-select-option>
-          <fw-select-option value="2">Bangalore</fw-select-option>
-          <fw-select-option value="3">Hyderabad</fw-select-option>
-        </fw-select>
-        <fw-button color="secondary">Submit</fw-button>
-        <fw-button color="secondary">Save</fw-button>
-      </fw-tab-panel>
-    </fw-tabs>
+    <fw-button expand color="primary">Primary Button</fw-button>
     <!-- <br />
     <fw-radio-group
       name="Profile"
