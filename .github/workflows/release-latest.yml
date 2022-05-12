@@ -58,7 +58,7 @@ jobs:
 
       # Create Git Tag latest
       - name: Git tag latest
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/gh-actions'
+        if: github.ref == 'refs/heads/master'
         run: npm run update-latest:ci
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -73,5 +73,5 @@ jobs:
 
       # Publish Latest to npm registry
       - name: Release Latest
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/gh-actions'
+        if: github.ref == 'refs/heads/master'
         run: npm run release-latest:ci

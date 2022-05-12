@@ -58,7 +58,7 @@ jobs:
 
       # Create Git Tag Next
       - name: Git tag next
-        if: github.ref == 'refs/heads/next' || github.ref == 'refs/heads/gh-actions'
+        if: github.ref == 'refs/heads/next'
         run: npm run update-next:ci
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -73,5 +73,5 @@ jobs:
 
       # Publish Next to npm registry
       - name: Release Next
-        if: github.ref == 'refs/heads/next' || github.ref == 'refs/heads/gh-actions'
+        if: github.ref == 'refs/heads/next'
         run: npm run release-next:ci
