@@ -1,10 +1,9 @@
 /**
   @prop --fw-label-padding-vertical: Top - bottom padding for label
   @prop --fw-label-padding-horizontal: Left - right padding for label
-  @prop --fw-label-font-weight: Label font weight
 */
 
-$label-color: $grey; // TODO : Color not in palette
+$label-color: $text-default;
 $label-bg: $color-neutral-100;
 $label-border: $app-box-shadow;
 $label-blue-bg: $color-info-50;
@@ -31,7 +30,7 @@ $label-grey-color: $text-secondary;
   color: $label-color;
   border: 1px solid $label-border;
   background-color: $label-bg;
-  font-weight: var(--fw-label-font-weight, $font-weight-600);
+  font-weight: $font-weight-600;
   line-height: 14px; // TODO: follow DSM
   font-size: $font-size-12;
   padding: var(--fw-label-padding-vertical) var(--fw-label-padding-horizontal);

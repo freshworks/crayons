@@ -103,19 +103,6 @@ function App() {
 | `"initials"` |             |
 
 
-## CSS Custom Properties
-
-| Name                                 | Description                   |
-| ------------------------------------ | ----------------------------- |
-| `--fw-avatar-background-color-dark`  | Avatar background dark color  |
-| `--fw-avatar-background-color-light` | Avatar background light color |
-| `--fw-avatar-border-radius-circle`   | Avatar border radius circle   |
-| `--fw-avatar-border-radius-round`    | Avatar border radius round    |
-| `--fw-avatar-color-dark`             | Avatar dark color             |
-| `--fw-avatar-color-light`            | Avatar light color            |
-| `--fw-avatar-font-weight`            | Avatar font weight            |
-
-
 ## Dependencies
 
 ### Used by

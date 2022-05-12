@@ -2,24 +2,13 @@
   @prop --fw-hint-color: Color of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
-  @prop --fw-checkbox-border: Checkbox border color.
-  @prop --fw-checkbox-disabled-border: Checkbox disabled border color.
-  @prop --fw-checkbox-disabled-label-color: Checkbox disabled label color.
-  @prop --fw-checkbox-description: Checkbox description color.
-  @prop --fw-checkbox-description-font-size: Checkbox description font size.
-  @prop --fw-checkbox-description-line-height: Checkbox description line height.
-  @prop --fw-checkbox-description-font-weight: Checkbox description font weight.
-  @prop --fw-checkbox-label-font-size: Checkbox label font size.
-  @prop --fw-checkbox-label-color: Checkbox label text color.
-  @prop --fw-checkbox-label-line-height : Checkbox label line height.
-  @prop --fw-checkbox-label-font-weight: Checkbox label font weight.
 */
 
 @import '../../function-components/field-control.scss';
 
-$checkbox-border: var(--fw-checkbox-border, $color-info-800);
-$checkbox-disabled-border: var(--fw-checkbox-disabled-border, $disabled-color);
-$checkbox-disabled-label-color: var(--fw-checkbox-disabled-label-color, $text-disabled);
+$checkbox-border: $color-info-800;
+$checkbox-disabled-border: $disabled-color;
+$checkbox-disabled-label-color: $text-disabled;
 
 :host {
   display: inline-block;
@@ -92,12 +81,12 @@ $checkbox-disabled-label-color: var(--fw-checkbox-disabled-label-color, $text-di
 }
 
 #description {
-  font-size: var(--fw-checkbox-description-font-size, $font-xs);
-  color: var(--fw-checkbox-description, $text-secondary);
+  font-size: $font-xs;
+  color: $text-secondary;
   letter-spacing: 0;
-  line-height: var(--fw-checkbox-description-line-height, $font-lh-xs);
+  line-height: $font-lh-xs;
   position: relative;
-  font-weight: var(--fw-checkbox-description-font-weight, $font-weight-400);
+  font-weight: $font-weight-400;
   word-wrap: break-word;
   padding-left: 22px;
 }
@@ -109,10 +98,10 @@ input[type='checkbox'] {
     user-select: none;
     margin-bottom: 0;
     vertical-align: middle;
-    font-size: var(--fw-checkbox-label-font-size, $font-sm);
-    color: var(--fw-checkbox-label-color, $text-default);
-    line-height: var(--fw-checkbox-label-line-height, $font-lh-sm);
-    font-weight: var(--fw-checkbox-label-font-weight, $font-weight-400);
+    font-size: $font-sm;
+    color: $text-default;
+    line-height: $font-lh-sm;
+    font-weight: $font-weight-400;
     cursor: inherit;
 
     .with-description {

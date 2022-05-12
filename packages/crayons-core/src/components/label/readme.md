@@ -63,7 +63,6 @@ function App() {
 
 | Name                            | Description                    |
 | ------------------------------- | ------------------------------ |
-| `--fw-label-font-weight`        | Label font weight              |
 | `--fw-label-padding-horizontal` | Left - right padding for label |
 | `--fw-label-padding-vertical`   | Top - bottom padding for label |
 
