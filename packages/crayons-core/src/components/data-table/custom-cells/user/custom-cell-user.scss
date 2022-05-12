@@ -10,9 +10,9 @@
     margin: 0 12px;
 
     .name-box-text {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
+      font-weight: $font-weight-600;
+      font-size: $font-sm;
+      line-height: $font-lh-sm;
       width: 250px;
       overflow: hidden;
       white-space: nowrap;
@@ -21,8 +21,8 @@
 
     .name-box-email {
       font-size: 12px;
-      color: #475867;
-      line-height: 18px;
+      color: $text-secondary;
+      line-height: 18px; // TODO: follow DSM
       width: 250px;
       overflow: hidden;
       white-space: nowrap;

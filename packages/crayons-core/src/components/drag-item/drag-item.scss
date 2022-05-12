@@ -4,9 +4,9 @@
 
 .drag-item {
   display: flex;
-  background: #ffffff;
-  border: 1px solid #ebeff3;
-  box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
+  background: $color-neutral-100;
+  border: 1px solid $color-secondary-50;
+  box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06); // TODO: follow DSM : fix elevation
   border-radius: 4px;
   padding: 8px 12px;
   align-items: center;

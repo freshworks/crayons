@@ -3,17 +3,17 @@
 }
 
 div.fw-data-table-container {
-  $grid-header-bg: $color-smoke-25;
-  $grid-body-bg: $color-milk;
-  $grid-row-active: $color-azure-50;
-  $grid-row-border: $color-smoke-50;
+  $grid-header-bg: $color-secondary-25;
+  $grid-body-bg: $color-neutral-100;
+  $grid-row-active: $color-info-50;
+  $grid-row-border: $color-secondary-50;
 
-  $grid-header-txt-color: $color-smoke-700;
-  $grid-row-txt-color: $color-elephant-900;
+  $grid-header-txt-color: $text-secondary;
+  $grid-row-txt-color: $text-default;
 
-  $grid-header-txt-size: $font-size-12;
-  $grid-row-txt-size: $font-size-14;
-  $grid-line-height: $font-size-20;
+  $grid-header-txt-size: $font-xs;
+  $grid-row-txt-size: $font-sm;
+  $grid-line-height: $font-lh-sm;
 
   $grid-density-sm: 4px 8px;
   $grid-density-md: 12px 8px;
@@ -50,7 +50,7 @@ div.fw-data-table-container {
             font-size: $grid-header-txt-size;
             line-height: $grid-line-height;
             padding: $grid-density-md;
-            font-weight: 600;
+            font-weight: $font-weight-600;
             letter-spacing: 0.2px;
             text-overflow: ellipsis;
             text-align: left;
@@ -242,12 +242,12 @@ div.fw-data-table-container {
       .table-settings-button {
         width: 40px;
         min-height: 44px;
-        background: $color-milk;
+        background: $color-neutral-100;
         display: flex;
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
-        border: 1px solid $color-smoke-50;
+        border: 1px solid $color-secondary-50;
         border-radius: 0px 4px 0px 0px;
         margin: 0px;
 
@@ -266,8 +266,8 @@ div.fw-data-table-container {
         z-index: 99;
         width: 500px;
         box-sizing: border-box;
-        background: $color-milk;
-        border: 1px solid $color-smoke-50;
+        background: $color-neutral-100;
+        border: 1px solid $color-secondary-50;
         border-radius: 4px;
         box-shadow: $elevation-level1;
         padding: 22px 0px 0px 0px;
@@ -282,27 +282,27 @@ div.fw-data-table-container {
           display: flex;
           width: 100%;
           box-sizing: border-box;
-          font-weight: 600;
+          font-weight: $font-weight-600;
           align-items: flex-end;
           padding: 0px 22px;
           margin-bottom: 16px;
 
           span.title {
             flex-grow: 1;
-            font-size: 16px;
-            line-height: 24px;
+            font-size: $font-base;
+            line-height: $font-lh-base;
           }
 
           button.reset {
             flex-grow: 0;
-            color: $color-azure-800;
+            color: $text-info;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: $font-weight-600;
             text-decoration: none;
             line-height: 17px;
             padding-right: 4px;
             margin: 0px;
-            background: $color-milk;
+            background: $color-neutral-100;
             border: 0px;
 
             &:focus,
@@ -370,7 +370,7 @@ div.fw-data-table-container {
             flex-direction: column;
             width: 220px;
             box-sizing: border-box;
-            background: $color-smoke-50;
+            background: $color-secondary-50;
             border-radius: 4px 4px 0px 0px;
 
             .table-settings-content-title {
@@ -387,10 +387,10 @@ div.fw-data-table-container {
 
               .table-settings-drag-item {
                 display: flex;
-                background: $color-milk;
+                background: $color-neutral-100;
                 border-radius: 4px;
-                box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
-                border: 1px solid $color-smoke-50;
+                box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06); // TODO: follow DSM
+                border: 1px solid $color-secondary-50;
                 padding: 7px 8px 7px 14px;
                 margin: 8px 0px;
                 font-size: 14px;
@@ -417,7 +417,7 @@ div.fw-data-table-container {
                 }
 
                 .table-settings-drag-item-close {
-                  background: $color-milk;
+                  background: $color-neutral-100;
                   border: 0px;
                   padding: 0px;
                   margin: 0px;
@@ -425,7 +425,7 @@ div.fw-data-table-container {
 
                 .table-settings-drag-item-text {
                   flex-grow: 1;
-                  color: $color-elephant-900;
+                  color: $text-default;
                   padding: 0px 11px;
                   box-sizing: border-box;
                   text-overflow: ellipsis;
@@ -442,10 +442,10 @@ div.fw-data-table-container {
           }
 
           .table-settings-content-title {
-            font-size: 14px;
-            line-height: 20px;
-            color: $color-smoke-700;
-            font-weight: 600;
+            font-size: $font-sm;
+            line-height: $font-lh-sm;
+            color: $text-secondary;
+            font-weight: $font-weight-600;
           }
         }
 
@@ -453,7 +453,7 @@ div.fw-data-table-container {
           display: flex;
           width: 100%;
           box-sizing: border-box;
-          background: $color-smoke-25;
+          background: $color-secondary-25;
           padding: 12px 16px;
           gap: 12px;
           justify-content: flex-end;
