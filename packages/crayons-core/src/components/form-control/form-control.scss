@@ -1,16 +1,16 @@
 .error {
-  color: $app-error;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
+  color: $text-danger;
+  font-weight: $font-weight-400;
+  font-size: $font-xs;
+  line-height: $font-lh-xs;
   padding-top: 4px;
   padding-left: 2px;
 }
 // Label Style
 label {
-  font-size: 12px;
-  color: $label-default;
-  font-weight: 600;
+  font-size: $font-xs;
+  color: $text-secondary;
+  font-weight: $font-weight-600;
   margin-bottom: 4px;
   padding-left: 2px;
   display: block;
@@ -20,17 +20,17 @@ label {
     position: relative;
     display: inline-block;
     top: 2px;
-    font-size: 14px;
-    color: $app-error;
+    font-size: $font-sm;
+    color: $text-danger;
     padding-left: 2px;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-700;
   }
 }
 .hint {
-  font-weight: 400;
-  font-size: 12px;
-  color: $color-smoke-700;
-  line-height: 20px;
+  font-weight: $font-weight-400;
+  font-size: $font-xs;
+  color: $text-secondary;
+  line-height: $font-lh-xs;
   padding-top: 4px;
   padding-left: 2px;
 }

@@ -6,8 +6,8 @@ div.file-uploader-container {
   display: flex;
   width: 100%;
   min-height: 153px;
-  border: 1px dashed var(--fw-file-uploader-border, $color-azure-100);
-  background: $color-milk;
+  border: 1px dashed var(--fw-file-uploader-border, $color-info-100);
+  background: $color-neutral-100;
   justify-content: center;
 
   .dropzone,
@@ -40,30 +40,30 @@ div.file-uploader-container {
         transform: translateY(-5px);
 
         .drop-clickable-text {
-          line-height: 20px;
-          font-size: 14px;
-          font-weight: 500;
-          color: $color-azure-800;
+          line-height: $font-lh-sm;
+          font-size: $font-sm;
+          font-weight: $font-weight-500;
+          color: $text-info;
           margin-top: 9px;
           margin-bottom: 3px;
         }
 
         .drop-clickable-hint {
-          line-height: 20px;
-          font-size: 14px;
-          color: $color-smoke-300;
+          line-height: 20px; // TODO: follow DSM
+          font-size: 10px;
+          color: $text-disabled;
         }
       }
 
       .dropzone-hint {
-        line-height: 20px;
-        font-size: 10px;
-        color: $color-elephant-700;
+        line-height: $font-lh-sm; // TODO: follow DSM
+        font-size: $font-2xs;
+        color: $color-primary-700; // TODO: follow DSM : not in text color palette
         text-align: center;
       }
 
       .dropzone-error {
-        line-height: 12px;
+        line-height: 12px; // TODO: follow DSM
         font-size: 10px;
         text-align: center;
         padding: 5px 0px;
@@ -71,7 +71,7 @@ div.file-uploader-container {
 
         span {
           display: block;
-          color: $color-persimmon-800;
+          color: $text-danger;
         }
       }
     }
@@ -89,10 +89,10 @@ div.file-uploader-container {
     }
 
     &-title {
-      line-height: 20px;
-      font-size: 12px;
-      color: $color-smoke-700;
-      font-weight: 600;
+      line-height: $font-lh-xs;
+      font-size: $font-xs;
+      color: $text-secondary;
+      font-weight: $font-weight-600;
       letter-spacing: 0.2px;
     }
   }
