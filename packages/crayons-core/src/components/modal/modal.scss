@@ -20,15 +20,11 @@
   position: relative;
   display: flex;
   max-height: 70vh;
-  background: $color-milk;
+  background: $color-neutral-100;
   box-shadow: $elevation-level2;
   border-radius: 4px;
   z-index: 999;
   animation: 'modal-entry' 0.5s 1;
-
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  white-space: normal;
 
   .modal-container {
     position: relative;
@@ -47,7 +43,7 @@
     background-color: transparent;
     background-image: none;
     border: 1px solid transparent;
-    color: $color-elephant-800;
+    color: $text-default;
     padding: 4px 6px;
     min-width: 16px;
     height: 24px;
@@ -59,9 +55,9 @@
 
     &:hover,
     &:focus {
-      background-color: $color-smoke-50;
+      background-color: $color-secondary-50;
       border-radius: 4px;
-      border-color: $color-smoke-50;
+      border-color: $color-secondary-50;
       cursor: pointer;
     }
   }
@@ -95,7 +91,7 @@
       box-sizing: border-box;
       top: 0px;
       right: 600px;
-      background-color: $color-elephant-900;
+      background-color: $color-primary-900;
       border-radius: 2px 0px 0px 2px;
       padding: 0px;
       margin: 0px;
@@ -105,16 +101,16 @@
       &:hover,
       &:focus,
       &:focus-visible {
-        background-color: $color-elephant-900;
+        background-color: $color-primary-900;
         border-radius: 2px 0px 0px 2px;
-        border-color: $color-elephant-900;
+        border-color: $color-primary-900;
         outline: 0px;
       }
 
       &:focus,
       &:focus-visible {
-        border: 1px solid $color-azure-800;
-        box-shadow: $color-azure-800 0px 0px 0px 1px;
+        border: 1px solid $color-info-800;
+        box-shadow: $color-info-800 0px 0px 0px 1px;
       }
 
       fw-icon {
