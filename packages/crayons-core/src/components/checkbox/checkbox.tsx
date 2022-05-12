@@ -101,18 +101,12 @@ export class Checkbox {
   }
 
   componentWillLoad() {
-    this.handleSlotChange();
+    this.checkSlotContent();
   }
-  handleSlotChange() {
+  checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
     this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
-  }
-  disconnectedCallback() {
-    this.host.shadowRoot.removeEventListener(
-      'slotchange',
-      this.handleSlotChange
-    );
   }
 
   /**
