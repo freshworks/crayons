@@ -20,4 +20,6 @@
   padding: var(--fw-tooltip-padding-tb, 6px) var(--fw-tooltip-padding-lr, 8px);
   max-width: 236px;
   overflow: visible;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
