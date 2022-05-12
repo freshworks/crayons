@@ -6,6 +6,8 @@
   @prop --fw-menu-border: Border of the menu content.
   @prop --fw-menu-border-radius: Border radius of the menu content.
   @prop --fw-menu-box-shadow: Box Shadow of the menu content.
+  @prop --fw-menu-padding-tb: Padding top/bottom of the menu content.
+  @prop --fw-menu-padding-lr: Padding left/right of the menu content.
 */
 
 .menu {
@@ -18,4 +20,5 @@
   border: var(--fw-menu-border, 1px solid $app-border-secondary);
   border-radius: var(--fw-menu-border-radius);
   box-shadow: var(--fw-menu-box-shadow);
+  padding: var(--fw-menu-padding-tb, 0px) var(--fw-menu-padding-lr, 0px);
 }

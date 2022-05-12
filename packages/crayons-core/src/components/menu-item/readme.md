@@ -70,12 +70,16 @@ Menu item is a component to define each row of a `fw-menu` components. It takes 
 
 ## CSS Custom Properties
 
-| Name                           | Description                                        |
-| ------------------------------ | -------------------------------------------------- |
-| `--fw-menu-item-background`    | Border of the fw-menu-item popover content.        |
-| `--fw-menu-item-border`        | Border of the fw-menu-item popover content.        |
-| `--fw-menu-item-border-radius` | Border Radius of the fw-menu-item popover content. |
-| `--fw-menu-item-box-shadow`    | Box Shadow of the fw-menu-item popover content.    |
+| Name                                 | Description                                        |
+| ------------------------------------ | -------------------------------------------------- |
+| `--fw-menu-item-background`          | Border of the fw-menu-item popover content.        |
+| `--fw-menu-item-border`              | Border of the fw-menu-item popover content.        |
+| `--fw-menu-item-border-radius`       | Border Radius of the fw-menu-item popover content. |
+| `--fw-menu-item-box-shadow`          | Box Shadow of the fw-menu-item popover content.    |
+| `--fw-menu-item-font-size`           | Font size of the fw-menu-item popover content.     |
+| `--fw-menu-item-line-height`         | Line height of the fw-menu-item popover content.   |
+| `--fw-menu-item-margin-bottom`       | Margin bottom of the fw-menu-item popover content. |
+| `--fw-menu-item-selected-background` | Background of the selected menu item.              |
 
 
 ## Dependencies

@@ -300,12 +300,14 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                 | Description                |
-| -------------------- | -------------------------- |
-| `--fw-error-color`   | Color of the error text.   |
-| `--fw-hint-color`    | Color of the hint text.    |
-| `--fw-label-color`   | Color of the label.        |
-| `--fw-warning-color` | Color of the warning text. |
+| Name                       | Description                             |
+| -------------------------- | --------------------------------------- |
+| `--fw-error-color`         | Color of the error text.                |
+| `--fw-hint-color`          | Color of the hint text.                 |
+| `--fw-input-border-radius` | The border radius of the input element. |
+| `--fw-input-height`        | The height of the input element.        |
+| `--fw-label-color`         | Color of the label.                     |
+| `--fw-warning-color`       | Color of the warning text.              |
 
 
 ## Dependencies
