@@ -8,8 +8,11 @@ $accordion-border-radius: var(--fw-accordion-border-radius, 8px);
 */
 .accordion-body {
   font-size: var(--fw-accordion-body-font-size, 14px);
-  line-height: var(--fw-accordion-body-line-height, 18px); // TODO: follow DSM
-  background-color: var(--fw-accordion-body-background-color, $color-secondary-25);
+  line-height: var(--fw-accordion-body-line-height, 18px); // TODO follow DSM
+  background-color: var(
+    --fw-accordion-body-background-color,
+    $color-secondary-25
+  );
   padding: var(--fw-accordion-body-padding, 20px);
   border-radius: 0 0 $accordion-border-radius $accordion-border-radius;
 

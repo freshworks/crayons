@@ -37,7 +37,7 @@ $accordion-title-icon-color: $color-secondary-700;
 
   .accordion-title {
     flex-grow: 1;
-    --fw-icon-color: var(
+    line-height: var(
       --fw-accordion-title-line-height,
       19px
     ); // TODO : Follow DSM
