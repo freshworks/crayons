@@ -285,6 +285,13 @@ export class RadioGroup {
     await this.updateRadios();
   };
 
+  private getAriaDescribedBy(): string {
+    if (this.state === 'normal') return `hint-${this.name}`;
+    else if (this.state === 'error') return `error-${this.name}`;
+    else if (this.state === 'warning') return `warning-${this.name}`;
+    return null;
+  }
+
   /**
    * Sets focus on a specific `fw-radio`.
    */
@@ -306,8 +313,12 @@ export class RadioGroup {
     const showErrorText = this.state === 'error' ? true : false;
     const showWarningText = this.state === 'warning' ? true : false;
 
-    const labelId = `${this.label}-${this.name}`;
-    const inputId = this.name;
+    const labelId =
+      this.label && this.name
+        ? `${this.label}-${this.name}`
+        : this.label
+        ? this.label
+        : this.name && this.name;
     const hintTextId = `hint-${this.name}`;
     const warningTextId = `warning-${this.name}`;
     const errorTextId = `error-${this.name}`;
@@ -317,10 +328,10 @@ export class RadioGroup {
     return (
       <Host
         role='radiogroup'
-        aria-label={this.label || this.name}
+        aria-labelledby={labelId}
         onFwSelect={this.onSelect}
         onFwDeselect={this.onDeselect}
-        id={this.label || this.name}
+        aria-describedby={this.getAriaDescribedBy()}
       >
         <div
           class={{
@@ -334,7 +345,6 @@ export class RadioGroup {
                 'field-control-label': true,
                 'required': this.required,
               }}
-              htmlFor={inputId}
               aria-hidden={hasLabel ? 'false' : 'true'}
             >
               {this.label}
