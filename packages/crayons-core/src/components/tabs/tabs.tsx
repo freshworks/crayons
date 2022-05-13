@@ -103,7 +103,7 @@ export class Tabs {
    */
   @Method()
   async activateTab(index?: number, name?: string) {
-    index && (this.activeTabIndex = index);
+    (index || index === 0) && (this.activeTabIndex = index);
     name && (this.activeTabName = name);
     this.setActiveTab(this.getActiveTab(), false);
   }
@@ -167,7 +167,8 @@ export class Tabs {
 
   getActiveTab() {
     return (
-      (this.activeTabIndex && this.tabs[this.activeTabIndex]) ||
+      ((this.activeTabIndex || this.activeTabIndex === 0) &&
+        this.tabs[this.activeTabIndex]) ||
       this.tabs.find((tab) => tab.id === this.activeTabName || tab.active)
     );
   }
