@@ -214,7 +214,6 @@ export class DataTable {
    * componentWillLoad lifecycle event
    */
   componentWillLoad() {
-    this.isLoading = true;
     this.columnOrdering(this.columns);
     if (localStorage && this.autoSaveSettings) {
       const tableId = this.el.id ? `-${this.el.id}` : '';
@@ -454,7 +453,6 @@ export class DataTable {
   hideShimmer() {
     if (this.showShimmer) {
       this.showShimmer = false;
-      this.isLoading = false;
     }
   }
 
@@ -1606,13 +1604,15 @@ export class DataTable {
       for (let index = 1; index <= shimmerCount; index++) {
         shimmerTemplate.push(
           <tr>
-            {[...Array(columnsLength).keys()].map(() => {
-              return (
-                <td>
-                  <fw-skeleton height='12px'></fw-skeleton>
-                </td>
-              );
-            })}
+            {Array(columnsLength)
+              .fill(1)
+              .map(() => {
+                return (
+                  <td>
+                    <fw-skeleton height='12px'></fw-skeleton>
+                  </td>
+                );
+              })}
           </tr>
         );
       }
@@ -1629,7 +1629,7 @@ export class DataTable {
         <div
           class={{
             'fw-data-table-scrollable': true,
-            'loading': this.isLoading,
+            'loading': this.isLoading || this.showShimmer,
             'shimmer': this.showShimmer,
           }}
           ref={(el) => (this.tableContainer = el)}
@@ -1645,14 +1645,16 @@ export class DataTable {
           >
             <thead>{this.renderTableHeader()}</thead>
             <tbody>
-              {this.showShimmer && this.isLoading
+              {this.showShimmer
                 ? this.renderTableShimmer()
                 : this.renderTableBody()}
             </tbody>
           </table>
         </div>
         {this.showSettings && this.renderTableSettings()}
-        {this.isLoading && <div class='fw-data-table--loading'></div>}
+        {(this.isLoading || this.showShimmer) && (
+          <div class='fw-data-table--loading'></div>
+        )}
       </div>
     );
   }
