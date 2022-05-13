@@ -269,10 +269,6 @@ export class Datepicker {
 
   disconnectedCallback() {
     document.removeEventListener('keydown', this.escapeHandler);
-    this.host.shadowRoot?.removeEventListener(
-      'slotchange',
-      this.handleSlotChange
-    );
   }
 
   private formatDate(value) {
@@ -653,7 +649,7 @@ export class Datepicker {
     if (this.placeholder) {
       this.isPlaceholderSet = true;
     }
-    this.handleSlotChange();
+    this.checkSlotContent();
     this.displayFormat =
       this.displayFormat ||
       this.langModule?.formatLong?.date({ width: 'short' });
@@ -1240,7 +1236,7 @@ export class Datepicker {
     }
   };
 
-  handleSlotChange() {
+  checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
     this.hasErrorTextSlot = hasSlot(this.host, 'error-text');

@@ -215,9 +215,9 @@ export class RadioGroup {
   }
 
   componentWillLoad() {
-    this.handleSlotChange();
+    this.checkSlotContent();
   }
-  handleSlotChange() {
+  checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
     this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
@@ -228,10 +228,6 @@ export class RadioGroup {
       this.mutationO.disconnect();
       this.mutationO = undefined;
     }
-    this.host.shadowRoot?.removeEventListener(
-      'slotchange',
-      this.handleSlotChange
-    );
   }
 
   private async updateRadios() {

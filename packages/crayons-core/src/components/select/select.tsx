@@ -492,7 +492,7 @@ export class Select {
 
   componentWillLoad() {
     this.boundary ||= this.host.parentElement;
-    this.handleSlotChange();
+    this.checkSlotContent();
     if (this.variant === 'mail') {
       this.caret = false;
       this.multiple = true;
@@ -577,10 +577,6 @@ export class Select {
 
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
-    this.host.shadowRoot?.removeEventListener(
-      'slotchange',
-      this.handleSlotChange
-    );
   }
 
   @Watch('isExpanded')
@@ -594,7 +590,7 @@ export class Select {
     }
   }
 
-  handleSlotChange() {
+  checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
     this.hasErrorTextSlot = hasSlot(this.host, 'error-text');

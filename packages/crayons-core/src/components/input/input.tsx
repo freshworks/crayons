@@ -223,7 +223,7 @@ export class Input {
   componentWillLoad() {
     this.hasPrefix =
       !!this.host.querySelector('[slot="input-prefix"]') || !!this.iconLeft;
-    this.handleSlotChange();
+    this.checkSlotContent();
   }
 
   getAriaDescribedBy(): string {
@@ -233,16 +233,10 @@ export class Input {
     return null;
   }
 
-  handleSlotChange() {
+  checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
     this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
-  }
-  disconnectedCallback() {
-    this.host.shadowRoot.removeEventListener(
-      'slotchange',
-      this.handleSlotChange
-    );
   }
 
   render() {

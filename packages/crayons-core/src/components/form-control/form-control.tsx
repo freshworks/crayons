@@ -378,7 +378,7 @@ export class FormControl {
             {this.label}
           </label>
         )}
-        <slot></slot>
+        <slot onSlotchange={() => this.handleSlotChange()}></slot>
         {this.hasSlot && !(this.touched && this.error) && (
           <div class='hint' id={`hint-${this.name}`}>
             {this.hint}
