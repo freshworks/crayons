@@ -9,8 +9,8 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
 
 ```html live
 <div id="form-container">
-  <button id="submit">Submit</button>
-  <button id="reset">Reset</button>
+  <fw-button id="submit">Submit</fw-button>
+  <fw-button id="reset">Reset</fw-button>
 </div>
 <script type="application/javascript">
   var form = document.createElement('fw-form');
@@ -297,8 +297,8 @@ fields: [ // Each item in this array corresponds to a crayons input component.
 <code-block title="HTML">
 ```html
 <div id="form-container">
-  <button id="submit">Submit</button>
-  <button id="reset">Reset</button>
+  <fw-button id="submit">Submit</fw-button>
+  <fw-button id="reset">Reset</fw-button>
 </div>
 <script type="application/javascript">
   var form = document.createElement('fw-form');
@@ -867,8 +867,8 @@ For `custom` input controls, pass the custom input as `slot` to `fw-form-control
       <input name="cin" id="cin" placeholder="custom input" autocomplete="off"
     /></fw-form-control>
   </fw-form>
-  <button id="submit-static-form">Submit</button>
-  <button id="reset-static-form">Reset</button>
+  <fw-button id="submit-static-form">Submit</fw-button>
+  <fw-button id="reset-static-form">Reset</fw-button>
 </div>
 <script type="application/javascript">
   var formStatic = document.querySelector('#fw-static-form');
@@ -950,8 +950,8 @@ For `custom` input controls, pass the custom input as `slot` to `fw-form-control
     /></fw-form-control>
     </fw-form>
 
-<button id="submit-static-form">Submit</button>
-<button id="reset-static-form">Reset</button>
+<fw-button id="submit-static-form">Submit</fw-button>
+<fw-button id="reset-static-form">Reset</fw-button>
 
 </div>
 <script type="application/javascript">
