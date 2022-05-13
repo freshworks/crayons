@@ -662,6 +662,8 @@ function App() {
 
 This codeblock shows how to use custom cell function to display HTML content in a cell.
 
+*To have custom table headers, we can use 'customHeader' property. This will take in a function with parameters same as customTemplate.*
+
 ``` js{4-6}
   var columns = [{
     "key": "bookname",

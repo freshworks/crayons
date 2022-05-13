@@ -70,6 +70,7 @@ export type DataTableColumn = {
   hasFocusableComponent?: boolean;
   formatData?: (cellValue: any) => string;
   customTemplate?: customTemplateFunc<VNode>;
+  customHeader?: customTemplateFunc<VNode>;
 };
 
 export type DataTableAction = {
