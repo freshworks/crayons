@@ -13,14 +13,14 @@
 
 $label-font: $font-stack;
 $input-bg: $color-neutral-100;
-$help-color: $muted-secondary; // TODO: follow DSM : color not in text palette
+$help-color: $text-secondary;
 $error-color: $text-danger;
 $input-color: $text-default;
 $input-disabled-bg: $color-secondary-25;
 $input-hover-color: $color-secondary-700;
 $input-focus-color: $color-info-800;
 $input-border: $color-secondary-100;
-$warning-color: $color-warning-300; // TODO: follow DSM : color not in text palette
+$warning-color: $text-warning-2;
 
 @mixin stateStyle($_color) {
   border-color: $_color;
@@ -139,7 +139,7 @@ $warning-color: $color-warning-300; // TODO: follow DSM : color not in text pale
   }
 
   &.select-disabled {
-    color: $color-smoke-50; // TODO: follow DSM : color not in text palette
+    color: $text-disabled-2;
     background-color: $input-disabled-bg !important;
     border-style: solid;
     cursor: not-allowed;

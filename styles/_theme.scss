@@ -9,6 +9,7 @@ $color-primary-600: var(--fw-color-primary-600, $color-elephant-600);
 
 // Secondary colors
 $color-secondary-700: var(--fw-color-secondary-700, $color-smoke-700);
+$color-secondary-500: var(--fw-color-secondary-500, $color-smoke-500);
 $color-secondary-400: var(--fw-color-secondary-400, $color-smoke-400);
 $color-secondary-300: var(--fw-color-secondary-300, $color-smoke-300);
 $color-secondary-200: var(--fw-color-secondary-200, $color-smoke-200);
@@ -56,11 +57,13 @@ $text-neutral: $color-neutral-100;
 $text-default: $color-primary-900;
 $text-secondary: $color-secondary-700;
 $text-disabled: $color-secondary-300;
+$text-disabled-2: $color-secondary-50;
 
 $text-success: $color-success-800;
 $text-info: $color-info-800;
 $text-danger: $color-danger-800;
 $text-warning: $color-warning-700;
+$text-warning-2: $color-warning-300;
 
 $text-link: $color-info-800;
 //=== Text colors ===//

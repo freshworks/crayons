@@ -16,7 +16,7 @@ $input-disabled-bg: $color-secondary-25;
 $input-hover-color: $color-secondary-700;
 $input-focus-color: $color-info-800;
 $input-border: $color-secondary-100;
-$warning-color: $color-warning-300; // TODO: folow DSM : color not in text palette
+$warning-color: $text-warning-2;
 
 @mixin stateStyle($_color) {
   & > textarea {
