@@ -1,7 +1,7 @@
 $error-color: $color-danger-800;
-$input-color: $app-primary-black; // TODO: follow DSM
+$input-color: $text-default;
 $label-font: $font-stack-sans !default;
-$help-color: $muted-secondary; // TODO: follow DSM
+$help-color: $text-secondary;
 
 .field-control {
   position: relative;
@@ -38,7 +38,7 @@ $help-color: $muted-secondary; // TODO: follow DSM
   line-height: $font-lh-xs;
   margin-top: 4px;
   margin-bottom: 0;
-  color: var(--fw-hint-color, $help-color); // TODO: follow DSM
+  color: var(--fw-hint-color, $help-color);
   position: inherit;
   display: block;
   padding-left: 2px;

@@ -321,7 +321,7 @@
 
 .c-day-container.highlight-blue:not(.disabled) .cdc-day span {
   background: $color-info-800;
-  color: $color-smoke-25; // TODO: follow DSM : does not fall in text categories
+  color: $text-neutral;
 }
 
 .c-day-container.start-day {
@@ -345,5 +345,5 @@
 }
 
 .c-day-container.highlight-range:not(.disabled) .cdc-day {
-  background: #e4f2fd; // TODO: follow DSM : does not fall in color categories
+  background: $color-info-50;
 }

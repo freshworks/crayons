@@ -10,16 +10,15 @@
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack-sans !default;
-$placeholder-color: $muted-secondary; // TODO: follow DSM : color not in palette
-$help-color: $muted-secondary; // TODO: follow DSM : color not in palette
+$help-color: $text-secondary;
 $disabled-color: $text-disabled;
-$warning-color: $color-warning-300; // TODO: follow DSM : color not available in text palette
+$warning-color: $text-warning-2;
 $error-color: $text-danger;
 $input-border: $color-secondary-100;
 $input-hover-color: $color-secondary-700;
 $input-focus-color: $color-info-800;
 $input-bg: $color-neutral-100;
-$input-color: $app-primary-black; // TODO: follow DSM : not available in palette
+$input-color: $text-default;
 
 *,
 ::after,
@@ -200,17 +199,17 @@ $input-color: $app-primary-black; // TODO: follow DSM : not available in palette
 }
 
 ::-webkit-input-placeholder {
-  color: $muted-secondary;
+  color: $color-secondary-300;
 }
 
 ::-moz-placeholder {
-  color: $muted-secondary;
+  color: $color-secondary-300;
 }
 
 :-ms-input-placeholder {
-  color: $muted-secondary;
+  color: $color-secondary-300;
 }
 
 :-moz-placeholder {
-  color: $muted-secondary;
+  color: $color-secondary-300;
 }
