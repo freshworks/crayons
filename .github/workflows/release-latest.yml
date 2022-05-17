@@ -1,17 +1,17 @@
-name: release-next
+name: release-latest
 
 on:
   workflow_dispatch:
     inputs:
       password:
-        description: password to run workflow
+        description: password to run workflow for latest release
         required: true
         type: string
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{github.event.inputs.password}}  == ${{secrets.NEXT_RELEASE_PASSWORD}}
+    if: ${{github.event.inputs.password}}  == ${{secrets.LATEST_RELEASE_PASSWORD}}
     steps:
       - uses: actions/checkout@v2
 
@@ -33,8 +33,8 @@ jobs:
         run: git fetch --all
 
       # Pull the latest from the branch
-      - name: Git checkout latest from next
-        run: git pull origin next
+      - name: Git checkout latest from master
+        run: git pull origin master
 
       # Installs the dependencies
       - name: Install Dependencies
@@ -56,10 +56,10 @@ jobs:
       - name: Set Git Config
         run: git config --global user.email "runway-frontend-coe@freshworks.com" && git config --global user.name "runway-frontend-coe"
 
-      # Create Git Tag Next
-      - name: Git tag next
-        if: github.ref == 'refs/heads/next'
-        run: npm run update-next:ci
+      # Create Git Tag latest
+      - name: Git tag latest
+        if: github.ref == 'refs/heads/master'
+        run: npm run update-latest:ci
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           CROWDIN_PROJECT_ID: ${{secrets.CROWDIN_PROJECT_ID}}
@@ -71,7 +71,7 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Publish Next to npm registry
-      - name: Release Next
-        if: github.ref == 'refs/heads/next'
-        run: npm run release-next:ci
+      # Publish Latest to npm registry
+      - name: Release Latest
+        if: github.ref == 'refs/heads/master'
+        run: npm run release-latest:ci
