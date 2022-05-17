@@ -180,12 +180,11 @@ export class Timepicker {
 
   private setTimeValue(e: any) {
     const { value } = e.detail;
-    this.value = value;
-    if (this.value)
+    if (value)
       this.fwChange.emit({
         event: e,
         name: this.name,
-        value: this.value,
+        value: value,
       });
   }
 
@@ -263,6 +262,7 @@ export class Timepicker {
           ref={(el) => (this.nativeInput = el)}
           state={this.state}
           placeholder={this.placeholder}
+          search={false}
         >
           {this.timeValues.map((time) => (
             <fw-select-option value={this.currentTimeValue(time)}>

@@ -1,14 +1,14 @@
 # Timepicker (fw-timepicker)
-fw-timepicker displays a list or drop-down box with prepopulated time values and enables picking a time. The time values displayed in the list box are based on the fw-timepicker attribute values.
 
+fw-timepicker displays a list or drop-down box with prepopulated time values and enables picking a time. The time values displayed in the list box are based on the fw-timepicker attribute values.
 
 ## Demo
 
 ```html live
-<fw-label value="An interval based picker" color="yellow"></fw-label><br/> 
-<fw-timepicker interval=45 hour-format="hh:mm p"></fw-timepicker>
-<fw-label value="A range based picker" color="yellow"></fw-label><br/>
-<fw-timepicker min-time="04:30" max-time="08:30 PM"></fw-timepicker>
+<fw-label value="An interval based picker" color="yellow"></fw-label><br />
+<fw-timepicker interval="45" format="hh:mm p"></fw-timepicker>
+<fw-label value="A range based picker" color="yellow"></fw-label><br />
+<fw-timepicker min-time="04:30 PM" max-time="08:30 PM"></fw-timepicker>
 ```
 
 ## Usage
@@ -17,9 +17,9 @@ fw-timepicker displays a list or drop-down box with prepopulated time values and
 <code-block title="HTML">
 ```html 
 <fw-label value="An interval based picker" color="yellow"></fw-label><br/> 
-<fw-timepicker interval=45 hour-format="hh:mm p"></fw-timepicker>
+<fw-timepicker interval=45 format="hh:mm p"></fw-timepicker>
 <fw-label value="A range based picker" color="yellow"></fw-label><br/>
-<fw-timepicker min-time="04:30" max-time="08:30 PM"></fw-timepicker>
+<fw-timepicker min-time="04:30 PM" max-time="08:30 PM"></fw-timepicker>
 ```
 </code-block>
 
@@ -31,18 +31,16 @@ import { FwTimepicker } from "@freshworks/crayons/react";
 function App() {
   return (<div>
           <label>An interval based picker</label><br/> 
-          <FwTimepicker interval={45} hourFormat="hh:mm p"></FwTimepicker>
+          <FwTimepicker interval={45} format="hh:mm p"></FwTimepicker>
           <label>A range based picker</label><br/>
-          <FwTimepicker minTime="04:30" maxTime="08:30 PM"></FwTimepicker>
+          <FwTimepicker minTime="04:30 PM" maxTime="08:30 PM"></FwTimepicker>
     </div>);
 }
 ```
 </code-block>
 </code-group>
 
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -63,7 +61,6 @@ function App() {
 | `value`       | `value`        | Time output value                                                                                                                                                                              | `string`                           | `undefined`                                    |
 | `warningText` | `warning-text` | Warning text displayed below the text box.                                                                                                                                                     | `string`                           | `''`                                           |
 
-
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -71,7 +68,6 @@ function App() {
 | `fwBlur`   | Triggered when the list box loses focus.                                    | `CustomEvent<any>` |
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
-
 
 ## Methods
 
@@ -83,9 +79,6 @@ Sets focus on a specific `fw-timepicker`.
 
 Type: `Promise<void>`
 
-
-
-
 ## CSS Custom Properties
 
 | Name                 | Description                |
@@ -94,12 +87,11 @@ Type: `Promise<void>`
 | `--fw-hint-color`    | Color of the hint text.    |
 | `--fw-warning-color` | Color of the warning text. |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-form-control](../form-control)
+- [fw-form-control](../form-control)
 
 ### Depends on
 
@@ -107,6 +99,7 @@ Type: `Promise<void>`
 - [fw-select-option](../select-option)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-timepicker --> fw-select
@@ -135,6 +128,6 @@ graph TD;
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
