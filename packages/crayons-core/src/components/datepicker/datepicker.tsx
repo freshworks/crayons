@@ -835,14 +835,18 @@ export class Datepicker {
         return -1;
       }
 
-      const minDate = new Date(this.minDate);
-      const maxDate = new Date(this.maxDate);
+      const minDate = parseISO(this.minDate);
+      const maxDate = parseISO(this.maxDate);
+      if (!isValid(minDate) || !isValid(maxDate)) {
+        // Invalid minDate or maxDate provided.
+        return;
+      }
       const argDate = new Date(args.year, args.month, date + 1);
 
-      const isValid =
+      const isValidDate =
         minDate.valueOf() <= argDate.valueOf() &&
         argDate.valueOf() <= maxDate.valueOf();
-      return !isValid ? -1 : date >= args.numberOfDays ? 1 : 0;
+      return !isValidDate ? -1 : date >= args.numberOfDays ? 1 : 0;
     }
     return date < 0 ? -1 : date >= args.numberOfDays ? 1 : 0;
   }
