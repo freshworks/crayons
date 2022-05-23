@@ -18,7 +18,7 @@ $btn-primary-border-active: $color-primary-800;
 
 $btn-primary-disabled-bg: $color-secondary-300;
 $btn-primary-disabled-bg-dark: $color-secondary-400;
-$btn-primary-disabled-color: rgba($btn-primary-color, 0.5);
+$btn-primary-disabled-color: rgba(255, 255, 255, 0.5);
 
 $btn-secondary-color: $color-primary-900;
 $btn-secondary-bg: $color-neutral-100;
@@ -35,7 +35,7 @@ $btn-danger-bg-dark: $color-danger-900;
 $btn-danger-border: $color-danger-900;
 $btn-danger-disabled-bg: $color-danger-200;
 $btn-danger-disabled-bg-dark: $color-danger-300;
-$btn-danger-disabled-color: rgba($btn-primary-color, 0.5);
+$btn-danger-disabled-color: rgba(255, 255, 255, 0.5);
 
 $btn-link-color: $color-info-800;
 $btn-link-bg: $color-secondary-50;
