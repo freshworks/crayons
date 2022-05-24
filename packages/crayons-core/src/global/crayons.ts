@@ -60,3 +60,23 @@ export {
 
 export const CRAYONS_ICONS_ASSET_PATH =
   'https://cdn.jsdelivr.net/npm/@freshworks/crayons-icon@next/dist/icons';
+
+export function convertTokenToString(tokens: any): string {
+  let cssString = '';
+  for (const [, value] of Object.entries(tokens)) {
+    if ('var' in (value as any)) {
+      cssString = cssString + `${value['var']} : ${value['value']};`;
+    } else {
+      cssString = cssString + convertTokenToString(value);
+    }
+  }
+  return cssString;
+}
+export function setTheme(tokens: Record<string, unknown>): void {
+  const cssString = convertTokenToString(tokens.base);
+  const sheet = new CSSStyleSheet();
+  (sheet as any).replaceSync(`:root {${cssString}}`);
+
+  // Apply the stylesheet to a document:
+  (document as any).adoptedStyleSheets = [sheet];
+}

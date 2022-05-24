@@ -13,7 +13,10 @@ import { throttle, hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-button',
-  styleUrl: 'button.scss',
+  styleUrls: {
+    default: 'button.crayons.scss',
+    freshsales: 'button.freshsales.scss',
+  },
   shadow: true,
 })
 export class Button {
