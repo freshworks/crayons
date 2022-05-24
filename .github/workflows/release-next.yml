@@ -7,11 +7,13 @@ on:
         description: password to run workflow
         required: true
         type: string
+env:
+  WORKFLOW_KEY: ${{ secrets.NEXT_RELEASE_PASSWORD }}
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{github.event.inputs.password}}  == ${{secrets.NEXT_RELEASE_PASSWORD}}
+    if: ${{ github.event.inputs.password }}  == ${{env.WORKFLOW_KEY}}
     steps:
       - uses: actions/checkout@v2
 
