@@ -3,6 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const base= "$base.";
+
 async function readFiles(rootPath) {
     const files = await fs.promises.readdir(rootPath);
     for (const file of files) {
@@ -32,7 +34,7 @@ function convertTokenToString(tokens) {
     let cssString = '';
     for (const [key, value] of Object.entries(tokens)) {
         if ('var' in value) {
-            cssString = cssString + `${value['var']} : ${value['value']};`;
+            cssString = cssString + `${value['var']} : ${getValue(value['value'])};`;
         }
         else {
             cssString = cssString + convertTokenToString(value);
@@ -48,6 +50,14 @@ function writeCssFile(outPath, content) {
         }
         console.log(`created the css file ${outPath}`);
     });
+}
+
+function getValue(value){
+    if(value.startsWith(base)){
+        let baseValue = value.replace(base, "").split('.').reduce((p,c) => {return p + "-" + c},"--fw");
+        return `var(${baseValue})`
+    }
+    return value;
 }
 
 readFiles("./design-tokens");
