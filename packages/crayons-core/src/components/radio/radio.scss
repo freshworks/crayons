@@ -160,13 +160,13 @@ input[type='radio'] {
       }
 
       &::before {
-        border-color: $color-secondary-300;
+        border-color: $color-secondary-100;
         background-color: $color-secondary-50;
       }
 
       &::after {
         border-color: $color-secondary-50;
-        background-color: $color-secondary-300;
+        background-color: $color-secondary-100;
       }
     }
 

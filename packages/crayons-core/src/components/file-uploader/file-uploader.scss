@@ -49,8 +49,8 @@ div.file-uploader-container {
         }
 
         .drop-clickable-hint {
-          line-height: 20px; // TODO: follow DSM
-          font-size: 10px;
+          line-height: $font-lh-sm;
+          font-size: $font-sm;
           color: $text-disabled;
         }
       }
