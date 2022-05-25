@@ -84,7 +84,7 @@
   position: relative;
   font-weight: 400;
   word-wrap: break-word;
-  padding-left: 22px;
+  padding-inline-start: 22px;
 }
 
 input[type='checkbox'] {
@@ -105,7 +105,7 @@ input[type='checkbox'] {
     }
 
     #label {
-      padding-left: 22px;
+      padding-inline-start: 22px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
 
@@ -116,7 +116,7 @@ input[type='checkbox'] {
         top: 2px;
         font-size: 14px;
         color: $app-error;
-        padding-left: 2px;
+        padding-inline-start: 2px;
         font-weight: $font-weight-bold;
       }
     }

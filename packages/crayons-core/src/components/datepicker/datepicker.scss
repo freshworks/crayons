@@ -74,7 +74,7 @@
       position: absolute;
       top: 0;
       right: 251px;
-      border-right: 1px solid #ebeff3;
+      border-inline-end: 1px solid #ebeff3;
       height: 100%;
     }
   }
@@ -126,7 +126,7 @@
   display: block;
   width: 6px;
   height: 6px;
-  border-left: 2px solid $app-primary-black;
+  border-inline-start: 2px solid $app-primary-black;
   border-bottom: 2px solid $app-primary-black;
   position: absolute;
 }
@@ -138,14 +138,14 @@
   transform: rotate(45deg);
   left: 50%;
   top: 50%;
-  margin-left: -2px;
+  margin-inline-start: -2px;
   margin-top: -4px;
 }
 
 .mdpchbi-right-arrow,
 .mdpchbi-right-arrows {
   transform: rotate(225deg);
-  margin-left: -4px;
+  margin-inline-start: -4px;
 }
 
 .mdpchbi-left-arrows::after,
@@ -156,11 +156,11 @@
 }
 
 .mdpchbi-left-arrows {
-  margin-left: -5px;
+  margin-inline-start: -5px;
 }
 
 .mdpchbi-right-arrows {
-  margin-left: -2px;
+  margin-inline-start: -2px;
 }
 
 .mdpch-container,
@@ -169,7 +169,7 @@
 }
 
 .mdpch-container-right {
-  padding-left: 16px;
+  padding-inline-start: 16px;
 }
 
 .mdpchc-year {
@@ -266,7 +266,7 @@
   height: 22px;
   font-size: 14px;
   margin-top: -11px;
-  margin-left: -13px;
+  margin-inline-start: -13px;
   left: 50%;
   top: 50%;
   font-weight: 400;
@@ -289,8 +289,8 @@
   margin: 4px 0px;
 
   .separator {
-    border-left-width: 1px;
-    border-left-style: solid;
+    border-inline-start-width: 1px;
+    border-inline-start-style: solid;
     height: 20px;
     margin: 0px 4px;
   }
@@ -326,7 +326,7 @@
 
 .c-day-container.start-day {
   .cdc-day {
-    margin-left: 10px;
+    margin-inline-start: 10px;
 
     span {
       transform: translateX(-10px);
@@ -336,7 +336,7 @@
 
 .c-day-container.end-day {
   .cdc-day {
-    margin-left: -10px;
+    margin-inline-start: -10px;
 
     span {
       transform: translateX(10px);

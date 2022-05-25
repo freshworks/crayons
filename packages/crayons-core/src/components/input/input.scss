@@ -82,7 +82,7 @@ $warning-color: $color-casablanca-300;
       flex: 1 1 40%;
       display: flex;
       align-items: center;
-      margin-left: 8px;
+      margin-inline-start: 8px;
 
       input {
         width: 100%;
@@ -115,10 +115,10 @@ $warning-color: $color-casablanca-300;
       display: flex;
       align-items: center;
       flex: 0 1 auto;
-      margin-left: 4px;
+      margin-inline-start: 4px;
 
       &.hasContent {
-        margin-left: 8px;
+        margin-inline-start: 8px;
       }
     }
   }
@@ -127,7 +127,7 @@ $warning-color: $color-casablanca-300;
     flex: 0 1 auto;
     display: flex;
     align-items: center;
-    margin-right: 8px;
+    margin-inline-end: 8px;
   }
 
   @media (prefers-reduced-motion) {
@@ -190,7 +190,7 @@ $warning-color: $color-casablanca-300;
     color: var(--fw-hint-color, $help-color);
     position: inherit;
     display: block;
-    padding-left: 2px;
+    padding-inline-start: 2px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

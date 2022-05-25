@@ -64,12 +64,12 @@ div.fw-data-table-container {
             white-space: normal;
 
             &:first-of-type {
-              padding-left: 16px;
+              padding-inline-start: 16px;
               border-radius: 4px 0px 0px 0px;
             }
 
             &:last-of-type {
-              padding-right: 16px;
+              padding-inline-end: 16px;
               border-radius: 0px 4px 0px 0px;
             }
 
@@ -144,11 +144,11 @@ div.fw-data-table-container {
             }
 
             &:first-child {
-              padding-left: 16px;
+              padding-inline-start: 16px;
             }
 
             &:last-child {
-              padding-right: 16px;
+              padding-inline-end: 16px;
             }
           }
 
@@ -158,11 +158,11 @@ div.fw-data-table-container {
             white-space: nowrap;
 
             & fw-button {
-              margin-right: 5px;
+              margin-inline-end: 5px;
             }
 
             & fw-tooltip:last-child fw-button {
-              margin-right: 0px;
+              margin-inline-end: 0px;
             }
           }
 
@@ -300,7 +300,7 @@ div.fw-data-table-container {
             font-weight: 600;
             text-decoration: none;
             line-height: 17px;
-            padding-right: 4px;
+            padding-inline-end: 4px;
             margin: 0px;
             background: $color-milk;
             border: 0px;
@@ -329,7 +329,7 @@ div.fw-data-table-container {
             .table-settings-content-title {
               box-sizing: border-box;
               padding-bottom: 5px;
-              padding-left: 5px;
+              padding-inline-start: 5px;
             }
 
             .table-settings-content-search {
@@ -350,8 +350,8 @@ div.fw-data-table-container {
                 display: flex;
                 flex-direction: column;
                 overflow-y: auto;
-                padding-left: 5px;
-                padding-right: 5px;
+                padding-inline-start: 5px;
+                padding-inline-end: 5px;
 
                 div {
                   margin: 5px 0px;

@@ -39,7 +39,7 @@ $warning-color: $color-casablanca-300;
 //   margin-bottom: 0;
 //   line-height: 20px;
 //   padding-bottom: 4px;
-//   padding-left: 2px;
+//   padding-inline-start: 2px;
 //   display: block;
 
 //   &.required::after {
@@ -49,7 +49,7 @@ $warning-color: $color-casablanca-300;
 //     top: 2px;
 //     font-size: $font-size-14;
 //     color: $error-color;
-//     padding-left: 2px;
+//     padding-inline-start: 2px;
 //   }
 // }
 
@@ -57,7 +57,7 @@ $warning-color: $color-casablanca-300;
   width: calc(100% - 10px);
   border: var(--fw-select-border, 1px solid $input-border);
   border-radius: var(--fw-select-border-radius, 4px);
-  padding-left: 10px;
+  padding-inline-start: 10px;
   background-color: $input-bg;
   box-shadow: none;
   min-height: 22px;
@@ -110,7 +110,7 @@ $warning-color: $color-casablanca-300;
   }
 
   fw-spinner {
-    margin-right: 8px;
+    margin-inline-end: 8px;
   }
 
   @media (prefers-reduced-motion) {
@@ -179,7 +179,7 @@ $warning-color: $color-casablanca-300;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 8px;
+    margin-inline-end: 8px;
     min-width: 20px;
     min-height: 20px;
     transition: all 0.15s;
@@ -195,7 +195,7 @@ $warning-color: $color-casablanca-300;
     position: inherit;
     margin-bottom: 0;
     display: block;
-    padding-left: 2px;
+    padding-inline-start: 2px;
   }
 
   .dropdown-status-icon.expanded {

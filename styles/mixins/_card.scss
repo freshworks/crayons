@@ -1,9 +1,9 @@
 @import '../variables/colors';
 
 $card-padding-top: 12px;
-$card-padding-right: 16px;
+$card-padding-inline-end: 16px;
 $card-padding-bottom: 12px;
-$card-padding-left: 16px;
+$card-padding-inline-start: 16px;
 
 @mixin shadow($level: 1) {
   @if $level == 0 {
@@ -21,8 +21,8 @@ $card-padding-left: 16px;
 
 @mixin card($level: 1, $corner: 8px) {
   background: $color-milk;
-  padding: $card-padding-top $card-padding-right $card-padding-bottom
-    $card-padding-left;
+  padding: $card-padding-top $card-padding-inline-end $card-padding-bottom
+    $card-padding-inline-start;
   border: 1px solid $color-smoke-50;
   border-radius: $corner;
   @include shadow($level);

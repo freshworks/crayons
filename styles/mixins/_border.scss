@@ -1,13 +1,13 @@
 @mixin border($top, $right, $bottom, $left) {
   border-top-width: $top;
-  border-right-width: $right;
+  border-inline-end-width: $right;
   border-bottom-width: $bottom;
-  border-left-width: $left;
+  border-inline-start-width: $left;
 }
 
 @mixin border-radius($topRight, $bottomRight, $bottomLeft, $topLeft) {
-  border-bottom-right-radius: $bottomRight;
-  border-top-right-radius: $topRight;
-  border-bottom-left-radius: $bottomLeft;
-  border-top-left-radius: $topLeft;
+  border-end-end-radius: $bottomRight;
+  border-start-end-radius: $topRight;
+  border-end-start-radius: $bottomLeft;
+  border-start-start-radius: $topLeft;
 }

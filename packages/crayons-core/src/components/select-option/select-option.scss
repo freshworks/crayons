@@ -23,7 +23,7 @@ $bg-color-disabled: $color-smoke-25;
   word-wrap: break-word;
   position: relative;
   margin-bottom: 4px;
-  padding-right: 8px;
+  padding-inline-end: 8px;
 
   &.single-line {
     padding-top: 6px;
@@ -36,15 +36,15 @@ $bg-color-disabled: $color-smoke-25;
   }
 
   &.standard {
-    padding-left: 0px;
+    padding-inline-start: 0px;
   }
 
   &.icon {
-    padding-left: 10px;
+    padding-inline-start: 10px;
   }
 
   &.avatar {
-    padding-left: 4px;
+    padding-inline-start: 4px;
   }
 
   &.selected {
@@ -85,18 +85,18 @@ $bg-color-disabled: $color-smoke-25;
     }
 
     &.icon-margin {
-      margin-left: 18px;
+      margin-inline-start: 18px;
     }
 
     &.standard-margin {
-      margin-left: 12px;
+      margin-inline-start: 12px;
     }
   }
 
   .selected-icon {
     min-width: 24px;
     min-height: 24px;
-    margin-left: auto;
+    margin-inline-start: auto;
     display: flex;
     justify-content: center;
     align-items: center;
