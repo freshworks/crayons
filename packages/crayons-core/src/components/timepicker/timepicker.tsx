@@ -12,7 +12,7 @@ import { parse, format, addMinutes } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 
 import { renderHiddenField, hasSlot } from '../../utils';
-import FieldControl from '../../function-components/field-control';
+import { PopoverPlacementType } from '../../utils/types';
 
 @Component({
   tag: 'fw-timepicker',
@@ -99,6 +99,14 @@ export class Timepicker {
    * Text displayed in the select before an option is selected.
    */
   @Prop() placeholder?: string | null;
+  /**
+   * Placement of the options list with respect to timepicker.
+   */
+  @Prop({ reflect: true }) optionsPlacement: PopoverPlacementType = 'bottom';
+  /**
+   * Whether the arrow/caret should be shown in the timepicker.
+   */
+  @Prop() caret = true;
 
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -236,41 +244,30 @@ export class Timepicker {
     renderHiddenField(host, name, value);
 
     return (
-      <FieldControl
-        inputId={this.name}
+      <fw-select
+        name={this.name}
         label={this.label}
-        labelId={`${this.label}-${this.name}`}
-        state={this.state}
-        hintTextId={`hint-${this.name}`}
         hintText={this.hintText}
-        hasHintTextSlot={this.hasHintTextSlot}
-        errorTextId={`error-${this.name}`}
         errorText={this.errorText}
-        hasErrorTextSlot={this.hasErrorTextSlot}
-        warningTextId={`warning-${this.name}`}
         warningText={this.warningText}
-        hasWarningTextSlot={this.hasWarningTextSlot}
+        disabled={this.disabled}
+        value={this.value}
         required={this.required}
+        onFwChange={(e) => this.setTimeValue(e)}
+        onFwBlur={this.onBlur}
+        ref={(el) => (this.nativeInput = el)}
+        state={this.state}
+        placeholder={this.placeholder}
+        search={false}
+        optionsPlacement={this.optionsPlacement}
+        caret={this.caret}
       >
-        <fw-select
-          name={this.name}
-          disabled={this.disabled}
-          value={this.value}
-          required={this.required}
-          onFwChange={(e) => this.setTimeValue(e)}
-          onFwBlur={this.onBlur}
-          ref={(el) => (this.nativeInput = el)}
-          state={this.state}
-          placeholder={this.placeholder}
-          search={false}
-        >
-          {this.timeValues.map((time) => (
-            <fw-select-option value={this.currentTimeValue(time)}>
-              {this.currentTimeLabel(time)}
-            </fw-select-option>
-          ))}
-        </fw-select>
-      </FieldControl>
+        {this.timeValues.map((time) => (
+          <fw-select-option value={this.currentTimeValue(time)}>
+            {this.currentTimeLabel(time)}
+          </fw-select-option>
+        ))}
+      </fw-select>
     );
   }
 }
