@@ -1623,6 +1623,10 @@ export namespace Components {
     }
     interface FwTimepicker {
         /**
+          * Whether the arrow/caret should be shown in the timepicker.
+         */
+        "caret": boolean;
+        /**
           * Set true to disable the element
          */
         "disabled": boolean;
@@ -1658,6 +1662,10 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Placement of the options list with respect to timepicker.
+         */
+        "optionsPlacement": PopoverPlacementType;
         /**
           * Text displayed in the select before an option is selected.
          */
@@ -3933,6 +3941,10 @@ declare namespace LocalJSX {
     }
     interface FwTimepicker {
         /**
+          * Whether the arrow/caret should be shown in the timepicker.
+         */
+        "caret"?: boolean;
+        /**
           * Set true to disable the element
          */
         "disabled"?: boolean;
@@ -3980,6 +3992,10 @@ declare namespace LocalJSX {
           * Triggered when the list box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Placement of the options list with respect to timepicker.
+         */
+        "optionsPlacement"?: PopoverPlacementType;
         /**
           * Text displayed in the select before an option is selected.
          */

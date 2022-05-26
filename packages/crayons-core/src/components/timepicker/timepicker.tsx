@@ -11,8 +11,8 @@ import {
 import { parse, format, addMinutes } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 
-import { renderHiddenField, hasSlot } from '../../utils';
-import FieldControl from '../../function-components/field-control';
+import { renderHiddenField } from '../../utils';
+import { PopoverPlacementType } from '../../utils/types';
 
 @Component({
   tag: 'fw-timepicker',
@@ -26,9 +26,6 @@ export class Timepicker {
    * State for all the time values
    */
   @State() timeValues: any[] = [];
-  @State() hasHintTextSlot = false;
-  @State() hasWarningTextSlot = false;
-  @State() hasErrorTextSlot = false;
 
   /**
    * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
@@ -99,6 +96,14 @@ export class Timepicker {
    * Text displayed in the select before an option is selected.
    */
   @Prop() placeholder?: string | null;
+  /**
+   * Placement of the options list with respect to timepicker.
+   */
+  @Prop({ reflect: true }) optionsPlacement: PopoverPlacementType = 'bottom';
+  /**
+   * Whether the arrow/caret should be shown in the timepicker.
+   */
+  @Prop() caret = true;
 
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -220,14 +225,6 @@ export class Timepicker {
       this.setEndTime();
     }
     this.setTimeValues();
-
-    this.checkSlotContent();
-  }
-
-  checkSlotContent() {
-    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
-    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
-    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
   }
 
   render() {
@@ -236,24 +233,13 @@ export class Timepicker {
     renderHiddenField(host, name, value);
 
     return (
-      <FieldControl
-        inputId={this.name}
-        label={this.label}
-        labelId={`${this.label}-${this.name}`}
-        state={this.state}
-        hintTextId={`hint-${this.name}`}
-        hintText={this.hintText}
-        hasHintTextSlot={this.hasHintTextSlot}
-        errorTextId={`error-${this.name}`}
-        errorText={this.errorText}
-        hasErrorTextSlot={this.hasErrorTextSlot}
-        warningTextId={`warning-${this.name}`}
-        warningText={this.warningText}
-        hasWarningTextSlot={this.hasWarningTextSlot}
-        required={this.required}
-      >
+      <div class='timepicker'>
         <fw-select
           name={this.name}
+          label={this.label}
+          hintText={this.hintText}
+          errorText={this.errorText}
+          warningText={this.warningText}
           disabled={this.disabled}
           value={this.value}
           required={this.required}
@@ -263,6 +249,8 @@ export class Timepicker {
           state={this.state}
           placeholder={this.placeholder}
           search={false}
+          optionsPlacement={this.optionsPlacement}
+          caret={this.caret}
         >
           {this.timeValues.map((time) => (
             <fw-select-option value={this.currentTimeValue(time)}>
@@ -270,7 +258,7 @@ export class Timepicker {
             </fw-select-option>
           ))}
         </fw-select>
-      </FieldControl>
+      </div>
     );
   }
 }
