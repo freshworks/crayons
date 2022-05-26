@@ -84,7 +84,7 @@
   position: relative;
   font-weight: 400;
   word-wrap: break-word;
-  padding-left: 22px;
+  padding-inline-start: 22px;
 }
 
 input[type='checkbox'] {
@@ -92,7 +92,7 @@ input[type='checkbox'] {
 
   & + label {
     user-select: none;
-    margin-bottom: 0;
+    margin-block-end: 0;
     vertical-align: middle;
     font-size: 14px;
     color: #12344d;
@@ -105,7 +105,7 @@ input[type='checkbox'] {
     }
 
     #label {
-      padding-left: 22px;
+      padding-inline-start: 22px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
 
@@ -113,10 +113,10 @@ input[type='checkbox'] {
         content: '*';
         position: relative;
         display: inline-block;
-        top: 2px;
+        inset-block-start: 2px;
         font-size: 14px;
         color: $app-error;
-        padding-left: 2px;
+        padding-inline-start: 2px;
         font-weight: $font-weight-bold;
       }
     }
@@ -129,8 +129,8 @@ input[type='checkbox'] {
 
     &::before {
       position: absolute;
-      left: 0;
-      top: 3px;
+      inset-inline-start: 0;
+      inset-block-start: 3px;
       display: block;
       content: '';
       border: $checkbox-border-width solid $color-smoke-700;
@@ -150,8 +150,8 @@ input[type='checkbox'] {
       }
       &::before {
         position: absolute;
-        left: 0;
-        top: 3px;
+        inset-inline-start: 0;
+        inset-block-start: 3px;
         display: block;
         content: '';
         border: $checkbox-border-width solid $app-error;
@@ -174,8 +174,8 @@ input[type='checkbox'] {
       position: absolute;
       display: block;
       content: '';
-      left: 3px;
-      top: -1px;
+      inset-inline-start: 3px;
+      inset-block-start: -1px;
       width: 8px;
       height: 8px;
       opacity: 0;
