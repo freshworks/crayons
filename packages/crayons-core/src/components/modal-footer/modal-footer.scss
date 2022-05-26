@@ -3,7 +3,13 @@
   box-sizing: border-box;
   height: 56px;
   background-color: #f3f5f7;
-  border-radius: 0 0 4px 4px;
+  /*rtl: border-radius: 0 0 4px 4px;*/
+
+  border-start-start-radius: 0px;
+  border-start-end-radius: 0px;
+  border-end-end-radius: 4px;
+  border-end-start-radius: 4px; /*rtl:split the above border into its components for rtl*/
+
   display: flex;
   align-items: center;
   justify-content: flex-end;

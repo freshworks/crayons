@@ -36,7 +36,7 @@
       line-height: 20px;
       color: $color-smoke-300;
       width: 50px;
-      text-align: right;
+      text-align: end; /*rtl:changed to end from right*/
 
       fw-icon {
         cursor: pointer;

@@ -16,7 +16,7 @@
   position: relative;
   top: 10px;
   width: 400px;
-  padding: 0px 0px 16px 0px;
+  padding: 0px 0px 16px 0px; /*rtl:Left and right padding are the same. So no change*/
   border: 1px solid $color-smoke-50;
   border-radius: 4px;
   background-color: $color-milk;
@@ -62,11 +62,11 @@
   }
 
   .icon {
-    margin: 5px 16px 0px 16px;
+    margin: 5px 16px 0px 16px; /*rtl: left and right vals are the same. So no change needed  */
   }
 
   .remove {
-    margin: 5px 12px 0px 12px;
+    margin: 5px 12px 0px 12px; /*rtl: left and right vals are the same. So no change needed  */
   }
 }
 

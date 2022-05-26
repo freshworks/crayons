@@ -1,9 +1,15 @@
 /* stylelint-disable a11y/media-prefers-reduced-motion */
 .modal-header-container {
-  padding: 32px 32px 0;
+  padding: 32px 32px 0; /*rtl: left and right padding are same. So no change  */
   position: relative;
   background: #fff;
-  border-radius: 4px 4px 0 0;
+  /* rtl: border-radius: 4px 4px 0 0;*/
+
+  border-start-start-radius: 4px;
+  border-start-end-radius: 4px;
+  border-end-end-radius: 0px;
+  border-end-start-radius: 0px; /*rtl:split the above border into its components for rtl*/
+
   transition: all 0.1s linear;
   display: flex;
   justify-content: space-between;

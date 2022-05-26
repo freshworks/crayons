@@ -48,7 +48,7 @@
     pointer-events: none;
     user-select: none;
     line-height: 20px;
-    text-align: left;
+    text-align: start; /*rtl:changed to srtart from left*/
     color: $text-default;
     font-size: $font-size-16;
     font-weight: $font-weight-600;
@@ -64,7 +64,7 @@
     margin: 0;
     pointer-events: none;
     user-select: none;
-    text-align: left;
+    text-align: start; /*rtl:changed to start from left*/
 
     color: $text-secondary;
     font-size: $font-size-14;

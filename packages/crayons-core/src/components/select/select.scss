@@ -74,7 +74,11 @@ $warning-color: $color-casablanca-300;
       flex-wrap: wrap;
 
       fw-tag {
-        margin: 4px 4px 4px 0px;
+        /* rtl: margin: 4px 4px 4px 0px;*/
+        margin-top: 4px;
+        margin-inline-end: 4px;
+        margin-bottom: 4px;
+        margin-inline-start: 0px; /*rtl:margin split due to rtl   */
       }
     }
 

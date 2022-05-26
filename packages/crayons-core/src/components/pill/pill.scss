@@ -1,7 +1,7 @@
 /**
   @prop --fw-pill-color: Pill color
   @prop --fw-pill-background-color: Pill background color
-  @prop --fw-pill-padding: Pill padding
+  @prop --fw-pill-padding: Pill padding 
   @prop --fw-pill-border: Pill border
   @prop --fw-pill-border-radius: Pill border radius
 */
@@ -20,7 +20,7 @@
   justify-content: center;
   color: var(--fw-pill-color);
   background-color: var(--fw-pill-background-color);
-  padding: var(--fw-pill-padding);
+  padding: var(--fw-pill-padding); /*rtl: Problem here to resolve  */
   border: var(--fw-pill-border);
   border-radius: var(--fw-pill-border-radius);
   font-weight: 600;

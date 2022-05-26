@@ -11,7 +11,11 @@
   }
 
   &-standard {
-    padding: 2px 2px 2px 8px;
+    /*padding: 2px 2px 2px 8px;*/
+    padding-top: 2px;
+    padding-inline-end: 2px;
+    padding-bottom: 2px;
+    padding-inline-start: 8px; /*rtl: changed the above to individual padding*/
     border-radius: 4px;
     font-weight: 600;
     background-color: $color-smoke-50;

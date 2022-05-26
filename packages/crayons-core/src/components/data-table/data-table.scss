@@ -53,7 +53,7 @@ div.fw-data-table-container {
             font-weight: 600;
             letter-spacing: 0.2px;
             text-overflow: ellipsis;
-            text-align: left;
+            text-align: start; /*rtl: changed to start*/
             z-index: 1;
             box-sizing: border-box;
             min-width: 40px;
@@ -65,7 +65,11 @@ div.fw-data-table-container {
 
             &:first-of-type {
               padding-inline-start: 16px;
-              border-radius: 4px 0px 0px 0px;
+              /*rtl: border-radius: 4px 0px 0px 0px;*/
+              border-start-start-radius: 4px;
+              border-start-end-radius: 0px;
+              border-end-end-radius: 0px;
+              border-end-start-radius: 0px; /*rtl:split the above border into its components for rtl*/
             }
 
             &:last-of-type {
@@ -270,7 +274,7 @@ div.fw-data-table-container {
         border: 1px solid $color-smoke-50;
         border-radius: 4px;
         box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
-        padding: 22px 0px 0px 0px;
+        padding: 22px 0px 0px 0px; /*rtl: left and right padding are same. so no change  */
         display: none;
         animation: appear 0.3s;
 
@@ -371,11 +375,15 @@ div.fw-data-table-container {
             width: 220px;
             box-sizing: border-box;
             background: $color-smoke-50;
-            border-radius: 4px 4px 0px 0px;
+            /*rtl: border-radius: 4px 4px 0px 0px;*/
+            border-start-start-radius: 4px;
+            border-start-end-radius: 4px;
+            border-end-end-radius: 0px;
+            border-end-start-radius: 0px; /*rtl:split the above border into its components for rtl*/
 
             .table-settings-content-title {
               box-sizing: border-box;
-              padding: 8px 12px 3px;
+              padding: 8px 12px 3px; /*rtl: left and right padding are same. so no change  */
             }
 
             .table-settings-content-draggable {
@@ -391,7 +399,12 @@ div.fw-data-table-container {
                 border-radius: 4px;
                 box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
                 border: 1px solid $color-smoke-50;
-                padding: 7px 8px 7px 14px;
+                /*rtl: removed for rtl 
+                padding: 7px 8px 7px 14px;*/
+                padding-top: 7px;
+                padding-inline-end: 8px;
+                padding-bottom: 7px;
+                padding-inline-start: 14px;
                 margin: 8px 0px;
                 font-size: 14px;
 

@@ -37,7 +37,7 @@
     flex-direction: column;
 
     .content {
-      padding: 0px 32px 32px;
+      padding: 0px 32px 32px; /*rtl: left and right padding are same. So no change  */
       overflow: visible;
       box-sizing: border-box;
     }
@@ -96,7 +96,12 @@
       top: 0px;
       right: 600px;
       background-color: $color-elephant-900;
-      border-radius: 2px 0px 0px 2px;
+      /*rtl: border-radius: 2px 0px 0px 2px;*/
+
+      border-start-start-radius: 2px;
+      border-start-end-radius: 0px;
+      border-end-end-radius: 0px;
+      border-end-start-radius: 2px; /*rtl:split the above border into its components for rtl*/
       padding: 0px;
       margin: 0px;
       line-height: 24px;
@@ -106,7 +111,13 @@
       &:focus,
       &:focus-visible {
         background-color: $color-elephant-900;
-        border-radius: 2px 0px 0px 2px;
+        /* rtl: border-radius: 2px 0px 0px 2px;*/
+
+        border-start-start-radius: 2px;
+        border-start-end-radius: 0px;
+        border-end-end-radius: 0px;
+        border-end-start-radius: 2px; /*rtl:split the above border into its components for rtl*/
+
         border-color: $color-elephant-900;
         outline: 0px;
       }
