@@ -26,9 +26,6 @@ export class Timepicker {
    * State for all the time values
    */
   @State() timeValues: any[] = [];
-  @State() hasHintTextSlot = false;
-  @State() hasWarningTextSlot = false;
-  @State() hasErrorTextSlot = false;
 
   /**
    * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
@@ -228,14 +225,6 @@ export class Timepicker {
       this.setEndTime();
     }
     this.setTimeValues();
-
-    this.checkSlotContent();
-  }
-
-  checkSlotContent() {
-    this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
-    this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
-    this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
   }
 
   render() {
