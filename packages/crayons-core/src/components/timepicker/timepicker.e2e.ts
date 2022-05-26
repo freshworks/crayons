@@ -1,7 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 async function getSelectOptions(page) {
-  const list = await page.find('fw-timepicker >>> .field-control');
+  const list = await page.find('fw-timepicker >>> .timepicker');
   const popover = await list.find('fw-select >>> fw-popover');
   const selectOptions = await popover.findAll(
     'fw-list-options >>> fw-select-option'
