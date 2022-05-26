@@ -11,7 +11,7 @@ import {
 import { parse, format, addMinutes } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 
-import { renderHiddenField, hasSlot } from '../../utils';
+import { renderHiddenField } from '../../utils';
 import { PopoverPlacementType } from '../../utils/types';
 
 @Component({
