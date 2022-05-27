@@ -306,3 +306,21 @@ export const isArrayEquals = (a, b) => {
     a.every((val, index) => val === b[index])
   );
 };
+
+export const observeRTL = (shadowRoot) => {
+  const updateShadowDir = () => {
+    const host = shadowRoot.host;
+    if (document.documentElement.dir === 'rtl') {
+      host.setAttribute('dir', 'rtl');
+    } else {
+      host.setAttribute('dir', 'ltr');
+    }
+  };
+  updateShadowDir();
+  const dirObserver = new MutationObserver(updateShadowDir);
+  dirObserver.observe(document.documentElement, {
+    attributeFilter: ['dir'],
+    attributes: true,
+  });
+  return dirObserver;
+};

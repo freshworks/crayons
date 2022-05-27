@@ -1,5 +1,7 @@
 import { Component, Element, Prop, h } from '@stencil/core';
 
+import { observeRTL } from '../../utils';
+
 @Component({
   tag: 'fw-menu-item',
   styleUrl: 'menu-item.scss',
@@ -15,6 +17,16 @@ export class MenuItem {
    * Sets the state of the option to selected. The selected option is highlighted and a check mark is displayed next to it. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop({ reflect: true, mutable: true }) selectable = false;
+
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.el.shadowRoot);
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
 
   toggleSelect() {
     this.selected = !this.selected;

@@ -4,11 +4,13 @@ import {
   State,
   Event,
   EventEmitter,
+  Element,
   Watch,
   h,
   Method,
 } from '@stencil/core';
 import { i18n, TranslationController } from '../../global/Translation';
+import { observeRTL } from '../../utils';
 
 let fileCount = 1;
 
@@ -18,6 +20,7 @@ let fileCount = 1;
   shadow: true,
 })
 export class FileUploader {
+  @Element() host: HTMLElement;
   /**
    * stage - different stages in file uploader.
    */
@@ -155,6 +158,16 @@ export class FileUploader {
    * formDataCollection
    */
   formDataCollection: any = {};
+
+  rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
 
   @Watch('stage')
   stageChange(newStage) {

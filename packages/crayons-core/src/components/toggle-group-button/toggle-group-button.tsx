@@ -9,6 +9,7 @@ import {
   h,
   Host,
 } from '@stencil/core';
+import { observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-toggle-group-button',
@@ -17,6 +18,7 @@ import {
 })
 export class ToggleGroupButton {
   private button: HTMLButtonElement;
+  private rtlObserver: any = null;
 
   @Element() host!: HTMLElement;
 
@@ -110,6 +112,10 @@ export class ToggleGroupButton {
     }
   }
 
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
   componentWillLoad(): void {
     switch (this.type) {
       case 'card':
@@ -119,6 +125,10 @@ export class ToggleGroupButton {
         this.baseClassName = 'fw-toggle-icon-button';
         break;
     }
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
   }
 
   private getClassName() {

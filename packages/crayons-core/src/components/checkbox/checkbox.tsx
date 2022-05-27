@@ -12,7 +12,7 @@ import {
   State,
 } from '@stencil/core';
 
-import { renderHiddenField, hasSlot } from '../../utils';
+import { renderHiddenField, hasSlot, observeRTL } from '../../utils';
 @Component({
   tag: 'fw-checkbox',
   styleUrl: 'checkbox.scss',
@@ -90,6 +90,12 @@ export class Checkbox {
 
   private checkbox!: HTMLInputElement;
 
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
   componentDidLoad() {
     this.checkbox.checked = this.checked;
     this.checkbox.disabled = this.disabled;
@@ -103,6 +109,11 @@ export class Checkbox {
   componentWillLoad() {
     this.checkSlotContent();
   }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
+
   checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');

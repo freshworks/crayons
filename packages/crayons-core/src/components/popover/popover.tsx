@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
 import { PopoverPlacementType, PopoverTriggerType } from '../../utils/types';
+import { observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-popover',
@@ -92,6 +93,12 @@ export class Popover {
    * Triggered whenever the popover contents is closed/hidden.
    */
   @Event() fwHide: EventEmitter;
+
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
 
   @Listen('keydown')
   onKeyDown(ev) {
@@ -237,6 +244,7 @@ export class Popover {
   }
 
   disconnectedCallback() {
+    this.rtlObserver?.destroy();
     this.popperInstance?.destroy();
   }
 

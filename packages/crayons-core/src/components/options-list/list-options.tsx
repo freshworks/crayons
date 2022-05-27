@@ -19,6 +19,7 @@ import {
 } from '../../utils';
 import { DropdownVariant } from '../../utils/types';
 import { i18n } from '../../global/Translation';
+import { observeRTL } from '../../utils';
 @Component({
   tag: 'fw-list-options',
   styleUrl: 'list-options.scss',
@@ -135,6 +136,16 @@ export class ListOptions {
    * Triggered when the options list is in loading state processing the search function.
    */
   @Event({ cancelable: true }) fwLoading: EventEmitter;
+
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {

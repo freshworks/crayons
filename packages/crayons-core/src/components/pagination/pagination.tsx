@@ -5,16 +5,19 @@ import {
   Host,
   Event,
   EventEmitter,
+  Element,
   Method,
   Watch,
 } from '@stencil/core';
 import { i18n, TranslationController } from '../../global/Translation';
+import { observeRTL } from '../../utils';
 @Component({
   tag: 'fw-pagination',
   styleUrl: 'pagination.scss',
   shadow: true,
 })
 export class Pagination {
+  @Element() host: HTMLElement;
   private end;
   private start;
 
@@ -61,6 +64,16 @@ export class Pagination {
    */
   @Event()
   fwChange: EventEmitter;
+
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
 
   /**
    * Navigates to previous set of records if available.

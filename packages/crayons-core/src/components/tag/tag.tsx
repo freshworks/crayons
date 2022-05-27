@@ -8,7 +8,7 @@ import {
   h,
   Listen,
 } from '@stencil/core';
-import { handleKeyDown } from '../../utils';
+import { handleKeyDown, observeRTL } from '../../utils';
 import { TagVariant } from '../../utils/types';
 
 @Component({
@@ -18,6 +18,7 @@ import { TagVariant } from '../../utils/types';
 })
 export class Tag {
   private tagContainer: HTMLElement;
+  private rtlObserver: any = null;
 
   @Element() host: HTMLElement;
   /**
@@ -56,6 +57,14 @@ export class Tag {
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
 
   @Listen('keydown')
   onKeyDown(event) {

@@ -1,5 +1,5 @@
 import { Component, Element, Prop, h } from '@stencil/core';
-import { hasSlot } from '../../utils';
+import { hasSlot, observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-modal-title',
@@ -29,6 +29,12 @@ export class ModalTitle {
    */
   custom = null;
 
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.el.shadowRoot);
+  }
+
   /**
    * lifecycle event, called once just after the component is first connected to the DOM
    */
@@ -36,6 +42,10 @@ export class ModalTitle {
     if (this.custom === null) {
       this.custom = hasSlot(this.el);
     }
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
   }
 
   /**

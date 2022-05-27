@@ -1,5 +1,7 @@
 import { Component, Host, h, Element, Prop } from '@stencil/core';
 
+import { observeRTL } from '../../utils';
+
 @Component({
   tag: 'fw-button-group',
   styleUrl: 'button-group.scss',
@@ -8,9 +10,16 @@ import { Component, Host, h, Element, Prop } from '@stencil/core';
 export class ButtonGroup {
   @Prop({ mutable: true }) label = '';
   @Element() host: HTMLElement;
+  private rtlObserver: any = null;
 
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
   componentDidLoad() {
     this.handleSlotChange();
+  }
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
   }
   handleSlotChange() {
     if (!this.host) return;

@@ -13,7 +13,12 @@ import {
   Fragment,
 } from '@stencil/core';
 
-import { handleKeyDown, renderHiddenField, hasSlot } from '../../utils';
+import {
+  handleKeyDown,
+  renderHiddenField,
+  hasSlot,
+  observeRTL,
+} from '../../utils';
 import FieldControl from '../../function-components/field-control';
 
 import {
@@ -37,6 +42,7 @@ export class Select {
   private tagRefs = [];
   private tagArrowKeyCounter = 0;
   private hostId;
+  private rtlObserver: any = null;
 
   private changeEmittable = () => !this.disabled;
 
@@ -490,6 +496,10 @@ export class Select {
     }
   }
 
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
   componentWillLoad() {
     this.boundary ||= this.host.parentElement;
     this.checkSlotContent();
@@ -576,6 +586,7 @@ export class Select {
   }
 
   disconnectedCallback() {
+    this.rtlObserver?.destroy();
     this.host.removeEventListener('focus', this.setFocus);
   }
 

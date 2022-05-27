@@ -1,5 +1,5 @@
 import { Component, Element, Prop, h } from '@stencil/core';
-import { hasSlot } from '../../utils';
+import { hasSlot, observeRTL } from '../../utils';
 import { i18n } from '../../global/Translation';
 
 @Component({
@@ -9,7 +9,6 @@ import { i18n } from '../../global/Translation';
 })
 export class ModalFooter {
   @Element() el: HTMLElement;
-
   /**
    * The text for the submit button
    */
@@ -52,6 +51,12 @@ export class ModalFooter {
   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   @Prop() close: any = () => {};
 
+  rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.el.shadowRoot);
+  }
+
   /**
    * lifecycle event, called once just after the component is first connected to the DOM
    */
@@ -59,6 +64,10 @@ export class ModalFooter {
     if (this.custom === null) {
       this.custom = hasSlot(this.el);
     }
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
   }
 
   /**

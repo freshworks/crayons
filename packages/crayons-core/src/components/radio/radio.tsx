@@ -9,6 +9,7 @@ import {
   Element,
   h,
 } from '@stencil/core';
+import { observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-radio',
@@ -74,9 +75,19 @@ export class Radio {
 
   private radio!: HTMLInputElement;
 
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
   componentDidLoad() {
     this.radio.checked = this.checked;
     this.radio.disabled = this.disabled;
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
   }
 
   @Watch('checked')

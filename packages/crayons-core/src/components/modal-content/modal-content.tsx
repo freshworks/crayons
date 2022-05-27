@@ -1,4 +1,5 @@
-import { Component, h } from '@stencil/core';
+import { Component, Element, h } from '@stencil/core';
+import { observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-modal-content',
@@ -6,6 +7,15 @@ import { Component, h } from '@stencil/core';
   shadow: true,
 })
 export class ModalContent {
+  @Element() host: HTMLElement;
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
   /**
    * render the slot content directly
    * @returns {JSX.Element}

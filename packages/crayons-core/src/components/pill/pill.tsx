@@ -1,4 +1,5 @@
 import { Component, Element, Prop, h } from '@stencil/core';
+import { observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-pill',
@@ -15,8 +16,18 @@ export class Pill {
 
   hasIcon: boolean;
 
+  rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.el.shadowRoot);
+  }
+
   componentWillLoad(): void {
     this.handleSlotChange();
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
   }
 
   getPillClass(color: string): string {

@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 import { getFocusableChildren } from '../../utils';
 import { i18n } from '../../global/Translation';
+import { observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-modal',
@@ -191,6 +192,12 @@ export class Modal {
     },
   };
 
+  rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.el.shadowRoot);
+  }
+
   /**
    * lifecycle event, called once just after the component is first connected to the DOM
    */
@@ -233,6 +240,7 @@ export class Modal {
   }
 
   disconnectedCallback() {
+    this.rtlObserver?.destroy();
     if (this.isOpen) {
       document.body.style.overflow = 'auto';
       this.removeAccesibilityEvents();

@@ -376,11 +376,19 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
    * ::slotted selector. To work around this, the button group component does some magic to add these special classes to
    * buttons and we style them here instead.
 */
-
+/*rtl:begin:ignore*/
 :host(.fw-button-group__button--first:not(.fw-button-group__button--last))
   .fw-btn {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+:host([dir='rtl'].fw-button-group__button--first:not(.fw-button-group__button--last))
+  .fw-btn {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 :host(.fw-button-group__button--inner) .fw-btn {
@@ -388,9 +396,27 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
   border-left: 0;
 }
 
+:host([dir='rtl'].fw-button-group__button--inner) .fw-btn {
+  border-left: 0;
+  border-right: 0px;
+}
+
 :host(.fw-button-group__button--last:not(.fw-button-group__button--first))
   .fw-btn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+:host(.fw-button-group__button--last:not(.fw-button-group__button--first):not([dir='rtl']))
+  .fw-btn {
   border-left: 0;
 }
+
+:host([dir='rtl'].fw-button-group__button--last:not(.fw-button-group__button--first))
+  .fw-btn {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+/*rtl:end:ignore*/

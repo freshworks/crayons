@@ -11,6 +11,7 @@ import {
   h,
   State,
 } from '@stencil/core';
+import { observeRTL } from '../../utils';
 
 import {
   updateSelectedValues,
@@ -30,6 +31,7 @@ export class ToggleGroup {
   private arrChildElements;
   private selectedIndex = -1;
   private isInputFormatArray = false;
+  private rtlObserver: any = null;
 
   /**
    * Boolean value to allow multiple selection or single child selection
@@ -56,6 +58,14 @@ export class ToggleGroup {
    * Triggered when an option in the Toggle Group is selected or deselected.
    */
   @Event() fwChange!: EventEmitter;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
 
   // public method to set selected values
   @Method()

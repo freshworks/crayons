@@ -27,7 +27,7 @@ import {
   serializeForm,
   translateErrors,
 } from './form-util';
-import { debounce } from '../../utils';
+import { debounce, observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-form',
@@ -87,6 +87,11 @@ export class Form {
   private handleChangeListener: any;
 
   private prevValues = {};
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.el.shadowRoot);
+  }
 
   async componentWillLoad() {
     this.debouncedHandleInput = debounce(this.handleInput, this, this.wait);
@@ -174,6 +179,7 @@ export class Form {
   }
 
   disconnectedCallback() {
+    this.rtlObserver?.destroy();
     this.el?.removeEventListener?.('fwBlur', this.handleBlurListener);
     this.el?.removeEventListener?.('fwInput', this.handleInputListener);
     this.el?.removeEventListener?.('fwChange', this.handleChangeListener);

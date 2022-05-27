@@ -11,6 +11,7 @@ import {
   EventEmitter,
   State,
 } from '@stencil/core';
+import { observeRTL } from '../../utils';
 
 import {
   findCheckedOption,
@@ -29,6 +30,7 @@ export class RadioGroup {
 
   private selectedIndex = 0;
   private radios;
+  private rtlObserver: any = null;
 
   /**
    * If true, a radio group can be saved without selecting any option. If an option is selected, the selection can be cleared. If the attribute’s value is undefined, the value is set to false.
@@ -161,6 +163,7 @@ export class RadioGroup {
 
   async connectedCallback() {
     const el = this.host;
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
     this.radios = Array.from(this.host.querySelectorAll('fw-radio')).filter(
       (radio) => !radio.disabled
     );
@@ -224,6 +227,7 @@ export class RadioGroup {
   }
 
   disconnectedCallback() {
+    this.rtlObserver?.destroy();
     if (this.mutationO) {
       this.mutationO.disconnect();
       this.mutationO = undefined;

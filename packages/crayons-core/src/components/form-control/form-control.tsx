@@ -7,6 +7,8 @@ import { hasSlot } from '../../utils';
 import { TranslationController } from '../../global/Translation';
 
 const NATIVE_CONTROLS = ['input', 'select', 'textarea'];
+
+import { observeRTL } from '../../utils';
 @Component({
   tag: 'fw-form-control',
   styleUrl: 'form-control.scss',
@@ -60,8 +62,17 @@ export class FormControl {
   error = '';
   private slotElement;
   private crayonsControlRef;
+  private rtlObserver: any = null;
 
   @State() hasSlot = false;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.el.shadowRoot);
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
 
   renderControl(): JSX.Element {
     if (this.hasSlot) return null;

@@ -17,6 +17,7 @@ import {
   DataTableRow,
   DataTableAction,
 } from '../../utils/types';
+import { observeRTL } from '../../utils';
 
 const PREDEFINED_VARIANTS_META: any = {
   anchor: {
@@ -210,6 +211,12 @@ export class DataTable {
 
   lastColumnHeader: HTMLElement = null;
 
+  rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.el.shadowRoot);
+  }
+
   /**
    * componentWillLoad lifecycle event
    */
@@ -264,6 +271,7 @@ export class DataTable {
 
   disconnectedCallback() {
     this.popperInstance?.destroy();
+    this.rtlObserver?.destroy();
   }
 
   /**

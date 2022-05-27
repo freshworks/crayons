@@ -9,7 +9,7 @@ import {
   h,
   Method,
 } from '@stencil/core';
-import { throttle, hasSlot } from '../../utils';
+import { throttle, hasSlot, observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-button',
@@ -21,6 +21,7 @@ export class Button {
 
   private handleClickWithThrottle;
   private button: HTMLButtonElement;
+  private rtlObserver: any = null;
 
   /**
    *  Button type based on which actions are performed when the button is clicked.
@@ -101,11 +102,16 @@ export class Button {
   }
 
   connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
     this.handleClickWithThrottle = throttle(
       this.handleClick,
       this,
       this.throttleDelay
     );
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
   }
 
   private handlePreventDefault(event: Event) {

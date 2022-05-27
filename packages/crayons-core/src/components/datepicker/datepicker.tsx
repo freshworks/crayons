@@ -34,6 +34,7 @@ import {
 import FieldControl from '../../function-components/field-control';
 
 import { i18n, TranslationController } from '../../global/Translation';
+import { observeRTL } from '../../utils';
 
 const defaultweekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -220,6 +221,11 @@ export class Datepicker {
   private nativeInput;
   private isDisplayFormatSet = false;
   private isPlaceholderSet = false;
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -268,6 +274,7 @@ export class Datepicker {
   }
 
   disconnectedCallback() {
+    this.rtlObserver?.destroy();
     document.removeEventListener('keydown', this.escapeHandler);
   }
 

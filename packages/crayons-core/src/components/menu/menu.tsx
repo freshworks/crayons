@@ -1,4 +1,6 @@
-import { Component, h } from '@stencil/core';
+import { Component, Element, h } from '@stencil/core';
+
+import { observeRTL } from '../../utils';
 
 @Component({
   tag: 'fw-menu',
@@ -6,6 +8,17 @@ import { Component, h } from '@stencil/core';
   shadow: true,
 })
 export class Menu {
+  @Element() host: HTMLElement;
+  private rtlObserver: any = null;
+
+  connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
+  }
+
+  disconnectedCallback() {
+    this.rtlObserver?.destroy();
+  }
+
   render() {
     return (
       <div class='menu' role='menu'>

@@ -10,6 +10,8 @@ import {
   Event,
 } from '@stencil/core';
 
+import { observeRTL } from '../../utils';
+
 const iconMap = {
   error: 'alert',
   warning: 'info',
@@ -64,6 +66,8 @@ export class InlineMessage {
    */
   @Event() fwHide!: EventEmitter;
 
+  private rtlObserver: any = null;
+
   startAutoHide() {
     clearTimeout(this.autoHideTimeout);
     if (this.open && this.duration < Infinity) {
@@ -112,10 +116,12 @@ export class InlineMessage {
   }
 
   connectedCallback() {
+    this.rtlObserver = observeRTL(this.host.shadowRoot);
     this.host.style.display = this.open ? 'flex' : 'none';
   }
 
   disconnectedCallback() {
+    this.rtlObserver?.destroy();
     clearTimeout(this.autoHideTimeout);
   }
 
