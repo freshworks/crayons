@@ -163,72 +163,72 @@
     },
     "font": {
       "3xl": {
-        "value": " 2.75rem",
+        "value": "2.75rem",
         "type": "fontSizes",
         "var": "--fw-font-3xl"
       },
-      "2xl": { "value": " 2rem", "type": "fontSizes", "var": "--fw-font-2xl" },
-      "xl": { "value": " 1.5rem", "type": "fontSizes", "var": "--fw-font-xl" },
+      "2xl": { "value": "2rem", "type": "fontSizes", "var": "--fw-font-2xl" },
+      "xl": { "value": "1.5rem", "type": "fontSizes", "var": "--fw-font-xl" },
       "lg": {
-        "value": " 1.125rem",
+        "value": "1.125rem",
         "type": "fontSizes",
         "var": "--fw-font-lg"
       },
       "base": {
-        "value": " 1rem",
+        "value": "1rem",
         "type": "fontSizes",
         "var": "--fw-font-base"
       },
       "sm": {
-        "value": " 0.875rem",
+        "value": "0.875rem",
         "type": "fontSizes",
         "var": "--fw-font-sm"
       },
-      "xs": { "value": " 0.75rem", "type": "fontSizes", "var": "--fw-font-xs" },
+      "xs": { "value": "0.75rem", "type": "fontSizes", "var": "--fw-font-xs" },
       "2xs": {
-        "value": " 0.625rem",
+        "value": "0.625rem",
         "type": "fontSizes",
         "var": "--fw-font-2xs"
       }
     },
     "font-lh": {
       "3xl": {
-        "value": " 4rem",
+        "value": "4rem",
         "type": "lineHeight",
         "var": "--fw-font-lh-3xl"
       },
       "2xl": {
-        "value": " 3rem",
+        "value": "3rem",
         "type": "lineHeight",
         "var": "--fw-font-lh-2xl"
       },
       "xl": {
-        "value": " 2.25rem",
+        "value": "2.25rem",
         "type": "lineHeight",
         "var": "--fw-font-lh-xl"
       },
       "lg": {
-        "value": " 1.75rem",
+        "value": "1.75rem",
         "type": "lineHeight",
         "var": "--fw-font-lh-lg"
       },
       "base": {
-        "value": " 1.5rem",
+        "value": "1.5rem",
         "type": "lineHeight",
         "var": "--fw-font-lh-base"
       },
       "sm": {
-        "value": " 1.25rem",
+        "value": "1.25rem",
         "type": "lineHeight",
         "var": "--fw-font-lh-sm"
       },
       "xs": {
-        "value": " 1.25rem",
+        "value": "1.25rem",
         "type": "lineHeight",
         "var": "--fw-font-lh-xs"
       },
       "2xs": {
-        "value": " 1rem",
+        "value": "1rem",
         "type": "lineHeight",
         "var": "--fw-font-lh-2xs"
       }
