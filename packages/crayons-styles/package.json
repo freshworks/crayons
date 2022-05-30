@@ -24,8 +24,8 @@
   },
   "scripts": {
     "build:tokens": "node ./scripts/convertTokens.js",
-    "create:types": "npx -p typescript tsc",
-    "build": "rimraf ./dist && npm run build:tokens && rollup -c && npm run create:types"
+    "create:types": "npx typescript",
+    "build": "rimraf ./dist && npm run build:tokens && tsc && rollup -c"
   },
   "bugs": {
     "url": "https://github.com/freshworks/crayons/issues"
@@ -39,6 +39,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "rimraf": "^3.0.2",
-    "rollup": "^2.75.3"
+    "rollup": "^2.75.3",
+    "typescript": "^4.7.2"
   }
 }
