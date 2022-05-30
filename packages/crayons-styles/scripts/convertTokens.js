@@ -1,36 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { convertTokenToString } from '../src/utils.js';
 
 const tokenOutDir = './dist/design-tokens/';
 const cssOutDir = './dist/styles/';
 const tokensDir = './design-tokens/';
-
-const base = '$base.';
-
-function getValue(value) {
-  if (value.startsWith(base)) {
-    let baseValue = value
-      .replace(base, '')
-      .split('.')
-      .reduce((p, c) => {
-        return p + '-' + c;
-      }, '--fw');
-    return `var(${baseValue})`;
-  }
-  return value;
-}
-
-function convertTokenToString(tokens) {
-  let cssString = '';
-  for (const [, value] of Object.entries(tokens)) {
-    if ('var' in value) {
-      cssString = cssString + `${value['var']} : ${getValue(value['value'])};`;
-    } else {
-      cssString = cssString + convertTokenToString(value);
-    }
-  }
-  return cssString;
-}
 
 function readFiles(rootPath) {
   let combinedTokens = {};

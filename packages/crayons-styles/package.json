@@ -17,6 +17,7 @@
   "homepage": "https://github.com/freshworks/crayons#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/freshworks/crayons.git"
