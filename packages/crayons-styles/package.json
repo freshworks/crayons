@@ -1,0 +1,43 @@
+{
+  "name": "@freshworks/crayons-styles",
+  "version": "0.0.1",
+  "description": "Crayons Theming Library",
+  "keywords": [
+    "crayons",
+    "theme",
+    "design tokens",
+    "typescript",
+    "stenciljs"
+  ],
+  "author": "Freshworks Inc",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/freshworks/crayons#readme",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freshworks/crayons.git"
+  },
+  "scripts": {
+    "build:tokens": "node ./scripts/convertTokens.js",
+    "create:types": "npx -p typescript tsc",
+    "build": "rimraf ./dist && npm run build:tokens && rollup -c && npm run create:types"
+  },
+  "bugs": {
+    "url": "https://github.com/freshworks/crayons/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-dynamic-import-vars": "^1.4.3",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.75.3"
+  }
+}
