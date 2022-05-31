@@ -1,4 +1,4 @@
-import crayons from '../dist/design-tokens/crayons.json';
+import crayons from '../tokens/crayons.json';
 import { convertTokenToString } from './utils';
 
 function setStyle(tokens) {
@@ -12,7 +12,7 @@ export function setTheme(theme) {
   if (theme === 'crayons') {
     setStyle(crayons);
   }
-  import(`../dist/design-tokens/${theme}.json`)
+  import(`../tokens/${theme}.json`)
     .then((tokens) => {
       setStyle(tokens);
     })

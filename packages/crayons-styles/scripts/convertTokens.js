@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { convertTokenToString } from '../src/utils.js';
 
-const tokenOutDir = './dist/design-tokens/';
+const tokenOutDir = './tokens/';
 const cssOutDir = './dist/styles/';
 const tokensDir = './design-tokens/';
 
