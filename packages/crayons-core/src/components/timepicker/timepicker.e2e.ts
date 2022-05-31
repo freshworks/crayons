@@ -1,14 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 // TODO: better way to get the nested element
-async function getSelectOptions(page) {
-  const list = await page.find('fw-timepicker >>> .timepicker');
-  const popover = await list.find('fw-select >>> fw-popover');
-  const selectOptions = await popover.findAll(
-    'fw-list-options >>> fw-select-option'
-  );
-  return selectOptions;
-}
+// async function getSelectOptions(page) {
+//   const list = await page.find('fw-timepicker >>> .timepicker');
+//   const popover = await list.find('fw-select >>> fw-popover');
+//   const selectOptions = await popover.findAll(
+//     'fw-list-options >>> fw-select-option'
+//   );
+//   return selectOptions;
+// }
 
 describe('fw-timepicker', () => {
   it('renders', async () => {
