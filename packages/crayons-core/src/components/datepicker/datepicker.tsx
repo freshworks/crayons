@@ -785,7 +785,7 @@ export class Datepicker {
     } else {
       if (this.mode !== 'range') {
         const date = new Date();
-        date.setMonth(this.month);
+        date.setMonth(this.month, 1);
         date.setFullYear(this.year);
         date.setDate(this.selectedDay);
         this.value = format(date, this.displayFormat, {
