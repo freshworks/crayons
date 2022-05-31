@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0-beta.1...@freshworks/crayons@3.5.0-beta.2) (2022-05-31)
+
+
+### Bug Fixes
+
+* **datepicker:** fix setMonth for last dates ([#615](https://github.com/freshworks/crayons/issues/615)) ([1e0bd27](https://github.com/freshworks/crayons/commit/1e0bd272fd145476c5ed612e27430b4c3a5e49de))
+* **fw-select:** prevented the css break ([#610](https://github.com/freshworks/crayons/issues/610)) ([1d5efa7](https://github.com/freshworks/crayons/commit/1d5efa740677fc4ba70a8eb59be8736b0112b5b1))
+* **fw-timepicker:** fixed the documentation examples and improper loop ([#609](https://github.com/freshworks/crayons/issues/609)) ([2cc2c3e](https://github.com/freshworks/crayons/commit/2cc2c3e348b4fe12450f5ba5af57901ed214ef5f))
+
+
+### Features
+
+* **fw-timepicker:** added placement option for the dropdown ([#611](https://github.com/freshworks/crayons/issues/611)) ([aa93100](https://github.com/freshworks/crayons/commit/aa9310062b82d081cc08c7ec8c06cf759ba205e3))
+
+
+
+
+
 
 # [3.5.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0-beta.0...@freshworks/crayons@3.5.0-beta.1) (2022-05-24)
 
