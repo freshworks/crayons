@@ -204,6 +204,14 @@ export class Datepicker {
    * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
+  /**
+   * Whether the time-picker should be shown in the data-picker.
+   */
+  @Prop() time = false;
+  /**
+   * The props for the time picker.
+   */
+  @Prop() timeProps = {};
 
   /**
    *   Triggered when the update button clicked
@@ -1301,6 +1309,26 @@ export class Datepicker {
     );
   }
 
+  renderTimePicker(): JSX.Element {
+    return (
+      <div class='time-container'>
+        <div>
+          <span>{TranslationController.t('datepicker.date')}</span>
+          <fw-input></fw-input>
+        </div>
+        <div>
+          <span>{TranslationController.t('datepicker.time')}</span>
+          <fw-timepicker
+            sameWidth={false}
+            caret={false}
+            optionsPlacement='bottom-end'
+            {...this.timeProps}
+          ></fw-timepicker>
+        </div>
+      </div>
+    );
+  }
+
   render(): JSX.Element {
     const { host, name, value } = this;
 
@@ -1378,6 +1406,7 @@ export class Datepicker {
           </div>
           {this.showSingleDatePicker() ? (
             <div id='datepicker' class='datepicker' slot='popover-content'>
+              {this.time && this.renderTimePicker()}
               <div class='mdp-container'>
                 {/* Head section */}
                 <div class='mdpc-head'>

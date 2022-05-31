@@ -347,3 +347,27 @@
 .c-day-container.highlight-range:not(.disabled) .cdc-day {
   background: #e4f2fd;
 }
+
+.time-container {
+  display: flex;
+  width: 264px;
+  gap: 8px;
+  padding: 12px 16px;
+  background: $color-smoke-25;
+  box-sizing: border-box;
+
+  fw-input {
+    width: 124px;
+  }
+
+  .mdc-time {
+    width: 100px;
+    --fw-popover-min-width: 170px;
+  }
+
+  span {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+}

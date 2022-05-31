@@ -113,6 +113,8 @@ function App() {
 | `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`                    |
 | `showFooter`    | `show-footer`    | Indicates if footer needs to be shown. Default `true`.                                                                                                         | `boolean`                          | `true`                     |
 | `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`                 |
+| `time`          | `time`           | Whether the time-picker should be shown in the data-picker.                                                                                                    | `boolean`                          | `false`                    |
+| `timeProps`     | --               | The props for the time picker.                                                                                                                                 | `{}`                               | `{}`                       |
 | `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`                |
 | `updateText`    | `update-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
@@ -180,8 +182,9 @@ Type: `Promise<void>`
 
 - [fw-select-option](../select-option)
 - [fw-button](../button)
-- [fw-popover](../popover)
 - [fw-input](../input)
+- [fw-timepicker](../timepicker)
+- [fw-popover](../popover)
 - [fw-icon](../icon)
 - [fw-select](../select)
 
@@ -190,8 +193,9 @@ Type: `Promise<void>`
 graph TD;
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
-  fw-datepicker --> fw-popover
   fw-datepicker --> fw-input
+  fw-datepicker --> fw-timepicker
+  fw-datepicker --> fw-popover
   fw-datepicker --> fw-icon
   fw-datepicker --> fw-select
   fw-select-option --> fw-icon
@@ -204,6 +208,8 @@ graph TD;
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-input --> fw-icon
+  fw-timepicker --> fw-select
+  fw-timepicker --> fw-select-option
   fw-select --> fw-tag
   fw-select --> fw-popover
   fw-select --> fw-button

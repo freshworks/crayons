@@ -65,6 +65,7 @@ function App() {
 | `warningText`      | `warning-text`      | Warning text displayed below the text box.                                                                                                                                                     | `string`                                                                                                                                                             | `''`                                           |
 
 
+
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -83,6 +84,7 @@ Sets focus on a specific `fw-timepicker`.
 #### Returns
 
 Type: `Promise<void>`
+
 
 
 
@@ -123,6 +125,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-input --> fw-icon
+  fw-datepicker --> fw-timepicker
   fw-form-control --> fw-timepicker
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```

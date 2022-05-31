@@ -332,6 +332,14 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
+          * Whether the time-picker should be shown in the data-picker.
+         */
+        "time": boolean;
+        /**
+          * The props for the time picker.
+         */
+        "timeProps": {};
+        /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
@@ -1675,6 +1683,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Whether the dropdown should be same width as that of the input.
+         */
+        "sameWidth": boolean;
+        /**
           * Sets focus on a specific `fw-timepicker`.
          */
         "setFocus": () => Promise<void>;
@@ -2586,6 +2598,14 @@ declare namespace LocalJSX {
           * Theme based on which the input of the datepicker is styled.
          */
         "state"?: 'normal' | 'warning' | 'error';
+        /**
+          * Whether the time-picker should be shown in the data-picker.
+         */
+        "time"?: boolean;
+        /**
+          * The props for the time picker.
+         */
+        "timeProps"?: {};
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -4004,6 +4024,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Whether the dropdown should be same width as that of the input.
+         */
+        "sameWidth"?: boolean;
         /**
           * Theme based on which the input of the timepicker is styled.
          */

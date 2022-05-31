@@ -13,6 +13,33 @@
   </head>
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
+    <fw-datepicker time display-format="dd-MM-yyyy"></fw-datepicker>
+    <div style="display: flex">
+      Test TestTestTestTestTestTestTestTestTestTest
+      <fw-timepicker
+        style="width: 100px; --fw-popover-min-width: 170px"
+        interval="45"
+        hour-format="hh:mm p"
+        options-placement="bottom-end"
+      ></fw-timepicker>
+    </div>
+    <div style="display: flex">
+      Test TestTestTestTestTestTestTestTestTestTest
+      <fw-select
+        label="Names"
+        placeholder="Your choices"
+        hint-text="Select multiple options"
+        style="width: 100px; --fw-popover-min-width: 170px"
+        options-placement="bottom-end"
+        multiple
+      >
+        <fw-select-option value="1" selected>Starks</fw-select-option>
+        <fw-select-option value="2">Lannisters</fw-select-option>
+        <fw-select-option value="3">Sand</fw-select-option>
+        <fw-select-option value="4">Greyjoys</fw-select-option>
+        <fw-select-option value="5">Tyrell</fw-select-option>
+      </fw-select>
+    </div>
     <!-- <br />
     <fw-radio-group
       name="Profile"
