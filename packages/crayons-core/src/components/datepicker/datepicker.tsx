@@ -1319,6 +1319,7 @@ export class Datepicker {
         <div>
           <span>{TranslationController.t('datepicker.time')}</span>
           <fw-timepicker
+            class='mdc-time'
             sameWidth={false}
             caret={false}
             optionsPlacement='bottom-end'
