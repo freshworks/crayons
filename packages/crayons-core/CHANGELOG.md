@@ -3,40 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.5.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0-beta.1...@freshworks/crayons@3.5.0-beta.2) (2022-05-31)
-
-
-### Bug Fixes
-
-* **datepicker:** fix setMonth for last dates ([#615](https://github.com/freshworks/crayons/issues/615)) ([1e0bd27](https://github.com/freshworks/crayons/commit/1e0bd272fd145476c5ed612e27430b4c3a5e49de))
-* **fw-select:** prevented the css break ([#610](https://github.com/freshworks/crayons/issues/610)) ([1d5efa7](https://github.com/freshworks/crayons/commit/1d5efa740677fc4ba70a8eb59be8736b0112b5b1))
-* **fw-timepicker:** fixed the documentation examples and improper loop ([#609](https://github.com/freshworks/crayons/issues/609)) ([2cc2c3e](https://github.com/freshworks/crayons/commit/2cc2c3e348b4fe12450f5ba5af57901ed214ef5f))
-
-
-### Features
-
-* **fw-timepicker:** added placement option for the dropdown ([#611](https://github.com/freshworks/crayons/issues/611)) ([aa93100](https://github.com/freshworks/crayons/commit/aa9310062b82d081cc08c7ec8c06cf759ba205e3))
-
-
-
-
-
-
-# [3.5.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0-beta.0...@freshworks/crayons@3.5.0-beta.1) (2022-05-24)
+## [3.5.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0-beta.1...@freshworks/crayons@3.5.0-beta.2) (2022-05-31)
 
 ### Bug Fixes
 
-* **data-table:** separating isLoading and showShimmer functionality ([#604](https://github.com/freshworks/crayons/issues/604)) ([caf90b1](https://github.com/freshworks/crayons/commit/caf90b1be2324f49f8d9425fdd5d1cb8a1cf1f75))
-* **datepicker:** handle min and max dates when passed ([#605](https://github.com/freshworks/crayons/issues/605)) ([e3278b4](https://github.com/freshworks/crayons/commit/e3278b45841609afb7b1a64de2a4d41831c300c4))
-* **fw-pill:** update component style on changing color prop ([#598](https://github.com/freshworks/crayons/issues/598)) ([6034ead](https://github.com/freshworks/crayons/commit/6034eadb11a8df8de734db4d5de743d48fe039fd))
-* **radio-group:** a11y changes for radio-group ([#597](https://github.com/freshworks/crayons/issues/597)) ([e7a6137](https://github.com/freshworks/crayons/commit/e7a61370c6566d5cb98c6b99160d773cd0d0b76f))
-* **tabs:** fix handling index ([#601](https://github.com/freshworks/crayons/issues/601)) ([ad81e83](https://github.com/freshworks/crayons/commit/ad81e83b31cb86810ea14f0c6aa1a9dfd10d85cc))
-
+- **datepicker:** fix setMonth for last dates ([#615](https://github.com/freshworks/crayons/issues/615)) ([1e0bd27](https://github.com/freshworks/crayons/commit/1e0bd272fd145476c5ed612e27430b4c3a5e49de))
+- **fw-select:** prevented the css break ([#610](https://github.com/freshworks/crayons/issues/610)) ([1d5efa7](https://github.com/freshworks/crayons/commit/1d5efa740677fc4ba70a8eb59be8736b0112b5b1))
+- **fw-timepicker:** fixed the documentation examples and improper loop ([#609](https://github.com/freshworks/crayons/issues/609)) ([2cc2c3e](https://github.com/freshworks/crayons/commit/2cc2c3e348b4fe12450f5ba5af57901ed214ef5f))
 
 ### Features
 
-* **data-table:** custom template for table headers ([#593](https://github.com/freshworks/crayons/issues/593)) ([7113283](https://github.com/freshworks/crayons/commit/7113283b411d51f5ea8e2c58dac11d740866f6b2))
+- **fw-timepicker:** added placement option for the dropdown ([#611](https://github.com/freshworks/crayons/issues/611)) ([aa93100](https://github.com/freshworks/crayons/commit/aa9310062b82d081cc08c7ec8c06cf759ba205e3))
 
+## [3.5.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0-beta.0...@freshworks/crayons@3.5.0-beta.1) (2022-05-24)
+
+### Bug Fixes
+
+- **data-table:** separating isLoading and showShimmer functionality ([#604](https://github.com/freshworks/crayons/issues/604)) ([caf90b1](https://github.com/freshworks/crayons/commit/caf90b1be2324f49f8d9425fdd5d1cb8a1cf1f75))
+- **datepicker:** handle min and max dates when passed ([#605](https://github.com/freshworks/crayons/issues/605)) ([e3278b4](https://github.com/freshworks/crayons/commit/e3278b45841609afb7b1a64de2a4d41831c300c4))
+- **fw-pill:** update component style on changing color prop ([#598](https://github.com/freshworks/crayons/issues/598)) ([6034ead](https://github.com/freshworks/crayons/commit/6034eadb11a8df8de734db4d5de743d48fe039fd))
+- **radio-group:** a11y changes for radio-group ([#597](https://github.com/freshworks/crayons/issues/597)) ([e7a6137](https://github.com/freshworks/crayons/commit/e7a61370c6566d5cb98c6b99160d773cd0d0b76f))
+- **tabs:** fix handling index ([#601](https://github.com/freshworks/crayons/issues/601)) ([ad81e83](https://github.com/freshworks/crayons/commit/ad81e83b31cb86810ea14f0c6aa1a9dfd10d85cc))
+
+### Features
+
+- **data-table:** custom template for table headers ([#593](https://github.com/freshworks/crayons/issues/593)) ([7113283](https://github.com/freshworks/crayons/commit/7113283b411d51f5ea8e2c58dac11d740866f6b2))
 
 ## [3.5.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.4.2...@freshworks/crayons@3.5.0-beta.0) (2022-05-10)
 
