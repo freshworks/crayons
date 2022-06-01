@@ -11,9 +11,9 @@ $help-color: $text-secondary;
 
 .field-control-label {
   display: block;
-  font-size: $font-xs;
+  font-size: var(--fw-label-font-size, $font-xs);
   color: var(--fw-label-color, $color-secondary-700);
-  font-weight: $font-weight-600;
+  font-weight: var(--fw-label-font-weight, $font-weight-600);
   margin-bottom: 4px;
   padding-left: 2px;
   line-height: $font-lh-xs;

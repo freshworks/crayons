@@ -7,27 +7,64 @@
   @prop --fw-button-font-weight: The font weight of the button.
   @prop --fw-button-font-size: The font size of the normal button.
   @prop --fw-button-small-font-size: The font size of the small button.
+  @prop --fw-button-primary-border: The border color of the primary button.
+  @prop --fw-button-primary-border-active: The border color of the primary button on active state.
+  @prop --fw-button-primary-bg: The background color of the primary button.
+  @prop --fw-button-primary-bg-dark: The background color of the primary dark button.
+  @prop --fw-button-primary-color: The text color of the primary button.
+  @prop --fw-button-primary-disabled-color: The text color of the primary disabled button.
+  @prop --fw-button-primary-disabled-border: The border color of the primary disabled button.
+  @prop --fw-button-primary-disabled-bg: The background color of the primary disabled button.
+  @prop --fw-button-primary-disabled-bg-dark: The background color of the primary disabled dark button.
+  @prop --fw-button-secondary-border: The border color of the secondary button.
+  @prop --fw-button-secondary-border-active: The border color of the secondary button on active state.
+  @prop --fw-button-secondary-bg: The background color of the secondary button.
+  @prop --fw-button-secondary-bg-dark: The background color of the secondary dark button.
+  @prop --fw-button-secondary-color: The text color of the secondary button.
+  @prop --fw-button-secondary-disabled-color: The text color of the secondary disabled button.
+  @prop --fw-button-active-box-shadow: Box shadow of active button.
 */
 
 //=== Button Style ===//
-$btn-primary-color: $color-neutral-100;
-$btn-primary-bg: $color-primary-800;
-$btn-primary-bg-dark: $color-primary-900;
-$btn-primary-border: $color-primary-900;
-$btn-primary-border-active: $color-primary-800;
+$btn-primary-color: var(--fw-button-primary-color, $color-neutral-100);
+$btn-primary-bg: var(--fw-button-primary-bg, $color-primary-800);
+$btn-primary-bg-dark: var(--fw-button-primary-bg-dark, $color-primary-900);
+$btn-primary-border: var(--fw-button-primary-border, $color-primary-900);
+$btn-primary-border-active: var(
+  --fw-button-primary-border-active,
+  $color-primary-800
+);
+$btn-primary-disabled-bg: var(
+  --fw-button-primary-disabled-bg,
+  $color-secondary-300
+);
+$btn-primary-disabled-bg-dark: var(
+  --fw-button-primary-disabled-bg-dark,
+  $color-secondary-400
+);
+$btn-primary-disabled-color: var(
+  --fw-button-primary-disabled-color,
+  rgba(255, 255, 255, 0.5)
+);
+$btn-primary-disabled-border: var(
+  --fw-button-primary-disabled-border,
+  $color-secondary-400
+);
 
-$btn-primary-disabled-bg: $color-secondary-300;
-$btn-primary-disabled-bg-dark: $color-secondary-400;
-$btn-primary-disabled-color: rgba(255, 255, 255, 0.5);
-
-$btn-secondary-color: $color-primary-900;
-$btn-secondary-bg: $color-neutral-100;
-$btn-secondary-bg-dark: $color-secondary-25;
-$btn-secondary-border: $color-secondary-100;
-$btn-secondary-border-active: $color-secondary-50;
+$btn-secondary-color: var(--fw-button-secondary-color, $color-primary-900);
+$btn-secondary-bg: var(--fw-button-secondary-bg, $color-neutral-100);
+$btn-secondary-bg-dark: var(--fw-button-secondary-bg-dark, $color-secondary-25);
+$btn-secondary-border: var(--fw-button-secondary-border, $color-secondary-100);
+$btn-secondary-border-active: var(
+  --fw-button-secondary-border-active,
+  $color-secondary-50
+);
 $btn-secondary-disabled-bg: $color-secondary-50;
 $btn-secondary-disabled-bg-dark: $color-secondary-100;
-$btn-secondary-disabled-color: $color-secondary-300;
+$btn-secondary-disabled-color: var(
+  --fw-button-secondary-disabled-color,
+  $color-secondary-300
+);
 
 $btn-danger-color: $color-neutral-100;
 $btn-danger-bg: $color-danger-800;
@@ -40,8 +77,10 @@ $btn-danger-disabled-color: rgba(255, 255, 255, 0.5);
 $btn-link-color: $color-info-800;
 $btn-link-bg: $color-secondary-50;
 
-$active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
-
+$active-box-shadow: var(
+  --fw-button-active-box-shadow,
+  inset 0 0 4px 0 rgba(0, 0, 0, 0.25)
+);
 $btn-lg-focus-border: $color-info-800;
 
 $btn-default-font-size: var(--fw-button-font-size, $font-sm);
@@ -141,7 +180,7 @@ $input-height-mini: 16px;
         $btn-primary-disabled-bg 4.39%,
         $btn-primary-disabled-bg-dark 94.46%
       );
-      border-color: $btn-primary-disabled-bg-dark;
+      border-color: $btn-primary-disabled-border;
       color: $btn-primary-disabled-color;
     }
   }
@@ -251,7 +290,10 @@ $input-height-mini: 16px;
   // DS button specification for mini has been referenced within crayons as type small
   &--small {
     height: 24px;
-    line-height: calc(#{$input-height-small} - #{$btn-border-width} * 2);
+    line-height: var(
+      --fw-button-small-line-height,
+      calc(#{$input-height-small} - #{$btn-border-width} * 2)
+    );
 
     .fw-btn--label {
       font-size: $btn-small-font-size;
@@ -265,7 +307,10 @@ $input-height-mini: 16px;
   &--normal {
     min-width: var(--fw-button-min-width, 80px);
     height: $input-height-normal;
-    line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
+    line-height: var(
+      --fw-button-normal-line-height,
+      calc(#{$input-height-normal} - #{$btn-border-width} * 2)
+    );
 
     .fw-btn--label {
       font-size: $btn-default-font-size;

@@ -1,10 +1,18 @@
 /**
   @prop --fw-label-color: Color of the label.
+  @prop --fw-label-font-size: Label font size.
+  @prop --fw-label-font-weight: Label font weight.
   @prop --fw-hint-color: Color of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
   @prop --fw-input-height: The height of the input element.
   @prop --fw-input-border-radius: The border radius of the input element.
+  @prop --fw-input-font-size: Input text font size.
+  @prop --fw-input-font-weight: Input text font weight.
+  @prop --fw-input-disabled-font-weight: Input disabled text font weight.
+  @prop --fw-input-border: Input border color.
+  @prop --fw-input-color: Input text color.
+  @prop --fw-input-placeholder-color: Input placeholder color.
 */
 
 @import '../../function-components/field-control.scss';
@@ -14,11 +22,15 @@ $help-color: $text-secondary;
 $disabled-color: $text-disabled;
 $warning-color: $text-warning-2;
 $error-color: $text-danger;
-$input-border: $color-secondary-100;
+$input-border: var(--fw-input-border, $color-secondary-100);
 $input-hover-color: $color-secondary-700;
 $input-focus-color: $color-info-800;
 $input-bg: $color-neutral-100;
-$input-color: $text-default;
+$input-color: var(--fw-input-color, $text-default);
+$input-placeholder-color: var(
+  --fw-input-placeholder-color,
+  $color-secondary-300
+);
 
 *,
 ::after,
@@ -94,8 +106,8 @@ $input-color: $text-default;
         box-shadow: none;
         padding: 0px;
         margin: 0px;
-        font-size: $font-sm;
-        font-weight: $font-weight-500;
+        font-size: var(--fw-input-font-size, $font-sm);
+        font-weight: var(--fw-input-font-weight, $font-weight-500);
         letter-spacing: 0;
         line-height: $font-lh-sm;
         color: $input-color;
@@ -105,7 +117,7 @@ $input-color: $text-default;
         font-family: inherit;
 
         &[disabled] {
-          font-weight: $font-weight-400;
+          font-weight: var(--fw-input-disabled-font-weight, $font-weight-400);
           color: $disabled-color;
           background-color: $input-disabled-bg; // TODO: follow DSM : not in palette
           pointer-events: none;
@@ -199,17 +211,17 @@ $input-color: $text-default;
 }
 
 ::-webkit-input-placeholder {
-  color: $color-secondary-300;
+  color: $input-placeholder-color;
 }
 
 ::-moz-placeholder {
-  color: $color-secondary-300;
+  color: $input-placeholder-color;
 }
 
 :-ms-input-placeholder {
-  color: $color-secondary-300;
+  color: $input-placeholder-color;
 }
 
 :-moz-placeholder {
-  color: $color-secondary-300;
+  color: $input-placeholder-color;
 }
