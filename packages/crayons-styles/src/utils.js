@@ -4,7 +4,7 @@ export function convertTokenToString(tokens) {
   let cssString = '';
   for (const [, value] of Object.entries(tokens)) {
     if ('var' in value) {
-      cssString = cssString + `${value['var']} : ${getValue(value['value'])};`;
+      cssString = cssString + `${value['var']}:${getValue(value['value'])};`;
     } else {
       cssString = cssString + convertTokenToString(value);
     }

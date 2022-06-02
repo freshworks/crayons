@@ -46,7 +46,7 @@ function createTokens() {
   const tokens = readFiles(tokensDir);
   for (const [key, value] of Object.entries(tokens)) {
     const tokenPath = path.join(tokenOutDir, `${key}.js`);
-    const cssPath = path.join(cssOutDir, `${key}-theme.css`);
+    const cssPath = path.join(cssOutDir, `${key}-theme.min.css`);
     const cssString = `:root {${convertTokenToString(value)}}`;
     writeFile(cssPath, cssString);
     writeFile(tokenPath, `const ${key}= '${cssString}'; export default ${key}`);
