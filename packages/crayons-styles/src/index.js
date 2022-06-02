@@ -13,7 +13,7 @@ export function setTheme(theme) {
   }
   import(`../tokens/${theme}.js`)
     .then((tokens) => {
-      setStyle(tokens);
+      setStyle(tokens.default);
     })
     .catch(() => {
       console.warn(
