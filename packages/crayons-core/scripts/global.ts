@@ -1,3 +1,6 @@
 import { setTheme } from '../src/global/crayons';
 
-setTheme('crayons');
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function () {
+  setTheme('crayons');
+}
