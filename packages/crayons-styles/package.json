@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/freshworks/crayons#readme",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "type": "module",
   "repository": {
     "type": "git",
@@ -24,8 +24,7 @@
   },
   "scripts": {
     "build:tokens": "node ./scripts/convertTokens.js",
-    "create:types": "npx typescript",
-    "build": "rimraf ./dist && npm run build:tokens && tsc && rollup -c"
+    "build": "rimraf ./dist && npm run build:tokens && rollup -c && tsc"
   },
   "bugs": {
     "url": "https://github.com/freshworks/crayons/issues"
