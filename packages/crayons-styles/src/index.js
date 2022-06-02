@@ -1,18 +1,17 @@
-import crayons from '../tokens/crayons.json';
-import { convertTokenToString } from './utils';
+import crayons from '../tokens/crayons.js';
 
 function setStyle(tokens) {
-  const cssString = convertTokenToString(tokens);
   const sheet = new CSSStyleSheet();
-  sheet.replaceSync(`:root {${cssString}}`);
+  sheet.replaceSync(tokens);
   document.adoptedStyleSheets = [sheet];
 }
 
 export function setTheme(theme) {
   if (theme === 'crayons') {
     setStyle(crayons);
+    return;
   }
-  import(`../tokens/${theme}.json`)
+  import(`../tokens/${theme}.js`)
     .then((tokens) => {
       setStyle(tokens);
     })
@@ -20,6 +19,6 @@ export function setTheme(theme) {
       console.warn(
         `Error setting the theme: ${theme} from pre-defined set. defaulting to crayons theme`
       );
-      setTheme('crayons');
+      setStyle(crayons);
     });
 }

@@ -3,7 +3,7 @@ import path from 'path';
 import { convertTokenToString } from '../src/utils.js';
 
 const tokenOutDir = './tokens/';
-const cssOutDir = './dist/styles/';
+const cssOutDir = './css/';
 const tokensDir = './design-tokens/';
 
 function readFiles(rootPath) {
@@ -45,10 +45,11 @@ function writeFile(outPath, content) {
 function createTokens() {
   const tokens = readFiles(tokensDir);
   for (const [key, value] of Object.entries(tokens)) {
-    const tokenPath = path.join(tokenOutDir, `${key}.json`);
-    const cssPath = path.join(cssOutDir, `${key}.min.css`);
-    writeFile(cssPath, `:root {${convertTokenToString(value)}}`);
-    writeFile(tokenPath, JSON.stringify(value));
+    const tokenPath = path.join(tokenOutDir, `${key}.js`);
+    const cssPath = path.join(cssOutDir, `${key}-theme.css`);
+    const cssString = `:root {${convertTokenToString(value)}}`;
+    writeFile(cssPath, cssString);
+    writeFile(tokenPath, `const ${key}= '${cssString}'; export default ${key}`);
   }
 }
 
