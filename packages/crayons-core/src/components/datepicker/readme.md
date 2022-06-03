@@ -89,6 +89,8 @@ function App() {
 
 ## Date time picker
 
+Date picker is currently supported only on single date picker.
+
 ```html live
 <fw-label value="Time picker"></fw-label><br />
 <fw-datepicker time display-format="dd-MM-yyyy"></fw-datepicker>
