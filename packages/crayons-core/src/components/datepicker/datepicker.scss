@@ -15,7 +15,7 @@
   * {
     user-select: none;
   }
-  --fw-popover-max-height: 415px;
+  --fw-popover-max-height: 420px;
 }
 
 .mdp-container,
@@ -364,6 +364,7 @@
   .mdc-time {
     width: 100px;
     --fw-popover-min-width: 170px;
+    --fw-popover-max-height: 146px;
   }
 
   span {

@@ -104,6 +104,8 @@ export class Datepicker {
   @State() hasHintTextSlot = false;
   @State() hasWarningTextSlot = false;
   @State() hasErrorTextSlot = false;
+  @State() timeValue = '';
+  @State() dateFormat = '';
 
   @Element() host: HTMLElement;
 
@@ -212,6 +214,10 @@ export class Datepicker {
    * The props for the time picker.
    */
   @Prop() timeProps = {};
+  /**
+   * The format of time picker .
+   */
+  @Prop() timeFormat: 'HH:mm' | 'hh:mm a' = 'hh:mm a';
 
   /**
    *   Triggered when the update button clicked
@@ -386,7 +392,7 @@ export class Datepicker {
         this.updateValueAndEmitEvent(e);
       }
     } else if (isUpdateDate) {
-      if (this.selectedDay) {
+      if (this.isValidDateTime()) {
         this.updateValueAndEmitEvent(e);
       }
     }
@@ -574,11 +580,14 @@ export class Datepicker {
     const isYearUpdate = e
       .composedPath()[0]
       .classList.value.includes('single-year-selector');
+    const isTimeUpdate = e.composedPath()[0].tagName === 'FW-TIMEPICKER';
 
     if (isMonthUpdate) {
       this.month = this.shortMonthNames.indexOf(newValue);
     } else if (isYearUpdate) {
       this.year = newValue;
+    } else if (isTimeUpdate) {
+      this.timeValue = newValue;
     }
   }
 
@@ -650,6 +659,10 @@ export class Datepicker {
     this.langModule = await TranslationController.getDateLangModule(
       this.locale
     );
+    this.dateFormat = this.displayFormat;
+    this.displayFormat = this.time
+      ? `${this.displayFormat} ${this.timeFormat}`
+      : this.displayFormat;
 
     if (this.displayFormat) {
       this.isDisplayFormatSet = true;
@@ -796,9 +809,7 @@ export class Datepicker {
         date.setMonth(this.month);
         date.setFullYear(this.year);
         date.setDate(this.selectedDay);
-        this.value = format(date, this.displayFormat, {
-          locale: this.langModule,
-        });
+        this.value = this.formatDateTime();
       } else {
         const formattedFromDate = format(
           new Date(this.startDate),
@@ -818,6 +829,54 @@ export class Datepicker {
       }
     }
   }
+
+  getDate = (): string => {
+    try {
+      const date = format(
+        new Date(this.year, this.month, this.selectedDay),
+        this.dateFormat,
+        {
+          locale: this.langModule,
+        }
+      );
+      return date ? date : '';
+    } catch (error) {
+      return '';
+    }
+  };
+
+  isValidDateTime = (): boolean => {
+    if (this.time) {
+      return !!(this.selectedDay && this.timeValue);
+    }
+    return this.selectedDay;
+  };
+
+  formatDateTime = (): string => {
+    if (this.time) {
+      const [hour, minute] = this.timeValue.split(':');
+      return format(
+        new Date(
+          this.year,
+          this.month,
+          this.selectedDay,
+          parseInt(hour),
+          parseInt(minute)
+        ),
+        this.displayFormat,
+        {
+          locale: this.langModule,
+        }
+      );
+    }
+    return format(
+      new Date(this.year, this.month, this.selectedDay),
+      this.displayFormat,
+      {
+        locale: this.langModule,
+      }
+    );
+  };
 
   getDayDetails = (args) => {
     const date = args.index - args.firstDay;
@@ -1019,13 +1078,7 @@ export class Datepicker {
 
   updateValueAndEmitEvent(e) {
     if (this.showSingleDatePicker()) {
-      this.value = format(
-        new Date(this.year, this.month, this.selectedDay),
-        this.displayFormat,
-        {
-          locale: this.langModule,
-        }
-      );
+      this.value = this.formatDateTime();
       this.emitEvent(e, this.formatDate(this.value));
     } else if (this.showDateRangePicker()) {
       this.startDateFormatted = format(this.startDate, this.displayFormat, {
@@ -1088,7 +1141,7 @@ export class Datepicker {
 
   // handle cancel and popover close
   handlePopoverClose = (e: any) => {
-    if (e.target?.tagName === 'FW-SELECT') return;
+    if (['FW-SELECT', 'FW-TIMEPICKER'].includes(e.target?.tagName)) return;
     if (this.mode === 'range') {
       // handle resetting of startDate and endDate on clicking cancel
       if (this.value) {
@@ -1314,7 +1367,11 @@ export class Datepicker {
       <div class='time-container'>
         <div>
           <span>{TranslationController.t('datepicker.date')}</span>
-          <fw-input></fw-input>
+          <fw-input
+            placeholder={this.dateFormat}
+            value={this.getDate()}
+            readonly
+          ></fw-input>
         </div>
         <div>
           <span>{TranslationController.t('datepicker.time')}</span>
@@ -1323,6 +1380,8 @@ export class Datepicker {
             sameWidth={false}
             caret={false}
             optionsPlacement='bottom-end'
+            format={this.timeFormat}
+            value={this.timeValue}
             {...this.timeProps}
           ></fw-timepicker>
         </div>
