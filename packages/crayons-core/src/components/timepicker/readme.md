@@ -60,10 +60,10 @@ function App() {
 | `optionsPlacement` | `options-placement` | Placement of the options list with respect to timepicker.                                                                                                                                      | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`                                     |
 | `placeholder`      | `placeholder`       | Text displayed in the select before an option is selected.                                                                                                                                     | `string`                                                                                                                                                             | `undefined`                                    |
 | `required`         | `required`          | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.                                     | `boolean`                                                                                                                                                            | `false`                                        |
+| `sameWidth`        | `same-width`        | Whether the dropdown should be same width as that of the input.                                                                                                                                | `boolean`                                                                                                                                                            | `true`                                         |
 | `state`            | `state`             | Theme based on which the input of the timepicker is styled.                                                                                                                                    | `"error" \| "normal" \| "warning"`                                                                                                                                   | `'normal'`                                     |
 | `value`            | `value`             | Time output value                                                                                                                                                                              | `string`                                                                                                                                                             | `undefined`                                    |
 | `warningText`      | `warning-text`      | Warning text displayed below the text box.                                                                                                                                                     | `string`                                                                                                                                                             | `''`                                           |
-
 
 
 ## Events
@@ -88,11 +88,11 @@ Type: `Promise<void>`
 
 
 
-
 ## Dependencies
 
 ### Used by
 
+ - [fw-datepicker](../datepicker)
  - [fw-form-control](../form-control)
 
 ### Depends on
