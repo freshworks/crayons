@@ -4,27 +4,27 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 
 ---
 
-- [Versions](#versions)
-- [Version 3.x](#version-3x)
-  - [Global Styles](#global-styles)
-  - [Input Control Events](#input-control-events)
-  - [Components](#components)
-    - [Button](#button)
-    - [Checkbox](#checkbox)
-    - [Datepicker](#datepicker)
-    - [Dropdown button](#dropdown-button)
-    - [Icon](#icon)
-    - [Input](#input)
-    - [Label](#label)
-    - [Radio Group](#radio-group)
-    - [Radio](#radio)
-    - [Select](#select)
-    - [Spinner](#spinner)
-    - [Tabs](#tabs)
-    - [Tab](#tab)
-    - [Textarea](#textarea)
-    - [Timepicker](#timepicker)
-    - [Modal](#modal)
+  - [Versions](#versions)
+  - [Version 3.x](#version-3x)
+    - [Global Styles](#global-styles)
+    - [Input Control Events](#input-control-events)
+    - [Components](#components)
+      - [Button](#button)
+      - [Checkbox](#checkbox)
+      - [Datepicker](#datepicker)
+      - [Dropdown button](#dropdown-button)
+      - [Icon](#icon)
+      - [Input](#input)
+      - [Label](#label)
+      - [Radio Group](#radio-group)
+      - [Radio](#radio)
+      - [Select](#select)
+      - [Spinner](#spinner)
+      - [Tabs](#tabs)
+      - [Tab](#tab)
+      - [Textarea](#textarea)
+      - [Timepicker](#timepicker)
+      - [Modal](#modal)
 
 ## Versions
 
@@ -249,6 +249,8 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
   ```
 
 #### Dropdown button
+
+Dropdown button component has been removed as part of v3 release. You can create dropdown buttons using [`popover`](https://crayons.freshworks.com/components/core/popover/#usage) component.
 
 - CSS variables
 
