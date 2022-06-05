@@ -1,3 +1,100 @@
+// Neutral colors
+$color-neutral-100: var(--fw-color-neutral-100, $color-milk);
+
+// Primary colors
+$color-primary-900: var(--fw-color-primary-900, $color-elephant-900);
+$color-primary-800: var(--fw-color-primary-800, $color-elephant-800);
+$color-primary-700: var(--fw-color-primary-700, $color-elephant-700);
+$color-primary-600: var(--fw-color-primary-600, $color-elephant-600);
+
+// Secondary colors
+$color-secondary-700: var(--fw-color-secondary-700, $color-smoke-700);
+$color-secondary-500: var(--fw-color-secondary-500, $color-smoke-500);
+$color-secondary-400: var(--fw-color-secondary-400, $color-smoke-400);
+$color-secondary-300: var(--fw-color-secondary-300, $color-smoke-300);
+$color-secondary-200: var(--fw-color-secondary-200, $color-smoke-200);
+$color-secondary-100: var(--fw-color-secondary-100, $color-smoke-100);
+$color-secondary-50: var(--fw-color-secondary-50, $color-smoke-50);
+$color-secondary-25: var(--fw-color-secondary-25, $color-smoke-25);
+
+// Success colors
+$color-success-800: var(--fw-color-success-800, $color-jungle-800);
+$color-success-500: var(--fw-color-success-500, $color-jungle-500);
+$color-success-100: var(--fw-color-success-100, $color-jungle-100);
+$color-success-50: var(--fw-color-success-50, $color-jungle-50);
+
+// Warning colors
+$color-warning-700: var(--fw-color-warning-700, $color-casablanca-700);
+$color-warning-300: var(--fw-color-warning-300, $color-casablanca-300);
+$color-warning-100: var(--fw-color-warning-100, $color-casablanca-100);
+$color-warning-50: var(--fw-color-warning-50, $color-casablanca-50);
+
+// Error colors
+$color-danger-900: var(--fw-color-danger-900, $color-persimmon-900);
+$color-danger-800: var(--fw-color-danger-800, $color-persimmon-800);
+$color-danger-300: var(--fw-color-danger-300, $color-persimmon-300);
+$color-danger-200: var(--fw-color-danger-200, $color-persimmon-200);
+$color-danger-100: var(--fw-color-danger-100, $color-persimmon-100);
+$color-danger-50: var(--fw-color-danger-50, $color-persimmon-50);
+
+// Info colors
+$color-info-800: var(--fw-color-info-800, $color-azure-800);
+$color-info-100: var(--fw-color-info-100, $color-azure-100);
+$color-info-50: var(--fw-color-info-50, $color-azure-50);
+
+// Elevation shadow
+$elevation-level1: var(
+  --fw-elevation-level1,
+  -15px 20px 40px rgba(0, 0, 0, 0.04)
+);
+$elevation-level2: var(
+  --fw-elevation-level2,
+  0px 2px 18px rgba(18, 52, 77, 0.2)
+);
+
+//=== Text colors ===//
+$text-neutral: $color-neutral-100;
+$text-default: $color-primary-900;
+$text-secondary: $color-secondary-700;
+$text-disabled: $color-secondary-300;
+$text-disabled-2: $color-secondary-50;
+
+$text-success: $color-success-800;
+$text-info: $color-info-800;
+$text-danger: $color-danger-800;
+$text-warning: $color-warning-700;
+$text-warning-2: $color-warning-300;
+
+$text-link: $color-info-800;
+//=== Text colors ===//
+
+//=== Font sizes ===//
+$font-3xl: var(--fw-font-3xl, 2.75rem);
+$font-2xl: var(--fw-font-2xl, 2rem);
+$font-xl: var(--fw-font-xl, 1.5rem);
+$font-lg: var(--fw-font-lg, 1.125rem);
+$font-base: var(--fw-font-base, 1rem);
+$font-sm: var(--fw-font-sm, 0.875rem);
+$font-xs: var(--fw-font-xs, 0.75rem);
+$font-2xs: var(--fw-font-2xs, 0.625rem);
+//=== Font sizes ===//
+
+//=== Line height ===//
+$font-lh-3xl: var(--fw-font-lh-3xl, 4rem);
+$font-lh-2xl: var(--fw-font-lh-2xl, 3rem);
+$font-lh-xl: var(--fw-font-lh-xl, 2.25rem);
+$font-lh-lg: var(--fw-font-lh-lg, 1.75rem);
+$font-lh-base: var(--fw-font-lh-base, 1.5rem);
+$font-lh-sm: var(--fw-font-lh-sm, 1.25rem);
+$font-lh-xs: var(--fw-font-lh-xs, 1.25rem);
+$font-lh-2xs: var(--fw-font-lh-2xs, 1rem);
+//=== Line height ===//
+
+//=== Icon colors ===//
+$icon-primary: $color-smoke-700;
+$icon-primary-hover: $color-smoke-100;
+//=== Icon colors ===//
+
 // Color/Theme related config variables
 
 $app-primary: $color-azure-800;

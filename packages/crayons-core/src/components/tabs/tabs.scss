@@ -5,6 +5,11 @@
   @prop --fw-tabs-margin-r: right margin for the tab items
   @prop --fw-tabs-padding-left: left padding for the tab items
   @prop --fw-tabs-padding-right: right padding for the tab items
+  @prop --fw-tabs-border-width: width of border separating tabs and the tab panel.
+  @prop --fw-tabs-border-color: color of border separating tabs and the tab panel.
+  @prop --fw-tabs-box-background: box variant background color.
+  @prop --fw-tabs-box-border-width: box variant tabs container border width.
+  @prop --fw-tabs-box-border-color: box variant tabs container border color.
 */
 
 .tabs {
@@ -20,13 +25,15 @@
     margin-left: var(--fw-tabs-margin-l, 0);
     margin-right: var(--fw-tabs-margin-r, 0);
     display: flex;
-    border-bottom: 1px solid $color-smoke-50;
+    border-bottom: var(--fw-tabs-border-width, 1px) solid
+      var(--fw-tabs-border-color, $color-secondary-50);
     overflow-x: auto;
     overflow-y: hidden;
 
     &__box {
-      background-color: $app-header-bg-secondary;
-      border: 1px solid $color-smoke-50;
+      background-color: var(--fw-tabs-box-background, $color-secondary-25);
+      border: var(--fw-tabs-box-border-width, 1px) solid
+        var(--fw-tabs-box-border-color, $color-secondary-50);
       box-sizing: border-box;
       border-radius: $radius;
     }

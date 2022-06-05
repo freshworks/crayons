@@ -3,21 +3,22 @@
   @prop --fw-hint-color: Color of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
+  @prop --fw-input-height: The height of the input element.
+  @prop --fw-input-border-radius: The border radius of the input element.
 */
 
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack-sans !default;
-$placeholder-color: $muted-secondary;
-$help-color: $muted-secondary;
-$disabled-color: $input-disabled-color;
-$error-color: $app-error;
-$input-border: #cfd7df;
-$input-hover-color: #475867;
-$input-focus-color: #2c5cc5;
-$input-bg: #fff;
-$input-color: $app-primary-black;
-$warning-color: $color-casablanca-300;
+$help-color: $text-secondary;
+$disabled-color: $text-disabled;
+$warning-color: $text-warning-2;
+$error-color: $text-danger;
+$input-border: $color-secondary-100;
+$input-hover-color: $color-secondary-700;
+$input-focus-color: $color-info-800;
+$input-bg: $color-neutral-100;
+$input-color: $text-default;
 
 *,
 ::after,
@@ -59,11 +60,12 @@ $warning-color: $color-casablanca-300;
   display: flex;
   align-items: center;
   width: 100%;
+  height: var(--fw-input-height, 32px);
   border: 1px solid $input-border;
-  background-color: $app-light-bg;
+  background-color: $color-neutral-100;
   position: relative;
-  border-radius: 4px;
-  box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05);
+  border-radius: var(--fw-input-border-radius, 4px);
+  box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05); //  TODO: follow DSM : Elevation.
 
   &.error {
     @include stateStyle($error-color);
@@ -86,16 +88,16 @@ $warning-color: $color-casablanca-300;
 
       input {
         width: 100%;
-        padding: 5px 0px;
         resize: none;
         border: none;
         outline: none;
         box-shadow: none;
-        min-height: 24px;
-        font-size: $font-size-14;
-        font-weight: $font-weight-semibold;
+        padding: 0px;
+        margin: 0px;
+        font-size: $font-sm;
+        font-weight: $font-weight-500;
         letter-spacing: 0;
-        line-height: 20px;
+        line-height: $font-lh-sm;
         color: $input-color;
         box-sizing: border-box;
         cursor: text;
@@ -103,9 +105,9 @@ $warning-color: $color-casablanca-300;
         font-family: inherit;
 
         &[disabled] {
-          font-weight: $font-weight-default;
+          font-weight: $font-weight-400;
           color: $disabled-color;
-          background-color: $input-disabled-bg;
+          background-color: $input-disabled-bg; // TODO: follow DSM : not in palette
           pointer-events: none;
         }
       }
@@ -143,16 +145,16 @@ $warning-color: $color-casablanca-300;
   &.has-focus {
     outline: none;
     background: $input-bg;
-    background-color: $app-light-bg;
+    background-color: $color-neutral-100;
     border: 1px solid $input-focus-color;
     box-shadow: 0 0 0 1px $input-focus-color;
   }
 
   &.disabled {
-    font-weight: $font-weight-default;
+    font-weight: $font-weight-400;
     color: $disabled-color;
-    border: 1px solid $color-smoke-50;
-    background-color: $input-disabled-bg;
+    border: 1px solid $color-secondary-50;
+    background-color: $input-disabled-bg; // TODO: follow DSM : not in palette
     border-style: solid;
     pointer-events: none;
   }
@@ -183,8 +185,8 @@ $warning-color: $color-casablanca-300;
   //Help Block
   & + .help-block {
     font-family: $label-font;
-    font-size: 12px;
-    line-height: 20px;
+    font-size: $font-xs;
+    line-height: $font-lh-xs;
     margin-top: 4px;
     margin-bottom: 0;
     color: var(--fw-hint-color, $help-color);
@@ -197,17 +199,17 @@ $warning-color: $color-casablanca-300;
 }
 
 ::-webkit-input-placeholder {
-  color: $muted-secondary;
+  color: $color-secondary-300;
 }
 
 ::-moz-placeholder {
-  color: $muted-secondary;
+  color: $color-secondary-300;
 }
 
 :-ms-input-placeholder {
-  color: $muted-secondary;
+  color: $color-secondary-300;
 }
 
 :-moz-placeholder {
-  color: $muted-secondary;
+  color: $color-secondary-300;
 }

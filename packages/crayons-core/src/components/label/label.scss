@@ -3,49 +3,67 @@
   @prop --fw-label-padding-horizontal: Left - right padding for label
 */
 
+$label-color: $text-default;
+$label-bg: $color-neutral-100;
+$label-border: $app-box-shadow;
+$label-blue-bg: $color-info-50;
+$label-blue-color: $text-info;
+$label-blue-border: $color-info-100;
+$label-red-bg: $color-danger-50;
+$label-red-color: $text-danger;
+$label-red-border: $color-danger-100;
+$label-green-bg: $color-success-50;
+$label-green-color: $text-success;
+$label-green-border: $color-success-100;
+$label-yellow-bg: $color-warning-50;
+$label-yellow-color: $text-warning;
+$label-yellow-border: $color-warning-100;
+$label-grey-bg: $color-secondary-50;
+$label-grey-color: $text-secondary;
+
 :host {
   --fw-label-padding-vertical: 5px;
   --fw-label-padding-horizontal: 8px;
 }
 
 .label {
-  color: #6f7c87;
-  border: 1px solid #dadfe3;
-  background-color: $color-milk;
-  font-weight: 600;
-  line-height: 14px;
+  color: $label-color;
+  border: 1px solid $label-border;
+  background-color: $label-bg;
+  font-weight: $font-weight-600;
+  line-height: 14px; // TODO: follow DSM
   font-size: $font-size-12;
   padding: var(--fw-label-padding-vertical) var(--fw-label-padding-horizontal);
   display: inline-block;
-  border-radius: 4px;
+  border-radius: $radius;
 
   &--blue {
-    background-color: $color-azure-50;
-    color: $color-azure-800;
-    border: 1px solid $color-azure-100;
+    background-color: $label-blue-bg;
+    color: $label-blue-color;
+    border: 1px solid $label-blue-border;
   }
 
   &--red {
-    background-color: $color-persimmon-50;
-    color: $color-persimmon-800;
-    border: 1px solid $color-persimmon-100;
+    background-color: $label-red-bg;
+    color: $label-red-color;
+    border: 1px solid $label-red-border;
   }
 
   &--green {
-    background-color: $color-jungle-50;
-    color: $color-jungle-800;
-    border: 1px solid $color-jungle-100;
+    background-color: $label-green-bg;
+    color: $label-green-color;
+    border: 1px solid $label-green-border;
   }
 
   &--yellow {
-    background-color: $color-casablanca-50;
-    color: $color-casablanca-700;
-    border: 1px solid $color-casablanca-100;
+    background-color: $label-yellow-bg;
+    color: $label-yellow-color;
+    border: 1px solid $label-yellow-border;
   }
 
   &--grey {
-    background-color: $color-smoke-50;
-    color: $color-smoke-700;
+    background-color: $label-grey-bg;
+    color: $label-grey-color;
     border: none;
   }
 }

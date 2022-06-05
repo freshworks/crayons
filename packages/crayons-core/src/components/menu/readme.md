@@ -64,15 +64,17 @@ Menu is a container for `fw-menu-item` components.
 
 ## CSS Custom Properties
 
-| Name                      | Description                         |
-| ------------------------- | ----------------------------------- |
-| `--fw-menu-border`        | Border of the menu content.         |
-| `--fw-menu-border-radius` | Border radius of the menu content.  |
-| `--fw-menu-box-shadow`    | Box Shadow of the menu content.     |
-| `--fw-menu-max-height`    | Maximum height of the menu content. |
-| `--fw-menu-max-width`     | Maximum width of the menu content.  |
-| `--fw-menu-min-height`    | Minimum height of the menu content. |
-| `--fw-menu-min-width`     | Minimum width of the menu content.  |
+| Name                      | Description                             |
+| ------------------------- | --------------------------------------- |
+| `--fw-menu-border`        | Border of the menu content.             |
+| `--fw-menu-border-radius` | Border radius of the menu content.      |
+| `--fw-menu-box-shadow`    | Box Shadow of the menu content.         |
+| `--fw-menu-max-height`    | Maximum height of the menu content.     |
+| `--fw-menu-max-width`     | Maximum width of the menu content.      |
+| `--fw-menu-min-height`    | Minimum height of the menu content.     |
+| `--fw-menu-min-width`     | Minimum width of the menu content.      |
+| `--fw-menu-padding-lr`    | Padding left/right of the menu content. |
+| `--fw-menu-padding-tb`    | Padding top/bottom of the menu content. |
 
 
 ----------------------------------------------

@@ -4,6 +4,7 @@
   @prop --fw-popover-min-height: Minimum height of the popover content.
   @prop --fw-popover-max-height: Maximum height of the popover content.
   @prop --fw-popover-border-radius: border radius of the popover content.
+  @prop --fw-popover-box-shadow: Shadow of the popover content.
 */
 
 .popper-content {
@@ -18,12 +19,12 @@
   overscroll-behavior-y: contain;
   margin: 0px;
   border-radius: var(--fw-popover-border-radius, 8px);
-  border: 1px solid $app-border-secondary;
+  border: 1px solid $color-secondary-50;
   position: absolute;
-  background: $popover-background;
+  background: $color-neutral-100;
   box-sizing: border-box;
   outline: none;
-  box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
+  box-shadow: $elevation-level1;
   user-select: none;
   transform: scale(0.01);
   transition: 150ms color, 150ms border, 150ms box-shadow;

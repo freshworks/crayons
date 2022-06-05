@@ -18,14 +18,14 @@
   z-index: 2;
   @media screen and (prefers-reduced-motion: reduce) {
     & .path {
-      stroke: var(--fw-spinner-color, $color-azure-800);
+      stroke: var(--fw-spinner-color, $color-info-800);
       stroke-linecap: round;
       animation: none;
     }
   }
 
   & .path {
-    stroke: var(--fw-spinner-color, $color-azure-800);
+    stroke: var(--fw-spinner-color, $color-info-800);
     stroke-linecap: round;
     animation: dash 1s ease-in-out infinite;
   }
