@@ -6,7 +6,9 @@
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
   @prop --fw-select-input-padding-left: Padding of input container.
-  @prop --fw-select-tag-margin: Margin for the tags in multi select.
+  @prop --fw-select-font-size: Font size of the input value
+  @prop --fw-select-font-weight: Font weight of the input value
+  @prop --fw-select-line-height: Line height of the input value
 */
 
 @import '../../function-components/field-control.scss';
@@ -85,9 +87,9 @@ $warning-color: $text-warning-2;
       flex-grow: 1;
       border: none;
       font-family: inherit;
-      font-size: $font-sm;
-      line-height: $font-lh-sm;
-      font-weight: $font-weight-500;
+      font-size: var(--fw-select-font-size, $font-sm);
+      line-height: var(--fw-select-line-height, $font-lh-sm);
+      font-weight: var(--fw-select-font-weight, $font-weight-500);
       letter-spacing: 0;
       background-color: $input-bg;
       min-width: 20px;
