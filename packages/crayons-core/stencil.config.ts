@@ -96,5 +96,5 @@ export const config: Config = {
   },
   enableCache: true,
 
-  //globalScript: 'src/global/crayons.ts',
+  globalScript: 'scripts/global.ts',
 };

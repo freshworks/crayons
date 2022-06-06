@@ -17,6 +17,7 @@ import {
   dateOptions,
   formatDate,
 } from '../components/format-date/format-date-util';
+import { setTheme } from '@freshworks/crayons-styles';
 
 export function ToastController(
   config: ToastOptions = { position: 'top-center' }
@@ -60,3 +61,5 @@ export {
 
 export const CRAYONS_ICONS_ASSET_PATH =
   'https://cdn.jsdelivr.net/npm/@freshworks/crayons-icon@next/dist/icons';
+
+export { setTheme };

@@ -1,0 +1,19 @@
+{
+  "button": {
+    "font-weight": {
+      "value": "500",
+      "type": "fontWeights",
+      "var": "--fw-button-font-weight"
+    },
+    "font-size": {
+      "value": "12px",
+      "type": "fontSizes",
+      "var": "--fw-button-font-size"
+    },
+    "height": {
+      "value": "34px",
+      "type": "other",
+      "var": "--fw-button-height"
+    }
+  }
+}

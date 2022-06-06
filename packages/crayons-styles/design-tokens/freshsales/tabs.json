@@ -1,0 +1,24 @@
+{
+  "tabs": {
+    "padding-left": {
+      "value": "0px",
+      "type": "spacing",
+      "var": "--fw-tabs-padding-left"
+    },
+    "padding-right": {
+      "value": "0px",
+      "type": "spacing",
+      "var": "--fw-tabs-padding-right"
+    },
+    "border-width": {
+      "value": "0px",
+      "type": "spacing",
+      "var": "--fw-tabs-border-width"
+    },
+    "border-width": {
+      "value": "0px",
+      "type": "spacing",
+      "var": "--fw-tabs-padding-lr"
+    }
+  }
+}

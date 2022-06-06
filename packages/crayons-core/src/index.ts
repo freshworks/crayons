@@ -6,4 +6,5 @@ export {
   registerIconLibrary,
   unregisterIconLibrary,
   DateFormatController,
+  setTheme,
 } from './global/crayons';
