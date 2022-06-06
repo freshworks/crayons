@@ -7,6 +7,8 @@
   @prop --fw-button-font-weight: The font weight of the button.
   @prop --fw-button-font-size: The font size of the normal button.
   @prop --fw-button-small-font-size: The font size of the small button.
+  @prop --fw-button-normal-line-height: Line height of the normal button.
+  @prop --fw-button-small-line-height: Line height of the small button.
   @prop --fw-button-primary-border: The border color of the primary button.
   @prop --fw-button-primary-border-active: The border color of the primary button on active state.
   @prop --fw-button-primary-bg: The background color of the primary button.
@@ -22,7 +24,10 @@
   @prop --fw-button-secondary-bg-dark: The background color of the secondary dark button.
   @prop --fw-button-secondary-color: The text color of the secondary button.
   @prop --fw-button-secondary-disabled-color: The text color of the secondary disabled button.
+  @prop --fw-button-secondary-disabled-border: The border color of the secondary disabled button.
+  @prop --fw-button-secondary-disabled-bg: The background color of the secondary disabled button.
   @prop --fw-button-active-box-shadow: Box shadow of active button.
+  @prop --fw-spinner-color-button-secondary: Spinner color of the secondary button.
 */
 
 //=== Button Style ===//
@@ -59,8 +64,14 @@ $btn-secondary-border-active: var(
   --fw-button-secondary-border-active,
   $color-secondary-50
 );
-$btn-secondary-disabled-bg: $color-secondary-50;
-$btn-secondary-disabled-bg-dark: $color-secondary-100;
+$btn-secondary-disabled-bg: var(
+  --fw-button-secondary-disabled-bg,
+  $color-secondary-50
+);
+$btn-secondary-disabled-border: var(
+  --fw-button-secondary-disabled-border,
+  $color-secondary-100
+);
 $btn-secondary-disabled-color: var(
   --fw-button-secondary-disabled-color,
   $color-secondary-300
@@ -208,8 +219,15 @@ $input-height-mini: 16px;
     &.disabled,
     &[disabled] {
       background: $btn-secondary-disabled-bg;
-      border-color: $btn-secondary-disabled-bg-dark;
+      border-color: $btn-secondary-disabled-border;
       color: $btn-secondary-disabled-color;
+    }
+
+    .fw-btn--loader {
+      --fw-spinner-color: var(
+        --fw-spinner-color-button-secondary,
+        currentColor
+      );
     }
   }
 
@@ -260,6 +278,13 @@ $input-height-mini: 16px;
     }
   }
 
+  &--primary,
+  &--danger {
+    .fw-btn--loader {
+      --fw-spinner-color: currentColor;
+    }
+  }
+
   &--text,
   &--link {
     &:focus:not([disabled]),
@@ -289,7 +314,7 @@ $input-height-mini: 16px;
 
   // DS button specification for mini has been referenced within crayons as type small
   &--small {
-    height: 24px;
+    height: $input-height-small;
     line-height: var(
       --fw-button-small-line-height,
       calc(#{$input-height-small} - #{$btn-border-width} * 2)
@@ -320,17 +345,17 @@ $input-height-mini: 16px;
   &--icon {
     min-width: 32px;
     width: 32px;
-    height: 32px;
+    height: $input-height-normal;
     padding: 0;
-    line-height: calc(32px - #{$btn-border-width} * 2);
+    line-height: calc($input-height-normal - #{$btn-border-width} * 2);
   }
 
   &--icon-small {
     min-width: 24px;
     width: 24px;
-    height: 22px;
+    height: $input-height-small;
     padding: 0;
-    line-height: calc(22px - #{$btn-border-width} * 2);
+    line-height: calc($input-height-small - #{$btn-border-width} * 2);
   }
 }
 
@@ -404,7 +429,6 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
   }
 
   .fw-btn--loader {
-    --fw-spinner-color: currentColor;
     opacity: 1;
     line-height: 0;
   }
