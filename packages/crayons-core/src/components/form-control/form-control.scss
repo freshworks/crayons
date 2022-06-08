@@ -4,7 +4,7 @@
   font-size: 12px;
   line-height: 20px;
   padding-top: 4px;
-  padding-left: 2px;
+  padding-inline-start: 2px;
 }
 // Label Style
 label {
@@ -12,17 +12,17 @@ label {
   color: $label-default;
   font-weight: 600;
   margin-bottom: 4px;
-  padding-left: 2px;
+  padding-inline-start: 2px;
   display: block;
 
   &.required::after {
     content: '*';
     position: relative;
     display: inline-block;
-    top: 2px;
+    inset-block-start: 2px;
     font-size: 14px;
     color: $app-error;
-    padding-left: 2px;
+    padding-inline-start: 2px;
     font-weight: $font-weight-bold;
   }
 }
@@ -32,8 +32,9 @@ label {
   color: $color-smoke-700;
   line-height: 20px;
   padding-top: 4px;
-  padding-left: 2px;
+  padding-inline-start: 2px;
 }
 .form-control-container {
-  margin: 1em 0em;
+  margin-inline: 0em;
+  margin-block: 1em;
 }

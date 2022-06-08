@@ -9,7 +9,8 @@
   border-radius: $radius;
   box-sizing: border-box;
   margin: inherit;
-  padding: 8px 6px;
+  padding-inline: 6px;
+  padding-block: 8px;
   background-color: transparent;
 
   &--success {
@@ -17,7 +18,7 @@
     border: 1px solid $border-success-color;
 
     .alert__message {
-      border-left: 1px solid $border-success-color;
+      border-inline-start: 1px solid $border-success-color;
     }
   }
 
@@ -26,7 +27,7 @@
     border: 1px solid $border-warning-color;
 
     .alert__message {
-      border-left: 1px solid $border-warning-color;
+      border-inline-start: 1px solid $border-warning-color;
     }
   }
 
@@ -35,7 +36,7 @@
     border: 1px solid $border-info-color;
 
     .alert__message {
-      border-left: 1px solid $border-info-color;
+      border-inline-start: 1px solid $border-info-color;
     }
   }
 
@@ -44,7 +45,7 @@
     background: $bg-danger;
 
     .alert__message {
-      border-left: 1px solid $border-danger-color;
+      border-inline-start: 1px solid $border-danger-color;
     }
   }
 
@@ -52,11 +53,11 @@
     flex: 0 0 auto;
     display: flex;
     align-self: flex-start;
-    margin-right: 8px;
+    margin-inline-end: 8px;
   }
 
   &__message {
-    padding-left: 12px;
+    padding-inline-start: 12px;
     flex: 1 1 auto;
     color: $color-elephant-900;
     font-size: $font-size-14;
@@ -74,8 +75,8 @@
     flex: 0 0 auto;
     display: flex;
     align-self: flex-start;
-    padding-right: 6px;
-    padding-left: 12px;
+    padding-inline-end: 6px;
+    padding-inline-start: 12px;
     cursor: pointer;
   }
 }

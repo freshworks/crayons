@@ -1,0 +1,17 @@
+{
+  "name": "postcss-directional-to-logical",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/postcss-directional-to-logical.js",
+  "module": "dist/postcss-directional-to-logical.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
+}

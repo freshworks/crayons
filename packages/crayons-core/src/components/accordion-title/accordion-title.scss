@@ -16,8 +16,12 @@ $accordion-title-icon-color: #475867;
   align-items: center;
   background: var(--fw-accordion-title-background-color, #ffffff);
   border: var(--fw-accordion-title-border, none);
-  border-radius: $accordion-border-radius $accordion-border-radius 0 0;
-  padding: 10px 20px;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+  border-start-end-radius: $accordion-border-radius;
+  border-start-start-radius: $accordion-border-radius;
+  padding-inline: 20px;
+  padding-block: 10px;
   cursor: pointer;
 
   &.collapsed {

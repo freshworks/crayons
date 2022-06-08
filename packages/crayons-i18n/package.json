@@ -38,6 +38,7 @@
     "@rollup/plugin-dynamic-import-vars": "^1.4.1",
     "@rollup/plugin-node-resolve": "^11.1.0",
     "@rollup/plugin-typescript": "^8.1.0",
+    "@types/estree": "^0.0.51",
     "@types/pluralize": "^0.0.29",
     "adm-zip": "^0.5.9",
     "axios": "^0.26.1",

@@ -3,12 +3,14 @@
   white-space: nowrap;
   cursor: pointer;
   align-items: center;
-  padding: 10px 8px;
+  padding-inline: 8px;
+  padding-block: 10px;
   line-height: 20px;
   color: $color-smoke-700;
   font-size: $font-size-14;
   font-weight: $font-weight-400;
-  margin: 0 4px;
+  margin-inline: 4px;
+  margin-block: 0;
 
   /* stylelint-disable */
   &:hover:not(.disabled) {

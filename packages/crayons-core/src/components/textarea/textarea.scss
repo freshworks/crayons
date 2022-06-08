@@ -53,7 +53,9 @@ $warning-color: $color-casablanca-300;
     border: 1px solid $input-border;
     // margin: 5px 0 0;
     border-radius: 4px;
-    padding: 4px 12px 5px;
+    padding-block-end: 5px;
+    padding-inline: 12px;
+    padding-block-start: 4px;
     background-color: $input-bg;
     box-shadow: none;
     min-height: 24px;
@@ -105,7 +107,7 @@ $warning-color: $color-casablanca-300;
     position: inherit;
     margin-bottom: 0;
     display: block;
-    padding-left: 2px;
+    padding-inline-start: 2px;
   }
 
   &.error {

@@ -48,7 +48,7 @@
     pointer-events: none;
     user-select: none;
     line-height: 20px;
-    text-align: left;
+    text-align: start;
     color: $text-default;
     font-size: $font-size-16;
     font-weight: $font-weight-600;
@@ -64,7 +64,7 @@
     margin: 0;
     pointer-events: none;
     user-select: none;
-    text-align: left;
+    text-align: start;
 
     color: $text-secondary;
     font-size: $font-size-14;
@@ -87,8 +87,8 @@
     width: 20px;
     height: 20px;
     position: absolute;
-    top: -8px;
-    right: -8px;
+    inset-block-start: -8px;
+    inset-inline-end: -8px;
     display: flex;
     align-items: center;
     justify-content: center;
