@@ -320,6 +320,7 @@ Type: `Promise<void>`
 | `--fw-label-color`                 | Color of the label.                           |
 | `--fw-label-font-size`             | Label font size.                              |
 | `--fw-label-font-weight`           | Label font weight.                            |
+| `--fw-label-line-height`           | Label font line height.                       |
 | `--fw-warning-color`               | Color of the warning text.                    |
 
 

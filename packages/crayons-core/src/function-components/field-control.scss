@@ -16,7 +16,7 @@ $help-color: $text-secondary;
   font-weight: var(--fw-label-font-weight, $font-weight-600);
   margin-bottom: 4px;
   padding-left: 2px;
-  line-height: $font-lh-xs;
+  line-height: var(--fw-label-line-height, $font-lh-xs);
 
   &.required::after {
     content: '*';
