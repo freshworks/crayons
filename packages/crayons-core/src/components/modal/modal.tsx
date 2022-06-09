@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 import { getFocusableChildren } from '../../utils';
 import { i18n } from '../../global/Translation';
+import { addRTL } from '../../utils';
 
 @Component({
   tag: 'fw-modal',
@@ -190,6 +191,10 @@ export class Modal {
       slider: 'cross-big',
     },
   };
+
+  connectedCallback() {
+    addRTL(this.el);
+  }
 
   /**
    * lifecycle event, called once just after the component is first connected to the DOM

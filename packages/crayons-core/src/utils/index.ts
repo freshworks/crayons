@@ -306,3 +306,11 @@ export const isArrayEquals = (a, b) => {
     a.every((val, index) => val === b[index])
   );
 };
+
+export const addRTL = (host) => {
+  if (document.documentElement.dir === 'rtl') {
+    host.setAttribute('dir', 'rtl');
+  } else {
+    host.setAttribute('dir', 'ltr');
+  }
+};
