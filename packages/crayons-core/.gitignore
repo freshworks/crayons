@@ -34,5 +34,3 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
-
-!postcss/postcss-directional-to-logical/dist/
