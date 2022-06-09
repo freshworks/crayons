@@ -9,6 +9,7 @@
   @prop --fw-select-font-size: Font size of the input value
   @prop --fw-select-font-weight: Font weight of the input value
   @prop --fw-select-line-height: Line height of the input value
+  @prop --fw-select-input-min-height: Height of the select input box
 */
 
 @import '../../function-components/field-control.scss';
@@ -64,7 +65,7 @@ $warning-color: $text-warning-2;
   padding-left: var(--fw-select-input-padding-left, 10px);
   background-color: $input-bg;
   box-shadow: none;
-  min-height: 22px;
+  min-height: var(--fw-select-input-min-height, 22px);
   display: flex;
   align-items: center;
 

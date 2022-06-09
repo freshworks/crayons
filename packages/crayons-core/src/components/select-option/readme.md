@@ -142,6 +142,7 @@ Type: `Promise<any>`
 | Name                                                                                             | Description |
 | ------------------------------------------------------------------------------------------------ | ----------- |
 | `--fw-select-option-border-radius to add radius to options`                                      |             |
+| `--fw-select-option-color To change color of the select options text.`                           |             |
 | `--fw-select-option-font-size to change font size of options`                                    |             |
 | `--fw-select-option-icon-display to change display of the selected option icon`                  |             |
 | `--fw-select-option-line-height to change line height og options`                                |             |

@@ -81,58 +81,54 @@
       --fw-button-secondary-disabled-bg: #EBEFF3;
       --fw-spinner-color-button-secondary: #2C5CC5;
     }
-    .freshsales fw-button.secondary {
-      --fw-button-font-weight: 500;
-      --fw-color-primary-900: #333;
-      --fw-button-font-size: 14px;
-    }
-    .freshsales fw-input,
-    .freshsales fw-select {
+    .freshsales fw-input {
       --fw-input-height: 34px;
       --fw-input-font-size: 14px;
       --fw-input-line-height: 18px;
       --fw-input-font-weight: 400;
-      --fw-label-color: #333;
-      --fw-label-font-size: 12px;
-      --fw-label-font-weight: 500;
       --fw-input-placeholder-color: #ccc;
       --fw-input-placeholder-font-size: 12px;
       --fw-input-border: #c7d7df;
       --fw-input-border-hover: #12344D;
       --fw-input-color: #12344d;
       --fw-input-disabled-bg: #ebeff3;
+    }
+    .freshsales fw-input,
+    .freshsales fw-select {
+      --fw-label-color: #333;
+      --fw-label-font-size: 12px;
+      --fw-label-font-weight: 500;
+      --fw-label-line-height: 18px;
       --fw-hint-font-size: 10px;
       --fw-hint-color: #666;
       --fw-error-color: #d72d30;
       --fw-error-text-font-size: 10px;
     }
+
     .freshsales fw-popover,
     .freshsales fw-select {
       --fw-select-option-font-size: 12px;
       --fw-select-font-size: 12px;
       --fw-select-font-weight: 400;
       --fw-select-line-height: 18px;
+      --fw-select-input-min-height: 34px;
       --fw-popover-min-width: 198px;
-      --fw-popover-border-radius: 4px;
+      --fw-popover-border-radius: 8px;
       --fw-popover-box-shadow: 0px 2px 10px rgba(39, 49, 58, 0.2);
       --fw-menu-padding-tb: 5px;
       --fw-menu-border-radius: 4px;
       --fw-menu-margin-bottom: 0px;
       --fw-menu-item-font-size: 12px;
     }
-    .freshsales fw-tooltip {
-      --fw-tooltip-font-size: 12px;
-      --fw-tooltip-font-weight: 400;
-      --fw-tooltip-padding-tb: 4px;
-      --fw-tooltip-padding-lr: 6px;
-    }
     .freshsales fw-select {
       --fw-list-options-container-padding: 5px 0px;
       --fw-select-option-border-radius: 0px;
       --fw-select-option-margin-bottom: 0px;
-      --fw-select-option-single-line-padding-top: 3px;
-      --fw-select-option-single-line-padding-bottom: 3px;
-      --fw-select-input-padding-left: 5px;
+      --fw-select-option-single-line-padding-top: 8px;
+      --fw-select-option-single-line-padding-bottom: 8px;
+      --fw-select-option-line-height: 18px;
+      --fw-select-option-color: #333;
+      --fw-select-input-padding-left: 8px;
       --fw-select-tag-margin: 5px;
       --fw-font-weight-600: 400;
       --fw-select-option-icon-display: none;
@@ -146,7 +142,7 @@
           <span class="container-header">Design system 2.0</span>
         </div>
         <div class="container-col freshsales">
-          <span class="container-header">Freshsales views 2.0</span>
+          <span class="container-header">Freshsales view 2.0</span>
         </div>
       </div>
 
@@ -173,7 +169,7 @@
             Primary
           </fw-button>
           <fw-button size="icon">
-            <fw-icon name="agent" size="20"></fw-icon>
+            <fw-icon name="agent" ></fw-icon>
           </fw-button>
         </div>
       </div>
@@ -201,7 +197,7 @@
             Secondary
           </fw-button>
           <fw-button size="icon" color="secondary">
-            <fw-icon name="phone" size="20"></fw-icon>
+            <fw-icon name="phone"></fw-icon>
           </fw-button>
         </div>
       </div>
@@ -310,7 +306,7 @@
       <div class="container-row">
         <div class="container-col container-title">Input Single Select:</div>
         <div class="container-col">
-          <div style="width: fit-content">
+          <div>
             <fw-select
               label="House Name"
               required="true"
@@ -320,12 +316,16 @@
             >
               <fw-select-option value="1">Starks</fw-select-option>
               <fw-select-option value="2">Lannisters</fw-select-option>
+              <fw-select-option value="3">Arryn</fw-select-option>
+              <fw-select-option value="4">Tully</fw-select-option>
+              <fw-select-option value="5">Greyjoy</fw-select-option>
+              <fw-select-option value="6">Andals</fw-select-option>
             </fw-select>
           </div>
         </div>
 
         <div class="container-col freshsales">
-          <div style="width: fit-content">
+          <div>
             <fw-select
               label="House Name"
               required="true"
@@ -335,6 +335,10 @@
             >
               <fw-select-option value="1">Starks</fw-select-option>
               <fw-select-option value="2">Lannisters</fw-select-option>
+              <fw-select-option value="3">Arryn</fw-select-option>
+              <fw-select-option value="4">Tully</fw-select-option>
+              <fw-select-option value="5">Greyjoy</fw-select-option>
+              <fw-select-option value="6">Andals</fw-select-option>
             </fw-select>
           </div>
         </div>
