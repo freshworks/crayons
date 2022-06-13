@@ -61,7 +61,7 @@
     "test:watch": "stencil test --spec --e2e --watchAll --verbose",
     "test": "stencil test --spec --e2e",
     "test:ci": "stencil test --spec --ci --e2e --max-workers=2",
-    "directional-to-logical": "npx postcss ./src/components/**/*.scss ./src/components/**/**/**/*.scss --config ./postcss-plugins/postcss.config.js --replace --no-map --verbose"
+    "directional-to-logical": "npx postcss ./src/components/**/*.scss ./src/components/**/**/**/*.scss --config ./plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
