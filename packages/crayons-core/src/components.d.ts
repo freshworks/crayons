@@ -332,7 +332,7 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Whether the time-picker should be shown in the data-picker.
+          * Whether the time-picker should be shown in the date-picker.
          */
         "time": boolean;
         /**
@@ -2603,7 +2603,7 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Whether the time-picker should be shown in the data-picker.
+          * Whether the time-picker should be shown in the date-picker.
          */
         "time"?: boolean;
         /**

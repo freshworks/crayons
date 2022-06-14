@@ -207,7 +207,7 @@ export class Datepicker {
    */
   @Prop() label = '';
   /**
-   * Whether the time-picker should be shown in the data-picker.
+   * Whether the time-picker should be shown in the date-picker.
    */
   @Prop() time = false;
   /**
