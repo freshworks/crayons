@@ -34,6 +34,7 @@ import {
 import FieldControl from '../../function-components/field-control';
 
 import { i18n, TranslationController } from '../../global/Translation';
+import { addRTL } from '../../utils';
 
 const defaultweekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -265,6 +266,10 @@ export class Datepicker {
 
   focusElement(element: HTMLElement) {
     element.focus();
+  }
+
+  connectedCallback() {
+    addRTL(this.host);
   }
 
   disconnectedCallback() {

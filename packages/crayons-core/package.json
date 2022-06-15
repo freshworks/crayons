@@ -85,6 +85,7 @@
     "plop": "^2.7.4",
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
+    "postcss-rtlcss": "^3.6.3",
     "puppeteer": "^13.0.1",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
