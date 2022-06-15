@@ -50,7 +50,7 @@
     "code-sanity": "npm run lint",
     "commit": "git-cz",
     "dev": "npm run start",
-    "directional-to-logical": "npx postcss ./src/components/**/*.scss ./src/components/**/**/**/*.scss --config ./plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose",
+    "directional-to-logical": "npx postcss ./src/components/**/*.scss ./src/function-components/*.scss ./src/components/**/**/*.scss ./src/components/**/**/**/*.scss --config ./plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose",
     "file:util": "node fileutil",
     "generate": "plop",
     "local": "stencil build --dev --watch",

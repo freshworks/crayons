@@ -4,13 +4,15 @@ $accordion-border-radius: var(--fw-accordion-border-radius, 8px);
   @prop --fw-accordion-body-font-size: Accordion body font size
   @prop --fw-accordion-body-line-height: Accordion body line height
   @prop --fw-accordion-body-background-color: Accordion body background color
-  @prop --fw-accordion-body-padding: Accordion body padding
+  @prop --fw-accordion-body-horizontal-padding: Accordion body left - right padding
+  @prop --fw-accordion-body-vertical-padding: Accordion body top - bottom padding
 */
 .accordion-body {
   font-size: var(--fw-accordion-body-font-size, 14px);
   line-height: var(--fw-accordion-body-line-height, 18px);
   background-color: var(--fw-accordion-body-background-color, #f5f7f9);
-  padding: var(--fw-accordion-body-padding, 20px);
+  padding-inline: var(--fw-accordion-body-horizontal-padding, 20px);
+  padding-block: var(--fw-accordion-body-vertical-padding, 20px);
   border-end-start-radius: $accordion-border-radius;
   border-end-end-radius: $accordion-border-radius;
   border-start-end-radius: 0;

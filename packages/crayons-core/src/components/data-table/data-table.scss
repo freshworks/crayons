@@ -104,7 +104,7 @@ div.fw-data-table-container {
 
         tr {
           width: 100%;
-          border-bottom: 1px solid $grid-row-border;
+          border-block-end: 1px solid $grid-row-border;
 
           &:hover,
           &:focus {
@@ -116,7 +116,7 @@ div.fw-data-table-container {
           }
 
           &:last-child {
-            border-bottom: 0px;
+            border-block-end: 0px;
           }
 
           td {
@@ -299,7 +299,7 @@ div.fw-data-table-container {
           align-items: flex-end;
           padding-inline: 22px;
           padding-block: 0px;
-          margin-bottom: 16px;
+          margin-block-end: 16px;
 
           span.title {
             flex-grow: 1;
@@ -343,7 +343,7 @@ div.fw-data-table-container {
 
             .table-settings-content-title {
               box-sizing: border-box;
-              padding-bottom: 5px;
+              padding-block-end: 5px;
               padding-inline-start: 5px;
             }
 
@@ -356,7 +356,7 @@ div.fw-data-table-container {
               display: flex;
               flex-direction: column;
               flex-grow: 1;
-              margin-top: 14px;
+              margin-block-start: 14px;
               overflow-y: hidden;
               transform: translateX(-3px);
               width: calc(100% + 5px);

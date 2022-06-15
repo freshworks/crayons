@@ -97,6 +97,7 @@
     "stylelint-config-recommended": "^5.0.0",
     "stylelint-prettier": "^1.2.0",
     "stylelint-scss": "^3.21.0",
+    "stylelint-use-logical-spec": "^4.1.0",
     "vuepress": "^1.8.2",
     "vuepress-plugin-google-tag-manager": "0.0.5",
     "vuepress-plugin-live": "^1.6.2",

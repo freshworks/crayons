@@ -87,6 +87,14 @@ const map = {
     type: 'substitute-prop',
     with: 'border-inline-end-width',
   },
+  'border-top': {
+    type: 'substitute-prop',
+    with: 'border-block-start',
+  },
+  'border-bottom': {
+    type: 'substitute-prop',
+    with: 'border-block-end',
+  },
   'border-radius': {
     type: 'replace',
     with: {
@@ -142,6 +150,14 @@ const map = {
     type: 'substitute-prop',
     with: 'margin-inline-end',
   },
+  'margin-top': {
+    type: 'substitute-prop',
+    with: 'margin-block-start',
+  },
+  'margin-bottom': {
+    type: 'substitute-prop',
+    with: 'margin-block-end',
+  },
   'padding-left': {
     type: 'substitute-prop',
     with: 'padding-inline-start',
@@ -149,6 +165,14 @@ const map = {
   'padding-right': {
     type: 'substitute-prop',
     with: 'padding-inline-end',
+  },
+  'padding-top': {
+    type: 'substitute-prop',
+    with: 'padding-block-start',
+  },
+  'padding-bottom': {
+    type: 'substitute-prop',
+    with: 'padding-block-end',
   },
   'margin': {
     type: 'replace',

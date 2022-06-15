@@ -367,7 +367,7 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
   width: 1em;
   inset-block-start: calc(50% - 0.5em);
   inset-inline-start: calc(50% - 0.5em);
-  margin-top: -1px;
+  margin-block-start: -1px;
   margin-inline-start: -1px;
 }
 

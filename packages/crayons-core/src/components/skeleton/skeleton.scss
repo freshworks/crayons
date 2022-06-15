@@ -17,7 +17,7 @@
   width: var(--fw-skeleton-width, 100%);
   height: var(--fw-skeleton-height, 16px);
   display: block;
-  margin-bottom: var(--fw-skeleton-margin-bottom, 8px);
+  margin-block-end: var(--fw-skeleton-margin-bottom, 8px);
   will-change: auto;
 
   &:after,
@@ -28,7 +28,7 @@
   &.circle {
     width: var(--fw-skeleton-width, 32px);
     height: var(--fw-skeleton-height, 32px);
-    margin-bottom: var(--fw-skeleton-margin-bottom, 8px);
+    margin-block-end: var(--fw-skeleton-margin-bottom, 8px);
     border-radius: var(--fw-skeleton-border-radius, 50%);
   }
 
@@ -37,7 +37,7 @@
   }
 
   &.only {
-    margin-bottom: var(--fw-skeleton-margin-bottom, 0px);
+    margin-block-end: var(--fw-skeleton-margin-bottom, 0px);
   }
 
   // stylelint-disable a11y/media-prefers-reduced-motion

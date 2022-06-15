@@ -14,13 +14,13 @@
 
   /* stylelint-disable */
   &:hover:not(.disabled) {
-    padding-bottom: 8px;
-    border-bottom: 2px solid $color-smoke-300;
+    padding-block-end: 8px;
+    border-block-end: 2px solid $color-smoke-300;
   }
 
   &.active:not(.disabled) {
-    padding-bottom: 8px;
-    border-bottom: 2px solid $color-azure-800;
+    padding-block-end: 8px;
+    border-block-end: 2px solid $color-azure-800;
     color: $color-azure-800;
     font-weight: $font-weight-600;
   }
@@ -32,7 +32,7 @@
 
   &:focus {
     outline: none;
-    border-bottom: none;
+    border-block-end: none;
     box-shadow: none;
 
     &::after {
