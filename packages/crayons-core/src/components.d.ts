@@ -1635,6 +1635,10 @@ export namespace Components {
     }
     interface FwTimepicker {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
+        /**
           * Whether the arrow/caret should be shown in the timepicker.
          */
         "caret": boolean;
@@ -3968,6 +3972,10 @@ declare namespace LocalJSX {
         "wrap"?: 'soft' | 'hard';
     }
     interface FwTimepicker {
+        /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
         /**
           * Whether the arrow/caret should be shown in the timepicker.
          */

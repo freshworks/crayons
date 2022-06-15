@@ -1382,6 +1382,7 @@ export class Datepicker {
             optionsPlacement='bottom-end'
             format={this.timeFormat}
             value={this.timeValue}
+            allowDeselect={false}
             {...this.timeProps}
           ></fw-timepicker>
         </div>
@@ -1441,7 +1442,7 @@ export class Datepicker {
               onFwBlur={this.onBlur}
               ref={(el) => (this.nativeInput = el)}
               state={this.state}
-              readonly={this.readonly}
+              readonly={this.time || this.readonly}
               clearInput={this.clearInput}
               onFwInputClear={this.handleInputClear}
             >
@@ -1455,7 +1456,7 @@ export class Datepicker {
                 ></div>
                 <span class='date-icon'>
                   <fw-icon
-                    name='calendar'
+                    name={this.time ? 'calendar-time' : 'calendar'}
                     style={{
                       '--fw-icon-color': this.state === 'error' && '#d72d30',
                     }}

@@ -108,6 +108,10 @@ export class Timepicker {
    * Whether the dropdown should be same width as that of the input.
    */
   @Prop() sameWidth = true;
+  /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
 
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -255,6 +259,7 @@ export class Timepicker {
         optionsPlacement={this.optionsPlacement}
         caret={this.caret}
         sameWidth={this.sameWidth}
+        allowDeselect={this.allowDeselect}
       >
         {this.timeValues.map((time) => (
           <fw-select-option value={this.currentTimeValue(time)}>
