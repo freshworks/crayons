@@ -9,6 +9,7 @@ import {
   Host,
   Listen,
 } from '@stencil/core';
+import { addRTL } from '../../utils';
 
 @Component({
   tag: 'fw-toggle',
@@ -63,6 +64,10 @@ export class Toggle {
   @Watch('checked')
   watchHandler(newValue: boolean) {
     this.fwChange.emit({ checked: newValue });
+  }
+
+  connectedCallback() {
+    addRTL(this.host);
   }
 
   private toggle = (): void => {

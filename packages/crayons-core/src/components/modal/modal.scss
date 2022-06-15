@@ -4,10 +4,10 @@
   height: 100vh;
   width: 100vw;
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  inset-block-end: 0;
+  inset-inline-start: 0;
   display: none;
   z-index: 990;
   background-color: rgba(18, 52, 77, 0.5);
@@ -37,7 +37,9 @@
     flex-direction: column;
 
     .content {
-      padding: 0px 32px 32px;
+      padding-block-end: 32px;
+      padding-inline: 32px;
+      padding-block-start: 0px;
       overflow: visible;
       box-sizing: border-box;
     }
@@ -48,12 +50,13 @@
     background-image: none;
     border: 1px solid transparent;
     color: $color-elephant-800;
-    padding: 4px 6px;
+    padding-inline: 6px;
+    padding-block: 4px;
     min-width: 16px;
     height: 24px;
     position: absolute;
-    top: 8px;
-    right: 8px;
+    inset-block-start: 8px;
+    inset-inline-end: 8px;
     transition: all 0.3s;
     z-index: 1;
 
@@ -93,10 +96,13 @@
       height: 24px;
       width: 24px;
       box-sizing: border-box;
-      top: 0px;
-      right: 600px;
+      inset-block-start: 0px;
+      inset-inline-end: 600px;
       background-color: $color-elephant-900;
-      border-radius: 2px 0px 0px 2px;
+      border-end-start-radius: 2px;
+      border-end-end-radius: 0px;
+      border-start-end-radius: 0px;
+      border-start-start-radius: 2px;
       padding: 0px;
       margin: 0px;
       line-height: 24px;
@@ -106,7 +112,10 @@
       &:focus,
       &:focus-visible {
         background-color: $color-elephant-900;
-        border-radius: 2px 0px 0px 2px;
+        border-end-start-radius: 2px;
+        border-end-end-radius: 0px;
+        border-start-end-radius: 0px;
+        border-start-start-radius: 2px;
         border-color: $color-elephant-900;
         outline: 0px;
       }

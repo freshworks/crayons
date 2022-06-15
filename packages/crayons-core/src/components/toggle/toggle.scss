@@ -33,10 +33,10 @@
   .slider {
     position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    inset-block-end: 0;
     border-radius: 34px;
     background: $toggle-btn-off-bg;
   }
@@ -49,8 +49,8 @@
   .before {
     position: absolute;
     content: '';
-    left: 0;
-    bottom: -2px;
+    inset-inline-start: 0;
+    inset-block-end: -2px;
     border: solid 1px $toggle-btn-off-bg;
     border-radius: 50%;
     box-shadow: 0 1px 1px 0 $toggle-btn-shadow;

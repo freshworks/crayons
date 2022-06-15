@@ -12,8 +12,8 @@
   border-radius: var(--fw-accordion-border-radius, 8px);
 
   &.no-bounding-box {
-    border-left: 0;
-    border-right: 0;
+    border-inline-start: 0;
+    border-inline-end: 0;
     border-radius: 0;
   }
 }

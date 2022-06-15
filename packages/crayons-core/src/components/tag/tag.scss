@@ -11,7 +11,10 @@
   }
 
   &-standard {
-    padding: 2px 2px 2px 8px;
+    padding-inline-start: 8px;
+    padding-block-end: 2px;
+    padding-inline-end: 2px;
+    padding-block-start: 2px;
     border-radius: 4px;
     font-weight: 600;
     background-color: $color-smoke-50;
@@ -24,12 +27,12 @@
     background: linear-gradient(180deg, $color-smoke-25 2.56%, #f3f5f7 95.75%);
 
     fw-avatar {
-      margin-right: 8px;
+      margin-inline-end: 8px;
     }
   }
 
   .remove-btn {
-    margin-left: 8px;
+    margin-inline-start: 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;

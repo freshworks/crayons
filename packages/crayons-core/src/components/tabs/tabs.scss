@@ -15,10 +15,10 @@
 
   &__items__nav {
     padding: 0;
-    padding-left: var(--fw-tabs-padding-left, 12px);
-    padding-right: var(--fw-tabs-padding-right, 12px);
-    margin-left: var(--fw-tabs-margin-l, 0);
-    margin-right: var(--fw-tabs-margin-r, 0);
+    padding-inline-start: var(--fw-tabs-padding-left, 12px);
+    padding-inline-end: var(--fw-tabs-padding-right, 12px);
+    margin-inline-start: var(--fw-tabs-margin-l, 0);
+    margin-inline-end: var(--fw-tabs-margin-r, 0);
     display: flex;
     border-bottom: 1px solid $color-smoke-50;
     overflow-x: auto;
