@@ -21,8 +21,10 @@ $card-padding-left: 16px;
 
 @mixin card($level: 1, $corner: 8px) {
   background: $color-milk;
-  padding: $card-padding-top $card-padding-right $card-padding-bottom
-    $card-padding-left;
+  padding-block-start: $card-padding-top;
+  padding-inline-end: $card-padding-right;
+  padding-block-end: $card-padding-bottom;
+  padding-inline-start: $card-padding-left;
   border: 1px solid $color-smoke-50;
   border-radius: $corner;
   @include shadow($level);
