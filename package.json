@@ -22,7 +22,7 @@
     "get-translations": "lerna run get-translations",
     "lint": "npm run lint:ts && npm run lint:styles",
     "lint:fix": "npm run lint:ts:fix && npm run lint:styles",
-    "lint:styles": "stylelint '**/*.scss' '**/.vuepress/**/*.vue'",
+    "lint:styles": "stylelint '**/*.scss'",
     "lint:ts": "eslint .",
     "lint:ts:fix": "eslint . --fix",
     "lint-staged": "lint-staged",
