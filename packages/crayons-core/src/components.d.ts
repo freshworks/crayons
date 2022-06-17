@@ -328,13 +328,13 @@ export namespace Components {
          */
         "showFooter": boolean;
         /**
+          * Whether the time-picker should be shown in the date-picker.
+         */
+        "showTimePicker": boolean;
+        /**
           * Theme based on which the input of the datepicker is styled.
          */
         "state": 'normal' | 'warning' | 'error';
-        /**
-          * Whether the time-picker should be shown in the date-picker.
-         */
-        "time": boolean;
         /**
           * The format of time picker .
          */
@@ -2603,13 +2603,13 @@ declare namespace LocalJSX {
          */
         "showFooter"?: boolean;
         /**
+          * Whether the time-picker should be shown in the date-picker.
+         */
+        "showTimePicker"?: boolean;
+        /**
           * Theme based on which the input of the datepicker is styled.
          */
         "state"?: 'normal' | 'warning' | 'error';
-        /**
-          * Whether the time-picker should be shown in the date-picker.
-         */
-        "time"?: boolean;
         /**
           * The format of time picker .
          */

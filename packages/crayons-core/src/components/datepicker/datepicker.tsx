@@ -209,7 +209,7 @@ export class Datepicker {
   /**
    * Whether the time-picker should be shown in the date-picker.
    */
-  @Prop() time = false;
+  @Prop() showTimePicker = false;
   /**
    * The props for the time picker.
    */
@@ -660,7 +660,7 @@ export class Datepicker {
       this.locale
     );
     this.dateFormat = this.displayFormat;
-    this.displayFormat = this.time
+    this.displayFormat = this.showTimePicker
       ? `${this.displayFormat} ${this.timeFormat}`
       : this.displayFormat;
 
@@ -839,21 +839,21 @@ export class Datepicker {
           locale: this.langModule,
         }
       );
-      return date ? date : '';
+      return date ?? '';
     } catch (error) {
       return '';
     }
   };
 
   isValidDateTime = (): boolean => {
-    if (this.time) {
+    if (this.showTimePicker) {
       return !!(this.selectedDay && this.timeValue);
     }
     return this.selectedDay;
   };
 
   formatDateTime = (): string => {
-    if (this.time) {
+    if (this.showTimePicker) {
       const [hour, minute] = this.timeValue.split(':');
       return format(
         new Date(
@@ -1442,7 +1442,7 @@ export class Datepicker {
               onFwBlur={this.onBlur}
               ref={(el) => (this.nativeInput = el)}
               state={this.state}
-              readonly={this.time || this.readonly}
+              readonly={this.showTimePicker || this.readonly}
               clearInput={this.clearInput}
               onFwInputClear={this.handleInputClear}
             >
@@ -1456,7 +1456,7 @@ export class Datepicker {
                 ></div>
                 <span class='date-icon'>
                   <fw-icon
-                    name={this.time ? 'calendar-time' : 'calendar'}
+                    name={this.showTimePicker ? 'calendar-time' : 'calendar'}
                     style={{
                       '--fw-icon-color': this.state === 'error' && '#d72d30',
                     }}
@@ -1467,7 +1467,7 @@ export class Datepicker {
           </div>
           {this.showSingleDatePicker() ? (
             <div id='datepicker' class='datepicker' slot='popover-content'>
-              {this.time && this.renderTimePicker()}
+              {this.showTimePicker && this.renderTimePicker()}
               <div class='mdp-container'>
                 {/* Head section */}
                 <div class='mdpc-head'>
