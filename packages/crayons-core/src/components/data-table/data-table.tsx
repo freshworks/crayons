@@ -17,6 +17,7 @@ import {
   DataTableRow,
   DataTableAction,
 } from '../../utils/types';
+import { popperModifierRTL } from '../../utils';
 
 const PREDEFINED_VARIANTS_META: any = {
   anchor: {
@@ -48,6 +49,7 @@ const TABLE_POPPER_CONFIG: any = {
         offset: [0, 2],
       },
     },
+    popperModifierRTL,
   ],
 };
 
