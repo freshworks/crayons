@@ -49,7 +49,6 @@ function createTokens() {
       const parsedSelector = selector.trim().toLowerCase();
       const cssSelector =
         parsedSelector === 'base' ? ':root' : `fw-${parsedSelector}`;
-      console.log(cssString);
       return (cssString += `${cssSelector}{${convertTokenToString(
         value[selector]
       )}}`);
