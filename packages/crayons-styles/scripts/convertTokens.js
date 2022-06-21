@@ -45,9 +45,17 @@ function writeFile(outPath, content) {
 function createTokens() {
   const tokens = readFiles(tokensDir);
   for (const [key, value] of Object.entries(tokens)) {
-    const tokenPath = path.join(tokenOutDir, `${key}.js`);
+    const cssString = Object.keys(value).reduce((cssString, selector) => {
+      const parsedSelector = selector.trim().toLowerCase();
+      const cssSelector =
+        parsedSelector === 'base' ? ':root' : `fw-${parsedSelector}`;
+      return (cssString += `${cssSelector}{${convertTokenToString(
+        value[selector]
+      )}}`);
+    }, '');
+
     const cssPath = path.join(cssOutDir, `${key}-theme.min.css`);
-    const cssString = `:root {${convertTokenToString(value)}}`;
+    const tokenPath = path.join(tokenOutDir, `${key}.js`);
     writeFile(cssPath, cssString);
     writeFile(tokenPath, `const ${key}= '${cssString}'; export default ${key}`);
   }
