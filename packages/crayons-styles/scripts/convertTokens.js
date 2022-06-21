@@ -47,8 +47,11 @@ function createTokens() {
   for (const [key, value] of Object.entries(tokens)) {
     const cssString = Object.keys(value).reduce((cssString, selector) => {
       const parsedSelector = selector.trim().toLowerCase();
+      const classSelector = key !== 'crayons' ? `[data-theme="${key}"]` : '';
       const cssSelector =
-        parsedSelector === 'base' ? ':root' : `fw-${parsedSelector}`;
+        parsedSelector === 'base'
+          ? classSelector || ':root'
+          : `${classSelector} fw-${parsedSelector}`;
       return (cssString += `${cssSelector}{${convertTokenToString(
         value[selector]
       )}}`);
