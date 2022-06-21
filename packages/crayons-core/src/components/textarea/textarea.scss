@@ -38,7 +38,7 @@ $warning-color: $color-casablanca-300;
 }
 
 .textarea-container {
-  margin-bottom: var(--fw-textarea-margin-bottom, 0px);
+  margin-block-end: var(--fw-textarea-margin-bottom, 0px);
   width: inherit;
 }
 
@@ -102,10 +102,10 @@ $warning-color: $color-casablanca-300;
   //Help Block
   & + .help-block {
     font-size: $font-size-12;
-    margin-top: 3px;
+    margin-block-start: 3px;
     color: $help-color;
     position: inherit;
-    margin-bottom: 0;
+    margin-block-end: 0;
     display: block;
     padding-inline-start: 2px;
   }

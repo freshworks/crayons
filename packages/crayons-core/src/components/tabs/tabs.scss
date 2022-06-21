@@ -20,7 +20,7 @@
     margin-inline-start: var(--fw-tabs-margin-l, 0);
     margin-inline-end: var(--fw-tabs-margin-r, 0);
     display: flex;
-    border-bottom: 1px solid $color-smoke-50;
+    border-block-end: 1px solid $color-smoke-50;
     overflow-x: auto;
     overflow-y: hidden;
 

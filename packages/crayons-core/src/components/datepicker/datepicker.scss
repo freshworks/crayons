@@ -112,7 +112,7 @@
   height: 20px;
   width: 20px;
   position: absolute;
-  margin-top: -11px;
+  margin-block-start: -11px;
 }
 
 .mdpch-button-right .mdpchb-inner {
@@ -129,7 +129,7 @@
   width: 6px;
   height: 6px;
   border-inline-start: 2px solid $app-primary-black;
-  border-bottom: 2px solid $app-primary-black;
+  border-block-end: 2px solid $app-primary-black;
   position: absolute;
 }
 
@@ -141,7 +141,7 @@
   inset-inline-start: 50%;
   inset-block-start: 50%;
   margin-inline-start: -2px;
-  margin-top: -4px;
+  margin-block-start: -4px;
 }
 
 .mdpchbi-right-arrow,
@@ -245,7 +245,7 @@
 .c-day-container {
   width: 14.285%;
   height: 11.185%;
-  margin-top: 10px;
+  margin-block-start: 10px;
 }
 
 .cdc-day {
@@ -267,7 +267,7 @@
   width: 24px;
   height: 22px;
   font-size: 14px;
-  margin-top: -11px;
+  margin-block-start: -11px;
   margin-inline-start: -13px;
   inset-inline-start: 50%;
   inset-block-start: 50%;
