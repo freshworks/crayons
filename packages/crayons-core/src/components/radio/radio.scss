@@ -1,3 +1,23 @@
+/**
+  @prop --fw-radio-focus-box-shadow: box shodow of radio button when focused.
+  @prop --fw-button-label-vertical-padding: vertical padding for the button label
+  @prop --fw-radio-label-font-size: Font size of radio label
+  @prop --fw-radio-label-line-height: line height of radio label
+  @prop --fw-radio-label-font-weight: Font height of radio label
+  @prop --fw-radio-label-color: Color of radio label
+  @prop --fw-radio-outer-position-top: Top position of the outer ring
+  @prop --fw-radio-outer-width: Width of the outer ring
+  @prop --fw-radio-outer-height: Height of the outer ring
+  @prop --fw-radio-inner-position-left: Left position of the outer ring
+  @prop --fw-radio-inner-width: Width of the inner ring
+  @prop --fw-radio-inner-height: Height of the inner ring
+  @prop --fw-radio-outer-bg: Background of the outer ring
+  @prop --fw-radio-outer-border: Border color of the outer ring
+  @prop --fw-radio-inner-bg: Border color of the inner ring
+  @prop --fw-radio-inner-position-top: Top position of the outer ring
+  @prop --fw-radio-label-disabled-color: Color of the disabled radio label
+*/
+
 .radio-container {
   display: inline-block;
   position: relative;
@@ -12,7 +32,7 @@
   input[type='radio'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px rgb(44, 92, 197); // TODO - elevation level : DSM
+      box-shadow: 0 0 0 2px var(--fw-radio-focus-box-shadow, rgb(44, 92, 197)); // TODO - elevation level : DSM
       border-color: $color-secondary-700;
     }
   }
