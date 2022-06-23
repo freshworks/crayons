@@ -61,10 +61,10 @@ input[type='radio'] {
     cursor: pointer;
     margin-bottom: 4px;
     vertical-align: middle;
-    font-size: $font-sm;
-    line-height: $font-lh-sm;
-    font-weight: $font-weight-600;
-    color: $text-default;
+    font-size: var(--fw-radio-label-font-size, $font-sm);
+    line-height: var(--fw-radio-label-line-height, $font-lh-sm);
+    font-weight: var(--fw-radio-label-font-weight, $font-weight-600);
+    color: var(--fw-radio-label-color, $text-default);
 
     &::before,
     &::after {
@@ -84,9 +84,9 @@ input[type='radio'] {
       left: 0;
       border: 1px solid $color-secondary-100;
       border-radius: 50px;
-      top: 4px;
-      width: 14px;
-      height: 14px;
+      top: var(--fw-radio-outer-position-top, 4px);
+      width: var(--fw-radio-outer-width, 14px);
+      height: var(--fw-radio-outer-height, 14px);
       background: $color-neutral-100;
       transition: all 0.3s ease;
     }
@@ -115,10 +115,10 @@ input[type='radio'] {
     }
 
     &::after {
-      left: 3px;
+      left: var(--fw-radio-inner-position-left, 3px);
       border-radius: 100%;
-      width: 8px;
-      height: 8px;
+      width: var(--fw-radio-inner-width, 8px);
+      height: var(--fw-radio-inner-height, 8px);
       opacity: 0;
       transition: opacity 0.2s ease-in-out;
       box-sizing: border-box;
@@ -127,16 +127,16 @@ input[type='radio'] {
 
   &:checked + label {
     &::before {
-      background: $color-neutral-100;
-      border-color: $color-info-800;
+      background: var(--fw-radio-outer-bg, $color-neutral-100);
+      border-color: var(--fw-radio-outer-border, $color-info-800);
       box-shadow: none;
     }
 
     &::after {
       border-radius: 50%;
-      background-color: $color-info-800;
+      background-color: var(--fw-radio-inner-bg, $color-info-800);
       opacity: 1;
-      top: 7px;
+      top: var(--fw-radio-inner-position-top, 7px);
     }
   }
 
@@ -153,7 +153,7 @@ input[type='radio'] {
 
   &[disabled] {
     & + label {
-      color: $text-disabled;
+      color: var(--fw-radio-label-disabled-color, $text-disabled);
 
       .label-field {
         color: $text-disabled;
@@ -172,6 +172,28 @@ input[type='radio'] {
 
     &:checked + label {
       color: $text-disabled;
+
+      &::before {
+        border-color: var(
+          --fw-radio-disabled-checked-border,
+          $color-secondary-100
+        );
+        background-color: var(
+          --fw-radio-disabled-checked-bg,
+          $color-secondary-50
+        );
+      }
+
+      &::after {
+        border-color: var(
+          --fw-radio-disabled-checked-inner-border,
+          $color-secondary-100
+        );
+        background-color: var(
+          --fw-radio-disabled-checked-inner-bg,
+          $color-secondary-50
+        );
+      }
     }
   }
 }

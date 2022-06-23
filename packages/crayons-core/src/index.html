@@ -121,9 +121,9 @@
       --fw-menu-item-font-size: 12px;
     }
     .freshsales fw-select {
-      --fw-list-options-container-padding: 5px 0px;
-      --fw-select-option-border-radius: 0px;
-      --fw-select-option-margin-bottom: 0px;
+      --fw-list-options-container-padding: 12px 8px 8px;
+      --fw-select-option-border-radius: 4px;
+      --fw-select-option-margin-bottom: 4px;
       --fw-select-option-single-line-padding-top: 8px;
       --fw-select-option-single-line-padding-bottom: 8px;
       --fw-select-option-line-height: 18px;
@@ -132,6 +132,48 @@
       --fw-select-tag-margin: 5px;
       --fw-font-weight-600: 400;
       --fw-select-option-icon-display: none;
+    }
+    .freshsales fw-radio {
+      --fw-radio-inner-width: 6px;
+      --fw-radio-inner-height: 6px;
+      --fw-radio-outer-width: 18px;
+      --fw-radio-outer-height: 18px;
+      --fw-radio-outer-border: #2C5CC5;
+      --fw-radio-outer-bg: #2C5CC5;
+      --fw-radio-inner-bg: #fff;
+      --fw-radio-inner-position-top: 8px;
+      --fw-radio-inner-position-left: 6px;
+      --fw-radio-outer-position-top: 2px;
+      --fw-radio-border-hover: #2C5CC5;
+      --fw-radio-label-font-weight: 400;
+      --fw-radio-label-line-height: 18px;
+      --fw-radio-label-font-size: 12px;
+      --fw-radio-label-color: #333;
+      --fw-radio-label-disabled-color: #999;
+      --fw-radio-disabled-checked-border: #90C6FE;
+      --fw-radio-disabled-checked-bg: #90C6FE;
+      --fw-radio-disabled-checked-inner-border: #fff;
+      --fw-radio-disabled-checked-inner-bg: #fff;
+    }
+    .freshsales fw-checkbox {
+      --fw-checkbox-label-padding-left: 28px;
+      --fw-checkbox-height: 18px;
+      --fw-checkbox-width: 18px;
+      --fw-checkbox-font-size: 12px;
+      --fw-checkbox-line-height: 18px;
+      --fw-checkbox-position-top: 2px;
+      --fw-checkbox-tick-position-top: 2px;
+      --fw-checkbox-tick-position-left: 5px;
+      --fw-checkbox-border: #CFD7DF;
+    }
+
+    .freshsales fw-toggle {
+      --fw-toggle-switch-checked-border: #CFD7DF;
+      --fw-toggle-small-height: 16px;
+      --fw-toggle-small-width: 32px;
+      --fw-toggle-small-switch-position-bottom: 0;
+      --fw-toggle-switch-translate: 16px;
+      --fw-toggle-off-bg: #576C7D;
     }
   </style>
   <body>
@@ -306,7 +348,6 @@
       <div class="container-row">
         <div class="container-col container-title">Input Single Select:</div>
         <div class="container-col">
-          <div>
             <fw-select
               label="House Name"
               required="true"
@@ -320,12 +361,27 @@
               <fw-select-option value="4">Tully</fw-select-option>
               <fw-select-option value="5">Greyjoy</fw-select-option>
               <fw-select-option value="6">Andals</fw-select-option>
+            </fw-select> <br><br>
+            <fw-select
+              id="complexSelect"
+              label="Strawhat Pirates"
+              placeholder="Your choices"
+              hint-text="Select one"
+            >
+            </fw-select><br><br>
+            <fw-select
+              id="methodOptionSelect"
+              label="Strawhat Pirates"
+              placeholder="Your choices"
+              hint-text="Select single option"
+              options-variant="icon"
+            >
             </fw-select>
-          </div>
+
+
         </div>
 
         <div class="container-col freshsales">
-          <div>
             <fw-select
               label="House Name"
               required="true"
@@ -339,11 +395,96 @@
               <fw-select-option value="4">Tully</fw-select-option>
               <fw-select-option value="5">Greyjoy</fw-select-option>
               <fw-select-option value="6">Andals</fw-select-option>
+            </fw-select><br><br>
+            <fw-select
+              id="complexSelectFS"
+              label="With Sub Text"
+              placeholder="Your choices"
+              hint-text="Select one option"
+
+            >
+            </fw-select><br><br>
+            <fw-select
+              id="methodOptionSelectFS"
+              label="With Icon & Sub Text"
+              placeholder="Your choices"
+              hint-text="Select single option"
+              options-variant="icon"
+            >
             </fw-select>
-          </div>
         </div>
       </div>
-    </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Checkbox</div>
+        <div class="container-col">
+          <fw-checkbox >Label</fw-checkbox><br><br>
+          <fw-checkbox checked>Checked</fw-checkbox><br><br>
+          <fw-checkbox disabled>Disabled</fw-checkbox><br><br>
+          <fw-checkbox checked disabled>Checked & Disabled</fw-checkbox>
+        </div>
+        <div class="container-col freshsales">
+          <fw-checkbox >Label</fw-checkbox><br><br>
+          <fw-checkbox checked>Checked</fw-checkbox><br><br>
+          <fw-checkbox disabled>Disabled</fw-checkbox><br><br>
+          <fw-checkbox disabled checked>Checked & Disabled</fw-checkbox>
+        </div>
+      </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Radio</div>
+        <div class="container-col">
+          <fw-radio >Normal</fw-radio><br><br>
+          <fw-radio checked >Checked</fw-radio><br><br>
+          <fw-radio disabled >Disabled</fw-radio><br><br>
+          <fw-radio disabled checked>Checked & Disabled</fw-radio><br><br>
+        </div>
+        <div class="container-col freshsales">
+          <fw-radio  >Normal</fw-radio><br><br>
+          <fw-radio checked >Checked</fw-radio><br><br>
+          <fw-radio disabled >Disabled</fw-radio><br><br>
+          <fw-radio disabled checked>Checked & Disabled</fw-radio><br><br>
+        </div>
+      </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Radio Group</div>
+        <div class="container-col">
+          <fw-radio-group name="Profile" value="au" allow-empty>
+            <fw-radio value="au">Auditory</fw-radio>
+            <fw-radio value="vi">Visual</fw-radio>
+            <fw-radio value="re">Restless</fw-radio>
+          </fw-radio-group>
+        </div>
+        <div class="container-col freshsales">
+          <fw-radio-group name="Profile" value="au" allow-empty>
+            <fw-radio value="au">Auditory</fw-radio>
+            <fw-radio value="vi">Visual</fw-radio>
+            <fw-radio value="re">Restless</fw-radio>
+          </fw-radio-group>
+        </div>
+      </div>
+
+      <div class="container-row">
+        <div class="container-col container-title">Toggle</div>
+        <div class="container-col">
+          <fw-toggle size="small"></fw-toggle><br><br>
+          <fw-toggle size="small" checked="true"></fw-toggle><br><br>
+          <fw-toggle size="small" checked="true" show-icon="false"></fw-toggle><br><br>
+          <fw-toggle size="small" disabled></fw-toggle><br><br>
+          <fw-toggle size="small" disabled checked="true"></fw-toggle><br><br>
+        </div>
+        <div class="container-col freshsales">
+          <fw-toggle size="small"></fw-toggle><br><br>
+          <fw-toggle size="small" checked="true"></fw-toggle><br><br>
+          <fw-toggle size="small" checked="true" show-icon="false"></fw-toggle><br><br>
+          <fw-toggle size="small" disabled></fw-toggle><br><br>
+          <fw-toggle size="small" disabled checked="true"></fw-toggle><br><br>
+        </div>
+      </div>
+  </div>
+
+
 
     <!-- <fw-button modal-trigger-id='welcome'> Open Modal </fw-button>
     <fw-modal id='welcome' title-text="Welcome">
@@ -372,6 +513,134 @@
       popover('.crayons');
       popover('.freshsales');
     </script>
+
+    <script type="application/javascript">
+      var iconDataSource = [
+        {
+          value: '1',
+          text: 'Luffy',
+          subText: 'Pirate King',
+          graphicsProps: { name: 'verified' },
+        },
+        {
+          value: '2',
+          text: 'Zorro',
+          subText: 'Best Swordsman',
+          graphicsProps: { name: 'magic-wand' },
+        },
+        {
+          value: '3',
+          text: 'Sanji',
+          subText: 'Best Chef',
+          graphicsProps: { name: 'ecommerce' },
+        },
+      ];
+      var iconVariant = document.getElementById('complexSelect');
+      iconVariant.options = iconDataSource;
+    </script>
+
+    <script type="application/javascript">
+
+      var iconDataSource = [
+        {
+          value: '1',
+          text: 'Luffy',
+          subText: 'Pirate King',
+          graphicsProps: { name: 'verified' },
+        },
+        {
+          value: '2',
+          text: 'Zorro',
+          subText: 'Best Swordsman',
+          graphicsProps: { name: 'magic-wand' },
+        },
+        {
+          value: '3',
+          text: 'Sanji',
+          subText: 'Best Chef',
+          graphicsProps: { name: 'ecommerce' },
+        },
+      ];
+      var methodOptionSelect = document.getElementById('methodOptionSelect');
+      methodOptionSelect.options = iconDataSource;
+      methodOptionSelect.setSelectedOptions([
+        {
+          value: '2',
+          text: 'Zorro',
+          subText: 'Best Swordsman',
+          graphicsProps: { name: 'magic-wand' },
+        },
+      ]);
+      methodOptionSelect.addEventListener('fwChange', (e) => {
+        console.log(e.detail);
+      });
+    </script>
+
+    <script type="application/javascript">
+
+      var iconDataSource = [
+        {
+          value: '1',
+          text: 'Luffy',
+          subText: 'Pirate King',
+          graphicsProps: { name: 'verified' },
+        },
+        {
+          value: '2',
+          text: 'Zorro',
+          subText: 'Best Swordsman',
+          graphicsProps: { name: 'magic-wand' },
+        },
+        {
+          value: '3',
+          text: 'Sanji',
+          subText: 'Best Chef',
+          graphicsProps: { name: 'ecommerce' },
+        },
+      ];
+      var methodOptionSelect = document.getElementById('methodOptionSelectFS');
+      methodOptionSelect.options = iconDataSource;
+      methodOptionSelect.setSelectedOptions([
+        {
+          value: '2',
+          text: 'Zorro',
+          subText: 'Best Swordsman',
+          graphicsProps: { name: 'magic-wand' },
+        },
+      ]);
+      methodOptionSelect.addEventListener('fwChange', (e) => {
+        console.log(e.detail);
+      });
+    </script>
+
+
+    <script type="application/javascript">
+      var iconDataSource = [
+        {
+          value: '1',
+          text: 'Luffy',
+          subText: 'Pirate King',
+          graphicsProps: { name: 'verified' },
+        },
+        {
+          value: '2',
+          text: 'Zorro',
+          subText: 'Best Swordsman',
+          graphicsProps: { name: 'magic-wand' },
+        },
+        {
+          value: '3',
+          text: 'Sanji',
+          subText: 'Best Chef',
+          graphicsProps: { name: 'ecommerce' },
+        },
+      ];
+      var iconVariant = document.getElementById('complexSelectFS');
+      iconVariant.options = iconDataSource;
+    </script>
+
+
+
     <!-- <br />
     <fw-radio-group
       name="Profile"
