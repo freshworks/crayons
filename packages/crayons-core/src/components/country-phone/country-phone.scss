@@ -1,0 +1,12 @@
+.country-container {
+  display: flex;
+
+  .country-select-container {
+    flex: 0 0 200px;
+    margin-inline-end: 10px;
+  }
+
+  .country-input-container {
+    flex: 1;
+  }
+}
