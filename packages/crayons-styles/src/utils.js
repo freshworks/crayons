@@ -1,4 +1,4 @@
-const base = '$base.';
+const base = '$';
 
 export function convertTokenToString(tokens) {
   let cssString = '';

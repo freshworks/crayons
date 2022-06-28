@@ -5,25 +5,32 @@ import { convertTokenToString } from '../src/utils.js';
 const tokenOutDir = './tokens/';
 const cssOutDir = './css/';
 const tokensDir = './design-tokens/';
+const globalFileName = 'crayons.json';
 
 function readFiles(rootPath) {
   let combinedTokens = {};
+  const globalData = fs.readFileSync(path.join(rootPath, globalFileName), {
+    encoding: 'utf8',
+  });
   const files = fs.readdirSync(rootPath);
   for (const file of files) {
     const filePath = path.join(rootPath, file);
-    const themeName = filePath.split('/')[1];
     const stat = fs.statSync(filePath);
     if (stat.isFile()) {
-      const data = fs.readFileSync(filePath, { encoding: 'utf8' });
-      combinedTokens[themeName] = {
-        ...combinedTokens[themeName],
-        ...JSON.parse(data),
-      };
-    } else {
-      combinedTokens = {
-        ...combinedTokens,
-        ...readFiles(filePath),
-      };
+      const themeName = path.parse(file).name;
+      if (themeName !== 'crayons') {
+        const data = fs.readFileSync(filePath, { encoding: 'utf8' });
+        combinedTokens[themeName] = {
+          ...{
+            base: JSON.parse(globalData),
+          },
+          ...JSON.parse(data),
+        };
+      } else {
+        combinedTokens[themeName] = {
+          base: JSON.parse(globalData),
+        };
+      }
     }
   }
   return combinedTokens;

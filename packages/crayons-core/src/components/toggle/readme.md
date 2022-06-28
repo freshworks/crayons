@@ -62,9 +62,9 @@ function App() {
 | `--fw-toggle-off-bg`                       | Background of toggle off state                       |
 | `--fw-toggle-small-height`                 | height of toggle small variant                       |
 | `--fw-toggle-small-switch-position-bottom` | Bottom position of toggle switch - small variant     |
+| `--fw-toggle-small-switch-translate`       | Translation value of toggle switch                   |
 | `--fw-toggle-small-width`                  | Width of toggle small variant                        |
 | `--fw-toggle-switch-checked-border`        | Border color of toggle switch checked- small variant |
-| `--fw-toggle-switch-translate`             | Translation value of toggle switch                   |
 
 
 ## Dependencies
