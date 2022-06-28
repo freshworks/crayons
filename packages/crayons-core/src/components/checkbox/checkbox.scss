@@ -172,10 +172,12 @@ input[type='checkbox'] {
 
     .after {
       position: absolute;
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       content: '';
       inset-inline-start: 3px;
-      inset-block-start: -1px;
+      inset-block-start: 5px;
       width: 8px;
       height: 8px;
       opacity: 0;
