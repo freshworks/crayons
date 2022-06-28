@@ -314,10 +314,10 @@ Type: `Promise<any>`
 | `--fw-button-secondary-disabled-bg`     | The background color of the secondary disabled button.    |
 | `--fw-button-secondary-disabled-border` | The border color of the secondary disabled button.        |
 | `--fw-button-secondary-disabled-color`  | The text color of the secondary disabled button.          |
+| `--fw-button-secondary-spinner-color`   | Spinner color of the secondary button.                    |
 | `--fw-button-small-font-size`           | The font size of the small button.                        |
 | `--fw-button-small-height`              | The height of the small button.                           |
 | `--fw-button-small-line-height`         | Line height of the small button.                          |
-| `--fw-spinner-color-button-secondary`   | Spinner color of the secondary button.                    |
 
 
 ## Dependencies

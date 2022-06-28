@@ -27,7 +27,7 @@
   @prop --fw-button-secondary-disabled-border: The border color of the secondary disabled button.
   @prop --fw-button-secondary-disabled-bg: The background color of the secondary disabled button.
   @prop --fw-button-active-box-shadow: Box shadow of active button.
-  @prop --fw-spinner-color-button-secondary: Spinner color of the secondary button.
+  @prop --fw-button-secondary-spinner-color: Spinner color of the secondary button.
 */
 
 //=== Button Style ===//
@@ -225,7 +225,7 @@ $input-height-mini: 16px;
 
     .fw-btn--loader {
       --fw-spinner-color: var(
-        --fw-spinner-color-button-secondary,
+        --fw-button-secondary-spinner-color,
         currentColor
       );
     }
