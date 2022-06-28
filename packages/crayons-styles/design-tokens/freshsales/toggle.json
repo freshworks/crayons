@@ -1,0 +1,38 @@
+{
+  "toggle": {
+    "all": {
+      "offBackground": {
+        "var": "--fw-toggle-off-bg",
+        "type": "color",
+        "value": "$base.color.secondary.600"
+      },
+      "switchCheckedBorder": {
+        "var": "--fw-toggle-switch-checked-border",
+        "type": "other",
+        "value": "$base.color.secondary.100"
+      }
+    },
+    "small": {
+      "width": {
+        "var": "--fw-toggle-small-width",
+        "type": "other",
+        "value": "31px"
+      },
+      "height": {
+        "var": "--fw-toggle-small-height",
+        "type": "other",
+        "value": "16px"
+      },
+      "switchPositionBottom": {
+        "var": "--fw-toggle-small-switch-position-bottom",
+        "type": "other",
+        "value": "0"
+      },
+      "switchTranslate": {
+        "var": "--fw-toggle-small-switch-translate",
+        "type": "other",
+        "value": "16px"
+      }
+    }
+  }
+}

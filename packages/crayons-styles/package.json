@@ -24,7 +24,8 @@
   },
   "scripts": {
     "build:tokens": "node ./scripts/convertTokens.js",
-    "build": "rimraf ./dist && npm run build:tokens && rollup -c && tsc"
+    "build": "rimraf ./dist && npm run build:tokens && rollup -c && tsc && npm run copy-to-crayons",
+    "copy-to-crayons": "cp -Rf ./css/ ../crayons-core/css/"
   },
   "bugs": {
     "url": "https://github.com/freshworks/crayons/issues"
