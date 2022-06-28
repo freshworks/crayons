@@ -4,19 +4,19 @@
       "offBackground": {
         "var": "--fw-toggle-off-bg",
         "type": "color",
-        "value": "$base.color.secondary.600"
+        "value": "$color.secondary.600"
       },
       "switchCheckedBorder": {
         "var": "--fw-toggle-switch-checked-border",
-        "type": "other",
-        "value": "$base.color.secondary.100"
+        "type": "color",
+        "value": "$color.secondary.100"
       }
     },
     "small": {
       "width": {
         "var": "--fw-toggle-small-width",
         "type": "other",
-        "value": "31px"
+        "value": "32px"
       },
       "height": {
         "var": "--fw-toggle-small-height",
