@@ -6,6 +6,7 @@ packages/**/loader/
 packages/**/node_modules/
 packages/**/www/
 packages/**/crayons-react/**
+packages/**/platform-ui-react/**
 docs/
 packages/**/src/**/*.stories.tsx
 www-dist/

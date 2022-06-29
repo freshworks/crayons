@@ -8,7 +8,8 @@
     "npm": ">=7.24.1"
   },
   "workspaces": [
-    "./packages/*"
+    "./packages/*",
+    "./packages/crayons-extended/*"
   ],
   "scripts": {
     "build:packages": "lerna run build --stream",

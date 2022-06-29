@@ -1,0 +1,15 @@
+@import 'variables';
+@import 'theme';
+
+:host {
+  font-family: var(--fw-font-family, $font-stack);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+// *,
+// *:before,
+// *:after {
+//   box-sizing: inherit;
+// }

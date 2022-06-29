@@ -1,0 +1,335 @@
+@import '../../styles/utils';
+@import './styles/variables/form-builder-style-utils.scss';
+
+:host {
+  display: inline-block;
+  width: 100%;
+  max-width: $form-builder-field-editor-max-width;
+}
+
+// stylelint-disable a11y/media-prefers-reduced-motion
+@media screen and (prefers-reduced-motion: reduce) {
+  .fw-field-editor {
+    transition: none;
+  }
+  .fw-field-editor-delete-button {
+    transition: none;
+  }
+}
+
+.fw-field-editor {
+  max-width: $form-builder-field-editor-max-width;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  outline: 0;
+  background-color: $color-milk;
+  border: 1px solid $color-smoke-100;
+  border-radius: $form-builder-field-editor-border-radius;
+  transition: box-shadow 0.3s;
+
+  .fw-field-editor-header {
+    width: 100%;
+    height: 48px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: $color-milk;
+    border-radius: $form-builder-field-editor-border-radius;
+
+    .fw-field-editor-drag-container {
+      min-width: 24px;
+      width: 24px;
+      height: 100%;
+      margin-inline-end: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      cursor: move; /* fallback if grab cursor is unsupported */
+      cursor: grab;
+      cursor: -moz-grab;
+      cursor: -webkit-grab;
+    }
+
+    .fw-field-editor-header-content {
+      width: calc(100% - 24px - 8px - 24px - 8px);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+
+      .fw-field-editor-icon-container {
+        min-width: 24px;
+        width: 24px;
+        height: 24px;
+        min-height: 24px;
+        margin-inline-end: 8px;
+        pointer-events: none;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+      }
+
+      .fw-field-editor-label {
+        width: auto;
+        margin: 0;
+        pointer-events: none;
+        user-select: none;
+        text-align: start;
+
+        color: $color-elephant-900;
+        font-size: $font-size-14;
+        font-weight: $font-weight-600;
+
+        @include single-line-ellipsis-label;
+      }
+
+      .fw-field-editor-key-fw-labels {
+        width: auto;
+        height: 100%;
+        margin-inline-start: 24px;
+        pointer-events: none;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .fw-field-editor-content-fw-label {
+          border: none;
+        }
+      }
+    }
+
+    .fw-field-editor-delete-button {
+      opacity: 0;
+      margin-inline-start: 8px;
+      transition: opacity 0.3s;
+    }
+
+    .fw-field-editor-deleting-state {
+      margin-inline-start: 8px;
+    }
+  }
+
+  .fw-field-editor-body {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    background-color: $color-milk;
+    border-radius: $form-builder-field-editor-border-radius;
+    display: none;
+
+    .fw-field-editor-content {
+      width: 100%;
+      height: auto;
+      min-height: 72px;
+      padding-inline: 40px;
+      padding-block: 20px;
+      display: flex;
+      box-sizing: border-box;
+      background-color: $color-smoke-25;
+      border-block-start: 1px solid #eceff2;
+      border-block-end: 1px solid #eceff2;
+
+      .fw-field-editor-content-required {
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+
+        #{--fw-hint-color}: $color-smoke-700;
+        .fw-field-editor-content-required-input {
+          max-width: $form-builder-field-editor-element-max-width;
+          width: $form-builder-field-editor-element-max-width;
+        }
+
+        .fw-field-editor-content-checkboxes {
+          width: 100%;
+          height: auto;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+
+          .fw-field-editor-content-checkboxes-header-label {
+            font-size: $font-size-16;
+            font-weight: $font-weight-600;
+            color: $color-smoke-700;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+          }
+
+          .fw-field-editor-content-checkbox-container {
+            width: 100%;
+            height: auto;
+            box-sizing: border-box;
+            display: flex;
+
+            .fw-field-editor-content-fw-checkbox {
+              width: auto;
+              max-width: 100%;
+            }
+
+            .fw-field-editor-content-fw-icon {
+              margin-inline-start: 8px;
+              margin-block-start: 4px;
+            }
+          }
+        }
+
+        .fw-field-editor-content-lookup {
+          width: 100%;
+          height: auto;
+          box-sizing: border-box;
+        }
+
+        .fw-field-editor-content-dropdown {
+          width: 100%;
+          height: auto;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    .fw-field-editor-footer {
+      width: 100%;
+      height: 72px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      box-sizing: border-box;
+      background-color: $color-milk;
+      border-radius: $form-builder-field-editor-border-radius;
+
+      .fw-field-editor-footer-field-error-container {
+        width: auto;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-inline-start: $form-builder-field-details-padding-left;
+        padding-block-end: 0;
+        padding-inline-end: 0;
+        padding-block-start: 0;
+        gap: 8px;
+
+        .fw-field-editor-footer-field-error-msg {
+          @include form-error-label-without-margin;
+        }
+      }
+
+      .fw-field-editor-footer-buttons-container {
+        width: auto;
+        height: 100%;
+        padding: 0;
+        padding-inline-end: 16px;
+        gap: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+    }
+
+    .fw-field-editor-footer-with-error {
+      justify-content: space-between;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0px 0px 1px rgba(24, 50, 71, 0.3),
+      0px 2px 8px rgba(22, 29, 37, 0.15);
+    .fw-field-editor-delete-button {
+      opacity: 1;
+    }
+  }
+
+  &:focus {
+    .fw-field-editor-delete-button {
+      opacity: 0;
+    }
+  }
+
+  &--disabled {
+    pointer-events: none;
+    user-select: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &--disabled-sort {
+    .fw-field-editor-drag-container {
+      opacity: 0 !important;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  &--deleting {
+    pointer-events: none;
+    user-select: none;
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+
+  &--primary {
+    .fw-field-editor-header {
+      background: rgba(254, 241, 225, 0.4);
+    }
+    .fw-field-editor-drag-container {
+      opacity: 0 !important;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  &--required {
+    .fw-field-editor-header {
+      .fw-field-editor-label:after {
+        @include form-required-asterisk;
+      }
+    }
+  }
+
+  &--expanded {
+    border: none;
+    box-shadow: 0px 0px 1px rgba(24, 50, 71, 0.3),
+      0px 2px 8px rgba(22, 29, 37, 0.15);
+
+    .fw-field-editor-header {
+      cursor: unset;
+
+      .fw-field-editor-label:after {
+        content: '';
+      }
+
+      .fw-field-editor-drag-container {
+        pointer-events: none;
+        user-select: none;
+        cursor: unset;
+        opacity: 0;
+      }
+
+      .fw-field-editor-delete-button {
+        pointer-events: none;
+        user-select: none;
+        cursor: unset;
+        opacity: 0;
+      }
+    }
+
+    .fw-field-editor-body {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

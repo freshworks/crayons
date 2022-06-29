@@ -1,0 +1,61 @@
+//=== Color palette ===//
+$color-milk: #fff;
+
+$color-elephant-900: #12344d;
+$color-elephant-800: #264966;
+$color-elephant-700: #345c7c;
+$color-elephant-600: #447093;
+
+$color-smoke-700: #475867;
+$color-smoke-300: #92a2b1;
+$color-smoke-200: #b1bdc8;
+$color-smoke-100: #cfd7df;
+$color-smoke-50: #ebeff3;
+$color-smoke-25: #f5f7f9;
+
+$color-jungle-800: #00795b;
+$color-jungle-500: #00a886;
+$color-jungle-100: #b4e5da;
+$color-jungle-50: #e0f5f1;
+
+$color-azure-800: #2c5cc5;
+$color-azure-100: #bbdcfe;
+$color-azure-50: #e5f2fd;
+
+$color-persimmon-900: #c82124;
+$color-persimmon-800: #d72d30;
+$color-persimmon-100: #ffd0d6;
+$color-persimmon-50: #ffecf0;
+
+$color-casablanca-700: #e86f25;
+$color-casablanca-300: #f8ab59;
+$color-casablanca-100: #fedcb3;
+$color-casablanca-50: #fef1e1;
+//=== Color palette ===//
+
+//=== Border colors ===//
+$border-color: $color-smoke-100;
+$border-success-color: $color-jungle-100;
+$border-info-color: $color-azure-100;
+$border-danger-color: $color-persimmon-100;
+$border-warning-color: $color-casablanca-100;
+//=== Border colors ===//
+
+//=== Background colors ===//
+$bg-dark: $color-elephant-900;
+$bg-smoke: $color-smoke-50;
+$bg-success: $color-jungle-50;
+$bg-info: $color-azure-50;
+$bg-danger: $color-persimmon-50;
+$bg-warning: $color-casablanca-50;
+//=== Background colors ===//
+
+//=== Border radius ===//
+$radius: 4px;
+$radius-small: 2px;
+//=== Border radius ===//
+
+//Avatar Background color
+$avatar-background-dark: #527fa5;
+$avatar-background-light: #dff0ff;
+$avatar-size: 56px;

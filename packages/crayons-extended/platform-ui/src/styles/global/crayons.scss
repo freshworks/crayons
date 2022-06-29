@@ -1,0 +1,9 @@
+@import '../variables/index.scss';
+@import '../utils';
+
+:host {
+  font-family: $font-stack;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
