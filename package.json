@@ -27,7 +27,7 @@
     "release:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag canary --yes",
     "storybook:build": "rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
-    "storybook-dist:run":"npm run storybook:build & ( sleep 25 && npm run storybook-dist:serve )",
+    "storybook-dist:run": "npm run storybook:build & ( sleep 25 && npm run storybook-dist:serve )",
     "storybook-dist:serve": "npm run kill:pid-8082 && cd docs/storybook-dist && http-server -s -c-1 -p 8082",
     "kill:pid-8082": "npx kill-port 8082",
     "storybook:visual-regression": "(npm run storybook-dist:serve & npm --prefix ./packages/crayons-visual-regression/ run test-each)",
@@ -101,6 +101,7 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
+    "http-server": "^14.1.1",
     "lerna": "^4.0.0"
   },
   "config": {
