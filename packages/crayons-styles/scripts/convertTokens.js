@@ -7,7 +7,7 @@ const cssOutDir = './css/';
 const tokensDir = './design-tokens/';
 const globalFileName = 'crayons.json';
 
-function readFiles(rootPath) {
+function parseThemeFiles(rootPath) {
   let combinedTokens = {};
   const globalData = fs.readFileSync(path.join(rootPath, globalFileName), {
     encoding: 'utf8',
@@ -21,9 +21,6 @@ function readFiles(rootPath) {
       if (themeName !== 'crayons') {
         const data = fs.readFileSync(filePath, { encoding: 'utf8' });
         combinedTokens[themeName] = {
-          ...{
-            base: JSON.parse(globalData),
-          },
           ...JSON.parse(data),
         };
       } else {
@@ -50,7 +47,7 @@ function writeFile(outPath, content) {
 }
 
 function createTokens() {
-  const tokens = readFiles(tokensDir);
+  const tokens = parseThemeFiles(tokensDir);
   for (const [key, value] of Object.entries(tokens)) {
     const cssString = Object.keys(value).reduce((cssString, selector) => {
       const parsedSelector = selector.trim().toLowerCase();
