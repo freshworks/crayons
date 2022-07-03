@@ -10,7 +10,10 @@ import {
   Method,
 } from '@stencil/core';
 import { renderHiddenField } from '../../utils';
-import { data, messages } from './config';
+
+import countries from './countries.json';
+
+import { messages } from './constants';
 
 import { isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js';
 
@@ -107,7 +110,7 @@ export class CountryPhone {
   @Prop() required = false;
 
   /**
-   * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   * Specifies hint from inside the component after valdating phone number.
    */
   @Prop() requiredInnerHint = false;
 
@@ -136,18 +139,18 @@ export class CountryPhone {
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
 
   /**
-   * Default value displayed in the input box.
+   * Default value displayed in the input box & select dropdown after extracting valid phone number
    */
   @Prop({ mutable: true }) value?: string | null = '';
 
   // Events
   /**
-   * Triggered when a value is selected or deselected from the list box options.
+   * Triggered when phone element is input.
    */
   @Event() fwTelInput: EventEmitter;
 
   /**
-   * Triggered when the list box comes into focus.
+   * Triggered when phone element is blur.
    */
   @Event() fwTelBlur: EventEmitter;
 
@@ -194,6 +197,7 @@ export class CountryPhone {
         this.countryCode = details.country;
         this.phoneCode = details.countryCallingCode;
         this.phoneNumber = details.nationalNumber;
+        this.countryName = this.getCountryName(details.country);
         this.disablePhoneInput = false;
         this.innerHintText = '';
       } catch (error) {
@@ -204,6 +208,17 @@ export class CountryPhone {
     }
   }
 
+  getMeta = (isValid: boolean) => {
+    return {
+      meta: {
+        isValid,
+        countryCode: this.countryCode,
+        countryName: this.countryName,
+        phoneCode: this.phoneCode,
+      },
+    };
+  };
+
   private onInputBlur = (event: Event) => {
     const value = (event.target as HTMLInputElement).value;
     this.phoneNumber = value;
@@ -212,10 +227,7 @@ export class CountryPhone {
       event,
       name: this.name,
       value: this.getSingleFormat(this.phoneCode, value),
-      isValid,
-      countryCode: this.countryCode,
-      countryName: this.countryName,
-      phoneCode: this.phoneCode,
+      ...this.getMeta(isValid),
     });
   };
 
@@ -228,10 +240,7 @@ export class CountryPhone {
       event,
       name: this.name,
       value: this.getSingleFormat(this.phoneCode, value),
-      isValid,
-      countryCode: this.countryCode,
-      phoneCode: this.phoneCode,
-      countryName: this.countryName,
+      ...this.getMeta(isValid),
     });
   };
 
@@ -241,18 +250,27 @@ export class CountryPhone {
       event,
       name: this.name,
       value: this.getSingleFormat(this.phoneCode, value),
-      isValid: false,
-      countryCode: this.countryCode,
-      countryName: this.countryName,
-      phoneCode: this.phoneCode,
+      ...this.getMeta(false),
     });
+  };
+
+  private getCountryDetails = (value: string) =>
+    countries.filter((r) => r.code2l === value);
+
+  private getCountryName = (inputCountryCode: string) => {
+    const currentCountry = this.getCountryDetails(inputCountryCode);
+    return (
+      currentCountry &&
+      currentCountry.length > 0 &&
+      currentCountry[0]?.country_name
+    );
   };
 
   private onSelectChange = (event: Event) => {
     const value = (event.target as HTMLInputElement).value;
     this.countryCode = value as CountryCode;
     this.phoneNumber = null;
-    const currentCountry = data.filter((r) => r.code2l === value);
+    const currentCountry = this.getCountryDetails(value);
     this.phoneCode = currentCountry[0].phone;
     this.countryName = currentCountry[0].country_name;
     this.disablePhoneInput = false;
@@ -288,7 +306,7 @@ export class CountryPhone {
             sameWidth={false}
             disabled={this.disabled}
           >
-            {data.map((item) => {
+            {countries.map((item) => {
               return (
                 <fw-select-option
                   value={item.code2l}
@@ -300,7 +318,7 @@ export class CountryPhone {
                       {!this.hideCountryFlag && (
                         <span class='flag'>{item.emoji}</span>
                       )}
-                      +{item.phone}{' '}
+                      {'  '}+{item.phone}{' '}
                     </span>
                     {!this.hideCountryName && (
                       <span class='countryName'>- {item.country_name}</span>

@@ -201,7 +201,7 @@ export namespace Components {
          */
         "required": boolean;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+          * Specifies hint from inside the component after valdating phone number.
          */
         "requiredInnerHint": boolean;
         /**
@@ -217,7 +217,7 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Default value displayed in the input box.
+          * Default value displayed in the input box & select dropdown after extracting valid phone number
          */
         "value"?: string | null;
         /**
@@ -2565,11 +2565,11 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Triggered when the list box comes into focus.
+          * Triggered when phone element is blur.
          */
         "onFwTelBlur"?: (event: CustomEvent<any>) => void;
         /**
-          * Triggered when a value is selected or deselected from the list box options.
+          * Triggered when phone element is input.
          */
         "onFwTelInput"?: (event: CustomEvent<any>) => void;
         /**
@@ -2585,7 +2585,7 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
-          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+          * Specifies hint from inside the component after valdating phone number.
          */
         "requiredInnerHint"?: boolean;
         /**
@@ -2601,7 +2601,7 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Default value displayed in the input box.
+          * Default value displayed in the input box & select dropdown after extracting valid phone number
          */
         "value"?: string | null;
         /**

@@ -109,10 +109,12 @@ describe('fw-country-phone hydrated', () => {
       },
       value: '+912',
       name: 'num',
-      isValid: false,
-      countryCode: 'IN',
-      phoneCode: '91',
-      countryName: 'India',
+      meta: {
+        isValid: false,
+        countryCode: 'IN',
+        phoneCode: '91',
+        countryName: 'India',
+      },
     });
   });
   it('should emit on fwTelBlur with proper keys', async () => {
@@ -147,10 +149,12 @@ describe('fw-country-phone hydrated', () => {
       },
       value: '+912',
       name: 'num',
-      isValid: false,
-      countryCode: 'IN',
-      phoneCode: '91',
-      countryName: 'India',
+      meta: {
+        isValid: false,
+        countryCode: 'IN',
+        phoneCode: '91',
+        countryName: 'India',
+      },
     });
   });
 });
