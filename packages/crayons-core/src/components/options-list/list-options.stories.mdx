@@ -1,0 +1,80 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Menu
+
+<Meta
+  title='ListOptions'
+  component='fw-list-options'
+/>
+
+## Props 
+
+<Props of="fw-list-options"/>
+
+## Usage
+
+### Search Variant
+<Preview>
+  <Story 
+    name='Search Variant'
+    play={({ canvasElement }) => {
+        var dataSource = [
+            { value: '1', text: 'Luffy' },
+            { value: '2', text: 'Zorro' },
+            { value: '3', text: 'Sanji' },
+        ];
+        var standardVariant = document.getElementById('standardVariant');
+        standardVariant.options = dataSource;
+        standardVariant.value = ['2'];
+        standardVariant.multiple = true;
+    }}
+  >
+  {() => `<fw-list-options
+    id="standardVariant"
+    slot="popover-content"
+    searchable="true"
+    not-found-text="Pirate not found"
+    search-text="Search Pirate"
+  ></fw-list-options>`}
+  </Story>
+</Preview>
+
+
+### Icon Variant
+<Preview>
+  <Story 
+    name='Icon Variant'
+    play={({ canvasElement }) => {
+        var iconDataSource = [
+            {
+            value: '1',
+            text: 'Luffy',
+            subText: 'Pirate King',
+            graphicsProps: { name: 'verified' },
+            },
+            {
+            value: '2',
+            text: 'Zorro',
+            subText: 'Best Swordsman',
+            graphicsProps: { name: 'magic-wand' },
+            },
+            {
+            value: '3',
+            text: 'Sanji',
+            subText: 'Best Chef',
+            graphicsProps: { name: 'ecommerce' },
+            },
+        ];
+        var iconVariant = document.getElementById('iconVariant');
+        iconVariant.options = iconDataSource;
+        iconVariant.value = '2';
+    }}
+  >
+  {() => `<fw-list-options
+    variant="icon"
+    id="iconVariant"
+    slot="popover-content"
+  ></fw-list-options>`}
+  </Story>
+</Preview>
+

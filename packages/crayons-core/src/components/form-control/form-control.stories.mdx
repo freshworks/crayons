@@ -17,7 +17,14 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
   <Story name='Default'>
     {
-      () => `<fw-form-control></fw-form-control>`
+      () => `<fw-form-control
+      type="TEXT"
+      name="first_name"
+      placeholder="First Name"
+      required
+      label="First Name"
+      id="first_name"
+    ></fw-form-control>`
     }
   </Story>
 </Preview>

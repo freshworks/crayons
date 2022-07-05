@@ -1,6 +1,6 @@
 const screenshotTest = require('../../screenshotTest');
 const setup = {
-  skeleton: ['sheen-and-no-effect'],
+  fileuploader: ['default', 'multifile'],
 };
 const DELAY = 0;
 screenshotTest(setup, DELAY);

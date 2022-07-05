@@ -13,7 +13,7 @@ if (fs.existsSync('./__tests__/__snapshots__')) {
         console.log(`stderr: ${stderr}`);
         return;
       }
-      if (parseInt(stdout.trimStart()) === 121) {
+      if (parseInt(stdout.trimStart()) === 139) {
         console.log('Total snapshots :', parseInt(stdout.trimStart()));
         process.exit(0);
       } else {

@@ -1,6 +1,6 @@
 const screenshotTest = require('../../screenshotTest');
 const setup = {
-  skeleton: ['sheen-and-no-effect'],
+  formatdate: ['custom-date'],
 };
 const DELAY = 0;
 screenshotTest(setup, DELAY);

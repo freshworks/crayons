@@ -17,6 +17,21 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Story name='Default with value'>{() => '<fw-timepicker value="23:00"></fw-timepicker>'}</Story>
 </Preview>
 
+### Timepicker open
+<Preview>
+<Story 
+  name='Timepicker open'
+  play={({ canvasElement }) => {
+    const timer = setTimeout(()=>{
+      document.querySelector('fw-timepicker').shadowRoot.querySelector('fw-select').shadowRoot.querySelector('fw-popover').querySelector('input').click();;
+      clearTimeout(timer);
+    }, 500);
+  }}
+>
+    {() => '<fw-timepicker value="23:00"></fw-timepicker>'}
+</Story>
+</Preview>
+
 ### Interval specified
 <Preview>
 <Story name='Interval specified'>{() => '<fw-timepicker value="12:45" interval=45></fw-timepicker>'}</Story>

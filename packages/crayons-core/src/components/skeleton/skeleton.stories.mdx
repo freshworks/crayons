@@ -15,8 +15,15 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
   <Story name='Default'>
     {() => `<div><label>Default Pulse Effect</label>
- <fw-skeleton></fw-skeleton> <br/>
- <label>Sheen Effect</label>
+  <fw-skeleton></fw-skeleton> <br/></div>`}
+  </Story>
+ </Preview>
+
+### Sheen and No Effect
+
+<Preview>
+  <Story name='Sheen and No Effect'>
+    {() => `<div><label>Sheen Effect</label>
  <fw-skeleton effect="sheen"></fw-skeleton> <br/>
  <label>No Effect</label>
  <fw-skeleton effect="none"></fw-skeleton> <br/></div>`}

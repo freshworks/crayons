@@ -27,18 +27,32 @@ export const Template_Range = () =>{
 
 ## Usage
 
-## datepicker open
+### Default
 <Preview>
   <Story 
     name='Default'
-    play={ async ({ canvasElement }) => {
-      setTimeout(()=>{
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div>${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+### Datepicker open
+<Preview>
+  <Story 
+    name='Datepicker open'
+    play={({ canvasElement }) => {
+      const timer = setTimeout(()=>{
         const datePicker = document.querySelector('fw-datepicker');
         datePicker.focus();
-        datePicker.shadowRoot.querySelector('fw-popover').querySelector('.datepicker').style.display="block";
-        datePicker.shadowRoot.querySelector('fw-popover').querySelector('.daterangepicker').style.display="none";
-        datePicker.shadowRoot.querySelector('fw-popover').querySelector('fw-input').click();    
-      },500);
+        datePicker.shadowRoot.querySelector('fw-popover').querySelector('fw-input').click();
+        clearTimeout(timer);
+      }, 500);
     }}
     decorators={[
       (Story) => {
@@ -51,20 +65,50 @@ export const Template_Range = () =>{
   </Story>
 </Preview>
 
-### datepicker month ddopen
+### datepicker month open
 <Preview>
   <Story 
-    name='Datepicker Open'
-    play={ async ({ canvasElement }) => {
+    name='Datepicker Month Open'
+    play={({ canvasElement }) => {
       // Starts querying the component from it's root element
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         const datePicker = document.querySelector('fw-datepicker');
         datePicker.focus();
-        datePicker.shadowRoot.querySelector('fw-popover').querySelector('.datepicker').style.display="block";
-        datePicker.shadowRoot.querySelector('fw-popover').querySelector('.daterangepicker').style.display="none";
         datePicker.shadowRoot.querySelector('fw-popover').querySelector('fw-input').click();
-        datePicker.shadowRoot.querySelector('fw-popover').querySelector('fw-select').shadowRoot.querySelector('fw-popover').querySelector('fw-button').click();
-      },500);
+        const monthDropdownTimer = setTimeout(() => {
+          datePicker.shadowRoot.querySelector('fw-popover').querySelector('fw-select').shadowRoot.querySelector('fw-popover').querySelector('fw-button').click();
+          clearTimeout(monthDropdownTimer);
+        }, 500);
+        clearTimeout(timer);
+      }, 500);
+    }}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div>${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+### datepicker year open
+<Preview>
+  <Story 
+    name='Datepicker Year Open'
+    play={({ canvasElement }) => {
+      // Starts querying the component from it's root element
+      const timer = setTimeout(() => {
+        const datePicker = document.querySelector('fw-datepicker');
+        datePicker.focus();
+        datePicker.shadowRoot.querySelector('fw-popover').querySelector('fw-input').click();
+        const yearDropdownTimer = setTimeout(() => {
+          datePicker.shadowRoot.querySelector('fw-popover').querySelectorAll('fw-select')[1].shadowRoot.querySelector('fw-popover').querySelector('fw-button').click();
+          clearTimeout(yearDropdownTimer);
+        }, 500);
+        clearTimeout(timer);
+      }, 500);
     }}
     decorators={[
       (Story) => {
@@ -81,14 +125,28 @@ export const Template_Range = () =>{
 <Preview>
   <Story 
     name='DatePicker Range'
-    play={ async ({ canvasElement }) => {
-        setTimeout(() => {
-          const datePicker = document.querySelector('fw-datepicker');
-          datePicker.focus();
-          datePicker.shadowRoot.querySelector('fw-popover').querySelector('.datepicker').style.display="none";
-          datePicker.shadowRoot.querySelector('fw-popover').querySelector('.daterangepicker').style.display="block";
-          datePicker.shadowRoot.querySelector('fw-popover').querySelector('fw-input').click();
-      },500);
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div>${story}</div>`;
+      }
+    ]}
+  >
+    {Template_Range.bind({})}
+  </Story>
+</Preview>
+
+## datepicker range open
+<Preview>
+  <Story 
+    name='DatePicker Range Open'
+    play={({ canvasElement }) => {
+      const timer = setTimeout(()=>{
+        const datePicker = document.querySelector('fw-datepicker');
+        datePicker.focus();
+        datePicker.shadowRoot.querySelector('fw-popover').querySelector('fw-input').click();
+        clearTimeout(timer);
+      }, 500);
     }}
     decorators={[
       (Story) => {
@@ -101,3 +159,12 @@ export const Template_Range = () =>{
   </Story>
 </Preview>
 
+### minDate and maxDate specified
+<Preview>
+<Story name='minDate and maxDate specified'>{() => '<fw-datepicker min-date="2020-04-10" max-date="2020-09-29"></fw-datepicker>'}</Story>
+</Preview>
+
+### Date Format and Placeholder specified
+<Preview>
+<Story name='Date Format and Placeholder specified'>{() => '<fw-datepicker display-format="dd-MMMM-yyyy" placeholder="Pick a Date"></fw-datepicker>'}</Story>
+</Preview>

@@ -1,0 +1,46 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Menu
+
+<Meta
+  title='Menu'
+  component='fw-menu'
+/>
+
+## Props 
+
+<Props of="fw-menu"/>
+
+## Usage
+
+### Default
+<Preview>
+  <Story name='default'>
+  {() => `<fw-menu style="--fw-menu-max-width: 300px">
+    <fw-menu-item
+      >Messages
+      <fw-icon name="email" size="16" slot="prefix"></fw-icon>
+      <div class="badge" slot="suffix">10</div>
+    </fw-menu-item>
+    <hr class="separator" />
+    <fw-menu-item
+      >Help
+      <fw-icon name="help" size="16" slot="prefix"></fw-icon>
+    </fw-menu-item>
+    <fw-menu-item
+      >More Information
+      <fw-icon name="info" size="16" slot="prefix"></fw-icon>
+    </fw-menu-item>
+    <hr class="separator" />
+    <fw-menu-item selectable>First Option</fw-menu-item>
+    <fw-menu-item selectable>Second Option</fw-menu-item>
+    <fw-menu-item selectable>Third Option</fw-menu-item>
+    <hr class="separator" />
+    <fw-menu-item>
+      <fw-avatar initials="PT" size="xsmall" slot="prefix"></fw-avatar>
+      User name
+      <fw-button slot="suffix" color="primary">Log Out</fw-button>
+    </fw-menu-item>
+  </fw-menu>`}
+  </Story>
+</Preview>

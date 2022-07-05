@@ -13,6 +13,18 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 ## Usage
 
+### Format custom date
+<Preview>
+  <Story name='custom-date'>
+  {() => `<fw-format-date date="2021-11-30T09:17:00-04:00"></fw-format-date><br/>
+    <fw-format-date date="2021-11-30T09:17:00-04:00" month="long" day="numeric" year="numeric"></fw-format-date><br/>
+    <fw-format-date date="2021-11-30T09:17:00-04:00" hour="numeric" minute="numeric"></fw-format-date><br />
+    <fw-format-date date="2021-11-30T09:17:00-04:00" weekday="long"></fw-format-date><br />
+    <fw-format-date date="2021-11-30T09:17:00-04:00" month="long"></fw-format-date><br />
+    <fw-format-date date="2021-11-30T09:17:00-04:00" year="numeric"></fw-format-date><br />`}
+  </Story>
+</Preview>
+
 ### Date Formatting options
 <Preview>
   <Story name='date-formats'>

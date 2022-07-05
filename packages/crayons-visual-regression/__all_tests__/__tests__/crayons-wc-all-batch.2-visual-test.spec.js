@@ -13,6 +13,9 @@ const setup = {
     'with-icons',
   ],
   'label': ['blue', 'red', 'green', 'yellow', 'grey'],
+  'listoptions': ['search-variant', 'icon-variant'],
+  'menu': ['default'],
+  'menuitem': ['default'],
   'modal': ['default', 'large-modal', 'custom-composition', 'slider'],
   'pagination': ['per-page', 'total', 'page', 'page-total-and-per-page'],
   'pill': [
@@ -30,12 +33,13 @@ const setup = {
   'select': [
     'default',
     'with-select-options',
+    'with-select-options-opened',
     'disabled',
     'readonly',
     'multi-select',
     'with-options-and-selected-key',
   ],
-  'skeleton': ['default', 'card-layout'],
+  'skeleton': ['sheen-and-no-effect'],
   /* 'spinner': ['default', 'small', 'medium', 'large', 'custom-color'], */
   'tab-panel': ['default'],
   'tab': ['default', 'with-html-headers'],
@@ -56,6 +60,7 @@ const setup = {
   ],
   'timepicker': [
     'default',
+    'timepicker-open',
     'default-with-value',
     'interval-specified',
     'format-specified',
@@ -65,8 +70,10 @@ const setup = {
   'toast-message': ['default', 'type', 'position', 'action-link'],
   'toast': ['default', 'type', 'position', 'action-link', 'custom-content'],
   'toggle': ['small', 'medium', 'large'],
+  'toggle-group': ['default'],
+  'toggle-group-button': ['icon-variant'],
   'tooltip': ['default', 'placement', 'trigger', 'html'],
 };
 
-const DELAY = 0;
+const DELAY = 1500;
 screenshotTest(setup, DELAY);

@@ -1,0 +1,28 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Toggle
+<Meta
+  title='Toggle Group Button'
+  component='fw-toggle-group-button'
+   />
+
+## Props
+
+<Props of="fw-toggle-group-button"/>
+
+## Usage
+
+### Icon Variant
+<Preview>
+<Story 
+    name='Icon Variant'
+>{() => 
+   `<fw-label value="Icon button"></fw-label>
+  <fw-toggle-group-button value="aa" type="icon">
+    <fw-icon slot="toggle-icon" size="16" name="phone" />
+  </fw-toggle-group-button>
+  <fw-toggle-group-button value="dd" type="icon">
+    <fw-icon slot="toggle-icon" size="16" name="delete" />
+  </fw-toggle-group-button>`}
+</Story>
+</Preview>

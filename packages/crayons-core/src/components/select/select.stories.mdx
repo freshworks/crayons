@@ -34,6 +34,27 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
   </Story>
 </Preview>
 
+### With options opened
+
+<Preview>
+  <Story 
+    name='WithSelectOptions Opened'
+    play={({ canvasElement }) => {
+      const timer = setTimeout(()=>{
+        document.querySelector('fw-select').shadowRoot.querySelector('fw-popover').querySelector('input').click();
+        clearTimeout(timer);
+      }, 500);
+    }}
+  >
+    {() => `
+    <fw-select label="Select the house" required="true" value="1">
+        <fw-select-option value="1">Starks</fw-select-option>
+        <fw-select-option value="2">Lannisters</fw-select-option>
+    </fw-select>
+    `}
+  </Story>
+</Preview>
+
 ### Disabled
 
 <Preview>

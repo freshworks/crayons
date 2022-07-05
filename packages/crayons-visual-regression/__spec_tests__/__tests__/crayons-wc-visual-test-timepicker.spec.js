@@ -2,6 +2,7 @@ const screenshotTest = require('../../screenshotTest');
 const setup = {
   timepicker: [
     'default',
+    'timepicker-open',
     'default-with-value',
     'interval-specified',
     'format-specified',

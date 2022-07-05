@@ -15,7 +15,15 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 ### Default
 <Preview>
-  <Story name='Default'>
+  <Story 
+    name='Default'
+    play={({ canvasElement }) => {
+      const timer = setTimeout(()=>{
+        document.querySelector('fw-tooltip').show();
+        clearTimeout(timer);
+      }, 500);
+    }}
+  >
     {
       () => `
         <fw-tooltip placement="right" content="This is the first tooltip example">
@@ -28,7 +36,15 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 ### Placement
 <Preview>
-  <Story name='Placement'>
+  <Story 
+    name='Placement'
+    play={({ canvasElement }) => {
+      const timer = setTimeout(()=>{
+        document.querySelector('fw-tooltip').show();
+        clearTimeout(timer);
+      }, 500);
+    }}
+  >
     {
       () => `
         <fw-tooltip content="Tooltip at the bottom" placement="bottom">
@@ -41,7 +57,15 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 ### Click trigger
 <Preview>
-  <Story name='Trigger'>
+  <Story 
+    name='Trigger'
+    play={({ canvasElement }) => {
+      const timer = setTimeout(()=>{
+        document.querySelector('fw-tooltip').show();
+        clearTimeout(timer);
+      }, 500);
+    }}
+  >
     {
       () => `
         <fw-tooltip placement="right" trigger="click" content="This is the tooltip that activates on click">
@@ -54,7 +78,15 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 ### Rich HTML Tooltip
 <Preview>
-  <Story name='HTML'>
+  <Story 
+    name='HTML'
+    play={({ canvasElement }) => {
+      const timer = setTimeout(()=>{
+        document.querySelector('fw-tooltip').show();
+        clearTimeout(timer);
+      }, 500);
+    }}
+  >
     {
       () => `
         <fw-tooltip placement="right">

@@ -1,6 +1,7 @@
 const screenshotTest = require('../../screenshotTest');
 const setup = {
-  skeleton: ['sheen-and-no-effect'],
+  'toggle-group-button': ['icon-variant'],
 };
+
 const DELAY = 0;
 screenshotTest(setup, DELAY);

@@ -3,6 +3,7 @@ const setup = {
   select: [
     'default',
     'with-select-options',
+    'with-select-options-opened',
     'disabled',
     'readonly',
     'multi-select',
@@ -10,5 +11,5 @@ const setup = {
   ],
 };
 
-const DELAY = 0;
+const DELAY = 1000;
 screenshotTest(setup, DELAY);

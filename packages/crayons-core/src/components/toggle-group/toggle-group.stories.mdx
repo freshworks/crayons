@@ -1,0 +1,50 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Toggle
+<Meta
+  title='Toggle Group'
+  component='fw-toggle-group'
+   />
+
+## Props
+
+<Props of="fw-toggle-group"/>
+
+## Usage
+
+### Default
+<Preview>
+<Story 
+    name='Default'
+    play={({ canvasElement }) => {
+       var toggleGroup = document.getElementById('test-toggle-group');
+        toggleGroup.value = ['bb', 'cc'];
+    }}
+>{() => 
+   `<fw-toggle-group
+    id="test-toggle-group"
+    name="Test toggle group"
+    selected-values="bb,cc"
+    multiple="true"
+>
+  <fw-toggle-group-button
+    header="Header A"
+    description="This is a sample description of the card component."
+    value="aa"
+  ></fw-toggle-group-button>
+  <fw-toggle-group-button
+    header="Header B"
+    description="This is a sample description of the card component."
+    value="bb"
+  ></fw-toggle-group-button>
+  <fw-toggle-group-button
+    header="Header C"
+    description="This is a sample description of the card component."
+    value="cc"
+  ></fw-toggle-group-button>
+  <fw-toggle-group-button header="Header D" value="dd"></fw-toggle-group-button>
+  <fw-toggle-group-button header="Header E" value="ee"></fw-toggle-group-button>
+  <fw-toggle-group-button header="Header F" value="ff"></fw-toggle-group-button>
+</fw-toggle-group>`}
+</Story>
+</Preview>

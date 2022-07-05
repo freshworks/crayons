@@ -1,0 +1,56 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# Menu
+
+<Meta
+  title='MenuItem'
+  component='fw-menu-item'
+/>
+
+## Props 
+
+<Props of="fw-menu-item"/>
+
+## Usage
+
+### Default
+<Preview>
+  <Story name='default'>
+  {() => `<fw-label value="Item with prefix and suffix"></fw-label>
+  <fw-menu style="--fw-menu-max-width: 300px">
+    <fw-menu-item
+      >Messages
+      <fw-icon name="email" size="16" slot="prefix"></fw-icon>
+      <div class="badge" slot="suffix">10</div>
+    </fw-menu-item>
+    <fw-menu-item>
+      <fw-avatar initials="PT" size="xsmall" slot="prefix"></fw-avatar>
+      User name
+      <fw-button slot="suffix" color="primary">Log Out</fw-button>
+    </fw-menu-item>
+  </fw-menu>
+</section>
+<br />
+<section>
+  <fw-label value="Click handler on row"></fw-label>
+  <fw-menu style="--fw-menu-max-width: 200px">
+    <fw-menu-item onclick="showAlert('help!!')"
+      >Help
+      <fw-icon name="help" size="16" slot="prefix"></fw-icon>
+    </fw-menu-item>
+    <fw-menu-item onclick="showAlert('info!!!')"
+      >More Information
+      <fw-icon name="info" size="16" slot="prefix"></fw-icon>
+    </fw-menu-item>
+  </fw-menu>
+</section>
+<br />
+<section>
+  <fw-label value="Selectable Menu item"></fw-label>
+  <fw-menu style="--fw-menu-max-width: 200px">
+    <fw-menu-item selectable>First Option</fw-menu-item>
+    <fw-menu-item selectable>Second Option</fw-menu-item>
+    <fw-menu-item selectable>Third Option</fw-menu-item>
+  </fw-menu>`}
+  </Story>
+</Preview>
