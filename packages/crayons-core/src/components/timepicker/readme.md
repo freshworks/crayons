@@ -1,14 +1,14 @@
 # Timepicker (fw-timepicker)
-fw-timepicker displays a list or drop-down box with prepopulated time values and enables picking a time. The time values displayed in the list box are based on the fw-timepicker attribute values.
 
+fw-timepicker displays a list or drop-down box with prepopulated time values and enables picking a time. The time values displayed in the list box are based on the fw-timepicker attribute values.
 
 ## Demo
 
 ```html live
-<fw-label value="An interval based picker" color="yellow"></fw-label><br/> 
-<fw-timepicker interval=45 hour-format="hh:mm p"></fw-timepicker>
-<fw-label value="A range based picker" color="yellow"></fw-label><br/>
-<fw-timepicker min-time="04:30" max-time="08:30 PM"></fw-timepicker>
+<fw-label value="An interval based picker" color="yellow"></fw-label><br />
+<fw-timepicker interval="45" format="hh:mm p"></fw-timepicker>
+<fw-label value="A range based picker" color="yellow"></fw-label><br />
+<fw-timepicker min-time="04:30 PM" max-time="08:30 PM"></fw-timepicker>
 ```
 
 ## Usage
@@ -17,9 +17,9 @@ fw-timepicker displays a list or drop-down box with prepopulated time values and
 <code-block title="HTML">
 ```html 
 <fw-label value="An interval based picker" color="yellow"></fw-label><br/> 
-<fw-timepicker interval=45 hour-format="hh:mm p"></fw-timepicker>
+<fw-timepicker interval=45 format="hh:mm p"></fw-timepicker>
 <fw-label value="A range based picker" color="yellow"></fw-label><br/>
-<fw-timepicker min-time="04:30" max-time="08:30 PM"></fw-timepicker>
+<fw-timepicker min-time="04:30 PM" max-time="08:30 PM"></fw-timepicker>
 ```
 </code-block>
 
@@ -31,37 +31,38 @@ import { FwTimepicker } from "@freshworks/crayons/react";
 function App() {
   return (<div>
           <label>An interval based picker</label><br/> 
-          <FwTimepicker interval={45} hourFormat="hh:mm p"></FwTimepicker>
+          <FwTimepicker interval={45} format="hh:mm p"></FwTimepicker>
           <label>A range based picker</label><br/>
-          <FwTimepicker minTime="04:30" maxTime="08:30 PM"></FwTimepicker>
+          <FwTimepicker minTime="04:30 PM" maxTime="08:30 PM"></FwTimepicker>
     </div>);
 }
 ```
 </code-block>
 </code-group>
 
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                                                                    | Type                               | Default                                        |
-| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------------------------------------------- |
-| `disabled`    | `disabled`     | Set true to disable the element                                                                                                                                                                | `boolean`                          | `false`                                        |
-| `errorText`   | `error-text`   | Error text displayed below the text box.                                                                                                                                                       | `string`                           | `''`                                           |
-| `format`      | `format`       | Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. | `"HH:mm" \| "hh:mm a"`             | `'hh:mm a'`                                    |
-| `hintText`    | `hint-text`    | Hint text displayed below the text box.                                                                                                                                                        | `string`                           | `''`                                           |
-| `interval`    | `interval`     | Time interval between the values displayed in the list, specified in minutes.                                                                                                                  | `number`                           | `30`                                           |
-| `label`       | `label`        | Label displayed on the interface, for the component.                                                                                                                                           | `string`                           | `''`                                           |
-| `maxTime`     | `max-time`     | Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.                                                         | `string`                           | `this.isMeridianFormat ? '11:30 PM' : '23:30'` |
-| `minTime`     | `min-time`     | Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.                                                         | `string`                           | `this.isMeridianFormat ? '12:00 AM' : '00:00'` |
-| `name`        | `name`         | Name of the component, saved as part of form data.                                                                                                                                             | `string`                           | `''`                                           |
-| `placeholder` | `placeholder`  | Text displayed in the select before an option is selected.                                                                                                                                     | `string`                           | `undefined`                                    |
-| `required`    | `required`     | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.                                     | `boolean`                          | `false`                                        |
-| `state`       | `state`        | Theme based on which the input of the timepicker is styled.                                                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`                                     |
-| `value`       | `value`        | Time output value                                                                                                                                                                              | `string`                           | `undefined`                                    |
-| `warningText` | `warning-text` | Warning text displayed below the text box.                                                                                                                                                     | `string`                           | `''`                                           |
+| Property           | Attribute           | Description                                                                                                                                                                                    | Type                                                                                                                                                                 | Default                                        |
+| ------------------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| `caret`            | `caret`             | Whether the arrow/caret should be shown in the timepicker.                                                                                                                                     | `boolean`                                                                                                                                                            | `true`                                         |
+| `disabled`         | `disabled`          | Set true to disable the element                                                                                                                                                                | `boolean`                                                                                                                                                            | `false`                                        |
+| `errorText`        | `error-text`        | Error text displayed below the text box.                                                                                                                                                       | `string`                                                                                                                                                             | `''`                                           |
+| `format`           | `format`            | Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. | `"HH:mm" \| "hh:mm a"`                                                                                                                                               | `'hh:mm a'`                                    |
+| `hintText`         | `hint-text`         | Hint text displayed below the text box.                                                                                                                                                        | `string`                                                                                                                                                             | `''`                                           |
+| `interval`         | `interval`          | Time interval between the values displayed in the list, specified in minutes.                                                                                                                  | `number`                                                                                                                                                             | `30`                                           |
+| `label`            | `label`             | Label displayed on the interface, for the component.                                                                                                                                           | `string`                                                                                                                                                             | `''`                                           |
+| `maxTime`          | `max-time`          | Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.                                                         | `string`                                                                                                                                                             | `this.isMeridianFormat ? '11:30 PM' : '23:30'` |
+| `minTime`          | `min-time`          | Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.                                                         | `string`                                                                                                                                                             | `this.isMeridianFormat ? '12:00 AM' : '00:00'` |
+| `name`             | `name`              | Name of the component, saved as part of form data.                                                                                                                                             | `string`                                                                                                                                                             | `''`                                           |
+| `optionsPlacement` | `options-placement` | Placement of the options list with respect to timepicker.                                                                                                                                      | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`                                     |
+| `placeholder`      | `placeholder`       | Text displayed in the select before an option is selected.                                                                                                                                     | `string`                                                                                                                                                             | `undefined`                                    |
+| `required`         | `required`          | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.                                     | `boolean`                                                                                                                                                            | `false`                                        |
+| `state`            | `state`             | Theme based on which the input of the timepicker is styled.                                                                                                                                    | `"error" \| "normal" \| "warning"`                                                                                                                                   | `'normal'`                                     |
+| `value`            | `value`             | Time output value                                                                                                                                                                              | `string`                                                                                                                                                             | `undefined`                                    |
+| `warningText`      | `warning-text`      | Warning text displayed below the text box.                                                                                                                                                     | `string`                                                                                                                                                             | `''`                                           |
 
 
 ## Events
@@ -84,15 +85,6 @@ Sets focus on a specific `fw-timepicker`.
 Type: `Promise<void>`
 
 
-
-
-## CSS Custom Properties
-
-| Name                 | Description                |
-| -------------------- | -------------------------- |
-| `--fw-error-color`   | Color of the error text.   |
-| `--fw-hint-color`    | Color of the hint text.    |
-| `--fw-warning-color` | Color of the warning text. |
 
 
 ## Dependencies

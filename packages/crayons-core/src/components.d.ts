@@ -31,6 +31,10 @@ export namespace Components {
     }
     interface FwAccordionTitle {
         "expanded": boolean;
+        /**
+          * The size of the default icon
+         */
+        "iconSize": 'small' | 'medium' | 'large';
         "toggleState": any;
         /**
           * Truncate title on text overflow
@@ -244,6 +248,14 @@ export namespace Components {
     interface FwDatepicker {
         "cancelText": string;
         /**
+          * Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`
+         */
+        "clearInput": boolean;
+        /**
+          * Clears the input value and unselects selected date.
+         */
+        "clearValue": () => Promise<void>;
+        /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat": string;
@@ -313,6 +325,10 @@ export namespace Components {
         "setFocus": () => Promise<void>;
         "showDateRangePicker": () => Promise<boolean>;
         "showSingleDatePicker": () => Promise<boolean>;
+        /**
+          * Indicates if footer needs to be shown. Default `true`.
+         */
+        "showFooter": boolean;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
@@ -814,6 +830,10 @@ export namespace Components {
          */
         "debounceTimer": number;
         /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
           * The text to filter the options.
          */
         "filterText": any;
@@ -1220,6 +1240,10 @@ export namespace Components {
          */
         "allowDeselect": boolean;
         /**
+          * Describes the select's boundary HTMLElement
+         */
+        "boundary": HTMLElement;
+        /**
           * Whether the arrow/caret should be shown in the select.
          */
         "caret": boolean;
@@ -1571,6 +1595,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Specifies the way in which the text area can be resized
+         */
+        "resize": 'none' | 'both' | 'horizontal' | 'vertical';
+        /**
           * Height of the input box, specified as number of rows.
          */
         "rows"?: number;
@@ -1596,6 +1624,10 @@ export namespace Components {
         "wrap": 'soft' | 'hard';
     }
     interface FwTimepicker {
+        /**
+          * Whether the arrow/caret should be shown in the timepicker.
+         */
+        "caret": boolean;
         /**
           * Set true to disable the element
          */
@@ -1632,6 +1664,10 @@ export namespace Components {
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Placement of the options list with respect to timepicker.
+         */
+        "optionsPlacement": PopoverPlacementType;
         /**
           * Text displayed in the select before an option is selected.
          */
@@ -2260,6 +2296,10 @@ declare namespace LocalJSX {
     }
     interface FwAccordionTitle {
         "expanded"?: boolean;
+        /**
+          * The size of the default icon
+         */
+        "iconSize"?: 'small' | 'medium' | 'large';
         "toggleState"?: any;
         /**
           * Truncate title on text overflow
@@ -2469,6 +2509,10 @@ declare namespace LocalJSX {
     interface FwDatepicker {
         "cancelText"?: string;
         /**
+          * Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`
+         */
+        "clearInput"?: boolean;
+        /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat"?: string;
@@ -2536,6 +2580,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Indicates if footer needs to be shown. Default `true`.
+         */
+        "showFooter"?: boolean;
         /**
           * Theme based on which the input of the datepicker is styled.
          */
@@ -3066,6 +3114,10 @@ declare namespace LocalJSX {
          */
         "debounceTimer"?: number;
         /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
           * The text to filter the options.
          */
         "filterText"?: any;
@@ -3476,6 +3528,10 @@ declare namespace LocalJSX {
          */
         "allowDeselect"?: boolean;
         /**
+          * Describes the select's boundary HTMLElement
+         */
+        "boundary"?: HTMLElement;
+        /**
           * Whether the arrow/caret should be shown in the select.
          */
         "caret"?: boolean;
@@ -3861,6 +3917,10 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
+          * Specifies the way in which the text area can be resized
+         */
+        "resize"?: 'none' | 'both' | 'horizontal' | 'vertical';
+        /**
           * Height of the input box, specified as number of rows.
          */
         "rows"?: number;
@@ -3882,6 +3942,10 @@ declare namespace LocalJSX {
         "wrap"?: 'soft' | 'hard';
     }
     interface FwTimepicker {
+        /**
+          * Whether the arrow/caret should be shown in the timepicker.
+         */
+        "caret"?: boolean;
         /**
           * Set true to disable the element
          */
@@ -3930,6 +3994,10 @@ declare namespace LocalJSX {
           * Triggered when the list box comes into focus.
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Placement of the options list with respect to timepicker.
+         */
+        "optionsPlacement"?: PopoverPlacementType;
         /**
           * Text displayed in the select before an option is selected.
          */

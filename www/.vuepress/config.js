@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const version = require('../../package.json').version;
+
 // Retrieve list of components for the sidebar config
 const components = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../components.json'))
@@ -66,7 +68,7 @@ module.exports = {
         title: 'Introduction',
         collapsable: false,
         sidebarDepth: 1,
-        children: ['/introduction/'],
+        children: ['/introduction/', '/introduction/migrating-to-v3/'],
       },
       {
         title: 'Components',
@@ -90,7 +92,26 @@ module.exports = {
         title: 'Frameworks',
         collapsable: false,
         sidebarDepth: 1,
-        children: ['/frameworks/react/'],
+        children: [
+          '/frameworks/react/',
+          '/frameworks/vue/',
+          '/frameworks/angular/',
+        ],
+      },
+    ],
+    nav: [
+      {
+        text: 'Migrating to v3',
+        link: '/introduction/migrating-to-v3/',
+      },
+      {
+        text: `v${version?.split('.')[0]}.x`,
+        items: ['v3.x', 'v2.x'].map((v) => ({
+          text: v,
+          link: `https://crayons.freshworks.com/${
+            v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
+          }`,
+        })),
       },
     ],
   },

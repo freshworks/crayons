@@ -662,6 +662,8 @@ function App() {
 
 This codeblock shows how to use custom cell function to display HTML content in a cell.
 
+*To have custom table headers, we can use 'customHeader' property. This will take in a function with parameters same as customTemplate.*
+
 ``` js{4-6}
   var columns = [{
     "key": "bookname",
@@ -2008,7 +2010,6 @@ graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-custom-cell-paragraph --> fw-tooltip
-  fw-custom-cell-paragraph --> fw-icon
   fw-tooltip --> fw-popover
   fw-checkbox --> fw-icon
   fw-button --> fw-spinner

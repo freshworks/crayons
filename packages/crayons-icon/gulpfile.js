@@ -22,7 +22,7 @@ const generateIconsExportData = async () => {
       const svg_export_data = `export const ${svg_name} = "${svg_string}";`;
       return svg_export_data;
     } catch (ex) {
-      console.error(ex);
+      console.error(`Error occured while fetching icons : ${ex}`);
       throw ex;
     }
   };
@@ -36,7 +36,7 @@ const generateIconsExportData = async () => {
     fs.writeFile(path.join(out_dir, 'index.js'), indexData);
     console.log(`Succesfully written @freshworks/crayons-icon/dist/index.js`);
   } catch (ex) {
-    console.error(`Exception occured while building : ${ex}`);
+    console.error(`Error occured while building : ${ex}`);
   }
 };
 

@@ -277,6 +277,7 @@ export const serializeForm = (
         const parsed = parseFloat(val);
         return { ...acc, [key]: isNaN(parsed) ? undefined : parsed };
       case 'DATE':
+        if (!val) return { ...acc, [key]: undefined };
         const date = new Date(val);
         if (date.toString() === 'Invalid Date') {
           return { ...acc, [key]: undefined };

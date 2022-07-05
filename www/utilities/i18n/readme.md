@@ -2,6 +2,14 @@
 
 Crayons comes with `i18n` support using `@freshworks/crayons-i18n` package. 
 
+This provides:
+
+- User language detection
+- Proper pluralizations
+- Translation context
+- Nesting of keys, Interpolation (variable replacement)
+  
+
 Based on the `lang` attribute on the html element, the translation gets applied. Whenever the `lang` attribute changes, the corresponding strings of that lang will be used.
 
 To overwrite the existing translations or to add any new translations, you can use `setTranslations` method in `TranslationController`.
@@ -111,4 +119,16 @@ Keys, by default, are strings surrounded by curly brackets:
 ```
 TranslationController.t('key', { world: 'great' });
 // -> "hello world"
+```
+
+## Examples
+
+### HTMl 
+```html live
+<iframe width="100%" height="300" src="//jsfiddle.net/65rghmb4/21/embedded/html,result/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+```
+
+### React
+```html live
+ <iframe width="100%" height="300" src="https://codesandbox.io/embed/crayons-i18n-react-example-vpl9k5?fontsize=14&hidenavigation=1&theme=dark"></iframe>
 ```

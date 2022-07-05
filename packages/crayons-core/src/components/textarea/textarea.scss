@@ -38,7 +38,7 @@ $warning-color: $color-casablanca-300;
 }
 
 .textarea-container {
-  margin-bottom: var(--fw-textarea-margin-bottom, 0px);
+  margin-block-end: var(--fw-textarea-margin-bottom, 0px);
   width: inherit;
 }
 
@@ -53,12 +53,14 @@ $warning-color: $color-casablanca-300;
     border: 1px solid $input-border;
     // margin: 5px 0 0;
     border-radius: 4px;
-    padding: 4px 12px 5px;
+    padding-block-end: 5px;
+    padding-inline: 12px;
+    padding-block-start: 4px;
     background-color: $input-bg;
     box-shadow: none;
     min-height: 24px;
     font-size: $font-size-14;
-    font-weight: $font-weight-500;
+    font-weight: $font-weight-semibold;
     letter-spacing: 0;
     line-height: 20px;
     font-family: inherit;
@@ -100,12 +102,12 @@ $warning-color: $color-casablanca-300;
   //Help Block
   & + .help-block {
     font-size: $font-size-12;
-    margin-top: 3px;
+    margin-block-start: 3px;
     color: $help-color;
     position: inherit;
-    margin-bottom: 0;
+    margin-block-end: 0;
     display: block;
-    padding-left: 2px;
+    padding-inline-start: 2px;
   }
 
   &.error {
@@ -118,16 +120,16 @@ $warning-color: $color-casablanca-300;
 }
 
 ::placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
   opacity: 1;
 }
 
 :-ms-input-placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
 }
 
 ::-ms-input-placeholder {
-  color: $color-smoke-300;
+  color: $muted-secondary;
 }
 
 .responsive {

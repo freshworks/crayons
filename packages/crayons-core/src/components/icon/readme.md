@@ -83,9 +83,9 @@ The library registration happens via a `resolver` function. If you wish to apply
 ``` html
 <html>
 <head>
-    <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
+    <script type="module" src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js" ></script>
     <script type="module" >
-        import { registerIconLibrary } from 'https://unpkg.com/@freshworks/crayons@canary/dist/crayons/index.esm.js';
+        import { registerIconLibrary } from 'https://unpkg.com/@freshworks/crayons@v3/dist/crayons/index.esm.js';
         registerIconLibrary('feather', {
                 resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
                 mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
@@ -118,6 +118,7 @@ unregisterIconLibrary('heroicons');
 
 function App() {
 return (
+
 <div >
 <FwIcon name = "feather"   library="feather" color = 'red'  label = "feather"   />
 <FwIcon name = "pie-chart" library="feather" color = 'blue' label = "pie-chart" />
@@ -152,7 +153,7 @@ See the code below for implementation.
 ```html
 <html>
 <head>
-   <script type="module" src="https://unpkg.com/@freshworks/crayons@canary/dist/crayons/crayons.esm.js" ></script>
+   <script type="module" src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js" ></script>
    <script type="module">
        import { header, add_contact } from '@freshworks/crayons-icon';
        const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`;
@@ -179,6 +180,7 @@ const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='
 
 function App() {
 return (
+
 <div>
 <FwIcon dataSvg={ header } label="Crayons Icon Header" />
 <FwIcon dataSvg={ add_contact } label="Crayons Icon Add-Contact" />
@@ -241,7 +243,6 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-button](../button)
  - [fw-checkbox](../checkbox)
  - [fw-custom-cell-icon](../data-table/custom-cells/icon)
- - [fw-custom-cell-paragraph](../data-table/custom-cells/paragraph)
  - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
  - [fw-drag-item](../drag-item)
@@ -273,7 +274,6 @@ graph TD;
   fw-button --> fw-icon
   fw-checkbox --> fw-icon
   fw-custom-cell-icon --> fw-icon
-  fw-custom-cell-paragraph --> fw-icon
   fw-data-table --> fw-icon
   fw-datepicker --> fw-icon
   fw-drag-item --> fw-icon

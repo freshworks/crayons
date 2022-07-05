@@ -18,75 +18,68 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="css">
 .dialogue-container {
-  margin-top: 5%;
-  width: 100%;
-  height: 115px;
-  background: #ebf1fc;
-  border-radius: 10px;
-
-  .dialogue-text {
-    padding: 1.5625rem 3.125rem;
-    line-height: 30px;
-    color: #666;
-    font-family: 'National-Book', sans-serif;
-    font-size: 14.5px;
-    font-weight: 300;
-
-    &::before {
-      content: 'Introduction:';
-      color: #4d4d4d;
-      font-weight: 600;
-    }
-  }
+	 margin-top: 5%;
+	 width: 100%;
+	 height: 115px;
+	 background: #ebf1fc;
+	 border-radius: 10px;
 }
-
-@media only screen and (max-width: 48rem) {
-  .dialogue-container {
-    margin: 5% auto;
-    width: 80%;
-    min-height: 200px;
-    background: #ebf1fc;
-    border-radius: 10px;
-
-    .dialogue-text {
-      line-height: 30px;
-      color: #666;
-      font-family: 'National-Book', sans-serif;
-      font-size: 3vw;
-      font-weight: 300;
-
-      &::before {
-        content: 'Introduction:';
-        color: #4d4d4d;
-        font-weight: 600;
-      }
-    }
-  }
+ .dialogue-container .dialogue-text {
+	 padding: 1.5625rem 3.125rem;
+	 line-height: 30px;
+	 color: #666;
+	 font-family: 'System stack', sans-serif;
+	 font-size: 14.5px;
+	 font-weight: 300;
 }
-
-@media only screen and (max-width: 27rem) {
-  .dialogue-container {
-    margin: 5% auto;
-    width: 90%;
-    min-height: 200px;
-    background: #ebf1fc;
-    border-radius: 10px;
-
-    .dialogue-text {
-      line-height: 30px;
-      color: #666;
-      font-family: 'National-Book', sans-serif;
-      font-size: 3vw;
-      font-weight: 300;
-
-      &::before {
-        content: 'Introduction:';
-        color: #4d4d4d;
-        font-weight: 600;
-      }
-    }
-  }
+ .dialogue-container .dialogue-text::before {
+	 content: 'Introduction:';
+	 color: #4d4d4d;
+	 font-weight: 600;
 }
+ @media only screen and (max-width: 48rem) {
+	 .dialogue-container {
+		 margin: 5% auto;
+		 width: 80%;
+		 min-height: 200px;
+		 background: #ebf1fc;
+		 border-radius: 10px;
+	}
+	 .dialogue-container .dialogue-text {
+		 line-height: 30px;
+		 color: #666;
+		 font-family: 'System stack', sans-serif;
+		 font-size: 3vw;
+		 font-weight: 300;
+	}
+	 .dialogue-container .dialogue-text::before {
+		 content: 'Introduction:';
+		 color: #4d4d4d;
+		 font-weight: 600;
+	}
+}
+ @media only screen and (max-width: 27rem) {
+	 .dialogue-container {
+		 margin: 5% auto;
+		 width: 90%;
+		 min-height: 200px;
+		 background: #ebf1fc;
+		 border-radius: 10px;
+	}
+	 .dialogue-container .dialogue-text {
+		 line-height: 30px;
+		 color: #666;
+		 font-family: 'System stack', sans-serif;
+		 font-size: 3vw;
+		 font-weight: 300;
+	}
+	 .dialogue-container .dialogue-text::before {
+		 content: 'Introduction:';
+		 color: #4d4d4d;
+		 font-weight: 600;
+	}
+}
+ 
 </style>

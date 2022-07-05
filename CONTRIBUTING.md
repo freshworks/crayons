@@ -36,14 +36,15 @@ Crayons uses `monorepo` setup. There are 3 packages under packages folder. Uses 
 2. Fork the Crayons repository.
 3. Clone your forked Crayons repository. ```git clone https://github.com/freshworks/crayons```
 4. Change directory to the cloned repository and install all the dependencies using `npm ci`.
-5. Run `git config core.hooksPath .git/hooks/`.
-6. To install/uninstall any new dependency for a package , use `npm install / uninstall <<dependency>> --workspace=<<packagename>>`. You can find the name of the workspace under each package's package.json.
-7. `cd packages/crayons-core` and `npm run start` will start the dev server. You can make changes in `src/index.html` to see live changes in the browser.
-8. `npm run test` to run the test
-9. To build storybook / docs site, go to root folder and run npm run build. `Docs site -> www-dist, Storybook -> docs/storybook-dist`
-10. Always run `npm run build` from root folder before commiting changes so that readme files are in sync.
-11. You can generate a component by running `npm run generate` in `packages/crayons-core` directory.
-12. `scss` variables and mixins are present in `styles` folder.
+5. Run `npm run build` to make sure all packages are in sync.
+6. Run `git config core.hooksPath .git/hooks/`.
+7. To install/uninstall any new dependency for a package , use `npm install / uninstall <<dependency>> --workspace=<<packagename>>`. You can find the name of the workspace under each package's package.json.
+8. `cd packages/crayons-core` and `npm run start` will start the dev server. You can make changes in `src/index.html` to see live changes in the browser.
+9. `npm run test` to run the test
+10. To build storybook / docs site, go to root folder and run npm run build. `Docs site -> www-dist, Storybook -> docs/storybook-dist`
+11. Always run `npm run build` from root folder before commiting changes so that readme files are in sync.
+12. You can generate a component by running `npm run generate` in `packages/crayons-core` directory.
+13. `scss` variables and mixins are present in `styles` folder.
 
 ##### Naming Components
 
@@ -53,8 +54,7 @@ When generating components, the custom element tags is prefixed with `fw-` while
 ### Branches
 
 1. **master** - stable release branch
-2. **next** - experimental pre-release branch
-3. **canary** - development branch
+2. **next** - experimental pre-release branch (default)
 
 
 ### Release Process
@@ -133,7 +133,7 @@ The Crayons repository uses GitHub's pre-commit hooks. To commit your changes,
 
 9. Run `git push -u origin <your-branch>`, to push your changes to the forked repo. git hooks will run all the test before pushing the changes. if any test fails, rewrite the tests and ensure that all tests pass before pushing again.
 
-10. Go to the forked repo in github and raise a PR against `canary` branch. If there are any comments on your PR, address them. Please wait for the PR to be approved.
+10. Go to the forked repo in github and raise a PR against `next` branch. If there are any comments on your PR, address them. Please wait for the PR to be approved.
 
 ## FAQ
 

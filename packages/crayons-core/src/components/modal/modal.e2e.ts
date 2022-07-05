@@ -46,9 +46,17 @@ describe('fw-modal', () => {
       '<fw-modal is-open hide-footer="true">Hello world</fw-modal>'
     );
     await page.waitForChanges();
-    const footer = await page.find('fw-modal >>> fw-modal-footer');
     await page.waitForChanges();
-    expect(footer).toBe(null);
+    const displayFooter = await page.evaluate(
+      (component, selector) => {
+        const cmpEl = document.querySelector(component);
+        const footer = cmpEl.shadowRoot.querySelector(selector);
+        return footer.style.display;
+      },
+      'fw-modal',
+      'fw-modal-footer'
+    );
+    expect(displayFooter).toEqual('none');
   });
 
   it('should open slider variant of modal when prop slider is passed to the component', async () => {

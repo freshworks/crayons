@@ -26,8 +26,7 @@
   overflow: hidden;
 }
 
-.mdpc-footer,
-.mdpc-range-footer {
+.mdpc-footer {
   padding: 4px;
   display: flex;
   box-sizing: border-box;
@@ -62,20 +61,22 @@
 
   .mdpc-body {
     width: 232px;
-    padding: 0 8px;
+    padding-inline: 8px;
+    padding-block: 0;
     position: relative;
   }
 
   .mdpc-body-right {
     width: 232px;
-    padding: 0 8px;
+    padding-inline: 8px;
+    padding-block: 0;
 
     &::after {
       content: '';
       position: absolute;
-      top: 0;
-      right: 251px;
-      border-right: 1px solid #ebeff3;
+      inset-block-start: 0;
+      inset-inline-end: 251px;
+      border-inline-end: 1px solid #ebeff3;
       height: 100%;
     }
   }
@@ -88,7 +89,7 @@
 .btns {
   display: inherit;
   position: absolute;
-  right: 14px;
+  inset-inline-end: 14px;
 }
 
 .mdpch-button,
@@ -97,8 +98,8 @@
   height: 100%;
   box-sizing: border-box;
   position: relative;
-  bottom: 6px;
-  right: 14px;
+  inset-block-end: 6px;
+  inset-inline-end: 14px;
 }
 
 .mdpchb-inner:hover,
@@ -111,11 +112,11 @@
   height: 20px;
   width: 20px;
   position: absolute;
-  margin-top: -11px;
+  margin-block-start: -11px;
 }
 
 .mdpch-button-right .mdpchb-inner {
-  left: 12px;
+  inset-inline-start: 12px;
 }
 
 .mdpchbi-left-arrow,
@@ -127,8 +128,8 @@
   display: block;
   width: 6px;
   height: 6px;
-  border-left: 2px solid $app-primary-black;
-  border-bottom: 2px solid $app-primary-black;
+  border-inline-start: 2px solid $app-primary-black;
+  border-block-end: 2px solid $app-primary-black;
   position: absolute;
 }
 
@@ -137,31 +138,31 @@
 .mdpchbi-right-arrow,
 .mdpchbi-right-arrows {
   transform: rotate(45deg);
-  left: 50%;
-  top: 50%;
-  margin-left: -2px;
-  margin-top: -4px;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  margin-inline-start: -2px;
+  margin-block-start: -4px;
 }
 
 .mdpchbi-right-arrow,
 .mdpchbi-right-arrows {
   transform: rotate(225deg);
-  margin-left: -4px;
+  margin-inline-start: -4px;
 }
 
 .mdpchbi-left-arrows::after,
 .mdpchbi-right-arrows::after {
   content: '';
-  left: 3px;
-  top: -5px;
+  inset-inline-start: 3px;
+  inset-block-start: -5px;
 }
 
 .mdpchbi-left-arrows {
-  margin-left: -5px;
+  margin-inline-start: -5px;
 }
 
 .mdpchbi-right-arrows {
-  margin-left: -2px;
+  margin-inline-start: -2px;
 }
 
 .mdpch-container,
@@ -170,7 +171,7 @@
 }
 
 .mdpch-container-right {
-  padding-left: 16px;
+  padding-inline-start: 16px;
 }
 
 .mdpchc-year {
@@ -244,7 +245,7 @@
 .c-day-container {
   width: 14.285%;
   height: 11.185%;
-  margin-top: 10px;
+  margin-block-start: 10px;
 }
 
 .cdc-day {
@@ -266,10 +267,10 @@
   width: 24px;
   height: 22px;
   font-size: 14px;
-  margin-top: -11px;
-  margin-left: -13px;
-  left: 50%;
-  top: 50%;
+  margin-block-start: -11px;
+  margin-inline-start: -13px;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
   font-weight: 400;
   border-radius: 10%;
   line-height: 20px;
@@ -287,13 +288,15 @@
 .icon-calendar {
   display: flex;
   align-items: center;
-  margin: 4px 0px;
+  margin-inline: 0px;
+  margin-block: 4px;
 
   .separator {
-    border-left-width: 1px;
-    border-left-style: solid;
+    border-inline-start-width: 1px;
+    border-inline-start-style: solid;
     height: 20px;
-    margin: 0px 4px;
+    margin-inline: 4px;
+    margin-block: 0px;
   }
 }
 
@@ -327,7 +330,7 @@
 
 .c-day-container.start-day {
   .cdc-day {
-    margin-left: 10px;
+    margin-inline-start: 10px;
 
     span {
       transform: translateX(-10px);
@@ -337,7 +340,7 @@
 
 .c-day-container.end-day {
   .cdc-day {
-    margin-left: -10px;
+    margin-inline-start: -10px;
 
     span {
       transform: translateX(10px);

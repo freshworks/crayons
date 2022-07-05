@@ -1,7 +1,7 @@
 #!groovy
 
 def runNPM(command) {
-    def NODE_VERSION = 12;
+    def NODE_VERSION = 16;
     utilObj = new Utils();
     envVersion = utilObj.getEnvVersion(NODE_VERSION);
     utilObj.runCmd(command, envVersion)
@@ -22,8 +22,8 @@ def uploadAndInvalidate(environment) {
     ]
   ]
 
-  uploadAssetsToS3('docs-dist', "s3://${STATIC_ASSETS[environment].bucketName}", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
-  uploadAssetsToS3('storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}/storybook", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
+  uploadAssetsToS3('www-dist', "s3://${STATIC_ASSETS[environment].bucketName}", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
+  uploadAssetsToS3('docs/storybook-dist', "s3://${STATIC_ASSETS[environment].bucketName}/storybook", 'us-east-1', true, false, 86400, STATIC_ASSETS[environment].profile)
   invalidateCDN(STATIC_ASSETS[environment].cdnDistributionId, '\"/*\"', STATIC_ASSETS[environment].profile)
 }
 
@@ -39,7 +39,7 @@ pipeline {
         stage('Checkout & Setup') {
             steps {
                 checkout scm
-                runNPM('HUSKY_SKIP_INSTALL=1 npm install')
+                runNPM('HUSKY_SKIP_INSTALL=1 npm ci')
             }
         }
 
@@ -64,7 +64,7 @@ pipeline {
         stage ('Deploy to Staging') {
             when {
                 expression {
-                    params.deployTo == 'staging' && BRANCH_NAME == 'master'
+                    params.deployTo == 'staging' && (BRANCH_NAME == 'master' || BRANCH_NAME == 'next')
                 }
             }
             steps {
@@ -75,7 +75,7 @@ pipeline {
         stage ('Deploy to Release') {
             when {
                 expression {
-                    params.deployTo == 'release' && BRANCH_NAME == 'master'
+                    params.deployTo == 'release' && (BRANCH_NAME == 'master' || BRANCH_NAME == 'next')
                 }
             }
             steps {

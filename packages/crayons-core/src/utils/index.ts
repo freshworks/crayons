@@ -99,15 +99,17 @@ export const getFocusableChildren = (node: HTMLElement) => {
   const getAllNodes = (element: any, root = true) => {
     root && (focusableElements = []);
     element = element.shadowRoot ? element.shadowRoot : element;
-    element.querySelectorAll('*').forEach((el: any) => {
+    Array.from(element.children).forEach((el: any) => {
       if (isFocusable(el)) {
         focusableElements.push(el);
       } else if (el.nodeName === 'SLOT') {
         el.assignedElements({ flatten: true }).forEach(
           (assignedEl: HTMLElement) => getAllNodes(assignedEl, false)
         );
-      } else if (el.shadowRoot) {
-        getAllNodes(el, false);
+      } else if (el.children.length > 0 || el.shadowRoot) {
+        if (!(parseInt(el.getAttribute('tabindex')) < 0)) {
+          getAllNodes(el, false);
+        }
       }
     });
   };
@@ -116,12 +118,40 @@ export const getFocusableChildren = (node: HTMLElement) => {
 };
 
 export const isFocusable = (element) => {
-  if (element.tabIndex < 0) {
+  if (parseInt(element.getAttribute('tabindex')) < 0) {
     return false;
   }
   if (element.disabled) {
     return false;
   }
+  const boundingRect = element.getBoundingClientRect();
+  if (
+    boundingRect.bottom === 0 &&
+    boundingRect.top === 0 &&
+    boundingRect.left === 0 &&
+    boundingRect.right === 0 &&
+    boundingRect.height === 0 &&
+    boundingRect.width === 0 &&
+    boundingRect.x === 0 &&
+    boundingRect.y === 0
+  ) {
+    return false;
+  }
+  if (
+    element.style.display === 'none' ||
+    element.style.visibility === 'hidden' ||
+    element.style.opacity === 0
+  ) {
+    return false;
+  }
+  if (element.getAttribute('role') === 'button') {
+    return true;
+  }
+  // All crayons input components have this function.
+  if (element.setFocus) {
+    return true;
+  }
+  // To identify other native focus elements.
   switch (element.nodeName) {
     case 'A':
       return !!element.href && element.rel !== 'ignore';
@@ -258,4 +288,98 @@ export const cyclicIncrement = (value: number, maxValue: number): number => {
 export const cyclicDecrement = (value: number, maxValue: number): number => {
   value--;
   return value < 0 ? maxValue : value;
+};
+
+export const isEqual = (a, b) => {
+  if (Array.isArray(a)) {
+    return isArrayEquals(a, b);
+  } else {
+    return a === b;
+  }
+};
+
+export const isArrayEquals = (a, b) => {
+  return (
+    Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    a.every((val, index) => val === b[index])
+  );
+};
+
+export const addRTL = (host) => {
+  if (document.documentElement.dir === 'rtl') {
+    host.setAttribute('dir', 'rtl');
+  } else {
+    host.setAttribute('dir', 'ltr');
+  }
+};
+
+export const popperModifierRTL = {
+  name: 'popperModifierRTL',
+  enabled: true,
+  phase: 'beforeRead',
+  fn({ state }) {
+    if (
+      document.documentElement.dir === 'rtl' ||
+      state.modifiersData['popperModifierRTL#persistent']?._previousDirection
+    ) {
+      if (
+        !state.modifiersData['popperModifierRTL#persistent']?._skip ||
+        state.modifiersData['popperModifierRTL#persistent']
+          ?._previousDirection !== document.documentElement.dir
+      ) {
+        const replaceMap = {
+          end: 'start',
+          start: 'end',
+          left: 'right',
+          right: 'left',
+        };
+        const rtlPlacement = state.placement.replace(
+          /right|left|start|end/,
+          (matched) => replaceMap[matched]
+        );
+        state.placement = rtlPlacement;
+        if (state.options?.placement) {
+          state.options.placement = rtlPlacement;
+        }
+        if (state.options?.modifiers) {
+          const fallbackPlacementModIndex = state.options.modifiers.findIndex(
+            (mod) => {
+              return mod.name === 'flip';
+            }
+          );
+          const fallbackPlacementOrderModIndex =
+            state.orderedModifiers.findIndex((mod) => {
+              return mod.name === 'flip';
+            });
+          if (state.options.modifiers[fallbackPlacementModIndex]) {
+            const fallbackPlacements = [];
+            state.options.modifiers[
+              fallbackPlacementModIndex
+            ].options.fallbackPlacements?.forEach((fp: any) => {
+              fallbackPlacements.push(
+                fp.replace(
+                  /right|left|start|end/,
+                  (matched) => replaceMap[matched]
+                )
+              );
+            });
+            state.options.modifiers[
+              fallbackPlacementModIndex
+            ].options.fallbackPlacements = fallbackPlacements;
+            state.orderedModifiers[
+              fallbackPlacementOrderModIndex
+            ].options.fallbackPlacements = fallbackPlacements;
+          }
+        }
+        if (!state.modifiersData['popperModifierRTL#persistent']) {
+          state.modifiersData['popperModifierRTL#persistent'] = {};
+        }
+        state.modifiersData['popperModifierRTL#persistent']._skip = true;
+        state.modifiersData['popperModifierRTL#persistent']._previousDirection =
+          document.documentElement.dir;
+      }
+    }
+  },
 };

@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.6...@freshworks/crayons-i18n@3.1.0-beta.7) (2022-04-25)
+
+### Bug Fixes
+
+- **data-table:** capitalizing show more text ([#571](https://github.com/freshworks/crayons/issues/571)) ([c5022c7](https://github.com/freshworks/crayons/commit/c5022c7ad60a2ddcbcd5ac871d3a96231381e072))
+
+## [3.1.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.5...@freshworks/crayons-i18n@3.1.0-beta.6) (2022-04-20)
+
+### Bug Fixes
+
+- **data-table:** adding showmore/showless to paragraph variant ([#569](https://github.com/freshworks/crayons/issues/569)) ([8450de8](https://github.com/freshworks/crayons/commit/8450de87c33094db793600e27435f5ba2c60db48))
+
+## [3.1.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.4...@freshworks/crayons-i18n@3.1.0-beta.5) (2022-04-13)
+
+### Bug Fixes
+
+- **widget-i18n:** i18n strings update for platform widget ([#557](https://github.com/freshworks/crayons/issues/557)) ([f5a614d](https://github.com/freshworks/crayons/commit/f5a614d34f1c9901b99a9c30e6e08e2667fb6da6))
+
+## [3.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.0...@freshworks/crayons-i18n@3.1.0-beta.1) (2022-03-31)
+
+### Bug Fixes
+
+- **crayons:** fix local setup ([#540](https://github.com/freshworks/crayons/issues/540)) ([83f92da](https://github.com/freshworks/crayons/commit/83f92dacb8777841dd3d932a250b66adf7ded919))
+
+## [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.0.4...@freshworks/crayons-i18n@3.1.0-beta.0) (2022-03-31)
+
+### Features
+
+- **i18n:** adding build setup to download translations from crowdin ([#521](https://github.com/freshworks/crayons/issues/521)) ([2f5f26f](https://github.com/freshworks/crayons/commit/2f5f26f1caf2e103274f7194812b902d1dafcb12))
+
+## 1.7.4 (2022-03-22)
+
+### Bug Fixes
+
+- **textarea:** updated styling for placeholder in textarea ([f993670](https://github.com/freshworks/crayons/commit/f9936704bc98a2be38f4a1476faf4a10f7a01828))
+
+## 1.7.3 (2022-03-22)
+
+### Bug Fixes
+
+- **fb-coui:** Style fixes, i18n interpolate strings for form builder, added resize property for text area component ([#498](https://github.com/freshworks/crayons/issues/498)) ([6a47ea1](https://github.com/freshworks/crayons/commit/6a47ea14b329d266d1ce794d8f9067322ff85e53))
+
+## 1.7.2 (2022-03-21)
+
+### Bug Fixes
+
+- **i18n-pluralize:** remove pluralize lib from crayons-i18n package ([e30a691](https://github.com/freshworks/crayons/commit/e30a691125de7c9625d7484318b762a4a82327b3))
+
+## 1.7.1 (2022-03-21)
+
+### Bug Fixes
+
+- **i18n-pluralize:** add pluralize util as part of i18n ([#492](https://github.com/freshworks/crayons/issues/492)) ([677b251](https://github.com/freshworks/crayons/commit/677b251c3dc9768f1307a981acdbfb3f4e18b1b9))
+
+## 1.7.0 (2022-03-21)
+
+### Features
+
+- **filter-i18n:** updated the value based on the new UI ([#491](https://github.com/freshworks/crayons/issues/491)) ([d50a9b1](https://github.com/freshworks/crayons/commit/d50a9b1247d22c74a2dfdd7dd9699e4d461e8799))
+
 ## 1.6.0 (2022-03-16)
 
 ### Bug Fixes

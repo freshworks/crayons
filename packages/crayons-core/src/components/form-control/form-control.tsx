@@ -148,7 +148,6 @@ export class FormControl {
           cmp = (
             <fw-datepicker
               {...componentProps}
-              readonly
               ref={(el) => (this.crayonsControlRef = el)}
             ></fw-datepicker>
           );
@@ -299,7 +298,8 @@ export class FormControl {
           } else if (!controlProps.value) {
             this.crayonsControlRef?.setSelectedOptions([]);
           }
-          componentProps.noDataText = 'Start Typing...';
+          componentProps.noDataText =
+            TranslationController.t('search.startTyping');
 
           cmp = (
             <fw-select
@@ -378,7 +378,7 @@ export class FormControl {
             {this.label}
           </label>
         )}
-        <slot></slot>
+        <slot onSlotchange={() => this.handleSlotChange()}></slot>
         {this.hasSlot && !(this.touched && this.error) && (
           <div class='hint' id={`hint-${this.name}`}>
             {this.hint}

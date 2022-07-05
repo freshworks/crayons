@@ -90,12 +90,13 @@ export class CustomCellParagraph {
         class={{
           'paragraph-text': true,
           'open': this.showToggle,
+          'expanded': !this.hide,
         }}
         style={{
           maxHeight: this.maxHeight,
         }}
       >
-        {this.text}
+        {this.text}{' '}
       </p>
     );
     return (
@@ -114,42 +115,23 @@ export class CustomCellParagraph {
             para
           )}
           {this.showToggle && (
-            <fw-tooltip
-              content={
-                this.hide
-                  ? TranslationController.t('datatable.show')
-                  : TranslationController.t('datatable.hide')
+            <div
+              class='paragraph-toggle'
+              role='button'
+              tabIndex={0}
+              onKeyUp={(event) =>
+                (event.code === 'Space' || event.code === 'Enter') &&
+                this.toggleParagraph()
               }
-              hoist={true}
-              placement='bottom-start'
-              fallbackPlacements={['top-start']}
+              onClick={() => this.toggleParagraph()}
+              ref={(el) => (this.toggleParaButton = el)}
             >
-              <div
-                class='paragraph-toggle'
-                role='button'
-                tabIndex={0}
-                onKeyUp={(event) =>
-                  (event.code === 'Space' || event.code === 'Enter') &&
-                  this.toggleParagraph()
-                }
-                onClick={() => this.toggleParagraph()}
-                ref={(el) => (this.toggleParaButton = el)}
-              >
-                {this.hide ? (
-                  <fw-icon
-                    name='more-horizontal'
-                    library='system'
-                    size={10}
-                  ></fw-icon>
-                ) : (
-                  <fw-icon
-                    name='chevron-up'
-                    library='system'
-                    size={8}
-                  ></fw-icon>
-                )}
-              </div>
-            </fw-tooltip>
+              {this.hide ? (
+                <span>{TranslationController.t('datatable.showMore')}</span>
+              ) : (
+                <span>{TranslationController.t('datatable.showLess')}</span>
+              )}
+            </div>
           )}
         </div>
       </Host>

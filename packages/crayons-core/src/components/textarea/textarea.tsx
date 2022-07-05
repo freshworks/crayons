@@ -68,6 +68,10 @@ export class Textarea {
    */
   @Prop() wrap: 'soft' | 'hard' = 'soft';
   /**
+   * Specifies the way in which the text area can be resized
+   */
+  @Prop() resize: 'none' | 'both' | 'horizontal' | 'vertical' = 'both';
+  /**
    * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() readonly = false;
@@ -149,19 +153,13 @@ export class Textarea {
   }
 
   componentWillLoad() {
-    this.handleSlotChange();
+    this.checkSlotContent();
   }
 
-  handleSlotChange() {
+  checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
     this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
-  }
-  disconnectedCallback() {
-    this.host.shadowRoot.removeEventListener(
-      'slotchange',
-      this.handleSlotChange
-    );
   }
 
   getAriaDescribedBy(): string {
@@ -173,6 +171,7 @@ export class Textarea {
 
   render() {
     const { host, name, value } = this;
+    const styleResizeTextArea = { resize: this.resize };
 
     renderHiddenField(host, name, value);
 
@@ -211,6 +210,7 @@ export class Textarea {
                 class={{
                   responsive: this.cols === undefined,
                 }}
+                style={styleResizeTextArea}
                 ref={(input) => (this.nativeInput = input)}
                 disabled={this.disabled}
                 name={this.name}

@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
 import { PopoverPlacementType, PopoverTriggerType } from '../../utils/types';
+import { popperModifierRTL } from '../../utils';
 
 @Component({
   tag: 'fw-popover',
@@ -191,15 +192,21 @@ export class Popover {
       trigger.addEventListener('focus', this.show.bind(this));
       trigger.addEventListener('blur', this.hide.bind(this));
       trigger.addEventListener('mouseenter', this.show.bind(this));
-      trigger.addEventListener('mouseleave', (event: any) => {
-        /**
-         * popovercontent might trigger mouseLeave callback of triggerRef during transition.
-         * This condition avoids flicker that might happen because of the mentioned case.
-         */
-        if (
-          event.relatedTarget === null ||
-          !event.relatedTarget.matches('*[slot="popover-content"]')
-        ) {
+      this.host.addEventListener('mouseleave', (event: any) => {
+        const eventPath = event.path ? event.path : event.composedPath();
+        const tooltip = eventPath.filter(
+          (node) => node.nodeName === 'FW-TOOLTIP'
+        )[0];
+        if (tooltip) {
+          const mouseLeaveHandler = (() => {
+            const hoverElements = document.querySelectorAll(':hover');
+            const index = [].indexOf.call(hoverElements, tooltip);
+            if (index < 0) {
+              this.hide();
+            }
+          }).bind(this);
+          setTimeout(mouseLeaveHandler, 200);
+        } else {
           this.hide();
         }
       });
@@ -226,6 +233,7 @@ export class Popover {
             offset: [Number(this.skidding), Number(this.distance)],
           },
         },
+        popperModifierRTL,
       ],
     };
   }

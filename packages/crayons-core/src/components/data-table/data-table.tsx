@@ -17,6 +17,7 @@ import {
   DataTableRow,
   DataTableAction,
 } from '../../utils/types';
+import { popperModifierRTL } from '../../utils';
 
 const PREDEFINED_VARIANTS_META: any = {
   anchor: {
@@ -48,6 +49,7 @@ const TABLE_POPPER_CONFIG: any = {
         offset: [0, 2],
       },
     },
+    popperModifierRTL,
   ],
 };
 
@@ -168,6 +170,11 @@ export class DataTable {
   @State() showShimmer = true;
 
   /**
+   * width of the columns is auto calculated as table width is lesser than container width.
+   */
+  @State() ifAutoCalculatedWidth = false;
+
+  /**
    * fwSelectionChange Emits this event when row is selected/unselected.
    */
   @Event() fwSelectionChange: EventEmitter;
@@ -201,11 +208,14 @@ export class DataTable {
 
   tableContainer: HTMLElement = null;
 
+  selectColumnHeader: HTMLElement = null;
+
+  lastColumnHeader: HTMLElement = null;
+
   /**
    * componentWillLoad lifecycle event
    */
   componentWillLoad() {
-    this.isLoading = true;
     this.columnOrdering(this.columns);
     if (localStorage && this.autoSaveSettings) {
       const tableId = this.el.id ? `-${this.el.id}` : '';
@@ -238,7 +248,24 @@ export class DataTable {
   componentDidRender() {
     if (this.renderPromiseResolve) {
       this.renderPromiseResolve();
+      this.renderPromiseResolve = null;
     }
+    /**
+     * Hack to override table behaviour of expanding columns when total column with lesser than container width.
+     * Idea is to remove the width on the last column so that it occupies the rest of the space.
+     */
+    if (this.selectColumnHeader) {
+      if (
+        parseInt(window.getComputedStyle(this.selectColumnHeader).width) > 40 &&
+        !this.ifAutoCalculatedWidth
+      ) {
+        this.ifAutoCalculatedWidth = true;
+      }
+    }
+  }
+
+  disconnectedCallback() {
+    this.popperInstance?.destroy();
   }
 
   /**
@@ -428,7 +455,6 @@ export class DataTable {
   hideShimmer() {
     if (this.showShimmer) {
       this.showShimmer = false;
-      this.isLoading = false;
     }
   }
 
@@ -588,6 +614,7 @@ export class DataTable {
       }
     }
     this.toggleSettings(false);
+    this.ifAutoCalculatedWidth = false;
   }
 
   /**
@@ -1107,10 +1134,19 @@ export class DataTable {
     const selectAllChecked =
       this.rows.length &&
       this.rows.every((row) => this.selected.includes(row.id));
+    const visibleColumns = this.orderedColumns.filter(
+      (column) => !column.hide && column.variant !== 'paragraph'
+    );
+    const lastVisibleColumnKey = visibleColumns[visibleColumns.length - 1]?.key;
     return this.orderedColumns.filter((column) => !column.hide).length ? (
       <tr role='row'>
         {this.orderedColumns.length && this.isSelectable && (
-          <th key='isSelectable' aria-colindex={1} style={{ width: '40px' }}>
+          <th
+            ref={(el) => (this.selectColumnHeader = el)}
+            key='isSelectable'
+            aria-colindex={1}
+            style={{ width: '40px' }}
+          >
             {this.isAllSelectable && (
               <fw-checkbox
                 id='select-all'
@@ -1136,9 +1172,19 @@ export class DataTable {
           }
           const headerStyles = Object.assign(
             {},
-            column.widthProperties ? column.widthProperties : {},
+            column.widthProperties &&
+              !(
+                column.key === lastVisibleColumnKey &&
+                this.ifAutoCalculatedWidth
+              )
+              ? column.widthProperties
+              : {},
             textAlign ? { textAlign } : {}
           );
+          const optionalAttrs: any = {};
+          if (column.key === lastVisibleColumnKey) {
+            optionalAttrs.ref = (el) => (this.lastColumnHeader = el);
+          }
           return (
             <th
               role='columnheader'
@@ -1148,8 +1194,11 @@ export class DataTable {
               }
               class={{ hidden: column.hide }}
               style={headerStyles}
+              {...optionalAttrs}
             >
-              {column.text}
+              {column.customHeader
+                ? this.renderCustomTemplate(column.customHeader, column.text)
+                : column.text}
             </th>
           );
         })}
@@ -1179,6 +1228,7 @@ export class DataTable {
       ? this.rows.map((row, rowIndex) => {
           return (
             <tr
+              key={row.id}
               role='row'
               class={{
                 active: this.selected.includes(row.id),
@@ -1558,13 +1608,15 @@ export class DataTable {
       for (let index = 1; index <= shimmerCount; index++) {
         shimmerTemplate.push(
           <tr>
-            {[...Array(columnsLength).keys()].map(() => {
-              return (
-                <td>
-                  <fw-skeleton height='12px'></fw-skeleton>
-                </td>
-              );
-            })}
+            {Array(columnsLength)
+              .fill(1)
+              .map(() => {
+                return (
+                  <td>
+                    <fw-skeleton height='12px'></fw-skeleton>
+                  </td>
+                );
+              })}
           </tr>
         );
       }
@@ -1581,7 +1633,7 @@ export class DataTable {
         <div
           class={{
             'fw-data-table-scrollable': true,
-            'loading': this.isLoading,
+            'loading': this.isLoading || this.showShimmer,
             'shimmer': this.showShimmer,
           }}
           ref={(el) => (this.tableContainer = el)}
@@ -1597,14 +1649,16 @@ export class DataTable {
           >
             <thead>{this.renderTableHeader()}</thead>
             <tbody>
-              {this.showShimmer && this.isLoading
+              {this.showShimmer
                 ? this.renderTableShimmer()
                 : this.renderTableBody()}
             </tbody>
           </table>
         </div>
         {this.showSettings && this.renderTableSettings()}
-        {this.isLoading && <div class='fw-data-table--loading'></div>}
+        {(this.isLoading || this.showShimmer) && (
+          <div class='fw-data-table--loading'></div>
+        )}
       </div>
     );
   }

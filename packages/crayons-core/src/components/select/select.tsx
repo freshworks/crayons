@@ -49,6 +49,8 @@ export class Select {
 
   private innerOnClick = () => {
     this.setFocus();
+    // Select the whole text in case of single select
+    this.multiple || this.selectInput?.select?.();
     if (this.variant !== 'mail') {
       this.openDropdown();
     }
@@ -156,7 +158,7 @@ export class Select {
   /**
    * The data for the select component, the options will be of type array of fw-select-options.
    */
-  @Prop({ reflect: true }) options: any;
+  @Prop() options: any;
   /**
    * Place a checkbox.
    */
@@ -223,6 +225,10 @@ export class Select {
    * Error text displayed below the text box.
    */
   @Prop() errorText = '';
+  /**
+   * Describes the select's boundary HTMLElement
+   */
+  @Prop() boundary: HTMLElement;
 
   // Events
   /**
@@ -339,6 +345,28 @@ export class Select {
     this.renderInput();
   }
 
+  @Watch('options')
+  onOptionsChange(newValue) {
+    const selectedValues = newValue?.filter((option) => option.selected);
+    // If selected key is available in options schema use it
+    // Or check for the value
+    if (selectedValues.length > 0) {
+      this.dataSource = newValue;
+      this.selectedOptionsState = selectedValues;
+      this.value = this.multiple
+        ? this.selectedOptionsState.map((x) => x.value)
+        : this.selectedOptionsState[0]?.value;
+    } else if (this.valueExists()) {
+      this.dataSource = newValue.map((option) => {
+        return { ...option, selected: this.isValueEqual(this.value, option) };
+      });
+    } else {
+      this.dataSource = newValue;
+      this.value = this.multiple ? [] : '';
+      this.selectedOptionsState = [];
+    }
+  }
+
   @Method()
   async getSelectedItem(): Promise<any> {
     return this.fwListOptions.getSelectedOptions();
@@ -358,6 +386,7 @@ export class Select {
 
   @Method()
   async setFocus(): Promise<any> {
+    this.hasFocus = true;
     this.selectInput?.focus();
   }
 
@@ -417,10 +446,12 @@ export class Select {
   }
 
   onInput() {
+    this.searchValue = this.selectInput.value;
     if (this.selectInput.value) {
-      this.searchValue = this.selectInput.value.toLowerCase();
       this.variant !== 'mail' && this.openDropdown();
     } else {
+      // Clear selected value in case of single select.
+      this.multiple || this.setSelectedValues('');
       this.variant === 'mail' && this.closeDropdown();
     }
   }
@@ -460,7 +491,8 @@ export class Select {
   }
 
   componentWillLoad() {
-    this.handleSlotChange();
+    this.boundary ||= this.host.parentElement;
+    this.checkSlotContent();
     if (this.variant === 'mail') {
       this.caret = false;
       this.multiple = true;
@@ -494,7 +526,7 @@ export class Select {
         text: option.html ? option.optionText : option.textContent,
         value: option.value,
         selected: this.isValueEqual(this.value, option) || option.selected,
-        disabled: option.disabled || this.disabled, // Check if option is disabled or select is disabled
+        disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
       };
     });
@@ -545,10 +577,6 @@ export class Select {
 
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
-    this.host.shadowRoot?.removeEventListener(
-      'slotchange',
-      this.handleSlotChange
-    );
   }
 
   @Watch('isExpanded')
@@ -562,7 +590,7 @@ export class Select {
     }
   }
 
-  handleSlotChange() {
+  checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
     this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
@@ -618,6 +646,7 @@ export class Select {
               ref={(popover) => (this.popover = popover)}
               same-width={this.sameWidth}
               placement={this.optionsPlacement}
+              boundary={this.boundary}
             >
               <div
                 slot='popover-trigger'
@@ -720,6 +749,7 @@ export class Select {
                 value={this.value}
                 multiple={this.multiple}
                 max={this.max}
+                disabled={this.disabled}
                 checkbox={this.checkbox}
                 allowDeselect={this.allowDeselect}
                 slot='popover-content'

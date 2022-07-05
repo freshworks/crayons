@@ -4,27 +4,27 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 
 ---
 
-- [Versions](#versions)
-- [Version 3.x](#version-3x)
-  - [Global Styles](#global-styles)
-  - [Input Control Events](#input-control-events)
-  - [Components](#components)
-    - [Button](#button)
-    - [Checkbox](#checkbox)
-    - [Datepicker](#datepicker)
-    - [Dropdown button](#dropdown-button)
-    - [Icon](#icon)
-    - [Input](#input)
-    - [Label](#label)
-    - [Radio Group](#radio-group)
-    - [Radio](#radio)
-    - [Select](#select)
-    - [Spinner](#spinner)
-    - [Tabs](#tabs)
-    - [Tab](#tab)
-    - [Textarea](#textarea)
-    - [Timepicker](#timepicker)
-    - [Modal](#modal)
+  - [Versions](#versions)
+  - [Version 3.x](#version-3x)
+    - [Global Styles](#global-styles)
+    - [Input Control Events](#input-control-events)
+    - [Components](#components)
+      - [Button](#button)
+      - [Checkbox](#checkbox)
+      - [Datepicker](#datepicker)
+      - [Dropdown button](#dropdown-button)
+      - [Icon](#icon)
+      - [Input](#input)
+      - [Label](#label)
+      - [Radio Group](#radio-group)
+      - [Radio](#radio)
+      - [Select](#select)
+      - [Spinner](#spinner)
+      - [Tabs](#tabs)
+      - [Tab](#tab)
+      - [Textarea](#textarea)
+      - [Timepicker](#timepicker)
+      - [Modal](#modal)
 
 ## Versions
 
@@ -250,6 +250,8 @@ Datepicker has been refactored to remove `moment-mini` dependency and now is rep
 
 #### Dropdown button
 
+Dropdown button component has been removed as part of v3 release. You can create dropdown buttons using [`popover`](https://crayons.freshworks.com/components/core/popover/#usage) component.
+
 - CSS variables
 
   Below are the changes w.r.t CSS variables
@@ -290,7 +292,6 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   | Old Variable | Status  | New Variable    |
   | ------------ | ------- | --------------- |
   | --icon-color | renamed | --fw-icon-color |
-  |              | added   | --fw-icon-size  |
 
 #### Input
 
@@ -403,6 +404,24 @@ Icons architecture has been redesigned and a new package `@freshworks/crayons-ic
   ```html
   <fw-select error-text="This is required!" state="error"></fw-select>
   <fw-select hint-text="This is a hint text" state="normal"></fw-select>
+  ```
+
+  `value` property has been modified for multi-select. The value property represents the selected value. In case of single select the type of value should be string, but in case of multi-select the type of value should be an **array of strings**.
+
+  **Old**
+
+  ```html
+  <fw-select id="multi-select" label="House Name" value="1" multiple>
+    <fw-select-option value="1">Starks</fw-select-option>
+    <fw-select-option value="2">Lannisters</fw-select-option>
+  </fw-select>
+  ```
+
+  **New**
+
+  ```javascript
+  var multiSelect = document.getElementById('multi-select');
+  multiSelect.value = ['1'];
   ```
 
   `autoFocus` property has been removed. You can use `setFocus()` method to set focus on the select

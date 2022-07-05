@@ -161,16 +161,11 @@ export class Input {
   };
 
   private showClearButton() {
-    return (
-      this.clearInput &&
-      !this.readonly &&
-      !this.disabled &&
-      this.value.length > 0
-    );
+    return this.clearInput && !this.disabled && this.value?.length > 0;
   }
 
   private clearTextInput = (ev?: Event) => {
-    if (!this.readonly && !this.disabled && ev) {
+    if (!this.disabled) {
       this.value = '';
 
       if (this.nativeInput) {
@@ -228,7 +223,7 @@ export class Input {
   componentWillLoad() {
     this.hasPrefix =
       !!this.host.querySelector('[slot="input-prefix"]') || !!this.iconLeft;
-    this.handleSlotChange();
+    this.checkSlotContent();
   }
 
   getAriaDescribedBy(): string {
@@ -238,16 +233,10 @@ export class Input {
     return null;
   }
 
-  handleSlotChange() {
+  checkSlotContent() {
     this.hasHintTextSlot = hasSlot(this.host, 'hint-text');
     this.hasWarningTextSlot = hasSlot(this.host, 'warning-text');
     this.hasErrorTextSlot = hasSlot(this.host, 'error-text');
-  }
-  disconnectedCallback() {
-    this.host.shadowRoot.removeEventListener(
-      'slotchange',
-      this.handleSlotChange
-    );
   }
 
   render() {

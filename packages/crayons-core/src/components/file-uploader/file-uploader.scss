@@ -36,7 +36,8 @@ div.file-uploader-container {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin: auto 0;
+        margin-inline: 0;
+        margin-block: auto;
         transform: translateY(-5px);
 
         .drop-clickable-text {
@@ -44,8 +45,8 @@ div.file-uploader-container {
           font-size: 14px;
           font-weight: 500;
           color: $color-azure-800;
-          margin-top: 9px;
-          margin-bottom: 3px;
+          margin-block-start: 9px;
+          margin-block-end: 3px;
         }
 
         .drop-clickable-hint {
@@ -66,7 +67,8 @@ div.file-uploader-container {
         line-height: 12px;
         font-size: 10px;
         text-align: center;
-        padding: 5px 0px;
+        padding-inline: 0px;
+        padding-block: 5px;
         box-sizing: border-box;
 
         span {
