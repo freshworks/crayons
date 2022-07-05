@@ -25,7 +25,7 @@ describe('fw-datepicker', () => {
     await updateEle.click();
 
     const datePickerEle = await page.find('fw-datepicker >>> .datepicker');
-    expect(datePickerEle).toBeTruthy();
+    expect(datePickerEle).toBeFalsy();
   });
 
   it('should emit fwChange when it is updated', async () => {
@@ -69,8 +69,8 @@ describe('fw-datepicker', () => {
       'fw-datepicker >>> fw-button.update-range-value'
     );
     expect(updateEle).toBeTruthy();
-    //await updateEle.click();
-    //expect(fwChange).toHaveReceivedEvent();
+    await updateEle.click();
+    expect(fwChange).toHaveReceivedEvent();
   });
 
   it('date should be as per format', async () => {

@@ -159,26 +159,6 @@ Type: `Promise<void>`
 
 
 
-### `showDateRangePicker() => Promise<boolean>`
-
-
-
-#### Returns
-
-Type: `Promise<boolean>`
-
-
-
-### `showSingleDatePicker() => Promise<boolean>`
-
-
-
-#### Returns
-
-Type: `Promise<boolean>`
-
-
-
 
 ## CSS Custom Properties
 
