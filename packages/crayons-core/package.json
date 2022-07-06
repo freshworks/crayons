@@ -59,8 +59,8 @@
     "start": "stencil build --dev --watch --serve --port=3333",
     "storybook:start": "wait-on -d 30000 loader/index.js && start-storybook -p 9001 -c .storybook",
     "storybook": "run-p local storybook:start",
-    "test": "stencil test --spec --e2e --silent",
     "test:watch": "stencil test --spec --e2e --watchAll --verbose",
+    "test": "stencil test --spec --e2e --silent",
     "test:ci": "stencil test --spec --ci --e2e --max-workers=2"
   },
   "devDependencies": {
