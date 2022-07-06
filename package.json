@@ -92,6 +92,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.18.0",
     "html-to-react": "^1.4.5",
+    "http-server": "^14.1.1",
     "husky": "^4.2.3",
     "jest-github-reporter": "^1.0.2",
     "kill-port": "^1.6.1",
@@ -115,7 +116,6 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "http-server": "^14.1.1",
     "lerna": "^4.0.0"
   },
   "config": {
