@@ -168,6 +168,32 @@
       "var": "--fw-checkbox-label-padding-left"
     }
   },
+  "inline-message": {
+    "all": {
+      "lineHeight": {
+        "value": "18px",
+        "type": "lineHeights",
+        "var": "--fw-font-lh-sm"
+      },
+      "fontSize": {
+        "value": "12px",
+        "type": "fontSizes",
+        "var": "--fw-font-sm"
+      },
+      "iconDisplay": {
+        "value": "block",
+        "type": "other",
+        "var": "--fw-inline-msg-icon-display"
+      }
+    },
+    "warning": {
+      "border": {
+        "value": "#fddbb5",
+        "type": "color",
+        "var": "--fw-color-warning-100"
+      }
+    }
+  },
   "input": {
     "fontWeight": {
       "value": "400",

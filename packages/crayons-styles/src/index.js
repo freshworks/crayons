@@ -1,4 +1,5 @@
 import crayons from '../tokens/crayons.js';
+import 'construct-style-sheets-polyfill';
 
 function setStyle(tokens) {
   const sheet = new CSSStyleSheet();
