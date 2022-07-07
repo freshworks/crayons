@@ -1,3 +1,12 @@
+/**
+  @prop --fw-toggle-off-bg: Background of toggle off state
+  @prop --fw-toggle-small-width: Width of toggle small variant
+  @prop --fw-toggle-small-height: height of toggle small variant
+  @prop --fw-toggle-small-switch-position-bottom: Bottom position of toggle switch - small variant
+  @prop --fw-toggle-switch-checked-border: Border color of toggle switch checked- small variant
+  @prop --fw-toggle-small-switch-translate: Translation value of toggle switch
+*/
+
 *,
 ::after,
 ::before {
@@ -38,7 +47,7 @@
     right: 0;
     bottom: 0;
     border-radius: 34px;
-    background: $toggle-btn-off-bg; // TODO: follow DSM
+    background: var(--fw-toggle-off-bg, $toggle-btn-off-bg); // TODO: follow DSM
   }
   @media screen and (prefers-reduced-motion: reduce) {
     .before {
@@ -72,12 +81,13 @@
   }
 
   .slider.small {
-    width: 28px;
-    height: 12px;
+    width: var(--fw-toggle-small-width, 28px);
+    height: var(--fw-toggle-small-height, 12px);
 
     .before {
       width: 16px;
       height: 16px;
+      bottom: var(--fw-toggle-small-switch-position-bottom, -2px);
 
       fw-icon {
         transform: scale(0.375);
@@ -133,7 +143,7 @@
     background-color: $color-azure-800;
 
     .before {
-      border: solid 1px $color-azure-800;
+      border: solid 1px var(--fw-toggle-switch-checked-border, $color-azure-800);
 
       &:hover,
       &:focus {
@@ -144,9 +154,11 @@
 
   input:checked + .slider.small {
     .before {
-      -webkit-transform: translateX(12px);
-      -ms-transform: translateX(12px);
-      transform: translateX(12px);
+      -webkit-transform: translateX(
+        var(--fw-toggle-small-switch-translate, 12px)
+      );
+      -ms-transform: translateX(var(--fw-toggle-small-switch-translate, 12px));
+      transform: translateX(var(--fw-toggle-small-switch-translate, 12px));
     }
   }
 

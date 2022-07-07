@@ -1,24 +1,44 @@
 /**
   @prop --fw-label-color: Color of the label.
+  @prop --fw-label-font-size: Label font size.
+  @prop --fw-label-font-weight: Label font weight.
+  @prop --fw-label-line-height: Label font line height.
   @prop --fw-hint-color: Color of the hint text.
+  @prop --fw-hint-font-size: Font size of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
+  @prop --fw-error-text-font-size: Font size of the error text.
   @prop --fw-input-height: The height of the input element.
   @prop --fw-input-border-radius: The border radius of the input element.
+  @prop --fw-input-font-size: Input text font size.
+  @prop --fw-input-font-weight: Input text font weight.
+  @prop --fw-input-bg: Background color of the input field.
+  @prop --fw-input-disabled-bg: Background color of the disabled input field.
+  @prop --fw-input-disabled-color: Text color of the disabled input field.
+  @prop --fw-input-border: Input border color.
+  @prop --fw-input-color: Input text color.
+  @prop --fw-input-placeholder-color: Input placeholder color.
+  @prop --fw-input-placeholder-font-size: Input placeholder color.
 */
 
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack-sans !default;
 $help-color: $text-secondary;
-$disabled-color: $text-disabled;
+$input-disabled-color: var(--fw-input-disabled-color, $text-disabled);
+$input-disabled-bg: var(--fw-input-disabled-color, #f7f9fa);
 $warning-color: $text-warning-2;
 $error-color: $text-danger;
-$input-border: $color-secondary-100;
-$input-hover-color: $color-secondary-700;
-$input-focus-color: $color-info-800;
-$input-bg: $color-neutral-100;
-$input-color: $text-default;
+$input-border: var(--fw-input-border, $color-secondary-100);
+$input-hover-border-color: var(--fw-input-border-hover, $color-secondary-700);
+$input-focus-color: var(--fw-input-border-hover, $color-info-800);
+$input-bg: var(--fw-input-bg, $color-neutral-100);
+$input-color: var(--fw-input-color, $text-default);
+$input-placeholder-color: var(
+  --fw-input-placeholder-color,
+  $color-secondary-300
+);
+$input-placeholder-font-size: var(--fw-input-placeholder-font-size, $font-sm);
 
 *,
 ::after,
@@ -62,7 +82,7 @@ $input-color: $text-default;
   width: 100%;
   height: var(--fw-input-height, 32px);
   border: 1px solid $input-border;
-  background-color: $color-neutral-100;
+  background-color: $input-bg;
   position: relative;
   border-radius: var(--fw-input-border-radius, 4px);
   box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05); //  TODO: follow DSM : Elevation.
@@ -94,10 +114,10 @@ $input-color: $text-default;
         box-shadow: none;
         padding: 0px;
         margin: 0px;
-        font-size: $font-sm;
-        font-weight: $font-weight-500;
+        font-size: var(--fw-input-font-size, $font-sm);
+        font-weight: var(--fw-input-font-weight, $font-weight-500);
         letter-spacing: 0;
-        line-height: $font-lh-sm;
+        line-height: var(--fw-input-line-height, $font-lh-sm);
         color: $input-color;
         box-sizing: border-box;
         cursor: text;
@@ -106,7 +126,7 @@ $input-color: $text-default;
 
         &[disabled] {
           font-weight: $font-weight-400;
-          color: $disabled-color;
+          color: $input-disabled-color;
           background-color: $input-disabled-bg; // TODO: follow DSM : not in palette
           pointer-events: none;
         }
@@ -139,7 +159,7 @@ $input-color: $text-default;
     }
   }
   &:hover {
-    border: 1px $input-hover-color solid;
+    border: 1px $input-hover-border-color solid;
   }
 
   &.has-focus {
@@ -152,7 +172,7 @@ $input-color: $text-default;
 
   &.disabled {
     font-weight: $font-weight-400;
-    color: $disabled-color;
+    color: $input-disabled-color;
     border: 1px solid $color-secondary-50;
     background-color: $input-disabled-bg; // TODO: follow DSM : not in palette
     border-style: solid;
@@ -199,17 +219,21 @@ $input-color: $text-default;
 }
 
 ::-webkit-input-placeholder {
-  color: $color-secondary-300;
+  color: $input-placeholder-color;
+  font-size: $input-placeholder-font-size;
 }
 
 ::-moz-placeholder {
-  color: $color-secondary-300;
+  color: $input-placeholder-color;
+  font-size: $input-placeholder-font-size;
 }
 
 :-ms-input-placeholder {
-  color: $color-secondary-300;
+  color: $input-placeholder-color;
+  font-size: $input-placeholder-font-size;
 }
 
 :-moz-placeholder {
-  color: $color-secondary-300;
+  color: $input-placeholder-color;
+  font-size: $input-placeholder-font-size;
 }

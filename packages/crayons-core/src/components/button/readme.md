@@ -287,16 +287,37 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name                                 | Description                           |
-| ------------------------------------ | ------------------------------------- |
-| `--fw-button-border-radius`          | The border radius of the button.      |
-| `--fw-button-font-size`              | The font size of the normal button.   |
-| `--fw-button-font-weight`            | The font weight of the button.        |
-| `--fw-button-height`                 | The height of the normal button.      |
-| `--fw-button-label-vertical-padding` | vertical padding for the button label |
-| `--fw-button-min-width`              | minimum width for the button          |
-| `--fw-button-small-font-size`        | The font size of the small button.    |
-| `--fw-button-small-height`           | The height of the small button.       |
+| Name                                    | Description                                               |
+| --------------------------------------- | --------------------------------------------------------- |
+| `--fw-button-active-box-shadow`         | Box shadow of active button.                              |
+| `--fw-button-border-radius`             | The border radius of the button.                          |
+| `--fw-button-font-size`                 | The font size of the normal button.                       |
+| `--fw-button-font-weight`               | The font weight of the button.                            |
+| `--fw-button-height`                    | The height of the normal button.                          |
+| `--fw-button-label-vertical-padding`    | vertical padding for the button label                     |
+| `--fw-button-min-width`                 | minimum width for the button                              |
+| `--fw-button-normal-line-height`        | Line height of the normal button.                         |
+| `--fw-button-primary-bg`                | The background color of the primary button.               |
+| `--fw-button-primary-bg-dark`           | The background color of the primary dark button.          |
+| `--fw-button-primary-border`            | The border color of the primary button.                   |
+| `--fw-button-primary-border-active`     | The border color of the primary button on active state.   |
+| `--fw-button-primary-color`             | The text color of the primary button.                     |
+| `--fw-button-primary-disabled-bg`       | The background color of the primary disabled button.      |
+| `--fw-button-primary-disabled-bg-dark`  | The background color of the primary disabled dark button. |
+| `--fw-button-primary-disabled-border`   | The border color of the primary disabled button.          |
+| `--fw-button-primary-disabled-color`    | The text color of the primary disabled button.            |
+| `--fw-button-secondary-bg`              | The background color of the secondary button.             |
+| `--fw-button-secondary-bg-dark`         | The background color of the secondary dark button.        |
+| `--fw-button-secondary-border`          | The border color of the secondary button.                 |
+| `--fw-button-secondary-border-active`   | The border color of the secondary button on active state. |
+| `--fw-button-secondary-color`           | The text color of the secondary button.                   |
+| `--fw-button-secondary-disabled-bg`     | The background color of the secondary disabled button.    |
+| `--fw-button-secondary-disabled-border` | The border color of the secondary disabled button.        |
+| `--fw-button-secondary-disabled-color`  | The text color of the secondary disabled button.          |
+| `--fw-button-secondary-spinner-color`   | Spinner color of the secondary button.                    |
+| `--fw-button-small-font-size`           | The font size of the small button.                        |
+| `--fw-button-small-height`              | The height of the small button.                           |
+| `--fw-button-small-line-height`         | Line height of the small button.                          |
 
 
 ## Dependencies

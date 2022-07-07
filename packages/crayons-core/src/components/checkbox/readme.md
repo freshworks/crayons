@@ -76,11 +76,20 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                 | Description                |
-| -------------------- | -------------------------- |
-| `--fw-error-color`   | Color of the error text.   |
-| `--fw-hint-color`    | Color of the hint text.    |
-| `--fw-warning-color` | Color of the warning text. |
+| Name                               | Description                             |
+| ---------------------------------- | --------------------------------------- |
+| `--fw-checkbox-border`             | Border color of the checkbox            |
+| `--fw-checkbox-font-size`          | Font size of the checkbox label         |
+| `--fw-checkbox-height`             | Height top of the checkbox              |
+| `--fw-checkbox-label-padding-left` | Left padding of the checkbox label      |
+| `--fw-checkbox-line-height`        | Line height of the checkbox label       |
+| `--fw-checkbox-position-top`       | Position top of the checkbox            |
+| `--fw-checkbox-tick-position-left` | Position left of the checkbox tick icon |
+| `--fw-checkbox-tick-position-top`  | Position top of the checkbox tick icon  |
+| `--fw-checkbox-width`              | Width top of the checkbox               |
+| `--fw-error-color`                 | Color of the error text.                |
+| `--fw-hint-color`                  | Color of the hint text.                 |
+| `--fw-warning-color`               | Color of the warning text.              |
 
 
 ## Dependencies

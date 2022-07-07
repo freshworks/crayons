@@ -300,14 +300,28 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                       | Description                             |
-| -------------------------- | --------------------------------------- |
-| `--fw-error-color`         | Color of the error text.                |
-| `--fw-hint-color`          | Color of the hint text.                 |
-| `--fw-input-border-radius` | The border radius of the input element. |
-| `--fw-input-height`        | The height of the input element.        |
-| `--fw-label-color`         | Color of the label.                     |
-| `--fw-warning-color`       | Color of the warning text.              |
+| Name                               | Description                                   |
+| ---------------------------------- | --------------------------------------------- |
+| `--fw-error-color`                 | Color of the error text.                      |
+| `--fw-error-text-font-size`        | Font size of the error text.                  |
+| `--fw-hint-color`                  | Color of the hint text.                       |
+| `--fw-hint-font-size`              | Font size of the hint text.                   |
+| `--fw-input-bg`                    | Background color of the input field.          |
+| `--fw-input-border`                | Input border color.                           |
+| `--fw-input-border-radius`         | The border radius of the input element.       |
+| `--fw-input-color`                 | Input text color.                             |
+| `--fw-input-disabled-bg`           | Background color of the disabled input field. |
+| `--fw-input-disabled-color`        | Text color of the disabled input field.       |
+| `--fw-input-font-size`             | Input text font size.                         |
+| `--fw-input-font-weight`           | Input text font weight.                       |
+| `--fw-input-height`                | The height of the input element.              |
+| `--fw-input-placeholder-color`     | Input placeholder color.                      |
+| `--fw-input-placeholder-font-size` | Input placeholder color.                      |
+| `--fw-label-color`                 | Color of the label.                           |
+| `--fw-label-font-size`             | Label font size.                              |
+| `--fw-label-font-weight`           | Label font weight.                            |
+| `--fw-label-line-height`           | Label font line height.                       |
+| `--fw-warning-color`               | Color of the warning text.                    |
 
 
 ## Dependencies

@@ -1064,9 +1064,12 @@ Type: `Promise<any>`
 | `--fw-hint-color`                | Color of the hint text.               |
 | `--fw-select-border`             | Border of the select component        |
 | `--fw-select-border-radius`      | Border radius of the select component |
+| `--fw-select-font-size`          | Font size of the input value          |
+| `--fw-select-font-weight`        | Font weight of the input value        |
+| `--fw-select-input-min-height`   | Height of the select input box        |
 | `--fw-select-input-padding-left` | Padding of input container.           |
+| `--fw-select-line-height`        | Line height of the input value        |
 | `--fw-select-margin-bottom`      | Bottom margin of the select component |
-| `--fw-select-tag-margin`         | Margin for the tags in multi select.  |
 | `--fw-warning-color`             | Color of the warning text.            |
 
 

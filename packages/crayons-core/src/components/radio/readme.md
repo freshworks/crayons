@@ -75,6 +75,29 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                 | Description                              |
+| ------------------------------------ | ---------------------------------------- |
+| `--fw-button-label-vertical-padding` | vertical padding for the button label    |
+| `--fw-radio-focus-box-shadow`        | box shodow of radio button when focused. |
+| `--fw-radio-inner-bg`                | Border color of the inner ring           |
+| `--fw-radio-inner-height`            | Height of the inner ring                 |
+| `--fw-radio-inner-position-left`     | Left position of the outer ring          |
+| `--fw-radio-inner-position-top`      | Top position of the outer ring           |
+| `--fw-radio-inner-width`             | Width of the inner ring                  |
+| `--fw-radio-label-color`             | Color of radio label                     |
+| `--fw-radio-label-disabled-color`    | Color of the disabled radio label        |
+| `--fw-radio-label-font-size`         | Font size of radio label                 |
+| `--fw-radio-label-font-weight`       | Font height of radio label               |
+| `--fw-radio-label-line-height`       | line height of radio label               |
+| `--fw-radio-outer-bg`                | Background of the outer ring             |
+| `--fw-radio-outer-border`            | Border color of the outer ring           |
+| `--fw-radio-outer-height`            | Height of the outer ring                 |
+| `--fw-radio-outer-position-top`      | Top position of the outer ring           |
+| `--fw-radio-outer-width`             | Width of the outer ring                  |
+
+
 ## Dependencies
 
 ### Used by

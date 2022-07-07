@@ -9,6 +9,7 @@
   @prop --fw-select-option-line-height to change line height og options
   @prop --fw-select-option-icon-display to change display of the selected option icon
   @prop --fw-select-option-selected-background to change the background of selected single line option
+  @prop --fw-select-option-color  To change color of the select options text.
 **/
 
 $primary-color: $text-default;
@@ -27,7 +28,7 @@ $bg-color-disabled: $color-secondary-25;
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: $primary-color;
+  color: var(--fw-select-option-color, $primary-color);
   font-size: var(--fw-select-option-font-size, $font-sm);
   line-height: var(--fw-select-option-line-height, $font-lh-sm);
   border-radius: var(--fw-select-option-border-radius, 4px);

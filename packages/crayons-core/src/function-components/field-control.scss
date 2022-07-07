@@ -11,12 +11,12 @@ $help-color: $text-secondary;
 
 .field-control-label {
   display: block;
-  font-size: $font-xs;
+  font-size: var(--fw-label-font-size, $font-xs);
   color: var(--fw-label-color, $color-secondary-700);
-  font-weight: $font-weight-600;
+  font-weight: var(--fw-label-font-weight, $font-weight-600);
   margin-bottom: 4px;
   padding-left: 2px;
-  line-height: $font-lh-xs;
+  line-height: var(--fw-label-line-height, $font-lh-xs);
 
   &.required::after {
     content: '*';
@@ -34,7 +34,7 @@ $help-color: $text-secondary;
 
 .field-control-hint-text {
   font-family: $label-font;
-  font-size: $font-xs;
+  font-size: var(--fw-hint-font-size, $font-xs);
   line-height: $font-lh-xs;
   margin-top: 4px;
   margin-bottom: 0;
@@ -48,7 +48,7 @@ $help-color: $text-secondary;
 
 .field-control-error-text {
   font-family: $label-font;
-  font-size: $font-xs;
+  font-size: var(--fw-error-text-font-size, $font-xs);
   line-height: $font-lh-xs;
   margin-top: 4px;
   margin-bottom: 0;
