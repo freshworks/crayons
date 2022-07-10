@@ -13,8 +13,6 @@ import { renderHiddenField } from '../../utils';
 
 import countries from './countries.json';
 
-import { messages } from './constants';
-
 import { isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js';
 
 import { CountryCode } from 'libphonenumber-js/types';
@@ -33,6 +31,11 @@ export class CountryPhone {
   @State() phoneNumber: string;
 
   /**
+   * Helps to stop unwanted rendering when value is updated from inside the component
+   */
+  @State() isValueUpdatedFromInside = false;
+
+  /**
    * Country 2l code use to extract country details when provided with phonecode and phone number
    */
   @State() countryCode: CountryCode;
@@ -46,11 +49,6 @@ export class CountryPhone {
    * Disable phone number input when invalid phone number or empty string is provided
    */
   @State() disablePhoneInput = true;
-
-  /**
-   * Inner hint text displayed below the text box.
-   */
-  @State() innerHintText = '';
 
   /**
    * Country phone code
@@ -110,11 +108,6 @@ export class CountryPhone {
   @Prop() required = false;
 
   /**
-   * Specifies hint from inside the component after valdating phone number.
-   */
-  @Prop() requiredInnerHint = false;
-
-  /**
    * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
    */
   @Prop() disabled = false;
@@ -141,32 +134,36 @@ export class CountryPhone {
   /**
    * Default value displayed in the input box & select dropdown after extracting valid phone number
    */
-  @Prop({ mutable: true }) value?: string | null = '';
+  @Prop({ reflect: true, mutable: true }) value?: string | null = '';
 
   // Events
   /**
    * Triggered when phone element is input.
    */
-  @Event() fwTelInput: EventEmitter;
+  @Event() fwInput: EventEmitter;
 
   /**
    * Triggered when phone element is blur.
    */
-  @Event() fwTelBlur: EventEmitter;
+  @Event() fwBlur: EventEmitter;
 
   /**
    * Triggered when clear icon is clicked.
    */
-  @Event() fwTelInputClear: EventEmitter;
+  @Event() fwInputClear: EventEmitter;
+
+  /**
+   * Triggered when input is focused.
+   */
+  @Event() fwFocus: EventEmitter;
 
   @Method()
-  async getLibMethods() {
-    return {
-      isValidPhoneNumber,
-      parsePhoneNumber(...args) {
-        return parsePhoneNumber.apply(this, args);
-      },
-    };
+  async isValidPhoneNumber(value: string, countryCode: CountryCode) {
+    return isValidPhoneNumber(value, countryCode as CountryCode);
+  }
+  @Method()
+  async parsePhoneNumber(...args) {
+    return parsePhoneNumber.apply(this, args);
   }
 
   componentWillLoad() {
@@ -179,9 +176,31 @@ export class CountryPhone {
 
   @Watch('value')
   watchPhoneDetails(newValue, oldValue) {
-    if (newValue && oldValue && newValue !== oldValue) {
+    if (
+      !this.isValueUpdatedFromInside &&
+      newValue &&
+      oldValue &&
+      newValue !== oldValue
+    ) {
       this.setPhoneNumberDetails(newValue);
     }
+    // Donot break value since its updated from inside, otherwise will endup infinite loop
+    if (this.isValueUpdatedFromInside) {
+      this.isValueUpdatedFromInside = false;
+    }
+  }
+
+  updateValue() {
+    let val = '';
+    if (this.phoneCode) {
+      val = `+${this.phoneCode}`;
+    }
+
+    if (this.phoneNumber) {
+      val += `${this.phoneNumber}`;
+    }
+    this.value = val;
+    this.isValueUpdatedFromInside = true;
   }
 
   setPhoneNumberDetails(input: string) {
@@ -199,11 +218,12 @@ export class CountryPhone {
         this.phoneNumber = details.nationalNumber;
         this.countryName = this.getCountryName(details.country);
         this.disablePhoneInput = false;
-        this.innerHintText = '';
-      } catch (error) {
-        this.disablePhoneInput = true;
-        this.phoneNumber = input;
-        this.innerHintText = messages[error.message] || '';
+      } catch (_) {
+        if (!this.isValueUpdatedFromInside) {
+          this.phoneNumber = input.includes('+')
+            ? input.replace('+', '')
+            : input;
+        }
       }
     }
   }
@@ -220,10 +240,12 @@ export class CountryPhone {
   };
 
   private onInputBlur = (event: Event) => {
+    event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
     this.phoneNumber = value;
     const isValid = isValidPhoneNumber(value, this.countryCode as CountryCode);
-    this.fwTelBlur.emit({
+    this.updateValue();
+    this.fwBlur.emit({
       event,
       name: this.name,
       value: this.getSingleFormat(this.phoneCode, value),
@@ -232,11 +254,14 @@ export class CountryPhone {
   };
 
   private onInput = (event: Event) => {
+    event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
     this.phoneNumber = value;
     const isValid = isValidPhoneNumber(value, this.countryCode as CountryCode);
 
-    this.fwTelInput.emit({
+    this.updateValue();
+
+    this.fwInput.emit({
       event,
       name: this.name,
       value: this.getSingleFormat(this.phoneCode, value),
@@ -245,8 +270,22 @@ export class CountryPhone {
   };
 
   private onInputClear = (event: Event) => {
+    event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
-    this.fwTelInputClear.emit({
+    this.updateValue();
+    this.fwInputClear.emit({
+      event,
+      name: this.name,
+      value: this.getSingleFormat(this.phoneCode, value),
+      ...this.getMeta(false),
+    });
+  };
+
+  private onInputFocus = (event: Event) => {
+    event.stopPropagation();
+    const value = (event.target as HTMLInputElement).value;
+    this.updateValue();
+    this.fwFocus.emit({
       event,
       name: this.name,
       value: this.getSingleFormat(this.phoneCode, value),
@@ -267,13 +306,16 @@ export class CountryPhone {
   };
 
   private onSelectChange = (event: Event) => {
+    event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
     this.countryCode = value as CountryCode;
-    this.phoneNumber = null;
+
     const currentCountry = this.getCountryDetails(value);
     this.phoneCode = currentCountry[0].phone;
     this.countryName = currentCountry[0].country_name;
-    this.disablePhoneInput = false;
+    this.phoneNumber = '';
+    this.isValueUpdatedFromInside = true;
+    this.updateValue();
   };
 
   render() {
@@ -284,10 +326,7 @@ export class CountryPhone {
      * */
 
     const { host, name, value } = this;
-
     renderHiddenField(host, name, value);
-
-    const isInputDisabled = this.disablePhoneInput || this.disabled;
 
     return (
       <div class='country-container'>
@@ -333,12 +372,10 @@ export class CountryPhone {
           <fw-input
             id='fw-country-phone-input'
             label={this.inputLabel}
-            hint-text={
-              this.requiredInnerHint ? this.innerHintText : this.hintText
-            }
+            hint-text={this.hintText}
             warning-text={this.warningText}
             error-text={this.errorText}
-            state={isInputDisabled ? 'normal' : this.state}
+            state={this.state}
             placeholder={this.inputPlaceholder || ''}
             readonly={this.readonly}
             required={this.required}
@@ -346,7 +383,8 @@ export class CountryPhone {
             value={this.phoneNumber}
             onFwInput={this.onInput}
             onFwInputClear={this.onInputClear}
-            disabled={isInputDisabled}
+            onFwFocus={this.onInputFocus}
+            disabled={this.disabled}
             onFwBlur={this.onInputBlur}
             name={this.name}
           ></fw-input>

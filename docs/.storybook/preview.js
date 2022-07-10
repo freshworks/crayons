@@ -42,9 +42,6 @@ addDecorator(
     'fwSelected',
     'fwClosed',
     'fwInputClear',
-    'fwRemoveToast',
-    'fwTelInput',
-    'fwTelBlur',
-    'fwTelInputClear'
+    'fwRemoveToast'
   )
 );

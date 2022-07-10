@@ -31,39 +31,6 @@ describe('fw-country-phone hydrated', () => {
     expect(inputValue).toBe('9999999999');
   });
 
-  it('should disable phone input element initially and display hint message to get clarity when value=half surved', async () => {
-    const page = await newE2EPage();
-    await page.setContent(
-      '<fw-country-phone value="91" required-inner-hint></fw-country-phone>'
-    );
-
-    const inputElement = await page.find(' fw-country-phone >>> fw-input');
-    const inputDisabled = await inputElement.getProperty('disabled');
-    const inputHintText = await inputElement.getProperty('hintText');
-    expect(inputHintText).toBe('Entered number is too short');
-    expect(inputDisabled).toBe(true);
-  });
-  it('should disable phone input element initially and dont display inner hintText without required-inner-hint prop', async () => {
-    const page = await newE2EPage();
-    await page.setContent('<fw-country-phone value="91"></fw-country-phone>');
-
-    const inputElement = await page.find(' fw-country-phone >>> fw-input');
-    const inputDisabled = await inputElement.getProperty('disabled');
-    const inputHintText = await inputElement.getProperty('hintText');
-    expect(inputHintText).toBe('');
-    expect(inputDisabled).toBe(true);
-  });
-  it('should disable phone input element initially and display hint message as Empty to get clarity when value=Empty', async () => {
-    const page = await newE2EPage();
-    await page.setContent('<fw-country-phone value=""></fw-country-phone>');
-
-    const inputElement = await page.find(' fw-country-phone >>> fw-input');
-    const inputDisabled = await inputElement.getProperty('disabled');
-    const inputHintText = await inputElement.getProperty('hintText');
-    expect(inputDisabled).toBe(true);
-    expect(inputHintText).toBe('');
-  });
-
   it('should set country code selected', async () => {
     const page = await newE2EPage();
     await page.setContent('<fw-country-phone value="91"></fw-country-phone>');
@@ -78,12 +45,12 @@ describe('fw-country-phone hydrated', () => {
     expect(selectValue).toBe('IN');
   });
 
-  it('should emit on fwTelInput with proper keys', async () => {
+  it('should emit on fwInput with proper keys', async () => {
     const page = await newE2EPage();
     await page.setContent(
       '<fw-country-phone value="91" name="num"></fw-country-phone>'
     );
-    const fwTelInput = await page.spyOnEvent('fwTelInput');
+    const fwInput = await page.spyOnEvent('fwInput');
     const element = await page.find('fw-country-phone >>> fw-select');
 
     element.setProperty('value', 'IN');
@@ -103,7 +70,7 @@ describe('fw-country-phone hydrated', () => {
 
     const inputPhoneNumber = await inputElement.getProperty('value');
     expect(inputPhoneNumber).toBe('2');
-    expect(fwTelInput).toHaveReceivedEventDetail({
+    expect(fwInput).toHaveReceivedEventDetail({
       event: {
         isTrusted: false,
       },
@@ -117,12 +84,48 @@ describe('fw-country-phone hydrated', () => {
       },
     });
   });
-  it('should emit on fwTelBlur with proper keys', async () => {
+  it('should emit on fwFocus with proper keys', async () => {
     const page = await newE2EPage();
     await page.setContent(
       '<fw-country-phone value="91" name="num"></fw-country-phone>'
     );
-    const fwTelBlur = await page.spyOnEvent('fwTelBlur');
+    const fwFocus = await page.spyOnEvent('fwFocus');
+    const element = await page.find('fw-country-phone >>> fw-select');
+
+    element.setProperty('value', 'IN');
+    element.waitForEvent('fwChange');
+
+    await page.waitForChanges();
+    const selectElement = await page.find('fw-country-phone >>> fw-select');
+    const selectValue = await selectElement.getProperty('value');
+    expect(selectValue).toBe('IN');
+
+    const inputElement = await page.find(' fw-country-phone >>> fw-input');
+
+    await inputElement.click();
+
+    await page.waitForChanges();
+
+    expect(fwFocus).toHaveReceivedEventDetail({
+      event: {
+        isTrusted: false,
+      },
+      value: '+91',
+      name: 'num',
+      meta: {
+        isValid: false,
+        countryCode: 'IN',
+        phoneCode: '91',
+        countryName: 'India',
+      },
+    });
+  });
+  it('should emit on fwBlur with proper keys', async () => {
+    const page = await newE2EPage();
+    await page.setContent(
+      '<fw-country-phone value="91" name="num"></fw-country-phone>'
+    );
+    const fwBlur = await page.spyOnEvent('fwBlur');
     const element = await page.find('fw-country-phone >>> fw-select');
 
     element.setProperty('value', 'IN');
@@ -143,7 +146,7 @@ describe('fw-country-phone hydrated', () => {
     const inputPhoneNumber = await inputElement.getProperty('value');
     expect(inputPhoneNumber).toBe('2');
     await page.keyboard.press('Tab');
-    expect(fwTelBlur).toHaveReceivedEventDetail({
+    expect(fwBlur).toHaveReceivedEventDetail({
       event: {
         isTrusted: false,
       },

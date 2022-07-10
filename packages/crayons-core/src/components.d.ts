@@ -167,7 +167,6 @@ export namespace Components {
           * Error text displayed below the text box.
          */
         "errorText": string;
-        "getLibMethods": () => Promise<{ isValidPhoneNumber: (text: string, defaultCountry?: CountryCode | { defaultCountry?: CountryCode; defaultCallingCode?: string; }) => boolean; parsePhoneNumber(...args: any[]): any; }>;
         /**
           * Hide Country Flag in the Country Select
          */
@@ -188,10 +187,12 @@ export namespace Components {
           * Text displayed in the text box before a user enters a value.
          */
         "inputPlaceholder"?: string | null;
+        "isValidPhoneNumber": (value: string, countryCode: CountryCode) => Promise<boolean>;
         /**
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        "parsePhoneNumber": (...args: any[]) => Promise<any>;
         /**
           * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
          */
@@ -200,10 +201,6 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required": boolean;
-        /**
-          * Specifies hint from inside the component after valdating phone number.
-         */
-        "requiredInnerHint": boolean;
         /**
           * * Label displayed on the interface, for the input component.
          */
@@ -2567,15 +2564,19 @@ declare namespace LocalJSX {
         /**
           * Triggered when phone element is blur.
          */
-        "onFwTelBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when input is focused.
+         */
+        "onFwFocus"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when phone element is input.
          */
-        "onFwTelInput"?: (event: CustomEvent<any>) => void;
+        "onFwInput"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when clear icon is clicked.
          */
-        "onFwTelInputClear"?: (event: CustomEvent<any>) => void;
+        "onFwInputClear"?: (event: CustomEvent<any>) => void;
         /**
           * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
          */
@@ -2584,10 +2585,6 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
-        /**
-          * Specifies hint from inside the component after valdating phone number.
-         */
-        "requiredInnerHint"?: boolean;
         /**
           * * Label displayed on the interface, for the input component.
          */

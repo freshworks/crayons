@@ -180,10 +180,5 @@
     "placeholder": {
       "search": "Type to search"
     }
-  },
-  "countryPhone": {
-    "tooShort": "Entered number is too short",
-    "invalidCountry": "Entered country number is invalid",
-    "tooLong": "Entered number is too long"
   }
 }

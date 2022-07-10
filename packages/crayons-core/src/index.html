@@ -12,14 +12,15 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
-<!-- <script>
-  window.addEventListener('fwTelInput', eventHandler);
+<script>
+  window.addEventListener('fwInput', eventHandler);
+  window.addEventListener('fwBlur', eventHandler);
   function eventHandler(e) {
     console.log('action link clicked', e);
   }
-</script> -->
-<!-- <fw-country-phone
-  value="+12644972759"
+</script>
+<fw-country-phone
+  value="+1264497275926449727599878978789798798789798798789787897987897897897878978978787897989878"
   name="country-code"
   clear-input
   select-placeholder="select country code"
@@ -31,7 +32,21 @@
   error-text="Error message text"
   warning-text="Please use numbers for user ID"
   state="normal"
-></fw-country-phone> -->
+></fw-country-phone>
+<fw-country-phone
+  value="91"
+  name="country-code-2"
+  clear-input
+  select-placeholder="select country code"
+  input-placeholder="Enter phone number"
+  required
+  input-label="Support phone number"
+  select-label="Country Code"
+  hint-text="Input hint text"
+  error-text="Error message text"
+  warning-text="Please use numbers for user ID"
+  state="normal"
+></fw-country-phone>
 
     <!-- <fw-button expand color="primary">Primary Button</fw-button> -->
     <!-- <br />
