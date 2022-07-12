@@ -102,3 +102,17 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
     <fw-button color="danger"><fw-icon slot="before-label" color="#fefefe" name="code" ></fw-icon> See Code</fw-button>`}
 </Story>
 </Preview>
+
+### Caret with icon
+<Preview>
+<Story name='Caret with icon'>{() => `
+     <fw-button show-caret-icon>
+    <fw-icon name="calendar-time" size="16" slot="before-label"></fw-icon>
+    Select date
+  </fw-button>
+  <fw-button color="link" show-caret-icon>
+    <fw-icon name="calendar-time" size="16" slot="before-label"></fw-icon>
+    Select date
+  </fw-button>`}
+</Story>
+</Preview>

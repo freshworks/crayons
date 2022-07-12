@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { exec } = require('child_process');
-const TOTAL_SNAPSHOTS = 139;
+const TOTAL_SNAPSHOTS = 153;
 
 if (fs.existsSync('./__tests__/__snapshots__')) {
   exec(

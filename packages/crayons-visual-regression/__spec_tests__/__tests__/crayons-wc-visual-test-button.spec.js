@@ -11,6 +11,7 @@ const setup = {
     'mini',
     'icon',
     'icon-text',
+    'caret-with-icon',
   ],
 };
 const DELAY = 0;

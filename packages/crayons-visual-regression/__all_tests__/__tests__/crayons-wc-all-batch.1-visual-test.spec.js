@@ -1,9 +1,20 @@
 const screenshotTest = require('../../screenshotTest-async.js');
 const setup = {
-  'accordion': ['default'],
+  'accordion': [
+    'default',
+    'accordion-with-custom-icons',
+    'no-bounding-box-accordion',
+    'custom-css-properties',
+    'title-with-different-icon-sizes',
+  ],
   'accordionbody': ['default'],
   'accordiontitle': ['default'],
-  'avatar': ['default'],
+  'avatar': [
+    'default',
+    'size-variants',
+    'light-and-dark-mode-variants',
+    'shape-variants',
+  ],
   'buttongroup': ['default'],
   'button': [
     'primary',
@@ -16,6 +27,7 @@ const setup = {
     'mini',
     'icon',
     'icon-text',
+    'caret-with-icon',
   ],
   'checkbox': [
     'default',
@@ -37,7 +49,17 @@ const setup = {
     'min-date-and-max-date-specified',
     'date-format-and-placeholder-specified',
   ],
-  'datatable': ['default', 'selectable', 'sticky-header'],
+  'datatable': [
+    'default',
+    'selectable',
+    'sticky-header',
+    'user-column-variant',
+    'icon-column-variant',
+    'paragraph-column-variant',
+    'column-text-alignment',
+    'row-actions',
+    'hide-column',
+  ],
   'formatdate': ['custom-date'],
   'fileuploader': ['default', 'multifile'],
   'form': ['default'],

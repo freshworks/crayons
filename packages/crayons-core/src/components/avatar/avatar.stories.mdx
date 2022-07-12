@@ -17,9 +17,46 @@ import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 <Preview>
   <Story name='Default'>
     {
-      () => `<fw-avatar size="xxlarge" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>`
+      () => `<fw-avatar size="xxlarge" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>
+      <fw-avatar initials="PT"></fw-avatar>
+      <fw-avatar name="Patrick Goodwin"></fw-avatar>`
     }
   </Story>
 </Preview>
 
 
+### Size Variants
+<Preview>
+  <Story name='Size Variants'>
+    {
+      () => `<fw-avatar size="xxlarge" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>
+      <fw-avatar size="xlarge" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>
+      <fw-avatar size="large" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>
+      <fw-avatar size="medium" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>
+      <fw-avatar size="small" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>
+      <fw-avatar size="xsmall" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>
+      <fw-avatar size="xxsmall" image="https://media.glassdoor.com/sqll/1680273/freshworks-squarelogo-1496949941423.png" initials="PT"></fw-avatar>`
+    }
+  </Story>
+</Preview>
+
+### Light and Dark Mode Variants
+<Preview>
+  <Story name='Light and Dark Mode Variants'>
+    {
+      () => ` <fw-avatar mode="dark" initials="PT"></fw-avatar>
+  <fw-avatar mode="light" initials="PT"></fw-avatar>`
+    }
+  </Story>
+</Preview>
+
+### Shape Variants
+<Preview>
+  <Story name='Shape Variants'>
+    {
+      () => ` <fw-avatar shape="circle" initials="PT"></fw-avatar>
+    <fw-avatar shape="rounded" initials="PT"></fw-avatar>
+    <fw-avatar shape="square" initials="PT"></fw-avatar>`
+    }
+  </Story>
+</Preview>

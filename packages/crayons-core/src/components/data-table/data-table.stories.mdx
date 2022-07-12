@@ -75,6 +75,174 @@ export const argsWithStickyHeader = Object.assign({}, args, {
   }] 
 });
 
+export const argsWithUserColumn =  Object.assign({}, args, {
+  columns: [{
+      "key": "createdby",
+      "text": "Created By",
+      "position": 1,
+      "variant": "user"
+    }, {
+      "key": "objectname",
+      "text": "Object Name",
+      "position": 2
+    }],
+    rows: [{
+      "id": "0011",
+      "objectname": "Hotels",
+      "createdby": { 
+        "image": "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
+        "name": "Alexander Goodman", 
+        "email": "alexander.goodman@freshdesk.com",
+        "alt": "Profile picture of Alexander Goodman"
+      }
+    }, {
+      "id": "0022",
+      "objectname": "Bookings",
+      "createdby": { 
+        "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
+        "name": "Ambrose Wayne", 
+        "email": "ambrose.wayne@freshdesk.com",
+        "alt": "Profile picture of Ambrose Wayne"
+      }
+    }, {
+      "id": "0033",
+      "objectname": "Ratings",
+      "createdby": {
+        "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80",
+        "name": "August hines", 
+        "email": "august.hines@freshdesk.com",
+        "alt": "Profile picture of August hines"
+      }
+    }]
+});
+
+export const agrsWithIconColumn =  Object.assign({}, args, {
+  columns: [{
+        "key": "icon",
+        "text": "Icon",
+        "position": 1,
+        "variant": "icon"
+      }, {
+        "key": "name",
+        "text": "Icon name",
+        "position": 2
+      }],
+      rows: [{
+        "id": "0011",
+        "icon": { "name": "agent" },
+        "name": "Agent"
+      }, {
+        "id": "0022",
+        "icon": { "name": "chat-online" },
+        "name": "Chat"
+      }]
+});
+
+export const agrsWithParagraphColumn =  Object.assign({}, args, {
+  columns: [{
+      "key": "objectname",
+      "text": "Object Name"
+    }, {
+      "key": "objectdesc",
+      "text": "Object Description",
+      "variant": "paragraph",
+      "widthProperties": {
+        "width": "600px"
+      }
+    }],
+    rows: [{
+      "id": "0011",
+      "objectname": "Hotels",
+      "objectdesc": { 
+        "text": "Fusce nec nibh ut dui rutrum lobortis. In eu lacus molestie, dignissim erat sit amet, mollis tortor. Aliquam arcu felis, sollicitudin nec venenatis eu, fermentum sit amet ligula. Donec tempus lacus a malesuada pulvinar. In risus lorem, egestas non dui sed, tempus semper nisi. Proin blandit hendrerit suscipit. Phasellus eleifend diam sed mi ultrices, id consequat eros aliquet. Nunc gravida gravida auctor. Ut gravida accumsan justo non scelerisque. Aliquam blandit nisl a tincidunt ultricies." 
+      }
+    }]
+});
+
+export const agrsWithTextAlignment =  Object.assign({}, args, {
+  columns: [{
+      "key": "icon",
+      "text": "Icon",
+      "variant": "icon",
+      "textAlign": "center",
+      "widthProperties": {
+        "width": "140px"
+      }
+    }, {
+      "key": "name",
+      "text": "Object Name"
+    }, {
+      "key": "description",
+      "text": "description"
+    }],
+    rows: [{
+      "id": "01",
+      "icon": { "name": "company" },
+      "name": "Company",
+      "description": "Contains information about the company."
+    }, {
+      "id": "02",
+      "icon": { "name": "calendar" },
+      "name": "Bookings",
+      "description": "Contains information about the booking made."
+    }]
+});
+
+export const agrsWithRowActions =  Object.assign({}, args, {
+  columns: [{
+      "key": "name",
+      "text": "Name"
+    }, {
+      "key": "role",
+      "text": "Role"
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "role": "Member"
+    }, {
+      "id": "0002",
+      "name": "Ambrose Wayne",
+      "role": "Member"
+    }, {
+      "id": "0003",
+      "name": "August hines",
+      "role": "Administrator"
+    }],
+    rowActions: [{
+      "name": "Alert",
+      "handler": (rowData) => {
+        window.alert(rowData.name);
+      }
+    }, {
+      "name": "Delete",
+      "handler": (rowData) => {
+        window.alert(rowData)
+      },
+      "hideForRowIds": ["0003"]
+    }]
+});
+
+export const argsWithHiddenColumns =  Object.assign({}, args, {
+  columns: [{
+      "key": "name",
+      "text": "Name"
+    }, {
+      "key": "role",
+      "text": "Role",
+      "hide": true
+    }],
+    rows: [{
+      "id": "0001",
+      "name": "Alexander Goodman",
+      "role": "Member"
+    }, {
+      "id": "0002",
+      "name": "Ambrose Wayne",
+      "role": "Member"
+    }]
+});
+
 # DataTable
 
 <Meta
@@ -125,6 +293,102 @@ export const argsWithStickyHeader = Object.assign({}, args, {
   <Story 
     name='Sticky Header'
     args={argsWithStickyHeader}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div style="width: 100%; height: 270px;">${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+## User column variant
+<Preview>
+  <Story 
+    name='User column variant'
+    args={argsWithUserColumn}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div style="width: 100%; height: 270px;">${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+## Icon column variant
+<Preview>
+  <Story 
+    name='Icon column variant'
+    args={agrsWithIconColumn}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div style="width: 100%; height: 270px;">${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+## Paragraph column variant
+<Preview>
+  <Story 
+    name='Paragraph column variant'
+    args={agrsWithParagraphColumn}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div style="width: 100%; height: 270px;">${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+## Column text alignment
+<Preview>
+  <Story 
+    name='Column text alignment'
+    args={agrsWithTextAlignment}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div style="width: 100%; height: 270px;">${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+## Row Actions
+<Preview>
+  <Story 
+    name='Row Actions'
+    args={agrsWithRowActions}
+    decorators={[
+      (Story) => {
+        const story = Story();
+        return `<div style="width: 100%; height: 270px;">${story}</div>`;
+      }
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Preview>
+
+## Hide Column
+<Preview>
+  <Story 
+    name='Hide Column'
+    args={argsWithHiddenColumns}
     decorators={[
       (Story) => {
         const story = Story();
