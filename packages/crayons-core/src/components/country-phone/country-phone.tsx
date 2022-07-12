@@ -9,13 +9,14 @@ import {
   Watch,
   Method,
 } from '@stencil/core';
-import { renderHiddenField } from '../../utils';
-
-import countries from './countries.json';
 
 import { isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js';
 
 import { CountryCode } from 'libphonenumber-js/types';
+
+import { renderHiddenField } from '../../utils';
+
+import countries from './countries.json';
 
 @Component({
   tag: 'fw-country-phone',
@@ -157,21 +158,27 @@ export class CountryPhone {
    */
   @Event() fwFocus: EventEmitter;
 
+  /**
+   * Checks PhoneNumber is Valid or Not
+   *
+   * @param { string } value PhoneNumber
+   * @param {CountryCode} countryCode
+   * @returns { boolean } after validation PhoneNumber with countryCode
+   * */
   @Method()
   async isValidPhoneNumber(value: string, countryCode: CountryCode) {
     return isValidPhoneNumber(value, countryCode as CountryCode);
   }
+
+  /**
+   * Validates PhoneNumber provided and return extra details
+   *
+   * @param { string } value PhoneNumber
+   * @returns { Object } {countryCode, countryCallingCode, nationalNumber,  number, metadata }
+   * */
   @Method()
   async parsePhoneNumber(...args) {
     return parsePhoneNumber.apply(this, args);
-  }
-
-  componentWillLoad() {
-    this.setPhoneNumberDetails(this.value);
-  }
-
-  private getSingleFormat(code = '', number = '') {
-    return '+' + code + number;
   }
 
   @Watch('value')
@@ -190,7 +197,15 @@ export class CountryPhone {
     }
   }
 
-  updateValue() {
+  componentWillLoad() {
+    this.setPhoneNumberDetails(this.value);
+  }
+
+  private getSingleFormat(code = '', number = '') {
+    return '+' + code + number;
+  }
+
+  private updateValue() {
     let val = '';
     if (this.phoneCode) {
       val = `+${this.phoneCode}`;
@@ -203,7 +218,7 @@ export class CountryPhone {
     this.isValueUpdatedFromInside = true;
   }
 
-  setPhoneNumberDetails(input: string) {
+  private setPhoneNumberDetails(input: string) {
     if (input) {
       try {
         let userInput;
@@ -228,7 +243,7 @@ export class CountryPhone {
     }
   }
 
-  getMeta = (isValid: boolean) => {
+  private getMeta(isValid: boolean) {
     return {
       meta: {
         isValid,
@@ -237,9 +252,9 @@ export class CountryPhone {
         phoneCode: this.phoneCode,
       },
     };
-  };
+  }
 
-  private onInputBlur = (event: Event) => {
+  private onInputBlur(event: Event) {
     event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
     this.phoneNumber = value;
@@ -251,9 +266,9 @@ export class CountryPhone {
       value: this.getSingleFormat(this.phoneCode, value),
       ...this.getMeta(isValid),
     });
-  };
+  }
 
-  private onInput = (event: Event) => {
+  private onInput(event: Event) {
     event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
     this.phoneNumber = value;
@@ -267,9 +282,9 @@ export class CountryPhone {
       value: this.getSingleFormat(this.phoneCode, value),
       ...this.getMeta(isValid),
     });
-  };
+  }
 
-  private onInputClear = (event: Event) => {
+  private onInputClear(event: Event) {
     event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
     this.updateValue();
@@ -279,9 +294,9 @@ export class CountryPhone {
       value: this.getSingleFormat(this.phoneCode, value),
       ...this.getMeta(false),
     });
-  };
+  }
 
-  private onInputFocus = (event: Event) => {
+  private onInputFocus(event: Event) {
     event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
     this.updateValue();
@@ -291,21 +306,22 @@ export class CountryPhone {
       value: this.getSingleFormat(this.phoneCode, value),
       ...this.getMeta(false),
     });
-  };
+  }
 
-  private getCountryDetails = (value: string) =>
-    countries.filter((r) => r.code2l === value);
+  private getCountryDetails(value: string) {
+    return countries.filter((r) => r.code2l === value);
+  }
 
-  private getCountryName = (inputCountryCode: string) => {
+  private getCountryName(inputCountryCode: string) {
     const currentCountry = this.getCountryDetails(inputCountryCode);
     return (
       currentCountry &&
       currentCountry.length > 0 &&
       currentCountry[0]?.country_name
     );
-  };
+  }
 
-  private onSelectChange = (event: Event) => {
+  private onSelectChange(event: Event) {
     event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
     this.countryCode = value as CountryCode;
@@ -316,7 +332,7 @@ export class CountryPhone {
     this.phoneNumber = '';
     this.isValueUpdatedFromInside = true;
     this.updateValue();
-  };
+  }
 
   render() {
     /**
@@ -341,7 +357,7 @@ export class CountryPhone {
             required={this.required}
             value={this.countryCode}
             placeholder={this.selectPlaceholder || ''}
-            onFwChange={this.onSelectChange}
+            onFwChange={this.onSelectChange.bind(this)}
             sameWidth={false}
             disabled={this.disabled}
           >
@@ -381,11 +397,11 @@ export class CountryPhone {
             required={this.required}
             clearInput={this.clearInput}
             value={this.phoneNumber}
-            onFwInput={this.onInput}
-            onFwInputClear={this.onInputClear}
-            onFwFocus={this.onInputFocus}
+            onFwInput={this.onInput.bind(this)}
+            onFwInputClear={this.onInputClear.bind(this)}
+            onFwFocus={this.onInputFocus.bind(this)}
             disabled={this.disabled}
-            onFwBlur={this.onInputBlur}
+            onFwBlur={this.onInputBlur.bind(this)}
             name={this.name}
           ></fw-input>
         </div>

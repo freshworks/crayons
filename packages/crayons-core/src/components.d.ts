@@ -187,11 +187,22 @@ export namespace Components {
           * Text displayed in the text box before a user enters a value.
          */
         "inputPlaceholder"?: string | null;
+        /**
+          * Checks PhoneNumber is Valid or Not
+          * @param value PhoneNumber
+          * @param countryCode
+          * @returns after validation PhoneNumber with countryCode
+         */
         "isValidPhoneNumber": (value: string, countryCode: CountryCode) => Promise<boolean>;
         /**
           * Name of the component, saved as part of form data.
          */
         "name": string;
+        /**
+          * Validates PhoneNumber provided and return extra details
+          * @param value PhoneNumber
+          * @returns {countryCode, countryCallingCode, nationalNumber,  number, metadata }
+         */
         "parsePhoneNumber": (...args: any[]) => Promise<any>;
         /**
           * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
