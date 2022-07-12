@@ -33,7 +33,7 @@ export class CountryPhone {
   /**
    * Helps to stop unwanted rendering when value is updated from inside the component
    */
-  @State() isValueUpdatedFromInside = false;
+  @State() private isValueUpdatedFromInside = false;
 
   /**
    * Country 2l code use to extract country details when provided with phonecode and phone number
