@@ -6,10 +6,18 @@ import {
   h,
   Method,
   Event,
+  Watch,
   EventEmitter,
 } from '@stencil/core';
-import { parse, format, addMinutes } from 'date-fns';
-import { enUS } from 'date-fns/locale';
+import {
+  parse,
+  format,
+  addMinutes,
+  isMatch,
+  startOfDay,
+  endOfDay,
+} from 'date-fns';
+import { TranslationController } from '../../global/Translation';
 
 import { renderHiddenField } from '../../utils';
 import { PopoverPlacementType } from '../../utils/types';
@@ -26,21 +34,18 @@ export class Timepicker {
    * State for all the time values
    */
   @State() timeValues: any[] = [];
+  @State() langModule: any;
 
   /**
    * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
+   * The default value will be set based on the locale time format.
    */
-  @Prop() format: 'hh:mm a' | 'HH:mm' = 'hh:mm a';
+  @Prop({ mutable: true }) format: string;
 
   /**
    * Set true to disable the element
    */
   @Prop() disabled = false;
-
-  /**
-   * Represent the intervals and can be a number or array of numbers representing the minute values in an hour
-   */
-  @State() isMeridianFormat?: boolean = this.format === 'hh:mm a';
 
   /**
    * Time output value
@@ -57,14 +62,14 @@ export class Timepicker {
    */
   @Prop() interval = 30;
   /**
-   * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+   * Lower time-limit for the values displayed in the list. The default value will be set based on the locale time format.
    */
-  @Prop() minTime?: string = this.isMeridianFormat ? '12:00 AM' : '00:00';
+  @Prop({ mutable: true }) minTime?: string;
 
   /**
-   * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+   * Upper time-limit for the values displayed in the list. The default value will be set based on the locale time format.
    */
-  @Prop() maxTime?: string = this.isMeridianFormat ? '11:30 PM' : '23:30';
+  @Prop({ mutable: true }) maxTime?: string;
 
   /**
    * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
@@ -104,6 +109,10 @@ export class Timepicker {
    * Whether the arrow/caret should be shown in the timepicker.
    */
   @Prop() caret = true;
+  /**
+   *   Locale for which timePicker needs to be shown. Defaults to browser's current locale.
+   */
+  @Prop({ mutable: true }) locale: string;
 
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -120,11 +129,6 @@ export class Timepicker {
    */
   @Event() fwFocus: EventEmitter;
 
-  /**
-   * Boolean representing whethere it is default end time
-   */
-  @State() isDefaultEndTime = ['11:30 PM', '23:30'].includes(this.maxTime);
-
   private nativeInput;
 
   private getTimeOptionsMeta = (nonMeridianFormat) => {
@@ -135,14 +139,14 @@ export class Timepicker {
         parse(this.minTime, preferredFormat, new Date()),
         nonMeridianFormat,
         {
-          locale: enUS,
+          locale: this.langModule,
         }
       ),
       endTime: format(
         parse(this.maxTime, preferredFormat, new Date()),
         nonMeridianFormat,
         {
-          locale: enUS,
+          locale: this.langModule,
         }
       ),
     };
@@ -150,7 +154,6 @@ export class Timepicker {
   };
 
   private setTimeValues = () => {
-    const meridianFormat = 'hh:mm a';
     const nonMeridianFormat = 'HH:mm';
     const { interval, startTime, endTime } =
       this.getTimeOptionsMeta(nonMeridianFormat);
@@ -164,11 +167,11 @@ export class Timepicker {
 
     while (currentTimeInMs <= endTimeInMs) {
       this.timeValues.push({
-        meridianFormat: format(currentTimeInMs, meridianFormat, {
-          locale: enUS,
+        displayFormat: format(currentTimeInMs, this.format, {
+          locale: this.langModule,
         }),
-        nonMeridianFormat: format(currentTimeInMs, nonMeridianFormat, {
-          locale: enUS,
+        value: format(currentTimeInMs, nonMeridianFormat, {
+          locale: this.langModule,
         }),
       });
       currentTimeInMs = addMinutes(currentTimeInMs, interval).valueOf();
@@ -176,11 +179,11 @@ export class Timepicker {
   };
 
   private currentTimeLabel(time: any) {
-    return this.isMeridianFormat ? time.meridianFormat : time.nonMeridianFormat;
+    return time.displayFormat;
   }
 
   private currentTimeValue(time: any) {
-    return time.nonMeridianFormat;
+    return time.value;
   }
 
   private setTimeValue(e: any) {
@@ -193,12 +196,6 @@ export class Timepicker {
       });
   }
 
-  private setEndTime() {
-    if (this.isDefaultEndTime) {
-      this.maxTime = this.isMeridianFormat ? `11:59 PM` : `23:59`;
-    }
-  }
-
   /**
    * Sets focus on a specific `fw-timepicker`.
    */
@@ -207,6 +204,19 @@ export class Timepicker {
     if (this.nativeInput) {
       this.nativeInput.focus();
     }
+  }
+
+  @Watch('locale')
+  async handleLocaleChange(newLocale) {
+    this.langModule = await TranslationController.getDateLangModule(newLocale);
+    this.format =
+      this.format || this.langModule?.formatLong?.time({ width: 'short' });
+    this.minTime = isMatch(this.minTime, this.format)
+      ? this.minTime
+      : format(startOfDay(new Date()), this.format);
+    this.maxTime = isMatch(this.maxTime, this.format)
+      ? this.maxTime
+      : format(endOfDay(new Date()), this.format);
   }
 
   onBlur = (e: Event): void => {
@@ -220,10 +230,8 @@ export class Timepicker {
     this.fwFocus.emit();
   };
 
-  componentWillLoad() {
-    if (this.interval !== 30) {
-      this.setEndTime();
-    }
+  async componentWillLoad() {
+    await this.handleLocaleChange(this.locale);
     this.setTimeValues();
   }
 
