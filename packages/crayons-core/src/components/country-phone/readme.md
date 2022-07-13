@@ -1,5 +1,215 @@
-# fw-country-phone
+# FwCountryPhone(fw-country-phone)
 
+fw-country-phone displays a country code selector & input element for entering phone Number
+
+## Demo
+```html live
+<fw-country-phone
+    value=""
+    name="country-code"
+    clear-input
+    select-placeholder="select country code"
+    input-placeholder="Enter phone number"
+    required
+    input-label="Support phone number"
+    select-label="Country Code"
+    error-text="Error message text"
+    warning-text="Please use numbers for user ID"
+    state="normal"
+  ></fw-country-phone>
+<fw-country-phone
+    value="+919999999999"
+    name="country-code"
+    clear-input
+    select-placeholder="select country code"
+    input-placeholder="Enter phone number"
+    required
+    input-label="Support phone number"
+    select-label="Country Code"
+    error-text="Error message text"
+    warning-text="Please use numbers for user ID"
+    state="normal"
+  ></fw-country-phone>
+  <fw-country-phone
+    value="+919999999999"
+    name="country-code"
+    clear-input
+    select-placeholder="select country code"
+    input-placeholder="Enter phone number"
+    required
+    input-label="Support phone number"
+    select-label="Country Code"
+    hint-text="select country code to get valid phonenumber"
+    warning-text="Please use numbers for user ID"
+    state="normal"
+  ></fw-country-phone>
+  <fw-country-phone
+  value="+1264497275926449727599878978789798798789798798789787897987897897897878978978787897989878"
+  name="country-code"
+  clear-input
+  select-placeholder="select country code"
+  input-placeholder="Enter phone number"
+  required
+  input-label="Support phone number"
+  select-label="Country Code"
+  hint-text="Input hint text"
+  warning-text="select country code to get valid phonenumber"
+  state="warning"
+></fw-country-phone>
+  <fw-country-phone
+  value="+1264497275926449727599878978789798798789798798789787897987897897897878978978787897989878"
+  name="country-code"
+  clear-input
+  select-placeholder="select country code"
+  input-placeholder="Enter phone number"
+  required
+  input-label="Support phone number"
+  select-label="Country Code"
+  hint-text="Input hint text"
+  error-text="Invalid Country Phone Number"
+  state="error"
+></fw-country-phone>
+```
+
+
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-country-phone
+    value=""
+    name="country-code"
+    clear-input
+    select-placeholder="select country code"
+    input-placeholder="Enter phone number"
+    required
+    input-label="Support phone number"
+    select-label="Country Code"
+    error-text="Error message text"
+    warning-text="Please use numbers for user ID"
+    state="normal"
+  ></fw-country-phone>
+<fw-country-phone
+    value="+919999999999"
+    name="country-code"
+    clear-input
+    select-placeholder="select country code"
+    input-placeholder="Enter phone number"
+    required
+    input-label="Support phone number"
+    select-label="Country Code"
+    error-text="Error message text"
+    warning-text="Please use numbers for user ID"
+    state="normal"
+    style="--fw-select-width: 0 0 400px"
+  ></fw-country-phone>
+  <fw-country-phone
+    value="+919999999999"
+    name="country-code"
+    clear-input
+    select-placeholder="select country code"
+    input-placeholder="Enter phone number"
+    required
+    input-label="Support phone number"
+    select-label="Country Code"
+    hint-text="select country code to get valid phonenumber"
+    warning-text="Please use numbers for user ID"
+    state="normal"
+  ></fw-country-phone>
+    <fw-country-phone
+  value="+1264497275926449727599878978789798798789798798789787897987897897897878978978787897989878"
+  name="country-code"
+  clear-input
+  select-placeholder="select country code"
+  input-placeholder="Enter phone number"
+  required
+  input-label="Support phone number"
+  select-label="Country Code"
+  hint-text="Input hint text"
+  warning-text="select country code to get valid phonenumber"
+  state="warning"
+></fw-country-phone>
+  <fw-country-phone
+  value="+1264497275926449727599878978789798798789798798789787897987897897897878978978787897989878"
+  name="country-code"
+  clear-input
+  select-placeholder="select country code"
+  input-placeholder="Enter phone number"
+  required
+  input-label="Support phone number"
+  select-label="Country Code"
+  hint-text="Input hint text"
+  error-text="Invalid Country Phone Number"
+  state="error"
+></fw-country-phone>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwInput } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+      <FwCountryPhone
+      value="+919999999999"
+      name="country-code"
+      clearInput
+      selectPlaceholder="select country code"
+      inputPlaceholder="Enter phone number"
+      required
+      inputLabel="Support phone number"
+      selectLabel="Country Code"
+      errorText="Error message text"
+      warningText="Please use numbers for user ID"
+      state="normal">
+      </FwCountryPhone>
+      <FwCountryPhone
+      value="+919999999999"
+      name="country-code"
+      clearInput
+      selectPlaceholder="select country code"
+      inputPlaceholder="Enter phone number"
+      required
+      inputLabel="Support phone number"
+      selectLabel="Country Code"
+      hintText="select country code to get valid phonenumber"
+      warningText="Please use numbers for user ID"
+      state="normal">
+      </FwCountryPhone>
+      <FwCountryPhone
+      value="+1264497275926449727599878978789798798789798798789787897987897897897878978978787897989878"
+      name="country-code"
+      clearInput
+      selectPlaceholder="select country code"
+      inputPlaceholder="Enter phone number"
+      required
+      inputLabel="Support phone number"
+      selectLabel="Country Code"
+      hintText="Input hint text"
+      warningText="select country code to get valid phonenumber"
+      state="warning">
+      </FwCountryPhone>
+      <FwCountryPhone
+      value="+1264497275926449727599878978789798798789798798789787897987897897897878978978787897989878"
+      name="country-code"
+      clearInput
+      selectPlaceholder="select country code"
+      inputPlaceholder="Enter phone number"
+      required
+      inputLabel="Support phone number"
+      selectLabel="Country Code"
+      hintText="Input hint text"
+      errorText="Invalid Country Phone Number"
+      state="error">
+      </FwCountryPhone>
+ </div>);
+```
+</code-block>
+</code-group>
 
 
 <!-- Auto Generated Below -->
@@ -10,7 +220,6 @@
 | Property            | Attribute            | Description                                                                                                                                                                                                                                                                         | Type                               | Default     |
 | ------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
 | `clearInput`        | `clear-input`        | Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box. | `boolean`                          | `false`     |
-| `countryWidth`      | `country-width`      | Adjust country code select dropdown width                                                                                                                                                                                                                                           | `string`                           | `'200'`     |
 | `disabled`          | `disabled`           | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                          | `boolean`                          | `false`     |
 | `errorText`         | `error-text`         | Error text displayed below the text box.                                                                                                                                                                                                                                            | `string`                           | `''`        |
 | `hideCountryFlag`   | `hide-country-flag`  | Hide Country Flag in the Country Select                                                                                                                                                                                                                                             | `boolean`                          | `false`     |
@@ -42,23 +251,30 @@
 
 ### `isValidPhoneNumber(value: string, countryCode: CountryCode) => Promise<boolean>`
 
-
+Checks PhoneNumber is Valid or Not
 
 #### Returns
 
 Type: `Promise<boolean>`
 
-
+after validation PhoneNumber with countryCode
 
 ### `parsePhoneNumber(...args: any[]) => Promise<any>`
 
-
+Validates PhoneNumber provided and return extra details
 
 #### Returns
 
 Type: `Promise<any>`
 
+{countryCode, countryCallingCode, nationalNumber,  number, metadata }
 
+
+## CSS Custom Properties
+
+| Name                | Description           |
+| ------------------- | --------------------- |
+| `--fw-select-width` | Select Dropdown width |
 
 
 ## Dependencies

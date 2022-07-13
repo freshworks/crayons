@@ -1,9 +1,12 @@
+/**
+  @prop --fw-select-width: Select width
+*/
 .country-container {
   display: flex;
 
   .country-select-container {
-    flex: 0 0 200px;
     margin-inline-end: 10px;
+    flex: var(--fw-select-width, '0 0 200px');
   }
 
   .country-input-container {

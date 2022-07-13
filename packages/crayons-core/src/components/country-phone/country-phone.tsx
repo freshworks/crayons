@@ -66,10 +66,6 @@ export class CountryPhone {
   @Prop() clearInput = false;
 
   /**
-   * Adjust country code select dropdown width
-   */
-  @Prop() countryWidth?: string | null = '200';
-  /**
    * Hide Country Name in the Country Select
    */
   @Prop() hideCountryName = false;
@@ -346,10 +342,7 @@ export class CountryPhone {
 
     return (
       <div class='country-container'>
-        <div
-          class='country-select-container'
-          style={{ flex: `0 0 ${this.countryWidth}px` }}
-        >
+        <div class='country-select-container'>
           <fw-select
             id='fw-country-phone-select'
             label={this.selectLabel}
