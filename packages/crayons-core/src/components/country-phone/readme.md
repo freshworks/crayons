@@ -1,4 +1,4 @@
-# FwCountryPhone(fw-country-phone)
+#  CountryPhone(fw-country-phone)
 
 fw-country-phone displays a country code selector & input element for entering phone Number
 
@@ -151,7 +151,7 @@ fw-country-phone displays a country code selector & input element for entering p
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { FwInput } from "@freshworks/crayons/react";
+import { FwCountryPhone } from "@freshworks/crayons/react";
 function App() {
   return (<div>
       <FwCountryPhone
@@ -191,7 +191,9 @@ function App() {
       selectLabel="Country Code"
       hintText="Input hint text"
       warningText="select country code to get valid phonenumber"
-      state="warning">
+      state="warning"
+      style={{"--fw-select-width": '0 0 300px'}}
+      >
       </FwCountryPhone>
       <FwCountryPhone
       value="+1264497275926449727599878978789798798789798798789787897987897897897878978978787897989878"
@@ -272,9 +274,9 @@ Type: `Promise<any>`
 
 ## CSS Custom Properties
 
-| Name                | Description           |
-| ------------------- | --------------------- |
-| `--fw-select-width` | Select Dropdown width |
+| Name                | Description                               |
+| ------------------- | ----------------------------------------- |
+| `--fw-select-width` | Adjust country code select dropdown width |
 
 
 ## Dependencies
