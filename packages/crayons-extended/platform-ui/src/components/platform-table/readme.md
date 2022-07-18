@@ -4,7 +4,7 @@
 
 `fwSort` event will be triggered whenever the user selects the sort by or the order by option in the dropdown.
 The event detail will be of format `{orderBy : <unique ID of the Column to be sorted>, order: <asc or desc>}`.
-The sortable columns are set via the prop sortableColumns of format `{{<COLUMN_1_KEY> : { text : <COLUMN_1_NAME> }, {{<COLUMN_2_KEY> : { text : <COLUMN_2_NAME> }}, }`
+The sortable columns are set via the prop sortableColumns of format `{ COLUMN_1_KEY : { text : COLUMN_1_NAME }}, ...`
 
 ## Pagination
 
@@ -17,7 +17,6 @@ The event detail will provide the page number `{page : <page number user wants t
 The event detail will provide an array of selected rows unique id's `{selectedRows : <Array of string>}`.
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -32,14 +31,12 @@ The event detail will provide an array of selected rows unique id's `{selectedRo
 | `sortableColumns` | --              | The sortable columns object.                      | `{}`      | `{}`        |
 | `tableProps`      | --              | Props for the fw-pagination component             | `{}`      | `{}`        |
 
-
 ## Events
 
 | Event          | Description                                | Type               |
 | -------------- | ------------------------------------------ | ------------------ |
 | `fwDelete`     | Triggered on selecting the sort option.    | `CustomEvent<any>` |
 | `fwPagination` | Triggered on page navigation button click. | `CustomEvent<any>` |
-
 
 ## Methods
 
@@ -50,9 +47,6 @@ clears the selected rows in the table.
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## Dependencies
 
@@ -66,6 +60,7 @@ Type: `Promise<void>`
 - fw-data-table
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-platform-table --> fw-button
@@ -107,6 +102,6 @@ graph TD;
   style fw-platform-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

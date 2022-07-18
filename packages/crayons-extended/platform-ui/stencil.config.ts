@@ -14,6 +14,8 @@ export const config: Config = {
     },
     {
       type: 'docs-readme',
+      dir: '../../../www/platform-ui',
+      footer: 'Built with ❤ at Freshworks',
     },
     {
       type: 'www',
