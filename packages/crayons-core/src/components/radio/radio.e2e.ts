@@ -68,7 +68,7 @@ describe('fw-radio', () => {
     expect(element).toEqualHtml(`<div class="radio-container">
     <input type="radio">
     <label>
-      <span id="label">
+      <span id="label" class="with-description">
       <slot></slot>
       </span>
       <div id="description">
