@@ -130,7 +130,7 @@ input[type='checkbox'] {
     &::before {
       position: absolute;
       inset-inline-start: 0;
-      inset-block-start: 3px;
+      inset-block-start: 4px;
       display: block;
       content: '';
       border: $checkbox-border-width solid $color-smoke-700;
@@ -151,7 +151,7 @@ input[type='checkbox'] {
       &::before {
         position: absolute;
         inset-inline-start: 0;
-        inset-block-start: 3px;
+        inset-block-start: 4px;
         display: block;
         content: '';
         border: $checkbox-border-width solid $app-error;
@@ -175,7 +175,7 @@ input[type='checkbox'] {
       display: block;
       content: '';
       inset-inline-start: 3px;
-      inset-block-start: -1px;
+      inset-block-start: 0;
       width: 8px;
       height: 8px;
       opacity: 0;
