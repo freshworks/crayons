@@ -20,21 +20,21 @@
     "react/"
   ],
   "scripts": {
-    "build": "npm run add:react  && npm run build:components && npm run build:react",
-    "build:components": "stencil build --docs",
-    "clean:react": "rimraf react",
     "add:react": "npm run clean:react && npx mkdirp react",
     "add:css": "npm run clean:css && npx mkdirp css",
-    "tscdisable": "node fileutil",
+    "build": "npm run add:react  && npm run build:components && npm run build:react",
+    "build:components": "stencil build --docs",
     "build:react": "npm run tscdisable && tsc --project tsconfig-react.json",
     "build:mincss": "cleancss -b css/*.css css",
     "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css",
     "build:styles": "npm run build:scss && npm run build:autoprefix && npm run build:mincss ",
+    "clean:react": "rimraf react",
+    "directional-to-logical": "npx postcss './src/**/*.scss' --config ../../crayons-core/plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose",
+    "generate": "stencil generate",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate",
-    "directional-to-logical": "npx postcss './src/**/*.scss' --config ../../crayons-core/plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose"
+    "tscdisable": "node ../../../scripts/fileutil"
   },
   "dependencies": {
     "@freshworks/crayons": "^3.4.2",

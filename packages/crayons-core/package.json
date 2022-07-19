@@ -51,7 +51,7 @@
     "commit": "git-cz",
     "dev": "npm run start",
     "directional-to-logical": "npx postcss './src/**/*.scss' ../../styles/**/*.scss --config ./plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose",
-    "file:util": "node fileutil",
+    "file:util": "node ../../scripts/fileutil",
     "generate": "plop",
     "local": "stencil build --dev --watch",
     "prestart": "kill-port 3333",
