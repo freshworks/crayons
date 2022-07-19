@@ -63,8 +63,12 @@ input[type='radio'] {
     vertical-align: middle;
     font-size: 14px;
     line-height: 20px;
-    color: #12344d;
-    font-weight: 600;
+    font-weight: 400;
+    color: $color-elephant-900;
+
+    .with-description {
+      font-weight: 600;
+    }
 
     &::before,
     &::after {
