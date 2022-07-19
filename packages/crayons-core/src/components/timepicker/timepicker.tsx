@@ -48,7 +48,7 @@ export class Timepicker {
   @Prop() disabled = false;
 
   /**
-   * Time output value
+   * The Time value. NOTE: The format of the value should match the format or locale attribute otherwise the value won't be selected in the dropdown.
    */
   @Prop({ mutable: true }) value?: string;
 
