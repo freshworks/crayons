@@ -98,6 +98,7 @@ export class Datepicker {
   @State() toMonth: number;
   @State() firstFocusElement: HTMLElement = null;
   @State() lastFocusElement: HTMLElement = null;
+  @State() popoverContentElement: HTMLElement;
   @State() langModule: any;
   @State() shortMonthNames: any;
   @State() longMonthNames: any;
@@ -105,6 +106,8 @@ export class Datepicker {
   @State() hasHintTextSlot = false;
   @State() hasWarningTextSlot = false;
   @State() hasErrorTextSlot = false;
+  @State() timeValue = '';
+  @State() dateFormat = '';
 
   @Element() host: HTMLElement;
 
@@ -205,6 +208,18 @@ export class Datepicker {
    * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
+  /**
+   * Whether the time-picker should be shown in the date-picker.
+   */
+  @Prop() showTimePicker = false;
+  /**
+   * The props for the time picker.
+   */
+  @Prop() timeProps = {};
+  /**
+   * The format of time picker .
+   */
+  @Prop() timeFormat: 'HH:mm' | 'hh:mm a' = 'hh:mm a';
 
   /**
    *   Triggered when the update button clicked
@@ -383,7 +398,7 @@ export class Datepicker {
         this.updateValueAndEmitEvent(e);
       }
     } else if (isUpdateDate) {
-      if (this.selectedDay) {
+      if (this.isValidDateTime()) {
         this.updateValueAndEmitEvent(e);
       }
     }
@@ -571,11 +586,14 @@ export class Datepicker {
     const isYearUpdate = e
       .composedPath()[0]
       .classList.value.includes('single-year-selector');
+    const isTimeUpdate = e.composedPath()[0].tagName === 'FW-TIMEPICKER';
 
     if (isMonthUpdate) {
       this.month = this.shortMonthNames.indexOf(newValue);
     } else if (isYearUpdate) {
       this.year = newValue;
+    } else if (isTimeUpdate) {
+      this.timeValue = newValue;
     }
   }
 
@@ -647,6 +665,10 @@ export class Datepicker {
     this.langModule = await TranslationController.getDateLangModule(
       this.locale
     );
+    this.dateFormat = this.displayFormat;
+    this.displayFormat = this.showTimePicker
+      ? `${this.displayFormat} ${this.timeFormat}`
+      : this.displayFormat;
 
     if (this.displayFormat) {
       this.isDisplayFormatSet = true;
@@ -793,9 +815,7 @@ export class Datepicker {
         date.setMonth(this.month, 1);
         date.setFullYear(this.year);
         date.setDate(this.selectedDay);
-        this.value = format(date, this.displayFormat, {
-          locale: this.langModule,
-        });
+        this.value = this.formatDateTime();
       } else {
         const formattedFromDate = format(
           new Date(this.startDate),
@@ -815,6 +835,54 @@ export class Datepicker {
       }
     }
   }
+
+  getDate = (): string => {
+    try {
+      const date = format(
+        new Date(this.year, this.month, this.selectedDay),
+        this.dateFormat,
+        {
+          locale: this.langModule,
+        }
+      );
+      return date ?? '';
+    } catch (error) {
+      return '';
+    }
+  };
+
+  isValidDateTime = (): boolean => {
+    if (this.showTimePicker) {
+      return !!(this.selectedDay && this.timeValue);
+    }
+    return this.selectedDay;
+  };
+
+  formatDateTime = (): string => {
+    if (this.showTimePicker) {
+      const [hour, minute] = this.timeValue.split(':');
+      return format(
+        new Date(
+          this.year,
+          this.month,
+          this.selectedDay,
+          parseInt(hour),
+          parseInt(minute)
+        ),
+        this.displayFormat,
+        {
+          locale: this.langModule,
+        }
+      );
+    }
+    return format(
+      new Date(this.year, this.month, this.selectedDay),
+      this.displayFormat,
+      {
+        locale: this.langModule,
+      }
+    );
+  };
 
   getDayDetails = (args) => {
     const date = args.index - args.firstDay;
@@ -1016,13 +1084,7 @@ export class Datepicker {
 
   updateValueAndEmitEvent(e) {
     if (this.showSingleDatePicker()) {
-      this.value = format(
-        new Date(this.year, this.month, this.selectedDay),
-        this.displayFormat,
-        {
-          locale: this.langModule,
-        }
-      );
+      this.value = this.formatDateTime();
       this.emitEvent(e, this.formatDate(this.value));
     } else if (this.showDateRangePicker()) {
       this.startDateFormatted = format(this.startDate, this.displayFormat, {
@@ -1085,7 +1147,7 @@ export class Datepicker {
 
   // handle cancel and popover close
   handlePopoverClose = (e: any) => {
-    if (e.target?.tagName === 'FW-SELECT') return;
+    if (['FW-SELECT', 'FW-TIMEPICKER'].includes(e.target?.tagName)) return;
     if (this.mode === 'range') {
       // handle resetting of startDate and endDate on clicking cancel
       if (this.value) {
@@ -1306,6 +1368,34 @@ export class Datepicker {
     );
   }
 
+  renderTimePicker(): JSX.Element {
+    return (
+      <div class='time-container'>
+        <div>
+          <span>{TranslationController.t('datepicker.date')}</span>
+          <fw-input
+            placeholder={this.dateFormat}
+            value={this.getDate()}
+            readonly
+          ></fw-input>
+        </div>
+        <div>
+          <span>{TranslationController.t('datepicker.time')}</span>
+          <fw-timepicker
+            class='mdc-time'
+            sameWidth={false}
+            caret={false}
+            optionsPlacement='bottom-end'
+            format={this.timeFormat}
+            value={this.timeValue}
+            allowDeselect={false}
+            {...this.timeProps}
+          ></fw-timepicker>
+        </div>
+      </div>
+    );
+  }
+
   render(): JSX.Element {
     const { host, name, value } = this;
 
@@ -1358,7 +1448,7 @@ export class Datepicker {
               onFwBlur={this.onBlur}
               ref={(el) => (this.nativeInput = el)}
               state={this.state}
-              readonly={this.readonly}
+              readonly={this.showTimePicker || this.readonly}
               clearInput={this.clearInput}
               onFwInputClear={this.handleInputClear}
             >
@@ -1372,7 +1462,7 @@ export class Datepicker {
                 ></div>
                 <span class='date-icon'>
                   <fw-icon
-                    name='calendar'
+                    name={this.showTimePicker ? 'calendar-time' : 'calendar'}
                     style={{
                       '--fw-icon-color': this.state === 'error' && '#d72d30',
                     }}
@@ -1382,7 +1472,13 @@ export class Datepicker {
             </fw-input>
           </div>
           {this.showSingleDatePicker() ? (
-            <div id='datepicker' class='datepicker' slot='popover-content'>
+            <div
+              id='datepicker'
+              class='datepicker'
+              slot='popover-content'
+              ref={(el) => (this.popoverContentElement = el)}
+            >
+              {this.showTimePicker && this.renderTimePicker()}
               <div class='mdp-container'>
                 {/* Head section */}
                 <div class='mdpc-head'>
@@ -1393,8 +1489,8 @@ export class Datepicker {
                         readonly={true}
                         value={this.shortMonthNames[this.month]}
                         same-width='false'
-                        variant='button'
                         options-placement='bottom-start'
+                        variant='button'
                         options={this.longMonthNames.map((month, i) => ({
                           value: this.shortMonthNames[i],
                           key: i,
@@ -1402,6 +1498,7 @@ export class Datepicker {
                           text: month,
                         }))}
                         allowDeselect={false}
+                        boundary={this.popoverContentElement}
                       ></fw-select>
                     </span>
 
@@ -1411,9 +1508,10 @@ export class Datepicker {
                         readonly={true}
                         value={this.year}
                         same-width='false'
-                        options-placement='bottom'
+                        options-placement='bottom-start'
                         variant='button'
                         allow-deselect='false'
+                        boundary={this.popoverContentElement}
                       >
                         {this.renderSupportedYears()}
                       </fw-select>
@@ -1433,7 +1531,12 @@ export class Datepicker {
             ''
           )}
           {this.showDateRangePicker() ? (
-            <div id='datepicker' class='daterangepicker' slot='popover-content'>
+            <div
+              id='datepicker'
+              class='daterangepicker'
+              slot='popover-content'
+              ref={(el) => (this.popoverContentElement = el)}
+            >
               <div class='mdp-range-container'>
                 {/* Head section */}
                 <div class='mdpc-head'>
@@ -1453,6 +1556,7 @@ export class Datepicker {
                           text: month,
                         }))}
                         allowDeselect={false}
+                        boundary={this.popoverContentElement}
                       ></fw-select>
                     </span>
                     <span class='mdpchc-year'>
@@ -1461,9 +1565,10 @@ export class Datepicker {
                         readonly={true}
                         value={this.year}
                         same-width='false'
-                        options-placement='bottom'
+                        options-placement='bottom-start'
                         variant='button'
                         allow-deselect='false'
+                        boundary={this.popoverContentElement}
                       >
                         {this.renderSupportedYears()}
                       </fw-select>
@@ -1485,6 +1590,7 @@ export class Datepicker {
                           text: month,
                         }))}
                         allowDeselect={false}
+                        boundary={this.popoverContentElement}
                       ></fw-select>
                     </span>
                     <span class='mdpchc-year'>
@@ -1493,9 +1599,10 @@ export class Datepicker {
                         readonly={true}
                         value={this.toYear}
                         same-width='false'
-                        options-placement='bottom'
+                        options-placement='bottom-start'
                         variant='button'
                         allow-deselect='false'
+                        boundary={this.popoverContentElement}
                       >
                         {this.renderSupportedYears()}
                       </fw-select>

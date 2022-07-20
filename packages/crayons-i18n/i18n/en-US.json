@@ -2,7 +2,9 @@
   "datepicker": {
     "cancel": "Cancel",
     "update": "Update",
-    "to": "to"
+    "to": "to",
+    "date": "Date",
+    "time": "Time"
   },
   "dropdown": {
     "add": "Add",
@@ -163,6 +165,18 @@
       "endRange": "End range",
       "and": "and"
     }
+  },
+  "export": {
+    "modalTitle": "Export Records",
+    "exportFormat": "Export as:",
+    "fields": "Fields",
+    "selectAllFields": "Select All Fields",
+    "searchFieldsPrompt": "Search fields",
+    "selectedFields": "{{count}} selected",
+    "submitButton": "Export",
+    "cancelButton": "Cancel",
+    "noSearchResults": "No results found",
+    "filterInfo": "The export includes {{filtered}} out of {{total}} records based on the filter criteria. <a class='clearExportFilter'>Clear filters</a> to export all the records"
   },
   "searchDropdown": {
     "placeholder": {

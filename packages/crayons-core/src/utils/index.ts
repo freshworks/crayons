@@ -314,3 +314,72 @@ export const addRTL = (host) => {
     host.setAttribute('dir', 'ltr');
   }
 };
+
+export const popperModifierRTL = {
+  name: 'popperModifierRTL',
+  enabled: true,
+  phase: 'beforeRead',
+  fn({ state }) {
+    if (
+      document.documentElement.dir === 'rtl' ||
+      state.modifiersData['popperModifierRTL#persistent']?._previousDirection
+    ) {
+      if (
+        !state.modifiersData['popperModifierRTL#persistent']?._skip ||
+        state.modifiersData['popperModifierRTL#persistent']
+          ?._previousDirection !== document.documentElement.dir
+      ) {
+        const replaceMap = {
+          end: 'start',
+          start: 'end',
+          left: 'right',
+          right: 'left',
+        };
+        const rtlPlacement = state.placement.replace(
+          /right|left|start|end/,
+          (matched) => replaceMap[matched]
+        );
+        state.placement = rtlPlacement;
+        if (state.options?.placement) {
+          state.options.placement = rtlPlacement;
+        }
+        if (state.options?.modifiers) {
+          const fallbackPlacementModIndex = state.options.modifiers.findIndex(
+            (mod) => {
+              return mod.name === 'flip';
+            }
+          );
+          const fallbackPlacementOrderModIndex =
+            state.orderedModifiers.findIndex((mod) => {
+              return mod.name === 'flip';
+            });
+          if (state.options.modifiers[fallbackPlacementModIndex]) {
+            const fallbackPlacements = [];
+            state.options.modifiers[
+              fallbackPlacementModIndex
+            ].options.fallbackPlacements?.forEach((fp: any) => {
+              fallbackPlacements.push(
+                fp.replace(
+                  /right|left|start|end/,
+                  (matched) => replaceMap[matched]
+                )
+              );
+            });
+            state.options.modifiers[
+              fallbackPlacementModIndex
+            ].options.fallbackPlacements = fallbackPlacements;
+            state.orderedModifiers[
+              fallbackPlacementOrderModIndex
+            ].options.fallbackPlacements = fallbackPlacements;
+          }
+        }
+        if (!state.modifiersData['popperModifierRTL#persistent']) {
+          state.modifiersData['popperModifierRTL#persistent'] = {};
+        }
+        state.modifiersData['popperModifierRTL#persistent']._skip = true;
+        state.modifiersData['popperModifierRTL#persistent']._previousDirection =
+          document.documentElement.dir;
+      }
+    }
+  },
+};

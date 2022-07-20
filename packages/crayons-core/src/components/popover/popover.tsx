@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
 import { PopoverPlacementType, PopoverTriggerType } from '../../utils/types';
+import { popperModifierRTL } from '../../utils';
 
 @Component({
   tag: 'fw-popover',
@@ -232,6 +233,7 @@ export class Popover {
             offset: [Number(this.skidding), Number(this.distance)],
           },
         },
+        popperModifierRTL,
       ],
     };
   }

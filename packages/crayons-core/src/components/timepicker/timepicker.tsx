@@ -113,6 +113,14 @@ export class Timepicker {
    *   Locale for which timePicker needs to be shown. Defaults to browser's current locale.
    */
   @Prop({ mutable: true }) locale: string;
+  /**
+   * Whether the dropdown should be same width as that of the input.
+   */
+  @Prop() sameWidth = true;
+  /**
+   * Whether clicking on the already selected option disables it.
+   */
+  @Prop() allowDeselect = true;
 
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -241,32 +249,32 @@ export class Timepicker {
     renderHiddenField(host, name, value);
 
     return (
-      <div class='timepicker'>
-        <fw-select
-          name={this.name}
-          label={this.label}
-          hintText={this.hintText}
-          errorText={this.errorText}
-          warningText={this.warningText}
-          disabled={this.disabled}
-          value={this.value}
-          required={this.required}
-          onFwChange={(e) => this.setTimeValue(e)}
-          onFwBlur={this.onBlur}
-          ref={(el) => (this.nativeInput = el)}
-          state={this.state}
-          placeholder={this.placeholder}
-          search={false}
-          optionsPlacement={this.optionsPlacement}
-          caret={this.caret}
-        >
-          {this.timeValues.map((time) => (
-            <fw-select-option value={this.currentTimeValue(time)}>
-              {this.currentTimeLabel(time)}
-            </fw-select-option>
-          ))}
-        </fw-select>
-      </div>
+      <fw-select
+        name={this.name}
+        label={this.label}
+        hintText={this.hintText}
+        errorText={this.errorText}
+        warningText={this.warningText}
+        disabled={this.disabled}
+        value={this.value}
+        required={this.required}
+        onFwChange={(e) => this.setTimeValue(e)}
+        onFwBlur={this.onBlur}
+        ref={(el) => (this.nativeInput = el)}
+        state={this.state}
+        placeholder={this.placeholder}
+        search={false}
+        optionsPlacement={this.optionsPlacement}
+        caret={this.caret}
+        sameWidth={this.sameWidth}
+        allowDeselect={this.allowDeselect}
+      >
+        {this.timeValues.map((time) => (
+          <fw-select-option value={this.currentTimeValue(time)}>
+            {this.currentTimeLabel(time)}
+          </fw-select-option>
+        ))}
+      </fw-select>
     );
   }
 }

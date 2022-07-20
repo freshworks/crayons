@@ -15,6 +15,7 @@
   * {
     user-select: none;
   }
+  --fw-popover-max-height: 420px;
 }
 
 .mdp-container,
@@ -238,7 +239,7 @@
 }
 
 .cc-body {
-  height: 210px;
+  height: 180px;
   width: 100%;
 }
 
@@ -350,4 +351,34 @@
 
 .c-day-container.highlight-range:not(.disabled) .cdc-day {
   background: #e4f2fd;
+}
+
+.time-container {
+  display: flex;
+  width: 264px;
+  gap: 8px;
+  padding-block: 12px;
+  padding-inline: 16px;
+  background: $color-smoke-25;
+  box-sizing: border-box;
+
+  fw-input {
+    width: 124px;
+  }
+
+  .mdc-time {
+    width: 100px;
+    --fw-popover-min-width: 170px;
+    --fw-popover-max-height: 146px;
+  }
+
+  span {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+}
+
+.datepicker {
+  height: 100%;
 }

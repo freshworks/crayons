@@ -328,9 +328,21 @@ export namespace Components {
          */
         "showFooter": boolean;
         /**
+          * Whether the time-picker should be shown in the date-picker.
+         */
+        "showTimePicker": boolean;
+        /**
           * Theme based on which the input of the datepicker is styled.
          */
         "state": 'normal' | 'warning' | 'error';
+        /**
+          * The format of time picker .
+         */
+        "timeFormat": 'HH:mm' | 'hh:mm a';
+        /**
+          * The props for the time picker.
+         */
+        "timeProps": {};
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -484,6 +496,11 @@ export namespace Components {
           * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
          */
         "formSchema"?: any;
+        /**
+          * getValues
+          * @returns An Object containing values and serializedValues. serializedValues are those that contains the transformed values based on field type. 1. For Number and Decimal: returns floating point number of value or undefined. 2. For Date: returns value as ${year}-${month}-${date} or undefined. 3. For Relationship : returns an array of values or value.
+         */
+        "getValues": () => Promise<{ values: FormValues; serializedValues: FormValues; }>;
         /**
           * Initial field values of the form. It is an object with keys pointing to field name
          */
@@ -1623,6 +1640,10 @@ export namespace Components {
     }
     interface FwTimepicker {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
+        /**
           * Whether the arrow/caret should be shown in the timepicker.
          */
         "caret": boolean;
@@ -1678,6 +1699,10 @@ export namespace Components {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Whether the dropdown should be same width as that of the input.
+         */
+        "sameWidth": boolean;
         /**
           * Sets focus on a specific `fw-timepicker`.
          */
@@ -2587,9 +2612,21 @@ declare namespace LocalJSX {
          */
         "showFooter"?: boolean;
         /**
+          * Whether the time-picker should be shown in the date-picker.
+         */
+        "showTimePicker"?: boolean;
+        /**
           * Theme based on which the input of the datepicker is styled.
          */
         "state"?: 'normal' | 'warning' | 'error';
+        /**
+          * The format of time picker .
+         */
+        "timeFormat"?: 'HH:mm' | 'hh:mm a';
+        /**
+          * The props for the time picker.
+         */
+        "timeProps"?: {};
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -2765,6 +2802,10 @@ declare namespace LocalJSX {
           * Initial field values of the form. It is an object with keys pointing to field name
          */
         "initialValues"?: any;
+        /**
+          * fwFormValuesChanged - event that gets emitted when values change.
+         */
+        "onFwFormValuesChanged"?: (event: CustomEvent<any>) => void;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
@@ -3945,6 +3986,10 @@ declare namespace LocalJSX {
     }
     interface FwTimepicker {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
+        /**
           * Whether the arrow/caret should be shown in the timepicker.
          */
         "caret"?: boolean;
@@ -4012,6 +4057,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Whether the dropdown should be same width as that of the input.
+         */
+        "sameWidth"?: boolean;
         /**
           * Theme based on which the input of the timepicker is styled.
          */
