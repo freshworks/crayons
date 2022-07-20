@@ -9,7 +9,7 @@ import {
   Element,
   EventEmitter,
 } from '@stencil/core';
-import { TranslationController } from '../../global/Translation';
+import { TranslationController } from '../../../global/Translation';
 
 @Component({
   tag: 'fw-search-dropdown',
