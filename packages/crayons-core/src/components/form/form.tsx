@@ -179,6 +179,14 @@ export class Form {
     this.el?.removeEventListener?.('fwChange', this.handleChangeListener);
   }
 
+  getFormValues = async () => {
+    let serializedValues = { ...this.values };
+    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+      serializedValues = serializeForm(serializedValues, this.fields);
+    }
+    return serializedValues;
+  };
+
   handleSubmit = async (event: Event): Promise<FormSubmit> => {
     event?.preventDefault();
     event?.stopPropagation();
@@ -403,6 +411,11 @@ export class Form {
       this.touched = { ...this.touched, [field]: true };
     });
     this.setFocusOnError();
+  }
+
+  @Method()
+  async getValues() {
+    return this.getFormValues();
   }
 
   @Method()

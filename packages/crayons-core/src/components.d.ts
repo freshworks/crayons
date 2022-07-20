@@ -484,6 +484,7 @@ export namespace Components {
           * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
          */
         "formSchema"?: any;
+        "getValues": () => Promise<{ [x: string]: any; }>;
         /**
           * Initial field values of the form. It is an object with keys pointing to field name
          */

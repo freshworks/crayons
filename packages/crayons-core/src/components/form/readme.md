@@ -1152,6 +1152,16 @@ Type: `Promise<FormSubmit>`
 
 
 
+### `getValues() => Promise<{ [x: string]: any; }>`
+
+
+
+#### Returns
+
+Type: `Promise<{ [x: string]: any; }>`
+
+
+
 ### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
 

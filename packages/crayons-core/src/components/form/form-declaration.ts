@@ -90,6 +90,7 @@ type ImperativeMethods<Values> = {
     value: any,
     shouldValidate: boolean
   ) => Promise<void>;
+  getValues: () => Promise<void>;
 };
 
 export type FormParams<Values> = {
