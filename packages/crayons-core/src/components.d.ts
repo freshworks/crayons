@@ -484,7 +484,11 @@ export namespace Components {
           * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
          */
         "formSchema"?: any;
-        "getValues": () => Promise<{ [x: string]: any; }>;
+        /**
+          * getValues
+          * @returns An Object containing values and serializedValues. serializedValues - Serialized values that transforms values based on field type. 1. For Number and Decimal: returns floating point number of value or undefined. 2. For Date: returns value as ${year}-${month}-${date} or undefined. 3. For Relationship : returns an array of values or value.
+         */
+        "getValues": () => Promise<{ values: FormValues; serializedValues: FormValues; }>;
         /**
           * Initial field values of the form. It is an object with keys pointing to field name
          */
@@ -2762,6 +2766,10 @@ declare namespace LocalJSX {
           * Initial field values of the form. It is an object with keys pointing to field name
          */
         "initialValues"?: any;
+        /**
+          * fwFormValuesChanged - event that gets emitted when values change.
+         */
+        "onFwFormValuesChanged"?: (event: CustomEvent<any>) => void;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
