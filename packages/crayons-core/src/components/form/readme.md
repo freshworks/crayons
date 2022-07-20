@@ -1130,6 +1130,13 @@ Both `validationSchema` and `validate` prop can be used together.
 | `wait`             | `wait`              | The number of milliseconds to delay before doing validation on Input                                                                                                          | `number`  | `200`       |
 
 
+## Events
+
+| Event                 | Description                                                       | Type               |
+| --------------------- | ----------------------------------------------------------------- | ------------------ |
+| `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change. | `CustomEvent<any>` |
+
+
 ## Methods
 
 ### `doReset(e: any) => Promise<void>`
@@ -1151,6 +1158,20 @@ Type: `Promise<void>`
 Type: `Promise<FormSubmit>`
 
 
+
+### `getValues() => Promise<{ values: FormValues; serializedValues: FormValues; }>`
+
+getValues
+
+#### Returns
+
+Type: `Promise<{ values: FormValues; serializedValues: FormValues; }>`
+
+An Object containing values and serializedValues.
+serializedValues are those that contains the transformed values based on field type.
+1. For Number and Decimal: returns floating point number of value or undefined.
+2. For Date: returns value as ${year}-${month}-${date} or undefined.
+3. For Relationship : returns an array of values or value.
 
 ### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
