@@ -57,7 +57,7 @@ $warning-color: $color-casablanca-300;
   width: calc(100% - 10px);
   border: var(--fw-select-border, 1px solid $input-border);
   border-radius: var(--fw-select-border-radius, 4px);
-  padding-left: 10px;
+  padding-inline-start: 10px;
   background-color: $input-bg;
   box-shadow: none;
   min-height: 22px;
@@ -74,7 +74,10 @@ $warning-color: $color-casablanca-300;
       flex-wrap: wrap;
 
       fw-tag {
-        margin: 4px 4px 4px 0px;
+        margin-inline-start: 0px;
+        margin-block-end: 4px;
+        margin-inline-end: 4px;
+        margin-block-start: 4px;
       }
     }
 
@@ -92,7 +95,8 @@ $warning-color: $color-casablanca-300;
       min-height: 22px;
       box-sizing: border-box;
       overflow: hidden;
-      margin: 4px 0px;
+      margin-inline: 0px;
+      margin-block: 4px;
 
       &:focus {
         border: none;
@@ -112,7 +116,7 @@ $warning-color: $color-casablanca-300;
   }
 
   fw-spinner {
-    margin-right: 8px;
+    margin-inline-end: 8px;
   }
 
   @media (prefers-reduced-motion) {
@@ -168,7 +172,7 @@ $warning-color: $color-casablanca-300;
 }
 
 .select-container {
-  margin-bottom: var(--fw-select-margin-bottom, 0px);
+  margin-block-end: var(--fw-select-margin-bottom, 0px);
   width: inherit;
   height: inherit;
   position: relative;
@@ -181,7 +185,7 @@ $warning-color: $color-casablanca-300;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 8px;
+    margin-inline-end: 8px;
     min-width: 20px;
     min-height: 20px;
     transition: all 0.15s;
@@ -191,13 +195,13 @@ $warning-color: $color-casablanca-300;
   //Help Block
   .help-block {
     font-size: $font-size-12;
-    margin-top: 4px;
+    margin-block-start: 4px;
     line-height: 20px;
     color: $help-color;
     position: inherit;
-    margin-bottom: 0;
+    margin-block-end: 0;
     display: block;
-    padding-left: 2px;
+    padding-inline-start: 2px;
   }
 
   .dropdown-status-icon.expanded {

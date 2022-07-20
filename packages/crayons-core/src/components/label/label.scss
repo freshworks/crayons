@@ -15,7 +15,8 @@
   font-weight: 600;
   line-height: 14px;
   font-size: $font-size-12;
-  padding: var(--fw-label-padding-vertical) var(--fw-label-padding-horizontal);
+  padding-block: var(--fw-label-padding-vertical);
+  padding-inline: var(--fw-label-padding-horizontal);
   display: inline-block;
   border-radius: 4px;
 

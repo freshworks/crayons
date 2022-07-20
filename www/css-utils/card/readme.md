@@ -9,22 +9,18 @@ To apply card css utils, we can use 'fw-card-#{$elevation}'
 ## Sample - card with interactive component 
 ```html live
   <template>
-    <div>
-      <div class="fw-card-1 fw-p-24 fw-flex fw-flex-row">
-        <div class="fw-flex-grow">
-          <div class="fw-type-h5">Arabic</div>
-          <div class="fw-type-xs">Last updated - 25 June 2020</div>
-        </div>
-        <div class="fw-flex-grow-0">
-          <fw-button color="secondary" class="fw-type-h6"> Download existing </fw-button>
-          <fw-button color="secondary" class="fw-type-h6 fw-ml-8"> Update file </fw-button>
-        </div>
-        <div class="fw-flex-grow-0">
-          <fw-button size="icon" color="text" role="button" class="fw-ml-12">
-            <fw-icon name="delete" ></fw-icon>
-          </fw-button>
-        </div>
-      </div>
+    <div class="fw-card-1 fw-p-24 fw-flex fw-flex-row">
+      <section class="fw-flex-grow">
+        <h5 class="fw-type-h5 fw-my-0">Arabic</h5>
+        <p class="fw-type-xs fw-my-0">Last updated - 25 June 2020</p>
+      </section>
+      <section class="fw-flex-grow-0">
+        <fw-button color="secondary" class="fw-type-h6"> Download existing </fw-button>
+        <fw-button color="secondary" class="fw-type-h6 fw-ml-8"> Update file </fw-button>
+        <fw-button size="icon" color="text" role="button" class="fw-ml-12">
+          <fw-icon name="delete" ></fw-icon>
+        </fw-button>
+      </section>
     </div>
   </template>
 ```
@@ -32,16 +28,14 @@ To apply card css utils, we can use 'fw-card-#{$elevation}'
 ## Sample - card with interactive component 
 ```html live
 <template>
-  <div>
-    <div class="fw-card-2 fw-p-24 fw-flex fw-flex-row fw-items-center">
-      <div class="fw-flex-grow">
-        <div class="fw-type-h6">Show typing indicator</div>
-        <div class="fw-type-xs">An indicator to see and share when messages are being typed</div>
-      </div>
-      <div class="fw-flex-grow-0">
-        <fw-toggle size="medium" checked></fw-toggle>
-      </div>
-    </div>
+  <div class="fw-card-2 fw-p-24 fw-flex fw-flex-row fw-items-center">
+    <section class="fw-flex-grow">
+      <h6 class="fw-type-h6 fw-my-0">Show typing indicator</h6>
+      <p class="fw-type-xs fw-my-0">An indicator to see and share when messages are being typed</p>
+    </section>
+    <section class="fw-flex-grow-0">
+      <fw-toggle size="medium" checked></fw-toggle>
+    </section>
   </div>
 </template>
 ```
@@ -49,19 +43,15 @@ To apply card css utils, we can use 'fw-card-#{$elevation}'
 ## Sample - End user widget cards 
 ```html live
 <template>
-  <div>
-    <div class="fw-card-3 fw-p-20 fw-flex fw-flex-column">
-      <div class="fw-flex">
-        <span class="fw-flex-grow fw-type-h4">Chat with us</span>
-        <span class="fw-type-xs"><a href="#">View history</a></span>
-      </div>
-      <div>
-        <div class="fw-flex fw-flex-column fw-mt-4">
-          <div class="fw-type-h6">Support</div>
-          <div class="fw-type-xs">Typically replies within 5 minutes</div>
-        </div>
-      </div>
-    </div>
+  <div class="fw-card-3 fw-p-20 fw-flex fw-flex-column">
+    <section class="fw-flex">
+      <h4 class="fw-flex-grow fw-type-h4 fw-my-0">Chat with us</h4>
+      <a class="fw-type-xs" href="#">View history</a>
+    </section>
+    <section class="fw-flex fw-flex-column fw-mt-4">
+      <h6 class="fw-type-h6 fw-my-0">Support</h6>
+      <p class="fw-type-xs fw-my-0">Typically replies within 5 minutes</p>
+    </section>
   </div>
 </template>
 ```
@@ -74,31 +64,29 @@ To apply card css utils, we can use 'fw-card-#{$elevation}'
   }
 </style>
 <template>
-  <div>
-    <div class="fw-card-1 fw-py-16 fw-px-20 fw-flex fw-flex-row">
-      <div>
-        <fw-avatar
-    size="medium"
-    image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
-  ></fw-avatar>
-      </div>
-      <div class="fw-flex-grow fw-px-16 fw-flex fw-flex-column">
-        <div class="fw-type-h5 fw-mb-8">Courtney Henry</div>
-        <div class="fw-type-xs fw-mb-16">Hey! I need help with cancellation of a combo pack that I had ordered yesterday.</div>
-        <div class="fw-type-xs fw-flex fw-flex-row options">
-          <div class="fw-pr-12">
-            <span class="fw-mr-8"><fw-icon name="inbox" size="12" library="system" ></fw-icon></span>
-            <span>Cancellation</span>
-          </div>
-          <div class="fw-px-12">Open</div>
-          <div class="fw-px-12">Due in 1 hr</div>
-          <div class="fw-px-12">Alex James (Me)</div>
-        </div>
-      </div>
-      <div>
-        <span class="fw-type-xs">11 May 2021, 5:30 PM</span>
-      </div>
-    </div>
+  <div class="fw-card-1 fw-py-16 fw-px-20 fw-flex fw-flex-row">
+    <section>
+      <fw-avatar
+        size="medium"
+        image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+      ></fw-avatar>
+    </section>
+    <section class="fw-flex-grow fw-px-16 fw-flex fw-flex-column">
+      <h5 class="fw-type-h5 fw-mt-0 fw-mb-8">Courtney Henry</h5>
+      <p class="fw-type-xs fw-mt-0 fw-mb-16">Hey! I need help with cancellation of a combo pack that I had ordered yesterday.</p>
+      <section class="fw-type-xs fw-flex fw-flex-row options">
+        <span class="fw-pr-12">
+          <span class="fw-mr-8"><fw-icon name="inbox" size="12" ></fw-icon></span>
+          <span>Cancellation</span>
+        </span>
+        <span class="fw-px-12">Open</span>
+        <span class="fw-px-12">Due in 1 hr</span>
+        <span class="fw-px-12">Alex James (Me)</span>
+      </section>
+    </section>
+    <section>
+      <span class="fw-type-xs">11 May 2021, 5:30 PM</span>
+    </section>
   </div>
 </template>
 ```

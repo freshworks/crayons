@@ -10,8 +10,13 @@ $accordion-border-radius: var(--fw-accordion-border-radius, 8px);
   font-size: var(--fw-accordion-body-font-size, 14px);
   line-height: var(--fw-accordion-body-line-height, 18px);
   background-color: var(--fw-accordion-body-background-color, #f5f7f9);
+  // stylelint-disable
   padding: var(--fw-accordion-body-padding, 20px);
-  border-radius: 0 0 $accordion-border-radius $accordion-border-radius;
+  // stylelint-enable
+  border-end-start-radius: $accordion-border-radius;
+  border-end-end-radius: $accordion-border-radius;
+  border-start-end-radius: 0;
+  border-start-start-radius: 0;
 
   &.collapsed {
     display: none;

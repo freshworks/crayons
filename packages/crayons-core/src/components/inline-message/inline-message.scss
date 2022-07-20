@@ -9,7 +9,7 @@
   border-radius: $radius;
   box-sizing: border-box;
   margin: inherit;
-  padding: 8px 6px;
+  padding: 8px;
   background-color: transparent;
 
   &--success {
@@ -17,7 +17,7 @@
     border: 1px solid $border-success-color;
 
     .alert__message {
-      border-left: 1px solid $border-success-color;
+      border-inline-start: 1px solid $border-success-color;
     }
   }
 
@@ -26,7 +26,7 @@
     border: 1px solid $border-warning-color;
 
     .alert__message {
-      border-left: 1px solid $border-warning-color;
+      border-inline-start: 1px solid $border-warning-color;
     }
   }
 
@@ -35,7 +35,7 @@
     border: 1px solid $border-info-color;
 
     .alert__message {
-      border-left: 1px solid $border-info-color;
+      border-inline-start: 1px solid $border-info-color;
     }
   }
 
@@ -44,19 +44,20 @@
     background: $bg-danger;
 
     .alert__message {
-      border-left: 1px solid $border-danger-color;
+      border-inline-start: 1px solid $border-danger-color;
     }
   }
 
   &__icon {
-    flex: 0 0 auto;
     display: flex;
-    align-self: flex-start;
-    margin-right: 8px;
+    height: 20px;
+    align-items: center;
+    margin-inline-end: 8px;
+    box-sizing: border-box;
   }
 
   &__message {
-    padding-left: 12px;
+    padding-inline-start: 12px;
     flex: 1 1 auto;
     color: $color-elephant-900;
     font-size: $font-size-14;
@@ -71,11 +72,13 @@
   }
 
   &__close {
-    flex: 0 0 auto;
     display: flex;
-    align-self: flex-start;
-    padding-right: 6px;
-    padding-left: 12px;
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-inline-start: 8px;
+    box-sizing: border-box;
     cursor: pointer;
   }
 }

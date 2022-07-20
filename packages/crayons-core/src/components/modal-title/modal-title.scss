@@ -1,9 +1,14 @@
 /* stylelint-disable a11y/media-prefers-reduced-motion */
 .modal-header-container {
-  padding: 32px 32px 0;
+  padding-block-end: 0;
+  padding-inline: 32px;
+  padding-block-start: 32px;
   position: relative;
   background: #fff;
-  border-radius: 4px 4px 0 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+  border-start-end-radius: 4px;
+  border-start-start-radius: 4px;
   transition: all 0.1s linear;
   display: flex;
   justify-content: space-between;
@@ -55,7 +60,8 @@
         font-weight: $font-weight-default;
         color: $color-smoke-700;
         line-height: 20px;
-        padding: 6px 0px;
+        padding-inline: 0px;
+        padding-block: 6px;
       }
     }
   }

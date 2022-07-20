@@ -304,25 +304,26 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 
 @each $className, $labelOnlySize, $innerOnlySize in $sizes {
   .fw-btn--has-label.fw-btn--#{$className} .fw-btn--label {
-    padding: 0 var(--fw-button-label-vertical-padding, #{$labelOnlySize});
+    padding-inline: var(--fw-button-label-vertical-padding, #{$labelOnlySize});
+    padding-block: 0;
   }
 
   .fw-btn--has-before.fw-btn--#{$className} {
-    padding-left: #{$innerOnlySize};
+    padding-inline-start: #{$innerOnlySize};
   }
 
   .fw-btn--has-before.fw-btn--#{$className} .fw-btn--label {
-    padding-left: #{$innerOnlySize};
+    padding-inline-start: #{$innerOnlySize};
   }
 
   .fw-btn--has-after.fw-btn--#{$className},
   .fw-btn--caret.fw-btn--#{$className} {
-    padding-right: #{$innerOnlySize};
+    padding-inline-end: #{$innerOnlySize};
   }
 
   .fw-btn--has-after.fw-btn--#{$className} .fw-btn--label,
   .fw-btn--caret.fw-btn--#{$className} .fw-btn--label {
-    padding-right: #{$innerOnlySize};
+    padding-inline-end: #{$innerOnlySize};
   }
 }
 
@@ -364,10 +365,10 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
   font-size: 1em;
   height: 1em;
   width: 1em;
-  top: calc(50% - 0.5em);
-  left: calc(50% - 0.5em);
-  margin-top: -1px;
-  margin-left: -1px;
+  inset-block-start: calc(50% - 0.5em);
+  inset-inline-start: calc(50% - 0.5em);
+  margin-block-start: -1px;
+  margin-inline-start: -1px;
 }
 
 /*
@@ -379,18 +380,18 @@ $sizes: 'normal' 12px 8px, 'small' 8px 6px, 'mini' 6px 4px;
 
 :host(.fw-button-group__button--first:not(.fw-button-group__button--last))
   .fw-btn {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
 }
 
 :host(.fw-button-group__button--inner) .fw-btn {
   border-radius: 0;
-  border-left: 0;
+  border-inline-start: 0;
 }
 
 :host(.fw-button-group__button--last:not(.fw-button-group__button--first))
   .fw-btn {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-left: 0;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  border-inline-start: 0;
 }

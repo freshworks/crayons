@@ -8,8 +8,9 @@
 .menu-item {
   cursor: pointer;
   display: flex;
-  padding: 6px 8px;
-  margin-bottom: 4px;
+  padding-inline: 8px;
+  padding-block: 6px;
+  margin-block-end: 4px;
   line-height: 1.45;
   align-items: center;
   background: var(--fw-menu-item-background, #ffffff);
@@ -38,7 +39,7 @@
     align-items: center;
 
     ::slotted(*) {
-      margin-right: 8px;
+      margin-inline-end: 8px;
     }
   }
 
@@ -47,7 +48,7 @@
     display: flex;
     align-items: center;
     ::slotted(*) {
-      margin-left: 8px;
+      margin-inline-start: 8px;
     }
   }
 

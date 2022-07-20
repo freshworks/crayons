@@ -34,6 +34,7 @@ import {
 import FieldControl from '../../function-components/field-control';
 
 import { i18n, TranslationController } from '../../global/Translation';
+import { addRTL } from '../../utils';
 
 const defaultweekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -97,6 +98,7 @@ export class Datepicker {
   @State() toMonth: number;
   @State() firstFocusElement: HTMLElement = null;
   @State() lastFocusElement: HTMLElement = null;
+  @State() popoverContentElement: HTMLElement;
   @State() langModule: any;
   @State() shortMonthNames: any;
   @State() longMonthNames: any;
@@ -279,6 +281,10 @@ export class Datepicker {
 
   focusElement(element: HTMLElement) {
     element.focus();
+  }
+
+  connectedCallback() {
+    addRTL(this.host);
   }
 
   disconnectedCallback() {
@@ -806,7 +812,7 @@ export class Datepicker {
     } else {
       if (this.mode !== 'range') {
         const date = new Date();
-        date.setMonth(this.month);
+        date.setMonth(this.month, 1);
         date.setFullYear(this.year);
         date.setDate(this.selectedDay);
         this.value = this.formatDateTime();
@@ -1466,7 +1472,12 @@ export class Datepicker {
             </fw-input>
           </div>
           {this.showSingleDatePicker() ? (
-            <div id='datepicker' class='datepicker' slot='popover-content'>
+            <div
+              id='datepicker'
+              class='datepicker'
+              slot='popover-content'
+              ref={(el) => (this.popoverContentElement = el)}
+            >
               {this.showTimePicker && this.renderTimePicker()}
               <div class='mdp-container'>
                 {/* Head section */}
@@ -1478,8 +1489,8 @@ export class Datepicker {
                         readonly={true}
                         value={this.shortMonthNames[this.month]}
                         same-width='false'
-                        variant='button'
                         options-placement='bottom-start'
+                        variant='button'
                         options={this.longMonthNames.map((month, i) => ({
                           value: this.shortMonthNames[i],
                           key: i,
@@ -1487,6 +1498,7 @@ export class Datepicker {
                           text: month,
                         }))}
                         allowDeselect={false}
+                        boundary={this.popoverContentElement}
                       ></fw-select>
                     </span>
 
@@ -1496,9 +1508,10 @@ export class Datepicker {
                         readonly={true}
                         value={this.year}
                         same-width='false'
-                        options-placement='bottom'
+                        options-placement='bottom-start'
                         variant='button'
                         allow-deselect='false'
+                        boundary={this.popoverContentElement}
                       >
                         {this.renderSupportedYears()}
                       </fw-select>
@@ -1518,7 +1531,12 @@ export class Datepicker {
             ''
           )}
           {this.showDateRangePicker() ? (
-            <div id='datepicker' class='daterangepicker' slot='popover-content'>
+            <div
+              id='datepicker'
+              class='daterangepicker'
+              slot='popover-content'
+              ref={(el) => (this.popoverContentElement = el)}
+            >
               <div class='mdp-range-container'>
                 {/* Head section */}
                 <div class='mdpc-head'>
@@ -1538,6 +1556,7 @@ export class Datepicker {
                           text: month,
                         }))}
                         allowDeselect={false}
+                        boundary={this.popoverContentElement}
                       ></fw-select>
                     </span>
                     <span class='mdpchc-year'>
@@ -1546,9 +1565,10 @@ export class Datepicker {
                         readonly={true}
                         value={this.year}
                         same-width='false'
-                        options-placement='bottom'
+                        options-placement='bottom-start'
                         variant='button'
                         allow-deselect='false'
+                        boundary={this.popoverContentElement}
                       >
                         {this.renderSupportedYears()}
                       </fw-select>
@@ -1570,6 +1590,7 @@ export class Datepicker {
                           text: month,
                         }))}
                         allowDeselect={false}
+                        boundary={this.popoverContentElement}
                       ></fw-select>
                     </span>
                     <span class='mdpchc-year'>
@@ -1578,9 +1599,10 @@ export class Datepicker {
                         readonly={true}
                         value={this.toYear}
                         same-width='false'
-                        options-placement='bottom'
+                        options-placement='bottom-start'
                         variant='button'
                         allow-deselect='false'
+                        boundary={this.popoverContentElement}
                       >
                         {this.renderSupportedYears()}
                       </fw-select>
