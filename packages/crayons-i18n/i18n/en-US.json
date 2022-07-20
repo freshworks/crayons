@@ -173,6 +173,7 @@
     "selectedFields": "{{count}} selected",
     "submitButton": "Export",
     "cancelButton": "Cancel",
+    "noSearchResults": "No results found",
     "filterInfo": "The export includes {{filtered}} out of {{total}} records based on the filter criteria. <a class='clearExportFilter'>Clear filters</a> to export all the records"
   },
   "searchDropdown": {
