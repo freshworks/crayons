@@ -486,7 +486,7 @@ export namespace Components {
         "formSchema"?: any;
         /**
           * getValues
-          * @returns An Object containing values and serializedValues. serializedValues - Serialized values that transforms values based on field type. 1. For Number and Decimal: returns floating point number of value or undefined. 2. For Date: returns value as ${year}-${month}-${date} or undefined. 3. For Relationship : returns an array of values or value.
+          * @returns An Object containing values and serializedValues. serializedValues are those that contains the transformed values based on field type. 1. For Number and Decimal: returns floating point number of value or undefined. 2. For Date: returns value as ${year}-${month}-${date} or undefined. 3. For Relationship : returns an array of values or value.
          */
         "getValues": () => Promise<{ values: FormValues; serializedValues: FormValues; }>;
         /**
