@@ -117,6 +117,13 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                           | Description                                 |
+| ------------------------------ | ------------------------------------------- |
+| `--fw-inline-msg-icon-display` | display of inline message icon - flex/block |
+
+
 ## Dependencies
 
 ### Depends on
