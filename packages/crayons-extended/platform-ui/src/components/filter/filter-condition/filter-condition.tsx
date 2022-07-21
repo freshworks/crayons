@@ -22,8 +22,15 @@ export class FilterCondition {
   @State() conditionElement?;
   @State() conditions;
   @State() conditionOptions;
-  @State() selectedCondition;
-  @State() valueState;
+  /**
+   * The selected condition
+   */
+  @Prop({ mutable: true }) selectedCondition;
+
+  /**
+   * The value state
+   */
+  @Prop({ mutable: true }) valueState;
 
   /**
    * The column key for the filter.

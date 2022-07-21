@@ -234,9 +234,17 @@ export namespace Components {
         "identifier": any;
         "isValid": () => Promise<any>;
         /**
+          * The selected condition
+         */
+        "selectedCondition": any;
+        /**
           * The value for the condition
          */
         "value": any;
+        /**
+          * The value state
+         */
+        "valueState": any;
     }
     interface FwFilterDropdown {
         /**
@@ -812,9 +820,17 @@ declare namespace LocalJSX {
          */
         "onFwDelete"?: (event: CustomEvent<any>) => void;
         /**
+          * The selected condition
+         */
+        "selectedCondition"?: any;
+        /**
           * The value for the condition
          */
         "value"?: any;
+        /**
+          * The value state
+         */
+        "valueState"?: any;
     }
     interface FwFilterDropdown {
         /**
