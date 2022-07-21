@@ -21,6 +21,10 @@ export const config: Config = {
       type: 'www',
       serviceWorker: null, // disable service workers
     },
+    {
+      type: 'www',
+      dir: `../../../www/.vuepress/public/scripts/${packageName}/`,
+    },
     reactOutputTarget({
       componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
       proxiesFile: './platform-ui-react/components.ts',

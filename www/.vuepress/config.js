@@ -15,18 +15,15 @@ const platformUiComponents = components.filter(comp => comp.startsWith('componen
 // packages that have landed in the public directory
 const headScripts = [];
 const wwwBuilds = fs
-  .readdirSync(path.resolve(__dirname, 'public'))
-  .filter((dir) => {
-    return /^(\.\/)?crayons/.test(dir);
-  });
+  .readdirSync(path.resolve(__dirname, 'public/scripts'))
 for (const wwwBuild of wwwBuilds) {
   headScripts.push([
     'script',
-    { type: 'module', src: `/${wwwBuild}/build/${wwwBuild}.esm.js` },
+    { type: 'module', src: `/scripts/${wwwBuild}/build/${wwwBuild}.esm.js` },
   ]);
   headScripts.push([
     'script',
-    { nomodule: '', src: `/${wwwBuild}/build/${wwwBuild}.js` },
+    { nomodule: '', src: `/scripts/${wwwBuild}/build/${wwwBuild}.js` },
   ]);
 }
 headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
