@@ -1656,9 +1656,9 @@ export namespace Components {
          */
         "errorText": string;
         /**
-          * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
+          * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. The default value will be set based on the locale time format.
          */
-        "format": 'hh:mm a' | 'HH:mm';
+        "format": string;
         /**
           * Hint text displayed below the text box.
          */
@@ -1672,11 +1672,15 @@ export namespace Components {
          */
         "label": string;
         /**
-          * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Locale for which timePicker needs to be shown. Defaults to browser's current locale.
+         */
+        "locale": string;
+        /**
+          * Upper time-limit for the values displayed in the list. The default value will be set based on the locale time format.
          */
         "maxTime"?: string;
         /**
-          * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Lower time-limit for the values displayed in the list. The default value will be set based on the locale time format.
          */
         "minTime"?: string;
         /**
@@ -1708,7 +1712,7 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Time output value
+          * The Time value. NOTE: The format of the value should match the format or locale attribute otherwise the value won't be selected in the dropdown.
          */
         "value"?: string;
         /**
@@ -3998,9 +4002,9 @@ declare namespace LocalJSX {
          */
         "errorText"?: string;
         /**
-          * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
+          * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. The default value will be set based on the locale time format.
          */
-        "format"?: 'hh:mm a' | 'HH:mm';
+        "format"?: string;
         /**
           * Hint text displayed below the text box.
          */
@@ -4014,11 +4018,15 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Locale for which timePicker needs to be shown. Defaults to browser's current locale.
+         */
+        "locale"?: string;
+        /**
+          * Upper time-limit for the values displayed in the list. The default value will be set based on the locale time format.
          */
         "maxTime"?: string;
         /**
-          * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Lower time-limit for the values displayed in the list. The default value will be set based on the locale time format.
          */
         "minTime"?: string;
         /**
@@ -4058,7 +4066,7 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Time output value
+          * The Time value. NOTE: The format of the value should match the format or locale attribute otherwise the value won't be selected in the dropdown.
          */
         "value"?: string;
         /**
