@@ -154,7 +154,12 @@ export class Radio {
             name={this.name}
           ></input>
           <label class={{ error: this.state === 'error' }}>
-            <span id='label'>
+            <span
+              id='label'
+              class={{
+                'with-description': this.description !== '',
+              }}
+            >
               <slot />
             </span>
             {this.description !== '' || this.label !== '' ? (

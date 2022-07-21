@@ -11,7 +11,7 @@ This page contains examples for creating layouts by combining various css utils.
   }
 </style>
 <template>
-  <div class="details fw-bg-smoke-25">
+  <section class="details fw-bg-smoke-25">
     <div
       class="header fw-type-h6 fw-py-16 fw-px-16 fw-b-b-1 fw-b-solid fw-b-smoke-100"
     >
@@ -53,7 +53,7 @@ This page contains examples for creating layouts by combining various css utils.
         </tr>
       </table>
     </div>
-  </div>
+  </section>
 </template>
 ```
 
@@ -61,31 +61,29 @@ This page contains examples for creating layouts by combining various css utils.
 
 ```html live
 <template>
-  <div>
-    <div class="fw-card-1 fw-p-20 fw-flex fw-flex-column" style="width: 30%;">
-      <div class="fw-flex fw-flex-row">
-        <span class="fw-flex-grow fw-type-h7">Booking ID</span>
-        <span class="fw-type-xs"><fw-icon name="arrow-right"></fw-icon></span>
-      </div>
-      <a href="#">
-        <div class="fw-type-h6 fw-color-azure-800">#1237483</div>
-      </a>
-
-      <div class="fw-mt-20">
-        <div class="fw-type-h7">Hotel</div>
-        <a href="#">
-          <div class="fw-type-h6 fw-mt-4 fw-color-azure-800">Leela Palace</div>
-        </a>
-      </div>
-
-      <div class="fw-mt-20">
-        <div class="fw-type-h7">Customer Name</div>
-        <a href="#">
-          <div class="fw-type-h6 fw-mt-4 fw-color-azure-800">David</div>
-        </a>
-      </div>
+  <section class="fw-card-1 fw-p-20 fw-flex fw-flex-column" style="width: 30%;">
+    <div class="fw-flex fw-flex-row">
+      <span class="fw-flex-grow fw-type-h7">Booking ID</span>
+      <span class="fw-type-xs"><fw-icon name="arrow-right"></fw-icon></span>
     </div>
-  </div>
+    <a href="#">
+      <div class="fw-type-h6 fw-color-azure-800">#1237483</div>
+    </a>
+
+    <div class="fw-mt-20">
+      <span class="fw-type-h7">Hotel</span>
+      <a href="#">
+        <div class="fw-type-h6 fw-mt-4 fw-color-azure-800">Leela Palace</div>
+      </a>
+    </div>
+
+    <div class="fw-mt-20">
+      <span class="fw-type-h7">Customer Name</span>
+      <a href="#">
+        <div class="fw-type-h6 fw-mt-4 fw-color-azure-800">David</div>
+      </a>
+    </div>
+  </section>
 </template>
 ```
 
@@ -105,61 +103,55 @@ This page contains examples for creating layouts by combining various css utils.
       <span style="padding-left: 5px;">Tickets</span>
     </fw-accordion-title>
     <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
-      <div>
-        <div class="fw-card-1 fw-py-16 fw-px-20 fw-flex fw-flex-row">
-          <div>
-            <fw-avatar
-              size="medium"
-              image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
-            ></fw-avatar>
-          </div>
-          <div class="fw-flex-grow fw-px-16 fw-flex fw-flex-column">
-            <div class="fw-type-xs">#123745</div>
-            <div
-              class="fw-type-sm fw-mb-16"
-              style="white-space:nowrap;overflow:hidden; 
- text-overflow:ellipsis; width: 160px;"
-            >
-              Unclean rooms and washrooms
-            </div>
-            <div class="fw-type-xs">
-              <fw-label value="Pending" color="yellow"></fw-label>
-            </div>
-          </div>
-          <div>
-            <span class="fw-type-xs"
-              ><fw-icon name="chevron-right"></fw-icon
-            ></span>
-          </div>
+      <section class="fw-card-1 fw-py-16 fw-px-20 fw-flex fw-flex-row">
+        <section>
+          <fw-avatar
+            size="medium"
+            image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+          ></fw-avatar>
+        </section>
+        <div class="fw-flex-grow fw-px-16 fw-flex fw-flex-column">
+          <span class="fw-type-xs">#123745</span>
+          <span
+            class="fw-type-sm fw-mb-16"
+            style="white-space:nowrap;overflow:hidden; 
+                      text-overflow:ellipsis; width: 160px;"
+          >
+            Unclean rooms and washrooms
+          </span>
+          <span class="fw-type-xs">
+            <fw-label value="Pending" color="yellow"></fw-label>
+          </span>
         </div>
-      </div>
+        <span>
+          <span class="fw-type-xs"
+            ><fw-icon name="chevron-right"></fw-icon
+          ></span>
+        </span>
+      </section>
       <div class="fw-mt-8">
-        <div class="fw-card-1 fw-py-16 fw-px-20 fw-flex fw-flex-row">
-          <div>
-            <fw-avatar
-              size="medium"
-              image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
-            ></fw-avatar>
-          </div>
+        <section class="fw-card-1 fw-py-16 fw-px-20 fw-flex fw-flex-row">
+          <fw-avatar
+            size="medium"
+            image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+          ></fw-avatar>
           <div class="fw-flex-grow fw-px-16 fw-flex fw-flex-column">
-            <div class="fw-type-xs">#123745</div>
-            <div
+            <span class="fw-type-xs">#123745</span>
+            <span
               class="fw-type-sm fw-mb-16"
               style="white-space:nowrap;overflow:hidden; 
  text-overflow:ellipsis; width: 160px;"
             >
               Requesting partial refund
-            </div>
-            <div class="fw-type-xs">
+            </span>
+            <span class="fw-type-xs">
               <fw-label value="Pending" color="yellow"></fw-label>
-            </div>
+            </span>
           </div>
-          <div>
-            <span class="fw-type-xs"
-              ><fw-icon name="chevron-right"></fw-icon
-            ></span>
-          </div>
-        </div>
+          <span class="fw-type-xs"
+            ><fw-icon name="chevron-right"></fw-icon
+          ></span>
+        </section>
       </div>
 
       <br />
@@ -184,7 +176,7 @@ This page contains examples for creating layouts by combining various css utils.
   }
 </style>
 <template>
-  <div class="details">
+  <section class="details">
     <table>
       <tr class="fw-b-0">
         <td class="fw-type-sm fw-b-0 fw-pt-20">Booking Id</td>
@@ -226,6 +218,6 @@ This page contains examples for creating layouts by combining various css utils.
         <td class="fw-type-h6 fw-b-0 fw-pt-20">573627382384</td>
       </tr>
     </table>
-  </div>
+  </section>
 </template>
 ```

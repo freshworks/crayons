@@ -5,8 +5,8 @@ fw-toggle displays an input control that enables modifying an element’s state 
 ## Demo
 
 ```html live
-<fw-toggle size="small">Small not selected</fw-toggle><br><br>
-<fw-toggle size="medium" checked>Mid-sized and selected</fw-toggle>
+<fw-toggle size="small"></fw-toggle><br><br>
+<fw-toggle size="medium" checked></fw-toggle>
 ```
 
 ## Usage
@@ -14,8 +14,8 @@ fw-toggle displays an input control that enables modifying an element’s state 
 <code-group>
 <code-block title="HTML">
 ```html 
-<fw-toggle size="small">Small not selected</fw-toggle><br><br>
-<fw-toggle size="medium" checked>Mid-sized and selected</fw-toggle>
+<fw-toggle size="small"></fw-toggle><br><br>
+<fw-toggle size="medium" checked></fw-toggle>
 ```
 </code-block>
 
@@ -26,8 +26,8 @@ import ReactDOM from "react-dom";
 import { FwToggle } from "@freshworks/crayons/react";
 function App() {
   return (<div>
-          <FwToggle size="small">Small not selected</FwToggle><br/><br/>
-          <FwToggle size="medium" checked>Mid-sized and selected</FwToggle>
+          <FwToggle size="small"></FwToggle><br/><br/>
+          <FwToggle size="medium" checked></FwToggle>
     </div>);
 }
 ```
