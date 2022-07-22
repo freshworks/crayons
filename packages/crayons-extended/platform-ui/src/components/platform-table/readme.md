@@ -1,4 +1,6 @@
-# fw-platform-table
+# Platform Table (fw-platform-table)
+
+An extension of crayons fw--data-table with pagination and sort features.
 
 ## Sorting
 
@@ -15,6 +17,74 @@ The event detail will provide the page number `{page : <page number user wants t
 
 `fwDelete` event will be triggered whenever the user click on the delete button.
 The event detail will provide an array of selected rows unique id's `{selectedRows : <Array of string>}`.
+
+## Demo
+
+```html live
+<fw-platform-table id="table"> </fw-platform-table>
+<script type="application/javascript">
+  var data = {
+    columns: [
+      {
+        key: 'name',
+        text: 'Name',
+      },
+      {
+        key: 'group',
+        text: 'Group',
+      },
+      {
+        key: 'role',
+        text: 'Role',
+      },
+    ],
+    persons: [
+      {
+        id: '1234',
+        name: 'Alexander Goodman',
+        role: 'Administrator',
+        group: 'L1 Support',
+      },
+      {
+        id: '2345',
+        name: 'Ambrose Wayne',
+        role: 'Supervisor',
+        group: 'L1 Support',
+      },
+      {
+        id: '3456',
+        name: 'August hines',
+        role: 'Agent',
+        group: 'L1 support',
+      },
+    ],
+  };
+  var sortableColumns = {
+    role: { text: 'Role' },
+    group: { text: 'Group' },
+  };
+  var table = document.getElementById('table');
+  table.tableProps = { columns: data.columns, rows: data.persons };
+
+  // Props for setting the sortable column and the default sorted column and its order 'ASC' or 'DSC'
+  table.sortableColumns = sortableColumns;
+  table.orderBy = 'role';
+  table.order = 'ASC';
+  table.paginationProps = { page: '1', perPage: '10', total: '1' };
+
+  // To delete the row - fwDelete will be triggered whenever user click on delete button
+  // Use your logic here to remove the data from the row
+  table.addEventListener('fwDelete', (e) => {
+    console.log(e.detail.selectedRows);
+  });
+
+  // To sort the data - fwSort will be triggered whenever user click on sort button
+  // Use your logic here to sort the data
+  table.addEventListener('fwSort', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
 
 <!-- Auto Generated Below -->
 

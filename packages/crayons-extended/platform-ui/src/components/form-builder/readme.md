@@ -1,9 +1,6 @@
-# fw-field-type-menu-item
-
-
+# Form Builder (fw-field-type-menu-item)
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -18,25 +15,24 @@
 | `pinned`         | `pinned`           | Pinned position of the drag item, other drag item cannot be placed above or below it.                      | `"" \| "bottom" \| "top"` | `undefined` |
 | `selected`       | `selected`         | selected property of the component                                                                         | `boolean`                 | `false`     |
 
-
 ## Events
 
 | Event     | Description                                   | Type               |
 | --------- | --------------------------------------------- | ------------------ |
 | `fwCheck` | Triggered when the card in focus is selected. | `CustomEvent<any>` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [fw-form-builder](.)
+- [fw-form-builder](.)
 
 ### Depends on
 
 - fw-checkbox
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-widget-customize-field-item --> fw-checkbox
@@ -45,6 +41,6 @@ graph TD;
   style fw-widget-customize-field-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_
