@@ -17,6 +17,7 @@ import {
   getYear,
   getMonth,
   getDate,
+  getTime,
   startOfDay,
   getDaysInMonth,
   format,
@@ -219,8 +220,7 @@ export class Datepicker {
   /**
    * The format of time picker .
    */
-  @Prop() timeFormat: 'HH:mm' | 'hh:mm a' = 'hh:mm a';
-
+  @Prop() timeFormat: string;
   /**
    *   Triggered when the update button clicked
    */
@@ -656,6 +656,13 @@ export class Datepicker {
     return yearsArr;
   };
 
+  getFormatFromLocale() {
+    this.dateFormat = this.langModule?.formatLong?.date({ width: 'short' });
+    return this.showTimePicker
+      ? `${this.dateFormat} ${this.timeFormat}`
+      : this.dateFormat;
+  }
+
   @Watch('locale')
   async handleLocaleChange(newLocale) {
     this.langModule = await TranslationController.getDateLangModule(newLocale);
@@ -665,21 +672,23 @@ export class Datepicker {
     this.langModule = await TranslationController.getDateLangModule(
       this.locale
     );
-    this.dateFormat = this.displayFormat;
-    this.displayFormat = this.showTimePicker
-      ? `${this.displayFormat} ${this.timeFormat}`
-      : this.displayFormat;
+
+    this.timeFormat ||= this.langModule?.formatLong?.time({
+      width: 'short',
+    });
 
     if (this.displayFormat) {
       this.isDisplayFormatSet = true;
+      this.dateFormat = this.displayFormat;
+      this.displayFormat = this.showTimePicker
+        ? `${this.displayFormat} ${this.timeFormat}`
+        : this.displayFormat;
     }
     if (this.placeholder) {
       this.isPlaceholderSet = true;
     }
     this.checkSlotContent();
-    this.displayFormat =
-      this.displayFormat ||
-      this.langModule?.formatLong?.date({ width: 'short' });
+    this.displayFormat = this.displayFormat || this.getFormatFromLocale();
 
     this.placeholder = this.placeholder || this.displayFormat;
 
@@ -733,6 +742,12 @@ export class Datepicker {
         this.year = this.value ? getYear(date) : getYear(today);
         this.month = this.value ? getMonth(date) : getMonth(today);
         this.selectedDay = this.value && getDate(date);
+        if (this.value) {
+          // The value of the timepicker will always be the format of HH:mm
+          this.timeValue = format(getTime(date), 'HH:mm', {
+            locale: this.langModule,
+          });
+        }
       }
     }
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
@@ -1384,6 +1399,7 @@ export class Datepicker {
           <fw-timepicker
             class='mdc-time'
             sameWidth={false}
+            locale={this.locale}
             caret={false}
             optionsPlacement='bottom-end'
             format={this.timeFormat}

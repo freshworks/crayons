@@ -338,7 +338,7 @@ export namespace Components {
         /**
           * The format of time picker .
          */
-        "timeFormat": 'HH:mm' | 'hh:mm a';
+        "timeFormat": string;
         /**
           * The props for the time picker.
          */
@@ -2622,7 +2622,7 @@ declare namespace LocalJSX {
         /**
           * The format of time picker .
          */
-        "timeFormat"?: 'HH:mm' | 'hh:mm a';
+        "timeFormat"?: string;
         /**
           * The props for the time picker.
          */
