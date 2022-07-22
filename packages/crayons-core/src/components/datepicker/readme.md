@@ -92,30 +92,92 @@ function App() {
 Date time picker is currently supported only on single date picker.
 
 ```html live
-<fw-label value="Time picker"></fw-label><br />
-<fw-datepicker time display-format="dd-MM-yyyy"></fw-datepicker>
+<fw-label value="Default date time picker" color="yellow"></fw-label><br />
+<fw-datepicker show-time-picker></fw-datepicker>
+<br />
+<fw-label value="Date time picker with custom format" color="yellow"></fw-label
+><br />
+<fw-datepicker
+  show-time-picker
+  display-format="dd-MM-yyyy"
+  time-format="hh:mm"
+></fw-datepicker>
+<br />
+<fw-label value="Date time picker with locale support" color="yellow"></fw-label
+><br />
+<fw-datepicker show-time-picker locale="ar"></fw-datepicker>
+<br />
+<fw-label value="Date time picker with time range" color="yellow"></fw-label
+><br />
+<fw-datepicker show-time-picker id="time-range" locale="es"></fw-datepicker>
+<br />
+<fw-label value="Date time picker with value" color="yellow"></fw-label><br />
+<fw-datepicker
+  show-time-picker
+  value="2022-07-22T06:00:00.000Z"
+></fw-datepicker>
+<br />
+<script type="application/javascript">
+  var timePicker = document.getElementById('time-range');
+  timePicker.timeProps = {
+    minTime: '10:00',
+    maxTime: '18:00',
+    interval: 60,
+  };
+  timePicker.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
 ```
 
 <code-group>
 <code-block title="HTML">
 ```html
-<label>Time picker</label><br/>
-<fw-datepicker time display-format="dd-MM-yyyy"></fw-datepicker>
+ <fw-label value="Default date time picker" color="yellow"></fw-label><br />
+    <fw-datepicker show-time-picker></fw-datepicker>
+    <br />
+    <fw-label
+      value="Date time picker with custom format"
+      color="yellow"
+    ></fw-label
+    ><br />
+    <fw-datepicker
+      show-time-picker
+      display-format="dd-MM-yyyy"
+      time-format="hh:mm"
+    ></fw-datepicker>
+    <br />
+    <fw-label
+      value="Date time picker with locale support"
+      color="yellow"
+    ></fw-label
+    ><br />
+    <fw-datepicker show-time-picker locale="ar"></fw-datepicker>
+    <br />
+    <fw-label value="Date time picker with time range" color="yellow"></fw-label
+    ><br />
+    <fw-datepicker show-time-picker id="time-range" locale="es"></fw-datepicker>
+    <br />
+    <fw-label value="Date time picker with value" color="yellow"></fw-label
+    ><br />
+    <fw-datepicker
+      show-time-picker
+      value="2022-07-22T06:00:00.000Z"
+    ></fw-datepicker>
+    <br />
+    <script type="application/javascript">
+      var timePicker = document.getElementById('time-range');
+      timePicker.timeProps = {
+        minTime: '10:00',
+        maxTime: '18:00',
+        interval: 60,
+      };
+      timePicker.addEventListener('fwChange', (e) => {
+        console.log(e.detail);
+      });
+    </script>
 ```
 </code-block>
-
-<code-block title="React">
-```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { FwDatepicker } from "@freshworks/crayons/react";
-function App() {
-  return (<div>
-    <label>Time picker</label><br/>
-    <FwDatepicker time display-format="dd-MM-yyyy"></FwDatepicker>
-  </div>)
-}
-```
 </code-block>
 </code-group>
 
@@ -123,34 +185,34 @@ function App() {
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                                                                    | Type                               | Default                    |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
-| `cancelText`    | `cancel-text`    |                                                                                                                                                                | `string`                           | `''`                       |
-| `clearInput`    | `clear-input`    | Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`                                                                     | `boolean`                          | `false`                    |
-| `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.                       | `string`                           | `undefined`                |
-| `errorText`     | `error-text`     | Error text displayed below the text box.                                                                                                                       | `string`                           | `''`                       |
-| `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                           | `undefined`                |
-| `hintText`      | `hint-text`      | Hint text displayed below the text box.                                                                                                                        | `string`                           | `''`                       |
-| `label`         | `label`          | Label displayed on the interface, for the component.                                                                                                           | `string`                           | `''`                       |
-| `locale`        | `locale`         | Locale for which datepicker needs to be shown. Defaults to browser's current locale.                                                                           | `string`                           | `undefined`                |
-| `maxDate`       | `max-date`       | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                           | `undefined`                |
-| `maxYear`       | `max-year`       | Maximum year that needs to be displayed in the year dropdown.                                                                                                  | `number`                           | `new Date().getFullYear()` |
-| `minDate`       | `min-date`       | Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                     | `string`                           | `undefined`                |
-| `minYear`       | `min-year`       | Minimum year that needs to be displayed in the year dropdown.                                                                                                  | `number`                           | `1970`                     |
-| `mode`          | `mode`           | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"`         | `'single date'`            |
-| `name`          | `name`           | Name of the component, saved as part of form data.                                                                                                             | `string`                           | `''`                       |
-| `placeholder`   | `placeholder`    | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                           | `undefined`                |
-| `readonly`      | `readonly`       | Make the input box as readonly. Default `false`                                                                                                                | `boolean`                          | `false`                    |
-| `required`      | `required`       | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`                    |
-| `showFooter`    | `show-footer`    | Indicates if footer needs to be shown. Default `true`.                                                                                                         | `boolean`                          | `true`                     |
-| `state`         | `state`          | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`                 |
-| `time`          | `time`           | Whether the time-picker should be shown in the date-picker.                                                                                                    | `boolean`                          | `false`                    |
-| `timeFormat`    | `time-format`    | The format of time picker .                                                                                                                                    | `"HH:mm" \| "hh:mm a"`             | `'hh:mm a'`                |
-| `timeProps`     | --               | The props for the time picker.                                                                                                                                 | `{}`                               | `{}`                       |
-| `toDate`        | `to-date`        | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`                |
-| `updateText`    | `update-text`    |                                                                                                                                                                | `string`                           | `''`                       |
-| `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
-| `warningText`   | `warning-text`   | Warning text displayed below the text box.                                                                                                                     | `string`                           | `''`                       |
+| Property         | Attribute          | Description                                                                                                                                                    | Type                               | Default                    |
+| ---------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
+| `cancelText`     | `cancel-text`      |                                                                                                                                                                | `string`                           | `''`                       |
+| `clearInput`     | `clear-input`      | Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`                                                                     | `boolean`                          | `false`                    |
+| `displayFormat`  | `display-format`   | Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.                       | `string`                           | `undefined`                |
+| `errorText`      | `error-text`       | Error text displayed below the text box.                                                                                                                       | `string`                           | `''`                       |
+| `fromDate`       | `from-date`        | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                           | `undefined`                |
+| `hintText`       | `hint-text`        | Hint text displayed below the text box.                                                                                                                        | `string`                           | `''`                       |
+| `label`          | `label`            | Label displayed on the interface, for the component.                                                                                                           | `string`                           | `''`                       |
+| `locale`         | `locale`           | Locale for which datepicker needs to be shown. Defaults to browser's current locale.                                                                           | `string`                           | `undefined`                |
+| `maxDate`        | `max-date`         | Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                       | `string`                           | `undefined`                |
+| `maxYear`        | `max-year`         | Maximum year that needs to be displayed in the year dropdown.                                                                                                  | `number`                           | `new Date().getFullYear()` |
+| `minDate`        | `min-date`         | Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.                                                     | `string`                           | `undefined`                |
+| `minYear`        | `min-year`         | Minimum year that needs to be displayed in the year dropdown.                                                                                                  | `number`                           | `1970`                     |
+| `mode`           | `mode`             | Type of date selection enabled for the calendar. If the value is range, a user can select a date range in the calendar.                                        | `"range" \| "single date"`         | `'single date'`            |
+| `name`           | `name`             | Name of the component, saved as part of form data.                                                                                                             | `string`                           | `''`                       |
+| `placeholder`    | `placeholder`      | Text displayed in the input box before a user selects a date or date range.                                                                                    | `string`                           | `undefined`                |
+| `readonly`       | `readonly`         | Make the input box as readonly. Default `false`                                                                                                                | `boolean`                          | `false`                    |
+| `required`       | `required`         | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.     | `boolean`                          | `false`                    |
+| `showFooter`     | `show-footer`      | Indicates if footer needs to be shown. Default `true`.                                                                                                         | `boolean`                          | `true`                     |
+| `showTimePicker` | `show-time-picker` | Whether the time-picker should be shown in the date-picker.                                                                                                    | `boolean`                          | `false`                    |
+| `state`          | `state`            | Theme based on which the input of the datepicker is styled.                                                                                                    | `"error" \| "normal" \| "warning"` | `'normal'`                 |
+| `timeFormat`     | `time-format`      | The format of time picker .                                                                                                                                    | `string`                           | `undefined`                |
+| `timeProps`      | --                 | The props for the time picker.                                                                                                                                 | `{}`                               | `{}`                       |
+| `toDate`         | `to-date`          | Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format. | `string`                           | `undefined`                |
+| `updateText`     | `update-text`      |                                                                                                                                                                | `string`                           | `''`                       |
+| `value`          | `value`            | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
+| `warningText`    | `warning-text`     | Warning text displayed below the text box.                                                                                                                     | `string`                           | `''`                       |
 
 ## Events
 

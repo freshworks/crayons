@@ -9,6 +9,9 @@ fw-timepicker displays a list or drop-down box with prepopulated time values and
 <fw-timepicker interval="45" format="hh:mm p"></fw-timepicker>
 <fw-label value="A range based picker" color="yellow"></fw-label><br />
 <fw-timepicker min-time="04:30 PM" max-time="08:30 PM"></fw-timepicker>
+<fw-label value="Time picker with locale support" color="yellow"></fw-label
+><br />
+<fw-timepicker locale="ar"></fw-timepicker>
 ```
 
 ## Usage
@@ -42,7 +45,6 @@ function App() {
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property           | Attribute           | Description                                                                                                                                                                                                                                                   | Type                                                                                                                                                                 | Default     |
@@ -67,7 +69,6 @@ function App() {
 | `value`            | `value`             | The Time value. NOTE: The format of the value should match the format or locale attribute otherwise the value won't be selected in the dropdown.                                                                                                              | `string`                                                                                                                                                             | `undefined` |
 | `warningText`      | `warning-text`      | Warning text displayed below the text box.                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `''`        |
 
-
 ## Events
 
 | Event      | Description                                                                 | Type               |
@@ -75,7 +76,6 @@ function App() {
 | `fwBlur`   | Triggered when the list box loses focus.                                    | `CustomEvent<any>` |
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
-
 
 ## Methods
 
@@ -87,15 +87,12 @@ Sets focus on a specific `fw-timepicker`.
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Used by
 
- - [fw-datepicker](../datepicker)
- - [fw-form-control](../form-control)
+- [fw-datepicker](../datepicker)
+- [fw-form-control](../form-control)
 
 ### Depends on
 
@@ -103,6 +100,7 @@ Type: `Promise<void>`
 - [fw-select-option](../select-option)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-timepicker --> fw-select
@@ -132,6 +130,6 @@ graph TD;
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
