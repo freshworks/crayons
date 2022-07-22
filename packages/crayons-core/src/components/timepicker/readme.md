@@ -45,6 +45,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property           | Attribute           | Description                                                                                                                                                                                                                                                   | Type                                                                                                                                                                 | Default     |
@@ -66,8 +67,9 @@ function App() {
 | `required`         | `required`          | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.                                                                                                    | `boolean`                                                                                                                                                            | `false`     |
 | `sameWidth`        | `same-width`        | Whether the dropdown should be same width as that of the input.                                                                                                                                                                                               | `boolean`                                                                                                                                                            | `true`      |
 | `state`            | `state`             | Theme based on which the input of the timepicker is styled.                                                                                                                                                                                                   | `"error" \| "normal" \| "warning"`                                                                                                                                   | `'normal'`  |
-| `value`            | `value`             | The Time value. NOTE: The format of the value should match the format or locale attribute otherwise the value won't be selected in the dropdown.                                                                                                              | `string`                                                                                                                                                             | `undefined` |
+| `value`            | `value`             | The Time value. The value is always in the non meridian format i.e., HH:mm                                                                                                                                                                                    | `string`                                                                                                                                                             | `undefined` |
 | `warningText`      | `warning-text`      | Warning text displayed below the text box.                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `''`        |
+
 
 ## Events
 
@@ -76,6 +78,7 @@ function App() {
 | `fwBlur`   | Triggered when the list box loses focus.                                    | `CustomEvent<any>` |
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
+
 
 ## Methods
 
@@ -87,12 +90,15 @@ Sets focus on a specific `fw-timepicker`.
 
 Type: `Promise<void>`
 
+
+
+
 ## Dependencies
 
 ### Used by
 
-- [fw-datepicker](../datepicker)
-- [fw-form-control](../form-control)
+ - [fw-datepicker](../datepicker)
+ - [fw-form-control](../form-control)
 
 ### Depends on
 
@@ -100,7 +106,6 @@ Type: `Promise<void>`
 - [fw-select-option](../select-option)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-timepicker --> fw-select
@@ -130,6 +135,6 @@ graph TD;
   style fw-timepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks
