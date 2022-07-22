@@ -125,7 +125,7 @@ export class Timepicker {
   /**
    * Triggered when a value is selected or deselected from the list box options.
    */
-  @Event() fwChange: EventEmitter;
+  @Event({ cancelable: true }) fwChange: EventEmitter;
 
   /**
    * Triggered when the list box loses focus.
@@ -202,6 +202,9 @@ export class Timepicker {
         name: this.name,
         value: value,
       });
+    e.stopImmediatePropagation();
+    e.stopPropagation();
+    e.preventDefault();
   }
 
   /**
