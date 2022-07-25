@@ -20,8 +20,8 @@
     "react/"
   ],
   "scripts": {
-    "add:react": "npm run clean:react && npx mkdirp react",
     "add:css": "npm run clean:css && npx mkdirp css",
+    "add:react": "npm run clean:react && npx mkdirp react",
     "build": "npm run add:react  && npm run build:components && npm run build:react",
     "build:components": "stencil build --docs",
     "build:react": "npm run tscdisable && tsc --project tsconfig-react.json",
@@ -44,17 +44,20 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@stencil/sass": "^1.4.1",
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "@stencil/sass": "^1.4.1",
     "clean-css-cli": "^5.5.0",
     "jest": "^26.6.3",
     "jest-cli": "^26.6.3",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
+    "prepend-file": "^2.0.1",
     "puppeteer": "^10.0.0",
+    "react-output-target": "^0.0.9",
+    "rimraf": "^3.0.2",
     "typescript": "^4.5.5"
   },
   "license": "MIT",
