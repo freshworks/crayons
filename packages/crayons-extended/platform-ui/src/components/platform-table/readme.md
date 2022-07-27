@@ -20,6 +20,8 @@ The event detail will provide an array of selected rows unique id's `{selectedRo
 
 ## Demo
 
+A simple data table is shown below
+
 ```html live
 <fw-platform-table id="table"> </fw-platform-table>
 <script type="application/javascript">
@@ -82,6 +84,284 @@ The event detail will provide an array of selected rows unique id's `{selectedRo
   // Use your logic here to sort the data
   table.addEventListener('fwSort', (e) => {
     console.log(e.detail);
+  });
+</script>
+```
+
+A complex table can be created using slots
+
+```html live
+<div>
+  <fw-platform-table id="complex-table">
+    <fw-input
+      id="search-bar"
+      slot="toolbar-before"
+      placeholder="Search"
+      icon-left="search"
+      clear-input
+    ></fw-input>
+    <fw-button
+      id="filter-button"
+      size="normal"
+      slot="toolbar-after"
+      color="secondary"
+      style="--fw-button-min-width: 32px;"
+    >
+      <fw-icon slot="before-label" name="filter"></fw-icon>
+    </fw-button>
+  </fw-platform-table>
+  <fw-modal id="filter-slider" slider="true">
+    <fw-modal-title>Filter Character</fw-modal-title>
+    <fw-modal-content>
+      <fw-filter id="filter">
+        <div slot="filter-empty-state">No Filter selected</div>
+      </fw-filter>
+    </fw-modal-content>
+    <fw-modal-footer>
+      <fw-button id="reset" color="secondary">Reset</fw-button>
+      <fw-button id="apply">Apply</fw-button>
+    </fw-modal-footer>
+  </fw-modal>
+</div>
+<script type="application/javascript">
+  var page1 = [
+    {
+      id: 1,
+      name: 'Aang',
+      gender: 'Male',
+      ethnicity: 'Air Nomad',
+      weapon: 'The elements',
+    },
+    {
+      id: 2,
+      name: 'Appa',
+      gender: 'Male',
+      ethnicity: 'Air Nomad',
+      weapon: 'Airbending',
+    },
+    {
+      id: 3,
+      name: 'Katara',
+      gender: 'Female',
+      ethnicity: 'Water Tribe',
+      weapon: 'Waterbending',
+    },
+    {
+      id: 4,
+      name: 'Sokka',
+      gender: 'Male',
+      ethnicity: 'Water Tribe',
+      weapon: 'Boomerang',
+    },
+    {
+      id: 5,
+      name: 'Toph Beifong',
+      gender: 'Female',
+      ethnicity: 'Earth Kingdom',
+      weapon: 'Earthbending',
+    },
+  ];
+
+  var page2 = [
+    {
+      id: 6,
+      name: 'Iroh',
+      gender: 'Male',
+      ethnicity: 'Fire Nation',
+      weapon: 'Firebending',
+    },
+    {
+      id: 7,
+      name: 'Bumi',
+      gender: 'Male',
+      ethnicity: 'Earth Kingdom',
+      weapon: 'Earthbending',
+    },
+    {
+      id: 8,
+      name: 'Zuko',
+      gender: 'Male',
+      ethnicity: 'Fire Nation',
+      weapon: 'Firebending',
+    },
+    {
+      id: 9,
+      name: 'Azula',
+      gender: 'Female',
+      ethnicity: 'Fire Nation',
+      weapon: 'Firebending',
+    },
+  ];
+  var columns = [
+    {
+      key: 'name',
+      text: 'Name',
+    },
+    {
+      key: 'gender',
+      text: 'Gender',
+    },
+    {
+      key: 'ethnicity',
+      text: 'Ethnicity',
+    },
+    {
+      key: 'weapon',
+      text: 'Style',
+    },
+  ];
+  var sortableColumns = {
+    ethnicity: { text: 'Ethnicity' },
+    gender: { text: 'Gender' },
+    weapon: { text: 'Style' },
+  };
+
+  var gender = [
+    { text: 'Male', value: 'male' },
+    { text: 'Female', value: 'female' },
+  ];
+  var ethnicityData = [
+    { text: 'Fire Nation', value: '1' },
+    { text: 'Eath Kingdom', value: '2' },
+    { text: 'Water Tribe', value: '3' },
+    { text: 'Air Nomad', value: '4' },
+  ];
+
+  var conditionSchema = {
+    text: {
+      equals: { text: '=', type: 'TEXT', default: true },
+      is_empty: { text: 'Is empty' },
+    },
+    dropdown: {
+      equals: {
+        text: 'is',
+        type: 'DROPDOWN',
+        default: true,
+      },
+      is_empty: { text: 'Is empty' },
+    },
+    multiSelect: {
+      equals: {
+        text: 'is',
+        type: 'MULTI_SELECT',
+        default: true,
+      },
+    },
+  };
+
+  var filterSchema = {
+    name: { text: 'Name', type: 'text' },
+    gender: {
+      text: 'Gender',
+      type: 'dropdown',
+      controlProps: { options: gender, placeholder: 'choose a gender' },
+    },
+    ethnicity: {
+      text: 'Ethnicity',
+      type: 'multiSelect',
+      controlProps: { options: ethnicityData },
+    },
+  };
+
+  var complexTable = document.getElementById('complex-table');
+  complexTable.tableProps = { columns: columns, rows: page1 };
+
+  // Props for setting the sortable column and the default sorted column and its order 'ASC' or 'DSC'
+  complexTable.sortableColumns = sortableColumns;
+  complexTable.orderBy = 'role';
+  complexTable.order = 'ASC';
+  complexTable.paginationProps = { page: '1', perPage: '5', total: '10' };
+
+  // To delete the row - fwDelete will be triggered whenever user click on delete button
+  // Use your logic here to remove the data from the row
+  complexTable.addEventListener('fwDelete', (e) => {
+    console.log(e.detail.selectedRows);
+  });
+
+  // To sort the data - fwSort will be triggered whenever user click on sort button
+  // Use your logic here to sort the data
+  complexTable.addEventListener('fwSort', (e) => {
+    console.log(e.detail);
+  });
+
+  // fwPagination will be triggered whenever user navigates the pagination button
+  // Use your logic here to change the data
+  complexTable.addEventListener('fwPagination', (e) => {
+    console.log(e.detail);
+    if (e.detail.page == 2) {
+      complexTable.tableProps = { columns: columns, rows: page2 };
+      return;
+    }
+    complexTable.tableProps = { columns: columns, rows: page1 };
+  });
+
+  // To search the data - fwInput will be triggered whenever types in the search bar
+  // Use your logic here to search/filter the data
+  document.getElementById('search-bar').addEventListener('fwInput', (e) => {
+    console.log(e.detail);
+  });
+  // fwInputClear will be triggered whenever the user cancles the search, use this
+  // event to clear or reset the search
+  document
+    .getElementById('search-bar')
+    .addEventListener('fwInputClear', (e) => {
+      console.log(e.detail);
+    });
+
+  // Wring up logic for fw-filter
+  filterSlider = document.getElementById('filter-slider');
+  filter = document.getElementById('filter');
+  filterButton = document.getElementById('filter-button');
+  const node = document.createElement('span');
+
+  //Setting the data for the filter
+  filter.conditionSchema = conditionSchema;
+  filter.filters = filterSchema;
+  filter.addEventListener('fwFilterChange', (e) => {
+    console.log(e.detail);
+  });
+
+  filterButton.addEventListener('fwClick', (e) => {
+    // Open the filter
+    filterSlider.open();
+  });
+
+  // Listen to sumbit event in the filter. This will be triggered when the user click on
+  // the Apply button inside the slider.
+  document.getElementById('apply').addEventListener('click', () => {
+    //Get the value from the filter
+    filter
+      .getValue()
+      .then((filterValue) => {
+        console.log(filterValue);
+        let filterCount = Object.keys(filterValue).length;
+        if (filterCount > 0) {
+          // Display the filter count
+          node.innerText = `(${filterCount})`;
+          filterButton.appendChild(node);
+        } else {
+          // Remove the filter count
+          filterButton.lastChild.remove();
+        }
+      })
+      // catch error in the filter
+      .catch((e) => console.log(e));
+
+    //Close the slider
+    filterSlider.close();
+  });
+
+  // Logic to clear the filter
+  document.getElementById('reset').addEventListener('click', (e) => {
+    console.log('clear');
+    // Clear the filter
+    filter.clearFilter();
+
+    // Remove the filter count
+    filterButton.lastChild.remove();
+
+    // Close the slider
+    filterSlider.close();
   });
 </script>
 ```
@@ -174,4 +454,4 @@ graph TD;
 
 ---
 
-_Built with [StencilJS](https://stenciljs.com/)_
+Built with ❤ at Freshworks
