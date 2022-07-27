@@ -124,7 +124,7 @@ A complex table can be created using slots
   </fw-modal>
 </div>
 <script type="application/javascript">
-  var page1 = [
+  var charactersSource = [
     {
       id: 1,
       name: 'Aang',
@@ -160,9 +160,6 @@ A complex table can be created using slots
       ethnicity: 'Earth Kingdom',
       weapon: 'Earthbending',
     },
-  ];
-
-  var page2 = [
     {
       id: 6,
       name: 'Iroh',
@@ -192,6 +189,8 @@ A complex table can be created using slots
       weapon: 'Firebending',
     },
   ];
+
+  characters = charactersSource.sort((x) => (x.gender === 'Male' ? 1 : -1));
   var columns = [
     {
       key: 'name',
@@ -222,7 +221,7 @@ A complex table can be created using slots
   ];
   var ethnicityData = [
     { text: 'Fire Nation', value: '1' },
-    { text: 'Eath Kingdom', value: '2' },
+    { text: 'Earth Kingdom', value: '2' },
     { text: 'Water Tribe', value: '3' },
     { text: 'Air Nomad', value: '4' },
   ];
@@ -264,11 +263,11 @@ A complex table can be created using slots
   };
 
   var complexTable = document.getElementById('complex-table');
-  complexTable.tableProps = { columns: columns, rows: page1 };
+  complexTable.tableProps = { columns: columns, rows: characters.slice(0, 5) };
 
   // Props for setting the sortable column and the default sorted column and its order 'ASC' or 'DSC'
   complexTable.sortableColumns = sortableColumns;
-  complexTable.orderBy = 'role';
+  complexTable.orderBy = 'gender';
   complexTable.order = 'ASC';
   complexTable.paginationProps = { page: '1', perPage: '5', total: '10' };
 
@@ -279,20 +278,36 @@ A complex table can be created using slots
   });
 
   // To sort the data - fwSort will be triggered whenever user click on sort button
-  // Use your logic here to sort the data
   complexTable.addEventListener('fwSort', (e) => {
     console.log(e.detail);
+    // A sample logic here to sort the data. Replace it with your own logic if needed
+    const { orderBy, order } = e.detail;
+    characters = characters.sort((a, b) =>
+      order === 'ASC'
+        ? a[orderBy].localeCompare(b[orderBy])
+        : b[orderBy].localeCompare(a[orderBy])
+    );
+    complexTable.tableProps = {
+      columns: columns,
+      rows: characters.slice(0, 5),
+    };
   });
 
   // fwPagination will be triggered whenever user navigates the pagination button
-  // Use your logic here to change the data
   complexTable.addEventListener('fwPagination', (e) => {
     console.log(e.detail);
+    // A sample logic here for pagination. Replace it with your own logic if needed
     if (e.detail.page == 2) {
-      complexTable.tableProps = { columns: columns, rows: page2 };
+      complexTable.tableProps = {
+        columns: columns,
+        rows: characters.slice(5, 10),
+      };
       return;
     }
-    complexTable.tableProps = { columns: columns, rows: page1 };
+    complexTable.tableProps = {
+      columns: columns,
+      rows: characters.slice(0, 5),
+    };
   });
 
   // To search the data - fwInput will be triggered whenever types in the search bar
@@ -312,7 +327,7 @@ A complex table can be created using slots
   filterSlider = document.getElementById('filter-slider');
   filter = document.getElementById('filter');
   filterButton = document.getElementById('filter-button');
-  const node = document.createElement('span');
+  node = document.createElement('span');
 
   //Setting the data for the filter
   filter.conditionSchema = conditionSchema;
@@ -339,6 +354,36 @@ A complex table can be created using slots
           // Display the filter count
           node.innerText = `(${filterCount})`;
           filterButton.appendChild(node);
+
+          // Logic to filter the data
+          conditions = [];
+          for (const key in filterValue) {
+            let value = '';
+            if (typeof filterValue[key].value === 'string') {
+              value = filterValue[key].value;
+            } else {
+              value = filterValue[key].value.map((x) => x.text);
+            }
+            conditions.push({
+              key,
+              value,
+              operation: filterValue[key].condition,
+            });
+          }
+          characters = characters.filter((x) => {
+            const matches = conditions.filter((condition) => {
+              const { key, value, operation } = condition;
+              return typeof value === 'string'
+                ? compareString(x[key], value, operation)
+                : compareContains(x[key], value, operation);
+            });
+            return matches.length === conditions.length;
+          });
+
+          complexTable.tableProps = {
+            columns: columns,
+            rows: characters.slice(0, 5),
+          };
         } else {
           // Remove the filter count
           filterButton.lastChild.remove();
@@ -357,12 +402,37 @@ A complex table can be created using slots
     // Clear the filter
     filter.clearFilter();
 
+    // Reset the table data
+    characters = charactersSource.sort((x) => (x.gender === 'Male' ? 1 : -1));
+    complexTable.tableProps = {
+      columns: columns,
+      rows: characters.slice(0, 5),
+    };
+
     // Remove the filter count
     filterButton.lastChild.remove();
 
     // Close the slider
     filterSlider.close();
   });
+
+  // Filter Helper functions
+
+  function compareString(source, target, condition) {
+    if (condition === 'equals') {
+      return source === target;
+    } else if (condition === 'is_empty') {
+      return source === '';
+    }
+  }
+
+  function compareContains(source, target, condition) {
+    if (condition === 'equals') {
+      return target.includes(source);
+    } else if (condition === 'is_empty') {
+      return source === '';
+    }
+  }
 </script>
 ```
 
