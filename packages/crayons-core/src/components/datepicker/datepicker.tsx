@@ -1360,6 +1360,7 @@ export class Datepicker {
           fallbackPlacements={['top-start']}
           hide-on-tab='false'
           onFwHide={this.handlePopoverClose}
+          hoist
         >
           <div
             role='combobox'
