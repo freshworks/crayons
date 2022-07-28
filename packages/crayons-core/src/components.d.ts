@@ -256,6 +256,10 @@ export namespace Components {
          */
         "clearValue": () => Promise<void>;
         /**
+          * Make the datepicker box as disabled. Default `false`
+         */
+        "disabled": boolean;
+        /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */
         "displayFormat": string;
@@ -2515,6 +2519,10 @@ declare namespace LocalJSX {
           * Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`
          */
         "clearInput"?: boolean;
+        /**
+          * Make the datepicker box as disabled. Default `false`
+         */
+        "disabled"?: boolean;
         /**
           * Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.
          */

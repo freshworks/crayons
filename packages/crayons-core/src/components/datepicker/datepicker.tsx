@@ -181,6 +181,11 @@ export class Datepicker {
    * Make the input box as readonly. Default `false`
    */
   @Prop() readonly = false;
+
+  /**
+   * Make the datepicker box as disabled. Default `false`
+   */
+  @Prop() disabled = false;
   /**
    * Indicates if footer needs to be shown. Default `true`.
    */
@@ -836,11 +841,10 @@ export class Datepicker {
   };
 
   private _getValidDateInMonth(date, args) {
+    if (date < 0) {
+      return -1;
+    }
     if (this.minDate !== undefined && this.maxDate !== undefined) {
-      if (date < 0) {
-        return -1;
-      }
-
       const minDate = parseISO(this.minDate);
       const maxDate = parseISO(this.maxDate);
       if (!isValid(minDate) || !isValid(maxDate)) {
@@ -853,8 +857,28 @@ export class Datepicker {
         minDate.valueOf() <= argDate.valueOf() &&
         argDate.valueOf() <= maxDate.valueOf();
       return !isValidDate ? -1 : date >= args.numberOfDays ? 1 : 0;
+    } else if (this.minDate !== undefined) {
+      const minDate = parseISO(this.minDate);
+      if (!isValid(minDate)) {
+        // Invalid minDate provided.
+        return;
+      }
+      const argDate = new Date(args.year, args.month, date + 1);
+
+      const isValidDate = minDate.valueOf() <= argDate.valueOf();
+      return !isValidDate ? -1 : date >= args.numberOfDays ? 1 : 0;
+    } else if (this.maxDate !== undefined) {
+      const maxDate = parseISO(this.maxDate);
+      if (!isValid(maxDate)) {
+        // Invalid minDate or maxDate provided.
+        return;
+      }
+      const argDate = new Date(args.year, args.month, date + 1);
+
+      const isValidDate = maxDate.valueOf() >= argDate.valueOf();
+      return !isValidDate ? -1 : date >= args.numberOfDays ? 1 : 0;
     }
-    return date < 0 ? -1 : date >= args.numberOfDays ? 1 : 0;
+    return date >= args.numberOfDays ? 1 : 0;
   }
 
   private getMonthDetails = (year, month) => {
@@ -1342,8 +1366,8 @@ export class Datepicker {
             aria-controls='datepicker'
             aria-expanded={this.showDatePicker}
             tabindex='-1'
-            onClick={() => (this.showDatePicker = true)}
-            onKeyUp={() => (this.showDatePicker = true)}
+            onClick={() => !this.disabled && (this.showDatePicker = true)}
+            onKeyUp={() => !this.disabled && (this.showDatePicker = true)}
             slot='popover-trigger'
             style={{
               display: 'inline-flex',
@@ -1354,6 +1378,7 @@ export class Datepicker {
               value={this.value}
               name={this.name}
               class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
+              disabled={this.disabled}
               placeholder={this.placeholder}
               required={this.required}
               onFwBlur={this.onBlur}
