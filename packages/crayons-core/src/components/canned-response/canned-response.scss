@@ -1,6 +1,8 @@
 .query-container {
   --fw-input-height: 32px;
   margin: 0px;
+  width: 604px;
+  height: 374px;
   padding-block-end: 8px;
   // padding-inline: 8px;
   padding-block-start: 12px;
@@ -64,6 +66,10 @@
         &:hover {
           background: #e4edfb;
         }
+
+        &.d-none {
+          display: none;
+        }
       }
 
       .query-category-result-body {
@@ -73,7 +79,7 @@
         line-height: 20px;
         font-weight: $font-weight-400;
         color: $color-elephant-900;
-        padding: 0 18px;
+        padding: 0 22px;
         height: 44px;
 
         fw-button {
@@ -85,6 +91,10 @@
 
         &:hover {
           background: #e6e6e6;
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #e1e4e8;
         }
       }
 

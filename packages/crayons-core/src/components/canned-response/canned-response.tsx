@@ -13,12 +13,14 @@ export class ListOptions {
   private responsesDiv: HTMLElement;
   private container: HTMLElement;
 
-  @State() filteredOptions = [];
+  @State() filteredResponses = [];
+  @State() filteredResponseName = '';
   @State() selectOptions = [];
   @State() selectedOptionsState = [];
-  @State() isLoading = false;
+  @State() isSearching = false;
   @State() responses = [];
   @State() hasResponses = false;
+  @State() selectedResponse = {};
 
   /**
    * Value corresponding to the option, that is saved  when the form data is saved.
@@ -68,7 +70,7 @@ export class ListOptions {
         class={`query-category-list ${
           option.cannedResponseCount > 0 ? 'pointer' : ''
         } `}
-        onClick={() => this.handleClick()}
+        onClick={() => this.handleClick(option)}
       >
         <div class='query-category-list-inner'>
           {this.icon === 'folder' && (
@@ -86,53 +88,45 @@ export class ListOptions {
     ));
   }
 
-  handleClick() {
-    console.log('this.options', this.options);
+  handleClick(opt) {
+    this.selectedResponse = opt;
+    this.filteredResponseName = opt.categoryName;
+    this.filteredResponses = opt.cannedResponses;
     this.hasResponses = !this.hasResponses;
   }
 
   handleSearch(val) {
-    // let flag;
-    // this.options.forEach((item) => {
-    //   if (item.cannedResponseCount > 0) {
-    //     flag = item.cannedResponses.filter((resp) => {
-    //       return resp.message.messageFragments[0].content.includes(val);
-    //     });
-    //     console.log('flag-->', flag);
-    //   }
-    // });
-    // console.log('filtered data-->', flag);
-    // const a = this.options.map((item) => {
-    //   return {
-    //     ...item,
-    //     cannedResponses:
-    //       item.cannedResponseCount > 0 &&
-    //       item.cannedResponses.filter((resp) => {
-    //         return resp.message.messageFragments[0].content;
-    //       }),
-    //   };
-    // });
-    // console.log('filtered data-->', a);
-    const filteredArray = this.options
-      .filter(
-        (item) =>
-          item.cannedResponseCount > 0 &&
-          item.cannedResponses.some((resp) =>
-            resp.message.messageFragments[0].content.includes(val)
-          )
-      )
-      .map((element) => {
-        return Object.assign({}, element, {
-          cannedResponses: element.cannedResponses.filter((res) =>
-            res.message.messageFragments[0].content.includes(val)
-          ),
-        });
+    const a = [];
+    const flag = this.options.filter((item) => {
+      return item.cannedResponseCount > 0;
+    });
+    flag.forEach((item) => {
+      item.cannedResponses.forEach((item) => {
+        console.log(
+          'item.message.messageFragments[0].content--->',
+          item.message.messageFragments[0].content
+        );
+        item.message.messageFragments[0].content.toLowerCase().includes(val) &&
+          a.push(item);
       });
-    console.log('filteredArray-->', filteredArray);
+    });
+    if (a.length > 0 && val !== '') {
+      if (!this.hasResponses) this.hasResponses = true;
+      this.filteredResponses = a;
+      this.isSearching = true;
+    } else {
+      this.hasResponses = !this.hasResponses;
+      this.isSearching = !this.isSearching;
+    }
   }
 
   componentWillLoad() {
     this.responses = this.options;
+    this.selectedResponse = this.options.find((item) => {
+      return item.cannedResponseCount > 0;
+    });
+    this.filteredResponseName = this.selectedResponse['categoryName'];
+    this.filteredResponses = this.selectedResponse['cannedResponses'];
   }
 
   render() {
@@ -154,7 +148,9 @@ export class ListOptions {
           <fw-input
             ref={(searchInput) => (this.searchInput = searchInput)}
             placeholder={this.placeholder || ''}
-            onInput={() => this.handleSearch(this.searchInput.value)}
+            onInput={() =>
+              this.handleSearch(this.searchInput.value.toLowerCase())
+            }
           ></fw-input>
         </div>
         <div class='query-categories'>
@@ -166,17 +162,19 @@ export class ListOptions {
             ref={(responsesDiv) => (this.responsesDiv = responsesDiv)}
           >
             <div
-              class='query-category-result-header pointer'
-              onClick={() => this.handleClick()}
+              class={`query-category-result-header pointer ${this.isSearching ? 'd-none' : ''}`}
+              onClick={() => this.handleClick(this.selectedResponse)}
             >
               <fw-icon name='chevron-left' size={12}></fw-icon>
-              General
+              {this.filteredResponseName}
             </div>
-            <div class='query-category-result-body'>
-              How to signup
-              <fw-button size='small'> View </fw-button>
-              <fw-button size='small'> Add </fw-button>
-            </div>
+            {this.filteredResponses.map((resp) => (
+              <div class='query-category-result-body'>
+                {resp.title}
+                <fw-button size='small'> View </fw-button>
+                <fw-button size='small'> Add </fw-button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
