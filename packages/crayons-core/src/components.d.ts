@@ -99,6 +99,44 @@ export namespace Components {
     interface FwButtonGroup {
         "label": string;
     }
+    interface FwCannedResponse {
+        /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer": number;
+        /**
+          * icon name of the component.
+         */
+        "icon"?: string | null;
+        /**
+          * label of the component.
+         */
+        "label"?: string | null;
+        /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText": string;
+        /**
+          * Value corresponding to the option, that is saved  when the form data is saved.
+         */
+        "options": any[];
+        /**
+          * Text displayed in the text box before a user enters a value.
+         */
+        "placeholder"?: string | null;
+        /**
+          * Placeholder to placed on the search text box.
+         */
+        "searchText": string;
+        /**
+          * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions": any[];
+        /**
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "value": any;
+    }
     interface FwCheckbox {
         /**
           * Sets the state of the check box to selected. If the attribute’s value is undefined, the value is set to false.
@@ -1926,6 +1964,12 @@ declare global {
         prototype: HTMLFwButtonGroupElement;
         new (): HTMLFwButtonGroupElement;
     };
+    interface HTMLFwCannedResponseElement extends Components.FwCannedResponse, HTMLStencilElement {
+    }
+    var HTMLFwCannedResponseElement: {
+        prototype: HTMLFwCannedResponseElement;
+        new (): HTMLFwCannedResponseElement;
+    };
     interface HTMLFwCheckboxElement extends Components.FwCheckbox, HTMLStencilElement {
     }
     var HTMLFwCheckboxElement: {
@@ -2227,6 +2271,7 @@ declare global {
         "fw-avatar": HTMLFwAvatarElement;
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
+        "fw-canned-response": HTMLFwCannedResponseElement;
         "fw-checkbox": HTMLFwCheckboxElement;
         "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
         "fw-custom-cell-icon": HTMLFwCustomCellIconElement;
@@ -2377,6 +2422,44 @@ declare namespace LocalJSX {
     }
     interface FwButtonGroup {
         "label"?: string;
+    }
+    interface FwCannedResponse {
+        /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer"?: number;
+        /**
+          * icon name of the component.
+         */
+        "icon"?: string | null;
+        /**
+          * label of the component.
+         */
+        "label"?: string | null;
+        /**
+          * Text to be displayed when there is no data available in the select.
+         */
+        "noDataText"?: string;
+        /**
+          * Value corresponding to the option, that is saved  when the form data is saved.
+         */
+        "options"?: any[];
+        /**
+          * Text displayed in the text box before a user enters a value.
+         */
+        "placeholder"?: string | null;
+        /**
+          * Placeholder to placed on the search text box.
+         */
+        "searchText"?: string;
+        /**
+          * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions"?: any[];
+        /**
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "value"?: any;
     }
     interface FwCheckbox {
         /**
@@ -4229,6 +4312,7 @@ declare namespace LocalJSX {
         "fw-avatar": FwAvatar;
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
+        "fw-canned-response": FwCannedResponse;
         "fw-checkbox": FwCheckbox;
         "fw-custom-cell-anchor": FwCustomCellAnchor;
         "fw-custom-cell-icon": FwCustomCellIcon;
@@ -4290,6 +4374,7 @@ declare module "@stencil/core" {
             "fw-avatar": LocalJSX.FwAvatar & JSXBase.HTMLAttributes<HTMLFwAvatarElement>;
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
+            "fw-canned-response": LocalJSX.FwCannedResponse & JSXBase.HTMLAttributes<HTMLFwCannedResponseElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
             "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
             "fw-custom-cell-icon": LocalJSX.FwCustomCellIcon & JSXBase.HTMLAttributes<HTMLFwCustomCellIconElement>;

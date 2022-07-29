@@ -1,0 +1,130 @@
+.query-container {
+  --fw-input-height: 32px;
+  margin: 0px;
+  width: 604px;
+  height: 374px;
+  padding-block-end: 8px;
+  // padding-inline: 8px;
+  padding-block-start: 12px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.08);
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+
+  .query-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 0 24px;
+    font-size: $font-size-16;
+    line-height: 24px;
+    font-weight: $font-weight-700;
+    color: $color-elephant-900;
+  }
+
+  .query-close {
+    span {
+      margin-left: 6px;
+      font-size: $font-size-12;
+      line-height: 16px;
+      font-weight: $font-weight-400;
+      color: $color-smoke-700;
+    }
+  }
+
+  .query-search-box {
+    padding: 18px 24px 28px 24px;
+  }
+
+  .query-categories {
+    position: relative;
+    overflow: scroll;
+
+    .query-category-results {
+      display: none;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: #ffffff;
+      line-height: 20px;
+      font-weight: $font-weight-400;
+      color: $color-elephant-900;
+
+      .query-category-result-header {
+        padding: 8px 18px;
+        display: flex;
+        align-items: center;
+        font-weight: $font-weight-500;
+
+        fw-icon {
+          margin-right: 7px;
+        }
+
+        &:hover {
+          background: #e4edfb;
+        }
+      }
+
+      .query-category-result-body {
+        display: flex;
+        align-items: center;
+        font-size: $font-size-14;
+        line-height: 20px;
+        font-weight: $font-weight-400;
+        color: $color-elephant-900;
+        padding: 0 18px;
+        height: 44px;
+
+        fw-button {
+          &:first-child {
+            margin-left: auto;
+            margin-right: 12px;
+          }
+        }
+
+        &:hover {
+          background: #e6e6e6;
+        }
+      }
+
+      &.opened {
+        display: block;
+      }
+    }
+  }
+
+  .query-category-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: $font-size-14;
+    line-height: 20px;
+    font-weight: $font-weight-400;
+    color: $color-elephant-900;
+    padding: 0 18px;
+    height: 44px;
+
+    &:hover {
+      background: #e6e6e6;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #e1e4e8;
+    }
+
+    .query-category-list-inner {
+      display: flex;
+    }
+
+    .query-category-label {
+      margin-left: 14px;
+    }
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}

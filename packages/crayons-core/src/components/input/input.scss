@@ -92,7 +92,7 @@ $warning-color: $color-casablanca-300;
         border: none;
         outline: none;
         box-shadow: none;
-        min-height: 24px;
+        min-height: var(--fw-input-height, 24px);
         font-size: $font-size-14;
         font-weight: $font-weight-semibold;
         letter-spacing: 0;
