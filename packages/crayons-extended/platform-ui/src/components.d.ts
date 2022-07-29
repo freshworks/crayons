@@ -6,6 +6,24 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface FwCoExport {
+        "close": () => Promise<boolean>;
+        /**
+          * The value to show the modal or close
+         */
+        "isOpen": boolean;
+        "open": () => Promise<boolean>;
+        /**
+          * The value to populate the export details in json format
+         */
+        "value": any;
+    }
+    interface FwCoExportField {
+        /**
+          * The value to populate the details of the checkbox field
+         */
+        "value": any;
+    }
     interface FwDateCondition {
         /**
           * The props to be passed to the crayons component.
@@ -437,6 +455,18 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFwCoExportElement extends Components.FwCoExport, HTMLStencilElement {
+    }
+    var HTMLFwCoExportElement: {
+        prototype: HTMLFwCoExportElement;
+        new (): HTMLFwCoExportElement;
+    };
+    interface HTMLFwCoExportFieldElement extends Components.FwCoExportField, HTMLStencilElement {
+    }
+    var HTMLFwCoExportFieldElement: {
+        prototype: HTMLFwCoExportFieldElement;
+        new (): HTMLFwCoExportFieldElement;
+    };
     interface HTMLFwDateConditionElement extends Components.FwDateCondition, HTMLStencilElement {
     }
     var HTMLFwDateConditionElement: {
@@ -540,6 +570,8 @@ declare global {
         new (): HTMLFwWidgetCustomizeFieldItemElement;
     };
     interface HTMLElementTagNameMap {
+        "fw-co-export": HTMLFwCoExportElement;
+        "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
         "fw-fb-field-dropdown": HTMLFwFbFieldDropdownElement;
         "fw-fb-field-dropdown-item": HTMLFwFbFieldDropdownItemElement;
@@ -560,6 +592,34 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FwCoExport {
+        /**
+          * The value to show the modal or close
+         */
+        "isOpen"?: boolean;
+        /**
+          * Triggered whenever the cancel/close button is selected
+         */
+        "onFwCloseExport"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered whenever the export button is selected
+         */
+        "onFwExport"?: (event: CustomEvent<any>) => void;
+        /**
+          * The value to populate the export details in json format
+         */
+        "value"?: any;
+    }
+    interface FwCoExportField {
+        /**
+          * Triggered whenever the export button is selected
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * The value to populate the details of the checkbox field
+         */
+        "value"?: any;
+    }
     interface FwDateCondition {
         /**
           * The props to be passed to the crayons component.
@@ -1063,6 +1123,8 @@ declare namespace LocalJSX {
         "selected"?: boolean;
     }
     interface IntrinsicElements {
+        "fw-co-export": FwCoExport;
+        "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
         "fw-fb-field-dropdown": FwFbFieldDropdown;
         "fw-fb-field-dropdown-item": FwFbFieldDropdownItem;
@@ -1086,6 +1148,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
+            "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;
             "fw-fb-field-dropdown": LocalJSX.FwFbFieldDropdown & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownElement>;
             "fw-fb-field-dropdown-item": LocalJSX.FwFbFieldDropdownItem & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownItemElement>;

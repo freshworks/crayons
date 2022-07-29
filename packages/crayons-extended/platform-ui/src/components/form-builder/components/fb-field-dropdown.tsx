@@ -13,7 +13,7 @@ import {
   deepCloneObject,
   hasCustomProperty,
   i18nText,
-} from './utils/form-builder-utils';
+} from '../utils/form-builder-utils';
 
 @Component({
   tag: 'fw-fb-field-dropdown',

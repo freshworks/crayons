@@ -140,11 +140,11 @@
 
   .form-builder-right-panel {
     width: 70%;
-    height: 100%;
     padding: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     background: $color-milk;
 
     .form-builder-right-panel-header {
@@ -182,7 +182,7 @@
         }
 
         .form-builder-right-panel-header-right-div {
-          width: auto;
+          width: 100%;
           height: 100%;
           box-sizing: border-box;
           display: flex;
@@ -191,7 +191,8 @@
           gap: 20px;
 
           .form-builder-right-panel-header-search-input {
-            width: 344px;
+            max-width: 344px;
+            width: calc(100% - 250px);
           }
         }
       }
@@ -206,7 +207,7 @@
 
     .form-builder-right-panel-list-container {
       width: 100%;
-      height: calc(100% - 32px - 20px);
+      height: calc(100% - 64px - 20px);
       padding-block: 4px $form-builder-field-details-padding-left;
       padding-inline: $form-builder-field-details-padding-right
         $form-builder-field-details-padding-left;

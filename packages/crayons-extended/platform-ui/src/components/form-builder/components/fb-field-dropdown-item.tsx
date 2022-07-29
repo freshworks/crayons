@@ -9,7 +9,7 @@ import {
   EventEmitter,
   Event,
 } from '@stencil/core';
-import { hasCustomProperty, i18nText } from './utils/form-builder-utils';
+import { hasCustomProperty, i18nText } from '../utils/form-builder-utils';
 
 @Component({
   tag: 'fw-fb-field-dropdown-item',

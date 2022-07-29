@@ -14,8 +14,8 @@ import {
   hasCustomProperty,
   i18nText,
   isUniqueField,
-} from './utils/form-builder-utils';
-import presetSchema from './assets/form-builder-preset.json';
+} from '../utils/form-builder-utils';
+import presetSchema from '../assets/form-builder-preset.json';
 
 @Component({
   tag: 'fw-fb-field-lookup',

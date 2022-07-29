@@ -1,5 +1,5 @@
-@import '../../../../../../styles/mixins/typography';
-@import './styles/variables/form-builder-style-utils.scss';
+@import '../../../../../../../styles/mixins/typography';
+@import '../styles/variables/form-builder-style-utils.scss';
 
 :host {
   display: inline-block;
@@ -101,6 +101,7 @@
         gap: 10px;
 
         .fw-field-editor-content-fw-label {
+          width: max-content;
           border: none;
         }
       }
