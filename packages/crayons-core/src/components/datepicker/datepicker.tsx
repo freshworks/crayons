@@ -302,43 +302,45 @@ export class Datepicker {
       return {
         fromDate:
           (this.startDate &&
-            format(
-              parse(this.startDate, this.displayFormat, new Date(), {
-                locale: this.langModule,
-              }),
-              this.displayFormat,
-              {
-                locale: this.langModule,
-              }
+            formatISO(
+              parse(
+                format(new Date(this.startDate), this.displayFormat, {
+                  locale: this.langModule,
+                }),
+                this.displayFormat,
+                new Date(),
+                {
+                  locale: this.langModule,
+                }
+              )
             )) ||
           undefined,
         toDate:
           (this.endDate &&
-            format(
-              parse(this.endDate, this.displayFormat, new Date(), {
-                locale: this.langModule,
-              }),
-              this.displayFormat,
-              {
-                locale: this.langModule,
-              }
+            formatISO(
+              parse(
+                format(new Date(this.endDate), this.displayFormat, {
+                  locale: this.langModule,
+                }),
+                this.displayFormat,
+                new Date(),
+                {
+                  locale: this.langModule,
+                }
+              )
             )) ||
           undefined,
       };
     }
-    return this.displayFormat
-      ? (this.value &&
-          format(
-            parse(this.value, this.displayFormat, new Date(), {
-              locale: this.langModule,
-            }),
-            this.displayFormat,
-            {
-              locale: this.langModule,
-            }
-          )) ||
-          undefined
-      : (this.value && formatISO(new Date(this.value))) || undefined;
+    return (
+      (this.value &&
+        formatISO(
+          parse(this.value, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          })
+        )) ||
+      undefined
+    );
   }
 
   /**
