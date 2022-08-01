@@ -109,6 +109,7 @@ color="yellow"
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property        | Attribute        | Description                                                                                                                                                    | Type                               | Default                    |
@@ -138,12 +139,14 @@ color="yellow"
 | `value`         | `value`          | Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.                                      | `string`                           | `undefined`                |
 | `warningText`   | `warning-text`   | Warning text displayed below the text box.                                                                                                                     | `string`                           | `''`                       |
 
+
 ## Events
 
 | Event      | Description                               | Type               |
 | ---------- | ----------------------------------------- | ------------------ |
 | `fwBlur`   | Triggered when the input box loses focus. | `CustomEvent<any>` |
 | `fwChange` | Triggered when the update button clicked  | `CustomEvent<any>` |
+
 
 ## Methods
 
@@ -155,6 +158,8 @@ Clears the input value and unselects selected date.
 
 Type: `Promise<void>`
 
+
+
 ### `getValue() => Promise<string | { fromDate: string; toDate: string; }>`
 
 Returns the date value in ISO format.
@@ -163,6 +168,8 @@ Returns the date value in ISO format.
 
 Type: `Promise<string | { fromDate: string; toDate: string; }>`
 
+
+
 ### `setFocus() => Promise<void>`
 
 Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
@@ -170,6 +177,9 @@ Sets focus on a specific `fw-datepicker`. Use this method instead of the global 
 #### Returns
 
 Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 
@@ -180,11 +190,12 @@ Type: `Promise<void>`
 | `--fw-label-color`   | Color of the label.        |
 | `--fw-warning-color` | Color of the warning text. |
 
+
 ## Dependencies
 
 ### Used by
 
-- [fw-form-control](../form-control)
+ - [fw-form-control](../form-control)
 
 ### Depends on
 
@@ -196,7 +207,6 @@ Type: `Promise<void>`
 - [fw-select](../select)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-datepicker --> fw-select-option
@@ -229,6 +239,6 @@ graph TD;
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks
