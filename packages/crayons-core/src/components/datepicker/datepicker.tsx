@@ -327,7 +327,15 @@ export class Datepicker {
           undefined,
       };
     }
-    return (this.value && formatISO(new Date(this.value))) || undefined;
+    return (
+      (this.value &&
+        formatISO(
+          parse(this.value, this.displayFormat, new Date(), {
+            locale: this.langModule,
+          })
+        )) ||
+      undefined
+    );
   }
 
   /**
