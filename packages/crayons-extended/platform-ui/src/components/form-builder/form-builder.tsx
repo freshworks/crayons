@@ -19,6 +19,7 @@ import {
   isUniqueField,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
+import { debounce } from '../../utils/utils';
 
 @Component({
   tag: 'fw-form-builder',
@@ -29,6 +30,7 @@ export class FormBuilder {
   @Element() host!: HTMLElement;
 
   private fieldEditorPanel!: any;
+  private debouncedHandleInput: any;
   private modalCustomizeWidget!: any;
   private isWidgetValuesChanged = false;
   private supportedFieldTypes;
@@ -192,6 +194,7 @@ export class FormBuilder {
   }
 
   componentWillLoad(): void {
+    this.initializeSearchDebounce();
     this.watchFormValuesChangeHandler();
     this.supportedFieldTypes = [
       'TEXT',
@@ -208,6 +211,7 @@ export class FormBuilder {
   }
 
   disconnectedCallback(): void {
+    this.debouncedHandleInput = null;
     this.removeResizeObserver();
   }
 
@@ -334,6 +338,12 @@ export class FormBuilder {
     });
     this.resizeObserver.observe(this.fieldEditorPanel);
     this.composeNewField(event.detail.value, { ...event.detail.data });
+  };
+
+  private initializeSearchDebounce = () => {
+    if (!this.debouncedHandleInput) {
+      this.debouncedHandleInput = debounce(this.searchChangeHandler, this);
+    }
   };
 
   private searchChangeHandler = (event: CustomEvent) => {
@@ -740,7 +750,7 @@ export class FormBuilder {
                     clear-input
                     icon-left='search'
                     placeholder={i18nText('searchFields')}
-                    onFwInput={this.searchChangeHandler}
+                    onFwInput={this.debouncedHandleInput}
                     onFwInputClear={this.clearSearchHandler}
                     class={`${strBaseClassName}-right-panel-header-search-input`}
                   ></fw-input>
