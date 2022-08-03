@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0...@freshworks/crayons@3.6.0-beta.0) (2022-08-01)
+
+### Bug Fixes
+
+- **checkbox-style-fix:** checkbox vertical align style fix ([#643](https://github.com/freshworks/crayons/issues/643)) ([796e913](https://github.com/freshworks/crayons/commit/796e9130a66383c3b96ed047a7ab55c30f791139))
+- **checkbox:** align check icon within checkbox ([#633](https://github.com/freshworks/crayons/issues/633)) ([aaebdcc](https://github.com/freshworks/crayons/commit/aaebdcce0ca5b7a29b6c2bdb2a00ab1b2007cf77))
+- **datepicker:** emit ISO formatted string ([#650](https://github.com/freshworks/crayons/issues/650)) ([374891d](https://github.com/freshworks/crayons/commit/374891d5065a11f8d65727b2feb3d1f25d3360d8))
+- **datepicker:** handle min date, max date ([#651](https://github.com/freshworks/crayons/issues/651)) ([8e15b2b](https://github.com/freshworks/crayons/commit/8e15b2bfb609033dfd6a9dc65d95e6bda18a85a6))
+- **rtl:** fixing popovers placement when direction is rtl ([#627](https://github.com/freshworks/crayons/issues/627)) ([21cc60d](https://github.com/freshworks/crayons/commit/21cc60d6d633b649549ddf718613c54ba029e5b9))
+
+### Features
+
+- **fw-form:** Add a method to get form values and emit an event on value change ([#645](https://github.com/freshworks/crayons/issues/645)) ([8d1ca23](https://github.com/freshworks/crayons/commit/8d1ca23e0d0adbfb7aadac82b221716e76a22715))
+- **rtl:** add linter for css physical properties ([571487b](https://github.com/freshworks/crayons/commit/571487bdb551483977efc19f44f09e6a271de917))
+- **rtl:** fix review comments ([4899955](https://github.com/freshworks/crayons/commit/4899955d4d73075d14d1becd53f32f53684ef848))
+- **rtl:** Initial RTL implementation with logical components and RTLCSS ([#621](https://github.com/freshworks/crayons/issues/621)) ([1d0efb5](https://github.com/freshworks/crayons/commit/1d0efb51e1138cf59db6a016694842ff97b7bc08))
+- **rtl:** update mixins with logical properties ([14e9776](https://github.com/freshworks/crayons/commit/14e977613d530d018771ce30e46dc41d8c2d77c5))
+
 ## [3.5.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0-beta.1...@freshworks/crayons@3.5.0-beta.2) (2022-05-31)
 
 ### Bug Fixes

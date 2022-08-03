@@ -136,6 +136,7 @@ export class InlineMessage {
         <div class={'alert ' + 'alert--' + this.type}>
           <span class='alert__icon'>
             <fw-icon
+              size={16}
               name={iconMap[this.type]}
               color={iconColorMap[this.type]}
             ></fw-icon>

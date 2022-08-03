@@ -8,7 +8,11 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 
 ```html live
 <fw-label value="Single date picker" color="yellow"></fw-label><br />
-<fw-datepicker value="2021-12-02" display-format="dd-MM-yyyy"></fw-datepicker>
+<fw-datepicker
+  id="date1"
+  value="2021-12-02"
+  display-format="dd-MM-yyyy"
+></fw-datepicker>
 <fw-label value="A date range picker" color="yellow"></fw-label><br />
 <fw-datepicker
   mode="range"
@@ -27,6 +31,12 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 <fw-datepicker show-footer="false" clear-input></fw-datepicker>
 <fw-label value="Date picker with locale" color="yellow"></fw-label><br />
 <fw-datepicker locale="fr"></fw-datepicker>
+<script type="text/javascript">
+  // Get the selected date using fwChange listener.
+  document
+    .querySelector('#date1')
+    .addEventListener('fwChange', (e) => console.log(e.detail.value));
+</script>
 ```
 
 ## Usage
@@ -35,7 +45,7 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 <code-block title="HTML">
 ```html
 <fw-label value="Single date picker" color="yellow"></fw-label><br/>
-<fw-datepicker value="2021-12-02" display-format="DD-MM-YYYY"></fw-datepicker>
+<fw-datepicker id="date1" value="2021-12-02" display-format="DD-MM-YYYY"></fw-datepicker>
 <fw-label value="A date range picker" color="yellow"></fw-label><br/>
 <fw-datepicker
   mode="range"
@@ -54,6 +64,12 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 <fw-datepicker show-footer="false" clear-input></fw-datepicker>
 <fw-label value="Date picker with locale" color="yellow"></fw-label><br />
 <fw-datepicker locale="fr"></fw-datepicker>
+<script type="text/javascript">
+  // Get the selected date using fwChange listener.
+  document
+    .querySelector('#date1')
+    .addEventListener('fwChange', (e) => console.log(e.detail.value));
+</script>
 ```
 </code-block>
 
@@ -63,24 +79,28 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { FwLabel, FwDatepicker } from "@freshworks/crayons/react";
 function App() {
-  return (<div>
-    <label>Single date picker</label><br/>
-    <FwDatepicker value="2021-12-02" display-format="dd-MM-yyyy"></FwDatepicker>
-    <label>A date range picker</label><br/>
-    <FwDatepicker mode="range"
+
+var getSelectedDate = function(e) {
+console.log(e.detail.value);
+}
+
+return (<div>
+<label>Single date picker</label><br/>
+<FwDatepicker value="2021-12-02" display-format="dd-MM-yyyy" onFwChange={getSelectedDate}></FwDatepicker>
+<label>A date range picker</label><br/>
+<FwDatepicker mode="range"
   from-date="2022-01-02"
   to-date="2022-01-04"
   display-format="DD-MM-YYYY"></FwDatepicker>
-  <FwLabel value="Date picker with readonly attribute" color="yellow"></FwLabel><br />
-  <FwDatepicker readonly></FwDatepicker>
-  <FwLabel
-  value="Date picker with show-footer and clear-input attributes"
-  color="yellow"
-></FwLabel
-><br />
-<FwDatepicker showFooter={false} clearInput></FwDatepicker>
-  <label value="Date picker with locale" color="yellow"></label><br />
-  <FwDatepicker locale="fr"></FwDatepicker>
+<FwLabel value="Date picker with readonly attribute" color="yellow"></FwLabel><br />
+<FwDatepicker readonly></FwDatepicker>
+<FwLabel
+value="Date picker with show-footer and clear-input attributes"
+color="yellow"
+
+> </FwLabel
+> <br /> > <FwDatepicker showFooter={false} clearInput></FwDatepicker> > <label value="Date picker with locale" color="yellow"></label><br /> > <FwDatepicker locale="fr"></FwDatepicker>
+
   </div>)
 }
 ```
@@ -96,6 +116,7 @@ function App() {
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
 | `cancelText`    | `cancel-text`    |                                                                                                                                                                | `string`                           | `''`                       |
 | `clearInput`    | `clear-input`    | Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`                                                                     | `boolean`                          | `false`                    |
+| `disabled`      | `disabled`       | Make the datepicker box as disabled. Default `false`                                                                                                           | `boolean`                          | `false`                    |
 | `displayFormat` | `display-format` | Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.                       | `string`                           | `undefined`                |
 | `errorText`     | `error-text`     | Error text displayed below the text box.                                                                                                                       | `string`                           | `''`                       |
 | `fromDate`      | `from-date`      | Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format. | `string`                           | `undefined`                |
