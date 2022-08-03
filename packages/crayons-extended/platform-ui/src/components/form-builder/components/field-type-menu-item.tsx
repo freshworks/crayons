@@ -9,7 +9,7 @@ import {
   h,
   Host,
 } from '@stencil/core';
-import { i18nText } from './utils/form-builder-utils';
+import { i18nText } from '../utils/form-builder-utils';
 
 @Component({
   tag: 'fw-field-type-menu-item',

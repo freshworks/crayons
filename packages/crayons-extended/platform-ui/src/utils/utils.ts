@@ -23,3 +23,13 @@ export const handleKeyDown =
       handler(event);
     }
   };
+
+export const debounce = (fn, context, timeout = 1000) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(context, args);
+    }, timeout);
+  };
+};
