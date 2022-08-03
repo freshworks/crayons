@@ -112,6 +112,181 @@ Whenever the user selected or removes an FILTER_KEY, the component will emit the
 </script>
 ```
 
+<code-group>
+<code-block title="HTML">
+```html
+<fw-filter id="filter"> </fw-filter>
+<fw-button id="submit"> Filter</fw-button>
+<script type="application/javascript">
+  var gender = [
+    { text: 'Male', value: 'male' },
+    { text: 'Female', value: 'female' },
+  ];
+  var symptoms = [
+    { text: 'Nausea', value: '1' },
+    { text: 'Fever', value: '2' },
+    { text: 'Cough', value: '3' },
+  ];
+  var conditionSchema = {
+    number: {
+      equals: { text: '=', type: 'NUMBER', default: true },
+      gt: { text: '>', type: 'NUMBER' },
+      lt: { text: '<', type: 'NUMBER' },
+      gte: { text: '>=', type: 'NUMBER' },
+      lte: { text: '<=', type: 'NUMBER' },
+      between: { text: 'between', type: 'NUMBER_RANGE' },
+      is_empty: { text: 'Is empty' },
+    },
+    text: {
+      equals: { text: '=', type: 'TEXT', default: true },
+      is_empty: { text: 'Is empty' },
+    },
+    dropdown: {
+      equals: {
+        text: 'is',
+        type: 'DROPDOWN',
+        default: true,
+      },
+      is_empty: { text: 'Is empty' },
+    },
+    date: {
+      on: { text: 'On', type: 'DATE', default: true },
+      after: { text: 'After', type: 'DATE' },
+      before: { text: 'Before', type: 'DATE' },
+      isBetween: { text: 'Between', type: 'DATE_RANGE' },
+    },
+    symptoms: {
+      equals: {
+        text: 'is',
+        type: 'MULTI_SELECT',
+        default: true,
+      },
+    },
+  };
+  var filterSchema = {
+    user_name: { text: 'Name', type: 'text' },
+    user_age: { text: 'Age', type: 'number' },
+    user_gender: {
+      text: 'Gender',
+      type: 'dropdown',
+      controlProps: { options: gender, placeholder: 'choose a gender' },
+    },
+    user_date: { text: 'Appointment Date', type: 'date' },
+    user_symptoms: {
+      text: 'Symptoms',
+      type: 'symptoms',
+      controlProps: { options: symptoms },
+    },
+  };
+  var filter = document.getElementById('filter');
+  filter.conditionSchema = conditionSchema;
+  filter.filters = filterSchema;
+  filter.addEventListener('fwFilterChange', (e) => {
+    console.log(e.detail);
+  });
+  document.querySelector('#submit').addEventListener('click', () => {
+    filter.getValue().then((x) => console.log(x));
+  });
+</script>
+````
+</code-block>
+
+<code-block title="React">
+```jsx
+import React, { useRef } from 'react'
+import { FwButton } from '@freshworks/crayons/react'
+import { FwFilter } from '@freshworks/platform-ui/react'
+var gender = [
+    { text: 'Male', value: 'male' },
+    { text: 'Female', value: 'female' },
+];
+var symptoms = [
+    { text: 'Nausea', value: '1' },
+    { text: 'Fever', value: '2' },
+    { text: 'Cough', value: '3' },
+];
+var conditionSchema = {
+    number: {
+        equals: { text: '=', type: 'NUMBER', default: true },
+        gt: { text: '>', type: 'NUMBER' },
+        lt: { text: '<', type: 'NUMBER' },
+        gte: { text: '>=', type: 'NUMBER' },
+        lte: { text: '<=', type: 'NUMBER' },
+        between: { text: 'between', type: 'NUMBER_RANGE' },
+        is_empty: { text: 'Is empty' },
+    },
+    text: {
+        equals: { text: '=', type: 'TEXT', default: true },
+        is_empty: { text: 'Is empty' },
+    },
+    dropdown: {
+        equals: {
+            text: 'is',
+            type: 'DROPDOWN',
+            default: true,
+        },
+        is_empty: { text: 'Is empty' },
+    },
+    date: {
+        on: { text: 'On', type: 'DATE', default: true },
+        after: { text: 'After', type: 'DATE' },
+        before: { text: 'Before', type: 'DATE' },
+        isBetween: { text: 'Between', type: 'DATE_RANGE' },
+    },
+    symptoms: {
+        equals: {
+            text: 'is',
+            type: 'MULTI_SELECT',
+            default: true,
+        },
+    },
+};
+var filterSchema = {
+    user_name: { text: 'Name', type: 'text' },
+    user_age: { text: 'Age', type: 'number' },
+    user_gender: {
+        text: 'Gender',
+        type: 'dropdown',
+        controlProps: { options: gender, placeholder: 'choose a gender' },
+    },
+    user_date: { text: 'Appointment Date', type: 'date' },
+    user_symptoms: {
+        text: 'Symptoms',
+        type: 'symptoms',
+        controlProps: { options: symptoms },
+    },
+};
+const FilterExample = () => {
+    const filterRef = useRef(null);
+    const filterChangeHandler = (event) => {
+        // Triggered whenever user adds or removes a filter
+        console.log(event.detail);
+    }
+    const filterSelectionHandler = () => {
+        //Get the value from the filter
+        filterRef.current
+            .getValue()
+            .then((filterValue) => {
+                console.log(filterValue)
+            })
+    }
+    const filterResetHandler = () => {
+        // Clear the filter 
+        filterRef.current.clearFilter();
+    }
+    return (
+        <>
+            <FwFilter ref={filterRef} conditionSchema={conditionSchema} filters={filterSchema}
+                onFwFilterChange={filterChangeHandler} />
+            <FwButton onFwClick={filterResetHandler} color="secondary">Reset</FwButton>
+            <FwButton onFwClick={filterSelectionHandler} >Apply</FwButton>
+        </>
+    )
+}
+export default FilterExample
+```
+</code-block>
+</code-group>
 <!-- Auto Generated Below -->
 
 ## Properties
