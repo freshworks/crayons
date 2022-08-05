@@ -121,6 +121,10 @@ export class Timepicker {
    * Whether clicking on the already selected option disables it.
    */
   @Prop() allowDeselect = true;
+  /**
+   * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+   */
+  @Prop() readonly = false;
 
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -271,6 +275,7 @@ export class Timepicker {
         caret={this.caret}
         sameWidth={this.sameWidth}
         allowDeselect={this.allowDeselect}
+        readonly={this.readonly}
       >
         {this.timeValues.map((time) => (
           <fw-select-option value={this.currentTimeValue(time)}>

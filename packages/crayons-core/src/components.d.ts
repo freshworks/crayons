@@ -328,7 +328,7 @@ export namespace Components {
          */
         "showFooter": boolean;
         /**
-          * Whether the time-picker should be shown in the date-picker.
+          * Whether the time-picker should be shown in the date-picker. Supports single date picker only.
          */
         "showTimePicker": boolean;
         /**
@@ -340,7 +340,7 @@ export namespace Components {
          */
         "timeFormat": string;
         /**
-          * The props for the time picker.
+          * The props for the time picker. Refer the fw-timepicker for valid format.
          */
         "timeProps": {};
         /**
@@ -1696,6 +1696,10 @@ export namespace Components {
          */
         "placeholder"?: string | null;
         /**
+          * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+         */
+        "readonly": boolean;
+        /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required": boolean;
@@ -2612,7 +2616,7 @@ declare namespace LocalJSX {
          */
         "showFooter"?: boolean;
         /**
-          * Whether the time-picker should be shown in the date-picker.
+          * Whether the time-picker should be shown in the date-picker. Supports single date picker only.
          */
         "showTimePicker"?: boolean;
         /**
@@ -2624,7 +2628,7 @@ declare namespace LocalJSX {
          */
         "timeFormat"?: string;
         /**
-          * The props for the time picker.
+          * The props for the time picker. Refer the fw-timepicker for valid format.
          */
         "timeProps"?: {};
         /**
@@ -4053,6 +4057,10 @@ declare namespace LocalJSX {
           * Text displayed in the select before an option is selected.
          */
         "placeholder"?: string | null;
+        /**
+          * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+         */
+        "readonly"?: boolean;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */

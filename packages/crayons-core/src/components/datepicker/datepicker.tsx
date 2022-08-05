@@ -210,11 +210,11 @@ export class Datepicker {
    */
   @Prop() label = '';
   /**
-   * Whether the time-picker should be shown in the date-picker.
+   * Whether the time-picker should be shown in the date-picker. Supports single date picker only.
    */
   @Prop() showTimePicker = false;
   /**
-   * The props for the time picker.
+   * The props for the time picker. Refer the fw-timepicker for valid format.
    */
   @Prop() timeProps = {};
   /**
@@ -669,6 +669,9 @@ export class Datepicker {
   }
 
   async componentWillLoad() {
+    if (this.mode === 'range' && this.showTimePicker) {
+      throw Error('Time picker not supported in Date Range');
+    }
     this.langModule = await TranslationController.getDateLangModule(
       this.locale
     );
@@ -1405,7 +1408,7 @@ export class Datepicker {
             format={this.timeFormat}
             value={this.timeValue}
             allowDeselect={false}
-            {...this.timeProps}
+            {...{ ...this.timeProps, ...{ readOnly: true } }}
           ></fw-timepicker>
         </div>
       </div>
