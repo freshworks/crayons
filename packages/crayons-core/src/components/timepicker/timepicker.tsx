@@ -122,7 +122,7 @@ export class Timepicker {
    */
   @Prop() allowDeselect = true;
   /**
-   * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+   * If true, the user cannot type in the text input
    */
   @Prop() readonly = false;
 

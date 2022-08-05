@@ -1696,7 +1696,7 @@ export namespace Components {
          */
         "placeholder"?: string | null;
         /**
-          * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+          * If true, the user cannot type in the text input
          */
         "readonly": boolean;
         /**
@@ -4058,7 +4058,7 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string | null;
         /**
-          * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+          * If true, the user cannot type in the text input
          */
         "readonly"?: boolean;
         /**
