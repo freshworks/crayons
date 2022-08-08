@@ -344,7 +344,7 @@ export namespace Components {
          */
         "timeFormat": string;
         /**
-          * The props for the time picker. Refer the fw-timepicker for valid format.
+          * The props for the time picker. Refer the fw-timepicker for valid props.
          */
         "timeProps": {};
         /**
