@@ -141,6 +141,7 @@ Type: `Promise<any>`
 
 ### Used by
 
+ - [fw-country-phone](../country-phone)
  - [fw-datepicker](../datepicker)
  - [fw-list-options](../options-list)
  - [fw-timepicker](../timepicker)
@@ -161,6 +162,7 @@ graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-checkbox --> fw-icon
+  fw-country-phone --> fw-select-option
   fw-datepicker --> fw-select-option
   fw-list-options --> fw-select-option
   fw-timepicker --> fw-select-option

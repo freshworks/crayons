@@ -1072,6 +1072,7 @@ Type: `Promise<any>`
 
 ### Used by
 
+ - [fw-country-phone](../country-phone)
  - [fw-datepicker](../datepicker)
  - [fw-form-control](../form-control)
  - [fw-timepicker](../timepicker)
@@ -1108,6 +1109,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-input --> fw-icon
+  fw-country-phone --> fw-select
   fw-datepicker --> fw-select
   fw-form-control --> fw-select
   fw-timepicker --> fw-select
