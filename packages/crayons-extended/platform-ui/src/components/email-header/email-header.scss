@@ -1,0 +1,169 @@
+.to-field {
+  display: flex;
+}
+
+.truncation-text {
+  color: $app-link;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding-inline-start: 8px;
+
+  &:hover {
+      text-decoration: underline;
+  }
+}
+
+.hover-content {
+  background: #12344D;
+  box-shadow: 0px 1px 4px rgba(146, 162, 177, 0.5), 0px 6px 44px rgba(146, 162, 177, 0.5);
+  border-radius: 8px;
+}
+
+.single-select-value {
+  font-size: 14px;
+  font-weight: 400;
+  padding-inline-start: 8px;
+  color: #12344D;
+}
+
+.email-row {
+  display: flex;
+  align-items: center;
+  padding-block-end: 12px;
+
+  .primary-text {
+      color: #FFFFFF;
+  }
+
+  .secondary-text {
+      color: #CFD7DF;
+  }
+}
+
+.error-icon {
+  display: flex;
+  align-items: center;
+  padding-inline-start: 6px;
+  padding-block-start: 2px;
+}
+
+.hover-container {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 16px;
+
+  .section-container {
+      display: flex;
+
+      &.block-padding {
+          padding-block-start: 4px;
+      }
+
+      .label-section {
+          flex: 1;
+          color: #B1BDC8;
+          font-weight: 600;
+          font-size: 14px;
+          padding-block-start: 4px;
+      }
+
+      .value-section {
+          flex: 8;
+          color: #FFFFFF;
+      }
+  }
+
+  .truncate-popover {
+      color: #B1BDC8;
+      font-size: 14px;
+      padding-inline-start: 44px;
+  }
+}
+
+.field-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 4px 16px;
+  border-block-end: 1px solid #EBEFF3;
+
+  &:hover {
+      background: #F5F7F9;
+  }
+
+  .from-field {
+      display: flex;
+      padding: 2px 0px;
+  }
+
+  .to-row {
+      display: flex;
+      align-items: center;
+  }
+
+  .collapsed-field {
+      margin-inline-start: 14px;
+  }
+
+  .to-container {
+      display: flex;
+      align-items: center;
+      padding-inline-end: 20px;
+      min-width: 0;
+  }
+
+  .main-label {
+      font-weight: 400;
+      font-size: 14px;
+      display: flex;
+      max-width: 45px;
+      justify-content: space-between;
+      flex: 1;
+      color: #647A8E;
+      margin: 10px 12px 0px 0px;
+  }
+
+  .select-section {
+      min-width: 0;
+      flex: 9;
+  }
+
+  &.hidden {
+      display: none;
+  }
+
+  .expansion-link-container {
+      margin-inline-start: auto;
+      -webkit-touch-callout: none;
+      /* iOS Safari */
+      -webkit-user-select: none;
+      /* Safari */
+      -khtml-user-select: none;
+      /* Konqueror HTML */
+      -moz-user-select: none;
+      /* Old versions of Firefox */
+      -ms-user-select: none;
+      /* Internet Explorer/Edge */
+      user-select: none;
+
+      /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+      .expansion-link {
+          cursor: pointer;
+          color: #475867;
+          font-weight: 600;
+
+          &:hover {
+              color: #2C5CC5;
+          }
+
+          &.link-separation {
+              margin-inline-start: 16px;
+          }
+
+          &.hover-link {
+              color: #2C5CC5;
+          }
+      }
+  }
+}
