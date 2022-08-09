@@ -45,6 +45,46 @@ export namespace Components {
          */
         "value": any;
     }
+    interface FwEmailHeader {
+        "collapse": () => Promise<any>;
+        /**
+          * Debounce timer for the emailLookup promise function.
+         */
+        "debounceTimer": number;
+        /**
+          * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
+         */
+        "emailLookup": any;
+        "expand": () => Promise<any>;
+        /**
+          * The data for the select component in From section, the options will be of type array of fw-select-options.
+         */
+        "fromOptions": any;
+        /**
+          * Value of the option that is displayed as the default selection of From section, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "fromValue": any;
+        "getSelectedBccItems": () => Promise<any>;
+        "getSelectedCcItems": () => Promise<any>;
+        "getSelectedFromValue": () => Promise<any>;
+        "getSelectedToItems": () => Promise<any>;
+        /**
+          * Max number of emails to be displayed on hover of truncated text for 'To' field
+         */
+        "maxEmailsOnHover": number;
+        /**
+          * Array of the options that is displayed as the default selection for BCC section, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedBccOptions": any[];
+        /**
+          * Array of the options that is displayed as the default selection for CC section, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedCcOptions": any[];
+        /**
+          * Array of the options that is displayed as the default selection for To section, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedToOptions": any[];
+    }
     interface FwFbFieldDropdown {
         /**
           * variable to store the data source for all the choices
@@ -473,6 +513,12 @@ declare global {
         prototype: HTMLFwDateConditionElement;
         new (): HTMLFwDateConditionElement;
     };
+    interface HTMLFwEmailHeaderElement extends Components.FwEmailHeader, HTMLStencilElement {
+    }
+    var HTMLFwEmailHeaderElement: {
+        prototype: HTMLFwEmailHeaderElement;
+        new (): HTMLFwEmailHeaderElement;
+    };
     interface HTMLFwFbFieldDropdownElement extends Components.FwFbFieldDropdown, HTMLStencilElement {
     }
     var HTMLFwFbFieldDropdownElement: {
@@ -573,6 +619,7 @@ declare global {
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
+        "fw-email-header": HTMLFwEmailHeaderElement;
         "fw-fb-field-dropdown": HTMLFwFbFieldDropdownElement;
         "fw-fb-field-dropdown-item": HTMLFwFbFieldDropdownItemElement;
         "fw-fb-field-lookup": HTMLFwFbFieldLookupElement;
@@ -637,6 +684,44 @@ declare namespace LocalJSX {
           * The value of the input
          */
         "value"?: any;
+    }
+    interface FwEmailHeader {
+        /**
+          * Debounce timer for the emailLookup promise function.
+         */
+        "debounceTimer"?: number;
+        /**
+          * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
+         */
+        "emailLookup"?: any;
+        /**
+          * The data for the select component in From section, the options will be of type array of fw-select-options.
+         */
+        "fromOptions"?: any;
+        /**
+          * Value of the option that is displayed as the default selection of From section, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "fromValue"?: any;
+        /**
+          * Max number of emails to be displayed on hover of truncated text for 'To' field
+         */
+        "maxEmailsOnHover"?: number;
+        /**
+          * Triggered when a value is selected or deselected from the list box options fo to/cc/bcc fields.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Array of the options that is displayed as the default selection for BCC section, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedBccOptions"?: any[];
+        /**
+          * Array of the options that is displayed as the default selection for CC section, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedCcOptions"?: any[];
+        /**
+          * Array of the options that is displayed as the default selection for To section, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedToOptions"?: any[];
     }
     interface FwFbFieldDropdown {
         /**
@@ -1126,6 +1211,7 @@ declare namespace LocalJSX {
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
+        "fw-email-header": FwEmailHeader;
         "fw-fb-field-dropdown": FwFbFieldDropdown;
         "fw-fb-field-dropdown-item": FwFbFieldDropdownItem;
         "fw-fb-field-lookup": FwFbFieldLookup;
@@ -1151,6 +1237,7 @@ declare module "@stencil/core" {
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;
+            "fw-email-header": LocalJSX.FwEmailHeader & JSXBase.HTMLAttributes<HTMLFwEmailHeaderElement>;
             "fw-fb-field-dropdown": LocalJSX.FwFbFieldDropdown & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownElement>;
             "fw-fb-field-dropdown-item": LocalJSX.FwFbFieldDropdownItem & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownItemElement>;
             "fw-fb-field-lookup": LocalJSX.FwFbFieldLookup & JSXBase.HTMLAttributes<HTMLFwFbFieldLookupElement>;

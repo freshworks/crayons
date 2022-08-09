@@ -39,6 +39,10 @@
     &--initials {
       border: $avatar-border-dark;
     }
+
+    &--default {
+      background-color: $avatar-background-default;
+    }
   }
 
   &--light {
@@ -47,6 +51,15 @@
 
     &--initials {
       border: $avatar-border-light;
+    }
+  }
+
+  &--error {
+    background-color: $avatar-background-error;
+    color: $color-elephant-900;
+
+    &--initials {
+      border: $avatar-border-error;
     }
   }
 

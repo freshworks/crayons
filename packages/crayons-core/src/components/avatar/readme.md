@@ -89,7 +89,7 @@ function App() {
 | `alt`      | `alt`      |             | `string`                                                                           | `undefined` |
 | `image`    | `image`    |             | `string`                                                                           | `undefined` |
 | `initials` | `initials` |             | `string`                                                                           | `undefined` |
-| `mode`     | `mode`     |             | `"dark" \| "light"`                                                                | `'dark'`    |
+| `mode`     | `mode`     |             | `"dark" \| "error" \| "light"`                                                     | `'dark'`    |
 | `name`     | `name`     |             | `string`                                                                           | `''`        |
 | `shape`    | `shape`    |             | `"circle" \| "rounded" \| "square"`                                                | `'circle'`  |
 | `size`     | `size`     |             | `"large" \| "medium" \| "small" \| "xlarge" \| "xsmall" \| "xxlarge" \| "xxsmall"` | `'large'`   |
@@ -108,6 +108,7 @@ function App() {
 ### Used by
 
  - [fw-custom-cell-user](../data-table/custom-cells/user)
+ - [fw-email-select](../email-select)
  - [fw-select-option](../select-option)
  - [fw-tag](../tag)
 
@@ -115,6 +116,7 @@ function App() {
 ```mermaid
 graph TD;
   fw-custom-cell-user --> fw-avatar
+  fw-email-select --> fw-avatar
   fw-select-option --> fw-avatar
   fw-tag --> fw-avatar
   style fw-avatar fill:#f9f,stroke:#333,stroke-width:4px

@@ -128,6 +128,14 @@ export class ListOptions {
    */
   @Prop() allowDeselect = true;
   /**
+   * Allows user to create the option if the provided input doesn't match with any of the options.
+   */
+  @Prop() isCreatable = false;
+  /**
+   * Works only when 'isCreatable' is selected. Function to validate the newly created value.
+   */
+  @Prop() validateCreatable: Function;
+  /**
    * Triggered when a value is selected or deselected from the list box options.
    */
   @Event({ cancelable: true }) fwChange: EventEmitter;
@@ -143,6 +151,12 @@ export class ListOptions {
       const selectedObj = this.filteredOptions.filter(
         (option) => option.value === value
       )[0];
+      if (this.isCreatable && selectedObj.isNew) {
+        selectedObj.text = selectedObj.value;
+        if (this.validateCreatable) {
+          selectedObj.error = this.validateCreatable(selectedObj.value);
+        }
+      }
       this.selectedOptionsState = this.multiple
         ? [...this.selectedOptionsState, selectedObj]
         : [selectedObj];
@@ -315,12 +329,19 @@ export class ListOptions {
     (filterText) => {
       this.isLoading = true;
       this.fwLoading.emit({ isLoading: this.isLoading });
-      if (filterText) {
-        this.search(filterText, this.selectOptions).then((options) => {
+      const sanitisedText = filterText.trim();
+      if (sanitisedText) {
+        this.search(sanitisedText, this.selectOptions).then((options) => {
           this.filteredOptions =
             options?.length > 0
               ? this.serializeData(options)
-              : [{ text: this.notFoundText, disabled: true }];
+              : !this.isCreatable
+                ? [{ text: this.notFoundText, disabled: true }]
+                : [];
+          if (this.isCreatable
+            && !this.filteredOptions.some((option) => option.value === sanitisedText)) {
+            this.filteredOptions = [{ text: `Add '${sanitisedText}' as a recipient`, value: sanitisedText, isNew: true }, ...this.filteredOptions];
+          }
           this.isLoading = false;
           this.fwLoading.emit({ isLoading: this.isLoading });
         });
@@ -355,16 +376,19 @@ export class ListOptions {
 
   serializeData(dataSource) {
     return dataSource.map((option) => {
+      const isSelected = this.isValueEqual(this.value, option) || option.selected;
+      const isDisabled = this.selectedOptionsState.find(selected => selected.value === option.value)?.disabled
+        || option.disabled
+        || this.disabled
+        || (this.multiple && this.value?.length >= this.max)
+        || (!this.allowDeselect && isSelected);
       return {
         ...option,
         ...{
           checkbox: option.checkbox || this.checkbox,
           variant: option.variant || this.variant,
-          selected: this.isValueEqual(this.value, option) || option.selected,
-          disabled:
-            option.disabled ||
-            this.disabled ||
-            (this.multiple && this.value?.length >= this.max),
+          selected: isSelected,
+          disabled: isDisabled,
           allowDeselect: this.allowDeselect,
         },
       };

@@ -68,15 +68,17 @@ export default App;
 
 ## Properties
 
-| Property        | Attribute   | Description                                                                                                                             | Type                     | Default      |
-| --------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------ |
-| `closable`      | `closable`  | Whether the Tag can be closed.                                                                                                          | `boolean`                | `true`       |
-| `disabled`      | `disabled`  | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.  | `boolean`                | `undefined`  |
-| `focusable`     | `focusable` | Whether the Tag is focusable.                                                                                                           | `boolean`                | `true`       |
-| `graphicsProps` | --          | The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component. | `{}`                     | `{}`         |
-| `text`          | `text`      | Display text in the tag component.                                                                                                      | `string`                 | `undefined`  |
-| `value`         | `value`     | Value associated with the tag component, that is saved when the form data is saved.                                                     | `number \| string`       | `undefined`  |
-| `variant`       | `variant`   | The variant of tag to be displayed.                                                                                                     | `"avatar" \| "standard"` | `'standard'` |
+| Property        | Attribute        | Description                                                                                                                             | Type                               | Default      |
+| --------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------ |
+| `closable`      | `closable`       | Whether the Tag can be closed.                                                                                                          | `boolean`                          | `true`       |
+| `disabled`      | `disabled`       | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.  | `boolean`                          | `false`      |
+| `focusable`     | `focusable`      | Whether the Tag is focusable.                                                                                                           | `boolean`                          | `true`       |
+| `graphicsProps` | --               | The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component. | `{}`                               | `{}`         |
+| `secondaryText` | `secondary-text` | Display secondary text in the tag component.                                                                                            | `string`                           | `undefined`  |
+| `state`         | `state`          | Theme based on which the tag is styled.                                                                                                 | `"error" \| "focused" \| "normal"` | `'normal'`   |
+| `text`          | `text`           | Display text in the tag component.                                                                                                      | `string`                           | `undefined`  |
+| `value`         | `value`          | Value associated with the tag component, that is saved when the form data is saved.                                                     | `number \| string`                 | `undefined`  |
+| `variant`       | `variant`        | The variant of tag to be displayed.                                                                                                     | `"avatar" \| "standard"`           | `'standard'` |
 
 
 ## Events
@@ -103,21 +105,26 @@ Type: `Promise<any>`
 
 ### Used by
 
+ - [fw-email-select](../email-select)
  - [fw-select](../select)
 
 ### Depends on
 
 - [fw-avatar](../avatar)
+- [fw-tooltip](../tooltip)
 - [fw-icon](../icon)
 
 ### Graph
 ```mermaid
 graph TD;
   fw-tag --> fw-avatar
+  fw-tag --> fw-tooltip
   fw-tag --> fw-icon
+  fw-tooltip --> fw-popover
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-email-select --> fw-tag
   fw-select --> fw-tag
   style fw-tag fill:#f9f,stroke:#333,stroke-width:4px
 ```

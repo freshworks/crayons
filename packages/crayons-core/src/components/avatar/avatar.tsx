@@ -19,7 +19,7 @@ export class Avatar {
     | 'small'
     | 'xsmall'
     | 'xxsmall' = 'large';
-  @Prop() mode: 'dark' | 'light' = 'dark';
+  @Prop() mode: 'dark' | 'light' | 'error' = 'dark';
 
   /**
    * Function to get the initials to display inside the avatar
@@ -40,14 +40,36 @@ export class Avatar {
     return initials;
   }
 
+  renderAltIcon() {
+    const color = this.mode === 'error' ?  '#C82124' : '#283DA5';
+    return <svg
+      width={24}
+      height={24}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clip-path="url(#a)" fill={color}>
+      <circle cx={12} cy={9} r={5} />
+      <ellipse cx={12} cy={24.5} rx={11} ry={9.5} />
+    </g>
+    <defs>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h24v24H0z" />
+      </clipPath>
+    </defs>
+  </svg>
+  }
+
   render() {
     let strBaseClassName = `avatar 
     avatar--${this.shape}
     avatar--${this.size}
     avatar--${this.mode}
     `;
-    if (!this.image) {
+    if (!this.image && this.initials) {
       strBaseClassName += ` avatar--${this.mode}--initials`;
+    } else if (!this.image && !this.initials) {
+      strBaseClassName += ` avatar--${this.mode}--default`;
     }
 
     return (
@@ -59,11 +81,12 @@ export class Avatar {
             src={this.image}
             alt={this.alt}
           ></img>
-        ) : (
+        ) : this.initials ? (
           <div part='initials' class='avatar__initials'>
             {this.getInitials()}
           </div>
-        )}
+        ) : this.renderAltIcon()
+      }
       </div>
     );
   }

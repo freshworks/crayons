@@ -7,9 +7,10 @@ import {
   Method,
   h,
   Listen,
+  State,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
-import { TagVariant } from '../../utils/types';
+import { TagState, TagVariant } from '../../utils/types';
 
 @Component({
   tag: 'fw-tag',
@@ -19,6 +20,10 @@ import { TagVariant } from '../../utils/types';
 export class Tag {
   private tagContainer: HTMLElement;
 
+  private divLabel: HTMLElement;
+
+  private resizeObserver;
+
   @Element() host: HTMLElement;
   /**
    * Display text in the tag component.
@@ -26,9 +31,14 @@ export class Tag {
   @Prop() text: string;
 
   /**
+   * Display secondary text in the tag component.
+   */
+  @Prop() secondaryText: string;
+
+  /**
    * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop({ reflect: true }) disabled: false;
+  @Prop({ reflect: true }) disabled = false;
 
   /**
    * Value associated with the tag component, that is saved when the form data is saved.
@@ -53,9 +63,15 @@ export class Tag {
    */
   @Prop() focusable = true;
   /**
+   * Theme based on which the tag is styled.
+   */
+  @Prop() state: TagState = 'normal';
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
+
+  @State() addTooltip = false;
 
   @Listen('keydown')
   onKeyDown(event) {
@@ -81,14 +97,34 @@ export class Tag {
     e.stopPropagation();
   };
 
+  private renderLabel() {
+    return (
+      <div
+        class='ellipsis'
+        ref={(el) => (this.divLabel = el)}
+      >
+        <span
+          class={{
+            primary: !!this.secondaryText,
+            content: true,
+          }}>{this.text}</span>
+        {this.secondaryText && <span class={`secondary content ${this.disabled ? 'end-padding' : ''}`}>{this.secondaryText}</span>}
+      </div>
+    );
+  }
+
   renderContent() {
     switch (this.variant) {
       case 'standard':
         return <span class='content'>{this.text}</span>;
       case 'avatar': {
         return [
-          <fw-avatar size='xsmall' {...this.graphicsProps}></fw-avatar>,
-          <span class='content'>{this.text}</span>,
+          <fw-avatar mode={this.state === 'error' ? this.state : 'dark'} size='xsmall' {...this.graphicsProps}></fw-avatar>,
+          <div class={'avatar-content'}>
+            {this.addTooltip ? <fw-tooltip trigger='hover' content={`${this.text}${this.secondaryText ? ` ${this.secondaryText}` : ''}`} hoist>
+              {this.renderLabel()}
+            </fw-tooltip> : this.renderLabel()}
+          </div>
         ];
       }
       default:
@@ -96,12 +132,25 @@ export class Tag {
     }
   }
 
+  componentDidRender = () => {
+    const elLabel = this.divLabel;
+    if (elLabel && !this.resizeObserver) {
+      this.resizeObserver = new ResizeObserver(() => {
+        if (elLabel.offsetWidth > 0) {
+          this.addTooltip =
+            elLabel.offsetWidth < elLabel.scrollWidth ? true : false;
+        }
+      });
+      this.resizeObserver.observe(elLabel);
+    }
+  };
+
   render() {
     return (
       <div
         role='button'
         tabindex='-1'
-        class={`tag tag-${this.variant}`}
+        class={`tag tag-${this.variant} ${this.state}`}
         ref={(tagContainer) => (this.tagContainer = tagContainer)}
       >
         {this.renderContent()}

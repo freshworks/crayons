@@ -37,7 +37,7 @@
     "tscdisable": "node ../../../scripts/fileutil"
   },
   "dependencies": {
-    "@freshworks/crayons": "^3.4.2",
+    "@freshworks/crayons": "file:../packages/crayons-core",
     "@freshworks/crayons-i18n": "^3.1.1",
     "@stencil/core": "2.9.0",
     "stencil": "^0.0.5",

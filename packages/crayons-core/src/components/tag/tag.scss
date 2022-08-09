@@ -1,13 +1,56 @@
 .tag {
+  min-width: inherit;
   display: inline-flex;
   align-items: center;
   color: $color-elephant-900;
   font-size: $font-size-14;
   word-break: break-all;
+  margin: 1px;
+
+  &:hover {
+    border: 1px solid $color-smoke-200;
+    margin: 0px;
+  }
+
+  &.focused {
+    border: 1px solid #283DA5;
+    background: #E5F2FD;
+  }
+
+  &.error {
+    border: 1px solid $color-persimmon-900;
+    background: $color-persimmon-50 !important;
+    margin: 0px;
+
+    &:hover {
+      border: 1px solid $color-persimmon-900;
+    }
+  }
 
   .content {
     line-height: 20px;
     vertical-align: middle;
+  }
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .avatar-content {
+    min-width: inherit;
+  }
+
+  .primary {
+    font-weight: 600;
+  }
+
+  .secondary {
+    padding-inline-start: 8px;
+    &.end-padding {
+      padding-inline-end: 8px;
+    }
   }
 
   &-standard {

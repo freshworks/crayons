@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
-import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
 import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -46,7 +46,7 @@ export namespace Components {
         "alt": string;
         "image": string;
         "initials": string;
-        "mode": 'dark' | 'light';
+        "mode": 'dark' | 'light' | 'error';
         "name": string;
         "shape": 'circle' | 'square' | 'rounded';
         "size": | 'xxlarge'
@@ -384,6 +384,59 @@ export namespace Components {
           * Whether the drag icon should be visible.
          */
         "showDragIcon": boolean;
+    }
+    interface FwEmailSelect {
+        /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
+        /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer": number;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        "getSelectedItem": () => Promise<any>;
+        /**
+          * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
+         */
+        "max": number;
+        /**
+          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
+         */
+        "multiple": boolean;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name": string;
+        /**
+          * The data for the select component, the options will be of type array of fw-select-options.
+         */
+        "options": any;
+        /**
+          * Text displayed in the list box before an option is selected.
+         */
+        "placeholder"?: string | null;
+        /**
+          * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+         */
+        "readonly": boolean;
+        /**
+          * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
+         */
+        "search": any;
+        /**
+          * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions": any[];
+        "setFocus": () => Promise<any>;
+        "setSelectedValues": (values: string | string[]) => Promise<any>;
+        /**
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "value": any;
     }
     interface FwFileUploader {
         /**
@@ -846,6 +899,10 @@ export namespace Components {
         "filterText": any;
         "getSelectedOptions": () => Promise<any>;
         /**
+          * Allows user to create the option if the provided input doesn't match with any of the options.
+         */
+        "isCreatable": boolean;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max": number;
@@ -888,6 +945,10 @@ export namespace Components {
           * Pass an array of string in case of multi-select or string for single-select.
          */
         "setSelectedValues": (values: any) => Promise<any>;
+        /**
+          * Works only when 'isCreatable' is selected. Function to validate the newly created value.
+         */
+        "validateCreatable": Function;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -1533,7 +1594,7 @@ export namespace Components {
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
-        "disabled": false;
+        "disabled": boolean;
         /**
           * Whether the Tag is focusable.
          */
@@ -1542,7 +1603,15 @@ export namespace Components {
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps": {};
+        /**
+          * Display secondary text in the tag component.
+         */
+        "secondaryText": string;
         "setFocus": () => Promise<any>;
+        /**
+          * Theme based on which the tag is styled.
+         */
+        "state": TagState;
         /**
           * Display text in the tag component.
          */
@@ -1984,6 +2053,12 @@ declare global {
         prototype: HTMLFwDragItemElement;
         new (): HTMLFwDragItemElement;
     };
+    interface HTMLFwEmailSelectElement extends Components.FwEmailSelect, HTMLStencilElement {
+    }
+    var HTMLFwEmailSelectElement: {
+        prototype: HTMLFwEmailSelectElement;
+        new (): HTMLFwEmailSelectElement;
+    };
     interface HTMLFwFileUploaderElement extends Components.FwFileUploader, HTMLStencilElement {
     }
     var HTMLFwFileUploaderElement: {
@@ -2240,6 +2315,7 @@ declare global {
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-drag-item": HTMLFwDragItemElement;
+        "fw-email-select": HTMLFwEmailSelectElement;
         "fw-file-uploader": HTMLFwFileUploaderElement;
         "fw-file-uploader-file": HTMLFwFileUploaderFileElement;
         "fw-file-uploader-progress": HTMLFwFileUploaderProgressElement;
@@ -2318,7 +2394,7 @@ declare namespace LocalJSX {
         "alt"?: string;
         "image"?: string;
         "initials"?: string;
-        "mode"?: 'dark' | 'light';
+        "mode"?: 'dark' | 'light' | 'error';
         "name"?: string;
         "shape"?: 'circle' | 'square' | 'rounded';
         "size"?: | 'xxlarge'
@@ -2652,6 +2728,64 @@ declare namespace LocalJSX {
           * Whether the drag icon should be visible.
          */
         "showDragIcon"?: boolean;
+    }
+    interface FwEmailSelect {
+        /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
+        /**
+          * Debounce timer for the search promise function.
+         */
+        "debounceTimer"?: number;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
+         */
+        "max"?: number;
+        /**
+          * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
+         */
+        "multiple"?: boolean;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when a value is selected or deselected from the list box options.
+         */
+        "onFwChange"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when the list box comes into focus.
+         */
+        "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * The data for the select component, the options will be of type array of fw-select-options.
+         */
+        "options"?: any;
+        /**
+          * Text displayed in the list box before an option is selected.
+         */
+        "placeholder"?: string | null;
+        /**
+          * If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.
+         */
+        "readonly"?: boolean;
+        /**
+          * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
+         */
+        "search"?: any;
+        /**
+          * Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
+         */
+        "selectedOptions"?: any[];
+        /**
+          * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
+         */
+        "value"?: any;
     }
     interface FwFileUploader {
         /**
@@ -3137,6 +3271,10 @@ declare namespace LocalJSX {
          */
         "filterText"?: any;
         /**
+          * Allows user to create the option if the provided input doesn't match with any of the options.
+         */
+        "isCreatable"?: boolean;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
@@ -3180,6 +3318,10 @@ declare namespace LocalJSX {
           * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions"?: any[];
+        /**
+          * Works only when 'isCreatable' is selected. Function to validate the newly created value.
+         */
+        "validateCreatable"?: Function;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -3848,7 +3990,7 @@ declare namespace LocalJSX {
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
-        "disabled"?: false;
+        "disabled"?: boolean;
         /**
           * Whether the Tag is focusable.
          */
@@ -3861,6 +4003,14 @@ declare namespace LocalJSX {
           * Triggered when the tag is deselected.
          */
         "onFwClosed"?: (event: CustomEvent<any>) => void;
+        /**
+          * Display secondary text in the tag component.
+         */
+        "secondaryText"?: string;
+        /**
+          * Theme based on which the tag is styled.
+         */
+        "state"?: TagState;
         /**
           * Display text in the tag component.
          */
@@ -4246,6 +4396,7 @@ declare namespace LocalJSX {
         "fw-datepicker": FwDatepicker;
         "fw-drag-container": FwDragContainer;
         "fw-drag-item": FwDragItem;
+        "fw-email-select": FwEmailSelect;
         "fw-file-uploader": FwFileUploader;
         "fw-file-uploader-file": FwFileUploaderFile;
         "fw-file-uploader-progress": FwFileUploaderProgress;
@@ -4307,6 +4458,7 @@ declare module "@stencil/core" {
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
+            "fw-email-select": LocalJSX.FwEmailSelect & JSXBase.HTMLAttributes<HTMLFwEmailSelectElement>;
             "fw-file-uploader": LocalJSX.FwFileUploader & JSXBase.HTMLAttributes<HTMLFwFileUploaderElement>;
             "fw-file-uploader-file": LocalJSX.FwFileUploaderFile & JSXBase.HTMLAttributes<HTMLFwFileUploaderFileElement>;
             "fw-file-uploader-progress": LocalJSX.FwFileUploaderProgress & JSXBase.HTMLAttributes<HTMLFwFileUploaderProgressElement>;
