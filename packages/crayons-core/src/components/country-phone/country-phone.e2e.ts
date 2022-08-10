@@ -160,4 +160,20 @@ describe('fw-country-phone hydrated', () => {
       },
     });
   });
+  it('reset to empty when selected values are deleted from select dropdown', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-country-phone value="919999999999"></fw-country-phone>'
+    );
+    const element = await page.find('fw-country-phone >>> fw-select');
+
+    element.setProperty('value', '');
+    element.waitForEvent('fwChange');
+
+    await page.waitForChanges();
+    const selectElement = await page.find('fw-country-phone >>> fw-select');
+    const selectValue = await selectElement.getProperty('value');
+    expect(selectValue).toBe('');
+  });
 });

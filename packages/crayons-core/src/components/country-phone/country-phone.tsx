@@ -323,9 +323,16 @@ export class CountryPhone {
     this.countryCode = value as CountryCode;
 
     const currentCountry = this.getCountryDetails(value);
-    this.phoneCode = currentCountry[0].phone;
-    this.countryName = currentCountry[0].country_name;
-    this.phoneNumber = '';
+    if (currentCountry && currentCountry.length > 0) {
+      this.phoneCode = currentCountry[0]?.phone || '';
+      this.countryName = currentCountry[0]?.country_name || '';
+      this.phoneNumber = '';
+    } else {
+      this.phoneCode = '';
+      this.countryName = '';
+      this.phoneNumber = '';
+    }
+
     this.isValueUpdatedFromInside = true;
     this.updateValue();
   }
