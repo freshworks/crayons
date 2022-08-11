@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/text</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Icons-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons" transform="translate(-573.000000, -936.000000)" fill="currentColor">
+            <g id="icon/text" transform="translate(573.000000, 936.000000)">
+                <g id="text">
+                    <path d="M10.2970925,8.87 L3.7,8.87 L1.33,13.61 C1.21165744,13.8495959 0.967227075,14.0009099 0.7,14 C0.592548114,14.0018664 0.486223877,13.9778577 0.39,13.93 C0.0511293109,13.756032 -0.0900776942,13.3456492 0.07,13 L6.38,0.39 C6.49301344,0.150291746 6.7349936,-0.00192158047 7,9.59232693e-14 C7.26722707,-0.000909899855 7.51165744,0.150404139 7.63,0.39 L13.93,13 C14.0407523,13.2250773 14.0230144,13.492143 13.8834679,13.700596 C13.7439214,13.909049 13.5037667,14.0272204 13.2534679,14.010596 C13.003169,13.9939717 12.7807523,13.8450773 12.67,13.62 L10.2970925,8.87 Z M9.59770925,7.47 L7,2.27 L4.4,7.47 L9.59770925,7.47 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
