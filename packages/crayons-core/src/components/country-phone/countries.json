@@ -1256,21 +1256,6 @@
       "code2l":"GN"
    },
    {
-      "country_name":"Guinea-Bissau",
-      "native":"Guiné-Bissau",
-      "phone":"245",
-      "continent_name":"AF",
-      "capital":"Bissau",
-      "currency":"XOF",
-      "languages":[
-         "pt"
-      ],
-      "emoji":"🇬🇼",
-      "emojiU":"U+1F1EC U+1F1FC",
-      "code3l":"GNB",
-      "code2l":"GW"
-   },
-   {
       "country_name":"Guyana",
       "native":"Guyana",
       "phone":"592",
@@ -3698,7 +3683,9 @@
          "nl"
       ],
       "emoji":"🇧🇶",
-      "emojiU":"U+1F1E7 U+1F1F6"
+      "emojiU":"U+1F1E7 U+1F1F6",
+      "code3l": "BES",
+      "code2l": "BQ"
    },
    {
       "country_name":"Falkland Islands",
@@ -3756,7 +3743,9 @@
          "fa"
       ],
       "emoji":"🇮🇷",
-      "emojiU":"U+1F1EE U+1F1F7"
+      "emojiU":"U+1F1EE U+1F1F7",
+      "code3l": "IR",
+      "code2l": "IR"
    },
    {
       "country_name":"Moldova",
