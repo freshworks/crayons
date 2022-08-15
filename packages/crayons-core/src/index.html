@@ -13,26 +13,6 @@
   </head>
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
-    <fw-popover>
-      <fw-button slot="popover-trigger">Currency List</fw-button>
-      <fw-list-options id="currency" slot="popover-content"></fw-list-options>
-    </fw-popover>
-
-    <script type="application/javascript">
-      var rupeeData = [
-        { value: '1', text: 'INR' },
-        { value: '2', text: 'USD' },
-        { value: '3', text: 'AED' },
-        { value: '4', text: 'MYR' },
-        { value: '5', text: 'KWD' },
-        { value: '6', text: 'HKD' },
-        { value: '7', text: 'DMK' },
-        { value: '8', text: 'EUR' },
-      ];
-      var currency = document.getElementById('currency');
-      currency.options = rupeeData;
-    </script>
-
     <!-- <br />
     <fw-radio-group
       name="Profile"
