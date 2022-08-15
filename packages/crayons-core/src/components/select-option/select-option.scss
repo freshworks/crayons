@@ -18,7 +18,7 @@ $bg-color-disabled: $color-smoke-25;
   font-size: $font-size-14;
   border-radius: 4px;
   list-style: none;
-  line-height: 1.45;
+  line-height: 20px;
   word-break: break-word;
   word-wrap: break-word;
   position: relative;
@@ -57,11 +57,12 @@ $bg-color-disabled: $color-smoke-25;
   &:hover {
     background-color: $bg-color-hover;
   }
+  /* stylelint-disable */
   &:focus {
     background-color: $bg-color-hover;
-    outline: $color-azure-800 auto 1px;
+    outline: none;
   }
-
+  /* stylelint-enable */
   &.disabled {
     color: $disabled-color;
     position: relative;
