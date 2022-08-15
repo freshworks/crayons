@@ -8,7 +8,7 @@
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack-sans !default;
-$placeholder-color: $muted-secondary;
+$placeholder-color: $color-smoke-300;
 $help-color: $muted-secondary;
 $disabled-color: $input-disabled-color;
 $error-color: $app-error;
@@ -197,18 +197,23 @@ $warning-color: $color-casablanca-300;
   }
 }
 
+::placeholder {
+  color: $placeholder-color;
+  opacity: 1;
+}
+
 ::-webkit-input-placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
 }
 
 ::-moz-placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
 }
 
 :-ms-input-placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
 }
 
 :-moz-placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
 }
