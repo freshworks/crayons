@@ -2,7 +2,6 @@
 
 Toasts are used to show pop-up messages that lasts on the screen for a while. Use them to show users alerts or messages. You can also use custom HTML content with in toast
 
-
 ## Demo
 
 ```html live
@@ -10,7 +9,7 @@ Toasts are used to show pop-up messages that lasts on the screen for a while. Us
 <fw-toast id="type_toast_right" position="top-right"></fw-toast>
 <fw-toast id="type_toast_left" position="top-left"></fw-toast>
 
-<fw-toast-message type='success' id="custom-toast" timeout="6000">
+<fw-toast-message type="success" id="custom-toast" timeout="6000">
   <div>
     <span class="custom-text">Custom content</span>
     <h4>custom html contents can be added</h4>
@@ -18,13 +17,60 @@ Toasts are used to show pop-up messages that lasts on the screen for a while. Us
   </div>
 </fw-toast-message>
 
+<fw-toast-message
+  type="success"
+  id="custom-toast1"
+  sticky
+  action-link-text="Click me"
+>
+  <div
+    style="display: flex;
+    flex-direction: column;
+    gap: 4px;"
+  >
+    <span
+      style="font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #12344D;"
+      >Test content</span
+    >
+    <span
+      style="font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;"
+      >custom html contents can be added</span
+    >
+  </div>
+</fw-toast-message>
 
-<fw-button onclick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})">Success</fw-button>
-<fw-button onclick="document.querySelector('#type_toast_right').trigger({type:'error', content:'something went wrong!'})">Error</fw-button>
-<fw-button onclick="document.querySelector('#type_toast_left').trigger({type:'warning', content:'This is a warning!'})">Warning</fw-button>
-<fw-button onclick="document.querySelector('#type_toast').trigger({type:'inprogress', content:'Request is in progress'})">Inprogress</fw-button>
-<fw-button onclick="document.querySelector('#type_toast').trigger({type:'success', contentref:'#custom-toast'})">Custom Toast Content</fw-button>
+<fw-button
+  onclick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})"
+  >Success</fw-button
+>
+<fw-button
+  onclick="document.querySelector('#type_toast_right').trigger({type:'error', content:'something went wrong!'})"
+  >Error</fw-button
+>
+<fw-button
+  onclick="document.querySelector('#type_toast_left').trigger({type:'warning', content:'This is a warning!'})"
+  >Warning</fw-button
+>
+<fw-button
+  onclick="document.querySelector('#type_toast').trigger({type:'inprogress', content:'Request is in progress'})"
+  >Inprogress</fw-button
+>
+<fw-button
+  onclick="document.querySelector('#type_toast').trigger({type:'success', contentref:'#custom-toast'})"
+  >Custom Toast Content</fw-button
+>
 
+<fw-button
+  onclick="document.querySelector('#type_toast').trigger({type:'success', contentref:'#custom-toast1'})"
+  >Custom Toast Content 1</fw-button
+>
 ```
 
 ## Usage
@@ -44,13 +90,38 @@ Toasts are used to show pop-up messages that lasts on the screen for a while. Us
   </div>
 </fw-toast-message>
 
+<fw-toast-message type="success" id="custom-toast1" sticky action-link-text="Click me">
+  <div
+    style="display: flex;
+    flex-direction: column;
+    gap: 4px;"
+  >
+    <span
+      style="font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #12344D;"
+      >Test content</span
+    >
+    <span
+      style="font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;"
+      >custom html contents can be added</span
+    >
+  </div>
+</fw-toast-message>
 
 <fw-button onclick="document.querySelector('#type_toast').trigger({type:'success', content: 'Successfullly triggered'})">Success</fw-button>
 <fw-button onclick="document.querySelector('#type_toast_right').trigger({type:'error', content:'something went wrong!'})">Error</fw-button>
 <fw-button onclick="document.querySelector('#type_toast_left').trigger({type:'warning', content:'This is a warning!'})">Warning</fw-button>
 <fw-button onclick="document.querySelector('#type_toast').trigger({type:'inprogress', content:'Request is in progress'})">Inprogress</fw-button>
 <fw-button onclick="document.querySelector('#type_toast').trigger({type:'success', contentref:'#custom-toast'})">Custom Toast Content</fw-button>
-```
+<fw-button onclick="document.querySelector('#type_toast').trigger({type:'success', contentref:'#custom-toast1'})">Custom Toast Content1</fw-button>
+
+````
 </code-block>
 
 <code-block title="React">
@@ -79,7 +150,38 @@ function App() {
               <p className="cus-style">custom style element</p>
             </div>
           </FwToastMessage>
-        
+
+          <FwToastMessage
+          type='success'
+          id='custom-toast1'
+          sticky
+          action-link-text='Click me'
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <span
+              style={{
+                fontStyle: 'normal',
+                fontWeight: '700',
+                fontSize: '14px',
+                lineHeight: '20px',
+                color: '#12344D',
+              }}
+            >
+              Test content
+            </span>
+            <span
+              style={{
+                fontStyle: 'normal',
+                fontWeight: '400',
+                fontSize: '12px',
+                lineHeight: '16px',
+              }}
+            >
+              custom html contents can be added
+            </span>
+          </div>
+        </FwToastMessage>
+
           <FwToast id="type_toast" ref={el} timeout={5000}></FwToast>
 
           <FwButton onClick={()=> toast.trigger({type:'success', content: 'Successfullly triggered'})}>Success</FwButton>
@@ -87,26 +189,35 @@ function App() {
           <FwButton onClick={()=> el.current.trigger({type:'warning', content:'This is a warning!'})}>Warning</FwButton>
           <FwButton onClick={()=> el.current.trigger({type:'inprogress', content:'Request is in progress'})}>Inprogress</FwButton>
           <FwButton onClick={() => toast.trigger({contentref:'#custom-temp'})}>trigger custom </FwButton>
+
+          <FwButton onClick={() => toast.trigger({contentref:'#custom-toast1'})}>trigger custom 1 </FwButton>
     </div>);
 }
-```
+````
+
 </code-block>
 </code-group>
 
+## ToastController
 
-## ToastController 
 You can also use `ToastController` to create Toast like below:
-```js 
+
+```js
 Javascript - import {  ToastController } from "@freshworks/crayons"
 React - import {  ToastController } from "@freshworks/crayons/react"
 ```
+
 Create an instance of `ToastController` by passing [ToastOptions](#toastoptions) (optional) and use [Methods](#methods) to manage toast
+
 ```js
-const toast = ToastController({ position:'top-right'})
-toast.trigger({type:'success', content: 'Successfullly triggered'})
+const toast = ToastController({ position: 'top-right' });
+toast.trigger({ type: 'success', content: 'Successfullly triggered' });
 ```
+
 ## ToastOptions
+
 Below is the interface for `ToastOptions` that can be used for creating the toast
+
 ```js
 interface ToastOptions {
   /**
@@ -150,10 +261,10 @@ interface ToastOptions {
 ```
 
 ### Custom template event naming
-              
-              
+
 Please make sure when using event handler inside `custom template` in a `React app`, the event handler name is in `lowercase`. For example use `onclick` instead of `onClick`. This helps in cloning the event handlers used in the template when displaying multiple toast messages.
 Refer [usage](#usage)
+
 ```js
  useEffect(() => {
    el1.current.onclick = function() {
@@ -165,7 +276,6 @@ Refer [usage](#usage)
 ```
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -179,19 +289,13 @@ Refer [usage](#usage)
 | `timeout`        | `timeout`          | Time duration of the toast visibility                    | `number`                                            | `4000`         |
 | `type`           | `type`             | Type of the toast - success,failure, warning, inprogress | `"error" \| "inprogress" \| "success" \| "warning"` | `'warning'`    |
 
-
 ## Methods
 
 ### `trigger(opts: ToastOptions) => Promise<void>`
 
-
-
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## Dependencies
 
@@ -200,6 +304,7 @@ Type: `Promise<void>`
 - [fw-toast-message](../toast-message)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-toast --> fw-toast-message
@@ -209,6 +314,6 @@ graph TD;
   style fw-toast fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks

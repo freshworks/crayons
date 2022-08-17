@@ -35,7 +35,7 @@ Toast Message used internally by Toast component to render toast message.
   type="success"
   id="custom-toast"
   sticky
-  show
+  open
   action-link-text="Click me"
 >
   <div
