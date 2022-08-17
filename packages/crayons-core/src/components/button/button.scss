@@ -90,6 +90,7 @@ $input-height-mini: 16px;
     text-overflow: ellipsis;
     display: flex;
     align-items: center;
+    line-height: 20px;
   }
 
   &:active:not(.fw-btn--loading) {
@@ -229,7 +230,7 @@ $input-height-mini: 16px;
 
   &--mini {
     height: 16px;
-    line-height: calc(#{$input-height-mini} - #{$btn-border-width} * 2);
+    // line-height: calc(#{$input-height-mini} - #{$btn-border-width} * 2);
 
     .fw-btn--label {
       font-size: $btn-mini-font-size;
@@ -243,7 +244,7 @@ $input-height-mini: 16px;
   // DS button specification for mini has been referenced within crayons as type small
   &--small {
     height: 24px;
-    line-height: calc(#{$input-height-small} - #{$btn-border-width} * 2);
+    // line-height: calc(#{$input-height-small} - #{$btn-border-width} * 2);
 
     .fw-btn--label {
       font-size: $btn-small-font-size;
@@ -257,7 +258,7 @@ $input-height-mini: 16px;
   &--normal {
     min-width: var(--fw-button-min-width, 80px);
     height: 32px;
-    line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
+    // line-height: calc(#{$input-height-normal} - #{$btn-border-width} * 2);
   }
 
   &--icon {
@@ -265,7 +266,7 @@ $input-height-mini: 16px;
     width: 32px;
     height: 32px;
     padding: 0;
-    line-height: calc(32px - #{$btn-border-width} * 2);
+    // line-height: calc(32px - #{$btn-border-width} * 2);
   }
 
   &--icon-small {
@@ -273,7 +274,7 @@ $input-height-mini: 16px;
     width: 24px;
     height: 22px;
     padding: 0;
-    line-height: calc(22px - #{$btn-border-width} * 2);
+    // line-height: calc(22px - #{$btn-border-width} * 2);
   }
 }
 
