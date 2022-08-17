@@ -111,7 +111,6 @@ export class Button {
   private handlePreventDefault(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    event.stopImmediatePropagation();
   }
 
   private handleClick(event: Event) {
