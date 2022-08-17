@@ -60,6 +60,15 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 <script src="node_modules/@freshworks/crayons/dist/crayons/crayons.js"></script>
 ```
 
+or below to load esm module
+
+```html
+<script
+  type="module"
+  src="node_modules/@freshworks/crayons/dist/crayons/crayons.esm.js"
+></script>
+```
+
 in the head of your index.html
 
 - Now you can use the element anywhere in your template, JSX, html etc.
