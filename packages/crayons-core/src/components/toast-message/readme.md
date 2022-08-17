@@ -152,6 +152,7 @@ function App() {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property         | Attribute          | Description                                              | Type                                                | Default     |
@@ -164,6 +165,7 @@ function App() {
 | `timeout`        | `timeout`          | Time duration of the toast visibility                    | `number`                                            | `4000`      |
 | `type`           | `type`             | Type of the toast - success,failure, warning, inprogress | `"error" \| "inprogress" \| "success" \| "warning"` | `'warning'` |
 
+
 ## Events
 
 | Event           | Description                                                                                                                  | Type               |
@@ -171,12 +173,13 @@ function App() {
 | `fwLinkClick`   | Triggered when the action link clicked.                                                                                      | `CustomEvent<any>` |
 | `fwRemoveToast` | Triggered on closing the toast message. This event gets used by the parent container to remove the toast message from itself | `CustomEvent<any>` |
 
+
 ## Dependencies
 
 ### Used by
 
-- [fw-icon](../icon)
-- [fw-toast](../toast)
+ - [fw-icon](../icon)
+ - [fw-toast](../toast)
 
 ### Depends on
 
@@ -184,7 +187,6 @@ function App() {
 - [fw-icon](../icon)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-toast-message --> fw-spinner
@@ -194,6 +196,6 @@ graph TD;
   style fw-toast-message fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks
