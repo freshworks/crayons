@@ -67,6 +67,10 @@ export class Tag {
    */
   @Prop() state: TagState = 'normal';
   /**
+   * Index of tag in a group of tags
+   */
+  @Prop() index: string | number = '-1';
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
@@ -92,8 +96,8 @@ export class Tag {
     if (this.disabled || !this.closable) {
       return;
     }
-    const { value, text } = this;
-    this.fwClosed.emit({ value, text });
+    const { value, text, index } = this;
+    this.fwClosed.emit({ value, text, index });
     e.stopPropagation();
   };
 
@@ -107,8 +111,9 @@ export class Tag {
           class={{
             primary: !!this.secondaryText,
             content: true,
+            'end-padding': !this.secondaryText && !this.closable,
           }}>{this.text}</span>
-        {this.secondaryText && <span class={`secondary content ${this.disabled ? 'end-padding' : ''}`}>{this.secondaryText}</span>}
+        {this.secondaryText && <span class={`secondary content ${!this.closable ? 'end-padding' : ''}`}>{this.secondaryText}</span>}
       </div>
     );
   }
@@ -145,12 +150,23 @@ export class Tag {
     }
   };
 
+  disconnectedCallback(): void {
+    this.removeResizeObserver();
+  }
+
+  private removeResizeObserver = () => {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+  };
+
   render() {
     return (
       <div
         role='button'
         tabindex='-1'
-        class={`tag tag-${this.variant} ${this.state}`}
+        class={`tag ${this.state} tag-${this.variant} ${this.disabled ? 'disabled' : ''}`}
         ref={(tagContainer) => (this.tagContainer = tagContainer)}
       >
         {this.renderContent()}

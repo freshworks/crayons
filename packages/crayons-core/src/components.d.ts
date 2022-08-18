@@ -404,6 +404,10 @@ export namespace Components {
          */
         "max": number;
         /**
+          * Maximum number of recipients allowed in each section.
+         */
+        "maxEmailsAllowed": number;
+        /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
         "multiple": boolean;
@@ -432,6 +436,7 @@ export namespace Components {
          */
         "selectedOptions": any[];
         "setFocus": () => Promise<any>;
+        "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
@@ -948,7 +953,7 @@ export namespace Components {
         /**
           * Works only when 'isCreatable' is selected. Function to validate the newly created value.
          */
-        "validateCreatable": Function;
+        "validateNewOption": Function;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -1603,6 +1608,10 @@ export namespace Components {
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps": {};
+        /**
+          * Index of tag in a group of tags
+         */
+        "index": string | number;
         /**
           * Display secondary text in the tag component.
          */
@@ -2747,6 +2756,10 @@ declare namespace LocalJSX {
          */
         "max"?: number;
         /**
+          * Maximum number of recipients allowed in each section.
+         */
+        "maxEmailsAllowed"?: number;
+        /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
         "multiple"?: boolean;
@@ -3321,7 +3334,7 @@ declare namespace LocalJSX {
         /**
           * Works only when 'isCreatable' is selected. Function to validate the newly created value.
          */
-        "validateCreatable"?: Function;
+        "validateNewOption"?: Function;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -3999,6 +4012,10 @@ declare namespace LocalJSX {
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps"?: {};
+        /**
+          * Index of tag in a group of tags
+         */
+        "index"?: string | number;
         /**
           * Triggered when the tag is deselected.
          */

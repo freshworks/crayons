@@ -9,6 +9,7 @@ import {
   Listen,
   Method,
 } from '@stencil/core';
+import { TranslationController } from '../../global/Translation';
 
 @Component({
   tag: 'fw-email-header',
@@ -21,6 +22,11 @@ export class EmailHeader {
   private fromSelect;
 
   private toSelect;
+
+  private emailLabel: HTMLElement;
+
+  private resizeObserver;
+
   /**
    * Value of the option that is displayed as the default selection of From section, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
    */
@@ -63,6 +69,21 @@ export class EmailHeader {
    */
   @Prop() debounceTimer = 300;
 
+  /**
+   * Maximum number of recipients allowed in To section
+  */
+  @Prop() maxToEmailsAllowed = 50;
+
+  /**
+   * Maximum number of recipients allowed in Cc section
+  */
+   @Prop() maxCcEmailsAllowed = 50;
+
+   /**
+   * Maximum number of recipients allowed in Bcc section
+  */
+  @Prop() maxBccEmailsAllowed = 50;
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options fo to/cc/bcc fields.
@@ -75,6 +96,7 @@ export class EmailHeader {
   @State() toExpanded = false;
   @State() ccExpanded = false;
   @State() bccExpanded = false;
+  @State() addTooltip = false;
 
   renderErrorIcon() {
     return <svg
@@ -114,21 +136,21 @@ export class EmailHeader {
     switch (id) {
       case 'to':
         return {
-          label: 'To',
+          label: TranslationController.t('emailHeader.to'),
           options: this.toOptionsState.length > this.maxEmailsOnHover
             ? this.toOptionsState.slice(0, this.maxEmailsOnHover)
             : this.toOptionsState,
         }
       case 'cc':
         return {
-          label: 'Cc',
+          label: TranslationController.t('emailHeader.cc'),
           options: this.ccOptionsState.length > this.maxEmailsOnHover - this.toOptionsState.length
             ? this.ccOptionsState.slice(0, this.maxEmailsOnHover - this.toOptionsState.length)
             : this.ccOptionsState,
         };
       case 'bcc':
         return {
-          label: 'Bcc',
+          label: TranslationController.t('emailHeader.bcc'),
           options: this.bccOptionsState.length > this.maxEmailsOnHover - (this.toOptionsState.length + this.ccOptionsState.length)
             ? this.bccOptionsState.slice(0, this.maxEmailsOnHover - (this.toOptionsState.length + this.ccOptionsState.length))
             : this.bccOptionsState,
@@ -159,7 +181,9 @@ export class EmailHeader {
         {this.toOptionsState.length !== 0 && this.renderRow('to')}
         {this.ccOptionsState.length !== 0 && this.renderRow('cc')}
         {this.bccOptionsState.length !== 0 && this.renderRow('bcc')}
-        {recipientEmails > this.maxEmailsOnHover && <span class='truncate-popover'>{`+${recipientEmails - this.maxEmailsOnHover} more`}</span>}
+        {recipientEmails > this.maxEmailsOnHover && <span class='truncate-popover'>{TranslationController.t('emailHeader.emailOverflow', {
+          value: recipientEmails - this.maxEmailsOnHover,
+        })}</span>}
       </div>
     );
   };
@@ -206,11 +230,19 @@ export class EmailHeader {
     }
   }
 
-  @Listen('fwBlur')
-  onDropdownClose(e) {
-    if (e.composedPath()[0].id === 'to-field') {
-      // this.setExpanded(false);
-    }
+  renderLabel() {
+    return <span>{this.toOptionsState[0] ? this.toOptionsState[0].value : ''}</span>;
+  }
+
+  renderCollapsedContent() {
+    return <div
+      class='email'
+      ref={(el) => (this.emailLabel = el)}
+    >
+      {this.addTooltip ? <fw-tooltip hoist trigger='hover' content={this.toOptionsState[0] ? this.toOptionsState[0].value : ''}>
+        {this.renderLabel()}
+      </fw-tooltip> : this.renderLabel()}
+    </div>
   }
 
   @Method()
@@ -251,70 +283,100 @@ export class EmailHeader {
     this.bccExpanded = !this.bccExpanded;
   }
 
+  componentDidRender = () => {
+    const elLabel = this.emailLabel;
+    if (elLabel && !this.resizeObserver) {
+      this.resizeObserver = new ResizeObserver(() => {
+        if (elLabel.offsetWidth > 0) {
+          this.addTooltip =
+            elLabel.offsetWidth < elLabel.scrollWidth ? true : false;
+        }
+      });
+      this.resizeObserver.observe(elLabel);
+    }
+  };
+
+  disconnectedCallback(): void {
+    this.removeResizeObserver();
+  }
+
+  private removeResizeObserver = () => {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+  };
+
   render() {
     const recipientEmails = this.toOptionsState.length + this.ccOptionsState.length + this.bccOptionsState.length;
     return (<div>
+      {this.toExpanded &&
+        (<div class='field-container'>
+          <div class='main-label'>
+            <span>{TranslationController.t('emailHeader.from')}</span><span>:</span>
+          </div>
+          <fw-email-select
+            ref={(fromSelect) => (this.fromSelect = fromSelect)}
+            class='from-field select-section'
+            options={this.fromOptions}
+            value={this.fromValue?.value}
+            allowDeselect={false}
+            readonly={this.fromOptions.length <= 1}
+          />
+        </div>)}
       <div class='field-container'>
         <div class='main-label'>
-          <span>From</span><span>:</span>
+          <span>{TranslationController.t('emailHeader.to')}</span><span>:</span>
         </div>
-        <fw-email-select
-          ref={(fromSelect) => (this.fromSelect = fromSelect)}
-          class='from-field select-section'
-          options={this.fromOptions}
-          value={this.fromValue?.value}
-          allowDeselect={false}
-          readonly={this.fromOptions.length <= 1}
-        />
-      </div>
-      <div class='field-container'>
-        <div class='main-label'>
-          <span>To</span><span>:</span>
-        </div>
-        <div class={`to-row select-section ${!this.toExpanded ? 'collapsed-field' : ''}`}>
-          <div 
+        <div class={'to-row select-section' + (!this.toExpanded ? ' collapsed-field' : '')}>
+          <div
             class='to-container'
             onClick={() => this.setExpanded(true)}
-            onFocus={() => this.setExpanded(true)}
           >
-            <fw-email-select
-              ref={(toSelect) => (this.toSelect = toSelect)}
-              id='to-field'
-              class='to-field'
-              search={this.emailLookup}
-              selectedOptions={this.selectedToOptions}
-              multiple
-              readonly={!this.toExpanded}
-              debounceTimer={this.debounceTimer}
-            />
+            {this.toExpanded
+              ? (<fw-email-select
+                ref={(toSelect) => (this.toSelect = toSelect)}
+                id='to-field'
+                class='to-field'
+                search={this.emailLookup}
+                selectedOptions={this.selectedToOptions}
+                multiple
+                debounceTimer={this.debounceTimer}
+                maxEmailsAllowed={this.maxToEmailsAllowed}
+              />) :
+              (this.renderCollapsedContent())}
             {!this.toExpanded && recipientEmails > 1
               && <fw-popover
-              hoist
+                hoist
                 trigger='hover'
                 placement="bottom"
                 sameWidth={false}
               >
                 <span slot="popover-trigger" class='truncation-text'>
-                  +{recipientEmails - 1} more
+                  {TranslationController.t('emailHeader.emailOverflow', {
+                    value: recipientEmails - 1,
+                  })}
                 </span>
                 <div slot="popover-content" class='hover-content'>
                   {this.renderHoverContent()}
                 </div>
               </fw-popover>}
           </div>
-          <div class='expansion-link-container'>
-            <fw-tooltip placement="top" content={`${this.ccExpanded ? 'Hide' : 'Show'} Cc`}>
-              <span role='button' class={`expansion-link ${this.ccExpanded ? 'hover-link' : ''}`} onClick={() => this.toggleCcExpanded()}>Cc</span>
-            </fw-tooltip>
-            <fw-tooltip placement="top" content={`${this.bccExpanded ? 'Hide' : 'Show'} Bcc`}>
-              <span role='button' class={`expansion-link link-separation ${this.bccExpanded ? 'hover-link' : ''}`} onClick={() => this.toggleBccExpanded()}>Bcc</span>
-            </fw-tooltip>
-          </div>
+          {
+            this.toExpanded && (<div class='expansion-link-container'>
+              <fw-tooltip placement="top" content={`${this.ccExpanded ? TranslationController.t('emailHeader.hideCc') : TranslationController.t('emailHeader.showCc')}`}>
+                <span role='button' class={`expansion-link ${this.ccExpanded ? 'hover-link' : ''}`} onClick={() => this.toggleCcExpanded()}>{TranslationController.t('emailHeader.cc')}</span>
+              </fw-tooltip>
+              <fw-tooltip placement="top" content={`${this.bccExpanded ? TranslationController.t('emailHeader.hideBcc') : TranslationController.t('emailHeader.showBcc')}`}>
+                <span role='button' class={`expansion-link link-separation ${this.bccExpanded ? 'hover-link' : ''}`} onClick={() => this.toggleBccExpanded()}>{TranslationController.t('emailHeader.bcc')}</span>
+              </fw-tooltip>
+            </div>)
+          }
         </div>
       </div>
       <div class={`field-container ${!this.ccExpanded ? 'hidden' : ''}`}>
         <div class='main-label'>
-          <span>Cc</span><span>:</span>
+          <span>{TranslationController.t('emailHeader.cc')}</span><span>:</span>
         </div>
         <fw-email-select
           id='cc-field'
@@ -323,11 +385,12 @@ export class EmailHeader {
           selectedOptions={this.selectedCcOptions}
           multiple
           debounceTimer={this.debounceTimer}
+          maxEmailsAllowed={this.maxCcEmailsAllowed}
         />
       </div>
       <div class={`field-container ${!this.bccExpanded ? 'hidden' : ''}`}>
         <div class='main-label'>
-          <span>Bcc</span><span>:</span>
+          <span>{TranslationController.t('emailHeader.bcc')}</span><span>:</span>
         </div>
         <fw-email-select
           id='bcc-field'
@@ -336,6 +399,7 @@ export class EmailHeader {
           selectedOptions={this.selectedBccOptions}
           multiple
           debounceTimer={this.debounceTimer}
+          maxEmailsAllowed={this.maxBccEmailsAllowed}
         />
       </div>
     </div >);

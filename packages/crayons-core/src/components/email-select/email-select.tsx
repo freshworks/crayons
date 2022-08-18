@@ -11,6 +11,7 @@ import {
   Watch,
   Fragment,
 } from '@stencil/core';
+import { range, uniq } from 'lodash';
 import { handleKeyDown, renderHiddenField, validateEmail } from '../../utils';
 
 @Component({
@@ -24,9 +25,10 @@ export class EmailHeaderCustomComponentsSelectField {
   private fwListOptions?: HTMLFwListOptionsElement;
   private popover?: HTMLFwPopoverElement;
   private tagContainer: HTMLElement;
-  private tagRefs = [];
+  private singleValueLabel: HTMLElement;
   private tagArrowKeyCounter = 0;
   private hostId;
+  private resizeObserver;
 
   private changeEmittable = () => !this.disabled;
 
@@ -34,6 +36,7 @@ export class EmailHeaderCustomComponentsSelectField {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
+      this.focusedValues = [];
     }
   };
 
@@ -44,6 +47,7 @@ export class EmailHeaderCustomComponentsSelectField {
     if (!this.multiple) {
       this.openDropdown();
     }
+    this.focusedValues = [];
   };
 
   private innerOnBlur = () => {
@@ -74,6 +78,8 @@ export class EmailHeaderCustomComponentsSelectField {
   @State() selectedOptionsState = [];
   @State() isLoading = false;
   @State() focusedOptionId = '';
+  @State() focusedValues = [];
+  @State() addTooltip = false;
 
   /**
    * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
@@ -137,6 +143,11 @@ export class EmailHeaderCustomComponentsSelectField {
    */
   @Prop() debounceTimer = 300;
 
+  /**
+   * Maximum number of recipients allowed in each section.
+   */
+  @Prop() maxEmailsAllowed = 50;
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -197,13 +208,16 @@ export class EmailHeaderCustomComponentsSelectField {
           },
         });
       }
+      if (this.multiple) {
+        this.selectInput?.focus();
+      }
     }
   }
 
   // Listen to Tag close in case of multi-select
   @Listen('fwClosed')
   fwCloseHandler(ev) {
-    this.value = this.value.filter((value) => value !== ev.detail.value);
+    this.setSelectedOptions(this.selectedOptionsState.filter((_, index) => index !== ev.detail.index));
     this.focusOnTagContainer();
   }
 
@@ -216,8 +230,15 @@ export class EmailHeaderCustomComponentsSelectField {
         ev.preventDefault();
         ev.stopPropagation();
         break;
-      case 'ArrowLeft':
+      case 'Delete':
       case 'Backspace':
+        if (this.focusedValues.length > 0) {
+          // delete focused values
+          this.setSelectedOptions(this.selectedOptionsState.filter((_, index) => !this.focusedValues.includes(index)));
+          this.focusedValues = [];
+          break;
+        }
+      case 'ArrowLeft':
         if (this.multiple && this.selectInput.value === '') {
           this.focusOnTagContainer();
         }
@@ -227,7 +248,15 @@ export class EmailHeaderCustomComponentsSelectField {
         this.closeDropdown();
         break;
       case 'Tab':
+        this.focusedValues = [];
         this.closeDropdown();
+        break;
+      case 'a':
+      case 'A':
+        if ((ev.ctrlKey || ev.metaKey) && !this.searchValue || this.focusedValues.length > 0) {
+          this.tagContainer?.focus();
+          this.focusedValues = this.selectedOptionsState.reduce((arr, option, i) => ((!option.disabled) && arr.push(i), arr), []);
+        }
         break;
     }
   }
@@ -285,6 +314,12 @@ export class EmailHeaderCustomComponentsSelectField {
   }
 
   @Method()
+  async setSelectedOptions(options: any[]): Promise<any> {
+    this.fwListOptions.setSelectedOptions(options);
+    this.renderInput();
+  }
+
+  @Method()
   async setFocus(): Promise<any> {
     this.hasFocus = true;
     this.selectInput?.focus();
@@ -296,11 +331,20 @@ export class EmailHeaderCustomComponentsSelectField {
         this.innerOnBlur();
         this.closeDropdown();
         break;
+      case 'Delete':
       case 'Backspace':
+        if (this.focusedValues.length > 0) {
+          // delete focused values
+          this.setSelectedOptions(this.selectedOptionsState.filter((_, index) => !this.focusedValues.includes(index)));
+          this.focusedValues = [];
+          break;
+        }
       case 'ArrowLeft':
-        this.tagArrowKeyCounter--;
-        if (this.tagArrowKeyCounter >= 0) {
-          this.focusOnTag(this.tagArrowKeyCounter);
+        if (this.tagArrowKeyCounter - 1 >= 0) {
+          if (!this.selectedOptionsState[this.tagArrowKeyCounter - 1].disabled) {
+            this.tagArrowKeyCounter--;
+            this.focusOnTag(this.tagArrowKeyCounter);
+          }
         } else {
           this.tagArrowKeyCounter = 0;
         }
@@ -319,13 +363,19 @@ export class EmailHeaderCustomComponentsSelectField {
   };
 
   focusOnTagContainer() {
-    this.tagRefs = [...this.tagContainer.getElementsByTagName('fw-tag')];
-    this.tagArrowKeyCounter = this.value.length - 1;
-    this.focusOnTag(this.tagArrowKeyCounter);
+    if (this.tagContainer) {
+      if (!this.selectedOptionsState[this.value.length - 1].disabled) {
+        this.tagArrowKeyCounter = this.value.length - 1;
+        this.focusOnTag(this.tagArrowKeyCounter);
+      }
+    }
   }
 
   focusOnTag(index) {
-    this.tagRefs[index]?.setFocus();
+    if (!this.selectedOptionsState[index].disabled) {
+      this.focusedValues = [index];
+      this.tagContainer.focus();
+    }
   }
 
   clearInput() {
@@ -354,27 +404,49 @@ export class EmailHeaderCustomComponentsSelectField {
     } else {
       // Clear selected value in case of single select.
       this.multiple || this.setSelectedValues('');
-      !this.multiple && this.closeDropdown();
+      this.closeDropdown();
+    }
+    this.focusedValues = [];
+  }
+
+  onClickTag(e, index) {
+    e.stopPropagation();
+    this.tagContainer.focus();
+    if (!this.selectedOptionsState[index].disabled) {
+      const focusedIndex = this.focusedValues.indexOf(index);
+      if (focusedIndex === -1) {
+        if (e.ctrlKey || e.metaKey) {
+          this.focusedValues = [...this.focusedValues, index];
+        } else if (e.shiftKey && this.focusedValues.length > 0) {
+          this.focusedValues = uniq([...this.focusedValues, ...range(this.focusedValues[this.focusedValues.length - 1], index + 1)]);
+        } else {
+          this.focusedValues = [index];
+        }
+      } else if (e.ctrlKey || e.metaKey) {
+        this.focusedValues = this.focusedValues.filter((_, index) => index !== focusedIndex);
+      }
     }
   }
 
   renderTags() {
     if (this.multiple && Array.isArray(this.value)) {
-      return this.selectedOptionsState.map((option) => {
+      return this.selectedOptionsState.map((option, index) => {
         if (this.isValueEqual(this.value, option)) {
+          const optionState = option.error || index >= this.maxEmailsAllowed ? 'error' : this.focusedValues.includes(index) ? 'focused' : 'normal';
           return (
             <fw-tag
+              index={index}
               class={option.disabled ? 'tag-disabled' : 'tag-default'}
-              state={option.error ? 'error' : 'normal'}
+              state={optionState}
               variant="avatar"
               graphicsProps={option.graphicsProps}
-              text={option.text}
-              secondaryText={option.subText ? `<${option.subText}>` : ''}
+              text={option.value}
+              // secondaryText={option.subText ? `<${option.subText}>` : ''}
               disabled={option.disabled}
               value={option.value}
               focusable={false}
               closable={!option.disabled}
-              onClick={(e) => e.stopImmediatePropagation()}
+              onClick={(e) => this.onClickTag(e, index)}
             />
           );
         }
@@ -397,19 +469,38 @@ export class EmailHeaderCustomComponentsSelectField {
     }
   }
 
+  renderLabel(value) {
+    return (<span
+      class='single-select-value'
+    >
+      {value?.text} &lt;{value?.subText}&gt;
+    </span>)
+  }
+
   renderSingleValue(value) {
     if (value) {
       return (
-        <span class='single-value-tag'>
+        <span class={`single-value-tag ${this.readonly ? 'readonly' : ''}`}>
           <fw-avatar
             size="xsmall"
             image={value?.graphicsProps?.image}
           ></fw-avatar>
-          <span class='single-select-value'>
-            {value?.text} &lt;{value?.subText}&gt;
-          </span>
+          <div
+            class='ellipsis'
+            ref={(el) => (this.singleValueLabel = el)}
+          >
+            {this.addTooltip ? <fw-tooltip trigger='hover' content={`${value?.text} <${value?.subText}>`}>
+              {this.renderLabel(value)}
+            </fw-tooltip> : this.renderLabel(value)}
+          </div>
         </span>
       );
+    }
+  }
+
+  onClickOutside(e) {
+    if (e.target !== this.host) {
+      this.focusedValues = [];
     }
   }
 
@@ -482,15 +573,40 @@ export class EmailHeaderCustomComponentsSelectField {
 
     //Get id
     this.hostId = this.host.id || '';
+
+    // Add event listener to track clicks outside the element to blur selected tags
+    document.addEventListener('click', this.onClickOutside.bind(this))
   }
 
   componentDidLoad() {
     this.renderInput();
   }
 
+  componentDidRender = () => {
+    const elLabel = this.singleValueLabel;
+    if (elLabel && !this.resizeObserver) {
+      this.resizeObserver = new ResizeObserver(() => {
+        if (elLabel.offsetWidth > 0) {
+          this.addTooltip =
+            elLabel.offsetWidth < elLabel.scrollWidth ? true : false;
+        }
+      });
+      this.resizeObserver.observe(elLabel);
+    }
+  };
+
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
+    document.removeEventListener('click', this.onClickOutside.bind(this))
+    this.removeResizeObserver();
   }
+
+  private removeResizeObserver = () => {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+  };
 
   @Watch('isExpanded')
   expandWatcher(expanded: boolean): void {
@@ -558,6 +674,9 @@ export class EmailHeaderCustomComponentsSelectField {
                             (this.tagContainer = tagContainer)
                           }
                           onKeyDown={this.tagContainerKeyDown}
+                          role='listbox'
+                          aria-multiselectable='true'
+                          tabIndex={-1}
                         >
                           {this.renderTags()}
                         </div>
@@ -607,7 +726,7 @@ export class EmailHeaderCustomComponentsSelectField {
             disabled={this.disabled}
             allowDeselect={this.allowDeselect}
             slot='popover-content'
-            validateCreatable={(value) => !validateEmail(value)}
+            validateNewOption={(value) => !validateEmail(value)}
             isCreatable
           ></fw-list-options>
         </fw-popover>

@@ -69,9 +69,21 @@ export namespace Components {
         "getSelectedFromValue": () => Promise<any>;
         "getSelectedToItems": () => Promise<any>;
         /**
+          * Maximum number of recipients allowed in Bcc section
+         */
+        "maxBccEmailsAllowed": number;
+        /**
+          * Maximum number of recipients allowed in Cc section
+         */
+        "maxCcEmailsAllowed": number;
+        /**
           * Max number of emails to be displayed on hover of truncated text for 'To' field
          */
         "maxEmailsOnHover": number;
+        /**
+          * Maximum number of recipients allowed in To section
+         */
+        "maxToEmailsAllowed": number;
         /**
           * Array of the options that is displayed as the default selection for BCC section, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.
          */
@@ -703,9 +715,21 @@ declare namespace LocalJSX {
          */
         "fromValue"?: any;
         /**
+          * Maximum number of recipients allowed in Bcc section
+         */
+        "maxBccEmailsAllowed"?: number;
+        /**
+          * Maximum number of recipients allowed in Cc section
+         */
+        "maxCcEmailsAllowed"?: number;
+        /**
           * Max number of emails to be displayed on hover of truncated text for 'To' field
          */
         "maxEmailsOnHover"?: number;
+        /**
+          * Maximum number of recipients allowed in To section
+         */
+        "maxToEmailsAllowed"?: number;
         /**
           * Triggered when a value is selected or deselected from the list box options fo to/cc/bcc fields.
          */

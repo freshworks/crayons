@@ -40,8 +40,8 @@ export class ListOptions {
       const filteredValue =
         value !== ''
           ? dataSource.filter((option) =>
-              option.text.toLowerCase().includes(value.toLowerCase())
-            )
+            option.text.toLowerCase().includes(value.toLowerCase())
+          )
           : dataSource;
       resolve(filteredValue);
     });
@@ -134,7 +134,7 @@ export class ListOptions {
   /**
    * Works only when 'isCreatable' is selected. Function to validate the newly created value.
    */
-  @Prop() validateCreatable: Function;
+  @Prop() validateNewOption: Function;
   /**
    * Triggered when a value is selected or deselected from the list box options.
    */
@@ -153,8 +153,8 @@ export class ListOptions {
       )[0];
       if (this.isCreatable && selectedObj.isNew) {
         selectedObj.text = selectedObj.value;
-        if (this.validateCreatable) {
-          selectedObj.error = this.validateCreatable(selectedObj.value);
+        if (this.validateNewOption) {
+          selectedObj.error = this.validateNewOption(selectedObj.value);
         }
       }
       this.selectedOptionsState = this.multiple
@@ -210,8 +210,7 @@ export class ListOptions {
     if (this.filteredOptions.length > 0 && this.valueExists()) {
       this.container
         .querySelector(
-          `fw-select-option[id='${
-            this.host.id
+          `fw-select-option[id='${this.host.id
           }-option-${this.getLastSelectedValue()}']`
         )
         ?.scrollIntoView({ block: 'nearest' });
@@ -380,8 +379,7 @@ export class ListOptions {
       const isDisabled = this.selectedOptionsState.find(selected => selected.value === option.value)?.disabled
         || option.disabled
         || this.disabled
-        || (this.multiple && this.value?.length >= this.max)
-        || (!this.allowDeselect && isSelected);
+        || (this.multiple && this.value?.length >= this.max);
       return {
         ...option,
         ...{
@@ -421,13 +419,21 @@ export class ListOptions {
   }
 
   renderSelectOptions(options: Array<any>) {
-    return options.map((option) => (
-      <fw-select-option
+    return options.map((option) => {
+      const isDisabled = this.selectedOptionsState.find(selected => selected.value === option.value)?.disabled
+        || option.disabled
+        || (!this.allowDeselect && option.selected);
+      return <fw-select-option
         id={`${this.host.id}-option-${option.value}`}
         key={option.value}
         {...option}
+        {...{
+          checkbox: option.checkbox || this.checkbox,
+          variant: option.variant || this.variant,
+          disabled: isDisabled,
+        }}
       ></fw-select-option>
-    ));
+    });
   }
 
   renderSearchInput() {

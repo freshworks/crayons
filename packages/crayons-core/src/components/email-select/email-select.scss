@@ -39,6 +39,10 @@ $input-border: $color-smoke-100;
             display: flex;
             flex-wrap: wrap;
 
+            &:focus, &:focus-visible {
+                outline: none;
+            }
+
             fw-tag {
                 display: flex;
                 min-width: 0;
@@ -46,6 +50,18 @@ $input-border: $color-smoke-100;
                 margin-block-end: 4px;
                 margin-inline-end: 4px;
                 margin-block-start: 4px;
+                -webkit-touch-callout: none;
+                font-weight: 600;
+                /* iOS Safari */
+                -webkit-user-select: none;
+                /* Safari */
+                -khtml-user-select: none;
+                /* Konqueror HTML */
+                -moz-user-select: none;
+                /* Old versions of Firefox */
+                -ms-user-select: none;
+                /* Internet Explorer/Edge */
+                user-select: none;
             }
         }
 
@@ -182,6 +198,9 @@ $input-border: $color-smoke-100;
     font-weight: 400;
     padding-inline-start: 8px;
     color: #12344D;
+}
+
+.ellipsis {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -192,6 +211,10 @@ $input-border: $color-smoke-100;
     align-items: center;
     margin: 4px 4px 4px 6px;
     min-width: 0;
+}
+
+.readonly {
+    margin-inline-start: 20px;
 }
 
 .single-value-button {

@@ -12,9 +12,15 @@
     margin: 0px;
   }
 
+  &.disabled {
+    border: 0px;
+    margin: 1px;
+  }
+
   &.focused {
     border: 1px solid #283DA5;
-    background: #E5F2FD;
+    background: #E5F2FD !important;
+    margin: 0px;
   }
 
   &.error {
@@ -40,6 +46,9 @@
 
   .avatar-content {
     min-width: inherit;
+    .end-padding {
+      padding-inline-end: 8px;
+    }
   }
 
   .primary {
@@ -48,9 +57,6 @@
 
   .secondary {
     padding-inline-start: 8px;
-    &.end-padding {
-      padding-inline-end: 8px;
-    }
   }
 
   &-standard {
@@ -66,7 +72,6 @@
   &-avatar {
     padding: 4px;
     border-radius: 24px;
-    font-weight: 400;
     background: linear-gradient(180deg, $color-smoke-25 2.56%, #f3f5f7 95.75%);
 
     fw-avatar {
