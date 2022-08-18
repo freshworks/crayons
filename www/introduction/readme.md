@@ -57,16 +57,7 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 - Put a script tag similar to this
 
 ```html
-<script src="node_modules/@freshworks/crayons/dist/crayons/crayons.js"></script>
-```
-
-or below to load esm module
-
-```html
-<script
-  type="module"
-  src="node_modules/@freshworks/crayons/dist/crayons/crayons.esm.js"
-></script>
+<script src="node_modules/@freshworks/crayons/dist/crayons.js"></script>
 ```
 
 in the head of your index.html

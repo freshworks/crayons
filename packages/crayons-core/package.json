@@ -51,7 +51,7 @@
     "commit": "git-cz",
     "dev": "npm run start",
     "directional-to-logical": "npx postcss './src/**/*.scss' ../../styles/**/*.scss --config ./plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose",
-    "file:util": "node ../../scripts/fileutil",
+    "file:util": "node fileutil",
     "generate": "plop",
     "local": "stencil build --dev --watch",
     "prestart": "kill-port 3333",
@@ -103,7 +103,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@freshworks/crayons-i18n": "file:../packages/crayons-i18n",
+    "@freshworks/crayons-i18n": "^3.1.3-beta.0",
     "@popperjs/core": "^2.10.2",
     "@stencil/core": "2.9.0",
     "date-fns": "^2.28.0",

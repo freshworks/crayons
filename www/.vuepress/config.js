@@ -8,22 +8,22 @@ const components = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../components.json'))
 );
 
-const coreComponents = components.filter(comp => comp.startsWith('components/core/'))
-const platformUiComponents = components.filter(comp => comp.startsWith('components/platform-ui/'))
-
 // Generate array of head-scripts based on the www builds of the
 // packages that have landed in the public directory
 const headScripts = [];
 const wwwBuilds = fs
-  .readdirSync(path.resolve(__dirname, 'public/scripts'))
+  .readdirSync(path.resolve(__dirname, 'public'))
+  .filter((dir) => {
+    return /^(\.\/)?crayons/.test(dir);
+  });
 for (const wwwBuild of wwwBuilds) {
   headScripts.push([
     'script',
-    { type: 'module', src: `/scripts/${wwwBuild}/build/${wwwBuild}.esm.js` },
+    { type: 'module', src: `/${wwwBuild}/build/${wwwBuild}.esm.js` },
   ]);
   headScripts.push([
     'script',
-    { nomodule: '', src: `/scripts/${wwwBuild}/build/${wwwBuild}.js` },
+    { nomodule: '', src: `/${wwwBuild}/build/${wwwBuild}.js` },
   ]);
 }
 headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
@@ -71,16 +71,10 @@ module.exports = {
         children: ['/introduction/', '/introduction/migrating-to-v3/'],
       },
       {
-        title: 'Core Components',
+        title: 'Components',
         collapsable: false,
         sidebarDepth: 1,
-        children: coreComponents,
-      },
-      {
-        title: 'Platform UI Components',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: platformUiComponents,
+        children: components,
       },
       {
         title: 'CSS Utils',
@@ -114,8 +108,9 @@ module.exports = {
         text: `v${version?.split('.')[0]}.x`,
         items: ['v3.x', 'v2.x'].map((v) => ({
           text: v,
-          link: `https://crayons.freshworks.com/${v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
-            }`,
+          link: `https://crayons.freshworks.com/${
+            v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
+          }`,
         })),
       },
     ],

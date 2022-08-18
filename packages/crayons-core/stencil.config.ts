@@ -45,7 +45,7 @@ export const config: Config = {
     },
     {
       type: 'www',
-      dir: `../../www/.vuepress/public/scripts/${packageName}/`,
+      dir: `../../www/.vuepress/public/${packageName}/`,
     },
     {
       type: 'docs-json',

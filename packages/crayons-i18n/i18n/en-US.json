@@ -180,17 +180,5 @@
     "placeholder": {
       "search": "Type to search"
     }
-  },
-  "emailHeader": {
-    "from": "From",
-    "to": "To",
-    "cc": "Cc",
-    "bcc": "Bcc",
-    "emailOverflow": "+{{value}} more",
-    "createLabel": "Add \"{{name}}\" as a recipient",
-    "showCc": "Show Cc",
-    "hideCc": "Hide Cc",
-    "showBcc": "Show Bcc",
-    "hideBcc": "Hide Bcc"
   }
 }

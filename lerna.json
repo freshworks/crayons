@@ -1,5 +1,5 @@
 {
-  "packages": ["packages/*", "packages/crayons-extended/*"],
+  "packages": ["packages/*"],
   "npmClient": "npm",
   "version": "independent",
   "command": {
