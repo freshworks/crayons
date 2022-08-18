@@ -195,7 +195,7 @@ Whenever the user selected or removes an FILTER_KEY, the component will emit the
 ```jsx
 import React, { useRef } from 'react'
 import { FwButton } from '@freshworks/crayons/react'
-import { FwFilter } from '@freshworks/platform-ui/react'
+import { FwFilter } from '@freshworks/crayons-custom-objects/react'
 var gender = [
     { text: 'Male', value: 'male' },
     { text: 'Female', value: 'female' },

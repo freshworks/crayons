@@ -797,7 +797,7 @@ A complex table can be created using slots
 ```jsx
 import React, { useEffect, useState, useRef } from 'react'
 import { FwInput, FwButton, FwIcon, FwModal, FwModalTitle, FwModalContent, FwModalFooter } from '@freshworks/crayons/react'
-import { FwPlatformTable, FwFilter } from '@freshworks/platform-ui/react'
+import { FwPlatformTable, FwFilter } from '@freshworks/crayons-custom-objects/react'
 var charactersSource = [
     {
         id: 1,

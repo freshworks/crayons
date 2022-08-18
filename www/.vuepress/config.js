@@ -8,14 +8,17 @@ const components = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../components.json'))
 );
 
-const coreComponents = components.filter(comp => comp.startsWith('components/core/'))
-const platformUiComponents = components.filter(comp => comp.startsWith('components/platform-ui/'))
+const coreComponents = components.filter((comp) =>
+  comp.startsWith('components/core/')
+);
+const customObjectsComponents = components.filter((comp) =>
+  comp.startsWith('components/crayons-custom-objects/')
+);
 
 // Generate array of head-scripts based on the www builds of the
 // packages that have landed in the public directory
 const headScripts = [];
-const wwwBuilds = fs
-  .readdirSync(path.resolve(__dirname, 'public/scripts'))
+const wwwBuilds = fs.readdirSync(path.resolve(__dirname, 'public/scripts'));
 for (const wwwBuild of wwwBuilds) {
   headScripts.push([
     'script',
@@ -77,10 +80,10 @@ module.exports = {
         children: coreComponents,
       },
       {
-        title: 'Platform UI Components',
+        title: 'Custom Objects',
         collapsable: false,
         sidebarDepth: 1,
-        children: platformUiComponents,
+        children: ['/custom-objects/', ...customObjectsComponents],
       },
       {
         title: 'CSS Utils',
@@ -114,8 +117,9 @@ module.exports = {
         text: `v${version?.split('.')[0]}.x`,
         items: ['v3.x', 'v2.x'].map((v) => ({
           text: v,
-          link: `https://crayons.freshworks.com/${v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
-            }`,
+          link: `https://crayons.freshworks.com/${
+            v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
+          }`,
         })),
       },
     ],

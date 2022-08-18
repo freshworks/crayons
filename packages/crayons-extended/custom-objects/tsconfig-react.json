@@ -20,9 +20,9 @@
     "target": "es2017"
   },
   "include": [
-    "platform-ui-react/**/*.ts",
-    "platform-ui-react/**/*.tsx",
-    "platform-ui-react/package.json"
+    "crayons-custom-objects-react/**/*.ts",
+    "crayons-custom-objects-react/**/*.tsx",
+    "crayons-custom-objects-react/package.json"
   ],
   "exclude": ["**/__tests__/**"],
   "compileOnSave": false,

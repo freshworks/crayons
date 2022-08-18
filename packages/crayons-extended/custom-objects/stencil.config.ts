@@ -1,9 +1,9 @@
 import { Config } from '@stencil/core';
 import { reactOutputTarget } from 'react-output-target';
 import { sass } from '@stencil/sass';
-const packageName = 'platform-ui';
+const packageName = 'crayons-custom-objects';
 export const config: Config = {
-  namespace: 'platform-ui',
+  namespace: 'crayons-custom-objects',
   outputTargets: [
     {
       type: 'dist',
@@ -11,10 +11,11 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
+      autoDefineCustomElements: true,
     },
     {
       type: 'docs-readme',
-      dir: '../../../www/platform-ui',
+      dir: '../../../www/crayons-custom-objects',
       footer: 'Built with ❤ at Freshworks',
     },
     {
@@ -27,7 +28,7 @@ export const config: Config = {
     },
     reactOutputTarget({
       componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
-      proxiesFile: './platform-ui-react/components.ts',
+      proxiesFile: './crayons-custom-objects-react/components.ts',
 
       // lazy load -> code splitting
       // includeDefineCustomElements: true,

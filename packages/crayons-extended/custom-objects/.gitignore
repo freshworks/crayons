@@ -6,9 +6,9 @@ coverage/
 docs-dist/
 react/
 
-platform-ui-react/react-component-lib
-platform-ui-react/*.ts
-!platform-ui-react/index.ts
+crayons-custom-objects-react/react-component-lib
+crayons-custom-objects-react/*.ts
+!crayons-custom-objects-react/index.ts
 .vuepress/public/build/
 css/
 
