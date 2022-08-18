@@ -575,7 +575,7 @@ export class EmailHeaderCustomComponentsSelectField {
     this.hostId = this.host.id || '';
 
     // Add event listener to track clicks outside the element to blur selected tags
-    document.addEventListener('click', this.onClickOutside.bind(this))
+    document.addEventListener('mouseup', this.onClickOutside.bind(this))
   }
 
   componentDidLoad() {
@@ -597,7 +597,7 @@ export class EmailHeaderCustomComponentsSelectField {
 
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
-    document.removeEventListener('click', this.onClickOutside.bind(this))
+    document.removeEventListener('mouseup', this.onClickOutside.bind(this))
     this.removeResizeObserver();
   }
 
