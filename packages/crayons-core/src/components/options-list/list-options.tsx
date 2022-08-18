@@ -136,6 +136,10 @@ export class ListOptions {
    */
   @Prop() validateNewOption: Function;
   /**
+   * Whether clicking on option selects it.
+   */
+  @Prop() allowSelect = true;
+  /**
    * Triggered when a value is selected or deselected from the list box options.
    */
   @Event({ cancelable: true }) fwChange: EventEmitter;
@@ -426,6 +430,7 @@ export class ListOptions {
       return <fw-select-option
         id={`${this.host.id}-option-${option.value}`}
         key={option.value}
+        allowSelect={this.allowSelect}
         {...option}
         {...{
           checkbox: option.checkbox || this.checkbox,

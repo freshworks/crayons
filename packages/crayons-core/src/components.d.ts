@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
+import { CountryCode } from "libphonenumber-js/types";
 import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
 import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
@@ -146,6 +147,85 @@ export namespace Components {
         "value": string;
         /**
           * Warning text displayed below the radio group.
+         */
+        "warningText": string;
+    }
+    interface FwCountryPhone {
+        /**
+          * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
+         */
+        "clearInput": boolean;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hide Country Flag in the Country Select
+         */
+        "hideCountryFlag": boolean;
+        /**
+          * Hide Country Name in the Country Select
+         */
+        "hideCountryName": boolean;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
+          * * Label displayed on the interface, for the input component.
+         */
+        "inputLabel"?: string | null;
+        /**
+          * Text displayed in the text box before a user enters a value.
+         */
+        "inputPlaceholder"?: string | null;
+        /**
+          * Checks PhoneNumber is Valid or Not
+          * @param value PhoneNumber
+          * @param countryCode
+          * @returns after validation PhoneNumber with countryCode
+         */
+        "isValidPhoneNumber": (value: string, countryCode: CountryCode) => Promise<boolean>;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name": string;
+        /**
+          * Validates PhoneNumber provided and return extra details
+          * @param value PhoneNumber
+          * @returns {countryCode, countryCallingCode, nationalNumber,  number, metadata }
+         */
+        "parsePhoneNumber": (...args: any[]) => Promise<any>;
+        /**
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
+         */
+        "readonly": boolean;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * * Label displayed on the interface, for the input component.
+         */
+        "selectLabel"?: string | null;
+        /**
+          * Text displayed in the text box before a user enters a value.
+         */
+        "selectPlaceholder"?: string | null;
+        /**
+          * Theme based on which the text box is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
+          * Default value displayed in the input box & select dropdown after extracting valid phone number
+         */
+        "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
          */
         "warningText": string;
     }
@@ -752,6 +832,10 @@ export namespace Components {
          */
         "src": string;
         /**
+          * Identifier of the icon. The attribute’s value must be a valid url of the svg icon.
+         */
+        "url": string;
+        /**
           * Width of the icon, specified in number of  pixels.
          */
         "width": number;
@@ -885,6 +969,10 @@ export namespace Components {
           * Whether clicking on the already selected option disables it.
          */
         "allowDeselect": boolean;
+        /**
+          * Whether clicking on option selects it.
+         */
+        "allowSelect": boolean;
         /**
           * Place a checkbox.
          */
@@ -1446,6 +1534,10 @@ export namespace Components {
           * Whether clicking on the already selected option disables it.
          */
         "allowDeselect": boolean;
+        /**
+          * Whether clicking on option selects it.
+         */
+        "allowSelect": boolean;
         /**
           * Place a checkbox.
          */
@@ -2014,6 +2106,12 @@ declare global {
         prototype: HTMLFwCheckboxElement;
         new (): HTMLFwCheckboxElement;
     };
+    interface HTMLFwCountryPhoneElement extends Components.FwCountryPhone, HTMLStencilElement {
+    }
+    var HTMLFwCountryPhoneElement: {
+        prototype: HTMLFwCountryPhoneElement;
+        new (): HTMLFwCountryPhoneElement;
+    };
     interface HTMLFwCustomCellAnchorElement extends Components.FwCustomCellAnchor, HTMLStencilElement {
     }
     var HTMLFwCustomCellAnchorElement: {
@@ -2316,6 +2414,7 @@ declare global {
         "fw-button": HTMLFwButtonElement;
         "fw-button-group": HTMLFwButtonGroupElement;
         "fw-checkbox": HTMLFwCheckboxElement;
+        "fw-country-phone": HTMLFwCountryPhoneElement;
         "fw-custom-cell-anchor": HTMLFwCustomCellAnchorElement;
         "fw-custom-cell-icon": HTMLFwCustomCellIconElement;
         "fw-custom-cell-paragraph": HTMLFwCustomCellParagraphElement;
@@ -2522,6 +2621,88 @@ declare namespace LocalJSX {
         "value"?: string;
         /**
           * Warning text displayed below the radio group.
+         */
+        "warningText"?: string;
+    }
+    interface FwCountryPhone {
+        /**
+          * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
+         */
+        "clearInput"?: boolean;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hide Country Flag in the Country Select
+         */
+        "hideCountryFlag"?: boolean;
+        /**
+          * Hide Country Name in the Country Select
+         */
+        "hideCountryName"?: boolean;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
+          * * Label displayed on the interface, for the input component.
+         */
+        "inputLabel"?: string | null;
+        /**
+          * Text displayed in the text box before a user enters a value.
+         */
+        "inputPlaceholder"?: string | null;
+        /**
+          * Name of the component, saved as part of form data.
+         */
+        "name"?: string;
+        /**
+          * Triggered when phone element is blur.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when input is focused.
+         */
+        "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when phone element is input.
+         */
+        "onFwInput"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when clear icon is clicked.
+         */
+        "onFwInputClear"?: (event: CustomEvent<any>) => void;
+        /**
+          * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
+         */
+        "readonly"?: boolean;
+        /**
+          * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * * Label displayed on the interface, for the input component.
+         */
+        "selectLabel"?: string | null;
+        /**
+          * Text displayed in the text box before a user enters a value.
+         */
+        "selectPlaceholder"?: string | null;
+        /**
+          * Theme based on which the text box is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
+        /**
+          * Default value displayed in the input box & select dropdown after extracting valid phone number
+         */
+        "value"?: string | null;
+        /**
+          * Warning text displayed below the text box.
          */
         "warningText"?: string;
     }
@@ -3116,6 +3297,10 @@ declare namespace LocalJSX {
          */
         "src"?: string;
         /**
+          * Identifier of the icon. The attribute’s value must be a valid url of the svg icon.
+         */
+        "url"?: string;
+        /**
           * Width of the icon, specified in number of  pixels.
          */
         "width"?: number;
@@ -3267,6 +3452,10 @@ declare namespace LocalJSX {
           * Whether clicking on the already selected option disables it.
          */
         "allowDeselect"?: boolean;
+        /**
+          * Whether clicking on option selects it.
+         */
+        "allowSelect"?: boolean;
         /**
           * Place a checkbox.
          */
@@ -3840,6 +4029,10 @@ declare namespace LocalJSX {
          */
         "allowDeselect"?: boolean;
         /**
+          * Whether clicking on option selects it.
+         */
+        "allowSelect"?: boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox"?: boolean;
@@ -3871,6 +4064,10 @@ declare namespace LocalJSX {
           * Triggered when an option is focused.
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when an option is clicked when allowSelect is false.
+         */
+        "onFwSelectAttempted"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when an option is selected.
          */
@@ -4405,6 +4602,7 @@ declare namespace LocalJSX {
         "fw-button": FwButton;
         "fw-button-group": FwButtonGroup;
         "fw-checkbox": FwCheckbox;
+        "fw-country-phone": FwCountryPhone;
         "fw-custom-cell-anchor": FwCustomCellAnchor;
         "fw-custom-cell-icon": FwCustomCellIcon;
         "fw-custom-cell-paragraph": FwCustomCellParagraph;
@@ -4467,6 +4665,7 @@ declare module "@stencil/core" {
             "fw-button": LocalJSX.FwButton & JSXBase.HTMLAttributes<HTMLFwButtonElement>;
             "fw-button-group": LocalJSX.FwButtonGroup & JSXBase.HTMLAttributes<HTMLFwButtonGroupElement>;
             "fw-checkbox": LocalJSX.FwCheckbox & JSXBase.HTMLAttributes<HTMLFwCheckboxElement>;
+            "fw-country-phone": LocalJSX.FwCountryPhone & JSXBase.HTMLAttributes<HTMLFwCountryPhoneElement>;
             "fw-custom-cell-anchor": LocalJSX.FwCustomCellAnchor & JSXBase.HTMLAttributes<HTMLFwCustomCellAnchorElement>;
             "fw-custom-cell-icon": LocalJSX.FwCustomCellIcon & JSXBase.HTMLAttributes<HTMLFwCustomCellIconElement>;
             "fw-custom-cell-paragraph": LocalJSX.FwCustomCellParagraph & JSXBase.HTMLAttributes<HTMLFwCustomCellParagraphElement>;

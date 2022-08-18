@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.6.0-beta.0...@freshworks/crayons@3.6.0-beta.1) (2022-08-10)
+
+### Bug Fixes
+
+- **button:** handle onClick on disabled ([#653](https://github.com/freshworks/crayons/issues/653)) ([46b1dd2](https://github.com/freshworks/crayons/commit/46b1dd220a33819bb740140b5c2f1194156ed1ed))
+
+### Features
+
+- **component:** international phone number component ([#631](https://github.com/freshworks/crayons/issues/631)) ([14ffa61](https://github.com/freshworks/crayons/commit/14ffa61ea884652f242d98d408aeb600f91d00de))
+
 ## [3.6.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0...@freshworks/crayons@3.6.0-beta.0) (2022-08-01)
 
 ### Bug Fixes

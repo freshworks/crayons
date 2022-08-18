@@ -1,0 +1,115 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+# CountryPhone
+
+<Meta
+  title='CountryPhone'
+  component='fw-country-phone'
+/>
+
+## Props 
+
+<Props of="fw-country-phone"/>
+
+## Usage
+
+### Defaults
+<Preview>
+  <Story name='Default'>
+    {
+      () => `<fw-country-phone 
+              value=""
+              name="country-code"
+              clear-input
+              select-placeholder="select country code"
+              input-placeholder="Enter phone number"
+              input-label="Support phone number"
+              select-label="Country Code"
+              hint-text="Input hint text"
+              error-text="Error message text"
+              warning-text="Please use numbers for user ID"
+              state="normal"
+      ></fw-country-phone>`
+    }
+  </Story>
+</Preview>
+
+### Required
+
+<Preview>
+  <Story name='Required'>
+    {() =>
+      `<fw-country-phone
+        value="919999999999"
+        name="country-code" 
+        clear-input 
+        select-placeholder="country code"
+        input-placeholder="input"
+        required
+        input-label="Support phone number"
+        select-label="Country Code"></fw-country-phone>`
+    }
+  </Story>
+</Preview>
+
+### Hide Country Flag
+
+<Preview>
+  <Story name='Hide Country Flag'>
+    {() =>
+      `<fw-country-phone
+        country-width="200"
+        value="919999999999"
+        name="country-code" 
+        clear-input 
+        hide-country-flag
+        select-placeholder="country code"
+        input-placeholder="input"
+        required
+        input-label="Support phone number"
+        select-label="Country Code"></fw-country-phone>`
+    }
+  </Story>
+</Preview>
+
+### Hide Country Name Field
+
+<Preview>
+  <Story name='Hide Country Name Field'>
+    {() =>
+      `<fw-country-phone
+        value="919999999999"
+        country-width="150"
+        name="country-code" 
+        clear-input 
+        hide-country-name
+        select-placeholder="country code"
+        input-placeholder="input"
+        required
+        input-label="Support phone number"
+        select-label="Country Code"></fw-country-phone>`
+    }
+  </Story>
+</Preview>
+
+
+### Manage Select Width
+
+<Preview>
+  <Story name='Manage Select Width'>
+    {() =>
+      `<fw-country-phone
+        style="--fw-select-width: 0 0 400px"
+        value="919999999999"
+        name="country-code" 
+        clear-input 
+        hide-country-name
+        hide-country-flag
+        select-placeholder="country code"
+        input-placeholder="input"
+        required
+        input-label="Support phone number"
+        select-label="Country Code"></fw-country-phone>`
+    }
+  </Story>
+</Preview>

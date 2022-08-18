@@ -111,6 +111,7 @@ export class Button {
   private handlePreventDefault(event: Event) {
     event.preventDefault();
     event.stopPropagation();
+    event.stopImmediatePropagation();
   }
 
   private handleClick(event: Event) {
@@ -165,7 +166,16 @@ export class Button {
 
   render() {
     return (
-      <Host>
+      <Host
+        onClick={(e) => {
+          if (this.disabled) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return false;
+          }
+        }}
+      >
         <button
           type={this.type}
           class={`
