@@ -912,6 +912,10 @@ export namespace Components {
          */
         "allowDeselect": boolean;
         /**
+          * Whether clicking on option selects it.
+         */
+        "allowSelect": boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox": boolean;
@@ -1464,6 +1468,10 @@ export namespace Components {
           * Whether clicking on the already selected option disables it.
          */
         "allowDeselect": boolean;
+        /**
+          * Whether clicking on option selects it.
+         */
+        "allowSelect": boolean;
         /**
           * Place a checkbox.
          */
@@ -3298,6 +3306,10 @@ declare namespace LocalJSX {
          */
         "allowDeselect"?: boolean;
         /**
+          * Whether clicking on option selects it.
+         */
+        "allowSelect"?: boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox"?: boolean;
@@ -3862,6 +3874,10 @@ declare namespace LocalJSX {
          */
         "allowDeselect"?: boolean;
         /**
+          * Whether clicking on option selects it.
+         */
+        "allowSelect"?: boolean;
+        /**
           * Place a checkbox.
          */
         "checkbox"?: boolean;
@@ -3893,6 +3909,10 @@ declare namespace LocalJSX {
           * Triggered when an option is focused.
          */
         "onFwFocus"?: (event: CustomEvent<any>) => void;
+        /**
+          * Triggered when an option is clicked when allowSelect is false.
+         */
+        "onFwSelectAttempted"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when an option is selected.
          */
