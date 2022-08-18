@@ -16,7 +16,7 @@ import { CountryCode } from 'libphonenumber-js/types';
 
 import { renderHiddenField } from '../../utils';
 
-import countries from './countries.json';
+import countries from './countries';
 
 @Component({
   tag: 'fw-country-phone',
