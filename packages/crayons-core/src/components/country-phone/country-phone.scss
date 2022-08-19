@@ -1,0 +1,15 @@
+/**
+  @prop --fw-select-width: Adjust country code select dropdown width
+*/
+.country-container {
+  display: flex;
+
+  .country-select-container {
+    margin-inline-end: 10px;
+    flex: var(--fw-select-width, '0 0 200px');
+  }
+
+  .country-input-container {
+    flex: 1;
+  }
+}

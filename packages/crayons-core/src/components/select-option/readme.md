@@ -101,6 +101,7 @@ function App() {
 | Property        | Attribute        | Description                                                                                                                                                                                                                               | Type                               | Default      |
 | --------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------ |
 | `allowDeselect` | `allow-deselect` | Whether clicking on the already selected option disables it.                                                                                                                                                                              | `boolean`                          | `true`       |
+| `allowSelect`   | `allow-select`   | Whether clicking on option selects it.                                                                                                                                                                                                    | `boolean`                          | `true`       |
 | `checkbox`      | `checkbox`       | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                          | `false`      |
 | `disabled`      | `disabled`       | Sets the state of the option to disabled. The selected option is disabled and greyed out. If the attribute’s value is undefined, the value is set to false.                                                                               | `boolean`                          | `false`      |
 | `graphicsProps` | `graphics-props` | The props for the graphics variant. ex., icon props in case of graphicsType = 'icon'                                                                                                                                                      | `any`                              | `undefined`  |
@@ -117,11 +118,12 @@ function App() {
 
 ## Events
 
-| Event        | Description                           | Type               |
-| ------------ | ------------------------------------- | ------------------ |
-| `fwBlur`     | Triggered when an option loses focus. | `CustomEvent<any>` |
-| `fwFocus`    | Triggered when an option is focused.  | `CustomEvent<any>` |
-| `fwSelected` | Triggered when an option is selected. | `CustomEvent<any>` |
+| Event               | Description                                                    | Type               |
+| ------------------- | -------------------------------------------------------------- | ------------------ |
+| `fwBlur`            | Triggered when an option loses focus.                          | `CustomEvent<any>` |
+| `fwFocus`           | Triggered when an option is focused.                           | `CustomEvent<any>` |
+| `fwSelectAttempted` | Triggered when an option is clicked when allowSelect is false. | `CustomEvent<any>` |
+| `fwSelected`        | Triggered when an option is selected.                          | `CustomEvent<any>` |
 
 
 ## Methods
@@ -141,6 +143,7 @@ Type: `Promise<any>`
 
 ### Used by
 
+ - [fw-country-phone](../country-phone)
  - [fw-datepicker](../datepicker)
  - [fw-list-options](../options-list)
  - [fw-timepicker](../timepicker)
@@ -161,6 +164,7 @@ graph TD;
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
   fw-checkbox --> fw-icon
+  fw-country-phone --> fw-select-option
   fw-datepicker --> fw-select-option
   fw-list-options --> fw-select-option
   fw-timepicker --> fw-select-option
