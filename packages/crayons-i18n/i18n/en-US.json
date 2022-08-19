@@ -180,5 +180,8 @@
     "placeholder": {
       "search": "Type to search"
     }
+  },
+  "emailSelect": {
+    "createLabel": "Add \"{{label}}\" as a recipient"
   }
 }

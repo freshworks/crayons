@@ -136,6 +136,10 @@ export class ListOptions {
    */
   @Prop() validateNewOption: Function;
   /**
+   * Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.
+   */
+  @Prop() formatCreateLabel: Function = (value) => `Create ${value}`;
+  /**
    * Whether clicking on option selects it.
    */
   @Prop() allowSelect = true;
@@ -343,7 +347,7 @@ export class ListOptions {
                 : [];
           if (this.isCreatable
             && !this.filteredOptions.some((option) => option.value === sanitisedText)) {
-            this.filteredOptions = [{ text: `Add '${sanitisedText}' as a recipient`, value: sanitisedText, isNew: true }, ...this.filteredOptions];
+            this.filteredOptions = [{ text: this.formatCreateLabel(sanitisedText), value: sanitisedText, isNew: true }, ...this.filteredOptions];
           }
           this.isLoading = false;
           this.fwLoading.emit({ isLoading: this.isLoading });
@@ -432,11 +436,7 @@ export class ListOptions {
         key={option.value}
         allowSelect={this.allowSelect}
         {...option}
-        {...{
-          checkbox: option.checkbox || this.checkbox,
-          variant: option.variant || this.variant,
-          disabled: isDisabled,
-        }}
+        disabled={isDisabled}
       ></fw-select-option>
     });
   }

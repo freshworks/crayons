@@ -12,6 +12,7 @@ import {
   Fragment,
 } from '@stencil/core';
 import { range, uniq } from 'lodash';
+import { TranslationController } from '../../global/Translation';
 import { handleKeyDown, renderHiddenField, validateEmail } from '../../utils';
 
 @Component({
@@ -727,6 +728,9 @@ export class EmailHeaderCustomComponentsSelectField {
             allowDeselect={this.allowDeselect}
             slot='popover-content'
             validateNewOption={(value) => !validateEmail(value)}
+            formatCreateLabel={(label) => TranslationController.t('emailSelect.createLabel', {
+              label,
+            })}
             isCreatable
           ></fw-list-options>
         </fw-popover>
