@@ -2,3 +2,4 @@
 /.vuepress/public/scripts*
 /.vuepress/public/css*
 /core*
+/crayons-custom-objects*

@@ -85,7 +85,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.18.0",
-    "html-to-react": "^1.4.5",
+    "html-to-react": "1.4.5",
     "husky": "^4.2.3",
     "kill-port": "^1.6.1",
     "lerna-clean-changelogs-cli": "^2.0.2",
