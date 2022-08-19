@@ -499,7 +499,7 @@ export class EmailHeaderCustomComponentsSelectField {
   }
 
   onClickOutside(e) {
-    if (e.target !== this.host) {
+    if (!e.composedPath().includes(this.host) && this.focusedValues.length > 0) {
       this.focusedValues = [];
     }
   }
