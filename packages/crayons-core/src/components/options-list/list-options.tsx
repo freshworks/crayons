@@ -40,8 +40,8 @@ export class ListOptions {
       const filteredValue =
         value !== ''
           ? dataSource.filter((option) =>
-            option.text.toLowerCase().includes(value.toLowerCase())
-          )
+              option.text.toLowerCase().includes(value.toLowerCase())
+            )
           : dataSource;
       resolve(filteredValue);
     });
@@ -134,11 +134,12 @@ export class ListOptions {
   /**
    * Works only when 'isCreatable' is selected. Function to validate the newly created value.
    */
-  @Prop() validateNewOption: Function;
+  @Prop() validateNewOption: (value: string) => boolean;
   /**
    * Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.
    */
-  @Prop() formatCreateLabel: Function = (value) => `Create ${value}`;
+  @Prop() formatCreateLabel = (value: string | number): string =>
+    `Create ${value}`;
   /**
    * Whether clicking on option selects it.
    */
@@ -218,7 +219,8 @@ export class ListOptions {
     if (this.filteredOptions.length > 0 && this.valueExists()) {
       this.container
         .querySelector(
-          `fw-select-option[id='${this.host.id
+          `fw-select-option[id='${
+            this.host.id
           }-option-${this.getLastSelectedValue()}']`
         )
         ?.scrollIntoView({ block: 'nearest' });
@@ -343,11 +345,22 @@ export class ListOptions {
             options?.length > 0
               ? this.serializeData(options)
               : !this.isCreatable
-                ? [{ text: this.notFoundText, disabled: true }]
-                : [];
-          if (this.isCreatable
-            && !this.filteredOptions.some((option) => option.value === sanitisedText)) {
-            this.filteredOptions = [{ text: this.formatCreateLabel(sanitisedText), value: sanitisedText, isNew: true }, ...this.filteredOptions];
+              ? [{ text: this.notFoundText, disabled: true }]
+              : [];
+          if (
+            this.isCreatable &&
+            !this.filteredOptions.some(
+              (option) => option.value === sanitisedText
+            )
+          ) {
+            this.filteredOptions = [
+              {
+                text: this.formatCreateLabel(sanitisedText),
+                value: sanitisedText,
+                isNew: true,
+              },
+              ...this.filteredOptions,
+            ];
           }
           this.isLoading = false;
           this.fwLoading.emit({ isLoading: this.isLoading });
@@ -383,11 +396,15 @@ export class ListOptions {
 
   serializeData(dataSource) {
     return dataSource.map((option) => {
-      const isSelected = this.isValueEqual(this.value, option) || option.selected;
-      const isDisabled = this.selectedOptionsState.find(selected => selected.value === option.value)?.disabled
-        || option.disabled
-        || this.disabled
-        || (this.multiple && this.value?.length >= this.max);
+      const isSelected =
+        this.isValueEqual(this.value, option) || option.selected;
+      const isDisabled =
+        this.selectedOptionsState.find(
+          (selected) => selected.value === option.value
+        )?.disabled ||
+        option.disabled ||
+        this.disabled ||
+        (this.multiple && this.value?.length >= this.max);
       return {
         ...option,
         ...{
@@ -428,16 +445,21 @@ export class ListOptions {
 
   renderSelectOptions(options: Array<any>) {
     return options.map((option) => {
-      const isDisabled = this.selectedOptionsState.find(selected => selected.value === option.value)?.disabled
-        || option.disabled
-        || (!this.allowDeselect && option.selected);
-      return <fw-select-option
-        id={`${this.host.id}-option-${option.value}`}
-        key={option.value}
-        allowSelect={this.allowSelect}
-        {...option}
-        disabled={isDisabled}
-      ></fw-select-option>
+      const isDisabled =
+        this.selectedOptionsState.find(
+          (selected) => selected.value === option.value
+        )?.disabled ||
+        option.disabled ||
+        (!this.allowDeselect && option.selected);
+      return (
+        <fw-select-option
+          id={`${this.host.id}-option-${option.value}`}
+          key={option.value}
+          allowSelect={this.allowSelect}
+          {...option}
+          disabled={isDisabled}
+        ></fw-select-option>
+      );
     });
   }
 

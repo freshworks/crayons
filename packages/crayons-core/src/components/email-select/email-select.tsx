@@ -18,7 +18,7 @@ import { handleKeyDown, renderHiddenField, validateEmail } from '../../utils';
 @Component({
   tag: 'fw-email-select',
   styleUrl: 'email-select.scss',
-  shadow: true
+  shadow: true,
 })
 export class EmailHeaderCustomComponentsSelectField {
   @Element() host: HTMLElement;
@@ -103,8 +103,8 @@ export class EmailHeaderCustomComponentsSelectField {
   @Prop() readonly = false;
 
   /**
-  * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
-  */
+   * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
+   */
   @Prop() multiple = false;
 
   /**
@@ -130,8 +130,8 @@ export class EmailHeaderCustomComponentsSelectField {
   @Prop({ reflect: true, mutable: true }) selectedOptions = [];
 
   /**
-  * Whether clicking on the already selected option disables it.
-  */
+   * Whether clicking on the already selected option disables it.
+   */
   @Prop() allowDeselect = false;
 
   /**
@@ -218,7 +218,9 @@ export class EmailHeaderCustomComponentsSelectField {
   // Listen to Tag close in case of multi-select
   @Listen('fwClosed')
   fwCloseHandler(ev) {
-    this.setSelectedOptions(this.selectedOptionsState.filter((_, index) => index !== ev.detail.index));
+    this.setSelectedOptions(
+      this.selectedOptionsState.filter((_, index) => index !== ev.detail.index)
+    );
     this.focusOnTagContainer();
   }
 
@@ -235,10 +237,14 @@ export class EmailHeaderCustomComponentsSelectField {
       case 'Backspace':
         if (this.focusedValues.length > 0) {
           // delete focused values
-          this.setSelectedOptions(this.selectedOptionsState.filter((_, index) => !this.focusedValues.includes(index)));
+          this.setSelectedOptions(
+            this.selectedOptionsState.filter(
+              (_, index) => !this.focusedValues.includes(index)
+            )
+          );
           this.focusedValues = [];
-          break;
         }
+        break;
       case 'ArrowLeft':
         if (this.multiple && this.selectInput.value === '') {
           this.focusOnTagContainer();
@@ -254,9 +260,15 @@ export class EmailHeaderCustomComponentsSelectField {
         break;
       case 'a':
       case 'A':
-        if ((ev.ctrlKey || ev.metaKey) && !this.searchValue || this.focusedValues.length > 0) {
+        if (
+          ((ev.ctrlKey || ev.metaKey) && !this.searchValue) ||
+          this.focusedValues.length > 0
+        ) {
           this.tagContainer?.focus();
-          this.focusedValues = this.selectedOptionsState.reduce((arr, option, i) => ((!option.disabled) && arr.push(i), arr), []);
+          this.focusedValues = this.selectedOptionsState.reduce(
+            (arr, option, i) => (!option.disabled && arr.push(i), arr),
+            []
+          );
         }
         break;
     }
@@ -336,13 +348,19 @@ export class EmailHeaderCustomComponentsSelectField {
       case 'Backspace':
         if (this.focusedValues.length > 0) {
           // delete focused values
-          this.setSelectedOptions(this.selectedOptionsState.filter((_, index) => !this.focusedValues.includes(index)));
+          this.setSelectedOptions(
+            this.selectedOptionsState.filter(
+              (_, index) => !this.focusedValues.includes(index)
+            )
+          );
           this.focusedValues = [];
-          break;
         }
+        break;
       case 'ArrowLeft':
         if (this.tagArrowKeyCounter - 1 >= 0) {
-          if (!this.selectedOptionsState[this.tagArrowKeyCounter - 1].disabled) {
+          if (
+            !this.selectedOptionsState[this.tagArrowKeyCounter - 1].disabled
+          ) {
             this.tagArrowKeyCounter--;
             this.focusOnTag(this.tagArrowKeyCounter);
           }
@@ -419,12 +437,20 @@ export class EmailHeaderCustomComponentsSelectField {
         if (e.ctrlKey || e.metaKey) {
           this.focusedValues = [...this.focusedValues, index];
         } else if (e.shiftKey && this.focusedValues.length > 0) {
-          this.focusedValues = uniq([...this.focusedValues, ...range(this.focusedValues[this.focusedValues.length - 1], index + 1)]);
+          this.focusedValues = uniq([
+            ...this.focusedValues,
+            ...range(
+              this.focusedValues[this.focusedValues.length - 1],
+              index + 1
+            ),
+          ]);
         } else {
           this.focusedValues = [index];
         }
       } else if (e.ctrlKey || e.metaKey) {
-        this.focusedValues = this.focusedValues.filter((_, index) => index !== focusedIndex);
+        this.focusedValues = this.focusedValues.filter(
+          (_, index) => index !== focusedIndex
+        );
       }
     }
   }
@@ -433,13 +459,15 @@ export class EmailHeaderCustomComponentsSelectField {
     if (this.multiple && Array.isArray(this.value)) {
       return this.selectedOptionsState.map((option, index) => {
         if (this.isValueEqual(this.value, option)) {
-          const optionState = option.error || index >= this.maxEmailsAllowed ? 'error' : this.focusedValues.includes(index) ? 'focused' : 'normal';
+          const optionState =
+            option.error || index >= this.maxEmailsAllowed ? 'error' : 'normal';
           return (
             <fw-tag
               index={index}
+              isFocused={this.focusedValues.includes(index)}
               class={option.disabled ? 'tag-disabled' : 'tag-default'}
               state={optionState}
-              variant="avatar"
+              variant='avatar'
               graphicsProps={option.graphicsProps}
               text={option.value}
               // secondaryText={option.subText ? `<${option.subText}>` : ''}
@@ -471,11 +499,11 @@ export class EmailHeaderCustomComponentsSelectField {
   }
 
   renderLabel(value) {
-    return (<span
-      class='single-select-value'
-    >
-      {value?.text} &lt;{value?.subText}&gt;
-    </span>)
+    return (
+      <span class='single-select-value'>
+        {value?.text} &lt;{value?.subText}&gt;
+      </span>
+    );
   }
 
   renderSingleValue(value) {
@@ -483,16 +511,20 @@ export class EmailHeaderCustomComponentsSelectField {
       return (
         <span class={`single-value-tag ${this.readonly ? 'readonly' : ''}`}>
           <fw-avatar
-            size="xsmall"
+            size='xsmall'
             image={value?.graphicsProps?.image}
           ></fw-avatar>
-          <div
-            class='ellipsis'
-            ref={(el) => (this.singleValueLabel = el)}
-          >
-            {this.addTooltip ? <fw-tooltip trigger='hover' content={`${value?.text} <${value?.subText}>`}>
-              {this.renderLabel(value)}
-            </fw-tooltip> : this.renderLabel(value)}
+          <div class='ellipsis' ref={(el) => (this.singleValueLabel = el)}>
+            {this.addTooltip ? (
+              <fw-tooltip
+                trigger='hover'
+                content={`${value?.text} <${value?.subText}>`}
+              >
+                {this.renderLabel(value)}
+              </fw-tooltip>
+            ) : (
+              this.renderLabel(value)
+            )}
           </div>
         </span>
       );
@@ -500,7 +532,10 @@ export class EmailHeaderCustomComponentsSelectField {
   }
 
   onClickOutside(e) {
-    if (!e.composedPath().includes(this.host) && this.focusedValues.length > 0) {
+    if (
+      !e.composedPath().includes(this.host) &&
+      this.focusedValues.length > 0
+    ) {
       this.focusedValues = [];
     }
   }
@@ -576,7 +611,7 @@ export class EmailHeaderCustomComponentsSelectField {
     this.hostId = this.host.id || '';
 
     // Add event listener to track clicks outside the element to blur selected tags
-    document.addEventListener('mouseup', this.onClickOutside.bind(this))
+    document.addEventListener('mouseup', this.onClickOutside.bind(this));
   }
 
   componentDidLoad() {
@@ -598,7 +633,7 @@ export class EmailHeaderCustomComponentsSelectField {
 
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
-    document.removeEventListener('mouseup', this.onClickOutside.bind(this))
+    document.removeEventListener('mouseup', this.onClickOutside.bind(this));
     this.removeResizeObserver();
   }
 
@@ -624,117 +659,125 @@ export class EmailHeaderCustomComponentsSelectField {
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
-    return <div
-      aria-disabled={this.disabled}
-      class={{
-        'email-select-container': true,
-        'has-focus': this.hasFocus,
-      }}
-    >
-      {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
-        moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
+    return (
       <div
-        class={{ 'select-container': true }}
-        role='combobox'
-        aria-controls={`${this.hostId}-listbox`}
-        aria-haspopup='listbox'
-        aria-expanded={this.isExpanded}
-        aria-owns={`${this.hostId}-listbox`}
+        aria-disabled={this.disabled}
+        class={{
+          'email-select-container': true,
+          'has-focus': this.hasFocus,
+        }}
       >
-        <fw-popover
-          id='list-items-popover'
-          distance='8'
-          trigger='manual'
-          ref={(popover) => (this.popover = popover)}
-          placement="bottom"
-          boundary={this.host.parentElement}
+        {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
+        moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
+        <div
+          class={{ 'select-container': true }}
+          role='combobox'
+          aria-controls={`${this.hostId}-listbox`}
+          aria-haspopup='listbox'
+          aria-expanded={this.isExpanded}
+          aria-owns={`${this.hostId}-listbox`}
         >
-          <div
-            slot='popover-trigger'
-            class={{
-              'input-container': this.multiple && !this.readonly,
-              'select-disabled': this.disabled,
-            }}
-            onClick={() => !this.readonly && this.innerOnClick()}
-            onKeyDown={handleKeyDown(this.innerOnClick, true)}
+          <fw-popover
+            id='list-items-popover'
+            distance='8'
+            trigger='manual'
+            ref={(popover) => (this.popover = popover)}
+            placement='bottom'
+            boundary={this.host.parentElement}
           >
-            {this.readonly ?
-              this.renderSingleValue(this.selectedOptionsState[0])
-              : !this.multiple ? (
-                <fw-button class='single-value-button' color='text' show-caret-icon>
+            <div
+              slot='popover-trigger'
+              class={{
+                'input-container': this.multiple && !this.readonly,
+                'select-disabled': this.disabled,
+              }}
+              onClick={() => !this.readonly && this.innerOnClick()}
+              onKeyDown={handleKeyDown(this.innerOnClick, true)}
+              role='button'
+              tabIndex={-1}
+            >
+              {this.readonly ? (
+                this.renderSingleValue(this.selectedOptionsState[0])
+              ) : !this.multiple ? (
+                <fw-button
+                  class='single-value-button'
+                  color='text'
+                  show-caret-icon
+                >
                   {this.renderSingleValue(this.selectedOptionsState[0])}
-                </fw-button>)
-                : (
-                  <Fragment>
-                    <div class='input-container-inner'>
-                      {this.multiple && (
-                        <div
-                          class='tag-container'
-                          onFocus={this.focusOnTagContainer}
-                          ref={(tagContainer) =>
-                            (this.tagContainer = tagContainer)
-                          }
-                          onKeyDown={this.tagContainerKeyDown}
-                          role='listbox'
-                          aria-multiselectable='true'
-                          tabIndex={-1}
-                        >
-                          {this.renderTags()}
-                        </div>
-                      )}
-                      <input
-                        ref={(selectInput) => (this.selectInput = selectInput)}
-                        class={{
-                          'multiple-select': this.multiple,
-                        }}
-                        autoComplete='off'
-                        disabled={this.disabled}
-                        name={this.name}
-                        id={this.name}
-                        placeholder={
-                          this.valueExists() ? '' : this.placeholder || ''
+                </fw-button>
+              ) : (
+                <Fragment>
+                  <div class='input-container-inner'>
+                    {this.multiple && (
+                      <div
+                        class='tag-container'
+                        onFocus={this.focusOnTagContainer}
+                        ref={(tagContainer) =>
+                          (this.tagContainer = tagContainer)
                         }
-                        readOnly={this.readonly}
-                        value=''
-                        aria-autocomplete='list'
-                        aria-activedescendant={this.focusedOptionId}
-                        onInput={() => this.onInput()}
-                        onFocus={(e) => this.innerOnFocus(e)}
-                        onBlur={() => this.innerOnBlur()}
-                        aria-describedby={`hint-${this.name} error-${this.name}`}
-                      />
-                    </div>
-                    {this.isLoading && (
-                      <fw-spinner size='small'></fw-spinner>
+                        onKeyDown={this.tagContainerKeyDown}
+                        role='listbox'
+                        aria-multiselectable='true'
+                        tabIndex={-1}
+                      >
+                        {this.renderTags()}
+                      </div>
                     )}
-                  </Fragment>
-                )}
-          </div>
-          <fw-list-options
-            ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
-            id={`${this.hostId}-listbox`}
-            role='listbox'
-            aria-labelledby={`${this.hostId}-label`}
-            debounceTimer={this.debounceTimer}
-            search={this.search}
-            selectedOptions={this.selectedOptions}
-            variant='avatar'
-            filter-text={this.searchValue}
-            options={this.dataSource}
-            value={this.value}
-            multiple={this.multiple}
-            max={this.max}
-            disabled={this.disabled}
-            allowDeselect={this.allowDeselect}
-            slot='popover-content'
-            validateNewOption={(value) => !validateEmail(value)}
-            formatCreateLabel={(label) => TranslationController.t('emailSelect.createLabel', {
-              label,
-            })}
-            isCreatable
-          ></fw-list-options>
-        </fw-popover>
+                    <input
+                      ref={(selectInput) => (this.selectInput = selectInput)}
+                      class={{
+                        'multiple-select': this.multiple,
+                      }}
+                      autoComplete='off'
+                      disabled={this.disabled}
+                      name={this.name}
+                      id={this.name}
+                      placeholder={
+                        this.valueExists() ? '' : this.placeholder || ''
+                      }
+                      readOnly={this.readonly}
+                      value=''
+                      aria-autocomplete='list'
+                      aria-activedescendant={this.focusedOptionId}
+                      onInput={() => this.onInput()}
+                      onFocus={(e) => this.innerOnFocus(e)}
+                      onBlur={() => this.innerOnBlur()}
+                      aria-describedby={`hint-${this.name} error-${this.name}`}
+                    />
+                  </div>
+                  {this.isLoading && <fw-spinner size='small'></fw-spinner>}
+                </Fragment>
+              )}
+            </div>
+            <fw-list-options
+              ref={(fwListOptions) => (this.fwListOptions = fwListOptions)}
+              id={`${this.hostId}-listbox`}
+              role='listbox'
+              aria-labelledby={`${this.hostId}-label`}
+              debounceTimer={this.debounceTimer}
+              search={this.search}
+              selectedOptions={this.selectedOptions}
+              variant='avatar'
+              filter-text={this.searchValue}
+              options={this.dataSource}
+              value={this.value}
+              multiple={this.multiple}
+              max={this.max}
+              disabled={this.disabled}
+              allowDeselect={this.allowDeselect}
+              slot='popover-content'
+              validateNewOption={(value) => !validateEmail(value)}
+              formatCreateLabel={(label) =>
+                TranslationController.t('emailSelect.createLabel', {
+                  label,
+                })
+              }
+              isCreatable
+            ></fw-list-options>
+          </fw-popover>
+        </div>
       </div>
-    </div>;
+    );
   }
 }

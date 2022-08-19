@@ -2,7 +2,7 @@ import { VNode } from '@stencil/core';
 
 export type TagVariant = 'standard' | 'avatar';
 
-export type TagState =  'normal' | 'focused' | 'error';
+export type TagState = 'normal' | 'error';
 
 export type DropdownVariant = 'standard' | 'icon' | 'avatar';
 

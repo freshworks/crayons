@@ -41,23 +41,25 @@ export class Avatar {
   }
 
   renderAltIcon() {
-    const color = this.mode === 'error' ?  '#C82124' : '#283DA5';
-    return <svg
-      width={24}
-      height={24}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-  >
-    <g clip-path="url(#a)" fill={color}>
-      <circle cx={12} cy={9} r={5} />
-      <ellipse cx={12} cy={24.5} rx={11} ry={9.5} />
-    </g>
-    <defs>
-      <clipPath id="a">
-        <path fill="#fff" d="M0 0h24v24H0z" />
-      </clipPath>
-    </defs>
-  </svg>
+    const color = this.mode === 'error' ? '#C82124' : '#283DA5';
+    return (
+      <svg
+        width={24}
+        height={24}
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <g clip-path='url(#a)' fill={color}>
+          <circle cx={12} cy={9} r={5} />
+          <ellipse cx={12} cy={24.5} rx={11} ry={9.5} />
+        </g>
+        <defs>
+          <clipPath id='a'>
+            <path fill='#fff' d='M0 0h24v24H0z' />
+          </clipPath>
+        </defs>
+      </svg>
+    );
   }
 
   render() {
@@ -85,8 +87,9 @@ export class Avatar {
           <div part='initials' class='avatar__initials'>
             {this.getInitials()}
           </div>
-        ) : this.renderAltIcon()
-      }
+        ) : (
+          this.renderAltIcon()
+        )}
       </div>
     );
   }

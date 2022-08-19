@@ -67,6 +67,10 @@ export class Tag {
    */
   @Prop() state: TagState = 'normal';
   /**
+   * If true, tag will be focused
+   */
+  @Prop() isFocused = false;
+  /**
    * Index of tag in a group of tags
    */
   @Prop() index: string | number = '-1';
@@ -103,17 +107,23 @@ export class Tag {
 
   private renderLabel() {
     return (
-      <div
-        class='ellipsis'
-        ref={(el) => (this.divLabel = el)}
-      >
+      <div class='ellipsis' ref={(el) => (this.divLabel = el)}>
         <span
           class={{
-            primary: !!this.secondaryText,
-            content: true,
+            'primary': !!this.secondaryText,
+            'content': true,
             'end-padding': !this.secondaryText && !this.closable,
-          }}>{this.text}</span>
-        {this.secondaryText && <span class={`secondary content ${!this.closable ? 'end-padding' : ''}`}>{this.secondaryText}</span>}
+          }}
+        >
+          {this.text}
+        </span>
+        {this.secondaryText && (
+          <span
+            class={`secondary content ${!this.closable ? 'end-padding' : ''}`}
+          >
+            {this.secondaryText}
+          </span>
+        )}
       </div>
     );
   }
@@ -124,12 +134,26 @@ export class Tag {
         return <span class='content'>{this.text}</span>;
       case 'avatar': {
         return [
-          <fw-avatar mode={this.state === 'error' ? this.state : 'dark'} size='xsmall' {...this.graphicsProps}></fw-avatar>,
+          <fw-avatar
+            mode={this.state === 'error' ? this.state : 'dark'}
+            size='xsmall'
+            {...this.graphicsProps}
+          ></fw-avatar>,
           <div class={'avatar-content'}>
-            {this.addTooltip ? <fw-tooltip trigger='hover' content={`${this.text}${this.secondaryText ? ` ${this.secondaryText}` : ''}`} hoist>
-              {this.renderLabel()}
-            </fw-tooltip> : this.renderLabel()}
-          </div>
+            {this.addTooltip ? (
+              <fw-tooltip
+                trigger='hover'
+                content={`${this.text}${
+                  this.secondaryText ? ` ${this.secondaryText}` : ''
+                }`}
+                hoist
+              >
+                {this.renderLabel()}
+              </fw-tooltip>
+            ) : (
+              this.renderLabel()
+            )}
+          </div>,
         ];
       }
       default:
@@ -166,7 +190,9 @@ export class Tag {
       <div
         role='button'
         tabindex='-1'
-        class={`tag ${this.state} tag-${this.variant} ${this.disabled ? 'disabled' : ''}`}
+        class={`tag ${this.isFocused ? 'focused' : ''} ${this.state} tag-${
+          this.variant
+        } ${this.disabled ? 'disabled' : ''}`}
         ref={(tagContainer) => (this.tagContainer = tagContainer)}
       >
         {this.renderContent()}

@@ -7,216 +7,210 @@ $input-focus-color: $color-azure-800;
 $input-border: $color-smoke-100;
 
 :host {
-    display: block;
-    min-width: 0;
+  display: block;
+  min-width: 0;
 }
 
 .email-select-container {
-    min-width: 0;
-    margin: 1px;
+  min-width: 0;
+  margin: 1px;
 }
 
 .input-container {
+  min-width: 0;
+  width: calc(100% - 10px);
+  border-radius: var(--fw-select-border-radius, 4px);
+  padding-inline-start: 10px;
+  background-color: $input-bg;
+  box-shadow: none;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  margin: 1px;
+
+  .input-container-inner {
     min-width: 0;
-    width: calc(100% - 10px);
-    border-radius: var(--fw-select-border-radius, 4px);
-    padding-inline-start: 10px;
-    background-color: $input-bg;
-    box-shadow: none;
-    min-height: 22px;
     display: flex;
-    align-items: center;
-    margin: 1px;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    .tag-container {
+      min-width: 0;
+      display: flex;
+      flex-wrap: wrap;
+      /* stylelint-disable-next-line a11y/no-outline-none */
+      &:focus,
+      &:focus-visible {
+        outline: none;
+      }
 
-    .input-container-inner {
-        min-width: 0;
+      fw-tag {
         display: flex;
-        flex-grow: 1;
-        flex-wrap: wrap;
-
-        .tag-container {
-            min-width: 0;
-            display: flex;
-            flex-wrap: wrap;
-
-            &:focus, &:focus-visible {
-                outline: none;
-            }
-
-            fw-tag {
-                display: flex;
-                min-width: 0;
-                margin-inline-start: 0px;
-                margin-block-end: 4px;
-                margin-inline-end: 4px;
-                margin-block-start: 4px;
-                -webkit-touch-callout: none;
-                font-weight: 600;
-                /* iOS Safari */
-                -webkit-user-select: none;
-                /* Safari */
-                -khtml-user-select: none;
-                /* Konqueror HTML */
-                -moz-user-select: none;
-                /* Old versions of Firefox */
-                -ms-user-select: none;
-                /* Internet Explorer/Edge */
-                user-select: none;
-            }
-        }
-
-        input {
-            flex-grow: 1;
-            border: none;
-            font-family: inherit;
-            font-size: $font-size-14;
-            font-weight: $font-weight-500;
-            letter-spacing: 0;
-            line-height: 1.4;
-            background-color: $input-bg;
-            min-width: 20px;
-            min-height: 22px;
-            box-sizing: border-box;
-            overflow: hidden;
-            margin-inline: 0px;
-            margin-block: 4px;
-
-            &:focus {
-                border: none;
-                outline: none;
-            }
-
-            &.multi-select {
-                width: auto;
-            }
-
-            &:disabled {
-                background-color: $input-disabled-bg  !important;
-                border-color: transparent;
-                cursor: not-allowed;
-            }
-        }
+        min-width: 0;
+        margin: 4px;
+        -webkit-touch-callout: none;
+        font-weight: 600;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Old versions of Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+      }
     }
 
-    fw-spinner {
-        margin-inline-end: 8px;
+    input {
+      flex-grow: 1;
+      border: none;
+      font-family: inherit;
+      font-size: $font-size-14;
+      font-weight: $font-weight-500;
+      letter-spacing: 0;
+      line-height: 1.4;
+      background-color: $input-bg;
+      min-width: 20px;
+      min-height: 22px;
+      box-sizing: border-box;
+      overflow: hidden;
+      margin-inline: 0px;
+      margin-block: 4px;
+
+      &:focus {
+        border: none;
+        outline: none;
+      }
+
+      &.multi-select {
+        width: auto;
+      }
+
+      &:disabled {
+        background-color: $input-disabled-bg !important;
+        border-color: transparent;
+        cursor: not-allowed;
+      }
     }
+  }
 
-    @media (prefers-reduced-motion) {
+  fw-spinner {
+    margin-inline-end: 8px;
+  }
 
-        &:hover,
-        &:focus {
-            transition: none;
-        }
-    }
-
-    /* stylelint-disable */
+  @media (prefers-reduced-motion) {
     &:hover,
     &:focus {
-        // border: 1px $input-hover-color solid;
-        transition: 0.2s linear;
-        // margin: 0px;
+      transition: none;
     }
+  }
 
-    &.select-disabled {
-        color: $color-smoke-50;
-        background-color: $input-disabled-bg  !important;
-        border-style: solid;
-        cursor: not-allowed;
+  /* stylelint-disable */
+  &:hover,
+  &:focus {
+    transition: 0.2s linear;
+  }
 
-        &:hover {
-            border: 1px solid $input-border;
-        }
+  &.select-disabled {
+    color: $color-smoke-50;
+    background-color: $input-disabled-bg !important;
+    border-style: solid;
+    cursor: not-allowed;
+
+    &:hover {
+      border: 1px solid $input-border;
     }
+  }
 }
 
 .has-focus {
-    .input-container {
-        outline: none;
-        background: $input-bg;
-        border: 1px solid transparent;
-        box-shadow: 0 0 0 2px $input-focus-color;
-        margin: 0px;
-    }
+  .input-container {
+    outline: none;
+    background: $input-bg;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 2px $input-focus-color;
+    margin: 0px;
+  }
 }
 
 .select-container {
-    margin-block-end: var(--fw-select-margin-bottom, 0px);
-    width: inherit;
-    height: inherit;
-    position: relative;
+  margin-block-end: var(--fw-select-margin-bottom, 0px);
+  width: inherit;
+  height: inherit;
+  position: relative;
 
-    .to-container {
-        padding-inline-end: 20px;
-    }
+  .to-container {
+    padding-inline-end: 20px;
+  }
 
-    .dropdown {
-        z-index: 99;
-    }
+  .dropdown {
+    z-index: 99;
+  }
 
-    .dropdown-status-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-inline-end: 8px;
-        min-width: 20px;
-        min-height: 20px;
-        transition: all 0.15s;
-        --icon-color: $color-elephant-800;
-    }
+  .dropdown-status-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline-end: 8px;
+    min-width: 20px;
+    min-height: 20px;
+    transition: all 0.15s;
+    --icon-color: $color-elephant-800;
+  }
 
-    .dropdown-status-icon.expanded {
-        transform: rotate(180deg);
-    }
+  .dropdown-status-icon.expanded {
+    transform: rotate(180deg);
+  }
 }
 
 ::placeholder {
-    color: $color-smoke-300;
-    opacity: 1;
+  color: $color-smoke-300;
+  opacity: 1;
 }
 
 :-ms-input-placeholder {
-    color: $color-smoke-300;
+  color: $color-smoke-300;
 }
 
 ::-ms-input-placeholder {
-    color: $color-smoke-300;
+  color: $color-smoke-300;
 }
 
 .tag-container {
-    .tag-default {
-        cursor: pointer;
-    }
+  .tag-default {
+    cursor: pointer;
+  }
 
-    .tag-disabled {
-        cursor: not-allowed;
-    }
+  .tag-disabled {
+    cursor: not-allowed;
+  }
 }
 
 .single-select-value {
-    font-size: 14px;
-    font-weight: 400;
-    padding-inline-start: 8px;
-    color: #12344D;
+  font-size: 14px;
+  font-weight: 400;
+  padding-inline-start: 8px;
+  color: #12344d;
 }
 
 .ellipsis {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .single-value-tag {
-    display: flex;
-    align-items: center;
-    margin: 4px 4px 4px 6px;
-    min-width: 0;
+  display: flex;
+  align-items: center;
+  margin: 4px 4px 4px 6px;
+  min-width: 0;
 }
 
 .readonly {
-    margin-inline-start: 20px;
+  margin-inline-start: 20px;
 }
 
 .single-value-button {
-    display: flex;
+  display: flex;
 }
