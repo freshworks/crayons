@@ -6,6 +6,7 @@ packages/**/loader/
 packages/**/node_modules/
 packages/**/www/
 packages/**/crayons-react/**
+packages/**/crayons-custom-objects-react/**
 docs/
 packages/**/src/**/*.stories.tsx
 www-dist/
