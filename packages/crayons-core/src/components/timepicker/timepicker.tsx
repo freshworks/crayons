@@ -37,7 +37,7 @@ export class Timepicker {
   @State() langModule: any;
 
   /**
-   * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
+   * Format in which time values are populated in the list box. If the value is hh:mm a, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
    * The default value will be set based on the locale time format.
    */
   @Prop({ mutable: true }) format: string;
@@ -169,7 +169,7 @@ export class Timepicker {
     const nonMeridianFormat = 'HH:mm';
     const { interval, startTime, endTime } =
       this.getTimeOptionsMeta(nonMeridianFormat);
-    parse(startTime, nonMeridianFormat, new Date()).valueOf();
+
     let currentTimeInMs = parse(
       startTime,
       nonMeridianFormat,

@@ -344,7 +344,7 @@ export namespace Components {
          */
         "timeFormat": string;
         /**
-          * The props for the time picker. Refer the fw-timepicker for valid props.
+          * The props for the time picker. Refer the fw-timepicker for valid format.
          */
         "timeProps": {};
         /**
@@ -1660,7 +1660,7 @@ export namespace Components {
          */
         "errorText": string;
         /**
-          * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. The default value will be set based on the locale time format.
+          * Format in which time values are populated in the list box. If the value is hh:mm a, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. The default value will be set based on the locale time format.
          */
         "format": string;
         /**
@@ -4014,7 +4014,7 @@ declare namespace LocalJSX {
          */
         "errorText"?: string;
         /**
-          * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. The default value will be set based on the locale time format.
+          * Format in which time values are populated in the list box. If the value is hh:mm a, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. The default value will be set based on the locale time format.
          */
         "format"?: string;
         /**

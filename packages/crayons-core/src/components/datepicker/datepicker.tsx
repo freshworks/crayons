@@ -109,6 +109,7 @@ export class Datepicker {
   @State() hasErrorTextSlot = false;
   @State() timeValue = '';
   @State() dateFormat = '';
+  @State() selectedTime: any;
 
   @Element() host: HTMLElement;
 
@@ -405,6 +406,7 @@ export class Datepicker {
         this.updateValueAndEmitEvent(e);
       }
     } else if (isUpdateDate) {
+      this.timeValue = this.selectedTime;
       if (this.isValidDateTime()) {
         this.updateValueAndEmitEvent(e);
       }
@@ -600,7 +602,8 @@ export class Datepicker {
     } else if (isYearUpdate) {
       this.year = newValue;
     } else if (isTimeUpdate) {
-      this.timeValue = newValue;
+      // this.timeValue = newValue;
+      this.selectedTime = newValue;
     }
   }
 
@@ -757,6 +760,7 @@ export class Datepicker {
           this.timeValue = format(getTime(date), 'HH:mm', {
             locale: this.langModule,
           });
+          this.selectedTime = this.timeValue;
         }
       }
     }
@@ -1237,6 +1241,12 @@ export class Datepicker {
           this.selectedDay = date;
         }
       } else this.selectedDay = undefined;
+
+      if (this.timeValue) {
+        if (this.selectedTime !== this.timeValue) {
+          this.selectedTime = this.timeValue;
+        }
+      } else this.selectedTime = undefined;
     }
   };
 
