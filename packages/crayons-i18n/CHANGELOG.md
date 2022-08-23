@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.3-beta.0...@freshworks/crayons-i18n@4.0.0-beta.0) (2022-08-23)
+
+### Features
+
+- **fw-datepicker:** added time to single date picker ([#665](https://github.com/freshworks/crayons/issues/665)) ([48ca587](https://github.com/freshworks/crayons/commit/48ca587a74c771efff6980695a2773a9d7071e3f)), closes [#638](https://github.com/freshworks/crayons/issues/638)
+
+### BREAKING CHANGES
+
+- **fw-datepicker:** changed the default value of format from hh:mm a to locale based format. Removed
+the attribute isMeridianFormat
+
 ## [3.1.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.0-beta.6...@freshworks/crayons-i18n@3.1.0-beta.7) (2022-04-25)
 
 ### Bug Fixes

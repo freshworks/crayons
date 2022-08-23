@@ -2,7 +2,9 @@
   "datepicker": {
     "cancel": "Cancel",
     "update": "Update",
-    "to": "to"
+    "to": "to",
+    "date": "Date",
+    "time": "Time"
   },
   "dropdown": {
     "add": "Add",
