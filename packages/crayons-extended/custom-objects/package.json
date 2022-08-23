@@ -1,5 +1,6 @@
 {
   "name": "@freshworks/crayons-custom-objects",
+  "author": "Freshworks Inc",
   "version": "1.1.0-beta.0",
   "description": "Custom Objects with Crayons",
   "main": "dist/index.cjs.js",
@@ -61,5 +62,8 @@
     "typescript": "^4.5.5"
   },
   "license": "MIT",
-  "sideEffects": false
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
 }
