@@ -17,6 +17,7 @@ import {
   getYear,
   getMonth,
   getDate,
+  getTime,
   startOfDay,
   getDaysInMonth,
   format,
@@ -106,6 +107,9 @@ export class Datepicker {
   @State() hasHintTextSlot = false;
   @State() hasWarningTextSlot = false;
   @State() hasErrorTextSlot = false;
+  @State() timeValue = '';
+  @State() dateFormat = '';
+  @State() selectedTime: any;
 
   @Element() host: HTMLElement;
 
@@ -211,7 +215,18 @@ export class Datepicker {
    * Label displayed on the interface, for the component.
    */
   @Prop() label = '';
-
+  /**
+   * Whether the time-picker should be shown in the date-picker. Supports single date picker only.
+   */
+  @Prop() showTimePicker = false;
+  /**
+   * The props for the time picker. Refer the fw-timepicker for valid format.
+   */
+  @Prop() timeProps = {};
+  /**
+   * The format of time picker .
+   */
+  @Prop() timeFormat: string;
   /**
    *   Triggered when the update button clicked
    */
@@ -391,7 +406,8 @@ export class Datepicker {
         this.updateValueAndEmitEvent(e);
       }
     } else if (isUpdateDate) {
-      if (this.selectedDay) {
+      this.timeValue = this.selectedTime;
+      if (this.isValidDateTime()) {
         this.updateValueAndEmitEvent(e);
       }
     }
@@ -579,11 +595,15 @@ export class Datepicker {
     const isYearUpdate = e
       .composedPath()[0]
       .classList.value.includes('single-year-selector');
+    const isTimeUpdate = e.composedPath()[0].tagName === 'FW-TIMEPICKER';
 
     if (isMonthUpdate) {
       this.month = this.shortMonthNames.indexOf(newValue);
     } else if (isYearUpdate) {
       this.year = newValue;
+    } else if (isTimeUpdate) {
+      // this.timeValue = newValue;
+      this.selectedTime = newValue;
     }
   }
 
@@ -646,26 +666,42 @@ export class Datepicker {
     return yearsArr;
   };
 
+  getFormatFromLocale() {
+    this.dateFormat = this.langModule?.formatLong?.date({ width: 'short' });
+    return this.showTimePicker
+      ? `${this.dateFormat} ${this.timeFormat}`
+      : this.dateFormat;
+  }
+
   @Watch('locale')
   async handleLocaleChange(newLocale) {
     this.langModule = await TranslationController.getDateLangModule(newLocale);
   }
 
   async componentWillLoad() {
+    if (this.mode === 'range' && this.showTimePicker) {
+      throw Error('Time picker not supported in Date Range');
+    }
     this.langModule = await TranslationController.getDateLangModule(
       this.locale
     );
 
+    this.timeFormat ||= this.langModule?.formatLong?.time({
+      width: 'short',
+    });
+
     if (this.displayFormat) {
       this.isDisplayFormatSet = true;
+      this.dateFormat = this.displayFormat;
+      this.displayFormat = this.showTimePicker
+        ? `${this.displayFormat} ${this.timeFormat}`
+        : this.displayFormat;
     }
     if (this.placeholder) {
       this.isPlaceholderSet = true;
     }
     this.checkSlotContent();
-    this.displayFormat =
-      this.displayFormat ||
-      this.langModule?.formatLong?.date({ width: 'short' });
+    this.displayFormat = this.displayFormat || this.getFormatFromLocale();
 
     this.placeholder = this.placeholder || this.displayFormat;
 
@@ -719,6 +755,13 @@ export class Datepicker {
         this.year = this.value ? getYear(date) : getYear(today);
         this.month = this.value ? getMonth(date) : getMonth(today);
         this.selectedDay = this.value && getDate(date);
+        if (this.value) {
+          // The value of the timepicker will always be the format of HH:mm
+          this.timeValue = format(getTime(date), 'HH:mm', {
+            locale: this.langModule,
+          });
+          this.selectedTime = this.timeValue;
+        }
       }
     }
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
@@ -801,9 +844,7 @@ export class Datepicker {
         date.setMonth(this.month, 1);
         date.setFullYear(this.year);
         date.setDate(this.selectedDay);
-        this.value = format(date, this.displayFormat, {
-          locale: this.langModule,
-        });
+        this.value = this.formatDateTime();
       } else {
         const formattedFromDate = format(
           new Date(this.startDate),
@@ -823,6 +864,54 @@ export class Datepicker {
       }
     }
   }
+
+  getDate = (): string => {
+    try {
+      const date = format(
+        new Date(this.year, this.month, this.selectedDay),
+        this.dateFormat,
+        {
+          locale: this.langModule,
+        }
+      );
+      return date ?? '';
+    } catch (error) {
+      return '';
+    }
+  };
+
+  isValidDateTime = (): boolean => {
+    if (this.showTimePicker) {
+      return !!(this.selectedDay && this.timeValue);
+    }
+    return this.selectedDay;
+  };
+
+  formatDateTime = (): string => {
+    if (this.showTimePicker) {
+      const [hour, minute] = this.timeValue.split(':');
+      return format(
+        new Date(
+          this.year,
+          this.month,
+          this.selectedDay,
+          parseInt(hour),
+          parseInt(minute)
+        ),
+        this.displayFormat,
+        {
+          locale: this.langModule,
+        }
+      );
+    }
+    return format(
+      new Date(this.year, this.month, this.selectedDay),
+      this.displayFormat,
+      {
+        locale: this.langModule,
+      }
+    );
+  };
 
   getDayDetails = (args) => {
     const date = args.index - args.firstDay;
@@ -1043,13 +1132,7 @@ export class Datepicker {
 
   updateValueAndEmitEvent(e) {
     if (this.showSingleDatePicker()) {
-      this.value = format(
-        new Date(this.year, this.month, this.selectedDay),
-        this.displayFormat,
-        {
-          locale: this.langModule,
-        }
-      );
+      this.value = this.formatDateTime();
       this.emitEvent(e, this.formatDate(this.value));
     } else if (this.showDateRangePicker()) {
       this.startDateFormatted = format(this.startDate, this.displayFormat, {
@@ -1112,7 +1195,7 @@ export class Datepicker {
 
   // handle cancel and popover close
   handlePopoverClose = (e: any) => {
-    if (e.target?.tagName === 'FW-SELECT') return;
+    if (['FW-SELECT', 'FW-TIMEPICKER'].includes(e.target?.tagName)) return;
     if (this.mode === 'range') {
       // handle resetting of startDate and endDate on clicking cancel
       if (this.value) {
@@ -1158,6 +1241,12 @@ export class Datepicker {
           this.selectedDay = date;
         }
       } else this.selectedDay = undefined;
+
+      if (this.timeValue) {
+        if (this.selectedTime !== this.timeValue) {
+          this.selectedTime = this.timeValue;
+        }
+      } else this.selectedTime = undefined;
     }
   };
 
@@ -1333,6 +1422,35 @@ export class Datepicker {
     );
   }
 
+  renderTimePicker(): JSX.Element {
+    return (
+      <div class='time-container'>
+        <div>
+          <span>{TranslationController.t('datepicker.date')}</span>
+          <fw-input
+            placeholder={this.dateFormat}
+            value={this.getDate()}
+            readonly
+          ></fw-input>
+        </div>
+        <div>
+          <span>{TranslationController.t('datepicker.time')}</span>
+          <fw-timepicker
+            class='mdc-time'
+            sameWidth={false}
+            locale={this.locale}
+            caret={false}
+            optionsPlacement='bottom-end'
+            format={this.timeFormat}
+            value={this.timeValue}
+            allowDeselect={false}
+            {...{ ...this.timeProps, ...{ readOnly: true } }}
+          ></fw-timepicker>
+        </div>
+      </div>
+    );
+  }
+
   render(): JSX.Element {
     const { host, name, value } = this;
 
@@ -1387,7 +1505,7 @@ export class Datepicker {
               onFwBlur={this.onBlur}
               ref={(el) => (this.nativeInput = el)}
               state={this.state}
-              readonly={this.readonly}
+              readonly={this.showTimePicker || this.readonly}
               clearInput={this.clearInput}
               onFwInputClear={this.handleInputClear}
             >
@@ -1401,7 +1519,7 @@ export class Datepicker {
                 ></div>
                 <span class='date-icon'>
                   <fw-icon
-                    name='calendar'
+                    name={this.showTimePicker ? 'calendar-time' : 'calendar'}
                     style={{
                       '--fw-icon-color': this.state === 'error' && '#d72d30',
                     }}
@@ -1417,6 +1535,7 @@ export class Datepicker {
               slot='popover-content'
               ref={(el) => (this.popoverContentElement = el)}
             >
+              {this.showTimePicker && this.renderTimePicker()}
               <div class='mdp-container'>
                 {/* Head section */}
                 <div class='mdpc-head'>
