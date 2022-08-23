@@ -1,6 +1,6 @@
 {
   "name": "crayons",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Crayons Packages comprising of Design system library using web components, icon library and i18n library",
   "main": "index.js",
   "engines": {
@@ -29,8 +29,8 @@
     "preinstall": "npm run requirements-check",
     "release-next": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag next && npm run update-lock:next",
     "release-next:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --no-verify-access --dist-tag next --yes && npm run update-lock:next",
-    "release-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v3 && npm run update-lock:latest",
-    "release-latest:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v3 --yes && npm run update-lock:latest",
+    "release-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v4 && npm run update-lock:latest",
+    "release-latest:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v4 --yes && npm run update-lock:latest",
     "requirements-check": "node check-version.js",
     "storybook:build": "rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
