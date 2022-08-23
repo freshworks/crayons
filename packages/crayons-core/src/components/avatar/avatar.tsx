@@ -44,6 +44,7 @@ export class Avatar {
     const color = this.mode === 'error' ? '#C82124' : '#283DA5';
     return (
       <svg
+        id={this.mode === 'error' ? 'error-svg' : 'default-svg'}
         width={24}
         height={24}
         fill='none'
@@ -68,9 +69,9 @@ export class Avatar {
     avatar--${this.size}
     avatar--${this.mode}
     `;
-    if (!this.image && this.initials) {
+    if (!this.image && (this.initials || this.name)) {
       strBaseClassName += ` avatar--${this.mode}--initials`;
-    } else if (!this.image && !this.initials) {
+    } else if (!this.image) {
       strBaseClassName += ` avatar--${this.mode}--default`;
     }
 
@@ -83,7 +84,7 @@ export class Avatar {
             src={this.image}
             alt={this.alt}
           ></img>
-        ) : this.initials ? (
+        ) : this.initials || this.name ? (
           <div part='initials' class='avatar__initials'>
             {this.getInitials()}
           </div>

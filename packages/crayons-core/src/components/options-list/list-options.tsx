@@ -138,8 +138,7 @@ export class ListOptions {
   /**
    * Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.
    */
-  @Prop() formatCreateLabel = (value: string | number): string =>
-    `Create ${value}`;
+  @Prop() formatCreateLabel: (value: string) => string;
   /**
    * Whether clicking on option selects it.
    */
@@ -162,7 +161,7 @@ export class ListOptions {
       )[0];
       if (this.isCreatable && selectedObj.isNew) {
         selectedObj.text = selectedObj.value;
-        if (this.validateNewOption) {
+        if (typeof this.validateNewOption === 'function') {
           selectedObj.error = this.validateNewOption(selectedObj.value);
         }
       }
@@ -355,7 +354,10 @@ export class ListOptions {
           ) {
             this.filteredOptions = [
               {
-                text: this.formatCreateLabel(sanitisedText),
+                text:
+                  typeof this.formatCreateLabel === 'function'
+                    ? this.formatCreateLabel(sanitisedText)
+                    : sanitisedText,
                 value: sanitisedText,
                 isNew: true,
               },

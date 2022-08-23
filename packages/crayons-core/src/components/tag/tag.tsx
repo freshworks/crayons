@@ -31,9 +31,9 @@ export class Tag {
   @Prop() text: string;
 
   /**
-   * Display secondary text in the tag component.
+   * Display sub text in the tag component.
    */
-  @Prop() secondaryText: string;
+  @Prop() subText: string;
 
   /**
    * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
@@ -110,18 +110,18 @@ export class Tag {
       <div class='ellipsis' ref={(el) => (this.divLabel = el)}>
         <span
           class={{
-            'primary': !!this.secondaryText,
+            'primary': !!this.subText,
             'content': true,
-            'end-padding': !this.secondaryText && !this.closable,
+            'end-padding': !this.subText && !this.closable,
           }}
         >
           {this.text}
         </span>
-        {this.secondaryText && (
+        {this.subText && (
           <span
             class={`secondary content ${!this.closable ? 'end-padding' : ''}`}
           >
-            {this.secondaryText}
+            {this.subText}
           </span>
         )}
       </div>
@@ -144,7 +144,7 @@ export class Tag {
               <fw-tooltip
                 trigger='hover'
                 content={`${this.text}${
-                  this.secondaryText ? ` ${this.secondaryText}` : ''
+                  this.subText ? ` ${this.subText}` : ''
                 }`}
                 hoist
               >

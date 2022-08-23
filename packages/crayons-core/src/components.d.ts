@@ -484,7 +484,7 @@ export namespace Components {
          */
         "max": number;
         /**
-          * Maximum number of recipients allowed in each section.
+          * Maximum number of emails allowed.
          */
         "maxEmailsAllowed": number;
         /**
@@ -990,6 +990,10 @@ export namespace Components {
           * The text to filter the options.
          */
         "filterText": any;
+        /**
+          * Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.
+         */
+        "formatCreateLabel": (value: string) => string;
         "getSelectedOptions": () => Promise<any>;
         /**
           * Allows user to create the option if the provided input doesn't match with any of the options.
@@ -1041,7 +1045,7 @@ export namespace Components {
         /**
           * Works only when 'isCreatable' is selected. Function to validate the newly created value.
          */
-        "validateNewOption": Function;
+        "validateNewOption": (value: string) => boolean;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -1705,14 +1709,18 @@ export namespace Components {
          */
         "index": string | number;
         /**
-          * Display secondary text in the tag component.
+          * If true, tag will be focused
          */
-        "secondaryText": string;
+        "isFocused": boolean;
         "setFocus": () => Promise<any>;
         /**
           * Theme based on which the tag is styled.
          */
         "state": TagState;
+        /**
+          * Display sub text in the tag component.
+         */
+        "subText": string;
         /**
           * Display text in the tag component.
          */
@@ -2937,7 +2945,7 @@ declare namespace LocalJSX {
          */
         "max"?: number;
         /**
-          * Maximum number of recipients allowed in each section.
+          * Maximum number of emails allowed.
          */
         "maxEmailsAllowed"?: number;
         /**
@@ -2948,6 +2956,10 @@ declare namespace LocalJSX {
           * Name of the component, saved as part of form data.
          */
         "name"?: string;
+        /**
+          * Triggered when the list box loses focus.
+         */
+        "onFwBlur"?: (event: CustomEvent<any>) => void;
         /**
           * Triggered when a value is selected or deselected from the list box options.
          */
@@ -3473,6 +3485,10 @@ declare namespace LocalJSX {
          */
         "filterText"?: any;
         /**
+          * Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.
+         */
+        "formatCreateLabel"?: (value: string) => string;
+        /**
           * Allows user to create the option if the provided input doesn't match with any of the options.
          */
         "isCreatable"?: boolean;
@@ -3523,7 +3539,7 @@ declare namespace LocalJSX {
         /**
           * Works only when 'isCreatable' is selected. Function to validate the newly created value.
          */
-        "validateNewOption"?: Function;
+        "validateNewOption"?: (value: string) => boolean;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -4214,17 +4230,21 @@ declare namespace LocalJSX {
          */
         "index"?: string | number;
         /**
+          * If true, tag will be focused
+         */
+        "isFocused"?: boolean;
+        /**
           * Triggered when the tag is deselected.
          */
         "onFwClosed"?: (event: CustomEvent<any>) => void;
         /**
-          * Display secondary text in the tag component.
-         */
-        "secondaryText"?: string;
-        /**
           * Theme based on which the tag is styled.
          */
         "state"?: TagState;
+        /**
+          * Display sub text in the tag component.
+         */
+        "subText"?: string;
         /**
           * Display text in the tag component.
          */

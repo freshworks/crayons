@@ -46,4 +46,25 @@ describe('fw-avatar', () => {
     const avatarText = await page.find('fw-avatar >>> div.avatar__initials');
     expect(avatarText).toEqualText('AB');
   });
+
+  it('renders alt icon when initials, name and image are not present', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-avatar></fw-avatar>');
+    const avatarSvg = await page.find('fw-avatar >>> svg');
+    const avatarText = await page.find('fw-avatar >>> div.avatar__initials');
+    expect(avatarSvg).toBeTruthy();
+    expect(avatarText).toBeFalsy();
+  });
+
+  it('renders error alt icon when initials, name and image are not present', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-avatar mode="error"></fw-avatar>');
+    const avatarSvg = await page.find('fw-avatar >>> svg');
+    const avatarText = await page.find('fw-avatar >>> div.avatar__initials');
+    expect(avatarSvg).toBeTruthy();
+    expect(avatarSvg.getAttribute('id')).toBe('error-svg');
+    expect(avatarText).toBeFalsy();
+  });
 });

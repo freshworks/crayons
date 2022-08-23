@@ -11,7 +11,7 @@ import {
   Watch,
   Fragment,
 } from '@stencil/core';
-import { range, uniq } from 'lodash';
+import { range, uniq } from 'lodash-es';
 import { TranslationController } from '../../global/Translation';
 import { handleKeyDown, renderHiddenField, validateEmail } from '../../utils';
 
@@ -51,9 +51,13 @@ export class EmailHeaderCustomComponentsSelectField {
     this.focusedValues = [];
   };
 
-  private innerOnBlur = () => {
+  private innerOnBlur = (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = false;
+      this.fwBlur.emit({
+        event: e,
+        name: this.name,
+      });
     }
   };
 
@@ -145,7 +149,7 @@ export class EmailHeaderCustomComponentsSelectField {
   @Prop() debounceTimer = 300;
 
   /**
-   * Maximum number of recipients allowed in each section.
+   * Maximum number of emails allowed.
    */
   @Prop() maxEmailsAllowed = 50;
 
@@ -158,6 +162,10 @@ export class EmailHeaderCustomComponentsSelectField {
    * Triggered when the list box comes into focus.
    */
   @Event() fwFocus: EventEmitter;
+  /**
+   * Triggered when the list box loses focus.
+   */
+  @Event() fwBlur: EventEmitter;
 
   @Listen('fwHide')
   onDropdownClose(e) {
@@ -251,7 +259,7 @@ export class EmailHeaderCustomComponentsSelectField {
         }
         break;
       case 'Escape':
-        this.innerOnBlur();
+        this.innerOnBlur(ev);
         this.closeDropdown();
         break;
       case 'Tab':
@@ -341,7 +349,7 @@ export class EmailHeaderCustomComponentsSelectField {
   tagContainerKeyDown = (ev) => {
     switch (ev.key) {
       case 'Escape':
-        this.innerOnBlur();
+        this.innerOnBlur(ev);
         this.closeDropdown();
         break;
       case 'Delete':
@@ -702,6 +710,7 @@ export class EmailHeaderCustomComponentsSelectField {
                 <fw-button
                   class='single-value-button'
                   color='text'
+                  disabled={this.disabled}
                   show-caret-icon
                 >
                   {this.renderSingleValue(this.selectedOptionsState[0])}
@@ -742,7 +751,7 @@ export class EmailHeaderCustomComponentsSelectField {
                       aria-activedescendant={this.focusedOptionId}
                       onInput={() => this.onInput()}
                       onFocus={(e) => this.innerOnFocus(e)}
-                      onBlur={() => this.innerOnBlur()}
+                      onBlur={(e) => this.innerOnBlur(e)}
                       aria-describedby={`hint-${this.name} error-${this.name}`}
                     />
                   </div>

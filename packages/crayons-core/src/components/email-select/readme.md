@@ -13,7 +13,7 @@
 | `debounceTimer`    | `debounce-timer`     | Debounce timer for the search promise function.                                                                                                                                                                                 | `number`  | `300`              |
 | `disabled`         | `disabled`           | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                      | `boolean` | `false`            |
 | `max`              | `max`                | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                     | `number`  | `Number.MAX_VALUE` |
-| `maxEmailsAllowed` | `max-emails-allowed` | Maximum number of recipients allowed in each section.                                                                                                                                                                           | `number`  | `50`               |
+| `maxEmailsAllowed` | `max-emails-allowed` | Maximum number of emails allowed.                                                                                                                                                                                               | `number`  | `50`               |
 | `multiple`         | `multiple`           | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                        | `boolean` | `false`            |
 | `name`             | `name`               | Name of the component, saved as part of form data.                                                                                                                                                                              | `string`  | `''`               |
 | `options`          | `options`            | The data for the select component, the options will be of type array of fw-select-options.                                                                                                                                      | `any`     | `undefined`        |
@@ -28,6 +28,7 @@
 
 | Event      | Description                                                                 | Type               |
 | ---------- | --------------------------------------------------------------------------- | ------------------ |
+| `fwBlur`   | Triggered when the list box loses focus.                                    | `CustomEvent<any>` |
 | `fwChange` | Triggered when a value is selected or deselected from the list box options. | `CustomEvent<any>` |
 | `fwFocus`  | Triggered when the list box comes into focus.                               | `CustomEvent<any>` |
 
