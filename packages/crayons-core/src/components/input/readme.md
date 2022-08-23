@@ -312,6 +312,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [fw-country-phone](../country-phone)
  - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
  - [fw-form-control](../form-control)
@@ -328,6 +329,7 @@ graph TD;
   fw-icon --> fw-toast-message
   fw-toast-message --> fw-spinner
   fw-toast-message --> fw-icon
+  fw-country-phone --> fw-input
   fw-data-table --> fw-input
   fw-datepicker --> fw-input
   fw-form-control --> fw-input

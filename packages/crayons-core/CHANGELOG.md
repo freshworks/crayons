@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.6.0-beta.1...@freshworks/crayons@3.6.0-beta.2) (2022-08-19)
+
+### Bug Fixes
+
+- **country-phone:** resetting is breaking on country code select dropdown ([#655](https://github.com/freshworks/crayons/issues/655)) ([5258a3f](https://github.com/freshworks/crayons/commit/5258a3f434c6f7f46d8a4ec3bbfacc8fb3e73d6e))
+
+### Features
+
+- **options-list:** adding prop to allow select ([#660](https://github.com/freshworks/crayons/issues/660)) ([ae98df7](https://github.com/freshworks/crayons/commit/ae98df76e135ecf0cde6005f41e517874e4ba0a8))
+
+## [3.6.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.6.0-beta.0...@freshworks/crayons@3.6.0-beta.1) (2022-08-10)
+
+### Bug Fixes
+
+- **button:** handle onClick on disabled ([#653](https://github.com/freshworks/crayons/issues/653)) ([46b1dd2](https://github.com/freshworks/crayons/commit/46b1dd220a33819bb740140b5c2f1194156ed1ed))
+
+### Features
+
+- **component:** international phone number component ([#631](https://github.com/freshworks/crayons/issues/631)) ([14ffa61](https://github.com/freshworks/crayons/commit/14ffa61ea884652f242d98d408aeb600f91d00de))
+
 ## [3.6.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0...@freshworks/crayons@3.6.0-beta.0) (2022-08-01)
 
 ### Bug Fixes

@@ -73,6 +73,15 @@ export class SelectOption {
    * Whether clicking on the already selected option disables it.
    */
   @Prop() allowDeselect = true;
+  /**
+   * Whether clicking on option selects it.
+   */
+  @Prop() allowSelect = true;
+
+  /**
+   * Triggered when an option is clicked when allowSelect is false.
+   */
+  @Event({ bubbles: true, composed: true }) fwSelectAttempted: EventEmitter;
 
   /**
    * Triggered when an option is selected.
@@ -109,9 +118,14 @@ export class SelectOption {
     if (this.selected && !this.allowDeselect) {
       return;
     }
-    this.selected = !this.selected;
-    const { value, selected } = this;
-    this.fwSelected.emit({ value, selected });
+    if (this.allowSelect) {
+      this.selected = !this.selected;
+      const { value, selected } = this;
+      this.fwSelected.emit({ value, selected });
+    } else {
+      const { value, selected } = this;
+      this.fwSelectAttempted.emit({ value, selected });
+    }
   }
 
   renderInnerHtml() {

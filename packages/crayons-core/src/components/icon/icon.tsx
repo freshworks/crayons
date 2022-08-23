@@ -35,6 +35,10 @@ export class Icon {
    */
   @Prop() dataSvg = '';
   /**
+   * Identifier of the icon. The attribute’s value must be a valid url of the svg icon.
+   */
+  @Prop() url = '';
+  /**
    * Identifier of the icon. The attribute’s value must be a valid path to svg file.
    */
   @Prop() src: string;
@@ -104,6 +108,16 @@ export class Icon {
     this.applyIconPropstoState();
   }
 
+  @Watch('dataSvg')
+  dataSvgChangeHandler() {
+    this.applyIconPropstoState();
+  }
+
+  @Watch('url')
+  urlChangeHandler() {
+    this.applyIconPropstoState();
+  }
+
   disconnectedCallback(): void {
     unwatchIcon(this);
     if (this.intersectionObserver) {
@@ -155,17 +169,21 @@ export class Icon {
   }
 
   private getIconUrl(icon: string, lib: string): string {
-    let url = '';
-    if (!this.src) {
-      url = this.getIconUrlfromlib(icon, lib);
-      if (url === undefined) {
+    let urlPath = '';
+    if (this.url) {
+      urlPath = this.url;
+    } else if (!this.src) {
+      urlPath = this.getIconUrlfromlib(icon, lib);
+      if (urlPath === undefined) {
         console.error(
           `Error while resolving url for ${this.name}|${this.library}. Please check the lib registration/resolver function.`
         );
         return;
       }
-    } else url = `${this.src}/${this.name}.svg`;
-    return url;
+    } else {
+      urlPath = `${this.src}/${this.name}.svg`;
+    }
+    return urlPath;
   }
 
   private getIconUrlfromlib(icon: string, lib: string): string {
