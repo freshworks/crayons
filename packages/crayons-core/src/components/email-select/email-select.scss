@@ -128,9 +128,7 @@ $input-border: $color-smoke-100;
   .input-container {
     outline: none;
     background: $input-bg;
-    border: 1px solid transparent;
     box-shadow: 0 0 0 2px $input-focus-color;
-    margin: 0px;
   }
 }
 
@@ -191,7 +189,7 @@ $input-border: $color-smoke-100;
   font-size: 14px;
   font-weight: 400;
   padding-inline-start: 8px;
-  color: #12344d;
+  color: $color-elephant-900;
 }
 
 .ellipsis {
@@ -208,7 +206,7 @@ $input-border: $color-smoke-100;
 }
 
 .readonly {
-  margin-inline-start: 20px;
+  margin-inline-start: 20px !important;
 }
 
 .single-value-button {

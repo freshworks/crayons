@@ -11,7 +11,7 @@
   }
 
   &:focus {
-    outline: 2px solid #2c5cc5;
+    outline: 2px solid $color-azure-800;
   }
 
   &.disabled {
@@ -19,7 +19,7 @@
   }
 
   &.focused {
-    outline: 2px solid #2c5cc5 !important;
+    outline: 2px solid $color-azure-800 !important;
   }
 
   &.error {
@@ -27,11 +27,11 @@
     background: $color-persimmon-50 !important;
 
     &:hover {
-      background: #ffd0d6 !important;
+      background: $color-persimmon-100 !important;
     }
 
     &:focus {
-      outline: 2px solid #2c5cc5;
+      outline: 2px solid $color-azure-800;
     }
   }
 

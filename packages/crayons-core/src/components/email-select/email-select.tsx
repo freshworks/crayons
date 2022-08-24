@@ -172,7 +172,7 @@ export class EmailHeaderCustomComponentsSelectField {
     if (e.composedPath()[0].id === 'list-items-popover') {
       this.clearInput();
       this.isExpanded = false;
-      this.multiple && this.selectInput.focus();
+      this.multiple && this.selectInput?.focus();
     }
   }
 
@@ -323,6 +323,11 @@ export class EmailHeaderCustomComponentsSelectField {
     }
   }
 
+  @Watch('selectedOptions')
+  onSelectedOptionsChange(newValue) {
+    this.setSelectedOptions(newValue);
+  }
+
   @Method()
   async getSelectedItem(): Promise<any> {
     return this.fwListOptions.getSelectedOptions();
@@ -380,7 +385,7 @@ export class EmailHeaderCustomComponentsSelectField {
       case 'ArrowRight':
         this.tagArrowKeyCounter++;
         if (this.tagArrowKeyCounter >= this.value.length) {
-          this.selectInput.focus();
+          this.selectInput?.focus();
         } else {
           this.focusOnTag(this.tagArrowKeyCounter);
         }
@@ -411,7 +416,9 @@ export class EmailHeaderCustomComponentsSelectField {
       return;
     }
     this.searchValue = '';
-    this.selectInput.value = '';
+    if (this.selectInput) {
+      this.selectInput.value = '';
+    }
   }
 
   isValueEqual(value, option) {
@@ -478,7 +485,6 @@ export class EmailHeaderCustomComponentsSelectField {
               variant='avatar'
               graphicsProps={option.graphicsProps}
               text={option.value}
-              // secondaryText={option.subText ? `<${option.subText}>` : ''}
               disabled={option.disabled}
               value={option.value}
               focusable={false}
