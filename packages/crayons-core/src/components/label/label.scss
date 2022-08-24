@@ -1,6 +1,7 @@
 /**
   @prop --fw-label-padding-vertical: Top - bottom padding for label
-  @prop --fw-label-padding-horizontal: Left - right padding for label
+  @prop --fw-label-padding-horizontal: Left - Right padding if direction is left-to-right, and Right - Left padding if direction is right-to-left for label
+  
 */
 
 :host {
