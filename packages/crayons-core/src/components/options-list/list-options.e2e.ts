@@ -33,6 +33,8 @@ describe('fw-list-options', () => {
     const creatableOption = await selectOptions[0].shadowRoot.querySelector(
       '.select-option'
     );
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Property does not exist on type Element
     expect(creatableOption.innerText).toBe('text');
     jest.useRealTimers();
   });
@@ -63,6 +65,8 @@ describe('fw-list-options', () => {
     const creatableOption = await selectOptions[0].shadowRoot.querySelector(
       '.select-option'
     );
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Property does not exist on type Element
     expect(creatableOption.innerText).toBe('Add "text" as a recipient');
     jest.useRealTimers();
   });

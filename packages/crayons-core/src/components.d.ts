@@ -1714,6 +1714,10 @@ export namespace Components {
         "isFocused": boolean;
         "setFocus": () => Promise<any>;
         /**
+          * Truncate text with ellipsis when text overflows
+         */
+        "showEllipsisOnOverflow": boolean;
+        /**
           * Theme based on which the tag is styled.
          */
         "state": TagState;
@@ -4237,6 +4241,10 @@ declare namespace LocalJSX {
           * Triggered when the tag is deselected.
          */
         "onFwClosed"?: (event: CustomEvent<any>) => void;
+        /**
+          * Truncate text with ellipsis when text overflows
+         */
+        "showEllipsisOnOverflow"?: boolean;
         /**
           * Theme based on which the tag is styled.
          */

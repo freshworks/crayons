@@ -164,6 +164,7 @@ export class ListOptions {
         if (typeof this.validateNewOption === 'function') {
           selectedObj.error = this.validateNewOption(selectedObj.value);
         }
+        selectedObj.graphicsProps = {};
       }
       this.selectedOptionsState = this.multiple
         ? [...this.selectedOptionsState, selectedObj]
@@ -360,6 +361,13 @@ export class ListOptions {
                     : sanitisedText,
                 value: sanitisedText,
                 isNew: true,
+                graphicsProps: {
+                  name: 'plus-filled',
+                  color: '#2C5CC5',
+                  width: 16,
+                  height: 16,
+                },
+                variant: 'icon',
               },
               ...this.filteredOptions,
             ];

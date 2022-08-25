@@ -38,6 +38,15 @@ describe('fw-tag', () => {
     expect(element.innerText).toEqual(`tag<sub>`);
   });
 
+  it('renders text and subText for standard variant in tag', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-tag text="tag" sub-text="<sub>"></fw-tag>');
+    const element = await page.find('fw-tag >>> .tag');
+    await page.waitForChanges();
+    expect(element.innerText).toEqual(`tag<sub>`);
+  });
+
   it('renders tag in focused state', async () => {
     const page = await newE2EPage();
 
@@ -45,5 +54,27 @@ describe('fw-tag', () => {
     const element = await page.find('fw-tag >>> .tag');
     await page.waitForChanges();
     expect(element).toHaveClass('focused');
+  });
+
+  it('renders ellipsis when showEllipsisOnOverflow is true', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-tag show-ellipsis-on-overflow="true" text="tag" is-focused="true"></fw-tag>'
+    );
+    const element = await page.find('fw-tag >>> .tag');
+    await page.waitForChanges();
+    const ellipsisContent = await element.find('.ellipsis');
+    expect(ellipsisContent).toBeTruthy();
+  });
+
+  it('should not render ellipsis when showEllipsisOnOverflow is false', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-tag text="tag" is-focused="true"></fw-tag>');
+    const element = await page.find('fw-tag >>> .tag');
+    await page.waitForChanges();
+    const ellipsisContent = await element.find('.ellipsis');
+    expect(ellipsisContent).toBeFalsy();
   });
 });

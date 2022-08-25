@@ -75,6 +75,10 @@ export class Tag {
    */
   @Prop() index: string | number = '-1';
   /**
+   * Truncate text with ellipsis when text overflows
+   */
+  @Prop() showEllipsisOnOverflow = false;
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
@@ -105,24 +109,48 @@ export class Tag {
     e.stopPropagation();
   };
 
+  private renderText() {
+    return [
+      <span
+        class={{
+          'primary': !!this.subText,
+          'content': true,
+          'end-padding': !this.subText && !this.closable,
+        }}
+      >
+        {this.text}
+      </span>,
+      this.subText && (
+        <span
+          class={`secondary content ${!this.closable ? 'end-padding' : ''}`}
+        >
+          {this.subText}
+        </span>
+      ),
+    ];
+  }
+
   private renderLabel() {
     return (
       <div class='ellipsis' ref={(el) => (this.divLabel = el)}>
-        <span
-          class={{
-            'primary': !!this.subText,
-            'content': true,
-            'end-padding': !this.subText && !this.closable,
-          }}
-        >
-          {this.text}
-        </span>
-        {this.subText && (
-          <span
-            class={`secondary content ${!this.closable ? 'end-padding' : ''}`}
+        {this.renderText()}
+      </div>
+    );
+  }
+
+  private renderTruncatedContent() {
+    return (
+      <div class={'truncated-content'}>
+        {this.addTooltip ? (
+          <fw-tooltip
+            trigger='hover'
+            content={`${this.text}${this.subText ? ` ${this.subText}` : ''}`}
+            hoist
           >
-            {this.subText}
-          </span>
+            {this.renderLabel()}
+          </fw-tooltip>
+        ) : (
+          this.renderLabel()
         )}
       </div>
     );
@@ -131,7 +159,9 @@ export class Tag {
   renderContent() {
     switch (this.variant) {
       case 'standard':
-        return <span class='content'>{this.text}</span>;
+        return this.showEllipsisOnOverflow
+          ? this.renderTruncatedContent()
+          : this.renderText();
       case 'avatar': {
         return [
           <fw-avatar
@@ -139,21 +169,9 @@ export class Tag {
             size='xsmall'
             {...this.graphicsProps}
           ></fw-avatar>,
-          <div class={'avatar-content'}>
-            {this.addTooltip ? (
-              <fw-tooltip
-                trigger='hover'
-                content={`${this.text}${
-                  this.subText ? ` ${this.subText}` : ''
-                }`}
-                hoist
-              >
-                {this.renderLabel()}
-              </fw-tooltip>
-            ) : (
-              this.renderLabel()
-            )}
-          </div>,
+          this.showEllipsisOnOverflow
+            ? this.renderTruncatedContent()
+            : this.renderText(),
         ];
       }
       default:

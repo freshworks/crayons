@@ -490,6 +490,7 @@ export class EmailHeaderCustomComponentsSelectField {
               focusable={false}
               closable={!option.disabled}
               onClick={(e) => this.onClickTag(e, index)}
+              showEllipsisOnOverflow
             />
           );
         }
@@ -698,6 +699,7 @@ export class EmailHeaderCustomComponentsSelectField {
             ref={(popover) => (this.popover = popover)}
             placement='bottom'
             boundary={this.host.parentElement}
+            hoist
           >
             <div
               slot='popover-trigger'
