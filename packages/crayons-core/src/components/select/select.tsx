@@ -23,7 +23,24 @@ import {
 } from '../../utils/types';
 
 import { i18n } from '../../global/Translation';
-import { fwChangeHandler } from '../../utils/select-utils';
+import {
+  changeEmittable,
+  clearInput,
+  closeDropdown,
+  expandHandler,
+  focusHandler,
+  fwChangeHandler,
+  hideListHandler,
+  initializeComponent,
+  innerClickHandler,
+  innerFocusHandler,
+  innerOnBlur,
+  isValueEqual,
+  openDropdown,
+  optionsWatcher,
+  renderInput,
+  valueExists,
+} from '../../utils/select-utils';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -39,47 +56,33 @@ export class Select {
   private tagArrowKeyCounter = 0;
   private hostId;
 
-  // Functions shared from utils
+  // Functions shared from utils **Do not remove any variables here as they are being accessed from utils**
   private fwChangeHandler;
-
-  private changeEmittable = () => !this.disabled;
+  private expandHandler;
+  private initializeComponent;
+  private renderInput;
+  private clearInput;
+  private isValueEqual;
+  private valueExists;
+  private optionsWatcher;
+  private focusHandler;
+  private blurHandler;
+  private hideListHandler;
+  private changeEmittable;
+  private closeDropdown;
+  private openDropdown;
+  private innerOnBlur;
+  private innerFocusHandler;
+  private innerClickHandler;
 
   private innerOnFocus = (e: Event) => {
     if (this.changeEmittable()) {
-      this.hasFocus = true;
-      this.fwFocus.emit(e);
+      this.innerFocusHandler();
     }
   };
 
   private innerOnClick = () => {
-    this.setFocus();
-    // Select the whole text in case of single select
-    this.multiple || this.selectInput?.select?.();
-    if (this.variant !== 'mail') {
-      this.openDropdown();
-    }
-  };
-
-  private innerOnBlur = (e: Event) => {
-    if (this.changeEmittable()) {
-      this.hasFocus = false;
-      this.fwBlur.emit({
-        event: e,
-        name: this.name,
-      });
-    }
-  };
-
-  private openDropdown = () => {
-    if (!this.isExpanded && this.changeEmittable()) {
-      this.popover.show();
-    }
-  };
-
-  private closeDropdown = () => {
-    if (this.isExpanded && this.changeEmittable()) {
-      this.popover.hide();
-    }
+    this.innerClickHandler(this.variant !== 'mail');
   };
 
   /**
@@ -250,9 +253,7 @@ export class Select {
 
   @Listen('fwHide')
   onDropdownClose() {
-    this.clearInput();
-    this.isExpanded = false;
-    this.multiple && this.selectInput.focus();
+    this.hideListHandler();
   }
 
   @Listen('fwShow')
@@ -309,16 +310,12 @@ export class Select {
 
   @Listen('fwFocus')
   onOptionFocus(event) {
-    if (event.composedPath()[0].tagName === 'FW-SELECT-OPTION') {
-      this.focusedOptionId = event.detail.id;
-    }
+    this.focusHandler(event);
   }
 
   @Listen('fwBlur')
   onOptionBlur(event) {
-    if (event.composedPath()[0].tagName === 'FW-SELECT-OPTION') {
-      this.focusedOptionId = '';
-    }
+    this.blurHandler(event);
   }
 
   @Watch('dataSource')
@@ -328,24 +325,7 @@ export class Select {
 
   @Watch('options')
   onOptionsChange(newValue) {
-    const selectedValues = newValue?.filter((option) => option.selected);
-    // If selected key is available in options schema use it
-    // Or check for the value
-    if (selectedValues.length > 0) {
-      this.dataSource = newValue;
-      this.selectedOptionsState = selectedValues;
-      this.value = this.multiple
-        ? this.selectedOptionsState.map((x) => x.value)
-        : this.selectedOptionsState[0]?.value;
-    } else if (this.valueExists()) {
-      this.dataSource = newValue.map((option) => {
-        return { ...option, selected: this.isValueEqual(this.value, option) };
-      });
-    } else {
-      this.dataSource = newValue;
-      this.value = this.multiple ? [] : '';
-      this.selectedOptionsState = [];
-    }
+    this.optionsWatcher(newValue);
   }
 
   @Method()
@@ -408,24 +388,6 @@ export class Select {
     this.tagRefs[index]?.setFocus();
   }
 
-  clearInput() {
-    if (!this.multiple && this.value) {
-      this.renderInput();
-      return;
-    }
-    this.selectInput.value = '';
-  }
-
-  isValueEqual(value, option) {
-    return this.multiple
-      ? value.includes(option.value)
-      : value === option.value;
-  }
-
-  valueExists() {
-    return this.value && (this.multiple ? this.value.length > 0 : !!this.value);
-  }
-
   onInput() {
     this.searchValue = this.selectInput.value;
     if (this.selectInput.value) {
@@ -456,23 +418,24 @@ export class Select {
     }
   }
 
-  renderInput() {
-    if (this.selectedOptionsState.length > 0) {
-      if (this.selectInput) {
-        this.selectInput.value = '';
-        this.selectInput.value = this.multiple
-          ? this.selectInput.value
-          : this.selectedOptionsState[0].text || '';
-      }
-    } else {
-      if (this.selectInput) {
-        this.selectInput.value = '';
-      }
-    }
-  }
-
   connectedCallback() {
+    // Bind util methods with component instance to access state, props and methods
     this.fwChangeHandler = fwChangeHandler.bind(this);
+    this.expandHandler = expandHandler.bind(this);
+    this.initializeComponent = initializeComponent.bind(this);
+    this.renderInput = renderInput.bind(this);
+    this.clearInput = clearInput.bind(this);
+    this.isValueEqual = isValueEqual.bind(this);
+    this.valueExists = valueExists.bind(this);
+    this.optionsWatcher = optionsWatcher.bind(this);
+    this.focusHandler = focusHandler.bind(this);
+    this.hideListHandler = hideListHandler.bind(this);
+    this.changeEmittable = changeEmittable.bind(this);
+    this.closeDropdown = closeDropdown.bind(this);
+    this.openDropdown = openDropdown.bind(this);
+    this.innerOnBlur = innerOnBlur.bind(this);
+    this.innerFocusHandler = innerFocusHandler.bind(this);
+    this.innerClickHandler = innerClickHandler.bind(this);
   }
 
   componentWillLoad() {
@@ -482,77 +445,8 @@ export class Select {
       this.caret = false;
       this.multiple = true;
     }
-
-    //TODO: The below is a rough draft and needs to be optimized for better performance.
-    const selectOptions = Array.from(
-      this.host.querySelectorAll('fw-select-option')
-    );
-
-    // Set value if the selectedOptions is provided
-    if (this.selectedOptions.length > 0) {
-      this.selectedOptionsState = this.selectedOptions;
-      this.value = this.multiple
-        ? this.selectedOptions.map((option) => option.value)
-        : this.selectedOptions[0].value;
-    }
-
-    if (this.multiple) {
-      if (this.multiple && typeof this.value === 'string') {
-        throw Error('value must be a array of string when multiple is true');
-      }
-      this.value = this.value?.length > 0 ? this.value : [];
-    } else {
-      this.value = this.value ? this.value : '';
-    }
-
-    const options = selectOptions.map((option) => {
-      return {
-        html: option.html,
-        text: option.html ? option.optionText : option.textContent,
-        value: option.value,
-        selected: this.isValueEqual(this.value, option) || option.selected,
-        disabled: option.disabled,
-        htmlContent: option.html ? option.innerHTML : '',
-      };
-    });
-    this.dataSource = options.length === 0 ? this.options : options;
-    // Set selectedOptions if the value is provided
-    if (!this.multiple && this.value && this.selectedOptions.length === 0) {
-      this.selectedOptionsState = this.dataSource.filter(
-        (option) => this.value === option.value
-      );
-    } else if (
-      this.multiple &&
-      this.value.length !== this.selectedOptions.length
-    ) {
-      this.selectedOptionsState = this.dataSource.filter((option) =>
-        this.isValueEqual(this.value, option)
-      );
-    }
-    if (this.dataSource?.length > 0) {
-      // Check whether the selected data in the this.dataSource  matches the value
-      const selectedDataSource = this.dataSource.filter(
-        (option) => option.selected
-      );
-      const selectedDataSourceValues = selectedDataSource.map(
-        (option) => option.value
-      );
-      const selected = this.multiple
-        ? selectedDataSourceValues
-        : selectedDataSourceValues[0];
-      if (
-        selectedDataSourceValues.length > 0 &&
-        JSON.stringify(this.value) !== JSON.stringify(selected)
-      ) {
-        this.value = selected;
-        this.selectedOptionsState = selectedDataSource;
-      }
-    }
-    this.host.addEventListener('focus', this.setFocus);
-    //this.host.innerHTML = '';
-
-    //Get id
-    this.hostId = this.host.id || '';
+    // Initialize options, selectedOptions, value from slot/props.
+    this.initializeComponent();
   }
 
   componentDidLoad() {
@@ -567,11 +461,7 @@ export class Select {
   @Watch('isExpanded')
   expandWatcher(expanded: boolean): void {
     if (this.variant === 'button') {
-      const icon = this.host.shadowRoot
-        ?.querySelector('.select-container')
-        ?.querySelector('fw-button')
-        ?.shadowRoot?.querySelector('fw-icon');
-      icon && (icon.name = expanded ? 'chevron-up' : 'chevron-down');
+      this.expandHandler(expanded);
     }
   }
 
