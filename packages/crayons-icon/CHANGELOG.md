@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@3.0.6...@freshworks/crayons-icon@3.1.0-beta.0) (2022-08-25)
-
+## [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@3.0.6...@freshworks/crayons-icon@3.1.0-beta.0) (2022-08-25)
 
 ### Features
 
-* **icons:** added warning-filled and plus-filled icons ([#668](https://github.com/freshworks/crayons/issues/668)) ([1451f15](https://github.com/freshworks/crayons/commit/1451f15b20173db42f38ef37f59a642468cc8758))
-
-
-
-
+- **icons:** added warning-filled and plus-filled icons ([#668](https://github.com/freshworks/crayons/issues/668)) ([1451f15](https://github.com/freshworks/crayons/commit/1451f15b20173db42f38ef37f59a642468cc8758))
 
 ## 1.3.0 (2022-03-16)
 
