@@ -14,6 +14,7 @@ import {
 import { range, uniq } from 'lodash-es';
 import { TranslationController } from '../../global/Translation';
 import { handleKeyDown, renderHiddenField, validateEmail } from '../../utils';
+import { fwChangeHandler } from '../../utils/select-utils';
 
 @Component({
   tag: 'fw-email-select',
@@ -30,6 +31,9 @@ export class EmailHeaderCustomComponentsSelectField {
   private tagArrowKeyCounter = 0;
   private hostId;
   private resizeObserver;
+
+  // Functions shared from utils
+  private fwChangeHandler;
 
   private changeEmittable = () => !this.disabled;
 
@@ -193,33 +197,12 @@ export class EmailHeaderCustomComponentsSelectField {
 
   @Listen('fwChange')
   fwSelectedHandler(selectedItem) {
-    if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
-      this.selectedOptionsState = selectedItem.detail?.meta?.selectedOptions;
-      this.value = selectedItem.detail.value;
-      this.renderInput();
-      this.closeDropdown();
-      selectedItem.stopImmediatePropagation();
-      selectedItem.stopPropagation();
-      selectedItem.preventDefault();
-      if (this.selectedOptionsState.length > 0) {
-        this.fwChange.emit({
-          name: this.name,
-          value: this.value,
-          meta: { selectedOptions: this.selectedOptionsState },
-        });
-      } else {
-        this.fwChange.emit({
-          name: this.name,
-          value: this.value,
-          meta: {
-            shouldValidate: false, // for handling validation with form during reset. watcher in list-options is firing.
-            selectedOptions: this.selectedOptionsState,
-          },
-        });
-      }
-      if (this.multiple) {
-        this.selectInput?.focus();
-      }
+    this.fwChangeHandler(selectedItem, true);
+    if (
+      selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS' &&
+      this.multiple
+    ) {
+      this.selectInput?.focus();
     }
   }
 
@@ -553,6 +536,10 @@ export class EmailHeaderCustomComponentsSelectField {
     ) {
       this.focusedValues = [];
     }
+  }
+
+  connectedCallback() {
+    this.fwChangeHandler = fwChangeHandler.bind(this);
   }
 
   componentWillLoad() {

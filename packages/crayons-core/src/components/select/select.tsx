@@ -23,6 +23,7 @@ import {
 } from '../../utils/types';
 
 import { i18n } from '../../global/Translation';
+import { fwChangeHandler } from '../../utils/select-utils';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -37,6 +38,9 @@ export class Select {
   private tagRefs = [];
   private tagArrowKeyCounter = 0;
   private hostId;
+
+  // Functions shared from utils
+  private fwChangeHandler;
 
   private changeEmittable = () => !this.disabled;
 
@@ -266,33 +270,10 @@ export class Select {
 
   @Listen('fwChange')
   fwSelectedHandler(selectedItem) {
-    if (selectedItem.composedPath()[0].tagName === 'FW-LIST-OPTIONS') {
-      this.selectedOptionsState = selectedItem.detail?.meta?.selectedOptions;
-      this.value = selectedItem.detail.value;
-      this.renderInput();
-      if (!this.multiple || this.variant === 'mail') {
-        this.closeDropdown();
-      }
-      selectedItem.stopImmediatePropagation();
-      selectedItem.stopPropagation();
-      selectedItem.preventDefault();
-      if (this.selectedOptionsState.length > 0) {
-        this.fwChange.emit({
-          name: this.name,
-          value: this.value,
-          meta: { selectedOptions: this.selectedOptionsState },
-        });
-      } else {
-        this.fwChange.emit({
-          name: this.name,
-          value: this.value,
-          meta: {
-            shouldValidate: false, // for handling validation with form during reset. watcher in list-options is firing.
-            selectedOptions: this.selectedOptionsState,
-          },
-        });
-      }
-    }
+    this.fwChangeHandler(
+      selectedItem,
+      !this.multiple || this.variant === 'mail'
+    );
   }
 
   // Listen to Tag close in case of multi-select
@@ -488,6 +469,10 @@ export class Select {
         this.selectInput.value = '';
       }
     }
+  }
+
+  connectedCallback() {
+    this.fwChangeHandler = fwChangeHandler.bind(this);
   }
 
   componentWillLoad() {
