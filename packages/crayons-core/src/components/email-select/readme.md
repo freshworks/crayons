@@ -98,8 +98,8 @@ graph TD;
   fw-email-select --> fw-button
   fw-email-select --> fw-spinner
   fw-email-select --> fw-list-options
-  fw-tag --> fw-avatar
   fw-tag --> fw-tooltip
+  fw-tag --> fw-avatar
   fw-tag --> fw-icon
   fw-tooltip --> fw-popover
   fw-icon --> fw-toast-message

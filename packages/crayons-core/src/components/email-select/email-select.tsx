@@ -366,11 +366,13 @@ export class EmailHeaderCustomComponentsSelectField {
               (_, index) => !this.focusedValues.includes(index)
             )
           );
+          // reset focused values
           this.focusedValues = [];
         }
         break;
       case 'ArrowLeft':
         if (this.tagArrowKeyCounter - 1 >= 0) {
+          // should not focus disabled tag
           if (
             !this.selectedOptionsState[this.tagArrowKeyCounter - 1].disabled
           ) {
@@ -450,22 +452,28 @@ export class EmailHeaderCustomComponentsSelectField {
       const focusedIndex = this.focusedValues.indexOf(index);
       if (focusedIndex === -1) {
         if (e.ctrlKey || e.metaKey) {
+          // Add indices to focusedValues if ctrl or cmd key is held down
           this.focusedValues = [...this.focusedValues, index];
         } else if (e.shiftKey && this.focusedValues.length > 0) {
+          // Select range of indices to be focused if shift key is held down
+          const startIndex = this.focusedValues[this.focusedValues.length - 1];
+          const endIndex = index > startIndex ? index + 1 : index - 1;
           this.focusedValues = uniq([
             ...this.focusedValues,
-            ...range(
-              this.focusedValues[this.focusedValues.length - 1],
-              index + 1
-            ),
+            ...range(startIndex, endIndex < 0 ? 0 : endIndex),
           ]);
         } else {
+          // Clicking on a tag without ctrl/cmd/shift key held down should focus a single index
           this.focusedValues = [index];
         }
       } else if (e.ctrlKey || e.metaKey) {
+        // Remove index from focusedValues if already present and ctrl or cmd key is held down
         this.focusedValues = this.focusedValues.filter(
           (_, index) => index !== focusedIndex
         );
+      } else if (!e.shiftKey) {
+        // Highlight current index alone if ctrl/cmd/shift key is not held down
+        this.focusedValues = [index];
       }
     }
   }
@@ -670,6 +678,37 @@ export class EmailHeaderCustomComponentsSelectField {
     }
   }
 
+  onPaste(e) {
+    // Get pasted data via clipboard API
+    const clipboardData = e?.clipboardData || window['clipboardData'];
+    const pastedData = clipboardData?.getData('Text');
+    if (pastedData.includes('\n') || pastedData.includes(',')) {
+      // Stop data actually being pasted into input
+      e.stopPropagation();
+      e.preventDefault();
+      // Split strings either by new line or comma
+      const emails = pastedData.split(/[\n,]/);
+      const emailsToBeInput = [];
+      emails.forEach((email) => {
+        const sanitisedEmail = email.trim();
+        // Check email presence
+        if (sanitisedEmail) {
+          emailsToBeInput.push({
+            text: sanitisedEmail,
+            value: sanitisedEmail,
+            error: !validateEmail(sanitisedEmail),
+          });
+        }
+      });
+      if (emailsToBeInput.length > 0) {
+        this.setSelectedOptions([
+          ...this.selectedOptionsState,
+          ...emailsToBeInput,
+        ]);
+      }
+    }
+  }
+
   render() {
     const { host, name, value } = this;
 
@@ -761,6 +800,7 @@ export class EmailHeaderCustomComponentsSelectField {
                       onFocus={(e) => this.innerOnFocus(e)}
                       onBlur={(e) => this.innerOnBlur(e)}
                       aria-describedby={`hint-${this.name} error-${this.name}`}
+                      onPaste={(e) => this.onPaste(e)}
                     />
                   </div>
                   {this.isLoading && <fw-spinner size='small'></fw-spinner>}
