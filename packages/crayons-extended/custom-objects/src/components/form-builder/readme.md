@@ -152,11 +152,11 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
   }
 
   fb.addEventListener('fwComposeNewField', (event) => {
-    var objFormValuess = event.detail;
+    var objDetail = event.detail;
     var intAddedIndex = -1;
     var arrFields = formValues.fields;
-    var intIndex = objFormValuess.index;
-    var objDefaultField = objFormValuess.fieldSchema;
+    var intIndex = objDetail.index;
+    var objDefaultField = objDetail.fieldSchema;
     objDefaultField.isNew = true;
     objDefaultField.id = 'new-field';
 
@@ -540,11 +540,11 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       }
 
       fb.addEventListener('fwComposeNewField', (event) => {
-        var objFormValuess = event.detail;
+        var objDetail = event.detail;
         var intAddedIndex = -1;
         var arrFields = formValues.fields;
-        var intIndex = objFormValuess.index;
-        var objDefaultField = objFormValuess.fieldSchema;
+        var intIndex = objDetail.index;
+        var objDefaultField = objDetail.fieldSchema;
         objDefaultField.isNew = true;
         objDefaultField.id = 'new-field';
 
