@@ -180,7 +180,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
   });
 
   deleteNewLocalFieldAtIndex = (intIndex) => {
-    var arrFields = m.fields;
+    var arrFields = formValues.fields;
     if (
       arrFields &&
       arrFields.length > 0 &&
@@ -197,11 +197,11 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
   };
 
   fb.addEventListener('fwExpandField', (event) => {
-    var objFormValues = event.detail;
-    var intIndex = objFormValues.index;
-    var boolExpanded = objFormValues.expanded;
+    var objDetail = event.detail;
+    var intIndex = objDetail.index;
+    var boolExpanded = objDetail.expanded;
     fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
-    if (!boolExpanded && objFormValues.isNew && intIndex > -1) {
+    if (!boolExpanded && objDetail.isNew && intIndex > -1) {
       deleteNewLocalFieldAtIndex(intIndex);
     }
   });
@@ -362,9 +362,9 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
   });
 
   fb.addEventListener('fwRepositionField', (event) => {
-    var objFormValues = event.detail;
-    var intSourceIndex = objFormValues.sourceIndex;
-    var intTargetIndex = objFormValues.targetIndex;
+    var objDetail = event.detail;
+    var intSourceIndex = objDetail.sourceIndex;
+    var intTargetIndex = objDetail.targetIndex;
     if (intSourceIndex === intTargetIndex) {
       return;
     }
@@ -572,7 +572,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       });
 
       deleteNewLocalFieldAtIndex = (intIndex) => {
-        var arrFields = m.fields;
+        var arrFields = formValues.fields;
         if (
           arrFields &&
           arrFields.length > 0 &&
@@ -589,11 +589,11 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       };
 
       fb.addEventListener('fwExpandField', (event) => {
-        var objFormValues = event.detail;
-        var intIndex = objFormValues.index;
-        var boolExpanded = objFormValues.expanded;
+        var objDetail = event.detail;
+        var intIndex = objDetail.index;
+        var boolExpanded = objDetail.expanded;
         fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
-        if (!boolExpanded && objFormValues.isNew && intIndex > -1) {
+        if (!boolExpanded && objDetail.isNew && intIndex > -1) {
           deleteNewLocalFieldAtIndex(intIndex);
         }
       });
@@ -763,9 +763,9 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       });
 
       fb.addEventListener('fwRepositionField', (event) => {
-        var objFormValues = event.detail;
-        var intSourceIndex = objFormValues.sourceIndex;
-        var intTargetIndex = objFormValues.targetIndex;
+        var objDetail = event.detail;
+        var intSourceIndex = objDetail.sourceIndex;
+        var intTargetIndex = objDetail.targetIndex;
         if (intSourceIndex === intTargetIndex) {
           return;
         }
