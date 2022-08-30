@@ -6,14 +6,16 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
 
 ```html live
 <div
-  style="width: 100%;
+  style="
+        width: 100%;
         height: 100%;
         box-sizing: border-box;
         background: #ffffff;
         border: 1px solid rgba(207, 215, 223, 0.4);
         box-shadow: 0px 4px 4px rgba(209, 209, 209, 0.4);
         border-radius: 2px;
-        overflow: hidden;"
+        overflow: hidden;
+      "
 >
   <fw-form-builder id="formBuilder"></fw-form-builder>
 </div>
@@ -136,12 +138,25 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
   fb.formValues = formValues;
   fb.lookupTargetObjects = lookupTargets;
 
+  function create_UUID() {
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        var r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
+      }
+    );
+    return uuid;
+  }
+
   fb.addEventListener('fwComposeNewField', (event) => {
-    var objDetails = event.detail;
+    var objFormValuess = event.detail;
     var intAddedIndex = -1;
     var arrFields = formValues.fields;
-    var intIndex = objDetails.index;
-    var objDefaultField = objDetails.fieldSchema;
+    var intIndex = objFormValuess.index;
+    var objDefaultField = objFormValuess.fieldSchema;
     objDefaultField.isNew = true;
     objDefaultField.id = 'new-field';
 
@@ -165,7 +180,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
   });
 
   deleteNewLocalFieldAtIndex = (intIndex) => {
-    var arrFields = formValues.fields;
+    var arrFields = m.fields;
     if (
       arrFields &&
       arrFields.length > 0 &&
@@ -182,16 +197,16 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
   };
 
   fb.addEventListener('fwExpandField', (event) => {
-    var objDetail = event.detail;
-    var intIndex = objDetail.index;
-    var boolExpanded = objDetail.expanded;
+    var objFormValues = event.detail;
+    var intIndex = objFormValues.index;
+    var boolExpanded = objFormValues.expanded;
     fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
-    if (!boolExpanded && objDetail.isNew && intIndex > -1) {
+    if (!boolExpanded && objFormValues.isNew && intIndex > -1) {
       deleteNewLocalFieldAtIndex(intIndex);
     }
   });
 
-  fb.addEventListener('fwDevareField', (event) => {
+  fb.addEventListener('fwDeleteField', (event) => {
     fb.loading = true;
     var arrFields = formValues.fields;
     arrFields.splice(event.detail.index, 1);
@@ -200,18 +215,156 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
     fb.loading = false;
   });
 
+  // delete local field which was added if there are no fields present
+  deleteNewFieldFromPayload = (arrFields) => {
+    try {
+      const intNewFieldIndex = arrFields.findIndex(
+        (e) => e.id === 'new-field' && e.isNew === true
+      );
+      if (intNewFieldIndex > -1) {
+        arrFields.splice(intNewFieldIndex, 1);
+      }
+    } catch (error) {}
+  };
+
   fb.addEventListener('fwSaveField', (event) => {
-    var intAddedIndex = event.detail.index;
-    var isNewField = event.detail.isNew;
-    var objDetail = event.detail.value;
+    fb.loading = true;
+    var arrFields = formValues.fields;
+    var objDetail = event.detail;
+    var objFormValues = objDetail.value;
+    var boolNewField = objDetail.isNew;
+    var intIndex = Object.prototype.hasOwnProperty.call(objDetail, 'index')
+      ? objDetail.index
+      : -1;
+    var intAddedIndex = intIndex;
+    var isPrimaryField = !!(
+      Object.prototype.hasOwnProperty.call(objFormValues, 'isPrimaryField') &&
+      objFormValues.isPrimaryField === true
+    );
+    var strFieldLabel = objFormValues.name;
+    var strFieldType = !isPrimaryField ? objFormValues.type : 'PRIMARY';
+    var boolFilterable = Object.prototype.hasOwnProperty.call(
+      objFormValues,
+      'filterable'
+    )
+      ? objFormValues.filterable
+      : false;
+    var boolUnique = Object.prototype.hasOwnProperty.call(
+      objFormValues,
+      'unique'
+    )
+      ? objFormValues.unique
+      : false;
+    var arrChoices =
+      Object.prototype.hasOwnProperty.call(objFormValues, 'choices') &&
+      objFormValues.choices &&
+      objFormValues.choices.length > 0
+        ? [...objFormValues.choices]
+        : [];
+
+    var strRemovedSpecialChars = strFieldLabel.replace(/[^a-zA-Z0-9 ]/g, '');
+    var strGeneratedFieldName = strRemovedSpecialChars
+      .split(' ')
+      .join('_')
+      .toLowerCase();
+
     // make the api call to save the new/edited field data in the DB
+    // Temp - updating local field
+    var objUpdatedField = null;
+    deleteNewFieldFromPayload(arrFields);
+
+    if (boolNewField) {
+      objUpdatedField = {
+        id: '',
+        name: '',
+        label: '',
+        type: '',
+        required: false,
+        filterable: false,
+        editable: true,
+        visible: false,
+        deleted: false,
+        link: null,
+        placeholder: null,
+        hint: null,
+        field_options: { unique: false },
+        searchable: true,
+        parent_id: null,
+        choices: [],
+      };
+      if (strFieldType === 'DECIMAL') {
+        objUpdatedField.searchable = false;
+      }
+      // Name and ID Needs to be generated at the backend
+      objUpdatedField.name = strGeneratedFieldName;
+      objUpdatedField.id = create_UUID();
+    } else {
+      if (arrFields && intAddedIndex >= 0 && intAddedIndex < arrFields.length) {
+        objUpdatedField = arrFields[intAddedIndex];
+      } else {
+        console.error('Field not found in entity object..');
+        return null;
+      }
+    }
+
+    var boolUpdateUniqueValue = true;
+    if (strFieldType === 'RELATIONSHIP') {
+      // update lookup relationship data if its a new Field
+      if (boolNewField) {
+        var objRelationshipValues = objFormValues.relationship;
+        var objRelatedEntity = {
+          isNative: false,
+          text: objRelationshipValues.target, // display name of the related entity
+          value: 1, // id of the related entity
+        };
+        objUpdatedField.related_entity_id = objRelatedEntity.id;
+        objUpdatedField.relationship_name = strGeneratedFieldName; // needs to be unique within the entity
+        objUpdatedField.child_relationship_name = `${strGeneratedFieldName}_${new Date().getTime()}`; // needs to be unique within the entity
+        objUpdatedField.field_options.unique =
+          objRelationshipValues.relationship === 'one_to_one';
+      }
+      boolUpdateUniqueValue = false;
+    }
+
+    objUpdatedField.type = strFieldType;
+    objUpdatedField.label = strFieldLabel;
+    objUpdatedField.required = objFormValues.required;
+    objUpdatedField.filterable = boolFilterable;
+    objUpdatedField.choices = arrChoices;
+    if (boolUpdateUniqueValue) {
+      objUpdatedField.field_options.unique = boolUnique;
+    }
+
+    if (boolNewField) {
+      // validate if the array is empty or the passed index is invalid - if true -push the element at the end of the array
+      if (
+        arrFields.length === 0 ||
+        intIndex < 0 ||
+        intIndex > arrFields.length
+      ) {
+        arrFields = [...arrFields, objUpdatedField];
+        intAddedIndex = arrFields.length - 1;
+      } else {
+        // store the element at the passed index
+        arrFields = [
+          ...arrFields.slice(0, intIndex),
+          objUpdatedField,
+          ...arrFields.slice(intIndex),
+        ];
+        intAddedIndex = intIndex;
+      }
+    }
+
     fb.expandedFieldIndex = -1;
+    formValues = { ...formValues, fields: arrFields };
+    fb.formValues = formValues;
+    fb.loading = false;
   });
 
   fb.addEventListener('fwRepositionField', (event) => {
-    var objDetail = event.detail;
-    var intSourceIndex = objDetail.sourceIndex;
-    var intTargetIndex = objDetail.targetIndex;
+    var objFormValues = event.detail;
+    var intSourceIndex = objFormValues.sourceIndex;
+    var intTargetIndex = objFormValues.targetIndex;
     if (intSourceIndex === intTargetIndex) {
       return;
     }
@@ -240,16 +393,20 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
 <code-group>
 <code-block title="HTML">
 ```html 
-      <div style="width: 100%;
+      <div
+      style="
+        width: 100%;
         height: 100%;
         box-sizing: border-box;
         background: #ffffff;
         border: 1px solid rgba(207, 215, 223, 0.4);
         box-shadow: 0px 4px 4px rgba(209, 209, 209, 0.4);
         border-radius: 2px;
-        overflow: hidden;">
-        <fw-form-builder id="formBuilder"></fw-form-builder>
-      </div>
+        overflow: hidden;
+      "
+    >
+      <fw-form-builder id="formBuilder"></fw-form-builder>
+    </div>
 
     <script type="application/javascript">
       var customizeWidgetFields = [];
@@ -270,7 +427,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
           {
             id: '24a9531c-3c71-463e-9c63-8991396fde95',
             name: 'companyassociationtestname',
-            label: 'Company-Association-test-name',
+            label: 'Hotel Name',
             type: 'PRIMARY',
             position: 1,
             required: true,
@@ -292,7 +449,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
           {
             id: 'eea9ed82-af63-43b2-aef0-a7e8de0f8607',
             name: 'companytest',
-            label: 'company-test',
+            label: 'Location',
             type: 'RELATIONSHIP',
             position: 2,
             required: false,
@@ -317,7 +474,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
           {
             id: '3f2235be-b18a-443f-9944-c9ae10195e97',
             name: 'contactname',
-            label: 'contact-name',
+            label: 'Booking',
             type: 'RELATIONSHIP',
             position: 3,
             required: false,
@@ -369,12 +526,25 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       fb.formValues = formValues;
       fb.lookupTargetObjects = lookupTargets;
 
+      function create_UUID() {
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+          /[xy]/g,
+          function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
+          }
+        );
+        return uuid;
+      }
+
       fb.addEventListener('fwComposeNewField', (event) => {
-        var objDetails = event.detail;
+        var objFormValuess = event.detail;
         var intAddedIndex = -1;
         var arrFields = formValues.fields;
-        var intIndex = objDetails.index;
-        var objDefaultField = objDetails.fieldSchema;
+        var intIndex = objFormValuess.index;
+        var objDefaultField = objFormValuess.fieldSchema;
         objDefaultField.isNew = true;
         objDefaultField.id = 'new-field';
 
@@ -402,7 +572,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       });
 
       deleteNewLocalFieldAtIndex = (intIndex) => {
-        var arrFields = formValues.fields;
+        var arrFields = m.fields;
         if (
           arrFields &&
           arrFields.length > 0 &&
@@ -419,16 +589,16 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       };
 
       fb.addEventListener('fwExpandField', (event) => {
-        var objDetail = event.detail;
-        var intIndex = objDetail.index;
-        var boolExpanded = objDetail.expanded;
+        var objFormValues = event.detail;
+        var intIndex = objFormValues.index;
+        var boolExpanded = objFormValues.expanded;
         fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
-        if (!boolExpanded && objDetail.isNew && intIndex > -1) {
+        if (!boolExpanded && objFormValues.isNew && intIndex > -1) {
           deleteNewLocalFieldAtIndex(intIndex);
         }
       });
 
-      fb.addEventListener('fwDevareField', (event) => {
+      fb.addEventListener('fwDeleteField', (event) => {
         fb.loading = true;
         var arrFields = formValues.fields;
         arrFields.splice(event.detail.index, 1);
@@ -437,18 +607,165 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
         fb.loading = false;
       });
 
+      // delete local field which was added if there are no fields present
+      deleteNewFieldFromPayload = (arrFields) => {
+        try {
+          const intNewFieldIndex = arrFields.findIndex(
+            (e) => e.id === 'new-field' && e.isNew === true
+          );
+          if (intNewFieldIndex > -1) {
+            arrFields.splice(intNewFieldIndex, 1);
+          }
+        } catch (error) {}
+      };
+
       fb.addEventListener('fwSaveField', (event) => {
-        var intAddedIndex = event.detail.index;
-        var isNewField = event.detail.isNew;
-        var objDetail = event.detail.value;
+        fb.loading = true;
+        var arrFields = formValues.fields;
+        var objDetail = event.detail;
+        var objFormValues = objDetail.value;
+        var boolNewField = objDetail.isNew;
+        var intIndex = Object.prototype.hasOwnProperty.call(objDetail, 'index')
+          ? objDetail.index
+          : -1;
+        var intAddedIndex = intIndex;
+        var isPrimaryField = !!(
+          Object.prototype.hasOwnProperty.call(
+            objFormValues,
+            'isPrimaryField'
+          ) && objFormValues.isPrimaryField === true
+        );
+        var strFieldLabel = objFormValues.name;
+        var strFieldType = !isPrimaryField ? objFormValues.type : 'PRIMARY';
+        var boolFilterable = Object.prototype.hasOwnProperty.call(
+          objFormValues,
+          'filterable'
+        )
+          ? objFormValues.filterable
+          : false;
+        var boolUnique = Object.prototype.hasOwnProperty.call(
+          objFormValues,
+          'unique'
+        )
+          ? objFormValues.unique
+          : false;
+        var arrChoices =
+          Object.prototype.hasOwnProperty.call(objFormValues, 'choices') &&
+          objFormValues.choices &&
+          objFormValues.choices.length > 0
+            ? [...objFormValues.choices]
+            : [];
+
+        var strRemovedSpecialChars = strFieldLabel.replace(
+          /[^a-zA-Z0-9 ]/g,
+          ''
+        );
+        var strGeneratedFieldName = strRemovedSpecialChars
+          .split(' ')
+          .join('_')
+          .toLowerCase();
+
         // make the api call to save the new/edited field data in the DB
+        // Temp - updating local field
+        var objUpdatedField = null;
+        deleteNewFieldFromPayload(arrFields);
+
+        if (boolNewField) {
+          objUpdatedField = {
+            id: '',
+            name: '',
+            label: '',
+            type: '',
+            required: false,
+            filterable: false,
+            editable: true,
+            visible: false,
+            deleted: false,
+            link: null,
+            placeholder: null,
+            hint: null,
+            field_options: { unique: false },
+            searchable: true,
+            parent_id: null,
+            choices: [],
+          };
+          if (strFieldType === 'DECIMAL') {
+            objUpdatedField.searchable = false;
+          }
+          // Name and ID Needs to be generated at the backend
+          objUpdatedField.name = strGeneratedFieldName;
+          objUpdatedField.id = create_UUID();
+        } else {
+          if (
+            arrFields &&
+            intAddedIndex >= 0 &&
+            intAddedIndex < arrFields.length
+          ) {
+            objUpdatedField = arrFields[intAddedIndex];
+          } else {
+            console.error('Field not found in entity object..');
+            return null;
+          }
+        }
+
+        var boolUpdateUniqueValue = true;
+        if (strFieldType === 'RELATIONSHIP') {
+          // update lookup relationship data if its a new Field
+          if (boolNewField) {
+            var objRelationshipValues = objFormValues.relationship;
+            var objRelatedEntity = {
+              isNative: false,
+              text: objRelationshipValues.target, // display name of the related entity
+              value: 1, // id of the related entity
+            };
+            objUpdatedField.related_entity_id = objRelatedEntity.id;
+            objUpdatedField.relationship_name = strGeneratedFieldName; // needs to be unique within the entity
+            objUpdatedField.child_relationship_name = `${strGeneratedFieldName}_${new Date().getTime()}`; // needs to be unique within the entity
+            objUpdatedField.field_options.unique =
+              objRelationshipValues.relationship === 'one_to_one';
+          }
+          boolUpdateUniqueValue = false;
+        }
+
+        objUpdatedField.type = strFieldType;
+        objUpdatedField.label = strFieldLabel;
+        objUpdatedField.required = objFormValues.required;
+        objUpdatedField.filterable = boolFilterable;
+        objUpdatedField.choices = arrChoices;
+        if (boolUpdateUniqueValue) {
+          objUpdatedField.field_options.unique = boolUnique;
+        }
+
+        if (boolNewField) {
+          // validate if the array is empty or the passed index is invalid - if true -push the element at the end of the array
+          if (
+            arrFields.length === 0 ||
+            intIndex < 0 ||
+            intIndex > arrFields.length
+          ) {
+            arrFields = [...arrFields, objUpdatedField];
+            intAddedIndex = arrFields.length - 1;
+          } else {
+            // store the element at the passed index
+            arrFields = [
+              ...arrFields.slice(0, intIndex),
+              objUpdatedField,
+              ...arrFields.slice(intIndex),
+            ];
+            intAddedIndex = intIndex;
+          }
+        }
+
         fb.expandedFieldIndex = -1;
+        formValues = { ...formValues, fields: arrFields };
+        fb.formValues = formValues;
+        fb.loading = false;
       });
 
       fb.addEventListener('fwRepositionField', (event) => {
-        var objDetail = event.detail;
-        var intSourceIndex = objDetail.sourceIndex;
-        var intTargetIndex = objDetail.targetIndex;
+        var objFormValues = event.detail;
+        var intSourceIndex = objFormValues.sourceIndex;
+        var intTargetIndex = objFormValues.targetIndex;
         if (intSourceIndex === intTargetIndex) {
           return;
         }
