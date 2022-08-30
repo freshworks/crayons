@@ -26,6 +26,9 @@ export const config: Config = {
       type: 'www',
       dir: `../../../www/.vuepress/public/scripts/${packageName}/`,
     },
+    {
+      type: 'dist-hydrate-script',
+    },
     reactOutputTarget({
       componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
       proxiesFile: './crayons-custom-objects-react/components.ts',

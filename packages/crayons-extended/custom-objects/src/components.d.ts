@@ -454,6 +454,66 @@ export namespace Components {
         "selected": boolean;
     }
 }
+export interface FwCoExportCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwCoExportElement;
+}
+export interface FwCoExportFieldCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwCoExportFieldElement;
+}
+export interface FwFbFieldDropdownCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFbFieldDropdownElement;
+}
+export interface FwFbFieldDropdownItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFbFieldDropdownItemElement;
+}
+export interface FwFbFieldLookupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFbFieldLookupElement;
+}
+export interface FwFieldEditorCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFieldEditorElement;
+}
+export interface FwFieldTypeMenuItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFieldTypeMenuItemElement;
+}
+export interface FwFilterCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFilterElement;
+}
+export interface FwFilterConditionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFilterConditionElement;
+}
+export interface FwFormBuilderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFormBuilderElement;
+}
+export interface FwInputRangeConditionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwInputRangeConditionElement;
+}
+export interface FwPlatformTableCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwPlatformTableElement;
+}
+export interface FwSearchDropdownCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwSearchDropdownElement;
+}
+export interface FwSortSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwSortSelectElement;
+}
+export interface FwWidgetCustomizeFieldItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwWidgetCustomizeFieldItemElement;
+}
 declare global {
     interface HTMLFwCoExportElement extends Components.FwCoExport, HTMLStencilElement {
     }
@@ -600,11 +660,11 @@ declare namespace LocalJSX {
         /**
           * Triggered whenever the cancel/close button is selected
          */
-        "onFwCloseExport"?: (event: CustomEvent<any>) => void;
+        "onFwCloseExport"?: (event: FwCoExportCustomEvent<any>) => void;
         /**
           * Triggered whenever the export button is selected
          */
-        "onFwExport"?: (event: CustomEvent<any>) => void;
+        "onFwExport"?: (event: FwCoExportCustomEvent<any>) => void;
         /**
           * The value to populate the export details in json format
          */
@@ -614,7 +674,7 @@ declare namespace LocalJSX {
         /**
           * Triggered whenever the export button is selected
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwCoExportFieldCustomEvent<any>) => void;
         /**
           * The value to populate the details of the checkbox field
          */
@@ -650,7 +710,7 @@ declare namespace LocalJSX {
         /**
           * Triggered on data change for error handling on parent
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwFbFieldDropdownCustomEvent<any>) => void;
         /**
           * property to show the errors on click of the save/add button from the parent
          */
@@ -676,11 +736,11 @@ declare namespace LocalJSX {
         /**
           * Triggered on choice input blur
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
         /**
           * Triggered on delete button click
          */
-        "onFwDelete"?: (event: CustomEvent<any>) => void;
+        "onFwDelete"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
         /**
           * property to show the errors on click of the save/add button from the parent
          */
@@ -702,7 +762,7 @@ declare namespace LocalJSX {
         /**
           * Triggered on data change for error handling on parent
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwFbFieldLookupCustomEvent<any>) => void;
         /**
           * property to show the errors on click of the save/add button from the parent
          */
@@ -776,15 +836,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the field has to be deleted on the server
          */
-        "onFwDelete"?: (event: CustomEvent<any>) => void;
+        "onFwDelete"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
           * Triggered when the field is expanded or collapsed
          */
-        "onFwExpand"?: (event: CustomEvent<any>) => void;
+        "onFwExpand"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
           * Triggered when the field details need to be saved on the server
          */
-        "onFwUpdate"?: (event: CustomEvent<any>) => void;
+        "onFwUpdate"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
@@ -822,7 +882,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the the add button is clicked.
          */
-        "onFwAddClick"?: (event: CustomEvent<any>) => void;
+        "onFwAddClick"?: (event: FwFieldTypeMenuItemCustomEvent<any>) => void;
         /**
           * tooltip to be shown on hover
          */
@@ -844,7 +904,7 @@ declare namespace LocalJSX {
         /**
           * Triggered whenever the user selects/removes a filter option.
          */
-        "onFwFilterChange"?: (event: CustomEvent<any>) => void;
+        "onFwFilterChange"?: (event: FwFilterCustomEvent<any>) => void;
         /**
           * The value to populate the filters
          */
@@ -878,7 +938,7 @@ declare namespace LocalJSX {
         /**
           * Event Triggered on deleting an filter condition
          */
-        "onFwDelete"?: (event: CustomEvent<any>) => void;
+        "onFwDelete"?: (event: FwFilterConditionCustomEvent<any>) => void;
         /**
           * The selected condition
          */
@@ -934,31 +994,31 @@ declare namespace LocalJSX {
         /**
           * Triggered when a new field type is dropped / added inside the fields area
          */
-        "onFwComposeNewField"?: (event: CustomEvent<any>) => void;
+        "onFwComposeNewField"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
           * Triggered on Delete field button click from the field list items
          */
-        "onFwDeleteField"?: (event: CustomEvent<any>) => void;
+        "onFwDeleteField"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
           * Triggered when the field is expanded or collapsed
          */
-        "onFwExpandField"?: (event: CustomEvent<any>) => void;
+        "onFwExpandField"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
           * Triggered when the position of a field is changed using drag and drop
          */
-        "onFwRepositionField"?: (event: CustomEvent<any>) => void;
+        "onFwRepositionField"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
           * Triggered on Add/Save field button click from the field list items
          */
-        "onFwSaveField"?: (event: CustomEvent<any>) => void;
+        "onFwSaveField"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
           * Triggered on saving the widget fields
          */
-        "onFwSaveWidgetFields"?: (event: CustomEvent<any>) => void;
+        "onFwSaveWidgetFields"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
           * Triggered on search
          */
-        "onFwSearchField"?: (event: CustomEvent<any>) => void;
+        "onFwSearchField"?: (event: FwFormBuilderCustomEvent<any>) => void;
     }
     interface FwInputCondition {
         /**
@@ -990,7 +1050,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the value in the input box is modified.
          */
-        "onFwInput"?: (event: CustomEvent<any>) => void;
+        "onFwInput"?: (event: FwInputRangeConditionCustomEvent<any>) => void;
         /**
           * The value of the input
          */
@@ -1008,11 +1068,11 @@ declare namespace LocalJSX {
         /**
           * Triggered on selecting the sort option.
          */
-        "onFwDelete"?: (event: CustomEvent<any>) => void;
+        "onFwDelete"?: (event: FwPlatformTableCustomEvent<any>) => void;
         /**
           * Triggered on page navigation button click.
          */
-        "onFwPagination"?: (event: CustomEvent<any>) => void;
+        "onFwPagination"?: (event: FwPlatformTableCustomEvent<any>) => void;
         /**
           * The sort order.
          */
@@ -1042,7 +1102,7 @@ declare namespace LocalJSX {
         /**
           * On Change event
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwSearchDropdownCustomEvent<any>) => void;
         /**
           * The filter schema
          */
@@ -1070,7 +1130,7 @@ declare namespace LocalJSX {
         /**
           * Triggered on selecting the sort option.
          */
-        "onFwSort"?: (event: CustomEvent<any>) => void;
+        "onFwSort"?: (event: FwSortSelectCustomEvent<any>) => void;
         /**
           * The sort order.
          */
@@ -1112,7 +1172,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the card in focus is selected.
          */
-        "onFwCheck"?: (event: CustomEvent<any>) => void;
+        "onFwCheck"?: (event: FwWidgetCustomizeFieldItemCustomEvent<any>) => void;
         /**
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
