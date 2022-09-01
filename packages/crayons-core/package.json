@@ -30,7 +30,8 @@
     "loader/",
     "www/",
     "react/",
-    "css/"
+    "css/",
+    "hydrate/"
   ],
   "scripts": {
     "add:react": "npm run clean:react && npx mkdirp react",
@@ -41,7 +42,7 @@
     "build:autoprefix": "postcss css/*.css --use autoprefixer --dir css",
     "build:components": "stencil build --docs",
     "build:mincss": "cleancss -b css/*.css css",
-    "build:react": "npm run file:util && tsc --project tsconfig-react.json",
+    "build:react": "tsc --project tsconfig-react.json",
     "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css",
     "build:styles": "npm run build:scss && npm run build:autoprefix && npm run build:mincss && npx copy css/crayons-min.css ../../www/.vuepress/public",
     "build": "npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
@@ -51,7 +52,6 @@
     "commit": "git-cz",
     "dev": "npm run start",
     "directional-to-logical": "npx postcss './src/**/*.scss' ../../styles/**/*.scss --config ./plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose",
-    "file:util": "node ../../scripts/fileutil",
     "generate": "plop",
     "local": "stencil build --dev --watch",
     "prestart": "kill-port 3333",
@@ -59,9 +59,9 @@
     "start": "stencil build --dev --watch --serve --port=3333",
     "storybook:start": "wait-on -d 30000 loader/index.js && start-storybook -p 9001 -c .storybook",
     "storybook": "run-p local storybook:start",
+    "test:ci": "stencil test --spec --ci --e2e --max-workers=2",
     "test:watch": "stencil test --spec --e2e --watchAll --verbose",
-    "test": "stencil test --spec --e2e",
-    "test:ci": "stencil test --spec --ci --e2e --max-workers=2"
+    "test": "stencil test --spec --e2e --max-workers=1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
@@ -78,8 +78,8 @@
     "babel-loader": "^8.2.2",
     "clean-css-cli": "^5.4.1",
     "gulp": "^4.0.2",
-    "jest": "24.9.0",
-    "jest-cli": "24.9.0",
+    "jest": "^27.4.5",
+    "jest-cli": "^27.4.5",
     "node-sass": "^6.0.0",
     "npm-run-all": "^4.1.5",
     "plop": "^2.7.4",
@@ -105,7 +105,7 @@
   "dependencies": {
     "@freshworks/crayons-i18n": "^4.0.0-beta.0",
     "@popperjs/core": "^2.10.2",
-    "@stencil/core": "2.9.0",
+    "@stencil/core": "2.17.4",
     "date-fns": "^2.28.0",
     "libphonenumber-js": "^1.10.8",
     "multi-nprogress": "0.3.5"

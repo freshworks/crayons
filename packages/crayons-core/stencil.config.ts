@@ -52,6 +52,9 @@ export const config: Config = {
       type: 'docs-json',
       file: 'dist/docs.json',
     },
+    {
+      type: 'dist-hydrate-script',
+    },
     reactOutputTarget({
       componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
       proxiesFile: './crayons-react/components.ts',

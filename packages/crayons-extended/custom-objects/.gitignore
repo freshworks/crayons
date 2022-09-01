@@ -5,6 +5,7 @@ storybook-dist/
 coverage/
 docs-dist/
 react/
+hydrate/
 
 crayons-custom-objects-react/react-component-lib
 crayons-custom-objects-react/*.ts
