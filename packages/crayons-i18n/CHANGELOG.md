@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.0.0-beta.0...@freshworks/crayons-i18n@4.0.0-beta.1) (2022-09-01)
+
+
+### Features
+
+* **hydrate-output-target:** output target to support SSR and upgraded to stencil 2.17 ([#671](https://github.com/freshworks/crayons/issues/671)) ([a422c16](https://github.com/freshworks/crayons/commit/a422c166c026e75fcd3c2664bdb2d9347d2a2cea))
+
+
+
+
+
 ## [4.0.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@3.1.3-beta.0...@freshworks/crayons-i18n@4.0.0-beta.0) (2022-08-23)
 
 ### Features
