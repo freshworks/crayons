@@ -131,6 +131,13 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                        | Description                    |
+| --------------------------- | ------------------------------ |
+| `--fw-file-uploader-border` | border color for file uploader |
+
+
 ## Dependencies
 
 ### Depends on

@@ -3,11 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.1...@freshworks/crayons@4.0.0-beta.2) (2022-08-24)
+
+### Bug Fixes
+
+- **css-variables:** renamed css variables to keep it consistent with LTR and RTL support ([#667](https://github.com/freshworks/crayons/issues/667)) ([9a38511](https://github.com/freshworks/crayons/commit/9a385118ff2868d05891d094e139a9990ad93296))
+
 ## [4.0.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.0...@freshworks/crayons@4.0.0-beta.1) (2022-08-23)
 
 ### Features
 
 - **custom-objects:** added custom objects to crayons via crayons-extended ([#640](https://github.com/freshworks/crayons/issues/640)) ([b1690d9](https://github.com/freshworks/crayons/commit/b1690d9830930a542a42b27dfa63a33521eb3cc5))
+
+### BREAKING CHANGES
+
+- renamed `--fw-tabs-margin-l` to `--fw-tabs-margin-inline-start` (Left margin if direction is left-to-right, and Right margin if direction is right-to-left for the tab items)
+- renamed `--fw-tabs-margin-r` to `--fw-tabs-margin-inline-end` (Right margin if direction is left-to-right, and Left margin if direction is right-to-left for the tab items)
+- renamed `--fw-tabs-padding-left` to `--fw-tabs-padding-inline-start` (Left padding if direction is left-to-right, and Right padding if direction is right-to-left for the tab items)
+- renamed `--fw-tabs-padding-right` to `--fw-tabs-padding-inline-end` (Right padding if direction is left-to-right, and Left padding if direction is right-to-left for the tab items)
 
 ## [4.0.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.6.0-beta.2...@freshworks/crayons@4.0.0-beta.0) (2022-08-23)
 
