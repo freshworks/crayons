@@ -3,21 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.0.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.2...@freshworks/crayons@4.0.0-beta.3) (2022-09-01)
-
+## [4.0.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.2...@freshworks/crayons@4.0.0-beta.3) (2022-09-01)
 
 ### Bug Fixes
 
-* **textarea:** fix text-area width across browsers by exposing custom css properties ([#672](https://github.com/freshworks/crayons/issues/672)) ([7767ec6](https://github.com/freshworks/crayons/commit/7767ec6ed091c599ed65791a99bdc919388f560f))
-
+- **textarea:** fix text-area width across browsers by exposing custom css properties ([#672](https://github.com/freshworks/crayons/issues/672)) ([7767ec6](https://github.com/freshworks/crayons/commit/7767ec6ed091c599ed65791a99bdc919388f560f))
 
 ### Features
 
-* **hydrate-output-target:** output target to support SSR and upgraded to stencil 2.17 ([#671](https://github.com/freshworks/crayons/issues/671)) ([a422c16](https://github.com/freshworks/crayons/commit/a422c166c026e75fcd3c2664bdb2d9347d2a2cea))
-
-
-
-
+- **hydrate-output-target:** output target to support SSR and upgraded to stencil 2.17 ([#671](https://github.com/freshworks/crayons/issues/671)) ([a422c16](https://github.com/freshworks/crayons/commit/a422c166c026e75fcd3c2664bdb2d9347d2a2cea))
 
 ## [4.0.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.1...@freshworks/crayons@4.0.0-beta.2) (2022-08-24)
 
