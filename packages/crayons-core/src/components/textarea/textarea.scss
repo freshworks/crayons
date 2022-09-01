@@ -4,6 +4,8 @@
   @prop --fw-hint-color: Color of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
+  @prop --fw-textarea-min-height: Min-Height of the textarea.
+  @prop --fw-textarea-width: Width of the textarea.
 */
 
 @import '../../function-components/field-control.scss';
@@ -45,7 +47,7 @@ $warning-color: $color-casablanca-300;
 // textarea Container Style
 .textarea-container-inner {
   display: block;
-  width: 100%;
+  width: var(--fw-textarea-width, 100%);
   position: relative;
 
   textarea {
@@ -58,7 +60,7 @@ $warning-color: $color-casablanca-300;
     padding-block-start: 4px;
     background-color: $input-bg;
     box-shadow: none;
-    min-height: 24px;
+    min-height: var(--fw-textarea-min-height, 24px);
     font-size: $font-size-14;
     font-weight: $font-weight-semibold;
     letter-spacing: 0;
