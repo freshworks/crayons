@@ -414,6 +414,7 @@ export class ListOptions {
   renderSearchInput() {
     return (
       <fw-input
+        class='input-search'
         ref={(searchInput) => (this.searchInput = searchInput)}
         placeholder={this.searchText}
         onInput={() => this.handleSearchWithDebounce(this.searchInput.value)}

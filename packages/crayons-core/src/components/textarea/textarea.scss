@@ -19,6 +19,7 @@ $input-hover-color: $color-smoke-700;
 $input-focus-color: $color-azure-800;
 $input-border: $color-smoke-100;
 $warning-color: $color-casablanca-300;
+$placeholder-color: $color-smoke-300;
 
 @mixin stateStyle($_color) {
   & > textarea {
@@ -122,16 +123,24 @@ $warning-color: $color-casablanca-300;
 }
 
 ::placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
   opacity: 1;
 }
 
-:-ms-input-placeholder {
-  color: $muted-secondary;
+::-webkit-input-placeholder {
+  color: $placeholder-color;
 }
 
-::-ms-input-placeholder {
-  color: $muted-secondary;
+::-moz-placeholder {
+  color: $placeholder-color;
+}
+
+:-ms-input-placeholder {
+  color: $placeholder-color;
+}
+
+:-moz-placeholder {
+  color: $placeholder-color;
 }
 
 .responsive {
