@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.0.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.4...@freshworks/crayons@4.0.0-beta.5) (2022-09-02)
-
+## [4.0.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.4...@freshworks/crayons@4.0.0-beta.5) (2022-09-02)
 
 ### Bug Fixes
 
-* **styles:** style fixes as per Freshworks DSM ([#656](https://github.com/freshworks/crayons/issues/656)) ([f011d45](https://github.com/freshworks/crayons/commit/f011d452cf7e406e000ccafc3822cf98f9a1bffe))
-
-
-
-
+- **styles:** style fixes as per Freshworks DSM ([#656](https://github.com/freshworks/crayons/issues/656)) ([f011d45](https://github.com/freshworks/crayons/commit/f011d452cf7e406e000ccafc3822cf98f9a1bffe))
 
 ## [4.0.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.2...@freshworks/crayons@4.0.0-beta.3) (2022-09-01)
 
