@@ -90,7 +90,7 @@ $input-height-mini: 16px;
     text-overflow: ellipsis;
     display: flex;
     align-items: center;
-    line-height: 20px;
+    line-height: $line-height-label;
   }
 
   &:active:not(.fw-btn--loading) {
