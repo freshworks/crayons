@@ -108,6 +108,7 @@ export const config: Config = {
     shadowDomShim: true,
     cloneNodeFix: true,
     slotChildNodesFix: true,
+    experimentalImportInjection: true,
   },
   enableCache: true,
 

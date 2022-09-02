@@ -1,8 +1,11 @@
 import { Config } from '@stencil/core';
 import { reactOutputTarget } from 'react-output-target';
 import { sass } from '@stencil/sass';
+import { postcss } from '@stencil/postcss';
+import postcssRTLCSS from 'postcss-rtlcss';
 const packageName = 'crayons-custom-objects';
 export const config: Config = {
+  autoprefixCss: true,
   namespace: 'crayons-custom-objects',
   outputTargets: [
     {
@@ -46,6 +49,29 @@ export const config: Config = {
     sass({
       injectGlobalPaths: ['src/styles/index.scss'],
     }),
+    postcss({
+      plugins: [
+        postcssRTLCSS({
+          ltrPrefix: [':host(:not([dir="rtl"]))', ':host([dir="ltr"])'],
+          rtlPrefix: ':host([dir="rtl"])',
+          processKeyFrames: true,
+        }),
+      ],
+    }),
   ],
   globalScript: 'src/global.ts',
+  buildEs5: true,
+  extras: {
+    appendChildSlotFix: true,
+    cssVarsShim: true,
+    dynamicImportShim: true,
+    initializeNextTick: true,
+    safari10: true,
+    scriptDataOpts: true,
+    shadowDomShim: true,
+    cloneNodeFix: true,
+    slotChildNodesFix: true,
+    experimentalImportInjection: true,
+  },
+  enableCache: true,
 };
