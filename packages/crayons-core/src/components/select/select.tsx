@@ -22,7 +22,7 @@ import {
   PopoverPlacementType,
 } from '../../utils/types';
 
-import { i18n } from '../../global/Translation';
+import { TranslationController } from '../../global/Translation';
 @Component({
   tag: 'fw-select',
   styleUrl: 'select.scss',
@@ -166,7 +166,7 @@ export class Select {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @i18n({ keyName: 'search.noItemsFound' })
+  // @i18n({ keyName: 'search.noItemsFound' })
   @Prop({ mutable: true })
   notFoundText = '';
   /**
@@ -178,7 +178,7 @@ export class Select {
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @i18n({ keyName: 'search.noDataAvailable' })
+  // @i18n({ keyName: 'search.noDataAvailable' })
   @Prop({ mutable: true })
   noDataText = '';
   /**
@@ -738,9 +738,15 @@ export class Select {
                 id={`${this.hostId}-listbox`}
                 role='listbox'
                 aria-labelledby={this.labelledBy || `${this.hostId}-label`}
-                notFoundText={this.notFoundText}
+                notFoundText={
+                  this.notFoundText ||
+                  TranslationController.t('search.noItemsFound')
+                }
                 debounceTimer={this.debounceTimer}
-                noDataText={this.noDataText}
+                noDataText={
+                  this.noDataText ||
+                  TranslationController.t('search.noDataAvailable')
+                }
                 search={this.search}
                 selectedOptions={this.selectedOptions}
                 variant={this.optionsVariant}

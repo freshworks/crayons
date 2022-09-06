@@ -34,7 +34,7 @@ import {
 } from '../../utils';
 import FieldControl from '../../function-components/field-control';
 
-import { i18n, TranslationController } from '../../global/Translation';
+import { TranslationController } from '../../global/Translation';
 import { addRTL } from '../../utils';
 
 const defaultweekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -150,10 +150,10 @@ export class Datepicker {
    */
   @Prop({ mutable: true }) placeholder: string;
 
-  @i18n({ keyName: 'datepicker.update' })
+  //({ keyName: 'datepicker.update' })
   @Prop({ mutable: true })
   updateText = '';
-  @i18n({ keyName: 'datepicker.cancel' })
+  //@i18n({ keyName: 'datepicker.cancel' })
   @Prop({ mutable: true })
   cancelText = '';
 
@@ -242,6 +242,7 @@ export class Datepicker {
   private nativeInput;
   private isDisplayFormatSet = false;
   private isPlaceholderSet = false;
+  private langChangRemoveListener;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -295,6 +296,7 @@ export class Datepicker {
 
   disconnectedCallback() {
     document.removeEventListener('keydown', this.escapeHandler);
+    this.langChangRemoveListener?.();
   }
 
   private formatDate(value) {
@@ -401,6 +403,11 @@ export class Datepicker {
     const isUpdateDate = e
       .composedPath()[0]
       .classList.value.includes('update-date-value');
+    const cancelText =
+      this.cancelText || TranslationController.t('datepicker.cancel');
+    const updateText =
+      this.updateText || TranslationController.t('datepicker.update');
+
     if (isUpdateRange) {
       if (this.startDate && this.endDate) {
         this.updateValueAndEmitEvent(e);
@@ -411,7 +418,7 @@ export class Datepicker {
         this.updateValueAndEmitEvent(e);
       }
     }
-    if (e.path[0].innerText === this.cancelText && !this.value) {
+    if (e.path[0].innerText === cancelText && !this.value) {
       if (this.mode === 'range') {
         this.startDate = this.endDate = undefined;
       } else {
@@ -419,15 +426,15 @@ export class Datepicker {
       }
     }
 
-    if (e.path[0].innerText === this.cancelText) {
+    if (e.path[0].innerText === cancelText) {
       this.handlePopoverClose(e);
     }
 
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
     if (
-      e.path[0].innerText === this.updateText ||
-      e.path[0].innerText === this.cancelText
+      e.path[0].innerText === updateText ||
+      e.path[0].innerText === cancelText
     ) {
       this.showDatePicker = false;
       this.host.shadowRoot.querySelector('fw-popover').hide();
@@ -706,7 +713,7 @@ export class Datepicker {
     this.placeholder = this.placeholder || this.displayFormat;
 
     const onChange = TranslationController.onChange.bind(TranslationController);
-    onChange('lang', async (locale) => {
+    this.langChangRemoveListener = onChange('lang', async (locale) => {
       this.langModule = await TranslationController.getDateLangModule(locale);
       this.displayFormat = this.isDisplayFormatSet
         ? this.displayFormat
@@ -1408,7 +1415,7 @@ export class Datepicker {
     return (
       <div class='mdpc-footer'>
         <fw-button color='secondary' class='close-date-picker'>
-          {this.cancelText}
+          {this.cancelText || TranslationController.t('datepicker.cancel')}
         </fw-button>
         <fw-button
           color='primary'
@@ -1416,7 +1423,7 @@ export class Datepicker {
             this.mode === 'range' ? 'update-range-value' : 'update-date-value'
           }
         >
-          {this.updateText}
+          {this.updateText || TranslationController.t('datepicker.update')}
         </fw-button>
       </div>
     );

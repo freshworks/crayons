@@ -8,7 +8,7 @@ import {
   h,
   Method,
 } from '@stencil/core';
-import { i18n, TranslationController } from '../../global/Translation';
+import { TranslationController } from '../../global/Translation';
 
 let fileCount = 1;
 
@@ -26,14 +26,14 @@ export class FileUploader {
   /**
    * text - file uploader text.
    */
-  @i18n({ keyName: 'fileUploader.text' })
+  // @i18n({ keyName: 'fileUploader.text' })
   @Prop({ mutable: true })
   text;
 
   /**
    * description - file uploader description.
    */
-  @i18n({ keyName: 'fileUploader.description' })
+  // @i18n({ keyName: 'fileUploader.description' })
   @Prop({ mutable: true })
   description;
 
@@ -55,28 +55,28 @@ export class FileUploader {
   /**
    * acceptError - Error message to display when format is invalid.
    */
-  @i18n({ keyName: 'fileUploader.acceptError' })
+  // @i18n({ keyName: 'fileUploader.acceptError' })
   @Prop({ mutable: true })
   acceptError;
 
   /**
    * maxFileSizeError - Error message to display when file size exceeds limit
    */
-  @i18n({ keyName: 'fileUploader.maxFileSizeError' })
+  // @i18n({ keyName: 'fileUploader.maxFileSizeError' })
   @Prop({ mutable: true })
   maxFileSizeError;
 
   /**
    * maxFilesLimitError - Error message when going beyond files limit.
    */
-  @i18n({ keyName: 'fileUploader.maxFilesLimitError' })
+  // @i18n({ keyName: 'fileUploader.maxFilesLimitError' })
   @Prop({ mutable: true })
   maxFilesLimitError;
 
   /**
    * fileUploadError - Error message when a file upload fails.
    */
-  @i18n({ keyName: 'fileUploader.fileUploadError' })
+  // @i18n({ keyName: 'fileUploader.fileUploadError' })
   @Prop({ mutable: true })
   fileUploadError;
 
@@ -215,7 +215,11 @@ export class FileUploader {
           if (xhr.status === 200) {
             resolve({ uploadStatus: xhr.status, response: xhr.response });
           } else {
-            this.setFile(fileId, { error: this.fileUploadError });
+            this.setFile(fileId, {
+              error:
+                this.fileUploadError ||
+                TranslationController.t('fileUploader.fileUploadError'),
+            });
             reject({ uploadStatus: xhr.status, response: xhr.response });
           }
         }
@@ -303,13 +307,19 @@ export class FileUploader {
         .filter((fileType) => fileType !== '')
         .some((fileType) => fileExtension.includes(fileType.trim()));
       if (!isPassed) {
-        errors.push(this.acceptError);
+        errors.push(
+          this.acceptError ||
+            TranslationController.t('fileUploader.acceptError')
+        );
       }
     }
     if (this.maxFileSize !== 0) {
       if (fileSize > this.maxFileSize * 1024 * 1024) {
         isPassed = false;
-        errors.push(this.maxFileSizeError);
+        errors.push(
+          this.maxFileSizeError ||
+            TranslationController.t('fileUploader.maxFileSizeError')
+        );
       }
     }
     this.errors = [...this.errors, ...errors];
@@ -365,7 +375,10 @@ export class FileUploader {
         }
       }
     } else {
-      this.errors = [this.maxFilesLimitError];
+      this.errors = [
+        this.maxFilesLimitError ||
+          TranslationController.t('fileUploader.maxFilesLimitError'),
+      ];
       passed = false;
     }
     if (passed) {
@@ -478,10 +491,13 @@ export class FileUploader {
                 onChange={(ev) => this.fileHandler(ev)}
                 ref={(el) => (this.fileInputElement = el)}
               ></input>
-              {this.text}
+              {this.text || TranslationController.t('fileUploader.text')}
             </div>
             <div class='drop-clickable-hint'>
-              <span>{this.description}</span>
+              <span>
+                {this.description ||
+                  TranslationController.t('fileUploader.description')}
+              </span>
             </div>
           </div>
           {this.errors.length ? (
