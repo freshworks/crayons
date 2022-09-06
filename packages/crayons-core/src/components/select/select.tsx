@@ -38,7 +38,7 @@ export class Select {
   private tagArrowKeyCounter = 0;
   private hostId;
 
-  private changeEmittable = () => !this.disabled;
+  private changeEmittable = () => !this.disabled && !this.readonly;
 
   private innerOnFocus = (e: Event) => {
     if (this.changeEmittable()) {
@@ -48,11 +48,13 @@ export class Select {
   };
 
   private innerOnClick = () => {
-    this.setFocus();
-    // Select the whole text in case of single select
-    this.multiple || this.selectInput?.select?.();
-    if (this.variant !== 'mail') {
-      this.openDropdown();
+    if (this.changeEmittable()) {
+      this.setFocus();
+      // Select the whole text in case of single select
+      this.multiple || this.selectInput?.select?.();
+      if (this.variant !== 'mail') {
+        this.openDropdown();
+      }
     }
   };
 
@@ -260,7 +262,7 @@ export class Select {
   onLoading(event) {
     this.isLoading = event.detail.isLoading;
     if (this.variant === 'mail' && !this.isLoading) {
-      this.selectInput.value && this.openDropdown();
+      this.selectInput.value.trim() && this.openDropdown();
     }
   }
 
@@ -303,26 +305,28 @@ export class Select {
 
   @Listen('keydown')
   onKeyDown(ev) {
-    switch (ev.key) {
-      case 'ArrowDown':
-        this.innerOnClick();
-        this.fwListOptions.setFocus();
-        ev.preventDefault();
-        ev.stopPropagation();
-        break;
-      case 'ArrowLeft':
-      case 'Backspace':
-        if (this.multiple && this.selectInput.value === '') {
-          this.focusOnTagContainer();
-        }
-        break;
-      case 'Escape':
-        this.innerOnBlur(ev);
-        this.closeDropdown();
-        break;
-      case 'Tab':
-        this.closeDropdown();
-        break;
+    if (this.changeEmittable()) {
+      switch (ev.key) {
+        case 'ArrowDown':
+          this.innerOnClick();
+          this.fwListOptions.setFocus();
+          ev.preventDefault();
+          ev.stopPropagation();
+          break;
+        case 'ArrowLeft':
+        case 'Backspace':
+          if (this.multiple && this.selectInput.value === '') {
+            this.focusOnTagContainer();
+          }
+          break;
+        case 'Escape':
+          this.innerOnBlur(ev);
+          this.closeDropdown();
+          break;
+        case 'Tab':
+          this.closeDropdown();
+          break;
+      }
     }
   }
 
@@ -391,29 +395,31 @@ export class Select {
   }
 
   tagContainerKeyDown = (ev) => {
-    switch (ev.key) {
-      case 'Escape':
-        this.innerOnBlur(ev);
-        this.closeDropdown();
-        break;
-      case 'ArrowLeft':
-        this.tagArrowKeyCounter--;
-        if (this.tagArrowKeyCounter >= 0) {
-          this.focusOnTag(this.tagArrowKeyCounter);
-        } else {
-          this.tagArrowKeyCounter = 0;
-        }
-        ev.stopImmediatePropagation();
-        break;
-      case 'ArrowRight':
-        this.tagArrowKeyCounter++;
-        if (this.tagArrowKeyCounter >= this.value.length) {
-          this.selectInput.focus();
-        } else {
-          this.focusOnTag(this.tagArrowKeyCounter);
-        }
-        ev.stopImmediatePropagation();
-        break;
+    if (this.changeEmittable()) {
+      switch (ev.key) {
+        case 'Escape':
+          this.innerOnBlur(ev);
+          this.closeDropdown();
+          break;
+        case 'ArrowLeft':
+          this.tagArrowKeyCounter--;
+          if (this.tagArrowKeyCounter >= 0) {
+            this.focusOnTag(this.tagArrowKeyCounter);
+          } else {
+            this.tagArrowKeyCounter = 0;
+          }
+          ev.stopImmediatePropagation();
+          break;
+        case 'ArrowRight':
+          this.tagArrowKeyCounter++;
+          if (this.tagArrowKeyCounter >= this.value.length) {
+            this.selectInput.focus();
+          } else {
+            this.focusOnTag(this.tagArrowKeyCounter);
+          }
+          ev.stopImmediatePropagation();
+          break;
+      }
     }
   };
 
@@ -432,7 +438,10 @@ export class Select {
       this.renderInput();
       return;
     }
-    this.selectInput.value = '';
+    this.searchValue = '';
+    if (this.selectInput) {
+      this.selectInput.value = '';
+    }
   }
 
   isValueEqual(value, option) {
@@ -446,13 +455,15 @@ export class Select {
   }
 
   onInput() {
-    this.searchValue = this.selectInput.value;
-    if (this.selectInput.value) {
-      this.variant !== 'mail' && this.openDropdown();
-    } else {
-      // Clear selected value in case of single select.
-      this.multiple || this.setSelectedValues('');
-      this.variant === 'mail' && this.closeDropdown();
+    if (this.changeEmittable()) {
+      this.searchValue = this.selectInput.value;
+      if (this.selectInput.value) {
+        this.variant !== 'mail' && this.openDropdown();
+      } else {
+        // Clear selected value in case of single select.
+        this.multiple || this.setSelectedValues('');
+        this.variant === 'mail' && this.closeDropdown();
+      }
     }
   }
 
@@ -468,10 +479,37 @@ export class Select {
               disabled={option.disabled}
               value={option.value}
               focusable={false}
+              closable={!this.disabled && !this.readonly && !option.disabled}
             />
           );
         }
       });
+    }
+  }
+
+  renderButtonValue() {
+    if (this.tagVariant === 'avatar' && this.selectedOptionsState[0]?.value) {
+      return (
+        <fw-tag
+          class='display-tag'
+          state='transparent'
+          variant='avatar'
+          graphicsProps={this.selectedOptionsState[0]?.graphicsProps}
+          text={this.selectedOptionsState[0]?.text}
+          subText={
+            this.selectedOptionsState[0]?.subText
+              ? `<${this.selectedOptionsState[0]?.subText}>`
+              : ''
+          }
+          disabled={this.selectedOptionsState[0]?.disabled}
+          value={this.selectedOptionsState[0]?.value}
+          focusable={false}
+          closable={false}
+          showEllipsisOnOverflow
+        />
+      );
+    } else {
+      return this.value;
     }
   }
 
@@ -633,7 +671,10 @@ export class Select {
           {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
         moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
           <div
-            class={{ 'select-container': true, [this.state]: true }}
+            class={{
+              'select-container': true,
+              [this.state]: true,
+            }}
             role='combobox'
             aria-controls={`${this.hostId}-listbox`}
             aria-haspopup='listbox'
@@ -647,6 +688,7 @@ export class Select {
               same-width={this.sameWidth}
               placement={this.optionsPlacement}
               boundary={this.boundary}
+              hoist={this.variant === 'mail'}
             >
               <div
                 slot='popover-trigger'
@@ -654,24 +696,32 @@ export class Select {
                   'input-container': this.variant !== 'button',
                   [this.state]: true,
                   'select-disabled': this.disabled,
+                  'button-container': this.variant === 'button',
+                  'readonly-field': this.readonly,
                 }}
                 onClick={() => this.innerOnClick()}
                 onKeyDown={handleKeyDown(this.innerOnClick, true)}
               >
                 {this.variant === 'button' ? (
-                  <fw-button
-                    style={{ '--fw-button-label-vertical-padding': '7px' }}
-                    show-caret-icon
-                    id={`${this.hostId}-btn`}
-                    color='secondary'
-                    class={
-                      this.host.classList.value.includes('first')
-                        ? 'fw-button-group__button--first'
-                        : 'fw-button-group__button--last'
-                    }
-                  >
-                    {this.value}
-                  </fw-button>
+                  this.readonly ? (
+                    this.renderButtonValue()
+                  ) : (
+                    <fw-button
+                      style={{ '--fw-button-label-vertical-padding': '7px' }}
+                      show-caret-icon
+                      id={`${this.hostId}-btn`}
+                      color={
+                        this.tagVariant === 'avatar' ? 'text' : 'secondary'
+                      }
+                      class={
+                        this.host.classList.value.includes('first')
+                          ? 'fw-button-group__button--first'
+                          : 'fw-button-group__button--last'
+                      }
+                    >
+                      {this.renderButtonValue()}
+                    </fw-button>
+                  )
                 ) : (
                   <Fragment>
                     <div class='input-container-inner'>
@@ -715,7 +765,8 @@ export class Select {
                     {this.isLoading ? (
                       <fw-spinner size='small'></fw-spinner>
                     ) : (
-                      this.caret && (
+                      this.caret &&
+                      !this.readonly && (
                         <span
                           class={{
                             'dropdown-status-icon': true,

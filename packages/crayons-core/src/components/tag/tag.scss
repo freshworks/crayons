@@ -22,6 +22,11 @@
     outline: 2px solid $color-azure-800 !important;
   }
 
+  &.transparent {
+    outline: none !important;
+    background: transparent !important;
+  }
+
   &.error {
     outline: 1px solid $color-persimmon-900;
     background: $color-persimmon-50 !important;
@@ -48,9 +53,10 @@
 
   .truncated-content {
     min-width: inherit;
-    .end-padding {
-      padding-inline-end: 8px;
-    }
+  }
+
+  .end-padding {
+    padding-inline-end: 8px;
   }
 
   .primary {
@@ -59,6 +65,7 @@
 
   .secondary {
     padding-inline-start: 8px;
+    font-weight: 400 !important;
   }
 
   &-standard {
