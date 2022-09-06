@@ -1380,6 +1380,10 @@ export namespace Components {
          */
         "hintText": string;
         /**
+          * Option to prevent the select options from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -3919,6 +3923,10 @@ declare namespace LocalJSX {
           * Hint text displayed below the text box.
          */
         "hintText"?: string;
+        /**
+          * Option to prevent the select options from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
         /**
           * Label displayed on the interface, for the component.
          */
