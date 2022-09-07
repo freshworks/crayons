@@ -678,7 +678,10 @@ export class Select {
             valuesToBeInput.push({
               text: sanitisedValue,
               value: sanitisedValue,
-              error: this.creatableProps?.validateNewOption(sanitisedValue),
+              error:
+                typeof this.creatableProps?.validateNewOption === 'function'
+                  ? this.creatableProps?.validateNewOption(sanitisedValue)
+                  : false,
             });
           }
         });
