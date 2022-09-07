@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.0.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.5...@freshworks/crayons@4.0.0-beta.6) (2022-09-07)
-
+## [4.0.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.5...@freshworks/crayons@4.0.0-beta.6) (2022-09-07)
 
 ### Features
 
-* **select:** prevent the options from being clipped in a container with overflow:auto|hidden|scroll ([#675](https://github.com/freshworks/crayons/issues/675)) ([fad4f5d](https://github.com/freshworks/crayons/commit/fad4f5d0ecdf7f19820689799278ed9fced40794))
-
-
-
-
+- **select:** prevent the options from being clipped in a container with overflow:auto|hidden|scroll ([#675](https://github.com/freshworks/crayons/issues/675)) ([fad4f5d](https://github.com/freshworks/crayons/commit/fad4f5d0ecdf7f19820689799278ed9fced40794))
 
 ## [4.0.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.4...@freshworks/crayons@4.0.0-beta.5) (2022-09-02)
 
