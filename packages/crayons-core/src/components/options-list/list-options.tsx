@@ -165,6 +165,7 @@ export class ListOptions {
           selectedObj.error = this.validateNewOption(selectedObj.value);
         }
         selectedObj.graphicsProps = {};
+        selectedObj.variant = 'standard';
       }
       this.selectedOptionsState = this.multiple
         ? [...this.selectedOptionsState, selectedObj]
