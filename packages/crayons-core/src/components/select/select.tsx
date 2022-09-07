@@ -250,7 +250,7 @@ export class Select {
   onDropdownClose() {
     this.clearInput();
     this.isExpanded = false;
-    this.multiple && this.selectInput.focus();
+    this.multiple && this.selectInput?.focus();
   }
 
   @Listen('fwShow')
@@ -262,7 +262,7 @@ export class Select {
   onLoading(event) {
     this.isLoading = event.detail.isLoading;
     if (this.variant === 'mail' && !this.isLoading) {
-      this.selectInput.value.trim() && this.openDropdown();
+      this.selectInput?.value?.trim() && this.openDropdown();
     }
   }
 
@@ -315,7 +315,7 @@ export class Select {
           break;
         case 'ArrowLeft':
         case 'Backspace':
-          if (this.multiple && this.selectInput.value === '') {
+          if (this.multiple && this.selectInput?.value === '') {
             this.focusOnTagContainer();
           }
           break;
@@ -413,7 +413,7 @@ export class Select {
         case 'ArrowRight':
           this.tagArrowKeyCounter++;
           if (this.tagArrowKeyCounter >= this.value.length) {
-            this.selectInput.focus();
+            this.selectInput?.focus();
           } else {
             this.focusOnTag(this.tagArrowKeyCounter);
           }
@@ -456,8 +456,8 @@ export class Select {
 
   onInput() {
     if (this.changeEmittable()) {
-      this.searchValue = this.selectInput.value;
-      if (this.selectInput.value) {
+      this.searchValue = this.selectInput?.value;
+      if (this.selectInput?.value) {
         this.variant !== 'mail' && this.openDropdown();
       } else {
         // Clear selected value in case of single select.
