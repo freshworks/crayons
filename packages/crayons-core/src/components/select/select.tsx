@@ -233,9 +233,9 @@ export class Select {
   @Prop() boundary: HTMLElement;
   /**
    * Props to be passed for creatable select
-   * isCreatable: boolean - If true, select accepts user input as selected option
+   * isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options
    * validateNewOption: (value) => boolean - If passed, this function will determine the error state for every new option entered
-   * formaatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Is given the current input value.
+   * formatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Current input value is provided as argument.
    */
   @Prop() creatableProps = {
     isCreatable: false,
