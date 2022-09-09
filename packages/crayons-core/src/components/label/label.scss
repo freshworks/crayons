@@ -1,6 +1,7 @@
 /**
   @prop --fw-label-padding-vertical: Top - bottom padding for label
-  @prop --fw-label-padding-horizontal: Left - right padding for label
+  @prop --fw-label-padding-horizontal: Left - Right padding if direction is left-to-right, and Right - Left padding if direction is right-to-left for label
+  
 */
 
 :host {
@@ -13,7 +14,7 @@
   border: 1px solid #dadfe3;
   background-color: $color-milk;
   font-weight: 600;
-  line-height: 14px;
+  line-height: $line-height-label;
   font-size: $font-size-12;
   padding-block: var(--fw-label-padding-vertical);
   padding-inline: var(--fw-label-padding-horizontal);

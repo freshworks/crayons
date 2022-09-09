@@ -34,9 +34,6 @@
 ```mermaid
 graph TD;
   fw-file-uploader-file --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-file-uploader --> fw-file-uploader-file
   style fw-file-uploader-file fill:#f9f,stroke:#333,stroke-width:4px
 ```

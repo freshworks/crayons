@@ -1,6 +1,6 @@
 {
   "name": "crayons",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Crayons Packages comprising of Design system library using web components, icon library and i18n library",
   "main": "index.js",
   "engines": {
@@ -8,7 +8,8 @@
     "npm": ">=7.24.1"
   },
   "workspaces": [
-    "./packages/*"
+    "./packages/*",
+    "./packages/crayons-extended/*"
   ],
   "scripts": {
     "build:packages": "lerna run build --stream",
@@ -29,8 +30,8 @@
     "preinstall": "npm run requirements-check",
     "release-next": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag next && npm run update-lock:next",
     "release-next:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --no-verify-access --dist-tag next --yes && npm run update-lock:next",
-    "release-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v3 && npm run update-lock:latest",
-    "release-latest:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v3 --yes && npm run update-lock:latest",
+    "release-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v4 && npm run update-lock:latest",
+    "release-latest:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v4 --yes && npm run update-lock:latest",
     "requirements-check": "node check-version.js",
     "storybook:build": "rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
@@ -84,7 +85,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.18.0",
-    "html-to-react": "^1.4.5",
+    "html-to-react": "1.4.5",
     "husky": "^4.2.3",
     "kill-port": "^1.6.1",
     "lerna-clean-changelogs-cli": "^2.0.2",

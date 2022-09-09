@@ -92,7 +92,7 @@ export const supportedDateLanguages = [
 ];
 
 export const langCodeMapping = {
-  ar: 'ar-AR',
+  ar: 'ar-SA',
   bg: 'bg-BG',
   bs: 'bs-BA',
   ca: 'ca-ES',

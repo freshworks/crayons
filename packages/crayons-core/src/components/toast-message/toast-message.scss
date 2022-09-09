@@ -37,11 +37,11 @@
   }
 
   &.error {
-    border-block-start: 5px solid $color-persimmon-800;
+    border-block-start: 5px solid $color-persimmon-700;
   }
 
   &.warning {
-    border-block-start: 5px solid $color-casablanca-300;
+    border-block-start: 5px solid $color-casablanca-500;
   }
 
   &.inprogress {
@@ -65,17 +65,21 @@
   }
 
   .icon {
-    margin-inline-start: 16px;
-    margin-block-end: 0px;
-    margin-inline-end: 16px;
-    margin-block-start: 5px;
+    display: flex;
+    height: 20px;
+    align-items: center;
+    box-sizing: border-box;
+    margin-inline: 16px;
+    margin-block: 0;
   }
 
   .remove {
-    margin-inline-start: 12px;
-    margin-block-end: 0px;
-    margin-inline-end: 12px;
-    margin-block-start: 5px;
+    display: flex;
+    height: 20px;
+    align-items: center;
+    box-sizing: border-box;
+    margin-inline: 12px;
+    margin-block: 0;
   }
 }
 

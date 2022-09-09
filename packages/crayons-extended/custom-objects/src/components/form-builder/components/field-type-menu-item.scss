@@ -1,0 +1,122 @@
+@import '../../../../../../../styles/mixins/typography';
+
+:host {
+  display: inline-block;
+}
+
+// stylelint-disable a11y/media-prefers-reduced-motion
+@media screen and (prefers-reduced-motion: reduce) {
+  .field-type-menu-item-add-button-container {
+    transition: none;
+  }
+}
+
+.field-type-menu-item {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  .field-type-menu-item-draggable-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    outline: 0;
+
+    background-color: $color-milk;
+    border: 1px solid $color-smoke-50;
+    box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
+    border-radius: 4px;
+
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+  }
+
+  .field-type-menu-item-icon-container {
+    width: 24px;
+    height: 24px;
+    margin-inline-end: 8px;
+    pointer-events: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .field-type-menu-item-label {
+    max-width: calc(100% - 24px - 24px - 8px);
+    width: auto;
+    margin: 0;
+    pointer-events: none;
+    user-select: none;
+    text-align: start;
+
+    color: $color-elephant-900;
+    font-size: $font-size-14;
+    font-weight: $font-weight-400;
+
+    @include single-line-ellipsis-label;
+  }
+
+  .field-type-menu-item-add-button-container {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    inset-inline-end: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  &:hover {
+    .field-type-menu-item-add-button-container {
+      opacity: 1;
+    }
+  }
+
+  &:focus {
+    .field-type-menu-item-add-button-container {
+      opacity: 1;
+    }
+  }
+
+  &--dragging {
+    border-radius: 50%;
+    .field-type-menu-item-add-button-container {
+      opacity: 0;
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    .field-type-menu-item-draggable-container {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .field-type-menu-item-add-button-container {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &:hover,
+    &:focus {
+      .field-type-menu-item-add-button-container {
+        opacity: 0;
+      }
+    }
+  }
+}

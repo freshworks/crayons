@@ -121,9 +121,6 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-toggle-group-button --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   style fw-toggle-group-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

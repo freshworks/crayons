@@ -412,9 +412,21 @@ export namespace Components {
          */
         "showFooter": boolean;
         /**
+          * Whether the time-picker should be shown in the date-picker. Supports single date picker only.
+         */
+        "showTimePicker": boolean;
+        /**
           * Theme based on which the input of the datepicker is styled.
          */
         "state": 'normal' | 'warning' | 'error';
+        /**
+          * The format of time picker .
+         */
+        "timeFormat": string;
+        /**
+          * The props for the time picker. Refer the fw-timepicker for valid format.
+         */
+        "timeProps": {};
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -1438,6 +1450,10 @@ export namespace Components {
          */
         "hintText": string;
         /**
+          * Option to prevent the select options from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -1814,6 +1830,10 @@ export namespace Components {
     }
     interface FwTimepicker {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect": boolean;
+        /**
           * Whether the arrow/caret should be shown in the timepicker.
          */
         "caret": boolean;
@@ -1826,9 +1846,9 @@ export namespace Components {
          */
         "errorText": string;
         /**
-          * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
+          * Format in which time values are populated in the list box. If the value is hh:mm a, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. The default value will be set based on the locale time format.
          */
-        "format": 'hh:mm a' | 'HH:mm';
+        "format": string;
         /**
           * Hint text displayed below the text box.
          */
@@ -1842,11 +1862,15 @@ export namespace Components {
          */
         "label": string;
         /**
-          * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Locale for which timePicker needs to be shown. Defaults to browser's current locale.
+         */
+        "locale": string;
+        /**
+          * Upper time-limit for the values displayed in the list. The default value will be set based on the locale time format.
          */
         "maxTime"?: string;
         /**
-          * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Lower time-limit for the values displayed in the list. The default value will be set based on the locale time format.
          */
         "minTime"?: string;
         /**
@@ -1862,9 +1886,17 @@ export namespace Components {
          */
         "placeholder"?: string | null;
         /**
+          * If true, the user cannot type in the text input
+         */
+        "readonly": boolean;
+        /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required": boolean;
+        /**
+          * Whether the dropdown should be same width as that of the input.
+         */
+        "sameWidth": boolean;
         /**
           * Sets focus on a specific `fw-timepicker`.
          */
@@ -1874,7 +1906,7 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
-          * Time output value
+          * The Time value. The value is always in the non meridian format i.e., HH:mm
          */
         "value"?: string;
         /**
@@ -2874,9 +2906,21 @@ declare namespace LocalJSX {
          */
         "showFooter"?: boolean;
         /**
+          * Whether the time-picker should be shown in the date-picker. Supports single date picker only.
+         */
+        "showTimePicker"?: boolean;
+        /**
           * Theme based on which the input of the datepicker is styled.
          */
         "state"?: 'normal' | 'warning' | 'error';
+        /**
+          * The format of time picker .
+         */
+        "timeFormat"?: string;
+        /**
+          * The props for the time picker. Refer the fw-timepicker for valid format.
+         */
+        "timeProps"?: {};
         /**
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
@@ -3939,6 +3983,10 @@ declare namespace LocalJSX {
          */
         "hintText"?: string;
         /**
+          * Option to prevent the select options from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
@@ -4350,6 +4398,10 @@ declare namespace LocalJSX {
     }
     interface FwTimepicker {
         /**
+          * Whether clicking on the already selected option disables it.
+         */
+        "allowDeselect"?: boolean;
+        /**
           * Whether the arrow/caret should be shown in the timepicker.
          */
         "caret"?: boolean;
@@ -4362,9 +4414,9 @@ declare namespace LocalJSX {
          */
         "errorText"?: string;
         /**
-          * Format in which time values are populated in the list box. If the value is hh:mm p, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format.
+          * Format in which time values are populated in the list box. If the value is hh:mm a, the time values are in the 12-hour format. If the value is hh:mm, the time values are in the 24-hr format. The default value will be set based on the locale time format.
          */
-        "format"?: 'hh:mm a' | 'HH:mm';
+        "format"?: string;
         /**
           * Hint text displayed below the text box.
          */
@@ -4378,11 +4430,15 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * Upper time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Locale for which timePicker needs to be shown. Defaults to browser's current locale.
+         */
+        "locale"?: string;
+        /**
+          * Upper time-limit for the values displayed in the list. The default value will be set based on the locale time format.
          */
         "maxTime"?: string;
         /**
-          * Lower time-limit for the values displayed in the list. If this attribute's value is in the hh:mm format, it is assumed to be hh:mm AM.
+          * Lower time-limit for the values displayed in the list. The default value will be set based on the locale time format.
          */
         "minTime"?: string;
         /**
@@ -4410,15 +4466,23 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string | null;
         /**
+          * If true, the user cannot type in the text input
+         */
+        "readonly"?: boolean;
+        /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute's value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Whether the dropdown should be same width as that of the input.
+         */
+        "sameWidth"?: boolean;
         /**
           * Theme based on which the input of the timepicker is styled.
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
-          * Time output value
+          * The Time value. The value is always in the non meridian format i.e., HH:mm
          */
         "value"?: string;
         /**

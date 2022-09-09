@@ -234,7 +234,7 @@ function App() {
 | `required`          | `required`           | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                                                                          | `boolean`                          | `false`     |
 | `selectLabel`       | `select-label`       | * Label displayed on the interface, for the input component.                                                                                                                                                                                                                        | `string`                           | `undefined` |
 | `selectPlaceholder` | `select-placeholder` | Text displayed in the text box before a user enters a value.                                                                                                                                                                                                                        | `string`                           | `undefined` |
-| `state`             | `state`              | Theme based on which the text box is styled.                                                                                                                                                                                                                                        | `"error" \| "normal" \| "warning"` | `'normal'`  |
+| `state`             | `state`              |  Theme based on which the text box is styled.                                                                                                                                                                                                                                       | `"error" \| "normal" \| "warning"` | `'normal'`  |
 | `value`             | `value`              | Default value displayed in the input box & select dropdown after extracting valid phone number                                                                                                                                                                                      | `string`                           | `''`        |
 | `warningText`       | `warning-text`       | Warning text displayed below the text box.                                                                                                                                                                                                                                          | `string`                           | `''`        |
 
@@ -301,9 +301,6 @@ graph TD;
   fw-select --> fw-list-options
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-list-options --> fw-select-option

@@ -151,14 +151,14 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                      | Description                     |
-| ------------------------- | ------------------------------- |
-| `--fw-tabs-height`        | height of the tab container.    |
-| `--fw-tabs-margin-l`      | left margin for the tab items   |
-| `--fw-tabs-margin-r`      | right margin for the tab items  |
-| `--fw-tabs-padding-left`  | left padding for the tab items  |
-| `--fw-tabs-padding-right` | right padding for the tab items |
-| `--fw-tabs-width`         | width of the tab container.     |
+| Name                             | Description                                                                                                   |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `--fw-tabs-height`               | height of the tab container.                                                                                  |
+| `--fw-tabs-margin-inline-end`    | Right margin if direction is left-to-right, and Left margin if direction is right-to-left for the tab items   |
+| `--fw-tabs-margin-inline-start`  | Left margin if direction is left-to-right, and Right margin if direction is right-to-left for the tab items   |
+| `--fw-tabs-padding-inline-end`   | Right padding if direction is left-to-right, and Left padding if direction is right-to-left for the tab items |
+| `--fw-tabs-padding-inline-start` | Left padding if direction is left-to-right, and Right padding if direction is right-to-left for the tab items |
+| `--fw-tabs-width`                | width of the tab container.                                                                                   |
 
 
 ## Dependencies
