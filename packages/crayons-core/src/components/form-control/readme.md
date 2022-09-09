@@ -65,9 +65,6 @@ graph TD;
   fw-form-control --> fw-select
   fw-form-control --> fw-timepicker
   fw-input --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
   fw-datepicker --> fw-input

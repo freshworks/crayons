@@ -151,9 +151,6 @@ graph TD;
   fw-file-uploader --> fw-file-uploader-progress
   fw-file-uploader --> fw-file-uploader-file
   fw-file-uploader-progress --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-file-uploader-file --> fw-icon
   style fw-file-uploader fill:#f9f,stroke:#333,stroke-width:4px
 ```

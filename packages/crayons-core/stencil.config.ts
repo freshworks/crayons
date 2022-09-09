@@ -31,7 +31,7 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
-      // autoDefineCustomElements: true,
+      autoDefineCustomElements: true,
     },
     {
       type: 'dist-custom-elements-bundle',
