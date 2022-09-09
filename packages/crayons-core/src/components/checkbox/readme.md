@@ -99,9 +99,6 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-checkbox --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-data-table --> fw-checkbox
   fw-form-control --> fw-checkbox
   fw-select-option --> fw-checkbox

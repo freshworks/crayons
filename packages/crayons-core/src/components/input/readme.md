@@ -417,9 +417,6 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-input --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-country-phone --> fw-input
   fw-data-table --> fw-input
   fw-datepicker --> fw-input

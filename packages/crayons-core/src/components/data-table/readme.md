@@ -2006,9 +2006,6 @@ graph TD;
   fw-data-table --> fw-skeleton
   fw-custom-cell-user --> fw-avatar
   fw-custom-cell-icon --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-custom-cell-paragraph --> fw-tooltip
   fw-tooltip --> fw-popover
   fw-checkbox --> fw-icon
