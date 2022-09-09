@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.0.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.7...@freshworks/crayons@4.0.0-beta.8) (2022-09-09)
-
+## [4.0.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.7...@freshworks/crayons@4.0.0-beta.8) (2022-09-09)
 
 ### Bug Fixes
 
-* **crayons:** i18n mapping changes and icon circular deps fix and enable autoDefineCustomElements ([#679](https://github.com/freshworks/crayons/issues/679)) ([e66ed1d](https://github.com/freshworks/crayons/commit/e66ed1d432996f4f78eeccd23e302fc619df2569))
-
-
-
-
+- **crayons:** i18n mapping changes and icon circular deps fix and enable autoDefineCustomElements ([#679](https://github.com/freshworks/crayons/issues/679)) ([e66ed1d](https://github.com/freshworks/crayons/commit/e66ed1d432996f4f78eeccd23e302fc619df2569))
 
 ## [4.0.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.5...@freshworks/crayons@4.0.0-beta.6) (2022-09-07)
 
