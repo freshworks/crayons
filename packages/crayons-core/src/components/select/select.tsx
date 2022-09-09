@@ -680,7 +680,7 @@ export class Select {
               value: sanitisedValue,
               error:
                 typeof this.creatableProps?.validateNewOption === 'function'
-                  ? this.creatableProps?.validateNewOption(sanitisedValue)
+                  ? !this.creatableProps?.validateNewOption(sanitisedValue)
                   : false,
             });
           }

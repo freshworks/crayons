@@ -132,7 +132,7 @@ export class ListOptions {
    */
   @Prop() isCreatable = false;
   /**
-   * Works only when 'isCreatable' is selected. Function to validate the newly created value.
+   * Works only when 'isCreatable' is selected. Function to validate the newly created value. Should return true if new option is valid or false if invalid.
    */
   @Prop() validateNewOption: (value: string) => boolean;
   /**
@@ -162,7 +162,7 @@ export class ListOptions {
       if (this.isCreatable && selectedObj.isNew) {
         selectedObj.text = selectedObj.value;
         if (typeof this.validateNewOption === 'function') {
-          selectedObj.error = this.validateNewOption(selectedObj.value);
+          selectedObj.error = !this.validateNewOption(selectedObj.value);
         }
         selectedObj.graphicsProps = {};
         selectedObj.variant = 'standard';
