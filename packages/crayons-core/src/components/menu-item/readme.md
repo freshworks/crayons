@@ -88,9 +88,6 @@ Menu item is a component to define each row of a `fw-menu` components. It takes 
 ```mermaid
 graph TD;
   fw-menu-item --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   style fw-menu-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

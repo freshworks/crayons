@@ -43,7 +43,7 @@ function App() {
 | `description` | `description`  | Description to be displayed for the checkbox.                                                                                                              | `string`                           | `''`       |
 | `disabled`    | `disabled`     | Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.                                                 | `boolean`                          | `false`    |
 | `errorText`   | `error-text`   | Error text displayed below the radio group.                                                                                                                | `string`                           | `''`       |
-| `hintText`    | `hint-text`    | /**   Hint text displayed below the radio group.                                                                                                           | `string`                           | `''`       |
+| `hintText`    | `hint-text`    |  /**   Hint text displayed below the radio group.                                                                                                          | `string`                           | `''`       |
 | `label`       | `label`        | <span style="color:red">**[DEPRECATED]**</span> Use `description` instead. Label displayed on the interface, for the check box.<br/><br/>                  | `string`                           | `''`       |
 | `name`        | `name`         | Name of the component, saved as part of form data.                                                                                                         | `string`                           | `''`       |
 | `required`    | `required`     | Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false. | `boolean`                          | `false`    |
@@ -99,9 +99,6 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-checkbox --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-data-table --> fw-checkbox
   fw-form-control --> fw-checkbox
   fw-select-option --> fw-checkbox

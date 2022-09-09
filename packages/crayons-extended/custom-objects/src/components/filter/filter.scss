@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.filter {
+  display: block;
+  height: 100%;
+
+  .add-filter {
+    display: inline-block;
+    color: $color-azure-800;
+    line-height: 20px;
+    font-weight: $font-weight-600;
+    font-size: $font-size-14;
+    cursor: pointer;
+  }
+
+  &-action {
+    margin-block-start: 12px;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+  }
+}

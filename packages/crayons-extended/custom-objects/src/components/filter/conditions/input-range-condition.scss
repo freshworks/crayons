@@ -1,0 +1,17 @@
+.range-container {
+  display: flex;
+  align-items: flex-start;
+
+  fw-input-condition {
+    width: 150px;
+  }
+
+  .range-text {
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    margin-block-end: 0px;
+    margin-inline: 12px;
+    margin-block-start: 0px;
+  }
+}

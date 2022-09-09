@@ -174,11 +174,6 @@ graph TD;
   fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
-  fw-tooltip --> fw-popover
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
-  fw-email-select --> fw-tag
   fw-select --> fw-tag
   style fw-tag fill:#f9f,stroke:#333,stroke-width:4px
 ```

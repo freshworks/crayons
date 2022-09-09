@@ -36,9 +36,6 @@ Displays the content inside the component.
 ```mermaid
 graph TD;
   fw-accordion-title --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   style fw-accordion-title fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

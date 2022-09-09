@@ -160,9 +160,6 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-checkbox --> fw-icon
   fw-country-phone --> fw-select-option
   fw-datepicker --> fw-select-option
