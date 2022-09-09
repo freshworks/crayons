@@ -243,6 +243,12 @@ export class Select {
     formatCreateLabel: (label): string => label,
   };
 
+  /**
+   *  Option to prevent the select options from being clipped when the component is placed inside a container with
+   * `overflow: auto|hidden|scroll`.
+   */
+  @Prop() hoist = false;
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -744,7 +750,7 @@ export class Select {
               same-width={this.sameWidth}
               placement={this.optionsPlacement}
               boundary={this.boundary}
-              hoist={this.variant === 'mail'}
+              hoist={this.hoist}
             >
               <div
                 slot='popover-trigger'

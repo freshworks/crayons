@@ -176,6 +176,8 @@ Type: `Promise<void>`
 | `--fw-hint-color`             | Color of the hint text.        |
 | `--fw-textarea-input-color`   | Color of the textarea input    |
 | `--fw-textarea-margin-bottom` | Bottom margin for the textarea |
+| `--fw-textarea-min-height`    | Min-Height of the textarea.    |
+| `--fw-textarea-width`         | Width of the textarea.         |
 | `--fw-warning-color`          | Color of the warning text.     |
 
 

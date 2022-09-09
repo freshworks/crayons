@@ -61,10 +61,10 @@ function App() {
 
 ## CSS Custom Properties
 
-| Name                            | Description                    |
-| ------------------------------- | ------------------------------ |
-| `--fw-label-padding-horizontal` | Left - right padding for label |
-| `--fw-label-padding-vertical`   | Top - bottom padding for label |
+| Name                            | Description                                                                                                          |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `--fw-label-padding-horizontal` | Left - Right padding if direction is left-to-right, and Right - Left padding if direction is right-to-left for label |
+| `--fw-label-padding-vertical`   | Top - bottom padding for label                                                                                       |
 
 
 ----------------------------------------------

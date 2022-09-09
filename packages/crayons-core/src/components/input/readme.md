@@ -34,7 +34,9 @@ You can use Input component for handling `Text`, `Number`, `Decimal` user input.
   state="normal"
   clear-input
 >
-<div slot="hint-text">use the verification code sent to your email address</div>
+  <div slot="hint-text">
+    use the verification code sent to your email address
+  </div>
 </fw-input>
 <fw-input label="Deprecated Field" disabled state="normal" clear-input>
 </fw-input>
@@ -60,6 +62,33 @@ You can use Input component for handling `Text`, `Number`, `Decimal` user input.
   max="5"
   label="Decimal Input with step and max"
 ></fw-input>
+
+<h5>You can use group inputs together like below</h5>
+<div
+  style="
+        display: flex;
+        --fw-input-border-radius: 4px 0px 0px 4px;
+        --fw-select-border-radius: 0px 4px 4px 0px;
+      "
+>
+  <fw-input
+    label="House Input"
+    required="true"
+    placeholder="Your input"
+    hint-text="enter input"
+  ></fw-input>
+  <fw-select
+    style="margin-left: -1px"
+    label="House Name"
+    required="true"
+    value="1"
+    placeholder="Your choice"
+    hint-text="Select singluar option"
+  >
+    <fw-select-option value="1">Starks</fw-select-option>
+    <fw-select-option value="2">Lannisters</fw-select-option>
+  </fw-select>
+</div>
 ```
 
 ## Usage
@@ -120,7 +149,35 @@ You can use Input component for handling `Text`, `Number`, `Decimal` user input.
   max="5"
   label="Decimal Input with step and max"
 ></fw-input>
-```
+
+<h5>You can use group inputs together like below</h5>
+<div
+  style="
+        display: flex;
+        --fw-input-border-radius: 4px 0px 0px 4px;
+        --fw-select-border-radius: 0px 4px 4px 0px;
+      "
+>
+  <fw-input
+    label="House Input"
+    required="true"
+    placeholder="Your input"
+    hint-text="enter input"
+  ></fw-input>
+  <fw-select
+    style="margin-left: -1px"
+    label="House Name"
+    required="true"
+    value="1"
+    placeholder="Your choice"
+    hint-text="Select singluar option"
+  >
+    <fw-select-option value="1">Starks</fw-select-option>
+    <fw-select-option value="2">Lannisters</fw-select-option>
+  </fw-select>
+</div>
+
+````
 </code-block>
 
 <code-block title="React">
@@ -129,6 +186,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { FwInput } from "@freshworks/crayons/react";
 function App() {
+  const style = {
+        display: "flex";
+        --fw-input-border-radius: "4px 0px 0px 4px";
+        --fw-select-border-radius: "0px 4px 4px 0px";
+      }
   return (<div>
       <FwInput
       label="Name"
@@ -174,8 +236,32 @@ function App() {
     <FwInput value="3.001" type="number" step="0.1" max={5}
     label="Decimal Input with step and max"
     ></FwInput>
+
+    <h5>You can use group inputs together like below</h5>
+<div
+  style={style}
+>
+  <FwInput
+    label="House Input"
+    required={true}
+    placeholder="Your input"
+    hint-text="enter input"
+  ></FwInput>
+  <FwSelect
+    style={{marginLeft: "-1px"}}
+    label="House Name"
+    required={true}
+    value="1"
+    placeholder="Your choice"
+    hint-text="Select singluar option"
+  >
+    <FwSelectOption value="1">Starks</FwSelectOption>
+    <FwSelectOption value="2">Lannisters</FwSelectOption>
+  </FwSelect>
+</div>
  </div>);
-```
+````
+
 </code-block>
 </code-group>
 
@@ -204,14 +290,18 @@ Slots can be used to create complex use cases.
       <fw-icon slot="input-suffix" name="chevron-down" size="8"></fw-icon>
     </fw-input>
 
-    <h3>`hint-text`, `warning-text`, `error-text` can also be passed as slots</h3>
+    <h3>
+      `hint-text`, `warning-text`, `error-text` can also be passed as slots
+    </h3>
     <fw-input
       label="Verification Code"
       placeholder="Enter the verification code sent to the registered email address"
       state="normal"
       clear-input
     >
-    <div slot="hint-text">use the verification code sent to your email address</div>
+      <div slot="hint-text">
+        use the verification code sent to your email address
+      </div>
     </fw-input>
   </div>
 </template>
@@ -229,7 +319,7 @@ Slots can be used to create complex use cases.
     background-color: #cfd7df;
     width: 1px;
     height: 20px;
-    margin-right: 4px;
+    margin-inline-end: 4px;
   }
 
   .tagContainer {
@@ -300,12 +390,13 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                 | Description                |
-| -------------------- | -------------------------- |
-| `--fw-error-color`   | Color of the error text.   |
-| `--fw-hint-color`    | Color of the hint text.    |
-| `--fw-label-color`   | Color of the label.        |
-| `--fw-warning-color` | Color of the warning text. |
+| Name                       | Description                 |
+| -------------------------- | --------------------------- |
+| `--fw-error-color`         | Color of the error text.    |
+| `--fw-hint-color`          | Color of the hint text.     |
+| `--fw-input-border-radius` | Border Radius of the input. |
+| `--fw-label-color`         | Color of the label.         |
+| `--fw-warning-color`       | Color of the warning text.  |
 
 
 ## Dependencies
@@ -326,9 +417,6 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-input --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-country-phone --> fw-input
   fw-data-table --> fw-input
   fw-datepicker --> fw-input

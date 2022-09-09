@@ -313,9 +313,6 @@ Type: `Promise<any>`
 graph TD;
   fw-button --> fw-spinner
   fw-button --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-data-table --> fw-button
   fw-datepicker --> fw-button
   fw-modal-footer --> fw-button

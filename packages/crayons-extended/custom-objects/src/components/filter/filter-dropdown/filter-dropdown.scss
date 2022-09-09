@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+.dropdown {
+  --fw-popover-min-width: 160px;
+
+  &-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border-radius: 4px;
+    min-width: 50px;
+    min-height: 32px;
+    font-size: 14px;
+    font-weight: 400;
+    color: $color-azure-800;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+
+    @media (prefers-reduced-motion) {
+      &:focus,
+      &:hover {
+        border: 2px solid #2c5cc5;
+      }
+    }
+  }
+
+  &-status-icon {
+    margin-inline-end: 4px;
+  }
+
+  &-label {
+    padding-inline-start: 8px;
+    padding-block-end: 0px;
+    padding-inline-end: 6px;
+    padding-block-start: 0px;
+  }
+  @media (prefers-reduced-motion) {
+    &-status-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      min-height: 20px;
+      transition: all 0.15s;
+
+      &.expanded {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

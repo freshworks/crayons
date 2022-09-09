@@ -1,0 +1,48 @@
+.container {
+  border: 1px solid #cfd7df;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-block-start: 10px;
+  padding-block-end: 12px;
+  padding-inline: 12px;
+  padding-block-start: 8px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-text {
+      display: flex;
+
+      .displayText {
+        margin-inline-end: 4px;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .closeBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 12px;
+      height: 12px;
+      border-radius: 6px;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+  .content {
+    display: flex;
+    margin-block-start: 8px;
+
+    &:empty {
+      margin-block-start: 0px;
+    }
+
+    fw-input-condition {
+      width: 220px;
+    }
+  }
+}
