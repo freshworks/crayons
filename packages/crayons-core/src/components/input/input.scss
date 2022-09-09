@@ -3,12 +3,13 @@
   @prop --fw-hint-color: Color of the hint text.
   @prop --fw-warning-color: Color of the warning text.
   @prop --fw-error-color: Color of the error text.
+  @prop --fw-input-border-radius: Border Radius of the input.
 */
 
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack-sans !default;
-$placeholder-color: $muted-secondary;
+$placeholder-color: $color-smoke-300;
 $help-color: $muted-secondary;
 $disabled-color: $input-disabled-color;
 $error-color: $app-error;
@@ -62,7 +63,8 @@ $warning-color: $color-casablanca-300;
   border: 1px solid $input-border;
   background-color: $app-light-bg;
   position: relative;
-  border-radius: 4px;
+  // border-radius: 4px;
+  border-radius: var(--fw-input-border-radius, 4px);
   box-shadow: inset 0px 1px 2px rgba(24, 50, 71, 0.05);
 
   &.error {
@@ -139,14 +141,16 @@ $warning-color: $color-casablanca-300;
   }
   &:hover {
     border: 1px $input-hover-color solid;
+    z-index: 2;
   }
 
   &.has-focus {
     outline: none;
     background: $input-bg;
-    background-color: $app-light-bg;
-    border: 1px solid $input-focus-color;
-    box-shadow: 0 0 0 1px $input-focus-color;
+    // border: 1px solid $input-focus-color;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 2px $input-focus-color;
+    z-index: 2;
   }
 
   &.disabled {
@@ -197,18 +201,23 @@ $warning-color: $color-casablanca-300;
   }
 }
 
+::placeholder {
+  color: $placeholder-color;
+  opacity: 1;
+}
+
 ::-webkit-input-placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
 }
 
 ::-moz-placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
 }
 
 :-ms-input-placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
 }
 
 :-moz-placeholder {
-  color: $muted-secondary;
+  color: $placeholder-color;
 }

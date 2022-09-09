@@ -262,15 +262,9 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-toggle](../toggle)
  - [fw-toggle-group-button](../toggle-group-button)
 
-### Depends on
-
-- [fw-toast-message](../toast-message)
-
 ### Graph
 ```mermaid
 graph TD;
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-icon
   fw-accordion-title --> fw-icon
   fw-button --> fw-icon
   fw-checkbox --> fw-icon
@@ -289,6 +283,7 @@ graph TD;
   fw-select --> fw-icon
   fw-select-option --> fw-icon
   fw-tag --> fw-icon
+  fw-toast-message --> fw-icon
   fw-toggle --> fw-icon
   fw-toggle-group-button --> fw-icon
   style fw-icon fill:#f9f,stroke:#333,stroke-width:4px

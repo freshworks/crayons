@@ -12,9 +12,9 @@ import {
 import { handleKeyDown } from '../../utils';
 const iconColorMap = {
   error: '#e43538',
-  warning: '#c7502f',
-  info: '#264966',
-  success: '#00795b',
+  warning: '#f48928',
+  info: '#2c5cc5',
+  success: '#00a886',
 };
 @Component({
   tag: 'fw-toast-message',

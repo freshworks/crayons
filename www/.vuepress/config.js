@@ -8,22 +8,25 @@ const components = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../components.json'))
 );
 
+const coreComponents = components.filter((comp) =>
+  comp.startsWith('components/core/')
+);
+const customObjectsComponents = components.filter((comp) =>
+  comp.startsWith('components/crayons-custom-objects/')
+);
+
 // Generate array of head-scripts based on the www builds of the
 // packages that have landed in the public directory
 const headScripts = [];
-const wwwBuilds = fs
-  .readdirSync(path.resolve(__dirname, 'public'))
-  .filter((dir) => {
-    return /^(\.\/)?crayons/.test(dir);
-  });
+const wwwBuilds = fs.readdirSync(path.resolve(__dirname, 'public/scripts'));
 for (const wwwBuild of wwwBuilds) {
   headScripts.push([
     'script',
-    { type: 'module', src: `/${wwwBuild}/build/${wwwBuild}.esm.js` },
+    { type: 'module', src: `/scripts/${wwwBuild}/build/${wwwBuild}.esm.js` },
   ]);
   headScripts.push([
     'script',
-    { nomodule: '', src: `/${wwwBuild}/build/${wwwBuild}.js` },
+    { nomodule: '', src: `/scripts/${wwwBuild}/build/${wwwBuild}.js` },
   ]);
 }
 headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
@@ -71,10 +74,16 @@ module.exports = {
         children: ['/introduction/', '/introduction/migrating-to-v3/'],
       },
       {
-        title: 'Components',
+        title: 'Core Components',
         collapsable: false,
         sidebarDepth: 1,
-        children: components,
+        children: coreComponents,
+      },
+      {
+        title: 'Custom Objects',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: ['/custom-objects/', ...customObjectsComponents],
       },
       {
         title: 'CSS Utils',

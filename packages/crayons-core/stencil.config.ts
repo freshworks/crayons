@@ -31,6 +31,7 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
+      autoDefineCustomElements: true,
     },
     {
       type: 'dist-custom-elements-bundle',
@@ -45,11 +46,14 @@ export const config: Config = {
     },
     {
       type: 'www',
-      dir: `../../www/.vuepress/public/${packageName}/`,
+      dir: `../../www/.vuepress/public/scripts/${packageName}/`,
     },
     {
       type: 'docs-json',
       file: 'dist/docs.json',
+    },
+    {
+      type: 'dist-hydrate-script',
     },
     reactOutputTarget({
       componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
@@ -104,6 +108,7 @@ export const config: Config = {
     shadowDomShim: true,
     cloneNodeFix: true,
     slotChildNodesFix: true,
+    experimentalImportInjection: true,
   },
   enableCache: true,
 

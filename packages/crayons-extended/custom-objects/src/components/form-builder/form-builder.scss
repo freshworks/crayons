@@ -1,0 +1,323 @@
+@import '../../../../../../styles/mixins/typography';
+@import './styles/variables/form-builder-style-utils.scss';
+
+:host {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.form-builder {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  background-color: $color-milk;
+  overflow: hidden;
+  position: relative;
+
+  .form-builder-left-panel {
+    height: 100%;
+    width: 30%;
+    min-width: 200px;
+    max-width: 350px;
+    padding-inline: 20px;
+    padding-block: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background: $color-smoke-25;
+    border-inline-end: 1px solid $color-smoke-50;
+
+    .form-builder-left-panel-header-label {
+      width: 100%;
+      margin: 0;
+      pointer-events: none;
+      user-select: none;
+      text-align: start;
+
+      color: $color-elephant-900;
+      font-size: $font-size-18;
+      font-weight: $font-weight-700;
+      line-height: 28px;
+      height: 28px;
+    }
+
+    .form-builder-left-panel-header-desc {
+      width: 100%;
+      margin: 0;
+      pointer-events: none;
+      user-select: none;
+      text-align: start;
+
+      color: $color-smoke-700;
+      font-size: $font-size-12;
+      font-weight: $font-weight-400;
+      line-height: 18px;
+    }
+
+    .form-builder-left-panel-list-container {
+      width: 100%;
+      height: auto;
+      margin-block-start: 16px;
+      box-sizing: border-box;
+
+      .form-builder-left-panel-field-types-list {
+        width: 100%;
+        height: auto;
+        gap: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+
+        .field-type-menu-description {
+          width: 100%;
+          height: auto;
+          box-sizing: border-box;
+          padding-block-end: 0;
+          padding-inline: 2px;
+          padding-block-start: 2px;
+
+          .field-type-menu-description-label {
+            width: 100%;
+            margin-block-end: 0;
+            margin-inline: 0;
+            margin-block-start: -2px;
+            pointer-events: none;
+            user-select: none;
+            text-align: start;
+
+            color: $color-smoke-700;
+            font-size: $font-size-12;
+            font-weight: $font-weight-400;
+          }
+
+          .field-type-menu-description-link-anchor {
+            margin-inline-start: 4px;
+            margin-block-end: 0;
+            margin-inline-end: 0;
+            margin-block-start: -2px;
+            text-align: start;
+            display: inline-block;
+
+            font-size: $font-size-12;
+            color: $color-azure-800;
+            font-weight: $font-weight-400;
+            text-decoration: none;
+
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space: normal;
+          }
+
+          .field-type-menu-help-fw-icon {
+            margin-inline-start: 4px;
+            vertical-align: middle;
+          }
+        }
+
+        .field-type-menu-item-bottom-border {
+          width: 100%;
+          height: 1px;
+          // border-top: 1px solid $color-smoke-100;
+          margin-block-start: 2px;
+          border-width: 0;
+          background-color: $color-smoke-100;
+        }
+      }
+    }
+
+    &--disabled {
+      pointer-events: none;
+      user-select: none;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  .form-builder-right-panel {
+    width: 70%;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: $color-milk;
+
+    .form-builder-right-panel-header {
+      width: 100%;
+      height: 64px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      margin-block-end: 20px;
+      padding-inline-start: $form-builder-field-details-padding-left;
+      padding-inline-end: $form-builder-field-details-padding-right;
+
+      .form-builder-right-panel-header-content {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: $form-builder-field-editor-max-width;
+
+        .form-builder-right-panel-header-label {
+          width: auto;
+          margin: 0;
+          margin-inline-start: 2px;
+          pointer-events: none;
+          user-select: none;
+          text-align: start;
+
+          color: $color-elephant-900;
+          font-size: $font-size-16;
+          font-weight: $font-weight-700;
+          line-height: 28px;
+          height: 28px;
+        }
+
+        .form-builder-right-panel-header-right-div {
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 20px;
+
+          .form-builder-right-panel-header-search-input {
+            max-width: 344px;
+            width: calc(100% - 250px);
+          }
+        }
+      }
+
+      &--disabled {
+        pointer-events: none;
+        user-select: none;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    }
+
+    .form-builder-right-panel-list-container {
+      width: 100%;
+      height: calc(100% - 64px - 20px);
+      padding-block: 4px $form-builder-field-details-padding-left;
+      padding-inline: $form-builder-field-details-padding-right
+        $form-builder-field-details-padding-left;
+      box-sizing: border-box;
+      overflow-y: auto;
+
+      .form-builder-right-panel-empty-list-div {
+        width: 100%;
+        height: 100%;
+        padding-block-start: 60px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+
+        .form-builder-right-panel-empty-list-content {
+          width: 100%;
+          height: auto;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+
+          .form-builder-right-panel-empty-list-image-span {
+            width: 86px;
+            height: 86px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eff2fd;
+            border-radius: 50%;
+
+            .form-builder-right-panel-empty-list-image {
+              max-width: 85%;
+              max-height: 85%;
+              object-fit: contain;
+              pointer-events: none;
+            }
+          }
+
+          .form-builder-right-panel-empty-search-message {
+            width: 100%;
+            margin-inline: 0;
+            margin-block: 16px;
+            pointer-events: none;
+            user-select: none;
+            text-align: center;
+
+            color: $color-elephant-900;
+            font-size: $font-size-18;
+            font-weight: $font-weight-700;
+            line-height: 24px;
+          }
+        }
+      }
+
+      .form-builder-right-panel-field-editor-list {
+        width: 100%;
+        min-height: 100%;
+        height: auto;
+        gap: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.cusomize-widget-list {
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  gap: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cusomize-widget-header {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  .cusomize-widget-title {
+    font-size: $font-size-18;
+    font-weight: $font-weight-600;
+    line-height: 24px;
+  }
+
+  .cusomize-widget-description {
+    font-size: $font-size-14;
+    font-weight: $font-weight-default;
+    color: $color-smoke-700;
+    line-height: 20px;
+    padding-inline: 0px;
+    padding-block: 6px;
+  }
+}
+
+.cusomize-widget-modal-footer {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  gap: 12px;
+}

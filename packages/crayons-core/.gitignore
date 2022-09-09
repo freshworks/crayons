@@ -11,6 +11,7 @@ crayons-react/*.ts
 !crayons-react/index.ts
 .vuepress/public/build/
 css/
+hydrate/
 
 *~
 *.sw[mnpcod]

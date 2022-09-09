@@ -19,6 +19,7 @@ $input-hover-color: $color-smoke-700;
 $input-focus-color: $color-azure-800;
 $input-border: $color-smoke-100;
 $warning-color: $color-casablanca-300;
+$placeholder-color: $color-smoke-300;
 
 @mixin stateStyle($_color) {
   border-color: $_color;
@@ -112,7 +113,7 @@ $warning-color: $color-casablanca-300;
 
     input {
       flex-grow: 1;
-      width: 100%;
+      // width: 100%;
       border: none;
       font-family: inherit;
       font-size: $font-size-14;
@@ -257,14 +258,22 @@ $warning-color: $color-casablanca-300;
 }
 
 ::placeholder {
-  color: $color-smoke-300;
+  color: $placeholder-color;
   opacity: 1;
 }
 
-:-ms-input-placeholder {
-  color: $color-smoke-300;
+::-webkit-input-placeholder {
+  color: $placeholder-color;
 }
 
-::-ms-input-placeholder {
-  color: $color-smoke-300;
+::-moz-placeholder {
+  color: $placeholder-color;
+}
+
+:-ms-input-placeholder {
+  color: $placeholder-color;
+}
+
+:-moz-placeholder {
+  color: $placeholder-color;
 }
