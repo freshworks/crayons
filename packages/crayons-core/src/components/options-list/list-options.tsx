@@ -369,6 +369,7 @@ export class ListOptions {
                   height: 16,
                 },
                 variant: 'icon',
+                disabled: this.value?.length >= this.max,
               },
               ...this.filteredOptions,
             ];
