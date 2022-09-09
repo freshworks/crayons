@@ -59,6 +59,10 @@ $warning-color: $color-casablanca-300;
 
 .button-container {
   display: flex;
+  fw-button {
+    display: flex;
+    min-width: 0;
+  }
   .display-tag {
     display: flex;
     min-width: 0;
@@ -86,27 +90,26 @@ $warning-color: $color-casablanca-300;
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
+    min-width: 0;
 
     .tag-container {
       display: flex;
       flex-wrap: wrap;
+      min-width: inherit;
+      /* stylelint-disable-next-line a11y/no-outline-none */
+      &:active,
+      &:focus,
+      &:focus-visible {
+        outline: 0;
+      }
 
       fw-tag {
         margin-inline-start: 0px;
         margin-block-end: 4px;
         margin-inline-end: 4px;
         margin-block-start: 4px;
-        -webkit-touch-callout: none;
-        /* iOS Safari */
-        -webkit-user-select: none;
-        /* Safari */
-        -khtml-user-select: none;
-        /* Konqueror HTML */
-        -moz-user-select: none;
-        /* Old versions of Firefox */
-        -ms-user-select: none;
-        /* Internet Explorer/Edge */
-        user-select: none;
+        display: flex;
+        min-width: inherit;
       }
     }
 
@@ -157,7 +160,7 @@ $warning-color: $color-casablanca-300;
   /* stylelint-disable */
   &:hover,
   &:focus {
-    border: 1px $input-hover-color solid;
+    outline: 1px $input-hover-color solid;
     transition: 0.2s linear;
   }
 
@@ -182,8 +185,19 @@ $warning-color: $color-casablanca-300;
 }
 
 .tag-container {
-  .tag-default {
+  .tag-clickable {
     cursor: pointer;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
   }
 
   .tag-disabled {
@@ -195,7 +209,6 @@ $warning-color: $color-casablanca-300;
   .input-container {
     outline: none;
     background: $input-bg;
-    border: 1px solid transparent;
     box-shadow: 0 0 0 2px $input-focus-color;
 
     &.error {
