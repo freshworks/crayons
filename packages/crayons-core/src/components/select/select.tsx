@@ -592,28 +592,37 @@ export class Select {
             option.error || (this.variant === 'mail' && index >= this.max)
               ? 'error'
               : 'normal';
+          const className =
+            this.disabled || option.disabled
+              ? 'tag-disabled'
+              : !this.readonly
+              ? 'tag-clickable'
+              : '';
+          const displayAttributes =
+            this.variant === 'mail'
+              ? {
+                  text: option.value,
+                  showEllipsisOnOverflow: true,
+                  class: className + ' bold-tag',
+                }
+              : {
+                  text: option.text,
+                  subText: option.subText,
+                };
           return (
             <fw-tag
               index={index}
-              class={
-                this.disabled || option.disabled
-                  ? 'tag-disabled'
-                  : !this.readonly
-                  ? 'tag-clickable'
-                  : ''
-              }
+              class={className}
               state={optionState}
               variant={this.tagVariant}
               graphicsProps={option.graphicsProps}
-              text={option.text}
-              subText={option.subText}
               disabled={this.disabled || this.readonly || option.disabled}
               value={option.value}
               focusable={false}
               closable={!this.disabled && !this.readonly && !option.disabled}
               isFocused={this.focusedValues.includes(index)}
               onClick={(e) => this.onClickTag(e, index)}
-              showEllipsisOnOverflow
+              {...displayAttributes}
             />
           );
         }
@@ -810,7 +819,7 @@ export class Select {
               value: sanitisedValue,
               error:
                 typeof this.creatableProps?.validateNewOption === 'function'
-                  ? this.creatableProps?.validateNewOption(sanitisedValue)
+                  ? !this.creatableProps?.validateNewOption(sanitisedValue)
                   : false,
             });
           }

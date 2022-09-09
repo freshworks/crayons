@@ -185,6 +185,10 @@ $warning-color: $color-casablanca-300;
 }
 
 .tag-container {
+  .bold-tag {
+    font-weight: 600;
+  }
+
   .tag-clickable {
     cursor: pointer;
     -webkit-touch-callout: none;

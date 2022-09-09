@@ -27,6 +27,15 @@ describe('fw-tag', () => {
     expect(element).toHaveClass('error');
   });
 
+  it('renders tag in transparent mode', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-tag text="tag" state="transparent"></fw-tag>');
+    const element = await page.find('fw-tag >>> .tag');
+    await page.waitForChanges();
+    expect(element).toHaveClass('transparent');
+  });
+
   it('renders text and subText for avatar variant in tag', async () => {
     const page = await newE2EPage();
 
