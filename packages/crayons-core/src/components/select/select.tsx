@@ -341,15 +341,12 @@ export class Select {
           break;
         case 'Delete':
         case 'Backspace':
-          if (this.focusedValues.length > 0) {
-            // delete focused values
-            this.setSelectedOptions(
-              this.selectedOptionsState.filter(
-                (_, index) => !this.focusedValues.includes(index)
-              )
-            );
-            this.focusedValues = [];
-          } else if (this.multiple && this.selectInput?.value === '') {
+          this.deleteFocusedTags();
+          if (
+            this.focusedValues.length === 0 &&
+            this.multiple &&
+            this.selectInput?.value === ''
+          ) {
             this.focusOnTagContainer();
           }
           break;
@@ -464,16 +461,7 @@ export class Select {
           break;
         case 'Delete':
         case 'Backspace':
-          if (this.focusedValues.length > 0) {
-            // delete focused values
-            this.setSelectedOptions(
-              this.selectedOptionsState.filter(
-                (_, index) => !this.focusedValues.includes(index)
-              )
-            );
-            // reset focused values
-            this.focusedValues = [];
-          }
+          this.deleteFocusedTags();
           break;
         case 'ArrowLeft':
           if (this.tagArrowKeyCounter - 1 >= 0) {
@@ -501,6 +489,19 @@ export class Select {
       }
     }
   };
+
+  deleteFocusedTags() {
+    if (this.focusedValues.length > 0) {
+      // delete focused values
+      this.setSelectedOptions(
+        this.selectedOptionsState.filter(
+          (_, index) => !this.focusedValues.includes(index)
+        )
+      );
+      // reset focused values
+      this.focusedValues = [];
+    }
+  }
 
   focusOnTagContainer() {
     if (
