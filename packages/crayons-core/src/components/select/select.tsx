@@ -38,7 +38,7 @@ export class Select {
   private tagArrowKeyCounter = 0;
   private hostId;
 
-  private changeEmittable = () => !this.disabled;
+  private changeEmittable = () => !this.disabled && !this.readonly;
 
   private innerOnFocus = (e: Event) => {
     if (this.changeEmittable()) {
@@ -48,11 +48,13 @@ export class Select {
   };
 
   private innerOnClick = () => {
-    this.setFocus();
-    // Select the whole text in case of single select
-    this.multiple || this.selectInput?.select?.();
-    if (this.variant !== 'mail') {
-      this.openDropdown();
+    if (this.changeEmittable()) {
+      this.setFocus();
+      // Select the whole text in case of single select
+      this.multiple || this.selectInput?.select?.();
+      if (this.variant !== 'mail') {
+        this.openDropdown();
+      }
     }
   };
 
@@ -229,6 +231,17 @@ export class Select {
    * Describes the select's boundary HTMLElement
    */
   @Prop() boundary: HTMLElement;
+  /**
+   * Props to be passed for creatable select
+   * isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options
+   * validateNewOption: (value) => boolean - If passed, this function will determine the error state for every new option entered
+   * formatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Current input value is provided as argument.
+   */
+  @Prop() creatableProps = {
+    isCreatable: false,
+    validateNewOption: (_value): boolean => true,
+    formatCreateLabel: (label): string => label,
+  };
 
   /**
    *  Option to prevent the select options from being clipped when the component is placed inside a container with
@@ -254,7 +267,7 @@ export class Select {
   onDropdownClose() {
     this.clearInput();
     this.isExpanded = false;
-    this.multiple && this.selectInput.focus();
+    this.multiple && this.selectInput?.focus();
   }
 
   @Listen('fwShow')
@@ -266,7 +279,7 @@ export class Select {
   onLoading(event) {
     this.isLoading = event.detail.isLoading;
     if (this.variant === 'mail' && !this.isLoading) {
-      this.selectInput.value && this.openDropdown();
+      this.selectInput?.value?.trim() && this.openDropdown();
     }
   }
 
@@ -309,26 +322,28 @@ export class Select {
 
   @Listen('keydown')
   onKeyDown(ev) {
-    switch (ev.key) {
-      case 'ArrowDown':
-        this.innerOnClick();
-        this.fwListOptions.setFocus();
-        ev.preventDefault();
-        ev.stopPropagation();
-        break;
-      case 'ArrowLeft':
-      case 'Backspace':
-        if (this.multiple && this.selectInput.value === '') {
-          this.focusOnTagContainer();
-        }
-        break;
-      case 'Escape':
-        this.innerOnBlur(ev);
-        this.closeDropdown();
-        break;
-      case 'Tab':
-        this.closeDropdown();
-        break;
+    if (this.changeEmittable()) {
+      switch (ev.key) {
+        case 'ArrowDown':
+          this.innerOnClick();
+          this.fwListOptions.setFocus();
+          ev.preventDefault();
+          ev.stopPropagation();
+          break;
+        case 'ArrowLeft':
+        case 'Backspace':
+          if (this.multiple && this.selectInput?.value === '') {
+            this.focusOnTagContainer();
+          }
+          break;
+        case 'Escape':
+          this.innerOnBlur(ev);
+          this.closeDropdown();
+          break;
+        case 'Tab':
+          this.closeDropdown();
+          break;
+      }
     }
   }
 
@@ -373,6 +388,12 @@ export class Select {
     }
   }
 
+  // Watcher to update selected options state on selectedOptions prop update
+  @Watch('selectedOptions')
+  onSelectedOptionsChange(newValue) {
+    this.setSelectedOptions(newValue);
+  }
+
   @Method()
   async getSelectedItem(): Promise<any> {
     return this.fwListOptions.getSelectedOptions();
@@ -397,29 +418,31 @@ export class Select {
   }
 
   tagContainerKeyDown = (ev) => {
-    switch (ev.key) {
-      case 'Escape':
-        this.innerOnBlur(ev);
-        this.closeDropdown();
-        break;
-      case 'ArrowLeft':
-        this.tagArrowKeyCounter--;
-        if (this.tagArrowKeyCounter >= 0) {
-          this.focusOnTag(this.tagArrowKeyCounter);
-        } else {
-          this.tagArrowKeyCounter = 0;
-        }
-        ev.stopImmediatePropagation();
-        break;
-      case 'ArrowRight':
-        this.tagArrowKeyCounter++;
-        if (this.tagArrowKeyCounter >= this.value.length) {
-          this.selectInput.focus();
-        } else {
-          this.focusOnTag(this.tagArrowKeyCounter);
-        }
-        ev.stopImmediatePropagation();
-        break;
+    if (this.changeEmittable()) {
+      switch (ev.key) {
+        case 'Escape':
+          this.innerOnBlur(ev);
+          this.closeDropdown();
+          break;
+        case 'ArrowLeft':
+          this.tagArrowKeyCounter--;
+          if (this.tagArrowKeyCounter >= 0) {
+            this.focusOnTag(this.tagArrowKeyCounter);
+          } else {
+            this.tagArrowKeyCounter = 0;
+          }
+          ev.stopImmediatePropagation();
+          break;
+        case 'ArrowRight':
+          this.tagArrowKeyCounter++;
+          if (this.tagArrowKeyCounter >= this.value.length) {
+            this.selectInput?.focus();
+          } else {
+            this.focusOnTag(this.tagArrowKeyCounter);
+          }
+          ev.stopImmediatePropagation();
+          break;
+      }
     }
   };
 
@@ -438,7 +461,10 @@ export class Select {
       this.renderInput();
       return;
     }
-    this.selectInput.value = '';
+    this.searchValue = '';
+    if (this.selectInput) {
+      this.selectInput.value = '';
+    }
   }
 
   isValueEqual(value, option) {
@@ -452,13 +478,15 @@ export class Select {
   }
 
   onInput() {
-    this.searchValue = this.selectInput.value;
-    if (this.selectInput.value) {
-      this.variant !== 'mail' && this.openDropdown();
-    } else {
-      // Clear selected value in case of single select.
-      this.multiple || this.setSelectedValues('');
-      this.variant === 'mail' && this.closeDropdown();
+    if (this.changeEmittable()) {
+      this.searchValue = this.selectInput?.value;
+      if (this.selectInput?.value) {
+        this.variant !== 'mail' && this.openDropdown();
+      } else {
+        // Clear selected value in case of single select.
+        this.multiple || this.setSelectedValues('');
+        this.variant === 'mail' && this.closeDropdown();
+      }
     }
   }
 
@@ -474,10 +502,37 @@ export class Select {
               disabled={option.disabled}
               value={option.value}
               focusable={false}
+              closable={!this.disabled && !this.readonly && !option.disabled}
             />
           );
         }
       });
+    }
+  }
+
+  renderButtonValue() {
+    if (this.tagVariant === 'avatar' && this.selectedOptionsState[0]?.value) {
+      return (
+        <fw-tag
+          class='display-tag'
+          state='transparent'
+          variant='avatar'
+          graphicsProps={this.selectedOptionsState[0]?.graphicsProps}
+          text={this.selectedOptionsState[0]?.text}
+          subText={
+            this.selectedOptionsState[0]?.subText
+              ? `<${this.selectedOptionsState[0]?.subText}>`
+              : ''
+          }
+          disabled={this.selectedOptionsState[0]?.disabled}
+          value={this.selectedOptionsState[0]?.value}
+          focusable={false}
+          closable={false}
+          showEllipsisOnOverflow
+        />
+      );
+    } else {
+      return this.value;
     }
   }
 
@@ -608,6 +663,45 @@ export class Select {
     else if (this.state === 'warning') return `warning-${this.name}`;
     return null;
   }
+
+  onPaste(e) {
+    // Allow paste only if isCreatable is true
+    if (this.creatableProps?.isCreatable) {
+      // Get pasted data via clipboard API
+      const clipboardData = e?.clipboardData || window['clipboardData'];
+      const pastedData = clipboardData?.getData('Text');
+      if (pastedData.includes('\n') || pastedData.includes(',')) {
+        // Stop data actually being pasted into input
+        e.stopPropagation();
+        e.preventDefault();
+        // Split strings either by new line or comma
+        const values = pastedData.split(/[\n,]/);
+        const valuesToBeInput = [];
+        values.forEach((value) => {
+          const sanitisedValue = value.trim();
+          // Check value presence
+          if (sanitisedValue) {
+            valuesToBeInput.push({
+              text: sanitisedValue,
+              value: sanitisedValue,
+              error:
+                typeof this.creatableProps?.validateNewOption === 'function'
+                  ? !this.creatableProps?.validateNewOption(sanitisedValue)
+                  : false,
+            });
+          }
+        });
+        // Sets the selected options with the custom data
+        if (valuesToBeInput.length > 0) {
+          this.setSelectedOptions([
+            ...this.selectedOptionsState,
+            ...valuesToBeInput,
+          ]);
+        }
+      }
+    }
+  }
+
   render() {
     const { host, name, value } = this;
 
@@ -639,7 +733,10 @@ export class Select {
           {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
         moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
           <div
-            class={{ 'select-container': true, [this.state]: true }}
+            class={{
+              'select-container': true,
+              [this.state]: true,
+            }}
             role='combobox'
             aria-controls={`${this.hostId}-listbox`}
             aria-haspopup='listbox'
@@ -661,24 +758,32 @@ export class Select {
                   'input-container': this.variant !== 'button',
                   [this.state]: true,
                   'select-disabled': this.disabled,
+                  'button-container': this.variant === 'button',
+                  'readonly-field': this.readonly,
                 }}
                 onClick={() => this.innerOnClick()}
                 onKeyDown={handleKeyDown(this.innerOnClick, true)}
               >
                 {this.variant === 'button' ? (
-                  <fw-button
-                    style={{ '--fw-button-label-vertical-padding': '7px' }}
-                    show-caret-icon
-                    id={`${this.hostId}-btn`}
-                    color='secondary'
-                    class={
-                      this.host.classList.value.includes('first')
-                        ? 'fw-button-group__button--first'
-                        : 'fw-button-group__button--last'
-                    }
-                  >
-                    {this.value}
-                  </fw-button>
+                  this.readonly ? (
+                    this.renderButtonValue()
+                  ) : (
+                    <fw-button
+                      style={{ '--fw-button-label-vertical-padding': '7px' }}
+                      show-caret-icon
+                      id={`${this.hostId}-btn`}
+                      color={
+                        this.tagVariant === 'avatar' ? 'text' : 'secondary'
+                      }
+                      class={
+                        this.host.classList.value.includes('first')
+                          ? 'fw-button-group__button--first'
+                          : 'fw-button-group__button--last'
+                      }
+                    >
+                      {this.renderButtonValue()}
+                    </fw-button>
+                  )
                 ) : (
                   <Fragment>
                     <div class='input-container-inner'>
@@ -717,12 +822,14 @@ export class Select {
                         onBlur={(e) => this.innerOnBlur(e)}
                         aria-invalid={this.state === 'error'}
                         aria-describedby={`hint-${this.name} error-${this.name}`}
+                        onPaste={(e) => this.onPaste(e)}
                       />
                     </div>
                     {this.isLoading ? (
                       <fw-spinner size='small'></fw-spinner>
                     ) : (
-                      this.caret && (
+                      this.caret &&
+                      !this.readonly && (
                         <span
                           class={{
                             'dropdown-status-icon': true,
@@ -760,6 +867,7 @@ export class Select {
                 checkbox={this.checkbox}
                 allowDeselect={this.allowDeselect}
                 slot='popover-content'
+                {...this.creatableProps}
               ></fw-list-options>
             </fw-popover>
           </div>
