@@ -119,20 +119,20 @@ export default App;
 
 ## Properties
 
-| Property                 | Attribute                   | Description                                                                                                                             | Type                     | Default      |
-| ------------------------ | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------ |
-| `closable`               | `closable`                  | Whether the Tag can be closed.                                                                                                          | `boolean`                | `true`       |
-| `disabled`               | `disabled`                  | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.  | `boolean`                | `false`      |
-| `focusable`              | `focusable`                 | Whether the Tag is focusable.                                                                                                           | `boolean`                | `true`       |
-| `graphicsProps`          | --                          | The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component. | `{}`                     | `{}`         |
-| `index`                  | `index`                     | Index of tag in a group of tags                                                                                                         | `number \| string`       | `'-1'`       |
-| `isFocused`              | `is-focused`                | If true, tag will be focused                                                                                                            | `boolean`                | `false`      |
-| `showEllipsisOnOverflow` | `show-ellipsis-on-overflow` | Truncate text with ellipsis when text overflows                                                                                         | `boolean`                | `false`      |
-| `state`                  | `state`                     | Theme based on which the tag is styled.                                                                                                 | `"error" \| "normal"`    | `'normal'`   |
-| `subText`                | `sub-text`                  | Display sub text in the tag component.                                                                                                  | `string`                 | `undefined`  |
-| `text`                   | `text`                      | Display text in the tag component.                                                                                                      | `string`                 | `undefined`  |
-| `value`                  | `value`                     | Value associated with the tag component, that is saved when the form data is saved.                                                     | `number \| string`       | `undefined`  |
-| `variant`                | `variant`                   | The variant of tag to be displayed.                                                                                                     | `"avatar" \| "standard"` | `'standard'` |
+| Property                 | Attribute                   | Description                                                                                                                             | Type                                   | Default      |
+| ------------------------ | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------ |
+| `closable`               | `closable`                  | Whether the Tag can be closed.                                                                                                          | `boolean`                              | `true`       |
+| `disabled`               | `disabled`                  | Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.  | `boolean`                              | `false`      |
+| `focusable`              | `focusable`                 | Whether the Tag is focusable.                                                                                                           | `boolean`                              | `true`       |
+| `graphicsProps`          | --                          | The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component. | `{}`                                   | `{}`         |
+| `index`                  | `index`                     | Index of tag in a group of tags                                                                                                         | `number \| string`                     | `'-1'`       |
+| `isFocused`              | `is-focused`                | If true, tag will be focused                                                                                                            | `boolean`                              | `false`      |
+| `showEllipsisOnOverflow` | `show-ellipsis-on-overflow` | Truncate text with ellipsis when text overflows                                                                                         | `boolean`                              | `false`      |
+| `state`                  | `state`                     | Theme based on which the tag is styled.                                                                                                 | `"error" \| "normal" \| "transparent"` | `'normal'`   |
+| `subText`                | `sub-text`                  | Display sub text in the tag component.                                                                                                  | `string`                               | `undefined`  |
+| `text`                   | `text`                      | Display text in the tag component.                                                                                                      | `string`                               | `undefined`  |
+| `value`                  | `value`                     | Value associated with the tag component, that is saved when the form data is saved.                                                     | `number \| string`                     | `undefined`  |
+| `variant`                | `variant`                   | The variant of tag to be displayed.                                                                                                     | `"avatar" \| "standard"`               | `'standard'` |
 
 
 ## Events
@@ -159,7 +159,6 @@ Type: `Promise<any>`
 
 ### Used by
 
- - [fw-email-select](../email-select)
  - [fw-select](../select)
 
 ### Depends on
@@ -174,6 +173,7 @@ graph TD;
   fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
+  fw-tooltip --> fw-popover
   fw-select --> fw-tag
   style fw-tag fill:#f9f,stroke:#333,stroke-width:4px
 ```

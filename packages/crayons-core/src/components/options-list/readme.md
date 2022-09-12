@@ -87,7 +87,7 @@ The data-source and the visual variant for the list options can be altered via t
 | `searchText`        | `search-text`    | Placeholder to placed on the search text box.                                                                                                                                                                                             | `string`                                              | `''`                         |
 | `searchable`        | `searchable`     | Enables the input with in the popup for filtering the options.                                                                                                                                                                            | `boolean`                                             | `false`                      |
 | `selectedOptions`   | --               | The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                            | `any[]`                                               | `[]`                         |
-| `validateNewOption` | --               | Works only when 'isCreatable' is selected. Function to validate the newly created value.                                                                                                                                                  | `(value: string) => boolean`                          | `undefined`                  |
+| `validateNewOption` | --               | Works only when 'isCreatable' is selected. Function to validate the newly created value. Should return true if new option is valid or false if invalid.                                                                                   | `(value: string) => boolean`                          | `undefined`                  |
 | `value`             | `value`          | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                                                 | `''`                         |
 | `variant`           | `variant`        | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                    | `'standard'`                 |
 
@@ -167,7 +167,6 @@ Type: `Promise<any>`
 
 ### Used by
 
- - [fw-email-select](../email-select)
  - [fw-select](../select)
 
 ### Depends on
@@ -185,7 +184,6 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-input --> fw-icon
-  fw-email-select --> fw-list-options
   fw-select --> fw-list-options
   style fw-list-options fill:#f9f,stroke:#333,stroke-width:4px
 ```
