@@ -231,6 +231,17 @@ export class Select {
    * Describes the select's boundary HTMLElement
    */
   @Prop() boundary: HTMLElement;
+  /**
+   * Props to be passed for creatable select
+   * isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options
+   * validateNewOption: (value) => boolean - If passed, this function will determine the error state for every new option entered
+   * formatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Current input value is provided as argument.
+   */
+  @Prop() creatableProps = {
+    isCreatable: false,
+    validateNewOption: (_value): boolean => true,
+    formatCreateLabel: (label): string => label,
+  };
 
   /**
    *  Option to prevent the select options from being clipped when the component is placed inside a container with
@@ -375,6 +386,12 @@ export class Select {
       this.value = this.multiple ? [] : '';
       this.selectedOptionsState = [];
     }
+  }
+
+  // Watcher to update selected options state on selectedOptions prop update
+  @Watch('selectedOptions')
+  onSelectedOptionsChange(newValue) {
+    this.setSelectedOptions(newValue);
   }
 
   @Method()
@@ -646,6 +663,45 @@ export class Select {
     else if (this.state === 'warning') return `warning-${this.name}`;
     return null;
   }
+
+  onPaste(e) {
+    // Allow paste only if isCreatable is true
+    if (this.creatableProps?.isCreatable) {
+      // Get pasted data via clipboard API
+      const clipboardData = e?.clipboardData || window['clipboardData'];
+      const pastedData = clipboardData?.getData('Text');
+      if (pastedData.includes('\n') || pastedData.includes(',')) {
+        // Stop data actually being pasted into input
+        e.stopPropagation();
+        e.preventDefault();
+        // Split strings either by new line or comma
+        const values = pastedData.split(/[\n,]/);
+        const valuesToBeInput = [];
+        values.forEach((value) => {
+          const sanitisedValue = value.trim();
+          // Check value presence
+          if (sanitisedValue) {
+            valuesToBeInput.push({
+              text: sanitisedValue,
+              value: sanitisedValue,
+              error:
+                typeof this.creatableProps?.validateNewOption === 'function'
+                  ? !this.creatableProps?.validateNewOption(sanitisedValue)
+                  : false,
+            });
+          }
+        });
+        // Sets the selected options with the custom data
+        if (valuesToBeInput.length > 0) {
+          this.setSelectedOptions([
+            ...this.selectedOptionsState,
+            ...valuesToBeInput,
+          ]);
+        }
+      }
+    }
+  }
+
   render() {
     const { host, name, value } = this;
 
@@ -766,6 +822,7 @@ export class Select {
                         onBlur={(e) => this.innerOnBlur(e)}
                         aria-invalid={this.state === 'error'}
                         aria-describedby={`hint-${this.name} error-${this.name}`}
+                        onPaste={(e) => this.onPaste(e)}
                       />
                     </div>
                     {this.isLoading ? (
@@ -810,6 +867,7 @@ export class Select {
                 checkbox={this.checkbox}
                 allowDeselect={this.allowDeselect}
                 slot='popover-content'
+                {...this.creatableProps}
               ></fw-list-options>
             </fw-popover>
           </div>
