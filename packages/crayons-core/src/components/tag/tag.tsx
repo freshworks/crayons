@@ -210,7 +210,9 @@ export class Tag {
         tabindex='-1'
         class={`tag ${this.isFocused ? 'focused' : ''} ${this.state} tag-${
           this.variant
-        } ${this.disabled ? 'disabled' : ''}`}
+        } ${this.disabled ? 'disabled' : ''} ${
+          this.showEllipsisOnOverflow ? 'tag-with-ellipsis' : ''
+        }`}
         ref={(tagContainer) => (this.tagContainer = tagContainer)}
       >
         {this.renderContent()}

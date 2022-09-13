@@ -27,6 +27,11 @@
     background: transparent !important;
   }
 
+  &.tag-with-ellipsis {
+    display: flex;
+    min-width: 0;
+  }
+
   &.error {
     outline: 1px solid $color-persimmon-900;
     background: $color-persimmon-50 !important;
