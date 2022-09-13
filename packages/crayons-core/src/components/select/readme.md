@@ -145,7 +145,6 @@ function App() {
         <FwSelectOption value='5'>Tyrell</FwSelectOption>
       </FwSelect>
 
-
       <FwSelect
         label="House Name"
         required="true"
@@ -836,7 +835,7 @@ export default Select;
           return {
             text: x.name,
             subText: x.type,
-            value: x.id.toString(),
+            value: x.name,
             graphicsProps: { image: x.image },
           };
         });
@@ -877,7 +876,7 @@ export default Select;
           return {
             text: x.name,
             subText: x.type,
-            value: x.id.toString(),
+            value: x.name,
             graphicsProps: { image: x.image },
           };
         });
@@ -906,7 +905,7 @@ function Select() {
           return {
             text: x.name,
             subText: x.type,
-            value: x.id.toString(),
+            value: x.name,
             graphicsProps: { image: x.image },
           };
         });
@@ -921,6 +920,234 @@ function Select() {
       optionsVariant='avatar'
       tagVariant='avatar'
       search={searchFn}
+    ></FwSelect>
+  );
+}
+export default Select;
+```
+
+</code-block>
+</code-group>
+
+### Demo with creatable select
+
+```html live
+<fw-label value="Mail Variant" color="blue"></fw-label>
+<fw-select
+  id="creatableVariant"
+  variant="mail"
+  label="Mail to"
+  placeholder="Recipients"
+  options-variant="avatar"
+  tag-variant="avatar"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var creatableVariant = document.getElementById('creatableVariant');
+  const options = [
+    {
+      text: 'Angela Smith',
+      subText: 'angela.smith@gmail.com',
+      value: 'angela.smith@gmail.com',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+    {
+      text: 'Freshdesk support from India and Berlin',
+      subText: 'support.india@freshdesk.com',
+      value: 'support.india@freshdesk.com',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+    {
+      text: 'Angela from Freshdesk',
+      subText: 'angela@freshdesk.in',
+      value: 'angela@freshdesk.in',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+  ];
+  const validateEmail = (email) =>
+    String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  creatableVariant.creatableProps = {
+    isCreatable: true,
+    formatCreateLabel: (label) => `Add "${label}" as a recipient`,
+    validateNewOption: (email) => validateEmail(email),
+  };
+  creatableVariant.search = (filterText, source) => {
+    // Sample function to mimic the dynamic filter
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(
+          options.filter(
+            (option) =>
+              option.text.toLowerCase().includes(filterText.toLowerCase()) ||
+              option.subText.toLowerCase().includes(filterText.toLowerCase())
+          )
+        );
+      }, 1000);
+    });
+  };
+</script>
+```
+
+### Usage for select variants
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-label value="Mail Variant" color="blue"></fw-label>
+<fw-select
+  id="creatableVariant"
+  variant="mail"
+  label="Mail to"
+  placeholder="Recipients"
+  options-variant="avatar"
+  tag-variant="avatar"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var creatableVariant = document.getElementById('creatableVariant');
+  const options = [
+    {
+      text: 'Angela Smith',
+      subText: 'angela.smith@gmail.com',
+      value: 'angela.smith@gmail.com',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+    {
+      text: 'Freshdesk support from India and Berlin',
+      subText: 'support.india@freshdesk.com',
+      value: 'support.india@freshdesk.com',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+    {
+      text: 'Angela from Freshdesk',
+      subText: 'angela@freshdesk.in',
+      value: 'angela@freshdesk.in',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+  ];
+  const validateEmail = (email) =>
+    String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  creatableVariant.creatableProps = {
+    isCreatable: true,
+    formatCreateLabel: (label) => `Add "${label}" as a recipient`,
+    validateNewOption: (email) => validateEmail(email),
+  };
+  creatableVariant.search = (filterText, source) => {
+    // Sample function to mimic the dynamic filter
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(
+          options.filter(
+            (option) =>
+              option.text.toLowerCase().includes(filterText.toLowerCase()) ||
+              option.subText.toLowerCase().includes(filterText.toLowerCase())
+          )
+        );
+      }, 1000);
+    });
+  };
+</script>
+```
+
+</code-block>
+<code-block title="React">
+
+```jsx
+import React from 'react';
+import { FwSelect } from '@freshworks/crayons/react';
+
+function Select() {
+  const options = [
+    {
+      text: 'Angela Smith',
+      subText: 'angela.smith@gmail.com',
+      value: 'angela.smith@gmail.com',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+    {
+      text: 'Freshdesk support from India and Berlin',
+      subText: 'support.india@freshdesk.com',
+      value: 'support.india@freshdesk.com',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+    {
+      text: 'Angela from Freshdesk',
+      subText: 'angela@freshdesk.in',
+      value: 'angela@freshdesk.in',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+  ];
+  const searchFn = (filterText, source) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(
+          options.filter(
+            (option) =>
+              option.text.toLowerCase().includes(filterText.toLowerCase()) ||
+              option.subText.toLowerCase().includes(filterText.toLowerCase())
+          )
+        );
+      }, 1000);
+    });
+  };
+  const validateEmail = (email) =>
+    String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  return (
+    <FwSelect
+      id='creatableVariant'
+      variant='mail'
+      label='Mail to'
+      placeholder='Recipients'
+      optionsVariant='avatar'
+      tagVariant='avatar'
+      search={searchFn}
+      creatableProps={{
+        isCreatable: true,
+        formatCreateLabel: (label) => `Add "${label}" as a recipient`,
+        validateNewOption: (email) => validateEmail(email),
+      }}
     ></FwSelect>
   );
 }

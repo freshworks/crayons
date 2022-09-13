@@ -27,6 +27,17 @@ The data-source and the visual variant for the list options can be altered via t
   ></fw-list-options>
 </fw-popover>
 
+<fw-popover same-width="false">
+  <fw-button slot="popover-trigger">Creatable Select - Click Me!</fw-button>
+  <fw-list-options
+    id="creatableVariant"
+    slot="popover-content"
+    searchable="true"
+    is-creatable="true"
+    variant="avatar"
+  ></fw-list-options>
+</fw-popover>
+
 <script type="application/javascript">
   var dataSource = [
     { value: '1', text: 'Luffy' },
@@ -60,6 +71,45 @@ The data-source and the visual variant for the list options can be altered via t
   ];
   var iconVariant = document.getElementById('iconVariant');
   iconVariant.options = iconDataSource;
+
+  var creatableDataSource = [
+    {
+      text: 'Angela Smith',
+      subText: 'angela.smith@gmail.com',
+      value: 'angela.smith@gmail.com',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+    {
+      text: 'Freshdesk support from India and Berlin',
+      subText: 'support.india@freshdesk.com',
+      value: 'support.india@freshdesk.com',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+    {
+      text: 'Angela from Freshdesk',
+      subText: 'angela@freshdesk.in',
+      value: 'angela@freshdesk.in',
+      graphicsProps: {
+        image:
+          'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      },
+    },
+  ];
+  const validateEmail = (email) =>
+    String(email)
+      .toLowerCase()
+      .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  var creatableVariant = document.getElementById('creatableVariant');
+  creatableVariant.options = creatableDataSource;
+  creatableVariant.formatCreateLabel = (label) =>
+    `Add "${label}" as one of the recipients`;
+  creatableVariant.validateNewOption = (value) => validateEmail(value);
 </script>
 ```
 
