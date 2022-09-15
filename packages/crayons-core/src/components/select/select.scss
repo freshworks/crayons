@@ -183,7 +183,7 @@ $placeholder-color: $color-smoke-300;
 
 .tag-container {
   .bold-tag {
-    font-weight: 600;
+    font-weight: $font-weight-600;
   }
 
   .tag-clickable {
