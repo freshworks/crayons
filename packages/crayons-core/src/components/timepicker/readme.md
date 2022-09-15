@@ -117,8 +117,10 @@ graph TD;
   fw-select --> fw-spinner
   fw-select --> fw-icon
   fw-select --> fw-list-options
+  fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
+  fw-tooltip --> fw-popover
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-list-options --> fw-select-option

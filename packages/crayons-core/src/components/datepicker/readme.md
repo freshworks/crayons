@@ -329,8 +329,10 @@ graph TD;
   fw-select --> fw-spinner
   fw-select --> fw-icon
   fw-select --> fw-list-options
+  fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
+  fw-tooltip --> fw-popover
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
   fw-form-control --> fw-datepicker

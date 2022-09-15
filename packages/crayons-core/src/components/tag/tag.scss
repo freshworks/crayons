@@ -65,12 +65,12 @@
   }
 
   .primary {
-    font-weight: 600;
+    font-weight: $font-weight-600;
   }
 
   .secondary {
     padding-inline-start: 8px;
-    font-weight: 400 !important;
+    font-weight: $font-weight-400 !important;
   }
 
   &-standard {
