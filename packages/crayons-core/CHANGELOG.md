@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.8...@freshworks/crayons@4.0.0-beta.9) (2022-09-16)
+
+
+### Bug Fixes
+
+* default variant for new option ([5c0ce6c](https://github.com/freshworks/crayons/commit/5c0ce6c1c269807a26aeb40c7e792c6c5f315e9f))
+* fix click outside method for tag accessibility ([605c4a2](https://github.com/freshworks/crayons/commit/605c4a2f19478ca0eeda6ec68c2f1e6c64f972be))
+* fix failing tests ([241099d](https://github.com/freshworks/crayons/commit/241099dada4dc9236a3588cda692ae386be5a2c5))
+* fix onClickOutside method for tags ([acd22b2](https://github.com/freshworks/crayons/commit/acd22b24f48d202a228c53acaaeba9913323c98c))
+* **tooltip:** text wrapping when in accordion ([#682](https://github.com/freshworks/crayons/issues/682)) ([d4114b7](https://github.com/freshworks/crayons/commit/d4114b784161e9d8cf05498ad54c2dd1b3ebc5fd))
+
+
+### Features
+
+* add formatCreateLabel as a prop ([b341070](https://github.com/freshworks/crayons/commit/b341070b89686fb0040021f637a6f372f068f065))
+* add tests for list options ([1a1c047](https://github.com/freshworks/crayons/commit/1a1c0479984620c239c03042c3f7f14669fef52a))
+* add translation strings, Tag modifications, max email restrictions, accesibility features ([a0d7275](https://github.com/freshworks/crayons/commit/a0d7275bb551129e9c16988b27dc39bff6ec7fdb))
+* added platform-ui script too docs site ([cdaf7ad](https://github.com/freshworks/crayons/commit/cdaf7adf36c44cc8074f975a33d2aca071923336))
+* **email composer:** added Email Header section, Email select component ([64b753a](https://github.com/freshworks/crayons/commit/64b753a61c097e774deb551dfc4e8fa7161f952d))
+* **email header component changes:** changes in Tag, avatar and list options ([3dcc67b](https://github.com/freshworks/crayons/commit/3dcc67bf44a5df7e32df534372c85328add8bea2))
+* paste and shift key accessibility features ([996fec0](https://github.com/freshworks/crayons/commit/996fec063274427aea3e97e960b772d0d98043cf))
+* update docs for select, list options, tag and avatar components ([deb80db](https://github.com/freshworks/crayons/commit/deb80dbcab10b61b632a780bca21853c6c9f70c5))
+
+
+
+
+
 ## [4.0.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.7...@freshworks/crayons@4.0.0-beta.8) (2022-09-09)
 
 ### Bug Fixes
