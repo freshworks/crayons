@@ -1,6 +1,38 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('fw-select', () => {
+  const props = {
+    options: [
+      {
+        text: 'Angela Smith',
+        subText: 'angela.smith@gmail.com',
+        value: 'angela.smith@gmail.com',
+        graphicsProps: {
+          image:
+            'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+        },
+      },
+      {
+        text: 'Freshdesk support from India and Berlin',
+        subText: 'support.india@freshdesk.com',
+        value: 'support.india@freshdesk.com',
+        graphicsProps: {
+          image:
+            'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+        },
+      },
+      {
+        text: 'Angela from Freshdesk',
+        subText: 'angela@freshdesk.in',
+        value: 'angela@freshdesk.in',
+        graphicsProps: {
+          image:
+            'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+        },
+      },
+    ],
+  };
+
   it('renders', async () => {
     const page = await newE2EPage();
 
@@ -26,7 +58,7 @@ describe('fw-select', () => {
     expect(value).toBe('starks');
   });
 
-  it('Renders all the select options', async () => {
+  it('Renders all the select options when passed as slot', async () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-select label="Select the house" required="true">
@@ -40,6 +72,26 @@ describe('fw-select', () => {
     );
 
     expect(options.length).toBe(2);
+  });
+
+  it('Renders all the select options when passed as prop', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select>
+                            </fw-select>`);
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const popover = await page.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    expect(options.length).toBe(3);
   });
 
   it('it checks if multiple values can be set and get', async () => {
@@ -58,6 +110,67 @@ describe('fw-select', () => {
     await page.waitForChanges();
     const value = element.getAttribute('value');
     expect(value).toBe('starks,sands');
+  });
+
+  it('checks if multiple values set using setSelectedValues method and get using getSelectedItem', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<fw-select multiple>
+                            </fw-select>`);
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-select');
+    await element.callMethod('setSelectedValues', [
+      'angela.smith@gmail.com',
+      'angela@freshdesk.in',
+    ]);
+    await page.waitForChanges();
+    const selectedTags = await page.findAll('fw-select >>> fw-tag');
+    expect(selectedTags.length).toBe(2);
+    const selectedValues = await element.callMethod('getSelectedItem');
+    const values = [];
+    selectedValues.forEach((value) => {
+      values.push(value.value);
+    });
+    expect(values).toStrictEqual([
+      'angela.smith@gmail.com',
+      'angela@freshdesk.in',
+    ]);
+  });
+
+  it('checks if multiple options set using setSelectedOptions method and get using getSelectedItem', async () => {
+    const page = await newE2EPage();
+    await page.setContent(`<fw-select multiple>
+                            </fw-select>`);
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+      },
+      props
+    );
+    const element = await page.find('fw-select');
+    await element.callMethod('setSelectedOptions', [
+      props.options[0],
+      props.options[1],
+    ]);
+    await page.waitForChanges();
+    const selectedTags = await page.findAll('fw-select >>> fw-tag');
+    expect(selectedTags.length).toBe(2);
+    const selectedValues = await element.callMethod('getSelectedItem');
+    const values = [];
+    selectedValues.forEach((value) => {
+      values.push(value.value);
+    });
+    expect(values).toStrictEqual([
+      'angela.smith@gmail.com',
+      'support.india@freshdesk.com',
+    ]);
   });
 
   it('it checks if multiple values set using setSelectedValues method', async () => {
@@ -221,5 +334,47 @@ describe('fw-select', () => {
     const selectInput = await page.find('fw-select >>> input');
 
     expect(selectInput.getProperty('readOnly')).toBeTruthy();
+  });
+
+  it('sets readonly select component for button variant', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select label="Select the house" value="lannisters" readonly>
+                              <fw-select-option value="starks">Starks</fw-select-option>
+                              <fw-select-option value="lannisters">Lannisters</fw-select-option>
+                          </fw-select>`);
+
+    const readonlyField = await page.find(
+      'fw-select >>> fw-popover >>> .readonly-field'
+    );
+
+    expect(readonlyField).toBeTruthy();
+  });
+
+  it('shows error style for tags exceeding max limit for mail variant', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select multiple variant="mail">
+                              </fw-select>`);
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+        elm.max = 2;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-select');
+    await element.callMethod('setSelectedValues', [
+      'angela.smith@gmail.com',
+      'angela@freshdesk.in',
+      'support.india@freshdesk.com',
+    ]);
+    await page.waitForChanges();
+    const selectedTags = await page.findAll('fw-select >>> fw-tag');
+    expect(selectedTags.length).toBe(3);
+    const errorTag = await selectedTags[2].shadowRoot.querySelector('.tag');
+    expect(errorTag).toHaveClass('error');
   });
 });

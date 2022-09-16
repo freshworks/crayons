@@ -54,6 +54,24 @@ $placeholder-color: $color-smoke-300;
 //   }
 // }
 
+.button-container {
+  display: flex;
+  fw-button {
+    display: flex;
+    min-width: 0;
+  }
+  .display-tag {
+    display: flex;
+    min-width: 0;
+  }
+}
+
+.readonly-field {
+  .display-tag {
+    padding-inline-start: 8px;
+  }
+}
+
 .input-container {
   width: calc(100% - 10px);
   border: var(--fw-select-border, 1px solid $input-border);
@@ -69,16 +87,26 @@ $placeholder-color: $color-smoke-300;
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
+    min-width: 0;
 
     .tag-container {
       display: flex;
       flex-wrap: wrap;
+      min-width: inherit;
+      /* stylelint-disable-next-line a11y/no-outline-none */
+      &:active,
+      &:focus,
+      &:focus-visible {
+        outline: 0;
+      }
 
       fw-tag {
         margin-inline-start: 0px;
         margin-block-end: 4px;
         margin-inline-end: 4px;
         margin-block-start: 4px;
+        display: flex;
+        min-width: inherit;
       }
     }
 
@@ -129,7 +157,7 @@ $placeholder-color: $color-smoke-300;
   /* stylelint-disable */
   &:hover,
   &:focus {
-    border: 1px $input-hover-color solid;
+    outline: 1px $input-hover-color solid;
     transition: 0.2s linear;
   }
 
@@ -153,11 +181,35 @@ $placeholder-color: $color-smoke-300;
   }
 }
 
+.tag-container {
+  .bold-tag {
+    font-weight: $font-weight-600;
+  }
+
+  .tag-clickable {
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
+  .tag-disabled {
+    cursor: not-allowed;
+  }
+}
+
 .has-focus {
   .input-container {
     outline: none;
     background: $input-bg;
-    border: 1px solid transparent;
     box-shadow: 0 0 0 2px $input-focus-color;
 
     &.error {

@@ -128,6 +128,18 @@ export class ListOptions {
    */
   @Prop() allowDeselect = true;
   /**
+   * Allows user to create the option if the provided input doesn't match with any of the options.
+   */
+  @Prop() isCreatable = false;
+  /**
+   * Works only when 'isCreatable' is selected. Function to validate the newly created value. Should return true if new option is valid or false if invalid.
+   */
+  @Prop() validateNewOption: (value: string) => boolean;
+  /**
+   * Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.
+   */
+  @Prop() formatCreateLabel: (value: string) => string;
+  /**
    * Whether clicking on option selects it.
    */
   @Prop() allowSelect = true;
@@ -147,6 +159,14 @@ export class ListOptions {
       const selectedObj = this.filteredOptions.filter(
         (option) => option.value === value
       )[0];
+      if (this.isCreatable && selectedObj.isNew) {
+        selectedObj.text = selectedObj.value;
+        if (typeof this.validateNewOption === 'function') {
+          selectedObj.error = !this.validateNewOption(selectedObj.value);
+        }
+        selectedObj.graphicsProps = {};
+        selectedObj.variant = 'standard';
+      }
       this.selectedOptionsState = this.multiple
         ? [...this.selectedOptionsState, selectedObj]
         : [selectedObj];
@@ -319,12 +339,41 @@ export class ListOptions {
     (filterText) => {
       this.isLoading = true;
       this.fwLoading.emit({ isLoading: this.isLoading });
-      if (filterText) {
-        this.search(filterText, this.selectOptions).then((options) => {
+      const sanitisedText = filterText.trim();
+      if (sanitisedText) {
+        this.search(sanitisedText, this.selectOptions).then((options) => {
           this.filteredOptions =
             options?.length > 0
               ? this.serializeData(options)
-              : [{ text: this.notFoundText, disabled: true }];
+              : !this.isCreatable
+              ? [{ text: this.notFoundText, disabled: true }]
+              : [];
+          if (
+            this.isCreatable &&
+            !this.filteredOptions.some(
+              (option) => option.value === sanitisedText
+            )
+          ) {
+            this.filteredOptions = [
+              {
+                text:
+                  typeof this.formatCreateLabel === 'function'
+                    ? this.formatCreateLabel(sanitisedText)
+                    : sanitisedText,
+                value: sanitisedText,
+                isNew: true,
+                graphicsProps: {
+                  name: 'plus-filled',
+                  color: '#2C5CC5',
+                  width: 16,
+                  height: 16,
+                },
+                variant: 'icon',
+                disabled: this.value?.length >= this.max,
+              },
+              ...this.filteredOptions,
+            ];
+          }
           this.isLoading = false;
           this.fwLoading.emit({ isLoading: this.isLoading });
         });
@@ -359,16 +408,22 @@ export class ListOptions {
 
   serializeData(dataSource) {
     return dataSource.map((option) => {
+      const isSelected =
+        this.isValueEqual(this.value, option) || option.selected;
+      const isDisabled =
+        this.selectedOptionsState.find(
+          (selected) => selected.value === option.value
+        )?.disabled ||
+        option.disabled ||
+        this.disabled ||
+        (this.multiple && this.value?.length >= this.max);
       return {
         ...option,
         ...{
           checkbox: option.checkbox || this.checkbox,
           variant: option.variant || this.variant,
-          selected: this.isValueEqual(this.value, option) || option.selected,
-          disabled:
-            option.disabled ||
-            this.disabled ||
-            (this.multiple && this.value?.length >= this.max),
+          selected: isSelected,
+          disabled: isDisabled,
           allowDeselect: this.allowDeselect,
         },
       };
@@ -401,14 +456,23 @@ export class ListOptions {
   }
 
   renderSelectOptions(options: Array<any>) {
-    return options.map((option) => (
-      <fw-select-option
-        id={`${this.host.id}-option-${option.value}`}
-        key={option.value}
-        allowSelect={this.allowSelect}
-        {...option}
-      ></fw-select-option>
-    ));
+    return options.map((option) => {
+      const isDisabled =
+        this.selectedOptionsState.find(
+          (selected) => selected.value === option.value
+        )?.disabled ||
+        option.disabled ||
+        (!this.allowDeselect && option.selected);
+      return (
+        <fw-select-option
+          id={`${this.host.id}-option-${option.value}`}
+          key={option.value}
+          allowSelect={this.allowSelect}
+          {...option}
+          disabled={isDisabled}
+        ></fw-select-option>
+      );
+    });
   }
 
   renderSearchInput() {

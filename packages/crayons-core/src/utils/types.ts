@@ -2,6 +2,8 @@ import { VNode } from '@stencil/core';
 
 export type TagVariant = 'standard' | 'avatar';
 
+export type TagState = 'normal' | 'error' | 'transparent';
+
 export type DropdownVariant = 'standard' | 'icon' | 'avatar';
 
 export type PopoverPlacementType =

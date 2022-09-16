@@ -7,9 +7,10 @@ import {
   Method,
   h,
   Listen,
+  State,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
-import { TagVariant } from '../../utils/types';
+import { TagState, TagVariant } from '../../utils/types';
 
 @Component({
   tag: 'fw-tag',
@@ -19,6 +20,10 @@ import { TagVariant } from '../../utils/types';
 export class Tag {
   private tagContainer: HTMLElement;
 
+  private divLabel: HTMLElement;
+
+  private resizeObserver;
+
   @Element() host: HTMLElement;
   /**
    * Display text in the tag component.
@@ -26,9 +31,14 @@ export class Tag {
   @Prop() text: string;
 
   /**
+   * Display sub text in the tag component.
+   */
+  @Prop() subText: string;
+
+  /**
    * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop({ reflect: true }) disabled: false;
+  @Prop({ reflect: true }) disabled = false;
 
   /**
    * Value associated with the tag component, that is saved when the form data is saved.
@@ -53,9 +63,27 @@ export class Tag {
    */
   @Prop() focusable = true;
   /**
+   * Theme based on which the tag is styled.
+   */
+  @Prop() state: TagState = 'normal';
+  /**
+   * If true, tag will be focused
+   */
+  @Prop() isFocused = false;
+  /**
+   * Index of tag in a group of tags
+   */
+  @Prop() index: string | number = '-1';
+  /**
+   * Truncate text with ellipsis when text overflows
+   */
+  @Prop() showEllipsisOnOverflow = false;
+  /**
    * Triggered when the tag is deselected.
    */
   @Event() fwClosed: EventEmitter;
+
+  @State() addTooltip = false;
 
   @Listen('keydown')
   onKeyDown(event) {
@@ -76,19 +104,74 @@ export class Tag {
     if (this.disabled || !this.closable) {
       return;
     }
-    const { value, text } = this;
-    this.fwClosed.emit({ value, text });
+    const { value, text, index } = this;
+    this.fwClosed.emit({ value, text, index });
     e.stopPropagation();
   };
+
+  private renderText() {
+    return [
+      <span
+        class={{
+          'primary': !!this.subText,
+          'content': true,
+          'end-padding': !this.subText && !this.closable,
+        }}
+      >
+        {this.text}
+      </span>,
+      this.subText && (
+        <span
+          class={`secondary content ${!this.closable ? 'end-padding' : ''}`}
+        >
+          {this.subText}
+        </span>
+      ),
+    ];
+  }
+
+  private renderLabel() {
+    return (
+      <div class='ellipsis' ref={(el) => (this.divLabel = el)}>
+        {this.renderText()}
+      </div>
+    );
+  }
+
+  private renderTruncatedContent() {
+    return (
+      <div class={'truncated-content'}>
+        {this.addTooltip ? (
+          <fw-tooltip
+            trigger='hover'
+            content={`${this.text}${this.subText ? ` ${this.subText}` : ''}`}
+            hoist
+          >
+            {this.renderLabel()}
+          </fw-tooltip>
+        ) : (
+          this.renderLabel()
+        )}
+      </div>
+    );
+  }
 
   renderContent() {
     switch (this.variant) {
       case 'standard':
-        return <span class='content'>{this.text}</span>;
+        return this.showEllipsisOnOverflow
+          ? this.renderTruncatedContent()
+          : this.renderText();
       case 'avatar': {
         return [
-          <fw-avatar size='xsmall' {...this.graphicsProps}></fw-avatar>,
-          <span class='content'>{this.text}</span>,
+          <fw-avatar
+            mode={this.state === 'error' ? this.state : 'dark'}
+            size='xsmall'
+            {...this.graphicsProps}
+          ></fw-avatar>,
+          this.showEllipsisOnOverflow
+            ? this.renderTruncatedContent()
+            : this.renderText(),
         ];
       }
       default:
@@ -96,12 +179,40 @@ export class Tag {
     }
   }
 
+  componentDidRender = () => {
+    const elLabel = this.divLabel;
+    if (elLabel && !this.resizeObserver) {
+      this.resizeObserver = new ResizeObserver(() => {
+        if (elLabel.offsetWidth > 0) {
+          this.addTooltip =
+            elLabel.offsetWidth < elLabel.scrollWidth ? true : false;
+        }
+      });
+      this.resizeObserver.observe(elLabel);
+    }
+  };
+
+  disconnectedCallback(): void {
+    this.removeResizeObserver();
+  }
+
+  private removeResizeObserver = () => {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+  };
+
   render() {
     return (
       <div
         role='button'
         tabindex='-1'
-        class={`tag tag-${this.variant}`}
+        class={`tag ${this.isFocused ? 'focused' : ''} ${this.state} tag-${
+          this.variant
+        } ${this.disabled ? 'disabled' : ''} ${
+          this.showEllipsisOnOverflow ? 'tag-with-ellipsis' : ''
+        }`}
         ref={(tagContainer) => (this.tagContainer = tagContainer)}
       >
         {this.renderContent()}
