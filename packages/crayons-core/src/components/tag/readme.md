@@ -15,8 +15,18 @@ fw-tag provides a child component that is used to enable selecting multiple opti
 
 <fw-tag id="avatarTagWithSubText" variant="avatar" text="Option" sub-text='<sub-text>'></fw-tag>
 
+<fw-tag id="avatarTagTransparent" variant="avatar" text="Option" state="transparent"></fw-tag>
+
+<div style="max-width: 200px; padding-top: 10px">
+  <fw-tag id="avatarTagWithEllipsis" variant="avatar" text="Option With Longest Text" sub-text='<sub-text>' show-ellipsis-on-overflow></fw-tag>
+</div>
+
 <script type="application/javascript">
   avatarTag = document.getElementById('avatarTag');
+  avatarTagError = document.getElementById('avatarTagError');
+  avatarTagFocused = document.getElementById('avatarTagFocused');
+  avatarTagWithSubText = document.getElementById('avatarTagWithSubText');
+  avatarTagWithEllipsis = document.getElementById('avatarTagWithEllipsis');
   avatarTag.graphicsProps = {
     image:
       'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
@@ -30,6 +40,14 @@ fw-tag provides a child component that is used to enable selecting multiple opti
       'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
   };
   avatarTagWithSubText.graphicsProps = {
+    image:
+      'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+  };
+  avatarTagTransparent.graphicsProps = {
+    image:
+      'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+  };
+  avatarTagWithEllipsis.graphicsProps = {
     image:
       'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
   };
@@ -51,8 +69,18 @@ fw-tag provides a child component that is used to enable selecting multiple opti
 
 <fw-tag id="avatarTagWithSubText" variant="avatar" text="Option" sub-text='<sub-text>'></fw-tag>
 
+<fw-tag id="avatarTagTransparent" variant="avatar" text="Option" state="transparent"></fw-tag>
+
+<div style="max-width: 200px; padding-top: 10px">
+  <fw-tag id="avatarTagWithEllipsis" variant="avatar" text="Option With Longest Text" sub-text='<sub-text>' show-ellipsis-on-overflow></fw-tag>
+</div>
+
 <script type="application/javascript">
   avatarTag = document.getElementById('avatarTag');
+  avatarTagError = document.getElementById('avatarTagError');
+  avatarTagFocused = document.getElementById('avatarTagFocused');
+  avatarTagWithSubText = document.getElementById('avatarTagWithSubText');
+  avatarTagWithEllipsis = document.getElementById('avatarTagWithEllipsis');
   avatarTag.graphicsProps = {
     image:
       'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
@@ -66,6 +94,14 @@ fw-tag provides a child component that is used to enable selecting multiple opti
       'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
   };
   avatarTagWithSubText.graphicsProps = {
+    image:
+      'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+  };
+  avatarTagTransparent.graphicsProps = {
+    image:
+      'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+  };
+  avatarTagWithEllipsis.graphicsProps = {
     image:
       'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
   };
@@ -98,11 +134,23 @@ function App() {
       image:
         'https://images.dog.ceo/breeds/chow/n02112137_8862.jpg'
     }} text="Chow Wolowitz" isFocused></FwTag>
-    
+
     <FwTag variant="avatar" graphicsProps={{
       image:
         'https://images.dog.ceo/breeds/chow/n02112137_8862.jpg'
-    }} text="Chow Wolowitz" subText='<sub-text>'></FwTag>
+    }} text="Chow Wolowitz" subText="Best Pet"></FwTag>
+
+     <FwTag variant="avatar" graphicsProps={{
+      image:
+        'https://images.dog.ceo/breeds/chow/n02112137_8862.jpg'
+    }} text="Chow Wolowitz" state="transparent"></FwTag>
+    
+    <div style={{ maxWidth: '250px' }}>
+      <FwTag variant="avatar" graphicsProps={{
+        image:
+          'https://images.dog.ceo/breeds/chow/n02112137_8862.jpg'
+      }} text="Chow Wolowitz" subText='<sub-text>' showEllipsisOnOverflow></FwTag>
+    </div>
 
   </div >);
 }
