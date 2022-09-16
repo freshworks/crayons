@@ -37,7 +37,7 @@ describe('fw-country-phone hydrated', () => {
     const element = await page.find('fw-country-phone >>> fw-select');
 
     element.setProperty('value', 'IN');
-    element.waitForEvent('fwChange');
+    await element.waitForEvent('fwChange');
 
     await page.waitForChanges();
     const selectElement = await page.find('fw-country-phone >>> fw-select');
@@ -54,7 +54,7 @@ describe('fw-country-phone hydrated', () => {
     const element = await page.find('fw-country-phone >>> fw-select');
 
     element.setProperty('value', 'IN');
-    element.waitForEvent('fwChange');
+    await element.waitForEvent('fwChange');
 
     await page.waitForChanges();
     const selectElement = await page.find('fw-country-phone >>> fw-select');
@@ -93,7 +93,7 @@ describe('fw-country-phone hydrated', () => {
     const element = await page.find('fw-country-phone >>> fw-select');
 
     element.setProperty('value', 'IN');
-    element.waitForEvent('fwChange');
+    await element.waitForEvent('fwChange');
 
     await page.waitForChanges();
     const selectElement = await page.find('fw-country-phone >>> fw-select');
@@ -129,7 +129,7 @@ describe('fw-country-phone hydrated', () => {
     const element = await page.find('fw-country-phone >>> fw-select');
 
     element.setProperty('value', 'IN');
-    element.waitForEvent('fwChange');
+    await element.waitForEvent('fwChange');
 
     await page.waitForChanges();
     const selectElement = await page.find('fw-country-phone >>> fw-select');
@@ -169,7 +169,7 @@ describe('fw-country-phone hydrated', () => {
     const element = await page.find('fw-country-phone >>> fw-select');
 
     element.setProperty('value', '');
-    element.waitForEvent('fwChange');
+    await element.waitForEvent('fwChange');
 
     await page.waitForChanges();
     const selectElement = await page.find('fw-country-phone >>> fw-select');
