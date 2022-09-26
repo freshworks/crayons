@@ -83,9 +83,9 @@ The library registration happens via a `resolver` function. If you wish to apply
 ``` html
 <html>
 <head>
-    <script type="module" src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js" ></script>
+    <script type="module" src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js" ></script>
     <script type="module" >
-        import { registerIconLibrary } from 'https://unpkg.com/@freshworks/crayons@v3/dist/crayons/index.esm.js';
+        import { registerIconLibrary } from 'https://unpkg.com/@freshworks/crayons@v4/dist/crayons/index.esm.js';
         registerIconLibrary('feather', {
                 resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
                 mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
@@ -153,7 +153,7 @@ See the code below for implementation.
 ```html
 <html>
 <head>
-   <script type="module" src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js" ></script>
+   <script type="module" src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js" ></script>
    <script type="module">
        import { header, add_contact } from '@freshworks/crayons-icon';
        const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`;

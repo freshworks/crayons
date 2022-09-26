@@ -4,14 +4,19 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 
 ---
 
+- [Breaking Changes](#breaking-changes)
   - [Versions](#versions)
+  - [Version 4.x](#version-4x)
+    - [Components](#components)
+      - [Datepicker](#datepicker)
+      - [Tabs](#tabs)
   - [Version 3.x](#version-3x)
     - [Global Styles](#global-styles)
     - [Input Control Events](#input-control-events)
-    - [Components](#components)
+    - [Components](#components-1)
       - [Button](#button)
       - [Checkbox](#checkbox)
-      - [Datepicker](#datepicker)
+      - [Datepicker](#datepicker-1)
       - [Dropdown button](#dropdown-button)
       - [Icon](#icon)
       - [Input](#input)
@@ -20,7 +25,7 @@ This is a comprehensive list of the breaking changes introduced in the major ver
       - [Radio](#radio)
       - [Select](#select)
       - [Spinner](#spinner)
-      - [Tabs](#tabs)
+      - [Tabs](#tabs-1)
       - [Tab](#tab)
       - [Textarea](#textarea)
       - [Timepicker](#timepicker)
@@ -31,10 +36,34 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 ---
 
 1.  [Version 3.x](#version-3x)
+2.  [Version 4.x](#version-4x)
+
+## Version 4.x
+
+- [Documentation](https://crayons.freshworks.com)
+
+### Components
+
+#### Datepicker
+
+`fw-datepicker`: changed the default value of format from `hh:mm a` to `locale based format`. min and max time will be based on locale time format
+
+#### Tabs
+
+- CSS Variables
+
+  Below are the changes w.r.t CSS variables
+
+  | Old Variable            | Status  | New Variable                                                                                                                                   |
+  | ----------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+  | --fw-tabs-margin-l      | renamed | --fw-tabs-margin-inline-start (Left margin if direction is left-to-right, and Right margin if direction is right-to-left for the tab items)    |
+  | --fw-tabs-margin-r      | renamed | --fw-tabs-margin-inline-end (Right margin if direction is left-to-right, and Left margin if direction is right-to-left for the tab items)      |
+  | --fw-tabs-padding-left  | renamed | --fw-tabs-padding-inline-start (Left padding if direction is left-to-right, and Right padding if direction is right-to-left for the tab items) |
+  | --fw-tabs-padding-right | renamed | --fw-tabs-padding-inline-end (Right padding if direction is left-to-right, and Left padding if direction is right-to-left for the tab items)   |
 
 ## Version 3.x
 
-- [Documentation](https://crayons.freshworks.com/)
+- [Documentation](https://crayons.freshworks.com/v3)
 
 ---
 
