@@ -24,6 +24,7 @@ export class Popover {
   private triggerRef: any;
   private triggerRefSlot: any = null;
   private overlay: HTMLElement;
+  private resizeObserver;
 
   @Element() host: HTMLElement;
 
@@ -125,7 +126,6 @@ export class Popover {
           { name: 'eventListeners', enabled: true },
         ],
       }));
-      this.popperInstance.update();
       if (this.trigger !== 'hover') {
         this.overlay.style.display = 'block';
       }
@@ -238,9 +238,31 @@ export class Popover {
     };
   }
 
+  updatePopper() {
+    if (this.isOpen) {
+      !this.popperInstance && this.createPopperInstance();
+      // recompute posiiton of popper
+      this.popperInstance?.update();
+    }
+  }
+
+  componentDidRender = () => {
+    // Observe popper content for change in size and update popper position
+    this.resizeObserver = new ResizeObserver(this.updatePopper.bind(this));
+    this.resizeObserver.observe(this.popperDiv);
+  };
+
   disconnectedCallback() {
+    this.removeResizeObserver();
     this.popperInstance?.destroy();
   }
+
+  private removeResizeObserver = () => {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+  };
 
   createPopperInstance() {
     const triggerRef = this.triggerRefSlot || this.triggerRef;
