@@ -126,6 +126,7 @@ export class Popover {
           { name: 'eventListeners', enabled: true },
         ],
       }));
+      this.popperInstance.update();
       if (this.trigger !== 'hover') {
         this.overlay.style.display = 'block';
       }
