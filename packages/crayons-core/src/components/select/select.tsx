@@ -86,7 +86,6 @@ export class Select {
    */
   @State() isExpanded = false;
   @State() hasFocus = false;
-  @State() didInit = false;
   @State() searchValue;
   @State() dataSource;
   @State() selectedOptionsState = [];
@@ -141,7 +140,7 @@ export class Select {
   /**
    * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop() multiple = false;
+  @Prop({ mutable: true }) multiple = false;
   /**
    * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
    */
@@ -208,7 +207,7 @@ export class Select {
   /**
    * Whether the arrow/caret should be shown in the select.
    */
-  @Prop() caret = true;
+  @Prop({ mutable: true }) caret = true;
   /**
    * If the default label prop is not used, then use this prop to pass the id of the label.
    */
@@ -232,7 +231,7 @@ export class Select {
   /**
    * Describes the select's boundary HTMLElement
    */
-  @Prop() boundary: HTMLElement;
+  @Prop({ mutable: true }) boundary: HTMLElement;
   /**
    * Props to be passed for creatable select
    * isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options
@@ -772,7 +771,6 @@ export class Select {
 
   componentDidLoad() {
     this.renderInput();
-    this.didInit = true;
   }
 
   disconnectedCallback() {
