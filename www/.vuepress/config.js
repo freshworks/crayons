@@ -52,7 +52,7 @@ const getTags = () => [
   'Freshworks Development Kit',
 ];
 
-const websiteUrl = 'https://crayons.freshworks.com';
+const websiteUrl = 'https://crayons.freshworks.com/v3/';
 
 module.exports = {
   title: 'Crayons',

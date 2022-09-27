@@ -1,5 +1,5 @@
 const urlMap = {
-  docs: '/introduction/',
+  docs: '/v3/introduction/',
   sampleApps: 'https://github.com/freshworks-developers/crayons-samples',
   crayons: 'https://github.com/freshworks/crayons',
   freshworks: 'https://www.freshworks.com',
