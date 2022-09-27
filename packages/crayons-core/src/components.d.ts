@@ -231,6 +231,7 @@ export namespace Components {
     }
     interface FwCustomCellAnchor {
         "href": string;
+        "target": string;
         "text": string;
     }
     interface FwCustomCellIcon {
@@ -2807,6 +2808,7 @@ declare namespace LocalJSX {
     }
     interface FwCustomCellAnchor {
         "href"?: string;
+        "target"?: string;
         "text"?: string;
     }
     interface FwCustomCellIcon {
