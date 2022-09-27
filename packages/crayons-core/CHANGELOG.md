@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.9...@freshworks/crayons@4.0.0-beta.10) (2022-09-27)
+
+
+### Bug Fixes
+
+* cleanup unused state and remove warnings ([2ebc2aa](https://github.com/freshworks/crayons/commit/2ebc2aae8a14865dc41321d3318dff51dfc40015))
+* fix popper position when popper content dynamically change ([8b88a07](https://github.com/freshworks/crayons/commit/8b88a075dd15de65ef568bcf58a371af4f46cbba))
+
+
+### Features
+
+* **data-table:** add target property for nav link custom cell ([#687](https://github.com/freshworks/crayons/issues/687)) ([1a069ab](https://github.com/freshworks/crayons/commit/1a069ab5e0f643963b59e18913ff14cb20348797))
+
+
+
+
+
 ## [4.0.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.8...@freshworks/crayons@4.0.0-beta.9) (2022-09-16)
 
 ### Bug Fixes
