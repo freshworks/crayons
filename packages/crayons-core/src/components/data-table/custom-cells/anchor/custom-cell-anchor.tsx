@@ -10,7 +10,7 @@ export class CustomCellAnchor {
 
   @Prop() text = '';
 
-  @Prop() target = '';
+  @Prop() target = '_self';
 
   render() {
     return (
