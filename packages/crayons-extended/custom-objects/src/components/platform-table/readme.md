@@ -1,6 +1,6 @@
 # Platform Table (fw-platform-table)
 
-An extension of crayons fw--data-table with pagination and sort features.
+An extension of crayons fw-data-table with pagination and sort features.
 
 ## Sorting
 

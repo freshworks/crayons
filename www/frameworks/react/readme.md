@@ -6,7 +6,7 @@ Crayons offers a React version for webcomponents. You can view both `html` and `
 
 To add crayons to your React app, install the package from npm.
 
-```npm install @freshworks/crayons@v3```
+`npm install @freshworks/crayons@v4`
 
 ## Usage
 
@@ -17,11 +17,7 @@ Every Crayons component is available to import as a React component. For using b
 ```js
 import { FwButton } from '@freshworks/crayons/react';
 
-const App = () => (
-  <FwButton color="primary">
-    Click me
-  </FwButton>
-);
+const App = () => <FwButton color='primary'>Click me</FwButton>;
 
 export default App;
 ```
@@ -36,7 +32,10 @@ You can find the list of `properties`, `events` and `methods` for the webcompone
 import { FwButton } from '@freshworks/crayons/react';
 
 const App = () => (
-  <FwButton color="primary" onFwClick={() => console.log("fwClick event emitted from button")}>
+  <FwButton
+    color='primary'
+    onFwClick={() => console.log('fwClick event emitted from button')}
+  >
     Click me
   </FwButton>
 );

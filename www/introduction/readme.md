@@ -4,7 +4,7 @@ Freshworks Crayons is a library of UI components that are the building blocks to
 
 ## Features
 
-- Tiny, highly optimized **30+** web components built with [Stencil](https://stenciljs.com/)
+- Tiny, highly optimized **40+** web components built with [Stencil](https://stenciljs.com/)
 - No build or compiling required
 - Simply add the static files to any project
 - Tree shakable bundle for components
@@ -28,11 +28,11 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js"
+  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"
 ></script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.js"
+  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.js"
 ></script>
 ```
 
@@ -51,7 +51,7 @@ You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 - Install the package
 
 ```bash
-  npm install @freshworks/crayons@v3 --save
+  npm install @freshworks/crayons@v4 --save
 ```
 
 - Put a script tag similar to this
@@ -75,7 +75,7 @@ in the head of your index.html
 
 ## Framework Bindings
 
-The `@freshworks/crayons` package can be used in simple HTML, or by vanilla JavaScript without any framework at all. `Crayons v3` introduces framework bindings that make it easier to integrate Crayons into a framework such as **React**. (However, at the lowest-level framework bindings are still just using Crayons core and Web Components).
+The `@freshworks/crayons` package can be used in simple HTML, or by vanilla JavaScript without any framework at all. Since version `v3`, `Crayons` provides framework bindings that make it easier to integrate Crayons into a framework such as **React**. (However, at the lowest-level framework bindings are still just using Crayons core and Web Components).
 
 To use **React wrapper** use below:
 
@@ -87,7 +87,7 @@ For more information please check [here](https://crayons.freshworks.com/framewor
 
 ## Adding CSS Utils
 
-`Crayons v3` also provides a set of CSS utilities to help with application development. You can use these utils by adding 'crayons-min.css' file in your app.
+Since version `v3`, `Crayons` provides a set of CSS utilities to help with application development. You can use these utils by adding `crayons-min.css` file in your app.
 
 #### Usage via Node Modules
 
@@ -103,7 +103,7 @@ For more information please check [here](https://crayons.freshworks.com/framewor
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@freshworks/crayons@v3/css/crayons-min.css"
+  href="https://unpkg.com/@freshworks/crayons@v4/css/crayons-min.css"
 />
 ```
 

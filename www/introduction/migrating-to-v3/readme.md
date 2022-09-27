@@ -1,33 +1,34 @@
 # Migrating to v3
 
-
 ## What's new in v3
 
-  * 18+ new components. 
-  * Existing components have been modified to ensure they are more flexible and customisable by modifying `props` , `events` , `methods` and `css variables`.
-  * Tree shakable bundle for components
-  * Style customisation through CSS Variables
-  * Framework Wrappers for [React](https://crayons.freshworks.com/frameworks/react)
-  * Code samples in React for all the components
-  * Set of CSS [utilities](https://crayons.freshworks.com/introduction/#adding-css-utils) to speed up development 
-  * [i18n](https://crayons.freshworks.com/utilities/i18n) support
-  * icon [library](https://crayons.freshworks.com/components/core/icon) with support for using external icons
-  * a11y support
----  
+- 18+ new components.
+- Existing components have been modified to ensure they are more flexible and customisable by modifying `props` , `events` , `methods` and `css variables`.
+- Tree shakable bundle for components
+- Style customisation through CSS Variables
+- Framework Wrappers for [React](https://crayons.freshworks.com/frameworks/react)
+- Code samples in React for all the components
+- Set of CSS [utilities](https://crayons.freshworks.com/introduction/#adding-css-utils) to speed up development
+- [i18n](https://crayons.freshworks.com/utilities/i18n) support
+- icon [library](https://crayons.freshworks.com/components/core/icon) with support for using external icons
+- a11y support
+
+---
+
 <br>
 
 ## Migration Guide
 
-The below covers some of the major breaking changes introduced in Crayons v3.  
+The below covers some of the major breaking changes introduced in Crayons v3.
 
 To view the comprehensive list, check the breaking changes [guide](https://github.com/freshworks/crayons/blob/master/BREAKING.md). There were several changes to property, events and CSS Variables that developers may need to be aware of.
 
 ---
-  - [Global Styles](#global-styles)
-  - [Input Control Events](#input-control-events)
-  - [Usage via CDN](#usage-via-cdn)
-  - [Usage via Node Modules](#usage-via-node-modules)
 
+- [Global Styles](#global-styles)
+- [Input Control Events](#input-control-events)
+- [Usage via CDN](#usage-via-cdn)
+- [Usage via Node Modules](#usage-via-node-modules)
 
 ### Global Styles
 
@@ -111,38 +112,44 @@ Below are the breaking changes in Input Control Events
 - **fw-list-options**: `selectedOptions` field will now be part of meta field in the event detail for `fwChange`. Now it can be accessed using `event.detail.meta.selectedOptions` instead of `event.detail.selectedOptions`.
 
 #### Usage via CDN
+
 From your app’s root `html` file add the following scripts:
 
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js">
-</script>
+  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"
+></script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.js">
-</script>
+  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.js"
+></script>
 ```
 
 You can now use the Crayons components just like how you would use any other html element.
 
 ```html live
-<fw-button color="secondary" onclick="alert('Button Clicked')">Get Started</fw-button>
+<fw-button color="secondary" onclick="alert('Button Clicked')"
+  >Get Started</fw-button
+>
 ```
 
 You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
 
 #### Usage via Node Modules
- - Install the package 
+
+- Install the package
+
 ```bash
-  npm install @freshworks/crayons@v3 --save
+  npm install @freshworks/crayons@v4 --save
 ```
- - Put a script tag similar to this 
+
+- Put a script tag similar to this
+
 ```html
-<script src='node_modules/@freshworks/crayons/dist/crayons.js'></script>
-``` 
+<script src="node_modules/@freshworks/crayons/dist/crayons.js"></script>
+```
+
 in the head of your index.html
- - Now you can use the element anywhere in your template, JSX, html etc.
 
-
-
+- Now you can use the element anywhere in your template, JSX, html etc.
