@@ -10,9 +10,11 @@ export class CustomCellAnchor {
 
   @Prop() text = '';
 
+  @Prop() target = '';
+
   render() {
     return (
-      <a class='anchor' href={this.href}>
+      <a class='anchor' href={this.href} target={this.target}>
         {this.text}
       </a>
     );
