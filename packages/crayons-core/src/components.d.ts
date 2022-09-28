@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
-import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagVariant } from "./utils/types";
+import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
 import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -47,7 +47,7 @@ export namespace Components {
         "alt": string;
         "image": string;
         "initials": string;
-        "mode": 'dark' | 'light';
+        "mode": 'dark' | 'light' | 'error';
         "name": string;
         "shape": 'circle' | 'square' | 'rounded';
         "size": | 'xxlarge'
@@ -231,6 +231,7 @@ export namespace Components {
     }
     interface FwCustomCellAnchor {
         "href": string;
+        "target": string;
         "text": string;
     }
     interface FwCustomCellIcon {
@@ -944,7 +945,15 @@ export namespace Components {
           * The text to filter the options.
          */
         "filterText": any;
+        /**
+          * Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.
+         */
+        "formatCreateLabel": (value: string) => string;
         "getSelectedOptions": () => Promise<any>;
+        /**
+          * Allows user to create the option if the provided input doesn't match with any of the options.
+         */
+        "isCreatable": boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -988,6 +997,10 @@ export namespace Components {
           * Pass an array of string in case of multi-select or string for single-select.
          */
         "setSelectedValues": (values: any) => Promise<any>;
+        /**
+          * Works only when 'isCreatable' is selected. Function to validate the newly created value. Should return true if new option is valid or false if invalid.
+         */
+        "validateNewOption": (value: string) => boolean;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -1359,6 +1372,10 @@ export namespace Components {
          */
         "checkbox": boolean;
         /**
+          * Props to be passed for creatable select isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options validateNewOption: (value) => boolean - If passed, this function will determine the error state for every new option entered. If return value is true, error state of the newly created option will be false and if return value is false, then the error state of the newly created option will be true. formatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Current input value is provided as argument.
+         */
+        "creatableProps": { isCreatable: boolean; validateNewOption: (_value: any) => boolean; formatCreateLabel: (label: any) => string; };
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer": number;
@@ -1379,6 +1396,10 @@ export namespace Components {
           * Hint text displayed below the text box.
          */
         "hintText": string;
+        /**
+          * Option to prevent the select options from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist": boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -1637,7 +1658,7 @@ export namespace Components {
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
-        "disabled": false;
+        "disabled": boolean;
         /**
           * Whether the Tag is focusable.
          */
@@ -1646,7 +1667,27 @@ export namespace Components {
           * The props need to be passed for the variant. If the variant is avatar then use this prop to send the props for the fw-avatar component.
          */
         "graphicsProps": {};
+        /**
+          * Index of tag in a group of tags
+         */
+        "index": string | number;
+        /**
+          * If true, tag will be focused
+         */
+        "isFocused": boolean;
         "setFocus": () => Promise<any>;
+        /**
+          * Truncate text with ellipsis when text overflows
+         */
+        "showEllipsisOnOverflow": boolean;
+        /**
+          * Theme based on which the tag is styled.
+         */
+        "state": TagState;
+        /**
+          * Display sub text in the tag component.
+         */
+        "subText": string;
         /**
           * Display text in the tag component.
          */
@@ -2561,7 +2602,7 @@ declare namespace LocalJSX {
         "alt"?: string;
         "image"?: string;
         "initials"?: string;
-        "mode"?: 'dark' | 'light';
+        "mode"?: 'dark' | 'light' | 'error';
         "name"?: string;
         "shape"?: 'circle' | 'square' | 'rounded';
         "size"?: | 'xxlarge'
@@ -2767,6 +2808,7 @@ declare namespace LocalJSX {
     }
     interface FwCustomCellAnchor {
         "href"?: string;
+        "target"?: string;
         "text"?: string;
     }
     interface FwCustomCellIcon {
@@ -3482,6 +3524,14 @@ declare namespace LocalJSX {
          */
         "filterText"?: any;
         /**
+          * Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.
+         */
+        "formatCreateLabel"?: (value: string) => string;
+        /**
+          * Allows user to create the option if the provided input doesn't match with any of the options.
+         */
+        "isCreatable"?: boolean;
+        /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
@@ -3525,6 +3575,10 @@ declare namespace LocalJSX {
           * The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
         "selectedOptions"?: any[];
+        /**
+          * Works only when 'isCreatable' is selected. Function to validate the newly created value. Should return true if new option is valid or false if invalid.
+         */
+        "validateNewOption"?: (value: string) => boolean;
         /**
           * Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.
          */
@@ -3900,6 +3954,10 @@ declare namespace LocalJSX {
          */
         "checkbox"?: boolean;
         /**
+          * Props to be passed for creatable select isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options validateNewOption: (value) => boolean - If passed, this function will determine the error state for every new option entered. If return value is true, error state of the newly created option will be false and if return value is false, then the error state of the newly created option will be true. formatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Current input value is provided as argument.
+         */
+        "creatableProps"?: { isCreatable: boolean; validateNewOption: (_value: any) => boolean; formatCreateLabel: (label: any) => string; };
+        /**
           * Debounce timer for the search promise function.
          */
         "debounceTimer"?: number;
@@ -3919,6 +3977,10 @@ declare namespace LocalJSX {
           * Hint text displayed below the text box.
          */
         "hintText"?: string;
+        /**
+          * Option to prevent the select options from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoist"?: boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -4201,7 +4263,7 @@ declare namespace LocalJSX {
         /**
           * Sets the state of the tag to disabled. The close button is disabled. If the attribute’s value is undefined, the value is set to false.
          */
-        "disabled"?: false;
+        "disabled"?: boolean;
         /**
           * Whether the Tag is focusable.
          */
@@ -4211,9 +4273,29 @@ declare namespace LocalJSX {
          */
         "graphicsProps"?: {};
         /**
+          * Index of tag in a group of tags
+         */
+        "index"?: string | number;
+        /**
+          * If true, tag will be focused
+         */
+        "isFocused"?: boolean;
+        /**
           * Triggered when the tag is deselected.
          */
         "onFwClosed"?: (event: FwTagCustomEvent<any>) => void;
+        /**
+          * Truncate text with ellipsis when text overflows
+         */
+        "showEllipsisOnOverflow"?: boolean;
+        /**
+          * Theme based on which the tag is styled.
+         */
+        "state"?: TagState;
+        /**
+          * Display sub text in the tag component.
+         */
+        "subText"?: string;
         /**
           * Display text in the tag component.
          */

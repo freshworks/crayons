@@ -33,6 +33,7 @@ headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
 
 const getUtils = () =>
   [
+    'installation',
     'typography',
     'spacing',
     'border',
@@ -71,19 +72,13 @@ module.exports = {
         title: 'Introduction',
         collapsable: false,
         sidebarDepth: 1,
-        children: ['/introduction/', '/introduction/migrating-to-v3/'],
+        children: ['/introduction/', '/introduction/migrating-to-v4/'],
       },
       {
         title: 'Core Components',
         collapsable: false,
         sidebarDepth: 1,
         children: coreComponents,
-      },
-      {
-        title: 'Custom Objects',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: ['/custom-objects/', ...customObjectsComponents],
       },
       {
         title: 'CSS Utils',
@@ -110,12 +105,12 @@ module.exports = {
     ],
     nav: [
       {
-        text: 'Migrating to v3',
-        link: '/introduction/migrating-to-v3/',
+        text: 'Migrating to v4',
+        link: '/introduction/migrating-to-v4/',
       },
       {
         text: `v${version?.split('.')[0]}.x`,
-        items: ['v3.x', 'v2.x'].map((v) => ({
+        items: ['v4.x', 'v3.x', 'v2.x'].map((v) => ({
           text: v,
           link: `https://crayons.freshworks.com/${
             v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''

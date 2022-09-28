@@ -1,13 +1,76 @@
 .tag {
+  min-width: inherit;
   display: inline-flex;
   align-items: center;
   color: $color-elephant-900;
   font-size: $font-size-12;
   word-break: break-all;
 
+  &:hover {
+    outline: 1px solid $color-smoke-200;
+  }
+
+  &:focus {
+    outline: 2px solid $color-azure-800;
+  }
+
+  &.disabled {
+    outline: 0px !important;
+  }
+
+  &.focused {
+    outline: 2px solid $color-azure-800 !important;
+  }
+
+  &.transparent {
+    outline: none !important;
+    background: transparent !important;
+  }
+
+  &.tag-with-ellipsis {
+    display: flex;
+    min-width: 0;
+  }
+
+  &.error {
+    outline: 1px solid $color-persimmon-900;
+    background: $color-persimmon-50 !important;
+
+    &:hover {
+      background: $color-persimmon-100 !important;
+    }
+
+    &:focus {
+      outline: 2px solid $color-azure-800;
+    }
+  }
+
   .content {
     line-height: 20px;
     vertical-align: middle;
+  }
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .truncated-content {
+    min-width: inherit;
+  }
+
+  .end-padding {
+    padding-inline-end: 8px;
+  }
+
+  .primary {
+    font-weight: $font-weight-600;
+  }
+
+  .secondary {
+    padding-inline-start: 8px;
+    font-weight: $font-weight-400 !important;
   }
 
   &-standard {
@@ -23,7 +86,6 @@
   &-avatar {
     padding: 4px;
     border-radius: 24px;
-    font-weight: 400;
     background: linear-gradient(180deg, $color-smoke-25 2.56%, #f3f5f7 95.75%);
 
     fw-avatar {

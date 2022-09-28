@@ -12,7 +12,7 @@ import {
   h,
   Fragment,
 } from '@stencil/core';
-
+import { range, uniq } from 'lodash-es';
 import { handleKeyDown, renderHiddenField, hasSlot } from '../../utils';
 import FieldControl from '../../function-components/field-control';
 
@@ -34,25 +34,28 @@ export class Select {
   private fwListOptions?: HTMLFwListOptionsElement;
   private popover?: HTMLFwPopoverElement;
   private tagContainer: HTMLElement;
-  private tagRefs = [];
   private tagArrowKeyCounter = 0;
   private hostId;
 
-  private changeEmittable = () => !this.disabled;
+  private changeEmittable = () => !this.disabled && !this.readonly;
 
   private innerOnFocus = (e: Event) => {
     if (this.changeEmittable()) {
       this.hasFocus = true;
       this.fwFocus.emit(e);
+      this.focusedValues = [];
     }
   };
 
   private innerOnClick = () => {
-    this.setFocus();
-    // Select the whole text in case of single select
-    this.multiple || this.selectInput?.select?.();
-    if (this.variant !== 'mail') {
-      this.openDropdown();
+    if (this.changeEmittable()) {
+      this.setFocus();
+      // Select the whole text in case of single select
+      this.multiple || this.selectInput?.select?.();
+      if (this.variant !== 'mail') {
+        this.openDropdown();
+      }
+      this.focusedValues = [];
     }
   };
 
@@ -83,7 +86,6 @@ export class Select {
    */
   @State() isExpanded = false;
   @State() hasFocus = false;
-  @State() didInit = false;
   @State() searchValue;
   @State() dataSource;
   @State() selectedOptionsState = [];
@@ -92,6 +94,7 @@ export class Select {
   @State() hasHintTextSlot = false;
   @State() hasWarningTextSlot = false;
   @State() hasErrorTextSlot = false;
+  @State() focusedValues = [];
 
   /**
    * Label displayed on the interface, for the component.
@@ -137,7 +140,7 @@ export class Select {
   /**
    * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
    */
-  @Prop() multiple = false;
+  @Prop({ mutable: true }) multiple = false;
   /**
    * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
    */
@@ -204,7 +207,7 @@ export class Select {
   /**
    * Whether the arrow/caret should be shown in the select.
    */
-  @Prop() caret = true;
+  @Prop({ mutable: true }) caret = true;
   /**
    * If the default label prop is not used, then use this prop to pass the id of the label.
    */
@@ -228,7 +231,24 @@ export class Select {
   /**
    * Describes the select's boundary HTMLElement
    */
-  @Prop() boundary: HTMLElement;
+  @Prop({ mutable: true }) boundary: HTMLElement;
+  /**
+   * Props to be passed for creatable select
+   * isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options
+   * validateNewOption: (value) => boolean - If passed, this function will determine the error state for every new option entered. If return value is true, error state of the newly created option will be false and if return value is false, then the error state of the newly created option will be true.
+   * formatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Current input value is provided as argument.
+   */
+  @Prop() creatableProps = {
+    isCreatable: false,
+    validateNewOption: (_value): boolean => true,
+    formatCreateLabel: (label): string => label,
+  };
+
+  /**
+   *  Option to prevent the select options from being clipped when the component is placed inside a container with
+   * `overflow: auto|hidden|scroll`.
+   */
+  @Prop() hoist = false;
 
   // Events
   /**
@@ -245,22 +265,26 @@ export class Select {
   @Event() fwBlur: EventEmitter;
 
   @Listen('fwHide')
-  onDropdownClose() {
-    this.clearInput();
-    this.isExpanded = false;
-    this.multiple && this.selectInput.focus();
+  onDropdownClose(e) {
+    if (e.composedPath()[0].id === 'select-popover') {
+      this.clearInput();
+      this.isExpanded = false;
+      this.multiple && this.selectInput?.focus();
+    }
   }
 
   @Listen('fwShow')
-  onDropdownOpen() {
-    this.isExpanded = true;
+  onDropdownOpen(e) {
+    if (e.composedPath()[0].id === 'select-popover') {
+      this.isExpanded = true;
+    }
   }
 
   @Listen('fwLoading')
   onLoading(event) {
     this.isLoading = event.detail.isLoading;
     if (this.variant === 'mail' && !this.isLoading) {
-      this.selectInput.value && this.openDropdown();
+      this.selectInput?.value?.trim() && this.openDropdown();
     }
   }
 
@@ -298,31 +322,62 @@ export class Select {
   // Listen to Tag close in case of multi-select
   @Listen('fwClosed')
   fwCloseHandler(ev) {
-    this.value = this.value.filter((value) => value !== ev.detail.value);
+    this.setSelectedOptions(
+      this.selectedOptionsState.filter((_, index) => index !== ev.detail.index)
+    );
+    this.focusOnTagContainer();
   }
 
   @Listen('keydown')
   onKeyDown(ev) {
-    switch (ev.key) {
-      case 'ArrowDown':
-        this.innerOnClick();
-        this.fwListOptions.setFocus();
-        ev.preventDefault();
-        ev.stopPropagation();
-        break;
-      case 'ArrowLeft':
-      case 'Backspace':
-        if (this.multiple && this.selectInput.value === '') {
-          this.focusOnTagContainer();
-        }
-        break;
-      case 'Escape':
-        this.innerOnBlur(ev);
-        this.closeDropdown();
-        break;
-      case 'Tab':
-        this.closeDropdown();
-        break;
+    if (this.changeEmittable()) {
+      switch (ev.key) {
+        case 'ArrowDown':
+          this.innerOnClick();
+          this.fwListOptions.setFocus();
+          ev.preventDefault();
+          ev.stopPropagation();
+          break;
+        case 'Delete':
+        case 'Backspace':
+          this.deleteFocusedTags();
+          if (
+            this.focusedValues.length === 0 &&
+            this.multiple &&
+            this.selectInput?.value === ''
+          ) {
+            this.focusOnTagContainer();
+          }
+          break;
+        case 'ArrowLeft':
+          if (this.multiple && this.selectInput?.value === '') {
+            this.focusOnTagContainer();
+          }
+          break;
+        case 'Escape':
+          this.innerOnBlur(ev);
+          this.closeDropdown();
+          break;
+        case 'Tab':
+          this.focusedValues = [];
+          this.closeDropdown();
+          break;
+        case 'a':
+        case 'A':
+          if (
+            ((ev.ctrlKey || ev.metaKey) && !this.searchValue) ||
+            this.focusedValues.length > 0
+          ) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.tagContainer?.focus();
+            this.focusedValues = this.selectedOptionsState.reduce(
+              (arr, option, i) => (!option.disabled && arr.push(i), arr),
+              []
+            );
+          }
+          break;
+      }
     }
   }
 
@@ -367,6 +422,12 @@ export class Select {
     }
   }
 
+  // Watcher to update selected options state on selectedOptions prop update
+  @Watch('selectedOptions')
+  onSelectedOptionsChange(newValue) {
+    this.setSelectedOptions(newValue);
+  }
+
   @Method()
   async getSelectedItem(): Promise<any> {
     return this.fwListOptions.getSelectedOptions();
@@ -391,40 +452,71 @@ export class Select {
   }
 
   tagContainerKeyDown = (ev) => {
-    switch (ev.key) {
-      case 'Escape':
-        this.innerOnBlur(ev);
-        this.closeDropdown();
-        break;
-      case 'ArrowLeft':
-        this.tagArrowKeyCounter--;
-        if (this.tagArrowKeyCounter >= 0) {
-          this.focusOnTag(this.tagArrowKeyCounter);
-        } else {
-          this.tagArrowKeyCounter = 0;
-        }
-        ev.stopImmediatePropagation();
-        break;
-      case 'ArrowRight':
-        this.tagArrowKeyCounter++;
-        if (this.tagArrowKeyCounter >= this.value.length) {
-          this.selectInput.focus();
-        } else {
-          this.focusOnTag(this.tagArrowKeyCounter);
-        }
-        ev.stopImmediatePropagation();
-        break;
+    if (this.changeEmittable()) {
+      switch (ev.key) {
+        case 'Escape':
+          this.innerOnBlur(ev);
+          this.closeDropdown();
+          break;
+        case 'Delete':
+        case 'Backspace':
+          this.deleteFocusedTags();
+          break;
+        case 'ArrowLeft':
+          if (this.tagArrowKeyCounter - 1 >= 0) {
+            // should not focus disabled tag
+            if (
+              !this.selectedOptionsState[this.tagArrowKeyCounter - 1].disabled
+            ) {
+              this.tagArrowKeyCounter--;
+              this.focusOnTag(this.tagArrowKeyCounter);
+            }
+          } else {
+            this.tagArrowKeyCounter = 0;
+          }
+          ev.stopImmediatePropagation();
+          break;
+        case 'ArrowRight':
+          this.tagArrowKeyCounter++;
+          if (this.tagArrowKeyCounter >= this.value.length) {
+            this.selectInput?.focus();
+          } else {
+            this.focusOnTag(this.tagArrowKeyCounter);
+          }
+          ev.stopImmediatePropagation();
+          break;
+      }
     }
   };
 
+  deleteFocusedTags() {
+    if (this.focusedValues.length > 0) {
+      // delete focused values
+      this.setSelectedOptions(
+        this.selectedOptionsState.filter(
+          (_, index) => !this.focusedValues.includes(index)
+        )
+      );
+      // reset focused values
+      this.focusedValues = [];
+    }
+  }
+
   focusOnTagContainer() {
-    this.tagRefs = [...this.tagContainer.getElementsByTagName('fw-tag')];
-    this.tagArrowKeyCounter = this.value.length - 1;
-    this.focusOnTag(this.tagArrowKeyCounter);
+    if (
+      Array.isArray(this.value) &&
+      !this.selectedOptionsState[this.value?.length - 1].disabled
+    ) {
+      this.tagArrowKeyCounter = this.value?.length - 1;
+      this.focusOnTag(this.tagArrowKeyCounter);
+    }
   }
 
   focusOnTag(index) {
-    this.tagRefs[index]?.setFocus();
+    if (!this.selectedOptionsState[index].disabled) {
+      this.focusedValues = [index];
+      this.tagContainer.focus();
+    }
   }
 
   clearInput() {
@@ -432,7 +524,10 @@ export class Select {
       this.renderInput();
       return;
     }
-    this.selectInput.value = '';
+    this.searchValue = '';
+    if (this.selectInput) {
+      this.selectInput.value = '';
+    }
   }
 
   isValueEqual(value, option) {
@@ -446,32 +541,124 @@ export class Select {
   }
 
   onInput() {
-    this.searchValue = this.selectInput.value;
-    if (this.selectInput.value) {
-      this.variant !== 'mail' && this.openDropdown();
-    } else {
-      // Clear selected value in case of single select.
-      this.multiple || this.setSelectedValues('');
-      this.variant === 'mail' && this.closeDropdown();
+    if (this.changeEmittable()) {
+      this.searchValue = this.selectInput?.value;
+      if (this.selectInput?.value) {
+        this.variant !== 'mail' && this.openDropdown();
+      } else {
+        // Clear selected value in case of single select.
+        this.multiple || this.setSelectedValues('');
+        this.variant === 'mail' && this.closeDropdown();
+      }
+      this.focusedValues = [];
+    }
+  }
+
+  onClickTag(e, index) {
+    if (this.changeEmittable()) {
+      e.stopPropagation();
+      this.tagContainer.focus();
+      if (!this.selectedOptionsState[index].disabled) {
+        const focusedIndex = this.focusedValues.indexOf(index);
+        if (focusedIndex === -1) {
+          if (e.ctrlKey || e.metaKey) {
+            // Add indices to focusedValues if ctrl or cmd key is held down
+            this.focusedValues = [...this.focusedValues, index];
+          } else if (e.shiftKey && this.focusedValues.length > 0) {
+            // Select range of indices to be focused if shift key is held down
+            const startIndex =
+              this.focusedValues[this.focusedValues.length - 1];
+            const endIndex = index > startIndex ? index + 1 : index - 1;
+            this.focusedValues = uniq([
+              ...this.focusedValues,
+              ...range(startIndex, endIndex),
+            ]);
+          } else {
+            // Clicking on a tag without ctrl/cmd/shift key held down should focus a single index
+            this.focusedValues = [index];
+          }
+        } else if (e.ctrlKey || e.metaKey) {
+          // Remove index from focusedValues if already present and ctrl or cmd key is held down
+          this.focusedValues = this.focusedValues.filter(
+            (_, index) => index !== focusedIndex
+          );
+        } else if (!e.shiftKey) {
+          // Highlight current index alone if ctrl/cmd/shift key is not held down
+          this.focusedValues = [index];
+        }
+      }
     }
   }
 
   renderTags() {
     if (this.multiple && Array.isArray(this.value)) {
-      return this.selectedOptionsState.map((option) => {
+      return this.selectedOptionsState.map((option, index) => {
         if (this.isValueEqual(this.value, option)) {
+          const optionState =
+            option.error || (this.variant === 'mail' && index >= this.max)
+              ? 'error'
+              : 'normal';
+          const className =
+            this.disabled || option.disabled
+              ? 'tag-disabled'
+              : !this.readonly
+              ? 'tag-clickable'
+              : '';
+          const displayAttributes =
+            this.variant === 'mail'
+              ? {
+                  text: option.value,
+                  showEllipsisOnOverflow: true,
+                  class: className + ' bold-tag',
+                }
+              : {
+                  text: option.text,
+                  subText: option.subText,
+                };
           return (
             <fw-tag
+              index={index}
+              class={className}
+              state={optionState}
               variant={this.tagVariant}
               graphicsProps={option.graphicsProps}
-              text={option.text}
-              disabled={option.disabled}
+              disabled={this.disabled || this.readonly || option.disabled}
               value={option.value}
               focusable={false}
+              closable={!this.disabled && !this.readonly && !option.disabled}
+              isFocused={this.focusedValues.includes(index)}
+              onClick={(e) => this.onClickTag(e, index)}
+              {...displayAttributes}
             />
           );
         }
       });
+    }
+  }
+
+  renderButtonValue() {
+    if (this.tagVariant === 'avatar' && this.selectedOptionsState[0]?.value) {
+      return (
+        <fw-tag
+          class='display-tag'
+          state='transparent'
+          variant='avatar'
+          graphicsProps={this.selectedOptionsState[0]?.graphicsProps}
+          text={this.selectedOptionsState[0]?.text}
+          subText={
+            this.selectedOptionsState[0]?.subText
+              ? `<${this.selectedOptionsState[0]?.subText}>`
+              : ''
+          }
+          disabled={this.selectedOptionsState[0]?.disabled}
+          value={this.selectedOptionsState[0]?.value}
+          focusable={false}
+          closable={false}
+          showEllipsisOnOverflow
+        />
+      );
+    } else {
+      return this.value;
     }
   }
 
@@ -487,6 +674,15 @@ export class Select {
       if (this.selectInput) {
         this.selectInput.value = '';
       }
+    }
+  }
+
+  onClickOutside(e) {
+    if (
+      !e.composedPath().includes(this.host) &&
+      this.focusedValues.length > 0
+    ) {
+      this.focusedValues = [];
     }
   }
 
@@ -568,15 +764,18 @@ export class Select {
 
     //Get id
     this.hostId = this.host.id || '';
+
+    // Add event listener to track clicks outside the element to blur selected tags
+    document.addEventListener('mouseup', this.onClickOutside.bind(this));
   }
 
   componentDidLoad() {
     this.renderInput();
-    this.didInit = true;
   }
 
   disconnectedCallback() {
     this.host.removeEventListener('focus', this.setFocus);
+    document.removeEventListener('mouseup', this.onClickOutside.bind(this));
   }
 
   @Watch('isExpanded')
@@ -602,10 +801,54 @@ export class Select {
     else if (this.state === 'warning') return `warning-${this.name}`;
     return null;
   }
+
+  onPaste(e) {
+    // Allow paste only if isCreatable is true
+    if (this.creatableProps?.isCreatable) {
+      // Get pasted data via clipboard API
+      const clipboardData = e?.clipboardData || window['clipboardData'];
+      const pastedData = clipboardData?.getData('Text');
+      if (pastedData.includes('\n') || pastedData.includes(',')) {
+        // Stop data actually being pasted into input
+        e.stopPropagation();
+        e.preventDefault();
+        // Split strings either by new line or comma
+        const values = pastedData.split(/[\n,]/);
+        const valuesToBeInput = [];
+        values.forEach((value) => {
+          const sanitisedValue = value.trim();
+          // Check value presence
+          if (sanitisedValue) {
+            valuesToBeInput.push({
+              text: sanitisedValue,
+              value: sanitisedValue,
+              error:
+                typeof this.creatableProps?.validateNewOption === 'function'
+                  ? !this.creatableProps?.validateNewOption(sanitisedValue)
+                  : false,
+            });
+          }
+        });
+        // Sets the selected options with the custom data
+        if (valuesToBeInput.length > 0) {
+          this.setSelectedOptions([
+            ...this.selectedOptionsState,
+            ...valuesToBeInput,
+          ]);
+        }
+      }
+    }
+  }
+
   render() {
     const { host, name, value } = this;
 
     renderHiddenField(host, name, value);
+
+    const listAttributes = {
+      ...this.creatableProps,
+      ...(this.variant === 'mail' ? {} : { max: this.max }),
+    };
 
     return (
       <FieldControl
@@ -633,7 +876,10 @@ export class Select {
           {/* NOTE:: aria-controls is added to div based on ARIA 1.0 but from ARIA 1.1 version this should be
         moved to the input REF- https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html */}
           <div
-            class={{ 'select-container': true, [this.state]: true }}
+            class={{
+              'select-container': true,
+              [this.state]: true,
+            }}
             role='combobox'
             aria-controls={`${this.hostId}-listbox`}
             aria-haspopup='listbox'
@@ -641,12 +887,14 @@ export class Select {
             aria-owns={`${this.hostId}-listbox`}
           >
             <fw-popover
+              id='select-popover'
               distance='8'
               trigger='manual'
               ref={(popover) => (this.popover = popover)}
               same-width={this.sameWidth}
               placement={this.optionsPlacement}
               boundary={this.boundary}
+              hoist={this.hoist}
             >
               <div
                 slot='popover-trigger'
@@ -654,24 +902,34 @@ export class Select {
                   'input-container': this.variant !== 'button',
                   [this.state]: true,
                   'select-disabled': this.disabled,
+                  'button-container': this.variant === 'button',
+                  'readonly-field': this.readonly,
                 }}
                 onClick={() => this.innerOnClick()}
                 onKeyDown={handleKeyDown(this.innerOnClick, true)}
               >
                 {this.variant === 'button' ? (
-                  <fw-button
-                    style={{ '--fw-button-label-vertical-padding': '7px' }}
-                    show-caret-icon
-                    id={`${this.hostId}-btn`}
-                    color='secondary'
-                    class={
-                      this.host.classList.value.includes('first')
-                        ? 'fw-button-group__button--first'
-                        : 'fw-button-group__button--last'
-                    }
-                  >
-                    {this.value}
-                  </fw-button>
+                  this.readonly ? (
+                    this.renderButtonValue()
+                  ) : (
+                    <fw-button
+                      style={{ '--fw-button-label-vertical-padding': '7px' }}
+                      show-caret-icon
+                      id={`${this.hostId}-btn`}
+                      color={
+                        this.tagVariant === 'avatar' ? 'text' : 'secondary'
+                      }
+                      class={
+                        this.host.classList.value.includes('first')
+                          ? 'fw-button-group__button--first'
+                          : 'fw-button-group__button--last'
+                      }
+                      aria-disabled={this.disabled}
+                      disabled={this.disabled}
+                    >
+                      {this.renderButtonValue()}
+                    </fw-button>
+                  )
                 ) : (
                   <Fragment>
                     <div class='input-container-inner'>
@@ -683,6 +941,7 @@ export class Select {
                             (this.tagContainer = tagContainer)
                           }
                           onKeyDown={this.tagContainerKeyDown}
+                          tabIndex={-1}
                         >
                           {this.renderTags()}
                         </div>
@@ -710,12 +969,15 @@ export class Select {
                         onBlur={(e) => this.innerOnBlur(e)}
                         aria-invalid={this.state === 'error'}
                         aria-describedby={`hint-${this.name} error-${this.name}`}
+                        onPaste={(e) => this.onPaste(e)}
+                        aria-disabled={this.disabled}
                       />
                     </div>
                     {this.isLoading ? (
                       <fw-spinner size='small'></fw-spinner>
                     ) : (
-                      this.caret && (
+                      this.caret &&
+                      !this.readonly && (
                         <span
                           class={{
                             'dropdown-status-icon': true,
@@ -754,11 +1016,11 @@ export class Select {
                 options={this.dataSource}
                 value={this.value}
                 multiple={this.multiple}
-                max={this.max}
                 disabled={this.disabled}
                 checkbox={this.checkbox}
                 allowDeselect={this.allowDeselect}
                 slot='popover-content'
+                {...listAttributes}
               ></fw-list-options>
             </fw-popover>
           </div>

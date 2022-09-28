@@ -317,9 +317,6 @@ graph TD;
   fw-select-option --> fw-icon
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-checkbox --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
@@ -332,8 +329,10 @@ graph TD;
   fw-select --> fw-spinner
   fw-select --> fw-icon
   fw-select --> fw-list-options
+  fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
+  fw-tooltip --> fw-popover
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
   fw-form-control --> fw-datepicker

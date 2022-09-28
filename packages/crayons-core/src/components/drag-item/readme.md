@@ -34,9 +34,6 @@ fw-drag-item can be dragged via clicking and holding the mouse on the drag-icon.
 ```mermaid
 graph TD;
   fw-drag-item --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   style fw-drag-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

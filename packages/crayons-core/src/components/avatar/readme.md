@@ -30,12 +30,22 @@ Avatar of different sizes
 </section>
 ```
 
-Avatar with Light and Dark mode
+Avatar with different modes
 
 ```html live
 <section>
   <fw-avatar mode="dark" initials="PT"></fw-avatar>
   <fw-avatar mode="light" initials="PT"></fw-avatar>
+  <fw-avatar mode="error" initials="PT"></fw-avatar>
+</section>
+```
+
+Avatar with default avatar icons 
+
+```html live
+<section>
+  <fw-avatar size="xsmall"></fw-avatar>
+  <fw-avatar mode="error" size="xsmall"></fw-avatar>
 </section>
 ```
 
@@ -56,6 +66,15 @@ Avatar with Light and Dark mode
 <fw-avatar size="medium" image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"> </fw-avatar>
 <fw-avatar size="small" image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"> </fw-avatar>
 </section>
+<section>
+  <fw-avatar mode="dark" initials="PT"></fw-avatar>
+  <fw-avatar mode="light" initials="PT"></fw-avatar>
+  <fw-avatar mode="error" initials="PT"></fw-avatar>
+</section>
+<section>
+  <fw-avatar size="xsmall"></fw-avatar>
+  <fw-avatar mode="error" size="xsmall"></fw-avatar>
+</section>
 ```
 </code-block>
 
@@ -70,6 +89,10 @@ function App() {
 
     <FwAvatar  mode="dark" initials="PT" ></FwAvatar>
     <FwAvatar  mode="light" initials="PT" ></FwAvatar>
+    <FwAvatar  mode="error" initials="PT" ></FwAvatar>
+
+    <FwAvatar size="xsmall"></FwAvatar>
+    <FwAvatar  mode="error" size="xsmall"></FwAvatar>
 
     <FwAvatar  size="medium" image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300 q=80"></FwAvatar>
     <FwAvatar  size="small"  image="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"></FwAvatar>
@@ -89,7 +112,7 @@ function App() {
 | `alt`      | `alt`      |             | `string`                                                                           | `undefined` |
 | `image`    | `image`    |             | `string`                                                                           | `undefined` |
 | `initials` | `initials` |             | `string`                                                                           | `undefined` |
-| `mode`     | `mode`     |             | `"dark" \| "light"`                                                                | `'dark'`    |
+| `mode`     | `mode`     |             | `"dark" \| "error" \| "light"`                                                     | `'dark'`    |
 | `name`     | `name`     |             | `string`                                                                           | `''`        |
 | `shape`    | `shape`    |             | `"circle" \| "rounded" \| "square"`                                                | `'circle'`  |
 | `size`     | `size`     |             | `"large" \| "medium" \| "small" \| "xlarge" \| "xsmall" \| "xxlarge" \| "xxsmall"` | `'large'`   |

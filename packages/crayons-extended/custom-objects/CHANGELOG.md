@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.1.0-beta.7...@freshworks/crayons-custom-objects@1.1.0-beta.8) (2022-09-09)
+
+### Bug Fixes
+
+- **crayons:** i18n mapping changes and icon circular deps fix and enable autoDefineCustomElements ([#679](https://github.com/freshworks/crayons/issues/679)) ([e66ed1d](https://github.com/freshworks/crayons/commit/e66ed1d432996f4f78eeccd23e302fc619df2569))
+
 ## [1.1.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.1.0-beta.2...@freshworks/crayons-custom-objects@1.1.0-beta.3) (2022-09-01)
 
 ### Bug Fixes

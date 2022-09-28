@@ -1550,7 +1550,6 @@ export class Datepicker {
                     <span class='mdpchc-month'>
                       <fw-select
                         class='first single-month-selector'
-                        readonly={true}
                         value={this.shortMonthNames[this.month]}
                         same-width='false'
                         options-placement='bottom-start'
@@ -1569,7 +1568,6 @@ export class Datepicker {
                     <span class='mdpchc-year'>
                       <fw-select
                         class='last single-year-selector'
-                        readonly={true}
                         value={this.year}
                         same-width='false'
                         options-placement='bottom-start'
@@ -1608,7 +1606,6 @@ export class Datepicker {
                     <span class='mdpchc-month'>
                       <fw-select
                         class='first from-month-selector'
-                        readonly={true}
                         value={this.shortMonthNames[this.month]}
                         same-width='false'
                         variant='button'
@@ -1626,7 +1623,6 @@ export class Datepicker {
                     <span class='mdpchc-year'>
                       <fw-select
                         class='last from-year-selector'
-                        readonly={true}
                         value={this.year}
                         same-width='false'
                         options-placement='bottom-start'
@@ -1642,7 +1638,6 @@ export class Datepicker {
                     <span class='mdpchc-month'>
                       <fw-select
                         class='first to-month-selector'
-                        readonly={true}
                         same-width='false'
                         variant='button'
                         value={this.shortMonthNames[this.toMonth]}
@@ -1660,7 +1655,6 @@ export class Datepicker {
                     <span class='mdpchc-year'>
                       <fw-select
                         class='last to-year-selector'
-                        readonly={true}
                         value={this.toYear}
                         same-width='false'
                         options-placement='bottom-start'

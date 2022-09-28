@@ -141,6 +141,13 @@ function App() {
 Row value for this column variant should be an object with the following properties:
 1. text - Text to be displayed in the cell
 2. href - url to point to when the text is clicked
+3. target - An optional argument specifying where to open the linked document. The possible values are:
+   - \_blank - Opens the linked document in a new window or tab.
+   - \_self - Opens the linked document in the same frame as it was clicked (this is default).
+   - \_parent - Opens the linked document in the parent frame.
+   - \_top - Opens the linked document in the full body of the window.
+   - framename - Opens the linked document in the named iframe.
+
 
 ```html live
   <fw-data-table id="datatable-2" label="Data table 2">
@@ -160,7 +167,7 @@ Row value for this column variant should be an object with the following propert
       }],
       rows: [{
         "id": "001",
-        "search": { "text": "Google", "href": "https://www.google.com" },
+        "search": { "text": "Google", "href": "https://www.google.com", "target": "_blank"},
         "rank": 1
       }, {
         "id": "002",
@@ -200,7 +207,7 @@ Row value for this column variant should be an object with the following propert
     }],
     rows: [{
       "id": "001",
-      "search": { "text": "Google", "href": "https://www.google.com" },
+      "search": { "text": "Google", "href": "https://www.google.com", "target": "_blank"},
       "rank": 1
     }, {
       "id": "002",
@@ -240,7 +247,7 @@ function App() {
     }],
     rows: [{
       "id": "001",
-      "search": { "text": "Google", "href": "https://www.google.com" },
+      "search": { "text": "Google", "href": "https://www.google.com", "target": "_blank"},
       "rank": 1
     }, {
       "id": "002",
@@ -2006,9 +2013,6 @@ graph TD;
   fw-data-table --> fw-skeleton
   fw-custom-cell-user --> fw-avatar
   fw-custom-cell-icon --> fw-icon
-  fw-icon --> fw-toast-message
-  fw-toast-message --> fw-spinner
-  fw-toast-message --> fw-icon
   fw-custom-cell-paragraph --> fw-tooltip
   fw-tooltip --> fw-popover
   fw-checkbox --> fw-icon
