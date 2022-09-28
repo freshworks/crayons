@@ -3,9 +3,8 @@
 ## What's new in v4
 
 - Date Time Picker Component.
-- Crayons Extended Library with Custom Objects.
-
-<br>
+- RTL Support.
+  <br>
 
 ## Migration Guide
 
