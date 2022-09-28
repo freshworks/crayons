@@ -15,12 +15,12 @@ To view the comprehensive list, check the breaking changes [guide](https://githu
 
 ---
 
-- [Datepicker](#datepicker)
+- [Timepicker](#timepicker)
 - [Tabs](#tabs)
 
-#### Datepicker
+#### Timepicker
 
-`fw-datepicker`: changed the default value of format from `hh:mm a` to `locale based format`. min and max time will be based on locale time format
+`fw-timepicker`: changed the default value of format from `hh:mm a` to `locale based format`. min and max time will be based on locale time format
 
 #### Tabs
 

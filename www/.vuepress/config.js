@@ -33,6 +33,7 @@ headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
 
 const getUtils = () =>
   [
+    'installation',
     'typography',
     'spacing',
     'border',

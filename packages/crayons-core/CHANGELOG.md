@@ -90,7 +90,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
-- **fw-datepicker:** changed the default value of format from `hh:mm a` to `locale based format`. `min` and `max` time will be based on locale time format
+- **fw-timepicker:** changed the default value of format from `hh:mm a` to `locale based format`. `min` and `max` time will be based on locale time format
 
 ## [3.6.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.6.0-beta.1...@freshworks/crayons@3.6.0-beta.2) (2022-08-19)
 
