@@ -44,9 +44,9 @@ This is a comprehensive list of the breaking changes introduced in the major ver
 
 ### Components
 
-#### Datepicker
+#### Timepicker
 
-`fw-datepicker`: changed the default value of format from `hh:mm a` to `locale based format`. min and max time will be based on locale time format
+`fw-timepicker`: changed the default value of format from `hh:mm a` to `locale based format`. min and max time will be based on locale time format
 
 #### Tabs
 
