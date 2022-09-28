@@ -3,7 +3,6 @@
 ## What's new in v4
 
 - Date Time Picker Component.
-- Crayons Extended Library with Custom Objects.
 
 <br>
 
@@ -15,12 +14,12 @@ To view the comprehensive list, check the breaking changes [guide](https://githu
 
 ---
 
-- [Timepicker](#timepicker)
+- [Datepicker](#datepicker)
 - [Tabs](#tabs)
 
-#### Timepicker
+#### Datepicker
 
-`fw-timepicker`: changed the default value of format from `hh:mm a` to `locale based format`. min and max time will be based on locale time format
+`fw-datepicker`: changed the default value of format from `hh:mm a` to `locale based format`. min and max time will be based on locale time format
 
 #### Tabs
 

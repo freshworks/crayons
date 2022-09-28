@@ -81,12 +81,6 @@ module.exports = {
         children: coreComponents,
       },
       {
-        title: 'Custom Objects',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: [...customObjectsComponents],
-      },
-      {
         title: 'CSS Utils',
         collapsable: false,
         sidebarDepth: 1,
