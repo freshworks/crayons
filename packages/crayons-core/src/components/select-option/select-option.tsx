@@ -69,6 +69,12 @@ export class SelectOption {
    * Place a checkbox.
    */
   @Prop() checkbox = false;
+
+  /**
+   * Hide tick mark icon
+   */
+  @Prop() hideTick = false;
+
   /**
    * Whether clicking on the already selected option disables it.
    */
@@ -131,7 +137,7 @@ export class SelectOption {
   renderInnerHtml() {
     const description = this.createDescription();
     const checkbox = this.checkbox ? this.createCheckbox() : '';
-    const selectedIconContainer = (
+    const selectedIconContainer = !this.hideTick ? (
       <span class='selected-icon'>
         {this.selected && (
           <fw-icon
@@ -142,7 +148,7 @@ export class SelectOption {
           ></fw-icon>
         )}
       </span>
-    );
+    ) : null;
     switch (this.variant) {
       case 'standard':
         return (
@@ -203,7 +209,11 @@ export class SelectOption {
   }
 
   createCheckbox() {
-    return <fw-checkbox checked={this.selected}></fw-checkbox>;
+    return (
+      <div class='checkbox-wrapper' key={`${this.host.id}-${this.selected}`}>
+        <fw-checkbox checked={this.selected}></fw-checkbox>
+      </div>
+    );
   }
 
   createAvatar() {

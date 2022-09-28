@@ -50,6 +50,12 @@ function App() {
   text="Checkbox Variant"
   sub-text="This is multiline checkbox element"
 ></fw-select-option>
+<fw-select-option
+  checkbox
+  hide-tick
+  text="Checkbox Variant Without Tick Mark"
+  sub-text="This is multiline checkbox element"
+></fw-select-option>
 ```
 
 #### Usage - Variants

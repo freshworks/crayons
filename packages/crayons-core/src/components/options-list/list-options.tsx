@@ -91,6 +91,10 @@ export class ListOptions {
    */
   @Prop() checkbox = false;
   /**
+   * hide tick mark icon on select option
+   */
+  @Prop() hideTick = false;
+  /**
    * Default option to be shown if the option doesn't match the filterText.
    */
   //@i18n({ keyName: 'search.noItemsFound' })
@@ -435,6 +439,7 @@ export class ListOptions {
         ...option,
         ...{
           checkbox: option.checkbox || this.checkbox,
+          hideTick: option.hideTick || this.hideTick,
           variant: option.variant || this.variant,
           selected: isSelected,
           disabled: isDisabled,
