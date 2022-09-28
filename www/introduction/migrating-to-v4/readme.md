@@ -3,8 +3,8 @@
 ## What's new in v4
 
 - Date Time Picker Component.
-
-<br>
+- RTL Support.
+  <br>
 
 ## Migration Guide
 
