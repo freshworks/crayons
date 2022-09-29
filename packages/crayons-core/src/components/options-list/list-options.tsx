@@ -18,7 +18,7 @@ import {
   isEqual,
 } from '../../utils';
 import { DropdownVariant } from '../../utils/types';
-import { i18n } from '../../global/Translation';
+import { TranslationController } from '../../global/Translation';
 @Component({
   tag: 'fw-list-options',
   styleUrl: 'list-options.scss',
@@ -93,7 +93,7 @@ export class ListOptions {
   /**
    * Default option to be shown if the option doesn't match the filterText.
    */
-  @i18n({ keyName: 'search.noItemsFound' })
+  //@i18n({ keyName: 'search.noItemsFound' })
   @Prop({ mutable: true })
   notFoundText = '';
   /**
@@ -105,14 +105,14 @@ export class ListOptions {
   /**
    * Placeholder to placed on the search text box.
    */
-  @i18n({ keyName: 'search.search' })
+  //@i18n({ keyName: 'search.search' })
   @Prop({ mutable: true })
   searchText = '';
 
   /**
    * Text to be displayed when there is no data available in the select.
    */
-  @i18n({ keyName: 'search.noDataAvailable' })
+  // @i18n({ keyName: 'search.noDataAvailable' })
   @Prop({ mutable: true })
   noDataText = '';
   /**
@@ -346,7 +346,14 @@ export class ListOptions {
             options?.length > 0
               ? this.serializeData(options)
               : !this.isCreatable
-              ? [{ text: this.notFoundText, disabled: true }]
+              ? [
+                  {
+                    text:
+                      this.notFoundText ||
+                      TranslationController.t('search.noItemsFound'),
+                    disabled: true,
+                  },
+                ]
               : [];
           if (
             this.isCreatable &&
@@ -381,7 +388,14 @@ export class ListOptions {
         this.filteredOptions =
           this.selectOptions?.length > 0
             ? this.selectOptions
-            : [{ text: this.noDataText, disabled: true }];
+            : [
+                {
+                  text:
+                    this.noDataText ||
+                    TranslationController.t('search.noDataAvailable'),
+                  disabled: true,
+                },
+              ];
         this.isLoading = false;
         this.fwLoading.emit({ isLoading: this.isLoading });
       }
@@ -450,7 +464,14 @@ export class ListOptions {
     if (dataSource.length > 0) {
       this.selectOptions = this.serializeData(dataSource);
     } else {
-      this.selectOptions = [{ text: this.noDataText, disabled: true }];
+      this.selectOptions = [
+        {
+          text:
+            this.noDataText ||
+            TranslationController.t('search.noDataAvailable'),
+          disabled: true,
+        },
+      ];
     }
     this.filteredOptions = this.selectOptions;
   }
@@ -480,7 +501,9 @@ export class ListOptions {
       <fw-input
         class='input-search'
         ref={(searchInput) => (this.searchInput = searchInput)}
-        placeholder={this.searchText}
+        placeholder={
+          this.searchText || TranslationController.t('search.search')
+        }
         onInput={() => this.handleSearchWithDebounce(this.searchInput.value)}
       ></fw-input>
     );

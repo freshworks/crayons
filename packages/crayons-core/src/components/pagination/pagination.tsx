@@ -8,7 +8,7 @@ import {
   Method,
   Watch,
 } from '@stencil/core';
-import { i18n, TranslationController } from '../../global/Translation';
+import { TranslationController } from '../../global/Translation';
 @Component({
   tag: 'fw-pagination',
   styleUrl: 'pagination.scss',
@@ -34,21 +34,21 @@ export class Pagination {
   /**
    * Aria Label to be used for the button group.
    */
-  @i18n({ keyName: 'pagination.buttonGroupLabel' })
+  // @i18n({ keyName: 'pagination.buttonGroupLabel' })
   @Prop({ mutable: true })
   buttonGroupLabel = '';
 
   /**
    * Aria Label to be used for previous button.
    */
-  @i18n({ keyName: 'pagination.previousButtonLabel' })
+  // @i18n({ keyName: 'pagination.previousButtonLabel' })
   @Prop({ mutable: true })
   previousButtonLabel = '';
 
   /**
    * Aria Label to be used for next button.
    */
-  @i18n({ keyName: 'pagination.nextButtonLabel' })
+  // @i18n({ keyName: 'pagination.nextButtonLabel' })
   @Prop({ mutable: true })
   nextButtonLabel = '';
 
@@ -136,12 +136,20 @@ export class Pagination {
           {/*  <span class='record'>{this.start}</span> to{' '}
           <span class='record'>{this.end}</span> of {this.total} */}
         </div>
-        <fw-button-group label={this.buttonGroupLabel}>
+        <fw-button-group
+          label={
+            this.buttonGroupLabel ||
+            TranslationController.t('pagination.buttonGroupLabel')
+          }
+        >
           <fw-button
             disabled={this.start === 1 || this.isLoading}
             color='secondary'
             size='icon'
-            aria-label={this.previousButtonLabel}
+            aria-label={
+              this.previousButtonLabel ||
+              TranslationController.t('pagination.previousButtonLabel')
+            }
             onFwClick={() => this.goToPrevious()}
           >
             <fw-icon name='chevron-left'></fw-icon>
@@ -150,7 +158,10 @@ export class Pagination {
             disabled={this.end === this.total || this.isLoading}
             color='secondary'
             size='icon'
-            aria-label={this.nextButtonLabel}
+            aria-label={
+              this.nextButtonLabel ||
+              TranslationController.t('pagination.nextButtonLabel')
+            }
             onFwClick={() => this.goToNext()}
           >
             <fw-icon name='chevron-right'></fw-icon>

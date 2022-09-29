@@ -1,6 +1,6 @@
 import { Component, Element, Prop, h } from '@stencil/core';
 import { hasSlot } from '../../utils';
-import { i18n } from '../../global/Translation';
+import { TranslationController } from '../../global/Translation';
 
 @Component({
   tag: 'fw-modal-footer',
@@ -13,14 +13,14 @@ export class ModalFooter {
   /**
    * The text for the submit button
    */
-  @i18n({ keyName: 'modal.ok' })
+  // @i18n({ keyName: 'modal.ok' })
   @Prop({ mutable: true })
   submitText = '';
 
   /**
    * The text for the cancel button
    */
-  @i18n({ keyName: 'modal.cancel' })
+  // @i18n({ keyName: 'modal.cancel' })
   @Prop({ mutable: true })
   cancelText = '';
 
@@ -74,14 +74,14 @@ export class ModalFooter {
           ) : (
             <span>
               <fw-button color='secondary' onClick={() => this.close()}>
-                {this.cancelText}
+                {this.cancelText || TranslationController.t('modal.cancel')}
               </fw-button>
               <fw-button
                 color={this.submitColor}
                 disabled={this.submitDisabled}
                 onClick={() => this.submit()}
               >
-                {this.submitText}
+                {this.submitText || TranslationController.t('modal.ok')}
               </fw-button>
             </span>
           )}
