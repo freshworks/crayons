@@ -33,6 +33,7 @@ headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
 
 const getUtils = () =>
   [
+    'installation',
     'typography',
     'spacing',
     'border',
@@ -78,12 +79,6 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 1,
         children: coreComponents,
-      },
-      {
-        title: 'Custom Objects',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: [...customObjectsComponents],
       },
       {
         title: 'CSS Utils',

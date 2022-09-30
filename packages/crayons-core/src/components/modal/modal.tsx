@@ -10,7 +10,7 @@ import {
   h,
 } from '@stencil/core';
 import { getFocusableChildren } from '../../utils';
-import { i18n } from '../../global/Translation';
+import { TranslationController } from '../../global/Translation';
 import { addRTL } from '../../utils';
 
 @Component({
@@ -67,14 +67,14 @@ export class Modal {
   /**
    * The text for the submit button
    */
-  @i18n({ keyName: 'modal.ok' })
+  //@i18n({ keyName: 'modal.ok' })
   @Prop({ mutable: true })
   submitText = '';
 
   /**
    * The text for the cancel button
    */
-  @i18n({ keyName: 'modal.cancel' })
+  //@i18n({ keyName: 'modal.cancel' })
   @Prop({ mutable: true })
   cancelText = '';
 
@@ -444,8 +444,8 @@ export class Modal {
   renderFooter(): JSX.Element {
     return (
       <fw-modal-footer
-        submitText={this.submitText}
-        cancelText={this.cancelText}
+        submitText={this.submitText || TranslationController.t('modal.ok')}
+        cancelText={this.cancelText || TranslationController.t('modal.cancel')}
         submitDisabled={this.submitDisabled}
         submitColor={this.submitColor}
         submit={this.submit.bind(this)}

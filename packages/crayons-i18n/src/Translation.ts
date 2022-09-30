@@ -333,49 +333,49 @@ export class TranslationController {
   }
 
   /** Decorator to handle i18n support */
-  i18n({ keyName = '' } = {}): any {
-    return (proto: ComponentInterface, propName: string) => {
-      (BUILD as any).cmpWillLoad = true;
+  // i18n({ keyName = '' } = {}): any {
+  //   return (proto: ComponentInterface, propName: string) => {
+  //     (BUILD as any).cmpWillLoad = true;
 
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const that = this;
+  //     // eslint-disable-next-line @typescript-eslint/no-this-alias
+  //     const that = this;
 
-      const { componentWillLoad } = proto;
+  //     const { componentWillLoad } = proto;
 
-      proto.componentWillLoad = async function () {
-        if (!that.state.globalStrings) {
-          await that.fetchTranslations(that.state.lang || getBrowserLang());
-        }
-        // if (!i18next?.services?.pluralResolver) {
-        //   await i18next.init();
-        // }
+  //     proto.componentWillLoad = async function () {
+  //       if (!that.state.globalStrings) {
+  //         await that.fetchTranslations(that.state.lang || getBrowserLang());
+  //       }
+  //       // if (!i18next?.services?.pluralResolver) {
+  //       //   await i18next.init();
+  //       // }
 
-        let isDefaultValueUsed = true;
-        if (!this[propName]) {
-          this[propName] = get({
-            key: keyName,
-            values: null,
-            obj: that.state.globalStrings,
-            lang: that.state.lang,
-            context: null,
-          });
-          isDefaultValueUsed = false;
-        }
+  //       let isDefaultValueUsed = true;
+  //       if (!this[propName]) {
+  //         this[propName] = get({
+  //           key: keyName,
+  //           values: null,
+  //           obj: that.state.globalStrings,
+  //           lang: that.state.lang,
+  //           context: null,
+  //         });
+  //         isDefaultValueUsed = false;
+  //       }
 
-        that.onChange('globalStrings', async () => {
-          if (!isDefaultValueUsed) {
-            this[propName] = get({
-              key: keyName,
-              values: null,
-              obj: that.state.globalStrings,
-              lang: that.state.lang,
-              context: null,
-            });
-          }
-        });
+  //       that.onChange('globalStrings', async () => {
+  //         if (!isDefaultValueUsed) {
+  //           this[propName] = get({
+  //             key: keyName,
+  //             values: null,
+  //             obj: that.state.globalStrings,
+  //             lang: that.state.lang,
+  //             context: null,
+  //           });
+  //         }
+  //       });
 
-        return componentWillLoad && componentWillLoad.call(this);
-      };
-    };
-  }
+  //       return componentWillLoad && componentWillLoad.call(this);
+  //     };
+  //   };
+  // }
 }
