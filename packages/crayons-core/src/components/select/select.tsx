@@ -922,7 +922,9 @@ export class Select {
                       class={
                         this.host.classList.value.includes('first')
                           ? 'fw-button-group__button--first'
-                          : 'fw-button-group__button--last'
+                          : this.host.classList.value.includes('last')
+                          ? 'fw-button-group__button--last'
+                          : ''
                       }
                       aria-disabled={this.disabled}
                       disabled={this.disabled}
