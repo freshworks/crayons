@@ -19,7 +19,7 @@ fw-file-uploader can be used to upload files to a server.
 
   <script type="application/javascript">
     const fileUploader = document.querySelector('#file-uploader-1');
-    fileUploader.addEventListener('filesUploaded', (event) => {
+    fileUploader.addEventListener('fwFilesUploaded', (event) => {
       console.log(event);
     });
   </script>
@@ -46,7 +46,7 @@ fw-file-uploader can be used to upload files to a server.
 
 ```javascript
   const fileUploader = document.querySelector('#file-uploader-1');
-  fileUploader.addEventListener('filesUploaded', (event) => {
+  fileUploader.addEventListener('fwFilesUploaded', (event) => {
     console.log(event);
   });
 ```
