@@ -58,4 +58,4 @@ or
 </script>
 ``` 
 
- Follow the [guide](https://crayons.freshworks.com/v3/introduction/upgrading-to-v3/)
+ Follow the [guide](https://crayons.freshworks.com/v3/introduction/migrating-to-v3/)
