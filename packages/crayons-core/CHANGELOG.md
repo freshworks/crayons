@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.0.0-beta.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.11...@freshworks/crayons@4.0.0-beta.12) (2022-10-04)
-
+## [4.0.0-beta.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.11...@freshworks/crayons@4.0.0-beta.12) (2022-10-04)
 
 ### Bug Fixes
 
-* fix border of button variant ([149c4fb](https://github.com/freshworks/crayons/commit/149c4fb6ccddf3b2483e3245b49da5477ce52e29))
-
-
-
-
+- fix border of button variant ([149c4fb](https://github.com/freshworks/crayons/commit/149c4fb6ccddf3b2483e3245b49da5477ce52e29))
 
 ## [4.0.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.9...@freshworks/crayons@4.0.0-beta.10) (2022-09-27)
 
