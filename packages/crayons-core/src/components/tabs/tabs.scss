@@ -1,6 +1,7 @@
 /**
   @prop --fw-tabs-width: width of the tab container.
   @prop --fw-tabs-height: height of the tab container.
+  @prop --fw-tabs-border-block-end: bottom border style of tabs
   @prop --fw-tabs-margin-inline-start: Left margin if direction is left-to-right, and Right margin if direction is right-to-left for the tab items
   @prop --fw-tabs-margin-inline-end: Right margin if direction is left-to-right, and Left margin if direction is right-to-left for the tab items
   @prop --fw-tabs-padding-inline-start: Left padding if direction is left-to-right, and Right padding if direction is right-to-left for the tab items
@@ -20,7 +21,10 @@
     margin-inline-start: var(--fw-tabs-margin-start, 0);
     margin-inline-end: var(--fw-tabs-margin-end, 0);
     display: flex;
-    border-block-end: 1px solid $color-smoke-50;
+    border-block-end: var(
+      --fw-tabs-border-block-end,
+      1px solid $color-smoke-50
+    );
     overflow-x: auto;
     overflow-y: hidden;
 
