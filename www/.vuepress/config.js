@@ -110,10 +110,10 @@ module.exports = {
       },
       {
         text: `v${version?.split('.')[0]}.x`,
-        items: ['v4.x', 'v3.x', 'v2.x'].map((v) => ({
+        items: ['v4.x', 'v3.x', 'v2.x'].map((v, i) => ({
           text: v,
           link: `https://crayons.freshworks.com/${
-            v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
+            i !== 0 ? `${v?.split('.')[0]}/` : ''
           }`,
         })),
       },
