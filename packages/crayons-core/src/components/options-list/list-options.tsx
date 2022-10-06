@@ -168,11 +168,11 @@ export class ListOptions {
         selectedObj.variant = 'standard';
       }
       this.selectedOptionsState = this.multiple
-        ? [...this.selectedOptionsState, selectedObj]
+        ? [...(this.selectedOptionsState || []), selectedObj]
         : [selectedObj];
     } else {
       this.selectedOptionsState = this.multiple
-        ? this.selectedOptionsState.filter((option) => option.value !== value)
+        ? this.selectedOptionsState?.filter((option) => option.value !== value)
         : [];
     }
     this.isInternalValueChange = true;
@@ -238,7 +238,7 @@ export class ListOptions {
   @Method()
   async setSelectedValues(values: any): Promise<any> {
     if (this.options) {
-      this.selectedOptionsState = this.options.filter((option) =>
+      this.selectedOptionsState = this.options?.filter((option) =>
         this.isValueEqual(values, option)
       );
       this.isInternalValueChange = true;
@@ -275,7 +275,7 @@ export class ListOptions {
 
   @Watch('disabled')
   disabledWatcher(): void {
-    const options = this.options;
+    const options = this.options || [];
     // updating the object to retrigger
     this.options = [...options];
   }
@@ -297,8 +297,8 @@ export class ListOptions {
       if (!this.isInternalValueChange) {
         // source might change during dynamic select
         const source =
-          this.options.length > 0 ? this.options : this.selectedOptionsState;
-        this.selectedOptionsState = source.filter((option) =>
+          this.options?.length > 0 ? this.options : this.selectedOptionsState;
+        this.selectedOptionsState = source?.filter((option) =>
           this.isValueEqual(newValue, option)
         );
       }
@@ -412,7 +412,7 @@ export class ListOptions {
 
   setSelectedOptionsByValue(values) {
     if (this.options) {
-      this.selectedOptionsState = this.options.filter((option) =>
+      this.selectedOptionsState = this.options?.filter((option) =>
         this.isValueEqual(values, option)
       );
     } else {
@@ -425,7 +425,7 @@ export class ListOptions {
       const isSelected =
         this.isValueEqual(this.value, option) || option.selected;
       const isDisabled =
-        this.selectedOptionsState.find(
+        this.selectedOptionsState?.find(
           (selected) => selected.value === option.value
         )?.disabled ||
         option.disabled ||
@@ -461,7 +461,7 @@ export class ListOptions {
   }
 
   setDataSource(dataSource) {
-    if (dataSource.length > 0) {
+    if (dataSource?.length > 0) {
       this.selectOptions = this.serializeData(dataSource);
     } else {
       this.selectOptions = [
@@ -479,7 +479,7 @@ export class ListOptions {
   renderSelectOptions(options: Array<any>) {
     return options.map((option) => {
       const isDisabled =
-        this.selectedOptionsState.find(
+        this.selectedOptionsState?.find(
           (selected) => selected.value === option.value
         )?.disabled ||
         option.disabled ||
@@ -511,7 +511,7 @@ export class ListOptions {
 
   componentWillLoad() {
     this.validateValue(this.value);
-    if (this.selectedOptions.length > 0) {
+    if (this.selectedOptions?.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.multiple
         ? this.selectedOptionsState.map((option) => option.value)

@@ -300,7 +300,7 @@ export class Select {
       selectedItem.stopImmediatePropagation();
       selectedItem.stopPropagation();
       selectedItem.preventDefault();
-      if (this.selectedOptionsState.length > 0) {
+      if (this.selectedOptionsState?.length > 0) {
         this.fwChange.emit({
           name: this.name,
           value: this.value,
@@ -323,7 +323,7 @@ export class Select {
   @Listen('fwClosed')
   fwCloseHandler(ev) {
     this.setSelectedOptions(
-      this.selectedOptionsState.filter((_, index) => index !== ev.detail.index)
+      this.selectedOptionsState?.filter((_, index) => index !== ev.detail.index)
     );
     this.focusOnTagContainer();
   }
@@ -371,7 +371,7 @@ export class Select {
             ev.preventDefault();
             ev.stopPropagation();
             this.tagContainer?.focus();
-            this.focusedValues = this.selectedOptionsState.reduce(
+            this.focusedValues = this.selectedOptionsState?.reduce(
               (arr, option, i) => (!option.disabled && arr.push(i), arr),
               []
             );
@@ -405,14 +405,14 @@ export class Select {
     const selectedValues = newValue?.filter((option) => option.selected);
     // If selected key is available in options schema use it
     // Or check for the value
-    if (selectedValues.length > 0) {
+    if (selectedValues?.length > 0) {
       this.dataSource = newValue;
       this.selectedOptionsState = selectedValues;
       this.value = this.multiple
         ? this.selectedOptionsState.map((x) => x.value)
         : this.selectedOptionsState[0]?.value;
     } else if (this.valueExists()) {
-      this.dataSource = newValue.map((option) => {
+      this.dataSource = newValue?.map((option) => {
         return { ...option, selected: this.isValueEqual(this.value, option) };
       });
     } else {
@@ -466,7 +466,7 @@ export class Select {
           if (this.tagArrowKeyCounter - 1 >= 0) {
             // should not focus disabled tag
             if (
-              !this.selectedOptionsState[this.tagArrowKeyCounter - 1].disabled
+              !this.selectedOptionsState[this.tagArrowKeyCounter - 1]?.disabled
             ) {
               this.tagArrowKeyCounter--;
               this.focusOnTag(this.tagArrowKeyCounter);
@@ -478,7 +478,7 @@ export class Select {
           break;
         case 'ArrowRight':
           this.tagArrowKeyCounter++;
-          if (this.tagArrowKeyCounter >= this.value.length) {
+          if (this.tagArrowKeyCounter >= this.value?.length) {
             this.selectInput?.focus();
           } else {
             this.focusOnTag(this.tagArrowKeyCounter);
@@ -493,7 +493,7 @@ export class Select {
     if (this.focusedValues.length > 0) {
       // delete focused values
       this.setSelectedOptions(
-        this.selectedOptionsState.filter(
+        this.selectedOptionsState?.filter(
           (_, index) => !this.focusedValues.includes(index)
         )
       );
@@ -505,7 +505,7 @@ export class Select {
   focusOnTagContainer() {
     if (
       Array.isArray(this.value) &&
-      !this.selectedOptionsState[this.value?.length - 1].disabled
+      !this.selectedOptionsState[this.value?.length - 1]?.disabled
     ) {
       this.tagArrowKeyCounter = this.value?.length - 1;
       this.focusOnTag(this.tagArrowKeyCounter);
@@ -513,7 +513,7 @@ export class Select {
   }
 
   focusOnTag(index) {
-    if (!this.selectedOptionsState[index].disabled) {
+    if (!this.selectedOptionsState[index]?.disabled) {
       this.focusedValues = [index];
       this.tagContainer.focus();
     }
@@ -537,7 +537,9 @@ export class Select {
   }
 
   valueExists() {
-    return this.value && (this.multiple ? this.value.length > 0 : !!this.value);
+    return (
+      this.value && (this.multiple ? this.value?.length > 0 : !!this.value)
+    );
   }
 
   onInput() {
@@ -558,7 +560,7 @@ export class Select {
     if (this.changeEmittable()) {
       e.stopPropagation();
       this.tagContainer.focus();
-      if (!this.selectedOptionsState[index].disabled) {
+      if (!this.selectedOptionsState[index]?.disabled) {
         const focusedIndex = this.focusedValues.indexOf(index);
         if (focusedIndex === -1) {
           if (e.ctrlKey || e.metaKey) {
@@ -592,7 +594,7 @@ export class Select {
 
   renderTags() {
     if (this.multiple && Array.isArray(this.value)) {
-      return this.selectedOptionsState.map((option, index) => {
+      return this.selectedOptionsState?.map((option, index) => {
         if (this.isValueEqual(this.value, option)) {
           const optionState =
             option.error || (this.variant === 'mail' && index >= this.max)
@@ -663,7 +665,7 @@ export class Select {
   }
 
   renderInput() {
-    if (this.selectedOptionsState.length > 0) {
+    if (this.selectedOptionsState?.length > 0) {
       if (this.selectInput) {
         this.selectInput.value = '';
         this.selectInput.value = this.multiple
@@ -700,7 +702,7 @@ export class Select {
     );
 
     // Set value if the selectedOptions is provided
-    if (this.selectedOptions.length > 0) {
+    if (this.selectedOptions?.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.multiple
         ? this.selectedOptions.map((option) => option.value)
@@ -728,15 +730,15 @@ export class Select {
     });
     this.dataSource = options.length === 0 ? this.options : options;
     // Set selectedOptions if the value is provided
-    if (!this.multiple && this.value && this.selectedOptions.length === 0) {
-      this.selectedOptionsState = this.dataSource.filter(
+    if (!this.multiple && this.value && this.selectedOptions?.length === 0) {
+      this.selectedOptionsState = this.dataSource?.filter(
         (option) => this.value === option.value
       );
     } else if (
       this.multiple &&
-      this.value.length !== this.selectedOptions.length
+      this.value?.length !== this.selectedOptions?.length
     ) {
-      this.selectedOptionsState = this.dataSource.filter((option) =>
+      this.selectedOptionsState = this.dataSource?.filter((option) =>
         this.isValueEqual(this.value, option)
       );
     }
