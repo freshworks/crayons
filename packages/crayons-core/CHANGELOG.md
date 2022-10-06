@@ -3,18 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.0.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.13...@freshworks/crayons@4.0.0-beta.14) (2022-10-06)
-
+## [4.0.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.13...@freshworks/crayons@4.0.0-beta.14) (2022-10-06)
 
 ### Bug Fixes
 
-* **handle null errors in select and list options:** handle null errors in select and list options ([228953b](https://github.com/freshworks/crayons/commit/228953ba6633e19ed1f4c230a3caf0d2077e7827))
-* handle null for options ([aac98ea](https://github.com/freshworks/crayons/commit/aac98ea4c5578f5217620d54fd95dfbfae2c8bc0))
-* handle null for select value ([4886165](https://github.com/freshworks/crayons/commit/48861658eedbebead0617441f279533db1ee1752))
-
-
-
-
+- **handle null errors in select and list options:** handle null errors in select and list options ([228953b](https://github.com/freshworks/crayons/commit/228953ba6633e19ed1f4c230a3caf0d2077e7827))
+- handle null for options ([aac98ea](https://github.com/freshworks/crayons/commit/aac98ea4c5578f5217620d54fd95dfbfae2c8bc0))
+- handle null for select value ([4886165](https://github.com/freshworks/crayons/commit/48861658eedbebead0617441f279533db1ee1752))
 
 ## [4.0.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.12...@freshworks/crayons@4.0.0-beta.13) (2022-10-06)
 
