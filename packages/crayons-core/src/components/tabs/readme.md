@@ -153,6 +153,7 @@ Type: `Promise<void>`
 
 | Name                             | Description                                                                                                   |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `--fw-tabs-border-block-end`     | border bottom style of tabs                                                                                   |
 | `--fw-tabs-height`               | height of the tab container.                                                                                  |
 | `--fw-tabs-margin-inline-end`    | Right margin if direction is left-to-right, and Left margin if direction is right-to-left for the tab items   |
 | `--fw-tabs-margin-inline-start`  | Left margin if direction is left-to-right, and Right margin if direction is right-to-left for the tab items   |

@@ -1,3 +1,7 @@
+/**
+  @prop --fw-tab-border-block-end: border bottom style of tab
+*/
+
 .tab {
   display: inline-flex;
   white-space: nowrap;
@@ -15,7 +19,10 @@
   /* stylelint-disable */
   &:hover:not(.disabled) {
     padding-block-end: 8px;
-    border-block-end: 2px solid $color-smoke-300;
+    border-block-end: var(
+      --fw-tab-border-block-end,
+      2px solid $color-smoke-300
+    );
   }
 
   &.active:not(.disabled) {

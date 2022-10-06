@@ -48,6 +48,13 @@ function App() {
 | `tabName`   | `tab-name`   | Unique name of the tab.                            | `string`  | `undefined` |
 
 
+## CSS Custom Properties
+
+| Name                        | Description                |
+| --------------------------- | -------------------------- |
+| `--fw-tab-border-block-end` | border bottom style of tab |
+
+
 ----------------------------------------------
 
 Built with ❤ at Freshworks
