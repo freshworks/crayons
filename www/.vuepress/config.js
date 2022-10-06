@@ -101,8 +101,8 @@ module.exports = {
     ],
     nav: [
       {
-        text: 'Migrating to v3',
-        link: '/introduction/migrating-to-v3/',
+        text: 'Migrating to v4',
+        link: '/introduction/migrating-to-v4/',
       },
       {
         text: `v${version?.split('.')[0]}.x`,
