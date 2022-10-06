@@ -275,7 +275,7 @@ export class ListOptions {
 
   @Watch('disabled')
   disabledWatcher(): void {
-    const options = this.options;
+    const options = this.options || [];
     // updating the object to retrigger
     this.options = [...options];
   }
@@ -297,7 +297,7 @@ export class ListOptions {
       if (!this.isInternalValueChange) {
         // source might change during dynamic select
         const source =
-          this.options.length > 0 ? this.options : this.selectedOptionsState;
+          this.options?.length > 0 ? this.options : this.selectedOptionsState;
         this.selectedOptionsState = source?.filter((option) =>
           this.isValueEqual(newValue, option)
         );
@@ -461,7 +461,7 @@ export class ListOptions {
   }
 
   setDataSource(dataSource) {
-    if (dataSource.length > 0) {
+    if (dataSource?.length > 0) {
       this.selectOptions = this.serializeData(dataSource);
     } else {
       this.selectOptions = [
