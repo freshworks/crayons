@@ -1634,11 +1634,11 @@ export namespace Components {
          */
         "activateTab": (index?: number, name?: string) => Promise<void>;
         /**
-          * The index of the activated Tab(Starts from 0)
+          * The index of the tab to be activated (Starts from 0)
          */
         "activeTabIndex": number;
         /**
-          * The name of the tab to be activated.
+          * The name of the tab to be activated. If present, will be taken as priority over `activeTabIndex`.
          */
         "activeTabName"?: string;
         /**
@@ -4235,11 +4235,11 @@ declare namespace LocalJSX {
     }
     interface FwTabs {
         /**
-          * The index of the activated Tab(Starts from 0)
+          * The index of the tab to be activated (Starts from 0)
          */
         "activeTabIndex"?: number;
         /**
-          * The name of the tab to be activated.
+          * The name of the tab to be activated. If present, will be taken as priority over `activeTabIndex`.
          */
         "activeTabName"?: string;
         /**

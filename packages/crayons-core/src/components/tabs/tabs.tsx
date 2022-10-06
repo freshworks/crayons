@@ -31,13 +31,13 @@ export class Tabs {
    */
   @Prop() label = '';
   /**
-   * The index of the activated Tab(Starts from 0)
+   * The index of the tab to be activated (Starts from 0)
    */
   @Prop({ mutable: true, reflect: true })
   activeTabIndex = 0;
 
   /**
-   * The name of the tab to be activated.
+   * The name of the tab to be activated. If present, will be taken as priority over `activeTabIndex`.
    */
   @Prop({ reflect: true })
   activeTabName?: string;
@@ -167,9 +167,9 @@ export class Tabs {
 
   getActiveTab() {
     return (
+      this.tabs.find((tab) => tab.id === this.activeTabName || tab.active) ||
       ((this.activeTabIndex || this.activeTabIndex === 0) &&
-        this.tabs[this.activeTabIndex]) ||
-      this.tabs.find((tab) => tab.id === this.activeTabName || tab.active)
+        this.tabs[this.activeTabIndex])
     );
   }
 
