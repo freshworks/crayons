@@ -50,9 +50,9 @@ function App() {
 
 ## CSS Custom Properties
 
-| Name                        | Description                 |
-| --------------------------- | --------------------------- |
-| `--fw-tab-border-block-end` | bottom border style of tabs |
+| Name                        | Description                |
+| --------------------------- | -------------------------- |
+| `--fw-tab-border-block-end` | border bottom style of tab |
 
 
 ----------------------------------------------
