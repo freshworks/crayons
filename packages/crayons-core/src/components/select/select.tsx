@@ -478,7 +478,7 @@ export class Select {
           break;
         case 'ArrowRight':
           this.tagArrowKeyCounter++;
-          if (this.tagArrowKeyCounter >= this.value.length) {
+          if (this.tagArrowKeyCounter >= this.value?.length) {
             this.selectInput?.focus();
           } else {
             this.focusOnTag(this.tagArrowKeyCounter);
@@ -537,7 +537,9 @@ export class Select {
   }
 
   valueExists() {
-    return this.value && (this.multiple ? this.value.length > 0 : !!this.value);
+    return (
+      this.value && (this.multiple ? this.value?.length > 0 : !!this.value)
+    );
   }
 
   onInput() {
@@ -734,7 +736,7 @@ export class Select {
       );
     } else if (
       this.multiple &&
-      this.value.length !== this.selectedOptions?.length
+      this.value?.length !== this.selectedOptions?.length
     ) {
       this.selectedOptionsState = this.dataSource?.filter((option) =>
         this.isValueEqual(this.value, option)
