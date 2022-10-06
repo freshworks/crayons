@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.0.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.12...@freshworks/crayons@4.0.0-beta.13) (2022-10-06)
-
+## [4.0.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.12...@freshworks/crayons@4.0.0-beta.13) (2022-10-06)
 
 ### Bug Fixes
 
-* **tabs:** handle activate-tab-name property correctly ([#698](https://github.com/freshworks/crayons/issues/698)) ([8dbac02](https://github.com/freshworks/crayons/commit/8dbac02da1d025d4eec83ca34da854bb6a56cb18))
-
-
-
-
+- **tabs:** handle activate-tab-name property correctly ([#698](https://github.com/freshworks/crayons/issues/698)) ([8dbac02](https://github.com/freshworks/crayons/commit/8dbac02da1d025d4eec83ca34da854bb6a56cb18))
 
 ## [4.0.0-beta.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.11...@freshworks/crayons@4.0.0-beta.12) (2022-10-04)
 

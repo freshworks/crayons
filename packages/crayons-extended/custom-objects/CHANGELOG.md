@@ -3,14 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.1.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.1.0-beta.12...@freshworks/crayons-custom-objects@1.1.0-beta.13) (2022-10-06)
-
-**Note:** Version bump only for package @freshworks/crayons-custom-objects
-
-
-
-
-
 ## [1.1.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.1.0-beta.7...@freshworks/crayons-custom-objects@1.1.0-beta.8) (2022-09-09)
 
 ### Bug Fixes
