@@ -53,7 +53,7 @@ module.exports = {
     nav: [
       {
         text: "Migrating to v3",
-        link: "https://crayons.freshworks.com/introduction/migrating-to-v3/",
+        link: "https://crayons.freshworks.com/v3/introduction/migrating-to-v3/",
       },
       {
         text: `v${version?.split(".")[0]}.x`,
