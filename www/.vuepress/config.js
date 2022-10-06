@@ -102,7 +102,7 @@ module.exports = {
     nav: [
       {
         text: 'Migrating to v4',
-        link: '/introduction/migrating-to-v4/',
+        link: 'https://crayons.freshworks.com/introduction/migrating-to-v4/',
       },
       {
         text: `v${version?.split('.')[0]}.x`,
