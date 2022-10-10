@@ -1451,7 +1451,7 @@ export class Datepicker {
             format={this.timeFormat}
             value={this.timeValue}
             allowDeselect={false}
-            {...{ ...this.timeProps, ...{ readOnly: true } }}
+            {...this.timeProps}
           ></fw-timepicker>
         </div>
       </div>
