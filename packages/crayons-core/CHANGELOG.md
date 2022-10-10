@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0...@freshworks/crayons@4.0.1-beta.0) (2022-10-10)
+
+
+### Bug Fixes
+
+* **datepicker:** timepicker popup in datetimepicker ([#701](https://github.com/freshworks/crayons/issues/701)) ([6b1f73d](https://github.com/freshworks/crayons/commit/6b1f73d8f3742b4bf93957809e776896f0563e48))
+
+
+
+
+
 ## [4.0.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0-beta.13...@freshworks/crayons@4.0.0-beta.14) (2022-10-06)
 
 ### Bug Fixes
