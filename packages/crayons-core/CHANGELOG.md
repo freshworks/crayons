@@ -5,14 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [4.0.3-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.2...@freshworks/crayons@4.0.3-beta.0) (2022-10-12)
 
-
 ### Bug Fixes
 
-* **tabs:** fix activateTab with tabName ([#703](https://github.com/freshworks/crayons/issues/703)) ([273450a](https://github.com/freshworks/crayons/commit/273450a16b28abae562cb1b64fe6b01764af3569))
-
-
-
-
+- **tabs:** fix activateTab with tabName ([#703](https://github.com/freshworks/crayons/issues/703)) ([273450a](https://github.com/freshworks/crayons/commit/273450a16b28abae562cb1b64fe6b01764af3569))
 
 ## [4.0.2-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.1...@freshworks/crayons@4.0.2-beta.0) (2022-10-12)
 
