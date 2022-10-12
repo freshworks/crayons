@@ -2062,6 +2062,122 @@ export namespace Components {
         "trigger": PopoverTriggerType;
     }
 }
+export interface FwAccordionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwAccordionElement;
+}
+export interface FwButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwButtonElement;
+}
+export interface FwCheckboxCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwCheckboxElement;
+}
+export interface FwCountryPhoneCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwCountryPhoneElement;
+}
+export interface FwDataTableCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwDataTableElement;
+}
+export interface FwDatepickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwDatepickerElement;
+}
+export interface FwDragContainerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwDragContainerElement;
+}
+export interface FwFileUploaderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFileUploaderElement;
+}
+export interface FwFileUploaderFileCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFileUploaderFileElement;
+}
+export interface FwFileUploaderProgressCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFileUploaderProgressElement;
+}
+export interface FwFormCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFormElement;
+}
+export interface FwInlineMessageCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwInlineMessageElement;
+}
+export interface FwInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwInputElement;
+}
+export interface FwListOptionsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwListOptionsElement;
+}
+export interface FwModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwModalElement;
+}
+export interface FwPaginationCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwPaginationElement;
+}
+export interface FwPopoverCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwPopoverElement;
+}
+export interface FwRadioCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwRadioElement;
+}
+export interface FwRadioGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwRadioGroupElement;
+}
+export interface FwSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwSelectElement;
+}
+export interface FwSelectOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwSelectOptionElement;
+}
+export interface FwTabsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwTabsElement;
+}
+export interface FwTagCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwTagElement;
+}
+export interface FwTextareaCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwTextareaElement;
+}
+export interface FwTimepickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwTimepickerElement;
+}
+export interface FwToastMessageCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwToastMessageElement;
+}
+export interface FwToggleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwToggleElement;
+}
+export interface FwToggleGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwToggleGroupElement;
+}
+export interface FwToggleGroupButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwToggleGroupButtonElement;
+}
 declare global {
     interface HTMLFwAccordionElement extends Components.FwAccordion, HTMLStencilElement {
     }
@@ -2467,7 +2583,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the accordion is expanded or collapsed
          */
-        "onFwAccordionToggle"?: (event: CustomEvent<AccordionToggleEvent>) => void;
+        "onFwAccordionToggle"?: (event: FwAccordionCustomEvent<AccordionToggleEvent>) => void;
         /**
           * The type of accordion to be displayed. default => Accordion with all borders no_bounding_box => Accordion with top and bottom borders only
          */
@@ -2529,15 +2645,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the button loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<void>) => void;
+        "onFwBlur"?: (event: FwButtonCustomEvent<void>) => void;
         /**
           * Triggered when the button is clicked.
          */
-        "onFwClick"?: (event: CustomEvent<void>) => void;
+        "onFwClick"?: (event: FwButtonCustomEvent<void>) => void;
         /**
           * Triggered when the button comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<void>) => void;
+        "onFwFocus"?: (event: FwButtonCustomEvent<void>) => void;
         /**
           * Caret indicator for the button, Default value is false.
          */
@@ -2590,15 +2706,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the check box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwCheckboxCustomEvent<any>) => void;
         /**
           * Triggered when the checkbox state is modified.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwCheckboxCustomEvent<any>) => void;
         /**
           * Triggered when the check box comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<void>) => void;
+        "onFwFocus"?: (event: FwCheckboxCustomEvent<void>) => void;
         /**
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
@@ -2656,19 +2772,19 @@ declare namespace LocalJSX {
         /**
           * Triggered when phone element is blur.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwCountryPhoneCustomEvent<any>) => void;
         /**
           * Triggered when input is focused.
          */
-        "onFwFocus"?: (event: CustomEvent<any>) => void;
+        "onFwFocus"?: (event: FwCountryPhoneCustomEvent<any>) => void;
         /**
           * Triggered when phone element is input.
          */
-        "onFwInput"?: (event: CustomEvent<any>) => void;
+        "onFwInput"?: (event: FwCountryPhoneCustomEvent<any>) => void;
         /**
           * Triggered when clear icon is clicked.
          */
-        "onFwInputClear"?: (event: CustomEvent<any>) => void;
+        "onFwInputClear"?: (event: FwCountryPhoneCustomEvent<any>) => void;
         /**
           * If true, the user cannot enter a value in the input box. If the attribute’s value is undefined, the value is set to false.
          */
@@ -2750,11 +2866,11 @@ declare namespace LocalJSX {
         /**
           * fwSelectAllChange Emits this event when select all is checked.
          */
-        "onFwSelectAllChange"?: (event: CustomEvent<any>) => void;
+        "onFwSelectAllChange"?: (event: FwDataTableCustomEvent<any>) => void;
         /**
           * fwSelectionChange Emits this event when row is selected/unselected.
          */
-        "onFwSelectionChange"?: (event: CustomEvent<any>) => void;
+        "onFwSelectionChange"?: (event: FwDataTableCustomEvent<any>) => void;
         /**
           * To enable bulk actions on the table.
          */
@@ -2833,11 +2949,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwDatepickerCustomEvent<any>) => void;
         /**
           * Triggered when the update button clicked
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwDatepickerCustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user selects a date or date range.
          */
@@ -2900,7 +3016,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when an draggable item is dropped inside the container.
          */
-        "onFwDrop"?: (event: CustomEvent<void>) => void;
+        "onFwDrop"?: (event: FwDragContainerCustomEvent<void>) => void;
         /**
           * The class name for the drag/drop placeholder. Add space separated class names for multiple classes
          */
@@ -2982,15 +3098,15 @@ declare namespace LocalJSX {
         /**
           * fileReuploaded - event that gets emitted when file is reuploaded
          */
-        "onFwFileReuploaded"?: (event: CustomEvent<any>) => void;
+        "onFwFileReuploaded"?: (event: FwFileUploaderCustomEvent<any>) => void;
         /**
           * filesUploaded - event that gets emitted when files get uploaded
          */
-        "onFwFilesUploaded"?: (event: CustomEvent<any>) => void;
+        "onFwFilesUploaded"?: (event: FwFileUploaderCustomEvent<any>) => void;
         /**
           * stageChanged - event that gets emitted when component stage changes
          */
-        "onFwStageChanged"?: (event: CustomEvent<any>) => void;
+        "onFwStageChanged"?: (event: FwFileUploaderCustomEvent<any>) => void;
         /**
           * text - file uploader text.
          */
@@ -3008,7 +3124,7 @@ declare namespace LocalJSX {
         /**
           * removeFile - event that gets triggered on file removal
          */
-        "onFwRemoveFile"?: (event: CustomEvent<any>) => void;
+        "onFwRemoveFile"?: (event: FwFileUploaderFileCustomEvent<any>) => void;
     }
     interface FwFileUploaderProgress {
         /**
@@ -3026,7 +3142,7 @@ declare namespace LocalJSX {
         /**
           * retryUpload event to emit in case of a retry
          */
-        "onFwRetryUpload"?: (event: CustomEvent<any>) => void;
+        "onFwRetryUpload"?: (event: FwFileUploaderProgressCustomEvent<any>) => void;
         /**
           * file upload progress
          */
@@ -3048,7 +3164,7 @@ declare namespace LocalJSX {
         /**
           * fwFormValuesChanged - event that gets emitted when values change.
          */
-        "onFwFormValuesChanged"?: (event: CustomEvent<any>) => void;
+        "onFwFormValuesChanged"?: (event: FwFormCustomEvent<any>) => void;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
@@ -3264,11 +3380,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when inline message is hidden.
          */
-        "onFwHide"?: (event: CustomEvent<any>) => void;
+        "onFwHide"?: (event: FwInlineMessageCustomEvent<any>) => void;
         /**
           * Triggered when inline message is shown.
          */
-        "onFwShow"?: (event: CustomEvent<any>) => void;
+        "onFwShow"?: (event: FwInlineMessageCustomEvent<any>) => void;
         /**
           * Indicates whether the inline message is open or not.
          */
@@ -3334,19 +3450,19 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwInputCustomEvent<any>) => void;
         /**
           * Triggered when the input box comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<void>) => void;
+        "onFwFocus"?: (event: FwInputCustomEvent<void>) => void;
         /**
           * Triggered when a value is entered in the input box.
          */
-        "onFwInput"?: (event: CustomEvent<any>) => void;
+        "onFwInput"?: (event: FwInputCustomEvent<any>) => void;
         /**
           * Triggered when clear icon is clicked.
          */
-        "onFwInputClear"?: (event: CustomEvent<any>) => void;
+        "onFwInputClear"?: (event: FwInputCustomEvent<any>) => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -3446,11 +3562,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when a value is selected or deselected from the list box options.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwListOptionsCustomEvent<any>) => void;
         /**
           * Triggered when the options list is in loading state processing the search function.
          */
-        "onFwLoading"?: (event: CustomEvent<any>) => void;
+        "onFwLoading"?: (event: FwListOptionsCustomEvent<any>) => void;
         /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
@@ -3524,15 +3640,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when modal is closed.
          */
-        "onFwClose"?: (event: CustomEvent<void>) => void;
+        "onFwClose"?: (event: FwModalCustomEvent<void>) => void;
         /**
           * Triggered when modal is opened.
          */
-        "onFwOpen"?: (event: CustomEvent<void>) => void;
+        "onFwOpen"?: (event: FwModalCustomEvent<void>) => void;
         /**
           * Triggered when the default action button is clicked.
          */
-        "onFwSubmit"?: (event: CustomEvent<void>) => void;
+        "onFwSubmit"?: (event: FwModalCustomEvent<void>) => void;
         /**
           * Size of the modal
          */
@@ -3616,7 +3732,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when either previous or next button is clicked.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwPaginationCustomEvent<any>) => void;
         /**
           * The current page number.
          */
@@ -3676,11 +3792,11 @@ declare namespace LocalJSX {
         /**
           * Triggered whenever the popover contents is closed/hidden.
          */
-        "onFwHide"?: (event: CustomEvent<any>) => void;
+        "onFwHide"?: (event: FwPopoverCustomEvent<any>) => void;
         /**
           * Triggered whenever the popover contents is open/displayed.
          */
-        "onFwShow"?: (event: CustomEvent<any>) => void;
+        "onFwShow"?: (event: FwPopoverCustomEvent<any>) => void;
         /**
           * Placement of the popover content with respect to the popover trigger.
          */
@@ -3760,23 +3876,23 @@ declare namespace LocalJSX {
         /**
           * Triggered when the radio button loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwRadioCustomEvent<any>) => void;
         /**
           * Triggered when the radio button is toggled.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwRadioCustomEvent<any>) => void;
         /**
           * Triggered when the radio button in focus is cleared.
          */
-        "onFwDeselect"?: (event: CustomEvent<any>) => void;
+        "onFwDeselect"?: (event: FwRadioCustomEvent<any>) => void;
         /**
           * Triggered when the radio button comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<void>) => void;
+        "onFwFocus"?: (event: FwRadioCustomEvent<void>) => void;
         /**
           * /**   Triggered when the radio button in focus is selected.
          */
-        "onFwSelect"?: (event: CustomEvent<any>) => void;
+        "onFwSelect"?: (event: FwRadioCustomEvent<any>) => void;
         /**
           * Theme based on which the radio button is styled.
          */
@@ -3810,7 +3926,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when an option in the Radio Group is selected or deselected.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwRadioGroupCustomEvent<any>) => void;
         /**
           * Indicates the direction of the radio buttons alignment, defaults to vertical alignment.
          */
@@ -3908,15 +4024,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the list box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwSelectCustomEvent<any>) => void;
         /**
           * Triggered when a value is selected or deselected from the list box options.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwSelectCustomEvent<any>) => void;
         /**
           * Triggered when the list box comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<any>) => void;
+        "onFwFocus"?: (event: FwSelectCustomEvent<any>) => void;
         /**
           * The data for the select component, the options will be of type array of fw-select-options.
          */
@@ -4022,19 +4138,19 @@ declare namespace LocalJSX {
         /**
           * Triggered when an option loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwSelectOptionCustomEvent<any>) => void;
         /**
           * Triggered when an option is focused.
          */
-        "onFwFocus"?: (event: CustomEvent<any>) => void;
+        "onFwFocus"?: (event: FwSelectOptionCustomEvent<any>) => void;
         /**
           * Triggered when an option is clicked when allowSelect is false.
          */
-        "onFwSelectAttempted"?: (event: CustomEvent<any>) => void;
+        "onFwSelectAttempted"?: (event: FwSelectOptionCustomEvent<any>) => void;
         /**
           * Triggered when an option is selected.
          */
-        "onFwSelected"?: (event: CustomEvent<any>) => void;
+        "onFwSelected"?: (event: FwSelectOptionCustomEvent<any>) => void;
         /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
@@ -4149,7 +4265,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when a the view switches to a new tab.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwTabsCustomEvent<any>) => void;
         /**
           * The style of tab headers that needs to be displayed, box will display headers in a container.
          */
@@ -4183,7 +4299,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the tag is deselected.
          */
-        "onFwClosed"?: (event: CustomEvent<any>) => void;
+        "onFwClosed"?: (event: FwTagCustomEvent<any>) => void;
         /**
           * Truncate text with ellipsis when text overflows
          */
@@ -4245,15 +4361,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwTextareaCustomEvent<any>) => void;
         /**
           * Triggered when the input box comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<void>) => void;
+        "onFwFocus"?: (event: FwTextareaCustomEvent<void>) => void;
         /**
           * Triggered when a value is entered in the input box.
          */
-        "onFwInput"?: (event: CustomEvent<any>) => void;
+        "onFwInput"?: (event: FwTextareaCustomEvent<any>) => void;
         /**
           * Text displayed in the input box before a user enters a value.
          */
@@ -4343,15 +4459,15 @@ declare namespace LocalJSX {
         /**
           * Triggered when the list box loses focus.
          */
-        "onFwBlur"?: (event: CustomEvent<any>) => void;
+        "onFwBlur"?: (event: FwTimepickerCustomEvent<any>) => void;
         /**
           * Triggered when a value is selected or deselected from the list box options.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwTimepickerCustomEvent<any>) => void;
         /**
           * Triggered when the list box comes into focus.
          */
-        "onFwFocus"?: (event: CustomEvent<any>) => void;
+        "onFwFocus"?: (event: FwTimepickerCustomEvent<any>) => void;
         /**
           * Placement of the options list with respect to timepicker.
          */
@@ -4427,11 +4543,11 @@ declare namespace LocalJSX {
         /**
           * Triggered when the action link clicked.
          */
-        "onFwLinkClick"?: (event: CustomEvent<any>) => void;
+        "onFwLinkClick"?: (event: FwToastMessageCustomEvent<any>) => void;
         /**
           * Triggered on closing the toast message. This event gets used by the parent container to remove the toast message from itself
          */
-        "onFwRemoveToast"?: (event: CustomEvent<any>) => void;
+        "onFwRemoveToast"?: (event: FwToastMessageCustomEvent<any>) => void;
         /**
           * visibility prop of toast message
          */
@@ -4473,7 +4589,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the input control is selected or deselected.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwToggleCustomEvent<any>) => void;
         /**
           * Specifies whether to show the check and cancel icons on toggle button. If the attribute’s value is undefined, the value is set to true.
          */
@@ -4499,7 +4615,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when an option in the Toggle Group is selected or deselected.
          */
-        "onFwChange"?: (event: CustomEvent<any>) => void;
+        "onFwChange"?: (event: FwToggleGroupCustomEvent<any>) => void;
         /**
           * Selected items to be shown - stored in array format - if property "multiple" is set to false, this will always be a single value array
          */
@@ -4537,7 +4653,7 @@ declare namespace LocalJSX {
         /**
           * Triggered when the card in focus is selected.
          */
-        "onFwToggled"?: (event: CustomEvent<any>) => void;
+        "onFwToggled"?: (event: FwToggleGroupButtonCustomEvent<any>) => void;
         /**
           * Enables the component to be used as a toggle button or just to be used as a normal button
          */
