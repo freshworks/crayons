@@ -101,6 +101,11 @@ $bg-color-disabled: $color-smoke-25;
     align-items: center;
   }
 
+  .checkbox-wrapper {
+    min-width: 22px;
+    min-height: 22px;
+  }
+
   // FIX: To center the icon inside the host
   fw-icon {
     align-items: center;
