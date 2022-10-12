@@ -39,7 +39,7 @@ export class Tabs {
   /**
    * The name of the tab to be activated. If present, will be taken as priority over `activeTabIndex`.
    */
-  @Prop({ reflect: true })
+  @Prop({ reflect: true, mutable: true })
   activeTabName?: string;
 
   /**
@@ -112,6 +112,7 @@ export class Tabs {
     if (tab && tab !== this.activeTab && !tab.disabled) {
       this.activeTab = tab;
       this.activeTabIndex = this.tabs.indexOf(tab);
+      this.activeTabName = tab.activeTabName;
 
       // Sync active tab and panel
       this.tabs.map((el) => (el.active = el === this.activeTab));
@@ -167,9 +168,10 @@ export class Tabs {
 
   getActiveTab() {
     return (
-      this.tabs.find((tab) => tab.id === this.activeTabName || tab.active) ||
+      this.tabs.find((tab) => tab.id === this.activeTabName) ||
       ((this.activeTabIndex || this.activeTabIndex === 0) &&
-        this.tabs[this.activeTabIndex])
+        this.tabs[this.activeTabIndex]) ||
+      this.tabs.find((tab) => tab.id === tab.active)
     );
   }
 
