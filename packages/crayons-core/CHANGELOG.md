@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.1...@freshworks/crayons@4.0.2-beta.0) (2022-10-12)
+
+
+### Bug Fixes
+
+* **select-options & list-options:** fixed check box selection highlighter & hide tick mark flag ([#692](https://github.com/freshworks/crayons/issues/692)) ([dc59b9d](https://github.com/freshworks/crayons/commit/dc59b9df2ff981cf988d0813aae977561a2c5f0e))
+* **tab:** update styles for focus-visible for tab ([#702](https://github.com/freshworks/crayons/issues/702)) ([e985e91](https://github.com/freshworks/crayons/commit/e985e914e1b5feb8526a349767f3fbf1b06489bc))
+
+
+
+
+
 ## [4.0.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.0...@freshworks/crayons@4.0.1-beta.0) (2022-10-10)
 
 ### Bug Fixes
