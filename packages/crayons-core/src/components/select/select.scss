@@ -20,39 +20,36 @@ $input-focus-color: $color-azure-800;
 $input-border: $color-smoke-100;
 $warning-color: $color-casablanca-300;
 $placeholder-color: $color-smoke-300;
+$disabled-color: $input-disabled-color;
+
+// stylelint-disable a11y/media-prefers-reduced-motion
+@media screen and (prefers-reduced-motion: reduce) {
+  .input-container {
+    transition: none;
+  }
+}
 
 @mixin stateStyle($_color) {
   border-color: $_color;
 
-  & > span.help-block {
+  &.has-focus {
+    box-shadow: none;
+    border-color: $_color;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $_color;
+  }
+
+  & + .help-block {
     color: $_color;
   }
 }
+
 :host {
   display: block;
 }
-
-// Label Style
-// label {
-//   font-size: $font-size-12;
-//   font-weight: $font-weight-600;
-//   color: $color-smoke-700;
-//   margin-bottom: 0;
-//   line-height: 20px;
-//   padding-bottom: 4px;
-//   padding-left: 2px;
-//   display: block;
-
-//   &.required::after {
-//     content: '*';
-//     position: relative;
-//     display: inline-block;
-//     top: 2px;
-//     font-size: $font-size-14;
-//     color: $error-color;
-//     padding-left: 2px;
-//   }
-// }
 
 .button-container {
   display: flex;
@@ -82,6 +79,7 @@ $placeholder-color: $color-smoke-300;
   min-height: 22px;
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
 
   .input-container-inner {
     display: flex;
@@ -137,9 +135,10 @@ $placeholder-color: $color-smoke-300;
       }
 
       &:disabled {
+        color: $disabled-color;
         background-color: $input-disabled-bg !important;
         border-color: transparent;
-        cursor: not-allowed;
+        pointer-events: none;
       }
     }
   }
@@ -148,17 +147,9 @@ $placeholder-color: $color-smoke-300;
     margin-inline-end: 8px;
   }
 
-  @media (prefers-reduced-motion) {
-    &:hover,
-    &:focus {
-      transition: none;
-    }
-  }
-  /* stylelint-disable */
   &:hover,
   &:focus {
-    outline: 1px $input-hover-color solid;
-    transition: 0.2s linear;
+    border: 1px $input-hover-color solid;
   }
 
   &.error {
@@ -170,13 +161,15 @@ $placeholder-color: $color-smoke-300;
   }
 
   &.select-disabled {
-    color: $color-smoke-50;
+    color: $disabled-color;
+    border: 1px solid $color-smoke-50;
     background-color: $input-disabled-bg !important;
     border-style: solid;
     cursor: not-allowed;
 
-    &:hover {
-      border: 1px solid $input-border;
+    &:hover,
+    &:focus {
+      border: 1px solid $color-smoke-50;
     }
   }
 }
@@ -210,6 +203,7 @@ $placeholder-color: $color-smoke-300;
   .input-container {
     outline: none;
     background: $input-bg;
+    border: 1px solid transparent;
     box-shadow: 0 0 0 2px $input-focus-color;
 
     &.error {
