@@ -685,6 +685,16 @@ export class Datepicker {
     this.langModule = await TranslationController.getDateLangModule(newLocale);
   }
 
+  @Watch('minDate')
+  handleMinDateChange() {
+    this.monthDetails = this.getMonthDetails(this.year, this.month);
+  }
+
+  @Watch('maxDate')
+  handleMaxDateChange() {
+    this.monthDetails = this.getMonthDetails(this.year, this.month);
+  }
+
   async componentWillLoad() {
     if (this.mode === 'range' && this.showTimePicker) {
       throw Error('Time picker not supported in Date Range');
