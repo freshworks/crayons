@@ -688,11 +688,15 @@ export class Datepicker {
   @Watch('minDate')
   handleMinDateChange() {
     this.monthDetails = this.getMonthDetails(this.year, this.month);
+    this.mode === 'range' &&
+      (this.nextMonthDetails = this.getMonthDetails(this.toYear, this.toMonth));
   }
 
   @Watch('maxDate')
   handleMaxDateChange() {
     this.monthDetails = this.getMonthDetails(this.year, this.month);
+    this.mode === 'range' &&
+      (this.nextMonthDetails = this.getMonthDetails(this.toYear, this.toMonth));
   }
 
   async componentWillLoad() {
