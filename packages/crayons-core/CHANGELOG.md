@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.4...@freshworks/crayons@4.1.0-beta.0) (2022-10-19)
+
+
+### Bug Fixes
+
+* **datepicker:** handle minDate, maxDate when set dynamically ([#705](https://github.com/freshworks/crayons/issues/705)) ([130a7be](https://github.com/freshworks/crayons/commit/130a7be7dda12e8b7e26977b3a7d7dcfae5b2289))
+
+
+### Features
+
+* add i18n strings for sort-select and datatable ([a9eee87](https://github.com/freshworks/crayons/commit/a9eee871f5c5e6fae52432b64b4ff0edde90f500))
+
+
+
+
+
 ## [4.0.3-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.2...@freshworks/crayons@4.0.3-beta.0) (2022-10-12)
 
 ### Bug Fixes

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.1.4...@freshworks/crayons-custom-objects@1.2.0-beta.0) (2022-10-19)
+
+
+### Features
+
+* add i18n strings for sort-select and datatable ([a9eee87](https://github.com/freshworks/crayons/commit/a9eee871f5c5e6fae52432b64b4ff0edde90f500))
+
+
+
+
+
 ## [1.1.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.1.0-beta.7...@freshworks/crayons-custom-objects@1.1.0-beta.8) (2022-09-09)
 
 ### Bug Fixes
