@@ -1,0 +1,228 @@
+.code-block {
+  position: relative;
+  border-radius: 3px;
+  background-color: rgb(var(--sl-color-neutral-50));
+  margin-bottom: 1.5rem;
+}
+
+.code-block__preview {
+  position: relative;
+  border: solid 1px rgb(var(--sl-color-neutral-200));
+  border-bottom: none;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: rgb(var(--sl-color-neutral-0));
+  min-width: 20rem;
+  max-width: 100%;
+  padding: 1.5rem 3.25rem 1.5rem 1.5rem;
+}
+
+/* Block the preview while dragging to prevent iframes from intercepting drag events */
+.code-block__preview--dragging:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.code-block__resizer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1.75rem;
+  font-size: 20px;
+  color: rgb(var(--sl-color-neutral-600));
+  background-color: rgb(var(--sl-color-neutral-0));
+  border-left: solid 1px rgb(var(--sl-color-neutral-200));
+  border-top-right-radius: 3px;
+  cursor: ew-resize;
+  transition: 250ms background-color;
+}
+
+@media screen and (max-width: 600px) {
+  .code-block__preview {
+    padding-right: 1.5rem;
+  }
+
+  .code-block__resizer {
+    display: none;
+  }
+}
+
+.code-block__source {
+  border: solid 1px rgb(var(--sl-color-neutral-200));
+  border-bottom: none;
+  border-radius: 0 !important;
+  display: none;
+}
+
+.code-block__source pre {
+  margin: 0;
+}
+
+.code-block--expanded.code-block--show-html .code-block__source--html,
+.code-block--expanded.code-block--show-react .code-block__source--react,
+/* When a code block is expanded but doesn't have a React example, force the HTML example to show */
+.code-block--expanded:not(.code-block--has-react) .code-block__source--html {
+  display: block;
+}
+
+.code-block__buttons {
+  position: relative;
+  border: solid 1px rgb(var(--sl-color-neutral-200));
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display: flex;
+}
+
+.code-block__button {
+  flex: 0 0 auto;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  border: none;
+  border-radius: 0;
+  background: rgb(var(--sl-color-neutral-0));
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: rgb(var(--sl-color-neutral-600));
+  padding: 0 1rem;
+  cursor: pointer;
+}
+
+.code-block__button:not(:last-of-type) {
+  border-right: solid 1px rgb(var(--sl-color-neutral-200));
+}
+
+.code-block__button--html,
+.code-block__button--react {
+  width: 70px;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+}
+
+.code-block__button--selected {
+  font-weight: 700;
+  color: rgb(var(--sl-color-primary-600));
+}
+
+.code-block__button--codepen {
+  display: flex;
+  place-items: center;
+  width: 6rem;
+}
+
+.code-block__button--codesandbox {
+  display: flex;
+  place-items: center;
+  width: 8rem;
+}
+
+.code-block__button:first-of-type {
+  border-bottom-left-radius: 3px;
+}
+
+.code-block__button:last-of-type {
+  border-bottom-right-radius: 3px;
+}
+
+.code-block__button:hover,
+.code-block__button:active {
+  box-shadow: 0 0 0 1px rgb(var(--sl-color-primary-400));
+  border-right-color: transparent;
+  background-color: rgb(var(--sl-color-primary-50));
+  color: rgb(var(--sl-color-primary-700));
+  z-index: 1;
+}
+
+.code-block__button:focus-visible {
+  outline: none;
+  color: rgb(var(--sl-color-primary-600));
+  border-color: rgb(var(--sl-color-primary-400));
+  border-right-color: transparent;
+  background-color: rgb(var(--sl-color-primary-50));
+  box-shadow: 0 0 0 1px rgb(var(--sl-color-primary-400)), var(--sl-focus-ring);
+  z-index: 2;
+}
+
+.code-block__toggle {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: rgb(var(--sl-color-neutral-600));
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.code-block__toggle svg {
+  width: 1em;
+  height: 1em;
+  margin-left: 0.25rem;
+}
+
+.code-block--expanded .code-block__toggle svg {
+  transform: rotate(180deg);
+}
+
+/* Copy button styles */
+.markdown-section .docsify-copy-code-button {
+  top: 4px;
+  right: 4px;
+  background-color: rgb(var(--sl-color-neutral-600));
+  border-radius: var(--sl-border-radius-medium);
+  font-family: var(--sl-font-sans);
+  font-size: var(--sl-font-size-x-small);
+  font-weight: var(--sl-font-weight-semibold);
+  text-transform: uppercase;
+  padding: 8px;
+  user-select: none;
+  transition: 0.1s all;
+}
+
+.markdown-section .docsify-copy-code-button.copied {
+  animation: pulse 0.75s;
+  --pulse-color: rgb(var(--sl-color-neutral-600));
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--pulse-color);
+  }
+  70% {
+    box-shadow: 0 0 0 0.5rem transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.markdown-section .docsify-copy-code-button .label {
+  transition: none;
+}
+
+.markdown-section .docsify-copy-code-button .success,
+.markdown-section .docsify-copy-code-button .error {
+  display: none;
+}
+
+.markdown-section .docsify-copy-code-button:focus-visible {
+  box-shadow: 0 0 0 3px rgb(var(--sl-color-neutral-500) / 50%);
+}
+
+.markdown-section .docsify-copy-code-button:active {
+  background-color: rgb(var(--sl-color-neutral-600));
+  transform: scale(0.92);
+}

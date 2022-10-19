@@ -5,3 +5,13 @@ www-dist/
 .idea/
 .npmrc
 packages/crayons-extended/crayons-core
+site/search.json
+site/core/components
+site/components
+site/crayons
+site/crayons-datatable
+site/components.json
+site/components.d.ts
+site/search.json
+site/docs.json
+site/scripts/custom-elements.json

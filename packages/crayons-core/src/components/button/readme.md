@@ -1,10 +1,12 @@
 # Button (fw-button)
 
+[component-package:crayons]
+[component-header:fw-button]
 fw-button displays a button on the user interface and enables performing specific actions based on the button type. The button’s label can be a text, icon, or both.
 
 ## Demo
 
-```html live
+```html preview
 <section>
   <fw-label value="Try themes"></fw-label>
   <fw-button color="primary"> OK </fw-button>
@@ -77,6 +79,119 @@ fw-button displays a button on the user interface and enables performing specifi
   </fw-button>
 </section>
 <br />
+```
+
+```jsx react
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { FwButton, FwIcon } from '@freshworks/crayons/react';
+function App() {
+  return (
+    <div>
+      <section>
+        <label>Try themes</label>
+        <FwButton
+          color='primary'
+          onFwClick={() => console.log('fwClick event emitted from button')}
+        >
+          {' '}
+          OK{' '}
+        </FwButton>
+        <FwButton color='secondary'> Secondary </FwButton>
+        <FwButton color='danger'> Don't Click </FwButton>
+        <FwButton color='link'> Link Button </FwButton>
+        <FwButton color='text'> Plain Text Button </FwButton>
+      </section>
+
+      <br />
+
+      <section>
+        <label>Try sizes</label>
+        <FwButton size='mini' color='secondary'>
+          {' '}
+          Mini{' '}
+        </FwButton>
+        <FwButton size='small'> Small </FwButton>
+        <FwButton> Default </FwButton>
+      </section>
+      <br />
+
+      <section>
+        <label>Try icon buttons</label>
+        <FwButton size='icon'>
+          <FwIcon name='agent' color='white'></FwIcon>
+        </FwButton>
+        <FwButton size='icon' color='secondary'>
+          <FwIcon name='phone'></FwIcon>
+        </FwButton>
+      </section>
+      <br />
+      <section>
+        <label value='Caret with icon'></label>
+        <FwButton show-caret-icon>
+          <FwIcon name='calendar-time' slot='before-label'></FwIcon>
+          Select date
+        </FwButton>
+
+        <FwButton color='link' show-caret-icon>
+          <fw-icon name='calendar-time' slot='before-label'></fw-icon>
+          Select date
+        </FwButton>
+      </section>
+      <br />
+
+      <section>
+        <label>Loading state</label>
+        <FwButton loading> Loading </FwButton>
+        <FwButton loading color='secondary'>
+          {' '}
+          OK{' '}
+        </FwButton>
+        <FwButton loading color='danger'>
+          {' '}
+          Don't Click{' '}
+        </FwButton>
+      </section>
+      <br />
+
+      <section>
+        <label>Disabled</label>
+        <FwButton disabled color='primary'>
+          {' '}
+          OK{' '}
+        </FwButton>
+        <FwButton disabled color='secondary'>
+          {' '}
+          OK{' '}
+        </FwButton>
+        <FwButton disabled color='danger'>
+          {' '}
+          Don't Click{' '}
+        </FwButton>
+      </section>
+      <br />
+      <section>
+        <label value='Try icon + text buttons Buttons with before-label and after-label'></label>
+        <FwButton color='secondary'>
+          <FwIcon slot='before-label' name='delete'></FwIcon>
+          <span>Delete</span>
+        </FwButton>
+        <FwButton color='primary'>
+          <span>Copy</span>
+          <FwIcon name='code' slot='after-label'></FwIcon>
+        </FwButton>
+      </section>
+      <br />
+
+      <section>
+        <FwButton value='Try full length'></FwButton>
+        <FwButton color='secondary' size='small' style='display: block;'>
+          Span full-width
+        </FwButton>
+      </section>
+    </div>
+  );
+}
 ```
 
 ## Usage

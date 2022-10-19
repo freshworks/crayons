@@ -11,6 +11,10 @@ import {
 } from '@stencil/core';
 import { throttle, hasSlot } from '../../utils';
 
+/**
+ * @since 3.0.0-beta.2
+ * @status stable
+ */
 @Component({
   tag: 'fw-button',
   styleUrl: 'button.scss',

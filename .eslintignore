@@ -11,3 +11,4 @@ packages/**/hydrate/**
 packages/**/src/**/*.stories.tsx
 www-dist/
 docs/
+site/

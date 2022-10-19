@@ -67,6 +67,25 @@ export const config: Config = {
       customElementsDir: 'dist/components',
       includeImportCustomElements: true,
     }),
+    {
+      /*
+        Generate the readme.md files within the site directory
+        at the root of the repo for Docsify to generate the
+        the website.
+      */
+      type: 'docs-readme',
+      dir: '../../site/core',
+      footer: 'Built with ❤ at Freshworks',
+    },
+    // Use this to generate docs to show properties,events etc for each component
+    {
+      type: 'docs-json',
+      file: `../../site/components-core.json`,
+    },
+    {
+      type: 'www',
+      dir: `../../site/${packageName}/`,
+    },
   ],
   plugins: [
     sass({

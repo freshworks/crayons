@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build:packages": "lerna run build --stream",
-    "build": "lerna run build --stream && npm run storybook:build && npm run docs:build",
+    "build": "lerna run build --stream && npm run docs:build && npm run site:dev",
     "check-next": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-prerelease --preid beta --no-push --no-git-tag-version",
     "check-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-graduate --no-push --no-git-tag-version",
     "clean-changelog": "lernacleanchangelog '**'",
@@ -33,6 +33,8 @@
     "release-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v4 && npm run update-lock:latest",
     "release-latest:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v4 --yes && npm run update-lock:latest",
     "requirements-check": "node check-version.js",
+    "site:dev": "node site/scripts/reorganize.js && npm run site:run",
+    "site:run": "npx kill-port 8000 && npm i -g local-web-server && cd site && ws --spa index.html",
     "storybook:build": "rimraf storybook-dist && build-storybook -c docs/.storybook -o docs/storybook-dist",
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
     "test": "lerna run test --stream",
@@ -87,10 +89,12 @@
     "eslint-plugin-vue": "^7.18.0",
     "html-to-react": "1.4.5",
     "husky": "^4.2.3",
+    "glob": "^7.2.0",
     "kill-port": "^1.6.1",
     "lerna-clean-changelogs-cli": "^2.0.2",
     "lint-staged": "^10.5.4",
     "lit-html": "^1.3.0",
+    "lunr": "^2.3.9",
     "prepend-file": "^2.0.0",
     "prettier": "^2.4.1",
     "stylelint": "^13.13.1",
@@ -123,7 +127,10 @@
     }
   },
   "lint-staged": {
-    "**/*.{css,scss}": [
+    "packages/**/*.{css,scss}": [
+      "stylelint"
+    ],
+    "styles/**/*.{css,scss}": [
       "stylelint"
     ],
     "**/.vuepress/**/*.vue": [

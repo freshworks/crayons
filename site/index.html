@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      Crayons - A refreshed design library for Freshworks Developers. .
+    </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Crayons UI Library." />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta name="custom-elements-manifest" content="dist/custom-elements.json" />
+    <meta property="og:title" content="Crayons" />
+    <meta property="og:description" content="Crayons UI Library." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Crayons" />
+    <meta name="twitter:description" content="Crayons UI Library." />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/docsify@4/themes/pure.css"
+    />
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">  -->
+
+    <link rel="stylesheet" href="/assets/styles/docs.css" />
+
+    <link rel="stylesheet" href="/assets/plugins/code-block/code-block.css" />
+    <link rel="stylesheet" href="/assets/plugins/search/search.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/plugins/theme-picker/theme-picker.css"
+    />
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/touch-icon.png"
+    />
+
+    <!-- Import Theme styles -->
+    <link rel="stylesheet" href="/themes/light.css" />
+    <link rel="stylesheet" href="/themes/dark.css" />
+
+    <!-- Import Crayons Build -->
+    <script type="module" src="/crayons/build/crayons.esm.js"></script>
+    <script type="nomodule" src="/crayons/build/crayons.js"></script>
+    <!-- <script type="module" src="/crayons-datatable/build/crayons-datatable.esm.js"></script>
+    <script type="nomodule" src="/crayons-datatable/build/crayons-datatable.js"></script> -->
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // Set the initial theme to prevent flashing
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
+      const theme = localStorage.getItem('theme') || 'auto';
+      document.documentElement.classList.toggle(
+        'sl-theme-dark',
+        theme === 'dark' || (theme === 'auto' && prefersDark)
+      );
+    </script>
+    <script>
+      window.$docsify = {
+        alias: {
+          '/.*/_sidebar.md': '/_sidebar.md',
+        },
+        repo: 'https://github.com/freshworks/crayons',
+        auto2top: true,
+        copyCode: {
+          buttonText: 'Copy',
+          errorText: 'Failed to copy',
+          successText: 'Copied',
+        },
+        coverpage: 'cover.md',
+        loadSidebar: true,
+        // loadNavbar: true,
+        logo: '/assets/images/crayons.png',
+        homepage: '/getting-started/overview.md',
+        maxLevel: 3,
+        subMaxLevel: 2,
+        name: 'Crayons',
+        nameLink: '/',
+        notFoundPage: '404.md',
+        pagination: {
+          previousText: 'Previous',
+          nextText: 'Next',
+          crossChapter: true,
+          // crossChapterText: true,
+        },
+        themeColor: 'rgb(var(--sl-color-primary-500))',
+        routerMode: 'history',
+      };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-bash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-jsx.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-tsx.min.js"></script>
+    <script src="/assets/plugins/lz-string.js"></script>
+    <script src="/assets/plugins/code-block/code-block.js"></script>
+    <script src="/assets/plugins/metadata/metadata.js"></script>
+    <script src="/assets/plugins/scroll-position/scroll-position.js"></script>
+    <script src="/assets/plugins/search/lunr.min.js"></script>
+    <script src="/assets/plugins/search/search.js"></script>
+    <script src="/assets/plugins/theme-picker/theme-picker.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  </body>
+</html>
