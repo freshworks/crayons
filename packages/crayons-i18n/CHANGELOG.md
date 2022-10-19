@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.0.0...@freshworks/crayons-i18n@4.1.0-beta.0) (2022-10-19)
-
+## [4.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.0.0...@freshworks/crayons-i18n@4.1.0-beta.0) (2022-10-19)
 
 ### Features
 
-* add i18n strings for sort-select and datatable ([a9eee87](https://github.com/freshworks/crayons/commit/a9eee871f5c5e6fae52432b64b4ff0edde90f500))
-
-
-
-
+- add i18n strings for sort-select and datatable ([a9eee87](https://github.com/freshworks/crayons/commit/a9eee871f5c5e6fae52432b64b4ff0edde90f500))
 
 ## [4.0.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.0.0-beta.1...@freshworks/crayons-i18n@4.0.0-beta.2) (2022-09-09)
 
