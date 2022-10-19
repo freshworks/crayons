@@ -18,8 +18,8 @@ import { handleKeyDown } from '../../../utils/utils';
 })
 export class SortSelect {
   private sortOrderData = [
-    { value: 'ASC', text: 'Ascending' },
-    { value: 'DESC', text: 'Descending' },
+    { value: 'ASC', text: TranslationController.t('sortSelect.ascending') },
+    { value: 'DESC', text: TranslationController.t('sortSelect.descending') },
   ];
   private sortDropdown;
 

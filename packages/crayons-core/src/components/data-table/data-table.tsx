@@ -1389,7 +1389,9 @@ export class DataTable {
             }}
           >
             <div class='table-settings-header'>
-              <span class='title'>Customize columns</span>
+              <span class='title'>
+                {TranslationController.t('datatable.customizeColumns')}
+              </span>
               <button
                 class='reset'
                 tabIndex={0}

@@ -49,7 +49,8 @@
     "hide": "Hide",
     "show": "Show",
     "showMore": "Show more",
-    "showLess": "Show less"
+    "showLess": "Show less",
+    "customizeColumns": "Customize columns"
   },
   "platformTable": {
     "delete": "Delete",
@@ -182,5 +183,9 @@
     "placeholder": {
       "search": "Type to search"
     }
+  },
+  "sortSelect": {
+    "ascending": "Ascending",
+    "descending": "Descending"
   }
 }
