@@ -2,7 +2,7 @@
   let metadataStore;
 
   function createPropsTable(props) {
-    const table = document.createElement('table');
+    const table = document.createElement("table");
     table.innerHTML = `
       <thead>
         <tr>
@@ -32,7 +32,7 @@
         </tr>
         `
           )
-          .join('')}
+          .join("")}
       </tbody>
     `;
 
@@ -40,7 +40,7 @@
   }
 
   function createEventsTable(events) {
-    const table = document.createElement('table');
+    const table = document.createElement("table");
     table.innerHTML = `
       <thead>
         <tr>
@@ -60,7 +60,7 @@
         </tr>
         `
           )
-          .join('')}
+          .join("")}
       </tbody>
     `;
 
@@ -68,7 +68,7 @@
   }
 
   function createMethodsTable(methods) {
-    const table = document.createElement('table');
+    const table = document.createElement("table");
     table.innerHTML = `
       <thead>
         <tr>
@@ -88,7 +88,7 @@
         </tr>
         `
           )
-          .join('')}
+          .join("")}
       </tbody>
     `;
 
@@ -96,7 +96,7 @@
   }
 
   function createSlotsTable(slots) {
-    const table = document.createElement('table');
+    const table = document.createElement("table");
     table.innerHTML = `
       <thead>
         <tr>
@@ -110,13 +110,13 @@
             (slot) => `
         <tr>
           <td><code>${
-            slot.name ? escapeHtml(slot.name) : '(default)'
+            slot.name ? escapeHtml(slot.name) : "(default)"
           }</code></td>
           <td>${escapeHtml(slot.docs)}</td>
         </tr>
         `
           )
-          .join('')}
+          .join("")}
       </tbody>
     `;
 
@@ -124,7 +124,7 @@
   }
 
   function createCustomPropertiesTable(styles) {
-    const table = document.createElement('table');
+    const table = document.createElement("table");
     table.innerHTML = `
       <thead>
         <tr>
@@ -142,7 +142,7 @@
         </tr>
         `
           )
-          .join('')}
+          .join("")}
       </tbody>
     `;
 
@@ -150,7 +150,7 @@
   }
 
   function createPartsTable(parts) {
-    const table = document.createElement('table');
+    const table = document.createElement("table");
     table.innerHTML = `
       <thead>
         <tr>
@@ -168,7 +168,7 @@
         </tr>
         `
           )
-          .join('')}
+          .join("")}
       </tbody>
     `;
 
@@ -176,7 +176,7 @@
   }
 
   function createDependentsList(dependents) {
-    const ul = document.createElement('ul');
+    const ul = document.createElement("ul");
     ul.innerHTML = `
         ${dependents
           .map(
@@ -184,20 +184,20 @@
               <li><code>${escapeHtml(dependent)}</code></li>
             `
           )
-          .join('')}
+          .join("")}
     `;
 
     return ul.outerHTML;
   }
 
   function escapeHtml(html) {
-    return (html + '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&apos;')
-      .replace(/`(.*?)`/g, '<code>$1</code>');
+    return (html + "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&apos;")
+      .replace(/`(.*?)`/g, "<code>$1</code>");
   }
 
   function getMetadata() {
@@ -207,22 +207,22 @@
         return resolve(metadataStore);
       }
 
-      fetch('/components.json')
+      fetch("components.json")
         .then((res) => res.json())
         .then((data) => {
           metadataStore = data;
           resolve(metadataStore);
         })
         .catch((err) => {
-          console.error('Error Fetching Metadata from components.json', err);
+          console.error("Error Fetching Metadata from components.json", err);
           resolve({});
         });
     });
   }
 
   function getShortNumber(value) {
-    const suffixes = ['', 'k', 'm', 'b', 't'];
-    const index = Math.floor(('' + value).length / 3);
+    const suffixes = ["", "k", "m", "b", "t"];
+    const index = Math.floor(("" + value).length / 3);
     let shortValue = parseFloat(
       (index !== 0 ? value / Math.pow(1000, index) : value).toPrecision(2)
     );
@@ -245,7 +245,7 @@
   }
 
   if (!window.$docsify) {
-    throw new Error('Docsify must be loaded before installing this plugin.');
+    throw new Error("Docsify must be loaded before installing this plugin.");
   }
 
   window.$docsify.plugins.push((hook, vm) => {
@@ -253,17 +253,17 @@
     hook.mounted(function () {
       getMetadata()
         .then((metadata) => {
-          const target = document.querySelector('.app-name');
+          const target = document.querySelector(".app-name");
 
           // Add version
-          const version = document.createElement('div');
-          version.classList.add('sidebar-version');
+          const version = document.createElement("div");
+          version.classList.add("sidebar-version");
           version.textContent = metadata.version;
           target.appendChild(version);
 
           // Add repo buttons
-          const buttons = document.createElement('div');
-          buttons.classList.add('sidebar-buttons');
+          const buttons = document.createElement("div");
+          buttons.classList.add("sidebar-buttons");
           buttons.innerHTML = `
             <fw-button color="secondary" class="repo-button repo-button--github">
             <a href="https://github.com/freshworks/crayons/stargazers" target="_blank">  
@@ -293,9 +293,9 @@
 
     hook.beforeEach(async function (content, next) {
       const metadata = await getMetadata();
-      let tagElem = '';
+      let tagElem = "";
 
-      let tagIndex = content.indexOf('[component-header');
+      let tagIndex = content.indexOf("[component-header");
       if (tagIndex === -1) {
         next(content);
         return;
@@ -306,7 +306,7 @@
 
       const index = content
         .toString()
-        .lastIndexOf('<!-- Auto Generated Below -->');
+        .lastIndexOf("<!-- Auto Generated Below -->");
       // console.log(index);
 
       // use custom content and ignore auto generated content by Stencil
@@ -318,10 +318,10 @@
         (match, tag) => {
           tagElem = tag;
           const data = metadata.filter((data) => data.tag === tag)[0];
-          let result = '';
+          let result = "";
 
           if (!data) {
-            console.error('Component not found in metadata: ' + tag);
+            console.error("Component not found in metadata: " + tag);
             next(content);
             return;
           }
@@ -330,16 +330,16 @@
 
           const pascalCase = (str) =>
             str
-              .split('-')
+              .split("-")
               .map((n) => n[0].toUpperCase() + n.substring(1))
-              .join('');
+              .join("");
 
           if (tags && tags.status) {
-            let color = 'normal';
-            if (tags.status === 'stable') color = 'green';
-            if (tags.status === 'experimental') color = 'yellow';
-            if (tags.status === 'planned') color = 'grey';
-            if (tags.status === 'deprecated') color = 'red';
+            let color = "normal";
+            if (tags.status === "stable") color = "green";
+            if (tags.status === "experimental") color = "yellow";
+            if (tags.status === "planned") color = "grey";
+            if (tags.status === "deprecated") color = "red";
 
             result += `
             <div class="component-header">
@@ -348,7 +348,7 @@
               </div>
               <div class="component-header__info">
                 <fw-pill color="grey">
-                Since ${tags.since || '?'}
+                Since ${tags.since || "?"}
                 </fw-pill>
                 <fw-pill color="${color}" style="text-transform: capitalize;">
                 ${tags.status}
@@ -358,16 +358,16 @@
           `;
           }
 
-          return result.replace(/^ +| +$/gm, '');
+          return result.replace(/^ +| +$/gm, "");
         }
       );
 
       const data = metadata.filter((data) => data.tag === tagElem)[0];
 
-      let result = '';
+      let result = "";
 
       if (!data) {
-        console.error('Component not found in metadata: ' + tagElem);
+        console.error("Component not found in metadata: " + tagElem);
         next(content);
         return;
       }
@@ -422,10 +422,10 @@
           `;
       }
 
-      result += '<br>Built with ❤ &nbsp;at Freshworks';
+      result += "<br>Built with ❤ &nbsp;at Freshworks";
 
       // Strip whitespace so markdown doesn't process things as code blocks
-      content += result.replace(/^ +| +$/gm, '');
+      content += result.replace(/^ +| +$/gm, "");
 
       next(content);
     });
@@ -434,12 +434,12 @@
     hook.doneEach(() => {
       const file = vm.route.file;
       // console.log(file)
-      const body = document.querySelector('body');
+      const body = document.querySelector("body");
 
-      if (file === '/getting-started/overview.md') {
-        body.classList.add('no-sidebar');
+      if (file === "/getting-started/overview.md") {
+        body.classList.add("no-sidebar");
       } else {
-        body.classList.remove('no-sidebar');
+        body.classList.remove("no-sidebar");
       }
     });
   });

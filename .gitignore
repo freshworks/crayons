@@ -15,3 +15,5 @@ site/components.d.ts
 site/search.json
 site/docs.json
 site/scripts/custom-elements.json
+site/components-core.json
+site/components-core.d.ts

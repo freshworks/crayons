@@ -8,7 +8,7 @@
 
 
 [GitHub](https://github.com/freshworks/crayons)
-[Get Started](getting-started/overview)
+[Get Started](components/introduction)
 
 <!-- background image -->
 ![](./assets/images/crayons-bg.svg)
