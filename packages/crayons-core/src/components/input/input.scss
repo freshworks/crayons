@@ -73,7 +73,7 @@ $warning-color: $color-casablanca-300;
   border: 1px solid $input-border;
   background-color: $app-light-bg;
   border-radius: var(--fw-input-border-radius, 4px);
-  transition: all 0.3s ease;
+  transition: border 0.3s ease;
 
   &.error {
     @include stateStyle($error-color);
