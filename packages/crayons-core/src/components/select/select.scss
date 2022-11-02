@@ -162,7 +162,7 @@ $disabled-color: $input-disabled-color;
 
   &.select-disabled {
     color: $disabled-color;
-    border: 1px solid $color-smoke-50;
+    border: var(--fw-select-border, 1px solid $color-smoke-50);
     background-color: $input-disabled-bg !important;
     border-style: solid;
     cursor: not-allowed;
