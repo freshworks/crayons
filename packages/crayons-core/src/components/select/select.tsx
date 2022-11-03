@@ -939,7 +939,7 @@ export class Select {
                     <div class='input-container-inner'>
                       {this.multiple && (
                         <div
-                          class='tag-container'
+                          class={`tag-container ${this.tagVariant}`}
                           onFocus={this.focusOnTagContainer}
                           ref={(tagContainer) =>
                             (this.tagContainer = tagContainer)
