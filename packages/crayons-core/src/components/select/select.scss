@@ -91,6 +91,10 @@ $disabled-color: $input-disabled-color;
       display: flex;
       flex-wrap: wrap;
       min-width: inherit;
+
+      &.avatar {
+        min-height: 40px;
+      }
       /* stylelint-disable-next-line a11y/no-outline-none */
       &:active,
       &:focus,
