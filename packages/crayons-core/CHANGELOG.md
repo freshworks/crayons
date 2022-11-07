@@ -3,17 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.0...@freshworks/crayons@4.1.0-beta.1) (2022-11-07)
-
+## [4.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.0...@freshworks/crayons@4.1.0-beta.1) (2022-11-07)
 
 ### Bug Fixes
 
-* fix height of avatar variant of multi select ([1d5a3e7](https://github.com/freshworks/crayons/commit/1d5a3e7ee9318b28185cf3d070e29a47ae98eca3))
-* **input:** transition only on border ([#713](https://github.com/freshworks/crayons/issues/713)) ([5035d6a](https://github.com/freshworks/crayons/commit/5035d6aaeed528e9d0f238adb2bee19398621b5c))
-
-
-
-
+- fix height of avatar variant of multi select ([1d5a3e7](https://github.com/freshworks/crayons/commit/1d5a3e7ee9318b28185cf3d070e29a47ae98eca3))
+- **input:** transition only on border ([#713](https://github.com/freshworks/crayons/issues/713)) ([5035d6a](https://github.com/freshworks/crayons/commit/5035d6aaeed528e9d0f238adb2bee19398621b5c))
 
 ## [4.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.4...@freshworks/crayons@4.1.0-beta.0) (2022-10-19)
 
