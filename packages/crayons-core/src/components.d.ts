@@ -508,6 +508,11 @@ export namespace Components {
          */
         "filesLimit": number;
         /**
+          * get all locally available files in the component
+          * @returns FileList of all locally available files in the component
+         */
+        "getFiles": () => Promise<FileList>;
+        /**
           * hint - file uploader hint text.
          */
         "hint": string;
@@ -533,6 +538,14 @@ export namespace Components {
           * multiple - upload multiple files.
          */
         "multiple": boolean;
+        /**
+          * name - field name
+         */
+        "name": string;
+        /**
+          * reset file uploader
+         */
+        "reset": () => Promise<void>;
         /**
           * text - file uploader text.
          */
@@ -3095,6 +3108,10 @@ declare namespace LocalJSX {
           * multiple - upload multiple files.
          */
         "multiple"?: boolean;
+        /**
+          * name - field name
+         */
+        "name"?: string;
         /**
           * fileReuploaded - event that gets emitted when file is reuploaded
          */
