@@ -1399,10 +1399,9 @@ function App() {
 
   return (
     <div>
-      <FwAccordian expanded style="--fw-accordion-border: 1px solid #ccc">
-        <FwAccordionTitle style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
-            --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Header Text</FwAccordionTitle>
-        <FwAccordionBody style="--fw-accordion-body-background-color: #FFFFFF">
+      <FwAccordian expanded style={{"--fw-accordion-border": "1px solid #ccc"}} >
+        <FwAccordionTitle style={{ "--fw-accordion-title-background-color":  "#F5F7F9", "--fw-accordion-title-expanded-icon-color" : "#2C5CC5", "--fw-accordion-title-collapsed-icon-color" : "#264966", "--fw-accordion-title-font-size": "14px", "--fw-accordion-title-font-weight" : "600", "--fw-accordion-title-line-height" : "20px"}}>Header Text</FwAccordionTitle>
+        <FwAccordionBody style={{"--fw-accordion-body-background-color" : "#FFFFFF"}}>
             <FwForm ref={formRef} formSchema={formSchema}
               validate={async (values:any) => { // do custom validation and return error or {}
               return {
@@ -1410,8 +1409,8 @@ function App() {
               };
               }} >
             </FwForm>
-            <FwButton color="secondary" style="display: block; margin-bottom:10px;" onClick={handleFormSubmit}>Submit</FwButton>
-            <FwButton style="display: block;" onClick={handleFormReset}>Reset</FwButton>
+            <FwButton color="secondary" style={{"display: "block", "margin-bottom" : "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
+            <FwButton style={{"display: "block"}} onClick={handleFormReset}>Reset</FwButton>
         </FwAccordionBody>
       </FwAccordian>
     </div>
