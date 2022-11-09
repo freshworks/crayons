@@ -1409,8 +1409,8 @@ function App() {
               };
               }} >
             </FwForm>
-            <FwButton color="secondary" style={{"display: "block", "marginBottom" : "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
-            <FwButton style={{"display: "block"}} onClick={handleFormReset}>Reset</FwButton>
+            <FwButton color="secondary" style={{"display": "block", "marginBottom": "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
+            <FwButton style={{"display": "block"}} onClick={handleFormReset}>Reset</FwButton>
         </FwAccordionBody>
       </FwAccordian>
     </div>
