@@ -1081,6 +1081,346 @@ fieldProps={{ maxlength: 5 }} ></FwFormControl>
 </code-block>
 </code-group>
 
+
+## Demo - Form inside an accordian
+
+Form can be created inside an accordian by passing the form to accordian body.
+
+```html live
+<fw-accordion expanded style="--fw-accordion-border: 1px solid #ccc">
+  <fw-accordion-title style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
+      --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Header Text</fw-accordion-title>
+  <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
+    <div id="accordian-form">
+      <fw-button color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
+      <fw-button style="display: block;">Reset</fw-button>
+    </div>
+  </fw-accordion-body>
+</fw-accordion>
+
+<script type="application/javascript">
+  var form = document.createElement('fw-form');
+  var formContainer = document.querySelector('#accordian-form');
+  document.querySelector('#submit').addEventListener('click', async (e) => {
+    const { values, isValid } = await form.doSubmit(e);
+    console.log({ values, isValid });
+
+    if (isValid) {
+      // if error from backend , set Errors - passing key value pair
+      form.setFieldErrors({
+        first_name: 'First Name must be unique <<Server Error>>',
+      });
+    }
+  });
+  document.querySelector('#reset').addEventListener('click', (e) => {
+    form.doReset(e);
+  });
+  var formSchema = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: '2978f2320-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '3971f8320-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '42aeh88f-25cf-46yce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 13,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        choices: [
+          {
+            id: 1,
+            value: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '69e48f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+
+      {
+        id: '8u878f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      }
+    ],
+  };
+  formContainer.prepend(form);
+  var fields = formSchema.fields.map((field) => {
+    // select expects `text` and `value` prop
+    if (field.type === 'DROPDOWN' || field.type === 'MULTI_SELECT') {
+      return {
+        ...field,
+        choices: field.choices?.map((f) => {
+          return {
+            ...f,
+            text: f.value,
+            value: f.id,
+          };
+        }),
+      };
+    } else return field;
+  });
+
+  var formSchema1 = {
+    ...formSchema,
+    fields: fields,
+  };
+  form.formSchema = formSchema1;
+</script>
+
+```
+
+## Usage - Form inside an accordian
+
+
+<code-group>
+<code-block title="HTML">
+  ```html
+  <fw-accordion expanded style="--fw-accordion-border: 1px solid #ccc">
+    <fw-accordion-title style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
+        --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Header Text</fw-accordion-title>
+    <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
+      <div id="accordian-form-2">
+        <fw-button color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
+        <fw-button style="display: block;">Reset</fw-button>
+      </div>
+    </fw-accordion-body>
+  </fw-accordion>
+
+  <script type="application/javascript">
+    var form = document.createElement('fw-form');
+    var formContainer = document.querySelector('#accordian-form-2');
+    document.querySelector('#submit').addEventListener('click', async (e) => {
+      const { values, isValid } = await form.doSubmit(e);
+      console.log({ values, isValid });
+
+      if (isValid) {
+        // if error from backend , set Errors - passing key value pair
+        form.setFieldErrors({
+          first_name: 'First Name must be unique <<Server Error>>',
+        });
+      }
+    });
+    document.querySelector('#reset').addEventListener('click', (e) => {
+      form.doReset(e);
+    });
+    var formSchema = {
+      name: 'Test Form',
+      fields: [
+        {
+          id: '2978f2320-704b-46c7-9f88-110e14e34a8c',
+          name: 'first_name',
+          label: 'First Name',
+          type: 'TEXT',
+          position: 3,
+          required: true,
+          placeholder: 'Enter…',
+          hint: 'Please provide a text of at max 100 characters',
+          choices: [],
+        },
+
+        {
+          id: '3971f8320-704b-46c7-9f88-110e14e34a8c',
+          name: 'last_name',
+          label: 'Last Name',
+          type: 'TEXT',
+          position: 3,
+          required: true,
+          placeholder: 'Enter…',
+          hint: 'Please provide a text of at max 100 characters',
+          choices: [],
+        },
+
+        {
+          id: '69e48f820-704b-46c7-9f88-110e14e34a8c',
+          name: 'email',
+          label: 'Email',
+          type: 'EMAIL',
+          position: 3,
+          required: true,
+          placeholder: 'Enter…',
+          hint: 'Please provide an email Id',
+          choices: [],
+        },
+
+        {
+          id: '8u878f820-704b-46c7-9f88-110e14e34a8c',
+          name: 'phone_number',
+          label: 'Phone number',
+          type: 'TEXT',
+          position: 3,
+          required: true,
+          placeholder: 'Enter…',
+          hint: 'Please provide your phone number',
+          choices: [],
+        }
+      ],
+    };
+    formContainer.prepend(form);
+    form.formSchema = formSchema;
+  </script>
+  ```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React, {useRef} from "react";
+import ReactDOM from "react-dom";
+import {FwAccordian, FwAccordionTitle, FwAccordionBody, FwForm,FwButton} from "@freshworks/crayons/react";
+function App() {
+
+  var formSchema = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: '2978f2320-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '3971f8320-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '69e48f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+
+      {
+        id: '8u878f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      }
+    ],
+  };
+
+  const formRef = useRef<any>(null);
+
+  const handleFormSubmit = async (e: any) => {
+    const { values, isValid, errors } = await formRef.current.doSubmit(e);
+    console.log({ result: values, errors });
+
+    // if error from backend , set Errors - passing key value pair
+    if (isValid) {
+      // set Errors on the form
+      formRef.current.setFieldErrors({
+        first_name: "First Name must be unique <<Server Error>>",
+      });
+      // reset the form if required if success
+      // formRef.current.doReset(e);
+    }
+  };
+
+  const handleFormReset = (e: any) => {
+    formRef.current.doReset(e);
+  };
+
+  return (
+    <div>
+      <FwAccordian expanded style={{"--fw-accordion-border": "1px solid #ccc"}} >
+        <FwAccordionTitle style={{ "--fw-accordion-title-background-color":  "#F5F7F9", "--fw-accordion-title-expanded-icon-color" : "#2C5CC5", "--fw-accordion-title-collapsed-icon-color" : "#264966", "--fw-accordion-title-font-size": "14px", "--fw-accordion-title-font-weight" : "600", "--fw-accordion-title-line-height" : "20px"}}>Header Text</FwAccordionTitle>
+        <FwAccordionBody style={{"--fw-accordion-body-background-color" : "#FFFFFF"}}>
+            <FwForm ref={formRef} formSchema={formSchema}
+              validate={async (values:any) => { // do custom validation and return error or {}
+              return {
+              // last_name: "last name is errored",
+              };
+              }} >
+            </FwForm>
+            <FwButton color="secondary" style={{"display": "block", "marginBottom": "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
+            <FwButton style={{"display": "block"}} onClick={handleFormReset}>Reset</FwButton>
+        </FwAccordionBody>
+      </FwAccordian>
+    </div>
+  )
+}
+```
+</code-block>
+</code-group>
+
+
 ### Validations
 
 Validation can be done using [Yup](https://github.com/jquense/yup#yup) based `validationSchema` or `validate` function prop.
