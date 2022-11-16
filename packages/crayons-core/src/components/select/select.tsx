@@ -747,7 +747,7 @@ export class Select {
     // Set selectedOptions if the value is provided
     if (!this.multiple && this.value && this.selectedOptions?.length === 0) {
       this.selectedOptionsState = this.dataSource?.filter(
-        (option) => this.value === option[this.optionValuePath]
+        (option) => this.value === option?.[this.optionValuePath]
       );
     } else if (
       this.multiple &&
