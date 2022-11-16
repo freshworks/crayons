@@ -241,7 +241,7 @@ export class RadioGroup {
 
     let hasChecked = false;
 
-    for (const [index, radio] of radios.entries()) {
+    radios.forEach((radio, index) => {
       if (!hasChecked && radio.value === value) {
         // correct value for this radio
         // but this radio isn't checked yet
@@ -256,7 +256,7 @@ export class RadioGroup {
         radio.setAttribute('tabindex', '-1');
         radio.checked = false;
       }
-    }
+    });
 
     // Reset value if
     if (!hasChecked) {
