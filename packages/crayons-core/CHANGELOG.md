@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.1...@freshworks/crayons@4.1.0-beta.2) (2022-11-15)
+
+### Bug Fixes
+
+- **component:** existing selection Loop is not working in Vue Project ([#719](https://github.com/freshworks/crayons/issues/719)) ([136296d](https://github.com/freshworks/crayons/commit/136296de656f9e0d0ea1757697bc72fe728d429d))
+
 ## [4.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.0...@freshworks/crayons@4.1.0-beta.1) (2022-11-07)
 
 ### Bug Fixes
