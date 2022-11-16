@@ -40,7 +40,7 @@ export class ListOptions {
       const filteredValue =
         value !== ''
           ? dataSource.filter((option) =>
-              option?.[this.optionLabelPath]
+              option[this.optionLabelPath]
                 ?.toLowerCase()
                 ?.includes(value.toLowerCase())
             )
@@ -172,13 +172,13 @@ export class ListOptions {
     const { value, selected } = selectedItem.detail;
     if (selected) {
       const selectedObj = this.filteredOptions.filter(
-        (option) => option?.[this.optionValuePath] === value
+        (option) => option[this.optionValuePath] === value
       )[0];
       if (this.isCreatable && selectedObj.isNew) {
-        selectedObj[this.optionLabelPath] = selectedObj?.[this.optionValuePath];
+        selectedObj[this.optionLabelPath] = selectedObj[this.optionValuePath];
         if (typeof this.validateNewOption === 'function') {
           selectedObj.error = !this.validateNewOption(
-            selectedObj?.[this.optionValuePath]
+            selectedObj[this.optionValuePath]
           );
         }
         selectedObj.graphicsProps = {};
@@ -190,7 +190,7 @@ export class ListOptions {
     } else {
       this.selectedOptionsState = this.multiple
         ? this.selectedOptionsState?.filter(
-            (option) => option?.[this.optionValuePath] !== value
+            (option) => option[this.optionValuePath] !== value
           )
         : [];
     }
@@ -377,7 +377,7 @@ export class ListOptions {
           if (
             this.isCreatable &&
             !this.filteredOptions.some(
-              (option) => option?.[this.optionValuePath] === sanitisedText
+              (option) => option[this.optionValuePath] === sanitisedText
             )
           ) {
             this.filteredOptions = [
@@ -446,7 +446,7 @@ export class ListOptions {
       const isDisabled =
         this.selectedOptionsState?.find(
           (selected) =>
-            selected?.[this.optionValuePath] === option?.[this.optionValuePath]
+            selected[this.optionValuePath] === option[this.optionValuePath]
         )?.disabled ||
         option.disabled ||
         this.disabled ||
@@ -467,15 +467,15 @@ export class ListOptions {
 
   isValueEqual(value, option) {
     return this.multiple
-      ? value.includes(option?.[this.optionValuePath])
-      : value === option?.[this.optionValuePath];
+      ? value.includes(option[this.optionValuePath])
+      : value === option[this.optionValuePath];
   }
 
   setValue(options) {
     if (options?.length > 0) {
       this.value = this.multiple
-        ? options.map((option) => option?.[this.optionValuePath])
-        : options[0]?.[this.optionValuePath];
+        ? options.map((option) => option[this.optionValuePath])
+        : options[0][this.optionValuePath];
     } else {
       this.value = this.multiple ? [] : '';
     }
@@ -502,18 +502,18 @@ export class ListOptions {
       const isDisabled =
         this.selectedOptionsState?.find(
           (selected) =>
-            selected?.[this.optionValuePath] === option?.[this.optionValuePath]
+            selected[this.optionValuePath] === option[this.optionValuePath]
         )?.disabled ||
         option.disabled ||
         (!this.allowDeselect && option.selected);
       return (
         <fw-select-option
-          id={`${this.host.id}-option-${option?.[this.optionValuePath]}`}
-          key={option?.[this.optionValuePath]}
+          id={`${this.host.id}-option-${option[this.optionValuePath]}`}
+          key={option[this.optionValuePath]}
           allowSelect={this.allowSelect}
           {...option}
-          text={option?.[this.optionLabelPath]}
-          value={option?.[this.optionValuePath]}
+          text={option[this.optionLabelPath]}
+          value={option[this.optionValuePath]}
           disabled={isDisabled}
         ></fw-select-option>
       );
@@ -539,9 +539,9 @@ export class ListOptions {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.multiple
         ? this.selectedOptionsState.map(
-            (option) => option?.[this.optionValuePath]
+            (option) => option[this.optionValuePath]
           )
-        : this.selectedOptionsState[0]?.[this.optionValuePath];
+        : this.selectedOptionsState[0][this.optionValuePath];
     } else if (this.valueExists()) {
       this.setSelectedOptionsByValue(this.value);
     } else {

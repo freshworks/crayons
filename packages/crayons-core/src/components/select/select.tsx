@@ -419,8 +419,8 @@ export class Select {
       this.dataSource = newValue;
       this.selectedOptionsState = selectedValues;
       this.value = this.multiple
-        ? this.selectedOptionsState.map((x) => x?.[this.optionValuePath])
-        : this.selectedOptionsState?.[0]?.[this.optionValuePath];
+        ? this.selectedOptionsState.map((x) => x[this.optionValuePath])
+        : this.selectedOptionsState[0]?.[this.optionValuePath];
     } else if (this.valueExists()) {
       this.dataSource = newValue?.map((option) => {
         return { ...option, selected: this.isValueEqual(this.value, option) };
@@ -542,8 +542,8 @@ export class Select {
 
   isValueEqual(value, option) {
     return this.multiple
-      ? value.includes(option?.[this.optionValuePath])
-      : value === option?.[this.optionValuePath];
+      ? value.includes(option[this.optionValuePath])
+      : value === option[this.optionValuePath];
   }
 
   valueExists() {
@@ -619,12 +619,12 @@ export class Select {
           const displayAttributes =
             this.variant === 'mail'
               ? {
-                  text: option?.[this.optionValuePath],
+                  text: option[this.optionValuePath],
                   showEllipsisOnOverflow: true,
                   class: className + ' bold-tag',
                 }
               : {
-                  text: option?.[this.optionLabelPath],
+                  text: option[this.optionLabelPath],
                   subText: option.subText,
                 };
           return (
@@ -635,7 +635,7 @@ export class Select {
               variant={this.tagVariant}
               graphicsProps={option.graphicsProps}
               disabled={this.disabled || this.readonly || option.disabled}
-              value={option?.[this.optionValuePath]}
+              value={option[this.optionValuePath]}
               focusable={false}
               closable={!this.disabled && !this.readonly && !option.disabled}
               isFocused={this.focusedValues.includes(index)}
@@ -683,7 +683,7 @@ export class Select {
         this.selectInput.value = '';
         this.selectInput.value = this.multiple
           ? this.selectInput.value
-          : this.selectedOptionsState[0]?.[this.optionLabelPath] || '';
+          : this.selectedOptionsState[0][this.optionLabelPath] || '';
       }
     } else {
       if (this.selectInput) {
@@ -718,8 +718,8 @@ export class Select {
     if (this.selectedOptions?.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.multiple
-        ? this.selectedOptions.map((option) => option?.[this.optionValuePath])
-        : this.selectedOptions[0]?.[this.optionValuePath];
+        ? this.selectedOptions.map((option) => option[this.optionValuePath])
+        : this.selectedOptions[0][this.optionValuePath];
     }
 
     if (this.multiple) {
@@ -747,7 +747,7 @@ export class Select {
     // Set selectedOptions if the value is provided
     if (!this.multiple && this.value && this.selectedOptions?.length === 0) {
       this.selectedOptionsState = this.dataSource?.filter(
-        (option) => this.value === option?.[this.optionValuePath]
+        (option) => this.value === option[this.optionValuePath]
       );
     } else if (
       this.multiple &&
@@ -763,7 +763,7 @@ export class Select {
         (option) => option.selected
       );
       const selectedDataSourceValues = selectedDataSource.map(
-        (option) => option?.[this.optionValuePath]
+        (option) => option[this.optionValuePath]
       );
       const selected = this.multiple
         ? selectedDataSourceValues
