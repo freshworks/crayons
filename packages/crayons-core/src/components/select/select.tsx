@@ -619,7 +619,7 @@ export class Select {
           const displayAttributes =
             this.variant === 'mail'
               ? {
-                  text: option?.[this.optionValuePath], // change this in internal package
+                  text: option?.[this.optionValuePath],
                   showEllipsisOnOverflow: true,
                   class: className + ' bold-tag',
                 }
