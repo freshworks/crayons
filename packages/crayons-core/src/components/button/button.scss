@@ -207,19 +207,18 @@ $input-height-mini: 16px;
     background-image: none;
     border: 1px solid transparent;
     color: $btn-primary-bg;
-
-    &:focus:not([disabled]),
-    &:hover:not([disabled]) {
-      background-color: $btn-link-bg;
-    }
   }
 
   &--text,
   &--link {
-    &:focus:not([disabled]),
-    &:hover:not([disabled]) {
+    &:focus:not([disabled]) {
       border-color: $btn-lg-focus-border;
       box-shadow: 0 0 0 1px $btn-lg-focus-border;
+      background-color: transparent;
+    }
+
+    &:hover:not([disabled]) {
+      background-color: $btn-link-bg;
     }
 
     &.disabled,
