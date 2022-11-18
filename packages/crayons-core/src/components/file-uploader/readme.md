@@ -162,8 +162,7 @@ fw-file-uploader can be used to upload files to a server.
 <code-block title="React">
 
 ```jsx
-  import React from "react";
-  import ReactDOM from "react-dom";
+  import { useRef } from 'react';
   import { FwFileUploader, FwButton } from "@freshworks/crayons/react";
   function App() {
 
@@ -292,7 +291,7 @@ fw-file-uploader can be used to upload files to a server.
 <code-block title="React">
 
 ```jsx
-  import { useRef } from 'react'
+  import { useRef } from 'react';
   import { FwToggle, FwFileUploader, FwButton } from "@freshworks/crayons/react";
 
   function App() {
@@ -340,7 +339,7 @@ fw-file-uploader can be used to upload files to a server.
             ref={fileUploader}
           >
           </FwFileUploader>
-          <FwButton file-uploader-id="file-uploader-3"></FwButton>
+          <FwButton file-uploader-id="file-uploader-3">Upload</FwButton>
         </div>
       </div>
     );
@@ -423,8 +422,7 @@ Modify the header using the 'modifyHeader' prop. We will receive the XHR request
 <code-block title="React">
 
 ```jsx
-  import React from "react";
-  import ReactDOM from "react-dom";
+  import { useRef } from 'react';
   import { FwFileUploader, FwButton } from "@freshworks/crayons/react";
   function App() {
 
@@ -455,7 +453,7 @@ Modify the header using the 'modifyHeader' prop. We will receive the XHR request
             ref={fileUploader}
           >
           </FwFileUploader>
-          <FwButton file-uploader-id="file-uploader-4"></FwButton>
+          <FwButton file-uploader-id="file-uploader-4">Upload</FwButton>
         </div>
       </div>
     );
@@ -546,8 +544,7 @@ Modify the header using the 'modifyHeader' prop. We will receive the XHR request
 <code-block title="React">
 
 ```jsx
-  import React from "react";
-  import ReactDOM from "react-dom";
+  import { useRef } from 'react'
   import { FwFileUploader } from "@freshworks/crayons/react";
   function App() {
 
