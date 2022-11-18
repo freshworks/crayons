@@ -2,6 +2,7 @@ import {
   Component,
   Prop,
   State,
+  Element,
   Event,
   EventEmitter,
   Watch,
@@ -9,6 +10,8 @@ import {
   Method,
 } from '@stencil/core';
 import { TranslationController } from '../../global/Translation';
+
+import { renderHiddenField } from '../../utils';
 
 let fileCount = 1;
 
@@ -18,6 +21,8 @@ let fileCount = 1;
   shadow: true,
 })
 export class FileUploader {
+  @Element() host!: HTMLElement;
+
   /**
    * stage - different stages in file uploader.
    */
@@ -29,6 +34,11 @@ export class FileUploader {
   // @i18n({ keyName: 'fileUploader.text' })
   @Prop({ mutable: true })
   text;
+
+  /**
+   * name - field name
+   */
+  @Prop() name = '';
 
   /**
    * description - file uploader description.
@@ -168,7 +178,7 @@ export class FileUploader {
       default:
         break;
     }
-    this.fwStageChanged.emit({ stage: newStage });
+    this.fwStageChanged.emit({ stage: newStage, files: this._getFiles() });
   }
 
   /**
@@ -245,6 +255,23 @@ export class FileUploader {
     });
   }
 
+  _getFiles() {
+    const data = new DataTransfer();
+    this.files.forEach((file) => {
+      data.items.add(this.formDataCollection[file.id].get('file'));
+    });
+    return data.files;
+  }
+
+  /**
+   * get all locally available files in the component
+   * @returns FileList of all locally available files in the component
+   */
+  @Method()
+  async getFiles() {
+    return this._getFiles();
+  }
+
   /**
    * uploadFiles - uploads the files to the server. emits an after file is uploaded.
    */
@@ -270,6 +297,14 @@ export class FileUploader {
         this.isFileUploadInProgress = false;
       });
     }
+  }
+
+  /**
+   * reset file uploader
+   */
+  @Method()
+  async reset() {
+    this.stage = 'dropzone';
   }
 
   /**
@@ -434,7 +469,6 @@ export class FileUploader {
    * @returns {JSX.Element}
    */
   renderDropzone() {
-    const multipleFiles = this.multiple ? { multiple: true } : {};
     return (
       <div
         class='dropzone'
@@ -483,14 +517,6 @@ export class FileUploader {
               </svg>
             </div>
             <div class='drop-clickable-text'>
-              <input
-                type='file'
-                hidden
-                {...multipleFiles}
-                style={{ display: 'none' }}
-                onChange={(ev) => this.fileHandler(ev)}
-                ref={(el) => (this.fileInputElement = el)}
-              ></input>
               {this.text || TranslationController.t('fileUploader.text')}
             </div>
             <div class='drop-clickable-hint'>
@@ -572,8 +598,21 @@ export class FileUploader {
    * @returns {JSX.Element}
    */
   render() {
+    const multipleFiles = this.multiple ? { multiple: true } : {};
+    renderHiddenField(this.host, this.name, null, this._getFiles());
     return (
-      <div class='file-uploader-container'>{this.renderFileUploader()}</div>
+      <div class='file-uploader-container'>
+        <input
+          type='file'
+          name={this.name}
+          hidden
+          {...multipleFiles}
+          style={{ display: 'none' }}
+          onChange={(ev) => this.fileHandler(ev)}
+          ref={(el) => (this.fileInputElement = el)}
+        ></input>
+        {this.renderFileUploader()}
+      </div>
     );
   }
 }
