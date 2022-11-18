@@ -1,36 +1,43 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('fw-select', () => {
-  const props = {
-    options: [
+  const getOptions = (labelPath, valuePath) => {
+    return [
       {
-        text: 'Angela Smith',
+        [labelPath]: 'Angela Smith',
         subText: 'angela.smith@gmail.com',
-        value: 'angela.smith@gmail.com',
+        [valuePath]: 'angela.smith@gmail.com',
         graphicsProps: {
           image:
             'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
         },
       },
       {
-        text: 'Freshdesk support from India and Berlin',
+        [labelPath]: 'Freshdesk support from India and Berlin',
         subText: 'support.india@freshdesk.com',
-        value: 'support.india@freshdesk.com',
+        [valuePath]: 'support.india@freshdesk.com',
         graphicsProps: {
           image:
             'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
         },
       },
       {
-        text: 'Angela from Freshdesk',
+        [labelPath]: 'Angela from Freshdesk',
         subText: 'angela@freshdesk.in',
-        value: 'angela@freshdesk.in',
+        [valuePath]: 'angela@freshdesk.in',
         graphicsProps: {
           image:
             'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
         },
       },
-    ],
+    ];
+  };
+
+  const props = {
+    options: getOptions('text', 'value'),
+    optionLabelPath: 'name',
+    optionValuePath: 'email',
+    customOptions: getOptions('name', 'email'),
   };
 
   it('renders', async () => {
@@ -376,5 +383,127 @@ describe('fw-select', () => {
     expect(selectedTags.length).toBe(3);
     const errorTag = await selectedTags[2].shadowRoot.querySelector('.tag');
     expect(errorTag).toHaveClass('error');
+  });
+
+  it('Renders all the select options when optionLabelPath and optionValuePath is passed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select>
+                            </fw-select>`);
+    await page.$eval(
+      'fw-select',
+      (elm: any, { customOptions, optionLabelPath, optionValuePath }) => {
+        elm.options = customOptions;
+        elm.optionLabelPath = optionLabelPath;
+        elm.optionValuePath = optionValuePath;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const popover = await page.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    expect(options.length).toBe(3);
+    await options.map(async (option, index) => {
+      expect(
+        option.shadowRoot.querySelector('.description-text')['innerText']
+      ).toBe(props.customOptions[index]['name']);
+      expect(
+        option.shadowRoot.querySelector('.description-subText')['innerText']
+      ).toBe(props.customOptions[index]['email']);
+    });
+  });
+
+  it('renders select option with the option provided with search when optionLabelPath and optionValuePath are passed as props', async () => {
+    await jest.useFakeTimers();
+    const page = await newE2EPage();
+    await page.setContent('<fw-select></fw-select>');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { optionLabelPath, optionValuePath }) => {
+        elm.search = () => {
+          return new Promise((resolve) => {
+            return resolve([
+              {
+                name: 'Angela Smith',
+                email: 'angela.smith@gmail.com',
+              },
+            ]);
+          });
+        };
+        elm.debounceTimer = 0;
+        elm.optionLabelPath = optionLabelPath;
+        elm.optionValuePath = optionValuePath;
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    const input = await page.find('fw-select >>> input');
+    await input.click();
+    await page.waitForChanges();
+    await input.press('a');
+    await page.waitForChanges();
+    jest.runAllTimers();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    const popover = await page.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    expect(options.length).toBe(1);
+    const selectOption = await options[0].shadowRoot.querySelector(
+      '.select-option'
+    );
+    expect(selectOption['innerText']).toBe('Angela Smith');
+    jest.useRealTimers();
+  });
+
+  it('emits fwChange with selected option when optionLabelPath and optionValuePath is passed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select>
+                            </fw-select>`);
+    const fwChange = await page.spyOnEvent('fwChange');
+    const element = await page.find('fw-select');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { customOptions, optionLabelPath, optionValuePath }) => {
+        elm.options = customOptions;
+        elm.optionLabelPath = optionLabelPath;
+        elm.optionValuePath = optionValuePath;
+      },
+      props
+    );
+    await page.waitForChanges();
+    await element.click();
+    await page.waitForChanges();
+    const popover = await page.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    expect(options.length).toBe(3);
+    options[1].click();
+    await page.waitForChanges();
+    element.waitForEvent('fwChange');
+    expect(fwChange).toHaveReceivedEventDetail({
+      value: props.customOptions[1]['email'],
+      name: '',
+      meta: {
+        selectedOptions: [
+          {
+            allowDeselect: true,
+            checkbox: false,
+            disabled: false,
+            hideTick: false,
+            selected: true,
+            variant: 'standard',
+            ...props.customOptions[1],
+          },
+        ],
+      },
+    });
   });
 });
