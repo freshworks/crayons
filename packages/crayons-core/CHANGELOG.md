@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.1.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.2...@freshworks/crayons@4.1.0-beta.3) (2022-11-19)
-
+## [4.1.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.2...@freshworks/crayons@4.1.0-beta.3) (2022-11-19)
 
 ### Features
 
-* **file-uploader:** adding reset and get files methods ([#717](https://github.com/freshworks/crayons/issues/717)) ([cad8109](https://github.com/freshworks/crayons/commit/cad810947091de51c5d5c4aaeaf1bfa8cf405407))
-
-
-
-
+- **file-uploader:** adding reset and get files methods ([#717](https://github.com/freshworks/crayons/issues/717)) ([cad8109](https://github.com/freshworks/crayons/commit/cad810947091de51c5d5c4aaeaf1bfa8cf405407))
 
 ## [4.1.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.1...@freshworks/crayons@4.1.0-beta.2) (2022-11-15)
 
