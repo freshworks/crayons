@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@3.1.0...@freshworks/crayons-icon@4.0.1-beta.0) (2022-11-19)
+
+**Note:** Version bump only for package @freshworks/crayons-icon
+
+
+
+
+
 ## [3.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@3.0.6...@freshworks/crayons-icon@3.1.0-beta.0) (2022-08-25)
 
 ### Features
