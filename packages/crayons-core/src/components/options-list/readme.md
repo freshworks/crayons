@@ -113,6 +113,214 @@ The data-source and the visual variant for the list options can be altered via t
 </script>
 ```
 
+### Demo with option-label-path and option-value-path
+
+```html live
+<fw-label value="With predefined options" color="blue"></fw-label>
+<fw-popover same-width="false">
+  <fw-button slot="popover-trigger">Click Me!</fw-button>
+  <fw-list-options
+    variant="icon"
+    id="predefinedOptions"
+    slot="popover-content"
+    option-label-path="name"
+    option-value-path="id"
+  ></fw-list-options>
+</fw-popover>
+<br />
+<br />
+<fw-label value="With search" color="blue"></fw-label>
+<fw-popover same-width="false">
+  <fw-button slot="popover-trigger">Click Me!</fw-button>
+  <fw-list-options
+    variant="avatar"
+    searchable="true"
+    id="searchVariant"
+    slot="popover-content"
+    no-data-text="Type to search.."
+    not-found-text="Not available in this universe"
+    search-text="Search Pirate"
+    multiple
+    option-label-path="label"
+    option-value-path="id"
+  ></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var iconDataSource = [
+    {
+      id: '1',
+      name: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      id: '3',
+      name: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var predefinedOptions = document.getElementById('predefinedOptions');
+  predefinedOptions.options = iconDataSource;
+  predefinedOptions.setSelectedOptions([
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+  ]);
+  predefinedOptions.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+
+  var searchVariant = document.getElementById('searchVariant');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      label: 'Rick Sanchez',
+      subText: 'Human',
+      id: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            label: x.name,
+            subText: x.type,
+            id: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+### Usage for option-label-path and option-value-path
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-label value="With predefined options" color="blue"></fw-label>
+<fw-popover same-width="false">
+  <fw-button slot="popover-trigger">Click Me!</fw-button>
+  <fw-list-options
+    variant="icon"
+    id="predefinedOptions"
+    slot="popover-content"
+    option-label-path="name"
+    option-value-path="id"
+  ></fw-list-options>
+</fw-popover>
+<br />
+<br />
+<fw-label value="With search" color="blue"></fw-label>
+<fw-popover same-width="false">
+  <fw-button slot="popover-trigger">Click Me!</fw-button>
+  <fw-list-options
+    variant="avatar"
+    searchable="true"
+    id="searchVariant"
+    slot="popover-content"
+    no-data-text="Type to search.."
+    not-found-text="Not available in this universe"
+    search-text="Search Pirate"
+    multiple
+    option-label-path="label"
+    option-value-path="id"
+  ></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var iconDataSource = [
+    {
+      id: '1',
+      name: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      id: '3',
+      name: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var predefinedOptions = document.getElementById('predefinedOptions');
+  predefinedOptions.options = iconDataSource;
+  predefinedOptions.setSelectedOptions([
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+  ]);
+  predefinedOptions.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+
+  var searchVariant = document.getElementById('searchVariant');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      label: 'Rick Sanchez',
+      subText: 'Human',
+      id: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            label: x.name,
+            subText: x.type,
+            id: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+</code-block>
+</code-group>
+
 <!-- Auto Generated Below -->
 
 

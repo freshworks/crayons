@@ -932,7 +932,7 @@ export default Select;
 ### Demo with creatable select
 
 ```html live
-<fw-label value="Mail Variant" color="blue"></fw-label>
+<fw-label value="Creatable Mail Variant" color="blue"></fw-label>
 <fw-select
   id="creatableVariant"
   variant="mail"
@@ -1008,7 +1008,7 @@ export default Select;
 <code-block title="HTML">
 
 ```html
-<fw-label value="Mail Variant" color="blue"></fw-label>
+<fw-label value="Creatable Mail Variant" color="blue"></fw-label>
 <fw-select
   id="creatableVariant"
   variant="mail"
@@ -1184,6 +1184,210 @@ export default Select;
   longSelectMulti.options = yearsData;
 </script>
 ```
+
+### Demo with option-label-path and option-value-path
+
+```html live
+<fw-label value="With predefined options" color="blue"></fw-label>
+<fw-select
+  id="predefinedOptionsSelect"
+  label="Strawhat Pirates"
+  placeholder="Your choices"
+  hint-text="Select single option"
+  options-variant="icon"
+  option-label-path="name"
+  option-value-path="id"
+>
+</fw-select>
+
+<fw-label value="With search" color="blue"></fw-label>
+<fw-select
+  id="searchVariant"
+  label="Rick & Morty Characters"
+  no-data-text="Type to search.."
+  not-found-text="Not available in this universe"
+  placeholder="Your choices"
+  hint-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
+  multiple
+  option-label-path="label"
+  option-value-path="id"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var iconDataSource = [
+    {
+      id: '1',
+      name: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      id: '3',
+      name: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var predefinedOptionsSelect = document.getElementById('predefinedOptionsSelect');
+  predefinedOptionsSelect.options = iconDataSource;
+  predefinedOptionsSelect.setSelectedOptions([
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+  ]);
+  predefinedOptionsSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+
+  var searchVariant = document.getElementById('searchVariant');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      label: 'Rick Sanchez',
+      subText: 'Human',
+      id: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            label: x.name,
+            subText: x.type,
+            id: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+### Usage for option-label-path and option-value-path
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-label value="With predefined options" color="blue"></fw-label>
+<fw-select
+  id="predefinedOptionsSelect"
+  label="Strawhat Pirates"
+  placeholder="Your choices"
+  hint-text="Select single option"
+  options-variant="icon"
+  option-label-path="name"
+  option-value-path="id"
+>
+</fw-select>
+
+<fw-label value="With search" color="blue"></fw-label>
+<fw-select
+  id="searchVariant"
+  label="Rick & Morty Characters"
+  no-data-text="Type to search.."
+  not-found-text="Not available in this universe"
+  placeholder="Your choices"
+  hint-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
+  multiple
+  option-label-path="label"
+  option-value-path="id"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var iconDataSource = [
+    {
+      id: '1',
+      name: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      id: '3',
+      name: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var predefinedOptionsSelect = document.getElementById('predefinedOptionsSelect');
+  predefinedOptionsSelect.options = iconDataSource;
+  predefinedOptionsSelect.setSelectedOptions([
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+  ]);
+  predefinedOptionsSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+
+  var searchVariant = document.getElementById('searchVariant');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      label: 'Rick Sanchez',
+      subText: 'Human',
+      id: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            label: x.name,
+            subText: x.type,
+            id: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+</code-block>
+</code-group>
 
 ## Styling
 
