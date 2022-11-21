@@ -1082,9 +1082,9 @@ fieldProps={{ maxlength: 5 }} ></FwFormControl>
 </code-group>
 
 
-## Demo - Form inside an accordian
+## Demo - Form inside an accordion
 
-Form can be created inside an accordian by passing the form to accordian body.
+Form can be created inside an accordion by passing the form to accordion body.
 
 ```html live
 <div style="width: 300px;">
@@ -1092,9 +1092,9 @@ Form can be created inside an accordian by passing the form to accordian body.
   <fw-accordion-title style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
       --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Title</fw-accordion-title>
   <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
-    <div id="accordian-form">
-      <fw-button id="accordian-form-submit" color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
-      <fw-button id="accordian-form-reset" style="display: block;">Reset</fw-button>
+    <div id="accordion-form">
+      <fw-button id="accordion-form-submit" color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
+      <fw-button id="accordion-form-reset" style="display: block;">Reset</fw-button>
     </div>
   </fw-accordion-body>
 </fw-accordion>
@@ -1102,8 +1102,8 @@ Form can be created inside an accordian by passing the form to accordian body.
 
 <script type="application/javascript">
   var accForm = document.createElement('fw-form');
-  var accFormContainer = document.querySelector('#accordian-form');
-  document.querySelector('#accordian-form-submit').addEventListener('click', async (e) => {
+  var accFormContainer = document.querySelector('#accordion-form');
+  document.querySelector('#accordion-form-submit').addEventListener('click', async (e) => {
     const { values, isValid } = await accForm.doSubmit(e);
     console.log({ values, isValid });
 
@@ -1114,7 +1114,7 @@ Form can be created inside an accordian by passing the form to accordian body.
       });
     }
   });
-  document.querySelector('#accordian-form-reset').addEventListener('click', (e) => {
+  document.querySelector('#accordion-form-reset').addEventListener('click', (e) => {
     accForm.doReset(e);
   });
   var accFormSchema = {
@@ -1226,7 +1226,7 @@ Form can be created inside an accordian by passing the form to accordian body.
 
 ```
 
-## Usage - Form inside an accordian
+## Usage - Form inside an accordion
 
 
 <code-group>
@@ -1236,7 +1236,7 @@ Form can be created inside an accordian by passing the form to accordian body.
     <fw-accordion-title style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
         --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Header Text</fw-accordion-title>
     <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
-      <div id="accordian-form-2">
+      <div id="accordion-form-2">
         <fw-button id="acc-form-2-submit" color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
         <fw-button id="acc-form-2-reset" style="display: block;">Reset</fw-button>
       </div>
@@ -1245,7 +1245,7 @@ Form can be created inside an accordian by passing the form to accordian body.
 
   <script type="application/javascript">
     var accForm_2 = document.createElement('fw-form');
-    var accformContainer_2 = document.querySelector('#accordian-form-2');
+    var accformContainer_2 = document.querySelector('#accordion-form-2');
     document.querySelector('#acc-form-2-submit').addEventListener('click', async (e) => {
       const { values, isValid } = await accForm_2.doSubmit(e);
       console.log({ values, isValid });
@@ -1322,7 +1322,7 @@ Form can be created inside an accordian by passing the form to accordian body.
 ```jsx
 import React, {useRef} from "react";
 import ReactDOM from "react-dom";
-import {FwAccordian, FwAccordionTitle, FwAccordionBody, FwForm,FwButton} from "@freshworks/crayons/react";
+import {FwAccordion, FwAccordionTitle, FwAccordionBody, FwForm,FwButton} from "@freshworks/crayons/react";
 function App() {
 
   var accFormSchema3 = {
@@ -1401,7 +1401,7 @@ function App() {
 
   return (
     <div>
-      <FwAccordian expanded style={{"--fw-accordion-border": "1px solid #ccc"}} >
+      <FwAccordion expanded style={{"--fw-accordion-border": "1px solid #ccc"}} >
         <FwAccordionTitle style={{ "--fw-accordion-title-background-color":  "#F5F7F9", "--fw-accordion-title-expanded-icon-color" : "#2C5CC5", "--fw-accordion-title-collapsed-icon-color" : "#264966", "--fw-accordion-title-font-size": "14px", "--fw-accordion-title-font-weight" : "600", "--fw-accordion-title-line-height" : "20px"}}>Header Text</FwAccordionTitle>
         <FwAccordionBody style={{"--fw-accordion-body-background-color" : "#FFFFFF"}}>
             <FwForm ref={accFormRef} formSchema={accFormSchema3}
@@ -1414,7 +1414,7 @@ function App() {
             <FwButton id="acc-form-3-submit" color="secondary" style={{"display": "block", "marginBottom": "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
             <FwButton id="acc-form-3-reset" style={{"display": "block"}} onClick={handleFormReset}>Reset</FwButton>
         </FwAccordionBody>
-      </FwAccordian>
+      </FwAccordion>
     </div>
   )
 }
