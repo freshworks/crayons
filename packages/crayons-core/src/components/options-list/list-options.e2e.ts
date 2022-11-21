@@ -191,7 +191,6 @@ describe('fw-list-options', () => {
     expect(options.length).toBe(3);
     options[1].click();
     await page.waitForChanges();
-    element.waitForEvent('fwChange');
     expect(fwChange).toHaveReceivedEventDetail({
       value: props.options[1]['email'],
       meta: {
