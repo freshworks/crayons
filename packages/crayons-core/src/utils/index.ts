@@ -49,17 +49,27 @@ export const findCheckedOption = (el: any, tagName: string) => {
 export const renderHiddenField = (
   container: HTMLElement,
   name: string,
-  value: string | null
+  value: string | null,
+  files: FileList | null = null
 ) => {
   let input: HTMLInputElement = container.querySelector('input.hidden-input');
   if (!input) {
     input = container.ownerDocument.createElement('input');
-    input.type = 'hidden';
+    if (files) {
+      input.style.display = 'none';
+      input.type = 'file';
+    } else {
+      input.type = 'hidden';
+    }
     input.classList.add('hidden-input');
     container.appendChild(input);
   }
   input.name = name;
-  input.value = value || '';
+  if (files) {
+    input.files = files;
+  } else {
+    input.value = value || '';
+  }
 };
 type handlerArg = (event?: KeyboardEvent) => void;
 
