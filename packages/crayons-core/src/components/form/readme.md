@@ -1082,7 +1082,7 @@ fieldProps={{ maxlength: 5 }} ></FwFormControl>
 </code-group>
 
 
-## Demo - Form inside an accordian
+## Demo - Form inside an accordion
 
 Form can be created inside an accordion by passing the form to accordion body.
 
