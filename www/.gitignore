@@ -3,3 +3,5 @@
 /.vuepress/public/css*
 /core*
 /crayons-custom-objects*
+/versions*
+scripts/version.json

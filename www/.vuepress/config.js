@@ -15,6 +15,23 @@ const customObjectsComponents = components.filter((comp) =>
   comp.startsWith('components/crayons-custom-objects/')
 );
 
+/** list all versions along with their SHA digest */
+let versionsArr = [];
+
+try {
+  versionsArr = JSON.parse(
+    fs.readFileSync(
+      path.resolve(__dirname, '../scripts', 'version.json').toString()
+    )
+  );
+} catch (err) {
+  console.log('version.json fetch error ', err);
+  versionArr = [];
+}
+
+const versionComponents = versionsArr.map((v) => `versions/${v.key}/`);
+/** End of listing all versions */
+
 // Generate array of head-scripts based on the www builds of the
 // packages that have landed in the public directory
 const headScripts = [];
@@ -72,7 +89,15 @@ module.exports = {
         title: 'Introduction',
         collapsable: false,
         sidebarDepth: 1,
-        children: ['/introduction/', '/introduction/migrating-to-v4/'],
+        children: [
+          '/introduction/',
+          '/introduction/migrating-to-v4/',
+          {
+            type: 'group',
+            title: 'Versions',
+            children: versionComponents,
+          },
+        ],
       },
       {
         title: 'Core Components',
