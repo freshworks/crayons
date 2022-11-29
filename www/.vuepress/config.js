@@ -19,11 +19,7 @@ const customObjectsComponents = components.filter((comp) =>
 let versionsArr = [];
 
 try {
-  versionsArr = JSON.parse(
-    fs.readFileSync(
-      path.resolve(__dirname, '../scripts', 'version.json').toString()
-    )
-  );
+  versionsArr = JSON.parse(fs.readFileSync(process.env.VERSION_FILE));
 } catch (err) {
   console.log('version.json fetch error ', err);
   versionArr = [];

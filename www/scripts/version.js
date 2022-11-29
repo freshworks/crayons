@@ -5,10 +5,9 @@
 const fs = require('fs');
 const path = require('path');
 const { render } = require('mustache');
-const filename = process.argv.splice(2)[0];
 
 try {
-  const versions = JSON.parse(fs.readFileSync(filename));
+  const versions = JSON.parse(fs.readFileSync(process.env.VERSION_FILE));
   const template = fs
     .readFileSync(path.join(__dirname, 'template.md'))
     .toString();
