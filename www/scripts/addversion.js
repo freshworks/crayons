@@ -121,6 +121,7 @@ function bufferStream(stream) {
         path.join(__dirname, 'version.json'),
         JSON.stringify(versionsArr)
       );
+      console.log('file path-->', path.join(__dirname, 'version.json'));
     }
   } catch (err) {
     console.log('error in updating version details to version.json ', err);
