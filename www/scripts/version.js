@@ -5,11 +5,10 @@
 const fs = require('fs');
 const path = require('path');
 const { render } = require('mustache');
+const filename = process.argv.splice(2)[0];
 
 try {
-  const versions = fs
-    .readFileSync(path.join(__dirname, 'version.json'))
-    .toString();
+  const versions = JSON.parse(fs.readFileSync(filename));
   const template = fs
     .readFileSync(path.join(__dirname, 'template.md'))
     .toString();
@@ -20,9 +19,7 @@ try {
     recursive: true,
   });
 
-  const versionsArr = JSON.parse(versions);
-
-  versionsArr.forEach((versionObj) => {
+  versions.forEach((versionObj) => {
     const output = render(template, {
       ['esm']: versionObj['esm'],
       ['es5']: versionObj['es5'],
