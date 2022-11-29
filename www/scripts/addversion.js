@@ -46,9 +46,7 @@ function bufferStream(stream) {
 
     const key = value.version;
 
-    const versions = fs.readFileSync('version.json').toString();
-
-    const versionsArr = JSON.parse(versions);
+    const versionsArr = JSON.parse(fs.readFileSync(process.env.VERSION_FILE));
 
     const isVersionAlreadyPresent = versionsArr.find((f) => f.key === key);
 
