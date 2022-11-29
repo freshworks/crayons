@@ -83,6 +83,8 @@ export class Form {
   @State() formValidationSchema;
   @State() formInitialValues;
 
+  @State() searchFieldsText;
+
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
    */
@@ -185,6 +187,18 @@ export class Form {
 
   handleSlotChange() {
     this.controls = this.getFormControls();
+
+    /** Create implicit validation rules based
+     *  on slotted form-controls for static form
+     */
+    const fields = this.controls.map((control) => ({
+      type: control.type,
+      name: control.name,
+      required: control.required,
+    }));
+
+    this.formValidationSchema =
+      generateDynamicValidationSchema({ fields }, this.validationSchema) || {};
   }
 
   disconnectedCallback() {
@@ -448,6 +462,17 @@ export class Form {
     this.handleReset(e);
   }
 
+  /**
+   *
+   * @param text
+   * Filter the fields in the dynamic form based
+   * on the passed text.
+   */
+  @Method()
+  async setSearchFieldsText(text: string) {
+    this.searchFieldsText = text;
+  }
+
   render() {
     const utils: FormUtils = this.composedUtils();
 
@@ -457,19 +482,30 @@ export class Form {
           this.formSchema?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
+              /** render field based on searchFieldsText state */
+              const shouldRenderField = this.searchFieldsText
+                ? field.label
+                    ?.toLowerCase()
+                    ?.includes(this.searchFieldsText.toLowerCase())
+                : true;
+
               return (
-                <fw-form-control
-                  key={field.name}
-                  name={field.name}
-                  type={field.type}
-                  label={field.label}
-                  required={field.required}
-                  hint={field.hint}
-                  placeholder={field.placeholder}
-                  choices={field.choices}
-                  fieldProps={field}
-                  controlProps={utils}
-                ></fw-form-control>
+                shouldRenderField && (
+                  <fw-form-control
+                    key={field.name}
+                    name={field.name}
+                    type={field.type}
+                    label={field.label}
+                    required={field.required}
+                    hint={field.hint}
+                    placeholder={field.placeholder}
+                    choices={field.choices}
+                    fieldProps={field}
+                    controlProps={utils}
+                    error={this.errors[field.name]}
+                    touched={this.touched[field.name]}
+                  ></fw-form-control>
+                )
               );
             })
         ) : (

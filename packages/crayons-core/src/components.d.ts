@@ -606,6 +606,10 @@ export namespace Components {
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
+          * @param text Filter the fields in the dynamic form based on the passed text.
+         */
+        "setSearchFieldsText": (text: string) => Promise<void>;
+        /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
         "validate"?: any;
