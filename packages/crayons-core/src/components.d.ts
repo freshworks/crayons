@@ -658,6 +658,10 @@ export namespace Components {
           * Set Focus on the child
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Prop to determine whether to render a field or not. Default to true.
+         */
+        "shouldRenderField": boolean;
         "touched": boolean;
         "type": | 'TEXT'
     | 'NUMBER'
@@ -673,6 +677,10 @@ export namespace Components {
     | 'TEL'
     | 'TIME'
     | 'RELATIONSHIP';
+        /**
+          * Value of the form-control field
+         */
+        "value": any;
     }
     interface FwFormatDate {
         /**
@@ -3231,6 +3239,10 @@ declare namespace LocalJSX {
         "name"?: any;
         "placeholder"?: string;
         "required"?: boolean;
+        /**
+          * Prop to determine whether to render a field or not. Default to true.
+         */
+        "shouldRenderField"?: boolean;
         "touched"?: boolean;
         "type"?: | 'TEXT'
     | 'NUMBER'
@@ -3246,6 +3258,10 @@ declare namespace LocalJSX {
     | 'TEL'
     | 'TIME'
     | 'RELATIONSHIP';
+        /**
+          * Value of the form-control field
+         */
+        "value"?: any;
     }
     interface FwFormatDate {
         /**

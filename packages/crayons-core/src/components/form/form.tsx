@@ -29,7 +29,7 @@ import {
   serializeForm,
   translateErrors,
 } from './form-util';
-import { debounce } from '../../utils';
+import { debounce, hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-form',
@@ -84,6 +84,7 @@ export class Form {
   @State() formInitialValues;
 
   @State() searchFieldsText;
+  @State() hasSlot = false;
 
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
@@ -169,7 +170,7 @@ export class Form {
   // get Form Controls and pass props to children
   componentDidLoad() {
     this.controls = this.getFormControls();
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
     // adding a timeout since this lifecycle method is called before its child in React apps.
     // Bug with react wrapper.
     setTimeout(() => {
@@ -182,10 +183,13 @@ export class Form {
     if (!this.controls || !this.controls.length) {
       this.controls = this.getFormControls();
     }
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) {
+      this.passPropsToChildren(this.controls);
+    }
   }
 
   handleSlotChange() {
+    this.hasSlot = hasSlot(this.el);
     this.controls = this.getFormControls();
 
     /** Create implicit validation rules based
@@ -197,8 +201,8 @@ export class Form {
       required: control.required,
     }));
 
-    this.formValidationSchema =
-      generateDynamicValidationSchema({ fields }, this.validationSchema) || {};
+    // setup initialValues and validation rules
+    this.handleFormSchemaAndInitialValuesChange({ fields }, this.initialValues);
   }
 
   disconnectedCallback() {
@@ -370,9 +374,26 @@ export class Form {
   private passPropsToChild(control: any) {
     const error = this.errors[control.name];
     const touched = this.touched[control.name];
+
     control.controlProps = this.composedUtils();
-    control.error = error || '';
+    control.error = error ?? '';
     control.touched = touched || false;
+    control.shouldRenderField = this.shouldRenderField(control);
+
+    const type = control.type?.toUpperCase() ?? 'TEXT';
+    switch (type) {
+      case 'CHECKBOX':
+        control.value = !!this.values[control.name];
+        break;
+      case 'MULTI_SELECT':
+        control.value = this.values[control.name] ?? [];
+        break;
+      case 'DROPDOWN':
+        control.value = this.values[control.name] ?? '';
+        break;
+      default:
+        control.value = this.values[control.name];
+    }
   }
 
   private composedUtils = (): FormUtils => {
@@ -391,8 +412,8 @@ export class Form {
     const selectProps = (field: string, inputType) => ({
       value:
         inputType === 'multi_select'
-          ? this.values[field] || []
-          : this.values[field] || '',
+          ? this.values[field] ?? []
+          : this.values[field] ?? '',
     });
 
     const formProps: FormProps = {
@@ -409,6 +430,15 @@ export class Form {
       formProps,
     };
   };
+
+  private shouldRenderField(control) {
+    const shouldRender = this.searchFieldsText
+      ? control.label
+          ?.toLowerCase()
+          ?.includes(this.searchFieldsText.toLowerCase())
+      : true;
+    return shouldRender;
+  }
 
   @Method()
   async setFieldValue(
@@ -497,14 +527,8 @@ export class Form {
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
               /** render field based on searchFieldsText state */
-              const shouldRenderField = this.searchFieldsText
-                ? field.label
-                    ?.toLowerCase()
-                    ?.includes(this.searchFieldsText.toLowerCase())
-                : true;
-
               return (
-                shouldRenderField && (
+                this.shouldRenderField(field) && (
                   <fw-form-control
                     key={field.name}
                     name={field.name}
