@@ -452,14 +452,28 @@ export class Form {
     return { values: this.values, serializedValues };
   }
 
+  /**
+   *
+   * @param event : An event which takes place in the DOM
+   * @returns Promise<FormSubmit>
+   *
+   * Method to submit the form
+   */
   @Method()
-  async doSubmit(e) {
-    return this.handleSubmit(e);
+  async doSubmit(event?): Promise<FormSubmit> {
+    return this.handleSubmit(event);
   }
 
+  /**
+   *
+   * @param event - An event which takes place in the DOM
+   * @returns Promise<Void>
+   *
+   * Method to reset the form
+   */
   @Method()
-  async doReset(e) {
-    this.handleReset(e);
+  async doReset(event?): Promise<void> {
+    this.handleReset(event);
   }
 
   /**

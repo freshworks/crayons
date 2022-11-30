@@ -584,8 +584,16 @@ export namespace Components {
         "progress": number;
     }
     interface FwForm {
-        "doReset": (e: any) => Promise<void>;
-        "doSubmit": (e: any) => Promise<FormSubmit>;
+        /**
+          * @param event - An event which takes place in the DOM
+          * @returns Promise<Void>  Method to reset the form
+         */
+        "doReset": (event?: any) => Promise<void>;
+        /**
+          * @param event : An event which takes place in the DOM
+          * @returns Promise<FormSubmit>  Method to submit the form
+         */
+        "doSubmit": (event?: any) => Promise<FormSubmit>;
         /**
           * Id to uniquely identify the Form. If not set, a random Id will be generated.
          */

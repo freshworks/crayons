@@ -840,7 +840,7 @@ You can pass `initialValues` to the form. Wrap all the form controls with `form-
 
 For `Crayons` controls just pass the `type`, `name`, `placeholder`,`required`, `label` properties to `fw-form-control`.
 
-For `custom` input controls, pass the custom input as `slot` to `fw-form-control`. For setting its value in the form, use the method like `handleCustomInput` shown in the below example.
+For `custom` input controls, pass the custom input as `slot` to `fw-form-control`. You can pass the `type`, `name`, `required`, `label` properties to `fw-form-control`. For setting its value in the form, use the method like `handleCustomInput` shown in the below example.
 
 ```html live
 <div id="static-form-container">
@@ -863,7 +863,7 @@ For `custom` input controls, pass the custom input as `slot` to `fw-form-control
       id="last_name"
     ></fw-form-control>
 
-    <fw-form-control name="cin" required label="Custom native in">
+    <fw-form-control name="cin" type="TEXT" required label="Custom native in">
       <input name="cin" id="cin" placeholder="custom input" autocomplete="off"
     /></fw-form-control>
   </fw-form>
@@ -1081,42 +1081,55 @@ fieldProps={{ maxlength: 5 }} ></FwFormControl>
 </code-block>
 </code-group>
 
-
 ## Demo - Form inside an accordion
 
 Form can be created inside an accordion by passing the form to accordion body.
 
 ```html live
 <div style="width: 300px;">
-<fw-accordion expanded style="--fw-accordion-border: 1px solid #ccc">
-  <fw-accordion-title style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
-      --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Title</fw-accordion-title>
-  <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
-    <div id="accordion-form">
-      <fw-button id="accordion-form-submit" color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
-      <fw-button id="accordion-form-reset" style="display: block;">Reset</fw-button>
-    </div>
-  </fw-accordion-body>
-</fw-accordion>
+  <fw-accordion expanded style="--fw-accordion-border: 1px solid #ccc">
+    <fw-accordion-title
+      style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
+      --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;"
+      >Title</fw-accordion-title
+    >
+    <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
+      <div id="accordion-form">
+        <fw-button
+          id="accordion-form-submit"
+          color="secondary"
+          style="display: block; margin-bottom:10px;"
+          >Submit</fw-button
+        >
+        <fw-button id="accordion-form-reset" style="display: block;"
+          >Reset</fw-button
+        >
+      </div>
+    </fw-accordion-body>
+  </fw-accordion>
 </div>
 
 <script type="application/javascript">
   var accForm = document.createElement('fw-form');
   var accFormContainer = document.querySelector('#accordion-form');
-  document.querySelector('#accordion-form-submit').addEventListener('click', async (e) => {
-    const { values, isValid } = await accForm.doSubmit(e);
-    console.log({ values, isValid });
+  document
+    .querySelector('#accordion-form-submit')
+    .addEventListener('click', async (e) => {
+      const { values, isValid } = await accForm.doSubmit(e);
+      console.log({ values, isValid });
 
-    if (!isValid) {
-      // if error from backend , set Errors - passing key value pair
-      accForm.setFieldErrors({
-        first_name: 'First Name must be unique <<Server Error>>',
-      });
-    }
-  });
-  document.querySelector('#accordion-form-reset').addEventListener('click', (e) => {
-    accForm.doReset(e);
-  });
+      if (!isValid) {
+        // if error from backend , set Errors - passing key value pair
+        accForm.setFieldErrors({
+          first_name: 'First Name must be unique <<Server Error>>',
+        });
+      }
+    });
+  document
+    .querySelector('#accordion-form-reset')
+    .addEventListener('click', (e) => {
+      accForm.doReset(e);
+    });
   var accFormSchema = {
     name: 'Test Form',
     fields: [
@@ -1197,7 +1210,7 @@ Form can be created inside an accordion by passing the form to accordion body.
         placeholder: 'Enter…',
         hint: 'Please provide your phone number',
         choices: [],
-      }
+      },
     ],
   };
   accFormContainer.prepend(accForm);
@@ -1223,11 +1236,9 @@ Form can be created inside an accordion by passing the form to accordion body.
   };
   accForm.formSchema = accFormSchema1;
 </script>
-
 ```
 
 ## Usage - Form inside an accordion
-
 
 <code-group>
 <code-block title="HTML">
@@ -1315,7 +1326,8 @@ Form can be created inside an accordion by passing the form to accordion body.
     accformContainer_2.prepend(accForm_2);
     accForm_2.formSchema = accFormSchema2;
   </script>
-  ```
+
+````
 </code-block>
 
 <code-block title="React">
@@ -1325,103 +1337,103 @@ import ReactDOM from "react-dom";
 import {FwAccordion, FwAccordionTitle, FwAccordionBody, FwForm,FwButton} from "@freshworks/crayons/react";
 function App() {
 
-  var accFormSchema3 = {
-    name: 'Test Form',
-    fields: [
-      {
-        id: '2978f2320-704b-46c7-9f88-110e14e34a8c',
-        name: 'first_name',
-        label: 'First Name',
-        type: 'TEXT',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide a text of at max 100 characters',
-        choices: [],
-      },
+var accFormSchema3 = {
+  name: 'Test Form',
+  fields: [
+    {
+      id: '2978f2320-704b-46c7-9f88-110e14e34a8c',
+      name: 'first_name',
+      label: 'First Name',
+      type: 'TEXT',
+      position: 3,
+      required: true,
+      placeholder: 'Enter…',
+      hint: 'Please provide a text of at max 100 characters',
+      choices: [],
+    },
 
-      {
-        id: '3971f8320-704b-46c7-9f88-110e14e34a8c',
-        name: 'last_name',
-        label: 'Last Name',
-        type: 'TEXT',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide a text of at max 100 characters',
-        choices: [],
-      },
+    {
+      id: '3971f8320-704b-46c7-9f88-110e14e34a8c',
+      name: 'last_name',
+      label: 'Last Name',
+      type: 'TEXT',
+      position: 3,
+      required: true,
+      placeholder: 'Enter…',
+      hint: 'Please provide a text of at max 100 characters',
+      choices: [],
+    },
 
-      {
-        id: '69e48f820-704b-46c7-9f88-110e14e34a8c',
-        name: 'email',
-        label: 'Email',
-        type: 'EMAIL',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide an email Id',
-        choices: [],
-      },
+    {
+      id: '69e48f820-704b-46c7-9f88-110e14e34a8c',
+      name: 'email',
+      label: 'Email',
+      type: 'EMAIL',
+      position: 3,
+      required: true,
+      placeholder: 'Enter…',
+      hint: 'Please provide an email Id',
+      choices: [],
+    },
 
-      {
-        id: '8u878f820-704b-46c7-9f88-110e14e34a8c',
-        name: 'phone_number',
-        label: 'Phone number',
-        type: 'TEXT',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide your phone number',
-        choices: [],
-      }
-    ],
-  };
-
-  const accFormRef = useRef<any>(null);
-
-  const handleFormSubmit = async (e: any) => {
-    const { values, isValid, errors } = await accFormRef.current.doSubmit(e);
-    console.log({ result: values, errors });
-
-    // if error from backend , set Errors - passing key value pair
-    if (isValid) {
-      // set Errors on the form
-      accFormRef.current.setFieldErrors({
-        first_name: "First Name must be unique <<Server Error>>",
-      });
-      // reset the form if required if success
-      // accFormRef.current.doReset(e);
+    {
+      id: '8u878f820-704b-46c7-9f88-110e14e34a8c',
+      name: 'phone_number',
+      label: 'Phone number',
+      type: 'TEXT',
+      position: 3,
+      required: true,
+      placeholder: 'Enter…',
+      hint: 'Please provide your phone number',
+      choices: [],
     }
-  };
+  ],
+};
 
-  const handleFormReset = (e: any) => {
-    accFormRef.current.doReset(e);
-  };
+const accFormRef = useRef<any>(null);
 
-  return (
-    <div>
-      <FwAccordion expanded style={{"--fw-accordion-border": "1px solid #ccc"}} >
-        <FwAccordionTitle style={{ "--fw-accordion-title-background-color":  "#F5F7F9", "--fw-accordion-title-expanded-icon-color" : "#2C5CC5", "--fw-accordion-title-collapsed-icon-color" : "#264966", "--fw-accordion-title-font-size": "14px", "--fw-accordion-title-font-weight" : "600", "--fw-accordion-title-line-height" : "20px"}}>Header Text</FwAccordionTitle>
-        <FwAccordionBody style={{"--fw-accordion-body-background-color" : "#FFFFFF"}}>
-            <FwForm ref={accFormRef} formSchema={accFormSchema3}
-              validate={async (values:any) => { // do custom validation and return error or {}
-              return {
-              // last_name: "last name is errored",
-              };
-              }} >
-            </FwForm>
-            <FwButton id="acc-form-3-submit" color="secondary" style={{"display": "block", "marginBottom": "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
-            <FwButton id="acc-form-3-reset" style={{"display": "block"}} onClick={handleFormReset}>Reset</FwButton>
-        </FwAccordionBody>
-      </FwAccordion>
-    </div>
-  )
+const handleFormSubmit = async (e: any) => {
+  const { values, isValid, errors } = await accFormRef.current.doSubmit(e);
+  console.log({ result: values, errors });
+
+  // if error from backend , set Errors - passing key value pair
+  if (isValid) {
+    // set Errors on the form
+    accFormRef.current.setFieldErrors({
+      first_name: "First Name must be unique <<Server Error>>",
+    });
+    // reset the form if required if success
+    // accFormRef.current.doReset(e);
+  }
+};
+
+const handleFormReset = (e: any) => {
+  accFormRef.current.doReset(e);
+};
+
+return (
+  <div>
+    <FwAccordion expanded style={{"--fw-accordion-border": "1px solid #ccc"}} >
+      <FwAccordionTitle style={{ "--fw-accordion-title-background-color":  "#F5F7F9", "--fw-accordion-title-expanded-icon-color" : "#2C5CC5", "--fw-accordion-title-collapsed-icon-color" : "#264966", "--fw-accordion-title-font-size": "14px", "--fw-accordion-title-font-weight" : "600", "--fw-accordion-title-line-height" : "20px"}}>Header Text</FwAccordionTitle>
+      <FwAccordionBody style={{"--fw-accordion-body-background-color" : "#FFFFFF"}}>
+          <FwForm ref={accFormRef} formSchema={accFormSchema3}
+            validate={async (values:any) => { // do custom validation and return error or {}
+            return {
+            // last_name: "last name is errored",
+            };
+            }} >
+          </FwForm>
+          <FwButton id="acc-form-3-submit" color="secondary" style={{"display": "block", "marginBottom": "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
+          <FwButton id="acc-form-3-reset" style={{"display": "block"}} onClick={handleFormReset}>Reset</FwButton>
+      </FwAccordionBody>
+    </FwAccordion>
+  </div>
+)
 }
-```
+````
+
 </code-block>
 </code-group>
-
 
 ### Validations
 
@@ -1455,8 +1467,35 @@ const validate = async (values: any) => {
 
 Both `validationSchema` and `validate` prop can be used together.
 
-<!-- Auto Generated Below -->
+### Interfaces
 
+#### FormValues
+
+```javascript
+type FormValues = {
+  [field: string]: any,
+};
+```
+
+#### FormSubmit
+
+```javascript
+type FormSubmit = {
+  values: FormValues,
+  errors: FormErrors<FormValues>,
+  isValid: boolean,
+};
+```
+
+#### FormErrors
+
+```javascript
+type FormErrors = {
+  [K in keyof FormValues]?: string;
+};
+```
+
+<!-- Auto Generated Below -->
 
 ## Properties
 
@@ -1471,35 +1510,25 @@ Both `validationSchema` and `validate` prop can be used together.
 | `validationSchema` | `validation-schema` | YUP based validation schema for handling validation                                                                                                                           | `any`     | `{}`        |
 | `wait`             | `wait`              | The number of milliseconds to delay before doing validation on Input                                                                                                          | `number`  | `200`       |
 
-
 ## Events
 
 | Event                 | Description                                                       | Type               |
 | --------------------- | ----------------------------------------------------------------- | ------------------ |
 | `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change. | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `doReset(e: any) => Promise<void>`
-
-
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
 ### `doSubmit(e: any) => Promise<FormSubmit>`
-
-
 
 #### Returns
 
 Type: `Promise<FormSubmit>`
-
-
 
 ### `getValues() => Promise<{ values: FormValues; serializedValues: FormValues; }>`
 
@@ -1511,30 +1540,22 @@ Type: `Promise<{ values: FormValues; serializedValues: FormValues; }>`
 
 An Object containing values and serializedValues.
 serializedValues are those that contains the transformed values based on field type.
+
 1. For Number and Decimal: returns floating point number of value or undefined.
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
 
 ### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
-
-
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `setFieldValue(field: string, value: any, shouldValidate?: boolean) => Promise<void>`
 
-
-
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## Dependencies
 
@@ -1543,6 +1564,7 @@ Type: `Promise<void>`
 - [fw-form-control](../form-control)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-form --> fw-form-control
@@ -1585,6 +1607,6 @@ graph TD;
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
