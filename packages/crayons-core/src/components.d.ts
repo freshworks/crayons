@@ -1008,6 +1008,14 @@ export namespace Components {
          */
         "notFoundText": string;
         /**
+          * Key for determining the label for a given option
+         */
+        "optionLabelPath": string;
+        /**
+          * Key for determining the value for a given option
+         */
+        "optionValuePath": string;
+        /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
@@ -1465,6 +1473,14 @@ export namespace Components {
           * Default option to be shown if the option doesn't match the filterText.
          */
         "notFoundText": string;
+        /**
+          * Key for determining the label for a given option
+         */
+        "optionLabelPath": string;
+        /**
+          * Key for determining the value for a given option
+         */
+        "optionValuePath": string;
         /**
           * The data for the select component, the options will be of type array of fw-select-options.
          */
@@ -3613,6 +3629,14 @@ declare namespace LocalJSX {
          */
         "onFwLoading"?: (event: FwListOptionsCustomEvent<any>) => void;
         /**
+          * Key for determining the label for a given option
+         */
+        "optionLabelPath"?: string;
+        /**
+          * Key for determining the value for a given option
+         */
+        "optionValuePath"?: string;
+        /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options"?: any[];
@@ -4078,6 +4102,14 @@ declare namespace LocalJSX {
           * Triggered when the list box comes into focus.
          */
         "onFwFocus"?: (event: FwSelectCustomEvent<any>) => void;
+        /**
+          * Key for determining the label for a given option
+         */
+        "optionLabelPath"?: string;
+        /**
+          * Key for determining the value for a given option
+         */
+        "optionValuePath"?: string;
         /**
           * The data for the select component, the options will be of type array of fw-select-options.
          */
