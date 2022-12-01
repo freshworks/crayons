@@ -31,6 +31,10 @@ export class Popover {
   @State() popperInstance: Instance;
   @State() isOpen = false;
   @State() popperOptions;
+  /**
+   * stored setTimeOut id to close it
+   */
+  @State() timerId: any;
 
   /**
    * Placement of the popover content with respect to the popover trigger.
@@ -152,8 +156,9 @@ export class Popover {
   }
   @Method()
   async show() {
+    clearTimeout(this.timerId);
     // timeout would be 0 until props is supplied explicit
-    setTimeout(() => {
+    this.timerId = setTimeout(() => {
       this.triggerShowPopOver();
     }, this.showAfter);
   }
@@ -187,7 +192,8 @@ export class Popover {
   }
   @Method()
   async hide() {
-    setTimeout(() => {
+    clearTimeout(this.timerId);
+    this.timerId = setTimeout(() => {
       this.triggerHidePopOver();
     }, this.hideAfter);
   }
