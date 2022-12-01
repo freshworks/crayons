@@ -1082,44 +1082,46 @@ fieldProps={{ maxlength: 5 }} ></FwFormControl>
 </code-group>
 
 
-## Demo - Form inside an accordian
+## Demo - Form inside an accordion
 
-Form can be created inside an accordian by passing the form to accordian body.
+Form can be created inside an accordion by passing the form to accordion body.
 
 ```html live
+<div style="width: 300px;">
 <fw-accordion expanded style="--fw-accordion-border: 1px solid #ccc">
   <fw-accordion-title style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
-      --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Header Text</fw-accordion-title>
+      --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Title</fw-accordion-title>
   <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
-    <div id="accordian-form">
-      <fw-button color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
-      <fw-button style="display: block;">Reset</fw-button>
+    <div id="accordion-form">
+      <fw-button id="accordion-form-submit" color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
+      <fw-button id="accordion-form-reset" style="display: block;">Reset</fw-button>
     </div>
   </fw-accordion-body>
 </fw-accordion>
+</div>
 
 <script type="application/javascript">
-  var form = document.createElement('fw-form');
-  var formContainer = document.querySelector('#accordian-form');
-  document.querySelector('#submit').addEventListener('click', async (e) => {
-    const { values, isValid } = await form.doSubmit(e);
+  var accForm = document.createElement('fw-form');
+  var accFormContainer = document.querySelector('#accordion-form');
+  document.querySelector('#accordion-form-submit').addEventListener('click', async (e) => {
+    const { values, isValid } = await accForm.doSubmit(e);
     console.log({ values, isValid });
 
-    if (isValid) {
+    if (!isValid) {
       // if error from backend , set Errors - passing key value pair
-      form.setFieldErrors({
+      accForm.setFieldErrors({
         first_name: 'First Name must be unique <<Server Error>>',
       });
     }
   });
-  document.querySelector('#reset').addEventListener('click', (e) => {
-    form.doReset(e);
+  document.querySelector('#accordion-form-reset').addEventListener('click', (e) => {
+    accForm.doReset(e);
   });
-  var formSchema = {
+  var accFormSchema = {
     name: 'Test Form',
     fields: [
       {
-        id: '2978f2320-704b-46c7-9f88-110e14e34a8c',
+        id: '2978f2320-704b-46c7-9f88-110e14e34q3c',
         name: 'first_name',
         label: 'First Name',
         type: 'TEXT',
@@ -1131,7 +1133,7 @@ Form can be created inside an accordian by passing the form to accordian body.
       },
 
       {
-        id: '3971f8320-704b-46c7-9f88-110e14e34a8c',
+        id: '3971f8320-704b-46c7-9f88-110e1j934a8c',
         name: 'last_name',
         label: 'Last Name',
         type: 'TEXT',
@@ -1143,7 +1145,7 @@ Form can be created inside an accordian by passing the form to accordian body.
       },
 
       {
-        id: '42aeh88f-25cf-46yce-89c6-5410fe3d4315',
+        id: '42aeh88f-25cf-46yce-89r5-5410fe3d4315',
         name: 'languages_known',
         label: 'Languages Known',
         type: 'MULTI_SELECT',
@@ -1174,7 +1176,7 @@ Form can be created inside an accordian by passing the form to accordian body.
       },
 
       {
-        id: '69e48f820-704b-46c7-9f88-110e14e34a8c',
+        id: '69e48f820-704b-49o7-9f88-110e14e34a8c',
         name: 'email',
         label: 'Email',
         type: 'EMAIL',
@@ -1186,7 +1188,7 @@ Form can be created inside an accordian by passing the form to accordian body.
       },
 
       {
-        id: '8u878f820-704b-46c7-9f88-110e14e34a8c',
+        id: '8u878cg20-704b-46c7-9f88-110e14e34a8c',
         name: 'phone_number',
         label: 'Phone number',
         type: 'TEXT',
@@ -1198,8 +1200,8 @@ Form can be created inside an accordian by passing the form to accordian body.
       }
     ],
   };
-  formContainer.prepend(form);
-  var fields = formSchema.fields.map((field) => {
+  accFormContainer.prepend(accForm);
+  var fields = accFormSchema.fields.map((field) => {
     // select expects `text` and `value` prop
     if (field.type === 'DROPDOWN' || field.type === 'MULTI_SELECT') {
       return {
@@ -1215,16 +1217,16 @@ Form can be created inside an accordian by passing the form to accordian body.
     } else return field;
   });
 
-  var formSchema1 = {
-    ...formSchema,
+  var accFormSchema1 = {
+    ...accFormSchema,
     fields: fields,
   };
-  form.formSchema = formSchema1;
+  accForm.formSchema = accFormSchema1;
 </script>
 
 ```
 
-## Usage - Form inside an accordian
+## Usage - Form inside an accordion
 
 
 <code-group>
@@ -1234,35 +1236,35 @@ Form can be created inside an accordian by passing the form to accordian body.
     <fw-accordion-title style="--fw-accordion-title-background-color: #F5F7F9; --fw-accordion-title-expanded-icon-color: #2C5CC5; --fw-accordion-title-collapsed-icon-color: #264966;
         --fw-accordion-title-font-size: 14px; --fw-accordion-title-font-weight: 600; --fw-accordion-title-line-height: 20px;">Header Text</fw-accordion-title>
     <fw-accordion-body style="--fw-accordion-body-background-color: #FFFFFF">
-      <div id="accordian-form-2">
-        <fw-button color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
-        <fw-button style="display: block;">Reset</fw-button>
+      <div id="accordion-form-2">
+        <fw-button id="acc-form-2-submit" color="secondary" style="display: block; margin-bottom:10px;">Submit</fw-button>
+        <fw-button id="acc-form-2-reset" style="display: block;">Reset</fw-button>
       </div>
     </fw-accordion-body>
   </fw-accordion>
 
   <script type="application/javascript">
-    var form = document.createElement('fw-form');
-    var formContainer = document.querySelector('#accordian-form-2');
-    document.querySelector('#submit').addEventListener('click', async (e) => {
-      const { values, isValid } = await form.doSubmit(e);
+    var accForm_2 = document.createElement('fw-form');
+    var accformContainer_2 = document.querySelector('#accordion-form-2');
+    document.querySelector('#acc-form-2-submit').addEventListener('click', async (e) => {
+      const { values, isValid } = await accForm_2.doSubmit(e);
       console.log({ values, isValid });
 
-      if (isValid) {
+      if (!isValid) {
         // if error from backend , set Errors - passing key value pair
-        form.setFieldErrors({
+        accForm_2.setFieldErrors({
           first_name: 'First Name must be unique <<Server Error>>',
         });
       }
     });
-    document.querySelector('#reset').addEventListener('click', (e) => {
-      form.doReset(e);
+    document.querySelector('#acc-form-2-reset').addEventListener('click', (e) => {
+      accForm_2.doReset(e);
     });
-    var formSchema = {
+    var accFormSchema2 = {
       name: 'Test Form',
       fields: [
         {
-          id: '2978f2320-704b-46c7-9f88-110e14e34a8c',
+          id: '2978f2320-704b-46c7-g788-110e14e34a8c',
           name: 'first_name',
           label: 'First Name',
           type: 'TEXT',
@@ -1274,7 +1276,7 @@ Form can be created inside an accordian by passing the form to accordian body.
         },
 
         {
-          id: '3971f8320-704b-46c7-9f88-110e14e34a8c',
+          id: '3971f8090-704b-46c7-9f88-110e14e34a8c',
           name: 'last_name',
           label: 'Last Name',
           type: 'TEXT',
@@ -1286,7 +1288,7 @@ Form can be created inside an accordian by passing the form to accordian body.
         },
 
         {
-          id: '69e48f820-704b-46c7-9f88-110e14e34a8c',
+          id: '69e48f820-704b-46c7-9f88-11r514e34a8c',
           name: 'email',
           label: 'Email',
           type: 'EMAIL',
@@ -1298,7 +1300,7 @@ Form can be created inside an accordian by passing the form to accordian body.
         },
 
         {
-          id: '8u878f820-704b-46c7-9f88-110e14e34a8c',
+          id: '8u87lo820-704b-46c7-9f88-110e14e34a8c',
           name: 'phone_number',
           label: 'Phone number',
           type: 'TEXT',
@@ -1310,8 +1312,8 @@ Form can be created inside an accordian by passing the form to accordian body.
         }
       ],
     };
-    formContainer.prepend(form);
-    form.formSchema = formSchema;
+    accformContainer_2.prepend(accForm_2);
+    accForm_2.formSchema = accFormSchema2;
   </script>
   ```
 </code-block>
@@ -1320,10 +1322,10 @@ Form can be created inside an accordian by passing the form to accordian body.
 ```jsx
 import React, {useRef} from "react";
 import ReactDOM from "react-dom";
-import {FwAccordian, FwAccordionTitle, FwAccordionBody, FwForm,FwButton} from "@freshworks/crayons/react";
+import {FwAccordion, FwAccordionTitle, FwAccordionBody, FwForm,FwButton} from "@freshworks/crayons/react";
 function App() {
 
-  var formSchema = {
+  var accFormSchema3 = {
     name: 'Test Form',
     fields: [
       {
@@ -1376,43 +1378,43 @@ function App() {
     ],
   };
 
-  const formRef = useRef<any>(null);
+  const accFormRef = useRef<any>(null);
 
   const handleFormSubmit = async (e: any) => {
-    const { values, isValid, errors } = await formRef.current.doSubmit(e);
+    const { values, isValid, errors } = await accFormRef.current.doSubmit(e);
     console.log({ result: values, errors });
 
     // if error from backend , set Errors - passing key value pair
     if (isValid) {
       // set Errors on the form
-      formRef.current.setFieldErrors({
+      accFormRef.current.setFieldErrors({
         first_name: "First Name must be unique <<Server Error>>",
       });
       // reset the form if required if success
-      // formRef.current.doReset(e);
+      // accFormRef.current.doReset(e);
     }
   };
 
   const handleFormReset = (e: any) => {
-    formRef.current.doReset(e);
+    accFormRef.current.doReset(e);
   };
 
   return (
     <div>
-      <FwAccordian expanded style={{"--fw-accordion-border": "1px solid #ccc"}} >
+      <FwAccordion expanded style={{"--fw-accordion-border": "1px solid #ccc"}} >
         <FwAccordionTitle style={{ "--fw-accordion-title-background-color":  "#F5F7F9", "--fw-accordion-title-expanded-icon-color" : "#2C5CC5", "--fw-accordion-title-collapsed-icon-color" : "#264966", "--fw-accordion-title-font-size": "14px", "--fw-accordion-title-font-weight" : "600", "--fw-accordion-title-line-height" : "20px"}}>Header Text</FwAccordionTitle>
         <FwAccordionBody style={{"--fw-accordion-body-background-color" : "#FFFFFF"}}>
-            <FwForm ref={formRef} formSchema={formSchema}
+            <FwForm ref={accFormRef} formSchema={accFormSchema3}
               validate={async (values:any) => { // do custom validation and return error or {}
               return {
               // last_name: "last name is errored",
               };
               }} >
             </FwForm>
-            <FwButton color="secondary" style={{"display": "block", "marginBottom": "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
-            <FwButton style={{"display": "block"}} onClick={handleFormReset}>Reset</FwButton>
+            <FwButton id="acc-form-3-submit" color="secondary" style={{"display": "block", "marginBottom": "10px"}} onClick={handleFormSubmit}>Submit</FwButton>
+            <FwButton id="acc-form-3-reset" style={{"display": "block"}} onClick={handleFormReset}>Reset</FwButton>
         </FwAccordionBody>
-      </FwAccordian>
+      </FwAccordion>
     </div>
   )
 }
