@@ -87,6 +87,14 @@ export class Popover {
    */
   @Prop() hideOnTab = true;
   /**
+   * Indicates the delay to fire the show popover trigger event
+   */
+  @Prop() showAfter = 0;
+  /**
+   * Indicates the delay to fire the hide popover trigger event
+   */
+  @Prop() hideAfter = 0;
+  /**
    * Triggered whenever the popover contents is open/displayed.
    */
   @Event() fwShow: EventEmitter;
@@ -108,7 +116,7 @@ export class Popover {
   }
 
   @Method()
-  async show() {
+  async triggerShowPopOver() {
     if (!this.isOpen) {
       this.sameWidth &&
         (this.popperDiv.style.width =
@@ -142,9 +150,16 @@ export class Popover {
       this.fwShow.emit();
     }
   }
+  @Method()
+  async show() {
+    // timeout would be 0 until props is supplied explicit
+    setTimeout(() => {
+      this.triggerShowPopOver();
+    }, this.showAfter);
+  }
 
   @Method()
-  async hide() {
+  async triggerHidePopOver() {
     if (this.isOpen) {
       this.popperDiv.removeAttribute('data-show');
       // Disable the event listeners
@@ -169,6 +184,12 @@ export class Popover {
           : this.triggerRef.focus?.());
       this.fwHide.emit();
     }
+  }
+  @Method()
+  async hide() {
+    setTimeout(() => {
+      this.triggerHidePopOver();
+    }, this.hideAfter);
   }
 
   componentWillLoad() {

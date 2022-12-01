@@ -1220,6 +1220,10 @@ export namespace Components {
         "hasBorder": boolean;
         "hide": () => Promise<void>;
         /**
+          * Indicates the delay to fire the hide popover trigger event
+         */
+        "hideAfter": number;
+        /**
           * Indicates whether popover contents should be hidden on pressing Tab.
          */
         "hideOnTab": boolean;
@@ -1237,6 +1241,10 @@ export namespace Components {
         "sameWidth": boolean;
         "show": () => Promise<void>;
         /**
+          * Indicates the delay to fire the show popover trigger event
+         */
+        "showAfter": number;
+        /**
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
         "skidding": string;
@@ -1244,6 +1252,8 @@ export namespace Components {
           * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
          */
         "trigger": PopoverTriggerType;
+        "triggerHidePopOver": () => Promise<void>;
+        "triggerShowPopOver": () => Promise<void>;
         /**
           * Variant defines the style of the popover-content.
          */
@@ -3823,6 +3833,10 @@ declare namespace LocalJSX {
          */
         "hasBorder"?: boolean;
         /**
+          * Indicates the delay to fire the hide popover trigger event
+         */
+        "hideAfter"?: number;
+        /**
           * Indicates whether popover contents should be hidden on pressing Tab.
          */
         "hideOnTab"?: boolean;
@@ -3846,6 +3860,10 @@ declare namespace LocalJSX {
           * Whether the popover-content width to be same as that of the popover-trigger.
          */
         "sameWidth"?: boolean;
+        /**
+          * Indicates the delay to fire the show popover trigger event
+         */
+        "showAfter"?: number;
         /**
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
