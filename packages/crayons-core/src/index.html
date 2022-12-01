@@ -445,6 +445,19 @@
               placeholder="custom input"
               autocomplete="off"
           /></fw-form-control>
+
+          <fw-form-control
+            name="chk"
+            type="CHECKBOX"
+            required
+            label="Custom chexk in"
+          >
+            <input
+              type="checkbox"
+              name="chk"
+              id="chk"
+              placeholder="custom checkbox"
+          /></fw-form-control>
         </fw-form>
         <fw-button id="submit-static-form">Submit</fw-button>
         <fw-button id="reset-static-form">Reset</fw-button>
@@ -483,6 +496,8 @@
 
         var initialValuesStaticForm = {
           first_name: 'John',
+          cin: 'sht',
+          chk: true,
         };
         formStatic.initialValues = initialValuesStaticForm;
 
@@ -500,6 +515,15 @@
           console.log('handle custom input');
           formStatic.setFieldValue([e.target.name], e.target.value);
         }
+
+        function handleChkChange(e) {
+          console.log('handle custom chk');
+          formStatic.setFieldValue([e.target.name], e.target.checked);
+        }
+
+        document
+          .querySelector('#chk')
+          .addEventListener('change', handleChkChange);
 
         document
           .querySelector('#cin')

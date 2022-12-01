@@ -28,6 +28,7 @@ import {
   generateDynamicValidationSchema,
   serializeForm,
   translateErrors,
+  getValueForField,
 } from './form-util';
 import { debounce, hasSlot } from '../../utils';
 
@@ -130,10 +131,14 @@ export class Form {
 
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
-    await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
-      initialValues
-    );
+    let schema = this.formSchema;
+
+    if (this.hasSlot) {
+      // for static form get the schema from slots
+      schema = this.getFormSchemaFromSlots();
+    }
+
+    await this.handleFormSchemaAndInitialValuesChange(schema, initialValues);
   }
 
   @Watch('values')
@@ -379,21 +384,7 @@ export class Form {
     control.error = error ?? '';
     control.touched = touched || false;
     control.shouldRenderField = this.shouldRenderField(control);
-
-    const type = control.type?.toUpperCase() ?? 'TEXT';
-    switch (type) {
-      case 'CHECKBOX':
-        control.value = !!this.values[control.name];
-        break;
-      case 'MULTI_SELECT':
-        control.value = this.values[control.name] ?? [];
-        break;
-      case 'DROPDOWN':
-        control.value = this.values[control.name] ?? '';
-        break;
-      default:
-        control.value = this.values[control.name];
-    }
+    control.value = getValueForField(this.values, control);
   }
 
   private composedUtils = (): FormUtils => {
@@ -431,14 +422,24 @@ export class Form {
     };
   };
 
-  private shouldRenderField(control) {
+  private shouldRenderField = (control) => {
     const shouldRender = this.searchFieldsText
       ? control.label
           ?.toLowerCase()
           ?.includes(this.searchFieldsText.toLowerCase())
       : true;
     return shouldRender;
-  }
+  };
+
+  private getFormSchemaFromSlots = () => {
+    const fields = this.controls.map((control) => ({
+      type: control.type,
+      name: control.name,
+      required: control.required,
+    }));
+
+    return { fields };
+  };
 
   @Method()
   async setFieldValue(

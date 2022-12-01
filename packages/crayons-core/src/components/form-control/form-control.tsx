@@ -383,7 +383,13 @@ export class FormControl {
     if (this.slotElement) {
       console.log('slotelement ');
       setTimeout(() => {
-        this.slotElement.value = this.value ?? '';
+        switch (this.type) {
+          case 'CHECKBOX':
+            this.slotElement.checked = this.value ?? false;
+            break;
+          default:
+            this.slotElement.value = this.value ?? '';
+        }
       }, 100);
     }
   }
