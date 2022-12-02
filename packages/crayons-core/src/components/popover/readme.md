@@ -610,6 +610,16 @@ A simple dropdown button can be achieved as shown below.
 
 ## Methods
 
+### `delayPopOverTrigger(fn: any, delay: any) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `hide() => Promise<void>`
 
 

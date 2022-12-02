@@ -1202,6 +1202,7 @@ export namespace Components {
           * The area that the popup will be checked for overflow relative to.
          */
         "boundary": HTMLElement;
+        "delayPopOverTrigger": (fn: any, delay: any) => Promise<void>;
         /**
           * Option to disable the popover animation on hide and show.
          */
