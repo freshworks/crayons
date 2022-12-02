@@ -660,9 +660,9 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
-          * Prop to determine whether to render a field or not. Default to true.
+          * Prop to determine whether to render the form-control or not. Default to true.
          */
-        "shouldRenderField": boolean;
+        "shouldRender": boolean;
         "touched": boolean;
         "type": | 'TEXT'
     | 'NUMBER'
@@ -3257,9 +3257,9 @@ declare namespace LocalJSX {
         "placeholder"?: string;
         "required"?: boolean;
         /**
-          * Prop to determine whether to render a field or not. Default to true.
+          * Prop to determine whether to render the form-control or not. Default to true.
          */
-        "shouldRenderField"?: boolean;
+        "shouldRender"?: boolean;
         "touched"?: boolean;
         "type"?: | 'TEXT'
     | 'NUMBER'

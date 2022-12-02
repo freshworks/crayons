@@ -380,7 +380,7 @@ export class Form {
     control.controlProps = this.composedUtils();
     control.error = error ?? '';
     control.touched = touched || false;
-    control.shouldRenderField = this.shouldRenderField(control);
+    control.shouldRender = this.shouldRenderFormControl(control);
     control.value = getValueForField(this.values, control);
   }
 
@@ -419,7 +419,7 @@ export class Form {
     };
   };
 
-  private shouldRenderField = (control) => {
+  private shouldRenderFormControl = (control) => {
     const shouldRender = this.searchFieldsText
       ? control.label
           ?.toLowerCase()
@@ -528,7 +528,7 @@ export class Form {
             .map((field) => {
               /** render field based on searchFieldsText state */
               return (
-                this.shouldRenderField(field) && (
+                this.shouldRenderFormControl(field) && (
                   <fw-form-control
                     key={field.name}
                     name={field.name}

@@ -59,10 +59,10 @@ export class FormControl {
   @Prop()
   error = '';
   /**
-   * Prop to determine whether to render a field or not.
+   * Prop to determine whether to render the form-control or not.
    * Default to true.
    */
-  @Prop() shouldRenderField = true;
+  @Prop() shouldRender = true;
   /**
    * Value of the slotted custom field on fw-form-control
    */
@@ -395,7 +395,7 @@ export class FormControl {
 
   render(): JSX.Element {
     return (
-      this.shouldRenderField && (
+      this.shouldRender && (
         <div class='form-control-container'>
           {this.renderControl()}
           {this.hasSlot && (
