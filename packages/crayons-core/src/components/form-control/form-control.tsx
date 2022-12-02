@@ -64,7 +64,7 @@ export class FormControl {
    */
   @Prop() shouldRenderField = true;
   /**
-   * Value of the form-control field
+   * Value of the slotted custom field on fw-form-control
    */
   @Prop() value;
 
@@ -381,7 +381,6 @@ export class FormControl {
    */
   private setSlotElementValue() {
     if (this.slotElement) {
-      console.log('slotelement ');
       setTimeout(() => {
         switch (this.type) {
           case 'CHECKBOX':

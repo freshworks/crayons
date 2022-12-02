@@ -200,14 +200,11 @@ export class Form {
     /** Create implicit validation rules based
      *  on slotted form-controls for static form
      */
-    const fields = this.controls.map((control) => ({
-      type: control.type,
-      name: control.name,
-      required: control.required,
-    }));
-
     // setup initialValues and validation rules
-    this.handleFormSchemaAndInitialValuesChange({ fields }, this.initialValues);
+    this.handleFormSchemaAndInitialValuesChange(
+      this.getFormSchemaFromSlots(),
+      this.initialValues
+    );
   }
 
   disconnectedCallback() {
@@ -509,9 +506,11 @@ export class Form {
 
   /**
    *
-   * @param text
-   * Filter the fields in the dynamic form based
+   * Method to filter the display of fields in the form based
    * on the passed text.
+   *
+   * @param text
+   *
    */
   @Method()
   async setSearchFieldsText(text: string) {

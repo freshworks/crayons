@@ -614,7 +614,8 @@ export namespace Components {
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
-          * @param text Filter the fields in the dynamic form based on the passed text.
+          * Method to filter the display of fields in the form based on the passed text.
+          * @param text
          */
         "setSearchFieldsText": (text: string) => Promise<void>;
         /**
@@ -678,7 +679,7 @@ export namespace Components {
     | 'TIME'
     | 'RELATIONSHIP';
         /**
-          * Value of the form-control field
+          * Value of the slotted custom field on fw-form-control
          */
         "value": any;
     }
@@ -3275,7 +3276,7 @@ declare namespace LocalJSX {
     | 'TIME'
     | 'RELATIONSHIP';
         /**
-          * Value of the form-control field
+          * Value of the slotted custom field on fw-form-control
          */
         "value"?: any;
     }

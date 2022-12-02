@@ -14,7 +14,9 @@
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
 
-    <div style="display: flex; justify-content: space-around">
+    <!-- start of form examples -->
+    <!-- 
+      <div style="display: flex; justify-content: space-around">
       <div id="dynamic-form-container">
         <fw-input search id="inp"></fw-input>
         <fw-form id="fw-form"></fw-form>
@@ -350,32 +352,6 @@
                 parent_id: null,
                 choices: [],
               },
-
-              // {
-              //   id: '9319f86f-1b6a-49cb-b4b6-cf487be94595',
-              //   name: 'abc4',
-              //   label: 'Custom Input123123',
-              //   type: 'CUSTOM',
-              //   position: 3,
-              //   required: true,
-              //   editable: true,
-              //   visible: true,
-              //   deleted: false,
-              //   link: null,
-              //   Placeholder: 'Enter…',
-              //   hint: 'Custom Input webcomponent via schema',
-              //   field_options: {},
-              //   filterable: true,
-              //   searchable: true,
-              //   parent_id: null,
-              //   choices: [],
-              //   component: "fw-input",
-              //   componentProps: {
-              //     color: "secondary",
-              //     formRef: "fw-form",
-              //     ref:""
-              //   }
-              // },
             ],
           };
 
@@ -390,26 +366,6 @@
           form.formSchema = formSchema;
 
           form.initialValues = initialValues;
-
-          // no required for Pattern 1 since implicit validation is in place.
-          // form.validate = async function (values) {
-          //   console.log('validate method called with ', values);
-          //   return {
-          //     // first_name: 'first name error',
-          //     // last_name: 'last name error',
-          //     first_name: 'first name error',
-          //   };
-          //   // json api std.
-          // };
-
-          // function handleInput(e) {
-          //   console.log('handle input');
-          //   form.setFieldValue([e.target.name], e.target.value);
-          // }
-
-          // document.querySelector('#ccc').addEventListener('input', handleInput);
-          // document.querySelector('#ccc').addEventListener('change', handleInput);
-          // document.querySelector('#ccc').addEventListener('blur', handleInput);
         </script>
       </div>
       <div id="static-form-container">
@@ -535,8 +491,9 @@
           .querySelector('#cin')
           .addEventListener('blur', handleCustomInput);
       </script>
-    </div>
-
+    </div> 
+  -->
+    <!-- end of form examples -->
     <!-- <br />
     <fw-radio-group
       name="Profile"
