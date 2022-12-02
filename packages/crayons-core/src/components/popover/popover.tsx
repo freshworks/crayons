@@ -120,6 +120,11 @@ export class Popover {
   }
 
   @Method()
+  async delayPopOverTrigger(fn, delay) {
+    setTimeout(fn, delay);
+  }
+
+  @Method()
   async triggerShowPopOver() {
     if (!this.isOpen) {
       this.sameWidth &&
@@ -157,10 +162,14 @@ export class Popover {
   @Method()
   async show() {
     clearTimeout(this.timerId);
-    // timeout would be 0 until props is supplied explicit
-    this.timerId = setTimeout(() => {
+    if (this.showAfter > 0) {
+      this.delayPopOverTrigger(
+        this.triggerShowPopOver.bind(this),
+        this.showAfter
+      );
+    } else {
       this.triggerShowPopOver();
-    }, this.showAfter);
+    }
   }
 
   @Method()
@@ -193,9 +202,14 @@ export class Popover {
   @Method()
   async hide() {
     clearTimeout(this.timerId);
-    this.timerId = setTimeout(() => {
+    if (this.hideAfter > 0) {
+      this.delayPopOverTrigger(
+        this.triggerHidePopOver.bind(this),
+        this.hideAfter
+      );
+    } else {
       this.triggerHidePopOver();
-    }, this.hideAfter);
+    }
   }
 
   componentWillLoad() {
@@ -283,6 +297,7 @@ export class Popover {
   disconnectedCallback() {
     this.removeResizeObserver();
     this.popperInstance?.destroy();
+    clearTimeout(this.timerId);
   }
 
   private removeResizeObserver = () => {
