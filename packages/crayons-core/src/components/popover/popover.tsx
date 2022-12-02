@@ -25,16 +25,13 @@ export class Popover {
   private triggerRefSlot: any = null;
   private overlay: HTMLElement;
   private resizeObserver;
+  private timerId: any;
 
   @Element() host: HTMLElement;
 
   @State() popperInstance: Instance;
   @State() isOpen = false;
   @State() popperOptions;
-  /**
-   * stored setTimeOut id to close it
-   */
-  @State() timerId: any;
 
   /**
    * Placement of the popover content with respect to the popover trigger.
@@ -91,11 +88,11 @@ export class Popover {
    */
   @Prop() hideOnTab = true;
   /**
-   * Indicates the delay to fire the show popover trigger event
+   * Indicates the delay after which popover will be shown.
    */
   @Prop() showAfter = 0;
   /**
-   * Indicates the delay to fire the hide popover trigger event
+   * Indicates the delay after which popover will be hidden.
    */
   @Prop() hideAfter = 0;
   /**
@@ -120,95 +117,32 @@ export class Popover {
   }
 
   @Method()
-  async delayPopOverTrigger(fn, delay) {
-    setTimeout(fn, delay);
-  }
-
-  @Method()
-  async triggerShowPopOver() {
-    if (!this.isOpen) {
-      this.sameWidth &&
-        (this.popperDiv.style.width =
-          String(this.triggerRef.getBoundingClientRect().width) + 'px');
-
-      // Create popper instance if it's not available
-      !this.popperInstance && this.createPopperInstance();
-
-      this.popperDiv.setAttribute('data-show', '');
-      // Enable the event listeners
-      this.popperInstance.setOptions((options) => ({
-        ...options,
-        modifiers: [
-          ...options.modifiers,
-          { name: 'eventListeners', enabled: true },
-        ],
-      }));
-      this.popperInstance.update();
-      if (this.trigger !== 'hover') {
-        this.overlay.style.display = 'block';
-      }
-      this.isOpen = !this.isOpen;
-      if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
-        const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
-        listOptionsElement.scrollToLastSelected();
-      }
-      this.autoFocusOnContent &&
-        (this.contentRef.setFocus
-          ? this.contentRef.setFocus()
-          : this.contentRef.focus?.());
-      this.fwShow.emit();
-    }
-  }
-  @Method()
   async show() {
-    clearTimeout(this.timerId);
-    if (this.showAfter > 0) {
-      this.delayPopOverTrigger(
-        this.triggerShowPopOver.bind(this),
-        this.showAfter
-      );
-    } else {
-      this.triggerShowPopOver();
+    if (!this.isOpen) {
+      clearTimeout(this.timerId);
+      if (this.showAfter > 0) {
+        this.timerId = setTimeout(
+          () => this.processShowPopover(),
+          this.showAfter
+        );
+      } else {
+        this.processShowPopover();
+      }
     }
   }
 
-  @Method()
-  async triggerHidePopOver() {
-    if (this.isOpen) {
-      this.popperDiv.removeAttribute('data-show');
-      // Disable the event listeners
-      this.popperInstance.setOptions((options) => ({
-        ...options,
-        modifiers: [
-          ...options.modifiers,
-          { name: 'eventListeners', enabled: false },
-        ],
-      }));
-      if (this.trigger !== 'hover') {
-        this.overlay.style.display = 'none';
-      }
-      this.isOpen = !this.isOpen;
-      if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
-        const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
-        listOptionsElement.clearFilter();
-      }
-      this.autoFocusOnContent &&
-        (this.triggerRef.setFocus
-          ? this.triggerRef.setFocus()
-          : this.triggerRef.focus?.());
-      this.fwHide.emit();
-    }
-  }
   @Method()
   async hide() {
-    clearTimeout(this.timerId);
-    if (this.hideAfter > 0) {
-      this.delayPopOverTrigger(
-        this.triggerHidePopOver.bind(this),
-        this.hideAfter
-      );
-    } else {
-      this.triggerHidePopOver();
+    if (this.isOpen) {
+      clearTimeout(this.timerId);
+      if (this.hideAfter > 0) {
+        this.timerId = setTimeout(
+          () => this.processHidePopOver(),
+          this.hideAfter
+        );
+      } else {
+        this.processHidePopOver();
+      }
     }
   }
 
@@ -278,6 +212,64 @@ export class Popover {
         popperModifierRTL,
       ],
     };
+  }
+
+  private processShowPopover() {
+    this.sameWidth &&
+      (this.popperDiv.style.width =
+        String(this.triggerRef.getBoundingClientRect().width) + 'px');
+
+    // Create popper instance if it's not available
+    !this.popperInstance && this.createPopperInstance();
+
+    this.popperDiv.setAttribute('data-show', '');
+    // Enable the event listeners
+    this.popperInstance.setOptions((options) => ({
+      ...options,
+      modifiers: [
+        ...options.modifiers,
+        { name: 'eventListeners', enabled: true },
+      ],
+    }));
+    this.popperInstance.update();
+    if (this.trigger !== 'hover') {
+      this.overlay.style.display = 'block';
+    }
+    this.isOpen = !this.isOpen;
+    if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
+      const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
+      listOptionsElement.scrollToLastSelected();
+    }
+    this.autoFocusOnContent &&
+      (this.contentRef.setFocus
+        ? this.contentRef.setFocus()
+        : this.contentRef.focus?.());
+    this.fwShow.emit();
+  }
+
+  private processHidePopOver() {
+    this.popperDiv.removeAttribute('data-show');
+    // Disable the event listeners
+    this.popperInstance.setOptions((options) => ({
+      ...options,
+      modifiers: [
+        ...options.modifiers,
+        { name: 'eventListeners', enabled: false },
+      ],
+    }));
+    if (this.trigger !== 'hover') {
+      this.overlay.style.display = 'none';
+    }
+    this.isOpen = !this.isOpen;
+    if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
+      const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
+      listOptionsElement.clearFilter();
+    }
+    this.autoFocusOnContent &&
+      (this.triggerRef.setFocus
+        ? this.triggerRef.setFocus()
+        : this.triggerRef.focus?.());
+    this.fwHide.emit();
   }
 
   updatePopper() {

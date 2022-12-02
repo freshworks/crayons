@@ -1202,7 +1202,6 @@ export namespace Components {
           * The area that the popup will be checked for overflow relative to.
          */
         "boundary": HTMLElement;
-        "delayPopOverTrigger": (fn: any, delay: any) => Promise<void>;
         /**
           * Option to disable the popover animation on hide and show.
          */
@@ -1221,7 +1220,7 @@ export namespace Components {
         "hasBorder": boolean;
         "hide": () => Promise<void>;
         /**
-          * Indicates the delay to fire the hide popover trigger event
+          * Indicates the delay after which popover will be hidden.
          */
         "hideAfter": number;
         /**
@@ -1242,7 +1241,7 @@ export namespace Components {
         "sameWidth": boolean;
         "show": () => Promise<void>;
         /**
-          * Indicates the delay to fire the show popover trigger event
+          * Indicates the delay after which popover will be shown.
          */
         "showAfter": number;
         /**
@@ -1253,8 +1252,6 @@ export namespace Components {
           * The trigger event on which the popover-content is displayed. The available options are 'click' | 'manual' | 'hover', in case of 'manual' no trigger event will be set.
          */
         "trigger": PopoverTriggerType;
-        "triggerHidePopOver": () => Promise<void>;
-        "triggerShowPopOver": () => Promise<void>;
         /**
           * Variant defines the style of the popover-content.
          */
@@ -3834,7 +3831,7 @@ declare namespace LocalJSX {
          */
         "hasBorder"?: boolean;
         /**
-          * Indicates the delay to fire the hide popover trigger event
+          * Indicates the delay after which popover will be hidden.
          */
         "hideAfter"?: number;
         /**
@@ -3862,7 +3859,7 @@ declare namespace LocalJSX {
          */
         "sameWidth"?: boolean;
         /**
-          * Indicates the delay to fire the show popover trigger event
+          * Indicates the delay after which popover will be shown.
          */
         "showAfter"?: number;
         /**

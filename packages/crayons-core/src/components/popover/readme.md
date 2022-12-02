@@ -589,12 +589,12 @@ A simple dropdown button can be achieved as shown below.
 | `distance`           | `distance`              | Distance defines the distance between the popover trigger and the popover content along y-axis.                                                                          | `string`                                                                                                                                                             | `'0'`       |
 | `fallbackPlacements` | --                      | Alternative placement for popover if the default placement is not possible.                                                                                              | `[PopoverPlacementType]`                                                                                                                                             | `['top']`   |
 | `hasBorder`          | `has-border`            | Option to determine if popover-content has a border.                                                                                                                     | `boolean`                                                                                                                                                            | `true`      |
-| `hideAfter`          | `hide-after`            | Indicates the delay to fire the hide popover trigger event                                                                                                               | `number`                                                                                                                                                             | `0`         |
+| `hideAfter`          | `hide-after`            | Indicates the delay after which popover will be hidden.                                                                                                                  | `number`                                                                                                                                                             | `0`         |
 | `hideOnTab`          | `hide-on-tab`           | Indicates whether popover contents should be hidden on pressing Tab.                                                                                                     | `boolean`                                                                                                                                                            | `true`      |
 | `hoist`              | `hoist`                 | Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto\|hidden\|scroll`.                                  | `boolean`                                                                                                                                                            | `false`     |
 | `placement`          | `placement`             | Placement of the popover content with respect to the popover trigger.                                                                                                    | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`  |
 | `sameWidth`          | `same-width`            | Whether the popover-content width to be same as that of the popover-trigger.                                                                                             | `boolean`                                                                                                                                                            | `true`      |
-| `showAfter`          | `show-after`            | Indicates the delay to fire the show popover trigger event                                                                                                               | `number`                                                                                                                                                             | `0`         |
+| `showAfter`          | `show-after`            | Indicates the delay after which popover will be shown.                                                                                                                   | `number`                                                                                                                                                             | `0`         |
 | `skidding`           | `skidding`              | Skidding defines the distance between the popover trigger and the popover content along x-axis.                                                                          | `string`                                                                                                                                                             | `'0'`       |
 | `trigger`            | `trigger`               | The trigger event on which the popover-content is displayed. The available options are 'click' \| 'manual' \| 'hover', in case of 'manual' no trigger event will be set. | `"click" \| "hover" \| "manual"`                                                                                                                                     | `'click'`   |
 | `variant`            | `variant`               | Variant defines the style of the popover-content.                                                                                                                        | `"date-picker" \| "select"`                                                                                                                                          | `'select'`  |
@@ -610,16 +610,6 @@ A simple dropdown button can be achieved as shown below.
 
 ## Methods
 
-### `delayPopOverTrigger(fn: any, delay: any) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `hide() => Promise<void>`
 
 
@@ -631,26 +621,6 @@ Type: `Promise<void>`
 
 
 ### `show() => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `triggerHidePopOver() => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `triggerShowPopOver() => Promise<void>`
 
 
 
