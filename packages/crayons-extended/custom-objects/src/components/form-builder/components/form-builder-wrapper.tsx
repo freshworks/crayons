@@ -6,7 +6,7 @@ import { create_UUID } from '../utils/form-builder-utils';
   tag: 'fw-form-builder-wrapper',
   shadow: true,
 })
-export class FormBuilder {
+export class FormBuilderWrapper {
   /**
    * variable to store form values
    */
