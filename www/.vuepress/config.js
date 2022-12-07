@@ -52,11 +52,11 @@ const getTags = () => [
   'Freshworks Development Kit',
 ];
 
-const websiteUrl = 'https://crayons.freshworks.com';
+const websiteUrl = 'https://crayons.freshworks.com/v3/';
 
 module.exports = {
   title: 'Crayons',
-  base: '/',
+  base: '/v3/',
   description: 'A refreshed design library for the Freshworks Developers.',
   dest: 'www-dist',
   head: [...headScripts, ['link', { rel: 'icon', href: '/favicon.png' }]],
@@ -101,15 +101,15 @@ module.exports = {
     ],
     nav: [
       {
-        text: 'Migrating to v3',
-        link: '/introduction/migrating-to-v3/',
+        text: 'Migrating to v4',
+        link: 'https://crayons.freshworks.com/introduction/migrating-to-v4/',
       },
       {
         text: `v${version?.split('.')[0]}.x`,
-        items: ['v3.x', 'v2.x'].map((v) => ({
+        items: ['v4.x', 'v3.x', 'v2.x'].map((v, i) => ({
           text: v,
           link: `https://crayons.freshworks.com/${
-            v !== `v${version?.split('.')[0]}.x` ? `${v?.split('.')[0]}/` : ''
+            i != 0 ? `${v?.split('.')[0]}/` : ''
           }`,
         })),
       },
