@@ -425,6 +425,7 @@ export class Select {
       this.dataSource = newValue?.map((option) => {
         return { ...option, selected: this.isValueEqual(this.value, option) };
       });
+      // match value and selectedOptionsState with the updated options when value is already provided
       this.matchValueWithOptions();
     } else {
       this.dataSource = newValue;
