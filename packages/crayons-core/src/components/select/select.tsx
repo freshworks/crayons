@@ -425,6 +425,7 @@ export class Select {
       this.dataSource = newValue?.map((option) => {
         return { ...option, selected: this.isValueEqual(this.value, option) };
       });
+      this.matchValueWithOptions();
     } else {
       this.dataSource = newValue;
       this.value = this.multiple ? [] : '';
@@ -701,6 +702,72 @@ export class Select {
     }
   }
 
+  matchValueWithOptions = () => {
+    if (this.dataSource?.length > 0) {
+      // Check whether the selected data in the this.dataSource  matches the value
+      const selectedDataSource = this.dataSource.filter(
+        (option) => option.selected
+      );
+      const selectedDataSourceValues = selectedDataSource.map(
+        (option) => option[this.optionValuePath]
+      );
+      const selected = this.multiple
+        ? selectedDataSourceValues
+        : selectedDataSourceValues[0];
+      if (
+        selectedDataSourceValues.length > 0 &&
+        (JSON.stringify(this.value) !== JSON.stringify(selected) ||
+          JSON.stringify(this.selectedOptionsState) !==
+            JSON.stringify(selectedDataSource))
+      ) {
+        this.value = selected;
+        this.selectedOptionsState = selectedDataSource;
+      }
+    }
+    this.renderInput();
+  };
+
+  setOptionsOnSlotChange = () => {
+    const selectOptions = Array.from(
+      this.host.querySelectorAll('fw-select-option')
+    );
+    const slotHasSelectedValue = selectOptions.some(
+      (option) => option?.selected
+    );
+    const options = selectOptions.map((option) => {
+      return {
+        html: option.html,
+        [this.optionLabelPath]: option.html
+          ? option.optionText
+          : option.textContent,
+        [this.optionValuePath]: option.value,
+        selected: slotHasSelectedValue
+          ? option.selected
+          : this.isValueEqual(this.value, option),
+        disabled: option.disabled,
+        htmlContent: option.html ? option.innerHTML : '',
+      };
+    });
+    const optionsToBeSet = options.length === 0 ? this.options : options;
+    if (JSON.stringify(this.dataSource) !== JSON.stringify(optionsToBeSet)) {
+      this.dataSource = optionsToBeSet;
+      // Set selectedOptions if the value is provided
+      if (!this.multiple && this.value && this.selectedOptions?.length === 0) {
+        this.selectedOptionsState = this.dataSource?.filter(
+          (option) => this.value === option[this.optionValuePath]
+        );
+      } else if (
+        this.multiple &&
+        this.value?.length !== this.selectedOptions?.length
+      ) {
+        this.selectedOptionsState = this.dataSource?.filter((option) =>
+          this.isValueEqual(this.value, option)
+        );
+      }
+      this.matchValueWithOptions();
+    }
+  };
+
   componentWillLoad() {
     this.boundary ||= this.host.parentElement;
     this.checkSlotContent();
@@ -708,11 +775,6 @@ export class Select {
       this.caret = false;
       this.multiple = true;
     }
-
-    //TODO: The below is a rough draft and needs to be optimized for better performance.
-    const selectOptions = Array.from(
-      this.host.querySelectorAll('fw-select-option')
-    );
 
     // Set value if the selectedOptions is provided
     if (this.selectedOptions?.length > 0) {
@@ -731,51 +793,7 @@ export class Select {
       this.value = this.value ? this.value : '';
     }
 
-    const options = selectOptions.map((option) => {
-      return {
-        html: option.html,
-        [this.optionLabelPath]: option.html
-          ? option.optionText
-          : option.textContent,
-        [this.optionValuePath]: option.value,
-        selected: this.isValueEqual(this.value, option) || option.selected,
-        disabled: option.disabled,
-        htmlContent: option.html ? option.innerHTML : '',
-      };
-    });
-    this.dataSource = options.length === 0 ? this.options : options;
-    // Set selectedOptions if the value is provided
-    if (!this.multiple && this.value && this.selectedOptions?.length === 0) {
-      this.selectedOptionsState = this.dataSource?.filter(
-        (option) => this.value === option[this.optionValuePath]
-      );
-    } else if (
-      this.multiple &&
-      this.value?.length !== this.selectedOptions?.length
-    ) {
-      this.selectedOptionsState = this.dataSource?.filter((option) =>
-        this.isValueEqual(this.value, option)
-      );
-    }
-    if (this.dataSource?.length > 0) {
-      // Check whether the selected data in the this.dataSource  matches the value
-      const selectedDataSource = this.dataSource.filter(
-        (option) => option.selected
-      );
-      const selectedDataSourceValues = selectedDataSource.map(
-        (option) => option[this.optionValuePath]
-      );
-      const selected = this.multiple
-        ? selectedDataSourceValues
-        : selectedDataSourceValues[0];
-      if (
-        selectedDataSourceValues.length > 0 &&
-        JSON.stringify(this.value) !== JSON.stringify(selected)
-      ) {
-        this.value = selected;
-        this.selectedOptionsState = selectedDataSource;
-      }
-    }
+    this.setOptionsOnSlotChange();
     this.host.addEventListener('focus', this.setFocus);
     //this.host.innerHTML = '';
 
@@ -1043,6 +1061,7 @@ export class Select {
                 optionValuePath={this.optionValuePath}
                 {...listAttributes}
               ></fw-list-options>
+              <slot onSlotchange={this.setOptionsOnSlotChange}></slot>
             </fw-popover>
           </div>
         </div>
