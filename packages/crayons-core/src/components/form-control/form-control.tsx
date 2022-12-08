@@ -253,7 +253,14 @@ export class FormControl {
             ...controlProps,
             options: this.choices,
           };
-
+          // This is to handle formserv payload which might contain a field_options object, that has parameters, option_value_path and option_label_path,
+          // that denotes which property of choices object(form schema) needs to be displayed as label and which should be stored in the backend as value
+          if (this.fieldProps?.field_options?.option_value_path)
+            componentProps['optionValuePath'] =
+              this.fieldProps.field_options.option_value_path;
+          if (this.fieldProps?.field_options?.option_label_path)
+            componentProps['optionLabelPath'] =
+              this.fieldProps.field_options.option_label_path;
           cmp = (
             <fw-select
               {...componentProps}
@@ -300,6 +307,13 @@ export class FormControl {
           }
           componentProps.noDataText =
             TranslationController.t('search.startTyping');
+
+          if (this.fieldProps?.field_options?.option_value_path)
+            componentProps['optionValuePath'] =
+              this.fieldProps.field_options.option_value_path;
+          if (this.fieldProps?.field_options?.option_label_path)
+            componentProps['optionLabelPath'] =
+              this.fieldProps.field_options.option_label_path;
 
           cmp = (
             <fw-select
