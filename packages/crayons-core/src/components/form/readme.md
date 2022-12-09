@@ -291,6 +291,72 @@ fields: [ // Each item in this array corresponds to a crayons input component.
 }
 ```
 
+## Text and Value indicators for select component choices
+
+The choices for select component(dropdown/multi_select) can follow any of the below formats.
+
+1. Using field_options object. Pass the key name that needs to be displayed as the dropdown option's text using, 'option_label_path' and the key name that needs to to be processed in the backend using, 'option_value_path'.
+
+```
+{
+  id: '420oib8f-25cf-47ce-89c6-5410fe3d4315',
+  name: 'languages_known',
+  label: 'Languages Known',
+  type: 'MULTI_SELECT',
+  position: 1,
+  required: true,
+  placeholder: 'Choose',
+  hint: 'Select one or more values',
+  field_options: {
+    option_label_path: 'value', // This denotes 'value' in the choices object needs to be displayed as the dropdown option text,i.e English & Hindi
+    option_value_path: 'id',  // This denotes 'id' in the choices object needs to be used as the dropdown option's value for backend
+  },
+  choices: [
+    {
+      id: 1,  // this will be passed to the backend if `English` has been selected in the dropdown options.
+      value: 'English',  // This will be displayed in the dropdown options list.
+      position: 1,
+      dependent_ids: {},
+    },
+    {
+      id: 2,
+      value: 'Hindi',
+      position: 2,
+      dependent_ids: {},
+    },
+  ],
+}
+```
+
+2. Using 'text' and 'value' as key names in choices 
+
+```
+{
+  id: '127yub8f-25cf-47ce-89c6-67yufe3d4315',
+  name: 'languages_known',
+  label: 'Languages Known',
+  type: 'MULTI_SELECT',
+  position: 1,
+  required: true,
+  placeholder: 'Choose',
+  hint: 'Select one or more values',
+  choices: [
+    {
+      value: 1,  // this will be passed to the backend if `English` has been selected in the dropdown options.
+      text: 'English',  // This will be displayed in the dropdown options list.
+      position: 1,
+      dependent_ids: {},
+    },
+    {
+      id: 2,
+      value: 'Hindi',
+      position: 2,
+      dependent_ids: {},
+    },
+  ],
+}
+```
+
 ## Usage Dynamic Form
 
 <code-group>
