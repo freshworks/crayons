@@ -24,8 +24,10 @@ try {
   console.log('version.json fetch error ', err);
   versionArr = [];
 }
+const v2Components = versionsArr.filter((v) => v['key'] === '2.13.4').map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+const v3Components = versionsArr.filter((v) => v['key'].startsWith('3.') && !v['key'].includes('beta')).map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+const v4Components = versionsArr.filter((v) => v['key'].startsWith('4.') && !v['key'].includes('beta')).map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
 
-const versionComponents = versionsArr.map((v) => `versions/${v.key}/`);
 /** End of listing all versions */
 
 // Generate array of head-scripts based on the www builds of the
@@ -88,10 +90,28 @@ module.exports = {
         children: [
           '/introduction/',
           '/introduction/migrating-to-v4/',
+            
+        ],
+      },
+      {
+        title: 'Versions',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: [
           {
             type: 'group',
-            title: 'Versions',
-            children: versionComponents,
+            title: 'V4.X',
+            children: v4Components,
+          },
+          {
+            type: 'group',
+            title: 'V3.X',
+            children: v3Components,
+          },
+          {
+            type: 'group',
+            title: 'V2.X',
+            children: v2Components,
           },
         ],
       },
