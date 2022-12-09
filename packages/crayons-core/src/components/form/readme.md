@@ -328,6 +328,116 @@ The choices for select component(dropdown/multi_select) can follow any of the be
 }
 ```
 
+## Usage
+
+```html live
+<div id="form-container-2">
+  <fw-button id="submit_2">Submit</fw-button>
+  <fw-button id="reset_2">Reset</fw-button>
+</div>
+<script type="application/javascript">
+  var form_2 = document.createElement('fw-form');
+  var formContainer_2 = document.querySelector('#form-container-2');
+  document.querySelector('#submit_2').addEventListener('click', async (e) => {
+    const { values, isValid } = await form_2.doSubmit(e);
+    console.log({ values, isValid });
+  });
+  document.querySelector('#reset_2').addEventListener('click', (e) => {
+    form_2.doReset(e);
+  });
+  var formSchema2 = {
+    name: 'Test Form 2',
+    fields: [
+      {
+        id: '2979i920-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: 'gh67f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: 'vbg56b8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 13,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+        choices: [
+          {
+            id: 1,
+            value: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: 'hjuy7820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+      {
+        id: 'redf5820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+    ],
+  };
+  formContainer_2.prepend(form_2);
+  form_2.formSchema = formSchema2;
+  form_2.initialValues = initialValues;
+</script>
+```
+
+
 2. Using 'text' and 'value' as key names in choices 
 
 ```
@@ -356,6 +466,112 @@ The choices for select component(dropdown/multi_select) can follow any of the be
   ],
 }
 ```
+
+## Usage
+
+```html live
+<div id="form-container-3">
+  <fw-button id="submit_3">Submit</fw-button>
+  <fw-button id="reset_3">Reset</fw-button>
+</div>
+<script type="application/javascript">
+  var form_3 = document.createElement('fw-form');
+  var formContainer_3 = document.querySelector('#form-container-3');
+  document.querySelector('#submit_3').addEventListener('click', async (e) => {
+    const { values, isValid } = await form_3.doSubmit(e);
+    console.log({ values, isValid });
+  });
+  document.querySelector('#reset_3').addEventListener('click', (e) => {
+    form_3.doReset(e);
+  });
+  var formSchema3 = {
+    name: 'Test Form 3',
+    fields: [
+      {
+        id: 'juik9920-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 1,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: 'yuhuj820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 2,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: 'cdsre4b8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 5,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        choices: [
+          {
+            value: 1,
+            text: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            value: 2,
+            text: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            value: 3,
+            text: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '56t7y820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+      {
+        id: 'e34r5820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 4,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+    ],
+  };
+  formContainer_3.prepend(form_3);
+  form_3.formSchema = formSchema3;
+  form_3.initialValues = initialValues;
+</script>
+```
+
 
 ## Usage Dynamic Form
 
