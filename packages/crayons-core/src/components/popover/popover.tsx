@@ -120,14 +120,37 @@ export class Popover {
   async show() {
     if (!this.isOpen) {
       clearTimeout(this.timerId);
-      if (this.showAfter > 0) {
-        this.timerId = setTimeout(
-          () => this.processShowPopover(),
-          this.showAfter
-        );
-      } else {
-        this.processShowPopover();
+      if (this.showAfter > 0) await this.delay(this.showAfter);
+      this.sameWidth &&
+        (this.popperDiv.style.width =
+          String(this.triggerRef.getBoundingClientRect().width) + 'px');
+
+      // Create popper instance if it's not available
+      !this.popperInstance && this.createPopperInstance();
+
+      this.popperDiv.setAttribute('data-show', '');
+      // Enable the event listeners
+      this.popperInstance.setOptions((options) => ({
+        ...options,
+        modifiers: [
+          ...options.modifiers,
+          { name: 'eventListeners', enabled: true },
+        ],
+      }));
+      this.popperInstance.update();
+      if (this.trigger !== 'hover') {
+        this.overlay.style.display = 'block';
       }
+      this.isOpen = !this.isOpen;
+      if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
+        const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
+        listOptionsElement.scrollToLastSelected();
+      }
+      this.autoFocusOnContent &&
+        (this.contentRef.setFocus
+          ? this.contentRef.setFocus()
+          : this.contentRef.focus?.());
+      this.fwShow.emit();
     }
   }
 
@@ -135,14 +158,29 @@ export class Popover {
   async hide() {
     if (this.isOpen) {
       clearTimeout(this.timerId);
-      if (this.hideAfter > 0) {
-        this.timerId = setTimeout(
-          () => this.processHidePopOver(),
-          this.hideAfter
-        );
-      } else {
-        this.processHidePopOver();
+      if (this.showAfter > 0) await this.delay(this.showAfter);
+      this.popperDiv.removeAttribute('data-show');
+      // Disable the event listeners
+      this.popperInstance.setOptions((options) => ({
+        ...options,
+        modifiers: [
+          ...options.modifiers,
+          { name: 'eventListeners', enabled: false },
+        ],
+      }));
+      if (this.trigger !== 'hover') {
+        this.overlay.style.display = 'none';
       }
+      this.isOpen = !this.isOpen;
+      if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
+        const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
+        listOptionsElement.clearFilter();
+      }
+      this.autoFocusOnContent &&
+        (this.triggerRef.setFocus
+          ? this.triggerRef.setFocus()
+          : this.triggerRef.focus?.());
+      this.fwHide.emit();
     }
   }
 
@@ -214,62 +252,10 @@ export class Popover {
     };
   }
 
-  private processShowPopover() {
-    this.sameWidth &&
-      (this.popperDiv.style.width =
-        String(this.triggerRef.getBoundingClientRect().width) + 'px');
-
-    // Create popper instance if it's not available
-    !this.popperInstance && this.createPopperInstance();
-
-    this.popperDiv.setAttribute('data-show', '');
-    // Enable the event listeners
-    this.popperInstance.setOptions((options) => ({
-      ...options,
-      modifiers: [
-        ...options.modifiers,
-        { name: 'eventListeners', enabled: true },
-      ],
-    }));
-    this.popperInstance.update();
-    if (this.trigger !== 'hover') {
-      this.overlay.style.display = 'block';
-    }
-    this.isOpen = !this.isOpen;
-    if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
-      const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
-      listOptionsElement.scrollToLastSelected();
-    }
-    this.autoFocusOnContent &&
-      (this.contentRef.setFocus
-        ? this.contentRef.setFocus()
-        : this.contentRef.focus?.());
-    this.fwShow.emit();
-  }
-
-  private processHidePopOver() {
-    this.popperDiv.removeAttribute('data-show');
-    // Disable the event listeners
-    this.popperInstance.setOptions((options) => ({
-      ...options,
-      modifiers: [
-        ...options.modifiers,
-        { name: 'eventListeners', enabled: false },
-      ],
-    }));
-    if (this.trigger !== 'hover') {
-      this.overlay.style.display = 'none';
-    }
-    this.isOpen = !this.isOpen;
-    if (this.contentRef?.tagName === 'FW-LIST-OPTIONS') {
-      const listOptionsElement = this.contentRef as HTMLFwListOptionsElement;
-      listOptionsElement.clearFilter();
-    }
-    this.autoFocusOnContent &&
-      (this.triggerRef.setFocus
-        ? this.triggerRef.setFocus()
-        : this.triggerRef.focus?.());
-    this.fwHide.emit();
+  private async delay(ms: number) {
+    return new Promise((res) => {
+      this.timerId = setTimeout(res, ms);
+    });
   }
 
   updatePopper() {
