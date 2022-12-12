@@ -13,6 +13,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - add option label path and option value path for select and list options ([229500e](https://github.com/freshworks/crayons/commit/229500e9caf3dda2046af1aba4a0c3f050911fe8))
 - **form-control:** handle formServ field_options object in form control ([a19656e](https://github.com/freshworks/crayons/commit/a19656e9e850fd33e06c7285d6bf081e06360ed0))
+- **popover:** introduced new props to facilitate delay in open/close transition in popover component ([7176beb](https://github.com/freshworks/crayons/commit/7176beb6fb441ffbb953107f9da1a20a5849c7df))
 
 ### Reverts
 
