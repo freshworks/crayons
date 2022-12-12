@@ -19,31 +19,29 @@ try {
   });
 
   versions.forEach((versionObj) => {
-    if (!versionObj['key'].includes('beta')) {
-      const output = render(template, {
-        ['esm']: versionObj['esm'],
-        ['es5']: versionObj['es5'],
-        ['css']: versionObj['css'],
-        key: versionObj['key'],
-      });
+    const output = render(template, {
+      ['esm']: versionObj['esm'],
+      ['es5']: versionObj['es5'],
+      ['css']: versionObj['css'],
+      key: versionObj['key'],
+    });
 
-      const subFolder = `v${versionObj['key']?.split('.')[0]}.x`;
-      const filePath = path.join(
-        wwwRoot,
-        'versions',
-        subFolder,
-        `${versionObj['key']}/readme.md`
-      );
-      const dirName = path.dirname(filePath);
+    const subFolder = `v${versionObj['key']?.split('.')[0]}.x`;
+    const filePath = path.join(
+      wwwRoot,
+      'versions',
+      subFolder,
+      `${versionObj['key']}/readme.md`
+    );
+    const dirName = path.dirname(filePath);
 
-      try {
-        fs.accessSync(dirName);
-      } catch (err) {
-        fs.mkdirSync(dirName, { recursive: true });
-      }
-
-      fs.writeFileSync(filePath, output);
+    try {
+      fs.accessSync(dirName);
+    } catch (err) {
+      fs.mkdirSync(dirName, { recursive: true });
     }
+
+    fs.writeFileSync(filePath, output);
   });
   console.log('Readme files for versions created');
 } catch (err) {
