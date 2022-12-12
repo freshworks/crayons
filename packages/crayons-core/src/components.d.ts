@@ -1238,6 +1238,10 @@ export namespace Components {
         "hasBorder": boolean;
         "hide": () => Promise<void>;
         /**
+          * Indicates the delay after which popover will be hidden.
+         */
+        "hideAfter": number;
+        /**
           * Indicates whether popover contents should be hidden on pressing Tab.
          */
         "hideOnTab": boolean;
@@ -1254,6 +1258,10 @@ export namespace Components {
          */
         "sameWidth": boolean;
         "show": () => Promise<void>;
+        /**
+          * Indicates the delay after which popover will be shown.
+         */
+        "showAfter": number;
         /**
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
@@ -3849,6 +3857,10 @@ declare namespace LocalJSX {
          */
         "hasBorder"?: boolean;
         /**
+          * Indicates the delay after which popover will be hidden.
+         */
+        "hideAfter"?: number;
+        /**
           * Indicates whether popover contents should be hidden on pressing Tab.
          */
         "hideOnTab"?: boolean;
@@ -3872,6 +3884,10 @@ declare namespace LocalJSX {
           * Whether the popover-content width to be same as that of the popover-trigger.
          */
         "sameWidth"?: boolean;
+        /**
+          * Indicates the delay after which popover will be shown.
+         */
+        "showAfter"?: number;
         /**
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */

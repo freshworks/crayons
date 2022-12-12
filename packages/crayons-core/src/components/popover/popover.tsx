@@ -25,6 +25,7 @@ export class Popover {
   private triggerRefSlot: any = null;
   private overlay: HTMLElement;
   private resizeObserver;
+  private timerId: any;
 
   @Element() host: HTMLElement;
 
@@ -87,6 +88,14 @@ export class Popover {
    */
   @Prop() hideOnTab = true;
   /**
+   * Indicates the delay after which popover will be shown.
+   */
+  @Prop() showAfter = 0;
+  /**
+   * Indicates the delay after which popover will be hidden.
+   */
+  @Prop() hideAfter = 0;
+  /**
    * Triggered whenever the popover contents is open/displayed.
    */
   @Event() fwShow: EventEmitter;
@@ -110,6 +119,8 @@ export class Popover {
   @Method()
   async show() {
     if (!this.isOpen) {
+      clearTimeout(this.timerId);
+      if (this.showAfter > 0) await this.delay(this.showAfter);
       this.sameWidth &&
         (this.popperDiv.style.width =
           String(this.triggerRef.getBoundingClientRect().width) + 'px');
@@ -146,6 +157,8 @@ export class Popover {
   @Method()
   async hide() {
     if (this.isOpen) {
+      clearTimeout(this.timerId);
+      if (this.hideAfter > 0) await this.delay(this.hideAfter);
       this.popperDiv.removeAttribute('data-show');
       // Disable the event listeners
       this.popperInstance.setOptions((options) => ({
@@ -239,6 +252,12 @@ export class Popover {
     };
   }
 
+  private async delay(ms: number) {
+    return new Promise((res) => {
+      this.timerId = setTimeout(res, ms);
+    });
+  }
+
   updatePopper() {
     if (this.isOpen) {
       !this.popperInstance && this.createPopperInstance();
@@ -256,6 +275,7 @@ export class Popover {
   disconnectedCallback() {
     this.removeResizeObserver();
     this.popperInstance?.destroy();
+    clearTimeout(this.timerId);
   }
 
   private removeResizeObserver = () => {
