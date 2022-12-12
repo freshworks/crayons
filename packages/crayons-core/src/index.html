@@ -25,7 +25,7 @@
         <script>
           const form = document.querySelector('#fw-form');
           document.querySelector('#inp').addEventListener('fwInput', (e) => {
-            form.setSearchFieldsText(e.detail.value);
+            form.setFieldSearchText(e.detail.value);
           });
           document
             .querySelector('#submit')
@@ -421,7 +421,7 @@
       <script type="application/javascript">
         var formStatic = document.querySelector('#fw-static-form');
         document.querySelector('#inp1').addEventListener('fwInput', (e) => {
-          formStatic.setSearchFieldsText(e.detail.value);
+          formStatic.setFieldSearchText(e.detail.value);
         });
         document
           .querySelector('#submit-static-form')

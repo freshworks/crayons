@@ -84,7 +84,7 @@ export class Form {
   @State() formValidationSchema;
   @State() formInitialValues;
 
-  @State() searchFieldsText;
+  @State() fieldSearchText;
   @State() hasSlot = false;
 
   /**
@@ -420,10 +420,10 @@ export class Form {
   };
 
   private shouldRenderFormControl = (control) => {
-    const shouldRender = this.searchFieldsText
+    const shouldRender = this.fieldSearchText
       ? control.label
           ?.toLowerCase()
-          ?.includes(this.searchFieldsText.toLowerCase())
+          ?.includes(this.fieldSearchText.toLowerCase())
       : true;
     return shouldRender;
   };
@@ -513,8 +513,8 @@ export class Form {
    *
    */
   @Method()
-  async setSearchFieldsText(text: string) {
-    this.searchFieldsText = text;
+  async setFieldSearchText(text: string) {
+    this.fieldSearchText = text;
   }
 
   render() {
@@ -526,7 +526,7 @@ export class Form {
           this.formSchema?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
-              /** render field based on searchFieldsText state */
+              /** render field based on fieldSearchText state */
               return (
                 this.shouldRenderFormControl(field) && (
                   <fw-form-control
