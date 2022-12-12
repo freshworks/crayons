@@ -158,7 +158,7 @@ export class Popover {
   async hide() {
     if (this.isOpen) {
       clearTimeout(this.timerId);
-      if (this.showAfter > 0) await this.delay(this.showAfter);
+      if (this.hideAfter > 0) await this.delay(this.hideAfter);
       this.popperDiv.removeAttribute('data-show');
       // Disable the event listeners
       this.popperInstance.setOptions((options) => ({
