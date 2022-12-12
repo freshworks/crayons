@@ -24,9 +24,15 @@ try {
   console.log('version.json fetch error ', err);
   versionArr = [];
 }
-const v2Components = versionsArr.filter((v) => v['key'] === '2.13.4').map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
-const v3Components = versionsArr.filter((v) => v['key'].startsWith('3.') && !v['key'].includes('beta')).map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
-const v4Components = versionsArr.filter((v) => v['key'].startsWith('4.') && !v['key'].includes('beta')).map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+const v2Components = versionsArr
+  .filter((v) => v['key'] === '2.13.4')
+  .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+const v3Components = versionsArr
+  .filter((v) => v['key'].startsWith('3.') && !v['key'].includes('beta'))
+  .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+const v4Components = versionsArr
+  .filter((v) => v['key'].startsWith('4.'))
+  .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
 
 /** End of listing all versions */
 
@@ -87,11 +93,7 @@ module.exports = {
         title: 'Introduction',
         collapsable: false,
         sidebarDepth: 1,
-        children: [
-          '/introduction/',
-          '/introduction/migrating-to-v4/',
-            
-        ],
+        children: ['/introduction/', '/introduction/migrating-to-v4/'],
       },
       {
         title: 'Versions',
