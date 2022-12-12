@@ -244,6 +244,8 @@ export class FormControl {
             this.type?.toLowerCase()
           );
 
+          const fieldOptions = this.fieldProps?.field_options;
+
           let componentProps = {
             ...this.fieldProps,
             name: this.name,
@@ -263,7 +265,12 @@ export class FormControl {
             ...controlProps,
             options: this.choices,
           };
-
+          // This is to handle formserv payload which might contain a field_options object, which has parameters, option_value_path and option_label_path,
+          // that denotes which property of choices object(form schema) needs to be displayed as label and which should be stored in the backend as value
+          if (fieldOptions?.option_value_path)
+            componentProps['optionValuePath'] = fieldOptions.option_value_path;
+          if (fieldOptions?.option_label_path)
+            componentProps['optionLabelPath'] = fieldOptions.option_label_path;
           cmp = (
             <fw-select
               {...componentProps}
@@ -279,6 +286,8 @@ export class FormControl {
             this.name,
             this.type?.toLowerCase()
           );
+
+          const fieldOptions = this.fieldProps?.field_options;
 
           const componentProps = {
             ...this.fieldProps,
@@ -310,6 +319,11 @@ export class FormControl {
           }
           componentProps.noDataText =
             TranslationController.t('search.startTyping');
+
+          if (fieldOptions?.option_value_path)
+            componentProps['optionValuePath'] = fieldOptions.option_value_path;
+          if (fieldOptions?.option_label_path)
+            componentProps['optionLabelPath'] = fieldOptions.option_label_path;
 
           cmp = (
             <fw-select
