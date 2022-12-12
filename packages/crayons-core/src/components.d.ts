@@ -585,13 +585,11 @@ export namespace Components {
     }
     interface FwForm {
         /**
-          * @param event - An event which takes place in the DOM
-          * @returns Promise<Void>  Method to reset the form
+          * @param event - An event which takes place in the DOM  Method to reset the form
          */
         "doReset": (event?: any) => Promise<void>;
         /**
-          * @param event : An event which takes place in the DOM
-          * @returns Promise<FormSubmit>  Method to submit the form
+          * @param event : An event which takes place in the DOM  Method to submit the form
          */
         "doSubmit": (event?: any) => Promise<FormSubmit>;
         /**
@@ -603,7 +601,6 @@ export namespace Components {
          */
         "formSchema"?: any;
         /**
-          * getValues
           * @returns An Object containing values and serializedValues. serializedValues are those that contains the transformed values based on field type. 1. For Number and Decimal: returns floating point number of value or undefined. 2. For Date: returns value as ${year}-${month}-${date} or undefined. 3. For Relationship : returns an array of values or value.
          */
         "getValues": () => Promise<{ values: FormValues; serializedValues: FormValues; }>;
@@ -612,12 +609,12 @@ export namespace Components {
          */
         "initialValues"?: any;
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
-        "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
           * Method to filter the display of fields in the form based on the passed text.
           * @param text
          */
-        "setSearchFieldsText": (text: string) => Promise<void>;
+        "setFieldSearchText": (text: string) => Promise<void>;
+        "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */

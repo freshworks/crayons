@@ -291,288 +291,6 @@ fields: [ // Each item in this array corresponds to a crayons input component.
 }
 ```
 
-## Text and Value indicators for select component choices
-
-The choices for select component(dropdown/multi_select) can follow any of the below formats.
-
-1. Using field_options object. Pass the key name that needs to be displayed as the dropdown option's text using, 'option_label_path' and the key name that needs to to be processed in the backend using, 'option_value_path'.
-
-```
-{
-  id: '420oib8f-25cf-47ce-89c6-5410fe3d4315',
-  name: 'languages_known',
-  label: 'Languages Known',
-  type: 'MULTI_SELECT',
-  position: 1,
-  required: true,
-  placeholder: 'Choose',
-  hint: 'Select one or more values',
-  field_options: {
-    option_label_path: 'value', // This denotes 'value' in the choices object needs to be displayed as the dropdown option text,i.e English & Hindi
-    option_value_path: 'id',  // This denotes 'id' in the choices object needs to be used as the dropdown option's value for backend
-  },
-  choices: [
-    {
-      id: 1,  // this will be passed to the backend if `English` has been selected in the dropdown options.
-      value: 'English',  // This will be displayed in the dropdown options list.
-      position: 1,
-      dependent_ids: {},
-    },
-    {
-      id: 2,
-      value: 'Hindi',
-      position: 2,
-      dependent_ids: {},
-    },
-  ],
-}
-```
-
-## Usage
-
-```html live
-<div id="form-container-2">
-  <fw-button id="submit_2">Submit</fw-button>
-  <fw-button id="reset_2">Reset</fw-button>
-</div>
-<script type="application/javascript">
-  var form_2 = document.createElement('fw-form');
-  var formContainer_2 = document.querySelector('#form-container-2');
-  document.querySelector('#submit_2').addEventListener('click', async (e) => {
-    const { values, isValid } = await form_2.doSubmit(e);
-    console.log({ values, isValid });
-  });
-  document.querySelector('#reset_2').addEventListener('click', (e) => {
-    form_2.doReset(e);
-  });
-  var formSchema2 = {
-    name: 'Test Form 2',
-    fields: [
-      {
-        id: '2979i920-704b-46c7-9f88-110e14e34a8c',
-        name: 'first_name',
-        label: 'First Name',
-        type: 'TEXT',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide a text of at max 100 characters',
-        choices: [],
-      },
-
-      {
-        id: 'gh67f820-704b-46c7-9f88-110e14e34a8c',
-        name: 'last_name',
-        label: 'Last Name',
-        type: 'TEXT',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide a text of at max 100 characters',
-        choices: [],
-      },
-
-      {
-        id: 'vbg56b8f-25cf-47ce-89c6-5410fe3d4315',
-        name: 'languages_known',
-        label: 'Languages Known',
-        type: 'MULTI_SELECT',
-        position: 13,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Select one or more values',
-        field_options: {
-          option_label_path: 'value',
-          option_value_path: 'id',
-        },
-        choices: [
-          {
-            id: 1,
-            value: 'English',
-            position: 1,
-            dependent_ids: {},
-          },
-          {
-            id: 2,
-            value: 'Hindi',
-            position: 2,
-            dependent_ids: {},
-          },
-          {
-            id: 3,
-            value: 'Tamil',
-            position: 3,
-            dependent_ids: {},
-          },
-        ],
-      },
-
-      {
-        id: 'hjuy7820-704b-46c7-9f88-110e14e34a8c',
-        name: 'email',
-        label: 'Email',
-        type: 'EMAIL',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide an email Id',
-        choices: [],
-      },
-      {
-        id: 'redf5820-704b-46c7-9f88-110e14e34a8c',
-        name: 'phone_number',
-        label: 'Phone number',
-        type: 'TEXT',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide your phone number',
-        choices: [],
-      },
-    ],
-  };
-  formContainer_2.prepend(form_2);
-  form_2.formSchema = formSchema2;
-  form_2.initialValues = initialValues;
-</script>
-```
-
-
-2. Using 'text' and 'value' as key names in choices 
-
-```
-{
-  id: '127yub8f-25cf-47ce-89c6-67yufe3d4315',
-  name: 'languages_known',
-  label: 'Languages Known',
-  type: 'MULTI_SELECT',
-  position: 1,
-  required: true,
-  placeholder: 'Choose',
-  hint: 'Select one or more values',
-  choices: [
-    {
-      value: 1,  // this will be passed to the backend if `English` has been selected in the dropdown options.
-      text: 'English',  // This will be displayed in the dropdown options list.
-      position: 1,
-      dependent_ids: {},
-    },
-    {
-      id: 2,
-      value: 'Hindi',
-      position: 2,
-      dependent_ids: {},
-    },
-  ],
-}
-```
-
-## Usage
-
-```html live
-<div id="form-container-3">
-  <fw-button id="submit_3">Submit</fw-button>
-  <fw-button id="reset_3">Reset</fw-button>
-</div>
-<script type="application/javascript">
-  var form_3 = document.createElement('fw-form');
-  var formContainer_3 = document.querySelector('#form-container-3');
-  document.querySelector('#submit_3').addEventListener('click', async (e) => {
-    const { values, isValid } = await form_3.doSubmit(e);
-    console.log({ values, isValid });
-  });
-  document.querySelector('#reset_3').addEventListener('click', (e) => {
-    form_3.doReset(e);
-  });
-  var formSchema3 = {
-    name: 'Test Form 3',
-    fields: [
-      {
-        id: 'juik9920-704b-46c7-9f88-110e14e34a8c',
-        name: 'first_name',
-        label: 'First Name',
-        type: 'TEXT',
-        position: 1,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide a text of at max 100 characters',
-        choices: [],
-      },
-
-      {
-        id: 'yuhuj820-704b-46c7-9f88-110e14e34a8c',
-        name: 'last_name',
-        label: 'Last Name',
-        type: 'TEXT',
-        position: 2,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide a text of at max 100 characters',
-        choices: [],
-      },
-
-      {
-        id: 'cdsre4b8f-25cf-47ce-89c6-5410fe3d4315',
-        name: 'languages_known',
-        label: 'Languages Known',
-        type: 'MULTI_SELECT',
-        position: 5,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Select one or more values',
-        choices: [
-          {
-            value: 1,
-            text: 'English',
-            position: 1,
-            dependent_ids: {},
-          },
-          {
-            value: 2,
-            text: 'Hindi',
-            position: 2,
-            dependent_ids: {},
-          },
-          {
-            value: 3,
-            text: 'Tamil',
-            position: 3,
-            dependent_ids: {},
-          },
-        ],
-      },
-
-      {
-        id: '56t7y820-704b-46c7-9f88-110e14e34a8c',
-        name: 'email',
-        label: 'Email',
-        type: 'EMAIL',
-        position: 3,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide an email Id',
-        choices: [],
-      },
-      {
-        id: 'e34r5820-704b-46c7-9f88-110e14e34a8c',
-        name: 'phone_number',
-        label: 'Phone number',
-        type: 'TEXT',
-        position: 4,
-        required: true,
-        placeholder: 'Enter…',
-        hint: 'Please provide your phone number',
-        choices: [],
-      },
-    ],
-  };
-  formContainer_3.prepend(form_3);
-  form_3.formSchema = formSchema3;
-  form_3.initialValues = initialValues;
-</script>
-```
-
-
 ## Usage Dynamic Form
 
 <code-group>
@@ -1115,6 +833,286 @@ Reset Form
 
 </code-block>
 </code-group>
+
+## Text and Value indicators for select (DROPDOWN/MULTI_SELECT) component choices
+
+The choices for select component(`dropdown/multi_select`) can follow any of the below formats.
+
+1. Using `field_options` object. Pass the key name that needs to be displayed as the dropdown option's text using, `option_label_path` and the key name that needs to to be processed in the backend using, `option_value_path`.
+
+```
+{
+  id: '420oib8f-25cf-47ce-89c6-5410fe3d4315',
+  name: 'languages_known',
+  label: 'Languages Known',
+  type: 'MULTI_SELECT',
+  position: 1,
+  required: true,
+  placeholder: 'Choose',
+  hint: 'Select one or more values',
+  field_options: {
+    option_label_path: 'value', // This denotes 'value' in the choices object needs to be displayed as the dropdown option text,i.e English & Hindi
+    option_value_path: 'id',  // This denotes 'id' in the choices object needs to be used as the dropdown option's value for backend
+  },
+  choices: [
+    {
+      id: 1,  // this will be passed to the backend if `English` has been selected in the dropdown options.
+      value: 'English',  // This will be displayed in the dropdown options list.
+      position: 1,
+      dependent_ids: {},
+    },
+    {
+      id: 2,
+      value: 'Hindi',
+      position: 2,
+      dependent_ids: {},
+    },
+  ],
+}
+```
+
+#### Usage with field_options
+
+```html live
+<div id="form-container-2">
+  <fw-button id="submit_2">Submit</fw-button>
+  <fw-button id="reset_2">Reset</fw-button>
+</div>
+<script type="application/javascript">
+  var form_2 = document.createElement('fw-form');
+  var formContainer_2 = document.querySelector('#form-container-2');
+  document.querySelector('#submit_2').addEventListener('click', async (e) => {
+    const { values, isValid } = await form_2.doSubmit(e);
+    console.log({ values, isValid });
+  });
+  document.querySelector('#reset_2').addEventListener('click', (e) => {
+    form_2.doReset(e);
+  });
+  var formSchema2 = {
+    name: 'Test Form 2',
+    fields: [
+      {
+        id: '2979i920-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: 'gh67f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: 'vbg56b8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 13,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+        choices: [
+          {
+            id: 1,
+            value: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: 'hjuy7820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+      {
+        id: 'redf5820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+    ],
+  };
+  formContainer_2.prepend(form_2);
+  form_2.formSchema = formSchema2;
+  form_2.initialValues = initialValues;
+</script>
+```
+
+2. Using `text` and `value` as key names in choices
+
+```
+{
+  id: '127yub8f-25cf-47ce-89c6-67yufe3d4315',
+  name: 'languages_known',
+  label: 'Languages Known',
+  type: 'MULTI_SELECT',
+  position: 1,
+  required: true,
+  placeholder: 'Choose',
+  hint: 'Select one or more values',
+  choices: [
+    {
+      value: 1,  // this will be passed to the backend if `English` has been selected in the dropdown options.
+      text: 'English',  // This will be displayed in the dropdown options list.
+      position: 1,
+      dependent_ids: {},
+    },
+    {
+      id: 2,
+      value: 'Hindi',
+      position: 2,
+      dependent_ids: {},
+    },
+  ],
+}
+```
+
+#### Usage with `text` and `value` as keys in `choices`
+
+```html live
+<div id="form-container-3">
+  <fw-button id="submit_3">Submit</fw-button>
+  <fw-button id="reset_3">Reset</fw-button>
+</div>
+<script type="application/javascript">
+  var form_3 = document.createElement('fw-form');
+  var formContainer_3 = document.querySelector('#form-container-3');
+  document.querySelector('#submit_3').addEventListener('click', async (e) => {
+    const { values, isValid } = await form_3.doSubmit(e);
+    console.log({ values, isValid });
+  });
+  document.querySelector('#reset_3').addEventListener('click', (e) => {
+    form_3.doReset(e);
+  });
+  var formSchema3 = {
+    name: 'Test Form 3',
+    fields: [
+      {
+        id: 'juik9920-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 1,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: 'yuhuj820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 2,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: 'cdsre4b8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 5,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        choices: [
+          {
+            value: 1,
+            text: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            value: 2,
+            text: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            value: 3,
+            text: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '56t7y820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+      {
+        id: 'e34r5820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 4,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+    ],
+  };
+  formContainer_3.prepend(form_3);
+  form_3.formSchema = formSchema3;
+  form_3.initialValues = initialValues;
+</script>
+```
 
 ## Demo Static Form
 
@@ -1717,11 +1715,288 @@ return (
 </code-block>
 </code-group>
 
-### Validations
+## Filter Display of Form Fields
+
+Invoke `setFieldSearchText` method on the `form` passing a text that filters the display of the form fields matching the field's label.
+
+```html live
+<fw-input
+  search
+  id="form-filter-search"
+  placeholder="Type to filter Form Fields..."
+></fw-input>
+<div id="form-container-search">
+  <fw-button id="submit-search">Submit</fw-button>
+  <fw-button id="reset-search">Reset</fw-button>
+</div>
+<script type="application/javascript">
+  var formSearch = document.createElement('fw-form');
+  var formContainerSearch = document.querySelector('#form-container-search');
+
+  /**
+   * call setFieldSearchText on the form with the typed text to filter the form fields **/
+  document
+    .querySelector('#form-filter-search')
+    // you can debounce this function if required
+    .addEventListener('fwInput', (e) => {
+      formSearch.setFieldSearchText(e.detail.value);
+    });
+  document
+    .querySelector('#submit-search')
+    .addEventListener('click', async (e) => {
+      const { values, isValid } = await formSearch.doSubmit(e);
+      console.log({ values, isValid });
+
+      if (isValid) {
+        // make ajax post end point with values
+        // fetch("/post",values);
+
+        // if error from backend , set Errors - passing key value pair
+        formSearch.setFieldErrors({
+          first_name: 'First Name must be unique <<Server Error>>',
+        });
+
+        // reset the form if required if success
+        // formRef.current.doReset(e);
+      }
+    });
+  document.querySelector('#reset-search').addEventListener('click', (e) => {
+    formSearch.doReset(e);
+  });
+  var formSchemaSearch = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 13,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        choices: [
+          {
+            id: 1,
+            value: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 11,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'landmark',
+        label: 'Landmark',
+        type: 'PARAGRAPH',
+        position: 7,
+        required: true,
+        Placeholder: 'Enter some text…',
+        hint: 'Please enter the nearest landmark',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'is_indian_citizen',
+        label: 'Indian Citizen?',
+        type: 'CHECKBOX',
+        position: 7,
+        required: true,
+        placeholder: null,
+        hint: 'Check or Uncheck the box',
+        choices: [],
+      },
+
+      {
+        id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'pincode',
+        label: 'Pincode',
+        type: 'NUMBER',
+        position: 8,
+        required: false,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your Pincode',
+        choices: [],
+      },
+
+      {
+        id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+        name: 'gender',
+        label: 'Gender',
+        type: 'RADIO',
+        position: 5,
+        required: true,
+        placeholder: null,
+        hint: 'Please specify your gender',
+        choices: [
+          {
+            id: 1,
+            value: 'Female',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Male',
+            position: 2,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'order_status',
+        label: 'Order Status',
+        type: 'DROPDOWN',
+        position: 4,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select a value',
+        choices: [
+          {
+            id: 1,
+            value: 'open',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'pending',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'closed',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'amount_paid',
+        label: 'Amount Paid',
+        type: 'DECIMAL',
+        position: 10,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter the amount paid',
+        choices: [],
+      },
+    ],
+  };
+  var initialValues = {
+    is_indian_citizen: true,
+  };
+  formContainerSearch.prepend(formSearch);
+  // do any customisation on the field schema to match the props of crayons components.
+  var fieldsSearch = formSchemaSearch.fields.map((field) => {
+    // select expects `text` and `value` prop
+    if (field.type === 'DROPDOWN' || field.type === 'MULTI_SELECT') {
+      return {
+        ...field,
+        choices: field.choices?.map((f) => {
+          return {
+            ...f,
+            text: f.value,
+            value: f.id,
+          };
+        }),
+      };
+    } else return field;
+  });
+
+  var formSchemaSearch1 = {
+    ...formSchemaSearch,
+    fields: fieldsSearch,
+  };
+  formSearch.formSchema = formSchemaSearch1;
+  formSearch.initialValues = initialValues;
+</script>
+```
+
+## Validations
 
 Validation can be done using [Yup](https://github.com/jquense/yup#yup) based `validationSchema` or `validate` function prop.
 
-#### Validations Usage
+### Validations Usage
 
 You can use `validationSchema` prop to do `Yup` based validation.
 
@@ -1749,9 +2024,9 @@ const validate = async (values: any) => {
 
 Both `validationSchema` and `validate` prop can be used together.
 
-### Interfaces
+## Interfaces
 
-#### FormValues
+### FormValues
 
 ```javascript
 type FormValues = {
@@ -1759,7 +2034,7 @@ type FormValues = {
 };
 ```
 
-#### FormSubmit
+### FormSubmit
 
 ```javascript
 type FormSubmit = {
@@ -1769,7 +2044,7 @@ type FormSubmit = {
 };
 ```
 
-#### FormErrors
+### FormErrors
 
 ```javascript
 type FormErrors = {
@@ -1778,6 +2053,7 @@ type FormErrors = {
 ```
 
 <!-- Auto Generated Below -->
+
 
 ## Properties
 
@@ -1792,29 +2068,39 @@ type FormErrors = {
 | `validationSchema` | `validation-schema` | YUP based validation schema for handling validation                                                                                                                           | `any`     | `{}`        |
 | `wait`             | `wait`              | The number of milliseconds to delay before doing validation on Input                                                                                                          | `number`  | `200`       |
 
+
 ## Events
 
 | Event                 | Description                                                       | Type               |
 | --------------------- | ----------------------------------------------------------------- | ------------------ |
 | `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change. | `CustomEvent<any>` |
 
+
 ## Methods
 
-### `doReset(e: any) => Promise<void>`
+### `doReset(event?: any) => Promise<void>`
+
+
 
 #### Returns
 
 Type: `Promise<void>`
 
-### `doSubmit(e: any) => Promise<FormSubmit>`
+
+
+### `doSubmit(event?: any) => Promise<FormSubmit>`
+
+
 
 #### Returns
 
 Type: `Promise<FormSubmit>`
 
+
+
 ### `getValues() => Promise<{ values: FormValues; serializedValues: FormValues; }>`
 
-getValues
+
 
 #### Returns
 
@@ -1822,22 +2108,42 @@ Type: `Promise<{ values: FormValues; serializedValues: FormValues; }>`
 
 An Object containing values and serializedValues.
 serializedValues are those that contains the transformed values based on field type.
-
 1. For Number and Decimal: returns floating point number of value or undefined.
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
 
 ### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
+
+
 #### Returns
 
 Type: `Promise<void>`
+
+
+
+### `setFieldSearchText(text: string) => Promise<void>`
+
+
+Method to filter the display of fields in the form based
+on the passed text.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `setFieldValue(field: string, value: any, shouldValidate?: boolean) => Promise<void>`
 
+
+
 #### Returns
 
 Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -1846,7 +2152,6 @@ Type: `Promise<void>`
 - [fw-form-control](../form-control)
 
 ### Graph
-
 ```mermaid
 graph TD;
   fw-form --> fw-form-control
@@ -1889,6 +2194,6 @@ graph TD;
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
 Built with ❤ at Freshworks

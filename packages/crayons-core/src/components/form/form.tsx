@@ -462,7 +462,6 @@ export class Form {
   }
 
   /**
-   * getValues
    * @returns An Object containing values and serializedValues.
    * serializedValues are those that contains the transformed values based on field type.
    * 1. For Number and Decimal: returns floating point number of value or undefined.
@@ -483,7 +482,6 @@ export class Form {
   /**
    *
    * @param event : An event which takes place in the DOM
-   * @returns Promise<FormSubmit>
    *
    * Method to submit the form
    */
@@ -495,7 +493,6 @@ export class Form {
   /**
    *
    * @param event - An event which takes place in the DOM
-   * @returns Promise<Void>
    *
    * Method to reset the form
    */
