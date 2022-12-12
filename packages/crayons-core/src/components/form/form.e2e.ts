@@ -160,6 +160,59 @@ describe('fw-form', () => {
       ],
     },
   };
+  const fieldOptionsData = {
+    formSchema: {
+      title: 'Test Form',
+      name: 'Test Form',
+      fields: [
+        {
+          id: '42edecb8f-25cf-47ce-89c6-5410fe3d4315',
+          name: 'order_status',
+          label: 'Order Status',
+          type: 'DROPDOWN',
+          position: 1,
+          required: true,
+          editable: true,
+          visible: true,
+          deleted: false,
+          link: null,
+          placeholder: 'Enter…',
+          hint: 'Select a value',
+          filterable: true,
+          searchable: true,
+          parent_id: null,
+          field_options: {
+            option_value_path: 'id',
+            option_label_path: 'value',
+          },
+          choices: [
+            {
+              id: 1,
+              value: 'open',
+              position: 1,
+              dependent_ids: {},
+            },
+            {
+              id: 2,
+              value: 'pending',
+              position: 2,
+              dependent_ids: {},
+            },
+          ],
+        },
+      ],
+    },
+  };
+
+  const loadFieldOptionsData = async (page) => {
+    await page.$eval(
+      'fw-form',
+      (ele: any, { formSchema }) => {
+        ele.formSchema = formSchema;
+      },
+      fieldOptionsData
+    );
+  };
   it('renders', async () => {
     const page = await newE2EPage();
 
@@ -401,5 +454,29 @@ describe('fw-form', () => {
     const result2 = await form2.callMethod('doSubmit');
     expect(result2.values['first_name']).toEqual('form2-first');
     expect(result2.values['last_name']).toEqual('form2-last');
+  });
+
+  it('should return the right value on submit when optionValuePath and optionLabelPath are passed via field_options object', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    await loadFieldOptionsData(page);
+    await page.waitForChanges();
+    const form = await page.find('fw-form >>> :first-child');
+    const formControl = await form.find('fw-form-control >>> :first-child');
+    await formControl.click();
+    const popover = await formControl.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    await options[1].click();
+    await page.waitForChanges();
+    const formEle = await page.find('fw-form');
+    const result = await formEle.callMethod('doSubmit');
+    await page.waitForChanges();
+    const key =
+      fieldOptionsData.formSchema.fields[0].field_options['option_value_path'];
+    expect(result.values['order_status']).toEqual(
+      fieldOptionsData.formSchema.fields[0].choices[1][key]
+    );
   });
 });
