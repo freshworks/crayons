@@ -56,6 +56,9 @@ or below to load esm module
 ></script>
 ```
 
+Documentation of all crayons versions can be found [here](/versions/) .
+
+
 <!-- {{#css}}
 Load css utils
 

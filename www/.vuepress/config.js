@@ -16,7 +16,7 @@ const customObjectsComponents = components.filter((comp) =>
 );
 
 /** list all versions along with their SHA digest */
-let versionsArr = [];
+let versionsArr = []; const versionMap = {'v2Components': [], 'v3Components': [], 'v4Components': []}
 
 try {
   versionsArr = JSON.parse(fs.readFileSync(process.env.VERSION_FILE));
@@ -24,15 +24,22 @@ try {
   console.log('version.json fetch error ', err);
   versionArr = [];
 }
-const v2Components = versionsArr
-  .filter((v) => v['key'] === '2.13.4')
-  .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
-const v3Components = versionsArr
-  .filter((v) => v['key'].startsWith('3.') && !v['key'].includes('beta'))
-  .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
-const v4Components = versionsArr
-  .filter((v) => v['key'].startsWith('4.'))
-  .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+versionsArr.forEach((v) => {
+  v['key'] === '2.13.4' && versionMap['v2Components'].push(`versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+  v['key'].startsWith('3.') && !v['key'].includes('beta') && versionMap['v3Components'].push(`versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+  v['key'].startsWith('4.') && versionMap['v4Components'].push(`versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+});
+
+console.log('versionMap-->', versionMap)
+// const v2Components = versionsArr
+//   .filter((v) => v['key'] === '2.13.4')
+//   .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+// const v3Components = versionsArr
+//   .filter((v) => v['key'].startsWith('3.') && !v['key'].includes('beta'))
+//   .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`).reverse();
+// const v4Components = versionsArr
+//   .filter((v) => v['key'].startsWith('4.'))
+//   .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`).reverse();
 
 /** End of listing all versions */
 
@@ -102,18 +109,18 @@ module.exports = {
         children: [
           {
             type: 'group',
-            title: 'V4.X',
-            children: v4Components,
+            title: 'v4.x',
+            children: versionMap['v4Components'].reverse(),
           },
           {
             type: 'group',
-            title: 'V3.X',
-            children: v3Components,
+            title: 'v3.x',
+            children: versionMap['v3Components'].reverse(),
           },
           {
             type: 'group',
-            title: 'V2.X',
-            children: v2Components,
+            title: 'v2.x',
+            children: versionMap['v2Components'].reverse(),
           },
         ],
       },
