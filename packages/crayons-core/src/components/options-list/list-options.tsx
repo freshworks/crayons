@@ -449,8 +449,7 @@ export class ListOptions {
             selected[this.optionValuePath] === option[this.optionValuePath]
         )?.disabled ||
         option.disabled ||
-        this.disabled ||
-        (this.multiple && this.value?.length >= this.max);
+        this.disabled;
       return {
         ...option,
         ...{
@@ -505,7 +504,8 @@ export class ListOptions {
             selected[this.optionValuePath] === option[this.optionValuePath]
         )?.disabled ||
         option.disabled ||
-        (!this.allowDeselect && option.selected);
+        (!this.allowDeselect && option.selected) ||
+        (this.multiple && !option.selected && this.value?.length >= this.max);
       return (
         <fw-select-option
           id={`${this.host.id}-option-${option[this.optionValuePath]}`}
