@@ -16,7 +16,18 @@ const customObjectsComponents = components.filter((comp) =>
 );
 
 /** list all versions along with their SHA digest */
-let versionsArr = []; const versionMap = {'v2Components': [], 'v3Components': [], 'v4Components': []}
+let versionsArr = [];
+const versionMap = { v2Components: [], v3Components: [], v4Components: [] };
+
+/** This script expects version.json file which can be found in the crayons staging/production s3 bucket.
+ * Add the file inside /www/scripts/ and pass the file path in the env variable VERSION_FILE while running commands like npm run build and npm run docs.
+ * For eg: VERSION_FILE=www/scripts/version.json npm run build.
+ * NOTE: adding version.json file is for local development purpose only, please refrain from committing the file to the repo.
+ */
+if (!process.env.VERSION_FILE)
+  console.warn(
+    'Please provide the version.json filepath in env variable VERSION_FILE to create readme files for all versions !'
+  );
 
 try {
   versionsArr = JSON.parse(fs.readFileSync(process.env.VERSION_FILE));
@@ -25,21 +36,13 @@ try {
   versionArr = [];
 }
 versionsArr.forEach((v) => {
-  v['key'] === '2.13.4' && versionMap['v2Components'].push(`versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
-  v['key'].startsWith('3.') && !v['key'].includes('beta') && versionMap['v3Components'].push(`versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
-  v['key'].startsWith('4.') && versionMap['v4Components'].push(`versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
+  const filePath = `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`;
+  v['key'] === '2.13.4' && versionMap['v2Components'].push(filePath);
+  v['key'].startsWith('3.') &&
+    !v['key'].includes('beta') &&
+    versionMap['v3Components'].push(filePath);
+  v['key'].startsWith('4.') && versionMap['v4Components'].push(filePath);
 });
-
-console.log('versionMap-->', versionMap)
-// const v2Components = versionsArr
-//   .filter((v) => v['key'] === '2.13.4')
-//   .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`);
-// const v3Components = versionsArr
-//   .filter((v) => v['key'].startsWith('3.') && !v['key'].includes('beta'))
-//   .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`).reverse();
-// const v4Components = versionsArr
-//   .filter((v) => v['key'].startsWith('4.'))
-//   .map((v) => `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`).reverse();
 
 /** End of listing all versions */
 
@@ -103,6 +106,24 @@ module.exports = {
         children: ['/introduction/', '/introduction/migrating-to-v4/'],
       },
       {
+        title: 'Core Components',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: coreComponents,
+      },
+      {
+        title: 'CSS Utils',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: getUtils(),
+      },
+      {
+        title: 'Utilities',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: ['utilities/i18n/'],
+      },
+      {
         title: 'Versions',
         collapsable: false,
         sidebarDepth: 1,
@@ -123,24 +144,6 @@ module.exports = {
             children: versionMap['v2Components'].reverse(),
           },
         ],
-      },
-      {
-        title: 'Core Components',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: coreComponents,
-      },
-      {
-        title: 'CSS Utils',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: getUtils(),
-      },
-      {
-        title: 'Utilities',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: ['utilities/i18n/'],
       },
       {
         title: 'Frameworks',

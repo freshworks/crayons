@@ -3,16 +3,16 @@
 
 Documentation for all crayons versions can be found here.
 
-<div style="display:flex;flex-wrap: wrap">
+<div class="version-table">
 {{#versions}}
-  <table style="margin-right: 30px;">
+  <table>
     <thead>
-      <th style="width:180px;">{{group}}</th>
+      <th>{{group}}</th>
     </thead>
-    <tbody style="display: flex;flex-direction: column;height: 287px;overflow: auto;">
+    <tbody>
       {{#versions}}
         <tr>
-          <td style="width:180px;"><a href="{{{href}}}" >{{label}}</a></td>
+          <td><a href="{{{href}}}" >{{label}}</a></td>
         </tr>
       {{/versions}}
     </tbody>

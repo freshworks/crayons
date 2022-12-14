@@ -1,3 +1,9 @@
+/** This script expects version.json file which can be found in the crayons staging/production s3 bucket.
+ * Add the file inside /www/scripts/ and pass the file path in the env variable VERSION_FILE, while running commands like npm run build and npm run docs.
+ * For eg: VERSION_FILE=www/scripts/version.json npm run build.
+ * NOTE: adding version.json file is for local development purpose only, please refrain from committing the file to the repo.
+ */
+
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -5,6 +11,11 @@ const url = require('url');
 const agent = new https.Agent({
   keepAlive: true,
 });
+
+if (!process.env.VERSION_FILE)
+  console.warn(
+    'Please provide the version.json filepath in env variable VERSION_FILE to create readme files for all versions !'
+  );
 
 function get(fetchUrl) {
   console.log('fetchUrl ', fetchUrl);
@@ -121,7 +132,6 @@ function bufferStream(stream) {
         path.join(__dirname, 'version.json'),
         JSON.stringify(versionsArr)
       );
-      console.log('file path-->', path.join(__dirname, 'version.json'));
     }
   } catch (err) {
     console.log('error in updating version details to version.json ', err);

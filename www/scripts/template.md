@@ -59,7 +59,7 @@ or below to load esm module
 Documentation of all crayons versions can be found [here](/versions/) .
 
 
-<!-- {{#css}}
+{{#css}}
 Load css utils
 
 ```html
@@ -69,4 +69,4 @@ Load css utils
 />
 ```
 
-{{/css}} -->
+{{/css}}
