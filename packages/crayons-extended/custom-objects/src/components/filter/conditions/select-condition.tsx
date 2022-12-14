@@ -1,12 +1,4 @@
-import {
-  Component,
-  Listen,
-  State,
-  Prop,
-  h,
-  Method,
-  Watch,
-} from '@stencil/core';
+import { Component, Listen, State, Prop, h, Method } from '@stencil/core';
 import { TranslationController } from '../../../global/Translation';
 @Component({
   tag: 'fw-select-condition',
@@ -14,7 +6,6 @@ import { TranslationController } from '../../../global/Translation';
   shadow: true,
 })
 export class SelectCondition {
-  private select;
   @State() state: 'error' | 'normal' | 'warning' = 'normal';
   @State() hintText = '';
   @State() errorText = '';
@@ -43,15 +34,7 @@ export class SelectCondition {
 
   @Listen('fwChange')
   onSelectionChange(e) {
-    this.value = e.detail.value;
-  }
-
-  @Watch('value')
-  onValueChange(newValue) {
-    if (JSON.stringify(newValue) !== JSON.stringify(this.value)) {
-      console.log(newValue);
-      this.select.setSelectedOptions(newValue);
-    }
+    this.value = e.detail?.meta?.selectedOptions;
   }
 
   @Method()
@@ -103,9 +86,6 @@ export class SelectCondition {
   render() {
     return (
       <fw-select
-        ref={(select) => {
-          this.select = select;
-        }}
         state={this.state}
         hintText={this.hintText}
         errorText={this.errorText}
