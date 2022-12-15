@@ -653,8 +653,8 @@
       if (form.mapperType === 'CUSTOM') {
         schema = formSchemaCustom;
         var customTypeMapper = {
-          CUSTOM_DROPDOWN: 'DROPDOWN',
-          CUSTOM_DATE: 'DATE',
+          CUSTOM_DROPDOWN: { type: 'DROPDOWN' },
+          CUSTOM_DATE: { type: 'DATE' },
         };
         form.customTypeMapper = customTypeMapper;
       }

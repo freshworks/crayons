@@ -335,22 +335,22 @@ export const translateErrors = async (errors = {}, fields) => {
 };
 
 const formServFieldTypes = {
-  '1': 'TEXT',
-  '2': 'DROPDOWN',
-  '3': 'EMAIL',
-  '4': 'PHONE_NUMBER',
-  '5': 'CHECKBOX',
-  '6': 'PARAGRAPH',
-  '7': 'DATE_TIME',
-  '8': 'NUMBER',
-  '10': 'URL',
-  '12': 'RADIO',
-  '13': 'DECIMAL',
-  '14': 'SECTION',
-  '16': 'AUTO_COMPLETE',
-  '17': 'DATE',
-  '18': 'MULTI_SELECT',
-  '20': 'BIG_NUMBER',
+  '1': { type: 'TEXT' },
+  '2': { type: 'DROPDOWN' },
+  '3': { type: 'EMAIL' },
+  '4': { type: 'PHONE_NUMBER' },
+  '5': { type: 'CHECKBOX' },
+  '6': { type: 'PARAGRAPH' },
+  '7': { type: 'DATE_TIME' },
+  '8': { type: 'NUMBER' },
+  '10': { type: 'URL' },
+  '12': { type: 'RADIO' },
+  '13': { type: 'DECIMAL' },
+  '14': { type: 'SECTION' },
+  '16': { type: 'AUTO_COMPLETE' },
+  '17': { type: 'DATE' },
+  '18': { type: 'MULTI_SELECT' },
+  '20': { type: 'BIG_NUMBER' },
 };
 
 export const LEGO = 'LEGO';
@@ -368,7 +368,7 @@ export function getMappedSchema({
     const newFields = schema?.fields?.map((field) => {
       return {
         ...field,
-        type: mapperTypes[field?.type],
+        type: mapperTypes[field?.type]?.type,
       };
     });
     const newSchema = { ...schema, fields: newFields };

@@ -585,7 +585,7 @@ export namespace Components {
     }
     interface FwForm {
         /**
-          * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.  In the example below, `1` is the type of a field in your schema  that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support.  Example typeMapper object : {      'CUSTOM_TEXT': 'TEXT',      'SELECT': 'DROPDOWN',      'TEL': 'PHONE_NUMBER',      'CHECKBOX': 'CHECKBOX',      'TEXTAREA': 'PARAGRAPH',      'DATETIME': 'DATE_TIME',      'INTEGER': 'NUMBER',    }
+          * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : {      'CUSTOM_TEXT': { type: 'TEXT' },      'SELECT': { type: 'DROPDOWN' },      'TEL': { type: 'PHONE_NUMBER' },      'CHECKBOX': { type: 'CHECKBOX' },      'TEXTAREA': { type: 'PARAGRAPH' },      'DATETIME': { type: 'DATE_TIME' },      'INTEGER': { type: 'NUMBER' },    }
          */
         "customTypeMapper": any;
         "doReset": (e: any) => Promise<void>;
@@ -608,7 +608,7 @@ export namespace Components {
          */
         "initialValues"?: any;
         /**
-          * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`. If `CUSTOM` is set, pass `customTypeMapper` prop
+          * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`.
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
@@ -3200,7 +3200,7 @@ declare namespace LocalJSX {
     }
     interface FwForm {
         /**
-          * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.  In the example below, `1` is the type of a field in your schema  that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support.  Example typeMapper object : {      'CUSTOM_TEXT': 'TEXT',      'SELECT': 'DROPDOWN',      'TEL': 'PHONE_NUMBER',      'CHECKBOX': 'CHECKBOX',      'TEXTAREA': 'PARAGRAPH',      'DATETIME': 'DATE_TIME',      'INTEGER': 'NUMBER',    }
+          * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : {      'CUSTOM_TEXT': { type: 'TEXT' },      'SELECT': { type: 'DROPDOWN' },      'TEL': { type: 'PHONE_NUMBER' },      'CHECKBOX': { type: 'CHECKBOX' },      'TEXTAREA': { type: 'PARAGRAPH' },      'DATETIME': { type: 'DATE_TIME' },      'INTEGER': { type: 'NUMBER' },    }
          */
         "customTypeMapper"?: any;
         /**
@@ -3216,7 +3216,7 @@ declare namespace LocalJSX {
          */
         "initialValues"?: any;
         /**
-          * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`. If `CUSTOM` is set, pass `customTypeMapper` prop
+          * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`.
          */
         "mapperType"?: 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
