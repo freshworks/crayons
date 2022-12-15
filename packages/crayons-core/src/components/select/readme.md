@@ -4,9 +4,9 @@ fw-select displays a list or drop-down box that enables selection of an option o
 
 ## Demo
 
-The data for the select can either be passed as a child* or via a datasource which follows the fw-select-option schema.
+The data for the select can either be passed as a child/slot* or via a datasource which follows the fw-select-option schema.
 
-##### *Please note that we do not support dynamic updation of options when passed as a child/slot. Kindly utilise the options prop provided for dynamic updation of options.
+***Please note that we do not support dynamic updation of options when passed as a child/slot. Kindly utilise the options prop provided for dynamic updation of options.**
 
 ```html live
 <fw-select
