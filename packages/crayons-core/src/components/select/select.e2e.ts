@@ -285,6 +285,7 @@ describe('fw-select', () => {
                               <fw-select-option value="lannisters">Lannisters</fw-select-option>
                           </fw-select>`);
     const fwFocus = await page.spyOnEvent('fwFocus');
+    page.waitForEvent('fwFocus');
     const element = await page.find('fw-select');
 
     await element.click();
