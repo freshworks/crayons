@@ -584,6 +584,10 @@ export namespace Components {
         "progress": number;
     }
     interface FwForm {
+        /**
+          * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.  In the example below, `1` is the type of a field in your schema  that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support.  Example typeMapper object : {      'CUSTOM_TEXT': 'TEXT',      'SELECT': 'DROPDOWN',      'TEL': 'PHONE_NUMBER',      'CHECKBOX': 'CHECKBOX',      'TEXTAREA': 'PARAGRAPH',      'DATETIME': 'DATE_TIME',      'INTEGER': 'NUMBER',    }
+         */
+        "customTypeMapper": any;
         "doReset": (e: any) => Promise<void>;
         "doSubmit": (e: any) => Promise<FormSubmit>;
         /**
@@ -603,6 +607,10 @@ export namespace Components {
           * Initial field values of the form. It is an object with keys pointing to field name
          */
         "initialValues"?: any;
+        /**
+          * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`. If `CUSTOM` is set, pass `customTypeMapper` prop
+         */
+        "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
@@ -659,6 +667,7 @@ export namespace Components {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
+    | 'DATE_TIME'
     | 'TIME'
     | 'RELATIONSHIP';
     }
@@ -3191,6 +3200,10 @@ declare namespace LocalJSX {
     }
     interface FwForm {
         /**
+          * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.  In the example below, `1` is the type of a field in your schema  that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support.  Example typeMapper object : {      'CUSTOM_TEXT': 'TEXT',      'SELECT': 'DROPDOWN',      'TEL': 'PHONE_NUMBER',      'CHECKBOX': 'CHECKBOX',      'TEXTAREA': 'PARAGRAPH',      'DATETIME': 'DATE_TIME',      'INTEGER': 'NUMBER',    }
+         */
+        "customTypeMapper"?: any;
+        /**
           * Id to uniquely identify the Form. If not set, a random Id will be generated.
          */
         "formId"?: any;
@@ -3202,6 +3215,10 @@ declare namespace LocalJSX {
           * Initial field values of the form. It is an object with keys pointing to field name
          */
         "initialValues"?: any;
+        /**
+          * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`. If `CUSTOM` is set, pass `customTypeMapper` prop
+         */
+        "mapperType"?: 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
           * fwFormValuesChanged - event that gets emitted when values change.
          */
@@ -3256,6 +3273,7 @@ declare namespace LocalJSX {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
+    | 'DATE_TIME'
     | 'TIME'
     | 'RELATIONSHIP';
     }

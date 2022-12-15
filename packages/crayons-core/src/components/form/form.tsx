@@ -28,6 +28,8 @@ import {
   generateDynamicValidationSchema,
   serializeForm,
   translateErrors,
+  getMappedSchema,
+  LEGO,
 } from './form-util';
 import { debounce } from '../../utils';
 
@@ -56,7 +58,7 @@ export class Form {
    * Schema to render Dynamic Form. Contains an array of fields pointing to each form control.
    * Please see the usage reference for examples.
    */
-  @Prop() formSchema?: any = {};
+  @Prop({ mutable: true }) formSchema?: any = {};
 
   /**
    * YUP based validation schema for handling validation
@@ -75,6 +77,31 @@ export class Form {
    * Id to uniquely identify the Form. If not set, a random Id will be generated.
    */
   @Prop() formId = uuidv4();
+
+  /**
+   * Mapper Type - LEGO | FORMSERV | CUSTOM.
+   * Defaults to `LEGO`.
+   * If `CUSTOM` is set, pass `customTypeMapper` prop
+   */
+  @Prop() mapperType: 'LEGO' | 'FORMSERV' | 'CUSTOM' = LEGO;
+
+  /**
+   * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
+   * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. 
+   * In the example below, `1` is the type of a field in your schema 
+   * that needs to correspond to `TEXT` type.
+   * Please pass include the mapper for all the field types that you want to support. 
+   * Example typeMapper object : {
+          'CUSTOM_TEXT': 'TEXT',
+          'SELECT': 'DROPDOWN',
+          'TEL': 'PHONE_NUMBER',
+          'CHECKBOX': 'CHECKBOX',
+          'TEXTAREA': 'PARAGRAPH',
+          'DATETIME': 'DATE_TIME',
+          'INTEGER': 'NUMBER',
+        }
+   */
+  @Prop() customTypeMapper: any = {};
 
   @State() values: FormValues = {} as any;
   @State() touched: FormTouched<FormValues> = {} as any;
@@ -111,6 +138,12 @@ export class Form {
       this.handleInput
     );
 
+    this.formSchema = getMappedSchema({
+      type: this.mapperType,
+      schema: this.formSchema,
+      customTypeMapper: this.customTypeMapper,
+    });
+
     await this.handleFormSchemaAndInitialValuesChange(
       this.formSchema,
       this.initialValues
@@ -119,8 +152,13 @@ export class Form {
 
   @Watch('formSchema')
   async formSchemaHandler(formSchema) {
+    const newSchema = getMappedSchema({
+      type: this.mapperType,
+      schema: formSchema,
+      customTypeMapper: this.customTypeMapper,
+    });
     await this.handleFormSchemaAndInitialValuesChange(
-      formSchema,
+      newSchema,
       this.initialValues
     );
   }
@@ -138,6 +176,20 @@ export class Form {
     this.fwFormValuesChanged.emit({
       value: values,
     });
+  }
+
+  @Watch('mapperType')
+  async mapperTypeChange(newType) {
+    const newSchema = getMappedSchema({
+      type: newType,
+      schema: this.formSchema,
+      customTypeMapper: this.customTypeMapper,
+    });
+    this.formSchema = newSchema;
+    await this.handleFormSchemaAndInitialValuesChange(
+      newSchema,
+      this.initialValues
+    );
   }
 
   async handleFormSchemaAndInitialValuesChange(formSchema, initialValues) {
@@ -457,19 +509,24 @@ export class Form {
           this.formSchema?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
+              const type = field?.type;
+              const isValidType =
+                type !== '' && type !== null && type !== undefined;
               return (
-                <fw-form-control
-                  key={field.name}
-                  name={field.name}
-                  type={field.type}
-                  label={field.label}
-                  required={field.required}
-                  hint={field.hint}
-                  placeholder={field.placeholder}
-                  choices={field.choices}
-                  fieldProps={field}
-                  controlProps={utils}
-                ></fw-form-control>
+                isValidType && (
+                  <fw-form-control
+                    key={field.name}
+                    name={field.name}
+                    type={field.type}
+                    label={field.label}
+                    required={field.required}
+                    hint={field.hint}
+                    placeholder={field.placeholder}
+                    choices={field.choices}
+                    fieldProps={field}
+                    controlProps={utils}
+                  ></fw-form-control>
+                )
               );
             })
         ) : (

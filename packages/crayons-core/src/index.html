@@ -13,6 +13,684 @@
   </head>
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
+
+    <div id="form-container">
+      <fw-button id="submit">Submit</fw-button>
+      <fw-button id="reset">Reset</fw-button>
+    </div>
+    <script type="application/javascript">
+      var form = document.createElement('fw-form');
+      var formContainer = document.querySelector('#form-container');
+      document.querySelector('#submit').addEventListener('click', async (e) => {
+        const { values, isValid } = await form.doSubmit(e);
+        console.log({ values, isValid });
+
+        if (isValid) {
+          // make ajax post end point with values
+          // fetch("/post",values);
+
+          // if error from backend , set Errors - passing key value pair
+          form.setFieldErrors({
+            first_name: 'First Name must be unique <<Server Error>>',
+          });
+
+          // reset the form if required if success
+          // formRef.current.doReset(e);
+        }
+      });
+      document.querySelector('#reset').addEventListener('click', (e) => {
+        form.doReset(e);
+      });
+      var formSchema = {
+        name: 'Test Form',
+        fields: [
+          {
+            id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+            name: 'first_name',
+            label: 'First Name',
+            type: 'TEXT',
+            position: 3,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Please provide a text of at max 100 characters',
+            choices: [],
+          },
+
+          {
+            id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+            name: 'last_name',
+            label: 'Last Name',
+            type: 'TEXT',
+            position: 3,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Please provide a text of at max 100 characters',
+            choices: [],
+          },
+
+          {
+            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+            name: 'languages_known',
+            label: 'Languages Known',
+            type: 'MULTI_SELECT',
+            position: 13,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Select one or more values',
+            choices: [
+              {
+                id: 1,
+                value: 'English',
+                position: 1,
+                dependent_ids: {},
+              },
+              {
+                id: 2,
+                value: 'Hindi',
+                position: 2,
+                dependent_ids: {},
+              },
+              {
+                id: 3,
+                value: 'Tamil',
+                position: 3,
+                dependent_ids: {},
+              },
+            ],
+          },
+
+          {
+            id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+            name: 'email',
+            label: 'Email',
+            type: 'EMAIL',
+            position: 3,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Please provide an email Id',
+            choices: [],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'date_of_birth',
+            label: 'Date Of Birth',
+            type: 'DATE',
+            position: 11,
+            required: true,
+            Placeholder: 'Enter…',
+            hint: 'Please enter your date of birth',
+            choices: [],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'landmark',
+            label: 'Landmark',
+            type: 'PARAGRAPH',
+            position: 7,
+            required: true,
+            Placeholder: 'Enter some text…',
+            hint: 'Please enter the nearest landmark',
+            choices: [],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'is_indian_citizen',
+            label: 'Indian Citizen?',
+            type: 'CHECKBOX',
+            position: 7,
+            required: true,
+            placeholder: null,
+            hint: 'Check or Uncheck the box',
+            choices: [],
+          },
+
+          {
+            id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+            name: 'phone_number',
+            label: 'Phone number',
+            type: 'TEXT',
+            position: 3,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Please provide your phone number',
+            choices: [],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'pincode',
+            label: 'Pincode',
+            type: 'NUMBER',
+            position: 8,
+            required: false,
+            Placeholder: 'Enter…',
+            hint: 'Please enter your Pincode',
+            choices: [],
+          },
+
+          {
+            id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+            name: 'gender',
+            label: 'Gender',
+            type: 'RADIO',
+            position: 5,
+            required: true,
+            placeholder: null,
+            hint: 'Please specify your gender',
+            choices: [
+              {
+                id: 1,
+                value: 'Female',
+                position: 1,
+                dependent_ids: {},
+              },
+              {
+                id: 2,
+                value: 'Male',
+                position: 2,
+                dependent_ids: {},
+              },
+            ],
+          },
+
+          {
+            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+            name: 'order_status',
+            label: 'Order Status',
+            type: 'DROPDOWN',
+            position: 4,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Select a value',
+            choices: [
+              {
+                id: 1,
+                value: 'open',
+                position: 1,
+                dependent_ids: {},
+              },
+              {
+                id: 2,
+                value: 'pending',
+                position: 2,
+                dependent_ids: {},
+              },
+              {
+                id: 3,
+                value: 'closed',
+                position: 3,
+                dependent_ids: {},
+              },
+            ],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'amount_paid',
+            label: 'Amount Paid',
+            type: 'DECIMAL',
+            position: 10,
+            required: true,
+            Placeholder: 'Enter…',
+            hint: 'Please enter the amount paid',
+            choices: [],
+          },
+        ],
+      };
+
+      var formSchemaConvSettings = {
+        name: 'Test Form',
+        fields: [
+          {
+            id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+            name: 'first_name',
+            label: 'First Name',
+            type: 1,
+            position: 3,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Please provide a text of at max 100 characters',
+            choices: [],
+          },
+
+          {
+            id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+            name: 'last_name',
+            label: 'Last Name',
+            type: 1,
+            position: 3,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Please provide a text of at max 100 characters',
+            choices: [],
+          },
+
+          {
+            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+            name: 'languages_known',
+            label: 'Languages Known',
+            type: 18,
+            position: 13,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Select one or more values',
+            choices: [
+              {
+                id: 1,
+                value: 'English',
+                position: 1,
+                dependent_ids: {},
+              },
+              {
+                id: 2,
+                value: 'Hindi',
+                position: 2,
+                dependent_ids: {},
+              },
+              {
+                id: 3,
+                value: 'Tamil',
+                position: 3,
+                dependent_ids: {},
+              },
+            ],
+          },
+
+          {
+            id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+            name: 'email',
+            label: 'Email',
+            type: 3,
+            position: 3,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Please provide an email Id',
+            choices: [],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'date_of_birth',
+            label: 'Date Of Birth',
+            type: 7,
+            position: 11,
+            required: true,
+            Placeholder: 'Enter…',
+            hint: 'Please enter your date of birth',
+            choices: [],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'landmark',
+            label: 'Landmark',
+            type: 6,
+            position: 7,
+            required: true,
+            Placeholder: 'Enter some text…',
+            hint: 'Please enter the nearest landmark',
+            choices: [],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'is_indian_citizen',
+            label: 'Indian Citizen?',
+            type: 5,
+            position: 7,
+            required: true,
+            placeholder: null,
+            hint: 'Check or Uncheck the box',
+            choices: [],
+          },
+
+          {
+            id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+            name: 'phone_number',
+            label: 'Phone number',
+            type: 1,
+            position: 3,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Please provide your phone number',
+            choices: [],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'pincode',
+            label: 'Pincode',
+            type: 8,
+            position: 8,
+            required: false,
+            Placeholder: 'Enter…',
+            hint: 'Please enter your Pincode',
+            choices: [],
+          },
+
+          {
+            id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+            name: 'gender',
+            label: 'Gender',
+            type: 12,
+            position: 5,
+            required: true,
+            placeholder: null,
+            hint: 'Please specify your gender',
+            choices: [
+              {
+                id: 1,
+                value: 'Female',
+                position: 1,
+                dependent_ids: {},
+              },
+              {
+                id: 2,
+                value: 'Male',
+                position: 2,
+                dependent_ids: {},
+              },
+            ],
+          },
+
+          {
+            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+            name: 'order_status',
+            label: 'Order Status',
+            type: 2,
+            position: 4,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Select a value',
+            choices: [
+              {
+                id: 1,
+                value: 'open',
+                position: 1,
+                dependent_ids: {},
+              },
+              {
+                id: 2,
+                value: 'pending',
+                position: 2,
+                dependent_ids: {},
+              },
+              {
+                id: 3,
+                value: 'closed',
+                position: 3,
+                dependent_ids: {},
+              },
+            ],
+          },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'amount_paid',
+            label: 'Amount Paid',
+            type: 13,
+            position: 10,
+            required: true,
+            Placeholder: 'Enter…',
+            hint: 'Please enter the amount paid',
+            choices: [],
+          },
+        ],
+      };
+
+      var formSchemaCustom = {
+        name: 'Test Form',
+        fields: [
+          // {
+          //   id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+          //   name: 'first_name',
+          //   label: 'First Name',
+          //   type: 1,
+          //   position: 3,
+          //   required: true,
+          //   placeholder: 'Enter…',
+          //   hint: 'Please provide a text of at max 100 characters',
+          //   choices: [],
+          // },
+
+          // {
+          //   id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+          //   name: 'last_name',
+          //   label: 'Last Name',
+          //   type: 1,
+          //   position: 3,
+          //   required: true,
+          //   placeholder: 'Enter…',
+          //   hint: 'Please provide a text of at max 100 characters',
+          //   choices: [],
+          // },
+
+          {
+            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+            name: 'languages_known',
+            label: 'Languages Known',
+            type: 'CUSTOM_DROPDOWN',
+            position: 13,
+            required: true,
+            placeholder: 'Enter…',
+            hint: 'Select one or more values',
+            choices: [
+              {
+                id: 1,
+                value: 'English',
+                position: 1,
+                dependent_ids: {},
+              },
+              {
+                id: 2,
+                value: 'Hindi',
+                position: 2,
+                dependent_ids: {},
+              },
+              {
+                id: 3,
+                value: 'Tamil',
+                position: 3,
+                dependent_ids: {},
+              },
+            ],
+          },
+
+          // {
+          //   id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+          //   name: 'email',
+          //   label: 'Email',
+          //   type: 3,
+          //   position: 3,
+          //   required: true,
+          //   placeholder: 'Enter…',
+          //   hint: 'Please provide an email Id',
+          //   choices: [],
+          // },
+
+          {
+            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+            name: 'date_of_birth',
+            label: 'Date Of Birth',
+            type: 'CUSTOM_DATE',
+            position: 11,
+            required: true,
+            Placeholder: 'Enter…',
+            hint: 'Please enter your date of birth',
+            choices: [],
+          },
+
+          // {
+          //   id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+          //   name: 'landmark',
+          //   label: 'Landmark',
+          //   type: 6,
+          //   position: 7,
+          //   required: true,
+          //   Placeholder: 'Enter some text…',
+          //   hint: 'Please enter the nearest landmark',
+          //   choices: [],
+          // },
+
+          // {
+          //   id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+          //   name: 'is_indian_citizen',
+          //   label: 'Indian Citizen?',
+          //   type: 5,
+          //   position: 7,
+          //   required: true,
+          //   placeholder: null,
+          //   hint: 'Check or Uncheck the box',
+          //   choices: [],
+          // },
+
+          // {
+          //   id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+          //   name: 'phone_number',
+          //   label: 'Phone number',
+          //   type: 1,
+          //   position: 3,
+          //   required: true,
+          //   placeholder: 'Enter…',
+          //   hint: 'Please provide your phone number',
+          //   choices: [],
+          // },
+
+          // {
+          //   id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+          //   name: 'pincode',
+          //   label: 'Pincode',
+          //   type: 8,
+          //   position: 8,
+          //   required: false,
+          //   Placeholder: 'Enter…',
+          //   hint: 'Please enter your Pincode',
+          //   choices: [],
+          // },
+
+          // {
+          //   id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+          //   name: 'gender',
+          //   label: 'Gender',
+          //   type: 12,
+          //   position: 5,
+          //   required: true,
+          //   placeholder: null,
+          //   hint: 'Please specify your gender',
+          //   choices: [
+          //     {
+          //       id: 1,
+          //       value: 'Female',
+          //       position: 1,
+          //       dependent_ids: {},
+          //     },
+          //     {
+          //       id: 2,
+          //       value: 'Male',
+          //       position: 2,
+          //       dependent_ids: {},
+          //     },
+          //   ],
+          // },
+
+          // {
+          //   id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+          //   name: 'order_status',
+          //   label: 'Order Status',
+          //   type: 2,
+          //   position: 4,
+          //   required: true,
+          //   placeholder: 'Enter…',
+          //   hint: 'Select a value',
+          //   choices: [
+          //     {
+          //       id: 1,
+          //       value: 'open',
+          //       position: 1,
+          //       dependent_ids: {},
+          //     },
+          //     {
+          //       id: 2,
+          //       value: 'pending',
+          //       position: 2,
+          //       dependent_ids: {},
+          //     },
+          //     {
+          //       id: 3,
+          //       value: 'closed',
+          //       position: 3,
+          //       dependent_ids: {},
+          //     },
+          //   ],
+          // },
+
+          // {
+          //   id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+          //   name: 'amount_paid',
+          //   label: 'Amount Paid',
+          //   type: 13,
+          //   position: 10,
+          //   required: true,
+          //   Placeholder: 'Enter…',
+          //   hint: 'Please enter the amount paid',
+          //   choices: [],
+          // },
+        ],
+      };
+
+      var initialValues = {
+        is_indian_citizen: true,
+      };
+      formContainer.prepend(form);
+
+      /** setting mapperType **/
+      form.mapperType = 'CUSTOM';
+      var schema = 'LEGO';
+      if (form.mapperType === 'FORMSERV') schema = formSchemaConvSettings;
+      if (form.mapperType === 'CUSTOM') {
+        schema = formSchemaCustom;
+        var customTypeMapper = {
+          CUSTOM_DROPDOWN: 'DROPDOWN',
+          CUSTOM_DATE: 'DATE',
+        };
+        form.customTypeMapper = customTypeMapper;
+      }
+
+      // do any customisation on the field schema to match the props of crayons components.
+      var fields = schema.fields.map((field) => {
+        // select expects `text` and `value` prop
+        if (
+          field.type === 'DROPDOWN' ||
+          field.type === 'MULTI_SELECT' ||
+          field.type === '2' ||
+          field.type === '18' ||
+          field.type === 'CUSTOM_DROPDOWN' ||
+          field.type === 'CUSTOM_MULTI_SELECT'
+        ) {
+          return {
+            ...field,
+            choices: field.choices?.map((f) => {
+              return {
+                ...f,
+                text: f.value,
+                value: f.id,
+              };
+            }),
+          };
+        } else return field;
+      });
+
+      var formSchema1 = {
+        ...schema,
+        fields: fields,
+      };
+      form.formSchema = formSchema1;
+      form.initialValues = initialValues;
+    </script>
+
     <!-- <br />
     <fw-radio-group
       name="Profile"

@@ -333,3 +333,45 @@ export const translateErrors = async (errors = {}, fields) => {
     {}
   );
 };
+
+const formServFieldTypes = {
+  '1': 'TEXT',
+  '2': 'DROPDOWN',
+  '3': 'EMAIL',
+  '4': 'PHONE_NUMBER',
+  '5': 'CHECKBOX',
+  '6': 'PARAGRAPH',
+  '7': 'DATE_TIME',
+  '8': 'NUMBER',
+  '10': 'URL',
+  '12': 'RADIO',
+  '13': 'DECIMAL',
+  '14': 'SECTION',
+  '16': 'AUTO_COMPLETE',
+  '17': 'DATE',
+  '18': 'MULTI_SELECT',
+  '20': 'BIG_NUMBER',
+};
+
+export const LEGO = 'LEGO';
+export const FORMSERV = 'FORMSERV';
+
+export function getMappedSchema({
+  type = LEGO,
+  schema = { fields: [] },
+  customTypeMapper = {},
+} = {}) {
+  if (type === LEGO) return schema;
+  else {
+    const mapperTypes =
+      type === FORMSERV ? formServFieldTypes : customTypeMapper;
+    const newFields = schema?.fields?.map((field) => {
+      return {
+        ...field,
+        type: mapperTypes[field?.type],
+      };
+    });
+    const newSchema = { ...schema, fields: newFields };
+    return newSchema;
+  }
+}
