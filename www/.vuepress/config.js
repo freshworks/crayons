@@ -15,6 +15,37 @@ const customObjectsComponents = components.filter((comp) =>
   comp.startsWith('components/crayons-custom-objects/')
 );
 
+/** list all versions along with their SHA digest */
+let versionsArr = [];
+const versionMap = { v2Components: [], v3Components: [], v4Components: [] };
+
+/** This script expects version.json file which can be found in the crayons staging/production s3 bucket.
+ * Add the file inside /www/scripts/ and pass the file path in the env variable VERSION_FILE while running commands like npm run build and npm run docs.
+ * For eg: VERSION_FILE=www/scripts/version.json npm run build.
+ * NOTE: adding version.json file is for local development purpose only, please refrain from committing the file to the repo.
+ */
+if (!process.env.VERSION_FILE)
+  console.warn(
+    'Please provide the version.json filepath in env variable VERSION_FILE to create readme files for all versions !'
+  );
+
+try {
+  versionsArr = JSON.parse(fs.readFileSync(process.env.VERSION_FILE));
+} catch (err) {
+  console.log('version.json fetch error ', err);
+  versionArr = [];
+}
+versionsArr.forEach((v) => {
+  const filePath = `versions/v${v['key']?.split('.')[0]}.x/${v.key}/`;
+  v['key'] === '2.13.4' && versionMap['v2Components'].push(filePath);
+  v['key'].startsWith('3.') &&
+    !v['key'].includes('beta') &&
+    versionMap['v3Components'].push(filePath);
+  v['key'].startsWith('4.') && versionMap['v4Components'].push(filePath);
+});
+
+/** End of listing all versions */
+
 // Generate array of head-scripts based on the www builds of the
 // packages that have landed in the public directory
 const headScripts = [];
@@ -91,6 +122,28 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 1,
         children: ['utilities/i18n/'],
+      },
+      {
+        title: 'Versions',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: [
+          {
+            type: 'group',
+            title: 'v4.x',
+            children: versionMap['v4Components'].reverse(),
+          },
+          {
+            type: 'group',
+            title: 'v3.x',
+            children: versionMap['v3Components'].reverse(),
+          },
+          {
+            type: 'group',
+            title: 'v2.x',
+            children: versionMap['v2Components'].reverse(),
+          },
+        ],
       },
       {
         title: 'Frameworks',

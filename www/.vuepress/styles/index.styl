@@ -31,3 +31,33 @@ h3 {
     right: 0 !important;
   }
 }
+
+.sidebar-group.is-sub-group > .sidebar-heading:not(.clickable){
+  opacity: 1 !important;
+  font-size: 15.2px;
+  cursor: pointer !important;
+}
+
+.version-table {
+  display:flex;
+  flex-wrap: wrap;
+
+  table {
+    margin-right: 30px;
+
+    th, td {
+      width:180px;
+    }
+
+    tr {
+      border: none;
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+      height: 278px;
+      overflow: auto;
+    }
+  }
+}
