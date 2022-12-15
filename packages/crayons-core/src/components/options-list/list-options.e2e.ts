@@ -32,6 +32,11 @@ describe('fw-list-options', () => {
     ],
     optionLabelPath: 'name',
     optionValuePath: 'email',
+    max: 1,
+  };
+
+  const getInnerNode = (element, query) => {
+    return element.shadowRoot.querySelector(query);
   };
 
   it('renders', async () => {
@@ -207,5 +212,78 @@ describe('fw-list-options', () => {
         ],
       },
     });
+  });
+
+  it('disable the non selected options when number of selected options exceeds max value when selected options are not passed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-list-options multiple>
+                            </fw-list-options>`);
+    await page.$eval(
+      'fw-list-options',
+      (elm: any, { options, optionLabelPath, optionValuePath, max }) => {
+        elm.options = options;
+        elm.optionLabelPath = optionLabelPath;
+        elm.optionValuePath = optionValuePath;
+        elm.max = max;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    options[0].click();
+    await page.waitForChanges();
+    expect(getInnerNode(options[0], '.select-option')).toHaveClass('selected');
+    expect(getInnerNode(options[0], '.select-option')).not.toHaveClass(
+      'disabled'
+    );
+
+    expect(getInnerNode(options[1], '.select-option')).not.toHaveClass(
+      'selected'
+    );
+    expect(getInnerNode(options[1], '.select-option')).toHaveClass('disabled');
+
+    expect(getInnerNode(options[2], '.select-option')).not.toHaveClass(
+      'selected'
+    );
+    expect(getInnerNode(options[2], '.select-option')).toHaveClass('disabled');
+  });
+
+  it('disable the non selected options when number of selected options exceeds max value when selected options are passed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-list-options multiple>
+                            </fw-list-options>`);
+    await page.$eval(
+      'fw-list-options',
+      (elm: any, { options, optionLabelPath, optionValuePath, max }) => {
+        elm.options = options;
+        elm.optionLabelPath = optionLabelPath;
+        elm.optionValuePath = optionValuePath;
+        elm.value = [options[0].email];
+        elm.max = max;
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    const options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    await page.waitForChanges();
+    expect(getInnerNode(options[0], '.select-option')).toHaveClass('selected');
+    expect(getInnerNode(options[0], '.select-option')).not.toHaveClass(
+      'disabled'
+    );
+
+    expect(getInnerNode(options[1], '.select-option')).not.toHaveClass(
+      'selected'
+    );
+    expect(getInnerNode(options[1], '.select-option')).toHaveClass('disabled');
+
+    expect(getInnerNode(options[2], '.select-option')).not.toHaveClass(
+      'selected'
+    );
+    expect(getInnerNode(options[2], '.select-option')).toHaveClass('disabled');
   });
 });
