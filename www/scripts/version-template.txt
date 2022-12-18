@@ -19,6 +19,3 @@ Documentation for all crayons versions can be found here.
   </table>
 {{/versions}}
 </div>
-
-
-

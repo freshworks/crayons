@@ -18,11 +18,11 @@ if (!process.env.VERSION_FILE)
 try {
   const versions = JSON.parse(fs.readFileSync(process.env.VERSION_FILE));
   const template = fs
-    .readFileSync(path.join(__dirname, 'template.md'))
+    .readFileSync(path.join(__dirname, 'template.txt'))
     .toString();
 
   const versionTemplate = fs
-    .readFileSync(path.join(__dirname, 'version-template.md'))
+    .readFileSync(path.join(__dirname, 'version-template.txt'))
     .toString();
 
   const wwwRoot = path.resolve(__dirname, '..');
