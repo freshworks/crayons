@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.0-beta.4...@freshworks/crayons-custom-objects@1.2.0-beta.5) (2022-12-18)
+
+
+### Bug Fixes
+
+* fix value setter in select condition component ([d0bf4c3](https://github.com/freshworks/crayons/commit/d0bf4c3fd6214ea938c6ec4c2ec3348362b9d4ca))
+
+
+
+
+
 ## [1.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.1.4...@freshworks/crayons-custom-objects@1.2.0-beta.0) (2022-10-19)
 
 ### Features

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.4...@freshworks/crayons@4.1.0-beta.5) (2022-12-18)
+
+
+### Bug Fixes
+
+* fix max limitation in list options component ([9450f5c](https://github.com/freshworks/crayons/commit/9450f5cc4246d0e01858142e6775f36828882e8c))
+* set min width for select input and update docs for dynamic updation of options ([1fe7c56](https://github.com/freshworks/crayons/commit/1fe7c568ea32a99c3fa741184dd0c1f87904410e))
+
+
+
+
+
 ## [4.1.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.3...@freshworks/crayons@4.1.0-beta.4) (2022-12-12)
 
 ### Bug Fixes
