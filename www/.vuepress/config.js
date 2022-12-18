@@ -124,9 +124,20 @@ module.exports = {
         children: ['utilities/i18n/'],
       },
       {
+        title: 'Frameworks',
+        collapsable: false,
+        sidebarDepth: 1,
+        children: [
+          '/frameworks/react/',
+          '/frameworks/vue/',
+          '/frameworks/angular/',
+        ],
+      },
+      {
         title: 'Versions',
         collapsable: false,
         sidebarDepth: 1,
+        initialOpenGroupIndex: -1,
         children: [
           {
             type: 'group',
@@ -143,16 +154,6 @@ module.exports = {
             title: 'v2.x',
             children: versionMap['v2Components'].reverse(),
           },
-        ],
-      },
-      {
-        title: 'Frameworks',
-        collapsable: false,
-        sidebarDepth: 1,
-        children: [
-          '/frameworks/react/',
-          '/frameworks/vue/',
-          '/frameworks/angular/',
         ],
       },
     ],
