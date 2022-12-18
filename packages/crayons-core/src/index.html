@@ -648,7 +648,7 @@
 
       /** setting mapperType **/
       form.mapperType = 'CUSTOM';
-      var schema = 'LEGO';
+      var schema = formSchema; // form.mapperType = "LEGO" // default
       if (form.mapperType === 'FORMSERV') schema = formSchemaConvSettings;
       if (form.mapperType === 'CUSTOM') {
         schema = formSchemaCustom;

@@ -254,6 +254,9 @@ export const generateDynamicInitialValues = (
 ): FormValues => {
   const dynamicInitialValues =
     formSchema?.fields?.reduce((acc: any, field: any) => {
+      if (!field?.type) {
+        return null;
+      }
       return {
         ...acc,
         [field.name]: field.type === 'CHECKBOX' ? false : undefined,
@@ -355,16 +358,28 @@ const formServFieldTypes = {
 
 export const LEGO = 'LEGO';
 export const FORMSERV = 'FORMSERV';
+export const CUSTOM = 'CUSTOM';
 
+const supportedMapperTypes = [LEGO, FORMSERV, CUSTOM];
 export function getMappedSchema({
   type = LEGO,
   schema = { fields: [] },
   customTypeMapper = {},
 } = {}) {
+  if (!supportedMapperTypes.includes(type)) {
+    throw new Error(
+      `invalid mapperType: ${type} prop passed. It must be one of ${supportedMapperTypes}`
+    );
+  }
   if (type === LEGO) return schema;
   else {
     const mapperTypes =
       type === FORMSERV ? formServFieldTypes : customTypeMapper;
+    if (!customTypeMapper) {
+      throw new Error(
+        'invalid customTypeMapper prop passed. Please check the documentation for the correct format'
+      );
+    }
     const newFields = schema?.fields?.map((field) => {
       return {
         ...field,
