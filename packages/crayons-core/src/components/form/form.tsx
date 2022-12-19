@@ -109,6 +109,10 @@ export class Form {
   @State() formValidationSchema;
   @State() formInitialValues;
 
+  @State() formSchemaState = this.formSchema;
+
+  @State() isLoading = false;
+
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
    */
@@ -137,35 +141,28 @@ export class Form {
       this.handleInput
     );
 
-    this.formSchema = getMappedSchema({
-      type: this.mapperType,
-      schema: this.formSchema,
-      customTypeMapper: this.customTypeMapper,
-    });
-
-    await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
-      this.initialValues
-    );
+    await this.handleSchemaPropsChange();
   }
 
   @Watch('formSchema')
-  async formSchemaHandler(formSchema) {
-    const newSchema = getMappedSchema({
-      type: this.mapperType,
-      schema: formSchema,
-      customTypeMapper: this.customTypeMapper,
-    });
-    await this.handleFormSchemaAndInitialValuesChange(
-      newSchema,
-      this.initialValues
-    );
+  async schemaPropsChangeHandler() {
+    await this.handleSchemaPropsChange();
   }
+
+  // @Watch('mapperType')
+  // async mapperTypeChange() {
+  //   await this.handleSchemaPropsChange();
+  // }
+
+  // @Watch('customTypeMapper')
+  // async customMapperTypeChange() {
+  //   await this.handleSchemaPropsChange();
+  // }
 
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
     await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
+      this.formSchemaState,
       initialValues
     );
   }
@@ -177,18 +174,20 @@ export class Form {
     });
   }
 
-  @Watch('mapperType')
-  async mapperTypeChange(newType) {
+  async handleSchemaPropsChange() {
+    this.isLoading = true;
     const newSchema = getMappedSchema({
-      type: newType,
+      type: this.mapperType,
       schema: this.formSchema,
       customTypeMapper: this.customTypeMapper,
     });
-    this.formSchema = newSchema;
+
+    this.formSchemaState = newSchema;
     await this.handleFormSchemaAndInitialValuesChange(
       newSchema,
       this.initialValues
     );
+    this.isLoading = false;
   }
 
   async handleFormSchemaAndInitialValuesChange(formSchema, initialValues) {
@@ -268,7 +267,7 @@ export class Form {
 
     let serializedValues = { ...this.values };
 
-    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+    if (this.formSchemaState && Object.keys(this.formSchemaState).length > 0) {
       serializedValues = serializeForm(serializedValues, this.fields);
     }
 
@@ -425,12 +424,15 @@ export class Form {
       checked: !!this.values[field],
     });
 
-    const selectProps = (field: string, inputType) => ({
-      value:
-        inputType === 'multi_select'
-          ? this.values[field] || []
-          : this.values[field] || '',
-    });
+    const selectProps = (field: string, inputType) => {
+      console.log(field, inputType, this.values[field]);
+      return {
+        value:
+          inputType === 'multi_select'
+            ? this.values[field] || []
+            : this.values[field] || '',
+      };
+    };
 
     const formProps: FormProps = {
       action: 'javascript:void(0);',
@@ -482,7 +484,7 @@ export class Form {
   async getValues() {
     let serializedValues: FormValues = { ...this.values };
 
-    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+    if (this.formSchemaState && Object.keys(this.formSchemaState).length > 0) {
       serializedValues = serializeForm(serializedValues, this.fields);
     }
 
@@ -500,21 +502,26 @@ export class Form {
   }
 
   render() {
+    console.log('render ', this.formSchemaState);
     const utils: FormUtils = this.composedUtils();
 
     return (
       <form id={`form-${this.formId}`} {...utils.formProps}>
-        {this.formSchema && Object.keys(this.formSchema).length > 0 ? (
-          this.formSchema?.fields
+        {this.mapperType}
+
+        {this.formSchemaState &&
+        !this.isLoading &&
+        Object.keys(this.formSchemaState).length > 0 ? (
+          this.formSchemaState?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
               const type = field?.type;
               const isValidType =
                 type !== '' && type !== null && type !== undefined;
+              console.log('render ', field.name, field.label);
               return (
                 isValidType && (
                   <fw-form-control
-                    key={field.name}
                     name={field.name}
                     type={field.type}
                     label={field.label}
@@ -522,8 +529,6 @@ export class Form {
                     hint={field.hint}
                     placeholder={field.placeholder}
                     choices={field.choices}
-                    fieldProps={field}
-                    controlProps={utils}
                   ></fw-form-control>
                 )
               );

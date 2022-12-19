@@ -367,18 +367,20 @@ export function getMappedSchema({
   customTypeMapper = {},
 } = {}) {
   if (!supportedMapperTypes.includes(type)) {
-    throw new Error(
+    console.warn(
       `invalid mapperType: ${type} prop passed. It must be one of ${supportedMapperTypes}`
     );
+    return { fields: [] };
   }
   if (type === LEGO) return schema;
   else {
     const mapperTypes =
       type === FORMSERV ? formServFieldTypes : customTypeMapper;
-    if (!customTypeMapper) {
-      throw new Error(
+    if (type === CUSTOM && !customTypeMapper) {
+      console.warn(
         'invalid customTypeMapper prop passed. Please check the documentation for the correct format'
       );
+      return { fields: [] };
     }
     const newFields = schema?.fields?.map((field) => {
       return {
