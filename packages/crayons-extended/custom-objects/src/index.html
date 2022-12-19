@@ -11,5 +11,752 @@
     <script type="module" src="/build/crayons-custom-objects.esm.js"></script>
     <script nomodule src="/build/crayons-custom-objects.js"></script>
   </head>
-  <body></body>
+  <body>
+    <div
+      style="
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      "
+    >
+      <div
+        style="
+          width: 100%;
+          height: auto;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: flex-end;
+          padding: 0 24px;
+          gap: 24px;
+        "
+      >
+        <fw-tabs id="tabProducts">
+          <fw-tab slot="tab">CONVERSATION PROPERTIES</fw-tab>
+          <fw-tab slot="tab">CUSTOM OBJECTS</fw-tab>
+        </fw-tabs>
+      </div>
+      <div
+        style="
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          background: #ffffff;
+          border: 1px solid rgba(207, 215, 223, 0.4);
+          box-shadow: 0px 4px 4px rgba(209, 209, 209, 0.4);
+          border-radius: 2px;
+          overflow: hidden;
+        "
+      >
+        <fw-form-builder id="formBuilder" dbType="FORM_SERVE"></fw-form-builder>
+      </div>
+    </div>
+
+    <script type="application/javascript">
+      var productName = 'CONVERSATION_PROPERTIES';
+      var customizeWidgetFields = [];
+
+      var formValues = {
+        name: 'Company-Association-test',
+        prefix: '_29',
+        title: null,
+        description: 'Company-Association-test',
+        version: 4,
+        deleted: false,
+        id: 5938,
+        form_options: {},
+        created_time: 1659001461188,
+        updated_time: 1659004708385,
+        icon_link: 'https://d2lz1e868xzctj.cloudfront.net/icons/Accounts.svg',
+        fields: [
+          {
+            id: '24a9531c-3c71-463e-9c63-8991396fde95',
+            name: 'companyassociationtestname',
+            label: 'Hotel Name',
+            type: 'PRIMARY',
+            position: 1,
+            required: true,
+            editable: true,
+            visible: true,
+            deleted: false,
+            placeholder: null,
+            hint: null,
+            field_options: {
+              _analytic: 'true',
+              _primary: 'true',
+              unique: 'true',
+            },
+            filterable: true,
+            searchable: true,
+            parent_id: null,
+            choices: [],
+          },
+          {
+            id: 'eea9ed82-af63-43b2-aef0-a7e8de0f8607',
+            name: 'companytest',
+            label: 'Location',
+            type: 'RELATIONSHIP',
+            position: 2,
+            required: false,
+            editable: true,
+            visible: true,
+            deleted: false,
+            placeholder: null,
+            hint: null,
+            field_options: {
+              _analytic: 'true',
+              related_object_type: 'NATIVE',
+              unique: 'false',
+            },
+            filterable: true,
+            searchable: false,
+            parent_id: null,
+            related_entity_id: 3,
+            relationship_name: 'companytest',
+            child_relationship_name: 'companyassociationtest_1659004707038',
+            choices: [],
+          },
+          {
+            id: '3f2235be-b18a-443f-9944-c9ae10195e97',
+            name: 'contactname',
+            label: 'Booking',
+            type: 'RELATIONSHIP',
+            position: 3,
+            required: false,
+            editable: true,
+            visible: true,
+            deleted: false,
+            placeholder: null,
+            hint: null,
+            field_options: {
+              _analytic: 'true',
+              related_object_type: 'NATIVE',
+              unique: 'false',
+            },
+            filterable: true,
+            searchable: false,
+            parent_id: null,
+            related_entity_id: 2,
+            relationship_name: 'contactname',
+            child_relationship_name: 'companyassociationtest_1659001527018',
+            choices: [],
+          },
+        ],
+      };
+
+      var lookupTargets = [
+        {
+          value: 1,
+          text: 'Ticket',
+          isNative: true,
+        },
+        {
+          value: 2,
+          text: 'Contact',
+          isNative: true,
+        },
+        {
+          value: 4853,
+          text: 'Booking ID',
+          isNative: false,
+        },
+        {
+          value: 5021,
+          text: 'Native-ticket',
+          isNative: false,
+        },
+      ];
+
+      var formValuesConvProps = {
+        docId: '719fd5a6-a320-4343-a52c-25b9bbf9360c',
+        form_id: 0,
+        bundle_id: [],
+        account_id: 0,
+        coll_id: null,
+        prod_id: null,
+        organisation_id: null,
+        name: null,
+        title: null,
+        description: null,
+        updated_at: '2022-11-30 09:02:09',
+        created_at: '2022-11-30 09:00:36',
+        deleted: false,
+        active: false,
+        compressed: false,
+        fields: [
+          {
+            id: 'd213bcf6-2d28-46dc-9437-41a8d49d69b3',
+            parent_id: '3aa38902-066c-4028-b11e-8af6e005c191',
+            name: 'cf_test_dropdown',
+            label: 'test dropdown',
+            placeholder: 'Click to select',
+            type: 2,
+            position: 21,
+            fields: [],
+            field_class: 'Conversation',
+            required: false,
+            custom: false,
+            editable: true,
+            visible: true,
+            link: null,
+            choices: [
+              {
+                id: '1000048357',
+                value: 'choice1',
+                position: 1,
+                dependent_ids: {},
+                dependency_mapping_id: '1000048357',
+                type: null,
+              },
+              {
+                id: '1000048358',
+                value: 'choice2',
+                position: 2,
+                dependent_ids: {},
+                dependency_mapping_id: '1000048358',
+                type: null,
+              },
+            ],
+            field_options: {
+              required_on_closure: true,
+            },
+            hint: '',
+            default_value: null,
+            allow_clearing_default_value: true,
+            form_id: 276,
+            pinned_position: 30,
+            quick_add_position: null,
+            regex: {},
+          },
+          {
+            id: 'eb566c08-1c09-44a4-9a92-afa23bf7661a',
+            parent_id: 'b0fb9366-7317-4edf-adae-a22e966c7568',
+            name: 'cf_test_checkbox',
+            label: 'test checkbox',
+            placeholder: '',
+            type: 5,
+            position: 21,
+            fields: [],
+            field_class: 'Conversation',
+            required: false,
+            custom: true,
+            editable: true,
+            visible: true,
+            link: null,
+            choices: [],
+            field_options: {
+              required_on_closure: false,
+            },
+            hint: '',
+            default_value: null,
+            allow_clearing_default_value: true,
+            form_id: 200,
+            pinned_position: 30,
+            quick_add_position: null,
+            regex: {},
+          },
+          {
+            id: '0cc7a450-39e2-422a-9293-0df206b8551c',
+            parent_id: 'b0fb9366-7317-4edf-adae-a22e966c7568',
+            name: 'cf_test_singlelinetext',
+            label: 'test_singlelinetext',
+            placeholder: 'Start typing...',
+            type: 1,
+            position: 22,
+            fields: [],
+            field_class: 'Conversation',
+            required: false,
+            custom: false,
+            editable: true,
+            visible: true,
+            link: null,
+            choices: [],
+            field_options: {
+              required_on_closure: false,
+            },
+            hint: '',
+            default_value: null,
+            allow_clearing_default_value: true,
+            form_id: 200,
+            pinned_position: 31,
+            quick_add_position: null,
+            regex: {},
+          },
+          {
+            id: '47cbd611-d68e-4ccd-8f9b-5fd9de914c58',
+            parent_id: 'b0fb9366-7317-4edf-adae-a22e966c7568',
+            name: 'cf_test_multiline',
+            label: 'test multiline',
+            placeholder: 'Start typing...',
+            type: 6,
+            position: 23,
+            fields: [],
+            field_class: 'Conversation',
+            required: false,
+            custom: true,
+            editable: true,
+            visible: true,
+            link: null,
+            choices: [],
+            field_options: {
+              required_on_closure: false,
+            },
+            hint: '',
+            default_value: null,
+            allow_clearing_default_value: true,
+            form_id: 200,
+            pinned_position: 32,
+            quick_add_position: null,
+            regex: {},
+          },
+          {
+            id: '7092a749-c49f-4e1a-ae1e-9dbd7b6ee8ed',
+            parent_id: 'b0fb9366-7317-4edf-adae-a22e966c7568',
+            name: 'cf_test_number',
+            label: 'test number',
+            placeholder: 'Enter value',
+            type: 8,
+            position: 24,
+            fields: [],
+            field_class: 'Conversation',
+            required: false,
+            custom: true,
+            editable: true,
+            visible: true,
+            link: null,
+            choices: [],
+            field_options: {
+              required_on_closure: false,
+            },
+            hint: '',
+            default_value: null,
+            allow_clearing_default_value: true,
+            form_id: 200,
+            pinned_position: 33,
+            quick_add_position: null,
+            regex: {},
+          },
+          {
+            id: '1672e147-4ad7-4dc1-9299-85c4c536f9ce',
+            parent_id: 'b0fb9366-7317-4edf-adae-a22e966c7568',
+            name: 'cf_test_date',
+            label: 'test date',
+            placeholder: 'Select a date',
+            type: 17,
+            position: 25,
+            fields: [],
+            field_class: 'Conversation',
+            required: false,
+            custom: true,
+            editable: true,
+            visible: true,
+            link: null,
+            choices: [],
+            field_options: {
+              required_on_closure: false,
+            },
+            hint: '',
+            default_value: null,
+            allow_clearing_default_value: true,
+            form_id: 200,
+            pinned_position: 34,
+            quick_add_position: null,
+            regex: {},
+          },
+          {
+            id: '7454c8a3-f18e-4630-9532-eaa07d249cfd',
+            parent_id: 'b0fb9366-7317-4edf-adae-a22e966c7568',
+            name: 'cf_test_multidropdown',
+            label: 'test multidropdown',
+            placeholder: 'Click to select',
+            type: 18,
+            position: 26,
+            fields: [],
+            field_class: 'Conversation',
+            required: false,
+            custom: true,
+            editable: true,
+            visible: true,
+            link: null,
+            choices: [
+              {
+                id: '1000048510',
+                value: 'choice1',
+                position: 1,
+                dependent_ids: {},
+                dependency_mapping_id: '1000048510',
+                type: null,
+              },
+              {
+                id: '1000048511',
+                value: 'choice2',
+                position: 2,
+                dependent_ids: {},
+                dependency_mapping_id: '1000048511',
+                type: null,
+              },
+            ],
+            field_options: {
+              required_on_closure: false,
+            },
+            hint: '',
+            default_value: null,
+            allow_clearing_default_value: true,
+            form_id: 200,
+            pinned_position: 35,
+            quick_add_position: null,
+            regex: {},
+          },
+          {
+            id: '0db39e28-857f-4c0c-887c-c1d14b2cc6af',
+            name: 'decimal_test',
+            label: 'decimal test',
+            type: 13,
+            position: 4,
+            required: true,
+            editable: true,
+            visible: true,
+            deleted: false,
+            placeholder: null,
+            hint: null,
+            field_options: {
+              required_on_closure: false,
+            },
+            filterable: false,
+            searchable: false,
+            parent_id: null,
+            choices: [],
+          },
+        ],
+        avatars: {},
+        version: 2,
+        form_options: {},
+      };
+
+      var tabProducts = document.getElementById('tabProducts');
+      var fb = document.getElementById('formBuilder');
+      fb.productName = productName;
+      fb.formValues = formValuesConvProps;
+      fb.lookupTargetObjects = lookupTargets;
+      // fb.formValues = formValues;
+
+      function create_UUID() {
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+          /[xy]/g,
+          function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
+          }
+        );
+        return uuid;
+      }
+
+      function getFormValues() {
+        if (productName === 'CONVERSATION_PROPERTIES') {
+          return formValuesConvProps;
+        }
+        return formValues;
+      }
+
+      function setFormValues(value) {
+        if (productName === 'CONVERSATION_PROPERTIES') {
+          formValuesConvProps = value;
+          return;
+        }
+        formValues = value;
+      }
+
+      fb.addEventListener('fwComposeNewField', (event) => {
+        debugger;
+        var objDetail = event.detail;
+        var intAddedIndex = -1;
+        var objFormValues = getFormValues();
+        var arrFields = objFormValues.fields;
+        var intIndex = objDetail.index;
+        var objDefaultField = objDetail.fieldSchema;
+        objDefaultField.isNew = true;
+        objDefaultField.id = 'new-field';
+
+        if (
+          arrFields.length === 0 ||
+          intIndex < 0 ||
+          intIndex > arrFields.length
+        ) {
+          arrFields = [...arrFields, objDefaultField];
+          intAddedIndex = arrFields.length - 1;
+        } else {
+          arrFields = [
+            ...arrFields.slice(0, intIndex),
+            objDefaultField,
+            ...arrFields.slice(intIndex),
+          ];
+          intAddedIndex = intIndex;
+        }
+
+        if (intAddedIndex !== -1) {
+          var objFormValues = getFormValues();
+          objFormValues = { ...objFormValues, fields: arrFields };
+          setFormValues(objFormValues);
+          fb.formValues = objFormValues;
+          fb.expandedFieldIndex = intAddedIndex;
+        }
+      });
+
+      deleteNewLocalFieldAtIndex = (intIndex) => {
+        var objFormValues = getFormValues();
+        var arrFields = objFormValues.fields;
+        if (
+          arrFields &&
+          arrFields.length > 0 &&
+          intIndex < arrFields.length &&
+          arrFields[intIndex]?.isNew === true
+        ) {
+          arrFields = [
+            ...arrFields.slice(0, intIndex),
+            ...arrFields.slice(intIndex + 1),
+          ];
+          objFormValues = { ...objFormValues, fields: arrFields };
+          setFormValues(objFormValues);
+          fb.formValues = objFormValues;
+        }
+      };
+
+      fb.addEventListener('fwExpandField', (event) => {
+        var objDetail = event.detail;
+        var intIndex = objDetail.index;
+        var boolExpanded = objDetail.expanded;
+        fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
+        if (!boolExpanded && objDetail.isNew && intIndex > -1) {
+          deleteNewLocalFieldAtIndex(intIndex);
+        }
+      });
+
+      fb.addEventListener('fwDeleteField', (event) => {
+        fb.loading = true;
+        var objFormValues = getFormValues();
+        var arrFields = objFormValues.fields;
+        arrFields.splice(event.detail.index, 1);
+
+        objFormValues = { ...objFormValues, fields: arrFields };
+        setFormValues(objFormValues);
+        fb.formValues = objFormValues;
+
+        fb.loading = false;
+      });
+
+      // delete local field which was added if there are no fields present
+      deleteNewFieldFromPayload = (arrFields) => {
+        try {
+          const intNewFieldIndex = arrFields.findIndex(
+            (e) => e.id === 'new-field' && e.isNew === true
+          );
+          if (intNewFieldIndex > -1) {
+            arrFields.splice(intNewFieldIndex, 1);
+          }
+        } catch (error) {}
+      };
+
+      fb.addEventListener('fwSaveField', (event) => {
+        fb.loading = true;
+        var objFormValues = getFormValues();
+        var arrFields = objFormValues.fields;
+
+        var objDetail = event.detail;
+        var objSubmitFormValues = objDetail.value;
+        var boolNewField = objDetail.isNew;
+        var intIndex = Object.prototype.hasOwnProperty.call(objDetail, 'index')
+          ? objDetail.index
+          : -1;
+        var intAddedIndex = intIndex;
+        var isPrimaryField = !!(
+          Object.prototype.hasOwnProperty.call(
+            objSubmitFormValues,
+            'isPrimaryField'
+          ) && objSubmitFormValues.isPrimaryField === true
+        );
+        var strFieldLabel = objSubmitFormValues.name;
+        var strFieldType = !isPrimaryField
+          ? objSubmitFormValues.type
+          : 'PRIMARY';
+        var boolFilterable = Object.prototype.hasOwnProperty.call(
+          objSubmitFormValues,
+          'filterable'
+        )
+          ? objSubmitFormValues.filterable
+          : false;
+        var boolUnique = Object.prototype.hasOwnProperty.call(
+          objSubmitFormValues,
+          'unique'
+        )
+          ? objSubmitFormValues.unique
+          : false;
+        var arrChoices =
+          Object.prototype.hasOwnProperty.call(
+            objSubmitFormValues,
+            'choices'
+          ) &&
+          objSubmitFormValues.choices &&
+          objSubmitFormValues.choices.length > 0
+            ? [...objSubmitFormValues.choices]
+            : [];
+
+        var strRemovedSpecialChars = strFieldLabel.replace(
+          /[^a-zA-Z0-9 ]/g,
+          ''
+        );
+        var strGeneratedFieldName = strRemovedSpecialChars
+          .split(' ')
+          .join('_')
+          .toLowerCase();
+
+        // make the api call to save the new/edited field data in the DB
+        // Temp - updating local field
+        var objUpdatedField = null;
+        deleteNewFieldFromPayload(arrFields);
+
+        if (boolNewField) {
+          objUpdatedField = {
+            id: '',
+            name: '',
+            label: '',
+            type: '',
+            required: false,
+            filterable: false,
+            editable: true,
+            visible: false,
+            deleted: false,
+            link: null,
+            placeholder: null,
+            hint: null,
+            field_options: { unique: false },
+            searchable: true,
+            parent_id: null,
+            choices: [],
+          };
+          if (strFieldType === 'DECIMAL') {
+            objUpdatedField.searchable = false;
+          }
+          // Name and ID Needs to be generated at the backend
+          objUpdatedField.name = strGeneratedFieldName;
+          objUpdatedField.id = create_UUID();
+        } else {
+          if (
+            arrFields &&
+            intAddedIndex >= 0 &&
+            intAddedIndex < arrFields.length
+          ) {
+            objUpdatedField = arrFields[intAddedIndex];
+          } else {
+            console.error('Field not found in entity object..');
+            return null;
+          }
+        }
+
+        var boolUpdateUniqueValue = true;
+        if (strFieldType === 'RELATIONSHIP') {
+          // update lookup relationship data if its a new Field
+          if (boolNewField) {
+            var objRelationshipValues = objSubmitFormValues.relationship;
+            var objRelatedEntity = {
+              isNative: false,
+              text: objRelationshipValues.target, // display name of the related entity
+              value: 1, // id of the related entity
+            };
+            objUpdatedField.related_entity_id = objRelatedEntity.id;
+            objUpdatedField.relationship_name = strGeneratedFieldName; // needs to be unique within the entity
+            objUpdatedField.child_relationship_name = `${strGeneratedFieldName}_${new Date().getTime()}`; // needs to be unique within the entity
+            objUpdatedField.field_options.unique =
+              objRelationshipValues.relationship === 'one_to_one';
+          }
+          boolUpdateUniqueValue = false;
+        }
+
+        objUpdatedField.type = strFieldType;
+        objUpdatedField.label = strFieldLabel;
+        objUpdatedField.required = objSubmitFormValues.required;
+        objUpdatedField.filterable = boolFilterable;
+        objUpdatedField.choices = arrChoices;
+        if (boolUpdateUniqueValue) {
+          objUpdatedField.field_options.unique = boolUnique;
+        }
+
+        if (boolNewField) {
+          // validate if the array is empty or the passed index is invalid - if true -push the element at the end of the array
+          if (
+            arrFields.length === 0 ||
+            intIndex < 0 ||
+            intIndex > arrFields.length
+          ) {
+            arrFields = [...arrFields, objUpdatedField];
+            intAddedIndex = arrFields.length - 1;
+          } else {
+            // store the element at the passed index
+            arrFields = [
+              ...arrFields.slice(0, intIndex),
+              objUpdatedField,
+              ...arrFields.slice(intIndex),
+            ];
+            intAddedIndex = intIndex;
+          }
+        }
+
+        fb.expandedFieldIndex = -1;
+
+        objFormValues = { ...objFormValues, fields: arrFields };
+        setFormValues(objFormValues);
+        fb.formValues = objFormValues;
+
+        fb.loading = false;
+      });
+
+      fb.addEventListener('fwRepositionField', (event) => {
+        var objDetail = event.detail;
+        var intSourceIndex = objDetail.sourceIndex;
+        var intTargetIndex = objDetail.targetIndex;
+        if (intSourceIndex === intTargetIndex) {
+          return;
+        }
+
+        try {
+          var objFormValues = getFormValues();
+          var arrFields = objFormValues.fields;
+
+          var objField = arrFields.splice(intSourceIndex, 1)[0];
+          arrFields.splice(intTargetIndex, 0, objField);
+
+          objFormValues = { ...objFormValues, fields: arrFields };
+          setFormValues(objFormValues);
+          fb.formValues = objFormValues;
+        } catch (error) {
+          console.error('Error in repositioning field ' + error);
+        }
+      });
+
+      fb.addEventListener('fwSaveWidgetFields', (event) => {
+        customizeWidgetFields = event.detail;
+        fb.customizeWidgetFields = customizeWidgetFields;
+        fb.isSavingCustomizeWidget = false;
+      });
+
+      tabProducts.addEventListener('fwChange', (event) => {
+        const intTabIndex = event.detail.tabIndex;
+        if (intTabIndex === 1 && productName !== 'CUSTOM_OBJECTS') {
+          productName = 'CUSTOM_OBJECTS';
+          fb.productName = productName;
+          fb.formValues = formValues;
+        } else if (
+          intTabIndex === 0 &&
+          productName !== 'CONVERSATION_PROPERTIES'
+        ) {
+          productName = 'CONVERSATION_PROPERTIES';
+          fb.productName = productName;
+          fb.formValues = formValuesConvProps;
+        }
+      });
+    </script>
+  </body>
 </html>

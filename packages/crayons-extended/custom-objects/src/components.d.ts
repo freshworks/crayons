@@ -169,6 +169,10 @@ export namespace Components {
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
         "pinned": 'top' | 'bottom' | '';
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -303,6 +307,10 @@ export namespace Components {
           * object to store the lookup target entities
          */
         "lookupTargetObjects": any;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
     }
     interface FwInputCondition {
         /**
@@ -849,6 +857,10 @@ declare namespace LocalJSX {
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
         "pinned"?: 'top' | 'bottom' | '';
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1019,6 +1031,10 @@ declare namespace LocalJSX {
           * Triggered on search
          */
         "onFwSearchField"?: (event: FwFormBuilderCustomEvent<any>) => void;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
     }
     interface FwInputCondition {
         /**

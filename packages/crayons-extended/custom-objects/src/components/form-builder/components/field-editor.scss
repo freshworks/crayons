@@ -113,6 +113,17 @@
       transition: opacity 0.3s;
     }
 
+    .fw-field-editor-lock-container {
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-inline-start: 8px;
+    }
+
     .fw-field-editor-deleting-state {
       margin-inline-start: 8px;
     }

@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationController } from '../../../global/Translation';
+import formMapper from '../assets/form-mapper.json';
+
 // function to translate and return the language text
 export function i18nText(strKey, context = {}) {
   try {
@@ -66,10 +69,22 @@ export function deepCloneObject(objSource) {
 // function to check if the field is primary field type
 export function isPrimaryFieldType(
   objField,
+  productName = 'CUSTOM_OBJECTS',
   intIndex = -1,
   boolCheckIndex = true
 ) {
   try {
+    if (productName && productName !== 'CUSTOM_OBJECTS') {
+      const dbConfig = formMapper[productName];
+      if (
+        hasCustomProperty(dbConfig, 'config') &&
+        hasCustomProperty(dbConfig.config, 'hasPrimary') &&
+        !dbConfig.config.hasPrimary
+      ) {
+        return false;
+      }
+    }
+
     if (hasCustomProperty(objField, 'type') && objField.type === 'PRIMARY') {
       return true;
     }
@@ -98,4 +113,49 @@ export function isUniqueField(objField) {
     // eslint-disable-next-line no-empty
   } catch (error) {}
   return false;
+}
+
+// function to retreive maximum Limits object based on the db type
+export function getMaximumLimitsConfig(productName = 'CUSTOM_OBJECTS'): any {
+  try {
+    const objMaxLimits = formMapper[productName]['maximumLimits'];
+    return objMaxLimits;
+    // eslint-disable-next-line no-empty
+  } catch (error) {}
+  return null;
+}
+
+// function to map the CONVERSATION_PROPERTIES field types to CUSTOM_OBJECTS values
+export function getMappedCustomFieldType(
+  productName = 'CUSTOM_OBJECTS',
+  fieldName
+): any {
+  if (productName === 'CUSTOM_OBJECTS') {
+    return fieldName;
+  }
+  try {
+    const objProd = formMapper[productName];
+    if (hasCustomProperty(objProd, 'mappedFieldTypes')) {
+      const fieldValue = objProd['mappedFieldTypes'][fieldName.toString()];
+      return fieldValue;
+    }
+    // eslint-disable-next-line no-empty
+  } catch (error) {}
+  return fieldName;
+}
+
+// function to retreive the checkboxes options based on the product name and the field type
+export function getFieldTypeCheckboxes(
+  productName = 'CUSTOM_OBJECTS',
+  fieldName
+): any {
+  try {
+    const arrCheckboxes =
+      formMapper[productName].fieldProps[fieldName.toString()].checkboxes;
+    if (arrCheckboxes && arrCheckboxes.length > 0) {
+      return deepCloneObject(arrCheckboxes);
+    }
+    // eslint-disable-next-line no-empty
+  } catch (error) {}
+  return null;
 }

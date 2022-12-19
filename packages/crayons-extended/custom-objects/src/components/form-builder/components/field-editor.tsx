@@ -17,7 +17,9 @@ import {
   hasCustomProperty,
   getNestedKeyValueFromObject,
   i18nText,
+  getMaximumLimitsConfig,
 } from '../utils/form-builder-utils';
+import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
 
 @Component({
@@ -35,6 +37,10 @@ export class FieldEditor {
   private oldFormValues;
   private errorType;
 
+  /**
+   * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+   */
+  @Prop() productName = 'CUSTOM_OBJECTS';
   /**
    * Pinned position of the drag item, other drag item cannot be placed above or below it.
    */
@@ -186,9 +192,16 @@ export class FieldEditor {
 
   private getInterpolatedMaxLimitLabel = (strProperty) => {
     if (strProperty && strProperty !== '') {
-      const objMaxLimit = presetSchema?.maximumLimits?.[strProperty];
-      if (objMaxLimit) {
-        return i18nText(objMaxLimit.message, { count: objMaxLimit.count });
+      try {
+        const objMaxLimits = getMaximumLimitsConfig(this.productName);
+        const objMaxLimitField = objMaxLimits?.[strProperty];
+        if (objMaxLimitField) {
+          return i18nText(objMaxLimitField.message, {
+            count: objMaxLimitField.count,
+          });
+        }
+      } catch (error) {
+        return '';
       }
     }
     return '';
@@ -737,6 +750,7 @@ export class FieldEditor {
     const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
       ? objFieldBuilder.type
       : '';
+
     const isDropdownType =
       strFieldType === 'DROPDOWN' || strFieldType === 'MULTI_SELECT'
         ? true
@@ -774,6 +788,7 @@ export class FieldEditor {
           placeholder={i18nText('fieldLabelPlaceholder')}
           label={i18nText('fieldLabel')}
           required={true}
+          maxlength={255}
           value={strInputValue}
           hintText={strInputHint}
           errorText={strInputError}
@@ -794,6 +809,10 @@ export class FieldEditor {
     if (!this.dataProvider || !this.fieldBuilderOptions) {
       return null;
     }
+
+    const objProductPreset = formMapper[this.productName];
+    const objProductConfig = objProductPreset.config;
+
     const objFieldBuilder = this.fieldBuilderOptions;
     const objFormValue = this.dataProvider;
     const boolNewField = this.isNewField;
@@ -808,6 +827,13 @@ export class FieldEditor {
       !boolNewField && hasCustomProperty(objFieldBuilder, 'required')
         ? objFieldBuilder.required
         : false;
+
+    const isDefaultNonCustomField =
+      objProductConfig?.showDefaultTag &&
+      objProductConfig?.defaultTagKey &&
+      objProductConfig.defaultTagKey !== '' &&
+      hasCustomProperty(objFormValue, objProductConfig.defaultTagKey) &&
+      !objFormValue[objProductConfig.defaultTagKey];
 
     let strHeaderLabel = '';
     if (boolNewField) {
@@ -864,6 +890,17 @@ export class FieldEditor {
           } else {
             fwLabelItems.push(elLookupUniqueTag);
           }
+        }
+      } else if (isDefaultNonCustomField) {
+        const elDefaultCustomTag = this.renderFwLabel({
+          key: 'customDefault',
+          selected: true,
+          tag: objProductConfig.defaultTagLabel,
+        });
+        if (!fwLabelItems) {
+          fwLabelItems = [elDefaultCustomTag];
+        } else {
+          fwLabelItems.push(elDefaultCustomTag);
         }
       }
     }
@@ -932,15 +969,23 @@ export class FieldEditor {
                 </div>
               )}
             </div>
-            {!this.expanded && !this.isPrimaryField && !this.isDeleting && (
-              <fw-button
-                size='icon'
-                color='secondary'
-                class={`${strBaseClassName}-delete-button`}
-                onFwClick={this.deleteFieldClickHandler}
-              >
-                <fw-icon name='delete'></fw-icon>
-              </fw-button>
+            {!this.expanded &&
+              !this.isPrimaryField &&
+              !this.isDeleting &&
+              !isDefaultNonCustomField && (
+                <fw-button
+                  size='icon'
+                  color='secondary'
+                  class={`${strBaseClassName}-delete-button`}
+                  onFwClick={this.deleteFieldClickHandler}
+                >
+                  <fw-icon name='delete'></fw-icon>
+                </fw-button>
+              )}
+            {!this.expanded && isDefaultNonCustomField && (
+              <span class={`${strBaseClassName}-lock-container`}>
+                <fw-icon name='lock'></fw-icon>
+              </span>
             )}
             {!this.expanded && !this.isPrimaryField && this.isDeleting && (
               <fw-spinner
