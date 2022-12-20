@@ -8,16 +8,6 @@ import { Component, Host, h, Element, Prop } from '@stencil/core';
 export class ButtonGroup {
   @Prop({ mutable: true }) label = '';
   @Element() host: HTMLElement;
-  private observer?: MutationObserver;
-
-  connectedCallback() {
-    this.observer = new MutationObserver(() => {
-      this.handleSlotChange();
-    });
-    this.observer.observe(this.host, {
-      childList: true,
-    });
-  }
 
   componentDidLoad() {
     this.handleSlotChange();
@@ -40,14 +30,10 @@ export class ButtonGroup {
     });
   }
 
-  disconnectedCallback() {
-    this.observer?.disconnect();
-  }
-
   render() {
     return (
       <Host aria-label={this.label}>
-        <slot />
+        <slot onSlotchange={() => this.handleSlotChange()}></slot>
       </Host>
     );
   }
