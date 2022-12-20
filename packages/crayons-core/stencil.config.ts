@@ -97,7 +97,7 @@ export const config: Config = {
     ],
     coverageReporters: ['json', 'lcov', 'text', 'clover', 'text-summary'],
   },
-  buildEs5: false,
+  buildEs5: true,
   extras: {
     appendChildSlotFix: true,
     cssVarsShim: true,
