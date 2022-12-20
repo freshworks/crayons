@@ -31,7 +31,7 @@ import {
   getMappedSchema,
   LEGO,
 } from './form-util';
-import { debounce } from '../../utils';
+import { debounce, hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-form',
@@ -110,8 +110,7 @@ export class Form {
   @State() formInitialValues;
 
   @State() formSchemaState = this.formSchema;
-
-  @State() isLoading = false;
+  @State() hasSlot = false;
 
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
@@ -145,7 +144,10 @@ export class Form {
   }
 
   @Watch('formSchema')
+  @Watch('mapperType')
+  @Watch('customTypeMapper')
   async schemaPropsChangeHandler() {
+    this.controls = null;
     await this.handleSchemaPropsChange();
   }
 
@@ -175,7 +177,6 @@ export class Form {
   }
 
   async handleSchemaPropsChange() {
-    this.isLoading = true;
     const newSchema = getMappedSchema({
       type: this.mapperType,
       schema: this.formSchema,
@@ -187,7 +188,6 @@ export class Form {
       newSchema,
       this.initialValues
     );
-    this.isLoading = false;
   }
 
   async handleFormSchemaAndInitialValuesChange(formSchema, initialValues) {
@@ -217,7 +217,7 @@ export class Form {
   // get Form Controls and pass props to children
   componentDidLoad() {
     this.controls = this.getFormControls();
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
     // adding a timeout since this lifecycle method is called before its child in React apps.
     // Bug with react wrapper.
     setTimeout(() => {
@@ -230,10 +230,11 @@ export class Form {
     if (!this.controls || !this.controls.length) {
       this.controls = this.getFormControls();
     }
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
   }
 
   handleSlotChange() {
+    this.hasSlot = hasSlot(this.el);
     this.controls = this.getFormControls();
   }
 
@@ -425,7 +426,6 @@ export class Form {
     });
 
     const selectProps = (field: string, inputType) => {
-      console.log(field, inputType, this.values[field]);
       return {
         value:
           inputType === 'multi_select'
@@ -502,15 +502,11 @@ export class Form {
   }
 
   render() {
-    console.log('render ', this.formSchemaState);
     const utils: FormUtils = this.composedUtils();
 
     return (
       <form id={`form-${this.formId}`} {...utils.formProps}>
-        {this.mapperType}
-
         {this.formSchemaState &&
-        !this.isLoading &&
         Object.keys(this.formSchemaState).length > 0 ? (
           this.formSchemaState?.fields
             ?.sort((a, b) => a.position - b.position)
@@ -518,10 +514,10 @@ export class Form {
               const type = field?.type;
               const isValidType =
                 type !== '' && type !== null && type !== undefined;
-              console.log('render ', field.name, field.label);
               return (
                 isValidType && (
                   <fw-form-control
+                    key={field.name}
                     name={field.name}
                     type={field.type}
                     label={field.label}
@@ -529,6 +525,10 @@ export class Form {
                     hint={field.hint}
                     placeholder={field.placeholder}
                     choices={field.choices}
+                    fieldProps={field}
+                    controlProps={utils}
+                    error={this.errors[field.name]}
+                    touched={this.touched[field.name]}
                   ></fw-form-control>
                 )
               );

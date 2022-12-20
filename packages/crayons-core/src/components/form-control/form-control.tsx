@@ -407,7 +407,6 @@ export class FormControl {
   }
 
   render(): JSX.Element {
-    console.log('form-control ', this.name, this.label);
     return (
       <div class='form-control-container'>
         {this.renderControl()}

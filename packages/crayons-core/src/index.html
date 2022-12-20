@@ -241,7 +241,7 @@
         ],
       };
 
-      var formSchemaConvSettings = {
+      var formServSchema = {
         name: 'Test Form',
         fields: [
           {
@@ -496,19 +496,30 @@
 
       /** setting mapperType **/
       setTimeout(() => {
-        form.mapperType = 'CUSTOM';
         updateForm(formSchemaCustom);
+        form.mapperType = 'CUSTOM';
+      }, 3000);
+
+      setTimeout(() => {
+        var customTypeMapper = {
+          CUSTOM_DROPDOWN: { type: 'DROPDOWN' },
+          CUSTOM_DATE: { type: 'DATE' },
+        };
+        form.customTypeMapper = customTypeMapper;
       }, 5000);
+
+      setTimeout(() => {
+        form.initialValues = initialValues;
+      }, 7000);
+      setTimeout(() => {
+        form.mapperType = 'FORMSERV';
+        updateForm(formServSchema);
+      }, 12000);
       var schema = formSchema; // form.mapperType = "LEGO" // default
-      if (form.mapperType === 'FORMSERV') schema = formSchemaConvSettings;
+      if (form.mapperType === 'FORMSERV') schema = formServSchema;
       if (form.mapperType === 'CUSTOM') {
         schema = formSchemaCustom;
       }
-      var customTypeMapper = {
-        CUSTOM_DROPDOWN: { type: 'DROPDOWN' },
-        CUSTOM_DATE: { type: 'DATE' },
-      };
-      form.customTypeMapper = customTypeMapper;
 
       updateForm(schema);
 
@@ -544,8 +555,6 @@
         };
         form.formSchema = formSchema1;
       }
-
-      form.initialValues = initialValues;
     </script>
 
     <!-- <br />

@@ -450,307 +450,307 @@ describe('fw-form', () => {
     ],
   };
 
-  // const loadFieldOptionsData = async (page) => {
-  //   await page.$eval(
-  //     'fw-form',
-  //     (ele: any, { formSchema }) => {
-  //       ele.formSchema = formSchema;
-  //     },
-  //     fieldOptionsData
-  //   );
-  // };
-  // it('renders', async () => {
-  //   const page = await newE2EPage();
+  const loadFieldOptionsData = async (page) => {
+    await page.$eval(
+      'fw-form',
+      (ele: any, { formSchema }) => {
+        ele.formSchema = formSchema;
+      },
+      fieldOptionsData
+    );
+  };
+  it('renders', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent('<fw-form></fw-form>');
-  //   const element = await page.find('fw-form');
-  //   expect(element).toHaveClass('hydrated');
-  // });
-  // it('should render correct number of form controls when schema is passed', async () => {
-  //   const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    const element = await page.find('fw-form');
+    expect(element).toHaveClass('hydrated');
+  });
+  it('should render correct number of form controls when schema is passed', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent(`<fw-form></fw-form>`);
+    await page.setContent(`<fw-form></fw-form>`);
 
-  //   await page.$eval(
-  //     'fw-form',
-  //     (elm: any, { formSchema }) => {
-  //       elm.formSchema = formSchema;
-  //     },
-  //     props
-  //   );
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+      },
+      props
+    );
 
-  //   await page.waitForChanges();
-  //   const element = await page.find('fw-form');
-  //   expect(
-  //     element.shadowRoot.querySelectorAll('fw-form-control').length
-  //   ).toEqual(6);
-  // });
+    await page.waitForChanges();
+    const element = await page.find('fw-form');
+    expect(
+      element.shadowRoot.querySelectorAll('fw-form-control').length
+    ).toEqual(6);
+  });
 
-  // it('should render correct crayons controls based on the field name', async () => {
-  //   const map = {
-  //     TEXT: 'fw-input',
-  //     CHECKBOX: 'fw-checkbox',
-  //     RADIO: 'fw-radio-group',
-  //     DROPDOWN: 'fw-select',
-  //     NUMBER: 'fw-input',
-  //     DECIMAL: 'fw-input',
-  //   };
-  //   const page = await newE2EPage();
+  it('should render correct crayons controls based on the field name', async () => {
+    const map = {
+      TEXT: 'fw-input',
+      CHECKBOX: 'fw-checkbox',
+      RADIO: 'fw-radio-group',
+      DROPDOWN: 'fw-select',
+      NUMBER: 'fw-input',
+      DECIMAL: 'fw-input',
+    };
+    const page = await newE2EPage();
 
-  //   await page.setContent(`<fw-form></fw-form>`);
+    await page.setContent(`<fw-form></fw-form>`);
 
-  //   await page.$eval(
-  //     'fw-form',
-  //     (elm: any, { formSchema }) => {
-  //       elm.formSchema = formSchema;
-  //     },
-  //     props
-  //   );
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+      },
+      props
+    );
 
-  //   await page.waitForChanges();
+    await page.waitForChanges();
 
-  //   const formControl = await page.findAll('fw-form >>> fw-form-control');
+    const formControl = await page.findAll('fw-form >>> fw-form-control');
 
-  //   const input = formControl[0].shadowRoot.querySelector('fw-input');
-  //   const checkbox = formControl[1].shadowRoot.querySelector('fw-checkbox');
-  //   const number = formControl[2].shadowRoot.querySelector('fw-input');
-  //   const radiogroup =
-  //     formControl[3].shadowRoot.querySelector('fw-radio-group');
-  //   const dropdown = formControl[4].shadowRoot.querySelector('fw-select');
-  //   const decimal = formControl[5].shadowRoot.querySelector('fw-input');
+    const input = formControl[0].shadowRoot.querySelector('fw-input');
+    const checkbox = formControl[1].shadowRoot.querySelector('fw-checkbox');
+    const number = formControl[2].shadowRoot.querySelector('fw-input');
+    const radiogroup =
+      formControl[3].shadowRoot.querySelector('fw-radio-group');
+    const dropdown = formControl[4].shadowRoot.querySelector('fw-select');
+    const decimal = formControl[5].shadowRoot.querySelector('fw-input');
 
-  //   expect(input).not.toBeNull();
-  //   expect(props.formSchema.fields[0].id).toEqual(input.id);
-  //   expect(map[props.formSchema.fields[0].type]).toEqual(
-  //     input.tagName.toLowerCase()
-  //   );
-  //   expect(checkbox).not.toBeNull();
-  //   expect(props.formSchema.fields[1].id).toEqual(checkbox.id);
-  //   expect(map[props.formSchema.fields[1].type]).toEqual(
-  //     checkbox.tagName.toLowerCase()
-  //   );
-  //   expect(number).not.toBeNull();
-  //   expect(map[props.formSchema.fields[2].type]).toEqual(
-  //     number.tagName.toLowerCase()
-  //   );
-  //   expect(radiogroup).not.toBeNull();
-  //   expect(map[props.formSchema.fields[3].type]).toEqual(
-  //     radiogroup.tagName.toLowerCase()
-  //   );
-  //   expect(dropdown).not.toBeNull();
-  //   expect(map[props.formSchema.fields[4].type]).toEqual(
-  //     dropdown.tagName.toLowerCase()
-  //   );
-  //   expect(decimal).not.toBeNull();
-  //   expect(map[props.formSchema.fields[5].type]).toEqual(
-  //     decimal.tagName.toLowerCase()
-  //   );
-  // });
-  // it('should return entered values upon form submit', async () => {
-  //   const page = await newE2EPage();
+    expect(input).not.toBeNull();
+    expect(props.formSchema.fields[0].id).toEqual(input.id);
+    expect(map[props.formSchema.fields[0].type]).toEqual(
+      input.tagName.toLowerCase()
+    );
+    expect(checkbox).not.toBeNull();
+    expect(props.formSchema.fields[1].id).toEqual(checkbox.id);
+    expect(map[props.formSchema.fields[1].type]).toEqual(
+      checkbox.tagName.toLowerCase()
+    );
+    expect(number).not.toBeNull();
+    expect(map[props.formSchema.fields[2].type]).toEqual(
+      number.tagName.toLowerCase()
+    );
+    expect(radiogroup).not.toBeNull();
+    expect(map[props.formSchema.fields[3].type]).toEqual(
+      radiogroup.tagName.toLowerCase()
+    );
+    expect(dropdown).not.toBeNull();
+    expect(map[props.formSchema.fields[4].type]).toEqual(
+      dropdown.tagName.toLowerCase()
+    );
+    expect(decimal).not.toBeNull();
+    expect(map[props.formSchema.fields[5].type]).toEqual(
+      decimal.tagName.toLowerCase()
+    );
+  });
+  it('should return entered values upon form submit', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent(`<fw-form></fw-form>`);
+    await page.setContent(`<fw-form></fw-form>`);
 
-  //   await page.$eval(
-  //     'fw-form',
-  //     (elm: any, { formSchema }) => {
-  //       elm.formSchema = formSchema;
-  //       elm.initialValues = {
-  //         first_name: 'Test',
-  //         is_indian_citizen: true,
-  //         gender: 'Male',
-  //         pincode: 123345,
-  //         order_status: 'closed',
-  //         amount_paid: 10,
-  //       };
-  //     },
-  //     props
-  //   );
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          first_name: 'Test',
+          is_indian_citizen: true,
+          gender: 'Male',
+          pincode: 123345,
+          order_status: 'closed',
+          amount_paid: 10,
+        };
+      },
+      props
+    );
 
-  //   await page.waitForChanges();
+    await page.waitForChanges();
 
-  //   const element = await page.find('fw-form');
-  //   const result = await element.callMethod('doSubmit');
-  //   expect(result.values['first_name']).toEqual('Test');
-  //   expect(result.values['is_indian_citizen']).toEqual(true);
-  //   expect(result.values['gender']).toEqual('Male');
-  //   expect(result.values['pincode']).toEqual(123345);
-  //   expect(result.values['order_status']).toEqual('closed');
-  //   expect(result.values['amount_paid']).toEqual(10);
-  // });
-  // it('should set errors if required field is passed as empty string', async () => {
-  //   const page = await newE2EPage();
+    const element = await page.find('fw-form');
+    const result = await element.callMethod('doSubmit');
+    expect(result.values['first_name']).toEqual('Test');
+    expect(result.values['is_indian_citizen']).toEqual(true);
+    expect(result.values['gender']).toEqual('Male');
+    expect(result.values['pincode']).toEqual(123345);
+    expect(result.values['order_status']).toEqual('closed');
+    expect(result.values['amount_paid']).toEqual(10);
+  });
+  it('should set errors if required field is passed as empty string', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent(`<fw-form></fw-form>`);
+    await page.setContent(`<fw-form></fw-form>`);
 
-  //   await page.$eval(
-  //     'fw-form',
-  //     (elm: any, { formSchema }) => {
-  //       elm.formSchema = formSchema;
-  //       elm.initialValues = {
-  //         first_name: '',
-  //         is_indian_citizen: false,
-  //         gender: '',
-  //         order_status: '',
-  //         amount_paid: '',
-  //       };
-  //     },
-  //     props
-  //   );
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          first_name: '',
+          is_indian_citizen: false,
+          gender: '',
+          order_status: '',
+          amount_paid: '',
+        };
+      },
+      props
+    );
 
-  //   await page.waitForChanges();
+    await page.waitForChanges();
 
-  //   const element = await page.find('fw-form');
-  //   const result = await element.callMethod('doSubmit');
+    const element = await page.find('fw-form');
+    const result = await element.callMethod('doSubmit');
 
-  //   expect(result.errors['first_name']).toEqual('First Name is required');
-  //   expect(result.errors['is_indian_citizen']).toEqual(
-  //     'Indian Citizen? is required'
-  //   );
-  //   expect(result.errors['gender']).toEqual('Gender is required');
-  //   expect(result.errors['order_status']).toEqual('Order Status is required');
-  //   expect(result.errors['amount_paid']).toEqual('Amount Paid is required');
-  // });
-  // it('Should return number for decimal and number field type', async () => {
-  //   const page = await newE2EPage();
+    expect(result.errors['first_name']).toEqual('First Name is required');
+    expect(result.errors['is_indian_citizen']).toEqual(
+      'Indian Citizen? is required'
+    );
+    expect(result.errors['gender']).toEqual('Gender is required');
+    expect(result.errors['order_status']).toEqual('Order Status is required');
+    expect(result.errors['amount_paid']).toEqual('Amount Paid is required');
+  });
+  it('Should return number for decimal and number field type', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent(`<fw-form></fw-form>`);
+    await page.setContent(`<fw-form></fw-form>`);
 
-  //   await page.$eval(
-  //     'fw-form',
-  //     (elm: any, { formSchema }) => {
-  //       elm.formSchema = formSchema;
-  //       elm.initialValues = {
-  //         pincode: '123345',
-  //         amount_paid: '10',
-  //       };
-  //     },
-  //     props
-  //   );
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          pincode: '123345',
+          amount_paid: '10',
+        };
+      },
+      props
+    );
 
-  //   await page.waitForChanges();
+    await page.waitForChanges();
 
-  //   const element = await page.find('fw-form');
-  //   const result = await element.callMethod('doSubmit');
-  //   expect(result.values['pincode']).toEqual(123345);
-  //   expect(result.values['amount_paid']).toEqual(10);
-  // });
-  // it('should render slot when formSchema is not passed in', async () => {
-  //   const page = await newE2EPage();
+    const element = await page.find('fw-form');
+    const result = await element.callMethod('doSubmit');
+    expect(result.values['pincode']).toEqual(123345);
+    expect(result.values['amount_paid']).toEqual(10);
+  });
+  it('should render slot when formSchema is not passed in', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent(`<fw-form></fw-form>`);
+    await page.setContent(`<fw-form></fw-form>`);
 
-  //   await page.$eval(
-  //     'fw-form',
-  //     (elm: any) => {
-  //       elm.formId = 'fw-form';
-  //     },
-  //     props
-  //   );
-  //   await page.waitForChanges();
-  //   const element = await page.find('fw-form');
-  //   expect(element.shadowRoot).toEqualHtml(`
-  //        <form action="javascript:void(0);" id="form-fw-form">
-  //          <slot></slot>
-  //        </form>
-  //      `);
-  // });
-  // it('should return appropriate values when multiple forms are present', async () => {
-  //   const page = await newE2EPage();
+    await page.$eval(
+      'fw-form',
+      (elm: any) => {
+        elm.formId = 'fw-form';
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-form');
+    expect(element.shadowRoot).toEqualHtml(`
+         <form action="javascript:void(0);" id="form-fw-form">
+           <slot></slot>
+         </form>
+       `);
+  });
+  it('should return appropriate values when multiple forms are present', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent(
-  //     `<fw-form id="form1"></fw-form><fw-form id="form2"></fw-form>`
-  //   );
+    await page.setContent(
+      `<fw-form id="form1"></fw-form><fw-form id="form2"></fw-form>`
+    );
 
-  //   const form1 = await page.find('fw-form#form1');
-  //   const form2 = await page.find('fw-form#form2');
+    const form1 = await page.find('fw-form#form1');
+    const form2 = await page.find('fw-form#form2');
 
-  //   //Form1
-  //   await page.$eval(
-  //     'fw-form#form1',
-  //     (elm: any, { formSchema }) => {
-  //       elm.initialValues = {
-  //         first_name: 'form1-first',
-  //         last_name: 'form1-last',
-  //       };
-  //       elm.formSchema = formSchema;
-  //     },
-  //     props
-  //   );
-  //   await page.waitForChanges();
+    //Form1
+    await page.$eval(
+      'fw-form#form1',
+      (elm: any, { formSchema }) => {
+        elm.initialValues = {
+          first_name: 'form1-first',
+          last_name: 'form1-last',
+        };
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+    await page.waitForChanges();
 
-  //   //Form2
-  //   await page.$eval(
-  //     'fw-form#form2',
-  //     (elm: any, { formSchema }) => {
-  //       elm.initialValues = {
-  //         first_name: 'form2-first',
-  //         last_name: 'form2-last',
-  //       };
-  //       elm.formSchema = formSchema;
-  //     },
-  //     props
-  //   );
-  //   await page.waitForChanges();
+    //Form2
+    await page.$eval(
+      'fw-form#form2',
+      (elm: any, { formSchema }) => {
+        elm.initialValues = {
+          first_name: 'form2-first',
+          last_name: 'form2-last',
+        };
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+    await page.waitForChanges();
 
-  //   const result1 = await form1.callMethod('doSubmit');
-  //   expect(result1.values['first_name']).toEqual('form1-first');
-  //   expect(result1.values['last_name']).toEqual('form1-last');
+    const result1 = await form1.callMethod('doSubmit');
+    expect(result1.values['first_name']).toEqual('form1-first');
+    expect(result1.values['last_name']).toEqual('form1-last');
 
-  //   const result2 = await form2.callMethod('doSubmit');
-  //   expect(result2.values['first_name']).toEqual('form2-first');
-  //   expect(result2.values['last_name']).toEqual('form2-last');
-  // });
+    const result2 = await form2.callMethod('doSubmit');
+    expect(result2.values['first_name']).toEqual('form2-first');
+    expect(result2.values['last_name']).toEqual('form2-last');
+  });
 
-  // it('should return the right value on submit when optionValuePath and optionLabelPath are passed via field_options object', async () => {
-  //   const page = await newE2EPage();
-  //   await page.setContent('<fw-form></fw-form>');
-  //   await loadFieldOptionsData(page);
-  //   await page.waitForChanges();
-  //   const form = await page.find('fw-form >>> :first-child');
-  //   const formControl = await form.find('fw-form-control >>> :first-child');
-  //   await formControl.click();
-  //   const popover = await formControl.find('fw-select >>> fw-popover');
-  //   const options = await popover.findAll(
-  //     'fw-list-options >>> fw-select-option'
-  //   );
-  //   await options[1].click();
-  //   await page.waitForChanges();
-  //   const formEle = await page.find('fw-form');
-  //   const result = await formEle.callMethod('doSubmit');
-  //   await page.waitForChanges();
-  //   const key =
-  //     fieldOptionsData.formSchema.fields[0].field_options['option_value_path'];
-  //   expect(result.values['order_status']).toEqual(
-  //     fieldOptionsData.formSchema.fields[0].choices[1][key]
-  //   );
-  // });
+  it('should return the right value on submit when optionValuePath and optionLabelPath are passed via field_options object', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    await loadFieldOptionsData(page);
+    await page.waitForChanges();
+    const form = await page.find('fw-form >>> :first-child');
+    const formControl = await form.find('fw-form-control >>> :first-child');
+    await formControl.click();
+    const popover = await formControl.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    await options[1].click();
+    await page.waitForChanges();
+    const formEle = await page.find('fw-form');
+    const result = await formEle.callMethod('doSubmit');
+    await page.waitForChanges();
+    const key =
+      fieldOptionsData.formSchema.fields[0].field_options['option_value_path'];
+    expect(result.values['order_status']).toEqual(
+      fieldOptionsData.formSchema.fields[0].choices[1][key]
+    );
+  });
 
-  // it('Should render a form based on FORMSERV mapper type', async () => {
-  //   const page = await newE2EPage();
+  it('Should render a form based on FORMSERV mapper type', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent(`<fw-form></fw-form>`);
+    await page.setContent(`<fw-form></fw-form>`);
 
-  //   await page.$eval(
-  //     'fw-form',
-  //     (elm: any, { formServSchema }) => {
-  //       elm.formSchema = formServSchema;
-  //       elm.mapperType = 'FORMSERV';
-  //       elm.initialValues = {
-  //         pincode: '123345',
-  //         amount_paid: '10',
-  //       };
-  //     },
-  //     { formServSchema }
-  //   );
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formServSchema }) => {
+        elm.formSchema = formServSchema;
+        elm.mapperType = 'FORMSERV';
+        elm.initialValues = {
+          pincode: '123345',
+          amount_paid: '10',
+        };
+      },
+      { formServSchema }
+    );
 
-  //   await page.waitForChanges();
+    await page.waitForChanges();
 
-  //   const element = await page.find('fw-form');
-  //   const result = await element.callMethod('doSubmit');
-  //   expect(result.values['pincode']).toEqual(123345);
-  //   expect(result.values['amount_paid']).toEqual(10);
-  // });
+    const element = await page.find('fw-form');
+    const result = await element.callMethod('doSubmit');
+    expect(result.values['pincode']).toEqual(123345);
+    expect(result.values['amount_paid']).toEqual(10);
+  });
 
   it('Should render a form based on CUSTOM mapper type', async () => {
     const page = await newE2EPage();
@@ -768,7 +768,6 @@ describe('fw-form', () => {
         };
         elm.initialValues = {
           languages_known: 'English',
-          date_of_birth: '22-05-2022',
         };
       },
       { customSchema }
@@ -779,32 +778,31 @@ describe('fw-form', () => {
     const element = await page.find('fw-form');
     const result = await element.callMethod('doSubmit');
     expect(result.values['languages_known']).toEqual('English');
-    expect(result.values['date_of_birth']).toEqual('22-05-2022');
 
     expect(
       element.shadowRoot.querySelectorAll('fw-form-control').length
     ).toEqual(2);
   });
 
-  // it('Should not render elements for which type mapper doesnt match via CUSTOM mapper type', async () => {
-  //   const page = await newE2EPage();
+  it('Should not render elements for which type mapper doesnt match via CUSTOM mapper type', async () => {
+    const page = await newE2EPage();
 
-  //   await page.setContent(`<fw-form></fw-form>`);
+    await page.setContent(`<fw-form></fw-form>`);
 
-  //   await page.$eval(
-  //     'fw-form',
-  //     (elm: any, { customSchema }) => {
-  //       elm.formSchema = customSchema;
-  //       elm.mapperType = 'CUSTOM';
-  //     },
-  //     { customSchema }
-  //   );
+    await page.$eval(
+      'fw-form',
+      (elm: any, { customSchema }) => {
+        elm.formSchema = customSchema;
+        elm.mapperType = 'CUSTOM';
+      },
+      { customSchema }
+    );
 
-  //   await page.waitForChanges();
+    await page.waitForChanges();
 
-  //   const element = await page.find('fw-form');
-  //   expect(
-  //     element.shadowRoot.querySelectorAll('fw-form-control').length
-  //   ).toEqual(0);
-  // });
+    const element = await page.find('fw-form');
+    expect(
+      element.shadowRoot.querySelectorAll('fw-form-control').length
+    ).toEqual(0);
+  });
 });
