@@ -8,10 +8,21 @@ import { Component, Host, h, Element, Prop } from '@stencil/core';
 export class ButtonGroup {
   @Prop({ mutable: true }) label = '';
   @Element() host: HTMLElement;
+  private observer?: MutationObserver;
+
+  connectedCallback() {
+    this.observer = new MutationObserver(() => {
+      this.handleSlotChange();
+    });
+    this.observer.observe(this.host, {
+      childList: true,
+    });
+  }
 
   componentDidLoad() {
     this.handleSlotChange();
   }
+
   handleSlotChange() {
     if (!this.host) return;
     const slottedElements = this.host.querySelectorAll('fw-button');
@@ -28,10 +39,15 @@ export class ButtonGroup {
       );
     });
   }
+
+  disconnectCallback() {
+    this.observer?.disconnect();
+  }
+
   render() {
     return (
       <Host aria-label={this.label}>
-        <slot onSlotchange={this.handleSlotChange}></slot>
+        <slot />
       </Host>
     );
   }
