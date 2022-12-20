@@ -40,7 +40,7 @@ export class ButtonGroup {
     });
   }
 
-  disconnectCallback() {
+  disconnectedCallback() {
     this.observer?.disconnect();
   }
 
