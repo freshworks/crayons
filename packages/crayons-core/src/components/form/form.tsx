@@ -151,16 +151,6 @@ export class Form {
     await this.handleSchemaPropsChange();
   }
 
-  // @Watch('mapperType')
-  // async mapperTypeChange() {
-  //   await this.handleSchemaPropsChange();
-  // }
-
-  // @Watch('customTypeMapper')
-  // async customMapperTypeChange() {
-  //   await this.handleSchemaPropsChange();
-  // }
-
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
     await this.handleFormSchemaAndInitialValuesChange(
@@ -425,14 +415,12 @@ export class Form {
       checked: !!this.values[field],
     });
 
-    const selectProps = (field: string, inputType) => {
-      return {
-        value:
-          inputType === 'multi_select'
-            ? this.values[field] || []
-            : this.values[field] || '',
-      };
-    };
+    const selectProps = (field: string, inputType) => ({
+      value:
+        inputType === 'multi_select'
+          ? this.values[field] || []
+          : this.values[field] || '',
+    });
 
     const formProps: FormProps = {
       action: 'javascript:void(0);',
