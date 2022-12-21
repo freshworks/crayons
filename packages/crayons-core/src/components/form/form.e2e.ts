@@ -611,6 +611,7 @@ describe('fw-form', () => {
     expect(result.errors['order_status']).toEqual('Order Status is required');
     expect(result.errors['amount_paid']).toEqual('Amount Paid is required');
   });
+
   it('Should return number for decimal and number field type', async () => {
     const page = await newE2EPage();
 
@@ -621,8 +622,8 @@ describe('fw-form', () => {
       (elm: any, { formSchema }) => {
         elm.formSchema = formSchema;
         elm.initialValues = {
-          pincode: '123345',
-          amount_paid: '10',
+          pincode: 123345,
+          amount_paid: 10,
         };
       },
       props
@@ -737,8 +738,8 @@ describe('fw-form', () => {
         elm.formSchema = formServSchema;
         elm.mapperType = 'FORMSERV';
         elm.initialValues = {
-          pincode: '123345',
-          amount_paid: '10',
+          pincode: 123345,
+          amount_paid: 10,
         };
       },
       { formServSchema }
@@ -816,8 +817,8 @@ describe('fw-form', () => {
       (elm: any, { formSchema }) => {
         elm.formSchema = formSchema;
         elm.initialValues = {
-          pincode: '123345',
-          amount_paid: '10',
+          pincode: 123345,
+          amount_paid: 10,
         };
       },
       props
@@ -845,8 +846,8 @@ describe('fw-form', () => {
       (elm: any, { formSchema }) => {
         elm.formSchema = formSchema;
         elm.initialValues = {
-          pincode: '123345',
-          amount_paid: '10',
+          pincode: 123345,
+          amount_paid: 10,
         };
       },
       props
