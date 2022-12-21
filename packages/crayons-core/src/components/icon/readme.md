@@ -241,6 +241,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
 ### Used by
 
  - [fw-accordion-title](../accordion-title)
+ - [fw-attachment](../file-uploader-2/attachment)
  - [fw-button](../button)
  - [fw-checkbox](../checkbox)
  - [fw-custom-cell-icon](../data-table/custom-cells/icon)
@@ -266,6 +267,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
 ```mermaid
 graph TD;
   fw-accordion-title --> fw-icon
+  fw-attachment --> fw-icon
   fw-button --> fw-icon
   fw-checkbox --> fw-icon
   fw-custom-cell-icon --> fw-icon

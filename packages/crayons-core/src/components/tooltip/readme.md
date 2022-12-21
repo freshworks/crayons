@@ -382,6 +382,7 @@ promise that resolves to true
 
 ### Used by
 
+ - [fw-attachment](../file-uploader-2/attachment)
  - [fw-custom-cell-paragraph](../data-table/custom-cells/paragraph)
  - [fw-data-table](../data-table)
  - [fw-tag](../tag)
@@ -394,6 +395,7 @@ promise that resolves to true
 ```mermaid
 graph TD;
   fw-tooltip --> fw-popover
+  fw-attachment --> fw-tooltip
   fw-custom-cell-paragraph --> fw-tooltip
   fw-data-table --> fw-tooltip
   fw-tag --> fw-tooltip
