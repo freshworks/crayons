@@ -588,8 +588,14 @@ export namespace Components {
           * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : {      'CUSTOM_TEXT': { type: 'TEXT' },      'SELECT': { type: 'DROPDOWN' },      'TEL': { type: 'PHONE_NUMBER' },      'CHECKBOX': { type: 'CHECKBOX' },      'TEXTAREA': { type: 'PARAGRAPH' },      'DATETIME': { type: 'DATE_TIME' },      'INTEGER': { type: 'NUMBER' },    }
          */
         "customTypeMapper": any;
-        "doReset": (e: any) => Promise<void>;
-        "doSubmit": (e: any) => Promise<FormSubmit>;
+        /**
+          * @param event - An event which takes place in the DOM  Method to reset the form
+         */
+        "doReset": (event?: any) => Promise<void>;
+        /**
+          * @param event : An event which takes place in the DOM  Method to submit the form
+         */
+        "doSubmit": (event?: any) => Promise<FormSubmit>;
         /**
           * Id to uniquely identify the Form. If not set, a random Id will be generated.
          */
@@ -612,6 +618,11 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
+        /**
+          * Method to filter the display of fields in the form based on the passed text.
+          * @param text
+         */
+        "setFieldSearchText": (text: string) => Promise<void>;
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
@@ -654,6 +665,10 @@ export namespace Components {
           * Set Focus on the child
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Prop to determine whether to render the form-control or not. Default to true.
+         */
+        "shouldRender": boolean;
         "touched": boolean;
         "type": | 'TEXT'
     | 'NUMBER'
@@ -670,6 +685,10 @@ export namespace Components {
     | 'DATE_TIME'
     | 'TIME'
     | 'RELATIONSHIP';
+        /**
+          * Value of the slotted custom field on fw-form-control
+         */
+        "value": any;
     }
     interface FwFormatDate {
         /**
@@ -3260,6 +3279,10 @@ declare namespace LocalJSX {
         "name"?: any;
         "placeholder"?: string;
         "required"?: boolean;
+        /**
+          * Prop to determine whether to render the form-control or not. Default to true.
+         */
+        "shouldRender"?: boolean;
         "touched"?: boolean;
         "type"?: | 'TEXT'
     | 'NUMBER'
@@ -3276,6 +3299,10 @@ declare namespace LocalJSX {
     | 'DATE_TIME'
     | 'TIME'
     | 'RELATIONSHIP';
+        /**
+          * Value of the slotted custom field on fw-form-control
+         */
+        "value"?: any;
     }
     interface FwFormatDate {
         /**

@@ -805,4 +805,62 @@ describe('fw-form', () => {
       element.shadowRoot.querySelectorAll('fw-form-control').length
     ).toEqual(0);
   });
+
+  it('Should filter form fields on calling setFieldSearchText method on the form', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          pincode: '123345',
+          amount_paid: '10',
+        };
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form');
+
+    await element.callMethod('setFieldSearchText', 'Pin');
+
+    await page.waitForChanges();
+    expect(
+      element.shadowRoot.querySelectorAll('fw-form-control').length
+    ).toEqual(1);
+  });
+
+  it('Should render all the form fields on calling setFieldSearchText method on the form with a empty string or null/undefined', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          pincode: '123345',
+          amount_paid: '10',
+        };
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form');
+
+    await element.callMethod('setFieldSearchText', '');
+
+    await page.waitForChanges();
+    expect(
+      element.shadowRoot.querySelectorAll('fw-form-control').length
+    ).toEqual(6);
+  });
 });
