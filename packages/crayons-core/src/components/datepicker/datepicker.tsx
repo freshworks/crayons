@@ -226,7 +226,7 @@ export class Datepicker {
   /**
    * The format of time picker .
    */
-  @Prop() timeFormat: string;
+  @Prop({ mutable: true }) timeFormat: string;
   /**
    *   Triggered when the update button clicked
    */

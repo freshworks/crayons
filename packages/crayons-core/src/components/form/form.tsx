@@ -28,8 +28,10 @@ import {
   generateDynamicValidationSchema,
   serializeForm,
   translateErrors,
+  getMappedSchema,
+  LEGO,
 } from './form-util';
-import { debounce } from '../../utils';
+import { debounce, hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-form',
@@ -56,7 +58,7 @@ export class Form {
    * Schema to render Dynamic Form. Contains an array of fields pointing to each form control.
    * Please see the usage reference for examples.
    */
-  @Prop() formSchema?: any = {};
+  @Prop({ mutable: true }) formSchema?: any = {};
 
   /**
    * YUP based validation schema for handling validation
@@ -76,12 +78,39 @@ export class Form {
    */
   @Prop() formId = uuidv4();
 
+  /**
+   * Mapper Type - LEGO | FORMSERV | CUSTOM.
+   * Defaults to `LEGO`.
+   */
+  @Prop() mapperType: 'LEGO' | 'FORMSERV' | 'CUSTOM' = LEGO;
+
+  /**
+   * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
+   * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.
+   * In the example below, `1` is the type of a field in your schema
+   * that needs to correspond to `TEXT` type.
+   * Please pass include the mapper for all the field types that you want to support.
+   * Example typeMapper object : {
+          'CUSTOM_TEXT': { type: 'TEXT' },
+          'SELECT': { type: 'DROPDOWN' },
+          'TEL': { type: 'PHONE_NUMBER' },
+          'CHECKBOX': { type: 'CHECKBOX' },
+          'TEXTAREA': { type: 'PARAGRAPH' },
+          'DATETIME': { type: 'DATE_TIME' },
+          'INTEGER': { type: 'NUMBER' },
+        }
+   */
+  @Prop() customTypeMapper: any = {};
+
   @State() values: FormValues = {} as any;
   @State() touched: FormTouched<FormValues> = {} as any;
   @State() errors: FormErrors<FormValues> = {} as any;
 
   @State() formValidationSchema;
   @State() formInitialValues;
+
+  @State() formSchemaState = this.formSchema;
+  @State() hasSlot = false;
 
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
@@ -111,24 +140,21 @@ export class Form {
       this.handleInput
     );
 
-    await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
-      this.initialValues
-    );
+    await this.handleSchemaPropsChange();
   }
 
   @Watch('formSchema')
-  async formSchemaHandler(formSchema) {
-    await this.handleFormSchemaAndInitialValuesChange(
-      formSchema,
-      this.initialValues
-    );
+  @Watch('mapperType')
+  @Watch('customTypeMapper')
+  async schemaPropsChangeHandler() {
+    this.controls = null;
+    await this.handleSchemaPropsChange();
   }
 
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
     await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
+      this.formSchemaState,
       initialValues
     );
   }
@@ -138,6 +164,20 @@ export class Form {
     this.fwFormValuesChanged.emit({
       value: values,
     });
+  }
+
+  async handleSchemaPropsChange() {
+    const newSchema = getMappedSchema({
+      type: this.mapperType,
+      schema: this.formSchema,
+      customTypeMapper: this.customTypeMapper,
+    });
+
+    this.formSchemaState = newSchema;
+    await this.handleFormSchemaAndInitialValuesChange(
+      newSchema,
+      this.initialValues
+    );
   }
 
   async handleFormSchemaAndInitialValuesChange(formSchema, initialValues) {
@@ -167,7 +207,7 @@ export class Form {
   // get Form Controls and pass props to children
   componentDidLoad() {
     this.controls = this.getFormControls();
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
     // adding a timeout since this lifecycle method is called before its child in React apps.
     // Bug with react wrapper.
     setTimeout(() => {
@@ -180,10 +220,11 @@ export class Form {
     if (!this.controls || !this.controls.length) {
       this.controls = this.getFormControls();
     }
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
   }
 
   handleSlotChange() {
+    this.hasSlot = hasSlot(this.el);
     this.controls = this.getFormControls();
   }
 
@@ -217,7 +258,7 @@ export class Form {
 
     let serializedValues = { ...this.values };
 
-    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+    if (this.formSchemaState && Object.keys(this.formSchemaState).length > 0) {
       serializedValues = serializeForm(serializedValues, this.fields);
     }
 
@@ -431,7 +472,7 @@ export class Form {
   async getValues() {
     let serializedValues: FormValues = { ...this.values };
 
-    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+    if (this.formSchemaState && Object.keys(this.formSchemaState).length > 0) {
       serializedValues = serializeForm(serializedValues, this.fields);
     }
 
@@ -453,23 +494,31 @@ export class Form {
 
     return (
       <form id={`form-${this.formId}`} {...utils.formProps}>
-        {this.formSchema && Object.keys(this.formSchema).length > 0 ? (
-          this.formSchema?.fields
+        {this.formSchemaState &&
+        Object.keys(this.formSchemaState).length > 0 ? (
+          this.formSchemaState?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
+              const type = field?.type;
+              const isValidType =
+                type !== '' && type !== null && type !== undefined;
               return (
-                <fw-form-control
-                  key={field.name}
-                  name={field.name}
-                  type={field.type}
-                  label={field.label}
-                  required={field.required}
-                  hint={field.hint}
-                  placeholder={field.placeholder}
-                  choices={field.choices}
-                  fieldProps={field}
-                  controlProps={utils}
-                ></fw-form-control>
+                isValidType && (
+                  <fw-form-control
+                    key={field.name}
+                    name={field.name}
+                    type={field.type}
+                    label={field.label}
+                    required={field.required}
+                    hint={field.hint}
+                    placeholder={field.placeholder}
+                    choices={field.choices}
+                    fieldProps={field}
+                    controlProps={utils}
+                    error={this.errors[field.name]}
+                    touched={this.touched[field.name]}
+                  ></fw-form-control>
+                )
               );
             })
         ) : (

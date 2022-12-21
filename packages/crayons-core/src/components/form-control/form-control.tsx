@@ -29,6 +29,7 @@ export class FormControl {
     | 'EMAIL'
     | 'URL'
     | 'TEL'
+    | 'DATE_TIME'
     | 'TIME'
     | 'RELATIONSHIP' = 'TEXT';
   @Prop({ reflect: true })
@@ -144,6 +145,34 @@ export class FormControl {
             ['error-text']: TranslationController.t(this.error, {
               field: this.label || this.name,
             }),
+          };
+          cmp = (
+            <fw-datepicker
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-datepicker>
+          );
+        }
+        break;
+
+      case 'DATE_TIME':
+        {
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            placeholder: this.placeholder,
+            label: this.label,
+            required: this.required,
+            ...this.controlProps?.inputProps(
+              this.name,
+              this.type?.toLowerCase()
+            ),
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
+            showTimePicker: true,
           };
           cmp = (
             <fw-datepicker
