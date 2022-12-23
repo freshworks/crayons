@@ -59,6 +59,16 @@ export class FormControl {
   touched = false;
   @Prop()
   error = '';
+  /**
+   * Prop to determine whether to render the form-control or not.
+   * Default to true.
+   */
+  @Prop() shouldRender = true;
+  /**
+   * Value of the slotted custom field on fw-form-control
+   */
+  @Prop() value;
+
   private slotElement;
   private crayonsControlRef;
 
@@ -383,8 +393,8 @@ export class FormControl {
     return cmp;
   }
 
-  componentWillLoad(): void {
-    this.handleSlotChange();
+  componentWillUpdate(): void {
+    this.setSlotElementValue();
   }
 
   /**
@@ -404,37 +414,59 @@ export class FormControl {
     this.slotElement = [...this.el.querySelectorAll('*')].filter((el: any) => {
       return NATIVE_CONTROLS.includes(el?.tagName?.toLowerCase());
     })?.[0];
+
+    this.setSlotElementValue();
+  }
+
+  /**
+   * Set Value on the slotted control field on fw-form-control.
+   * Useful for setting initialValues on the slotted control field
+   */
+  private setSlotElementValue() {
+    if (this.slotElement) {
+      setTimeout(() => {
+        switch (this.type) {
+          case 'CHECKBOX':
+            this.slotElement.checked = this.value ?? false;
+            break;
+          default:
+            this.slotElement.value = this.value ?? '';
+        }
+      }, 100);
+    }
   }
 
   render(): JSX.Element {
     return (
-      <div class='form-control-container'>
-        {this.renderControl()}
-        {this.hasSlot && (
-          <label
-            htmlFor={this.name}
-            class={{
-              label: true,
-              required: this.required,
-            }}
-          >
-            {this.label}
-          </label>
-        )}
-        <slot onSlotchange={() => this.handleSlotChange()}></slot>
-        {this.hasSlot && !(this.touched && this.error) && (
-          <div class='hint' id={`hint-${this.name}`}>
-            {this.hint}
-          </div>
-        )}
-        {this.hasSlot && this.touched && this.error && (
-          <div class='error' id={`error-${this.name}`}>
-            {TranslationController.t(this.error, {
-              field: this.label || this.name,
-            })}
-          </div>
-        )}
-      </div>
+      this.shouldRender && (
+        <div class='form-control-container'>
+          {this.renderControl()}
+          {this.hasSlot && (
+            <label
+              htmlFor={this.name}
+              class={{
+                label: true,
+                required: this.required,
+              }}
+            >
+              {this.label}
+            </label>
+          )}
+          <slot onSlotchange={() => this.handleSlotChange()}></slot>
+          {this.hasSlot && !(this.touched && this.error) && (
+            <div class='hint' id={`hint-${this.name}`}>
+              {this.hint}
+            </div>
+          )}
+          {this.hasSlot && this.touched && this.error && (
+            <div class='error' id={`error-${this.name}`}>
+              {TranslationController.t(this.error, {
+                field: this.label || this.name,
+              })}
+            </div>
+          )}
+        </div>
+      )
     );
   }
 }

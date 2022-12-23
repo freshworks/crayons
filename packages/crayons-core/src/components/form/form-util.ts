@@ -190,6 +190,7 @@ function createYupSchema(schema: any, config: any) {
     default:
       yupType = 'string';
   }
+  if (!type) return schema;
   if (!Yup[yupType as keyof typeof Yup]) {
     return schema;
   }
@@ -391,4 +392,23 @@ export function getMappedSchema({
     const newSchema = { ...schema, fields: newFields };
     return newSchema;
   }
+}
+
+export function getValueForField(values, field) {
+  let value;
+  const type = field?.type?.toUpperCase() ?? 'TEXT';
+  switch (type) {
+    case 'CHECKBOX':
+      value = !!values[field.name];
+      break;
+    case 'MULTI_SELECT':
+      value = values[field.name] ?? [];
+      break;
+    case 'DROPDOWN':
+      value = values[field.name] ?? '';
+      break;
+    default:
+      value = values[field.name];
+  }
+  return value;
 }

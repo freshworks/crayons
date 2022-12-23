@@ -14,555 +14,729 @@
   <body>
     <fw-button expand color="primary">Primary Button</fw-button>
 
-    <!-- Form examples -->
+    <!-- start of form examples dynamic and static forms -->
 
-    <!--
-    <div id="form-container">
-      <fw-button id="submit">Submit</fw-button>
-      <fw-button id="reset">Reset</fw-button>
-    </div>
-
-     <script type="application/javascript">
-      var form = document.createElement('fw-form');
-      var formContainer = document.querySelector('#form-container');
-      document.querySelector('#submit').addEventListener('click', async (e) => {
-        const { values, isValid } = await form.doSubmit(e);
-        console.log({ values, isValid });
-
-        if (isValid) {
-          // make ajax post end point with values
-          // fetch("/post",values);
-
-          // if error from backend , set Errors - passing key value pair
-          form.setFieldErrors({
-            first_name: 'First Name must be unique <<Server Error>>',
+    <div style="display: flex; justify-content: space-around">
+      <div id="dynamic-form-container">
+        <h3>Dynamic form via `formSchema`</h3>
+        <fw-input
+          search
+          id="inp"
+          placeholder="Type to filter form fields below"
+        ></fw-input>
+        <fw-form id="fw-form"></fw-form>
+        <button id="submit">Submit</button>
+        <button id="reset">Reset</button>
+        <script>
+          const form = document.querySelector('#fw-form');
+          document.querySelector('#inp').addEventListener('fwInput', (e) => {
+            form.setFieldSearchText(e.detail.value);
+          });
+          document
+            .querySelector('#submit')
+            .addEventListener('click', async (e) => {
+              const { values, isValid } = await form.doSubmit(e);
+              console.log({ values, isValid });
+              if (isValid) {
+                // make ajax post end point with values
+                // fetch("/post",values);
+                // if error from backend , set Errors - passing key value pair
+                form.setFieldErrors({
+                  first_name: 'First Name must be unique <<Server Error>>',
+                });
+                // reset the form if required if success
+                // formRef.current.doReset(e);
+              }
+            });
+          document.querySelector('#reset').addEventListener('click', (e) => {
+            form.doReset(e);
           });
 
-          // reset the form if required if success
-          // formRef.current.doReset(e);
-        }
-      });
-      document.querySelector('#reset').addEventListener('click', (e) => {
-        form.doReset(e);
-      });
-      var formSchema = {
-        name: 'Test Form',
-        fields: [
-          {
-            id: '2978f820-704b-46c7-9f88-110e14e34a8c',
-            name: 'first_name',
-            label: 'First Name',
-            type: 'TEXT',
-            position: 3,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Please provide a text of at max 100 characters',
-            choices: [],
-          },
-
-          {
-            id: '3978f820-704b-46c7-9f88-110e14e34a8c',
-            name: 'last_name',
-            label: 'Last Name',
-            type: 'TEXT',
-            position: 3,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Please provide a text of at max 100 characters',
-            choices: [],
-          },
-
-          {
-            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
-            name: 'languages_known',
-            label: 'Languages Known',
-            type: 'MULTI_SELECT',
-            position: 13,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Select one or more values',
-            choices: [
+          var initialValues = {
+            // abc: 'Test',
+            // is_indian_citizen: true,
+          };
+          var formSchema = {
+            title: 'Test Form',
+            name: 'Test Form',
+            fields: [
               {
-                id: 1,
-                value: 'English',
-                position: 1,
-                dependent_ids: {},
-              },
-              {
-                id: 2,
-                value: 'Hindi',
-                position: 2,
-                dependent_ids: {},
-              },
-              {
-                id: 3,
-                value: 'Tamil',
+                id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+                name: 'first_name',
+                label: 'First Name',
+                type: 'TEXT',
                 position: 3,
-                dependent_ids: {},
-              },
-            ],
-          },
-
-          {
-            id: '6978f820-704b-46c7-9f88-110e14e34a8c',
-            name: 'email',
-            label: 'Email',
-            type: 'EMAIL',
-            position: 3,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Please provide an email Id',
-            choices: [],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'date_of_birth',
-            label: 'Date Of Birth',
-            type: 'DATE',
-            position: 11,
-            required: true,
-            Placeholder: 'Enter…',
-            hint: 'Please enter your date of birth',
-            choices: [],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'landmark',
-            label: 'Landmark',
-            type: 'PARAGRAPH',
-            position: 7,
-            required: true,
-            Placeholder: 'Enter some text…',
-            hint: 'Please enter the nearest landmark',
-            choices: [],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'is_indian_citizen',
-            label: 'Indian Citizen?',
-            type: 'CHECKBOX',
-            position: 7,
-            required: true,
-            placeholder: null,
-            hint: 'Check or Uncheck the box',
-            choices: [],
-          },
-
-          {
-            id: '8978f820-704b-46c7-9f88-110e14e34a8c',
-            name: 'phone_number',
-            label: 'Phone number',
-            type: 'TEXT',
-            position: 3,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Please provide your phone number',
-            choices: [],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'pincode',
-            label: 'Pincode',
-            type: 'NUMBER',
-            position: 8,
-            required: false,
-            Placeholder: 'Enter…',
-            hint: 'Please enter your Pincode',
-            choices: [],
-          },
-
-          {
-            id: 'ba53775e-2948-4065-8a59-d99d4494e845',
-            name: 'gender',
-            label: 'Gender',
-            type: 'RADIO',
-            position: 5,
-            required: true,
-            placeholder: null,
-            hint: 'Please specify your gender',
-            choices: [
-              {
-                id: 1,
-                value: 'Female',
-                position: 1,
-                dependent_ids: {},
+                required: true,
+                editable: true,
+                visible: false,
+                deleted: false,
+                link: null,
+                placeholder: 'Enter…',
+                hint: 'Please provide a text of at max 100 characters',
+                field_options: { lego_unique_field: 'true' },
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [],
               },
               {
-                id: 2,
-                value: 'Male',
-                position: 2,
-                dependent_ids: {},
-              },
-            ],
-          },
-
-          {
-            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
-            name: 'order_status',
-            label: 'Order Status',
-            type: 'DROPDOWN',
-            position: 4,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Select a value',
-            choices: [
-              {
-                id: 1,
-                value: 'open',
-                position: 1,
-                dependent_ids: {},
-              },
-              {
-                id: 2,
-                value: 'pending',
-                position: 2,
-                dependent_ids: {},
-              },
-              {
-                id: 3,
-                value: 'closed',
+                id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+                name: 'last_name',
+                label: 'Last Name',
+                type: 'TEXT',
                 position: 3,
-                dependent_ids: {},
-              },
-            ],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'amount_paid',
-            label: 'Amount Paid',
-            type: 'DECIMAL',
-            position: 10,
-            required: true,
-            Placeholder: 'Enter…',
-            hint: 'Please enter the amount paid',
-            choices: [],
-          },
-        ],
-      };
-
-      var formServSchema = {
-        name: 'Test Form',
-        fields: [
-          {
-            id: '2978f820-704b-46c7-9f88-110e14e34a8c',
-            name: 'first_name',
-            label: 'First Name',
-            type: 1,
-            position: 3,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Please provide a text of at max 100 characters',
-            choices: [],
-          },
-
-          {
-            id: '3978f820-704b-46c7-9f88-110e14e34a8c',
-            name: 'last_name',
-            label: 'Last Name',
-            type: 1,
-            position: 3,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Please provide a text of at max 100 characters',
-            choices: [],
-          },
-
-          {
-            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
-            name: 'languages_known',
-            label: 'Languages Known',
-            type: 18,
-            position: 13,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Select one or more values',
-            choices: [
-              {
-                id: 1,
-                value: 'English',
-                position: 1,
-                dependent_ids: {},
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                placeholder: 'Enter…',
+                hint: 'Please provide a text of at max 100 characters',
+                field_options: { lego_unique_field: 'true' },
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [],
               },
               {
-                id: 2,
-                value: 'Hindi',
-                position: 2,
-                dependent_ids: {},
+                id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+                name: 'languages_known',
+                label: 'Languages Known',
+                type: 'MULTI_SELECT',
+                position: 13,
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                placeholder: 'Enter…',
+                hint: 'Select one or more values',
+                field_options: {},
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [
+                  {
+                    id: 1,
+                    value: 'English',
+                    text: 'English',
+                    position: 1,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 2,
+                    value: 'Hindi',
+                    text: 'Hindi',
+                    position: 2,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 3,
+                    value: 'Tamil',
+                    text: 'Tamil',
+                    position: 3,
+                    dependent_ids: {},
+                  },
+                ],
               },
               {
-                id: 3,
-                value: 'Tamil',
+                id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+                name: 'email',
+                label: 'Email',
+                type: 'EMAIL',
                 position: 3,
-                dependent_ids: {},
-              },
-            ],
-          },
-
-          {
-            id: '6978f820-704b-46c7-9f88-110e14e34a8c',
-            name: 'email',
-            label: 'Email',
-            type: 3,
-            position: 3,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Please provide an email Id',
-            choices: [],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'date_of_birth',
-            label: 'Date Of Birth',
-            type: 7,
-            position: 11,
-            required: true,
-            Placeholder: 'Enter…',
-            hint: 'Please enter your date of birth',
-            choices: [],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'landmark',
-            label: 'Landmark',
-            type: 6,
-            position: 7,
-            required: true,
-            Placeholder: 'Enter some text…',
-            hint: 'Please enter the nearest landmark',
-            choices: [],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'is_indian_citizen',
-            label: 'Indian Citizen?',
-            type: 5,
-            position: 7,
-            required: true,
-            placeholder: null,
-            hint: 'Check or Uncheck the box',
-            choices: [],
-          },
-
-          {
-            id: '8978f820-704b-46c7-9f88-110e14e34a8c',
-            name: 'phone_number',
-            label: 'Phone number',
-            type: 1,
-            position: 3,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Please provide your phone number',
-            choices: [],
-          },
-
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'pincode',
-            label: 'Pincode',
-            type: 8,
-            position: 8,
-            required: false,
-            Placeholder: 'Enter…',
-            hint: 'Please enter your Pincode',
-            choices: [],
-          },
-
-          {
-            id: 'ba53775e-2948-4065-8a59-d99d4494e845',
-            name: 'gender',
-            label: 'Gender',
-            type: 12,
-            position: 5,
-            required: true,
-            placeholder: null,
-            hint: 'Please specify your gender',
-            choices: [
-              {
-                id: 1,
-                value: 'Female',
-                position: 1,
-                dependent_ids: {},
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                placeholder: 'Enter…',
+                hint: 'Please provide an email Id',
+                field_options: {},
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [],
               },
               {
-                id: 2,
-                value: 'Male',
-                position: 2,
-                dependent_ids: {},
-              },
-            ],
-          },
-
-          {
-            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
-            name: 'order_status',
-            label: 'Order Status',
-            type: 2,
-            position: 4,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Select a value',
-            choices: [
-              {
-                id: 1,
-                value: 'open',
-                position: 1,
-                dependent_ids: {},
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'date_of_birth',
+                label: 'Date Of Birth',
+                type: 'DATE',
+                position: 11,
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                Placeholder: 'Enter…',
+                hint: 'Please enter your date of birth',
+                field_options: {},
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [],
               },
               {
-                id: 2,
-                value: 'pending',
-                position: 2,
-                dependent_ids: {},
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'landmark',
+                label: 'Landmark',
+                type: 'PARAGRAPH',
+                position: 7,
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                Placeholder: 'Enter some text…',
+                hint: 'Please enter the nearest landmark',
+                field_options: {},
+                filterable: false,
+                searchable: true,
+                parent_id: null,
+                choices: [],
               },
               {
-                id: 3,
-                value: 'closed',
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'is_indian_citizen',
+                label: 'Indian Citizen?',
+                type: 'CHECKBOX',
+                position: 7,
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                placeholder: null,
+                hint: 'Check or Uncheck the box',
+                field_options: {},
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [],
+              },
+              {
+                id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+                name: 'phone_number',
+                label: 'Phone number',
+                type: 'TEXT',
                 position: 3,
-                dependent_ids: {},
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                placeholder: 'Enter…',
+                hint: 'Please provide your phone number',
+                field_options: {},
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [],
+              },
+              {
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'pincode',
+                label: 'Pincode',
+                type: 'NUMBER',
+                position: 8,
+                required: false,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                Placeholder: 'Enter…',
+                hint: 'Please enter your Pincode',
+                field_options: {},
+                filterable: true,
+                searchable: true, // For the field to be used as filter condition in search API, this needs to be set
+                parent_id: null,
+                choices: [],
+              },
+              {
+                id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+                name: 'gender',
+                label: 'Gender',
+                type: 'RADIO',
+                position: 5,
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                placeholder: null,
+                hint: 'Please specify your gender',
+                field_options: {},
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [
+                  {
+                    id: 1,
+                    text: 'Female',
+                    value: 'Female',
+                    position: 1,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 2,
+                    value: 'Male',
+                    text: 'Male',
+                    position: 2,
+                    dependent_ids: {},
+                  },
+                ],
+              },
+              {
+                id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+                name: 'order_status',
+                label: 'Order Status',
+                type: 'DROPDOWN',
+                position: 4,
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                placeholder: 'Enter…',
+                hint: 'Select a value',
+                field_options: {},
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [
+                  {
+                    id: 1,
+                    value: 'open',
+                    text: 'open',
+                    position: 1,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 2,
+                    value: 'pending',
+                    text: 'pending',
+                    position: 2,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 3,
+                    value: 'closed',
+                    text: 'closed',
+                    position: 3,
+                    dependent_ids: {},
+                  },
+                ],
+              },
+              {
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'amount_paid',
+                label: 'Amount Paid',
+                type: 'DECIMAL',
+                position: 10,
+                required: true,
+                editable: true,
+                visible: true,
+                deleted: false,
+                link: null,
+                Placeholder: 'Enter…',
+                hint: 'Please enter the amount paid',
+                field_options: {},
+                filterable: true,
+                searchable: true,
+                parent_id: null,
+                choices: [],
               },
             ],
-          },
+          };
 
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'amount_paid',
-            label: 'Amount Paid',
-            type: 13,
-            position: 10,
-            required: true,
-            Placeholder: 'Enter…',
-            hint: 'Please enter the amount paid',
-            choices: [],
-          },
-        ],
-      };
-
-      var formSchemaCustom = {
-        name: 'Custom Form',
-        fields: [
-          {
-            id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
-            name: 'languages_known1',
-            label: 'Languages Known123',
-            type: 'CUSTOM_DROPDOWN',
-            position: 16,
-            required: true,
-            placeholder: 'Enter…',
-            hint: 'Select one or more values12',
-            choices: [
+          var formServSchema = {
+            name: 'Test Form',
+            fields: [
               {
-                id: 1,
-                value: 'English',
-                position: 1,
-                dependent_ids: {},
-              },
-              {
-                id: 2,
-                value: 'Hindi',
-                position: 2,
-                dependent_ids: {},
-              },
-              {
-                id: 3,
-                value: 'Tamil',
+                id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+                name: 'first_name',
+                label: 'First Name',
+                type: 1,
                 position: 3,
-                dependent_ids: {},
+                required: true,
+                placeholder: 'Enter…',
+                hint: 'Please provide a text of at max 100 characters',
+                choices: [],
+              },
+
+              {
+                id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+                name: 'last_name',
+                label: 'Last Name',
+                type: 1,
+                position: 3,
+                required: true,
+                placeholder: 'Enter…',
+                hint: 'Please provide a text of at max 100 characters',
+                choices: [],
+              },
+
+              {
+                id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+                name: 'languages_known',
+                label: 'Languages Known',
+                type: 18,
+                position: 13,
+                required: true,
+                placeholder: 'Enter…',
+                hint: 'Select one or more values',
+                choices: [
+                  {
+                    id: 1,
+                    value: 'English',
+                    position: 1,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 2,
+                    value: 'Hindi',
+                    position: 2,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 3,
+                    value: 'Tamil',
+                    position: 3,
+                    dependent_ids: {},
+                  },
+                ],
+              },
+
+              {
+                id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+                name: 'email',
+                label: 'Email',
+                type: 3,
+                position: 3,
+                required: true,
+                placeholder: 'Enter…',
+                hint: 'Please provide an email Id',
+                choices: [],
+              },
+
+              {
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'date_of_birth',
+                label: 'Date Of Birth',
+                type: 7,
+                position: 11,
+                required: true,
+                Placeholder: 'Enter…',
+                hint: 'Please enter your date of birth',
+                choices: [],
+              },
+
+              {
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'landmark',
+                label: 'Landmark',
+                type: 6,
+                position: 7,
+                required: true,
+                Placeholder: 'Enter some text…',
+                hint: 'Please enter the nearest landmark',
+                choices: [],
+              },
+
+              {
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'is_indian_citizen',
+                label: 'Indian Citizen?',
+                type: 5,
+                position: 7,
+                required: true,
+                placeholder: null,
+                hint: 'Check or Uncheck the box',
+                choices: [],
+              },
+
+              {
+                id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+                name: 'phone_number',
+                label: 'Phone number',
+                type: 1,
+                position: 3,
+                required: true,
+                placeholder: 'Enter…',
+                hint: 'Please provide your phone number',
+                choices: [],
+              },
+
+              {
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'pincode',
+                label: 'Pincode',
+                type: 8,
+                position: 8,
+                required: false,
+                Placeholder: 'Enter…',
+                hint: 'Please enter your Pincode',
+                choices: [],
+              },
+
+              {
+                id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+                name: 'gender',
+                label: 'Gender',
+                type: 12,
+                position: 5,
+                required: true,
+                placeholder: null,
+                hint: 'Please specify your gender',
+                choices: [
+                  {
+                    id: 1,
+                    value: 'Female',
+                    position: 1,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 2,
+                    value: 'Male',
+                    position: 2,
+                    dependent_ids: {},
+                  },
+                ],
+              },
+
+              {
+                id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+                name: 'order_status',
+                label: 'Order Status',
+                type: 2,
+                position: 4,
+                required: true,
+                placeholder: 'Enter…',
+                hint: 'Select a value',
+                choices: [
+                  {
+                    id: 1,
+                    value: 'open',
+                    position: 1,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 2,
+                    value: 'pending',
+                    position: 2,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 3,
+                    value: 'closed',
+                    position: 3,
+                    dependent_ids: {},
+                  },
+                ],
+              },
+
+              {
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'amount_paid',
+                label: 'Amount Paid',
+                type: 13,
+                position: 10,
+                required: true,
+                Placeholder: 'Enter…',
+                hint: 'Please enter the amount paid',
+                choices: [],
               },
             ],
-          },
+          };
 
-          {
-            id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
-            name: 'date_of_birth1',
-            label: 'Date Of Birth',
-            type: 'CUSTOM_DATE',
-            position: 11,
-            required: true,
-            Placeholder: 'Enter…',
-            hint: 'Please enter your date of birth',
-            choices: [],
-          },
-        ],
-      };
+          var formSchemaCustom = {
+            name: 'Custom Form',
+            fields: [
+              {
+                id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+                name: 'languages_known',
+                label: 'Languages Known',
+                type: 'CUSTOM_DROPDOWN',
+                position: 16,
+                required: true,
+                placeholder: 'select languages',
+                hint: 'Select one or more values',
+                choices: [
+                  {
+                    id: 1,
+                    value: 'English',
+                    position: 1,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 2,
+                    value: 'Hindi',
+                    position: 2,
+                    dependent_ids: {},
+                  },
+                  {
+                    id: 3,
+                    value: 'Tamil',
+                    position: 3,
+                    dependent_ids: {},
+                  },
+                ],
+                field_options: {
+                  option_label_path: 'value',
 
-      var initialValues = {
-        is_indian_citizen: true,
-      };
-      formContainer.prepend(form);
+                  option_value_path: 'id',
+                },
+              },
 
-      /** setting mapperType **/
-      setTimeout(() => {
-        updateForm(formSchemaCustom);
-        form.mapperType = 'CUSTOM';
-      }, 3000);
+              {
+                id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+                name: 'date_of_birth',
+                label: 'Date Of Birth',
+                type: 'CUSTOM_DATE',
+                position: 11,
+                required: true,
+                Placeholder: 'Enter…',
+                hint: 'Please enter your date of birth',
+                choices: [],
+              },
+            ],
+          };
 
-      setTimeout(() => {
-        var customTypeMapper = {
-          CUSTOM_DROPDOWN: { type: 'DROPDOWN' },
-          CUSTOM_DATE: { type: 'DATE' },
-        };
-        form.customTypeMapper = customTypeMapper;
-      }, 5000);
+          form.mapperType = 'CUSTOM'; // LEGO | FORMSERV | CUSTOM
 
-      setTimeout(() => {
-        form.initialValues = initialValues;
-      }, 7000);
-      setTimeout(() => {
-        form.mapperType = 'FORMSERV';
-        updateForm(formServSchema);
-      }, 12000);
-      var schema = formSchema; // form.mapperType = "LEGO" // default
-      if (form.mapperType === 'FORMSERV') schema = formServSchema;
-      if (form.mapperType === 'CUSTOM') {
-        schema = formSchemaCustom;
-      }
-
-      updateForm(schema);
-
-      // do any customisation on the field schema to match the props of crayons components.
-
-      function updateForm(schema) {
-        var fields = schema.fields.map((field) => {
-          // select expects `text` and `value` prop
-          if (
-            field.type === 'DROPDOWN' ||
-            field.type === 'MULTI_SELECT' ||
-            field.type === '2' ||
-            field.type === '18' ||
-            field.type === 'CUSTOM_DROPDOWN' ||
-            field.type === 'CUSTOM_MULTI_SELECT'
-          ) {
-            return {
-              ...field,
-              choices: field.choices?.map((f) => {
-                return {
-                  ...f,
-                  text: f.value,
-                  value: f.id,
-                };
-              }),
+          if (form.mapperType === 'FORMSERV') form.formSchema = formServSchema;
+          else if (form.mapperType === 'CUSTOM') {
+            form.formSchema = formSchemaCustom;
+            var customTypeMapper = {
+              CUSTOM_DROPDOWN: { type: 'DROPDOWN' },
+              CUSTOM_DATE: { type: 'DATE' },
             };
-          } else return field;
+            form.customTypeMapper = customTypeMapper;
+          } else form.formSchema = formSchema; // default LEGO mapper type.
+
+          form.initialValues = initialValues;
+        </script>
+      </div>
+      <div id="static-form-container">
+        <h3>Static form via `fw-form-control` slots</h3>
+        <fw-input
+          search
+          id="inp1"
+          placeholder="Type to filter form fields below"
+        ></fw-input>
+        <fw-form id="fw-static-form">
+          <fw-form-control
+            type="TEXT"
+            name="first_name"
+            placeholder="First Name"
+            required
+            label="First Name"
+            id="first_name"
+          ></fw-form-control>
+          <fw-form-control
+            type="TEXT"
+            name="last_name"
+            placeholder="Last Name"
+            required
+            label="Last Name"
+            id="last_name"
+          ></fw-form-control>
+          <fw-form-control
+            name="cin"
+            type="EMAIL"
+            required
+            label="Custom native in"
+          >
+            <input
+              name="cin"
+              id="cin"
+              placeholder="custom email input"
+              autocomplete="off"
+          /></fw-form-control>
+          <fw-form-control
+            name="chk"
+            type="CHECKBOX"
+            required
+            label="Custom chexk in"
+          >
+            <input
+              type="checkbox"
+              name="chk"
+              id="chk"
+              placeholder="custom checkbox"
+          /></fw-form-control>
+        </fw-form>
+        <fw-button id="submit-static-form">Submit</fw-button>
+        <fw-button id="reset-static-form">Reset</fw-button>
+      </div>
+      <script type="application/javascript">
+        var formStatic = document.querySelector('#fw-static-form');
+        document.querySelector('#inp1').addEventListener('fwInput', (e) => {
+          formStatic.setFieldSearchText(e.detail.value);
         });
-
-        var formSchema1 = {
-          ...schema,
-          fields: fields,
+        document
+          .querySelector('#submit-static-form')
+          .addEventListener('click', async (e) => {
+            const { values, isValid } = await formStatic.doSubmit(e);
+            console.log({ values, isValid });
+            if (isValid) {
+              // make ajax post end point with values
+              // fetch("/post",values);
+              // if error from backend , set Errors - passing key value pair
+              formStatic.setFieldErrors({
+                cin: 'First Name must be unique <<Server Error>>',
+              });
+              // reset the form if required if success
+              // formRef.current.doReset(e);
+            }
+          });
+        document
+          .querySelector('#reset-static-form')
+          .addEventListener('click', (e) => {
+            if (document.querySelector('#cin'))
+              document.querySelector('#cin').value = '';
+            formStatic.doReset(e);
+          });
+        var initialValuesStaticForm = {
+          first_name: 'John',
+          cin: 'test@gmail.com',
+          chk: true,
         };
-        form.formSchema = formSchema1;
-      }
-    </script> 
-  -->
+        formStatic.initialValues = initialValuesStaticForm;
+        // formStatic.validate = async function (values) {
+        //   console.log('validate method called with ', values);
+        //   return {
+        //     // first_name: 'first name error',
+        //     // last_name: 'last name error',
+        //     // first_name: 'ss error validate function prop',
+        //   };
+        //   // json api std.
+        // };
+        function handleCustomInput(e) {
+          console.log('handle custom input');
+          formStatic.setFieldValue([e.target.name], e.target.value);
+        }
+        function handleChkChange(e) {
+          console.log('handle custom chk');
+          formStatic.setFieldValue([e.target.name], e.target.checked);
+        }
+        document
+          .querySelector('#chk')
+          .addEventListener('change', handleChkChange);
+        document
+          .querySelector('#cin')
+          .addEventListener('input', handleCustomInput);
+        document
+          .querySelector('#cin')
+          .addEventListener('change', handleCustomInput);
+        document
+          .querySelector('#cin')
+          .addEventListener('blur', handleCustomInput);
+      </script>
+    </div>
 
-    <!-- end of form examples -->
+    <!-- end of form examples static and dynamic form -->
 
     <!-- <br />
     <fw-radio-group

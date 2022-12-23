@@ -29,6 +29,7 @@ import {
   serializeForm,
   translateErrors,
   getMappedSchema,
+  getValueForField,
   LEGO,
 } from './form-util';
 import { debounce, hasSlot } from '../../utils';
@@ -112,6 +113,8 @@ export class Form {
   @State() formSchemaState = this.formSchema;
   @State() hasSlot = false;
 
+  @State() fieldSearchText;
+
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
    */
@@ -153,10 +156,13 @@ export class Form {
 
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
-    await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchemaState,
-      initialValues
-    );
+    let schema = this.formSchema;
+
+    if (this.hasSlot) {
+      // for static form get the schema from slots
+      schema = this.getFormSchemaFromSlots();
+    }
+    await this.handleFormSchemaAndInitialValuesChange(schema, initialValues);
   }
 
   @Watch('values')
@@ -226,6 +232,15 @@ export class Form {
   handleSlotChange() {
     this.hasSlot = hasSlot(this.el);
     this.controls = this.getFormControls();
+
+    /** Create implicit validation rules based
+     *  on slotted form-controls for static form
+     */
+    // setup initialValues and validation rules
+    this.handleFormSchemaAndInitialValuesChange(
+      this.getFormSchemaFromSlots(),
+      this.initialValues
+    );
   }
 
   disconnectedCallback() {
@@ -398,8 +413,10 @@ export class Form {
     const error = this.errors[control.name];
     const touched = this.touched[control.name];
     control.controlProps = this.composedUtils();
-    control.error = error || '';
+    control.error = error ?? '';
     control.touched = touched || false;
+    control.shouldRender = this.shouldRenderFormControl(control);
+    control.value = getValueForField(this.values, control);
   }
 
   private composedUtils = (): FormUtils => {
@@ -418,8 +435,8 @@ export class Form {
     const selectProps = (field: string, inputType) => ({
       value:
         inputType === 'multi_select'
-          ? this.values[field] || []
-          : this.values[field] || '',
+          ? this.values[field] ?? []
+          : this.values[field] ?? '',
     });
 
     const formProps: FormProps = {
@@ -435,6 +452,29 @@ export class Form {
       radioProps,
       formProps,
     };
+  };
+
+  private shouldRenderFormControl = (control) => {
+    const type = control?.type;
+    const isValidType = type !== '' && type !== null && type !== undefined;
+    const shouldRender = isValidType
+      ? this.fieldSearchText
+        ? control.label
+            ?.toLowerCase()
+            ?.includes(this.fieldSearchText.toLowerCase())
+        : true
+      : false;
+    return shouldRender;
+  };
+
+  private getFormSchemaFromSlots = () => {
+    const fields = this.controls.map((control) => ({
+      type: control.type,
+      name: control.name,
+      required: control.required,
+    }));
+
+    return { fields };
   };
 
   @Method()
@@ -479,14 +519,39 @@ export class Form {
     return { values: this.values, serializedValues };
   }
 
+  /**
+   *
+   * @param event : An event which takes place in the DOM
+   *
+   * Method to submit the form
+   */
   @Method()
-  async doSubmit(e) {
-    return this.handleSubmit(e);
+  async doSubmit(event?): Promise<FormSubmit> {
+    return this.handleSubmit(event);
   }
 
+  /**
+   *
+   * @param event - An event which takes place in the DOM
+   *
+   * Method to reset the form
+   */
   @Method()
-  async doReset(e) {
-    this.handleReset(e);
+  async doReset(event?): Promise<void> {
+    this.handleReset(event);
+  }
+
+  /**
+   *
+   * Method to filter the display of fields in the form based
+   * on the passed text.
+   *
+   * @param text
+   *
+   */
+  @Method()
+  async setFieldSearchText(text: string) {
+    this.fieldSearchText = text;
   }
 
   render() {
@@ -499,11 +564,8 @@ export class Form {
           this.formSchemaState?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
-              const type = field?.type;
-              const isValidType =
-                type !== '' && type !== null && type !== undefined;
               return (
-                isValidType && (
+                this.shouldRenderFormControl(field) && (
                   <fw-form-control
                     key={field.name}
                     name={field.name}
