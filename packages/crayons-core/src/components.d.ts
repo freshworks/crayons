@@ -617,6 +617,11 @@ export namespace Components {
           * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`.
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
+        /**
+          * @param field
+          * @param choices Method to set choices for a DROPDOWN/MULTI_SELECT field in formschema
+         */
+        "setFieldChoices": (field: string, choices: any) => Promise<void>;
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         /**
           * Method to filter the display of fields in the form based on the passed text.

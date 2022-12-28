@@ -156,7 +156,7 @@ export class Form {
 
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
-    let schema = this.formSchema;
+    let schema = this.formSchemaState;
 
     if (this.hasSlot) {
       // for static form get the schema from slots
@@ -498,6 +498,35 @@ export class Form {
       this.touched = { ...this.touched, [field]: true };
     });
     this.setFocusOnError();
+  }
+
+  /**
+   *
+   * @param field
+   * @param choices
+   *
+   * Method to set choices for a DROPDOWN/MULTI_SELECT field in formschema
+   *
+   */
+
+  @Method()
+  async setFieldChoices(field: string, choices: any): Promise<void> {
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (f.name === field) {
+            return {
+              ...f,
+              choices,
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.touched = { ...this.touched, [field]: false };
+    this.values = { ...this.values, [field]: undefined };
   }
 
   /**

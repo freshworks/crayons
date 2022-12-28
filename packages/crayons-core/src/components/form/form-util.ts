@@ -383,12 +383,13 @@ export function getMappedSchema({
       );
       return { fields: [] };
     }
-    const newFields = schema?.fields?.map((field) => {
-      return {
-        ...field,
-        type: mapperTypes[field?.type]?.type,
-      };
-    });
+    const newFields =
+      schema?.fields?.map((field) => {
+        return {
+          ...field,
+          type: mapperTypes[field?.type]?.type,
+        };
+      }) ?? [];
     const newSchema = { ...schema, fields: newFields };
     return newSchema;
   }
