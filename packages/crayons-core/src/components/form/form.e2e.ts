@@ -459,6 +459,7 @@ describe('fw-form', () => {
       fieldOptionsData
     );
   };
+
   it('renders', async () => {
     const page = await newE2EPage();
 
@@ -466,6 +467,7 @@ describe('fw-form', () => {
     const element = await page.find('fw-form');
     expect(element).toHaveClass('hydrated');
   });
+
   it('should render correct number of form controls when schema is passed', async () => {
     const page = await newE2EPage();
 
@@ -546,6 +548,7 @@ describe('fw-form', () => {
       decimal.tagName.toLowerCase()
     );
   });
+
   it('should return entered values upon form submit', async () => {
     const page = await newE2EPage();
 
@@ -578,6 +581,7 @@ describe('fw-form', () => {
     expect(result.values['order_status']).toEqual('closed');
     expect(result.values['amount_paid']).toEqual(10);
   });
+
   it('should set errors if required field is passed as empty string', async () => {
     const page = await newE2EPage();
 
@@ -636,6 +640,7 @@ describe('fw-form', () => {
     expect(result.values['pincode']).toEqual(123345);
     expect(result.values['amount_paid']).toEqual(10);
   });
+
   it('should render slot when formSchema is not passed in', async () => {
     const page = await newE2EPage();
 
@@ -656,6 +661,7 @@ describe('fw-form', () => {
          </form>
        `);
   });
+
   it('should return appropriate values when multiple forms are present', async () => {
     const page = await newE2EPage();
 
@@ -863,5 +869,77 @@ describe('fw-form', () => {
     expect(
       element.shadowRoot.querySelectorAll('fw-form-control').length
     ).toEqual(6);
+  });
+
+  it('should update the dropdown with the new choices in the form on calling setFieldChoices method', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          first_name: 'Test',
+          is_indian_citizen: true,
+          gender: 'Male',
+          pincode: 123345,
+          amount_paid: 10,
+        };
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const newChoices = [
+      {
+        id: 1,
+        text: 'idle',
+        position: 1,
+        dependent_ids: {},
+      },
+      {
+        id: 2,
+        text: 'in progress',
+        position: 2,
+        dependent_ids: {},
+      },
+      {
+        id: 3,
+        text: 'failure',
+        position: 3,
+        dependent_ids: {},
+      },
+
+      {
+        id: 4,
+        text: 'closed',
+        position: 4,
+        dependent_ids: {},
+      },
+    ];
+
+    const formRef = await page.find('fw-form');
+
+    await formRef.callMethod('setFieldChoices', 'order_status', newChoices);
+
+    const formElemShadow = await page.find('fw-form >>> :first-child');
+    const formControlShadow = await formElemShadow.find(
+      "fw-form-control[name='order_status'] >>> :first-child"
+    );
+    const popover = await formControlShadow.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    await page.waitForChanges();
+
+    await expect(options.length).toBe(4);
+
+    await expect(options[0].shadowRoot.textContent).toEqual('idle');
+    await expect(options[1].shadowRoot.textContent).toEqual('in progress');
+    await expect(options[2].shadowRoot.textContent).toEqual('failure');
+    await expect(options[3].shadowRoot.textContent).toEqual('closed');
   });
 });
