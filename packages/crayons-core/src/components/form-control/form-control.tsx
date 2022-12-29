@@ -292,7 +292,11 @@ export class FormControl {
           componentProps = {
             ...componentProps,
             ...controlProps,
-            options: this.choices,
+            options: this.choices.sort((a, b) => {
+              const apos = a?.position ?? 0;
+              const bpos = b?.position ?? 0;
+              return apos - bpos;
+            }),
           };
           // This is to handle formserv payload which might contain a field_options object, which has parameters, option_value_path and option_label_path,
           // that denotes which property of choices object(form schema) needs to be displayed as label and which should be stored in the backend as value

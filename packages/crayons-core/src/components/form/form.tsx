@@ -477,6 +477,13 @@ export class Form {
     return { fields };
   };
 
+  /**
+   * Method to set value on the form field.
+   *
+   * @param field - name of the form field
+   * @param value - value of the form field
+   * @param shouldValidate - should this form field be validated with the updated value
+   */
   @Method()
   async setFieldValue(
     field: string,
@@ -491,6 +498,11 @@ export class Form {
     }
   }
 
+  /**
+   * Method to set errors on the form fields.
+   *
+   * @param errorObj - key value pair of [fieldName]: ErrorMessage
+   */
   @Method()
   async setFieldErrors(errorObj: FormErrors<FormValues>): Promise<void> {
     Object.entries(errorObj)?.forEach(([field, value]) => {
@@ -502,10 +514,11 @@ export class Form {
 
   /**
    *
+   * Method to set choices for a DROPDOWN/MULTI_SELECT field in formschema
+   *
    * @param field
    * @param choices
    *
-   * Method to set choices for a DROPDOWN/MULTI_SELECT field in formschema
    *
    */
 

@@ -2114,9 +2114,20 @@ serializedValues are those that contains the transformed values based on field t
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
 
+### `setFieldChoices(field: string, choices: any) => Promise<void>`
+
+
+Method to set choices for a DROPDOWN/MULTI_SELECT field in formschema
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
-
+Method to set errors on the form fields.
 
 #### Returns
 
@@ -2138,7 +2149,7 @@ Type: `Promise<void>`
 
 ### `setFieldValue(field: string, value: any, shouldValidate?: boolean) => Promise<void>`
 
-
+Method to set value on the form field.
 
 #### Returns
 

@@ -618,16 +618,27 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * Method to set choices for a DROPDOWN/MULTI_SELECT field in formschema
           * @param field
-          * @param choices Method to set choices for a DROPDOWN/MULTI_SELECT field in formschema
+          * @param choices
          */
         "setFieldChoices": (field: string, choices: any) => Promise<void>;
+        /**
+          * Method to set errors on the form fields.
+          * @param errorObj - key value pair of [fieldName]: ErrorMessage
+         */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         /**
           * Method to filter the display of fields in the form based on the passed text.
           * @param text
          */
         "setFieldSearchText": (text: string) => Promise<void>;
+        /**
+          * Method to set value on the form field.
+          * @param field - name of the form field
+          * @param value - value of the form field
+          * @param shouldValidate - should this form field be validated with the updated value
+         */
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
