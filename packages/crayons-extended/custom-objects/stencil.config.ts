@@ -60,7 +60,7 @@ export const config: Config = {
     }),
   ],
   globalScript: 'src/global.ts',
-  buildEs5: true,
+  buildEs5: 'prod',
   extras: {
     appendChildSlotFix: true,
     cssVarsShim: true,
