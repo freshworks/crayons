@@ -1992,6 +1992,307 @@ Invoke `setFieldSearchText` method on the `form` passing a text that filters the
 </script>
 ```
 
+## Dynamically Set Field Choices
+
+Invoke `setFieldChoices` method on the `form` passing the `name` of the field and `choices` array to update the choices in the `DROPDOWN/MULTI_SELECT` form's field-control.
+
+```html live
+<div id="form-container-fchoices">
+  <fw-button id="submit-fchoices">Submit</fw-button>
+  <fw-button id="reset-fchoices">Reset</fw-button>
+
+  <fw-button id="update-choices"> Update Choices Of Order Status</fw-button>
+</div>
+<script type="application/javascript">
+  var formFieldChoices = document.createElement('fw-form');
+  var formContainerFieldchoices = document.querySelector(
+    '#form-container-fchoices'
+  );
+
+  document
+    .querySelector('#update-choices')
+    .addEventListener('click', async (e) => {
+      const newChoices = [
+        {
+          value: 1,
+          text: 'idle',
+          position: 1,
+          dependent_ids: {},
+        },
+        {
+          value: 2,
+          text: 'open',
+          position: 2,
+          dependent_ids: {},
+        },
+        {
+          value: 3,
+          text: 'in progress',
+          position: 3,
+          dependent_ids: {},
+        },
+        {
+          value: 4,
+          text: 'failed',
+          position: 4,
+          dependent_ids: {},
+        },
+      ];
+
+      await formFieldChoices.setFieldChoices('order_status', newChoices);
+    });
+
+  document
+    .querySelector('#submit-fchoices')
+    .addEventListener('click', async (e) => {
+      const { values, isValid } = await formFieldChoices.doSubmit(e);
+      console.log({ values, isValid });
+
+      if (isValid) {
+        // make ajax post end point with values
+        // fetch("/post",values);
+
+        // if error from backend , set Errors - passing key value pair
+        formFieldChoices.setFieldErrors({
+          first_name: 'First Name must be unique <<Server Error>>',
+        });
+
+        // reset the form if required if success
+        // formRef.current.doReset(e);
+      }
+    });
+  document.querySelector('#reset-fchoices').addEventListener('click', (e) => {
+    formFieldChoices.doReset(e);
+  });
+  var formSchemaFieldChoices = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 13,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        choices: [
+          {
+            id: 1,
+            value: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 11,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'landmark',
+        label: 'Landmark',
+        type: 'PARAGRAPH',
+        position: 7,
+        required: true,
+        Placeholder: 'Enter some text…',
+        hint: 'Please enter the nearest landmark',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'is_indian_citizen',
+        label: 'Indian Citizen?',
+        type: 'CHECKBOX',
+        position: 7,
+        required: true,
+        placeholder: null,
+        hint: 'Check or Uncheck the box',
+        choices: [],
+      },
+
+      {
+        id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'pincode',
+        label: 'Pincode',
+        type: 'NUMBER',
+        position: 8,
+        required: false,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your Pincode',
+        choices: [],
+      },
+
+      {
+        id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+        name: 'gender',
+        label: 'Gender',
+        type: 'RADIO',
+        position: 5,
+        required: true,
+        placeholder: null,
+        hint: 'Please specify your gender',
+        choices: [
+          {
+            id: 1,
+            value: 'Female',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Male',
+            position: 2,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'order_status',
+        label: 'Order Status',
+        type: 'DROPDOWN',
+        position: 4,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select a value',
+        choices: [
+          {
+            id: 1,
+            value: 'open',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'pending',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'closed',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'amount_paid',
+        label: 'Amount Paid',
+        type: 'DECIMAL',
+        position: 10,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter the amount paid',
+        choices: [],
+      },
+    ],
+  };
+  var initialValuesFchoices = {
+    is_indian_citizen: true,
+  };
+  formContainerFieldchoices.prepend(formFieldChoices);
+  // do any customisation on the field schema to match the props of crayons components.
+  var fieldsFChoices = formSchemaFieldChoices.fields.map((field) => {
+    // select expects `text` and `value` prop
+    if (field.type === 'DROPDOWN' || field.type === 'MULTI_SELECT') {
+      return {
+        ...field,
+        choices: field.choices?.map((f) => {
+          return {
+            ...f,
+            text: f.value,
+            value: f.id,
+          };
+        }),
+      };
+    } else return field;
+  });
+
+  var formSchemaFChoices1 = {
+    ...formSchemaFieldChoices,
+    fields: fieldsFChoices,
+  };
+  formFieldChoices.formSchema = formSchemaSearch1;
+  formFieldChoices.initialValues = initialValuesFChoices;
+</script>
+```
+
 ## Validations
 
 Validation can be done using [Yup](https://github.com/jquense/yup#yup) based `validationSchema` or `validate` function prop.
@@ -2054,22 +2355,20 @@ type FormErrors = {
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property           | Attribute            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Type                               | Default     |
-| ------------------ | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
-| `customTypeMapper` | `custom-type-mapper` | A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : {      'CUSTOM_TEXT': { type: 'TEXT' },      'SELECT': { type: 'DROPDOWN' },      'TEL': { type: 'PHONE_NUMBER' },      'CHECKBOX': { type: 'CHECKBOX' },      'TEXTAREA': { type: 'PARAGRAPH' },      'DATETIME': { type: 'DATE_TIME' },      'INTEGER': { type: 'NUMBER' },    } | `any`                              | `{}`        |
-| `formId`           | `form-id`            | Id to uniquely identify the Form. If not set, a random Id will be generated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `any`                              | `uuidv4()`  |
-| `formSchema`       | `form-schema`        | Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `any`                              | `{}`        |
-| `initialValues`    | `initial-values`     | Initial field values of the form. It is an object with keys pointing to field name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `any`                              | `{}`        |
-| `mapperType`       | `mapper-type`        | Mapper Type - LEGO \| FORMSERV \| CUSTOM. Defaults to `LEGO`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `"CUSTOM" \| "FORMSERV" \| "LEGO"` | `LEGO`      |
-| `validate`         | `validate`           | Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `any`                              | `undefined` |
-| `validateOnBlur`   | `validate-on-blur`   | Tells Form to validate the form on each input's onBlur event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `boolean`                          | `true`      |
-| `validateOnInput`  | `validate-on-input`  | Tells Form to validate the form on each input's onInput event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `boolean`                          | `true`      |
-| `validationSchema` | `validation-schema`  | YUP based validation schema for handling validation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `any`                              | `{}`        |
-| `wait`             | `wait`               | The number of milliseconds to delay before doing validation on Input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `number`                           | `200`       |
-
+| Property           | Attribute            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Type                               | Default     |
+| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `customTypeMapper` | `custom-type-mapper` | A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : { 'CUSTOM_TEXT': { type: 'TEXT' }, 'SELECT': { type: 'DROPDOWN' }, 'TEL': { type: 'PHONE_NUMBER' }, 'CHECKBOX': { type: 'CHECKBOX' }, 'TEXTAREA': { type: 'PARAGRAPH' }, 'DATETIME': { type: 'DATE_TIME' }, 'INTEGER': { type: 'NUMBER' }, } | `any`                              | `{}`        |
+| `formId`           | `form-id`            | Id to uniquely identify the Form. If not set, a random Id will be generated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `any`                              | `uuidv4()`  |
+| `formSchema`       | `form-schema`        | Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `any`                              | `{}`        |
+| `initialValues`    | `initial-values`     | Initial field values of the form. It is an object with keys pointing to field name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `any`                              | `{}`        |
+| `mapperType`       | `mapper-type`        | Mapper Type - LEGO \| FORMSERV \| CUSTOM. Defaults to `LEGO`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `"CUSTOM" \| "FORMSERV" \| "LEGO"` | `LEGO`      |
+| `validate`         | `validate`           | Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `any`                              | `undefined` |
+| `validateOnBlur`   | `validate-on-blur`   | Tells Form to validate the form on each input's onBlur event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                          | `true`      |
+| `validateOnInput`  | `validate-on-input`  | Tells Form to validate the form on each input's onInput event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `boolean`                          | `true`      |
+| `validationSchema` | `validation-schema`  | YUP based validation schema for handling validation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `any`                              | `{}`        |
+| `wait`             | `wait`               | The number of milliseconds to delay before doing validation on Input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `number`                           | `200`       |
 
 ## Events
 
@@ -2077,28 +2376,19 @@ type FormErrors = {
 | --------------------- | ----------------------------------------------------------------- | ------------------ |
 | `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change. | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `doReset(event?: any) => Promise<void>`
-
-
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
 ### `doSubmit(event?: any) => Promise<FormSubmit>`
-
-
 
 #### Returns
 
 Type: `Promise<FormSubmit>`
-
-
 
 ### `getValues() => Promise<{ values: FormValues; serializedValues: FormValues; }>`
 
@@ -2110,20 +2400,18 @@ Type: `Promise<{ values: FormValues; serializedValues: FormValues; }>`
 
 An Object containing values and serializedValues.
 serializedValues are those that contains the transformed values based on field type.
+
 1. For Number and Decimal: returns floating point number of value or undefined.
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
 
 ### `setFieldChoices(field: string, choices: any) => Promise<void>`
 
-
 Method to set choices for a DROPDOWN/MULTI_SELECT field in formschema
 
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
@@ -2133,10 +2421,7 @@ Method to set errors on the form fields.
 
 Type: `Promise<void>`
 
-
-
 ### `setFieldSearchText(text: string) => Promise<void>`
-
 
 Method to filter the display of fields in the form based
 on the passed text.
@@ -2144,8 +2429,6 @@ on the passed text.
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `setFieldValue(field: string, value: any, shouldValidate?: boolean) => Promise<void>`
 
@@ -2155,9 +2438,6 @@ Method to set value on the form field.
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Depends on
@@ -2165,6 +2445,7 @@ Type: `Promise<void>`
 - [fw-form-control](../form-control)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-form --> fw-form-control
@@ -2207,6 +2488,6 @@ graph TD;
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
