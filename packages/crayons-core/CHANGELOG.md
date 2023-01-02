@@ -3,19 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.1.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.5...@freshworks/crayons@4.1.0-beta.6) (2023-01-02)
-
+## [4.1.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.5...@freshworks/crayons@4.1.0-beta.6) (2023-01-02)
 
 ### Bug Fixes
 
-* **btn-group:** bind onSlotChange method using arrow function ([22525bd](https://github.com/freshworks/crayons/commit/22525bd47607ce00d422aa70ad7698ec2bce6abf))
-* **btn-group:** fix typo ([e724378](https://github.com/freshworks/crayons/commit/e724378d02215afa901e7d261ca432f6c388ab0e))
-* **button-group:** fix button group styling collapse ([f2f4797](https://github.com/freshworks/crayons/commit/f2f47971291b7279ba2bcf3e1c881ec38bb61968))
-* fix issue with unselecting columns in data table ([3de414f](https://github.com/freshworks/crayons/commit/3de414f8257ceee8e40e196c0d0331b941a3b555))
-
-
-
-
+- **btn-group:** bind onSlotChange method using arrow function ([22525bd](https://github.com/freshworks/crayons/commit/22525bd47607ce00d422aa70ad7698ec2bce6abf))
+- **btn-group:** fix typo ([e724378](https://github.com/freshworks/crayons/commit/e724378d02215afa901e7d261ca432f6c388ab0e))
+- **button-group:** fix button group styling collapse ([f2f4797](https://github.com/freshworks/crayons/commit/f2f47971291b7279ba2bcf3e1c881ec38bb61968))
+- fix issue with unselecting columns in data table ([3de414f](https://github.com/freshworks/crayons/commit/3de414f8257ceee8e40e196c0d0331b941a3b555))
 
 ## [4.1.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.4...@freshworks/crayons@4.1.0-beta.5) (2022-12-18)
 
