@@ -44,7 +44,7 @@ You can now use the Crayons components just like how you would use any other htm
 >
 ```
 
-You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
+You can use [UNPKG](https://unpkg.com/) to query specific versions in your app. Documentation of all crayons versions can be found [here](/versions/) .
 
 #### Usage via Node Modules
 

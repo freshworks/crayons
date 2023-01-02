@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.4...@freshworks/crayons@4.1.0-beta.5) (2022-12-18)
+
+### Bug Fixes
+
+- fix max limitation in list options component ([9450f5c](https://github.com/freshworks/crayons/commit/9450f5cc4246d0e01858142e6775f36828882e8c))
+- set min width for select input and update docs for dynamic updation of options ([1fe7c56](https://github.com/freshworks/crayons/commit/1fe7c568ea32a99c3fa741184dd0c1f87904410e))
+
+## [4.1.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.3...@freshworks/crayons@4.1.0-beta.4) (2022-12-12)
+
+### Bug Fixes
+
+- **datepicker:** avoid using non-standard event.path ([#729](https://github.com/freshworks/crayons/issues/729)) ([53a7611](https://github.com/freshworks/crayons/commit/53a76119e881eccb39cb8538ff52b364414ec314))
+
+### Features
+
+- add option label path and option value path for select and list options ([229500e](https://github.com/freshworks/crayons/commit/229500e9caf3dda2046af1aba4a0c3f050911fe8))
+- **form-control:** handle formServ field_options object in form control ([a19656e](https://github.com/freshworks/crayons/commit/a19656e9e850fd33e06c7285d6bf081e06360ed0))
+- **popover:** introduced new props to facilitate delay in open/close transition in popover component ([7176beb](https://github.com/freshworks/crayons/commit/7176beb6fb441ffbb953107f9da1a20a5849c7df))
+
+### Reverts
+
+- **form:** revert build failure test commit ([477a2f0](https://github.com/freshworks/crayons/commit/477a2f0cf451282093e9c576394b00b2fcbab51e))
+
 ## [4.1.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.2...@freshworks/crayons@4.1.0-beta.3) (2022-11-19)
 
 ### Features
