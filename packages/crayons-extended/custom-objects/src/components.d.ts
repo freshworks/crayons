@@ -304,24 +304,6 @@ export namespace Components {
          */
         "lookupTargetObjects": any;
     }
-    interface FwFormBuilderWrapper {
-        /**
-          * svg image to be shown for empty record
-         */
-        "emptySearchImage": any;
-        /**
-          * variable to store form values
-         */
-        "formValues": any;
-        /**
-          * Method to get the updated form values
-         */
-        "getFormValues": () => Promise<any>;
-        /**
-          * object to store the lookup target entities
-         */
-        "lookupTargetObjects": any;
-    }
     interface FwInputCondition {
         /**
           * The props to be passed to the crayons component.
@@ -605,12 +587,6 @@ declare global {
         prototype: HTMLFwFormBuilderElement;
         new (): HTMLFwFormBuilderElement;
     };
-    interface HTMLFwFormBuilderWrapperElement extends Components.FwFormBuilderWrapper, HTMLStencilElement {
-    }
-    var HTMLFwFormBuilderWrapperElement: {
-        prototype: HTMLFwFormBuilderWrapperElement;
-        new (): HTMLFwFormBuilderWrapperElement;
-    };
     interface HTMLFwInputConditionElement extends Components.FwInputCondition, HTMLStencilElement {
     }
     var HTMLFwInputConditionElement: {
@@ -666,7 +642,6 @@ declare global {
         "fw-filter-condition": HTMLFwFilterConditionElement;
         "fw-filter-dropdown": HTMLFwFilterDropdownElement;
         "fw-form-builder": HTMLFwFormBuilderElement;
-        "fw-form-builder-wrapper": HTMLFwFormBuilderWrapperElement;
         "fw-input-condition": HTMLFwInputConditionElement;
         "fw-input-range-condition": HTMLFwInputRangeConditionElement;
         "fw-platform-table": HTMLFwPlatformTableElement;
@@ -1045,20 +1020,6 @@ declare namespace LocalJSX {
          */
         "onFwSearchField"?: (event: FwFormBuilderCustomEvent<any>) => void;
     }
-    interface FwFormBuilderWrapper {
-        /**
-          * svg image to be shown for empty record
-         */
-        "emptySearchImage"?: any;
-        /**
-          * variable to store form values
-         */
-        "formValues"?: any;
-        /**
-          * object to store the lookup target entities
-         */
-        "lookupTargetObjects"?: any;
-    }
     interface FwInputCondition {
         /**
           * The props to be passed to the crayons component.
@@ -1234,7 +1195,6 @@ declare namespace LocalJSX {
         "fw-filter-condition": FwFilterCondition;
         "fw-filter-dropdown": FwFilterDropdown;
         "fw-form-builder": FwFormBuilder;
-        "fw-form-builder-wrapper": FwFormBuilderWrapper;
         "fw-input-condition": FwInputCondition;
         "fw-input-range-condition": FwInputRangeCondition;
         "fw-platform-table": FwPlatformTable;
@@ -1260,7 +1220,6 @@ declare module "@stencil/core" {
             "fw-filter-condition": LocalJSX.FwFilterCondition & JSXBase.HTMLAttributes<HTMLFwFilterConditionElement>;
             "fw-filter-dropdown": LocalJSX.FwFilterDropdown & JSXBase.HTMLAttributes<HTMLFwFilterDropdownElement>;
             "fw-form-builder": LocalJSX.FwFormBuilder & JSXBase.HTMLAttributes<HTMLFwFormBuilderElement>;
-            "fw-form-builder-wrapper": LocalJSX.FwFormBuilderWrapper & JSXBase.HTMLAttributes<HTMLFwFormBuilderWrapperElement>;
             "fw-input-condition": LocalJSX.FwInputCondition & JSXBase.HTMLAttributes<HTMLFwInputConditionElement>;
             "fw-input-range-condition": LocalJSX.FwInputRangeCondition & JSXBase.HTMLAttributes<HTMLFwInputRangeConditionElement>;
             "fw-platform-table": LocalJSX.FwPlatformTable & JSXBase.HTMLAttributes<HTMLFwPlatformTableElement>;
