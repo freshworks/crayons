@@ -12,6 +12,7 @@ export class ButtonGroup {
   componentDidLoad() {
     this.handleSlotChange();
   }
+
   handleSlotChange() {
     if (!this.host) return;
     const slottedElements = this.host.querySelectorAll('fw-button');
@@ -28,10 +29,11 @@ export class ButtonGroup {
       );
     });
   }
+
   render() {
     return (
       <Host aria-label={this.label}>
-        <slot onSlotchange={this.handleSlotChange}></slot>
+        <slot onSlotchange={() => this.handleSlotChange()}></slot>
       </Host>
     );
   }

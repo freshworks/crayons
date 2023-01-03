@@ -556,6 +556,7 @@ export class DataTable {
     this.settingsInput.value = '';
     this.columnsDragSetting = [];
     this.columnsHideSetting = [];
+    this.disabledColumnHide = false;
     const modifiedColumnsDragSettings = this.orderedColumns.map((column) => {
       const columnInfo: any = {};
       columnInfo.key = column.key;
