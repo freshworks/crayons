@@ -20,7 +20,7 @@ jobs:
       name: github-pages
     steps:
       - uses: actions/checkout@v2
-
+      
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
@@ -37,7 +37,7 @@ jobs:
         env:
           VUEPRESS_BASE: ${{ format('{0}{1}/', '/gh-preview-deploy/', env.PR_NUMBER) }}
 
-       - name: Setup Pages
+      - name: Setup Pages
         uses: actions/configure-pages@v2
 
       - name: Upload artifact
@@ -49,14 +49,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
- 
-
-      # - name: Deploy
-      #   uses: JamesIves/github-pages-deploy-action@4.1.1
-      #   with:
-      #     branch: master
-      #     folder: www-dist
-      #     target-folder: ${{ env.PR_NUMBER }}
 
       - name: Publish env
         uses: marocchino/sticky-pull-request-comment@v2
