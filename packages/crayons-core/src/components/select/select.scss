@@ -91,6 +91,7 @@ $disabled-color: $input-disabled-color;
       display: flex;
       flex-wrap: wrap;
       min-width: inherit;
+      flex-grow: 1;
 
       &.avatar {
         min-height: 40px;
