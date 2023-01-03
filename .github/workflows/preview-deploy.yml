@@ -4,19 +4,26 @@ on:
   pull_request:
     branches: [test-gh-preview-deploy]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, Linux]
     continue-on-error: true
+    environment:
+      name: github-pages
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: '14.x'
 
       - name: Install npm 7
         run: npm i -g npm@7
@@ -30,12 +37,27 @@ jobs:
         env:
           VUEPRESS_BASE: ${{ format('{0}{1}/', '/gh-preview-deploy/', env.PR_NUMBER) }}
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.1
+       - name: Setup Pages
+        uses: actions/configure-pages@v2
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          branch: master
-          folder: www-dist
-          target-folder: ${{ env.PR_NUMBER }}
+          # Upload entire repository
+          path: 'www-dist'
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+ 
+
+      # - name: Deploy
+      #   uses: JamesIves/github-pages-deploy-action@4.1.1
+      #   with:
+      #     branch: master
+      #     folder: www-dist
+      #     target-folder: ${{ env.PR_NUMBER }}
+
       - name: Publish env
         uses: marocchino/sticky-pull-request-comment@v2
         with:
