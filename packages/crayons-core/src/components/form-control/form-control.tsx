@@ -7,6 +7,11 @@ import { hasSlot } from '../../utils';
 import { TranslationController } from '../../global/Translation';
 
 const NATIVE_CONTROLS = ['input', 'select', 'textarea'];
+
+/**
+ * @parent form
+ */
+
 @Component({
   tag: 'fw-form-control',
   styleUrl: 'form-control.scss',

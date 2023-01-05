@@ -37,6 +37,7 @@
 */
 
 const fsPromises = require('fs/promises');
+const fs = require('fs');
 const path = require('path');
 const wwwRoot = path.resolve(__dirname, '..');
 
@@ -73,6 +74,13 @@ const processTargets = async function (targets) {
   await fsPromises.rmdir(outputRoot, { recursive: true }); // clean-up prior builds before starting
   await fsPromises.mkdir(outputRoot);
 
+  // the json file which contains meta data of all readme files
+  const docPath = path.resolve(
+    __dirname,
+    '../../packages/crayons-core/dist/docs.json'
+  );
+  const docFile = JSON.parse(fs.readFileSync(docPath));
+
   for (let target of targets) {
     const entries = await fsPromises.readdir(
       path.resolve(wwwRoot, target, 'components')
@@ -82,14 +90,36 @@ const processTargets = async function (targets) {
     // Move each component directory from inside <package-name>/components to
     // the <package-name> directory. E.g. core/components/button becomes core/button
     for (const entry of entries) {
+      // components that has the decorator `@parent`
+      const parentTag = docFile.components.find((item) => {
+        return (
+          item.docsTags[0]?.text &&
+          item.tag === 'fw-' + entry &&
+          item.docsTags[0]?.name === 'parent'
+        );
+      });
+
+      // if a component has a parent tag, modify the file path
+      // eg: core/accordian-body becomes core/accordian/accordian-body
+      const fileEntry = parentTag
+        ? parentTag.docsTags[0].text + '/' + entry
+        : entry;
+
+      // create parent folder when a component has a parent tag
+      parentTag &&
+        (await fsPromises.mkdir(
+          path.resolve(packageRoot, parentTag.docsTags[0].text, entry),
+          { recursive: true }
+        ));
+
       await fsPromises.rename(
         path.resolve(packageRoot, 'components', entry),
-        path.resolve(packageRoot, entry)
+        path.resolve(packageRoot, fileEntry)
       );
 
       // Write the update path to the components array, which will be written to
       // JSON for generating the sidebar configuration in Vuepress.
-      components.push(`components/${target}/${entry}/`);
+      components.push(`components/${target}/${fileEntry}/`);
     }
 
     // Clean-up the now-empty <package-name>/components directory so that
