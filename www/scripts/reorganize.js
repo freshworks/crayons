@@ -37,7 +37,6 @@
 */
 
 const fsPromises = require('fs/promises');
-const fs = require('fs');
 const path = require('path');
 const wwwRoot = path.resolve(__dirname, '..');
 
@@ -79,7 +78,7 @@ const processTargets = async function (targets) {
     __dirname,
     '../../packages/crayons-core/dist/docs.json'
   );
-  const docFile = JSON.parse(fs.readFileSync(docPath));
+  const docFile = JSON.parse(await fsPromises.readFile(docPath));
 
   for (let target of targets) {
     const entries = await fsPromises.readdir(
