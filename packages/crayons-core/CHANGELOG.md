@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.6...@freshworks/crayons@4.1.0-beta.7) (2023-01-09)
+
+
+### Bug Fixes
+
+* revert readonly changes ([390aea9](https://github.com/freshworks/crayons/commit/390aea98708702cb0ae267527cde7a0ebfb372d8))
+
+
+### Features
+
+* **form:** mapperType and customTypeMapper prop to support `LEGO`, `FORMSERV` and `CUSTOM` type ([#761](https://github.com/freshworks/crayons/issues/761)) ([fc6692d](https://github.com/freshworks/crayons/commit/fc6692d5a3e94f181518a78cb9a83e92042d6334))
+
+
+
+
+
 ## [4.1.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.5...@freshworks/crayons@4.1.0-beta.6) (2023-01-02)
 
 ### Bug Fixes
