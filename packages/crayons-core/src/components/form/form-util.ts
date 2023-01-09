@@ -190,6 +190,7 @@ function createYupSchema(schema: any, config: any) {
     default:
       yupType = 'string';
   }
+  if (!type) return schema;
   if (!Yup[yupType as keyof typeof Yup]) {
     return schema;
   }
@@ -254,6 +255,9 @@ export const generateDynamicInitialValues = (
 ): FormValues => {
   const dynamicInitialValues =
     formSchema?.fields?.reduce((acc: any, field: any) => {
+      if (!field?.type) {
+        return null;
+      }
       return {
         ...acc,
         [field.name]: field.type === 'CHECKBOX' ? false : undefined,
@@ -333,3 +337,61 @@ export const translateErrors = async (errors = {}, fields) => {
     {}
   );
 };
+
+const formServFieldTypes = {
+  '1': { type: 'TEXT' },
+  '2': { type: 'DROPDOWN' },
+  '3': { type: 'EMAIL' },
+  '4': { type: 'PHONE_NUMBER' },
+  '5': { type: 'CHECKBOX' },
+  '6': { type: 'PARAGRAPH' },
+  '7': { type: 'DATE_TIME' },
+  '8': { type: 'NUMBER' },
+  '10': { type: 'URL' },
+  '12': { type: 'RADIO' },
+  '13': { type: 'DECIMAL' },
+  '14': { type: 'SECTION' },
+  '16': { type: 'AUTO_COMPLETE' },
+  '17': { type: 'DATE' },
+  '18': { type: 'MULTI_SELECT' },
+  '20': { type: 'BIG_NUMBER' },
+};
+
+export const LEGO = 'LEGO';
+export const FORMSERV = 'FORMSERV';
+export const CUSTOM = 'CUSTOM';
+
+const supportedMapperTypes = [LEGO, FORMSERV, CUSTOM];
+
+export function getMappedSchema({
+  type = LEGO,
+  schema = { fields: [] },
+  customTypeMapper = {},
+} = {}) {
+  if (!supportedMapperTypes.includes(type)) {
+    console.error(
+      `invalid mapperType: ${type} prop passed. It must be one of ${supportedMapperTypes}`
+    );
+    return { fields: [] };
+  }
+  if (type === LEGO) return schema;
+  else {
+    const mapperTypes =
+      type === FORMSERV ? formServFieldTypes : customTypeMapper;
+    if (type === CUSTOM && !customTypeMapper) {
+      console.error(
+        'invalid customTypeMapper prop passed. Please check the documentation for the correct format'
+      );
+      return { fields: [] };
+    }
+    const newFields =
+      schema?.fields?.map((field) => {
+        return {
+          ...field,
+          type: mapperTypes[field?.type]?.type,
+        };
+      }) ?? [];
+    const newSchema = { ...schema, fields: newFields };
+    return newSchema;
+  }
+}
