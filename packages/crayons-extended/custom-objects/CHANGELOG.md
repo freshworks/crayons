@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.2.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.0-beta.6...@freshworks/crayons-custom-objects@1.2.0-beta.7) (2023-01-09)
-
+## [1.2.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.0-beta.6...@freshworks/crayons-custom-objects@1.2.0-beta.7) (2023-01-09)
 
 ### Features
 
-* add form-builder-wrapper component with functions to add new field, delete and reposition ([2bf1a1e](https://github.com/freshworks/crayons/commit/2bf1a1e01135606a6edbb4462bf54dc72b11fcc5))
-
-
-
-
+- add form-builder-wrapper component with functions to add new field, delete and reposition ([2bf1a1e](https://github.com/freshworks/crayons/commit/2bf1a1e01135606a6edbb4462bf54dc72b11fcc5))
 
 ## [1.2.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.0-beta.4...@freshworks/crayons-custom-objects@1.2.0-beta.5) (2022-12-18)
 
