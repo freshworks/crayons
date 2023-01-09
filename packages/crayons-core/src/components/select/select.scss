@@ -63,12 +63,6 @@ $disabled-color: $input-disabled-color;
   }
 }
 
-.readonly-field {
-  .display-tag {
-    padding-inline-start: 8px;
-  }
-}
-
 .input-container {
   width: calc(100% - 10px);
   border: var(--fw-select-border, 1px solid $input-border);
@@ -200,6 +194,7 @@ $disabled-color: $input-disabled-color;
 
   .tag-disabled {
     cursor: not-allowed;
+    pointer-events: none;
   }
 }
 
