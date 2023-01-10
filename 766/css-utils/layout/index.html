@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Layout | Crayons</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <script type="module" src="/crayons/766/crayons/build/crayons.esm.js"></script>
+    <script nomodule="" src="/crayons/766/crayons/build/crayons.js"></script>
+    <link rel="stylesheet" href="/crayons/766/css/crayons-min.css">
+    <link rel="icon" href="/crayons/766/favicon.png">
+    <meta name="description" content="A refreshed design library for the Freshworks Developers.">
+    <meta property="article:modified_time" content="2023-01-10T19:16:07.000Z">
+    <meta property="og:site_name" content="Crayons">
+    <meta property="og:title" content="Crayons">
+    <meta property="og:description" content="A refreshed design library for the Freshworks Developers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://crayons.freshworks.com/css-utils/layout/">
+    <meta property="og:image" content="https://s3.amazonaws.com/static.freshcloud.io/crayons/assets/crayons.png">
+    <meta name="twitter:title" content="Crayons">
+    <meta name="twitter:description" content="A refreshed design library for the Freshworks Developers.">
+    <meta name="twitter:url" content="https://crayons.freshworks.com/css-utils/layout/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://s3.amazonaws.com/static.freshcloud.io/crayons/assets/crayons.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Web Components, Ui Kit, Marketplace, Freshworks Marketplace, Component Library, FDK, Freshworks developers, Freshworks development, Freshworks, Freshworks Development Kit">
+    <meta property="article:tag" content="Web Components">
+    
+    <link rel="preload" href="/crayons/766/assets/css/0.styles.9491d903.css" as="style"><link rel="preload" href="/crayons/766/assets/js/app.0a6aad92.js" as="script"><link rel="preload" href="/crayons/766/assets/js/5.bed87302.js" as="script"><link rel="preload" href="/crayons/766/assets/js/78.96014074.js" as="script"><link rel="preload" href="/crayons/766/assets/js/8.b0d42111.js" as="script"><link rel="prefetch" href="/crayons/766/assets/js/1.c1bf0bb9.js"><link rel="prefetch" href="/crayons/766/assets/js/10.a047820b.js"><link rel="prefetch" href="/crayons/766/assets/js/11.4bf70472.js"><link rel="prefetch" href="/crayons/766/assets/js/12.426775fc.js"><link rel="prefetch" href="/crayons/766/assets/js/13.9dd84b58.js"><link rel="prefetch" href="/crayons/766/assets/js/14.d368c4fd.js"><link rel="prefetch" href="/crayons/766/assets/js/15.2b0f0010.js"><link rel="prefetch" href="/crayons/766/assets/js/16.790a94bd.js"><link rel="prefetch" href="/crayons/766/assets/js/17.115486f8.js"><link rel="prefetch" href="/crayons/766/assets/js/18.045f874c.js"><link rel="prefetch" href="/crayons/766/assets/js/19.7e4f13e8.js"><link rel="prefetch" href="/crayons/766/assets/js/20.7232212a.js"><link rel="prefetch" href="/crayons/766/assets/js/21.2cda7d4c.js"><link rel="prefetch" href="/crayons/766/assets/js/22.f42c2afc.js"><link rel="prefetch" href="/crayons/766/assets/js/23.d373c7bb.js"><link rel="prefetch" href="/crayons/766/assets/js/24.cdb85061.js"><link rel="prefetch" href="/crayons/766/assets/js/25.435da6ce.js"><link rel="prefetch" href="/crayons/766/assets/js/26.b28075b4.js"><link rel="prefetch" href="/crayons/766/assets/js/27.480ec36e.js"><link rel="prefetch" href="/crayons/766/assets/js/28.eb5af59c.js"><link rel="prefetch" href="/crayons/766/assets/js/29.04f4f7a7.js"><link rel="prefetch" href="/crayons/766/assets/js/3.c6f5068a.js"><link rel="prefetch" href="/crayons/766/assets/js/30.ec76d68d.js"><link rel="prefetch" href="/crayons/766/assets/js/31.09f07cc3.js"><link rel="prefetch" href="/crayons/766/assets/js/32.30e927fc.js"><link rel="prefetch" href="/crayons/766/assets/js/33.011500e6.js"><link rel="prefetch" href="/crayons/766/assets/js/34.e82a4f77.js"><link rel="prefetch" href="/crayons/766/assets/js/35.bc2adf2b.js"><link rel="prefetch" href="/crayons/766/assets/js/36.841b4ea9.js"><link rel="prefetch" href="/crayons/766/assets/js/37.49481a21.js"><link rel="prefetch" href="/crayons/766/assets/js/38.2a083a36.js"><link rel="prefetch" href="/crayons/766/assets/js/39.07988492.js"><link rel="prefetch" href="/crayons/766/assets/js/4.c5888bab.js"><link rel="prefetch" href="/crayons/766/assets/js/40.d76fc3e5.js"><link rel="prefetch" href="/crayons/766/assets/js/41.a74d0bd2.js"><link rel="prefetch" href="/crayons/766/assets/js/42.fba59004.js"><link rel="prefetch" href="/crayons/766/assets/js/43.c3b2f50a.js"><link rel="prefetch" href="/crayons/766/assets/js/44.d1c349b8.js"><link rel="prefetch" href="/crayons/766/assets/js/45.d529b461.js"><link rel="prefetch" href="/crayons/766/assets/js/46.ae006176.js"><link rel="prefetch" href="/crayons/766/assets/js/47.862fecba.js"><link rel="prefetch" href="/crayons/766/assets/js/48.9bd84d20.js"><link rel="prefetch" href="/crayons/766/assets/js/49.7f32b975.js"><link rel="prefetch" href="/crayons/766/assets/js/50.93ff24b2.js"><link rel="prefetch" href="/crayons/766/assets/js/51.24fb8d29.js"><link rel="prefetch" href="/crayons/766/assets/js/52.a2689b93.js"><link rel="prefetch" href="/crayons/766/assets/js/53.25b0a97a.js"><link rel="prefetch" href="/crayons/766/assets/js/54.e0d9b925.js"><link rel="prefetch" href="/crayons/766/assets/js/55.e50128c6.js"><link rel="prefetch" href="/crayons/766/assets/js/56.a61dac9b.js"><link rel="prefetch" href="/crayons/766/assets/js/57.57ba44b5.js"><link rel="prefetch" href="/crayons/766/assets/js/58.f7e4277f.js"><link rel="prefetch" href="/crayons/766/assets/js/59.95f2b7a4.js"><link rel="prefetch" href="/crayons/766/assets/js/6.409422f7.js"><link rel="prefetch" href="/crayons/766/assets/js/60.40617da5.js"><link rel="prefetch" href="/crayons/766/assets/js/61.b2bd43d9.js"><link rel="prefetch" href="/crayons/766/assets/js/62.c656c977.js"><link rel="prefetch" href="/crayons/766/assets/js/63.960aaa65.js"><link rel="prefetch" href="/crayons/766/assets/js/64.2503fa09.js"><link rel="prefetch" href="/crayons/766/assets/js/65.f97f7f9d.js"><link rel="prefetch" href="/crayons/766/assets/js/66.6c9cccf3.js"><link rel="prefetch" href="/crayons/766/assets/js/67.233632f4.js"><link rel="prefetch" href="/crayons/766/assets/js/68.816f32f3.js"><link rel="prefetch" href="/crayons/766/assets/js/69.da07e4cb.js"><link rel="prefetch" href="/crayons/766/assets/js/7.915018df.js"><link rel="prefetch" href="/crayons/766/assets/js/70.9542ec3e.js"><link rel="prefetch" href="/crayons/766/assets/js/71.d5dc7ff3.js"><link rel="prefetch" href="/crayons/766/assets/js/72.4f81dae0.js"><link rel="prefetch" href="/crayons/766/assets/js/73.d1d5c37b.js"><link rel="prefetch" href="/crayons/766/assets/js/74.3d5d6907.js"><link rel="prefetch" href="/crayons/766/assets/js/75.6d648c35.js"><link rel="prefetch" href="/crayons/766/assets/js/76.26dee41f.js"><link rel="prefetch" href="/crayons/766/assets/js/77.38180f3e.js"><link rel="prefetch" href="/crayons/766/assets/js/79.4f124f55.js"><link rel="prefetch" href="/crayons/766/assets/js/80.4f3d4d06.js"><link rel="prefetch" href="/crayons/766/assets/js/81.2e8f2b6a.js"><link rel="prefetch" href="/crayons/766/assets/js/82.0e8ef376.js"><link rel="prefetch" href="/crayons/766/assets/js/83.e624213d.js"><link rel="prefetch" href="/crayons/766/assets/js/84.e6fa0074.js"><link rel="prefetch" href="/crayons/766/assets/js/85.8847558c.js"><link rel="prefetch" href="/crayons/766/assets/js/86.33db873d.js"><link rel="prefetch" href="/crayons/766/assets/js/87.1e7de948.js"><link rel="prefetch" href="/crayons/766/assets/js/88.8e13a0a0.js"><link rel="prefetch" href="/crayons/766/assets/js/9.98db0cb4.js">
+    <link rel="stylesheet" href="/crayons/766/assets/css/0.styles.9491d903.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/crayons/766/" class="home-link router-link-active"><!----> <span class="site-name">Crayons</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/crayons/766/introduction/migrating-to-v3/" class="nav-link">
+  Migrating to v3
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="v3.x" class="dropdown-title"><span class="title">v3.x</span> <span class="arrow down"></span></button> <button type="button" aria-label="v3.x" class="mobile-dropdown-title"><span class="title">v3.x</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v3.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/v2/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v2.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/crayons/766/introduction/migrating-to-v3/" class="nav-link">
+  Migrating to v3
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="v3.x" class="dropdown-title"><span class="title">v3.x</span> <span class="arrow down"></span></button> <button type="button" aria-label="v3.x" class="mobile-dropdown-title"><span class="title">v3.x</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v3.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/v2/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v2.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Introduction</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/766/introduction/" class="sidebar-link">Overview</a></li><li><a href="/crayons/766/introduction/migrating-to-v3/" class="sidebar-link">Migrating to v3</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Components</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/766/components/core/accordion/" class="sidebar-link">Accordion (fw-accordion)</a></li><li><a href="/crayons/766/components/core/accordion-body/" class="sidebar-link">Accordion Body (fw-accordion-body)</a></li><li><a href="/crayons/766/components/core/accordion-title/" class="sidebar-link">Accordion Title (fw-accordion-title)</a></li><li><a href="/crayons/766/components/core/avatar/" class="sidebar-link">Avatar (fw-avatar)</a></li><li><a href="/crayons/766/components/core/button/" class="sidebar-link">Button (fw-button)</a></li><li><a href="/crayons/766/components/core/button-group/" class="sidebar-link">Button Group (fw-button-group)</a></li><li><a href="/crayons/766/components/core/checkbox/" class="sidebar-link">Checkbox (fw-checkbox)</a></li><li><a href="/crayons/766/components/core/country-phone/" class="sidebar-link">CountryPhone(fw-country-phone)</a></li><li><a href="/crayons/766/components/core/data-table/" class="sidebar-link">DataTable (fw-data-table)</a></li><li><a href="/crayons/766/components/core/datepicker/" class="sidebar-link">Datepicker (fw-datepicker)</a></li><li><a href="/crayons/766/components/core/drag-container/" class="sidebar-link">Drag Container (fw-drag-container)</a></li><li><a href="/crayons/766/components/core/drag-item/" class="sidebar-link">Drag Item (fw-drag-item)</a></li><li><a href="/crayons/766/components/core/file-uploader/" class="sidebar-link">File uploader (fw-file-uploader)</a></li><li><a href="/crayons/766/components/core/form/" class="sidebar-link">Form (fw-form)</a></li><li><a href="/crayons/766/components/core/form-control/" class="sidebar-link">Form Control (fw-form-control)</a></li><li><a href="/crayons/766/components/core/format-date/" class="sidebar-link">Format Date (fw-format-date)</a></li><li><a href="/crayons/766/components/core/format-number/" class="sidebar-link">Format Number (fw-format-number)</a></li><li><a href="/crayons/766/components/core/icon/" class="sidebar-link">Icon (fw-icon)</a></li><li><a href="/crayons/766/components/core/inline-message/" class="sidebar-link">Inline Message (fw-inline-message)</a></li><li><a href="/crayons/766/components/core/input/" class="sidebar-link">Input (fw-input)</a></li><li><a href="/crayons/766/components/core/label/" class="sidebar-link">Label (fw-label)</a></li><li><a href="/crayons/766/components/core/menu/" class="sidebar-link">Menu (fw-menu)</a></li><li><a href="/crayons/766/components/core/menu-item/" class="sidebar-link">Menu Item (fw-menu-item)</a></li><li><a href="/crayons/766/components/core/modal/" class="sidebar-link">Modal (fw-modal)</a></li><li><a href="/crayons/766/components/core/modal-content/" class="sidebar-link">Modal Content (fw-modal-content)</a></li><li><a href="/crayons/766/components/core/modal-footer/" class="sidebar-link">Modal Footer (fw-modal-footer)</a></li><li><a href="/crayons/766/components/core/modal-title/" class="sidebar-link">Modal Title (fw-modal-title)</a></li><li><a href="/crayons/766/components/core/options-list/" class="sidebar-link">List Options (fw-list-options)</a></li><li><a href="/crayons/766/components/core/pagination/" class="sidebar-link">Pagination (fw-pagination)</a></li><li><a href="/crayons/766/components/core/pill/" class="sidebar-link">Pill (fw-pill)</a></li><li><a href="/crayons/766/components/core/popover/" class="sidebar-link">Popover (fw-popover)</a></li><li><a href="/crayons/766/components/core/progress-loader/" class="sidebar-link">Progress Loader (fw-progress-loader)</a></li><li><a href="/crayons/766/components/core/radio/" class="sidebar-link">Radio (fw-radio)</a></li><li><a href="/crayons/766/components/core/radio-group/" class="sidebar-link">Radio Group (fw-radio-group)</a></li><li><a href="/crayons/766/components/core/select/" class="sidebar-link">Select (fw-select)</a></li><li><a href="/crayons/766/components/core/select-option/" class="sidebar-link">Select Option (fw-select-option)</a></li><li><a href="/crayons/766/components/core/skeleton/" class="sidebar-link">Skeleton (fw-skeleton)</a></li><li><a href="/crayons/766/components/core/spinner/" class="sidebar-link">Spinner (fw-spinner)</a></li><li><a href="/crayons/766/components/core/tab/" class="sidebar-link">Tab (fw-tab)</a></li><li><a href="/crayons/766/components/core/tab-panel/" class="sidebar-link">Tab Panel (fw-tab-panel)</a></li><li><a href="/crayons/766/components/core/tabs/" class="sidebar-link">Tabs (fw-tabs)</a></li><li><a href="/crayons/766/components/core/tag/" class="sidebar-link">Tag (fw-tag)</a></li><li><a href="/crayons/766/components/core/textarea/" class="sidebar-link">Textarea (fw-textarea)</a></li><li><a href="/crayons/766/components/core/timepicker/" class="sidebar-link">Timepicker (fw-timepicker)</a></li><li><a href="/crayons/766/components/core/toast/" class="sidebar-link">Toast (fw-toast)</a></li><li><a href="/crayons/766/components/core/toast-message/" class="sidebar-link">Toast Message (fw-toast-message)</a></li><li><a href="/crayons/766/components/core/toggle/" class="sidebar-link">Toggle (fw-toggle)</a></li><li><a href="/crayons/766/components/core/toggle-group/" class="sidebar-link">Toggle Group (fw-toggle-group)</a></li><li><a href="/crayons/766/components/core/toggle-group-button/" class="sidebar-link">Toggle Group Button (fw-toggle-group-button)</a></li><li><a href="/crayons/766/components/core/tooltip/" class="sidebar-link">Tooltip (fw-tooltip)</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>CSS Utils</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/766/css-utils/typography/" class="sidebar-link">Typography</a></li><li><a href="/crayons/766/css-utils/spacing/" class="sidebar-link">Spacing (Margin and Padding)</a></li><li><a href="/crayons/766/css-utils/border/" class="sidebar-link">Border</a></li><li><a href="/crayons/766/css-utils/layout/" aria-current="page" class="active sidebar-link">Layout</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/crayons/766/css-utils/layout/#flex" class="sidebar-link">Flex</a></li></ul></li><li><a href="/crayons/766/css-utils/card/" class="sidebar-link">Card</a></li><li><a href="/crayons/766/css-utils/color/" class="sidebar-link">Color</a></li><li><a href="/crayons/766/css-utils/examples/" class="sidebar-link">Examples</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Utilities</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/766/utilities/i18n/" class="sidebar-link">Internationalization Support (i18n)</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Frameworks</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/766/frameworks/react/" class="sidebar-link">React</a></li><li><a href="/crayons/766/frameworks/vue/" class="sidebar-link">Vue</a></li><li><a href="/crayons/766/frameworks/angular/" class="sidebar-link">Angular</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="layout"><a href="#layout" class="header-anchor">#</a> Layout</h1> <p>Flex utilities are provided in an atomic way to easily create any layout easily.</p> <h2 id="flex"><a href="#flex" class="header-anchor">#</a> Flex</h2> <p>'fw-flex' is the class to include to create a <strong>flex container</strong>.</p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div class=&quot;fw-flex flex-container-border&quot;&gt;
+    &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 1&lt;/div&gt;
+    &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 2&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-b1686ac4" class="fw-flex flex-container-border" data-v-b1686ac4><div class="flex-item-border fw-flex-grow" data-v-b1686ac4>Flex item 1</div> <div class="flex-item-border fw-flex-grow" data-v-b1686ac4>Flex item 2</div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><h3 id="flex-direction"><a href="#flex-direction" class="header-anchor">#</a> Flex Direction</h3> <p>'fw-flex-#{$direction}' is the class to establishes the main-axis for the <strong>flex container</strong>.</p> <p><em>#{$direction} should be substituted with one of these values 'row', 'row-reverse', 'column', 'column-reverse'.</em></p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;span&gt;Row Example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-flex-row&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Row reverse example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-flex-row-reverse&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Column example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-flex-column&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Column reverse example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-flex-column-reverse&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-b240fc6d" data-v-b240fc6d><span data-v-b240fc6d>Row Example:</span> <div class="fw-flex flex-container-border fw-flex-row" data-v-b240fc6d><div class="flex-item-border fw-flex-grow" data-v-b240fc6d>Flex item 1</div> <div class="flex-item-border fw-flex-grow" data-v-b240fc6d>Flex item 2</div></div> <br data-v-b240fc6d> <span data-v-b240fc6d>Row reverse example:</span> <div class="fw-flex flex-container-border fw-flex-row-reverse" data-v-b240fc6d><div class="flex-item-border fw-flex-grow" data-v-b240fc6d>Flex item 1</div> <div class="flex-item-border fw-flex-grow" data-v-b240fc6d>Flex item 2</div></div> <br data-v-b240fc6d> <span data-v-b240fc6d>Column example:</span> <div class="fw-flex flex-container-border fw-flex-column" data-v-b240fc6d><div class="flex-item-border fw-flex-grow" data-v-b240fc6d>Flex item 1</div> <div class="flex-item-border fw-flex-grow" data-v-b240fc6d>Flex item 2</div></div> <br data-v-b240fc6d> <span data-v-b240fc6d>Column reverse example:</span> <div class="fw-flex flex-container-border fw-flex-column-reverse" data-v-b240fc6d><div class="flex-item-border fw-flex-grow" data-v-b240fc6d>Flex item 1</div> <div class="flex-item-border fw-flex-grow" data-v-b240fc6d>Flex item 2</div></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><h3 id="flex-wrap"><a href="#flex-wrap" class="header-anchor">#</a> Flex Wrap</h3> <p>'fw-flex-#{$wrap}' is a class that can be used to either wrap/unwrap/reverse-wrap items inside the <strong>flex container</strong>.</p> <p><em>#{$wrap} should be substituted with one of these values 'wrap', 'wrap-reverse', 'nowrap'.</em></p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+    width: 100%;
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;span&gt;Wrap example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-flex-wrap&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Nowrap example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-flex-nowrap&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Wrap reverse example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-flex-wrap-reverse&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-3ef7c2fd" data-v-3ef7c2fd><span data-v-3ef7c2fd>Wrap example:</span> <div class="fw-flex flex-container-border fw-flex-wrap" data-v-3ef7c2fd><div class="flex-item-border" data-v-3ef7c2fd>Flex item 1</div> <div class="flex-item-border" data-v-3ef7c2fd>Flex item 2</div></div> <br data-v-3ef7c2fd> <span data-v-3ef7c2fd>Nowrap example:</span> <div class="fw-flex flex-container-border fw-flex-nowrap" data-v-3ef7c2fd><div class="flex-item-border" data-v-3ef7c2fd>Flex item 1</div> <div class="flex-item-border" data-v-3ef7c2fd>Flex item 2</div></div> <br data-v-3ef7c2fd> <span data-v-3ef7c2fd>Wrap reverse example:</span> <div class="fw-flex flex-container-border fw-flex-wrap-reverse" data-v-3ef7c2fd><div class="flex-item-border" data-v-3ef7c2fd>Flex item 1</div> <div class="flex-item-border" data-v-3ef7c2fd>Flex item 2</div></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><h3 id="flex-justify"><a href="#flex-justify" class="header-anchor">#</a> Flex Justify</h3> <p>We can use 'fw-justify-#{$value}' class to position a flex item along a <strong>flex container</strong>'s main axis.</p> <p><em>#{$value} should be substituted with one of these values 'start', 'end', 'center', 'between', 'around', 'evenly'.</em></p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;span&gt;Start example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-justify-start&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;End example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-justify-end&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Center example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-justify-center&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Between example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-justify-between&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Around example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-justify-around&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Evenly example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-justify-evenly&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-6beee859" data-v-6beee859><span data-v-6beee859>Start example:</span> <div class="fw-flex flex-container-border fw-justify-start" data-v-6beee859><div class="flex-item-border" data-v-6beee859>Flex item 1</div> <div class="flex-item-border" data-v-6beee859>Flex item 2</div> <div class="flex-item-border" data-v-6beee859>Flex item 3</div> <div class="flex-item-border" data-v-6beee859>Flex item 4</div> <div class="flex-item-border" data-v-6beee859>Flex item 5</div> <div class="flex-item-border" data-v-6beee859>Flex item 6</div> <div class="flex-item-border" data-v-6beee859>Flex item 7</div></div> <br data-v-6beee859> <span data-v-6beee859>End example:</span> <div class="fw-flex flex-container-border fw-justify-end" data-v-6beee859><div class="flex-item-border" data-v-6beee859>Flex item 1</div> <div class="flex-item-border" data-v-6beee859>Flex item 2</div> <div class="flex-item-border" data-v-6beee859>Flex item 3</div> <div class="flex-item-border" data-v-6beee859>Flex item 4</div> <div class="flex-item-border" data-v-6beee859>Flex item 5</div> <div class="flex-item-border" data-v-6beee859>Flex item 6</div> <div class="flex-item-border" data-v-6beee859>Flex item 7</div></div> <br data-v-6beee859> <span data-v-6beee859>Center example:</span> <div class="fw-flex flex-container-border fw-justify-center" data-v-6beee859><div class="flex-item-border" data-v-6beee859>Flex item 1</div> <div class="flex-item-border" data-v-6beee859>Flex item 2</div> <div class="flex-item-border" data-v-6beee859>Flex item 3</div> <div class="flex-item-border" data-v-6beee859>Flex item 4</div> <div class="flex-item-border" data-v-6beee859>Flex item 5</div> <div class="flex-item-border" data-v-6beee859>Flex item 6</div> <div class="flex-item-border" data-v-6beee859>Flex item 7</div></div> <br data-v-6beee859> <span data-v-6beee859>Between example:</span> <div class="fw-flex flex-container-border fw-justify-between" data-v-6beee859><div class="flex-item-border" data-v-6beee859>Flex item 1</div> <div class="flex-item-border" data-v-6beee859>Flex item 2</div> <div class="flex-item-border" data-v-6beee859>Flex item 3</div> <div class="flex-item-border" data-v-6beee859>Flex item 4</div> <div class="flex-item-border" data-v-6beee859>Flex item 5</div> <div class="flex-item-border" data-v-6beee859>Flex item 6</div> <div class="flex-item-border" data-v-6beee859>Flex item 7</div></div> <br data-v-6beee859> <span data-v-6beee859>Around example:</span> <div class="fw-flex flex-container-border fw-justify-around" data-v-6beee859><div class="flex-item-border" data-v-6beee859>Flex item 1</div> <div class="flex-item-border" data-v-6beee859>Flex item 2</div> <div class="flex-item-border" data-v-6beee859>Flex item 3</div> <div class="flex-item-border" data-v-6beee859>Flex item 4</div> <div class="flex-item-border" data-v-6beee859>Flex item 5</div> <div class="flex-item-border" data-v-6beee859>Flex item 6</div> <div class="flex-item-border" data-v-6beee859>Flex item 7</div></div> <br data-v-6beee859> <span data-v-6beee859>Evenly example:</span> <div class="fw-flex flex-container-border fw-justify-evenly" data-v-6beee859><div class="flex-item-border" data-v-6beee859>Flex item 1</div> <div class="flex-item-border" data-v-6beee859>Flex item 2</div> <div class="flex-item-border" data-v-6beee859>Flex item 3</div> <div class="flex-item-border" data-v-6beee859>Flex item 4</div> <div class="flex-item-border" data-v-6beee859>Flex item 5</div> <div class="flex-item-border" data-v-6beee859>Flex item 6</div> <div class="flex-item-border" data-v-6beee859>Flex item 7</div></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><h3 id="flex-align-contents"><a href="#flex-align-contents" class="header-anchor">#</a> Flex Align Contents</h3> <p>We can use 'fw-content-#{$name}' class to position items in multi-row <strong>flex container</strong>.</p> <p><em>#{$name} should be substituted with one of these values 'start', 'end', 'center', 'between', 'around', 'evenly'</em></p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+    height: 100px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+    width: 150px;
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;span&gt;Start example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex fw-flex-wrap flex-container-border fw-content-start&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;End example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex fw-flex-wrap flex-container-border fw-content-end&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Center example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex fw-flex-wrap flex-container-border fw-content-center&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Between example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex fw-flex-wrap flex-container-border fw-content-between&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Around example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex fw-flex-wrap flex-container-border fw-content-around&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Evenly example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex fw-flex-wrap flex-container-border fw-content-evenly&quot;&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border&quot;&gt;Flex item 7&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-3018b61f" data-v-3018b61f><span data-v-3018b61f>Start example:</span> <div class="fw-flex fw-flex-wrap flex-container-border fw-content-start" data-v-3018b61f><div class="flex-item-border" data-v-3018b61f>Flex item 1</div> <div class="flex-item-border" data-v-3018b61f>Flex item 2</div> <div class="flex-item-border" data-v-3018b61f>Flex item 3</div> <div class="flex-item-border" data-v-3018b61f>Flex item 4</div> <div class="flex-item-border" data-v-3018b61f>Flex item 5</div> <div class="flex-item-border" data-v-3018b61f>Flex item 6</div> <div class="flex-item-border" data-v-3018b61f>Flex item 7</div></div> <br data-v-3018b61f> <span data-v-3018b61f>End example:</span> <div class="fw-flex fw-flex-wrap flex-container-border fw-content-end" data-v-3018b61f><div class="flex-item-border" data-v-3018b61f>Flex item 1</div> <div class="flex-item-border" data-v-3018b61f>Flex item 2</div> <div class="flex-item-border" data-v-3018b61f>Flex item 3</div> <div class="flex-item-border" data-v-3018b61f>Flex item 4</div> <div class="flex-item-border" data-v-3018b61f>Flex item 5</div> <div class="flex-item-border" data-v-3018b61f>Flex item 6</div> <div class="flex-item-border" data-v-3018b61f>Flex item 7</div></div> <br data-v-3018b61f> <span data-v-3018b61f>Center example:</span> <div class="fw-flex fw-flex-wrap flex-container-border fw-content-center" data-v-3018b61f><div class="flex-item-border" data-v-3018b61f>Flex item 1</div> <div class="flex-item-border" data-v-3018b61f>Flex item 2</div> <div class="flex-item-border" data-v-3018b61f>Flex item 3</div> <div class="flex-item-border" data-v-3018b61f>Flex item 4</div> <div class="flex-item-border" data-v-3018b61f>Flex item 5</div> <div class="flex-item-border" data-v-3018b61f>Flex item 6</div> <div class="flex-item-border" data-v-3018b61f>Flex item 7</div></div> <br data-v-3018b61f> <span data-v-3018b61f>Between example:</span> <div class="fw-flex fw-flex-wrap flex-container-border fw-content-between" data-v-3018b61f><div class="flex-item-border" data-v-3018b61f>Flex item 1</div> <div class="flex-item-border" data-v-3018b61f>Flex item 2</div> <div class="flex-item-border" data-v-3018b61f>Flex item 3</div> <div class="flex-item-border" data-v-3018b61f>Flex item 4</div> <div class="flex-item-border" data-v-3018b61f>Flex item 5</div> <div class="flex-item-border" data-v-3018b61f>Flex item 6</div> <div class="flex-item-border" data-v-3018b61f>Flex item 7</div></div> <br data-v-3018b61f> <span data-v-3018b61f>Around example:</span> <div class="fw-flex fw-flex-wrap flex-container-border fw-content-around" data-v-3018b61f><div class="flex-item-border" data-v-3018b61f>Flex item 1</div> <div class="flex-item-border" data-v-3018b61f>Flex item 2</div> <div class="flex-item-border" data-v-3018b61f>Flex item 3</div> <div class="flex-item-border" data-v-3018b61f>Flex item 4</div> <div class="flex-item-border" data-v-3018b61f>Flex item 5</div> <div class="flex-item-border" data-v-3018b61f>Flex item 6</div> <div class="flex-item-border" data-v-3018b61f>Flex item 7</div></div> <br data-v-3018b61f> <span data-v-3018b61f>Evenly example:</span> <div class="fw-flex fw-flex-wrap flex-container-border fw-content-evenly" data-v-3018b61f><div class="flex-item-border" data-v-3018b61f>Flex item 1</div> <div class="flex-item-border" data-v-3018b61f>Flex item 2</div> <div class="flex-item-border" data-v-3018b61f>Flex item 3</div> <div class="flex-item-border" data-v-3018b61f>Flex item 4</div> <div class="flex-item-border" data-v-3018b61f>Flex item 5</div> <div class="flex-item-border" data-v-3018b61f>Flex item 6</div> <div class="flex-item-border" data-v-3018b61f>Flex item 7</div></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><h3 id="flex-align-items"><a href="#flex-align-items" class="header-anchor">#</a> Flex Align Items</h3> <p>We can use 'fw-items-#{$item}' class to position a flex item along a <strong>flex container</strong>'s cross axis.</p> <p><em>#{$item} should be substituted with one of these values 'start', 'end', 'center', 'baseline', 'stretch'.</em></p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+    height: 60px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;span&gt;Start example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-items-start&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 4&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;End example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-items-end&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 4&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Center example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-items-center&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 4&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Baseline example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-items-baseline&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 4&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Stretch example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border fw-items-stretch&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-mr-8&quot;&gt;Item 4&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-1ed2e02b" data-v-1ed2e02b><span data-v-1ed2e02b>Start example:</span> <div class="fw-flex flex-container-border fw-items-start" data-v-1ed2e02b><div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 1</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 2</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 3</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 4</div></div> <br data-v-1ed2e02b> <span data-v-1ed2e02b>End example:</span> <div class="fw-flex flex-container-border fw-items-end" data-v-1ed2e02b><div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 1</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 2</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 3</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 4</div></div> <br data-v-1ed2e02b> <span data-v-1ed2e02b>Center example:</span> <div class="fw-flex flex-container-border fw-items-center" data-v-1ed2e02b><div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 1</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 2</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 3</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 4</div></div> <br data-v-1ed2e02b> <span data-v-1ed2e02b>Baseline example:</span> <div class="fw-flex flex-container-border fw-items-baseline" data-v-1ed2e02b><div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 1</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 2</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 3</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 4</div></div> <br data-v-1ed2e02b> <span data-v-1ed2e02b>Stretch example:</span> <div class="fw-flex flex-container-border fw-items-stretch" data-v-1ed2e02b><div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 1</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 2</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 3</div> <div class="flex-item-border fw-mr-8" data-v-1ed2e02b>Item 4</div></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><h3 id="flex-grow"><a href="#flex-grow" class="header-anchor">#</a> Flex Grow</h3> <p>We can use either 'fw-flex-grow-0' or 'fw-flex-grow' value in <strong>flex items</strong>. 'fw-flex-grow-0' to prevent a flex item from growing. 'fw-flex-grow' to allow a flex item to grow to fill any available space.</p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;span&gt;Grow-0 example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow-0&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow-0&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Grow example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-grow&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-f21550d9" data-v-f21550d9><span data-v-f21550d9>Grow-0 example:</span> <div class="fw-flex flex-container-border" data-v-f21550d9><div class="flex-item-border fw-flex-grow-0" data-v-f21550d9>Flex item 1</div> <div class="flex-item-border fw-flex-grow-0" data-v-f21550d9>Flex item 2</div></div> <br data-v-f21550d9> <span data-v-f21550d9>Grow example:</span> <div class="fw-flex flex-container-border" data-v-f21550d9><div class="flex-item-border fw-flex-grow" data-v-f21550d9>Flex item 1</div> <div class="flex-item-border fw-flex-grow" data-v-f21550d9>Flex item 2</div></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><h3 id="flex-shrink"><a href="#flex-shrink" class="header-anchor">#</a> Flex Shrink</h3> <p>We can use either 'fw-flex-shrink-0' or 'fw-flex-shrink' value in <strong>flex items</strong>. 'fw-flex-shrink-0' to prevent a flex item from shrinking. 'fw-flex-shrink' to allow a <strong>flex item</strong> to shrink if needed.</p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;span&gt;Shrink-0 example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-shrink-0&quot; style=&quot;width: 70%;&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-shrink-0&quot; style=&quot;width: 31%;&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;br /&gt;
+    &lt;span&gt;Shrink example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-shrink&quot; style=&quot;width: 70%;&quot;&gt;Flex item 1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-flex-shrink&quot; style=&quot;width: 31%;&quot;&gt;Flex item 2&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-369e9c0a" data-v-369e9c0a><span data-v-369e9c0a>Shrink-0 example:</span> <div class="fw-flex flex-container-border" data-v-369e9c0a><div class="flex-item-border fw-flex-shrink-0" style="width: 70%;" data-v-369e9c0a>Flex item 1</div> <div class="flex-item-border fw-flex-shrink-0" style="width: 31%;" data-v-369e9c0a>Flex item 2</div></div> <br data-v-369e9c0a> <span data-v-369e9c0a>Shrink example:</span> <div class="fw-flex flex-container-border" data-v-369e9c0a><div class="flex-item-border fw-flex-shrink" style="width: 70%;" data-v-369e9c0a>Flex item 1</div> <div class="flex-item-border fw-flex-shrink" style="width: 31%;" data-v-369e9c0a>Flex item 2</div></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><h3 id="flex-order"><a href="#flex-order" class="header-anchor">#</a> Flex Order</h3> <p>We can use 'fw-order-#{$number}' class to render <strong>flex items</strong> in a different order than they appear in the DOM.</p> <p><em>#{$number} should be substituted with a value from 0 to 12.</em> <em>Other values that can be used are 'fw-order-first', 'fw-order-last', 'fw-order-none'.</em></p> <div code="&lt;style&gt;
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+  }
+&lt;/style&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;span&gt;Order example:&lt;/span&gt;
+    &lt;div class=&quot;fw-flex flex-container-border&quot;&gt;
+      &lt;div class=&quot;flex-item-border fw-px-8 fw-order-5&quot;&gt;1&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-px-8 fw-order-4&quot;&gt;2&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-px-8 fw-order-3&quot;&gt;3&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-px-8 fw-order-2&quot;&gt;4&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-px-8 fw-order-1&quot;&gt;5&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-px-8 fw-order-first&quot;&gt;6&lt;/div&gt;
+      &lt;div class=&quot;flex-item-border fw-px-8 fw-order-last&quot;&gt;7&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-bf996317" data-v-bf996317><span data-v-bf996317>Order example:</span> <div class="fw-flex flex-container-border" data-v-bf996317><div class="flex-item-border fw-px-8 fw-order-5" data-v-bf996317>1</div> <div class="flex-item-border fw-px-8 fw-order-4" data-v-bf996317>2</div> <div class="flex-item-border fw-px-8 fw-order-3" data-v-bf996317>3</div> <div class="flex-item-border fw-px-8 fw-order-2" data-v-bf996317>4</div> <div class="flex-item-border fw-px-8 fw-order-1" data-v-bf996317>5</div> <div class="flex-item-border fw-px-8 fw-order-first" data-v-bf996317>6</div> <div class="flex-item-border fw-px-8 fw-order-last" data-v-bf996317>7</div></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">1/10/2023, 7:16:07 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/crayons/766/css-utils/border/" class="prev">
+        Border
+      </a></span> <span class="next"><a href="/crayons/766/css-utils/card/">
+        Card
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/crayons/766/assets/js/app.0a6aad92.js" defer></script><script src="/crayons/766/assets/js/5.bed87302.js" defer></script><script src="/crayons/766/assets/js/78.96014074.js" defer></script><script src="/crayons/766/assets/js/8.b0d42111.js" defer></script>
+  </body>
+</html>
