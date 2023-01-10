@@ -39,8 +39,7 @@ jobs:
         env:
           VUEPRESS_BASE: ${{ format('{0}{1}/', '/crayons/', env.PR_NUMBER) }}
           
-          
-      - name: Deploy
+      - name: Deploy to GH Pages
         uses: freshactions/github-pages-deploy-action@v4
         with:
           folder: www-dist

@@ -1,4 +1,4 @@
-name: Deploy preview
+name: Delete gh-pages folder of a closed PR
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ env:
 
 jobs:
   remove:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     continue-on-error: true
     if: github.event.pull_request.merged == true
     steps:
@@ -19,8 +19,9 @@ jobs:
         with:
           ref: master
 
+      # Git Config
       - name: Set Git Config
-        run: git config --global user.email "kulkarni.kashyap@freshworks.com" && git config --global user.name "kulkarni.kashyap"
+        run: git config --global user.email "runway-frontend-coe@freshworks.com" && git config --global user.name "runway-frontend-coe"
 
       - name: Remove File
         run: ./delete-pages.sh ${{env.PR_NUMBER}}
