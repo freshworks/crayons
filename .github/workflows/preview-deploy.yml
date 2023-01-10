@@ -49,5 +49,5 @@ jobs:
       - name: Add PR comment
         run: | 
               curl -s -H "Authorization: token ${{secrets.GITHUB_TOKEN}}" \
-              -X POST -d "{\"body\": \"test comment\"}" \
+              -X POST -d "{\"body\": \"Preview Environment - https://freshworks.github.io/crayons/${{env.PR_NUMBER}}/ \"}" \
               "https://api.github.com/repos/freshworks/crayons/issues/${{env.PR_NUMBER}}/comments"
