@@ -39,7 +39,7 @@ jobs:
           
           
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: freshactions/github-pages-deploy-action@v4
         with:
           folder: www-dist
           target-folder: ${{ env.PR_NUMBER }}
