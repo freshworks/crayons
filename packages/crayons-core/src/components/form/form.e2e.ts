@@ -812,4 +812,85 @@ describe('fw-form', () => {
       element.shadowRoot.querySelectorAll('fw-form-control').length
     ).toEqual(0);
   });
+
+  it('should update the dropdown with the new choices in the form on calling setFieldChoices method', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          first_name: 'Test',
+          is_indian_citizen: true,
+          gender: 'Male',
+          pincode: 123345,
+          amount_paid: 10,
+        };
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const newChoices = [
+      {
+        id: 1,
+        text: 'idle',
+        position: 1,
+        dependent_ids: {},
+      },
+      {
+        id: 2,
+        text: 'in progress',
+        position: 2,
+        dependent_ids: {},
+      },
+      {
+        id: 3,
+        text: 'failure',
+        position: 3,
+        dependent_ids: {},
+      },
+
+      {
+        id: 4,
+        text: 'closed',
+        position: 4,
+        dependent_ids: {},
+      },
+    ];
+
+    const formRef = await page.find('fw-form');
+
+    await formRef.callMethod('setFieldChoices', 'order_status', newChoices);
+
+    const formElemShadow = await page.find('fw-form >>> :first-child');
+    // const formElemShadow = await document.querySelector('fw-form').shadowRoot;
+
+    console.log('formElemShadow:', formElemShadow);
+
+    const formControlShadow = await formElemShadow.find(
+      "fw-form-control[name='order_status'] >>> :first-child"
+    );
+
+    // const formControlShadow = await formElemShadow.querySelector(
+    //   "fw-form-control[name='order_status']"
+    // ).shadowRoot;
+
+    const popover = await formControlShadow.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    await page.waitForChanges();
+
+    await expect(options.length).toBe(4);
+
+    await expect(options[0].shadowRoot.textContent).toEqual('idle');
+    await expect(options[1].shadowRoot.textContent).toEqual('in progress');
+    await expect(options[2].shadowRoot.textContent).toEqual('failure');
+    await expect(options[3].shadowRoot.textContent).toEqual('closed');
+  });
 });
