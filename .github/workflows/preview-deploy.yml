@@ -14,7 +14,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu
     continue-on-error: true
     environment:
       name: github-pages
