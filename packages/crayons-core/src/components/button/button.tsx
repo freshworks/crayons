@@ -31,7 +31,7 @@ export class Button {
    * Identifier of  the theme based on which the button is styled.
    */
   @Prop() color: 'primary' | 'secondary' | 'danger' | 'link' | 'text' =
-    'secondary';
+    'primary';
 
   /**
    * Size of the button.
