@@ -24,6 +24,6 @@ jobs:
         run: git config --global user.email "runway-frontend-coe@freshworks.com" && git config --global user.name "runway-frontend-coe"
 
       - name: Remove File
-        run: .github/delete-pages.sh ${{env.PR_NUMBER}}
+        run: ./.github/delete-pages.sh ${{env.PR_NUMBER}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
