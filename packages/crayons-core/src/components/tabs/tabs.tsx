@@ -9,6 +9,10 @@ import {
   Method,
 } from '@stencil/core';
 
+/**
+ * @parent tab
+ */
+
 @Component({
   tag: 'fw-tabs',
   styleUrl: 'tabs.scss',

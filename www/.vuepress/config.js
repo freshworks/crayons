@@ -87,6 +87,22 @@ const getTags = () => [
   'Freshworks Development Kit',
 ];
 
+const getComponents = () => {
+  const componentMap = {};
+  coreComponents.forEach((item) => {
+    const key = item.split("/")[2];
+    if (componentMap[key]) {
+      if (componentMap[key].children) componentMap[key].children.push(item);
+      else componentMap[key] = {
+          type: 'group',
+          title: key[0].toUpperCase() + key.slice(1),
+          children: [`components/core/${key}/`, item]
+        } 
+    } else componentMap[key] = item;
+  });
+  return Object.values(componentMap);
+}
+
 const websiteUrl = 'https://crayons.freshworks.com';
 
 module.exports = {
@@ -109,7 +125,7 @@ module.exports = {
         title: 'Core Components',
         collapsable: false,
         sidebarDepth: 1,
-        children: coreComponents,
+        children: getComponents(),
       },
       {
         title: 'CSS Utils',
