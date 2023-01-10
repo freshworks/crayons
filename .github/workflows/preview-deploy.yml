@@ -5,22 +5,24 @@ on:
     branches: [test-gh-preview-deploy]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+  actions: write
+  pull-requests: write
   
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
   deploy:
-    runs-on: [self-hosted, Linux]
+    runs-on: ubuntu-latest
     continue-on-error: true
     environment:
       name: github-pages
     steps:
       - uses: actions/checkout@v2
-
+      
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
@@ -35,33 +37,17 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VUEPRESS_BASE: ${{ format('{0}{1}/', '/gh-preview-deploy/', env.PR_NUMBER) }}
-
-       - name: Setup Pages
-        uses: actions/configure-pages@v2
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload entire repository
-          path: 'www-dist'
+          VUEPRESS_BASE: ${{ format('{0}{1}/', '/crayons/', env.PR_NUMBER) }}
           
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
- 
-
-      # - name: Deploy
-      #   uses: JamesIves/github-pages-deploy-action@4.1.1
-      #   with:
-      #     branch: master
-      #     folder: www-dist
-      #     target-folder: ${{ env.PR_NUMBER }}
-
-      - name: Publish env
-        uses: marocchino/sticky-pull-request-comment@v2
+      - name: Deploy to GH Pages
+        uses: freshactions/github-pages-deploy-action@v4
         with:
-          header: Preview environment
-          message: |
-            ## Preview environment
-            https://kulkarni-kashyap.github.io/gh-preview-deploy/${{ env.PR_NUMBER }}/
+          folder: www-dist
+          target-folder: ${{ env.PR_NUMBER }}
+          
+          
+      - name: Add PR comment
+        run: | 
+              curl -s -H "Authorization: token ${{secrets.GITHUB_TOKEN}}" \
+              -X POST -d "{\"body\": \"Preview Environment - https://freshworks.github.io/crayons/${{env.PR_NUMBER}}/ \"}" \
+              "https://api.github.com/repos/freshworks/crayons/issues/${{env.PR_NUMBER}}/comments"
