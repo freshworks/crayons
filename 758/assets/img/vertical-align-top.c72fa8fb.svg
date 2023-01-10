@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/vertical-align-top</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Icons-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons" transform="translate(-490.000000, -804.000000)" fill="currentColor">
+            <g id="icon/vertical-align-top" transform="translate(490.000000, 804.000000)">
+                <g id="vertical-align-top">
+                    <path d="M15.3,0.1 L0.7,0.1 C0.313400675,0.1 4.73447626e-17,0.413400675 0,0.8 C4.73447626e-17,1.18659932 0.313400675,1.5 0.7,1.5 L2,1.5 L2,15.2 C2,15.5865993 2.31340068,15.9 2.7,15.9 L6.3,15.9 C6.68659932,15.9 7,15.5865993 7,15.2 L7,1.5 L9,1.5 L9,7.2 C9,7.58659932 9.31340068,7.9 9.7,7.9 L13.3,7.9 C13.6865993,7.9 14,7.58659932 14,7.2 L14,1.5 L15.3,1.5 C15.6865993,1.5 16,1.18659932 16,0.8 C16,0.614348457 15.9262502,0.436300718 15.7949747,0.305025253 C15.6636993,0.173749788 15.4856515,0.1 15.3,0.1 Z M5.6,14.5 L3.4,14.5 L3.4,1.5 L5.6,1.5 L5.6,14.5 Z M12.6,6.5 L10.4,6.5 L10.4,1.5 L12.6,1.5 L12.6,6.5 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
