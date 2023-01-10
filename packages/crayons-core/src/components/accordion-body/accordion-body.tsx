@@ -1,5 +1,9 @@
 import { Component, Prop, h } from '@stencil/core';
 
+/**
+ * @parent accordion
+ */
+
 @Component({
   tag: 'fw-accordion-body',
   styleUrl: 'accordion-body.scss',

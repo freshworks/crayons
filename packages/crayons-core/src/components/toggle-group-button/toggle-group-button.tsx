@@ -10,6 +10,10 @@ import {
   Host,
 } from '@stencil/core';
 
+/**
+ * @parent toggle
+ */
+
 @Component({
   tag: 'fw-toggle-group-button',
   styleUrl: 'toggle-group-button.scss',

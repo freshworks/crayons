@@ -19,6 +19,10 @@ import {
   validateAndParseInputSelectedValues,
 } from '../../utils/list-utils';
 
+/**
+ * @parent toggle
+ */
+
 @Component({
   tag: 'fw-toggle-group',
   styleUrl: 'toggle-group.scss',

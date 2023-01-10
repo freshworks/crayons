@@ -1,5 +1,9 @@
 import { Component, h } from '@stencil/core';
 
+/**
+ * @parent modal
+ */
+
 @Component({
   tag: 'fw-modal-content',
   styleUrl: 'modal-content.scss',

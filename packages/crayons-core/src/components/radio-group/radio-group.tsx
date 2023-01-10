@@ -18,6 +18,11 @@ import {
   watchForOptions,
   hasSlot,
 } from '../../utils';
+
+/**
+ * @parent radio
+ */
+
 @Component({
   tag: 'fw-radio-group',
   styleUrl: 'radio-group.scss',
