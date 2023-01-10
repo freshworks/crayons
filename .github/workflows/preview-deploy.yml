@@ -9,6 +9,7 @@ permissions:
   pages: write
   id-token: write
   actions: write
+  pull-requests: write
   
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
