@@ -380,7 +380,7 @@
     "config": {
       "hasPrimary": false,
       "customizeWidget": false,
-      "filterByType": true,
+      "filterByType": false,
       "editInternalName": true,
       "internalNamePrefix": "cf_",
       "showDefaultTag": true,

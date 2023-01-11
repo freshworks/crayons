@@ -221,7 +221,7 @@
         }
 
         .form-builder-right-panel-header-right-filter-by-div {
-          width: 60%;
+          width: 40%;
           height: 100%;
           box-sizing: border-box;
           display: flex;
@@ -243,16 +243,13 @@
             height: 20px;
           }
 
-          .form-builder-right-filter-by-field-type-select {
-            width: 100%;
-            .fw-button-group__button--last {
-              width: 100%;
-            }
+          .form-builder-filter-by-field-type-select {
+            width: 230px;
           }
         }
 
         .form-builder-right-panel-header-right-div {
-          width: 100%;
+          width: 80%;
           height: 100%;
           box-sizing: border-box;
           display: flex;
