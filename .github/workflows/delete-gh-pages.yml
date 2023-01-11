@@ -1,10 +1,12 @@
 name: Delete gh-pages folder of a closed PR
 
 on:
-  pull_request:
-    branches:
-      - test-gh-preview-deploy
-    types: [closed]
+  workflow_dispatch:
+    inputs:
+      test:
+        description: test to run workflow for gh-pages delete folder
+        required: false
+        type: string
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
 
@@ -12,7 +14,7 @@ jobs:
   remove:
     runs-on: ubuntu-latest
     continue-on-error: true
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -24,8 +26,9 @@ jobs:
         run: git config --global user.email "runway-frontend-coe@freshworks.com" && git config --global user.name "runway-frontend-coe"
 
       - name: Remove File
-        run: | 
-            rm -rf ${{env.PR_NUMBER}} \
+        run: |
+            pwd \
+            rm -rf 767 \
             HUSKY_SKIP_HOOKS=1 git add . \
             HUSKY_SKIP_HOOKS=1 git commit -m "Delete directory that is not required" \
             HUSKY_SKIP_HOOKS=1 git push origin gh-pages
