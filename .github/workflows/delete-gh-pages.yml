@@ -17,13 +17,17 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
         with:
-          ref: master
+          ref: gh-pages
 
       # Git Config
       - name: Set Git Config
         run: git config --global user.email "runway-frontend-coe@freshworks.com" && git config --global user.name "runway-frontend-coe"
 
       - name: Remove File
-        run: ./.github/delete-pages.sh ${{env.PR_NUMBER}}
+        run: | 
+            rm -rf ${{env.PR_NUMBER}} \
+            HUSKY_SKIP_HOOKS=1 git add . \
+            HUSKY_SKIP_HOOKS=1 git commit -m "Delete directory that is not required" \
+            HUSKY_SKIP_HOOKS=1 git push origin gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
