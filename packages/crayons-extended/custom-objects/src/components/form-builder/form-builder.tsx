@@ -37,8 +37,10 @@ export class FormBuilder {
   private debouncedHandleInput: any;
   private modalCustomizeWidget!: any;
   private isWidgetValuesChanged = false;
+  private filterByFieldTypeOptions = null;
   private supportedFieldTypes;
   private resizeObserver;
+  private FILTER_ALL_FIELDS = 'ALL_FIELDS';
 
   /**
    * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
@@ -86,6 +88,10 @@ export class FormBuilder {
    */
   @State() arrSearchedFields = null;
   /**
+   * State to store the filtered field elements
+   */
+  @State() arrFilteredByTypeFields = null;
+  /**
    * State to check if the form is in searching mode
    */
   @State() searching = false;
@@ -109,6 +115,10 @@ export class FormBuilder {
    * Flag to enable / disable the the unique option
    */
   @State() enableUnique = true;
+  /**
+   * selected filter option from the select component for filter by field type
+   */
+  @State() selectedFieldTypeFilterOption = this.FILTER_ALL_FIELDS;
   /**
    * Triggered on Add/Save field button click from the field list items
    */
@@ -437,6 +447,37 @@ export class FormBuilder {
     event.stopPropagation();
     this.arrSearchedFields = null;
     this.searching = false;
+  };
+
+  private fieldTypeFilterChangeHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    const filteredFieldType = event.detail.value;
+
+    if (
+      filteredFieldType &&
+      filteredFieldType !== '' &&
+      filteredFieldType !== this.FILTER_ALL_FIELDS
+    ) {
+      this.arrSearchedFields = null;
+      this.searching = false;
+
+      const arrFieldElements =
+        this.localFormValues && this.localFormValues.fields
+          ? this.localFormValues.fields
+          : [];
+
+      if (arrFieldElements && arrFieldElements.length > 0) {
+        const arrResults = arrFieldElements.filter(function (dataItem) {
+          return dataItem.type.indexOf(filteredFieldType) !== -1;
+        });
+        this.arrFilteredByTypeFields = deepCloneObject(arrResults);
+        this.selectedFieldTypeFilterOption = filteredFieldType;
+        return;
+      }
+    }
+    this.arrFilteredByTypeFields = null;
+    this.selectedFieldTypeFilterOption = this.FILTER_ALL_FIELDS;
   };
 
   private openCustomizeWidgetModalHandler = (event: CustomEvent) => {
@@ -814,11 +855,21 @@ export class FormBuilder {
           )
         : null;
 
-    const arrFieldElements = this.searching
+    const boolFilterApplied =
+      this.selectedFieldTypeFilterOption &&
+      this.selectedFieldTypeFilterOption !== '' &&
+      this.selectedFieldTypeFilterOption !== this.FILTER_ALL_FIELDS
+        ? true
+        : false;
+
+    const arrFieldElements = boolFilterApplied
+      ? this.arrFilteredByTypeFields
+      : this.searching
       ? this.arrSearchedFields
       : objFormValuesSchema && objFormValuesSchema.fields
       ? objFormValuesSchema.fields
       : [];
+
     const fieldElements =
       arrFieldElements && arrFieldElements.length > 0
         ? arrFieldElements.map((dataItem, index) =>
@@ -832,10 +883,10 @@ export class FormBuilder {
         : null;
 
     const boolShowEmptySearchResults =
-      this.searching && (!fieldElements || fieldElements.length === 0);
+      (this.searching && (!fieldElements || fieldElements.length === 0)) ||
+      (boolFilterApplied && (!fieldElements || fieldElements.length === 0));
     const boolHasCustomizeWidgetOption =
       objProductPreset?.config.customizeWidget || false;
-
     const fieldWidgetElements =
       this.showCustomizeWidget &&
       arrFieldElements &&
@@ -844,6 +895,31 @@ export class FormBuilder {
             this.renderWidgetElement(dataItem, index)
           )
         : null;
+
+    const boolHasFilterByFieldTypes =
+      objProductPreset?.config.filterByType || false;
+    if (
+      !this.filterByFieldTypeOptions &&
+      arrFieldOrder &&
+      arrFieldOrder.length > 0
+    ) {
+      const dbFieldProps = objProductPreset?.fieldProps;
+      const intFieldTypesLength = arrFieldOrder.length;
+
+      this.filterByFieldTypeOptions = [
+        {
+          text: i18nText('filterOptionAllFields'),
+          value: this.FILTER_ALL_FIELDS,
+        },
+      ];
+
+      for (let f1 = 0; f1 < intFieldTypesLength; f1++) {
+        this.filterByFieldTypeOptions.push({
+          text: i18nText(dbFieldProps[arrFieldOrder[f1]].display_label),
+          value: arrFieldOrder[f1],
+        });
+      }
+    }
 
     const strRightPanelBaseClassName = `${strBaseClassName}-right-panel`;
     const strLeftPanelBaseClassName = `${strBaseClassName}-left-panel`;
@@ -876,9 +952,28 @@ export class FormBuilder {
           <div class={strRightPanelBaseClassName}>
             <div class={strRightPanelHeaderClassName}>
               <div class={`${strBaseClassName}-right-panel-header-content`}>
-                <label class={`${strBaseClassName}-right-panel-header-label`}>
-                  {i18nText('headerFields')}
-                </label>
+                {!boolHasFilterByFieldTypes && (
+                  <label class={`${strBaseClassName}-right-panel-header-label`}>
+                    {i18nText('headerFields')}
+                  </label>
+                )}
+                {boolHasFilterByFieldTypes && (
+                  <div
+                    class={`${strBaseClassName}-right-panel-header-right-filter-by-div`}
+                  >
+                    <label
+                      class={`${strBaseClassName}-right-panel-header-filter-label`}
+                    >
+                      {i18nText('filterFields')}
+                    </label>
+                    <fw-select
+                      class={`${strBaseClassName}-filter-by-field-type-select`}
+                      options={this.filterByFieldTypeOptions}
+                      value={this.selectedFieldTypeFilterOption}
+                      onFwChange={this.fieldTypeFilterChangeHandler}
+                    ></fw-select>
+                  </div>
+                )}
                 <div class={`${strBaseClassName}-right-panel-header-right-div`}>
                   {boolHasCustomizeWidgetOption && (
                     <fw-button

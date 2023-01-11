@@ -17,7 +17,9 @@ import {
   hasCustomProperty,
   getNestedKeyValueFromObject,
   i18nText,
+  removeFirstOccurrence,
   getMaximumLimitsConfig,
+  deriveInternalNameFromLabel,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -30,9 +32,12 @@ import presetSchema from '../assets/form-builder-preset.json';
 export class FieldEditor {
   @Element() host!: HTMLElement;
 
+  private KEY_INTERNAL_NAME = 'internalName';
   private modalConfirmDelete!: any;
   private divFieldBase: HTMLElement;
   private dictInteractiveElements;
+  private isInternalNameEdited = false;
+  private internalNamePrefix = '';
   private isNewField = false;
   private oldFormValues;
   private errorType;
@@ -118,9 +123,13 @@ export class FieldEditor {
    */
   @State() formErrorMessage = '';
   /**
-   * State to show name label input error message
+   * State to show label input error message
    */
-  @State() nameErrorMessage = '';
+  @State() labelErrorMessage = '';
+  /**
+   * State to show internal name input error message
+   */
+  @State() internalNameErrorMessage = '';
   /**
    * flag to show spinner on delete button
    */
@@ -152,6 +161,7 @@ export class FieldEditor {
   watchDataproviderChangeHandler(): void {
     this.isDeleting = false;
     this.isValuesChanged = false;
+    this.isInternalNameEdited = false;
     this.oldFormValues = this.dataProvider
       ? deepCloneObject(this.dataProvider)
       : null;
@@ -164,9 +174,10 @@ export class FieldEditor {
           : false;
 
       if (this.isNewField) {
+        this.isInternalNameEdited = false;
         this.setCheckboxesAvailability(deepCloneObject(this.dataProvider));
       } else {
-        const strFieldLabel = this.dataProvider.label;
+        this.isInternalNameEdited = true;
         const objDefaultFieldTypeSchema = deepCloneObject(
           this.defaultFieldTypeSchema
         );
@@ -176,7 +187,12 @@ export class FieldEditor {
             ? deepCloneObject(this.dataProvider.choices)
             : [];
 
-        objDefaultFieldTypeSchema.label = strFieldLabel;
+        objDefaultFieldTypeSchema.label = this.dataProvider.label || '';
+        objDefaultFieldTypeSchema.name =
+          removeFirstOccurrence(
+            this.dataProvider.name,
+            this.internalNamePrefix
+          ) || '';
         this.setCheckboxesAvailability(objDefaultFieldTypeSchema);
       }
     } else {
@@ -186,6 +202,10 @@ export class FieldEditor {
   }
 
   componentWillLoad(): void {
+    const objProductPreset = formMapper[this.productName];
+    const objProductConfig = objProductPreset.config;
+    this.internalNamePrefix = objProductConfig.internalNamePrefix;
+
     this.watchDataproviderChangeHandler();
     this.dictInteractiveElements = {};
   }
@@ -333,11 +353,11 @@ export class FieldEditor {
   };
 
   /**
-   * function to validate the name input error values
+   * function to validate the label input error values
    */
-  private validateNameErrors = (strInputValue) => {
+  private validateLabelErrors = (strInputValue) => {
     if (!strInputValue) {
-      this.nameErrorMessage = i18nText('errors.emptyFieldName');
+      this.labelErrorMessage = i18nText('errors.emptyFieldName');
       return false;
     } else {
       try {
@@ -354,14 +374,56 @@ export class FieldEditor {
               e.label.toLowerCase() === strNewFieldLabel
           )
         ) {
-          this.nameErrorMessage = i18nText('errors.fieldNameExists');
+          this.labelErrorMessage = i18nText('errors.fieldNameExists');
           return false;
         }
       } catch (error) {
-        console.error(`Error occured in validateNameErrors: ${error}`);
+        console.error(`Error occured in validateLabelErrors: ${error}`);
       }
     }
-    this.nameErrorMessage = '';
+    this.labelErrorMessage = '';
+    return true;
+  };
+
+  /**
+   * function to validate the internal name input error values
+   */
+  private validateInternalNameErrors = (strInputValue) => {
+    if (!strInputValue) {
+      this.internalNameErrorMessage = i18nText('errors.emptyFieldName');
+      return false;
+    } else {
+      try {
+        const strNewFieldName =
+          this.internalNamePrefix + strInputValue.toLowerCase();
+        const arrFields = this.formValues.fields;
+
+        if (
+          arrFields &&
+          arrFields.length > 0 &&
+          arrFields.some(
+            (e, fieldIndex) =>
+              this.index !== fieldIndex &&
+              !e?.isNew &&
+              e.name.toLowerCase() === strNewFieldName
+          )
+        ) {
+          this.internalNameErrorMessage = i18nText('errors.fieldNameExists');
+          return false;
+        } else {
+          const regexAlphaNumChars = /^[A-Z0-9_\s]+$/i;
+          if (!regexAlphaNumChars.test(strInputValue)) {
+            this.internalNameErrorMessage = i18nText(
+              'errors.useOnlyEnglishChars'
+            );
+            return false;
+          }
+        }
+      } catch (error) {
+        console.error(`Error occured in validateInternalNameErrors: ${error}`);
+      }
+    }
+    this.internalNameErrorMessage = '';
     return true;
   };
 
@@ -418,15 +480,28 @@ export class FieldEditor {
 
       switch (strTagName) {
         case 'fw-input':
+          // eslint-disable-next-line no-case-declarations
+          const strInputValue = elInteractive.value;
           if (key === 'name') {
-            const strInputValue = elInteractive.value;
-            boolValidForm = this.validateNameErrors(strInputValue);
+            boolValidForm = this.validateLabelErrors(strInputValue);
             if (boolValidForm) {
-              this.nameErrorMessage = '';
-              objValues[key] = elInteractive.value || '';
+              this.labelErrorMessage = '';
+              objValues[key] = strInputValue || '';
             } else {
               this.showErrors = true;
               return;
+            }
+          } else if (key === this.KEY_INTERNAL_NAME) {
+            if (this.isNewField) {
+              boolValidForm = this.validateInternalNameErrors(strInputValue);
+              if (boolValidForm) {
+                this.internalNameErrorMessage = '';
+                objValues[key] =
+                  `${this.internalNamePrefix}${strInputValue}` || '';
+              } else {
+                this.showErrors = true;
+                return;
+              }
             }
           }
           break;
@@ -464,7 +539,11 @@ export class FieldEditor {
     }
 
     if (boolValidForm) {
-      this.nameErrorMessage = '';
+      if (!this.isNewField) {
+        objValues[this.KEY_INTERNAL_NAME] = this.dataProvider.name;
+      }
+      this.internalNameErrorMessage = '';
+      this.labelErrorMessage = '';
       this.formErrorMessage = '';
       this.showErrors = false;
 
@@ -483,7 +562,8 @@ export class FieldEditor {
     if (this.expanded) {
       this.dictInteractiveElements = {};
       this.expanded = false;
-      this.nameErrorMessage = '';
+      this.internalNameErrorMessage = '';
+      this.labelErrorMessage = '';
       this.formErrorMessage = '';
       this.showErrors = false;
 
@@ -601,33 +681,92 @@ export class FieldEditor {
     }
   };
 
-  private nameInputHandler = (event: CustomEvent) => {
-    event.stopImmediatePropagation();
-    event.stopPropagation();
-    this.isValuesChanged = true;
-    const strInputValue = event?.detail?.value || '';
-    this.fieldBuilderOptions = {
-      ...this.fieldBuilderOptions,
-      label: strInputValue,
-    };
+  private performLabelChange = (event: CustomEvent, isBlur = false) => {
+    if (event) {
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+    }
 
+    if (!isBlur) {
+      this.isValuesChanged = true;
+    }
+
+    const strInputValue = !isBlur
+      ? event?.detail?.value || ''
+      : event?.target?.['value']?.trim() || '';
+
+    let strInternalName = '';
+    let boolInternalNameUpdated = false;
+    if (!this.isInternalNameEdited && this.isNewField) {
+      strInternalName = deriveInternalNameFromLabel(strInputValue);
+      boolInternalNameUpdated = true;
+    }
+
+    if (boolInternalNameUpdated) {
+      this.fieldBuilderOptions = {
+        ...this.fieldBuilderOptions,
+        label: strInputValue,
+        name: strInternalName,
+      };
+    } else {
+      this.fieldBuilderOptions = {
+        ...this.fieldBuilderOptions,
+        label: strInputValue,
+      };
+    }
+
+    console.log(boolInternalNameUpdated + '===' + this.fieldBuilderOptions);
     if (this.showErrors) {
-      this.validateNameErrors(strInputValue);
+      this.validateLabelErrors(strInputValue);
     }
   };
 
+  private nameInputHandler = (event: CustomEvent) => {
+    this.performLabelChange(event);
+  };
+
   private nameBlurHandler = (event: CustomEvent) => {
-    event.stopImmediatePropagation();
-    event.stopPropagation();
-    const strInputValue = event?.target?.['value']?.trim() || '';
-    this.fieldBuilderOptions = {
-      ...this.fieldBuilderOptions,
-      label: strInputValue,
-    };
+    this.performLabelChange(event, true);
+  };
+
+  private performInternalNameChange = (event: CustomEvent, isBlur = false) => {
+    if (event) {
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+    }
+
+    let strInputValue = !isBlur
+      ? event?.detail?.value || ''
+      : event?.target?.['value']?.trim() || '';
+    const isValidValue = strInputValue && strInputValue !== '';
+    if (!isBlur) {
+      this.isValuesChanged = true;
+      if (isValidValue) {
+        strInputValue = strInputValue.trim();
+      }
+    }
+    if (!this.isInternalNameEdited && isValidValue) {
+      this.isInternalNameEdited = true;
+    }
+
+    if (isValidValue) {
+      this.fieldBuilderOptions = {
+        ...this.fieldBuilderOptions,
+        name: strInputValue,
+      };
+    }
 
     if (this.showErrors) {
-      this.validateNameErrors(strInputValue);
+      this.validateInternalNameErrors(strInputValue);
     }
+  };
+
+  private internalNameInputHandler = (event: CustomEvent) => {
+    this.performInternalNameChange(event);
+  };
+
+  private internalNameBlurHandler = (event: CustomEvent) => {
+    this.performInternalNameChange(event, true);
   };
 
   private renderFwLabel(dataItem) {
@@ -729,13 +868,66 @@ export class FieldEditor {
     );
   }
 
-  private renderContent() {
-    if (!this.expanded) {
+  private renderInternalName(objProductConfig) {
+    const boolSupportInternalName = objProductConfig.editInternalName;
+    if (!boolSupportInternalName || !this.expanded) {
       return null;
     }
     const strBaseClassName = 'fw-field-editor';
     const objFieldBuilder = this.fieldBuilderOptions;
-    const strInputValue = hasCustomProperty(objFieldBuilder, 'label')
+    const strInputInternalName = hasCustomProperty(objFieldBuilder, 'name')
+      ? objFieldBuilder.name
+      : '';
+
+    const boolShowNameError =
+      this.showErrors &&
+      this.internalNameErrorMessage &&
+      this.internalNameErrorMessage !== ''
+        ? true
+        : false;
+    const strInputError = boolShowNameError
+      ? this.internalNameErrorMessage
+      : '';
+
+    return (
+      <div class={`${strBaseClassName}-internal-name-base`}>
+        <label
+          class={`${strBaseClassName}-internal-name-header-label required`}
+        >
+          {i18nText('internalName')}
+        </label>
+        <div class={`${strBaseClassName}-internal-name-container`}>
+          <label class={`${strBaseClassName}-internal-name-prefix`}>
+            {this.internalNamePrefix}
+          </label>
+          <fw-input
+            ref={(el) =>
+              (this.dictInteractiveElements[this.KEY_INTERNAL_NAME] = el)
+            }
+            class={`${strBaseClassName}-content-required-internal-name-input`}
+            placeholder={i18nText('fieldNamePlaceholder')}
+            required={true}
+            maxlength={255}
+            value={strInputInternalName}
+            errorText={strInputError}
+            disabled={!this.isNewField}
+            state={boolShowNameError ? 'error' : 'normal'}
+            onFwBlur={this.internalNameBlurHandler}
+            onFwInput={this.internalNameInputHandler}
+          ></fw-input>
+        </div>
+      </div>
+    );
+  }
+
+  private renderContent(objProductConfig) {
+    if (!this.expanded) {
+      return null;
+    }
+    const boolSupportInternalName = objProductConfig.editInternalName;
+    const strBaseClassName = 'fw-field-editor';
+    const objFieldBuilder = this.fieldBuilderOptions;
+    const strInputLabel = hasCustomProperty(objFieldBuilder, 'label')
       ? objFieldBuilder.label
       : '';
 
@@ -760,14 +952,14 @@ export class FieldEditor {
     const isLookupType = strFieldType === 'RELATIONSHIP';
     const elementRelationship = isLookupType ? this.renderLookup() : null;
 
-    const boolShowNameError =
-      this.showErrors && this.nameErrorMessage && this.nameErrorMessage !== ''
+    const boolShowLabelError =
+      this.showErrors && this.labelErrorMessage && this.labelErrorMessage !== ''
         ? true
         : false;
     const strInputHint = this.isPrimaryField
       ? i18nText('primaryFieldNameHint')
       : '';
-    const strInputError = boolShowNameError ? this.nameErrorMessage : '';
+    const strInputError = boolShowLabelError ? this.labelErrorMessage : '';
 
     return (
       <div class={`${strBaseClassName}-content-required`}>
@@ -789,13 +981,14 @@ export class FieldEditor {
           label={i18nText('fieldLabel')}
           required={true}
           maxlength={255}
-          value={strInputValue}
+          value={strInputLabel}
           hintText={strInputHint}
           errorText={strInputError}
-          state={boolShowNameError ? 'error' : 'normal'}
+          state={boolShowLabelError ? 'error' : 'normal'}
           onFwBlur={this.nameBlurHandler}
           onFwInput={this.nameInputHandler}
         ></fw-input>
+        {boolSupportInternalName && this.renderInternalName(objProductConfig)}
         {isDropdownType && (
           <div class={`${strBaseClassName}-content-dropdown`}>
             {elementDropdown}
@@ -837,10 +1030,18 @@ export class FieldEditor {
 
     let strHeaderLabel = '';
     if (boolNewField) {
+      const dbFieldTypeData = objProductPreset?.fieldProps[strFieldType];
+      const strFieldTypeHeaderLabel = hasCustomProperty(
+        dbFieldTypeData,
+        'display_label'
+      )
+        ? dbFieldTypeData.display_label
+        : '';
+
       strHeaderLabel = this.isPrimaryField
         ? i18nText('primaryFieldHeader')
-        : hasCustomProperty(objFormValue, 'display_label')
-        ? i18nText(objFormValue.display_label)
+        : strFieldTypeHeaderLabel && strFieldTypeHeaderLabel !== ''
+        ? i18nText(strFieldTypeHeaderLabel)
         : '';
     } else {
       strHeaderLabel = objFormValue.label;
@@ -998,7 +1199,7 @@ export class FieldEditor {
           {this.expanded && (
             <div class={`${strBaseClassName}-body`}>
               <div class={`${strBaseClassName}-content`}>
-                {this.renderContent()}
+                {this.renderContent(objProductConfig)}
               </div>
               <div class={strFooterClassName}>
                 {boolShowFieldValidationError && (

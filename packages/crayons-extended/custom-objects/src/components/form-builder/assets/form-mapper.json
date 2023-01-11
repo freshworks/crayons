@@ -228,6 +228,8 @@
       "hasPrimary": true,
       "customizeWidget": true,
       "filterByType": false,
+      "editInternalName": false,
+      "internalNamePrefix": "",
       "showDefaultTag": false,
       "defaultTagKey": "",
       "defaultTagLabel": ""
@@ -379,6 +381,8 @@
       "hasPrimary": false,
       "customizeWidget": false,
       "filterByType": true,
+      "editInternalName": true,
+      "internalNamePrefix": "cf_",
       "showDefaultTag": true,
       "defaultTagKey": "custom",
       "defaultTagLabel": "nonCustomDefaultFieldTag"

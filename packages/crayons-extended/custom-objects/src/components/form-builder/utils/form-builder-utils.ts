@@ -159,3 +159,36 @@ export function getFieldTypeCheckboxes(
   } catch (error) {}
   return null;
 }
+
+// function to check if only english characters are present in the passed string
+export function detectEnglish(text) {
+  const regexEnglish = /^[A-Z0-9_s]+$/i;
+  return regexEnglish.test(text);
+}
+
+// function to generate internal field name based on the typed label
+export function deriveInternalNameFromLabel(text) {
+  const regexAlphaNum = /[^a-z0-9_]/gi;
+  let derivedText = (text && text.toLowerCase().trim()) || '';
+  derivedText = derivedText.replace(/\s+/g, '_').replace(regexAlphaNum, '');
+  derivedText = !/^(_+)$/g.test(derivedText) ? derivedText : '';
+  return derivedText;
+}
+
+// function to check the first occurence of string and remove the characters
+export function removeFirstOccurrence(strWhole, charRemove) {
+  try {
+    if (strWhole && strWhole !== '' && charRemove && charRemove !== '') {
+      const index = strWhole.indexOf(charRemove);
+      if (index === -1) {
+        return strWhole;
+      }
+      return (
+        strWhole.slice(0, index) + strWhole.slice(index + charRemove.length)
+      );
+    }
+  } catch (error) {
+    return strWhole;
+  }
+  return strWhole;
+}
