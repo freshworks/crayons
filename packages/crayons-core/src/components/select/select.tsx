@@ -37,7 +37,7 @@ export class Select {
   private tagArrowKeyCounter = 0;
   private hostId;
 
-  private changeEmittable = () => !this.disabled && !this.readonly;
+  private changeEmittable = () => !this.disabled;
 
   private innerOnFocus = (e: Event) => {
     if (this.changeEmittable()) {
@@ -250,6 +250,16 @@ export class Select {
    */
   @Prop() hoist = false;
 
+  /**
+   *  Key for determining the label for a given option
+   */
+  @Prop() optionLabelPath = 'text';
+
+  /**
+   *  Key for determining the value for a given option
+   */
+  @Prop() optionValuePath = 'value';
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -409,8 +419,8 @@ export class Select {
       this.dataSource = newValue;
       this.selectedOptionsState = selectedValues;
       this.value = this.multiple
-        ? this.selectedOptionsState.map((x) => x.value)
-        : this.selectedOptionsState[0]?.value;
+        ? this.selectedOptionsState.map((x) => x[this.optionValuePath])
+        : this.selectedOptionsState[0]?.[this.optionValuePath];
     } else if (this.valueExists()) {
       this.dataSource = newValue?.map((option) => {
         return { ...option, selected: this.isValueEqual(this.value, option) };
@@ -430,18 +440,18 @@ export class Select {
 
   @Method()
   async getSelectedItem(): Promise<any> {
-    return this.fwListOptions.getSelectedOptions();
+    return this.fwListOptions?.getSelectedOptions();
   }
 
   @Method()
   async setSelectedValues(values: string | string[]): Promise<any> {
-    this.fwListOptions.setSelectedValues(values);
+    this.fwListOptions?.setSelectedValues(values);
     this.renderInput();
   }
 
   @Method()
   async setSelectedOptions(options: any[]): Promise<any> {
-    this.fwListOptions.setSelectedOptions(options);
+    this.fwListOptions?.setSelectedOptions(options);
     this.renderInput();
   }
 
@@ -532,8 +542,8 @@ export class Select {
 
   isValueEqual(value, option) {
     return this.multiple
-      ? value.includes(option.value)
-      : value === option.value;
+      ? value.includes(option[this.optionValuePath])
+      : value === option[this.optionValuePath];
   }
 
   valueExists() {
@@ -601,20 +611,16 @@ export class Select {
               ? 'error'
               : 'normal';
           const className =
-            this.disabled || option.disabled
-              ? 'tag-disabled'
-              : !this.readonly
-              ? 'tag-clickable'
-              : '';
+            this.disabled || option.disabled ? 'tag-disabled' : 'tag-clickable';
           const displayAttributes =
             this.variant === 'mail'
               ? {
-                  text: option.value,
+                  text: option[this.optionValuePath],
                   showEllipsisOnOverflow: true,
                   class: className + ' bold-tag',
                 }
               : {
-                  text: option.text,
+                  text: option[this.optionLabelPath],
                   subText: option.subText,
                 };
           return (
@@ -624,10 +630,10 @@ export class Select {
               state={optionState}
               variant={this.tagVariant}
               graphicsProps={option.graphicsProps}
-              disabled={this.disabled || this.readonly || option.disabled}
-              value={option.value}
+              disabled={this.disabled || option.disabled}
+              value={option[this.optionValuePath]}
               focusable={false}
-              closable={!this.disabled && !this.readonly && !option.disabled}
+              closable={!this.disabled && !option.disabled}
               isFocused={this.focusedValues.includes(index)}
               onClick={(e) => this.onClickTag(e, index)}
               {...displayAttributes}
@@ -639,21 +645,24 @@ export class Select {
   }
 
   renderButtonValue() {
-    if (this.tagVariant === 'avatar' && this.selectedOptionsState[0]?.value) {
+    if (
+      this.tagVariant === 'avatar' &&
+      this.selectedOptionsState[0]?.[this.optionValuePath]
+    ) {
       return (
         <fw-tag
           class='display-tag'
           state='transparent'
           variant='avatar'
           graphicsProps={this.selectedOptionsState[0]?.graphicsProps}
-          text={this.selectedOptionsState[0]?.text}
+          text={this.selectedOptionsState[0]?.[this.optionLabelPath]}
           subText={
             this.selectedOptionsState[0]?.subText
               ? `<${this.selectedOptionsState[0]?.subText}>`
               : ''
           }
           disabled={this.selectedOptionsState[0]?.disabled}
-          value={this.selectedOptionsState[0]?.value}
+          value={this.selectedOptionsState[0]?.[this.optionValuePath]}
           focusable={false}
           closable={false}
           showEllipsisOnOverflow
@@ -670,7 +679,7 @@ export class Select {
         this.selectInput.value = '';
         this.selectInput.value = this.multiple
           ? this.selectInput.value
-          : this.selectedOptionsState[0].text || '';
+          : this.selectedOptionsState[0][this.optionLabelPath] || '';
       }
     } else {
       if (this.selectInput) {
@@ -705,8 +714,8 @@ export class Select {
     if (this.selectedOptions?.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.multiple
-        ? this.selectedOptions.map((option) => option.value)
-        : this.selectedOptions[0].value;
+        ? this.selectedOptions.map((option) => option[this.optionValuePath])
+        : this.selectedOptions[0][this.optionValuePath];
     }
 
     if (this.multiple) {
@@ -721,8 +730,10 @@ export class Select {
     const options = selectOptions.map((option) => {
       return {
         html: option.html,
-        text: option.html ? option.optionText : option.textContent,
-        value: option.value,
+        [this.optionLabelPath]: option.html
+          ? option.optionText
+          : option.textContent,
+        [this.optionValuePath]: option.value,
         selected: this.isValueEqual(this.value, option) || option.selected,
         disabled: option.disabled,
         htmlContent: option.html ? option.innerHTML : '',
@@ -732,7 +743,7 @@ export class Select {
     // Set selectedOptions if the value is provided
     if (!this.multiple && this.value && this.selectedOptions?.length === 0) {
       this.selectedOptionsState = this.dataSource?.filter(
-        (option) => this.value === option.value
+        (option) => this.value === option[this.optionValuePath]
       );
     } else if (
       this.multiple &&
@@ -748,7 +759,7 @@ export class Select {
         (option) => option.selected
       );
       const selectedDataSourceValues = selectedDataSource.map(
-        (option) => option.value
+        (option) => option[this.optionValuePath]
       );
       const selected = this.multiple
         ? selectedDataSourceValues
@@ -822,8 +833,8 @@ export class Select {
           // Check value presence
           if (sanitisedValue) {
             valuesToBeInput.push({
-              text: sanitisedValue,
-              value: sanitisedValue,
+              [this.optionLabelPath]: sanitisedValue,
+              [this.optionValuePath]: sanitisedValue,
               error:
                 typeof this.creatableProps?.validateNewOption === 'function'
                   ? !this.creatableProps?.validateNewOption(sanitisedValue)
@@ -905,35 +916,28 @@ export class Select {
                   [this.state]: true,
                   'select-disabled': this.disabled,
                   'button-container': this.variant === 'button',
-                  'readonly-field': this.readonly,
                 }}
                 onClick={() => this.innerOnClick()}
                 onKeyDown={handleKeyDown(this.innerOnClick, true)}
               >
                 {this.variant === 'button' ? (
-                  this.readonly ? (
-                    this.renderButtonValue()
-                  ) : (
-                    <fw-button
-                      style={{ '--fw-button-label-vertical-padding': '7px' }}
-                      show-caret-icon
-                      id={`${this.hostId}-btn`}
-                      color={
-                        this.tagVariant === 'avatar' ? 'text' : 'secondary'
-                      }
-                      class={
-                        this.host.classList.value.includes('first')
-                          ? 'fw-button-group__button--first'
-                          : this.host.classList.value.includes('last')
-                          ? 'fw-button-group__button--last'
-                          : ''
-                      }
-                      aria-disabled={this.disabled}
-                      disabled={this.disabled}
-                    >
-                      {this.renderButtonValue()}
-                    </fw-button>
-                  )
+                  <fw-button
+                    style={{ '--fw-button-label-vertical-padding': '7px' }}
+                    show-caret-icon
+                    id={`${this.hostId}-btn`}
+                    color={this.tagVariant === 'avatar' ? 'text' : 'secondary'}
+                    class={
+                      this.host.classList.value.includes('first')
+                        ? 'fw-button-group__button--first'
+                        : this.host.classList.value.includes('last')
+                        ? 'fw-button-group__button--last'
+                        : ''
+                    }
+                    aria-disabled={this.disabled}
+                    disabled={this.disabled}
+                  >
+                    {this.renderButtonValue()}
+                  </fw-button>
                 ) : (
                   <Fragment>
                     <div class='input-container-inner'>
@@ -980,8 +984,7 @@ export class Select {
                     {this.isLoading ? (
                       <fw-spinner size='small'></fw-spinner>
                     ) : (
-                      this.caret &&
-                      !this.readonly && (
+                      this.caret && (
                         <span
                           class={{
                             'dropdown-status-icon': true,
@@ -1024,6 +1027,8 @@ export class Select {
                 checkbox={this.checkbox}
                 allowDeselect={this.allowDeselect}
                 slot='popover-content'
+                optionLabelPath={this.optionLabelPath}
+                optionValuePath={this.optionValuePath}
                 {...listAttributes}
               ></fw-list-options>
             </fw-popover>

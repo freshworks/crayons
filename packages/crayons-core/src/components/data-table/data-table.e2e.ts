@@ -521,7 +521,10 @@ describe('fw-data-table', () => {
   });
 
   it('should not be able to hide locked columns', async () => {
-    const currentData = { ...manyColumnData, showSettings: true };
+    const currentData = {
+      ...JSON.parse(JSON.stringify(manyColumnData)),
+      showSettings: true,
+    };
     currentData.columns[0].lock = true;
     await loadDataIntoGrid(currentData);
     await page.waitForChanges();
@@ -614,5 +617,101 @@ describe('fw-data-table', () => {
       'fw-data-table >>> tbody > tr:first-child > td:first-child > fw-skeleton'
     );
     expect(shimmer).toBeTruthy();
+  });
+
+  it('should hide column on unselecting a column from table settings', async () => {
+    const currentData = { ...manyColumnData, showSettings: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const closeSettings = await page.find('fw-data-table >>> #close-settings');
+    const tableItems = await page.findAll(
+      'fw-data-table >>> .table-settings-content-draggable .table-settings-drag-item'
+    );
+    let firstClose = await tableItems[0].find(
+      '.table-settings-drag-item-close'
+    );
+    await firstClose.click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    let checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    expect(checkboxes.length).toBe(1);
+    const secondClose = await tableItems[1].find(
+      '.table-settings-drag-item-close'
+    );
+    secondClose.click();
+    await page.waitForChanges();
+    checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    // should not unselect last column
+    expect(checkboxes.length).toBe(1);
+    closeSettings.click();
+    await page.waitForChanges();
+    settingsButton.click();
+    await page.waitForChanges();
+    checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    expect(checkboxes.length).toBe(2);
+    firstClose = await page.find(
+      'fw-data-table >>> .table-settings-content-draggable .table-settings-drag-item:first-child .table-settings-drag-item-close'
+    );
+    firstClose.click();
+    await page.waitForChanges();
+    checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    expect(checkboxes.length).toBe(1);
+  });
+
+  it('should hide column on unselecting a column by using checkboxes from table settings', async () => {
+    const currentData = { ...manyColumnData, showSettings: true };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const closeSettings = await page.find('fw-data-table >>> #close-settings');
+    await page.waitForChanges();
+    let firstCheckbox = await page.find('fw-data-table >>> fw-checkbox');
+    await firstCheckbox.click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    let checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    expect(checkboxes.length).toBe(1);
+    const allCheckboxes = await page.findAll('fw-data-table >>> fw-checkbox');
+    allCheckboxes[1].click();
+    await page.waitForChanges();
+    checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    // should not unselect last column
+    expect(checkboxes.length).toBe(1);
+    closeSettings.click();
+    await page.waitForChanges();
+    settingsButton.click();
+    await page.waitForChanges();
+    checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    expect(checkboxes.length).toBe(2);
+    firstCheckbox = await page.find('fw-data-table >>> fw-checkbox');
+    firstCheckbox.click();
+    await page.waitForChanges();
+    checkboxes = await page.findAll(
+      'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
+    );
+    expect(checkboxes.length).toBe(1);
   });
 });

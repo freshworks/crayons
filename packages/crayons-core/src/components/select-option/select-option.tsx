@@ -12,6 +12,10 @@ import {
 } from '@stencil/core';
 import { DropdownVariant } from '../../utils/types';
 
+/**
+ * @parent select
+ */
+
 @Component({
   tag: 'fw-select-option',
   styleUrl: 'select-option.scss',

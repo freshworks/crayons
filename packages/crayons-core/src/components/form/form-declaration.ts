@@ -3,9 +3,9 @@ import * as React from 'react';
 /**
  * Values of fields in the form
  */
-export interface FormValues {
+export type FormValues = {
   [field: string]: any;
-}
+};
 
 /**
  * An object containing error messages whose keys correspond to FormValues.

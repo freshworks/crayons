@@ -508,6 +508,11 @@ export namespace Components {
          */
         "filesLimit": number;
         /**
+          * get all locally available files in the component
+          * @returns FileList of all locally available files in the component
+         */
+        "getFiles": () => Promise<FileList>;
+        /**
           * hint - file uploader hint text.
          */
         "hint": string;
@@ -533,6 +538,14 @@ export namespace Components {
           * multiple - upload multiple files.
          */
         "multiple": boolean;
+        /**
+          * name - field name
+         */
+        "name": string;
+        /**
+          * reset file uploader
+         */
+        "reset": () => Promise<void>;
         /**
           * text - file uploader text.
          */
@@ -571,8 +584,18 @@ export namespace Components {
         "progress": number;
     }
     interface FwForm {
-        "doReset": (e: any) => Promise<void>;
-        "doSubmit": (e: any) => Promise<FormSubmit>;
+        /**
+          * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : {      'CUSTOM_TEXT': { type: 'TEXT' },      'SELECT': { type: 'DROPDOWN' },      'TEL': { type: 'PHONE_NUMBER' },      'CHECKBOX': { type: 'CHECKBOX' },      'TEXTAREA': { type: 'PARAGRAPH' },      'DATETIME': { type: 'DATE_TIME' },      'INTEGER': { type: 'NUMBER' },    }
+         */
+        "customTypeMapper": any;
+        /**
+          * @param event - An event which takes place in the DOM  Method to reset the form
+         */
+        "doReset": (event?: any) => Promise<void>;
+        /**
+          * @param event : An event which takes place in the DOM  Method to submit the form
+         */
+        "doSubmit": (event?: any) => Promise<FormSubmit>;
         /**
           * Id to uniquely identify the Form. If not set, a random Id will be generated.
          */
@@ -590,7 +613,21 @@ export namespace Components {
           * Initial field values of the form. It is an object with keys pointing to field name
          */
         "initialValues"?: any;
+        /**
+          * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`.
+         */
+        "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
+        /**
+          * Method to set errors on the form fields.
+          * @param errorObj - key value pair of [fieldName]: ErrorMessage
+         */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
+        /**
+          * Method to set value on the form field.
+          * @param field - name of the form field
+          * @param value - value of the form field
+          * @param shouldValidate - should this form field be validated with the updated value
+         */
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
@@ -633,6 +670,10 @@ export namespace Components {
           * Set Focus on the child
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Prop to determine whether to render the form-control or not. Default to true.
+         */
+        "shouldRender": boolean;
         "touched": boolean;
         "type": | 'TEXT'
     | 'NUMBER'
@@ -647,6 +688,7 @@ export namespace Components {
     | 'URL'
     | 'TEL'
     | 'TIME'
+    | 'DATE_TIME'
     | 'RELATIONSHIP';
     }
     interface FwFormatDate {
@@ -975,6 +1017,14 @@ export namespace Components {
          */
         "notFoundText": string;
         /**
+          * Key for determining the label for a given option
+         */
+        "optionLabelPath": string;
+        /**
+          * Key for determining the value for a given option
+         */
+        "optionValuePath": string;
+        /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options": any[];
@@ -1199,6 +1249,10 @@ export namespace Components {
         "hasBorder": boolean;
         "hide": () => Promise<void>;
         /**
+          * Indicates the delay after which popover will be hidden.
+         */
+        "hideAfter": number;
+        /**
           * Indicates whether popover contents should be hidden on pressing Tab.
          */
         "hideOnTab": boolean;
@@ -1215,6 +1269,10 @@ export namespace Components {
          */
         "sameWidth": boolean;
         "show": () => Promise<void>;
+        /**
+          * Indicates the delay after which popover will be shown.
+         */
+        "showAfter": number;
         /**
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
@@ -1432,6 +1490,14 @@ export namespace Components {
           * Default option to be shown if the option doesn't match the filterText.
          */
         "notFoundText": string;
+        /**
+          * Key for determining the label for a given option
+         */
+        "optionLabelPath": string;
+        /**
+          * Key for determining the value for a given option
+         */
+        "optionValuePath": string;
         /**
           * The data for the select component, the options will be of type array of fw-select-options.
          */
@@ -3096,6 +3162,10 @@ declare namespace LocalJSX {
          */
         "multiple"?: boolean;
         /**
+          * name - field name
+         */
+        "name"?: string;
+        /**
           * fileReuploaded - event that gets emitted when file is reuploaded
          */
         "onFwFileReuploaded"?: (event: FwFileUploaderCustomEvent<any>) => void;
@@ -3150,6 +3220,10 @@ declare namespace LocalJSX {
     }
     interface FwForm {
         /**
+          * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : {      'CUSTOM_TEXT': { type: 'TEXT' },      'SELECT': { type: 'DROPDOWN' },      'TEL': { type: 'PHONE_NUMBER' },      'CHECKBOX': { type: 'CHECKBOX' },      'TEXTAREA': { type: 'PARAGRAPH' },      'DATETIME': { type: 'DATE_TIME' },      'INTEGER': { type: 'NUMBER' },    }
+         */
+        "customTypeMapper"?: any;
+        /**
           * Id to uniquely identify the Form. If not set, a random Id will be generated.
          */
         "formId"?: any;
@@ -3161,6 +3235,10 @@ declare namespace LocalJSX {
           * Initial field values of the form. It is an object with keys pointing to field name
          */
         "initialValues"?: any;
+        /**
+          * Mapper Type - LEGO | FORMSERV | CUSTOM. Defaults to `LEGO`.
+         */
+        "mapperType"?: 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
           * fwFormValuesChanged - event that gets emitted when values change.
          */
@@ -3202,6 +3280,10 @@ declare namespace LocalJSX {
         "name"?: any;
         "placeholder"?: string;
         "required"?: boolean;
+        /**
+          * Prop to determine whether to render the form-control or not. Default to true.
+         */
+        "shouldRender"?: boolean;
         "touched"?: boolean;
         "type"?: | 'TEXT'
     | 'NUMBER'
@@ -3216,6 +3298,7 @@ declare namespace LocalJSX {
     | 'URL'
     | 'TEL'
     | 'TIME'
+    | 'DATE_TIME'
     | 'RELATIONSHIP';
     }
     interface FwFormatDate {
@@ -3568,6 +3651,14 @@ declare namespace LocalJSX {
          */
         "onFwLoading"?: (event: FwListOptionsCustomEvent<any>) => void;
         /**
+          * Key for determining the label for a given option
+         */
+        "optionLabelPath"?: string;
+        /**
+          * Key for determining the value for a given option
+         */
+        "optionValuePath"?: string;
+        /**
           * Value corresponding to the option, that is saved  when the form data is saved.
          */
         "options"?: any[];
@@ -3782,6 +3873,10 @@ declare namespace LocalJSX {
          */
         "hasBorder"?: boolean;
         /**
+          * Indicates the delay after which popover will be hidden.
+         */
+        "hideAfter"?: number;
+        /**
           * Indicates whether popover contents should be hidden on pressing Tab.
          */
         "hideOnTab"?: boolean;
@@ -3805,6 +3900,10 @@ declare namespace LocalJSX {
           * Whether the popover-content width to be same as that of the popover-trigger.
          */
         "sameWidth"?: boolean;
+        /**
+          * Indicates the delay after which popover will be shown.
+         */
+        "showAfter"?: number;
         /**
           * Skidding defines the distance between the popover trigger and the popover content along x-axis.
          */
@@ -4033,6 +4132,14 @@ declare namespace LocalJSX {
           * Triggered when the list box comes into focus.
          */
         "onFwFocus"?: (event: FwSelectCustomEvent<any>) => void;
+        /**
+          * Key for determining the label for a given option
+         */
+        "optionLabelPath"?: string;
+        /**
+          * Key for determining the value for a given option
+         */
+        "optionValuePath"?: string;
         /**
           * The data for the select component, the options will be of type array of fw-select-options.
          */

@@ -1,0 +1,72 @@
+# {{key}}
+
+## Installation
+
+You can install this specific version of `Crayons` using `crayons@{{key}}`
+
+## Getting Started
+
+#### Usage via CDN
+
+From your app’s root `html` file add the following scripts:
+
+```html
+<script
+  type="module"
+  src="https://unpkg.com/@freshworks/crayons@{{key}}/dist/crayons/crayons.esm.js"
+  integrity="{{{esm}}}"
+></script>
+
+<script
+  nomodule
+  src="https://unpkg.com/@freshworks/crayons@{{key}}/dist/crayons/crayons.js"
+  integrity="{{{es5}}}"
+></script>
+
+{{#css}}
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/@freshworks/crayons@{{key}}/css/crayons-min.css"
+  integrity="{{{css}}}"
+  crossorigin="anonymous"
+/>
+{{/css}}
+```
+
+#### Usage via Node Modules
+
+- Install the package
+
+```bash
+  npm install @freshworks/crayons@{{key}} --save
+```
+
+- Put a script tag similar to this
+
+```html
+<script src="node_modules/@freshworks/crayons/dist/crayons/crayons.js"></script>
+```
+
+or below to load esm module
+
+```html
+<script
+  type="module"
+  src="node_modules/@freshworks/crayons/dist/crayons/crayons.esm.js"
+></script>
+```
+
+Documentation of all crayons versions can be found [here](/versions/) .
+
+
+{{#css}}
+Load css utils
+
+```html
+<link
+  rel="stylesheet"
+  href="node_modules/@freshworks/crayons/css/crayons-min.css"
+/>
+```
+
+{{/css}}
