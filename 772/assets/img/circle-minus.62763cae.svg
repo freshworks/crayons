@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/circle-minus</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Icons-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons" transform="translate(-654.000000, -2388.000000)" fill="currentColor">
+            <g id="icon/circle-minus" transform="translate(654.000000, 2388.000000)">
+                <g id="circle-minus">
+                    <path d="M8,16 C3.581722,16 5.41083001e-16,12.418278 0,8 C-5.41083001e-16,3.581722 3.581722,8.11624501e-16 8,0 C12.418278,-8.11624501e-16 16,3.581722 16,8 C16,10.1217319 15.1571453,12.1565632 13.6568542,13.6568542 C12.1565632,15.1571453 10.1217319,16 8,16 Z M8,1.4 C4.35492065,1.4 1.4,4.35492065 1.4,8 C1.4,11.6450793 4.35492065,14.6 8,14.6 C11.6450793,14.6 14.6,11.6450793 14.6,8 C14.5944931,4.35720411 11.6427959,1.40550688 8,1.4 Z M11.3,8.7 L4.7,8.7 C4.31340068,8.7 4,8.38659932 4,8 C4,7.61340068 4.31340068,7.3 4.7,7.3 L11.3,7.3 C11.6865993,7.3 12,7.61340068 12,8 C12,8.38659932 11.6865993,8.7 11.3,8.7 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
