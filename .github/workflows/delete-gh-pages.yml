@@ -1,12 +1,10 @@
 name: Delete gh-pages folder of a closed PR
 
 on:
-  workflow_dispatch:
-    inputs:
-      test:
-        description: test to run workflow for gh-pages delete folder
-        required: false
-        type: string
+  pull_request:
+    branches:
+      - test-preview-deploy
+    types: [closed]
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
 
@@ -28,7 +26,7 @@ jobs:
       - name: Remove File
         run: |
             pwd \
-            rm -rf 767 \
+            rm -rf ./${{env.PR_NUMBER}} \
             HUSKY_SKIP_HOOKS=1 git add . \
             HUSKY_SKIP_HOOKS=1 git commit -m "Delete directory that is not required" \
             HUSKY_SKIP_HOOKS=1 git push origin gh-pages
