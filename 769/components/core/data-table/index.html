@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>DataTable (fw-data-table) | Crayons</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <script type="module" src="/crayons/769/crayons/build/crayons.esm.js"></script>
+    <script nomodule="" src="/crayons/769/crayons/build/crayons.js"></script>
+    <link rel="stylesheet" href="/crayons/769/css/crayons-min.css">
+    <link rel="icon" href="/crayons/769/favicon.png">
+    <meta name="description" content="A refreshed design library for the Freshworks Developers.">
+    <meta property="og:site_name" content="Crayons">
+    <meta property="og:title" content="Crayons">
+    <meta property="og:description" content="A refreshed design library for the Freshworks Developers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://crayons.freshworks.com/components/core/data-table/">
+    <meta property="og:image" content="https://s3.amazonaws.com/static.freshcloud.io/crayons/assets/crayons.png">
+    <meta name="twitter:title" content="Crayons">
+    <meta name="twitter:description" content="A refreshed design library for the Freshworks Developers.">
+    <meta name="twitter:url" content="https://crayons.freshworks.com/components/core/data-table/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://s3.amazonaws.com/static.freshcloud.io/crayons/assets/crayons.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Web Components, Ui Kit, Marketplace, Freshworks Marketplace, Component Library, FDK, Freshworks developers, Freshworks development, Freshworks, Freshworks Development Kit">
+    <meta property="article:tag" content="Web Components">
+    
+    <link rel="preload" href="/crayons/769/assets/css/0.styles.6588136f.css" as="style"><link rel="preload" href="/crayons/769/assets/js/app.a034b94c.js" as="script"><link rel="preload" href="/crayons/769/assets/js/5.bed87302.js" as="script"><link rel="preload" href="/crayons/769/assets/js/30.ec76d68d.js" as="script"><link rel="preload" href="/crayons/769/assets/js/8.b0d42111.js" as="script"><link rel="preload" href="/crayons/769/assets/js/12.426775fc.js" as="script"><link rel="prefetch" href="/crayons/769/assets/js/1.c1bf0bb9.js"><link rel="prefetch" href="/crayons/769/assets/js/10.a047820b.js"><link rel="prefetch" href="/crayons/769/assets/js/11.4bf70472.js"><link rel="prefetch" href="/crayons/769/assets/js/13.9dd84b58.js"><link rel="prefetch" href="/crayons/769/assets/js/14.d368c4fd.js"><link rel="prefetch" href="/crayons/769/assets/js/15.2b0f0010.js"><link rel="prefetch" href="/crayons/769/assets/js/16.790a94bd.js"><link rel="prefetch" href="/crayons/769/assets/js/17.115486f8.js"><link rel="prefetch" href="/crayons/769/assets/js/18.045f874c.js"><link rel="prefetch" href="/crayons/769/assets/js/19.7e4f13e8.js"><link rel="prefetch" href="/crayons/769/assets/js/20.7232212a.js"><link rel="prefetch" href="/crayons/769/assets/js/21.2cda7d4c.js"><link rel="prefetch" href="/crayons/769/assets/js/22.f42c2afc.js"><link rel="prefetch" href="/crayons/769/assets/js/23.d373c7bb.js"><link rel="prefetch" href="/crayons/769/assets/js/24.cdb85061.js"><link rel="prefetch" href="/crayons/769/assets/js/25.435da6ce.js"><link rel="prefetch" href="/crayons/769/assets/js/26.b28075b4.js"><link rel="prefetch" href="/crayons/769/assets/js/27.480ec36e.js"><link rel="prefetch" href="/crayons/769/assets/js/28.eb5af59c.js"><link rel="prefetch" href="/crayons/769/assets/js/29.04f4f7a7.js"><link rel="prefetch" href="/crayons/769/assets/js/3.c6f5068a.js"><link rel="prefetch" href="/crayons/769/assets/js/31.09f07cc3.js"><link rel="prefetch" href="/crayons/769/assets/js/32.30e927fc.js"><link rel="prefetch" href="/crayons/769/assets/js/33.011500e6.js"><link rel="prefetch" href="/crayons/769/assets/js/34.e82a4f77.js"><link rel="prefetch" href="/crayons/769/assets/js/35.bc2adf2b.js"><link rel="prefetch" href="/crayons/769/assets/js/36.841b4ea9.js"><link rel="prefetch" href="/crayons/769/assets/js/37.49481a21.js"><link rel="prefetch" href="/crayons/769/assets/js/38.2a083a36.js"><link rel="prefetch" href="/crayons/769/assets/js/39.07988492.js"><link rel="prefetch" href="/crayons/769/assets/js/4.c5888bab.js"><link rel="prefetch" href="/crayons/769/assets/js/40.d76fc3e5.js"><link rel="prefetch" href="/crayons/769/assets/js/41.a74d0bd2.js"><link rel="prefetch" href="/crayons/769/assets/js/42.fba59004.js"><link rel="prefetch" href="/crayons/769/assets/js/43.c3b2f50a.js"><link rel="prefetch" href="/crayons/769/assets/js/44.d1c349b8.js"><link rel="prefetch" href="/crayons/769/assets/js/45.d529b461.js"><link rel="prefetch" href="/crayons/769/assets/js/46.ae006176.js"><link rel="prefetch" href="/crayons/769/assets/js/47.862fecba.js"><link rel="prefetch" href="/crayons/769/assets/js/48.9bd84d20.js"><link rel="prefetch" href="/crayons/769/assets/js/49.7f32b975.js"><link rel="prefetch" href="/crayons/769/assets/js/50.93ff24b2.js"><link rel="prefetch" href="/crayons/769/assets/js/51.24fb8d29.js"><link rel="prefetch" href="/crayons/769/assets/js/52.a2689b93.js"><link rel="prefetch" href="/crayons/769/assets/js/53.25b0a97a.js"><link rel="prefetch" href="/crayons/769/assets/js/54.e0d9b925.js"><link rel="prefetch" href="/crayons/769/assets/js/55.e50128c6.js"><link rel="prefetch" href="/crayons/769/assets/js/56.a61dac9b.js"><link rel="prefetch" href="/crayons/769/assets/js/57.57ba44b5.js"><link rel="prefetch" href="/crayons/769/assets/js/58.f7e4277f.js"><link rel="prefetch" href="/crayons/769/assets/js/59.95f2b7a4.js"><link rel="prefetch" href="/crayons/769/assets/js/6.409422f7.js"><link rel="prefetch" href="/crayons/769/assets/js/60.40617da5.js"><link rel="prefetch" href="/crayons/769/assets/js/61.b2bd43d9.js"><link rel="prefetch" href="/crayons/769/assets/js/62.c656c977.js"><link rel="prefetch" href="/crayons/769/assets/js/63.960aaa65.js"><link rel="prefetch" href="/crayons/769/assets/js/64.2503fa09.js"><link rel="prefetch" href="/crayons/769/assets/js/65.f97f7f9d.js"><link rel="prefetch" href="/crayons/769/assets/js/66.6c9cccf3.js"><link rel="prefetch" href="/crayons/769/assets/js/67.233632f4.js"><link rel="prefetch" href="/crayons/769/assets/js/68.816f32f3.js"><link rel="prefetch" href="/crayons/769/assets/js/69.da07e4cb.js"><link rel="prefetch" href="/crayons/769/assets/js/7.915018df.js"><link rel="prefetch" href="/crayons/769/assets/js/70.9542ec3e.js"><link rel="prefetch" href="/crayons/769/assets/js/71.d5dc7ff3.js"><link rel="prefetch" href="/crayons/769/assets/js/72.4f81dae0.js"><link rel="prefetch" href="/crayons/769/assets/js/73.d1d5c37b.js"><link rel="prefetch" href="/crayons/769/assets/js/74.3d5d6907.js"><link rel="prefetch" href="/crayons/769/assets/js/75.6d648c35.js"><link rel="prefetch" href="/crayons/769/assets/js/76.26dee41f.js"><link rel="prefetch" href="/crayons/769/assets/js/77.38180f3e.js"><link rel="prefetch" href="/crayons/769/assets/js/78.96014074.js"><link rel="prefetch" href="/crayons/769/assets/js/79.4f124f55.js"><link rel="prefetch" href="/crayons/769/assets/js/80.4f3d4d06.js"><link rel="prefetch" href="/crayons/769/assets/js/81.2e8f2b6a.js"><link rel="prefetch" href="/crayons/769/assets/js/82.0e8ef376.js"><link rel="prefetch" href="/crayons/769/assets/js/83.e624213d.js"><link rel="prefetch" href="/crayons/769/assets/js/84.e6fa0074.js"><link rel="prefetch" href="/crayons/769/assets/js/85.8847558c.js"><link rel="prefetch" href="/crayons/769/assets/js/86.33db873d.js"><link rel="prefetch" href="/crayons/769/assets/js/87.1e7de948.js"><link rel="prefetch" href="/crayons/769/assets/js/88.8e13a0a0.js"><link rel="prefetch" href="/crayons/769/assets/js/9.98db0cb4.js">
+    <link rel="stylesheet" href="/crayons/769/assets/css/0.styles.6588136f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/crayons/769/" class="home-link router-link-active"><!----> <span class="site-name">Crayons</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/crayons/769/introduction/migrating-to-v3/" class="nav-link">
+  Migrating to v3
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="v3.x" class="dropdown-title"><span class="title">v3.x</span> <span class="arrow down"></span></button> <button type="button" aria-label="v3.x" class="mobile-dropdown-title"><span class="title">v3.x</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v3.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/v2/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v2.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/crayons/769/introduction/migrating-to-v3/" class="nav-link">
+  Migrating to v3
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="v3.x" class="dropdown-title"><span class="title">v3.x</span> <span class="arrow down"></span></button> <button type="button" aria-label="v3.x" class="mobile-dropdown-title"><span class="title">v3.x</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v3.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/v2/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v2.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Introduction</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/769/introduction/" class="sidebar-link">Overview</a></li><li><a href="/crayons/769/introduction/migrating-to-v3/" class="sidebar-link">Migrating to v3</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Components</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/769/components/core/accordion/" class="sidebar-link">Accordion (fw-accordion)</a></li><li><a href="/crayons/769/components/core/accordion-body/" class="sidebar-link">Accordion Body (fw-accordion-body)</a></li><li><a href="/crayons/769/components/core/accordion-title/" class="sidebar-link">Accordion Title (fw-accordion-title)</a></li><li><a href="/crayons/769/components/core/avatar/" class="sidebar-link">Avatar (fw-avatar)</a></li><li><a href="/crayons/769/components/core/button/" class="sidebar-link">Button (fw-button)</a></li><li><a href="/crayons/769/components/core/button-group/" class="sidebar-link">Button Group (fw-button-group)</a></li><li><a href="/crayons/769/components/core/checkbox/" class="sidebar-link">Checkbox (fw-checkbox)</a></li><li><a href="/crayons/769/components/core/country-phone/" class="sidebar-link">CountryPhone(fw-country-phone)</a></li><li><a href="/crayons/769/components/core/data-table/" aria-current="page" class="active sidebar-link">DataTable (fw-data-table)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#basic-usage" class="sidebar-link">Basic Usage</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#custom-cells" class="sidebar-link">Custom cells</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#column-text-alignment" class="sidebar-link">Column text alignment</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#row-actions" class="sidebar-link">Row Actions:</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#hide-columns" class="sidebar-link">Hide columns</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#column-lock" class="sidebar-link">Column lock</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#column-width" class="sidebar-link">Column width</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#formatting-data" class="sidebar-link">Formatting data</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#table-settings" class="sidebar-link">Table settings</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#loading-table" class="sidebar-link">Loading table</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#saving-column-configuration" class="sidebar-link">Saving column configuration</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#properties" class="sidebar-link">Properties</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#events" class="sidebar-link">Events</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#methods" class="sidebar-link">Methods</a></li><li class="sidebar-sub-header"><a href="/crayons/769/components/core/data-table/#dependencies" class="sidebar-link">Dependencies</a></li></ul></li><li><a href="/crayons/769/components/core/datepicker/" class="sidebar-link">Datepicker (fw-datepicker)</a></li><li><a href="/crayons/769/components/core/drag-container/" class="sidebar-link">Drag Container (fw-drag-container)</a></li><li><a href="/crayons/769/components/core/drag-item/" class="sidebar-link">Drag Item (fw-drag-item)</a></li><li><a href="/crayons/769/components/core/file-uploader/" class="sidebar-link">File uploader (fw-file-uploader)</a></li><li><a href="/crayons/769/components/core/form/" class="sidebar-link">Form (fw-form)</a></li><li><a href="/crayons/769/components/core/form-control/" class="sidebar-link">Form Control (fw-form-control)</a></li><li><a href="/crayons/769/components/core/format-date/" class="sidebar-link">Format Date (fw-format-date)</a></li><li><a href="/crayons/769/components/core/format-number/" class="sidebar-link">Format Number (fw-format-number)</a></li><li><a href="/crayons/769/components/core/icon/" class="sidebar-link">Icon (fw-icon)</a></li><li><a href="/crayons/769/components/core/inline-message/" class="sidebar-link">Inline Message (fw-inline-message)</a></li><li><a href="/crayons/769/components/core/input/" class="sidebar-link">Input (fw-input)</a></li><li><a href="/crayons/769/components/core/label/" class="sidebar-link">Label (fw-label)</a></li><li><a href="/crayons/769/components/core/menu/" class="sidebar-link">Menu (fw-menu)</a></li><li><a href="/crayons/769/components/core/menu-item/" class="sidebar-link">Menu Item (fw-menu-item)</a></li><li><a href="/crayons/769/components/core/modal/" class="sidebar-link">Modal (fw-modal)</a></li><li><a href="/crayons/769/components/core/modal-content/" class="sidebar-link">Modal Content (fw-modal-content)</a></li><li><a href="/crayons/769/components/core/modal-footer/" class="sidebar-link">Modal Footer (fw-modal-footer)</a></li><li><a href="/crayons/769/components/core/modal-title/" class="sidebar-link">Modal Title (fw-modal-title)</a></li><li><a href="/crayons/769/components/core/options-list/" class="sidebar-link">List Options (fw-list-options)</a></li><li><a href="/crayons/769/components/core/pagination/" class="sidebar-link">Pagination (fw-pagination)</a></li><li><a href="/crayons/769/components/core/pill/" class="sidebar-link">Pill (fw-pill)</a></li><li><a href="/crayons/769/components/core/popover/" class="sidebar-link">Popover (fw-popover)</a></li><li><a href="/crayons/769/components/core/progress-loader/" class="sidebar-link">Progress Loader (fw-progress-loader)</a></li><li><a href="/crayons/769/components/core/radio/" class="sidebar-link">Radio (fw-radio)</a></li><li><a href="/crayons/769/components/core/radio-group/" class="sidebar-link">Radio Group (fw-radio-group)</a></li><li><a href="/crayons/769/components/core/select/" class="sidebar-link">Select (fw-select)</a></li><li><a href="/crayons/769/components/core/select-option/" class="sidebar-link">Select Option (fw-select-option)</a></li><li><a href="/crayons/769/components/core/skeleton/" class="sidebar-link">Skeleton (fw-skeleton)</a></li><li><a href="/crayons/769/components/core/spinner/" class="sidebar-link">Spinner (fw-spinner)</a></li><li><a href="/crayons/769/components/core/tab/" class="sidebar-link">Tab (fw-tab)</a></li><li><a href="/crayons/769/components/core/tab-panel/" class="sidebar-link">Tab Panel (fw-tab-panel)</a></li><li><a href="/crayons/769/components/core/tabs/" class="sidebar-link">Tabs (fw-tabs)</a></li><li><a href="/crayons/769/components/core/tag/" class="sidebar-link">Tag (fw-tag)</a></li><li><a href="/crayons/769/components/core/textarea/" class="sidebar-link">Textarea (fw-textarea)</a></li><li><a href="/crayons/769/components/core/timepicker/" class="sidebar-link">Timepicker (fw-timepicker)</a></li><li><a href="/crayons/769/components/core/toast/" class="sidebar-link">Toast (fw-toast)</a></li><li><a href="/crayons/769/components/core/toast-message/" class="sidebar-link">Toast Message (fw-toast-message)</a></li><li><a href="/crayons/769/components/core/toggle/" class="sidebar-link">Toggle (fw-toggle)</a></li><li><a href="/crayons/769/components/core/toggle-group/" class="sidebar-link">Toggle Group (fw-toggle-group)</a></li><li><a href="/crayons/769/components/core/toggle-group-button/" class="sidebar-link">Toggle Group Button (fw-toggle-group-button)</a></li><li><a href="/crayons/769/components/core/tooltip/" class="sidebar-link">Tooltip (fw-tooltip)</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>CSS Utils</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/769/css-utils/typography/" class="sidebar-link">Typography</a></li><li><a href="/crayons/769/css-utils/spacing/" class="sidebar-link">Spacing (Margin and Padding)</a></li><li><a href="/crayons/769/css-utils/border/" class="sidebar-link">Border</a></li><li><a href="/crayons/769/css-utils/layout/" class="sidebar-link">Layout</a></li><li><a href="/crayons/769/css-utils/card/" class="sidebar-link">Card</a></li><li><a href="/crayons/769/css-utils/color/" class="sidebar-link">Color</a></li><li><a href="/crayons/769/css-utils/examples/" class="sidebar-link">Examples</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Utilities</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/769/utilities/i18n/" class="sidebar-link">Internationalization Support (i18n)</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Frameworks</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/769/frameworks/react/" class="sidebar-link">React</a></li><li><a href="/crayons/769/frameworks/vue/" class="sidebar-link">Vue</a></li><li><a href="/crayons/769/frameworks/angular/" class="sidebar-link">Angular</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="datatable-fw-data-table"><a href="#datatable-fw-data-table" class="header-anchor">#</a> DataTable (fw-data-table)</h1> <p>fw-data-table are used for data visualization.</p> <h2 id="basic-usage"><a href="#basic-usage" class="header-anchor">#</a> Basic Usage</h2> <div code="  &lt;fw-data-table id=&quot;datatable&quot; is-selectable=&quot;true&quot; label=&quot;Data table 1&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;group&quot;,
+        &quot;text&quot;: &quot;Group&quot;
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;
+      }],
+      persons: [{
+        &quot;id&quot;: &quot;1234&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;, 
+        &quot;role&quot;: &quot;Administrator&quot;, 
+        &quot;group&quot;: &quot;L1 Support&quot;
+      }, {
+        &quot;id&quot;: &quot;2345&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;, 
+        &quot;role&quot;: &quot;Supervisor&quot;, 
+        &quot;group&quot;: &quot;L1 Support&quot;
+      }, {
+        &quot;id&quot;: &quot;3456&quot;,
+        &quot;name&quot;: &quot;August hines&quot;,
+        &quot;role&quot;: &quot;Agent&quot;,
+        &quot;group&quot;: &quot;L1 support&quot;
+      }]
+    }
+
+    var datatable = document.getElementById('datatable');
+    datatable.columns = data.columns;
+    datatable.rows = data.persons;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-b2b784e3"><fw-data-table id="datatable" is-selectable="true" label="Data table 1"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;group&quot;,
+        &quot;text&quot;: &quot;Group&quot;
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;
+      }],
+      persons: [{
+        &quot;id&quot;: &quot;1234&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;, 
+        &quot;role&quot;: &quot;Administrator&quot;, 
+        &quot;group&quot;: &quot;L1 Support&quot;
+      }, {
+        &quot;id&quot;: &quot;2345&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;, 
+        &quot;role&quot;: &quot;Supervisor&quot;, 
+        &quot;group&quot;: &quot;L1 Support&quot;
+      }, {
+        &quot;id&quot;: &quot;3456&quot;,
+        &quot;name&quot;: &quot;August hines&quot;,
+        &quot;role&quot;: &quot;Agent&quot;,
+        &quot;group&quot;: &quot;L1 support&quot;
+      }]
+    }
+
+    var datatable = document.getElementById('datatable');
+    datatable.columns = data.columns;
+    datatable.rows = data.persons;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="custom-cells"><a href="#custom-cells" class="header-anchor">#</a> Custom cells</h2> <h3 id="crayons-provided-variants"><a href="#crayons-provided-variants" class="header-anchor">#</a> Crayons provided variants</h3> <h4 id="anchor-column-variant"><a href="#anchor-column-variant" class="header-anchor">#</a> Anchor column variant</h4> <p>Row value for this column variant should be an object with the following properties:</p> <ol><li>text - Text to be displayed in the cell</li> <li>href - url to point to when the text is clicked</li></ol> <div code="  &lt;fw-data-table id=&quot;datatable-2&quot; label=&quot;Data table 2&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;search&quot;,
+        &quot;text&quot;: &quot;Search Engine&quot;,
+        &quot;position&quot;: 1,
+        &quot;variant&quot;: &quot;anchor&quot;
+      }, {
+        &quot;key&quot;: &quot;rank&quot;,
+        &quot;text&quot;: &quot;Rank&quot;,
+        &quot;position&quot;: 2
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;001&quot;,
+        &quot;search&quot;: { &quot;text&quot;: &quot;Google&quot;, &quot;href&quot;: &quot;https://www.google.com&quot; },
+        &quot;rank&quot;: 1
+      }, {
+        &quot;id&quot;: &quot;002&quot;,
+        &quot;search&quot;: { &quot;text&quot;: &quot;Bing&quot;, &quot;href&quot;: &quot;https://www.bing.com&quot; },
+        &quot;rank&quot;: 2
+      }, {
+        &quot;id&quot;: &quot;003&quot;,
+        &quot;search&quot;: { &quot;text&quot;: &quot;DuckDuckGo&quot;, &quot;href&quot;: &quot;https://www.duckduckgo.com&quot; },
+        &quot;rank&quot;: 3
+      }]
+    };
+
+    var datatable = document.getElementById('datatable-2');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-193729fd"><fw-data-table id="datatable-2" label="Data table 2"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;search&quot;,
+        &quot;text&quot;: &quot;Search Engine&quot;,
+        &quot;position&quot;: 1,
+        &quot;variant&quot;: &quot;anchor&quot;
+      }, {
+        &quot;key&quot;: &quot;rank&quot;,
+        &quot;text&quot;: &quot;Rank&quot;,
+        &quot;position&quot;: 2
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;001&quot;,
+        &quot;search&quot;: { &quot;text&quot;: &quot;Google&quot;, &quot;href&quot;: &quot;https://www.google.com&quot; },
+        &quot;rank&quot;: 1
+      }, {
+        &quot;id&quot;: &quot;002&quot;,
+        &quot;search&quot;: { &quot;text&quot;: &quot;Bing&quot;, &quot;href&quot;: &quot;https://www.bing.com&quot; },
+        &quot;rank&quot;: 2
+      }, {
+        &quot;id&quot;: &quot;003&quot;,
+        &quot;search&quot;: { &quot;text&quot;: &quot;DuckDuckGo&quot;, &quot;href&quot;: &quot;https://www.duckduckgo.com&quot; },
+        &quot;rank&quot;: 3
+      }]
+    };
+
+    var datatable = document.getElementById('datatable-2');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h4 id="user-column-variant"><a href="#user-column-variant" class="header-anchor">#</a> User column variant</h4> <p>Row value for this column variant should be an object with the following properties:</p> <ol><li>name - Name of the user</li> <li>email - email of the user</li> <li>image (optional) - url of the user image to be displayed in the avatar</li></ol> <p><em>If image property is not present, user's initials from the name property will be shown inside the avatar.</em></p> <div code="  &lt;fw-data-table id=&quot;datatable-3&quot; label=&quot;Data table 3&quot;&gt;
+  &lt;/fw-data-table&gt;
+  
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;createdby&quot;,
+        &quot;text&quot;: &quot;Created By&quot;,
+        &quot;position&quot;: 1,
+        &quot;variant&quot;: &quot;user&quot;
+      }, {
+        &quot;key&quot;: &quot;objectname&quot;,
+        &quot;text&quot;: &quot;Object Name&quot;,
+        &quot;position&quot;: 2
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0011&quot;,
+        &quot;objectname&quot;: &quot;Hotels&quot;,
+        &quot;createdby&quot;: { 
+          &quot;image&quot;: &quot;https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80&quot;,
+          &quot;name&quot;: &quot;Alexander Goodman&quot;, 
+          &quot;email&quot;: &quot;alexander.goodman@freshdesk.com&quot;,
+          &quot;alt&quot;: &quot;Profile picture of Alexander Goodman&quot;
+        }
+      }, {
+        &quot;id&quot;: &quot;0022&quot;,
+        &quot;objectname&quot;: &quot;Bookings&quot;,
+        &quot;createdby&quot;: { 
+          &quot;image&quot;: &quot;https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80&quot;,
+          &quot;name&quot;: &quot;Ambrose Wayne&quot;, 
+          &quot;email&quot;: &quot;ambrose.wayne@freshdesk.com&quot;,
+          &quot;alt&quot;: &quot;Profile picture of Ambrose Wayne&quot;
+        }
+      }, {
+        &quot;id&quot;: &quot;0033&quot;,
+        &quot;objectname&quot;: &quot;Ratings&quot;,
+        &quot;createdby&quot;: {
+          &quot;image&quot;: &quot;https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80&quot;,
+          &quot;name&quot;: &quot;August hines&quot;, 
+          &quot;email&quot;: &quot;august.hines@freshdesk.com&quot;,
+          &quot;alt&quot;: &quot;Profile picture of August hines&quot;
+        }
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-3');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-fb06efc8"><fw-data-table id="datatable-3" label="Data table 3"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;createdby&quot;,
+        &quot;text&quot;: &quot;Created By&quot;,
+        &quot;position&quot;: 1,
+        &quot;variant&quot;: &quot;user&quot;
+      }, {
+        &quot;key&quot;: &quot;objectname&quot;,
+        &quot;text&quot;: &quot;Object Name&quot;,
+        &quot;position&quot;: 2
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0011&quot;,
+        &quot;objectname&quot;: &quot;Hotels&quot;,
+        &quot;createdby&quot;: { 
+          &quot;image&quot;: &quot;https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80&quot;,
+          &quot;name&quot;: &quot;Alexander Goodman&quot;, 
+          &quot;email&quot;: &quot;alexander.goodman@freshdesk.com&quot;,
+          &quot;alt&quot;: &quot;Profile picture of Alexander Goodman&quot;
+        }
+      }, {
+        &quot;id&quot;: &quot;0022&quot;,
+        &quot;objectname&quot;: &quot;Bookings&quot;,
+        &quot;createdby&quot;: { 
+          &quot;image&quot;: &quot;https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80&quot;,
+          &quot;name&quot;: &quot;Ambrose Wayne&quot;, 
+          &quot;email&quot;: &quot;ambrose.wayne@freshdesk.com&quot;,
+          &quot;alt&quot;: &quot;Profile picture of Ambrose Wayne&quot;
+        }
+      }, {
+        &quot;id&quot;: &quot;0033&quot;,
+        &quot;objectname&quot;: &quot;Ratings&quot;,
+        &quot;createdby&quot;: {
+          &quot;image&quot;: &quot;https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80&quot;,
+          &quot;name&quot;: &quot;August hines&quot;, 
+          &quot;email&quot;: &quot;august.hines@freshdesk.com&quot;,
+          &quot;alt&quot;: &quot;Profile picture of August hines&quot;
+        }
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-3');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h4 id="icon-column-variant"><a href="#icon-column-variant" class="header-anchor">#</a> Icon column variant</h4> <div code="  &lt;fw-data-table id=&quot;datatable-31&quot; label=&quot;Data table 31&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;icon&quot;,
+        &quot;text&quot;: &quot;Icon&quot;,
+        &quot;position&quot;: 1,
+        &quot;variant&quot;: &quot;icon&quot;
+      }, {
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Icon name&quot;,
+        &quot;position&quot;: 2
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0011&quot;,
+        &quot;icon&quot;: { &quot;name&quot;: &quot;agent&quot; },
+        &quot;name&quot;: &quot;Agent&quot;
+      }, {
+        &quot;id&quot;: &quot;0022&quot;,
+        &quot;icon&quot;: { &quot;name&quot;: &quot;chat-online&quot; },
+        &quot;name&quot;: &quot;Chat&quot;
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-31');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-aa728d8f"><fw-data-table id="datatable-31" label="Data table 31"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;icon&quot;,
+        &quot;text&quot;: &quot;Icon&quot;,
+        &quot;position&quot;: 1,
+        &quot;variant&quot;: &quot;icon&quot;
+      }, {
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Icon name&quot;,
+        &quot;position&quot;: 2
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0011&quot;,
+        &quot;icon&quot;: { &quot;name&quot;: &quot;agent&quot; },
+        &quot;name&quot;: &quot;Agent&quot;
+      }, {
+        &quot;id&quot;: &quot;0022&quot;,
+        &quot;icon&quot;: { &quot;name&quot;: &quot;chat-online&quot; },
+        &quot;name&quot;: &quot;Chat&quot;
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-31');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h4 id="paragraph-column-variant"><a href="#paragraph-column-variant" class="header-anchor">#</a> Paragraph column variant</h4> <p>We can use this column variant when we have a bigger text and we need to trim/show this text. Row value for this column variant should be an object with the following properties:</p> <ol><li>text: Paragraph to trim. Only first three lines from this paragraph would be visible initially. User has to expand to see the full text.</li></ol> <div code="  &lt;fw-data-table id=&quot;datatable-32&quot; label=&quot;Data table 32&quot;&gt;
+  &lt;/fw-data-table&gt;
+  
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;objectname&quot;,
+        &quot;text&quot;: &quot;Object Name&quot;
+      }, {
+        &quot;key&quot;: &quot;objectdesc&quot;,
+        &quot;text&quot;: &quot;Object Description&quot;,
+        &quot;variant&quot;: &quot;paragraph&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;600px&quot;
+        }
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0011&quot;,
+        &quot;objectname&quot;: &quot;Hotels&quot;,
+        &quot;objectdesc&quot;: { 
+          &quot;text&quot;: &quot;Fusce nec nibh ut dui rutrum lobortis. In eu lacus molestie, dignissim erat sit amet, mollis tortor. Aliquam arcu felis, sollicitudin nec venenatis eu, fermentum sit amet ligula. Donec tempus lacus a malesuada pulvinar. In risus lorem, egestas non dui sed, tempus semper nisi. Proin blandit hendrerit suscipit. Phasellus eleifend diam sed mi ultrices, id consequat eros aliquet. Nunc gravida gravida auctor. Ut gravida accumsan justo non scelerisque. Aliquam blandit nisl a tincidunt ultricies.&quot; 
+        }
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-32');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-107ed605"><fw-data-table id="datatable-32" label="Data table 32"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;objectname&quot;,
+        &quot;text&quot;: &quot;Object Name&quot;
+      }, {
+        &quot;key&quot;: &quot;objectdesc&quot;,
+        &quot;text&quot;: &quot;Object Description&quot;,
+        &quot;variant&quot;: &quot;paragraph&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;600px&quot;
+        }
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0011&quot;,
+        &quot;objectname&quot;: &quot;Hotels&quot;,
+        &quot;objectdesc&quot;: { 
+          &quot;text&quot;: &quot;Fusce nec nibh ut dui rutrum lobortis. In eu lacus molestie, dignissim erat sit amet, mollis tortor. Aliquam arcu felis, sollicitudin nec venenatis eu, fermentum sit amet ligula. Donec tempus lacus a malesuada pulvinar. In risus lorem, egestas non dui sed, tempus semper nisi. Proin blandit hendrerit suscipit. Phasellus eleifend diam sed mi ultrices, id consequat eros aliquet. Nunc gravida gravida auctor. Ut gravida accumsan justo non scelerisque. Aliquam blandit nisl a tincidunt ultricies.&quot; 
+        }
+      }]
+    }; 
+
+    var datatable = document.getElementById('datatable-32');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h3 id="custom-templates"><a href="#custom-templates" class="header-anchor">#</a> Custom templates</h3> <p>This codeblock shows how to use custom cell function to display HTML content in a cell.</p> <p><em>To have custom table headers, we can use 'customHeader' property. This will take in a function with parameters same as customTemplate.</em></p> <div class="language-js extra-class"><div class="highlight-lines"><br><br><br><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><br><br></div><pre class="language-js"><code>  <span class="token keyword">var</span> columns <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+    <span class="token string-property property">&quot;key&quot;</span><span class="token operator">:</span> <span class="token string">&quot;bookname&quot;</span><span class="token punctuation">,</span>
+    <span class="token string-property property">&quot;text&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Book name&quot;</span><span class="token punctuation">,</span>
+    <span class="token string-property property">&quot;customTemplate&quot;</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">createElement<span class="token punctuation">,</span> props</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> props<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">]</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code>  <span class="token comment">// Usage examples for createElement:</span>
+  <span class="token comment">// Params should be either (tagName, children) or (tagName, properties, children)</span>
+  <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'h2'</span><span class="token punctuation">,</span> <span class="token string">'Hello'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div#foo.bar.baz'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'h2'</span><span class="token punctuation">,</span> <span class="token string">'Hello'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div.bar.baz'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'h2'</span><span class="token punctuation">,</span> <span class="token string">'Hello'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token literal-property property">className</span><span class="token operator">:</span> <span class="token string">'greeting'</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'h2'</span><span class="token punctuation">,</span> <span class="token string">'Hello'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="column-text-alignment"><a href="#column-text-alignment" class="header-anchor">#</a> Column text alignment</h2> <p>You can set text alignment in the column by passing the textAlign in column configuration. In the below example, column 'Icon' is center aligned.</p> <div code="  &lt;fw-data-table id=&quot;data-table-40&quot; label=&quot;Data table 40&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;icon&quot;,
+        &quot;text&quot;: &quot;Icon&quot;,
+        &quot;variant&quot;: &quot;icon&quot;,
+        &quot;textAlign&quot;: &quot;center&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;140px&quot;
+        }
+      }, {
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Object Name&quot;
+      }, {
+        &quot;key&quot;: &quot;description&quot;,
+        &quot;text&quot;: &quot;description&quot;
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;01&quot;,
+        &quot;icon&quot;: { &quot;name&quot;: &quot;company&quot; },
+        &quot;name&quot;: &quot;Company&quot;,
+        &quot;description&quot;: &quot;Contains information about the company.&quot;
+      }, {
+        &quot;id&quot;: &quot;02&quot;,
+        &quot;icon&quot;: { &quot;name&quot;: &quot;calendar&quot; },
+        &quot;name&quot;: &quot;Bookings&quot;,
+        &quot;description&quot;: &quot;Contains information about the booking made.&quot;
+      }]
+    };
+
+    var datatable = document.getElementById('data-table-40');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-fca944c3"><fw-data-table id="data-table-40" label="Data table 40"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;icon&quot;,
+        &quot;text&quot;: &quot;Icon&quot;,
+        &quot;variant&quot;: &quot;icon&quot;,
+        &quot;textAlign&quot;: &quot;center&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;140px&quot;
+        }
+      }, {
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Object Name&quot;
+      }, {
+        &quot;key&quot;: &quot;description&quot;,
+        &quot;text&quot;: &quot;description&quot;
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;01&quot;,
+        &quot;icon&quot;: { &quot;name&quot;: &quot;company&quot; },
+        &quot;name&quot;: &quot;Company&quot;,
+        &quot;description&quot;: &quot;Contains information about the company.&quot;
+      }, {
+        &quot;id&quot;: &quot;02&quot;,
+        &quot;icon&quot;: { &quot;name&quot;: &quot;calendar&quot; },
+        &quot;name&quot;: &quot;Bookings&quot;,
+        &quot;description&quot;: &quot;Contains information about the booking made.&quot;
+      }]
+    };
+
+    var datatable = document.getElementById('data-table-40');
+    datatable.columns = data.columns;
+    datatable.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="row-actions"><a href="#row-actions" class="header-anchor">#</a> Row Actions:</h2> <p>You can easily add an actions column by passing in rowActions prop to the component.</p> <p><em>You can also use icons instead of text in buttons. Pass 'iconName' and 'iconLibrary' properties as part of configuration.</em></p> <div code="  &lt;fw-data-table id=&quot;datatable-4&quot;  is-selectable=&quot;true&quot; is-all-selectable=&quot;true&quot; label=&quot;Data table 4&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }, {
+        &quot;id&quot;: &quot;0003&quot;,
+        &quot;name&quot;: &quot;August hines&quot;,
+        &quot;role&quot;: &quot;Administrator&quot;
+      }],
+      rowActions: [{
+        &quot;name&quot;: &quot;Alert&quot;,
+        &quot;handler&quot;: (rowData) =&gt; {
+          window.alert(rowData.name);
+        }
+      }, {
+        &quot;name&quot;: &quot;Delete&quot;,
+        &quot;handler&quot;: async (rowData) =&gt; {
+          let deletePromise = new Promise((resolve, reject) =&gt; {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() =&gt; {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) =&gt; (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        &quot;hideForRowIds&quot;: [&quot;0003&quot;]
+      }]
+    }
+
+    var datatable4 = document.getElementById('datatable-4');
+    datatable4.columns = data.columns;
+    datatable4.rows = data.rows;
+    datatable4.rowActions = data.rowActions;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-b54872e8"><fw-data-table id="datatable-4" is-selectable="true" is-all-selectable="true" label="Data table 4"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }, {
+        &quot;id&quot;: &quot;0003&quot;,
+        &quot;name&quot;: &quot;August hines&quot;,
+        &quot;role&quot;: &quot;Administrator&quot;
+      }],
+      rowActions: [{
+        &quot;name&quot;: &quot;Alert&quot;,
+        &quot;handler&quot;: (rowData) =&gt; {
+          window.alert(rowData.name);
+        }
+      }, {
+        &quot;name&quot;: &quot;Delete&quot;,
+        &quot;handler&quot;: async (rowData) =&gt; {
+          let deletePromise = new Promise((resolve, reject) =&gt; {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() =&gt; {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) =&gt; (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        &quot;hideForRowIds&quot;: [&quot;0003&quot;]
+      }]
+    }
+
+    var datatable4 = document.getElementById('datatable-4');
+    datatable4.columns = data.columns;
+    datatable4.rows = data.rows;
+    datatable4.rowActions = data.rowActions;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="hide-columns"><a href="#hide-columns" class="header-anchor">#</a> Hide columns</h2> <p>To hide certain columns, we can pass the 'hide' property set to true in the column's configuration.</p> <div code="  &lt;span&gt;'Role' column hidden in below table.&lt;/span&gt; &lt;br&gt;&lt;br&gt;
+  &lt;fw-data-table id=&quot;datatable-5&quot; label=&quot;Data table 5&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;,
+        &quot;hide&quot;: true
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }]
+    }
+
+    var datatable5 = document.getElementById('datatable-5');
+    datatable5.columns = data.columns;
+    datatable5.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-d9e1fab0"><span>'Role' column hidden in below table.</span> <br><br> <fw-data-table id="datatable-5" label="Data table 5"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;,
+        &quot;hide&quot;: true
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }]
+    }
+
+    var datatable5 = document.getElementById('datatable-5');
+    datatable5.columns = data.columns;
+    datatable5.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="column-lock"><a href="#column-lock" class="header-anchor">#</a> Column lock</h2> <p>We can lock column using 'lock' in column's configuration.</p> <div code="  &lt;fw-data-table id=&quot;datatable-51&quot; label=&quot;Data table 51&quot; show-settings=&quot;true&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;,
+        &quot;lock&quot;: true
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }]
+    }
+
+    var datatable51 = document.getElementById('datatable-51');
+    datatable51.columns = data.columns;
+    datatable51.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-9bbda2f6"><fw-data-table id="datatable-51" label="Data table 51" show-settings="true"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;,
+        &quot;lock&quot;: true
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }]
+    }
+
+    var datatable51 = document.getElementById('datatable-51');
+    datatable51.columns = data.columns;
+    datatable51.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="column-width"><a href="#column-width" class="header-anchor">#</a> Column width</h2> <p>We can pass width for every column using 'widthProperties' in column's configuration. Every column has a minimum width of 40px and maximum width of 1000px by default. We can override min/max width for every column using the 'widthProperties' too.</p> <div code="  &lt;span&gt;'Name' column has 400px width and 'Role' column has 200px width.&lt;/span&gt; &lt;br&gt;&lt;br&gt;
+  &lt;fw-data-table id=&quot;datatable-6&quot; label=&quot;Data table 6&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;minWidth&quot;: &quot;400px&quot;
+        }
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;200px&quot;
+        }
+      }, {
+        &quot;key&quot;: &quot;level&quot;,
+        &quot;text&quot;: &quot;Level&quot;
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;,
+        &quot;level&quot;: &quot;L1&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;role&quot;: &quot;Member&quot;,
+        &quot;level&quot;: &quot;L2&quot;
+      }]
+    }
+
+    var datatable6 = document.getElementById('datatable-6');
+    datatable6.columns = data.columns;
+    datatable6.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-8976de62"><span>'Name' column has 400px width and 'Role' column has 200px width.</span> <br><br> <fw-data-table id="datatable-6" label="Data table 6"></fw-data-table> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;minWidth&quot;: &quot;400px&quot;
+        }
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;200px&quot;
+        }
+      }, {
+        &quot;key&quot;: &quot;level&quot;,
+        &quot;text&quot;: &quot;Level&quot;
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;,
+        &quot;level&quot;: &quot;L1&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;role&quot;: &quot;Member&quot;,
+        &quot;level&quot;: &quot;L2&quot;
+      }]
+    }
+
+    var datatable6 = document.getElementById('datatable-6');
+    datatable6.columns = data.columns;
+    datatable6.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="formatting-data"><a href="#formatting-data" class="header-anchor">#</a> Formatting data</h2> <p>We can format row's data before rendering into a cell by passing 'formatData' in column's configuration.</p> <p><em>This option wont work when using this with 'variant' or 'customTemplate' properties in column's configuration.</em></p> <div code="  &lt;fw-data-table id=&quot;datatable-7&quot; label=&quot;Data table 7&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;courses&quot;,
+        &quot;text&quot;: &quot;Courses&quot;,
+        &quot;formatData&quot;: (courses) =&gt; {
+          return courses.join(', ');
+        }
+      }, {
+        &quot;key&quot;: &quot;appliedon&quot;,
+        &quot;text&quot;: &quot;Applied on&quot;,
+        &quot;formatData&quot;: (ISOString) =&gt; {
+          const date = new Date(ISOString);
+          return date.getDate() + &quot; &quot; + months[date.getMonth()] + &quot;, &quot; + date.getFullYear();
+        }
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;courses&quot;: [&quot;HTML&quot;, &quot;CSS&quot;, &quot;JS&quot;],
+        &quot;appliedon&quot;: &quot;2021-10-21T14:48:00.000Z&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;courses&quot;: [&quot;Ruby on Rails&quot;, &quot;PostgreSQL&quot;],
+        &quot;appliedon&quot;: &quot;2022-01-14T16:14:00.000Z&quot;
+      }]
+    }
+
+    var datatable7 = document.getElementById('datatable-7');
+    datatable7.columns = data.columns;
+    datatable7.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-f864106a"><fw-data-table id="datatable-7" label="Data table 7"></fw-data-table> <script type="application/javascript">
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;courses&quot;,
+        &quot;text&quot;: &quot;Courses&quot;,
+        &quot;formatData&quot;: (courses) =&gt; {
+          return courses.join(', ');
+        }
+      }, {
+        &quot;key&quot;: &quot;appliedon&quot;,
+        &quot;text&quot;: &quot;Applied on&quot;,
+        &quot;formatData&quot;: (ISOString) =&gt; {
+          const date = new Date(ISOString);
+          return date.getDate() + &quot; &quot; + months[date.getMonth()] + &quot;, &quot; + date.getFullYear();
+        }
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;courses&quot;: [&quot;HTML&quot;, &quot;CSS&quot;, &quot;JS&quot;],
+        &quot;appliedon&quot;: &quot;2021-10-21T14:48:00.000Z&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;courses&quot;: [&quot;Ruby on Rails&quot;, &quot;PostgreSQL&quot;],
+        &quot;appliedon&quot;: &quot;2022-01-14T16:14:00.000Z&quot;
+      }]
+    }
+
+    var datatable7 = document.getElementById('datatable-7');
+    datatable7.columns = data.columns;
+    datatable7.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="table-settings"><a href="#table-settings" class="header-anchor">#</a> Table settings</h2> <p>Table settings help with reordering and hide/show of columns. To enable table settings, pass the 'show-settings' prop to the table.</p> <div code="  &lt;fw-data-table id=&quot;datatable-8&quot; label=&quot;Data table 8&quot; show-settings=&quot;true&quot;&gt;
+  &lt;/fw-data-table&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;courses&quot;,
+        &quot;text&quot;: &quot;Courses&quot;,
+        &quot;formatData&quot;: (courses) =&gt; {
+          return courses.join(', ');
+        }
+      }, {
+        &quot;key&quot;: &quot;appliedon&quot;,
+        &quot;text&quot;: &quot;Applied on&quot;,
+        &quot;formatData&quot;: (ISOString) =&gt; {
+          const date = new Date(ISOString);
+          return date.getDate() + &quot; &quot; + months[date.getMonth()] + &quot;, &quot; + date.getFullYear();
+        }
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;courses&quot;: [&quot;HTML&quot;, &quot;CSS&quot;, &quot;JS&quot;],
+        &quot;appliedon&quot;: &quot;2021-10-21T14:48:00.000Z&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;courses&quot;: [&quot;Ruby on Rails&quot;, &quot;PostgreSQL&quot;],
+        &quot;appliedon&quot;: &quot;2022-01-14T16:14:00.000Z&quot;
+      }]
+    }
+
+    var datatable8 = document.getElementById('datatable-8');
+    datatable8.columns = data.columns;
+    datatable8.rows = data.rows;
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-356eb363"><fw-data-table id="datatable-8" label="Data table 8" show-settings="true"></fw-data-table> <script type="application/javascript">
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;
+      }, {
+        &quot;key&quot;: &quot;courses&quot;,
+        &quot;text&quot;: &quot;Courses&quot;,
+        &quot;formatData&quot;: (courses) =&gt; {
+          return courses.join(', ');
+        }
+      }, {
+        &quot;key&quot;: &quot;appliedon&quot;,
+        &quot;text&quot;: &quot;Applied on&quot;,
+        &quot;formatData&quot;: (ISOString) =&gt; {
+          const date = new Date(ISOString);
+          return date.getDate() + &quot; &quot; + months[date.getMonth()] + &quot;, &quot; + date.getFullYear();
+        }
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;courses&quot;: [&quot;HTML&quot;, &quot;CSS&quot;, &quot;JS&quot;],
+        &quot;appliedon&quot;: &quot;2021-10-21T14:48:00.000Z&quot;
+      }, {
+        &quot;id&quot;: &quot;0002&quot;,
+        &quot;name&quot;: &quot;Ambrose Wayne&quot;,
+        &quot;courses&quot;: [&quot;Ruby on Rails&quot;, &quot;PostgreSQL&quot;],
+        &quot;appliedon&quot;: &quot;2022-01-14T16:14:00.000Z&quot;
+      }]
+    }
+
+    var datatable8 = document.getElementById('datatable-8');
+    datatable8.columns = data.columns;
+    datatable8.rows = data.rows;
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="loading-table"><a href="#loading-table" class="header-anchor">#</a> Loading table</h2> <p>We can load a table using the 'loadTable' method available on the table.</p> <div code="  &lt;div style=&quot;width: 590px;&quot;&gt;
+     &lt;span&gt;
+      &lt;fw-toggle id=&quot;toggle-table&quot; size=&quot;medium&quot;&gt;&lt;/fw-toggle&gt;
+      &lt;span class=&quot;fw-ml-8&quot;&gt;Load table&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;br&gt;&lt;br&gt;
+    &lt;fw-data-table id=&quot;datatable-9&quot;  is-selectable=&quot;true&quot; is-all-selectable=&quot;true&quot; label=&quot;Data table 9&quot;&gt;
+    &lt;/fw-data-table&gt;
+  &lt;/div&gt;
+
+  &lt;script type=&quot;application/javascript&quot;&gt;
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;200px&quot;
+        }
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;200px&quot;
+        }
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }],
+      rowActions: [{
+        &quot;name&quot;: &quot;Alert&quot;,
+        &quot;handler&quot;: (rowData) =&gt; {
+          window.alert(rowData.name);
+        }
+      }, {
+        &quot;name&quot;: &quot;Delete&quot;,
+        &quot;handler&quot;: async (rowData) =&gt; {
+          let deletePromise = new Promise((resolve, reject) =&gt; {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() =&gt; {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) =&gt; (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        &quot;hideForRowIds&quot;: [&quot;0003&quot;]
+      }],
+      actionsColumn: { &quot;width&quot;: &quot;150px&quot; }
+    }
+
+    var datatable9 = document.getElementById('datatable-9');
+    datatable9.columns = data.columns;
+    datatable9.rows = data.rows;
+    datatable9.rowActions = data.rowActions;
+    datatable9.actionsColumnProperties = data.actionsColumn;
+
+    var toggle = document.getElementById('toggle-table');
+    toggle.addEventListener('fwChange', (event) =&gt; {
+        datatable9.loadTable(event.detail.checked);
+    });
+  &lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-60f61191"><div style="width: 590px;"><span><fw-toggle id="toggle-table" size="medium"></fw-toggle> <span class="fw-ml-8">Load table</span></span> <br><br> <fw-data-table id="datatable-9" is-selectable="true" is-all-selectable="true" label="Data table 9"></fw-data-table></div> <script type="application/javascript">
+    var data = {
+      columns: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;text&quot;: &quot;Name&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;200px&quot;
+        }
+      }, {
+        &quot;key&quot;: &quot;role&quot;,
+        &quot;text&quot;: &quot;Role&quot;,
+        &quot;widthProperties&quot;: {
+          &quot;width&quot;: &quot;200px&quot;
+        }
+      }],
+      rows: [{
+        &quot;id&quot;: &quot;0001&quot;,
+        &quot;name&quot;: &quot;Alexander Goodman&quot;,
+        &quot;role&quot;: &quot;Member&quot;
+      }],
+      rowActions: [{
+        &quot;name&quot;: &quot;Alert&quot;,
+        &quot;handler&quot;: (rowData) =&gt; {
+          window.alert(rowData.name);
+        }
+      }, {
+        &quot;name&quot;: &quot;Delete&quot;,
+        &quot;handler&quot;: async (rowData) =&gt; {
+          let deletePromise = new Promise((resolve, reject) =&gt; {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() =&gt; {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) =&gt; (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        &quot;hideForRowIds&quot;: [&quot;0003&quot;]
+      }],
+      actionsColumn: { &quot;width&quot;: &quot;150px&quot; }
+    }
+
+    var datatable9 = document.getElementById('datatable-9');
+    datatable9.columns = data.columns;
+    datatable9.rows = data.rows;
+    datatable9.rowActions = data.rowActions;
+    datatable9.actionsColumnProperties = data.actionsColumn;
+
+    var toggle = document.getElementById('toggle-table');
+    toggle.addEventListener('fwChange', (event) =&gt; {
+        datatable9.loadTable(event.detail.checked);
+    });
+  </script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><!----> <h2 id="saving-column-configuration"><a href="#saving-column-configuration" class="header-anchor">#</a> Saving column configuration</h2> <p>For auto saving configuration into localStorage, you can add 'autoSaveSettings' prop to the table.</p> <div class="language-html extra-class"><pre class="language-html"><code>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>data-table</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>data-table-10<span class="token punctuation">&quot;</span></span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>data table 10<span class="token punctuation">&quot;</span></span> <span class="token attr-name">auto-save-settings</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>true<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span> 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>data-table</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>Data table exposes couple of method to get and set column configuration.</p> <div class="language-js extra-class"><div class="highlight-lines"><br><div class="highlighted"> </div><div class="highlighted"> </div><br><br><br></div><pre class="language-js"><code>  <span class="token keyword">let</span> dataTable <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'data-table#config'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// getColumnConfig helps retrive configuration in JSON format</span>
+  <span class="token keyword">let</span> dataTableConfiguration <span class="token operator">=</span> dataTable<span class="token punctuation">.</span><span class="token function">getTableSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token comment">// setColumnConfig helps set the configuration. </span>
+  dataTable<span class="token punctuation">.</span><span class="token function">setTableSettings</span><span class="token punctuation">(</span>dataTableConfiguration<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+</code></pre></div> <h2 id="properties"><a href="#properties" class="header-anchor">#</a> Properties</h2> <table><thead><tr><th>Property</th> <th>Attribute</th> <th>Description</th> <th>Type</th> <th>Default</th></tr></thead> <tbody><tr><td><code>autoSaveSettings</code></td> <td><code>auto-save-settings</code></td> <td>autoSaveSettings to enable auto saving of table settings to <code>localstorage</code>. If set to <code>true</code>, make sure <code>id</code> attribute is also set to the <code>data-table</code></td> <td><code>boolean</code></td> <td><code>false</code></td></tr> <tr><td><code>columns</code></td> <td>--</td> <td>Columns Array of objects that provides information regarding the columns in the table.</td> <td><code>DataTableColumn[]</code></td> <td><code>[]</code></td></tr> <tr><td><code>isAllSelectable</code></td> <td><code>is-all-selectable</code></td> <td>isAllSelectable Boolean based on which select all option appears in the table header</td> <td><code>boolean</code></td> <td><code>false</code></td></tr> <tr><td><code>isLoading</code></td> <td><code>is-loading</code></td> <td>To disable table during async operations</td> <td><code>boolean</code></td> <td><code>false</code></td></tr> <tr><td><code>isSelectable</code></td> <td><code>is-selectable</code></td> <td>isSelectable Boolean based on which selectable options appears for rows in the table.</td> <td><code>boolean</code></td> <td><code>false</code></td></tr> <tr><td><code>label</code></td> <td><code>label</code></td> <td>Label attribute is not visible on screen. There for accessibility purposes.</td> <td><code>string</code></td> <td><code>''</code></td></tr> <tr><td><code>rowActions</code></td> <td>--</td> <td>To enable bulk actions on the table.</td> <td><code>DataTableAction[]</code></td> <td><code>[]</code></td></tr> <tr><td><code>rows</code></td> <td>--</td> <td>Rows Array of objects to be displayed in the table.</td> <td><code>DataTableRow[]</code></td> <td><code>[]</code></td></tr> <tr><td><code>shimmerCount</code></td> <td><code>shimmer-count</code></td> <td>shimmerCount number of shimmer rows to show during initial loading</td> <td><code>number</code></td> <td><code>4</code></td></tr> <tr><td><code>showSettings</code></td> <td><code>show-settings</code></td> <td>showSettings is used to show the settings button on the table.</td> <td><code>boolean</code></td> <td><code>false</code></td></tr></tbody></table> <h2 id="events"><a href="#events" class="header-anchor">#</a> Events</h2> <table><thead><tr><th>Event</th> <th>Description</th> <th>Type</th></tr></thead> <tbody><tr><td><code>fwSelectAllChange</code></td> <td>fwSelectAllChange Emits this event when select all is checked.</td> <td><code>CustomEvent&lt;any&gt;</code></td></tr> <tr><td><code>fwSelectionChange</code></td> <td>fwSelectionChange Emits this event when row is selected/unselected.</td> <td><code>CustomEvent&lt;any&gt;</code></td></tr></tbody></table> <h2 id="methods"><a href="#methods" class="header-anchor">#</a> Methods</h2> <h3 id="getselectedids-promise-string"><a href="#getselectedids-promise-string" class="header-anchor">#</a> <code>getSelectedIds() =&gt; Promise&lt;string[]&gt;</code></h3> <p>getSelectedIds</p> <h4 id="returns"><a href="#returns" class="header-anchor">#</a> Returns</h4> <p>Type: <code>Promise&lt;string[]&gt;</code></p> <p>an array of selected row IDs</p> <h3 id="getselectedrows-promise-datatablerow"><a href="#getselectedrows-promise-datatablerow" class="header-anchor">#</a> <code>getSelectedRows() =&gt; Promise&lt;DataTableRow[]&gt;</code></h3> <p>getSelectedRows</p> <h4 id="returns-2"><a href="#returns-2" class="header-anchor">#</a> Returns</h4> <p>Type: <code>Promise&lt;DataTableRow[]&gt;</code></p> <p>selected rows from the data table</p> <h3 id="gettablesettings-promise"><a href="#gettablesettings-promise" class="header-anchor">#</a> <code>getTableSettings() =&gt; Promise&lt;{}&gt;</code></h3> <p>getTableSettings</p> <h4 id="returns-3"><a href="#returns-3" class="header-anchor">#</a> Returns</h4> <p>Type: <code>Promise&lt;{}&gt;</code></p> <p>columnConfig object</p> <h3 id="loadtable-state-boolean-promise-boolean"><a href="#loadtable-state-boolean-promise-boolean" class="header-anchor">#</a> <code>loadTable(state?: boolean) =&gt; Promise&lt;boolean&gt;</code></h3> <p>loadTable - Method to call when we want to change table loading state</p> <h4 id="returns-4"><a href="#returns-4" class="header-anchor">#</a> Returns</h4> <p>Type: <code>Promise&lt;boolean&gt;</code></p> <p>isLoading current state</p> <h3 id="selectallrows-checked-boolean-promise-string"><a href="#selectallrows-checked-boolean-promise-string" class="header-anchor">#</a> <code>selectAllRows(checked?: boolean) =&gt; Promise&lt;string[]&gt;</code></h3> <p>selectAllRows method we can use to select/unselect rows in the table</p> <h4 id="returns-5"><a href="#returns-5" class="header-anchor">#</a> Returns</h4> <p>Type: <code>Promise&lt;string[]&gt;</code></p> <h3 id="settablesettings-columnconfig-any-promise-datatablecolumn"><a href="#settablesettings-columnconfig-any-promise-datatablecolumn" class="header-anchor">#</a> <code>setTableSettings(columnConfig: any) =&gt; Promise&lt;DataTableColumn[]&gt;</code></h3> <p>setTableSettings</p> <h4 id="returns-6"><a href="#returns-6" class="header-anchor">#</a> Returns</h4> <p>Type: <code>Promise&lt;DataTableColumn[]&gt;</code></p> <h2 id="dependencies"><a href="#dependencies" class="header-anchor">#</a> Dependencies</h2> <h3 id="depends-on"><a href="#depends-on" class="header-anchor">#</a> Depends on</h3> <ul><li><a href="./custom-cells/anchor">fw-custom-cell-anchor</a></li> <li><a href="./custom-cells/user">fw-custom-cell-user</a></li> <li><a href="./custom-cells/icon">fw-custom-cell-icon</a></li> <li><a href="./custom-cells/paragraph">fw-custom-cell-paragraph</a></li> <li><a href="../checkbox">fw-checkbox</a></li> <li><a href="../tooltip">fw-tooltip</a></li> <li><a href="../button">fw-button</a></li> <li><a href="../icon">fw-icon</a></li> <li><a href="../input">fw-input</a></li> <li><a href="../drag-container">fw-drag-container</a></li> <li><a href="../skeleton">fw-skeleton</a></li></ul> <h3 id="graph"><a href="#graph" class="header-anchor">#</a> Graph</h3> <div class="language-mermaid extra-class"><pre class="language-mermaid"><code><span class="token keyword">graph</span> TD<span class="token punctuation">;</span>
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-custom-cell-anchor
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-custom-cell-user
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-custom-cell-icon
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-custom-cell-paragraph
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-checkbox
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-tooltip
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-button
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-icon
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-input
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-drag-container
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-skeleton
+  fw-custom-cell-user <span class="token arrow operator">--&gt;</span> fw-avatar
+  fw-custom-cell-icon <span class="token arrow operator">--&gt;</span> fw-icon
+  fw-icon <span class="token arrow operator">--&gt;</span> fw-toast-message
+  fw-toast-message <span class="token arrow operator">--&gt;</span> fw-spinner
+  fw-toast-message <span class="token arrow operator">--&gt;</span> fw-icon
+  fw-custom-cell-paragraph <span class="token arrow operator">--&gt;</span> fw-tooltip
+  fw-tooltip <span class="token arrow operator">--&gt;</span> fw-popover
+  fw-checkbox <span class="token arrow operator">--&gt;</span> fw-icon
+  fw-button <span class="token arrow operator">--&gt;</span> fw-spinner
+  fw-button <span class="token arrow operator">--&gt;</span> fw-icon
+  fw-input <span class="token arrow operator">--&gt;</span> fw-icon
+  <span class="token keyword">style</span> fw-data-table <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#f9f<span class="token punctuation">,</span><span class="token property">stroke</span><span class="token operator">:</span>#333<span class="token punctuation">,</span><span class="token property">stroke-width</span><span class="token operator">:</span>4px</span>
+</code></pre></div><hr> <p>Built with ❤ at Freshworks</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/crayons/769/components/core/country-phone/" class="prev">
+        CountryPhone(fw-country-phone)
+      </a></span> <span class="next"><a href="/crayons/769/components/core/datepicker/">
+        Datepicker (fw-datepicker)
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/crayons/769/assets/js/app.a034b94c.js" defer></script><script src="/crayons/769/assets/js/5.bed87302.js" defer></script><script src="/crayons/769/assets/js/30.ec76d68d.js" defer></script><script src="/crayons/769/assets/js/8.b0d42111.js" defer></script><script src="/crayons/769/assets/js/12.426775fc.js" defer></script>
+  </body>
+</html>
