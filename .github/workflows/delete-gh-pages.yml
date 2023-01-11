@@ -3,7 +3,7 @@ name: Delete gh-pages folder of a closed PR
 on:
   pull_request:
     branches:
-      - test-preview-deploy
+      - test-gh-preview-deploy
     types: [closed]
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
