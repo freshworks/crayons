@@ -25,10 +25,9 @@ jobs:
 
       - name: Remove File
         run: |
-            pwd \
             rm -rf ./${{env.PR_NUMBER}} \
-            HUSKY_SKIP_HOOKS=1 git add . \
-            HUSKY_SKIP_HOOKS=1 git commit -m "Delete directory that is not required" \
-            HUSKY_SKIP_HOOKS=1 git push origin gh-pages
+            git add . \
+            HUSKY_SKIP_HOOKS=1 git commit -m "Delete directory that is not required" --no-verify \
+            HUSKY_SKIP_HOOKS=1 git push origin gh-pages --no-verify
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
