@@ -486,9 +486,10 @@ export class Form {
       value: 'open',
       position: 1,
       dependent_ids: {},
-    }]
-   * fieldOptions is an optional parameter if present, must be an object with keys being option_label_path and option_value_path,
-    * values referring to key name of text to display and key name of choice's value respectively.
+    }].
+   * fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path.
+   * option_label_path refers to the key used for displaying the text.
+   * option_value_path refers to the key which corresponds to the value of item.
    */
   @Method()
   async setFieldChoices(
