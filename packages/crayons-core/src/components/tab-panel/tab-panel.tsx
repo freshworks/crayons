@@ -2,6 +2,10 @@ import { Component, Host, Prop, h, Element } from '@stencil/core';
 
 let counter = 0;
 
+/**
+ * @parent tab
+ */
+
 @Component({
   tag: 'fw-tab-panel',
   styleUrl: 'tab-panel.scss',

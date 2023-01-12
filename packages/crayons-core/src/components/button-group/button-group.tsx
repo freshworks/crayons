@@ -1,5 +1,9 @@
 import { Component, Host, h, Element, Prop } from '@stencil/core';
 
+/**
+ * @parent button
+ */
+
 @Component({
   tag: 'fw-button-group',
   styleUrl: 'button-group.scss',

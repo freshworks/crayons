@@ -7,6 +7,11 @@ import { hasSlot } from '../../utils';
 import { TranslationController } from '../../global/Translation';
 
 const NATIVE_CONTROLS = ['input', 'select', 'textarea'];
+
+/**
+ * @parent form
+ */
+
 @Component({
   tag: 'fw-form-control',
   styleUrl: 'form-control.scss',
@@ -30,6 +35,7 @@ export class FormControl {
     | 'URL'
     | 'TEL'
     | 'TIME'
+    | 'DATE_TIME'
     | 'RELATIONSHIP' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
@@ -58,6 +64,11 @@ export class FormControl {
   touched = false;
   @Prop()
   error = '';
+  /**
+   * Prop to determine whether to render the form-control or not.
+   * Default to true.
+   */
+  @Prop() shouldRender = true;
   private slotElement;
   private crayonsControlRef;
 
@@ -144,6 +155,34 @@ export class FormControl {
             ['error-text']: TranslationController.t(this.error, {
               field: this.label || this.name,
             }),
+          };
+          cmp = (
+            <fw-datepicker
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-datepicker>
+          );
+        }
+        break;
+
+      case 'DATE_TIME':
+        {
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            placeholder: this.placeholder,
+            label: this.label,
+            required: this.required,
+            ...this.controlProps?.inputProps(
+              this.name,
+              this.type?.toLowerCase()
+            ),
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
+            showTimePicker: true,
           };
           cmp = (
             <fw-datepicker
@@ -379,33 +418,35 @@ export class FormControl {
 
   render(): JSX.Element {
     return (
-      <div class='form-control-container'>
-        {this.renderControl()}
-        {this.hasSlot && (
-          <label
-            htmlFor={this.name}
-            class={{
-              label: true,
-              required: this.required,
-            }}
-          >
-            {this.label}
-          </label>
-        )}
-        <slot onSlotchange={() => this.handleSlotChange()}></slot>
-        {this.hasSlot && !(this.touched && this.error) && (
-          <div class='hint' id={`hint-${this.name}`}>
-            {this.hint}
-          </div>
-        )}
-        {this.hasSlot && this.touched && this.error && (
-          <div class='error' id={`error-${this.name}`}>
-            {TranslationController.t(this.error, {
-              field: this.label || this.name,
-            })}
-          </div>
-        )}
-      </div>
+      this.shouldRender && (
+        <div class='form-control-container'>
+          {this.renderControl()}
+          {this.hasSlot && (
+            <label
+              htmlFor={this.name}
+              class={{
+                label: true,
+                required: this.required,
+              }}
+            >
+              {this.label}
+            </label>
+          )}
+          <slot onSlotchange={() => this.handleSlotChange()}></slot>
+          {this.hasSlot && !(this.touched && this.error) && (
+            <div class='hint' id={`hint-${this.name}`}>
+              {this.hint}
+            </div>
+          )}
+          {this.hasSlot && this.touched && this.error && (
+            <div class='error' id={`error-${this.name}`}>
+              {TranslationController.t(this.error, {
+                field: this.label || this.name,
+              })}
+            </div>
+          )}
+        </div>
+      )
     );
   }
 }

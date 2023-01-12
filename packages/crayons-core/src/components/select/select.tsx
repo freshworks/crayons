@@ -37,7 +37,7 @@ export class Select {
   private tagArrowKeyCounter = 0;
   private hostId;
 
-  private changeEmittable = () => !this.disabled && !this.readonly;
+  private changeEmittable = () => !this.disabled;
 
   private innerOnFocus = (e: Event) => {
     if (this.changeEmittable()) {
@@ -608,11 +608,7 @@ export class Select {
               ? 'error'
               : 'normal';
           const className =
-            this.disabled || option.disabled
-              ? 'tag-disabled'
-              : !this.readonly
-              ? 'tag-clickable'
-              : '';
+            this.disabled || option.disabled ? 'tag-disabled' : 'tag-clickable';
           const displayAttributes =
             this.variant === 'mail'
               ? {
@@ -631,10 +627,10 @@ export class Select {
               state={optionState}
               variant={this.tagVariant}
               graphicsProps={option.graphicsProps}
-              disabled={this.disabled || this.readonly || option.disabled}
+              disabled={this.disabled || option.disabled}
               value={option[this.optionValuePath]}
               focusable={false}
-              closable={!this.disabled && !this.readonly && !option.disabled}
+              closable={!this.disabled && !option.disabled}
               isFocused={this.focusedValues.includes(index)}
               onClick={(e) => this.onClickTag(e, index)}
               {...displayAttributes}
@@ -946,35 +942,28 @@ export class Select {
                   [this.state]: true,
                   'select-disabled': this.disabled,
                   'button-container': this.variant === 'button',
-                  'readonly-field': this.readonly,
                 }}
                 onClick={() => this.innerOnClick()}
                 onKeyDown={handleKeyDown(this.innerOnClick, true)}
               >
                 {this.variant === 'button' ? (
-                  this.readonly ? (
-                    this.renderButtonValue()
-                  ) : (
-                    <fw-button
-                      style={{ '--fw-button-label-vertical-padding': '7px' }}
-                      show-caret-icon
-                      id={`${this.hostId}-btn`}
-                      color={
-                        this.tagVariant === 'avatar' ? 'text' : 'secondary'
-                      }
-                      class={
-                        this.host.classList.value.includes('first')
-                          ? 'fw-button-group__button--first'
-                          : this.host.classList.value.includes('last')
-                          ? 'fw-button-group__button--last'
-                          : ''
-                      }
-                      aria-disabled={this.disabled}
-                      disabled={this.disabled}
-                    >
-                      {this.renderButtonValue()}
-                    </fw-button>
-                  )
+                  <fw-button
+                    style={{ '--fw-button-label-vertical-padding': '7px' }}
+                    show-caret-icon
+                    id={`${this.hostId}-btn`}
+                    color={this.tagVariant === 'avatar' ? 'text' : 'secondary'}
+                    class={
+                      this.host.classList.value.includes('first')
+                        ? 'fw-button-group__button--first'
+                        : this.host.classList.value.includes('last')
+                        ? 'fw-button-group__button--last'
+                        : ''
+                    }
+                    aria-disabled={this.disabled}
+                    disabled={this.disabled}
+                  >
+                    {this.renderButtonValue()}
+                  </fw-button>
                 ) : (
                   <Fragment>
                     <div class='input-container-inner'>
@@ -998,8 +987,7 @@ export class Select {
                     {this.isLoading ? (
                       <fw-spinner size='small'></fw-spinner>
                     ) : (
-                      this.caret &&
-                      !this.readonly && (
+                      this.caret && (
                         <span
                           class={{
                             'dropdown-status-icon': true,
