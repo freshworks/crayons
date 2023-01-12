@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Drag Container (fw-drag-container) | Crayons</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <script type="module" src="/crayons/774/crayons/build/crayons.esm.js"></script>
+    <script nomodule="" src="/crayons/774/crayons/build/crayons.js"></script>
+    <link rel="stylesheet" href="/crayons/774/css/crayons-min.css">
+    <link rel="icon" href="/crayons/774/favicon.png">
+    <meta name="description" content="A refreshed design library for the Freshworks Developers.">
+    <meta property="og:site_name" content="Crayons">
+    <meta property="og:title" content="Crayons">
+    <meta property="og:description" content="A refreshed design library for the Freshworks Developers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://crayons.freshworks.com/components/core/drag-container/">
+    <meta property="og:image" content="https://s3.amazonaws.com/static.freshcloud.io/crayons/assets/crayons.png">
+    <meta name="twitter:title" content="Crayons">
+    <meta name="twitter:description" content="A refreshed design library for the Freshworks Developers.">
+    <meta name="twitter:url" content="https://crayons.freshworks.com/components/core/drag-container/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://s3.amazonaws.com/static.freshcloud.io/crayons/assets/crayons.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Web Components, Ui Kit, Marketplace, Freshworks Marketplace, Component Library, FDK, Freshworks developers, Freshworks development, Freshworks, Freshworks Development Kit">
+    <meta property="article:tag" content="Web Components">
+    
+    <link rel="preload" href="/crayons/774/assets/css/0.styles.c5942bfc.css" as="style"><link rel="preload" href="/crayons/774/assets/js/app.d0c8c4d7.js" as="script"><link rel="preload" href="/crayons/774/assets/js/5.bed87302.js" as="script"><link rel="preload" href="/crayons/774/assets/js/32.30e927fc.js" as="script"><link rel="preload" href="/crayons/774/assets/js/8.b0d42111.js" as="script"><link rel="prefetch" href="/crayons/774/assets/js/1.c1bf0bb9.js"><link rel="prefetch" href="/crayons/774/assets/js/10.a047820b.js"><link rel="prefetch" href="/crayons/774/assets/js/11.4bf70472.js"><link rel="prefetch" href="/crayons/774/assets/js/12.426775fc.js"><link rel="prefetch" href="/crayons/774/assets/js/13.9dd84b58.js"><link rel="prefetch" href="/crayons/774/assets/js/14.d368c4fd.js"><link rel="prefetch" href="/crayons/774/assets/js/15.2b0f0010.js"><link rel="prefetch" href="/crayons/774/assets/js/16.790a94bd.js"><link rel="prefetch" href="/crayons/774/assets/js/17.115486f8.js"><link rel="prefetch" href="/crayons/774/assets/js/18.045f874c.js"><link rel="prefetch" href="/crayons/774/assets/js/19.7e4f13e8.js"><link rel="prefetch" href="/crayons/774/assets/js/20.7232212a.js"><link rel="prefetch" href="/crayons/774/assets/js/21.2cda7d4c.js"><link rel="prefetch" href="/crayons/774/assets/js/22.f42c2afc.js"><link rel="prefetch" href="/crayons/774/assets/js/23.d373c7bb.js"><link rel="prefetch" href="/crayons/774/assets/js/24.cdb85061.js"><link rel="prefetch" href="/crayons/774/assets/js/25.435da6ce.js"><link rel="prefetch" href="/crayons/774/assets/js/26.b28075b4.js"><link rel="prefetch" href="/crayons/774/assets/js/27.480ec36e.js"><link rel="prefetch" href="/crayons/774/assets/js/28.eb5af59c.js"><link rel="prefetch" href="/crayons/774/assets/js/29.04f4f7a7.js"><link rel="prefetch" href="/crayons/774/assets/js/3.c6f5068a.js"><link rel="prefetch" href="/crayons/774/assets/js/30.ec76d68d.js"><link rel="prefetch" href="/crayons/774/assets/js/31.09f07cc3.js"><link rel="prefetch" href="/crayons/774/assets/js/33.011500e6.js"><link rel="prefetch" href="/crayons/774/assets/js/34.e82a4f77.js"><link rel="prefetch" href="/crayons/774/assets/js/35.bc2adf2b.js"><link rel="prefetch" href="/crayons/774/assets/js/36.841b4ea9.js"><link rel="prefetch" href="/crayons/774/assets/js/37.49481a21.js"><link rel="prefetch" href="/crayons/774/assets/js/38.2a083a36.js"><link rel="prefetch" href="/crayons/774/assets/js/39.07988492.js"><link rel="prefetch" href="/crayons/774/assets/js/4.c5888bab.js"><link rel="prefetch" href="/crayons/774/assets/js/40.d76fc3e5.js"><link rel="prefetch" href="/crayons/774/assets/js/41.a74d0bd2.js"><link rel="prefetch" href="/crayons/774/assets/js/42.fba59004.js"><link rel="prefetch" href="/crayons/774/assets/js/43.c3b2f50a.js"><link rel="prefetch" href="/crayons/774/assets/js/44.d1c349b8.js"><link rel="prefetch" href="/crayons/774/assets/js/45.d529b461.js"><link rel="prefetch" href="/crayons/774/assets/js/46.ae006176.js"><link rel="prefetch" href="/crayons/774/assets/js/47.862fecba.js"><link rel="prefetch" href="/crayons/774/assets/js/48.9bd84d20.js"><link rel="prefetch" href="/crayons/774/assets/js/49.7f32b975.js"><link rel="prefetch" href="/crayons/774/assets/js/50.93ff24b2.js"><link rel="prefetch" href="/crayons/774/assets/js/51.24fb8d29.js"><link rel="prefetch" href="/crayons/774/assets/js/52.a2689b93.js"><link rel="prefetch" href="/crayons/774/assets/js/53.25b0a97a.js"><link rel="prefetch" href="/crayons/774/assets/js/54.e0d9b925.js"><link rel="prefetch" href="/crayons/774/assets/js/55.e50128c6.js"><link rel="prefetch" href="/crayons/774/assets/js/56.a61dac9b.js"><link rel="prefetch" href="/crayons/774/assets/js/57.57ba44b5.js"><link rel="prefetch" href="/crayons/774/assets/js/58.f7e4277f.js"><link rel="prefetch" href="/crayons/774/assets/js/59.95f2b7a4.js"><link rel="prefetch" href="/crayons/774/assets/js/6.409422f7.js"><link rel="prefetch" href="/crayons/774/assets/js/60.40617da5.js"><link rel="prefetch" href="/crayons/774/assets/js/61.b2bd43d9.js"><link rel="prefetch" href="/crayons/774/assets/js/62.c656c977.js"><link rel="prefetch" href="/crayons/774/assets/js/63.960aaa65.js"><link rel="prefetch" href="/crayons/774/assets/js/64.2503fa09.js"><link rel="prefetch" href="/crayons/774/assets/js/65.f97f7f9d.js"><link rel="prefetch" href="/crayons/774/assets/js/66.6c9cccf3.js"><link rel="prefetch" href="/crayons/774/assets/js/67.233632f4.js"><link rel="prefetch" href="/crayons/774/assets/js/68.816f32f3.js"><link rel="prefetch" href="/crayons/774/assets/js/69.da07e4cb.js"><link rel="prefetch" href="/crayons/774/assets/js/7.915018df.js"><link rel="prefetch" href="/crayons/774/assets/js/70.9542ec3e.js"><link rel="prefetch" href="/crayons/774/assets/js/71.d5dc7ff3.js"><link rel="prefetch" href="/crayons/774/assets/js/72.4f81dae0.js"><link rel="prefetch" href="/crayons/774/assets/js/73.d1d5c37b.js"><link rel="prefetch" href="/crayons/774/assets/js/74.3d5d6907.js"><link rel="prefetch" href="/crayons/774/assets/js/75.6d648c35.js"><link rel="prefetch" href="/crayons/774/assets/js/76.26dee41f.js"><link rel="prefetch" href="/crayons/774/assets/js/77.38180f3e.js"><link rel="prefetch" href="/crayons/774/assets/js/78.96014074.js"><link rel="prefetch" href="/crayons/774/assets/js/79.4f124f55.js"><link rel="prefetch" href="/crayons/774/assets/js/80.4f3d4d06.js"><link rel="prefetch" href="/crayons/774/assets/js/81.2e8f2b6a.js"><link rel="prefetch" href="/crayons/774/assets/js/82.0e8ef376.js"><link rel="prefetch" href="/crayons/774/assets/js/83.e624213d.js"><link rel="prefetch" href="/crayons/774/assets/js/84.e6fa0074.js"><link rel="prefetch" href="/crayons/774/assets/js/85.8847558c.js"><link rel="prefetch" href="/crayons/774/assets/js/86.33db873d.js"><link rel="prefetch" href="/crayons/774/assets/js/87.1e7de948.js"><link rel="prefetch" href="/crayons/774/assets/js/88.8e13a0a0.js"><link rel="prefetch" href="/crayons/774/assets/js/9.98db0cb4.js">
+    <link rel="stylesheet" href="/crayons/774/assets/css/0.styles.c5942bfc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/crayons/774/" class="home-link router-link-active"><!----> <span class="site-name">Crayons</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/crayons/774/introduction/migrating-to-v3/" class="nav-link">
+  Migrating to v3
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="v3.x" class="dropdown-title"><span class="title">v3.x</span> <span class="arrow down"></span></button> <button type="button" aria-label="v3.x" class="mobile-dropdown-title"><span class="title">v3.x</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v3.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/v2/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v2.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/crayons/774/introduction/migrating-to-v3/" class="nav-link">
+  Migrating to v3
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="v3.x" class="dropdown-title"><span class="title">v3.x</span> <span class="arrow down"></span></button> <button type="button" aria-label="v3.x" class="mobile-dropdown-title"><span class="title">v3.x</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v3.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://crayons.freshworks.com/v2/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  v2.x
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Introduction</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/774/introduction/" class="sidebar-link">Overview</a></li><li><a href="/crayons/774/introduction/migrating-to-v3/" class="sidebar-link">Migrating to v3</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Components</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/774/components/core/accordion/" class="sidebar-link">Accordion (fw-accordion)</a></li><li><a href="/crayons/774/components/core/accordion-body/" class="sidebar-link">Accordion Body (fw-accordion-body)</a></li><li><a href="/crayons/774/components/core/accordion-title/" class="sidebar-link">Accordion Title (fw-accordion-title)</a></li><li><a href="/crayons/774/components/core/avatar/" class="sidebar-link">Avatar (fw-avatar)</a></li><li><a href="/crayons/774/components/core/button/" class="sidebar-link">Button (fw-button)</a></li><li><a href="/crayons/774/components/core/button-group/" class="sidebar-link">Button Group (fw-button-group)</a></li><li><a href="/crayons/774/components/core/checkbox/" class="sidebar-link">Checkbox (fw-checkbox)</a></li><li><a href="/crayons/774/components/core/country-phone/" class="sidebar-link">CountryPhone(fw-country-phone)</a></li><li><a href="/crayons/774/components/core/data-table/" class="sidebar-link">DataTable (fw-data-table)</a></li><li><a href="/crayons/774/components/core/datepicker/" class="sidebar-link">Datepicker (fw-datepicker)</a></li><li><a href="/crayons/774/components/core/drag-container/" aria-current="page" class="active sidebar-link">Drag Container (fw-drag-container)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/crayons/774/components/core/drag-container/#demo" class="sidebar-link">Demo</a></li><li class="sidebar-sub-header"><a href="/crayons/774/components/core/drag-container/#properties" class="sidebar-link">Properties</a></li><li class="sidebar-sub-header"><a href="/crayons/774/components/core/drag-container/#events" class="sidebar-link">Events</a></li><li class="sidebar-sub-header"><a href="/crayons/774/components/core/drag-container/#dependencies" class="sidebar-link">Dependencies</a></li></ul></li><li><a href="/crayons/774/components/core/drag-item/" class="sidebar-link">Drag Item (fw-drag-item)</a></li><li><a href="/crayons/774/components/core/file-uploader/" class="sidebar-link">File uploader (fw-file-uploader)</a></li><li><a href="/crayons/774/components/core/form/" class="sidebar-link">Form (fw-form)</a></li><li><a href="/crayons/774/components/core/form-control/" class="sidebar-link">Form Control (fw-form-control)</a></li><li><a href="/crayons/774/components/core/format-date/" class="sidebar-link">Format Date (fw-format-date)</a></li><li><a href="/crayons/774/components/core/format-number/" class="sidebar-link">Format Number (fw-format-number)</a></li><li><a href="/crayons/774/components/core/icon/" class="sidebar-link">Icon (fw-icon)</a></li><li><a href="/crayons/774/components/core/inline-message/" class="sidebar-link">Inline Message (fw-inline-message)</a></li><li><a href="/crayons/774/components/core/input/" class="sidebar-link">Input (fw-input)</a></li><li><a href="/crayons/774/components/core/label/" class="sidebar-link">Label (fw-label)</a></li><li><a href="/crayons/774/components/core/menu/" class="sidebar-link">Menu (fw-menu)</a></li><li><a href="/crayons/774/components/core/menu-item/" class="sidebar-link">Menu Item (fw-menu-item)</a></li><li><a href="/crayons/774/components/core/modal/" class="sidebar-link">Modal (fw-modal)</a></li><li><a href="/crayons/774/components/core/modal-content/" class="sidebar-link">Modal Content (fw-modal-content)</a></li><li><a href="/crayons/774/components/core/modal-footer/" class="sidebar-link">Modal Footer (fw-modal-footer)</a></li><li><a href="/crayons/774/components/core/modal-title/" class="sidebar-link">Modal Title (fw-modal-title)</a></li><li><a href="/crayons/774/components/core/options-list/" class="sidebar-link">List Options (fw-list-options)</a></li><li><a href="/crayons/774/components/core/pagination/" class="sidebar-link">Pagination (fw-pagination)</a></li><li><a href="/crayons/774/components/core/pill/" class="sidebar-link">Pill (fw-pill)</a></li><li><a href="/crayons/774/components/core/popover/" class="sidebar-link">Popover (fw-popover)</a></li><li><a href="/crayons/774/components/core/progress-loader/" class="sidebar-link">Progress Loader (fw-progress-loader)</a></li><li><a href="/crayons/774/components/core/radio/" class="sidebar-link">Radio (fw-radio)</a></li><li><a href="/crayons/774/components/core/radio-group/" class="sidebar-link">Radio Group (fw-radio-group)</a></li><li><a href="/crayons/774/components/core/select/" class="sidebar-link">Select (fw-select)</a></li><li><a href="/crayons/774/components/core/select-option/" class="sidebar-link">Select Option (fw-select-option)</a></li><li><a href="/crayons/774/components/core/skeleton/" class="sidebar-link">Skeleton (fw-skeleton)</a></li><li><a href="/crayons/774/components/core/spinner/" class="sidebar-link">Spinner (fw-spinner)</a></li><li><a href="/crayons/774/components/core/tab/" class="sidebar-link">Tab (fw-tab)</a></li><li><a href="/crayons/774/components/core/tab-panel/" class="sidebar-link">Tab Panel (fw-tab-panel)</a></li><li><a href="/crayons/774/components/core/tabs/" class="sidebar-link">Tabs (fw-tabs)</a></li><li><a href="/crayons/774/components/core/tag/" class="sidebar-link">Tag (fw-tag)</a></li><li><a href="/crayons/774/components/core/textarea/" class="sidebar-link">Textarea (fw-textarea)</a></li><li><a href="/crayons/774/components/core/timepicker/" class="sidebar-link">Timepicker (fw-timepicker)</a></li><li><a href="/crayons/774/components/core/toast/" class="sidebar-link">Toast (fw-toast)</a></li><li><a href="/crayons/774/components/core/toast-message/" class="sidebar-link">Toast Message (fw-toast-message)</a></li><li><a href="/crayons/774/components/core/toggle/" class="sidebar-link">Toggle (fw-toggle)</a></li><li><a href="/crayons/774/components/core/toggle-group/" class="sidebar-link">Toggle Group (fw-toggle-group)</a></li><li><a href="/crayons/774/components/core/toggle-group-button/" class="sidebar-link">Toggle Group Button (fw-toggle-group-button)</a></li><li><a href="/crayons/774/components/core/tooltip/" class="sidebar-link">Tooltip (fw-tooltip)</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>CSS Utils</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/774/css-utils/typography/" class="sidebar-link">Typography</a></li><li><a href="/crayons/774/css-utils/spacing/" class="sidebar-link">Spacing (Margin and Padding)</a></li><li><a href="/crayons/774/css-utils/border/" class="sidebar-link">Border</a></li><li><a href="/crayons/774/css-utils/layout/" class="sidebar-link">Layout</a></li><li><a href="/crayons/774/css-utils/card/" class="sidebar-link">Card</a></li><li><a href="/crayons/774/css-utils/color/" class="sidebar-link">Color</a></li><li><a href="/crayons/774/css-utils/examples/" class="sidebar-link">Examples</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Utilities</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/774/utilities/i18n/" class="sidebar-link">Internationalization Support (i18n)</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Frameworks</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/crayons/774/frameworks/react/" class="sidebar-link">React</a></li><li><a href="/crayons/774/frameworks/vue/" class="sidebar-link">Vue</a></li><li><a href="/crayons/774/frameworks/angular/" class="sidebar-link">Angular</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="drag-container-fw-drag-container"><a href="#drag-container-fw-drag-container" class="header-anchor">#</a> Drag Container (fw-drag-container)</h1> <p>fw-drag-container can be used to reorder a list items via drag and drop or move/copy items between two fw-drag-container elements.</p> <h2 id="demo"><a href="#demo" class="header-anchor">#</a> Demo</h2> <p>fw-drag-container is a custom component with an open shadow that acts as a wrapper to the list items having <code>draggable</code> attribute as true, that can be dragged and dropped with in the wrapper to change their order.</p> <div code="&lt;template&gt;
+  &lt;div&gt;
+    &lt;fw-label value=&quot;Sort items within a container&quot;&gt;&lt;/fw-label&gt;
+    &lt;fw-drag-container class=&quot;drag-container&quot; id=&quot;defaultSort&quot;&gt;
+      &lt;fw-drag-item&gt;Item 1&lt;/fw-drag-item&gt;
+      &lt;fw-drag-item&gt;Item 2&lt;/fw-drag-item&gt;
+      &lt;fw-drag-item&gt;Item 3&lt;/fw-drag-item&gt;
+      &lt;fw-drag-item
+        &gt;Item 4 &lt;fw-icon slot=&quot;suffix&quot; name=&quot;bulb&quot;&gt;&lt;/fw-icon&gt;
+      &lt;/fw-drag-item&gt;
+    &lt;/fw-drag-container&gt;
+    &lt;br /&gt;
+    &lt;fw-label value=&quot;Pinned items within a container&quot;&gt;&lt;/fw-label&gt;
+    &lt;fw-drag-container class=&quot;drag-container&quot; id=&quot;pinnedSort&quot;&gt;
+      &lt;fw-drag-item pinned=&quot;top&quot;&gt;Item 1&lt;/fw-drag-item&gt;
+      &lt;fw-drag-item&gt;Item 2&lt;/fw-drag-item&gt;
+      &lt;fw-drag-item&gt;Item 3&lt;/fw-drag-item&gt;
+      &lt;fw-drag-item&gt;Item 4&lt;/fw-drag-item&gt;
+      &lt;fw-drag-item pinned=&quot;bottom&quot;&gt;Item 5&lt;/fw-drag-item&gt;
+    &lt;/fw-drag-container&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;style&gt;
+  .drag-container {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid black;
+  }
+  fw-drag-item {
+    margin-bottom: 8px;
+  }
+&lt;/style&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-a6ef1e75" data-v-a6ef1e75><fw-label value="Sort items within a container" data-v-a6ef1e75></fw-label> <fw-drag-container id="defaultSort" class="drag-container" data-v-a6ef1e75><fw-drag-item data-v-a6ef1e75>Item 1</fw-drag-item> <fw-drag-item data-v-a6ef1e75>Item 2</fw-drag-item> <fw-drag-item data-v-a6ef1e75>Item 3</fw-drag-item> <fw-drag-item data-v-a6ef1e75>Item 4 <fw-icon slot="suffix" name="bulb" data-v-a6ef1e75></fw-icon></fw-drag-item></fw-drag-container> <br data-v-a6ef1e75> <fw-label value="Pinned items within a container" data-v-a6ef1e75></fw-label> <fw-drag-container id="pinnedSort" class="drag-container" data-v-a6ef1e75><fw-drag-item pinned="top" data-v-a6ef1e75>Item 1</fw-drag-item> <fw-drag-item data-v-a6ef1e75>Item 2</fw-drag-item> <fw-drag-item data-v-a6ef1e75>Item 3</fw-drag-item> <fw-drag-item data-v-a6ef1e75>Item 4</fw-drag-item> <fw-drag-item pinned="bottom" data-v-a6ef1e75>Item 5</fw-drag-item></fw-drag-container></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><p>Demo for dragging items from one container to another container.</p> <div code="&lt;template&gt;
+  &lt;div&gt;
+    &lt;fw-label value=&quot;Copying items from on container to another&quot;&gt;&lt;/fw-label&gt;
+    &lt;fw-label
+      value=&quot;Item 1-5 are allows to be sorted with Item 6-9 but not the other way around.&quot;
+    &gt;&lt;/fw-label&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;fw-drag-container class=&quot;drag-container&quot; sortable=&quot;false&quot; id=&quot;from&quot;&gt;
+        &lt;fw-drag-item&gt;Item 1&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 2&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 3&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 4&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 5&lt;/fw-drag-item&gt;
+      &lt;/fw-drag-container&gt;
+
+      &lt;fw-drag-container
+        class=&quot;drag-container&quot;
+        id=&quot;to&quot;
+        accept-from=&quot;from&quot;
+        placeholder-class=&quot;placeholder&quot;
+      &gt;
+        &lt;fw-drag-item&gt;Item 6&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 7&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 8&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 9&lt;/fw-drag-item&gt;
+      &lt;/fw-drag-container&gt;
+    &lt;/div&gt;
+    &lt;fw-label value=&quot;Moving items from on container to another&quot;&gt;&lt;/fw-label&gt;
+    &lt;fw-label
+      value=&quot;Item 1-5 are allows to be sorted with Item 6-9 but not the other way around.&quot;
+    &gt;&lt;/fw-label&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;fw-drag-container class=&quot;drag-container&quot; sortable=&quot;false&quot; id=&quot;moveFrom&quot;&gt;
+        &lt;fw-drag-item&gt;Item 1&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 2&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 3&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 4&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 5&lt;/fw-drag-item&gt;
+      &lt;/fw-drag-container&gt;
+
+      &lt;fw-drag-container
+        class=&quot;drag-container&quot;
+        id=&quot;moveTo&quot;
+        accept-from=&quot;moveFrom&quot;
+        placeholder-class=&quot;placeholder&quot;
+        copy=&quot;false&quot;
+      &gt;
+        &lt;fw-drag-item&gt;Item 6&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 7&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 8&lt;/fw-drag-item&gt;
+        &lt;fw-drag-item&gt;Item 9&lt;/fw-drag-item&gt;
+      &lt;/fw-drag-container&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;style&gt;
+  .container {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+  }
+  .drag-container {
+    width: 150px;
+    padding: 20px;
+    border: 1px solid black;
+  }
+  fw-drag-item {
+    margin-bottom: 8px;
+  }
+  .placeholder {
+    width: 150px;
+    background-color: blueviolet;
+    height: 5px;
+  }
+&lt;/style&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-4af2b7a8" data-v-4af2b7a8><fw-label value="Copying items from on container to another" data-v-4af2b7a8></fw-label> <fw-label value="Item 1-5 are allows to be sorted with Item 6-9 but not the other way around." data-v-4af2b7a8></fw-label> <div class="container" data-v-4af2b7a8><fw-drag-container sortable="sortable" id="from" class="drag-container" data-v-4af2b7a8><fw-drag-item data-v-4af2b7a8>Item 1</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 2</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 3</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 4</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 5</fw-drag-item></fw-drag-container> <fw-drag-container id="to" accept-from="from" placeholder-class="placeholder" class="drag-container" data-v-4af2b7a8><fw-drag-item data-v-4af2b7a8>Item 6</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 7</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 8</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 9</fw-drag-item></fw-drag-container></div> <fw-label value="Moving items from on container to another" data-v-4af2b7a8></fw-label> <fw-label value="Item 1-5 are allows to be sorted with Item 6-9 but not the other way around." data-v-4af2b7a8></fw-label> <div class="container" data-v-4af2b7a8><fw-drag-container sortable="sortable" id="moveFrom" class="drag-container" data-v-4af2b7a8><fw-drag-item data-v-4af2b7a8>Item 1</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 2</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 3</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 4</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 5</fw-drag-item></fw-drag-container> <fw-drag-container id="moveTo" accept-from="moveFrom" placeholder-class="placeholder" copy="false" class="drag-container" data-v-4af2b7a8><fw-drag-item data-v-4af2b7a8>Item 6</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 7</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 8</fw-drag-item> <fw-drag-item data-v-4af2b7a8>Item 9</fw-drag-item></fw-drag-container></div></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><p><code>fwDrop</code> event will be emitted during a successful drop event, and can be used to detect the dropped item.</p> <div code="&lt;fw-drag-container id=&quot;drop&quot;&gt;
+  &lt;fw-drag-item&gt;Item 1&lt;/fw-drag-item&gt;
+  &lt;fw-drag-item&gt;Item 2&lt;/fw-drag-item&gt;
+  &lt;fw-drag-item&gt;Item 3&lt;/fw-drag-item&gt;
+  &lt;fw-drag-item&gt;Item 4&lt;/fw-drag-item&gt;
+  &lt;fw-drag-item&gt;Item 5&lt;/fw-drag-item&gt;
+&lt;/fw-drag-container&gt;
+&lt;script type=&quot;application/javascript&quot;&gt;
+  var drop = document.getElementById('drop');
+  drop.addEventListener('fwDrop', (e) =&gt; {
+    console.log(e.detail);
+  });
+&lt;/script&gt;
+" language="vue" prismLang="html" requires="[object Object]" lang="html" class="container" data-v-609b3e4c><div class="preview block preview-container" data-v-609b3e4c><div id="v-9092d71e"><fw-drag-container id="drop"><fw-drag-item>Item 1</fw-drag-item> <fw-drag-item>Item 2</fw-drag-item> <fw-drag-item>Item 3</fw-drag-item> <fw-drag-item>Item 4</fw-drag-item> <fw-drag-item>Item 5</fw-drag-item></fw-drag-container> <script type="application/javascript">
+  var drop = document.getElementById('drop');
+  drop.addEventListener('fwDrop', (e) =&gt; {
+    console.log(e.detail);
+  });
+</script></div> <div class="seeCode" data-v-609b3e4c>Show Code</div></div> <!----></div><div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">var</span> drop <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'drop'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+drop<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'fwDrop'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>detail<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div> <h2 id="properties"><a href="#properties" class="header-anchor">#</a> Properties</h2> <table><thead><tr><th>Property</th> <th>Attribute</th> <th>Description</th> <th>Type</th> <th>Default</th></tr></thead> <tbody><tr><td><code>acceptFrom</code></td> <td><code>accept-from</code></td> <td>Id of the fw-sortable element from which draggable content can be accepted. Add comma separated id's for multiple containers.</td> <td><code>string</code></td> <td><code>''</code></td></tr> <tr><td><code>addOnDrop</code></td> <td><code>add-on-drop</code></td> <td>Whether the drag element should be added to the container on drop. If set to false, the placeholder will be retained.</td> <td><code>boolean</code></td> <td><code>true</code></td></tr> <tr><td><code>copy</code></td> <td><code>copy</code></td> <td>Whether the drag element should be moved or copied.</td> <td><code>boolean</code></td> <td><code>true</code></td></tr> <tr><td><code>placeholderClass</code></td> <td><code>placeholder-class</code></td> <td>The class name for the drag/drop placeholder. Add space separated class names for multiple classes</td> <td><code>string</code></td> <td><code>''</code></td></tr> <tr><td><code>sortable</code></td> <td><code>sortable</code></td> <td>Whether the list should be sortable.</td> <td><code>boolean</code></td> <td><code>true</code></td></tr></tbody></table> <h2 id="events"><a href="#events" class="header-anchor">#</a> Events</h2> <table><thead><tr><th>Event</th> <th>Description</th> <th>Type</th></tr></thead> <tbody><tr><td><code>fwDrop</code></td> <td>Triggered when an draggable item is dropped inside the container.</td> <td><code>CustomEvent&lt;void&gt;</code></td></tr></tbody></table> <h2 id="dependencies"><a href="#dependencies" class="header-anchor">#</a> Dependencies</h2> <h3 id="used-by"><a href="#used-by" class="header-anchor">#</a> Used by</h3> <ul><li><a href="../data-table">fw-data-table</a></li></ul> <h3 id="graph"><a href="#graph" class="header-anchor">#</a> Graph</h3> <div class="language-mermaid extra-class"><pre class="language-mermaid"><code><span class="token keyword">graph</span> TD<span class="token punctuation">;</span>
+  fw-data-table <span class="token arrow operator">--&gt;</span> fw-drag-container
+  <span class="token keyword">style</span> fw-drag-container <span class="token style"><span class="token property">fill</span><span class="token operator">:</span>#f9f<span class="token punctuation">,</span><span class="token property">stroke</span><span class="token operator">:</span>#333<span class="token punctuation">,</span><span class="token property">stroke-width</span><span class="token operator">:</span>4px</span>
+</code></pre></div><hr> <p>Built with ❤ at Freshworks</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/crayons/774/components/core/datepicker/" class="prev">
+        Datepicker (fw-datepicker)
+      </a></span> <span class="next"><a href="/crayons/774/components/core/drag-item/">
+        Drag Item (fw-drag-item)
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/crayons/774/assets/js/app.d0c8c4d7.js" defer></script><script src="/crayons/774/assets/js/5.bed87302.js" defer></script><script src="/crayons/774/assets/js/32.30e927fc.js" defer></script><script src="/crayons/774/assets/js/8.b0d42111.js" defer></script>
+  </body>
+</html>
