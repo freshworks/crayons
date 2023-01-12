@@ -618,7 +618,7 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
-          * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }] fieldOptions is an optional parameter if present, must be an object with option_label_path and option_value_path keys,  values referring to key name of text to display and key name of choice's value respectively.
+          * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }] fieldOptions is an optional parameter if present, must be an object with keys being option_label_path and option_value_path,  values referring to key name of text to display and key name of choice's value respectively.
          */
         "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
         /**

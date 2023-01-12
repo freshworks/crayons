@@ -487,7 +487,7 @@ export class Form {
       position: 1,
       dependent_ids: {},
     }]
-   * fieldOptions is an optional parameter if present, must be an object with option_label_path and option_value_path keys,
+   * fieldOptions is an optional parameter if present, must be an object with keys being option_label_path and option_value_path,
     * values referring to key name of text to display and key name of choice's value respectively.
    */
   @Method()
