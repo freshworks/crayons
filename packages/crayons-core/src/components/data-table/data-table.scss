@@ -90,6 +90,15 @@ div.fw-data-table-container {
             &.data-grid-lg {
               padding: $grid-density-lg;
             }
+
+            .resizer {
+              position: absolute;
+              inset-block-start: 0;
+              inset-inline-end: 0;
+              width: 2px;
+              cursor: col-resize;
+              user-select: none;
+            }
           }
 
           th.hidden {
