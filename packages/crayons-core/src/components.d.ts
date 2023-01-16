@@ -854,7 +854,8 @@ export namespace Components {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP';
+    | 'RELATIONSHIP'
+    | 'FILES';
     }
     interface FwFormatDate {
         /**
@@ -3665,7 +3666,8 @@ declare namespace LocalJSX {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP';
+    | 'RELATIONSHIP'
+    | 'FILES';
     }
     interface FwFormatDate {
         /**

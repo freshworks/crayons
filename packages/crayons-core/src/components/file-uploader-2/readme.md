@@ -343,6 +343,10 @@ fileUploadPromise
 
 ## Dependencies
 
+### Used by
+
+ - [fw-form-control](../form-control)
+
 ### Depends on
 
 - [fw-attachment](attachment)
@@ -358,6 +362,7 @@ graph TD;
   fw-attachment --> fw-spinner
   fw-tooltip --> fw-popover
   fw-inline-message --> fw-icon
+  fw-form-control --> fw-file-uploader-2
   style fw-file-uploader-2 fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

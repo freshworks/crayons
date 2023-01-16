@@ -326,11 +326,21 @@ export class Form {
   handleInput = async (event: Event) => {
     const details = (event as any).detail;
     if (!details || !details.name) return;
-    const { name, value, meta } = details;
+    const { name, value, meta, files } = details;
+
+    let componentValue;
+
+    if (meta && 'checked' in meta) {
+      componentValue = meta.checked;
+    } else if (files) {
+      componentValue = files;
+    } else {
+      componentValue = value;
+    }
 
     this.values = {
       ...this.values,
-      [name]: meta && 'checked' in meta ? meta.checked : value,
+      [name]: componentValue,
     };
 
     if (meta && meta.shouldValidate === false) {
@@ -421,6 +431,18 @@ export class Form {
           : this.values[field] ?? '',
     });
 
+    const fileProps = (field: string, multiple: boolean) => {
+      let value: any = [];
+      if (this.values[field]) {
+        if (multiple) {
+          value = this.values[field];
+        } else {
+          value = this.values[field][0] ? [this.values[field][0]] : [];
+        }
+      }
+      return { value };
+    };
+
     const formProps: FormProps = {
       action: 'javascript:void(0);',
       onSubmit: this.handleSubmit,
@@ -432,6 +454,7 @@ export class Form {
       selectProps,
       checkboxProps,
       radioProps,
+      fileProps,
       formProps,
     };
   };
