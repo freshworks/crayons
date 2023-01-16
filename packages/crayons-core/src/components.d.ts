@@ -259,6 +259,10 @@ export namespace Components {
          */
         "autoSaveSettings": boolean;
         /**
+          * Enables resizing of table columns if set to true.
+         */
+        "colResize": boolean;
+        /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
         "columns": DataTableColumn[];
@@ -2909,6 +2913,10 @@ declare namespace LocalJSX {
           * autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`
          */
         "autoSaveSettings"?: boolean;
+        /**
+          * Enables resizing of table columns if set to true.
+         */
+        "colResize"?: boolean;
         /**
           * Columns Array of objects that provides information regarding the columns in the table.
          */
