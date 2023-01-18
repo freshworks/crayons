@@ -129,6 +129,9 @@
     "customizeWidgetModalSaveBtn": "Save",
     "customizeWidgetModalCancelBtn": "Cancel",
     "noSearchItemsFound": "No matching fields found",
+    "freePlanFieldAddDisabledHeader": "Did you know you can add custom fields?",
+    "freePlanFieldAddDisabledMessage": "Custom fields are available from Growth plan and above.",
+    "freePlanFieldAddDisabledButton": "Explore plans",
     "errors": {
       "emptyFieldName": "Field label is required.",
       "emptyRelationshipType": "Relationship type is required.",

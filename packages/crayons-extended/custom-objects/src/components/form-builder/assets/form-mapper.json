@@ -232,7 +232,10 @@
       "internalNamePrefix": "",
       "showDefaultTag": false,
       "defaultTagKey": "",
-      "defaultTagLabel": ""
+      "defaultTagLabel": "",
+      "freePlanFieldAddDisabledHeader": "",
+      "freePlanFieldAddDisabledMessage": "",
+      "freePlanFieldAddDisabledButton": ""
     },
     "labels": {
       "headerProduct": "",
@@ -385,7 +388,10 @@
       "internalNamePrefix": "cf_",
       "showDefaultTag": true,
       "defaultTagKey": "custom",
-      "defaultTagLabel": "nonCustomDefaultFieldTag"
+      "defaultTagLabel": "nonCustomDefaultFieldTag",
+      "freePlanFieldAddDisabledHeader": "freePlanFieldAddDisabledHeader",
+      "freePlanFieldAddDisabledMessage": "freePlanFieldAddDisabledMessage",
+      "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton"
     },
     "labels": {
       "headerProduct": "headerProductConvProps",

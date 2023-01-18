@@ -284,6 +284,10 @@ export namespace Components {
          */
         "customizeWidgetFields": any;
         /**
+          * Disable the ability to add new fields - Used for free plans
+         */
+        "disableNewFieldAddition": boolean;
+        /**
           * svg image to be shown for empty record
          */
         "emptySearchImage": any;
@@ -980,6 +984,10 @@ declare namespace LocalJSX {
          */
         "customizeWidgetFields"?: any;
         /**
+          * Disable the ability to add new fields - Used for free plans
+         */
+        "disableNewFieldAddition"?: boolean;
+        /**
           * svg image to be shown for empty record
          */
         "emptySearchImage"?: any;
@@ -1015,6 +1023,10 @@ declare namespace LocalJSX {
           * Triggered when the field is expanded or collapsed
          */
         "onFwExpandField"?: (event: FwFormBuilderCustomEvent<any>) => void;
+        /**
+          * Triggered when the explore plans button is clicked for free plan users
+         */
+        "onFwExplorePlan"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
           * Triggered when the position of a field is changed using drag and drop
          */

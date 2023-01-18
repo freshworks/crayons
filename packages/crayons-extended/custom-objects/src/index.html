@@ -11,17 +11,34 @@
     <script type="module" src="/build/crayons-custom-objects.esm.js"></script>
     <script nomodule src="/build/crayons-custom-objects.js"></script>
   </head>
+
   <body>
-    <div
+    <!-- <div
       style="
         width: 100%;
-        height: auto;
+        height: 90vh;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         gap: 40px;
       "
     >
+      <div
+        style="
+          width: 100%;
+          height: auto;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: flex-end;
+          padding: 0 24px;
+          gap: 24px;
+        "
+      >
+        <fw-tabs id="tabProducts">
+          <fw-tab slot="tab">CONVERSATION PROPERTIES</fw-tab>
+          <fw-tab slot="tab">CUSTOM OBJECTS</fw-tab>
+        </fw-tabs>
+      </div>
       <div
         style="
           width: 100%;
@@ -40,6 +57,118 @@
 
     <script type="application/javascript">
       var productName = 'CONVERSATION_PROPERTIES';
+      var customizeWidgetFields = [];
+
+      var formValues = {
+        name: 'Company-Association-test',
+        prefix: '_29',
+        title: null,
+        description: 'Company-Association-test',
+        version: 4,
+        deleted: false,
+        id: 5938,
+        form_options: {},
+        created_time: 1659001461188,
+        updated_time: 1659004708385,
+        icon_link: 'https://d2lz1e868xzctj.cloudfront.net/icons/Accounts.svg',
+        fields: [
+          {
+            id: '24a9531c-3c71-463e-9c63-8991396fde95',
+            name: 'companyassociationtestname',
+            label: 'Hotel Name',
+            type: 'PRIMARY',
+            position: 1,
+            required: true,
+            editable: true,
+            visible: true,
+            deleted: false,
+            placeholder: null,
+            hint: null,
+            field_options: {
+              _analytic: 'true',
+              _primary: 'true',
+              unique: 'true',
+            },
+            filterable: true,
+            searchable: true,
+            parent_id: null,
+            choices: [],
+          },
+          {
+            id: 'eea9ed82-af63-43b2-aef0-a7e8de0f8607',
+            name: 'companytest',
+            label: 'Location',
+            type: 'RELATIONSHIP',
+            position: 2,
+            required: false,
+            editable: true,
+            visible: true,
+            deleted: false,
+            placeholder: null,
+            hint: null,
+            field_options: {
+              _analytic: 'true',
+              related_object_type: 'NATIVE',
+              unique: 'false',
+            },
+            filterable: true,
+            searchable: false,
+            parent_id: null,
+            related_entity_id: 3,
+            relationship_name: 'companytest',
+            child_relationship_name: 'companyassociationtest_1659004707038',
+            choices: [],
+          },
+          {
+            id: '3f2235be-b18a-443f-9944-c9ae10195e97',
+            name: 'contactname',
+            label: 'Booking',
+            type: 'RELATIONSHIP',
+            position: 3,
+            required: false,
+            editable: true,
+            visible: true,
+            deleted: false,
+            placeholder: null,
+            hint: null,
+            field_options: {
+              _analytic: 'true',
+              related_object_type: 'NATIVE',
+              unique: 'false',
+            },
+            filterable: true,
+            searchable: false,
+            parent_id: null,
+            related_entity_id: 2,
+            relationship_name: 'contactname',
+            child_relationship_name: 'companyassociationtest_1659001527018',
+            choices: [],
+          },
+        ],
+      };
+
+      var lookupTargets = [
+        {
+          value: 1,
+          text: 'Ticket',
+          isNative: true,
+        },
+        {
+          value: 2,
+          text: 'Contact',
+          isNative: true,
+        },
+        {
+          value: 4853,
+          text: 'Booking ID',
+          isNative: false,
+        },
+        {
+          value: 5021,
+          text: 'Native-ticket',
+          isNative: false,
+        },
+      ];
 
       var formValuesConvProps = {
         docId: '719fd5a6-a320-4343-a52c-25b9bbf9360c',
@@ -309,8 +438,11 @@
 
       var tabProducts = document.getElementById('tabProducts');
       var fb = document.getElementById('formBuilder');
-      fb.productName = 'CONVERSATION_PROPERTIES';
+      fb.disableNewFieldAddition = true;
+      fb.productName = productName;
       fb.formValues = formValuesConvProps;
+      fb.lookupTargetObjects = lookupTargets;
+      // fb.formValues = formValues;
 
       function create_UUID() {
         var dt = new Date().getTime();
@@ -326,14 +458,22 @@
       }
 
       function getFormValues() {
-        return formValuesConvProps;
+        if (productName === 'CONVERSATION_PROPERTIES') {
+          return formValuesConvProps;
+        }
+        return formValues;
       }
 
       function setFormValues(value) {
-        formValuesConvProps = value;
+        if (productName === 'CONVERSATION_PROPERTIES') {
+          formValuesConvProps = value;
+          return;
+        }
+        formValues = value;
       }
 
       fb.addEventListener('fwComposeNewField', (event) => {
+        debugger;
         var objDetail = event.detail;
         var intAddedIndex = -1;
         var objFormValues = getFormValues();
@@ -434,8 +574,28 @@
           ? objDetail.index
           : -1;
         var intAddedIndex = intIndex;
+        var isPrimaryField = !!(
+          Object.prototype.hasOwnProperty.call(
+            objSubmitFormValues,
+            'isPrimaryField'
+          ) && objSubmitFormValues.isPrimaryField === true
+        );
         var strFieldLabel = objSubmitFormValues.name;
-        var strFieldType = objSubmitFormValues.type;
+        var strFieldType = !isPrimaryField
+          ? objSubmitFormValues.type
+          : 'PRIMARY';
+        var boolFilterable = Object.prototype.hasOwnProperty.call(
+          objSubmitFormValues,
+          'filterable'
+        )
+          ? objSubmitFormValues.filterable
+          : false;
+        var boolUnique = Object.prototype.hasOwnProperty.call(
+          objSubmitFormValues,
+          'unique'
+        )
+          ? objSubmitFormValues.unique
+          : false;
         var arrChoices =
           Object.prototype.hasOwnProperty.call(
             objSubmitFormValues,
@@ -446,7 +606,6 @@
             ? [...objSubmitFormValues.choices]
             : [];
 
-        // Temporary name - need to be removed once the internal name is brought in the form builder
         var strRemovedSpecialChars = strFieldLabel.replace(
           /[^a-zA-Z0-9 ]/g,
           ''
@@ -457,7 +616,6 @@
           .toLowerCase();
 
         // make the api call to save the new/edited field data in the DB
-
         // Temp - updating local field
         var objUpdatedField = null;
         deleteNewFieldFromPayload(arrFields);
@@ -481,10 +639,12 @@
             parent_id: null,
             choices: [],
           };
-
+          if (strFieldType === 'DECIMAL') {
+            objUpdatedField.searchable = false;
+          }
           // Name and ID Needs to be generated at the backend
           objUpdatedField.name = strGeneratedFieldName;
-          //objUpdatedField.id = create_UUID();
+          objUpdatedField.id = create_UUID();
         } else {
           if (
             arrFields &&
@@ -498,10 +658,33 @@
           }
         }
 
+        var boolUpdateUniqueValue = true;
+        if (strFieldType === 'RELATIONSHIP') {
+          // update lookup relationship data if its a new Field
+          if (boolNewField) {
+            var objRelationshipValues = objSubmitFormValues.relationship;
+            var objRelatedEntity = {
+              isNative: false,
+              text: objRelationshipValues.target, // display name of the related entity
+              value: 1, // id of the related entity
+            };
+            objUpdatedField.related_entity_id = objRelatedEntity.id;
+            objUpdatedField.relationship_name = strGeneratedFieldName; // needs to be unique within the entity
+            objUpdatedField.child_relationship_name = `${strGeneratedFieldName}_${new Date().getTime()}`; // needs to be unique within the entity
+            objUpdatedField.field_options.unique =
+              objRelationshipValues.relationship === 'one_to_one';
+          }
+          boolUpdateUniqueValue = false;
+        }
+
         objUpdatedField.type = strFieldType;
         objUpdatedField.label = strFieldLabel;
         objUpdatedField.required = objSubmitFormValues.required;
+        objUpdatedField.filterable = boolFilterable;
         objUpdatedField.choices = arrChoices;
+        if (boolUpdateUniqueValue) {
+          objUpdatedField.field_options.unique = boolUnique;
+        }
 
         if (boolNewField) {
           // validate if the array is empty or the passed index is invalid - if true -push the element at the end of the array
@@ -554,6 +737,28 @@
           console.error('Error in repositioning field ' + error);
         }
       });
-    </script>
+
+      fb.addEventListener('fwSaveWidgetFields', (event) => {
+        customizeWidgetFields = event.detail;
+        fb.customizeWidgetFields = customizeWidgetFields;
+        fb.isSavingCustomizeWidget = false;
+      });
+
+      tabProducts.addEventListener('fwChange', (event) => {
+        const intTabIndex = event.detail.tabIndex;
+        if (intTabIndex === 1 && productName !== 'CUSTOM_OBJECTS') {
+          productName = 'CUSTOM_OBJECTS';
+          fb.productName = productName;
+          fb.formValues = formValues;
+        } else if (
+          intTabIndex === 0 &&
+          productName !== 'CONVERSATION_PROPERTIES'
+        ) {
+          productName = 'CONVERSATION_PROPERTIES';
+          fb.productName = productName;
+          fb.formValues = formValuesConvProps;
+        }
+      });
+    </script> -->
   </body>
 </html>

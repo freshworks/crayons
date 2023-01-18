@@ -72,6 +72,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) isSavingCustomizeWidget = false;
   /**
+   * Disable the ability to add new fields - Used for free plans
+   */
+  @Prop() disableNewFieldAddition = false;
+  /**
    * svg image to be shown for empty record
    */
   @Prop() emptySearchImage = null;
@@ -139,6 +143,10 @@ export class FormBuilder {
    * Triggered when the field is expanded or collapsed
    */
   @Event() fwExpandField!: EventEmitter;
+  /**
+   * Triggered when the explore plans button is clicked for free plan users
+   */
+  @Event() fwExplorePlan!: EventEmitter;
   /**
    * Triggered on search
    */
@@ -301,6 +309,10 @@ export class FormBuilder {
 
   private expandFieldHandler = (event: CustomEvent) => {
     this.fwExpandField.emit({ ...event.detail });
+  };
+
+  private explorePlanHandler = (event: CustomEvent) => {
+    this.fwExplorePlan.emit({ ...event.detail });
   };
 
   private saveFieldHandler = (event: CustomEvent) => {
@@ -839,6 +851,7 @@ export class FormBuilder {
     const objFormValuesSchema = this.localFormValues;
     const objFieldTypes = presetSchema.fieldTypes;
     const objProductPreset = formMapper[this.productName];
+    const objProductPresetConfig = objProductPreset?.config;
     const arrFieldOrder = objProductPreset?.fieldOrder;
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
@@ -886,7 +899,7 @@ export class FormBuilder {
       (this.searching && (!fieldElements || fieldElements.length === 0)) ||
       (boolFilterApplied && (!fieldElements || fieldElements.length === 0));
     const boolHasCustomizeWidgetOption =
-      objProductPreset?.config.customizeWidget || false;
+      objProductPresetConfig?.customizeWidget || false;
     const fieldWidgetElements =
       this.showCustomizeWidget &&
       arrFieldElements &&
@@ -897,7 +910,7 @@ export class FormBuilder {
         : null;
 
     const boolHasFilterByFieldTypes =
-      objProductPreset?.config.filterByType || false;
+      objProductPresetConfig?.filterByType || false;
     if (
       !this.filterByFieldTypeOptions &&
       arrFieldOrder &&
@@ -947,6 +960,34 @@ export class FormBuilder {
               >
                 {fieldTypeElements}
               </fw-drag-container>
+              {this.disableNewFieldAddition && (
+                <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
+                  <fw-icon name='lock' size='30'></fw-icon>
+                  <label
+                    class={`${strBaseClassName}-left-panel-list-disabled-header`}
+                  >
+                    {i18nText(
+                      objProductPresetConfig?.freePlanFieldAddDisabledHeader
+                    )}
+                  </label>
+                  <label
+                    class={`${strBaseClassName}-left-panel-list-disabled-message`}
+                  >
+                    {i18nText(
+                      objProductPresetConfig?.freePlanFieldAddDisabledMessage
+                    )}
+                  </label>
+                  <fw-button
+                    color='primary'
+                    onFwClick={this.explorePlanHandler}
+                    class={`${strBaseClassName}-left-panel-list-disabled-button`}
+                  >
+                    {i18nText(
+                      objProductPresetConfig?.freePlanFieldAddDisabledButton
+                    )}
+                  </fw-button>
+                </div>
+              )}
             </div>
           </div>
           <div class={strRightPanelBaseClassName}>
