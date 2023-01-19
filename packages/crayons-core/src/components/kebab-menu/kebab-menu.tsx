@@ -2,7 +2,6 @@ import { Component, Prop, h, Listen } from '@stencil/core';
 
 @Component({
   tag: 'fw-kebab-menu',
-  styleUrl: 'kebab-menu.scss',
   shadow: true,
 })
 export class KebabMenu {
