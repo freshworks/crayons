@@ -84,6 +84,23 @@ export class DataTable {
   @Prop({ mutable: false }) rowActions: DataTableAction[] = [];
 
   /**
+   * To show row actions as a kebab menu
+   */
+  @Prop({ mutable: false }) showRowActionsAsMenu = false;
+
+  /**
+   * Header label for row actions row
+   */
+  @Prop({ mutable: false }) rowActionsHeaderLabel =
+    TranslationController.t('datatable.actions');
+
+  /**
+   * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row.
+   * The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
+   */
+  @Prop() rowActionsMenuVariant: 'standard' | 'icon' = 'standard';
+
+  /**
    * Rows Array of objects to be displayed in the table.
    */
   @Prop({ mutable: true, reflect: false }) rows: DataTableRow[] = [];
@@ -962,6 +979,68 @@ export class DataTable {
   }
 
   /**
+   * getRowActionMenuProps
+   * @param rowData rowData - complete data of the current row
+   */
+  getRowActionMenuProps(rowData: DataTableRow) {
+    if (this.showRowActionsAsMenu) {
+      const options = [];
+      let handlers;
+      this.rowActions.forEach((action) => {
+        if (
+          !action.hideForRowIds ||
+          (action.hideForRowIds && !action.hideForRowIds.includes(rowData.id))
+        ) {
+          const actionId = action.name.toLowerCase();
+          options.push({
+            text: action.name,
+            value: actionId,
+            ...(action?.iconName
+              ? {
+                  graphicsProps: {
+                    name: action.iconName,
+                    library: action.iconLibrary
+                      ? action.iconLibrary
+                      : 'crayons',
+                  },
+                }
+              : {}),
+          });
+          handlers = {
+            ...handlers,
+            [actionId]: action,
+          };
+        }
+      });
+      return options.length
+        ? {
+            options,
+            handleSelect: async (value) => {
+              await this.performRowAction(handlers[value], rowData);
+            },
+          }
+        : null;
+    }
+  }
+
+  /**
+   * renderKebabMenu
+   * @param rowData rowData - complete data of the current row
+   */
+  renderKebabMenu(rowData: DataTableRow) {
+    const kebabMenuProps = this.getRowActionMenuProps(rowData);
+    if (kebabMenuProps) {
+      return (
+        <fw-kebab-menu
+          variant={this.rowActionsMenuVariant}
+          {...kebabMenuProps}
+        ></fw-kebab-menu>
+      );
+    }
+    return null;
+  }
+
+  /**
    * Settings search handler
    * @param searchText text to search for in columns list
    */
@@ -1213,7 +1292,7 @@ export class DataTable {
                 : this.orderedColumns.length + 1
             }
           >
-            {TranslationController.t('datatable.actions')}
+            {this.rowActionsHeaderLabel}
           </th>
         )}
       </tr>
@@ -1311,49 +1390,52 @@ export class DataTable {
                       : this.orderedColumns.length + 1
                   }
                 >
-                  {this.rowActions.map((action: DataTableAction) => {
-                    let actionTemplate = null;
-                    if (
-                      !action.hideForRowIds ||
-                      (action.hideForRowIds &&
-                        !action.hideForRowIds.includes(row.id))
-                    ) {
-                      const buttonSize: 'icon-small' | 'small' = action.iconName
-                        ? 'icon-small'
-                        : 'small';
-                      actionTemplate = (
-                        <fw-tooltip content={action.name} distance='5'>
-                          <fw-button
-                            tabIndex={0}
-                            size={buttonSize}
-                            color='secondary'
-                            onKeyUp={(event) =>
-                              (event.code === 'Space' ||
-                                event.code === 'Enter') &&
-                              this.performRowAction(action, row)
-                            }
-                            onClick={() => this.performRowAction(action, row)}
-                            aria-label={action.name}
-                          >
-                            {action.iconName ? (
-                              <fw-icon
-                                name={action.iconName}
-                                library={
-                                  action.iconLibrary
-                                    ? action.iconLibrary
-                                    : 'crayons'
+                  {this.showRowActionsAsMenu
+                    ? this.renderKebabMenu(row)
+                    : this.rowActions.map((action: DataTableAction) => {
+                        let actionTemplate = null;
+                        if (
+                          !action.hideForRowIds ||
+                          (action.hideForRowIds &&
+                            !action.hideForRowIds.includes(row.id))
+                        ) {
+                          const buttonSize: 'icon-small' | 'small' =
+                            action.iconName ? 'icon-small' : 'small';
+                          actionTemplate = (
+                            <fw-tooltip content={action.name} distance='5'>
+                              <fw-button
+                                tabIndex={0}
+                                size={buttonSize}
+                                color='secondary'
+                                onKeyUp={(event) =>
+                                  (event.code === 'Space' ||
+                                    event.code === 'Enter') &&
+                                  this.performRowAction(action, row)
                                 }
-                                size={10}
-                              ></fw-icon>
-                            ) : (
-                              action.name
-                            )}
-                          </fw-button>
-                        </fw-tooltip>
-                      );
-                    }
-                    return actionTemplate;
-                  })}
+                                onClick={() =>
+                                  this.performRowAction(action, row)
+                                }
+                                aria-label={action.name}
+                              >
+                                {action.iconName ? (
+                                  <fw-icon
+                                    name={action.iconName}
+                                    library={
+                                      action.iconLibrary
+                                        ? action.iconLibrary
+                                        : 'crayons'
+                                    }
+                                    size={10}
+                                  ></fw-icon>
+                                ) : (
+                                  action.name
+                                )}
+                              </fw-button>
+                            </fw-tooltip>
+                          );
+                        }
+                        return actionTemplate;
+                      })}
                 </td>
               )}
             </tr>

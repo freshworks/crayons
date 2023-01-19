@@ -251,6 +251,7 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-file-uploader-progress](../file-uploader/progress)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
+ - [fw-kebab-menu](../kebab-menu)
  - [fw-menu-item](../menu-item)
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
@@ -276,6 +277,7 @@ graph TD;
   fw-file-uploader-progress --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
+  fw-kebab-menu --> fw-icon
   fw-menu-item --> fw-icon
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon

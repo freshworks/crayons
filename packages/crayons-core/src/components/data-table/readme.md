@@ -1896,18 +1896,21 @@ Data table exposes couple of method to get and set column configuration.
 
 ## Properties
 
-| Property           | Attribute            | Description                                                                                                                                            | Type                | Default |
-| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | ------- |
-| `autoSaveSettings` | `auto-save-settings` | autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table` | `boolean`           | `false` |
-| `columns`          | --                   | Columns Array of objects that provides information regarding the columns in the table.                                                                 | `DataTableColumn[]` | `[]`    |
-| `isAllSelectable`  | `is-all-selectable`  | isAllSelectable Boolean based on which select all option appears in the table header                                                                   | `boolean`           | `false` |
-| `isLoading`        | `is-loading`         | To disable table during async operations                                                                                                               | `boolean`           | `false` |
-| `isSelectable`     | `is-selectable`      | isSelectable Boolean based on which selectable options appears for rows in the table.                                                                  | `boolean`           | `false` |
-| `label`            | `label`              | Label attribute is not visible on screen. There for accessibility purposes.                                                                            | `string`            | `''`    |
-| `rowActions`       | --                   | To enable bulk actions on the table.                                                                                                                   | `DataTableAction[]` | `[]`    |
-| `rows`             | --                   | Rows Array of objects to be displayed in the table.                                                                                                    | `DataTableRow[]`    | `[]`    |
-| `shimmerCount`     | `shimmer-count`      | shimmerCount number of shimmer rows to show during initial loading                                                                                     | `number`            | `4`     |
-| `showSettings`     | `show-settings`      | showSettings is used to show the settings button on the table.                                                                                         | `boolean`           | `false` |
+| Property                | Attribute                  | Description                                                                                                                                                                                                        | Type                   | Default                                        |
+| ----------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ---------------------------------------------- |
+| `autoSaveSettings`      | `auto-save-settings`       | autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`                                                             | `boolean`              | `false`                                        |
+| `columns`               | --                         | Columns Array of objects that provides information regarding the columns in the table.                                                                                                                             | `DataTableColumn[]`    | `[]`                                           |
+| `isAllSelectable`       | `is-all-selectable`        | isAllSelectable Boolean based on which select all option appears in the table header                                                                                                                               | `boolean`              | `false`                                        |
+| `isLoading`             | `is-loading`               | To disable table during async operations                                                                                                                                                                           | `boolean`              | `false`                                        |
+| `isSelectable`          | `is-selectable`            | isSelectable Boolean based on which selectable options appears for rows in the table.                                                                                                                              | `boolean`              | `false`                                        |
+| `label`                 | `label`                    | Label attribute is not visible on screen. There for accessibility purposes.                                                                                                                                        | `string`               | `''`                                           |
+| `rowActions`            | --                         | To enable bulk actions on the table.                                                                                                                                                                               | `DataTableAction[]`    | `[]`                                           |
+| `rowActionsHeaderLabel` | `row-actions-header-label` | Header label for row actions row                                                                                                                                                                                   | `any`                  | `TranslationController.t('datatable.actions')` |
+| `rowActionsMenuVariant` | `row-actions-menu-variant` | Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as iconName and iconLibrary via the rowActions prop. | `"icon" \| "standard"` | `'standard'`                                   |
+| `rows`                  | --                         | Rows Array of objects to be displayed in the table.                                                                                                                                                                | `DataTableRow[]`       | `[]`                                           |
+| `shimmerCount`          | `shimmer-count`            | shimmerCount number of shimmer rows to show during initial loading                                                                                                                                                 | `number`               | `4`                                            |
+| `showRowActionsAsMenu`  | `show-row-actions-as-menu` | To show row actions as a kebab menu                                                                                                                                                                                | `boolean`              | `false`                                        |
+| `showSettings`          | `show-settings`            | showSettings is used to show the settings button on the table.                                                                                                                                                     | `boolean`              | `false`                                        |
 
 
 ## Events
@@ -1985,6 +1988,7 @@ Type: `Promise<DataTableColumn[]>`
 
 ### Depends on
 
+- [fw-kebab-menu](../kebab-menu)
 - [fw-custom-cell-anchor](./custom-cells/anchor)
 - [fw-custom-cell-user](./custom-cells/user)
 - [fw-custom-cell-icon](./custom-cells/icon)
@@ -2000,6 +2004,7 @@ Type: `Promise<DataTableColumn[]>`
 ### Graph
 ```mermaid
 graph TD;
+  fw-data-table --> fw-kebab-menu
   fw-data-table --> fw-custom-cell-anchor
   fw-data-table --> fw-custom-cell-user
   fw-data-table --> fw-custom-cell-icon
@@ -2011,14 +2016,23 @@ graph TD;
   fw-data-table --> fw-input
   fw-data-table --> fw-drag-container
   fw-data-table --> fw-skeleton
+  fw-kebab-menu --> fw-popover
+  fw-kebab-menu --> fw-button
+  fw-kebab-menu --> fw-icon
+  fw-kebab-menu --> fw-list-options
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
+  fw-list-options --> fw-select-option
+  fw-list-options --> fw-input
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
+  fw-input --> fw-icon
   fw-custom-cell-user --> fw-avatar
   fw-custom-cell-icon --> fw-icon
   fw-custom-cell-paragraph --> fw-tooltip
   fw-tooltip --> fw-popover
-  fw-checkbox --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
-  fw-input --> fw-icon
   style fw-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

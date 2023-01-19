@@ -304,6 +304,14 @@ export namespace Components {
          */
         "rowActions": DataTableAction[];
         /**
+          * Header label for row actions row
+         */
+        "rowActionsHeaderLabel": any;
+        /**
+          * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
+         */
+        "rowActionsMenuVariant": 'standard' | 'icon';
+        /**
           * Rows Array of objects to be displayed in the table.
          */
         "rows": DataTableRow[];
@@ -321,6 +329,10 @@ export namespace Components {
           * shimmerCount number of shimmer rows to show during initial loading
          */
         "shimmerCount": number;
+        /**
+          * To show row actions as a kebab menu
+         */
+        "showRowActionsAsMenu": boolean;
         /**
           * showSettings is used to show the settings button on the table.
          */
@@ -950,6 +962,20 @@ export namespace Components {
           * Warning text displayed below the text box.
          */
         "warningText": string;
+    }
+    interface FwKebabMenu {
+        /**
+          * handler for selecting option from the list
+         */
+        "handleSelect": any;
+        /**
+          * The data for the kebab menu component, the options will be of type array of fw-select-options.
+         */
+        "options": any[];
+        /**
+          * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as an object via the graphicsProps.
+         */
+        "variant": 'standard' | 'icon';
     }
     interface FwLabel {
         /**
@@ -2401,6 +2427,12 @@ declare global {
         prototype: HTMLFwInputElement;
         new (): HTMLFwInputElement;
     };
+    interface HTMLFwKebabMenuElement extends Components.FwKebabMenu, HTMLStencilElement {
+    }
+    var HTMLFwKebabMenuElement: {
+        prototype: HTMLFwKebabMenuElement;
+        new (): HTMLFwKebabMenuElement;
+    };
     interface HTMLFwLabelElement extends Components.FwLabel, HTMLStencilElement {
     }
     var HTMLFwLabelElement: {
@@ -2608,6 +2640,7 @@ declare global {
         "fw-icon": HTMLFwIconElement;
         "fw-inline-message": HTMLFwInlineMessageElement;
         "fw-input": HTMLFwInputElement;
+        "fw-kebab-menu": HTMLFwKebabMenuElement;
         "fw-label": HTMLFwLabelElement;
         "fw-list-options": HTMLFwListOptionsElement;
         "fw-menu": HTMLFwMenuElement;
@@ -2942,6 +2975,14 @@ declare namespace LocalJSX {
          */
         "rowActions"?: DataTableAction[];
         /**
+          * Header label for row actions row
+         */
+        "rowActionsHeaderLabel"?: any;
+        /**
+          * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
+         */
+        "rowActionsMenuVariant"?: 'standard' | 'icon';
+        /**
           * Rows Array of objects to be displayed in the table.
          */
         "rows"?: DataTableRow[];
@@ -2949,6 +2990,10 @@ declare namespace LocalJSX {
           * shimmerCount number of shimmer rows to show during initial loading
          */
         "shimmerCount"?: number;
+        /**
+          * To show row actions as a kebab menu
+         */
+        "showRowActionsAsMenu"?: boolean;
         /**
           * showSettings is used to show the settings button on the table.
          */
@@ -3578,6 +3623,20 @@ declare namespace LocalJSX {
           * Warning text displayed below the text box.
          */
         "warningText"?: string;
+    }
+    interface FwKebabMenu {
+        /**
+          * handler for selecting option from the list
+         */
+        "handleSelect"?: any;
+        /**
+          * The data for the kebab menu component, the options will be of type array of fw-select-options.
+         */
+        "options"?: any[];
+        /**
+          * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as an object via the graphicsProps.
+         */
+        "variant"?: 'standard' | 'icon';
     }
     interface FwLabel {
         /**
@@ -4831,6 +4890,7 @@ declare namespace LocalJSX {
         "fw-icon": FwIcon;
         "fw-inline-message": FwInlineMessage;
         "fw-input": FwInput;
+        "fw-kebab-menu": FwKebabMenu;
         "fw-label": FwLabel;
         "fw-list-options": FwListOptions;
         "fw-menu": FwMenu;
@@ -4893,6 +4953,7 @@ declare module "@stencil/core" {
             "fw-icon": LocalJSX.FwIcon & JSXBase.HTMLAttributes<HTMLFwIconElement>;
             "fw-inline-message": LocalJSX.FwInlineMessage & JSXBase.HTMLAttributes<HTMLFwInlineMessageElement>;
             "fw-input": LocalJSX.FwInput & JSXBase.HTMLAttributes<HTMLFwInputElement>;
+            "fw-kebab-menu": LocalJSX.FwKebabMenu & JSXBase.HTMLAttributes<HTMLFwKebabMenuElement>;
             "fw-label": LocalJSX.FwLabel & JSXBase.HTMLAttributes<HTMLFwLabelElement>;
             "fw-list-options": LocalJSX.FwListOptions & JSXBase.HTMLAttributes<HTMLFwListOptionsElement>;
             "fw-menu": LocalJSX.FwMenu & JSXBase.HTMLAttributes<HTMLFwMenuElement>;
