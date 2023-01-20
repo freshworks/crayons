@@ -55,6 +55,10 @@ export namespace Components {
          */
         "isLoading": boolean;
         /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
+        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors": boolean;
@@ -284,10 +288,6 @@ export namespace Components {
          */
         "customizeWidgetFields": any;
         /**
-          * Disable the ability to add new fields - Used for free plans
-         */
-        "disableNewFieldAddition": boolean;
-        /**
           * svg image to be shown for empty record
          */
         "emptySearchImage": any;
@@ -315,6 +315,10 @@ export namespace Components {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName": 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
+        /**
+          * Show explore plans and disable features for user having free-plan
+         */
+        "userPlan": 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**
@@ -724,6 +728,10 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: FwFbFieldDropdownCustomEvent<any>) => void;
         /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
+        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors"?: boolean;
@@ -853,6 +861,10 @@ declare namespace LocalJSX {
           * Triggered when the field is expanded or collapsed
          */
         "onFwExpand"?: (event: FwFieldEditorCustomEvent<any>) => void;
+        /**
+          * Triggered when the field is reordered for drag start and drag stop
+         */
+        "onFwReorder"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
           * Triggered when the field details need to be saved on the server
          */
@@ -984,10 +996,6 @@ declare namespace LocalJSX {
          */
         "customizeWidgetFields"?: any;
         /**
-          * Disable the ability to add new fields - Used for free plans
-         */
-        "disableNewFieldAddition"?: boolean;
-        /**
           * svg image to be shown for empty record
          */
         "emptySearchImage"?: any;
@@ -1047,6 +1055,10 @@ declare namespace LocalJSX {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName"?: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
+        /**
+          * Show explore plans and disable features for user having free-plan
+         */
+        "userPlan"?: 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**

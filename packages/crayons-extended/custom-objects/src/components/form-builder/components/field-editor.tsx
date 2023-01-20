@@ -18,6 +18,7 @@ import {
   getNestedKeyValueFromObject,
   i18nText,
   removeFirstOccurrence,
+  getMaxLimitProperty,
   getMaximumLimitsConfig,
   deriveInternalNameFromLabel,
 } from '../utils/form-builder-utils';
@@ -127,9 +128,17 @@ export class FieldEditor {
    */
   @State() labelErrorMessage = '';
   /**
+   * State to show label input warning message
+   */
+  @State() labelWarningMessage = '';
+  /**
    * State to show internal name input error message
    */
   @State() internalNameErrorMessage = '';
+  /**
+   * State to show internal name input warning message
+   */
+  @State() internalNameWarningMessage = '';
   /**
    * flag to show spinner on delete button
    */
@@ -146,6 +155,10 @@ export class FieldEditor {
    * Triggered when the field has to be deleted on the server
    */
   @Event() fwDelete!: EventEmitter;
+  /**
+   * Triggered when the field is reordered for drag start and drag stop
+   */
+  @Event() fwReorder!: EventEmitter;
 
   @Watch('enableUnique')
   watchEnableUniqueChangeHandler(): void {
@@ -213,8 +226,10 @@ export class FieldEditor {
   private getInterpolatedMaxLimitLabel = (strProperty) => {
     if (strProperty && strProperty !== '') {
       try {
-        const objMaxLimits = getMaximumLimitsConfig(this.productName);
-        const objMaxLimitField = objMaxLimits?.[strProperty];
+        const objMaxLimitField = getMaxLimitProperty(
+          this.productName,
+          strProperty
+        );
         if (objMaxLimitField) {
           return i18nText(objMaxLimitField.message, {
             count: objMaxLimitField.count,
@@ -344,6 +359,7 @@ export class FieldEditor {
    */
   private enableParentDrag = (value: boolean) => {
     if (this.divFieldBase) {
+      this.fwReorder.emit({ value: value });
       if (value) {
         this.divFieldBase.setAttribute('draggable', 'true');
       } else {
@@ -542,7 +558,9 @@ export class FieldEditor {
       if (!this.isNewField) {
         objValues[this.KEY_INTERNAL_NAME] = this.dataProvider.name;
       }
+      this.internalNameWarningMessage = '';
       this.internalNameErrorMessage = '';
+      this.labelWarningMessage = '';
       this.labelErrorMessage = '';
       this.formErrorMessage = '';
       this.showErrors = false;
@@ -694,6 +712,7 @@ export class FieldEditor {
     const strInputValue = !isBlur
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
+    const isValidValue = strInputValue && strInputValue !== '';
 
     let strInternalName = '';
     let boolInternalNameUpdated = false;
@@ -702,7 +721,41 @@ export class FieldEditor {
       boolInternalNameUpdated = true;
     }
 
+    if (isValidValue) {
+      const objMaxLimitField = getMaxLimitProperty(
+        this.productName,
+        'maxLabelChars'
+      );
+      if (objMaxLimitField && strInputValue.length >= objMaxLimitField.count) {
+        this.labelWarningMessage = i18nText(objMaxLimitField.message, {
+          count: objMaxLimitField.count,
+        });
+      } else {
+        this.labelWarningMessage = '';
+      }
+    } else {
+      this.labelWarningMessage = '';
+    }
+
     if (boolInternalNameUpdated) {
+      const objMaxLimitFieldName = getMaxLimitProperty(
+        this.productName,
+        'maxInternalNameChars'
+      );
+      if (
+        !this.internalNameWarningMessage &&
+        this.internalNameWarningMessage !== '' &&
+        objMaxLimitFieldName &&
+        strInternalName.length >= objMaxLimitFieldName.count
+      ) {
+        this.internalNameWarningMessage = i18nText(
+          objMaxLimitFieldName.message,
+          {
+            count: objMaxLimitFieldName.count,
+          }
+        );
+      }
+
       this.fieldBuilderOptions = {
         ...this.fieldBuilderOptions,
         label: strInputValue,
@@ -715,17 +768,16 @@ export class FieldEditor {
       };
     }
 
-    console.log(boolInternalNameUpdated + '===' + this.fieldBuilderOptions);
     if (this.showErrors) {
       this.validateLabelErrors(strInputValue);
     }
   };
 
-  private nameInputHandler = (event: CustomEvent) => {
+  private labelInputHandler = (event: CustomEvent) => {
     this.performLabelChange(event);
   };
 
-  private nameBlurHandler = (event: CustomEvent) => {
+  private labelBlurHandler = (event: CustomEvent) => {
     this.performLabelChange(event, true);
   };
 
@@ -739,6 +791,7 @@ export class FieldEditor {
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
     const isValidValue = strInputValue && strInputValue !== '';
+
     if (!isBlur) {
       this.isValuesChanged = true;
       if (isValidValue) {
@@ -750,10 +803,24 @@ export class FieldEditor {
     }
 
     if (isValidValue) {
+      const objMaxLimitField = getMaxLimitProperty(
+        this.productName,
+        'maxInternalNameChars'
+      );
+      if (objMaxLimitField && strInputValue.length >= objMaxLimitField.count) {
+        this.internalNameWarningMessage = i18nText(objMaxLimitField.message, {
+          count: objMaxLimitField.count,
+        });
+      } else {
+        this.internalNameWarningMessage = '';
+      }
+
       this.fieldBuilderOptions = {
         ...this.fieldBuilderOptions,
         name: strInputValue,
       };
+    } else {
+      this.internalNameWarningMessage = '';
     }
 
     if (this.showErrors) {
@@ -847,6 +914,7 @@ export class FieldEditor {
       <fw-fb-field-dropdown
         ref={(el) => (this.dictInteractiveElements['choices'] = el)}
         dataProvider={objFormValue.choices}
+        productName={this.productName}
         showErrors={this.showErrors}
         onFwChange={this.dropdownChangeHandler}
       ></fw-fb-field-dropdown>
@@ -868,7 +936,7 @@ export class FieldEditor {
     );
   }
 
-  private renderInternalName(objProductConfig) {
+  private renderInternalName(objProductConfig, objMaxLimits) {
     const boolSupportInternalName = objProductConfig.editInternalName;
     if (!boolSupportInternalName || !this.expanded) {
       return null;
@@ -889,6 +957,17 @@ export class FieldEditor {
       ? this.internalNameErrorMessage
       : '';
 
+    const boolShowNameWarning =
+      !boolShowNameError &&
+      this.internalNameWarningMessage &&
+      this.internalNameWarningMessage !== ''
+        ? true
+        : false;
+    const strInputWarning = boolShowNameWarning
+      ? this.internalNameWarningMessage
+      : '';
+    const numNameMaxChars = objMaxLimits?.['maxInternalNameChars']?.count || 50;
+
     return (
       <div class={`${strBaseClassName}-internal-name-base`}>
         <label
@@ -907,11 +986,18 @@ export class FieldEditor {
             class={`${strBaseClassName}-content-required-internal-name-input`}
             placeholder={i18nText('fieldNamePlaceholder')}
             required={true}
-            maxlength={255}
+            maxlength={numNameMaxChars}
             value={strInputInternalName}
             errorText={strInputError}
+            warningText={strInputWarning}
             disabled={!this.isNewField}
-            state={boolShowNameError ? 'error' : 'normal'}
+            state={
+              boolShowNameError
+                ? 'error'
+                : boolShowNameWarning
+                ? 'warning'
+                : 'normal'
+            }
             onFwBlur={this.internalNameBlurHandler}
             onFwInput={this.internalNameInputHandler}
           ></fw-input>
@@ -924,6 +1010,7 @@ export class FieldEditor {
     if (!this.expanded) {
       return null;
     }
+    const objMaxLimits = getMaximumLimitsConfig(this.productName);
     const boolSupportInternalName = objProductConfig.editInternalName;
     const strBaseClassName = 'fw-field-editor';
     const objFieldBuilder = this.fieldBuilderOptions;
@@ -960,6 +1047,16 @@ export class FieldEditor {
       ? i18nText('primaryFieldNameHint')
       : '';
     const strInputError = boolShowLabelError ? this.labelErrorMessage : '';
+    const boolShowLabelWarning =
+      !boolShowLabelError &&
+      this.labelWarningMessage &&
+      this.labelWarningMessage !== ''
+        ? true
+        : false;
+    const strInputWarning = boolShowLabelWarning
+      ? this.labelWarningMessage
+      : '';
+    const numLabelMaxChars = objMaxLimits?.['maxLabelChars']?.count || 255;
 
     return (
       <div class={`${strBaseClassName}-content-required`}>
@@ -980,15 +1077,23 @@ export class FieldEditor {
           placeholder={i18nText('fieldLabelPlaceholder')}
           label={i18nText('fieldLabel')}
           required={true}
-          maxlength={255}
+          maxlength={numLabelMaxChars}
           value={strInputLabel}
           hintText={strInputHint}
           errorText={strInputError}
-          state={boolShowLabelError ? 'error' : 'normal'}
-          onFwBlur={this.nameBlurHandler}
-          onFwInput={this.nameInputHandler}
+          warningText={strInputWarning}
+          state={
+            boolShowLabelError
+              ? 'error'
+              : boolShowLabelWarning
+              ? 'warning'
+              : 'normal'
+          }
+          onFwBlur={this.labelBlurHandler}
+          onFwInput={this.labelInputHandler}
         ></fw-input>
-        {boolSupportInternalName && this.renderInternalName(objProductConfig)}
+        {boolSupportInternalName &&
+          this.renderInternalName(objProductConfig, objMaxLimits)}
         {isDropdownType && (
           <div class={`${strBaseClassName}-content-dropdown`}>
             {elementDropdown}
@@ -1175,6 +1280,7 @@ export class FieldEditor {
               !this.isDeleting &&
               !isDefaultNonCustomField && (
                 <fw-button
+                  part='delete-field-btn'
                   size='icon'
                   color='secondary'
                   class={`${strBaseClassName}-delete-button`}

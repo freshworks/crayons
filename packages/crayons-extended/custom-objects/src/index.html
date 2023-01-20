@@ -438,7 +438,7 @@
 
       var tabProducts = document.getElementById('tabProducts');
       var fb = document.getElementById('formBuilder');
-      fb.disableNewFieldAddition = true;
+      fb.userPlan = 'trial';
       fb.productName = productName;
       fb.formValues = formValuesConvProps;
       fb.lookupTargetObjects = lookupTargets;
@@ -473,7 +473,6 @@
       }
 
       fb.addEventListener('fwComposeNewField', (event) => {
-        debugger;
         var objDetail = event.detail;
         var intAddedIndex = -1;
         var objFormValues = getFormValues();
@@ -643,7 +642,9 @@
             objUpdatedField.searchable = false;
           }
           // Name and ID Needs to be generated at the backend
-          objUpdatedField.name = strGeneratedFieldName;
+          if (!objUpdatedField.name || objUpdatedField.name === '') {
+            objUpdatedField.name = strGeneratedFieldName;
+          }
           objUpdatedField.id = create_UUID();
         } else {
           if (

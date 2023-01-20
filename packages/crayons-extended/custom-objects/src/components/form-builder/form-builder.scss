@@ -113,8 +113,8 @@
       justify-content: flex-end;
       background-image: linear-gradient(
         180deg,
-        rgba(245, 247, 249, 0.5) 25%,
-        rgba(245, 247, 249, 0.85) 28% 60%,
+        rgba(245, 247, 249, 0.6) 35%,
+        rgba(245, 247, 249, 0.93) 40% 60%,
         rgba(245, 247, 249, 1) 100%
       );
 
@@ -399,6 +399,15 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+      }
+
+      &--reordering {
+        .form-builder-right-panel-field-editor-list {
+          fw-field-editor::part(delete-field-btn) {
+            transition: none !important;
+            opacity: 0 !important;
+          }
+        }
       }
     }
   }

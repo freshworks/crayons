@@ -257,7 +257,19 @@
       "DATE": { "count": 30, "message": "maximumLimits.fields" },
       "TEXT": { "count": 80, "message": "maximumLimits.fields" },
       "PARAGRAPH": { "count": 10, "message": "maximumLimits.fields" },
-      "DROPDOWN": { "count": 30, "message": "maximumLimits.fields" }
+      "DROPDOWN": { "count": 30, "message": "maximumLimits.fields" },
+      "maxLabelChars": {
+        "count": 255,
+        "message": "maximumLimits.maxCharsWarning"
+      },
+      "maxInternalNameChars": {
+        "count": 50,
+        "message": "maximumLimits.maxCharsWarning"
+      },
+      "maxDropdownChoices": {
+        "count": 2000,
+        "message": "maximumLimits.maxChoiceOptionsWarning"
+      }
     }
   },
   "CONVERSATION_PROPERTIES": {
@@ -412,7 +424,19 @@
       "DATE": { "count": 30, "message": "maximumLimits.fields" },
       "TEXT": { "count": 200, "message": "maximumLimits.fields" },
       "PARAGRAPH": { "count": 50, "message": "maximumLimits.fields" },
-      "DROPDOWN": { "count": 250, "message": "maximumLimits.fields" }
+      "DROPDOWN": { "count": 250, "message": "maximumLimits.fields" },
+      "maxLabelChars": {
+        "count": 255,
+        "message": "maximumLimits.maxCharsWarning"
+      },
+      "maxInternalNameChars": {
+        "count": 10,
+        "message": "maximumLimits.maxCharsWarning"
+      },
+      "maxDropdownChoices": {
+        "count": 2000,
+        "message": "maximumLimits.maxChoiceOptionsWarning"
+      }
     }
   }
 }

@@ -116,12 +116,29 @@ export function isUniqueField(objField) {
 }
 
 // function to retreive maximum Limits object based on the db type
-export function getMaximumLimitsConfig(productName = 'CUSTOM_OBJECTS'): any {
+export function getMaximumLimitsConfig(productName = 'CUSTOM_OBJECTS') {
   try {
     const objMaxLimits = formMapper[productName]['maximumLimits'];
     return objMaxLimits;
     // eslint-disable-next-line no-empty
   } catch (error) {}
+  return null;
+}
+
+// function to get the max limit config from mapper
+export function getMaxLimitProperty(
+  productName = 'CUSTOM_OBJECTS',
+  strProperty
+) {
+  if (strProperty && strProperty !== '') {
+    try {
+      const objMaxLimits = getMaximumLimitsConfig(productName);
+      const objMaxLimitField = objMaxLimits?.[strProperty];
+      return objMaxLimitField;
+    } catch (error) {
+      return null;
+    }
+  }
   return null;
 }
 

@@ -72,9 +72,9 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) isSavingCustomizeWidget = false;
   /**
-   * Disable the ability to add new fields - Used for free plans
+   * Show explore plans and disable features for user having free-plan
    */
-  @Prop() disableNewFieldAddition = false;
+  @Prop() userPlan: 'trial' | 'admin' = 'admin';
   /**
    * svg image to be shown for empty record
    */
@@ -307,6 +307,30 @@ export class FormBuilder {
     return null;
   };
 
+  private removeFieldReorderClass = () => {
+    try {
+      if (this.fieldEditorPanel) {
+        this.fieldEditorPanel.classList.remove(
+          'form-builder-right-panel-list-container--reordering'
+        );
+      }
+    } catch (error) {
+      console.error('Could not remove dragged class');
+    }
+  };
+  private reorderFieldProgressHandler = (event: CustomEvent) => {
+    if (this.fieldEditorPanel) {
+      const boolDragging = event.detail.value;
+      if (boolDragging) {
+        this.fieldEditorPanel.classList.add(
+          'form-builder-right-panel-list-container--reordering'
+        );
+      } else {
+        this.removeFieldReorderClass();
+      }
+    }
+  };
+
   private expandFieldHandler = (event: CustomEvent) => {
     this.fwExpandField.emit({ ...event.detail });
   };
@@ -382,6 +406,7 @@ export class FormBuilder {
   };
 
   private fieldTypeDropHandler = (event: CustomEvent) => {
+    this.removeFieldReorderClass();
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
@@ -804,9 +829,10 @@ export class FormBuilder {
         lookupTargetObjects={this.lookupTargetObjects}
         formValues={this.localFormValues}
         isLoading={this.isLoading}
-        onFwExpand={this.expandFieldHandler}
-        onFwDelete={this.deleteFieldHandler}
         onFwUpdate={this.saveFieldHandler}
+        onFwDelete={this.deleteFieldHandler}
+        onFwExpand={this.expandFieldHandler}
+        onFwReorder={this.reorderFieldProgressHandler}
       ></fw-field-editor>
     );
   }
@@ -960,7 +986,7 @@ export class FormBuilder {
               >
                 {fieldTypeElements}
               </fw-drag-container>
-              {this.disableNewFieldAddition && (
+              {this.userPlan === 'trial' && (
                 <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
                   <fw-icon name='lock' size='30'></fw-icon>
                   <label

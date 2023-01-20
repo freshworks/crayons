@@ -1,4 +1,6 @@
 @import '../styles/variables/form-builder-style-utils.scss';
+$label-font: $font-stack-sans !default;
+$warning-color: $color-casablanca-300;
 
 :host {
   display: inline-block;
@@ -38,5 +40,22 @@
     height: auto;
     padding-inline-start: 32px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .fb-field-dropdown-warning-text {
+      font-family: $label-font;
+      font-size: 12px;
+      line-height: 20px;
+      margin-block-start: 4px;
+      margin-block-end: 0;
+      color: var(--fw-warning-color, $warning-color);
+      position: inherit;
+      display: block;
+      padding-inline-start: 2px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
   }
 }
