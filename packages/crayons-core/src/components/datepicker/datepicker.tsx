@@ -243,6 +243,8 @@ export class Datepicker {
   private isDisplayFormatSet = false;
   private isPlaceholderSet = false;
   private langChangRemoveListener;
+  private isMaxYearRestricted = false;
+  private isMinYearRestricted = false;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -612,6 +614,7 @@ export class Datepicker {
       // this.timeValue = newValue;
       this.selectedTime = newValue;
     }
+    this.checkYearRestriction();
   }
 
   handleDateRangeDropDownUpdate(e, newValue) {
@@ -802,6 +805,7 @@ export class Datepicker {
         })
       : this.value;
     this.setInitialValues();
+    this.checkYearRestriction();
   }
 
   setInitialValues() {
@@ -1018,7 +1022,22 @@ export class Datepicker {
     return monthArray;
   };
 
+  checkYearRestriction() {
+    if (this.maxYear)
+      this.isMaxYearRestricted =
+        Number(this.year) === this.maxYear && this.month === 11 ? true : false;
+    if (this.minYear)
+      this.isMinYearRestricted =
+        Number(this.year) === this.minYear && this.month === 0 ? true : false;
+  }
+
   setMonth = (offset) => {
+    if (
+      (offset === 1 && this.isMaxYearRestricted) ||
+      (offset === -1 && this.isMinYearRestricted)
+    )
+      return;
+
     let year = Number(this.year);
     let month = this.month + offset;
     if (month === -1) {
@@ -1038,6 +1057,7 @@ export class Datepicker {
       this.month === 11
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
+    this.checkYearRestriction();
   };
 
   isCurrentDay = (day) => {
@@ -1395,7 +1415,7 @@ export class Datepicker {
           <div
             role='button'
             tabindex='0'
-            class='mdpchb-inner'
+            class={`mdpchb-inner ${this.isMinYearRestricted && 'disabled'}`}
             onClick={() => this.setMonth(-1)}
             onKeyDown={handleKeyDown(() => this.setMonth(-1))}
           >
@@ -1406,7 +1426,7 @@ export class Datepicker {
           <div
             role='button'
             tabindex='0'
-            class='mdpchb-inner'
+            class={`mdpchb-inner ${this.isMaxYearRestricted && 'disabled'}`}
             onClick={() => this.setMonth(1)}
             onKeyDown={handleKeyDown(() => this.setMonth(1))}
           >
