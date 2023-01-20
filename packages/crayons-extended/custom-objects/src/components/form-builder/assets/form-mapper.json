@@ -430,7 +430,7 @@
         "message": "maximumLimits.maxCharsWarning"
       },
       "maxInternalNameChars": {
-        "count": 10,
+        "count": 50,
         "message": "maximumLimits.maxCharsWarning"
       },
       "maxDropdownChoices": {
