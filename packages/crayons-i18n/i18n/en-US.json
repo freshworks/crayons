@@ -77,6 +77,13 @@
     "fieldTypeDropdown": "Dropdown",
     "fieldTypeCheckbox": "Checkbox",
     "fieldTypeMultiselect": "Multi select",
+    "fieldTypeSingleLineText": "Single line text",
+    "fieldTypeMultiLineText": "Multi line text",
+    "fieldTypeMultiSelectDropdown": "Multiselect dropdown",
+    "fieldTypeDependent": "Dependent field",
+    "filterFields": "Filter :",
+    "filterOptionAllFields": "All fields",
+    "nonCustomDefaultFieldTag": "Default",
     "lookupUniqueTag": "Unique",
     "primaryFieldTag": "Primary field",
     "primaryFieldHeader": "Primary field",
@@ -92,9 +99,14 @@
     "headerFieldTypes": "Field types",
     "headerFields": "Fields",
     "fieldTypesDragDrop": "Drag and drop from here",
+    "headerProductConvProps": "Conversation properties",
+    "subHeaderProductConvProps": "Categorize and keep track of conversations. Create category and add multiple sub-category for your conversations. ",
+    "fieldTypesDragDropConvProps": "Drag and drop to create properties",
     "behaviour": "Behavior for agents",
     "fieldLabel": "Label for agents",
     "fieldLabelPlaceholder": "Enter the field label",
+    "internalName": "Internal name",
+    "fieldNamePlaceholder": "Enter the field name",
     "addFieldBtn": "Add field",
     "saveFieldBtn": "Save",
     "cancelFieldBtn": "Cancel",
@@ -117,6 +129,9 @@
     "customizeWidgetModalSaveBtn": "Save",
     "customizeWidgetModalCancelBtn": "Cancel",
     "noSearchItemsFound": "No matching fields found",
+    "freePlanFieldAddDisabledHeader": "Did you know you can add custom fields?",
+    "freePlanFieldAddDisabledMessage": "Custom fields are available from Growth plan and above.",
+    "freePlanFieldAddDisabledButton": "Explore plans",
     "errors": {
       "emptyFieldName": "Field label is required.",
       "emptyRelationshipType": "Relationship type is required.",
@@ -125,6 +140,7 @@
       "duplicate": "Dropdown choice already exists",
       "minimum": "Enter a minimum of one choice",
       "formErrors": "Please fix the errors and continue",
+      "useOnlyEnglishChars": "Use only english alphabets, numbers and underscore (_) for internal name.",
       "fieldNameExists": "There is another field with the same name in this form. Please use a different name.",
       "deleteDropDownChoice": "Deleting a choice will impact all related records"
     },
@@ -132,7 +148,9 @@
       "filterable": "At most {{count}} fields (excluding lookups) can be selected to filter records in the list view.",
       "unique": "At most {{count}} fields can be marked as unique.",
       "fields": "Reached the maximum limit of {{count}} fields. Delete an existing field to create a new one.",
-      "lookups": "Reached the maximum limit of {{count}} lookup fields. Delete an existing lookup field to create a new one."
+      "lookups": "Reached the maximum limit of {{count}} lookup fields. Delete an existing lookup field to create a new one.",
+      "maxCharsWarning": "You have reached a maximum limit of {{count}} characters.",
+      "maxChoiceOptionsWarning": "You have added maximum limit of {{count}} choices."
     }
   },
   "platformCouiWidgets": {

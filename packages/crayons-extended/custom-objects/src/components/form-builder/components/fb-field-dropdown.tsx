@@ -8,9 +8,11 @@ import {
   Event,
   Method,
   Watch,
+  State,
 } from '@stencil/core';
 import {
   deepCloneObject,
+  getMaxLimitProperty,
   hasCustomProperty,
   i18nText,
 } from '../utils/form-builder-utils';
@@ -21,9 +23,15 @@ import {
   shadow: true,
 })
 export class FbFieldDropdown {
-  @Element() host!: HTMLElement;
   private errorType = '';
 
+  @Element() host!: HTMLElement;
+  @State() boolExceededChoiceLimit = false;
+
+  /**
+   * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+   */
+  @Prop() productName = 'CUSTOM_OBJECTS';
   /**
    * flag to notify if an api call is in progress
    */
@@ -48,6 +56,10 @@ export class FbFieldDropdown {
 
   @Watch('showErrors')
   watchShowErrorsChangeHandler(): void {
+    this.validate();
+  }
+
+  componentWillLoad(): void {
     this.validate();
   }
 
@@ -82,9 +94,21 @@ export class FbFieldDropdown {
       if (boolElementUpdated) {
         this.dataProvider = [...arrChoices];
       }
+      this.validateMaximumChoiceLimits();
     } else {
       this.errorType = i18nText('errors.minimum');
     }
+  };
+
+  private validateMaximumChoiceLimits = () => {
+    const objMaxLimitChoices = getMaxLimitProperty(
+      this.productName,
+      'maxDropdownChoices'
+    );
+    this.boolExceededChoiceLimit =
+      this.dataProvider && this.dataProvider.length >= objMaxLimitChoices.count
+        ? true
+        : false;
   };
 
   private addNewChoiceHandler = (event: CustomEvent) => {
@@ -94,6 +118,7 @@ export class FbFieldDropdown {
     const objNewChoice = { value: '' };
     this.dataProvider = [...this.dataProvider, objNewChoice];
     this.errorType = i18nText('errors.emptyChoice');
+    this.validateMaximumChoiceLimits();
 
     this.fwChange.emit({
       type: 'ADD',
@@ -213,6 +238,16 @@ export class FbFieldDropdown {
           )
         : null;
 
+    const objMaxLimitChoices = getMaxLimitProperty(
+      this.productName,
+      'maxDropdownChoices'
+    );
+    const strExceedLimitChoicesWarning = this.boolExceededChoiceLimit
+      ? i18nText(objMaxLimitChoices.message, {
+          count: objMaxLimitChoices.count,
+        })
+      : '';
+
     return (
       <Host tabIndex='-1'>
         <div class={strBaseClassName}>
@@ -231,10 +266,16 @@ export class FbFieldDropdown {
             <fw-button
               id='addNewChoiceBtn'
               color='link'
+              disabled={this.boolExceededChoiceLimit}
               onFwClick={this.addNewChoiceHandler}
             >
               {i18nText('addChoice')}
             </fw-button>
+            {this.boolExceededChoiceLimit && (
+              <label class={`${strBaseClassName}-warning-text`}>
+                {strExceedLimitChoicesWarning}
+              </label>
+            )}
           </div>
         </div>
       </Host>
