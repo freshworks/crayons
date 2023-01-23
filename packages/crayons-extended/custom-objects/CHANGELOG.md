@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.0-beta.8...@freshworks/crayons-custom-objects@1.2.0-beta.9) (2023-01-23)
+
+
+### Features
+
+* **form-builder:** Form mapper to support FormServe implemented, Internal name generation implemented and Free user restrictions done ([#778](https://github.com/freshworks/crayons/issues/778)) ([4793976](https://github.com/freshworks/crayons/commit/47939769de61c1c705f69d1a44f0cfd5d9d0a1ed))
+
+
+
+
+
 ## [1.2.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.0-beta.6...@freshworks/crayons-custom-objects@1.2.0-beta.7) (2023-01-09)
 
 ### Features

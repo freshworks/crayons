@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.1.0-beta.0...@freshworks/crayons-i18n@4.1.0-beta.1) (2023-01-23)
+
+
+### Features
+
+* **form-builder:** Form mapper to support FormServe implemented, Internal name generation implemented and Free user restrictions done ([#778](https://github.com/freshworks/crayons/issues/778)) ([4793976](https://github.com/freshworks/crayons/commit/47939769de61c1c705f69d1a44f0cfd5d9d0a1ed))
+
+
+
+
+
 ## [4.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.0.0...@freshworks/crayons-i18n@4.1.0-beta.0) (2022-10-19)
 
 ### Features
