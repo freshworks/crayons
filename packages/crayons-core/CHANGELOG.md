@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.1.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.8...@freshworks/crayons@4.1.0-beta.9) (2023-01-23)
-
+## [4.1.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.8...@freshworks/crayons@4.1.0-beta.9) (2023-01-23)
 
 ### Features
 
-* **form:** expose api for setting field choices dynamically ([#763](https://github.com/freshworks/crayons/issues/763)) ([444b5ac](https://github.com/freshworks/crayons/commit/444b5acf6cf535f4f5e73ca3d30a4187f35be185))
-
-
-
-
+- **form:** expose api for setting field choices dynamically ([#763](https://github.com/freshworks/crayons/issues/763)) ([444b5ac](https://github.com/freshworks/crayons/commit/444b5acf6cf535f4f5e73ca3d30a4187f35be185))
 
 ## [4.1.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.6...@freshworks/crayons@4.1.0-beta.7) (2023-01-09)
 
