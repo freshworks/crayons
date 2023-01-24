@@ -91,8 +91,7 @@ export class DataTable {
   /**
    * Header label for row actions row
    */
-  @Prop({ mutable: false }) rowActionsHeaderLabel =
-    TranslationController.t('datatable.actions');
+  @Prop({ mutable: false }) rowActionsHeaderLabel;
 
   /**
    * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row.
@@ -981,6 +980,7 @@ export class DataTable {
   /**
    * getRowActionMenuProps
    * @param rowData rowData - complete data of the current row
+   * @returns props for kebab menu
    */
   getRowActionMenuProps(rowData: DataTableRow) {
     if (this.showRowActionsAsMenu) {
@@ -1015,8 +1015,13 @@ export class DataTable {
       return options.length
         ? {
             options,
-            handleSelect: async (value) => {
-              await this.performRowAction(handlers[value], rowData);
+            onFwSelect: async (event) => {
+              if (event?.detail?.value) {
+                await this.performRowAction(
+                  handlers[event.detail.value],
+                  rowData
+                );
+              }
             },
           }
         : null;
@@ -1026,6 +1031,7 @@ export class DataTable {
   /**
    * renderKebabMenu
    * @param rowData rowData - complete data of the current row
+   * @returns kebab menu component
    */
   renderKebabMenu(rowData: DataTableRow) {
     const kebabMenuProps = this.getRowActionMenuProps(rowData);
@@ -1292,7 +1298,9 @@ export class DataTable {
                 : this.orderedColumns.length + 1
             }
           >
-            {this.rowActionsHeaderLabel}
+            {!this.rowActionsHeaderLabel && this.rowActionsHeaderLabel !== ''
+              ? TranslationController.t('datatable.actions')
+              : this.rowActionsHeaderLabel}
           </th>
         )}
       </tr>

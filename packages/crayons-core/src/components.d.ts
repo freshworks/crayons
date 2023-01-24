@@ -965,10 +965,6 @@ export namespace Components {
     }
     interface FwKebabMenu {
         /**
-          * handler for selecting option from the list
-         */
-        "handleSelect": any;
-        /**
           * The data for the kebab menu component, the options will be of type array of fw-select-options.
          */
         "options": any[];
@@ -2205,6 +2201,10 @@ export interface FwInlineMessageCustomEvent<T> extends CustomEvent<T> {
 export interface FwInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwInputElement;
+}
+export interface FwKebabMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwKebabMenuElement;
 }
 export interface FwListOptionsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -3626,9 +3626,9 @@ declare namespace LocalJSX {
     }
     interface FwKebabMenu {
         /**
-          * handler for selecting option from the list
+          * fwSelect event is emitted when an option is clicked from the list.
          */
-        "handleSelect"?: any;
+        "onFwSelect"?: (event: FwKebabMenuCustomEvent<any>) => void;
         /**
           * The data for the kebab menu component, the options will be of type array of fw-select-options.
          */
