@@ -47,10 +47,10 @@ function App() {
 
 ## Properties
 
-| Property | Attribute | Description                                                                | Type                                          | Default     |
-| -------- | --------- | -------------------------------------------------------------------------- | --------------------------------------------- | ----------- |
-| `color`  | `color`   | Color in which the loader is displayed, specified as a standard CSS color. | `string`                                      | `''`        |
-| `size`   | `size`    | Size of the loader.                                                        | `"default" \| "large" \| "medium" \| "small"` | `'default'` |
+| Property | Attribute | Description                                                                | Type                                                     | Default     |
+| -------- | --------- | -------------------------------------------------------------------------- | -------------------------------------------------------- | ----------- |
+| `color`  | `color`   | Color in which the loader is displayed, specified as a standard CSS color. | `string`                                                 | `''`        |
+| `size`   | `size`    | Size of the loader.                                                        | `"default" \| "large" \| "medium" \| "micro" \| "small"` | `'default'` |
 
 
 ## CSS Custom Properties
