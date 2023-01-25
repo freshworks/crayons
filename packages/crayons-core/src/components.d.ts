@@ -1694,7 +1694,7 @@ export namespace Components {
         /**
           * Size of the loader.
          */
-        "size": 'small' | 'medium' | 'large' | 'default';
+        "size": 'micro' | 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
@@ -4385,7 +4385,7 @@ declare namespace LocalJSX {
         /**
           * Size of the loader.
          */
-        "size"?: 'small' | 'medium' | 'large' | 'default';
+        "size"?: 'micro' | 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
