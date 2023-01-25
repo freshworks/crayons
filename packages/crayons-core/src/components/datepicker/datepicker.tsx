@@ -850,6 +850,26 @@ export class Datepicker {
       );
       this.value = `${formattedFromDate} to ${formattedToDate}`;
     }
+    if (
+      (this.maxYear && Number(this.year) > this.maxYear) ||
+      (this.minYear && Number(this.year) < this.minYear)
+    ) {
+      if (this.value) {
+        this.value = undefined;
+        // if minYear & maxYear specified and the value provided falls outside of the specified year range, print a warning msg
+        // and reset the value to undefined and the year to minYear value and month to JAN.
+        console.warn(
+          'The value provided falls outside of the minYear and maxYear specified. Please check !'
+        );
+      }
+      const date = new Date();
+      this.year = this.minYear;
+      this.month = 0;
+      this.selectedDay = '1';
+      date.setMonth(this.month, 1);
+      date.setFullYear(this.year);
+      date.setDate(this.selectedDay);
+    }
   }
 
   @Watch('value')
@@ -1025,10 +1045,10 @@ export class Datepicker {
   checkYearRestriction() {
     if (this.maxYear)
       this.isMaxYearRestricted =
-        Number(this.year) === this.maxYear && this.month === 11 ? true : false;
+        Number(this.year) >= this.maxYear && this.month === 11 ? true : false;
     if (this.minYear)
       this.isMinYearRestricted =
-        Number(this.year) === this.minYear && this.month === 0 ? true : false;
+        Number(this.year) <= this.minYear && this.month === 0 ? true : false;
   }
 
   setMonth = (offset) => {
