@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.4...@freshworks/crayons@4.0.5) (2023-01-25)
+
+
+### Bug Fixes
+
+* **datepicker:** replace event.path with event.composedPath as it is deprecated from chrome 109 v ([8980943](https://github.com/freshworks/crayons/commit/89809437a31dcc5dc1e33acc6d37d627f5393ad7))
+
+
+
+
+
 ## [4.0.3-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.2...@freshworks/crayons@4.0.3-beta.0) (2022-10-12)
 
 ### Bug Fixes
