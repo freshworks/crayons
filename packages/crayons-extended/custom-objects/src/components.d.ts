@@ -55,6 +55,10 @@ export namespace Components {
          */
         "isLoading": boolean;
         /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
+        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors": boolean;
@@ -169,6 +173,10 @@ export namespace Components {
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
         "pinned": 'top' | 'bottom' | '';
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -303,6 +311,14 @@ export namespace Components {
           * object to store the lookup target entities
          */
         "lookupTargetObjects": any;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
+        /**
+          * Show explore plans and disable features for user having free-plan
+         */
+        "userPlan": 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**
@@ -712,6 +728,10 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: FwFbFieldDropdownCustomEvent<any>) => void;
         /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
+        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors"?: boolean;
@@ -842,6 +862,10 @@ declare namespace LocalJSX {
          */
         "onFwExpand"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
+          * Triggered when the field is reordered for drag start and drag stop
+         */
+        "onFwReorder"?: (event: FwFieldEditorCustomEvent<any>) => void;
+        /**
           * Triggered when the field details need to be saved on the server
          */
         "onFwUpdate"?: (event: FwFieldEditorCustomEvent<any>) => void;
@@ -849,6 +873,10 @@ declare namespace LocalJSX {
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
         "pinned"?: 'top' | 'bottom' | '';
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1004,6 +1032,10 @@ declare namespace LocalJSX {
          */
         "onFwExpandField"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
+          * Triggered when the explore plans button is clicked for free plan users
+         */
+        "onFwExplorePlan"?: (event: FwFormBuilderCustomEvent<any>) => void;
+        /**
           * Triggered when the position of a field is changed using drag and drop
          */
         "onFwRepositionField"?: (event: FwFormBuilderCustomEvent<any>) => void;
@@ -1019,6 +1051,14 @@ declare namespace LocalJSX {
           * Triggered on search
          */
         "onFwSearchField"?: (event: FwFormBuilderCustomEvent<any>) => void;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
+        /**
+          * Show explore plans and disable features for user having free-plan
+         */
+        "userPlan"?: 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**

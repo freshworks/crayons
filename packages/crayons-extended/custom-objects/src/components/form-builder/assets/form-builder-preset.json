@@ -2,221 +2,43 @@
   "fieldTypes": {
     "PRIMARY": {
       "type": "TEXT",
-      "display_label": "fieldTypeText",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "unique",
-          "tag": "fieldUniqueTag",
-          "display_label": "fieldUnique",
-          "info": "fieldUniqueHoverText",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "filterable",
-          "tag": "fieldFilterTag",
-          "display_label": "fieldFilter",
-          "info": "fieldFilterHoverText",
-          "enabled": true,
-          "selected": true
-        }
-      ],
       "icon": { "name": "text-field", "bg_color": "#FEF1E1" }
     },
     "RELATIONSHIP": {
       "type": "RELATIONSHIP",
-      "display_label": "fieldTypeRelationship",
-      "description": "fieldTypeRelationshipDesc",
-      "link": {
-        "label": "fieldTypeRelationshipDescLinkLabel",
-        "href": "https://support.freshdesk.com/en/support/solutions/articles/50000004226-understanding-associations"
-      },
-      "has_bottom_border": true,
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "filterable",
-          "tag": "fieldFilterTag",
-          "display_label": "fieldFilter",
-          "info": "fieldFilterHoverText",
-          "enabled": false,
-          "selected": true
-        }
-      ],
       "icon": { "name": "search", "bg_color": "#FEF1E0" }
     },
     "TEXT": {
       "type": "TEXT",
-      "display_label": "fieldTypeText",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "filterable",
-          "tag": "fieldFilterTag",
-          "display_label": "fieldFilter",
-          "info": "fieldFilterHoverText",
-          "enabled": true,
-          "selected": true
-        }
-      ],
       "icon": { "name": "text-field", "bg_color": "#FEF1E1" }
     },
     "PARAGRAPH": {
       "type": "PARAGRAPH",
-      "display_label": "fieldTypeParagraph",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        }
-      ],
       "icon": { "name": "paragraph", "bg_color": "#FEF1E0" }
     },
     "NUMBER": {
       "type": "NUMBER",
-      "display_label": "fieldTypeNumber",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "filterable",
-          "tag": "fieldFilterTag",
-          "display_label": "fieldFilter",
-          "info": "fieldFilterHoverText",
-          "enabled": true,
-          "selected": true
-        }
-      ],
       "icon": { "name": "number-field", "bg_color": "#DFF5F1" }
     },
     "DECIMAL": {
       "type": "DECIMAL",
-      "display_label": "fieldTypeDecimal",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        }
-      ],
       "icon": { "name": "decimal-field", "bg_color": "#E5F2FE" }
     },
     "DATE": {
       "type": "DATE",
-      "display_label": "fieldTypeDate",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "filterable",
-          "tag": "fieldFilterTag",
-          "display_label": "fieldFilter",
-          "info": "fieldFilterHoverText",
-          "enabled": true,
-          "selected": true
-        }
-      ],
       "icon": { "name": "calendar", "bg_color": "#FFECF0" }
     },
     "DROPDOWN": {
       "type": "DROPDOWN",
-      "display_label": "fieldTypeDropdown",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "filterable",
-          "tag": "fieldFilterTag",
-          "display_label": "fieldFilter",
-          "info": "fieldFilterHoverText",
-          "enabled": true,
-          "selected": true
-        }
-      ],
       "icon": { "name": "dropdown", "bg_color": "#E5F2FE" },
       "choices": [{ "value": "" }, { "value": "" }]
     },
     "CHECKBOX": {
       "type": "CHECKBOX",
-      "display_label": "fieldTypeCheckbox",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "filterable",
-          "tag": "fieldFilterTag",
-          "display_label": "fieldFilter",
-          "info": "fieldFilterHoverText",
-          "enabled": true,
-          "selected": false
-        }
-      ],
       "icon": { "name": "checkbox", "bg_color": "#FFECF0" }
     },
     "MULTI_SELECT": {
       "type": "MULTI_SELECT",
-      "display_label": "fieldTypeMultiselect",
-      "checkboxes": [
-        {
-          "key": "required",
-          "tag": "fieldRequiredTag",
-          "display_label": "fieldRequired",
-          "enabled": true,
-          "selected": false
-        },
-        {
-          "key": "filterable",
-          "tag": "fieldFilterTag",
-          "display_label": "fieldFilter",
-          "info": "fieldFilterHoverText",
-          "enabled": true,
-          "selected": true
-        }
-      ],
       "icon": { "name": "multiselect", "bg_color": "#E5F2FE" },
       "choices": [{ "value": "" }, { "value": "" }]
     }
@@ -261,20 +83,5 @@
         "unique": "field_options.unique"
       }
     }
-  },
-  "maximumLimits": {
-    "widgets": { "count": 5, "message": "" },
-    "fields": { "count": 100, "message": "maximumLimits.fields" },
-    "filterable": { "count": 25, "message": "maximumLimits.filterable" },
-    "unique": { "count": 6, "message": "maximumLimits.unique" },
-    "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" },
-    "NUMBER": { "count": 30, "message": "maximumLimits.fields" },
-    "CHECKBOX": { "count": 30, "message": "maximumLimits.fields" },
-    "DECIMAL": { "count": 20, "message": "maximumLimits.fields" },
-    "MULTI_SELECT": { "count": 20, "message": "maximumLimits.fields" },
-    "DATE": { "count": 30, "message": "maximumLimits.fields" },
-    "TEXT": { "count": 80, "message": "maximumLimits.fields" },
-    "PARAGRAPH": { "count": 10, "message": "maximumLimits.fields" },
-    "DROPDOWN": { "count": 30, "message": "maximumLimits.fields" }
   }
 }

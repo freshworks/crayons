@@ -13,12 +13,16 @@ import {
 } from '@stencil/core';
 import {
   deepCloneObject,
+  getFieldTypeCheckboxes,
+  getMappedCustomFieldType,
+  getMaximumLimitsConfig,
   hasCustomProperty,
   i18nText,
   isPrimaryFieldType,
   isUniqueField,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
+import formMapper from './assets/form-mapper.json';
 import { debounce } from '../../utils/utils';
 
 @Component({
@@ -33,9 +37,16 @@ export class FormBuilder {
   private debouncedHandleInput: any;
   private modalCustomizeWidget!: any;
   private isWidgetValuesChanged = false;
+  private filterByFieldTypeOptions = null;
   private supportedFieldTypes;
   private resizeObserver;
+  private FILTER_ALL_FIELDS = 'ALL_FIELDS';
 
+  /**
+   * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+   */
+  @Prop() productName: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES' =
+    'CUSTOM_OBJECTS';
   /**
    * Prop to store the expanded field index
    */
@@ -61,9 +72,17 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) isSavingCustomizeWidget = false;
   /**
+   * Show explore plans and disable features for user having free-plan
+   */
+  @Prop() userPlan: 'trial' | 'admin' = 'admin';
+  /**
    * svg image to be shown for empty record
    */
   @Prop() emptySearchImage = null;
+  /**
+   * State to store the formValues as a state to transfer the field types
+   */
+  @State() localFormValues = null;
   /**
    * State to store the searched widget elements
    */
@@ -72,6 +91,10 @@ export class FormBuilder {
    * State to store the searched field elements
    */
   @State() arrSearchedFields = null;
+  /**
+   * State to store the filtered field elements
+   */
+  @State() arrFilteredByTypeFields = null;
   /**
    * State to check if the form is in searching mode
    */
@@ -97,6 +120,10 @@ export class FormBuilder {
    */
   @State() enableUnique = true;
   /**
+   * selected filter option from the select component for filter by field type
+   */
+  @State() selectedFieldTypeFilterOption = this.FILTER_ALL_FIELDS;
+  /**
    * Triggered on Add/Save field button click from the field list items
    */
   @Event() fwSaveField!: EventEmitter;
@@ -116,6 +143,10 @@ export class FormBuilder {
    * Triggered when the field is expanded or collapsed
    */
   @Event() fwExpandField!: EventEmitter;
+  /**
+   * Triggered when the explore plans button is clicked for free plan users
+   */
+  @Event() fwExplorePlan!: EventEmitter;
   /**
    * Triggered on search
    */
@@ -141,20 +172,37 @@ export class FormBuilder {
   watchFormValuesChangeHandler(): void {
     this.fieldTypesCount = null;
     const objMaxLimitCount = { filterable: 0, unique: 0 };
+    this.localFormValues = this.formValues
+      ? deepCloneObject(this.formValues)
+      : null;
 
-    if (this.formValues) {
-      const arrFields = this.formValues?.fields;
+    if (this.localFormValues) {
+      const arrFields = this.localFormValues?.fields;
+      const mappedFieldTypes =
+        formMapper[this.productName]['reverseMappedFieldTypes'];
+
       // Maximum limits validation
       if (arrFields && arrFields.length > 0) {
         const intFieldCount = arrFields.length;
+
         for (let i1 = 0; i1 < intFieldCount; i1++) {
           const objField = arrFields[i1];
           if (!objField) {
             continue;
           }
-          if (!objField?.isNew) {
-            const strFieldType = objField.type;
 
+          if (mappedFieldTypes) {
+            if (hasCustomProperty(mappedFieldTypes, objField.type)) {
+              objField.type = mappedFieldTypes[objField.type];
+            } else {
+              console.log(
+                `${objField.type} is not added in the mapper - Unsupported field type`
+              );
+            }
+          }
+
+          const strFieldType = objField.type;
+          if (!objField?.isNew) {
             if (
               strFieldType !== 'RELATIONSHIP' &&
               (objField?.filterable === true || objField?.filterable === 'true')
@@ -179,7 +227,7 @@ export class FormBuilder {
           }
         }
 
-        const objMaxLimits = presetSchema.maximumLimits;
+        const objMaxLimits = getMaximumLimitsConfig(this.productName);
         this.enableFieldType = intFieldCount < objMaxLimits.fields.count;
         this.enableFilterable =
           objMaxLimitCount.filterable < objMaxLimits.filterable.count;
@@ -191,6 +239,11 @@ export class FormBuilder {
         this.fieldTypesCount = null;
       }
     }
+  }
+
+  @Watch('productName')
+  watchProductNameChangeHandler(): void {
+    this.watchFormValuesChangeHandler();
   }
 
   componentWillLoad(): void {
@@ -217,37 +270,84 @@ export class FormBuilder {
 
   private getInterpolatedMaxLimitLabel = (strProperty) => {
     if (strProperty && strProperty !== '') {
-      const objMaxLimit = presetSchema?.maximumLimits?.[strProperty];
-      if (objMaxLimit) {
-        return i18nText(objMaxLimit.message, { count: objMaxLimit.count });
+      try {
+        const objMaxLimit = getMaximumLimitsConfig(this.productName)?.[
+          strProperty
+        ];
+        if (objMaxLimit) {
+          return i18nText(objMaxLimit.message, { count: objMaxLimit.count });
+        }
+      } catch (error) {
+        return '';
       }
     }
     return '';
   };
 
   // function to get the default field type schema based on the field type
-  private getDefaultFieldTypeSchema = (strFieldType) => {
+  private getDefaultFieldTypeSchema = (fieldType) => {
     if (presetSchema) {
       try {
-        const objDefaultField = presetSchema.fieldTypes[strFieldType];
+        const objDefaultField = presetSchema.fieldTypes[fieldType];
+
         if (objDefaultField) {
-          return deepCloneObject(objDefaultField);
+          const objNewField = deepCloneObject(objDefaultField);
+          objNewField.checkboxes = getFieldTypeCheckboxes(
+            this.productName,
+            fieldType
+          );
+          return objNewField;
         } else {
-          console.log(`${strFieldType} - field type is not supported`);
+          console.log(`${fieldType} - field type is not supported`);
         }
       } catch (error) {
-        console.log(`${strFieldType} - field type is not supported`);
+        console.log(`${fieldType} - field type is not supported`);
       }
     }
     return null;
+  };
+
+  private removeFieldReorderClass = () => {
+    try {
+      if (this.fieldEditorPanel) {
+        this.fieldEditorPanel.classList.remove(
+          'form-builder-right-panel-list-container--reordering'
+        );
+      }
+    } catch (error) {
+      console.error('Could not remove dragged class');
+    }
+  };
+  private reorderFieldProgressHandler = (event: CustomEvent) => {
+    if (this.fieldEditorPanel) {
+      const boolDragging = event.detail.value;
+      if (boolDragging) {
+        this.fieldEditorPanel.classList.add(
+          'form-builder-right-panel-list-container--reordering'
+        );
+      } else {
+        this.removeFieldReorderClass();
+      }
+    }
   };
 
   private expandFieldHandler = (event: CustomEvent) => {
     this.fwExpandField.emit({ ...event.detail });
   };
 
+  private explorePlanHandler = (event: CustomEvent) => {
+    this.fwExplorePlan.emit({ ...event.detail });
+  };
+
   private saveFieldHandler = (event: CustomEvent) => {
-    this.fwSaveField.emit({ ...event.detail });
+    const objSaveField = { ...event.detail };
+    const objSaveFieldDetails = objSaveField.value;
+    objSaveFieldDetails.type = getMappedCustomFieldType(
+      this.productName,
+      objSaveFieldDetails.type
+    );
+
+    this.fwSaveField.emit(objSaveField);
   };
 
   private deleteFieldHandler = (event: CustomEvent) => {
@@ -258,11 +358,14 @@ export class FormBuilder {
     const objNewField = deepCloneObject(
       presetSchema.fieldTypes[strNewFieldType]
     );
-    const objMaxLimits = presetSchema?.maximumLimits;
+    const objMaxLimits = getMaximumLimitsConfig(this.productName);
 
     try {
-      const arrFields = this.formValues?.fields;
-
+      const arrFields = this.localFormValues?.fields;
+      objNewField.checkboxes = getFieldTypeCheckboxes(
+        this.productName,
+        objNewField.type
+      );
       // Condition to deselect the filter checkbox (selected by default), if maximum filters have been applied in the object
       if (
         objNewField.type !== 'RELATIONSHIP' &&
@@ -290,8 +393,12 @@ export class FormBuilder {
       console.error(`Error occurred in composeNewField: ${error}`);
     }
 
+    objNewField.type = getMappedCustomFieldType(
+      this.productName,
+      objNewField.type
+    );
     this.fwComposeNewField.emit({
-      maximumLimits: presetSchema?.maximumLimits,
+      maximumLimits: getMaximumLimitsConfig(this.productName),
       fieldSchema: objNewField,
       value: { ...objFieldData },
       index: intIndex,
@@ -299,6 +406,7 @@ export class FormBuilder {
   };
 
   private fieldTypeDropHandler = (event: CustomEvent) => {
+    this.removeFieldReorderClass();
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
@@ -353,7 +461,9 @@ export class FormBuilder {
 
     if (strInputText) {
       const arrFieldElements =
-        this.formValues && this.formValues.fields ? this.formValues.fields : [];
+        this.localFormValues && this.localFormValues.fields
+          ? this.localFormValues.fields
+          : [];
 
       if (arrFieldElements && arrFieldElements.length > 0) {
         const strSearchableText = strInputText.toLowerCase();
@@ -376,19 +486,50 @@ export class FormBuilder {
     this.searching = false;
   };
 
+  private fieldTypeFilterChangeHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    const filteredFieldType = event.detail.value;
+
+    if (
+      filteredFieldType &&
+      filteredFieldType !== '' &&
+      filteredFieldType !== this.FILTER_ALL_FIELDS
+    ) {
+      this.arrSearchedFields = null;
+      this.searching = false;
+
+      const arrFieldElements =
+        this.localFormValues && this.localFormValues.fields
+          ? this.localFormValues.fields
+          : [];
+
+      if (arrFieldElements && arrFieldElements.length > 0) {
+        const arrResults = arrFieldElements.filter(function (dataItem) {
+          return dataItem.type.indexOf(filteredFieldType) !== -1;
+        });
+        this.arrFilteredByTypeFields = deepCloneObject(arrResults);
+        this.selectedFieldTypeFilterOption = filteredFieldType;
+        return;
+      }
+    }
+    this.arrFilteredByTypeFields = null;
+    this.selectedFieldTypeFilterOption = this.FILTER_ALL_FIELDS;
+  };
+
   private openCustomizeWidgetModalHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
 
     if (
-      !this.formValues ||
-      !this.formValues.fields ||
-      this.formValues.fields.length <= 0
+      !this.localFormValues ||
+      !this.localFormValues.fields ||
+      this.localFormValues.fields.length <= 0
     ) {
       return;
     }
 
-    const arrFields = this.formValues.fields;
+    const arrFields = this.localFormValues.fields;
     // const arrPrecedenceObjects = arrFields.filter((dataItem) => dataItem?.field_options?.precedence === '1');
     const arrPrecedenceObjects = this.customizeWidgetFields
       ? [...this.customizeWidgetFields]
@@ -405,12 +546,13 @@ export class FormBuilder {
       if (
         arrPrecedenceObjects &&
         arrPrecedenceObjects.length === 1 &&
-        isPrimaryFieldType(arrPrecedenceObjects[0])
+        isPrimaryFieldType(arrPrecedenceObjects[0], this.productName)
       ) {
         arrWidgetIds = [...arrWidgetIds, arrPrecedenceObjects[0]];
       }
 
-      const intMaxWidgetFields = presetSchema.maximumLimits.widgets.count;
+      const objMaxLimits = getMaximumLimitsConfig(this.productName);
+      const intMaxWidgetFields = objMaxLimits?.widgets?.count || 0;
       const intFieldsLength = arrFields.length;
       for (let f1 = 0; f1 < intFieldsLength; f1++) {
         if (!arrWidgetIds.includes(arrFields[f1].id)) {
@@ -457,11 +599,10 @@ export class FormBuilder {
     if (this.arrWidgetFields) {
       // const strFieldName = event.detail.data.name;
       const strFieldID = event.detail.data.id;
+      const objMaxLimits = getMaximumLimitsConfig(this.productName);
+      const intMaxWidgetsCount = objMaxLimits?.widgets?.count || 0;
 
-      if (
-        boolChecked &&
-        this.arrWidgetFields.length < presetSchema.maximumLimits.widgets.count
-      ) {
+      if (boolChecked && this.arrWidgetFields.length < intMaxWidgetsCount) {
         this.isWidgetValuesChanged = true;
         this.arrWidgetFields = [...this.arrWidgetFields, strFieldID];
       } else if (this.arrWidgetFields.includes(strFieldID)) {
@@ -475,11 +616,73 @@ export class FormBuilder {
     }
   };
 
-  private renderFieldTypeElement(dataItem, key, intIndex) {
+  private renderFieldTypesHeader(objProductPreset) {
+    const strBaseClassName = 'form-builder';
+    const objLabelsDb = objProductPreset.labels;
+
+    const strProductHeader = hasCustomProperty(objLabelsDb, 'headerProduct')
+      ? objLabelsDb.headerProduct
+      : '';
+    const strProductSubHeader = hasCustomProperty(
+      objLabelsDb,
+      'subHeaderProduct'
+    )
+      ? objLabelsDb.subHeaderProduct
+      : '';
+    const strFieldTypesHeader = hasCustomProperty(
+      objLabelsDb,
+      'fieldTypesHeader'
+    )
+      ? objLabelsDb.fieldTypesHeader
+      : '';
+    const strDragDrop = hasCustomProperty(objLabelsDb, 'dragDropFieldTypes')
+      ? objLabelsDb.dragDropFieldTypes
+      : '';
+
+    const boolFieldsHeaderPresent =
+      strFieldTypesHeader && strFieldTypesHeader !== '' ? true : false;
+    const strDragClassName = boolFieldsHeaderPresent
+      ? `${strBaseClassName}-left-panel-header-desc`
+      : `${strBaseClassName}-left-panel-header-desc-wo-header`;
+
+    return (
+      <div class={`${strBaseClassName}-left-panel-header`}>
+        {strProductHeader && strProductHeader !== '' && (
+          <label class={`${strBaseClassName}-left-panel-product-header-label`}>
+            {i18nText(strProductHeader)}
+          </label>
+        )}
+        {strProductSubHeader && strProductSubHeader !== '' && (
+          <label class={`${strBaseClassName}-left-panel-header-desc`}>
+            {i18nText(strProductSubHeader)}
+          </label>
+        )}
+        {boolFieldsHeaderPresent && (
+          <label class={`${strBaseClassName}-left-panel-header-label`}>
+            {i18nText(strFieldTypesHeader)}
+          </label>
+        )}
+        {strDragDrop && strDragDrop !== '' && (
+          <label class={strDragClassName}>{i18nText(strDragDrop)}</label>
+        )}
+      </div>
+    );
+  }
+
+  private renderFieldTypeElement(
+    key,
+    presetFieldTypes,
+    dbFieldConfig,
+    intIndex
+  ) {
     if (key === 'PRIMARY') {
       return null;
     }
+
+    const dbFieldTypeData = dbFieldConfig?.fieldProps[key];
+    const dataItem = presetFieldTypes[key];
     const strFieldType = dataItem.type;
+
     if (!this.supportedFieldTypes.includes(strFieldType)) {
       return null;
     }
@@ -489,7 +692,7 @@ export class FormBuilder {
       ? this.getInterpolatedMaxLimitLabel('fields')
       : '';
 
-    const objMaxLimits = presetSchema.maximumLimits;
+    const objMaxLimits = getMaximumLimitsConfig(this.productName);
     if (
       !boolDisableFieldType &&
       hasCustomProperty(this.fieldTypesCount, strFieldType) &&
@@ -503,29 +706,34 @@ export class FormBuilder {
         : '';
     }
 
-    const strDescription = hasCustomProperty(dataItem, 'description')
-      ? i18nText(dataItem.description)
+    const strDisplayLabel = hasCustomProperty(dbFieldTypeData, 'display_label')
+      ? dbFieldTypeData.display_label
       : '';
 
+    const strDescription = hasCustomProperty(dbFieldTypeData, 'description')
+      ? i18nText(dbFieldTypeData.description)
+      : '';
     const boolShowDescription =
       strDescription && strDescription !== '' ? true : false;
 
-    const strHelpTooltip = hasCustomProperty(dataItem, 'help')
-      ? i18nText(dataItem.help)
+    const strHelpTooltip = hasCustomProperty(dbFieldTypeData, 'help')
+      ? i18nText(dbFieldTypeData.help)
       : '';
     const boolShowHelpTooltip =
       strHelpTooltip && strHelpTooltip !== '' ? true : false;
 
-    const objLink = hasCustomProperty(dataItem, 'link') ? dataItem.link : null;
+    const objLink = hasCustomProperty(dbFieldTypeData, 'link')
+      ? dbFieldTypeData.link
+      : null;
     const strLinkLabel = objLink ? i18nText(objLink.label) : '';
     const strLinkHref = objLink ? objLink.href : '';
     const boolShowLink = strLinkLabel && strLinkLabel !== '' ? true : false;
 
     const boolShowBottomBorder = hasCustomProperty(
-      dataItem,
+      dbFieldTypeData,
       'has_bottom_border'
     )
-      ? dataItem.has_bottom_border
+      ? dbFieldTypeData.has_bottom_border
       : false;
 
     return (
@@ -537,7 +745,7 @@ export class FormBuilder {
           dataProvider={dataItem}
           tooltip={strTooltipMessage}
           disabled={boolDisableFieldType}
-          label={dataItem.display_label}
+          label={strDisplayLabel}
           iconName={dataItem.icon.name}
           iconBackgroundColor={dataItem.icon.bg_color}
           onFwAddClick={this.addNewFieldTypeHandler}
@@ -596,6 +804,7 @@ export class FormBuilder {
     }
     const isPrimaryField = isPrimaryFieldType(
       dataItem,
+      this.productName,
       intIndex,
       !this.searching
     );
@@ -606,6 +815,7 @@ export class FormBuilder {
       <fw-field-editor
         index={intIndex}
         key={dataItem.id}
+        productName={this.productName}
         dataProvider={dataItem}
         entityName={strEntityName}
         expanded={boolItemExpanded}
@@ -617,17 +827,25 @@ export class FormBuilder {
         enableFilterable={this.enableFilterable}
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}
         lookupTargetObjects={this.lookupTargetObjects}
-        formValues={this.formValues}
+        formValues={this.localFormValues}
         isLoading={this.isLoading}
-        onFwExpand={this.expandFieldHandler}
-        onFwDelete={this.deleteFieldHandler}
         onFwUpdate={this.saveFieldHandler}
+        onFwDelete={this.deleteFieldHandler}
+        onFwExpand={this.expandFieldHandler}
+        onFwReorder={this.reorderFieldProgressHandler}
       ></fw-field-editor>
     );
   }
 
   private renderWidgetElement(dataItem, intIndex) {
-    const isPrimaryField = isPrimaryFieldType(dataItem, intIndex);
+    const objMaxLimits = getMaximumLimitsConfig(this.productName);
+    const intMaxWidgetsCount = objMaxLimits?.widgets?.count || 0;
+
+    const isPrimaryField = isPrimaryFieldType(
+      dataItem,
+      this.productName,
+      intIndex
+    );
     const boolItemSelected = !isPrimaryField
       ? this.arrWidgetFields?.includes(dataItem.id)
         ? true
@@ -636,7 +854,7 @@ export class FormBuilder {
     const boolItemDisabled = isPrimaryField
       ? true
       : !boolItemSelected
-      ? this.arrWidgetFields.length >= presetSchema.maximumLimits.widgets.count
+      ? this.arrWidgetFields.length >= intMaxWidgetsCount
       : false;
 
     return (
@@ -656,25 +874,41 @@ export class FormBuilder {
 
   render() {
     const strBaseClassName = 'form-builder';
-    const objFormValuesSchema = this.formValues;
+    const objFormValuesSchema = this.localFormValues;
     const objFieldTypes = presetSchema.fieldTypes;
-
+    const objProductPreset = formMapper[this.productName];
+    const objProductPresetConfig = objProductPreset?.config;
+    const arrFieldOrder = objProductPreset?.fieldOrder;
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
 
-    const arrFIeldTypes = Object.keys(objFieldTypes);
     const fieldTypeElements =
-      arrFIeldTypes && arrFIeldTypes.length > 0
-        ? arrFIeldTypes.map((key, index) =>
-            this.renderFieldTypeElement(objFieldTypes[key], key, index)
+      arrFieldOrder && arrFieldOrder.length > 0
+        ? arrFieldOrder.map((key, index) =>
+            this.renderFieldTypeElement(
+              key,
+              objFieldTypes,
+              objProductPreset,
+              index
+            )
           )
         : null;
 
-    const arrFieldElements = this.searching
+    const boolFilterApplied =
+      this.selectedFieldTypeFilterOption &&
+      this.selectedFieldTypeFilterOption !== '' &&
+      this.selectedFieldTypeFilterOption !== this.FILTER_ALL_FIELDS
+        ? true
+        : false;
+
+    const arrFieldElements = boolFilterApplied
+      ? this.arrFilteredByTypeFields
+      : this.searching
       ? this.arrSearchedFields
       : objFormValuesSchema && objFormValuesSchema.fields
       ? objFormValuesSchema.fields
       : [];
+
     const fieldElements =
       arrFieldElements && arrFieldElements.length > 0
         ? arrFieldElements.map((dataItem, index) =>
@@ -686,8 +920,12 @@ export class FormBuilder {
             )
           )
         : null;
-    const boolValidFieldElements = fieldElements && fieldElements.length > 0;
 
+    const boolShowEmptySearchResults =
+      (this.searching && (!fieldElements || fieldElements.length === 0)) ||
+      (boolFilterApplied && (!fieldElements || fieldElements.length === 0));
+    const boolHasCustomizeWidgetOption =
+      objProductPresetConfig?.customizeWidget || false;
     const fieldWidgetElements =
       this.showCustomizeWidget &&
       arrFieldElements &&
@@ -696,6 +934,31 @@ export class FormBuilder {
             this.renderWidgetElement(dataItem, index)
           )
         : null;
+
+    const boolHasFilterByFieldTypes =
+      objProductPresetConfig?.filterByType || false;
+    if (
+      !this.filterByFieldTypeOptions &&
+      arrFieldOrder &&
+      arrFieldOrder.length > 0
+    ) {
+      const dbFieldProps = objProductPreset?.fieldProps;
+      const intFieldTypesLength = arrFieldOrder.length;
+
+      this.filterByFieldTypeOptions = [
+        {
+          text: i18nText('filterOptionAllFields'),
+          value: this.FILTER_ALL_FIELDS,
+        },
+      ];
+
+      for (let f1 = 0; f1 < intFieldTypesLength; f1++) {
+        this.filterByFieldTypeOptions.push({
+          text: i18nText(dbFieldProps[arrFieldOrder[f1]].display_label),
+          value: arrFieldOrder[f1],
+        });
+      }
+    }
 
     const strRightPanelBaseClassName = `${strBaseClassName}-right-panel`;
     const strLeftPanelBaseClassName = `${strBaseClassName}-left-panel`;
@@ -713,12 +976,7 @@ export class FormBuilder {
       <Host tabIndex='-1'>
         <div class={strBaseClassName}>
           <div class={strLeftPanelClassName}>
-            <label class={`${strBaseClassName}-left-panel-header-label`}>
-              {i18nText('headerFieldTypes')}
-            </label>
-            <label class={`${strBaseClassName}-left-panel-header-desc`}>
-              {i18nText('fieldTypesDragDrop')}
-            </label>
+            {this.renderFieldTypesHeader(objProductPreset)}
             <div class={`${strBaseClassName}-left-panel-list-container`}>
               <fw-drag-container
                 class={`${strBaseClassName}-left-panel-field-types-list`}
@@ -728,24 +986,73 @@ export class FormBuilder {
               >
                 {fieldTypeElements}
               </fw-drag-container>
+              {this.userPlan === 'trial' && (
+                <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
+                  <fw-icon name='lock' size='30'></fw-icon>
+                  <label
+                    class={`${strBaseClassName}-left-panel-list-disabled-header`}
+                  >
+                    {i18nText(
+                      objProductPresetConfig?.freePlanFieldAddDisabledHeader
+                    )}
+                  </label>
+                  <label
+                    class={`${strBaseClassName}-left-panel-list-disabled-message`}
+                  >
+                    {i18nText(
+                      objProductPresetConfig?.freePlanFieldAddDisabledMessage
+                    )}
+                  </label>
+                  <fw-button
+                    color='primary'
+                    onFwClick={this.explorePlanHandler}
+                    class={`${strBaseClassName}-left-panel-list-disabled-button`}
+                  >
+                    {i18nText(
+                      objProductPresetConfig?.freePlanFieldAddDisabledButton
+                    )}
+                  </fw-button>
+                </div>
+              )}
             </div>
           </div>
           <div class={strRightPanelBaseClassName}>
             <div class={strRightPanelHeaderClassName}>
               <div class={`${strBaseClassName}-right-panel-header-content`}>
-                <label class={`${strBaseClassName}-right-panel-header-label`}>
-                  {i18nText('headerFields')}
-                </label>
-                <div class={`${strBaseClassName}-right-panel-header-right-div`}>
-                  <fw-button
-                    id='customizeWidgetFieldsBtn'
-                    color='link'
-                    disabled={this.searching}
-                    onFwClick={this.openCustomizeWidgetModalHandler}
+                {!boolHasFilterByFieldTypes && (
+                  <label class={`${strBaseClassName}-right-panel-header-label`}>
+                    {i18nText('headerFields')}
+                  </label>
+                )}
+                {boolHasFilterByFieldTypes && (
+                  <div
+                    class={`${strBaseClassName}-right-panel-header-right-filter-by-div`}
                   >
-                    <fw-icon name='modify' slot='before-label'></fw-icon>
-                    {i18nText('customizeWidget')}
-                  </fw-button>
+                    <label
+                      class={`${strBaseClassName}-right-panel-header-filter-label`}
+                    >
+                      {i18nText('filterFields')}
+                    </label>
+                    <fw-select
+                      class={`${strBaseClassName}-filter-by-field-type-select`}
+                      options={this.filterByFieldTypeOptions}
+                      value={this.selectedFieldTypeFilterOption}
+                      onFwChange={this.fieldTypeFilterChangeHandler}
+                    ></fw-select>
+                  </div>
+                )}
+                <div class={`${strBaseClassName}-right-panel-header-right-div`}>
+                  {boolHasCustomizeWidgetOption && (
+                    <fw-button
+                      id='customizeWidgetFieldsBtn'
+                      color='link'
+                      disabled={this.searching}
+                      onFwClick={this.openCustomizeWidgetModalHandler}
+                    >
+                      <fw-icon name='modify' slot='before-label'></fw-icon>
+                      {i18nText('customizeWidget')}
+                    </fw-button>
+                  )}
                   <fw-input
                     clear-input
                     icon-left='search'
@@ -761,7 +1068,7 @@ export class FormBuilder {
               ref={(el) => (this.fieldEditorPanel = el)}
               class={`${strBaseClassName}-right-panel-list-container`}
             >
-              {boolValidFieldElements && (
+              {!boolShowEmptySearchResults && (
                 <fw-drag-container
                   class={`${strBaseClassName}-right-panel-field-editor-list`}
                   id='fieldsContainer'
@@ -773,7 +1080,7 @@ export class FormBuilder {
                   {fieldElements}
                 </fw-drag-container>
               )}
-              {!boolValidFieldElements && (
+              {boolShowEmptySearchResults && (
                 <div class={`${strBaseClassName}-right-panel-empty-list-div`}>
                   <div
                     class={`${strBaseClassName}-right-panel-empty-list-content`}
