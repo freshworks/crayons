@@ -304,7 +304,7 @@ export namespace Components {
          */
         "rowActions": DataTableAction[];
         /**
-          * Header label for row actions row
+          * Header label for row actions column
          */
         "rowActionsHeaderLabel": any;
         /**
@@ -2975,7 +2975,7 @@ declare namespace LocalJSX {
          */
         "rowActions"?: DataTableAction[];
         /**
-          * Header label for row actions row
+          * Header label for row actions column
          */
         "rowActionsHeaderLabel"?: any;
         /**

@@ -89,7 +89,7 @@ export class DataTable {
   @Prop({ mutable: false }) showRowActionsAsMenu = false;
 
   /**
-   * Header label for row actions row
+   * Header label for row actions column
    */
   @Prop({ mutable: false }) rowActionsHeaderLabel;
 
