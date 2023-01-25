@@ -148,4 +148,40 @@ describe('fw-datepicker', () => {
       getMonth(addMonths(parse(updatedFromMonthValue, 'MMM', new Date()), 1))
     ).toBe(getMonth(parse(updateToMonthValue, 'MMM', new Date())));
   });
+
+  it('should restrict user from navigating to the year that falls outside of minYear when specified', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-datepicker min-year="2019" max-year="2020" value="2019-02-01"></fw-datepicker>'
+    );
+    const element = await page.find('fw-datepicker >>> fw-input');
+    await element.click();
+    const dateEle = await page.findAll('fw-datepicker >>> .mdpchb-inner');
+    await dateEle[0].click();
+
+    const minYear = await page.find(
+      'fw-datepicker >>> fw-select.single-year-selector >>> input'
+    );
+    const minYearVal = await minYear.getProperty('value');
+    expect(minYearVal).toBe('2019');
+  });
+
+  it('should restrict user from navigating to the year that falls outside of maxYear when specified', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-datepicker min-year="2019" max-year="2020" value="2020-02-12"></fw-datepicker>'
+    );
+    const element = await page.find('fw-datepicker >>> fw-input');
+    await element.click();
+    const dateEle = await page.findAll('fw-datepicker >>> .mdpchb-inner');
+    await dateEle[1].click();
+
+    const maxYear = await page.find(
+      'fw-datepicker >>> fw-select.single-year-selector >>> input'
+    );
+    const maxYearVal = await maxYear.getProperty('value');
+    expect(maxYearVal).toBe('2020');
+  });
 });
