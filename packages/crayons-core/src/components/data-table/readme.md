@@ -823,7 +823,7 @@ function App() {
 </code-block>
 </code-group>
 
-## Row Actions:
+## Row Actions
 
 You can easily add an actions column by passing in rowActions prop to the component.
 
@@ -946,6 +946,209 @@ You can easily add an actions column by passing in rowActions prop to the compon
   datatable4.columns = data.columns;
   datatable4.rows = data.rows;
   datatable4.rowActions = data.rowActions;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"]
+      }]
+    }
+
+    return (
+      <FwDataTable columns={data.columns} rows={data.rows} rowActions={data.rowActions} label="Data Table 3">
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+## Row Actions as Menu
+
+You can display row actions as a menu by setting the property **showRowActionsAsMenu** to true.
+
+*You can use icons along with text in the menu dropdown by passing **rowActionsMenuVariant** as 'icon'. Pass 'iconName' and 'iconLibrary' properties as part of configuration.*
+
+*You can modify the header label of the row actions column by using the prop **rowActionsHeaderLabel**.*
+
+```html live
+  <fw-data-table id="datatable-actions"  is-selectable="true" is-all-selectable="true" label="Data table Row Actions">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        },
+        "iconName": "alert"
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"],
+        "iconName": "delete"
+      }]
+    }
+
+    var datatableActions = document.getElementById('datatable-actions');
+    datatableActions.columns = data.columns;
+    datatableActions.rows = data.rows;
+    datatableActions.rowActions = data.rowActions;
+    datatableActions.showRowActionsAsMenu = true;
+    datatableActions.rowActionsMenuVariant = "icon";
+    datatableActions.rowActionsHeaderLabel = "";
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-actions"  is-selectable="true" is-all-selectable="true" label="Data table Row Actions">
+  </fw-data-table>
+```
+
+```javascript
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        },
+        "iconName": "alert"
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-4');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"],
+        "iconName": "delete"
+      }]
+    }
+
+    var datatableActions = document.getElementById('datatable-actions');
+    datatableActions.columns = data.columns;
+    datatableActions.rows = data.rows;
+    datatableActions.rowActions = data.rowActions;
+    datatableActions.showRowActionsAsMenu = true;
+    datatableActions.rowActionsMenuVariant = "icon";
+    datatableActions.rowActionsHeaderLabel = "";
 ```
 
 </code-block>

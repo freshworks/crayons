@@ -1,6 +1,122 @@
-# fw-kebab-menu
+# Kebab Menu (fw-kebab-menu)
 
+fw-kebab-menu displays a kebab icon which on clicking displays a list or drop-down box that enables selection of an option from an available list of values.
 
+`fwSelect` event will be triggered when selecting a value from the list.
+
+## Demo
+
+```html live
+<fw-label value="Standard variant"></fw-label>
+<fw-kebab-menu id="standard-kebab-menu"></fw-kebab-menu>
+<br /><br />
+<fw-label value="Icon variant"></fw-label>
+<fw-kebab-menu id="icon-kebab-menu" variant="icon"></fw-kebab-menu>
+<br />
+
+<script type="application/javascript">
+  var standardDataSource = [
+    {
+      value: 'move_up',
+      text: 'Move Up',
+    },
+    {
+      value: 'move_down',
+      text: 'Move Down',
+    },
+    {
+      value: 'remove',
+      text: 'Remove',
+    },
+  ];
+  var iconDataSource = [
+    {
+      value: 'move_up',
+      text: 'Move Up',
+      graphicsProps: { name: 'chevron-up' },
+    },
+    {
+      value: 'move_down',
+      text: 'Move Down',
+      graphicsProps: { name: 'chevron-down' },
+    },
+    {
+      value: 'remove',
+      text: 'Remove',
+      graphicsProps: { name: 'delete' },
+    },
+  ];
+  var standardVariant = document.getElementById('standard-kebab-menu');
+  standardVariant.options = iconDataSource;
+  standardVariant.addEventListener('fwSelect', (e) => {
+    console.log('standard variant fwSelect event', e.detail);
+  })
+  var iconVariant = document.getElementById('icon-kebab-menu');
+  iconVariant.options = iconDataSource;
+  iconVariant.addEventListener('fwSelect', (e) => {
+    console.log('icon variant fwSelect event', e.detail);
+  })
+</script>
+```
+
+## Usage
+
+<code-group>
+  <code-block title="HTML">
+  ```html 
+    <fw-label value="Standard variant"></fw-label>
+    <fw-kebab-menu id="standard-kebab-menu"></fw-kebab-menu>
+    <br /><br />
+    <fw-label value="Icon variant"></fw-label>
+    <fw-kebab-menu id="icon-kebab-menu" variant="icon"></fw-kebab-menu>
+    <br />
+
+    <script type="application/javascript">
+  var standardDataSource = [
+    {
+      value: 'move_up',
+      text: 'Move Up',
+    },
+    {
+      value: 'move_down',
+      text: 'Move Down',
+    },
+    {
+      value: 'remove',
+      text: 'Remove',
+    },
+  ];
+  var iconDataSource = [
+    {
+      value: 'move_up',
+      text: 'Move Up',
+      graphicsProps: { name: 'chevron-up' },
+    },
+    {
+      value: 'move_down',
+      text: 'Move Down',
+      graphicsProps: { name: 'chevron-down' },
+    },
+    {
+      value: 'remove',
+      text: 'Remove',
+      graphicsProps: { name: 'delete' },
+    },
+  ];
+  var standardVariant = document.getElementById('standard-kebab-menu');
+  standardVariant.options = iconDataSource;
+  standardVariant.addEventListener('fwSelect', (e) => {
+    console.log('standard variant fwSelect event', e.detail);
+  })
+  var iconVariant = document.getElementById('icon-kebab-menu');
+  iconVariant.options = iconDataSource;
+  iconVariant.addEventListener('fwSelect', (e) => {
+    console.log('icon variant fwSelect event', e.detail);
+  })
+</script>
+  ```
+  </code-block>
+</code-group>
 
 <!-- Auto Generated Below -->
 
