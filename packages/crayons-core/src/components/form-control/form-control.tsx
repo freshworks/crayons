@@ -68,6 +68,11 @@ export class FormControl {
    * Value of the slotted custom field on fw-form-control
    */
   @Prop() value;
+  /**
+   * Disable the field from being editable
+   */
+  @Prop()
+  disabled = false;
 
   private slotElement;
   private crayonsControlRef;
@@ -94,6 +99,7 @@ export class FormControl {
           placeholder: this.placeholder,
           label: this.label,
           required: this.required,
+          disabled: this.disabled,
           type: type,
           ...this.controlProps?.inputProps(this.name, type),
           state: (this.touched && this.error && 'error') || 'normal',
@@ -119,6 +125,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -146,6 +153,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -173,6 +181,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -201,6 +210,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: '',
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.checkboxProps(
               this.name,
               this.type?.toLowerCase()
@@ -234,6 +244,7 @@ export class FormControl {
             'placeholder': this.placeholder,
             'label': this.label,
             'required': this.required,
+            'disabled': this.disabled,
             'allow-empty': true,
             'state': (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
@@ -281,6 +292,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             multiple: this.type === 'MULTI_SELECT',
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
@@ -328,6 +340,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
             ['error-text']: TranslationController.t(this.error, {
@@ -375,6 +388,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()

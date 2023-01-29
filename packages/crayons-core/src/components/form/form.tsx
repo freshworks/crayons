@@ -628,6 +628,9 @@ export class Form {
           this.formSchemaState?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
+              const isDisabled =
+                Object.prototype.hasOwnProperty.call(field, 'editable') &&
+                field.editable === false;
               return (
                 this.shouldRenderFormControl(field) && (
                   <fw-form-control
@@ -638,11 +641,12 @@ export class Form {
                     required={field.required}
                     hint={field.hint}
                     placeholder={field.placeholder}
+                    error={this.errors[field.name]}
+                    touched={this.touched[field.name]}
+                    disabled={isDisabled}
                     choices={field.choices}
                     fieldProps={field}
                     controlProps={utils}
-                    error={this.errors[field.name]}
-                    touched={this.touched[field.name]}
                   ></fw-form-control>
                 )
               );
