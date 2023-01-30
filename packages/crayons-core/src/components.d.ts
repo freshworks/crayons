@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
-import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
+import { DataTableAction, DataTableColumn, DataTableMenuAction, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
 import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -302,7 +302,8 @@ export namespace Components {
         /**
           * To enable bulk actions on the table.
          */
-        "rowActions": DataTableAction[];
+        "rowActions": | DataTableAction[]
+    | DataTableMenuAction[];
         /**
           * Header label for row actions column
          */
@@ -2977,7 +2978,8 @@ declare namespace LocalJSX {
         /**
           * To enable bulk actions on the table.
          */
-        "rowActions"?: DataTableAction[];
+        "rowActions"?: | DataTableAction[]
+    | DataTableMenuAction[];
         /**
           * Header label for row actions column
          */

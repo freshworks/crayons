@@ -33,12 +33,12 @@ fw-kebab-menu displays a kebab icon which on clicking displays a list or drop-do
     {
       value: 'move_up',
       text: 'Move Up',
-      graphicsProps: { name: 'chevron-up' },
+      graphicsProps: { name: 'arrow-up' },
     },
     {
       value: 'move_down',
       text: 'Move Down',
-      graphicsProps: { name: 'chevron-down' },
+      graphicsProps: { name: 'arrow-down' },
     },
     {
       value: 'remove',
@@ -90,12 +90,12 @@ fw-kebab-menu displays a kebab icon which on clicking displays a list or drop-do
     {
       value: 'move_up',
       text: 'Move Up',
-      graphicsProps: { name: 'chevron-up' },
+      graphicsProps: { name: 'arrow-up' },
     },
     {
       value: 'move_down',
       text: 'Move Down',
-      graphicsProps: { name: 'chevron-down' },
+      graphicsProps: { name: 'arrow-down' },
     },
     {
       value: 'remove',
@@ -116,6 +116,56 @@ fw-kebab-menu displays a kebab icon which on clicking displays a list or drop-do
 </script>
   ```
   </code-block>
+
+  <code-block title="React">
+
+```jsx
+  import React from "react";
+  import { FwKebabMenu } from "@freshworks/crayons/react";
+  function App() {
+
+    var standardDataSource = [
+    {
+      value: 'move_up',
+      text: 'Move Up',
+    },
+    {
+      value: 'move_down',
+      text: 'Move Down',
+    },
+    {
+      value: 'remove',
+      text: 'Remove',
+    },
+  ];
+  var iconDataSource = [
+    {
+      value: 'move_up',
+      text: 'Move Up',
+      graphicsProps: { name: 'arrow-up' },
+    },
+    {
+      value: 'move_down',
+      text: 'Move Down',
+      graphicsProps: { name: 'arrow-down' },
+    },
+    {
+      value: 'remove',
+      text: 'Remove',
+      graphicsProps: { name: 'delete' },
+    },
+  ];
+
+    return (
+      <>
+        <FwKebabMenu id="standardVariant" options={standardDataSource}></FwKebabMenu>
+        <FwKebabMenu id="iconVariant" variant="icon" options={iconDataSource}></FwKebabMenu>
+      </>
+    );
+  }
+```
+
+</code-block>
 </code-group>
 
 <!-- Auto Generated Below -->

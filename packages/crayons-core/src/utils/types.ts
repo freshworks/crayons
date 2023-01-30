@@ -82,3 +82,27 @@ export type DataTableAction = {
   hideForRowIds?: string[];
   handler: (row: DataTableRow) => any;
 };
+
+export type GraphicsProps = {
+  name: string;
+  label?: string;
+  dataSvg?: string;
+  url?: string;
+  src?: string;
+  size?: number;
+  xRootMargin?: string;
+  width?: number;
+  height?: number;
+  color?: string;
+  library?: string;
+  lazy?: boolean;
+};
+
+export type DataTableMenuAction = {
+  name: string;
+  iconName?: string;
+  iconLibrary?: string;
+  hideForRowIds?: string[];
+  handler: (row: DataTableRow) => any;
+  graphicsProps?: GraphicsProps;
+};

@@ -16,6 +16,7 @@ import {
   DataTableColumn,
   DataTableRow,
   DataTableAction,
+  DataTableMenuAction,
 } from '../../utils/types';
 import { popperModifierRTL } from '../../utils';
 
@@ -81,17 +82,19 @@ export class DataTable {
   /**
    * To enable bulk actions on the table.
    */
-  @Prop({ mutable: false }) rowActions: DataTableAction[] = [];
+  @Prop({ mutable: false }) rowActions:
+    | DataTableAction[]
+    | DataTableMenuAction[] = [];
 
   /**
    * To show row actions as a kebab menu
    */
-  @Prop({ mutable: false }) showRowActionsAsMenu = false;
+  @Prop() showRowActionsAsMenu = false;
 
   /**
    * Header label for row actions column
    */
-  @Prop({ mutable: false }) rowActionsHeaderLabel;
+  @Prop() rowActionsHeaderLabel;
 
   /**
    * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row.
@@ -957,7 +960,10 @@ export class DataTable {
    * @param action action object - has information related to the action to be performed
    * @param rowData rowData - complete data of the current row
    */
-  async performRowAction(action: DataTableAction, rowData: DataTableRow) {
+  async performRowAction(
+    action: DataTableAction | DataTableMenuAction,
+    rowData: DataTableRow
+  ) {
     const selectAll: any = this.el.shadowRoot.querySelector(
       'fw-checkbox#select-all'
     );
@@ -986,7 +992,7 @@ export class DataTable {
     if (this.showRowActionsAsMenu) {
       const options = [];
       let handlers;
-      this.rowActions.forEach((action) => {
+      this.rowActions.forEach((action: DataTableMenuAction) => {
         if (
           !action.hideForRowIds ||
           (action.hideForRowIds && !action.hideForRowIds.includes(rowData.id))
@@ -995,14 +1001,9 @@ export class DataTable {
           options.push({
             text: action.name,
             value: actionId,
-            ...(action?.iconName
+            ...(action?.graphicsProps
               ? {
-                  graphicsProps: {
-                    name: action.iconName,
-                    library: action.iconLibrary
-                      ? action.iconLibrary
-                      : 'crayons',
-                  },
+                  graphicsProps: action.graphicsProps,
                 }
               : {}),
           });
@@ -1400,50 +1401,52 @@ export class DataTable {
                 >
                   {this.showRowActionsAsMenu
                     ? this.renderKebabMenu(row)
-                    : this.rowActions.map((action: DataTableAction) => {
-                        let actionTemplate = null;
-                        if (
-                          !action.hideForRowIds ||
-                          (action.hideForRowIds &&
-                            !action.hideForRowIds.includes(row.id))
-                        ) {
-                          const buttonSize: 'icon-small' | 'small' =
-                            action.iconName ? 'icon-small' : 'small';
-                          actionTemplate = (
-                            <fw-tooltip content={action.name} distance='5'>
-                              <fw-button
-                                tabIndex={0}
-                                size={buttonSize}
-                                color='secondary'
-                                onKeyUp={(event) =>
-                                  (event.code === 'Space' ||
-                                    event.code === 'Enter') &&
-                                  this.performRowAction(action, row)
-                                }
-                                onClick={() =>
-                                  this.performRowAction(action, row)
-                                }
-                                aria-label={action.name}
-                              >
-                                {action.iconName ? (
-                                  <fw-icon
-                                    name={action.iconName}
-                                    library={
-                                      action.iconLibrary
-                                        ? action.iconLibrary
-                                        : 'crayons'
-                                    }
-                                    size={10}
-                                  ></fw-icon>
-                                ) : (
-                                  action.name
-                                )}
-                              </fw-button>
-                            </fw-tooltip>
-                          );
+                    : this.rowActions.map(
+                        (action: DataTableAction | DataTableMenuAction) => {
+                          let actionTemplate = null;
+                          if (
+                            !action.hideForRowIds ||
+                            (action.hideForRowIds &&
+                              !action.hideForRowIds.includes(row.id))
+                          ) {
+                            const buttonSize: 'icon-small' | 'small' =
+                              action.iconName ? 'icon-small' : 'small';
+                            actionTemplate = (
+                              <fw-tooltip content={action.name} distance='5'>
+                                <fw-button
+                                  tabIndex={0}
+                                  size={buttonSize}
+                                  color='secondary'
+                                  onKeyUp={(event) =>
+                                    (event.code === 'Space' ||
+                                      event.code === 'Enter') &&
+                                    this.performRowAction(action, row)
+                                  }
+                                  onClick={() =>
+                                    this.performRowAction(action, row)
+                                  }
+                                  aria-label={action.name}
+                                >
+                                  {action.iconName ? (
+                                    <fw-icon
+                                      name={action.iconName}
+                                      library={
+                                        action.iconLibrary
+                                          ? action.iconLibrary
+                                          : 'crayons'
+                                      }
+                                      size={10}
+                                    ></fw-icon>
+                                  ) : (
+                                    action.name
+                                  )}
+                                </fw-button>
+                              </fw-tooltip>
+                            );
+                          }
+                          return actionTemplate;
                         }
-                        return actionTemplate;
-                      })}
+                      )}
                 </td>
               )}
             </tr>
