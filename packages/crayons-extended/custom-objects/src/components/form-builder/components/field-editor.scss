@@ -113,6 +113,17 @@
       transition: opacity 0.3s;
     }
 
+    .fw-field-editor-lock-container {
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-inline-start: 8px;
+    }
+
     .fw-field-editor-deleting-state {
       margin-inline-start: 8px;
     }
@@ -152,6 +163,58 @@
           width: $form-builder-field-editor-element-max-width;
         }
 
+        .fw-field-editor-internal-name-base {
+          width: 100%;
+          height: auto;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .fw-field-editor-internal-name-header-label {
+            display: block;
+            font-size: 12px;
+            color: var(--fw-label-color, $label-default);
+            font-weight: $font-weight-600;
+            margin-block-end: 4px;
+            padding-inline-start: 2px;
+            line-height: 20px;
+
+            &.required::after {
+              content: '*';
+              position: relative;
+              display: inline-block;
+              inset-block-start: 2px;
+              font-size: 14px;
+              color: $app-error;
+              padding-inline-start: 2px;
+              font-weight: $font-weight-bold;
+            }
+          }
+
+          .fw-field-editor-internal-name-container {
+            max-width: $form-builder-field-editor-element-max-width;
+            width: $form-builder-field-editor-element-max-width;
+            height: auto;
+            padding-inline-start: 2px;
+            box-sizing: border-box;
+            display: flex;
+            gap: 4px;
+
+            .fw-field-editor-content-required-internal-name-input {
+              max-width: 100%;
+              width: 100%;
+            }
+
+            .fw-field-editor-internal-name-prefix {
+              font-size: $font-size-14;
+              font-weight: $font-weight-500;
+              color: $color-elephant-900;
+              display: block;
+              margin-block-start: 8px;
+            }
+          }
+        }
         .fw-field-editor-content-checkboxes {
           width: 100%;
           height: auto;

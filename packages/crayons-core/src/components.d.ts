@@ -618,6 +618,10 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }]. fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path. option_label_path refers to the key used for displaying the text. option_value_path refers to the key which corresponds to the value of item.
+         */
+        "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
+        /**
           * Method to set errors on the form fields.
           * @param errorObj - key value pair of [fieldName]: ErrorMessage
          */
@@ -1668,7 +1672,7 @@ export namespace Components {
         /**
           * Size of the loader.
          */
-        "size": 'small' | 'medium' | 'large' | 'default';
+        "size": 'micro' | 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
@@ -4322,7 +4326,7 @@ declare namespace LocalJSX {
         /**
           * Size of the loader.
          */
-        "size"?: 'small' | 'medium' | 'large' | 'default';
+        "size"?: 'micro' | 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**

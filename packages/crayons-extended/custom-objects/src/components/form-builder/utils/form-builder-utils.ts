@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationController } from '../../../global/Translation';
+import formMapper from '../assets/form-mapper.json';
+
 // function to translate and return the language text
 export function i18nText(strKey, context = {}) {
   try {
@@ -66,10 +69,22 @@ export function deepCloneObject(objSource) {
 // function to check if the field is primary field type
 export function isPrimaryFieldType(
   objField,
+  productName = 'CUSTOM_OBJECTS',
   intIndex = -1,
   boolCheckIndex = true
 ) {
   try {
+    if (productName && productName !== 'CUSTOM_OBJECTS') {
+      const dbConfig = formMapper[productName];
+      if (
+        hasCustomProperty(dbConfig, 'config') &&
+        hasCustomProperty(dbConfig.config, 'hasPrimary') &&
+        !dbConfig.config.hasPrimary
+      ) {
+        return false;
+      }
+    }
+
     if (hasCustomProperty(objField, 'type') && objField.type === 'PRIMARY') {
       return true;
     }
@@ -98,4 +113,99 @@ export function isUniqueField(objField) {
     // eslint-disable-next-line no-empty
   } catch (error) {}
   return false;
+}
+
+// function to retreive maximum Limits object based on the db type
+export function getMaximumLimitsConfig(productName = 'CUSTOM_OBJECTS') {
+  try {
+    const objMaxLimits = formMapper[productName]['maximumLimits'];
+    return objMaxLimits;
+    // eslint-disable-next-line no-empty
+  } catch (error) {}
+  return null;
+}
+
+// function to get the max limit config from mapper
+export function getMaxLimitProperty(
+  productName = 'CUSTOM_OBJECTS',
+  strProperty
+) {
+  if (strProperty && strProperty !== '') {
+    try {
+      const objMaxLimits = getMaximumLimitsConfig(productName);
+      const objMaxLimitField = objMaxLimits?.[strProperty];
+      return objMaxLimitField;
+    } catch (error) {
+      return null;
+    }
+  }
+  return null;
+}
+
+// function to map the CONVERSATION_PROPERTIES field types to CUSTOM_OBJECTS values
+export function getMappedCustomFieldType(
+  productName = 'CUSTOM_OBJECTS',
+  fieldName
+): any {
+  if (productName === 'CUSTOM_OBJECTS') {
+    return fieldName;
+  }
+  try {
+    const objProd = formMapper[productName];
+    if (hasCustomProperty(objProd, 'mappedFieldTypes')) {
+      const fieldValue = objProd['mappedFieldTypes'][fieldName.toString()];
+      return fieldValue;
+    }
+    // eslint-disable-next-line no-empty
+  } catch (error) {}
+  return fieldName;
+}
+
+// function to retreive the checkboxes options based on the product name and the field type
+export function getFieldTypeCheckboxes(
+  productName = 'CUSTOM_OBJECTS',
+  fieldName
+): any {
+  try {
+    const arrCheckboxes =
+      formMapper[productName].fieldProps[fieldName.toString()].checkboxes;
+    if (arrCheckboxes && arrCheckboxes.length > 0) {
+      return deepCloneObject(arrCheckboxes);
+    }
+    // eslint-disable-next-line no-empty
+  } catch (error) {}
+  return null;
+}
+
+// function to check if only english characters are present in the passed string
+export function detectEnglish(text) {
+  const regexEnglish = /^[A-Z0-9_s]+$/i;
+  return regexEnglish.test(text);
+}
+
+// function to generate internal field name based on the typed label
+export function deriveInternalNameFromLabel(text) {
+  const regexAlphaNum = /[^a-z0-9_]/gi;
+  let derivedText = (text && text.toLowerCase().trim()) || '';
+  derivedText = derivedText.replace(/\s+/g, '_').replace(regexAlphaNum, '');
+  derivedText = !/^(_+)$/g.test(derivedText) ? derivedText : '';
+  return derivedText;
+}
+
+// function to check the first occurence of string and remove the characters
+export function removeFirstOccurrence(strWhole, charRemove) {
+  try {
+    if (strWhole && strWhole !== '' && charRemove && charRemove !== '') {
+      const index = strWhole.indexOf(charRemove);
+      if (index === -1) {
+        return strWhole;
+      }
+      return (
+        strWhole.slice(0, index) + strWhole.slice(index + charRemove.length)
+      );
+    }
+  } catch (error) {
+    return strWhole;
+  }
+  return strWhole;
 }
