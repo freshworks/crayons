@@ -99,6 +99,14 @@ div.fw-data-table-container {
               cursor: col-resize;
               user-select: none;
             }
+
+            .resizer-border,
+            .resizer {
+              &:hover,
+              &:focus {
+                border-inline-end: 1px solid $color-smoke-50;
+              }
+            }
           }
 
           th.hidden {

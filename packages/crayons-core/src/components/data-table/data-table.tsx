@@ -922,12 +922,14 @@ export class DataTable {
     if (resizers.length > 0) {
       resizers.forEach((item: HTMLElement) => {
         item.style.height =
-          this.el.shadowRoot.querySelector('thead').offsetHeight + 'px';
+          this.el.shadowRoot.querySelector('table').offsetHeight + 'px';
       });
     }
   }
 
   resizeCol(e) {
+    const targetCol = e.path[0];
+    targetCol.classList.add('resizer-border');
     const currentMousePos = e.clientX;
     const parent = e.path[0].parentElement;
     const currentColWidth = window.getComputedStyle(parent).width;
@@ -936,9 +938,12 @@ export class DataTable {
       const movedMousePos = e.clientX;
       const laggedWidth = movedMousePos - currentMousePos;
       parent.style.width = parseInt(currentColWidth) + laggedWidth + 'px';
+      // adjust the height of the resizer as the table height changes while resizing
+      this.setResizerHeight();
     };
 
     const handleMouseUp = () => {
+      targetCol.classList.remove('resizer-border');
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
