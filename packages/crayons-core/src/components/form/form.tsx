@@ -111,6 +111,8 @@ export class Form {
 
   @State() formSchemaState = this.formSchema;
 
+  @State() fieldSearchText;
+
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
    */
@@ -439,7 +441,13 @@ export class Form {
   private shouldRenderFormControl = (control) => {
     const type = control?.type;
     const isValidType = type !== '' && type !== null && type !== undefined;
-    const shouldRender = isValidType;
+    const shouldRender = isValidType
+      ? this.fieldSearchText
+        ? control.label
+            ?.toLowerCase()
+            ?.includes(this.fieldSearchText.toLowerCase())
+        : true
+      : false;
     return shouldRender;
   };
 
@@ -555,6 +563,19 @@ export class Form {
   @Method()
   async doReset(event?): Promise<void> {
     this.handleReset(event);
+  }
+
+  /**
+   *
+   * Method to filter the display of fields in the form based
+   * on the passed text.
+   *
+   * @param text
+   *
+   */
+  @Method()
+  async setFieldSearchText(text: string) {
+    this.fieldSearchText = text;
   }
 
   render() {
