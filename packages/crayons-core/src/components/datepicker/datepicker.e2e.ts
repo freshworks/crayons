@@ -153,7 +153,7 @@ describe('fw-datepicker', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-datepicker min-year="2019" max-year="2020" value="2019-02-01"></fw-datepicker>'
+      '<fw-datepicker min-year="2019" max-year="2020" value="2019-01-01"></fw-datepicker>'
     );
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
@@ -171,7 +171,7 @@ describe('fw-datepicker', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-datepicker min-year="2019" max-year="2020" value="2020-02-12"></fw-datepicker>'
+      '<fw-datepicker min-year="2019" max-year="2020" value="2020-12-01"></fw-datepicker>'
     );
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
