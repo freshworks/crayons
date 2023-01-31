@@ -451,6 +451,18 @@ export class Form {
     return shouldRender;
   };
 
+  /** Return if a field is disabled or not
+   * if `editable` property is set to `false` in the field object of the form schema,
+   * then the field is considered to be disabled.
+   */
+  private isDisabledField(field) {
+    if (!field) return false;
+    const isDisabled =
+      Object.prototype.hasOwnProperty.call(field, 'editable') &&
+      field.editable === false;
+    return isDisabled;
+  }
+
   /**
    * Method to set value on the form field.
    *
@@ -464,6 +476,10 @@ export class Form {
     value: any,
     shouldValidate = true
   ): Promise<void> {
+    // Don't set value if the field is disabled
+    const isDisabledField = this.isDisabledField(this.fields?.[field]);
+    if (isDisabledField) return;
+
     this.values = { ...this.values, [field]: value };
 
     if (shouldValidate) {
@@ -601,6 +617,7 @@ export class Form {
                     choices={field.choices}
                     fieldProps={field}
                     controlProps={utils}
+                    disabled={this.isDisabledField(field)}
                   ></fw-form-control>
                 )
               );

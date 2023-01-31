@@ -665,6 +665,10 @@ export namespace Components {
           * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
+        /**
+          * Disable the field from being editable
+         */
+        "disabled": boolean;
         "error": string;
         /**
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
@@ -3279,6 +3283,10 @@ declare namespace LocalJSX {
           * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
+        /**
+          * Disable the field from being editable
+         */
+        "disabled"?: boolean;
         "error"?: string;
         /**
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
