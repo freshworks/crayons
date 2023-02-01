@@ -640,6 +640,11 @@ export namespace Components {
          */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         /**
+          * Method to filter the display of fields in the form based on the passed text.
+          * @param text
+         */
+        "setFieldSearchText": (text: string) => Promise<void>;
+        /**
           * Method to set value on the form field.
           * @param field - name of the form field
           * @param value - value of the form field
