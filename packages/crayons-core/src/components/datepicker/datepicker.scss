@@ -114,6 +114,10 @@
   width: 20px;
   position: absolute;
   margin-block-start: -11px;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
 
 .mdpch-button-right .mdpchb-inner {

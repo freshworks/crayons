@@ -270,7 +270,6 @@ export class Timepicker {
         ref={(el) => (this.nativeInput = el)}
         state={this.state}
         placeholder={this.placeholder}
-        search={false}
         optionsPlacement={this.optionsPlacement}
         caret={this.caret}
         sameWidth={this.sameWidth}
