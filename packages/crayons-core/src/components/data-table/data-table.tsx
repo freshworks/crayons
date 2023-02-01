@@ -931,9 +931,10 @@ export class DataTable {
   setColResizerHeight() {
     const resizers = this.el.shadowRoot.querySelectorAll('.resizer');
     if (resizers.length > 0) {
+      const tableHeight =
+        this.el.shadowRoot.querySelector('table').offsetHeight;
       resizers.forEach((item: HTMLElement) => {
-        item.style.height =
-          this.el.shadowRoot.querySelector('table').offsetHeight + 'px';
+        item.style.height = tableHeight + 'px';
       });
     }
   }
