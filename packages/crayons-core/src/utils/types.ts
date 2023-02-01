@@ -98,10 +98,8 @@ export type GraphicsProps = {
   lazy?: boolean;
 };
 
-export type DataTableMenuAction = {
+export type DataTableActionWithGraphics = {
   name: string;
-  iconName?: string;
-  iconLibrary?: string;
   hideForRowIds?: string[];
   handler: (row: DataTableRow) => any;
   graphicsProps?: GraphicsProps;

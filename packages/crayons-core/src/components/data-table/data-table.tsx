@@ -16,7 +16,7 @@ import {
   DataTableColumn,
   DataTableRow,
   DataTableAction,
-  DataTableMenuAction,
+  DataTableActionWithGraphics,
 } from '../../utils/types';
 import { popperModifierRTL } from '../../utils';
 
@@ -84,7 +84,7 @@ export class DataTable {
    */
   @Prop({ mutable: false }) rowActions:
     | DataTableAction[]
-    | DataTableMenuAction[] = [];
+    | DataTableActionWithGraphics[] = [];
 
   /**
    * To show row actions as a kebab menu
@@ -842,6 +842,19 @@ export class DataTable {
   }
 
   /**
+   * Function to check if a row action contains graphicsProps or not
+   * @param action data table row action
+   */
+  isActionWithGraphics(
+    action: DataTableAction | DataTableActionWithGraphics
+  ): action is DataTableActionWithGraphics {
+    if ('graphicsProps' in action) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * WorkAround for wait until next render in stenciljs
    * https://github.com/ionic-team/stencil/issues/2744
    */
@@ -961,7 +974,7 @@ export class DataTable {
    * @param rowData rowData - complete data of the current row
    */
   async performRowAction(
-    action: DataTableAction | DataTableMenuAction,
+    action: DataTableAction | DataTableActionWithGraphics,
     rowData: DataTableRow
   ) {
     const selectAll: any = this.el.shadowRoot.querySelector(
@@ -989,44 +1002,42 @@ export class DataTable {
    * @returns props for kebab menu
    */
   getRowActionMenuProps(rowData: DataTableRow) {
-    if (this.showRowActionsAsMenu) {
-      const options = [];
-      let handlers;
-      this.rowActions.forEach((action: DataTableMenuAction) => {
-        if (
-          !action.hideForRowIds ||
-          (action.hideForRowIds && !action.hideForRowIds.includes(rowData.id))
-        ) {
-          const actionId = action.name.toLowerCase();
-          options.push({
-            text: action.name,
-            value: actionId,
-            ...(action?.graphicsProps
-              ? {
-                  graphicsProps: action.graphicsProps,
-                }
-              : {}),
-          });
-          handlers = {
-            ...handlers,
-            [actionId]: action,
-          };
-        }
-      });
-      return options.length
-        ? {
-            options,
-            onFwSelect: async (event) => {
-              if (event?.detail?.value) {
-                await this.performRowAction(
-                  handlers[event.detail.value],
-                  rowData
-                );
+    const options = [];
+    let handlers;
+    this.rowActions.forEach((action: DataTableActionWithGraphics) => {
+      if (
+        !action.hideForRowIds ||
+        (action.hideForRowIds && !action.hideForRowIds.includes(rowData.id))
+      ) {
+        const actionId = action.name.toLowerCase();
+        options.push({
+          text: action.name,
+          value: actionId,
+          ...(action?.graphicsProps
+            ? {
+                graphicsProps: action.graphicsProps,
               }
-            },
-          }
-        : null;
-    }
+            : {}),
+        });
+        handlers = {
+          ...handlers,
+          [actionId]: action,
+        };
+      }
+    });
+    return options.length
+      ? {
+          options,
+          onFwSelect: async (event) => {
+            if (event?.detail?.value) {
+              await this.performRowAction(
+                handlers[event.detail.value],
+                rowData
+              );
+            }
+          },
+        }
+      : null;
   }
 
   /**
@@ -1402,15 +1413,29 @@ export class DataTable {
                   {this.showRowActionsAsMenu
                     ? this.renderKebabMenu(row)
                     : this.rowActions.map(
-                        (action: DataTableAction | DataTableMenuAction) => {
+                        (
+                          action: DataTableAction | DataTableActionWithGraphics
+                        ) => {
                           let actionTemplate = null;
                           if (
                             !action.hideForRowIds ||
                             (action.hideForRowIds &&
                               !action.hideForRowIds.includes(row.id))
                           ) {
-                            const buttonSize: 'icon-small' | 'small' =
-                              action.iconName ? 'icon-small' : 'small';
+                            const iconProps = this.isActionWithGraphics(action)
+                              ? action.graphicsProps
+                              : action.iconName
+                              ? {
+                                  name: action.iconName,
+                                  library: action.iconLibrary
+                                    ? action.iconLibrary
+                                    : 'crayons',
+                                  size: 10,
+                                }
+                              : null;
+                            const buttonSize: 'icon-small' | 'small' = iconProps
+                              ? 'icon-small'
+                              : 'small';
                             actionTemplate = (
                               <fw-tooltip content={action.name} distance='5'>
                                 <fw-button
@@ -1427,16 +1452,8 @@ export class DataTable {
                                   }
                                   aria-label={action.name}
                                 >
-                                  {action.iconName ? (
-                                    <fw-icon
-                                      name={action.iconName}
-                                      library={
-                                        action.iconLibrary
-                                          ? action.iconLibrary
-                                          : 'crayons'
-                                      }
-                                      size={10}
-                                    ></fw-icon>
+                                  {iconProps ? (
+                                    <fw-icon {...iconProps}></fw-icon>
                                   ) : (
                                     action.name
                                   )}
