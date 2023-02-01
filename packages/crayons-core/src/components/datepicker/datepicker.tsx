@@ -862,13 +862,9 @@ export class Datepicker {
           'The value provided falls outside of the minYear and maxYear specified. Please check !'
         );
       }
-      const date = new Date();
       this.year = this.minYear;
       this.month = 0;
       this.selectedDay = '1';
-      date.setMonth(this.month, 1);
-      date.setFullYear(this.year);
-      date.setDate(this.selectedDay);
     }
   }
 
