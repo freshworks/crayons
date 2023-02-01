@@ -245,7 +245,7 @@ export class DataTable {
         TABLE_POPPER_CONFIG
       );
     }
-    this.colResize && this.setResizerHeight();
+    this.colResize && this.setColResizerHeight();
   }
 
   /**
@@ -311,7 +311,7 @@ export class DataTable {
   @Watch('colResize')
   handleColResize() {
     setTimeout(() => {
-      this.colResize && this.setResizerHeight();
+      this.colResize && this.setColResizerHeight();
     }, 500);
   }
 
@@ -917,7 +917,18 @@ export class DataTable {
     }
     return closestCell;
   }
-  setResizerHeight() {
+
+  renderColResizer() {
+    return (
+      <div
+        role='none'
+        class='resizer'
+        onMouseDown={(e) => this.resizeCol(e)}
+      ></div>
+    );
+  }
+
+  setColResizerHeight() {
     const resizers = this.el.shadowRoot.querySelectorAll('.resizer');
     if (resizers.length > 0) {
       resizers.forEach((item: HTMLElement) => {
@@ -928,10 +939,10 @@ export class DataTable {
   }
 
   resizeCol(e) {
-    const targetCol = e.path[0];
+    const targetCol = e.path ? e.path[0] : e.composedPath()[0];
     targetCol.classList.add('resizer-border');
     const currentMousePos = e.clientX;
-    const parent = e.path[0].parentElement;
+    const parent = targetCol.parentElement;
     const currentColWidth = window.getComputedStyle(parent).width;
 
     const handleMouseMove = (e) => {
@@ -939,7 +950,7 @@ export class DataTable {
       const laggedWidth = movedMousePos - currentMousePos;
       parent.style.width = parseInt(currentColWidth) + laggedWidth + 'px';
       // adjust the height of the resizer as the table height changes while resizing
-      this.setResizerHeight();
+      this.setColResizerHeight();
     };
 
     const handleMouseUp = () => {
@@ -1205,13 +1216,7 @@ export class DataTable {
                 }
               ></fw-checkbox>
             )}
-            {this.colResize && (
-              <div
-                role='none'
-                class='resizer'
-                onMouseDown={(e) => this.resizeCol(e)}
-              ></div>
-            )}
+            {this.colResize && this.renderColResizer()}
           </th>
         )}
         {this.orderedColumns.map((column, columnIndex) => {
@@ -1257,13 +1262,7 @@ export class DataTable {
               {column.customHeader
                 ? this.renderCustomTemplate(column.customHeader, column.text)
                 : column.text}
-              {this.colResize && (
-                <div
-                  role='none'
-                  class='resizer'
-                  onMouseDown={(e) => this.resizeCol(e)}
-                ></div>
-              )}
+              {this.colResize && this.renderColResizer()}
             </th>
           );
         })}
@@ -1279,13 +1278,7 @@ export class DataTable {
             style={{ position: this.colResize && 'relative' }}
           >
             {TranslationController.t('datatable.actions')}
-            {this.colResize && (
-              <div
-                role='none'
-                class='resizer'
-                onMouseDown={(e) => this.resizeCol(e)}
-              ></div>
-            )}
+            {this.colResize && this.renderColResizer()}
           </th>
         )}
       </tr>
