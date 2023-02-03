@@ -118,6 +118,11 @@ export class Form {
    */
   @Event() fwFormValuesChanged: EventEmitter;
 
+  /**
+   * fwFormValueChanged - event that gets emitted when value in a form field changes.
+   */
+  @Event() fwFormValueChanged: EventEmitter;
+
   private debouncedHandleInput: any;
   private handleInputListener: any;
   private handleBlurListener: any;
@@ -330,10 +335,17 @@ export class Form {
     if (!details || !details.name) return;
     const { name, value, meta } = details;
 
+    const val = meta && 'checked' in meta ? meta.checked : value;
+
     this.values = {
       ...this.values,
-      [name]: meta && 'checked' in meta ? meta.checked : value,
+      [name]: val,
     };
+
+    this.fwFormValueChanged.emit({
+      field: name,
+      value: val,
+    });
 
     if (meta && meta.shouldValidate === false) {
       return;
@@ -482,6 +494,11 @@ export class Form {
 
     this.values = { ...this.values, [field]: value };
 
+    this.fwFormValueChanged.emit({
+      field,
+      value,
+    });
+
     if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
       await this.handleValidation();
@@ -538,6 +555,11 @@ export class Form {
 
     this.touched = { ...this.touched, [field]: false };
     this.values = { ...this.values, [field]: undefined };
+
+    this.fwFormValueChanged.emit({
+      field: field,
+      value: undefined,
+    });
   }
 
   /**

@@ -2617,6 +2617,29 @@ type FormErrors = {
 };
 ```
 
+### Form Value Change Event
+
+`fwFormValueChanged` event gets emitted whenever there is a change in the value of any of the form field.
+
+```javascript
+var form = document.querySelector('fw-form');
+form.addEventListener('fwFormValueChanged', (e) => {
+  console.log('field', e.detail.field);
+  console.log('value', e.detail.value);
+});
+```
+
+### Form Values Change Event
+
+`fwFormValuesChanged` event gets emitted whenever there is a change in the value of any of the form field. Returns the current form state with the value of all the form fields.
+
+```javascript
+var form = document.querySelector('fw-form');
+form.addEventListener('fwFormValuesChanged', (e) => {
+  console.log('current form value', e.detail.value);
+});
+```
+
 <!-- Auto Generated Below -->
 
 
@@ -2638,9 +2661,10 @@ type FormErrors = {
 
 ## Events
 
-| Event                 | Description                                                       | Type               |
-| --------------------- | ----------------------------------------------------------------- | ------------------ |
-| `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change. | `CustomEvent<any>` |
+| Event                 | Description                                                                      | Type               |
+| --------------------- | -------------------------------------------------------------------------------- | ------------------ |
+| `fwFormValueChanged`  | fwFormValueChanged - event that gets emitted when value in a form field changes. | `CustomEvent<any>` |
+| `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change.                | `CustomEvent<any>` |
 
 
 ## Methods

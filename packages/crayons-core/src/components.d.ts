@@ -3253,6 +3253,10 @@ declare namespace LocalJSX {
          */
         "mapperType"?: 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * fwFormValueChanged - event that gets emitted when value in a form field changes.
+         */
+        "onFwFormValueChanged"?: (event: FwFormCustomEvent<any>) => void;
+        /**
           * fwFormValuesChanged - event that gets emitted when values change.
          */
         "onFwFormValuesChanged"?: (event: FwFormCustomEvent<any>) => void;
