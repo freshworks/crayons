@@ -1182,6 +1182,13 @@ export namespace Components {
          */
         "titleText": string;
     }
+    interface FwNestedNode {
+        "options": any[];
+    }
+    interface FwNestedSelect {
+        "level": number;
+        "options": any[];
+    }
     interface FwPagination {
         /**
           * Aria Label to be used for the button group.
@@ -2453,6 +2460,18 @@ declare global {
         prototype: HTMLFwModalTitleElement;
         new (): HTMLFwModalTitleElement;
     };
+    interface HTMLFwNestedNodeElement extends Components.FwNestedNode, HTMLStencilElement {
+    }
+    var HTMLFwNestedNodeElement: {
+        prototype: HTMLFwNestedNodeElement;
+        new (): HTMLFwNestedNodeElement;
+    };
+    interface HTMLFwNestedSelectElement extends Components.FwNestedSelect, HTMLStencilElement {
+    }
+    var HTMLFwNestedSelectElement: {
+        prototype: HTMLFwNestedSelectElement;
+        new (): HTMLFwNestedSelectElement;
+    };
     interface HTMLFwPaginationElement extends Components.FwPagination, HTMLStencilElement {
     }
     var HTMLFwPaginationElement: {
@@ -2620,6 +2639,8 @@ declare global {
         "fw-modal-content": HTMLFwModalContentElement;
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
+        "fw-nested-node": HTMLFwNestedNodeElement;
+        "fw-nested-select": HTMLFwNestedSelectElement;
         "fw-pagination": HTMLFwPaginationElement;
         "fw-pill": HTMLFwPillElement;
         "fw-popover": HTMLFwPopoverElement;
@@ -3811,6 +3832,13 @@ declare namespace LocalJSX {
          */
         "titleText"?: string;
     }
+    interface FwNestedNode {
+        "options"?: any[];
+    }
+    interface FwNestedSelect {
+        "level"?: number;
+        "options"?: any[];
+    }
     interface FwPagination {
         /**
           * Aria Label to be used for the button group.
@@ -4843,6 +4871,8 @@ declare namespace LocalJSX {
         "fw-modal-content": FwModalContent;
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
+        "fw-nested-node": FwNestedNode;
+        "fw-nested-select": FwNestedSelect;
         "fw-pagination": FwPagination;
         "fw-pill": FwPill;
         "fw-popover": FwPopover;
@@ -4905,6 +4935,8 @@ declare module "@stencil/core" {
             "fw-modal-content": LocalJSX.FwModalContent & JSXBase.HTMLAttributes<HTMLFwModalContentElement>;
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
+            "fw-nested-node": LocalJSX.FwNestedNode & JSXBase.HTMLAttributes<HTMLFwNestedNodeElement>;
+            "fw-nested-select": LocalJSX.FwNestedSelect & JSXBase.HTMLAttributes<HTMLFwNestedSelectElement>;
             "fw-pagination": LocalJSX.FwPagination & JSXBase.HTMLAttributes<HTMLFwPaginationElement>;
             "fw-pill": LocalJSX.FwPill & JSXBase.HTMLAttributes<HTMLFwPillElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;
