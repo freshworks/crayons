@@ -118,6 +118,11 @@ export class Form {
    */
   @Event() fwFormValuesChanged: EventEmitter;
 
+  /**
+   * fwFormValueChanged - event that gets emitted when value in a form field changes.
+   */
+  @Event() fwFormValueChanged: EventEmitter;
+
   private debouncedHandleInput: any;
   private handleInputListener: any;
   private handleBlurListener: any;
@@ -330,10 +335,17 @@ export class Form {
     if (!details || !details.name) return;
     const { name, value, meta } = details;
 
+    const val = meta && 'checked' in meta ? meta.checked : value;
+
     this.values = {
       ...this.values,
-      [name]: meta && 'checked' in meta ? meta.checked : value,
+      [name]: val,
     };
+
+    this.fwFormValueChanged.emit({
+      field: name,
+      value: val,
+    });
 
     if (meta && meta.shouldValidate === false) {
       return;
@@ -451,6 +463,18 @@ export class Form {
     return shouldRender;
   };
 
+  /** Return if a field is disabled or not
+   * if `editable` property is set to `false` in the field object of the form schema,
+   * then the field is considered to be disabled.
+   */
+  private isDisabledField(field) {
+    if (!field) return false;
+    const isDisabled =
+      Object.prototype.hasOwnProperty.call(field, 'editable') &&
+      field.editable === false;
+    return isDisabled;
+  }
+
   /**
    * Method to set value on the form field.
    *
@@ -464,7 +488,16 @@ export class Form {
     value: any,
     shouldValidate = true
   ): Promise<void> {
+    // Don't set value if the field is disabled
+    const isDisabledField = this.isDisabledField(this.fields?.[field]);
+    if (isDisabledField) return;
+
     this.values = { ...this.values, [field]: value };
+
+    this.fwFormValueChanged.emit({
+      field,
+      value,
+    });
 
     if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
@@ -522,6 +555,11 @@ export class Form {
 
     this.touched = { ...this.touched, [field]: false };
     this.values = { ...this.values, [field]: undefined };
+
+    this.fwFormValueChanged.emit({
+      field: field,
+      value: undefined,
+    });
   }
 
   /**
@@ -601,6 +639,7 @@ export class Form {
                     choices={field.choices}
                     fieldProps={field}
                     controlProps={utils}
+                    disabled={this.isDisabledField(field)}
                   ></fw-form-control>
                 )
               );
