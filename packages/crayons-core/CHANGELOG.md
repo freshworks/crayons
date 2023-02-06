@@ -3,27 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.1.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.9...@freshworks/crayons@4.1.0-beta.10) (2023-02-06)
-
+## [4.1.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.9...@freshworks/crayons@4.1.0-beta.10) (2023-02-06)
 
 ### Bug Fixes
 
-* **date-picker:** fix min/max year restriction issue ([55ce4a5](https://github.com/freshworks/crayons/commit/55ce4a5fbfc86022513bdf757b7c7704f5ea432f))
-* **date-picker:** fix review comments ([297a972](https://github.com/freshworks/crayons/commit/297a9729e1e5ae621f6c56b71b9b534ea38c46fc))
-* **datepicker:** add unit test cases ([256d19b](https://github.com/freshworks/crayons/commit/256d19b1bae908501237832d68b14026c1ecb1ae))
-* **time-picker:** fix timpicker spinner issue ([b10dc2b](https://github.com/freshworks/crayons/commit/b10dc2bf129dad08823a5e5e4a19e5c845c1fd59))
-
+- **date-picker:** fix min/max year restriction issue ([55ce4a5](https://github.com/freshworks/crayons/commit/55ce4a5fbfc86022513bdf757b7c7704f5ea432f))
+- **date-picker:** fix review comments ([297a972](https://github.com/freshworks/crayons/commit/297a9729e1e5ae621f6c56b71b9b534ea38c46fc))
+- **datepicker:** add unit test cases ([256d19b](https://github.com/freshworks/crayons/commit/256d19b1bae908501237832d68b14026c1ecb1ae))
+- **time-picker:** fix timpicker spinner issue ([b10dc2b](https://github.com/freshworks/crayons/commit/b10dc2bf129dad08823a5e5e4a19e5c845c1fd59))
 
 ### Features
 
-* **form:** disable form fields by setting editable property to false and emit event on value change([#787](https://github.com/freshworks/crayons/issues/787)) ([9066189](https://github.com/freshworks/crayons/commit/90661895eee3e94b5d4d71a57dbc4593c76ad595))
-* **form:** setFieldSearchText method to filter the display of fields in the form ([#784](https://github.com/freshworks/crayons/issues/784)) ([176b51e](https://github.com/freshworks/crayons/commit/176b51e75603b6c9bf288bbe7a2b5a396797f92d))
-* **fw-spinner:** adding a micro variant size for spinner component ([#781](https://github.com/freshworks/crayons/issues/781)) ([1b67d6a](https://github.com/freshworks/crayons/commit/1b67d6aaf9c40807282e25d9fd10b494b4b0f055))
-* wrap select input to tags container ([964a55c](https://github.com/freshworks/crayons/commit/964a55ca5d271a84b7a834f777c8e548ea9baddd))
-
-
-
-
+- **form:** disable form fields by setting editable property to false and emit event on value change([#787](https://github.com/freshworks/crayons/issues/787)) ([9066189](https://github.com/freshworks/crayons/commit/90661895eee3e94b5d4d71a57dbc4593c76ad595))
+- **form:** setFieldSearchText method to filter the display of fields in the form ([#784](https://github.com/freshworks/crayons/issues/784)) ([176b51e](https://github.com/freshworks/crayons/commit/176b51e75603b6c9bf288bbe7a2b5a396797f92d))
+- **fw-spinner:** adding a micro variant size for spinner component ([#781](https://github.com/freshworks/crayons/issues/781)) ([1b67d6a](https://github.com/freshworks/crayons/commit/1b67d6aaf9c40807282e25d9fd10b494b4b0f055))
+- wrap select input to tags container ([964a55c](https://github.com/freshworks/crayons/commit/964a55ca5d271a84b7a834f777c8e548ea9baddd))
 
 ## [4.1.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.8...@freshworks/crayons@4.1.0-beta.9) (2023-01-23)
 
