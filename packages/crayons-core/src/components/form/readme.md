@@ -275,7 +275,7 @@ fields: [ // Each item in this array corresponds to a crayons input component.
     id: '2978f820-704b-46c7-9f88-110e14e34a8c', // ID of the input control
     name: 'first_name', // Will be used while serializing form.
     label: 'First Name', // Label to display.
-    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME
+    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME
     position: 3, // Order of the component in the form.
     required: true, // Required while submitting the form.
     placeholder: 'Enter…', // placeholder for the input
@@ -2544,7 +2544,7 @@ Invoke `setFieldChoices` method on the `form` passing the `name` of the field an
       },
     ],
   };
-  var initialValuesFchoices = {
+  var initialValuesFChoices = {
     is_indian_citizen: true,
   };
   formContainerFieldchoices.prepend(formFieldChoices);
@@ -2552,7 +2552,7 @@ Invoke `setFieldChoices` method on the `form` passing the `name` of the field an
   var formSchemaFChoices1 = {
     ...formSchemaFieldChoices,
   };
-  formFieldChoices.formSchema = formSchemaSearch1;
+  formFieldChoices.formSchema = formSchemaFChoices1;
   formFieldChoices.initialValues = initialValuesFChoices;
 </script>
 ```
