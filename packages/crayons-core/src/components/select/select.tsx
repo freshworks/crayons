@@ -359,11 +359,6 @@ export class Select {
             this.focusOnTagContainer();
           }
           break;
-        case 'ArrowLeft':
-          if (this.multiple && this.selectInput?.value === '') {
-            this.focusOnTagContainer();
-          }
-          break;
         case 'Escape':
           this.innerOnBlur(ev);
           this.closeDropdown();
@@ -375,8 +370,8 @@ export class Select {
         case 'a':
         case 'A':
           if (
-            ((ev.ctrlKey || ev.metaKey) && !this.searchValue) ||
-            this.focusedValues.length > 0
+            (ev.ctrlKey || ev.metaKey) &&
+            (!this.searchValue || this.focusedValues.length > 0)
           ) {
             ev.preventDefault();
             ev.stopPropagation();
@@ -473,7 +468,9 @@ export class Select {
           this.deleteFocusedTags();
           break;
         case 'ArrowLeft':
-          if (this.tagArrowKeyCounter - 1 >= 0) {
+          if (this.focusedValues?.length === 0) {
+            this.focusOnTagContainer();
+          } else if (this.tagArrowKeyCounter - 1 >= 0) {
             // should not focus disabled tag
             if (
               !this.selectedOptionsState[this.tagArrowKeyCounter - 1]?.disabled
@@ -487,10 +484,10 @@ export class Select {
           ev.stopImmediatePropagation();
           break;
         case 'ArrowRight':
-          this.tagArrowKeyCounter++;
-          if (this.tagArrowKeyCounter >= this.value?.length) {
+          if (this.tagArrowKeyCounter + 1 >= this.value?.length) {
             this.selectInput?.focus();
-          } else {
+          } else if (this.tagArrowKeyCounter <= this.value?.length) {
+            this.tagArrowKeyCounter++;
             this.focusOnTag(this.tagArrowKeyCounter);
           }
           ev.stopImmediatePropagation();
@@ -686,6 +683,35 @@ export class Select {
         this.selectInput.value = '';
       }
     }
+  }
+
+  renderSelectInput() {
+    return (
+      <input
+        ref={(selectInput) => (this.selectInput = selectInput)}
+        class={{
+          'multiple-select': this.multiple,
+        }}
+        autoComplete='off'
+        disabled={this.disabled}
+        name={this.name}
+        id={this.name}
+        placeholder={this.valueExists() ? '' : this.placeholder || ''}
+        readOnly={this.readonly}
+        required={this.required}
+        type={this.type}
+        value=''
+        aria-autocomplete='list'
+        aria-activedescendant={this.focusedOptionId}
+        onInput={() => this.onInput()}
+        onFocus={(e) => this.innerOnFocus(e)}
+        onBlur={(e) => this.innerOnBlur(e)}
+        aria-invalid={this.state === 'error'}
+        aria-describedby={`hint-${this.name} error-${this.name}`}
+        onPaste={(e) => this.onPaste(e)}
+        aria-disabled={this.disabled}
+      />
+    );
   }
 
   onClickOutside(e) {
@@ -941,7 +967,7 @@ export class Select {
                 ) : (
                   <Fragment>
                     <div class='input-container-inner'>
-                      {this.multiple && (
+                      {this.multiple ? (
                         <div
                           class={`tag-container ${this.tagVariant}`}
                           onFocus={this.focusOnTagContainer}
@@ -952,34 +978,11 @@ export class Select {
                           tabIndex={-1}
                         >
                           {this.renderTags()}
+                          {this.renderSelectInput()}
                         </div>
+                      ) : (
+                        this.renderSelectInput()
                       )}
-                      <input
-                        ref={(selectInput) => (this.selectInput = selectInput)}
-                        class={{
-                          'multiple-select': this.multiple,
-                        }}
-                        autoComplete='off'
-                        disabled={this.disabled}
-                        name={this.name}
-                        id={this.name}
-                        placeholder={
-                          this.valueExists() ? '' : this.placeholder || ''
-                        }
-                        readOnly={this.readonly}
-                        required={this.required}
-                        type={this.type}
-                        value=''
-                        aria-autocomplete='list'
-                        aria-activedescendant={this.focusedOptionId}
-                        onInput={() => this.onInput()}
-                        onFocus={(e) => this.innerOnFocus(e)}
-                        onBlur={(e) => this.innerOnBlur(e)}
-                        aria-invalid={this.state === 'error'}
-                        aria-describedby={`hint-${this.name} error-${this.name}`}
-                        onPaste={(e) => this.onPaste(e)}
-                        aria-disabled={this.disabled}
-                      />
                     </div>
                     {this.isLoading ? (
                       <fw-spinner size='small'></fw-spinner>
