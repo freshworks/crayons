@@ -556,6 +556,7 @@ export class DataTable {
     this.settingsInput.value = '';
     this.columnsDragSetting = [];
     this.columnsHideSetting = [];
+    this.disabledColumnHide = false;
     const modifiedColumnsDragSettings = this.orderedColumns.map((column) => {
       const columnInfo: any = {};
       columnInfo.key = column.key;
@@ -1389,7 +1390,9 @@ export class DataTable {
             }}
           >
             <div class='table-settings-header'>
-              <span class='title'>Customize columns</span>
+              <span class='title'>
+                {TranslationController.t('datatable.customizeColumns')}
+              </span>
               <button
                 class='reset'
                 tabIndex={0}

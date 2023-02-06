@@ -40,7 +40,9 @@ export class ListOptions {
       const filteredValue =
         value !== ''
           ? dataSource.filter((option) =>
-              option.text.toLowerCase().includes(value.toLowerCase())
+              option[this.optionLabelPath]
+                ?.toLowerCase()
+                ?.includes(value.toLowerCase())
             )
           : dataSource;
       resolve(filteredValue);
@@ -148,6 +150,15 @@ export class ListOptions {
    */
   @Prop() allowSelect = true;
   /**
+   *  Key for determining the label for a given option
+   */
+  @Prop() optionLabelPath = 'text';
+
+  /**
+   *  Key for determining the value for a given option
+   */
+  @Prop() optionValuePath = 'value';
+  /**
    * Triggered when a value is selected or deselected from the list box options.
    */
   @Event({ cancelable: true }) fwChange: EventEmitter;
@@ -161,12 +172,14 @@ export class ListOptions {
     const { value, selected } = selectedItem.detail;
     if (selected) {
       const selectedObj = this.filteredOptions.filter(
-        (option) => option.value === value
+        (option) => option[this.optionValuePath] === value
       )[0];
       if (this.isCreatable && selectedObj.isNew) {
-        selectedObj.text = selectedObj.value;
+        selectedObj[this.optionLabelPath] = selectedObj[this.optionValuePath];
         if (typeof this.validateNewOption === 'function') {
-          selectedObj.error = !this.validateNewOption(selectedObj.value);
+          selectedObj.error = !this.validateNewOption(
+            selectedObj[this.optionValuePath]
+          );
         }
         selectedObj.graphicsProps = {};
         selectedObj.variant = 'standard';
@@ -176,7 +189,9 @@ export class ListOptions {
         : [selectedObj];
     } else {
       this.selectedOptionsState = this.multiple
-        ? this.selectedOptionsState?.filter((option) => option.value !== value)
+        ? this.selectedOptionsState?.filter(
+            (option) => option[this.optionValuePath] !== value
+          )
         : [];
     }
     this.isInternalValueChange = true;
@@ -352,7 +367,7 @@ export class ListOptions {
               : !this.isCreatable
               ? [
                   {
-                    text:
+                    [this.optionLabelPath]:
                       this.notFoundText ||
                       TranslationController.t('search.noItemsFound'),
                     disabled: true,
@@ -362,16 +377,16 @@ export class ListOptions {
           if (
             this.isCreatable &&
             !this.filteredOptions.some(
-              (option) => option.value === sanitisedText
+              (option) => option[this.optionValuePath] === sanitisedText
             )
           ) {
             this.filteredOptions = [
               {
-                text:
+                [this.optionLabelPath]:
                   typeof this.formatCreateLabel === 'function'
                     ? this.formatCreateLabel(sanitisedText)
                     : sanitisedText,
-                value: sanitisedText,
+                [this.optionValuePath]: sanitisedText,
                 isNew: true,
                 graphicsProps: {
                   name: 'plus-filled',
@@ -394,7 +409,7 @@ export class ListOptions {
             ? this.selectOptions
             : [
                 {
-                  text:
+                  [this.optionLabelPath]:
                     this.noDataText ||
                     TranslationController.t('search.noDataAvailable'),
                   disabled: true,
@@ -430,11 +445,11 @@ export class ListOptions {
         this.isValueEqual(this.value, option) || option.selected;
       const isDisabled =
         this.selectedOptionsState?.find(
-          (selected) => selected.value === option.value
+          (selected) =>
+            selected[this.optionValuePath] === option[this.optionValuePath]
         )?.disabled ||
         option.disabled ||
-        this.disabled ||
-        (this.multiple && this.value?.length >= this.max);
+        this.disabled;
       return {
         ...option,
         ...{
@@ -451,15 +466,15 @@ export class ListOptions {
 
   isValueEqual(value, option) {
     return this.multiple
-      ? value.includes(option.value)
-      : value === option.value;
+      ? value.includes(option[this.optionValuePath])
+      : value === option[this.optionValuePath];
   }
 
   setValue(options) {
     if (options?.length > 0) {
       this.value = this.multiple
-        ? options.map((option) => option.value)
-        : options[0].value;
+        ? options.map((option) => option[this.optionValuePath])
+        : options[0][this.optionValuePath];
     } else {
       this.value = this.multiple ? [] : '';
     }
@@ -471,7 +486,7 @@ export class ListOptions {
     } else {
       this.selectOptions = [
         {
-          text:
+          [this.optionLabelPath]:
             this.noDataText ||
             TranslationController.t('search.noDataAvailable'),
           disabled: true,
@@ -485,16 +500,20 @@ export class ListOptions {
     return options.map((option) => {
       const isDisabled =
         this.selectedOptionsState?.find(
-          (selected) => selected.value === option.value
+          (selected) =>
+            selected[this.optionValuePath] === option[this.optionValuePath]
         )?.disabled ||
         option.disabled ||
-        (!this.allowDeselect && option.selected);
+        (!this.allowDeselect && option.selected) ||
+        (this.multiple && !option.selected && this.value?.length >= this.max);
       return (
         <fw-select-option
-          id={`${this.host.id}-option-${option.value}`}
-          key={option.value}
+          id={`${this.host.id}-option-${option[this.optionValuePath]}`}
+          key={option[this.optionValuePath]}
           allowSelect={this.allowSelect}
           {...option}
+          text={option[this.optionLabelPath]}
+          value={option[this.optionValuePath]}
           disabled={isDisabled}
         ></fw-select-option>
       );
@@ -519,8 +538,10 @@ export class ListOptions {
     if (this.selectedOptions?.length > 0) {
       this.selectedOptionsState = this.selectedOptions;
       this.value = this.multiple
-        ? this.selectedOptionsState.map((option) => option.value)
-        : this.selectedOptionsState[0].value;
+        ? this.selectedOptionsState.map(
+            (option) => option[this.optionValuePath]
+          )
+        : this.selectedOptionsState[0][this.optionValuePath];
     } else if (this.valueExists()) {
       this.setSelectedOptionsByValue(this.value);
     } else {

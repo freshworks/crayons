@@ -2,6 +2,10 @@ import { Component, Element, Prop, h } from '@stencil/core';
 import { hasSlot } from '../../utils';
 import { TranslationController } from '../../global/Translation';
 
+/**
+ * @parent modal
+ */
+
 @Component({
   tag: 'fw-modal-footer',
   styleUrl: 'modal-footer.scss',

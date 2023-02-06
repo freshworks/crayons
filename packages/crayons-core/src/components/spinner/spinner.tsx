@@ -9,7 +9,7 @@ export class Spinner {
   /**
    * Size of the loader.
    */
-  @Prop() size: 'small' | 'medium' | 'large' | 'default' = 'default';
+  @Prop() size: 'micro' | 'small' | 'medium' | 'large' | 'default' = 'default';
 
   /**
    * Color in which the loader is displayed, specified as a standard CSS color.
@@ -17,6 +17,7 @@ export class Spinner {
   @Prop() color = '';
 
   sizeMap = {
+    micro: 8,
     small: 12,
     default: 16,
     medium: 24,

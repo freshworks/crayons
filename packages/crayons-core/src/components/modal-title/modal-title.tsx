@@ -1,6 +1,10 @@
 import { Component, Element, Prop, h } from '@stencil/core';
 import { hasSlot } from '../../utils';
 
+/**
+ * @parent modal
+ */
+
 @Component({
   tag: 'fw-modal-title',
   styleUrl: 'modal-title.scss',

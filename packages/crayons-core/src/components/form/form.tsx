@@ -28,6 +28,8 @@ import {
   generateDynamicValidationSchema,
   serializeForm,
   translateErrors,
+  getMappedSchema,
+  LEGO,
 } from './form-util';
 import { debounce } from '../../utils';
 
@@ -76,6 +78,30 @@ export class Form {
    */
   @Prop() formId = uuidv4();
 
+  /**
+   * Mapper Type - LEGO | FORMSERV | CUSTOM.
+   * Defaults to `LEGO`.
+   */
+  @Prop() mapperType: 'LEGO' | 'FORMSERV' | 'CUSTOM' = LEGO;
+
+  /**
+      * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
+      * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.
+      * In the example below, `1` is the type of a field in your schema
+      * that needs to correspond to `TEXT` type.
+      * Please pass include the mapper for all the field types that you want to support.
+      * Example typeMapper object : {
+             'CUSTOM_TEXT': { type: 'TEXT' },
+             'SELECT': { type: 'DROPDOWN' },
+             'TEL': { type: 'PHONE_NUMBER' },
+             'CHECKBOX': { type: 'CHECKBOX' },
+             'TEXTAREA': { type: 'PARAGRAPH' },
+             'DATETIME': { type: 'DATE_TIME' },
+             'INTEGER': { type: 'NUMBER' },
+           }
+      */
+  @Prop() customTypeMapper: any = {};
+
   @State() values: FormValues = {} as any;
   @State() touched: FormTouched<FormValues> = {} as any;
   @State() errors: FormErrors<FormValues> = {} as any;
@@ -83,10 +109,19 @@ export class Form {
   @State() formValidationSchema;
   @State() formInitialValues;
 
+  @State() formSchemaState = this.formSchema;
+
+  @State() fieldSearchText;
+
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
    */
   @Event() fwFormValuesChanged: EventEmitter;
+
+  /**
+   * fwFormValueChanged - event that gets emitted when value in a form field changes.
+   */
+  @Event() fwFormValueChanged: EventEmitter;
 
   private debouncedHandleInput: any;
   private handleInputListener: any;
@@ -111,18 +146,15 @@ export class Form {
       this.handleInput
     );
 
-    await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
-      this.initialValues
-    );
+    await this.handleSchemaPropsChange();
   }
 
   @Watch('formSchema')
-  async formSchemaHandler(formSchema) {
-    await this.handleFormSchemaAndInitialValuesChange(
-      formSchema,
-      this.initialValues
-    );
+  @Watch('mapperType')
+  @Watch('customTypeMapper')
+  async schemaPropsChangeHandler() {
+    this.controls = null;
+    await this.handleSchemaPropsChange();
   }
 
   @Watch('initialValues')
@@ -138,6 +170,20 @@ export class Form {
     this.fwFormValuesChanged.emit({
       value: values,
     });
+  }
+
+  async handleSchemaPropsChange() {
+    const newSchema = getMappedSchema({
+      type: this.mapperType,
+      schema: this.formSchema,
+      customTypeMapper: this.customTypeMapper,
+    });
+
+    this.formSchemaState = newSchema;
+    await this.handleFormSchemaAndInitialValuesChange(
+      newSchema,
+      this.initialValues
+    );
   }
 
   async handleFormSchemaAndInitialValuesChange(formSchema, initialValues) {
@@ -217,7 +263,7 @@ export class Form {
 
     let serializedValues = { ...this.values };
 
-    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+    if (this.formSchemaState && Object.keys(this.formSchemaState).length > 0) {
       serializedValues = serializeForm(serializedValues, this.fields);
     }
 
@@ -289,10 +335,17 @@ export class Form {
     if (!details || !details.name) return;
     const { name, value, meta } = details;
 
+    const val = meta && 'checked' in meta ? meta.checked : value;
+
     this.values = {
       ...this.values,
-      [name]: meta && 'checked' in meta ? meta.checked : value,
+      [name]: val,
     };
+
+    this.fwFormValueChanged.emit({
+      field: name,
+      value: val,
+    });
 
     if (meta && meta.shouldValidate === false) {
       return;
@@ -357,8 +410,9 @@ export class Form {
     const error = this.errors[control.name];
     const touched = this.touched[control.name];
     control.controlProps = this.composedUtils();
-    control.error = error || '';
+    control.error = error ?? '';
     control.touched = touched || false;
+    control.shouldRender = this.shouldRenderFormControl(control);
   }
 
   private composedUtils = (): FormUtils => {
@@ -377,8 +431,8 @@ export class Form {
     const selectProps = (field: string, inputType) => ({
       value:
         inputType === 'multi_select'
-          ? this.values[field] || []
-          : this.values[field] || '',
+          ? this.values[field] ?? []
+          : this.values[field] ?? '',
     });
 
     const formProps: FormProps = {
@@ -396,13 +450,54 @@ export class Form {
     };
   };
 
+  private shouldRenderFormControl = (control) => {
+    const type = control?.type;
+    const isValidType = type !== '' && type !== null && type !== undefined;
+    const shouldRender = isValidType
+      ? this.fieldSearchText
+        ? control.label
+            ?.toLowerCase()
+            ?.includes(this.fieldSearchText.toLowerCase())
+        : true
+      : false;
+    return shouldRender;
+  };
+
+  /** Return if a field is disabled or not
+   * if `editable` property is set to `false` in the field object of the form schema,
+   * then the field is considered to be disabled.
+   */
+  private isDisabledField(field) {
+    if (!field) return false;
+    const isDisabled =
+      Object.prototype.hasOwnProperty.call(field, 'editable') &&
+      field.editable === false;
+    return isDisabled;
+  }
+
+  /**
+   * Method to set value on the form field.
+   *
+   * @param field - name of the form field
+   * @param value - value of the form field
+   * @param shouldValidate - should this form field be validated with the updated value
+   */
   @Method()
   async setFieldValue(
     field: string,
     value: any,
     shouldValidate = true
   ): Promise<void> {
+    // Don't set value if the field is disabled
+    const isDisabledField = this.isDisabledField(this.fields?.[field]);
+    if (isDisabledField) return;
+
     this.values = { ...this.values, [field]: value };
+
+    this.fwFormValueChanged.emit({
+      field,
+      value,
+    });
 
     if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
@@ -410,6 +505,11 @@ export class Form {
     }
   }
 
+  /**
+   * Method to set errors on the form fields.
+   *
+   * @param errorObj - key value pair of [fieldName]: ErrorMessage
+   */
   @Method()
   async setFieldErrors(errorObj: FormErrors<FormValues>): Promise<void> {
     Object.entries(errorObj)?.forEach(([field, value]) => {
@@ -417,6 +517,49 @@ export class Form {
       this.touched = { ...this.touched, [field]: true };
     });
     this.setFocusOnError();
+  }
+
+  /**
+   * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema.
+   * choices must be in the form of array with the below format:
+   * [{
+      id: 1,
+      value: 'open',
+      position: 1,
+      dependent_ids: {},
+    }].
+   * fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path.
+   * option_label_path refers to the key used for displaying the text.
+   * option_value_path refers to the key which corresponds to the value of item.
+   */
+  @Method()
+  async setFieldChoices(
+    field: string,
+    choices: Array<any>,
+    fieldOptions?: any
+  ): Promise<void> {
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (f.name === field) {
+            return {
+              ...f,
+              choices,
+              field_options: fieldOptions ?? f.field_options,
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.touched = { ...this.touched, [field]: false };
+    this.values = { ...this.values, [field]: undefined };
+
+    this.fwFormValueChanged.emit({
+      field: field,
+      value: undefined,
+    });
   }
 
   /**
@@ -431,21 +574,46 @@ export class Form {
   async getValues() {
     let serializedValues: FormValues = { ...this.values };
 
-    if (this.formSchema && Object.keys(this.formSchema).length > 0) {
+    if (this.formSchemaState && Object.keys(this.formSchemaState).length > 0) {
       serializedValues = serializeForm(serializedValues, this.fields);
     }
 
     return { values: this.values, serializedValues };
   }
 
+  /**
+   *
+   * @param event : An event which takes place in the DOM
+   *
+   * Method to submit the form
+   */
   @Method()
-  async doSubmit(e) {
-    return this.handleSubmit(e);
+  async doSubmit(event?): Promise<FormSubmit> {
+    return this.handleSubmit(event);
   }
 
+  /**
+   *
+   * @param event - An event which takes place in the DOM
+   *
+   * Method to reset the form
+   */
   @Method()
-  async doReset(e) {
-    this.handleReset(e);
+  async doReset(event?): Promise<void> {
+    this.handleReset(event);
+  }
+
+  /**
+   *
+   * Method to filter the display of fields in the form based
+   * on the passed text.
+   *
+   * @param text
+   *
+   */
+  @Method()
+  async setFieldSearchText(text: string) {
+    this.fieldSearchText = text;
   }
 
   render() {
@@ -453,23 +621,27 @@ export class Form {
 
     return (
       <form id={`form-${this.formId}`} {...utils.formProps}>
-        {this.formSchema && Object.keys(this.formSchema).length > 0 ? (
-          this.formSchema?.fields
+        {this.formSchemaState &&
+        Object.keys(this.formSchemaState).length > 0 ? (
+          this.formSchemaState?.fields
             ?.sort((a, b) => a.position - b.position)
             .map((field) => {
               return (
-                <fw-form-control
-                  key={field.name}
-                  name={field.name}
-                  type={field.type}
-                  label={field.label}
-                  required={field.required}
-                  hint={field.hint}
-                  placeholder={field.placeholder}
-                  choices={field.choices}
-                  fieldProps={field}
-                  controlProps={utils}
-                ></fw-form-control>
+                this.shouldRenderFormControl(field) && (
+                  <fw-form-control
+                    key={field.name}
+                    name={field.name}
+                    type={field.type}
+                    label={field.label}
+                    required={field.required}
+                    hint={field.hint}
+                    placeholder={field.placeholder}
+                    choices={field.choices}
+                    fieldProps={field}
+                    controlProps={utils}
+                    disabled={this.isDisabledField(field)}
+                  ></fw-form-control>
+                )
               );
             })
         ) : (

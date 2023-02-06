@@ -4,7 +4,9 @@ fw-select displays a list or drop-down box that enables selection of an option o
 
 ## Demo
 
-The data for the select can either be passed as a child or via a datasource which follows the fw-select-option schema.
+The data for the select can either be passed as a child/slot* or via a datasource which follows the fw-select-option schema.
+
+***Please note that we do not support dynamic updation of options when passed as a child/slot. Kindly utilise the options prop provided for dynamic updation of options.**
 
 ```html live
 <fw-select
@@ -932,7 +934,7 @@ export default Select;
 ### Demo with creatable select
 
 ```html live
-<fw-label value="Mail Variant" color="blue"></fw-label>
+<fw-label value="Creatable Mail Variant" color="blue"></fw-label>
 <fw-select
   id="creatableVariant"
   variant="mail"
@@ -1008,7 +1010,7 @@ export default Select;
 <code-block title="HTML">
 
 ```html
-<fw-label value="Mail Variant" color="blue"></fw-label>
+<fw-label value="Creatable Mail Variant" color="blue"></fw-label>
 <fw-select
   id="creatableVariant"
   variant="mail"
@@ -1185,6 +1187,210 @@ export default Select;
 </script>
 ```
 
+### Demo with option-label-path and option-value-path
+
+```html live
+<fw-label value="With predefined options" color="blue"></fw-label>
+<fw-select
+  id="predefinedOptionsSelect"
+  label="Strawhat Pirates"
+  placeholder="Your choices"
+  hint-text="Select single option"
+  options-variant="icon"
+  option-label-path="name"
+  option-value-path="id"
+>
+</fw-select>
+
+<fw-label value="With search" color="blue"></fw-label>
+<fw-select
+  id="searchVariant"
+  label="Rick & Morty Characters"
+  no-data-text="Type to search.."
+  not-found-text="Not available in this universe"
+  placeholder="Your choices"
+  hint-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
+  multiple
+  option-label-path="label"
+  option-value-path="id"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var iconDataSource = [
+    {
+      id: '1',
+      name: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      id: '3',
+      name: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var predefinedOptionsSelect = document.getElementById('predefinedOptionsSelect');
+  predefinedOptionsSelect.options = iconDataSource;
+  predefinedOptionsSelect.setSelectedOptions([
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+  ]);
+  predefinedOptionsSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+
+  var searchVariant = document.getElementById('searchVariant');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      label: 'Rick Sanchez',
+      subText: 'Human',
+      id: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            label: x.name,
+            subText: x.type,
+            id: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+### Usage for option-label-path and option-value-path
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-label value="With predefined options" color="blue"></fw-label>
+<fw-select
+  id="predefinedOptionsSelect"
+  label="Strawhat Pirates"
+  placeholder="Your choices"
+  hint-text="Select single option"
+  options-variant="icon"
+  option-label-path="name"
+  option-value-path="id"
+>
+</fw-select>
+
+<fw-label value="With search" color="blue"></fw-label>
+<fw-select
+  id="searchVariant"
+  label="Rick & Morty Characters"
+  no-data-text="Type to search.."
+  not-found-text="Not available in this universe"
+  placeholder="Your choices"
+  hint-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
+  multiple
+  option-label-path="label"
+  option-value-path="id"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var iconDataSource = [
+    {
+      id: '1',
+      name: 'Luffy',
+      subText: 'Pirate King',
+      graphicsProps: { name: 'verified' },
+    },
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+    {
+      id: '3',
+      name: 'Sanji',
+      subText: 'Best Chef',
+      graphicsProps: { name: 'ecommerce' },
+    },
+  ];
+  var predefinedOptionsSelect = document.getElementById('predefinedOptionsSelect');
+  predefinedOptionsSelect.options = iconDataSource;
+  predefinedOptionsSelect.setSelectedOptions([
+    {
+      id: '2',
+      name: 'Zorro',
+      subText: 'Best Swordsman',
+      graphicsProps: { name: 'magic-wand' },
+    },
+  ]);
+  predefinedOptionsSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+
+  var searchVariant = document.getElementById('searchVariant');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      label: 'Rick Sanchez',
+      subText: 'Human',
+      id: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            label: x.name,
+            subText: x.type,
+            id: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+</code-block>
+</code-group>
+
 ## Styling
 
 Refer the css variables in fw-popover to control the height and width of the select popup.
@@ -1215,6 +1421,8 @@ Refer the [css variables](#css-custom-properties) for modifying the appearance o
 | `name`             | `name`              | Name of the component, saved as part of form data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `string`                                                                                                                                                             | `''`                                                                                                                               |
 | `noDataText`       | `no-data-text`      | Text to be displayed when there is no data available in the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `string`                                                                                                                                                             | `''`                                                                                                                               |
 | `notFoundText`     | `not-found-text`    | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `optionLabelPath`  | `option-label-path` | Key for determining the label for a given option                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `'text'`                                                                                                                           |
+| `optionValuePath`  | `option-value-path` | Key for determining the value for a given option                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `'value'`                                                                                                                          |
 | `options`          | `options`           | The data for the select component, the options will be of type array of fw-select-options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
 | `optionsPlacement` | `options-placement` | Placement of the options list with respect to select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`                                                                                                                         |
 | `optionsVariant`   | `options-variant`   | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.                                                                                                                                                                                                                                                                                                                                                                           | `"avatar" \| "icon" \| "standard"`                                                                                                                                   | `'standard'`                                                                                                                       |

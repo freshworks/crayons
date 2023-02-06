@@ -16,6 +16,11 @@ const iconColorMap = {
   info: '#2c5cc5',
   success: '#00a886',
 };
+
+/**
+ * @parent toast
+ */
+
 @Component({
   tag: 'fw-toast-message',
   styleUrl: 'toast-message.scss',

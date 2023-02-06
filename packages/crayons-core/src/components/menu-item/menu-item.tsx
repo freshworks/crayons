@@ -1,5 +1,9 @@
 import { Component, Element, Prop, h } from '@stencil/core';
 
+/**
+ * @parent menu
+ */
+
 @Component({
   tag: 'fw-menu-item',
   styleUrl: 'menu-item.scss',

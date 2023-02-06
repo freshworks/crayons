@@ -63,12 +63,6 @@ $disabled-color: $input-disabled-color;
   }
 }
 
-.readonly-field {
-  .display-tag {
-    padding-inline-start: 8px;
-  }
-}
-
 .input-container {
   width: calc(100% - 10px);
   border: var(--fw-select-border, 1px solid $input-border);
@@ -91,6 +85,11 @@ $disabled-color: $input-disabled-color;
       display: flex;
       flex-wrap: wrap;
       min-width: inherit;
+      flex-grow: 1;
+
+      &.avatar {
+        min-height: 40px;
+      }
       /* stylelint-disable-next-line a11y/no-outline-none */
       &:active,
       &:focus,
@@ -110,7 +109,7 @@ $disabled-color: $input-disabled-color;
 
     input {
       flex-grow: 1;
-      // width: 100%;
+      width: 100px;
       border: none;
       font-family: inherit;
       font-size: $font-size-14;
@@ -162,7 +161,7 @@ $disabled-color: $input-disabled-color;
 
   &.select-disabled {
     color: $disabled-color;
-    border: 1px solid $color-smoke-50;
+    border: var(--fw-select-border, 1px solid $color-smoke-50);
     background-color: $input-disabled-bg !important;
     border-style: solid;
     cursor: not-allowed;
@@ -196,6 +195,7 @@ $disabled-color: $input-disabled-color;
 
   .tag-disabled {
     cursor: not-allowed;
+    pointer-events: none;
   }
 }
 

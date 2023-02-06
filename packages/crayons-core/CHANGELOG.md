@@ -3,16 +3,104 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [4.0.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.4...@freshworks/crayons@4.0.5) (2023-01-25)
-
+## [4.1.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.9...@freshworks/crayons@4.1.0-beta.10) (2023-02-06)
 
 ### Bug Fixes
 
-* **datepicker:** replace event.path with event.composedPath as it is deprecated from chrome 109 v ([8980943](https://github.com/freshworks/crayons/commit/89809437a31dcc5dc1e33acc6d37d627f5393ad7))
+- **date-picker:** fix min/max year restriction issue ([55ce4a5](https://github.com/freshworks/crayons/commit/55ce4a5fbfc86022513bdf757b7c7704f5ea432f))
+- **date-picker:** fix review comments ([297a972](https://github.com/freshworks/crayons/commit/297a9729e1e5ae621f6c56b71b9b534ea38c46fc))
+- **datepicker:** add unit test cases ([256d19b](https://github.com/freshworks/crayons/commit/256d19b1bae908501237832d68b14026c1ecb1ae))
+- **time-picker:** fix timpicker spinner issue ([b10dc2b](https://github.com/freshworks/crayons/commit/b10dc2bf129dad08823a5e5e4a19e5c845c1fd59))
 
+### Features
 
+- **form:** disable form fields by setting editable property to false and emit event on value change([#787](https://github.com/freshworks/crayons/issues/787)) ([9066189](https://github.com/freshworks/crayons/commit/90661895eee3e94b5d4d71a57dbc4593c76ad595))
+- **form:** setFieldSearchText method to filter the display of fields in the form ([#784](https://github.com/freshworks/crayons/issues/784)) ([176b51e](https://github.com/freshworks/crayons/commit/176b51e75603b6c9bf288bbe7a2b5a396797f92d))
+- **fw-spinner:** adding a micro variant size for spinner component ([#781](https://github.com/freshworks/crayons/issues/781)) ([1b67d6a](https://github.com/freshworks/crayons/commit/1b67d6aaf9c40807282e25d9fd10b494b4b0f055))
+- wrap select input to tags container ([964a55c](https://github.com/freshworks/crayons/commit/964a55ca5d271a84b7a834f777c8e548ea9baddd))
 
+## [4.1.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.8...@freshworks/crayons@4.1.0-beta.9) (2023-01-23)
 
+### Features
+
+- **form:** expose api for setting field choices dynamically ([#763](https://github.com/freshworks/crayons/issues/763)) ([444b5ac](https://github.com/freshworks/crayons/commit/444b5acf6cf535f4f5e73ca3d30a4187f35be185))
+
+## [4.1.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.6...@freshworks/crayons@4.1.0-beta.7) (2023-01-09)
+
+### Bug Fixes
+
+- revert readonly changes ([390aea9](https://github.com/freshworks/crayons/commit/390aea98708702cb0ae267527cde7a0ebfb372d8))
+
+### Features
+
+- **form:** mapperType and customTypeMapper prop to support `LEGO`, `FORMSERV` and `CUSTOM` type ([#761](https://github.com/freshworks/crayons/issues/761)) ([fc6692d](https://github.com/freshworks/crayons/commit/fc6692d5a3e94f181518a78cb9a83e92042d6334))
+
+## [4.1.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.5...@freshworks/crayons@4.1.0-beta.6) (2023-01-02)
+
+### Bug Fixes
+
+- **btn-group:** bind onSlotChange method using arrow function ([22525bd](https://github.com/freshworks/crayons/commit/22525bd47607ce00d422aa70ad7698ec2bce6abf))
+- **btn-group:** fix typo ([e724378](https://github.com/freshworks/crayons/commit/e724378d02215afa901e7d261ca432f6c388ab0e))
+- **button-group:** fix button group styling collapse ([f2f4797](https://github.com/freshworks/crayons/commit/f2f47971291b7279ba2bcf3e1c881ec38bb61968))
+- fix issue with unselecting columns in data table ([3de414f](https://github.com/freshworks/crayons/commit/3de414f8257ceee8e40e196c0d0331b941a3b555))
+
+## [4.1.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.4...@freshworks/crayons@4.1.0-beta.5) (2022-12-18)
+
+### Bug Fixes
+
+- fix max limitation in list options component ([9450f5c](https://github.com/freshworks/crayons/commit/9450f5cc4246d0e01858142e6775f36828882e8c))
+- set min width for select input and update docs for dynamic updation of options ([1fe7c56](https://github.com/freshworks/crayons/commit/1fe7c568ea32a99c3fa741184dd0c1f87904410e))
+
+## [4.1.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.3...@freshworks/crayons@4.1.0-beta.4) (2022-12-12)
+
+### Bug Fixes
+
+- **datepicker:** avoid using non-standard event.path ([#729](https://github.com/freshworks/crayons/issues/729)) ([53a7611](https://github.com/freshworks/crayons/commit/53a76119e881eccb39cb8538ff52b364414ec314))
+
+### Features
+
+- add option label path and option value path for select and list options ([229500e](https://github.com/freshworks/crayons/commit/229500e9caf3dda2046af1aba4a0c3f050911fe8))
+- **form-control:** handle formServ field_options object in form control ([a19656e](https://github.com/freshworks/crayons/commit/a19656e9e850fd33e06c7285d6bf081e06360ed0))
+- **popover:** introduced new props to facilitate delay in open/close transition in popover component ([7176beb](https://github.com/freshworks/crayons/commit/7176beb6fb441ffbb953107f9da1a20a5849c7df))
+
+### Reverts
+
+- **form:** revert build failure test commit ([477a2f0](https://github.com/freshworks/crayons/commit/477a2f0cf451282093e9c576394b00b2fcbab51e))
+
+## [4.1.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.2...@freshworks/crayons@4.1.0-beta.3) (2022-11-19)
+
+### Features
+
+- **file-uploader:** adding reset and get files methods ([#717](https://github.com/freshworks/crayons/issues/717)) ([cad8109](https://github.com/freshworks/crayons/commit/cad810947091de51c5d5c4aaeaf1bfa8cf405407))
+
+## [4.1.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.1...@freshworks/crayons@4.1.0-beta.2) (2022-11-15)
+
+### Bug Fixes
+
+- **component:** existing selection Loop is not working in Vue Project ([#719](https://github.com/freshworks/crayons/issues/719)) ([136296d](https://github.com/freshworks/crayons/commit/136296de656f9e0d0ea1757697bc72fe728d429d))
+
+## [4.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.0...@freshworks/crayons@4.1.0-beta.1) (2022-11-07)
+
+### Bug Fixes
+
+- fix height of avatar variant of multi select ([1d5a3e7](https://github.com/freshworks/crayons/commit/1d5a3e7ee9318b28185cf3d070e29a47ae98eca3))
+- **input:** transition only on border ([#713](https://github.com/freshworks/crayons/issues/713)) ([5035d6a](https://github.com/freshworks/crayons/commit/5035d6aaeed528e9d0f238adb2bee19398621b5c))
+
+## [4.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.4...@freshworks/crayons@4.1.0-beta.0) (2022-10-19)
+
+### Bug Fixes
+
+- **datepicker:** handle minDate, maxDate when set dynamically ([#705](https://github.com/freshworks/crayons/issues/705)) ([130a7be](https://github.com/freshworks/crayons/commit/130a7be7dda12e8b7e26977b3a7d7dcfae5b2289))
+
+### Features
+
+- add i18n strings for sort-select and datatable ([a9eee87](https://github.com/freshworks/crayons/commit/a9eee871f5c5e6fae52432b64b4ff0edde90f500))
+
+## [4.0.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.4...@freshworks/crayons@4.0.5) (2023-01-25)
+
+### Bug Fixes
+
+- **datepicker:** replace event.path with event.composedPath as it is deprecated from chrome 109 v ([8980943](https://github.com/freshworks/crayons/commit/89809437a31dcc5dc1e33acc6d37d627f5393ad7))
 
 ## [4.0.3-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.2...@freshworks/crayons@4.0.3-beta.0) (2022-10-12)
 

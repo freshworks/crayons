@@ -442,3 +442,62 @@ We can use 'fw-order-#{$number}' class to render **flex items** in a different o
   </div>
 </template>
 ```
+### Flex Gap
+
+fw-gap class can be used to specify the row-gap and column gap, i.e the space between rows and columns. fw-gap class can be used with numbers 0 to 8. Eg: fw-gap-0, fw-gap-1 etc.
+
+```html live
+<style>
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+    width: 20%;
+  }
+</style>
+<template>
+  <div>
+    <span>Flex gap example:</span>
+    <div class="fw-mt-8 fw-flex fw-flex-wrap flex-container-border fw-gap-2">
+      <div class="flex-item-border fw-px-8 ">1</div>
+      <div class="flex-item-border fw-px-8 ">2</div>
+      <div class="flex-item-border fw-px-8 ">3</div>
+      <div class="flex-item-border fw-px-8 ">4</div>
+      <div class="flex-item-border fw-px-8 ">5</div>
+      <div class="flex-item-border fw-px-8 ">6</div>
+      <div class="flex-item-border fw-px-8 ">7</div>
+    </div>
+  </div>
+</template>
+```
+
+fw-column-gap and fw-row-gap can be used to specify the space between columns and rows respectively. fw-row-gap and fw-column-gap class names can be used with numbers 0 to 8. Eg: fw-row-gap-0, fw-colum-gap-1 etc.
+
+```html live
+<style>
+  .flex-container-border {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .flex-item-border {
+    background: #2c5cc5; color: white; 
+    width: 20%;
+  }
+</style>
+<template>
+  <div>
+    <span>Flex column and row gap example:</span>
+    <div class="fw-mt-8 fw-flex fw-flex-wrap flex-container-border fw-row-gap-1 fw-column-gap-4">
+      <div class="flex-item-border fw-px-8 ">1</div>
+      <div class="flex-item-border fw-px-8 ">2</div>
+      <div class="flex-item-border fw-px-8 ">3</div>
+      <div class="flex-item-border fw-px-8 ">4</div>
+      <div class="flex-item-border fw-px-8 ">5</div>
+      <div class="flex-item-border fw-px-8 ">6</div>
+      <div class="flex-item-border fw-px-8 ">7</div>
+    </div>
+  </div>
+</template>
+```

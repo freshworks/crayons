@@ -26,6 +26,10 @@ const ChevronArrow = ({ expanded, iconSize }) => {
   );
 };
 
+/**
+ * @parent accordion
+ */
+
 @Component({
   tag: 'fw-accordion-title',
   styleUrl: 'accordion-title.scss',

@@ -1,0 +1,442 @@
+{
+  "CUSTOM_OBJECTS": {
+    "mappedFieldTypes": {
+      "PRIMARY": "TEXT",
+      "TEXT": "TEXT",
+      "RELATIONSHIP": "RELATIONSHIP",
+      "PARAGRAPH": "PARAGRAPH",
+      "NUMBER": "NUMBER",
+      "DECIMAL": "DECIMAL",
+      "DATE": "DATE",
+      "DROPDOWN": "DROPDOWN",
+      "CHECKBOX": "CHECKBOX",
+      "MULTI_SELECT": "MULTI_SELECT"
+    },
+    "fieldOrder": [
+      "PRIMARY",
+      "RELATIONSHIP",
+      "TEXT",
+      "PARAGRAPH",
+      "NUMBER",
+      "DECIMAL",
+      "DATE",
+      "DROPDOWN",
+      "CHECKBOX",
+      "MULTI_SELECT"
+    ],
+    "fieldProps": {
+      "PRIMARY": {
+        "display_label": "fieldTypeText",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "unique",
+            "tag": "fieldUniqueTag",
+            "display_label": "fieldUnique",
+            "info": "fieldUniqueHoverText",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": true,
+            "selected": true
+          }
+        ]
+      },
+      "RELATIONSHIP": {
+        "display_label": "fieldTypeRelationship",
+        "description": "fieldTypeRelationshipDesc",
+        "link": {
+          "label": "fieldTypeRelationshipDescLinkLabel",
+          "href": "https://support.freshdesk.com/en/support/solutions/articles/50000004226-understanding-associations"
+        },
+        "has_bottom_border": true,
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": false,
+            "selected": true
+          }
+        ]
+      },
+      "TEXT": {
+        "display_label": "fieldTypeText",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": true,
+            "selected": true
+          }
+        ]
+      },
+      "PARAGRAPH": {
+        "display_label": "fieldTypeParagraph",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "NUMBER": {
+        "display_label": "fieldTypeNumber",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": true,
+            "selected": true
+          }
+        ]
+      },
+      "DECIMAL": {
+        "display_label": "fieldTypeDecimal",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "DATE": {
+        "display_label": "fieldTypeDate",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": true,
+            "selected": true
+          }
+        ]
+      },
+      "DROPDOWN": {
+        "display_label": "fieldTypeDropdown",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": true,
+            "selected": true
+          }
+        ]
+      },
+      "CHECKBOX": {
+        "display_label": "fieldTypeCheckbox",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "MULTI_SELECT": {
+        "display_label": "fieldTypeMultiselect",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": true,
+            "selected": true
+          }
+        ]
+      }
+    },
+    "config": {
+      "hasPrimary": true,
+      "customizeWidget": true,
+      "filterByType": false,
+      "editInternalName": false,
+      "internalNamePrefix": "",
+      "showDefaultTag": false,
+      "defaultTagKey": "",
+      "defaultTagLabel": "",
+      "freePlanFieldAddDisabledHeader": "",
+      "freePlanFieldAddDisabledMessage": "",
+      "freePlanFieldAddDisabledButton": ""
+    },
+    "labels": {
+      "headerProduct": "",
+      "subHeaderProduct": "",
+      "dragDropFieldTypes": "fieldTypesDragDrop",
+      "fieldTypesHeader": "headerFieldTypes",
+      "fieldsHeader": "headerFields"
+    },
+    "maximumLimits": {
+      "widgets": { "count": 5, "message": "" },
+      "fields": { "count": 100, "message": "maximumLimits.fields" },
+      "filterable": { "count": 25, "message": "maximumLimits.filterable" },
+      "unique": { "count": 6, "message": "maximumLimits.unique" },
+      "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" },
+      "NUMBER": { "count": 30, "message": "maximumLimits.fields" },
+      "CHECKBOX": { "count": 30, "message": "maximumLimits.fields" },
+      "DECIMAL": { "count": 20, "message": "maximumLimits.fields" },
+      "MULTI_SELECT": { "count": 20, "message": "maximumLimits.fields" },
+      "DATE": { "count": 30, "message": "maximumLimits.fields" },
+      "TEXT": { "count": 80, "message": "maximumLimits.fields" },
+      "PARAGRAPH": { "count": 10, "message": "maximumLimits.fields" },
+      "DROPDOWN": { "count": 30, "message": "maximumLimits.fields" },
+      "maxLabelChars": {
+        "count": 255,
+        "message": "maximumLimits.maxCharsWarning"
+      },
+      "maxInternalNameChars": {
+        "count": 50,
+        "message": "maximumLimits.maxCharsWarning"
+      },
+      "maxDropdownChoices": {
+        "count": 2000,
+        "message": "maximumLimits.maxChoiceOptionsWarning"
+      }
+    }
+  },
+  "CONVERSATION_PROPERTIES": {
+    "mappedFieldTypes": {
+      "TEXT": 1,
+      "PARAGRAPH": 6,
+      "NUMBER": 8,
+      "DECIMAL": 13,
+      "DATE": 17,
+      "DROPDOWN": 2,
+      "CHECKBOX": 5,
+      "MULTI_SELECT": 18
+    },
+    "reverseMappedFieldTypes": {
+      "1": "TEXT",
+      "6": "PARAGRAPH",
+      "8": "NUMBER",
+      "13": "DECIMAL",
+      "17": "DATE",
+      "2": "DROPDOWN",
+      "5": "CHECKBOX",
+      "18": "MULTI_SELECT"
+    },
+    "fieldOrder": [
+      "TEXT",
+      "PARAGRAPH",
+      "NUMBER",
+      "DECIMAL",
+      "DATE",
+      "DROPDOWN",
+      "CHECKBOX",
+      "MULTI_SELECT"
+    ],
+    "fieldProps": {
+      "TEXT": {
+        "display_label": "fieldTypeSingleLineText",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "PARAGRAPH": {
+        "display_label": "fieldTypeMultiLineText"
+      },
+      "NUMBER": {
+        "display_label": "fieldTypeNumber",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "DECIMAL": {
+        "display_label": "fieldTypeDecimal",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "DATE": {
+        "display_label": "fieldTypeDate",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "DROPDOWN": {
+        "display_label": "fieldTypeDropdown",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "CHECKBOX": {
+        "display_label": "fieldTypeCheckbox",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "MULTI_SELECT": {
+        "display_label": "fieldTypeMultiSelectDropdown",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      }
+    },
+    "config": {
+      "hasPrimary": false,
+      "customizeWidget": false,
+      "filterByType": false,
+      "editInternalName": true,
+      "internalNamePrefix": "cf_",
+      "showDefaultTag": true,
+      "defaultTagKey": "custom",
+      "defaultTagLabel": "nonCustomDefaultFieldTag",
+      "freePlanFieldAddDisabledHeader": "freePlanFieldAddDisabledHeader",
+      "freePlanFieldAddDisabledMessage": "freePlanFieldAddDisabledMessage",
+      "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton"
+    },
+    "labels": {
+      "headerProduct": "headerProductConvProps",
+      "subHeaderProduct": "subHeaderProductConvProps",
+      "dragDropFieldTypes": "fieldTypesDragDropConvProps",
+      "fieldTypesHeader": "",
+      "fieldsHeader": "headerFields"
+    },
+    "maximumLimits": {
+      "widgets": { "count": 0, "message": "" },
+      "fields": { "count": 250, "message": "maximumLimits.fields" },
+      "filterable": { "count": 0, "message": "" },
+      "unique": { "count": 0, "message": "" },
+      "NUMBER": { "count": 30, "message": "maximumLimits.fields" },
+      "CHECKBOX": { "count": 30, "message": "maximumLimits.fields" },
+      "DECIMAL": { "count": 10, "message": "maximumLimits.fields" },
+      "MULTI_SELECT": { "count": 250, "message": "maximumLimits.fields" },
+      "DATE": { "count": 30, "message": "maximumLimits.fields" },
+      "TEXT": { "count": 200, "message": "maximumLimits.fields" },
+      "PARAGRAPH": { "count": 50, "message": "maximumLimits.fields" },
+      "DROPDOWN": { "count": 250, "message": "maximumLimits.fields" },
+      "maxLabelChars": {
+        "count": 255,
+        "message": "maximumLimits.maxCharsWarning"
+      },
+      "maxInternalNameChars": {
+        "count": 50,
+        "message": "maximumLimits.maxCharsWarning"
+      },
+      "maxDropdownChoices": {
+        "count": 2000,
+        "message": "maximumLimits.maxChoiceOptionsWarning"
+      }
+    }
+  }
+}

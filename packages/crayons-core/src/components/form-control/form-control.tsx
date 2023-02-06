@@ -7,6 +7,11 @@ import { hasSlot } from '../../utils';
 import { TranslationController } from '../../global/Translation';
 
 const NATIVE_CONTROLS = ['input', 'select', 'textarea'];
+
+/**
+ * @parent form
+ */
+
 @Component({
   tag: 'fw-form-control',
   styleUrl: 'form-control.scss',
@@ -30,6 +35,7 @@ export class FormControl {
     | 'URL'
     | 'TEL'
     | 'TIME'
+    | 'DATE_TIME'
     | 'RELATIONSHIP' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
@@ -58,6 +64,17 @@ export class FormControl {
   touched = false;
   @Prop()
   error = '';
+  /**
+   * Prop to determine whether to render the form-control or not.
+   * Default to true.
+   */
+  @Prop() shouldRender = true;
+  /**
+   * Disable the field from being editable
+   */
+  @Prop()
+  disabled = false;
+
   private slotElement;
   private crayonsControlRef;
 
@@ -83,6 +100,7 @@ export class FormControl {
           placeholder: this.placeholder,
           label: this.label,
           required: this.required,
+          disabled: this.disabled,
           type: type,
           ...this.controlProps?.inputProps(this.name, type),
           state: (this.touched && this.error && 'error') || 'normal',
@@ -108,6 +126,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -135,6 +154,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -154,6 +174,35 @@ export class FormControl {
         }
         break;
 
+      case 'DATE_TIME':
+        {
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            placeholder: this.placeholder,
+            label: this.label,
+            required: this.required,
+            disabled: this.disabled,
+            ...this.controlProps?.inputProps(
+              this.name,
+              this.type?.toLowerCase()
+            ),
+            state: (this.touched && this.error && 'error') || 'normal',
+            ['hint-text']: this.hint,
+            ['error-text']: TranslationController.t(this.error, {
+              field: this.label || this.name,
+            }),
+            showTimePicker: true,
+          };
+          cmp = (
+            <fw-datepicker
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-datepicker>
+          );
+        }
+        break;
+
       case 'CHECKBOX':
         {
           const componentProps = {
@@ -162,6 +211,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: '',
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.checkboxProps(
               this.name,
               this.type?.toLowerCase()
@@ -208,19 +258,26 @@ export class FormControl {
               {...componentProps}
               ref={(el) => (this.crayonsControlRef = el)}
             >
-              {this.choices?.map((ch) => {
-                const val = ch[componentProps.optionValuePath] || ch.value;
-                const label = ch[componentProps.optionLabelPath] || ch.value;
-                return (
-                  <fw-radio
-                    name={this.name}
-                    value={val}
-                    state={this.touched && this.error ? 'error' : 'normal'}
-                  >
-                    {label}
-                  </fw-radio>
-                );
-              })}
+              {this.choices
+                .sort((a, b) => {
+                  const apos = a?.position ?? 0;
+                  const bpos = b?.position ?? 0;
+                  return apos - bpos;
+                })
+                ?.map((ch) => {
+                  const val = ch[componentProps.optionValuePath] || ch.value;
+                  const label = ch[componentProps.optionLabelPath] || ch.value;
+                  return (
+                    <fw-radio
+                      name={this.name}
+                      value={val}
+                      disabled={this.disabled}
+                      state={this.touched && this.error ? 'error' : 'normal'}
+                    >
+                      {label}
+                    </fw-radio>
+                  );
+                })}
             </fw-radio-group>
           );
         }
@@ -234,12 +291,15 @@ export class FormControl {
             this.type?.toLowerCase()
           );
 
+          const fieldOptions = this.fieldProps?.field_options;
+
           let componentProps = {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             multiple: this.type === 'MULTI_SELECT',
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
@@ -251,9 +311,18 @@ export class FormControl {
           componentProps = {
             ...componentProps,
             ...controlProps,
-            options: this.choices,
+            options: this.choices.sort((a, b) => {
+              const apos = a?.position ?? 0;
+              const bpos = b?.position ?? 0;
+              return apos - bpos;
+            }),
           };
-
+          // This is to handle formserv payload which might contain a field_options object, which has parameters, option_value_path and option_label_path,
+          // that denotes which property of choices object(form schema) needs to be displayed as label and which should be stored in the backend as value
+          if (fieldOptions?.option_value_path)
+            componentProps['optionValuePath'] = fieldOptions.option_value_path;
+          if (fieldOptions?.option_label_path)
+            componentProps['optionLabelPath'] = fieldOptions.option_label_path;
           cmp = (
             <fw-select
               {...componentProps}
@@ -270,12 +339,15 @@ export class FormControl {
             this.type?.toLowerCase()
           );
 
+          const fieldOptions = this.fieldProps?.field_options;
+
           const componentProps = {
             ...this.fieldProps,
             name: this.name,
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
             ['error-text']: TranslationController.t(this.error, {
@@ -301,6 +373,11 @@ export class FormControl {
           componentProps.noDataText =
             TranslationController.t('search.startTyping');
 
+          if (fieldOptions?.option_value_path)
+            componentProps['optionValuePath'] = fieldOptions.option_value_path;
+          if (fieldOptions?.option_label_path)
+            componentProps['optionLabelPath'] = fieldOptions.option_label_path;
+
           cmp = (
             <fw-select
               {...componentProps}
@@ -318,6 +395,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -365,33 +443,35 @@ export class FormControl {
 
   render(): JSX.Element {
     return (
-      <div class='form-control-container'>
-        {this.renderControl()}
-        {this.hasSlot && (
-          <label
-            htmlFor={this.name}
-            class={{
-              label: true,
-              required: this.required,
-            }}
-          >
-            {this.label}
-          </label>
-        )}
-        <slot onSlotchange={() => this.handleSlotChange()}></slot>
-        {this.hasSlot && !(this.touched && this.error) && (
-          <div class='hint' id={`hint-${this.name}`}>
-            {this.hint}
-          </div>
-        )}
-        {this.hasSlot && this.touched && this.error && (
-          <div class='error' id={`error-${this.name}`}>
-            {TranslationController.t(this.error, {
-              field: this.label || this.name,
-            })}
-          </div>
-        )}
-      </div>
+      this.shouldRender && (
+        <div class='form-control-container'>
+          {this.renderControl()}
+          {this.hasSlot && (
+            <label
+              htmlFor={this.name}
+              class={{
+                label: true,
+                required: this.required,
+              }}
+            >
+              {this.label}
+            </label>
+          )}
+          <slot onSlotchange={() => this.handleSlotChange()}></slot>
+          {this.hasSlot && !(this.touched && this.error) && (
+            <div class='hint' id={`hint-${this.name}`}>
+              {this.hint}
+            </div>
+          )}
+          {this.hasSlot && this.touched && this.error && (
+            <div class='error' id={`error-${this.name}`}>
+              {TranslationController.t(this.error, {
+                field: this.label || this.name,
+              })}
+            </div>
+          )}
+        </div>
+      )
     );
   }
 }

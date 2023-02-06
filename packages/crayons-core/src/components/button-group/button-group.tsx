@@ -1,5 +1,9 @@
 import { Component, Host, h, Element, Prop } from '@stencil/core';
 
+/**
+ * @parent button
+ */
+
 @Component({
   tag: 'fw-button-group',
   styleUrl: 'button-group.scss',
@@ -12,6 +16,7 @@ export class ButtonGroup {
   componentDidLoad() {
     this.handleSlotChange();
   }
+
   handleSlotChange() {
     if (!this.host) return;
     const slottedElements = this.host.querySelectorAll('fw-button');
@@ -28,10 +33,11 @@ export class ButtonGroup {
       );
     });
   }
+
   render() {
     return (
       <Host aria-label={this.label}>
-        <slot onSlotchange={this.handleSlotChange}></slot>
+        <slot onSlotchange={() => this.handleSlotChange()}></slot>
       </Host>
     );
   }
