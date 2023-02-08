@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.1.0...@freshworks/crayons-icon@4.1.1-beta.0) (2023-02-08)
+
+
+### Bug Fixes
+
+* settings icon fill to currentColor ([#792](https://github.com/freshworks/crayons/issues/792)) ([7444593](https://github.com/freshworks/crayons/commit/744459370c77365188170c8ec6fc820b45affbbc))
+
+
+
+
+
 ## [4.1.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.0.1-beta.0...@freshworks/crayons-icon@4.1.0-beta.0) (2023-02-06)
 
 ### Features
