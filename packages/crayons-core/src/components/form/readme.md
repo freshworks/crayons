@@ -1958,7 +1958,7 @@ Set `FORMSERV` to `mapperType` prop to use `FORMSERV` schema instead of default 
   // do any customisation on the field schema to match the props of crayons components.
   var fieldsFs = formServSchema.fields.map((field) => {
     // select expects `text` and `value` prop
-    if (field.type === 'DROPDOWN' || field.type === 'MULTI_SELECT') {
+    if (field.type === 2 || field.type === 18) {
       return {
         ...field,
         choices: field.choices?.map((f) => {
