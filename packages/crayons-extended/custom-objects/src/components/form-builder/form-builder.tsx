@@ -200,10 +200,10 @@ export class FormBuilder {
   }
 
   /**
-   * Method to re render the drag container's children
+   * Method to force render the drag container's children containing all the added fields
    */
   @Method()
-  async renderFields(): Promise<void> {
+  async forceRenderFields(): Promise<void> {
     this.fieldRerenderCount++;
   }
 

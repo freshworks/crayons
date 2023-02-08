@@ -304,6 +304,10 @@ export namespace Components {
          */
         "expandedFieldIndex": number;
         /**
+          * Method to force render the drag container's children containing all the added fields
+         */
+        "forceRenderFields": () => Promise<void>;
+        /**
           * variable to store form values
          */
         "formValues": any;
@@ -332,10 +336,6 @@ export namespace Components {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName": 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
-        /**
-          * Method to re render the drag container's children
-         */
-        "renderFields": () => Promise<void>;
         /**
           * Show explore plans button and disable features for free-plan users
          */
