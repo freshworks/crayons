@@ -716,6 +716,15 @@
         fb.loading = false;
       });
 
+      function deepCloneObject(objSource) {
+        try {
+          return JSON.parse(JSON.stringify(objSource));
+        } catch (error) {
+          console.log('error deep cloning object - ' + error);
+          return {};
+        }
+      }
+
       fb.addEventListener('fwRepositionField', (event) => {
         var objDetail = event.detail;
         var intSourceIndex = objDetail.sourceIndex;
@@ -723,7 +732,7 @@
         if (intSourceIndex === intTargetIndex) {
           return;
         }
-
+        var objPrePositionSource = deepCloneObject(getFormValues());
         try {
           var objFormValues = getFormValues();
           var arrFields = objFormValues.fields;
@@ -734,6 +743,10 @@
           objFormValues = { ...objFormValues, fields: arrFields };
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
+
+          // Set the below 2 lines for resetting the position
+          // fb.formValues = objPrePositionSource;
+          // fb.renderFields();
         } catch (error) {
           console.error('Error in repositioning field ' + error);
         }

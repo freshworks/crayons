@@ -397,3 +397,13 @@
     }
   }
 }
+
+.fw-field-editor-delete-modal-content {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-block-start: 4px;
+}
