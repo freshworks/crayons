@@ -907,7 +907,7 @@ export class FieldEditor {
     );
   }
 
-  private renderDropdown() {
+  private renderDropdown(boolDisableDropdowns) {
     const objFormValue = this.fieldBuilderOptions;
 
     return (
@@ -916,6 +916,7 @@ export class FieldEditor {
         dataProvider={objFormValue.choices}
         productName={this.productName}
         showErrors={this.showErrors}
+        disabled={boolDisableDropdowns}
         onFwChange={this.dropdownChangeHandler}
       ></fw-fb-field-dropdown>
     );
@@ -936,7 +937,11 @@ export class FieldEditor {
     );
   }
 
-  private renderInternalName(objProductConfig, objMaxLimits) {
+  private renderInternalName(
+    objProductConfig,
+    objMaxLimits,
+    isDefaultNonCustomField
+  ) {
     const boolSupportInternalName = objProductConfig.editInternalName;
     if (!boolSupportInternalName || !this.expanded) {
       return null;
@@ -976,9 +981,11 @@ export class FieldEditor {
           {i18nText('internalName')}
         </label>
         <div class={`${strBaseClassName}-internal-name-container`}>
-          <label class={`${strBaseClassName}-internal-name-prefix`}>
-            {this.internalNamePrefix}
-          </label>
+          {!isDefaultNonCustomField && (
+            <label class={`${strBaseClassName}-internal-name-prefix`}>
+              {this.internalNamePrefix}
+            </label>
+          )}
           <fw-input
             ref={(el) =>
               (this.dictInteractiveElements[this.KEY_INTERNAL_NAME] = el)
@@ -1006,7 +1013,7 @@ export class FieldEditor {
     );
   }
 
-  private renderContent(objProductConfig) {
+  private renderContent(objProductConfig, isDefaultNonCustomField) {
     if (!this.expanded) {
       return null;
     }
@@ -1017,6 +1024,8 @@ export class FieldEditor {
     const strInputLabel = hasCustomProperty(objFieldBuilder, 'label')
       ? objFieldBuilder.label
       : '';
+    const boolDIsableInputLabel = isDefaultNonCustomField;
+    const boolDisableDropdowns = isDefaultNonCustomField;
 
     const arrCheckboxes = hasCustomProperty(objFieldBuilder, 'checkboxes')
       ? objFieldBuilder.checkboxes
@@ -1034,7 +1043,9 @@ export class FieldEditor {
       strFieldType === 'DROPDOWN' || strFieldType === 'MULTI_SELECT'
         ? true
         : false;
-    const elementDropdown = isDropdownType ? this.renderDropdown() : null;
+    const elementDropdown = isDropdownType
+      ? this.renderDropdown(boolDisableDropdowns)
+      : null;
 
     const isLookupType = strFieldType === 'RELATIONSHIP';
     const elementRelationship = isLookupType ? this.renderLookup() : null;
@@ -1089,11 +1100,16 @@ export class FieldEditor {
               ? 'warning'
               : 'normal'
           }
+          disabled={boolDIsableInputLabel}
           onFwBlur={this.labelBlurHandler}
           onFwInput={this.labelInputHandler}
         ></fw-input>
         {boolSupportInternalName &&
-          this.renderInternalName(objProductConfig, objMaxLimits)}
+          this.renderInternalName(
+            objProductConfig,
+            objMaxLimits,
+            isDefaultNonCustomField
+          )}
         {isDropdownType && (
           <div class={`${strBaseClassName}-content-dropdown`}>
             {elementDropdown}
@@ -1109,6 +1125,7 @@ export class FieldEditor {
     }
 
     const objProductPreset = formMapper[this.productName];
+    const objProductLabels = objProductPreset.labels;
     const objProductConfig = objProductPreset.config;
 
     const objFieldBuilder = this.fieldBuilderOptions;
@@ -1133,6 +1150,21 @@ export class FieldEditor {
       hasCustomProperty(objFormValue, objProductConfig.defaultTagKey) &&
       !objFormValue[objProductConfig.defaultTagKey];
 
+    const boolShowDeleteModalInlineMsg =
+      objProductConfig?.showDeleteModalInlineMessage;
+    const strDeleteModalTitleText =
+      objProductConfig?.showFieldLabelInDeleteModalTitle
+        ? i18nText(objProductLabels.deleteFieldModalHeader, {
+            label: objFormValue?.label,
+          })
+        : i18nText(objProductLabels.deleteFieldModalHeader);
+    const strDeleteModalMessage = i18nText(
+      objProductLabels.deleteFieldModalMessage
+    );
+    const strDeleteModalInlineMessage = boolShowDeleteModalInlineMsg
+      ? i18nText('deleteFieldInlineMessage')
+      : '';
+
     let strHeaderLabel = '';
     if (boolNewField) {
       const dbFieldTypeData = objProductPreset?.fieldProps[strFieldType];
@@ -1155,9 +1187,6 @@ export class FieldEditor {
       !this.isPrimaryField || (this.isPrimaryField && !boolNewField)
         ? true
         : false;
-    const strDeleteModalTitleText = i18nText('deleteFieldTitle', {
-      label: objFormValue?.label,
-    });
     const strSaveBtnLabel = boolNewField
       ? i18nText('addFieldBtn')
       : i18nText('saveFieldBtn');
@@ -1289,11 +1318,11 @@ export class FieldEditor {
                   <fw-icon name='delete'></fw-icon>
                 </fw-button>
               )}
-            {!this.expanded && isDefaultNonCustomField && (
+            {/* {!this.expanded && isDefaultNonCustomField && (
               <span class={`${strBaseClassName}-lock-container`}>
                 <fw-icon name='lock'></fw-icon>
               </span>
-            )}
+            )} */}
             {!this.expanded && !this.isPrimaryField && this.isDeleting && (
               <fw-spinner
                 class={`${strBaseClassName}-deleting-state`}
@@ -1305,7 +1334,7 @@ export class FieldEditor {
           {this.expanded && (
             <div class={`${strBaseClassName}-body`}>
               <div class={`${strBaseClassName}-content`}>
-                {this.renderContent(objProductConfig)}
+                {this.renderContent(objProductConfig, isDefaultNonCustomField)}
               </div>
               <div class={strFooterClassName}>
                 {boolShowFieldValidationError && (
@@ -1351,7 +1380,14 @@ export class FieldEditor {
           submitText={i18nText('deleteFieldSubmit')}
           onFwSubmit={this.confirmDeleteFieldHandler}
         >
-          {i18nText('deleteFieldMessage')}
+          <span class={'fw-field-editor-delete-modal-content'}>
+            {boolShowDeleteModalInlineMsg && (
+              <fw-inline-message open type='warning'>
+                {strDeleteModalInlineMessage}
+              </fw-inline-message>
+            )}
+            {strDeleteModalMessage}
+          </span>
         </fw-modal>
       </Host>
     );

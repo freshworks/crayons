@@ -10,6 +10,7 @@ import {
   Fragment,
   State,
   Watch,
+  Method,
 } from '@stencil/core';
 import {
   deepCloneObject,
@@ -48,6 +49,22 @@ export class FormBuilder {
   @Prop() productName: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES' =
     'CUSTOM_OBJECTS';
   /**
+   * Show explore plans button and disable features for free-plan users
+   */
+  @Prop() role: 'trial' | 'admin' = 'admin';
+  /**
+   * Permission object to restrict features based on permissions
+   * "view" needs to be set to true for the rest of the permissions to be applicable
+   * By default, all the permissions are set to true to give access to all the features
+   * Example permission object : { view: true, create: true, edit: true, delete: true }
+   */
+  @Prop() permission: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  } = { view: true, create: true, edit: true, delete: true };
+  /**
    * Prop to store the expanded field index
    */
   @Prop({ mutable: true }) expandedFieldIndex = -1;
@@ -71,10 +88,6 @@ export class FormBuilder {
    * flag to notify if an api call to save the widget is completed
    */
   @Prop({ mutable: true }) isSavingCustomizeWidget = false;
-  /**
-   * Show explore plans and disable features for user having free-plan
-   */
-  @Prop() userPlan: 'trial' | 'admin' = 'admin';
   /**
    * svg image to be shown for empty record
    */
@@ -124,6 +137,10 @@ export class FormBuilder {
    */
   @State() selectedFieldTypeFilterOption = this.FILTER_ALL_FIELDS;
   /**
+   * State to re-render the drag container children after re render
+   */
+  @State() fieldRerenderCount = 0;
+  /**
    * Triggered on Add/Save field button click from the field list items
    */
   @Event() fwSaveField!: EventEmitter;
@@ -169,10 +186,51 @@ export class FormBuilder {
   }
 
   @Watch('formValues')
-  watchFormValuesChangeHandler(): void {
+  watchFormValuesChangeHandler(newValue: any): void {
+    this.validateFormValues(newValue);
+  }
+
+  @Watch('productName')
+  watchProductNameChangeHandler(): void {
+    this.validateFormValues();
+  }
+
+  /**
+   * Method to re render the drag container's children
+   */
+  @Method()
+  async renderFields(): Promise<void> {
+    this.fieldRerenderCount++;
+  }
+
+  componentWillLoad(): void {
+    this.initializeSearchDebounce();
+    this.validateFormValues();
+    this.supportedFieldTypes = [
+      'TEXT',
+      'EMAIL',
+      'CHECKBOX',
+      'PARAGRAPH',
+      'NUMBER',
+      'DECIMAL',
+      'DATE',
+      'DROPDOWN',
+      'RELATIONSHIP',
+      'MULTI_SELECT',
+    ];
+  }
+
+  disconnectedCallback(): void {
+    this.debouncedHandleInput = null;
+    this.removeResizeObserver();
+  }
+
+  private validateFormValues(objFormValue = null) {
     this.fieldTypesCount = null;
     const objMaxLimitCount = { filterable: 0, unique: 0 };
-    this.localFormValues = this.formValues
+    this.localFormValues = objFormValue
+      ? deepCloneObject(objFormValue)
+      : this.formValues
       ? deepCloneObject(this.formValues)
       : null;
 
@@ -239,33 +297,6 @@ export class FormBuilder {
         this.fieldTypesCount = null;
       }
     }
-  }
-
-  @Watch('productName')
-  watchProductNameChangeHandler(): void {
-    this.watchFormValuesChangeHandler();
-  }
-
-  componentWillLoad(): void {
-    this.initializeSearchDebounce();
-    this.watchFormValuesChangeHandler();
-    this.supportedFieldTypes = [
-      'TEXT',
-      'EMAIL',
-      'CHECKBOX',
-      'PARAGRAPH',
-      'NUMBER',
-      'DECIMAL',
-      'DATE',
-      'DROPDOWN',
-      'RELATIONSHIP',
-      'MULTI_SELECT',
-    ];
-  }
-
-  disconnectedCallback(): void {
-    this.debouncedHandleInput = null;
-    this.removeResizeObserver();
   }
 
   private getInterpolatedMaxLimitLabel = (strProperty) => {
@@ -629,6 +660,20 @@ export class FormBuilder {
     )
       ? objLabelsDb.subHeaderProduct
       : '';
+
+    const objSubHeaderLink = hasCustomProperty(
+      objLabelsDb,
+      'subHeaderProductLink'
+    )
+      ? objLabelsDb.subHeaderProductLink
+      : null;
+    const strSubHeaderLinkLabel = objSubHeaderLink
+      ? i18nText(objSubHeaderLink.label)
+      : '';
+    const strSubHeaderLinkHref = objSubHeaderLink ? objSubHeaderLink.href : '';
+    const boolShowSubHeaderLink =
+      strSubHeaderLinkLabel && strSubHeaderLinkLabel !== '' ? true : false;
+
     const strFieldTypesHeader = hasCustomProperty(
       objLabelsDb,
       'fieldTypesHeader'
@@ -653,9 +698,24 @@ export class FormBuilder {
           </label>
         )}
         {strProductSubHeader && strProductSubHeader !== '' && (
-          <label class={`${strBaseClassName}-left-panel-header-desc`}>
-            {i18nText(strProductSubHeader)}
-          </label>
+          <span class={'form-builder-left-panel-sub-header-description'}>
+            <label
+              class={'form-builder-left-panel-sub-header-description-label'}
+            >
+              {i18nText(strProductSubHeader)}
+            </label>
+            {boolShowSubHeaderLink && (
+              <a
+                class={
+                  'form-builder-left-panel-sub-header-description-link-anchor'
+                }
+                href={strSubHeaderLinkHref}
+                target='_blank'
+              >
+                {strSubHeaderLinkLabel}
+              </a>
+            )}
+          </span>
         )}
         {boolFieldsHeaderPresent && (
           <label class={`${strBaseClassName}-left-panel-header-label`}>
@@ -810,11 +870,12 @@ export class FormBuilder {
     );
     const boolItemExpanded =
       this.expandedFieldIndex === intIndex ? true : false;
+    const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
       <fw-field-editor
         index={intIndex}
-        key={dataItem.id}
+        key={strKey}
         productName={this.productName}
         dataProvider={dataItem}
         entityName={strEntityName}
@@ -986,7 +1047,7 @@ export class FormBuilder {
               >
                 {fieldTypeElements}
               </fw-drag-container>
-              {this.userPlan === 'trial' && (
+              {this.role === 'trial' && (
                 <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
                   <fw-icon name='lock' size='30'></fw-icon>
                   <label
@@ -1070,6 +1131,7 @@ export class FormBuilder {
             >
               {!boolShowEmptySearchResults && (
                 <fw-drag-container
+                  key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
                   class={`${strBaseClassName}-right-panel-field-editor-list`}
                   id='fieldsContainer'
                   acceptFrom='fieldTypesList'

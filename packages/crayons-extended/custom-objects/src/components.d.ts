@@ -51,6 +51,10 @@ export namespace Components {
          */
         "dataProvider": any;
         /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled": boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
@@ -69,6 +73,10 @@ export namespace Components {
           * variable to store the data source
          */
         "dataProvider": any;
+        /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled": boolean;
         /**
           * index attached inside the parent group component
          */
@@ -312,13 +320,26 @@ export namespace Components {
          */
         "lookupTargetObjects": any;
         /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission": {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName": 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
         /**
-          * Show explore plans and disable features for user having free-plan
+          * Method to re render the drag container's children
          */
-        "userPlan": 'trial' | 'admin';
+        "renderFields": () => Promise<void>;
+        /**
+          * Show explore plans button and disable features for free-plan users
+         */
+        "role": 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**
@@ -720,6 +741,10 @@ declare namespace LocalJSX {
          */
         "dataProvider"?: any;
         /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled"?: boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
@@ -741,6 +766,10 @@ declare namespace LocalJSX {
           * variable to store the data source
          */
         "dataProvider"?: any;
+        /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled"?: boolean;
         /**
           * index attached inside the parent group component
          */
@@ -1052,13 +1081,22 @@ declare namespace LocalJSX {
          */
         "onFwSearchField"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission"?: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName"?: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
         /**
-          * Show explore plans and disable features for user having free-plan
+          * Show explore plans button and disable features for free-plan users
          */
-        "userPlan"?: 'trial' | 'admin';
+        "role"?: 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**
