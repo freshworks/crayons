@@ -13,7 +13,7 @@ describe('fw-form', () => {
           type: 'TEXT',
           position: 1,
           required: true,
-          editable: true,
+          editable: false,
           visible: true,
           deleted: false,
           link: null,
@@ -811,5 +811,168 @@ describe('fw-form', () => {
     expect(
       element.shadowRoot.querySelectorAll('fw-form-control').length
     ).toEqual(0);
+  });
+
+  it('should update the dropdown with the new choices in the form on calling setFieldChoices method', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          first_name: 'Test',
+          is_indian_citizen: true,
+          gender: 'Male',
+          pincode: 123345,
+          amount_paid: 10,
+        };
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const newChoices = [
+      {
+        id: 1,
+        text: 'idle',
+        position: 1,
+        dependent_ids: {},
+      },
+      {
+        id: 2,
+        text: 'in progress',
+        position: 2,
+        dependent_ids: {},
+      },
+      {
+        id: 3,
+        text: 'failure',
+        position: 3,
+        dependent_ids: {},
+      },
+
+      {
+        id: 4,
+        text: 'closed',
+        position: 4,
+        dependent_ids: {},
+      },
+    ];
+
+    const formRef = await page.find('fw-form');
+
+    await formRef.callMethod('setFieldChoices', 'order_status', newChoices);
+
+    const formElemShadow = await page.find('fw-form >>> :first-child');
+    // const formElemShadow = await document.querySelector('fw-form').shadowRoot;
+
+    const formControlShadow = await formElemShadow.find(
+      "fw-form-control[name='order_status'] >>> :first-child"
+    );
+
+    // const formControlShadow = await formElemShadow.querySelector(
+    //   "fw-form-control[name='order_status']"
+    // ).shadowRoot;
+
+    const popover = await formControlShadow.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    await page.waitForChanges();
+
+    await expect(options.length).toBe(4);
+
+    await expect(options[0].shadowRoot.textContent).toEqual('idle');
+    await expect(options[1].shadowRoot.textContent).toEqual('in progress');
+    await expect(options[2].shadowRoot.textContent).toEqual('failure');
+    await expect(options[3].shadowRoot.textContent).toEqual('closed');
+  });
+
+  it('Should filter form fields on calling setFieldSearchText method on the form', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          pincode: 123345,
+          amount_paid: 10,
+        };
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form');
+
+    await element.callMethod('setFieldSearchText', 'Pin');
+
+    await page.waitForChanges();
+    expect(
+      element.shadowRoot.querySelectorAll('fw-form-control').length
+    ).toEqual(1);
+  });
+
+  it('Should render all the form fields on calling setFieldSearchText method on the form with a empty string or null/undefined', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+        elm.initialValues = {
+          pincode: 123345,
+          amount_paid: 10,
+        };
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form');
+
+    await element.callMethod('setFieldSearchText', '');
+
+    await page.waitForChanges();
+    expect(
+      element.shadowRoot.querySelectorAll('fw-form-control').length
+    ).toEqual(6);
+  });
+
+  it('should disabled the fields for which the editable property is set to false in form schema', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const formElemShadow = await page.find('fw-form >>> :first-child');
+    const formControlShadow = await formElemShadow.find(
+      "fw-form-control[name='first_name'] >>> :first-child"
+    );
+
+    const input = await formControlShadow.find('fw-input');
+    const isDisabled = await input.getProperty('disabled');
+
+    await expect(isDisabled).toEqual(true);
   });
 });

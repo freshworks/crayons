@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
 import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
+import { InitialUploaderFile, UploaderFile } from "./components/file-uploader-2/file-uploader2-util";
 import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
@@ -478,6 +479,52 @@ export namespace Components {
          */
         "showDragIcon": boolean;
     }
+    interface FwFile2 {
+        /**
+          * Boolean value to set if the attachment is added in library or not
+         */
+        "addedToLibrary": boolean;
+        /**
+          * To enable library adding related feature
+         */
+        "enableLibraryAdding": boolean;
+        /**
+          * Error message text to display below the attachment
+         */
+        "errorMessage": string;
+        /**
+          * Index order of the attachment file starting from 0
+         */
+        "index": number;
+        /**
+          * Set private mode for different styles
+         */
+        "isPrivateMode": boolean;
+        /**
+          * Name of the attachment file to be displayed (including the file extension)
+         */
+        "label": string;
+        /**
+          * Boolean used to display size as passed or convert them to relatives like KB, MB etc...
+         */
+        "parseSize": boolean;
+        /**
+          * Size of the attachment in bytes
+         */
+        "size": number;
+        /**
+          * State of the attachment for styling
+         */
+        "state": 'normal' | 'loading' | 'error' | 'failed';
+        /**
+          * File type
+         */
+        "type": string | null;
+        /**
+          * Value or id related to the attached file
+         */
+        "value": any;
+    }
     interface FwFileUploader {
         /**
           * accept - comma separated string. tells us what file formats file uploader should accept.
@@ -555,6 +602,116 @@ export namespace Components {
          */
         "uploadFiles": () => Promise<void>;
     }
+    interface FwFileUploader2 {
+        /**
+          * accept - comma separated string. tells us what file formats file uploader should accept.
+         */
+        "accept": string;
+        /**
+          * acceptError - Error message to display when format is invalid.
+         */
+        "acceptError": any;
+        /**
+          * actionParams - additional information to send to server other than the file.
+         */
+        "actionParams": { [prop: string]: any };
+        /**
+          * actionURL - URL to make server call.
+         */
+        "actionURL": string;
+        /**
+          * description - file uploader description.
+         */
+        "description": any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError": any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit": number;
+        /**
+          * get all locally available files in the component
+          * @returns FileList of all locally available files in the component
+         */
+        "getFiles": () => Promise<UploaderFile[]>;
+        "getFilesList": () => Promise<FileList>;
+        /**
+          * Use this prop to show the label on the component.
+         */
+        "hideLabel": boolean;
+        "infoText": string;
+        /**
+          * to load default values in file uploader component.
+         */
+        "initialFiles": InitialUploaderFile[];
+        /**
+          * Upload all files in one single shot
+         */
+        "isBatchUpload": boolean;
+        /**
+          * maxFileSize - maximum file size the file uploader must accept.
+         */
+        "maxFileSize": number;
+        /**
+          * maxFileSizeError - Error message to display when file size exceeds limit
+         */
+        "maxFileSizeError": any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError": any;
+        /**
+          * modify request
+          * @param xhr
+          * @returns xhr
+         */
+        "modifyRequest": (xhr: XMLHttpRequest) => XMLHttpRequest;
+        /**
+          * multiple - upload multiple files.
+         */
+        "multiple": boolean;
+        /**
+          * name - field name
+         */
+        "name": string;
+        /**
+          * field acts as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * reset file uploader
+         */
+        "reset": () => Promise<void>;
+        /**
+          * restrict the width of the attachment in the file uploader
+         */
+        "restrictAttachmentBlock": boolean;
+        "setFocus": () => Promise<void>;
+        /**
+          * Use a simple interface for the single file mode.
+         */
+        "simpleInterfaceForSingleMode": boolean;
+        /**
+          * text - file uploader text.
+         */
+        "text": any;
+        /**
+          * Max total size allowed for upload
+         */
+        "totalFileSizeAllowed": number;
+        /**
+          * totalFileSizeAllowedError - Total file size (combination of all files) allowed for upload.
+         */
+        "totalFileSizeAllowedError": any;
+        /**
+          * uploadFile
+          * @param fileId
+          * @returns fileUploadPromise
+         */
+        "uploadFiles": () => Promise<void>;
+    }
     interface FwFileUploaderFile {
         /**
           * file Id
@@ -618,10 +775,19 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }]. fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path. option_label_path refers to the key used for displaying the text. option_value_path refers to the key which corresponds to the value of item.
+         */
+        "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
+        /**
           * Method to set errors on the form fields.
           * @param errorObj - key value pair of [fieldName]: ErrorMessage
          */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
+        /**
+          * Method to filter the display of fields in the form based on the passed text.
+          * @param text
+         */
+        "setFieldSearchText": (text: string) => Promise<void>;
         /**
           * Method to set value on the form field.
           * @param field - name of the form field
@@ -656,6 +822,10 @@ export namespace Components {
           * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
+        /**
+          * Disable the field from being editable
+         */
+        "disabled": boolean;
         "error": string;
         /**
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
@@ -1668,7 +1838,7 @@ export namespace Components {
         /**
           * Size of the loader.
          */
-        "size": 'small' | 'medium' | 'large' | 'default';
+        "size": 'micro' | 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
@@ -2156,9 +2326,17 @@ export interface FwDragContainerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwDragContainerElement;
 }
+export interface FwFile2CustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFile2Element;
+}
 export interface FwFileUploaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwFileUploaderElement;
+}
+export interface FwFileUploader2CustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFileUploader2Element;
 }
 export interface FwFileUploaderFileCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2341,11 +2519,23 @@ declare global {
         prototype: HTMLFwDragItemElement;
         new (): HTMLFwDragItemElement;
     };
+    interface HTMLFwFile2Element extends Components.FwFile2, HTMLStencilElement {
+    }
+    var HTMLFwFile2Element: {
+        prototype: HTMLFwFile2Element;
+        new (): HTMLFwFile2Element;
+    };
     interface HTMLFwFileUploaderElement extends Components.FwFileUploader, HTMLStencilElement {
     }
     var HTMLFwFileUploaderElement: {
         prototype: HTMLFwFileUploaderElement;
         new (): HTMLFwFileUploaderElement;
+    };
+    interface HTMLFwFileUploader2Element extends Components.FwFileUploader2, HTMLStencilElement {
+    }
+    var HTMLFwFileUploader2Element: {
+        prototype: HTMLFwFileUploader2Element;
+        new (): HTMLFwFileUploader2Element;
     };
     interface HTMLFwFileUploaderFileElement extends Components.FwFileUploaderFile, HTMLStencilElement {
     }
@@ -2598,7 +2788,9 @@ declare global {
         "fw-datepicker": HTMLFwDatepickerElement;
         "fw-drag-container": HTMLFwDragContainerElement;
         "fw-drag-item": HTMLFwDragItemElement;
+        "fw-file-2": HTMLFwFile2Element;
         "fw-file-uploader": HTMLFwFileUploaderElement;
+        "fw-file-uploader-2": HTMLFwFileUploader2Element;
         "fw-file-uploader-file": HTMLFwFileUploaderFileElement;
         "fw-file-uploader-progress": HTMLFwFileUploaderProgressElement;
         "fw-form": HTMLFwFormElement;
@@ -3106,6 +3298,64 @@ declare namespace LocalJSX {
          */
         "showDragIcon"?: boolean;
     }
+    interface FwFile2 {
+        /**
+          * Boolean value to set if the attachment is added in library or not
+         */
+        "addedToLibrary"?: boolean;
+        /**
+          * To enable library adding related feature
+         */
+        "enableLibraryAdding"?: boolean;
+        /**
+          * Error message text to display below the attachment
+         */
+        "errorMessage"?: string;
+        /**
+          * Index order of the attachment file starting from 0
+         */
+        "index"?: number;
+        /**
+          * Set private mode for different styles
+         */
+        "isPrivateMode"?: boolean;
+        /**
+          * Name of the attachment file to be displayed (including the file extension)
+         */
+        "label"?: string;
+        /**
+          * Event triggered to delete the attachment file
+         */
+        "onFwDelete"?: (event: FwFile2CustomEvent<any>) => void;
+        /**
+          * Event triggered to add / remove file from the library
+         */
+        "onFwModifyLibrary"?: (event: FwFile2CustomEvent<any>) => void;
+        /**
+          * Event triggered to reupload
+         */
+        "onFwReupload"?: (event: FwFile2CustomEvent<any>) => void;
+        /**
+          * Boolean used to display size as passed or convert them to relatives like KB, MB etc...
+         */
+        "parseSize"?: boolean;
+        /**
+          * Size of the attachment in bytes
+         */
+        "size"?: number;
+        /**
+          * State of the attachment for styling
+         */
+        "state"?: 'normal' | 'loading' | 'error' | 'failed';
+        /**
+          * File type
+         */
+        "type"?: string | null;
+        /**
+          * Value or id related to the attached file
+         */
+        "value"?: any;
+    }
     interface FwFileUploader {
         /**
           * accept - comma separated string. tells us what file formats file uploader should accept.
@@ -3182,6 +3432,115 @@ declare namespace LocalJSX {
          */
         "text"?: any;
     }
+    interface FwFileUploader2 {
+        /**
+          * accept - comma separated string. tells us what file formats file uploader should accept.
+         */
+        "accept"?: string;
+        /**
+          * acceptError - Error message to display when format is invalid.
+         */
+        "acceptError"?: any;
+        /**
+          * actionParams - additional information to send to server other than the file.
+         */
+        "actionParams"?: { [prop: string]: any };
+        /**
+          * actionURL - URL to make server call.
+         */
+        "actionURL"?: string;
+        /**
+          * description - file uploader description.
+         */
+        "description"?: any;
+        /**
+          * fileUploadError - Error message when a file upload fails.
+         */
+        "fileUploadError"?: any;
+        /**
+          * Max files allowed to upload.
+         */
+        "filesLimit"?: number;
+        /**
+          * Use this prop to show the label on the component.
+         */
+        "hideLabel"?: boolean;
+        "infoText"?: string;
+        /**
+          * to load default values in file uploader component.
+         */
+        "initialFiles"?: InitialUploaderFile[];
+        /**
+          * Upload all files in one single shot
+         */
+        "isBatchUpload"?: boolean;
+        /**
+          * maxFileSize - maximum file size the file uploader must accept.
+         */
+        "maxFileSize"?: number;
+        /**
+          * maxFileSizeError - Error message to display when file size exceeds limit
+         */
+        "maxFileSizeError"?: any;
+        /**
+          * maxFilesLimitError - Error message when going beyond files limit.
+         */
+        "maxFilesLimitError"?: any;
+        /**
+          * modify request
+          * @param xhr
+          * @returns xhr
+         */
+        "modifyRequest"?: (xhr: XMLHttpRequest) => XMLHttpRequest;
+        /**
+          * multiple - upload multiple files.
+         */
+        "multiple"?: boolean;
+        /**
+          * name - field name
+         */
+        "name"?: string;
+        /**
+          * Event that triggers when uploading is in progress, completed or failed.
+         */
+        "onFwChange"?: (event: FwFileUploader2CustomEvent<any>) => void;
+        /**
+          * Triggered during a file reupload.
+         */
+        "onFwFileReuploaded"?: (event: FwFileUploader2CustomEvent<any>) => void;
+        /**
+          * Triggered during batch upload, when all files are uploaded.
+         */
+        "onFwFilesUploaded"?: (event: FwFileUploader2CustomEvent<any>) => void;
+        /**
+          * Event that triggers when removing a file from the file uploader.
+         */
+        "onFwRemove"?: (event: FwFileUploader2CustomEvent<any>) => void;
+        /**
+          * field acts as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * restrict the width of the attachment in the file uploader
+         */
+        "restrictAttachmentBlock"?: boolean;
+        /**
+          * Use a simple interface for the single file mode.
+         */
+        "simpleInterfaceForSingleMode"?: boolean;
+        /**
+          * text - file uploader text.
+         */
+        "text"?: any;
+        /**
+          * Max total size allowed for upload
+         */
+        "totalFileSizeAllowed"?: number;
+        /**
+          * totalFileSizeAllowedError - Total file size (combination of all files) allowed for upload.
+         */
+        "totalFileSizeAllowedError"?: any;
+    }
     interface FwFileUploaderFile {
         /**
           * file Id
@@ -3240,6 +3599,10 @@ declare namespace LocalJSX {
          */
         "mapperType"?: 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * fwFormValueChanged - event that gets emitted when value in a form field changes.
+         */
+        "onFwFormValueChanged"?: (event: FwFormCustomEvent<any>) => void;
+        /**
           * fwFormValuesChanged - event that gets emitted when values change.
          */
         "onFwFormValuesChanged"?: (event: FwFormCustomEvent<any>) => void;
@@ -3270,6 +3633,10 @@ declare namespace LocalJSX {
           * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
+        /**
+          * Disable the field from being editable
+         */
+        "disabled"?: boolean;
         "error"?: string;
         /**
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
@@ -4322,7 +4689,7 @@ declare namespace LocalJSX {
         /**
           * Size of the loader.
          */
-        "size"?: 'small' | 'medium' | 'large' | 'default';
+        "size"?: 'micro' | 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
@@ -4821,7 +5188,9 @@ declare namespace LocalJSX {
         "fw-datepicker": FwDatepicker;
         "fw-drag-container": FwDragContainer;
         "fw-drag-item": FwDragItem;
+        "fw-file-2": FwFile2;
         "fw-file-uploader": FwFileUploader;
+        "fw-file-uploader-2": FwFileUploader2;
         "fw-file-uploader-file": FwFileUploaderFile;
         "fw-file-uploader-progress": FwFileUploaderProgress;
         "fw-form": FwForm;
@@ -4883,7 +5252,9 @@ declare module "@stencil/core" {
             "fw-datepicker": LocalJSX.FwDatepicker & JSXBase.HTMLAttributes<HTMLFwDatepickerElement>;
             "fw-drag-container": LocalJSX.FwDragContainer & JSXBase.HTMLAttributes<HTMLFwDragContainerElement>;
             "fw-drag-item": LocalJSX.FwDragItem & JSXBase.HTMLAttributes<HTMLFwDragItemElement>;
+            "fw-file-2": LocalJSX.FwFile2 & JSXBase.HTMLAttributes<HTMLFwFile2Element>;
             "fw-file-uploader": LocalJSX.FwFileUploader & JSXBase.HTMLAttributes<HTMLFwFileUploaderElement>;
+            "fw-file-uploader-2": LocalJSX.FwFileUploader2 & JSXBase.HTMLAttributes<HTMLFwFileUploader2Element>;
             "fw-file-uploader-file": LocalJSX.FwFileUploaderFile & JSXBase.HTMLAttributes<HTMLFwFileUploaderFileElement>;
             "fw-file-uploader-progress": LocalJSX.FwFileUploaderProgress & JSXBase.HTMLAttributes<HTMLFwFileUploaderProgressElement>;
             "fw-form": LocalJSX.FwForm & JSXBase.HTMLAttributes<HTMLFwFormElement>;

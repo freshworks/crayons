@@ -340,6 +340,10 @@ export namespace Components {
           * Show explore plans button and disable features for free-plan users
          */
         "role": 'trial' | 'admin';
+        /**
+          * Show explore plans and disable features for user having free-plan
+         */
+        "userPlan": 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**
@@ -1097,6 +1101,10 @@ declare namespace LocalJSX {
           * Show explore plans button and disable features for free-plan users
          */
         "role"?: 'trial' | 'admin';
+        /**
+          * Show explore plans and disable features for user having free-plan
+         */
+        "userPlan"?: 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**

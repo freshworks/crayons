@@ -111,10 +111,17 @@ export class Form {
 
   @State() formSchemaState = this.formSchema;
 
+  @State() fieldSearchText;
+
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
    */
   @Event() fwFormValuesChanged: EventEmitter;
+
+  /**
+   * fwFormValueChanged - event that gets emitted when value in a form field changes.
+   */
+  @Event() fwFormValueChanged: EventEmitter;
 
   private debouncedHandleInput: any;
   private handleInputListener: any;
@@ -328,10 +335,17 @@ export class Form {
     if (!details || !details.name) return;
     const { name, value, meta } = details;
 
+    const val = meta && 'checked' in meta ? meta.checked : value;
+
     this.values = {
       ...this.values,
-      [name]: meta && 'checked' in meta ? meta.checked : value,
+      [name]: val,
     };
+
+    this.fwFormValueChanged.emit({
+      field: name,
+      value: val,
+    });
 
     if (meta && meta.shouldValidate === false) {
       return;
@@ -439,9 +453,27 @@ export class Form {
   private shouldRenderFormControl = (control) => {
     const type = control?.type;
     const isValidType = type !== '' && type !== null && type !== undefined;
-    const shouldRender = isValidType;
+    const shouldRender = isValidType
+      ? this.fieldSearchText
+        ? control.label
+            ?.toLowerCase()
+            ?.includes(this.fieldSearchText.toLowerCase())
+        : true
+      : false;
     return shouldRender;
   };
+
+  /** Return if a field is disabled or not
+   * if `editable` property is set to `false` in the field object of the form schema,
+   * then the field is considered to be disabled.
+   */
+  private isDisabledField(field) {
+    if (!field) return false;
+    const isDisabled =
+      Object.prototype.hasOwnProperty.call(field, 'editable') &&
+      field.editable === false;
+    return isDisabled;
+  }
 
   /**
    * Method to set value on the form field.
@@ -456,7 +488,16 @@ export class Form {
     value: any,
     shouldValidate = true
   ): Promise<void> {
+    // Don't set value if the field is disabled
+    const isDisabledField = this.isDisabledField(this.fields?.[field]);
+    if (isDisabledField) return;
+
     this.values = { ...this.values, [field]: value };
+
+    this.fwFormValueChanged.emit({
+      field,
+      value,
+    });
 
     if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
@@ -476,6 +517,49 @@ export class Form {
       this.touched = { ...this.touched, [field]: true };
     });
     this.setFocusOnError();
+  }
+
+  /**
+   * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema.
+   * choices must be in the form of array with the below format:
+   * [{
+      id: 1,
+      value: 'open',
+      position: 1,
+      dependent_ids: {},
+    }].
+   * fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path.
+   * option_label_path refers to the key used for displaying the text.
+   * option_value_path refers to the key which corresponds to the value of item.
+   */
+  @Method()
+  async setFieldChoices(
+    field: string,
+    choices: Array<any>,
+    fieldOptions?: any
+  ): Promise<void> {
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (f.name === field) {
+            return {
+              ...f,
+              choices,
+              field_options: fieldOptions ?? f.field_options,
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.touched = { ...this.touched, [field]: false };
+    this.values = { ...this.values, [field]: undefined };
+
+    this.fwFormValueChanged.emit({
+      field: field,
+      value: undefined,
+    });
   }
 
   /**
@@ -519,6 +603,19 @@ export class Form {
     this.handleReset(event);
   }
 
+  /**
+   *
+   * Method to filter the display of fields in the form based
+   * on the passed text.
+   *
+   * @param text
+   *
+   */
+  @Method()
+  async setFieldSearchText(text: string) {
+    this.fieldSearchText = text;
+  }
+
   render() {
     const utils: FormUtils = this.composedUtils();
 
@@ -542,6 +639,7 @@ export class Form {
                     choices={field.choices}
                     fieldProps={field}
                     controlProps={utils}
+                    disabled={this.isDisabledField(field)}
                   ></fw-form-control>
                 )
               );

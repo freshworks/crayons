@@ -1,0 +1,313 @@
+:host {
+  width: 100%;
+  min-width: 80px;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.fw-attachment {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  flex-direction: column;
+
+  .fw-attachment-content {
+    width: 100%;
+    height: 32px;
+    box-sizing: border-box;
+    padding: 8px;
+    background-color: $color-smoke-25;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .fw-attachment-content-left-panel {
+      max-width: calc(100% - 16px - 8px);
+      width: auto;
+      height: 100%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+
+      .fw-attachment-content-icon {
+        --fw-icon-size: 18px;
+        margin-inline-end: 6px;
+
+        fw-icon {
+          vertical-align: text-top;
+        }
+      }
+
+      .fw-attachment-content-name {
+        width: auto;
+        margin: 0;
+        pointer-events: none;
+        user-select: none;
+        text-align: start;
+
+        color: $color-elephant-900;
+        font-size: $font-size-12;
+        font-weight: $font-weight-400;
+        line-height: 20px;
+
+        word-break: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .fw-attachment-content-file-extension {
+        display: inline-block;
+        width: auto;
+        margin: 0;
+        pointer-events: none;
+        user-select: none;
+        text-align: start;
+        white-space: nowrap;
+
+        color: $color-elephant-900;
+        font-size: $font-size-12;
+        font-weight: $font-weight-400;
+        line-height: 20px;
+      }
+
+      .fw-attachment-content-size {
+        display: inline-block;
+        width: auto;
+        pointer-events: none;
+        user-select: none;
+        text-align: start;
+        margin: 0;
+        margin-inline-start: 4px;
+        white-space: nowrap;
+
+        color: $color-smoke-700;
+        font-size: $font-size-12;
+        font-weight: $font-weight-400;
+        line-height: 20px;
+        font-style: italic;
+      }
+    }
+
+    .fw-attachment-content-right-panel {
+      position: relative;
+      width: 16px;
+      height: 16px;
+      margin-inline-start: 8px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .fw-attachment-content-spinner {
+        position: absolute;
+        inset-inline-end: -8px;
+        pointer-events: none;
+        line-height: 0;
+        transform: scale(0.6);
+      }
+
+      .fw-attachment-content-add-library-btn {
+        height: 16px;
+        width: 16px;
+        opacity: 0;
+        position: absolute;
+        inset-inline-end: 24px;
+        inset-block-start: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+
+        &:hover,
+        &:focus {
+          cursor: pointer;
+          pointer-events: initial;
+        }
+
+        .fw-attachment-content-add-library-btn-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 12px;
+          height: 12px;
+          #{--fw-icon-color}: $color-milk;
+        }
+      }
+
+      .fw-attachment-content-delete-btn {
+        height: 16px;
+        width: 16px;
+        position: absolute;
+        inset-inline-end: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $color-smoke-300;
+        border-radius: 50%;
+
+        &:hover,
+        &:focus {
+          cursor: pointer;
+          pointer-events: initial;
+        }
+
+        .fw-attachment-content-delete-btn-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 12px;
+          height: 12px;
+          #{--fw-icon-color}: $color-milk;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus {
+      .fw-attachment-content-left-panel {
+        max-width: calc(100% - 16px - 8px - 16px - 8px);
+      }
+
+      .fw-attachment-content-right-panel {
+        width: 40px;
+
+        .fw-attachment-content-add-library-btn {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .fw-attachment-content-error {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding-inline: 8px;
+    padding-block: 4px;
+    display: flex;
+    gap: 8px;
+
+    .fw-attachment-content-error-icon {
+      height: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .fw-attachment-content-error-message {
+      width: auto;
+      margin: 0;
+      pointer-events: none;
+      user-select: none;
+      text-align: start;
+      white-space: nowrap;
+
+      color: $color-persimmon-900;
+      font-size: $font-size-12;
+      font-weight: $font-weight-400;
+      line-height: 20px;
+    }
+
+    .fw-attachment-content-reupload-btn {
+      display: inline-block;
+      width: auto;
+      cursor: pointer;
+      height: 18px;
+      padding: 0;
+
+      border: none;
+      font-weight: $font-weight-500;
+      font-family: inherit;
+      font-size: 12px;
+
+      background-color: transparent;
+      background-image: none;
+      color: $color-azure-800;
+    }
+  }
+
+  &--error-state {
+    .fw-attachment-content {
+      background-color: $color-persimmon-50;
+
+      .fw-attachment-content-left-panel {
+        max-width: calc(100% - 16px - 8px) !important;
+
+        .fw-attachment-content-name {
+          color: $color-persimmon-900;
+        }
+        .fw-attachment-content-file-extension {
+          color: $color-persimmon-900;
+        }
+        .fw-attachment-content-size {
+          color: $color-persimmon-900;
+        }
+      }
+
+      .fw-attachment-content-right-panel {
+        .fw-attachment-content-delete-btn {
+          background-color: $color-persimmon-900;
+        }
+      }
+    }
+  }
+
+  &--failed-state {
+    .fw-attachment-content {
+      background-color: $color-persimmon-50;
+
+      .fw-attachment-content-left-panel {
+        max-width: calc(100% - 16px - 8px) !important;
+
+        .fw-attachment-content-name {
+          color: $color-persimmon-900;
+        }
+        .fw-attachment-content-file-extension {
+          color: $color-persimmon-900;
+        }
+        .fw-attachment-content-size {
+          color: $color-persimmon-900;
+        }
+      }
+
+      .fw-attachment-content-right-panel {
+        .fw-attachment-content-delete-btn {
+          background-color: $color-persimmon-900;
+        }
+      }
+    }
+  }
+
+  &--loading-state {
+    .fw-attachment-content {
+      .fw-attachment-content-left-panel {
+        max-width: calc(100% - 16px - 8px) !important;
+      }
+      .fw-attachment-content-right-panel {
+        .fw-attachment-content-delete-btn {
+          background-color: transparent;
+
+          .fw-attachment-content-delete-btn-icon {
+            #{--fw-icon-color}: $color-azure-800;
+          }
+        }
+      }
+    }
+  }
+
+  &--private-mode {
+    .fw-attachment-content {
+      background-color: rgba($color: $color-casablanca-100, $alpha: 0.5);
+
+      .fw-attachment-content-right-panel {
+        .fw-attachment-content-delete-btn {
+          background-color: $color-casablanca-700;
+          .fw-attachment-content-delete-btn-icon {
+            #{--fw-icon-color}: $color-milk;
+          }
+        }
+      }
+    }
+  }
+}

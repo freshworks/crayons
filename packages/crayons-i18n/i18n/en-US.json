@@ -21,6 +21,23 @@
     "selectedFiles": "Selected files",
     "remove": "Remove"
   },
+  "fileUploader2": {
+    "attachFiles": "Attach files",
+    "text": "<span class='highlight'>Upload file</span> or drag and drop",
+    "description": "or drag and drop here",
+    "acceptError": "File format not supported",
+    "maxFileSizeError": "File size exceeded",
+    "maxFilesLimitError": "File limit exceeded",
+    "totalFileSizeAllowedError": "Total file size limit exceeded",
+    "fileUploadError": "Failed to upload",
+    "uploading": "Uploading",
+    "selectedFiles": "Selected files",
+    "remove": "Remove",
+    "retry": "Retry",
+    "removeFromLibrary": "Remove from library",
+    "saveInLibrary": "Save in library",
+    "uploadDifferentFile": "Upload a different file"
+  },
   "modal": {
     "cancel": "Cancel",
     "ok": "OK"

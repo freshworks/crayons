@@ -89,6 +89,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) isSavingCustomizeWidget = false;
   /**
+   * Show explore plans and disable features for user having free-plan
+   */
+  @Prop() userPlan: 'trial' | 'admin' = 'admin';
+  /**
    * svg image to be shown for empty record
    */
   @Prop() emptySearchImage = null;

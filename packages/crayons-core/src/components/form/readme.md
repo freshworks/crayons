@@ -275,7 +275,7 @@ fields: [ // Each item in this array corresponds to a crayons input component.
     id: '2978f820-704b-46c7-9f88-110e14e34a8c', // ID of the input control
     name: 'first_name', // Will be used while serializing form.
     label: 'First Name', // Label to display.
-    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME
+    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME
     position: 3, // Order of the component in the form.
     required: true, // Required while submitting the form.
     placeholder: 'Enter…', // placeholder for the input
@@ -1981,6 +1981,582 @@ Set `FORMSERV` to `mapperType` prop to use `FORMSERV` schema instead of default 
 </script>
 ```
 
+## Filter Display of Form Fields
+
+Invoke `setFieldSearchText` method on the `form` passing a text that filters the display of the form fields matching the field's label.
+
+```html live
+<fw-input
+  search
+  id="form-filter-search"
+  placeholder="Type to filter Form Fields..."
+></fw-input>
+<div id="form-container-search">
+  <fw-button id="submit-search">Submit</fw-button>
+  <fw-button id="reset-search">Reset</fw-button>
+</div>
+<script type="application/javascript">
+  var formSearch = document.createElement('fw-form');
+  var formContainerSearch = document.querySelector('#form-container-search');
+
+  /**
+   * call setFieldSearchText on the form with the typed text to filter the form fields **/
+  document
+    .querySelector('#form-filter-search')
+    // you can debounce this function if required
+    .addEventListener('fwInput', (e) => {
+      formSearch.setFieldSearchText(e.detail.value);
+    });
+  document
+    .querySelector('#submit-search')
+    .addEventListener('click', async (e) => {
+      const { values, isValid } = await formSearch.doSubmit(e);
+      console.log({ values, isValid });
+
+      if (isValid) {
+        // make ajax post end point with values
+        // fetch("/post",values);
+
+        // if error from backend , set Errors - passing key value pair
+        formSearch.setFieldErrors({
+          first_name: 'First Name must be unique <<Server Error>>',
+        });
+
+        // reset the form if required if success
+        // formRef.current.doReset(e);
+      }
+    });
+  document.querySelector('#reset-search').addEventListener('click', (e) => {
+    formSearch.doReset(e);
+  });
+  var formSchemaSearch = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 13,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        choices: [
+          {
+            id: 1,
+            value: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 11,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'landmark',
+        label: 'Landmark',
+        type: 'PARAGRAPH',
+        position: 7,
+        required: true,
+        Placeholder: 'Enter some text…',
+        hint: 'Please enter the nearest landmark',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'is_indian_citizen',
+        label: 'Indian Citizen?',
+        type: 'CHECKBOX',
+        position: 7,
+        required: true,
+        placeholder: null,
+        hint: 'Check or Uncheck the box',
+        choices: [],
+      },
+
+      {
+        id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'pincode',
+        label: 'Pincode',
+        type: 'NUMBER',
+        position: 8,
+        required: false,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your Pincode',
+        choices: [],
+      },
+
+      {
+        id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+        name: 'gender',
+        label: 'Gender',
+        type: 'RADIO',
+        position: 5,
+        required: true,
+        placeholder: null,
+        hint: 'Please specify your gender',
+        choices: [
+          {
+            id: 1,
+            value: 'Female',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Male',
+            position: 2,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'order_status',
+        label: 'Order Status',
+        type: 'DROPDOWN',
+        position: 4,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select a value',
+        choices: [
+          {
+            id: 1,
+            value: 'open',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'pending',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'closed',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'amount_paid',
+        label: 'Amount Paid',
+        type: 'DECIMAL',
+        position: 10,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter the amount paid',
+        choices: [],
+      },
+    ],
+  };
+  var initialValues = {
+    is_indian_citizen: true,
+  };
+  formContainerSearch.prepend(formSearch);
+  // do any customisation on the field schema to match the props of crayons components.
+  var fieldsSearch = formSchemaSearch.fields.map((field) => {
+    // select expects `text` and `value` prop
+    if (field.type === 'DROPDOWN' || field.type === 'MULTI_SELECT') {
+      return {
+        ...field,
+        choices: field.choices?.map((f) => {
+          return {
+            ...f,
+            text: f.value,
+            value: f.id,
+          };
+        }),
+      };
+    } else return field;
+  });
+
+  var formSchemaSearch1 = {
+    ...formSchemaSearch,
+    fields: fieldsSearch,
+  };
+  formSearch.formSchema = formSchemaSearch1;
+  formSearch.initialValues = initialValues;
+</script>
+```
+
+## Dynamically Set Field Choices
+
+Invoke `setFieldChoices` method on the `form` passing the `name` of the field and `choices` array to update the choices in the `DROPDOWN/MULTI_SELECT` form's field-control.
+
+```html live
+<div id="form-container-fchoices">
+  <fw-button id="submit-fchoices">Submit</fw-button>
+  <fw-button id="reset-fchoices">Reset</fw-button>
+
+  <fw-button id="update-choices"> Update Choices Of Order Status</fw-button>
+</div>
+<script type="application/javascript">
+  var formFieldChoices = document.createElement('fw-form');
+  var formContainerFieldchoices = document.querySelector(
+    '#form-container-fchoices'
+  );
+
+  document
+    .querySelector('#update-choices')
+    .addEventListener('click', async (e) => {
+      const newChoices = [
+        {
+          id: 1,
+          value: 'idle',
+          position: 1,
+          dependent_ids: {},
+        },
+        {
+          id: 2,
+          value: 'open',
+          position: 2,
+          dependent_ids: {},
+        },
+        {
+          id: 3,
+          value: 'in progress',
+          position: 3,
+          dependent_ids: {},
+        },
+        {
+          id: 4,
+          value: 'failed',
+          position: 4,
+          dependent_ids: {},
+        },
+      ];
+
+      await formFieldChoices.setFieldChoices('order_status', newChoices, {
+        option_label_path: 'value',
+        option_value_path: 'id',
+      });
+    });
+
+  document
+    .querySelector('#submit-fchoices')
+    .addEventListener('click', async (e) => {
+      const { values, isValid } = await formFieldChoices.doSubmit(e);
+      console.log({ values, isValid });
+
+      if (isValid) {
+        // make ajax post end point with values
+        // fetch("/post",values);
+
+        // if error from backend , set Errors - passing key value pair
+        formFieldChoices.setFieldErrors({
+          first_name: 'First Name must be unique <<Server Error>>',
+        });
+
+        // reset the form if required if success
+        // formRef.current.doReset(e);
+      }
+    });
+  document.querySelector('#reset-fchoices').addEventListener('click', (e) => {
+    formFieldChoices.doReset(e);
+  });
+  var formSchemaFieldChoices = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 13,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+        choices: [
+          {
+            id: 1,
+            value: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 11,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'landmark',
+        label: 'Landmark',
+        type: 'PARAGRAPH',
+        position: 7,
+        required: true,
+        Placeholder: 'Enter some text…',
+        hint: 'Please enter the nearest landmark',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'is_indian_citizen',
+        label: 'Indian Citizen?',
+        type: 'CHECKBOX',
+        position: 7,
+        required: true,
+        placeholder: null,
+        hint: 'Check or Uncheck the box',
+        choices: [],
+      },
+
+      {
+        id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'pincode',
+        label: 'Pincode',
+        type: 'NUMBER',
+        position: 8,
+        required: false,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your Pincode',
+        choices: [],
+      },
+
+      {
+        id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+        name: 'gender',
+        label: 'Gender',
+        type: 'RADIO',
+        position: 5,
+        required: true,
+        placeholder: null,
+        hint: 'Please specify your gender',
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+        choices: [
+          {
+            id: 1,
+            value: 'Female',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Male',
+            position: 2,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'order_status',
+        label: 'Order Status',
+        type: 'DROPDOWN',
+        position: 4,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select a value',
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+        choices: [
+          {
+            id: 1,
+            value: 'open',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'pending',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'closed',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'amount_paid',
+        label: 'Amount Paid',
+        type: 'DECIMAL',
+        position: 10,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter the amount paid',
+        choices: [],
+      },
+    ],
+  };
+  var initialValuesFChoices = {
+    is_indian_citizen: true,
+  };
+  formContainerFieldchoices.prepend(formFieldChoices);
+
+  var formSchemaFChoices1 = {
+    ...formSchemaFieldChoices,
+  };
+  formFieldChoices.formSchema = formSchemaFChoices1;
+  formFieldChoices.initialValues = initialValuesFChoices;
+</script>
+```
+
 ## Validations
 
 Validation can be done using [Yup](https://github.com/jquense/yup#yup) based `validationSchema` or `validate` function prop.
@@ -2041,6 +2617,29 @@ type FormErrors = {
 };
 ```
 
+### Form Value Change Event
+
+`fwFormValueChanged` event gets emitted whenever there is a change in the value of any of the form field.
+
+```javascript
+var form = document.querySelector('fw-form');
+form.addEventListener('fwFormValueChanged', (e) => {
+  console.log('field', e.detail.field);
+  console.log('value', e.detail.value);
+});
+```
+
+### Form Values Change Event
+
+`fwFormValuesChanged` event gets emitted whenever there is a change in the value of any of the form field. Returns the current form state with the value of all the form fields.
+
+```javascript
+var form = document.querySelector('fw-form');
+form.addEventListener('fwFormValuesChanged', (e) => {
+  console.log('current form value', e.detail.value);
+});
+```
+
 <!-- Auto Generated Below -->
 
 
@@ -2062,9 +2661,10 @@ type FormErrors = {
 
 ## Events
 
-| Event                 | Description                                                       | Type               |
-| --------------------- | ----------------------------------------------------------------- | ------------------ |
-| `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change. | `CustomEvent<any>` |
+| Event                 | Description                                                                      | Type               |
+| --------------------- | -------------------------------------------------------------------------------- | ------------------ |
+| `fwFormValueChanged`  | fwFormValueChanged - event that gets emitted when value in a form field changes. | `CustomEvent<any>` |
+| `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change.                | `CustomEvent<any>` |
 
 
 ## Methods
@@ -2103,9 +2703,41 @@ serializedValues are those that contains the transformed values based on field t
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
 
+### `setFieldChoices(field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>`
+
+setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema.
+choices must be in the form of array with the below format:
+[{
+ id: 1,
+ value: 'open',
+ position: 1,
+ dependent_ids: {},
+}].
+fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path.
+option_label_path refers to the key used for displaying the text.
+option_value_path refers to the key which corresponds to the value of item.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
 Method to set errors on the form fields.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFieldSearchText(text: string) => Promise<void>`
+
+
+Method to filter the display of fields in the form based
+on the passed text.
 
 #### Returns
 
