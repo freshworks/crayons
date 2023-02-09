@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.5.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0...@freshworks/crayons@3.5.1) (2023-02-09)
-
+## 3.5.1 (2023-02-09)
 
 ### Bug Fixes
 
-* **datepicker:** replace event.path with event.composedPath() to fix breaking changes in chrome ([#795](https://github.com/freshworks/crayons/issues/795)) ([1bed71d](https://github.com/freshworks/crayons/commit/1bed71d8adaac9f7f209deea111c730fa1f87d00))
-
-
-
-
+- **datepicker:** replace event.path with event.composedPath() to fix breaking changes in chrome ([#795](https://github.com/freshworks/crayons/issues/795)) ([1bed71d](https://github.com/freshworks/crayons/commit/1bed71d8adaac9f7f209deea111c730fa1f87d00))
 
 ## [3.5.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@3.5.0-beta.1...@freshworks/crayons@3.5.0-beta.2) (2022-05-31)
 
