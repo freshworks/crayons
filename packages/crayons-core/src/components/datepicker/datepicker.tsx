@@ -382,7 +382,7 @@ export class Datepicker {
         this.updateValueAndEmitEvent(e);
       }
     }
-    if (e.path[0].innerText === this.cancelText && !this.value) {
+    if (e.composedPath()[0].innerText === this.cancelText && !this.value) {
       if (this.mode === 'range') {
         this.startDate = this.endDate = undefined;
       } else {
@@ -390,15 +390,15 @@ export class Datepicker {
       }
     }
 
-    if (e.path[0].innerText === this.cancelText) {
+    if (e.composedPath()[0].innerText === this.cancelText) {
       this.handlePopoverClose(e);
     }
 
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
     if (
-      e.path[0].innerText === this.updateText ||
-      e.path[0].innerText === this.cancelText
+      e.composedPath()[0].innerText === this.updateText ||
+      e.composedPath()[0].innerText === this.cancelText
     ) {
       this.showDatePicker = false;
       this.host.shadowRoot.querySelector('fw-popover').hide();
@@ -413,7 +413,7 @@ export class Datepicker {
     e.stopImmediatePropagation();
     if (e.composedPath()[0].classList.value.includes('range-date-input')) {
       // Range input
-      const val = e.path[0].value;
+      const val = e.composedPath()[0].value;
 
       if (!val) {
         this.value = undefined;
@@ -480,7 +480,7 @@ export class Datepicker {
         this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
     } else {
       // Single Date input
-      const val = e.path[0].value;
+      const val = e.composedPath()[0].value;
 
       if (!val) {
         this.value = undefined;
@@ -541,7 +541,7 @@ export class Datepicker {
    */
   @Listen('fwChange')
   handleMonthYearDropDownSelection(e) {
-    if (e.path[0].tagName !== 'FW-DATEPICKER') {
+    if (e.composedPath()[0].tagName !== 'FW-DATEPICKER') {
       e.stopImmediatePropagation();
     }
 
