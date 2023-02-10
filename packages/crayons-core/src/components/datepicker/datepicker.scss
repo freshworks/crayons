@@ -290,6 +290,16 @@
   width: 200px;
 }
 
+.invalid-alert {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+  fw-icon {
+    cursor: pointer;
+  }
+}
+
 .icon-calendar {
   display: flex;
   align-items: center;

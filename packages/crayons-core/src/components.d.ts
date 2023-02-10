@@ -355,6 +355,10 @@ export namespace Components {
          */
         "clearValue": () => Promise<void>;
         /**
+          * Debounce timer for date input.
+         */
+        "debounceTimer": number;
+        /**
           * Make the datepicker box as disabled. Default `false`
          */
         "disabled": boolean;
@@ -426,6 +430,10 @@ export namespace Components {
           * Sets focus on a specific `fw-datepicker`. Use this method instead of the global `input.focus()`.
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is false.
+         */
+        "showErrorOnInvalidDate": boolean;
         /**
           * Indicates if footer needs to be shown. Default `true`.
          */
@@ -3240,6 +3248,10 @@ declare namespace LocalJSX {
          */
         "clearInput"?: boolean;
         /**
+          * Debounce timer for date input.
+         */
+        "debounceTimer"?: number;
+        /**
           * Make the datepicker box as disabled. Default `false`
          */
         "disabled"?: boolean;
@@ -3300,6 +3312,10 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: FwDatepickerCustomEvent<any>) => void;
         /**
+          * Triggered when text is entered in  input box.
+         */
+        "onFwDateInput"?: (event: FwDatepickerCustomEvent<any>) => void;
+        /**
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
@@ -3311,6 +3327,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is false.
+         */
+        "showErrorOnInvalidDate"?: boolean;
         /**
           * Indicates if footer needs to be shown. Default `true`.
          */
