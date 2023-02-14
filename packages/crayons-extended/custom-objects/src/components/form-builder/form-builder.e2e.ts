@@ -227,16 +227,6 @@ describe('fw-form-builder', () => {
     },
   };
 
-  const loadDataIntoBuilder = async (page, formValues: any) => {
-    await page.$eval(
-      'fw-form-builder',
-      (elm: any, formValues: any) => {
-        Object.assign(elm, formValues);
-      },
-      formValues
-    );
-  };
-
   const fieldLabels = {
     CUSTOM_OBJECTS: [
       'Lookup relationship',
