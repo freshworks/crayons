@@ -125,6 +125,11 @@ export class DataTable {
   @Prop() shimmerCount = 4;
 
   /**
+   * Enables resizing of table columns if set to true.
+   */
+  @Prop() colResize = false;
+
+  /**
    * orderedColumns Maintains a collection of ordered columns.
    */
   @State() orderedColumns: DataTableColumn[] = [];
@@ -240,6 +245,7 @@ export class DataTable {
         TABLE_POPPER_CONFIG
       );
     }
+    this.colResize && this.setColResizerHeight();
   }
 
   /**
@@ -300,6 +306,13 @@ export class DataTable {
         }
       });
     }
+  }
+
+  @Watch('colResize')
+  handleColResize() {
+    setTimeout(() => {
+      this.colResize && this.setColResizerHeight();
+    }, 500);
   }
 
   /**
@@ -905,6 +918,52 @@ export class DataTable {
     return closestCell;
   }
 
+  renderColResizer() {
+    return (
+      <div
+        role='none'
+        class='resizer'
+        onMouseDown={(e) => this.resizeCol(e)}
+      ></div>
+    );
+  }
+
+  setColResizerHeight() {
+    const resizers = this.el.shadowRoot.querySelectorAll('.resizer');
+    if (resizers.length > 0) {
+      const tableHeight =
+        this.el.shadowRoot.querySelector('table').offsetHeight;
+      resizers.forEach((item: HTMLElement) => {
+        item.style.height = tableHeight + 'px';
+      });
+    }
+  }
+
+  resizeCol(e) {
+    const targetCol = e.path ? e.path[0] : e.composedPath()[0];
+    targetCol.classList.add('resizer-border');
+    const currentMousePos = e.clientX;
+    const parent = targetCol.parentElement;
+    const currentColWidth = window.getComputedStyle(parent).width;
+
+    const handleMouseMove = (e) => {
+      const movedMousePos = e.clientX;
+      const laggedWidth = movedMousePos - currentMousePos;
+      parent.style.width = parseInt(currentColWidth) + laggedWidth + 'px';
+      // adjust the height of the resizer as the table height changes while resizing
+      this.setColResizerHeight();
+    };
+
+    const handleMouseUp = () => {
+      targetCol.classList.remove('resizer-border');
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  }
+
   /**
    * columnOrdering Sorting columns based on position to show columns in the right order visually.
    * @param columns
@@ -1146,7 +1205,7 @@ export class DataTable {
             ref={(el) => (this.selectColumnHeader = el)}
             key='isSelectable'
             aria-colindex={1}
-            style={{ width: '40px' }}
+            style={{ width: '40px', position: this.colResize && 'relative' }}
           >
             {this.isAllSelectable && (
               <fw-checkbox
@@ -1158,10 +1217,13 @@ export class DataTable {
                 }
               ></fw-checkbox>
             )}
+            {this.colResize && this.renderColResizer()}
           </th>
         )}
         {this.orderedColumns.map((column, columnIndex) => {
           let textAlign = null;
+          let position = null;
+          position = this.colResize && 'relative';
           if (
             column.textAlign &&
             !(
@@ -1180,7 +1242,8 @@ export class DataTable {
               )
               ? column.widthProperties
               : {},
-            textAlign ? { textAlign } : {}
+            textAlign ? { textAlign } : {},
+            position ? { position } : {}
           );
           const optionalAttrs: any = {};
           if (column.key === lastVisibleColumnKey) {
@@ -1200,6 +1263,7 @@ export class DataTable {
               {column.customHeader
                 ? this.renderCustomTemplate(column.customHeader, column.text)
                 : column.text}
+              {this.colResize && this.renderColResizer()}
             </th>
           );
         })}
@@ -1212,8 +1276,10 @@ export class DataTable {
                 ? this.orderedColumns.length + 2
                 : this.orderedColumns.length + 1
             }
+            style={{ position: this.colResize && 'relative' }}
           >
             {TranslationController.t('datatable.actions')}
+            {this.colResize && this.renderColResizer()}
           </th>
         )}
       </tr>
