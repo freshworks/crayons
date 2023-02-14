@@ -65,6 +65,7 @@ function App() {
 ### Used by
 
  - [fw-button](../button)
+ - [fw-file-2](../file-uploader-2/file-2)
  - [fw-select](../select)
  - [fw-toast-message](../toast-message)
 
@@ -72,6 +73,7 @@ function App() {
 ```mermaid
 graph TD;
   fw-button --> fw-spinner
+  fw-file-2 --> fw-spinner
   fw-select --> fw-spinner
   fw-toast-message --> fw-spinner
   style fw-spinner fill:#f9f,stroke:#333,stroke-width:4px

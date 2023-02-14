@@ -13,7 +13,7 @@ describe('fw-form', () => {
           type: 'TEXT',
           position: 1,
           required: true,
-          editable: true,
+          editable: false,
           visible: true,
           deleted: false,
           link: null,
@@ -870,8 +870,6 @@ describe('fw-form', () => {
     const formElemShadow = await page.find('fw-form >>> :first-child');
     // const formElemShadow = await document.querySelector('fw-form').shadowRoot;
 
-    console.log('formElemShadow:', formElemShadow);
-
     const formControlShadow = await formElemShadow.find(
       "fw-form-control[name='order_status'] >>> :first-child"
     );
@@ -950,5 +948,31 @@ describe('fw-form', () => {
     expect(
       element.shadowRoot.querySelectorAll('fw-form-control').length
     ).toEqual(6);
+  });
+
+  it('should disabled the fields for which the editable property is set to false in form schema', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const formElemShadow = await page.find('fw-form >>> :first-child');
+    const formControlShadow = await formElemShadow.find(
+      "fw-form-control[name='first_name'] >>> :first-child"
+    );
+
+    const input = await formControlShadow.find('fw-input');
+    const isDisabled = await input.getProperty('disabled');
+
+    await expect(isDisabled).toEqual(true);
   });
 });
