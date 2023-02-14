@@ -532,7 +532,7 @@ describe('fw-form-builder', () => {
         });
       });
 
-      it.only('validates choices and label field in field editor', async () => {
+      it('validates choices and label field in field editor', async () => {
         const page = await newE2EPage();
         await page.setContent(
           `<fw-form-builder product-name="${productName}"></fw-form-builder>`
