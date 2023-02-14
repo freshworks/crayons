@@ -358,23 +358,13 @@ describe('fw-form-builder', () => {
           'fw-field-editor >>> fw-modal'
         );
         expect(deleteModals[1]).toHaveAttribute('is-open');
-        expect(deleteModals[1].innerHTML).toBe(
-          'This field will be deleted permanently and all associated data will be lost. Do you still want to continue?'
+        expect(deleteModals[1].innerText).toBe(
+          productName === 'CUSTOM_OBJECTS'
+            ? 'This field will be deleted permanently and all associated data will be lost. Do you still want to continue?'
+            : 'This action is permanent and cannot be reversedAre you sure you want to delete this conversation property? This will impact the conversations, forms, automations and reports.'
         );
         await deleteModals[1].triggerEvent('fwSubmit');
         await page.waitForChanges();
-        // const modalTitle = await deleteModals[1].find(
-        //   'fw-modal >>> fw-modal-title'
-        // );
-        // const titleText = deleteModals[1].shadowRoot
-        //   .querySelector('.modal-container fw-modal-title')
-        //   .shadowRoot.querySelector('label');
-        // const titleText = await deleteModals[1].find(
-        //   'fw-modal >>> fw-modal-title'
-        // );
-        // expect(titleText.innerText).toBe(
-        //   `Are you sure you want to delete the field, ${formValues[productName].fields[1].label} ?`
-        // );
         expect(fwDeleteField).toHaveReceivedEventDetail({
           index: 1,
         });
@@ -596,11 +586,11 @@ describe('fw-form-builder', () => {
     expect(element).toBeFalsy();
   });
 
-  it('disables left panel and displays message and button when userPlan is trial, clicking on Explore plan button triggers fwExplorePlan event', async () => {
+  it('disables left panel and displays message and button when role is trial, clicking on Explore plan button triggers fwExplorePlan event', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-form-builder user-plan="trial" product-name="CONVERSATION_PROPERTIES"></fw-form-builder>'
+      '<fw-form-builder role="trial" product-name="CONVERSATION_PROPERTIES"></fw-form-builder>'
     );
     const fwExplorePlan = await page.spyOnEvent('fwExplorePlan');
     const disabledPanel = await page.find(
@@ -710,6 +700,12 @@ describe('fw-form-builder', () => {
     expect(menuDesciption.innerText).toBe(
       'Create associations between two objects.Learn more'
     );
+    const menuLink = await page.find(
+      'fw-form-builder >>> .field-type-menu-description-link-anchor'
+    );
+    expect(menuLink.getAttribute('href')).toBe(
+      'https://support.freshdesk.com/en/support/solutions/articles/50000004226-understanding-associations'
+    );
     const rightHeaderLabel = await page.find(
       'fw-form-builder >>> .form-builder-right-panel-header-label'
     );
@@ -727,10 +723,16 @@ describe('fw-form-builder', () => {
     );
     expect(headerLabel.innerText).toBe('Conversation properties');
     const headerDescription = await page.find(
-      'fw-form-builder >>> .form-builder-left-panel-header-desc'
+      'fw-form-builder >>> .form-builder-left-panel-sub-header-description-label'
     );
     expect(headerDescription.innerText).toBe(
       'Categorize and keep track of conversations. Create category and add multiple sub-category for your conversations. '
+    );
+    const headerLink = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel-sub-header-description-link-anchor'
+    );
+    expect(headerLink.getAttribute('href')).toBe(
+      'https://crmsupport.freshworks.com/en/support/solutions/articles/50000005665?cloud=freshchat'
     );
     const menuDesciption = await page.find(
       'fw-form-builder >>> .form-builder-left-panel-header-desc-wo-header'
@@ -781,7 +783,7 @@ describe('fw-form-builder', () => {
         );
         expect(requiredCheckbox).toBeTruthy();
         expect(requiredCheckbox.innerHTML).toBe(
-          'Required when submitting the form'
+          'Required when resolving the conversation'
         );
       } else {
         const requiredCheckbox = await fieldEditors[fieldIndex].find(
