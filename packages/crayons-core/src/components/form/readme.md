@@ -275,7 +275,7 @@ fields: [ // Each item in this array corresponds to a crayons input component.
     id: '2978f820-704b-46c7-9f88-110e14e34a8c', // ID of the input control
     name: 'first_name', // Will be used while serializing form.
     label: 'First Name', // Label to display.
-    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME
+    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME
     position: 3, // Order of the component in the form.
     required: true, // Required while submitting the form.
     placeholder: 'Enter…', // placeholder for the input
@@ -1958,7 +1958,7 @@ Set `FORMSERV` to `mapperType` prop to use `FORMSERV` schema instead of default 
   // do any customisation on the field schema to match the props of crayons components.
   var fieldsFs = formServSchema.fields.map((field) => {
     // select expects `text` and `value` prop
-    if (field.type === 'DROPDOWN' || field.type === 'MULTI_SELECT') {
+    if (field.type === 2 || field.type === 18) {
       return {
         ...field,
         choices: field.choices?.map((f) => {
@@ -2544,7 +2544,7 @@ Invoke `setFieldChoices` method on the `form` passing the `name` of the field an
       },
     ],
   };
-  var initialValuesFchoices = {
+  var initialValuesFChoices = {
     is_indian_citizen: true,
   };
   formContainerFieldchoices.prepend(formFieldChoices);
@@ -2552,7 +2552,7 @@ Invoke `setFieldChoices` method on the `form` passing the `name` of the field an
   var formSchemaFChoices1 = {
     ...formSchemaFieldChoices,
   };
-  formFieldChoices.formSchema = formSchemaSearch1;
+  formFieldChoices.formSchema = formSchemaFChoices1;
   formFieldChoices.initialValues = initialValuesFChoices;
 </script>
 ```
@@ -2617,6 +2617,29 @@ type FormErrors = {
 };
 ```
 
+### Form Value Change Event
+
+`fwFormValueChanged` event gets emitted whenever there is a change in the value of any of the form field.
+
+```javascript
+var form = document.querySelector('fw-form');
+form.addEventListener('fwFormValueChanged', (e) => {
+  console.log('field', e.detail.field);
+  console.log('value', e.detail.value);
+});
+```
+
+### Form Values Change Event
+
+`fwFormValuesChanged` event gets emitted whenever there is a change in the value of any of the form field. Returns the current form state with the value of all the form fields.
+
+```javascript
+var form = document.querySelector('fw-form');
+form.addEventListener('fwFormValuesChanged', (e) => {
+  console.log('current form value', e.detail.value);
+});
+```
+
 <!-- Auto Generated Below -->
 
 
@@ -2638,9 +2661,10 @@ type FormErrors = {
 
 ## Events
 
-| Event                 | Description                                                       | Type               |
-| --------------------- | ----------------------------------------------------------------- | ------------------ |
-| `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change. | `CustomEvent<any>` |
+| Event                 | Description                                                                      | Type               |
+| --------------------- | -------------------------------------------------------------------------------- | ------------------ |
+| `fwFormValueChanged`  | fwFormValueChanged - event that gets emitted when value in a form field changes. | `CustomEvent<any>` |
+| `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change.                | `CustomEvent<any>` |
 
 
 ## Methods

@@ -38,6 +38,10 @@ export class FbFieldDropdownItem {
    */
   @Prop({ mutable: true }) showErrors = false;
   /**
+   * Disables all the options which can't be edited, reordered or deleted if set to true.
+   */
+  @Prop() disabled = false;
+  /**
    * property to determine if this is a new choice or an existing choice
    */
   @Prop() isNewChoice = false;
@@ -58,7 +62,7 @@ export class FbFieldDropdownItem {
    * function called on reorder button mousedown to enable the parent as draggable
    */
   private startParentDragging = () => {
-    if (!this.sortable) {
+    if (!this.sortable || this.disabled) {
       return;
     }
     this.enableParentDrag(true);
@@ -77,6 +81,9 @@ export class FbFieldDropdownItem {
   private enableParentDrag = (value: boolean) => {
     if (this.divBaseElement) {
       if (value) {
+        if (this.disabled) {
+          return;
+        }
         this.divBaseElement.setAttribute('draggable', 'true');
         this.host.setAttribute('draggable', 'true');
       } else {
@@ -86,10 +93,15 @@ export class FbFieldDropdownItem {
     }
   };
 
-  private nameBlurHandler = (event: CustomEvent) => {
+  private performLabelChange = (event: CustomEvent, isBlur = false) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
-    const strUpdatedValue = event?.target?.['value']?.trim() || '';
+    if (this.disabled) {
+      return;
+    }
+    const strUpdatedValue = !isBlur
+      ? event?.detail?.value || ''
+      : event?.target?.['value']?.trim() || '';
 
     if (
       !strUpdatedValue ||
@@ -100,12 +112,18 @@ export class FbFieldDropdownItem {
     }
   };
 
+  private nameBlurHandler = (event: CustomEvent) => {
+    this.performLabelChange(event, true);
+  };
+
   private nameChangeHandler = (event: CustomEvent) => {
-    event.stopImmediatePropagation();
-    event.stopPropagation();
+    this.performLabelChange(event, false);
   };
 
   private deleteButtonClickHandler = (event: MouseEvent) => {
+    if (this.disabled) {
+      return;
+    }
     if (event.detail && event.detail > 1) {
       return;
     }
@@ -147,9 +165,15 @@ export class FbFieldDropdownItem {
       this.index + 1
     ).toString()} ${i18nText('choicePlaceholderSuffix')}`;
 
-    let strDragClassName = `${strBaseClassName}-drag-container`;
-    if (!this.sortable) {
-      strDragClassName += '-unsortable';
+    const strBaseDeleteClassName = `${strBaseClassName}-delete-container`;
+    const strBaseDragClassName = `${strBaseClassName}-drag-container`;
+    let strDeleteClassName = strBaseDeleteClassName;
+    let strDragClassName = strBaseDragClassName;
+    if (this.disabled) {
+      strDragClassName += ` ${strBaseDragClassName}--disabled`;
+      strDeleteClassName += ` ${strBaseDeleteClassName}--disabled`;
+    } else if (!this.sortable) {
+      strDragClassName += ` ${strBaseDragClassName}--unsortable`;
     }
 
     return (
@@ -174,12 +198,13 @@ export class FbFieldDropdownItem {
               errorText={strErrorMsg}
               placeholder={strInputPrompt}
               value={dpSource.value}
+              disabled={this.disabled}
               onFwBlur={this.nameBlurHandler}
               onFwInput={this.nameChangeHandler}
             ></fw-input>
           </div>
           <span
-            class={`${strBaseClassName}-delete-container`}
+            class={strDeleteClassName}
             onClick={this.deleteButtonClickHandler}
           >
             <fw-icon name='delete' size={14}></fw-icon>
