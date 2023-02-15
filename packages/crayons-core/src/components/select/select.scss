@@ -255,6 +255,10 @@ $disabled-color: $input-disabled-color;
     transform: rotate(180deg);
   }
 
+  .dropdown-status-icon.disabled {
+    opacity: 0.5;
+  }
+
   &.error {
     @include stateStyle($error-color);
   }
