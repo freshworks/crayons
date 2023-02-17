@@ -992,6 +992,7 @@ export class Select {
                           class={{
                             'dropdown-status-icon': true,
                             'expanded': this.isExpanded,
+                            'disabled': this.disabled,
                           }}
                         >
                           <fw-icon
