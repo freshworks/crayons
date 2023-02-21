@@ -86,6 +86,7 @@
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
     "postcss-rtlcss": "^3.6.3",
+    "pretender": "^3.4.7",
     "puppeteer": "^13.0.1",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
