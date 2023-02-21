@@ -16,14 +16,22 @@
 
     <!-- start of form examples dynamic and static forms -->
 
-    <!-- <div style="display: flex; justify-content: space-around">
-      <div id="dynamic-form-container" style="width: 500px">
+    <div style="display: flex; justify-content: space-around">
+      <!-- <div id="dynamic-form-container">
         <h3>Dynamic form via `formSchema`</h3>
+        <fw-input
+          search
+          id="inp"
+          placeholder="Type to filter form fields below"
+        ></fw-input>
         <fw-form id="fw-form"></fw-form>
         <button id="submit">Submit</button>
         <button id="reset">Reset</button>
         <script>
           const form = document.querySelector('#fw-form');
+          document.querySelector('#inp').addEventListener('fwInput', (e) => {
+            form.setFieldSearchText(e.detail.value);
+          });
           document
             .querySelector('#submit')
             .addEventListener('click', async (e) => {
@@ -608,8 +616,124 @@
 
           form.initialValues = initialValues;
         </script>
+      </div> -->
+      <div id="static-form-container">
+        <h3>Static form via `fw-form-control` slots</h3>
+        <fw-input
+          search
+          id="inp1"
+          placeholder="Type to filter form fields below"
+        ></fw-input>
+        <fw-form id="fw-static-form">
+          <fw-form-control
+            type="TEXT"
+            name="first_name"
+            placeholder="First Name"
+            required
+            label="First Name"
+            id="first_name"
+          ></fw-form-control>
+          <fw-form-control
+            type="TEXT"
+            name="last_name"
+            placeholder="Last Name"
+            required
+            label="Last Name"
+            id="last_name"
+          ></fw-form-control>
+          <fw-form-control
+            name="cin"
+            type="EMAIL"
+            required
+            label="Custom native in"
+          >
+            <input
+              name="cin"
+              id="cin"
+              placeholder="custom email input"
+              autocomplete="off"
+          /></fw-form-control>
+          <fw-form-control
+            name="chk"
+            type="CHECKBOX"
+            required
+            label="Custom chexk in"
+          >
+            <input
+              type="checkbox"
+              name="chk"
+              id="chk"
+              placeholder="custom checkbox"
+          /></fw-form-control>
+        </fw-form>
+        <fw-button id="submit-static-form">Submit</fw-button>
+        <fw-button id="reset-static-form">Reset</fw-button>
       </div>
-    </div> -->
+      <script type="application/javascript">
+        var formStatic = document.querySelector('#fw-static-form');
+        document.querySelector('#inp1').addEventListener('fwInput', (e) => {
+          formStatic.setFieldSearchText(e.detail.value);
+        });
+        document
+          .querySelector('#submit-static-form')
+          .addEventListener('click', async (e) => {
+            const { values, isValid } = await formStatic.doSubmit(e);
+            console.log({ values, isValid });
+            if (isValid) {
+              // make ajax post end point with values
+              // fetch("/post",values);
+              // if error from backend , set Errors - passing key value pair
+              formStatic.setFieldErrors({
+                cin: 'First Name must be unique <<Server Error>>',
+              });
+              // reset the form if required if success
+              // formRef.current.doReset(e);
+            }
+          });
+        document
+          .querySelector('#reset-static-form')
+          .addEventListener('click', (e) => {
+            // if (document.querySelector('#cin'))
+            //   document.querySelector('#cin').value = '';
+            formStatic.doReset(e);
+          });
+        var initialValuesStaticForm = {
+          first_name: 'John',
+          cin: 'test@gmail.com',
+          chk: true,
+        };
+        formStatic.initialValues = initialValuesStaticForm;
+        // formStatic.validate = async function (values) {
+        //   console.log('validate method called with ', values);
+        //   return {
+        //     // first_name: 'first name error',
+        //     // last_name: 'last name error',
+        //     // first_name: 'ss error validate function prop',
+        //   };
+        //   // json api std.
+        // };
+        function handleCustomInput(e) {
+          console.log('handle custom input');
+          formStatic.setFieldValue([e.target.name], e.target.value);
+        }
+        function handleChkChange(e) {
+          console.log('handle custom chk');
+          formStatic.setFieldValue([e.target.name], e.target.checked);
+        }
+        document
+          .querySelector('#chk')
+          .addEventListener('change', handleChkChange);
+        document
+          .querySelector('#cin')
+          .addEventListener('input', handleCustomInput);
+        document
+          .querySelector('#cin')
+          .addEventListener('change', handleCustomInput);
+        document
+          .querySelector('#cin')
+          .addEventListener('blur', handleCustomInput);
+      </script>
+    </div>
 
     <!-- end of form examples static and dynamic form -->
 
@@ -1555,28 +1679,5 @@
     warning-text="Please use numbers for user ID"
     state="normal"
   ></fw-country-phone> -->
-  <!-- <div>
-    <fw-file-uploader-2
-        name="sample"
-        id="file-uploader-1"
-        description="We support .png, .jpeg and .jpg upto 25MB"
-        max-file-size="5"
-        accept=".png, .pdf"
-        action-u-r-l="https://mocktarget.apigee.net/echo"
-        multiple="true"
-        info-text="Hello world"
-        hide-label="false"
-        restrict-attachment-width="true"
-        style="--max-attachment-block-height: 80px;"
-      >
-    </fw-file-uploader-2>
-  
-    <script type="application/javascript">
-      const fileUploader1 = document.querySelector('#file-uploader-1');
-      fileUploader1.addEventListener('fwFilesUploaded', (event) => {
-        console.log(event);
-      });
-    </script>
-  </div> -->
   </body>
 </html>

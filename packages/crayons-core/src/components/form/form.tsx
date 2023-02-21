@@ -29,9 +29,10 @@ import {
   serializeForm,
   translateErrors,
   getMappedSchema,
+  getValueForField,
   LEGO,
 } from './form-util';
-import { debounce } from '../../utils';
+import { debounce, hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-form',
@@ -85,21 +86,21 @@ export class Form {
   @Prop() mapperType: 'LEGO' | 'FORMSERV' | 'CUSTOM' = LEGO;
 
   /**
-      * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
-      * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.
-      * In the example below, `1` is the type of a field in your schema
-      * that needs to correspond to `TEXT` type.
-      * Please pass include the mapper for all the field types that you want to support.
-      * Example typeMapper object : {
-             'CUSTOM_TEXT': { type: 'TEXT' },
-             'SELECT': { type: 'DROPDOWN' },
-             'TEL': { type: 'PHONE_NUMBER' },
-             'CHECKBOX': { type: 'CHECKBOX' },
-             'TEXTAREA': { type: 'PARAGRAPH' },
-             'DATETIME': { type: 'DATE_TIME' },
-             'INTEGER': { type: 'NUMBER' },
-           }
-      */
+   * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
+   * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.
+   * In the example below, `1` is the type of a field in your schema
+   * that needs to correspond to `TEXT` type.
+   * Please pass include the mapper for all the field types that you want to support.
+   * Example typeMapper object : {
+          'CUSTOM_TEXT': { type: 'TEXT' },
+          'SELECT': { type: 'DROPDOWN' },
+          'TEL': { type: 'PHONE_NUMBER' },
+          'CHECKBOX': { type: 'CHECKBOX' },
+          'TEXTAREA': { type: 'PARAGRAPH' },
+          'DATETIME': { type: 'DATE_TIME' },
+          'INTEGER': { type: 'NUMBER' },
+        }
+   */
   @Prop() customTypeMapper: any = {};
 
   @State() values: FormValues = {} as any;
@@ -110,6 +111,7 @@ export class Form {
   @State() formInitialValues;
 
   @State() formSchemaState = this.formSchema;
+  @State() hasSlot = false;
 
   @State() fieldSearchText;
 
@@ -159,10 +161,13 @@ export class Form {
 
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
-    await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
-      initialValues
-    );
+    let schema = this.formSchemaState;
+
+    if (this.hasSlot) {
+      // for static form get the schema from slots
+      schema = this.getFormSchemaFromSlots();
+    }
+    await this.handleFormSchemaAndInitialValuesChange(schema, initialValues);
   }
 
   @Watch('values')
@@ -213,7 +218,7 @@ export class Form {
   // get Form Controls and pass props to children
   componentDidLoad() {
     this.controls = this.getFormControls();
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
     // adding a timeout since this lifecycle method is called before its child in React apps.
     // Bug with react wrapper.
     setTimeout(() => {
@@ -226,11 +231,21 @@ export class Form {
     if (!this.controls || !this.controls.length) {
       this.controls = this.getFormControls();
     }
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
   }
 
   handleSlotChange() {
+    this.hasSlot = hasSlot(this.el);
     this.controls = this.getFormControls();
+
+    /** Create implicit validation rules based
+     *  on slotted form-controls for static form
+     */
+    // setup initialValues and validation rules
+    this.handleFormSchemaAndInitialValuesChange(
+      this.getFormSchemaFromSlots(),
+      this.initialValues
+    );
   }
 
   disconnectedCallback() {
@@ -413,6 +428,7 @@ export class Form {
     control.error = error ?? '';
     control.touched = touched || false;
     control.shouldRender = this.shouldRenderFormControl(control);
+    control.value = getValueForField(this.values, control);
   }
 
   private composedUtils = (): FormUtils => {
@@ -461,6 +477,16 @@ export class Form {
         : true
       : false;
     return shouldRender;
+  };
+
+  private getFormSchemaFromSlots = () => {
+    const fields = this.controls.map((control) => ({
+      type: control.type,
+      name: control.name,
+      required: control.required,
+    }));
+
+    return { fields };
   };
 
   /** Return if a field is disabled or not
@@ -636,10 +662,12 @@ export class Form {
                     required={field.required}
                     hint={field.hint}
                     placeholder={field.placeholder}
+                    error={this.errors[field.name]}
+                    touched={this.touched[field.name]}
+                    disabled={this.isDisabledField(field)}
                     choices={field.choices}
                     fieldProps={field}
                     controlProps={utils}
-                    disabled={this.isDisabledField(field)}
                   ></fw-form-control>
                 )
               );
