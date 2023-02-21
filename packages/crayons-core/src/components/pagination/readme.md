@@ -48,15 +48,19 @@ function App() {
 
 ## Properties
 
-| Property              | Attribute               | Description                                                 | Type      | Default     |
-| --------------------- | ----------------------- | ----------------------------------------------------------- | --------- | ----------- |
-| `buttonGroupLabel`    | `button-group-label`    | Aria Label to be used for the button group.                 | `string`  | `''`        |
-| `isLoading`           | `is-loading`            | Indicates if the records in current page are being fetched. | `boolean` | `false`     |
-| `nextButtonLabel`     | `next-button-label`     | Aria Label to be used for next button.                      | `string`  | `''`        |
-| `page`                | `page`                  | The current page number.                                    | `number`  | `1`         |
-| `perPage`             | `per-page`              | The number of records to be shown per page. Defaults to 10. | `number`  | `10`        |
-| `previousButtonLabel` | `previous-button-label` | Aria Label to be used for previous button.                  | `string`  | `''`        |
-| `total`               | `total`                 | The total number of records. This is a mandatory parameter. | `number`  | `undefined` |
+| Property              | Attribute               | Description                                                                                                                                                                                                                                                      | Type                   | Default                |
+| --------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------------- |
+| `buttonGroupLabel`    | `button-group-label`    | Aria Label to be used for the button group.                                                                                                                                                                                                                      | `string`               | `''`                   |
+| `hidePageNumbers`     | `hide-page-numbers`     | hides page numbers in standard pagination variant. Defaults to false.                                                                                                                                                                                            | `boolean`              | `false`                |
+| `isLoading`           | `is-loading`            | Indicates if the records in current page are being fetched.                                                                                                                                                                                                      | `boolean`              | `false`                |
+| `nextButtonLabel`     | `next-button-label`     | Aria Label to be used for next button.                                                                                                                                                                                                                           | `string`               | `''`                   |
+| `page`                | `page`                  | The current page number.                                                                                                                                                                                                                                         | `number`               | `1`                    |
+| `perPage`             | `per-page`              | The number of records to be shown per page. Defaults to 10.                                                                                                                                                                                                      | `number`               | `10`                   |
+| `perPageOptions`      | --                      | Specify the perPage options to be shown.                                                                                                                                                                                                                         | `number[]`             | `[10, 20, 30, 40, 50]` |
+| `previousButtonLabel` | `previous-button-label` | Aria Label to be used for previous button.                                                                                                                                                                                                                       | `string`               | `''`                   |
+| `siblingCount`        | `sibling-count`         | represents the min number of page buttons to be shown on each side of the current page button. Defaults to 1.                                                                                                                                                    | `number`               | `1`                    |
+| `total`               | `total`                 | The total number of records. This is a mandatory parameter.                                                                                                                                                                                                      | `number`               | `undefined`            |
+| `variant`             | `variant`               | The variant of pagination to be displayed. Mini variant displays only previous and next buttons along with pagination information. Standard variant displays list of page numbers which can be selected along with previous and next buttons Defaults to 'mini'. | `"mini" \| "standard"` | `'mini'`               |
 
 
 ## Events
@@ -93,18 +97,29 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [fw-button-group](../button-group)
 - [fw-button](../button)
 - [fw-icon](../icon)
+- [fw-popover](../popover)
+- [fw-list-options](../options-list)
+- [fw-button-group](../button-group)
 
 ### Graph
 ```mermaid
 graph TD;
-  fw-pagination --> fw-button-group
   fw-pagination --> fw-button
   fw-pagination --> fw-icon
+  fw-pagination --> fw-popover
+  fw-pagination --> fw-list-options
+  fw-pagination --> fw-button-group
   fw-button --> fw-spinner
   fw-button --> fw-icon
+  fw-list-options --> fw-select-option
+  fw-list-options --> fw-input
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
+  fw-input --> fw-icon
   style fw-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

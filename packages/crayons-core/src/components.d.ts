@@ -1354,6 +1354,10 @@ export namespace Components {
          */
         "buttonGroupLabel": string;
         /**
+          * hides page numbers in standard pagination variant. Defaults to false.
+         */
+        "hidePageNumbers": boolean;
+        /**
           * Indicates if the records in current page are being fetched.
          */
         "isLoading": boolean;
@@ -1374,6 +1378,10 @@ export namespace Components {
          */
         "perPage": number;
         /**
+          * Specify the perPage options to be shown.
+         */
+        "perPageOptions": number[];
+        /**
           * Aria Label to be used for previous button.
          */
         "previousButtonLabel": string;
@@ -1382,9 +1390,17 @@ export namespace Components {
          */
         "previousPage": () => Promise<void>;
         /**
+          * represents the min number of page buttons to be shown on each side of the current page button. Defaults to 1.
+         */
+        "siblingCount": number;
+        /**
           * The total number of records. This is a mandatory parameter.
          */
         "total": number;
+        /**
+          * The variant of pagination to be displayed. Mini variant displays only previous and next buttons along with pagination information. Standard variant displays list of page numbers which can be selected along with previous and next buttons Defaults to 'mini'.
+         */
+        "variant": 'mini' | 'standard';
     }
     interface FwPill {
         /**
@@ -4180,6 +4196,10 @@ declare namespace LocalJSX {
          */
         "buttonGroupLabel"?: string;
         /**
+          * hides page numbers in standard pagination variant. Defaults to false.
+         */
+        "hidePageNumbers"?: boolean;
+        /**
           * Indicates if the records in current page are being fetched.
          */
         "isLoading"?: boolean;
@@ -4200,13 +4220,25 @@ declare namespace LocalJSX {
          */
         "perPage"?: number;
         /**
+          * Specify the perPage options to be shown.
+         */
+        "perPageOptions"?: number[];
+        /**
           * Aria Label to be used for previous button.
          */
         "previousButtonLabel"?: string;
         /**
+          * represents the min number of page buttons to be shown on each side of the current page button. Defaults to 1.
+         */
+        "siblingCount"?: number;
+        /**
           * The total number of records. This is a mandatory parameter.
          */
         "total"?: number;
+        /**
+          * The variant of pagination to be displayed. Mini variant displays only previous and next buttons along with pagination information. Standard variant displays list of page numbers which can be selected along with previous and next buttons Defaults to 'mini'.
+         */
+        "variant"?: 'mini' | 'standard';
     }
     interface FwPill {
         /**

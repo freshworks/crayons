@@ -647,6 +647,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [fw-datepicker](../datepicker)
+ - [fw-pagination](../pagination)
  - [fw-select](../select)
  - [fw-tooltip](../tooltip)
 
@@ -654,6 +655,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-datepicker --> fw-popover
+  fw-pagination --> fw-popover
   fw-select --> fw-popover
   fw-tooltip --> fw-popover
   style fw-popover fill:#f9f,stroke:#333,stroke-width:4px

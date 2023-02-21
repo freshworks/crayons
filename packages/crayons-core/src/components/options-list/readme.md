@@ -428,6 +428,7 @@ Type: `Promise<any>`
 
 ### Used by
 
+ - [fw-pagination](../pagination)
  - [fw-select](../select)
 
 ### Depends on
@@ -445,6 +446,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-input --> fw-icon
+  fw-pagination --> fw-list-options
   fw-select --> fw-list-options
   style fw-list-options fill:#f9f,stroke:#333,stroke-width:4px
 ```
