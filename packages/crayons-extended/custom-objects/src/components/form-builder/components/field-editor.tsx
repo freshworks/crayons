@@ -1017,6 +1017,7 @@ export class FieldEditor {
     if (!this.expanded) {
       return null;
     }
+    const objFormValue = this.dataProvider;
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
     const boolSupportInternalName = objProductConfig.editInternalName;
     const strBaseClassName = 'fw-field-editor';
@@ -1043,9 +1044,25 @@ export class FieldEditor {
       strFieldType === 'DROPDOWN' || strFieldType === 'MULTI_SELECT'
         ? true
         : false;
-    const elementDropdown = isDropdownType
-      ? this.renderDropdown(boolDisableDropdowns)
-      : null;
+
+    let boolIgnoreDropdownChoices = false;
+    if (
+      hasCustomProperty(objProductConfig, 'dropdownFieldWithoutChoicesKey') &&
+      objProductConfig.dropdownFieldWithoutChoicesKey !== ''
+    ) {
+      const ignoreChoicesValue = getNestedKeyValueFromObject(
+        objFormValue,
+        objProductConfig.dropdownFieldWithoutChoicesKey
+      );
+      if (ignoreChoicesValue || ignoreChoicesValue === 'true') {
+        boolIgnoreDropdownChoices = true;
+      }
+    }
+
+    const elementDropdown =
+      isDropdownType && !boolIgnoreDropdownChoices
+        ? this.renderDropdown(boolDisableDropdowns)
+        : null;
 
     const isLookupType = strFieldType === 'RELATIONSHIP';
     const elementRelationship = isLookupType ? this.renderLookup() : null;

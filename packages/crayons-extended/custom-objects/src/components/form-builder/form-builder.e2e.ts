@@ -726,7 +726,7 @@ describe('fw-form-builder', () => {
       'fw-form-builder >>> .form-builder-left-panel-sub-header-description-label'
     );
     expect(headerDescription.innerText).toBe(
-      'Categorize and keep track of conversations. Create category and add multiple sub-category for your conversations. '
+      'Categorize and keep track of conversations.'
     );
     const headerLink = await page.find(
       'fw-form-builder >>> .form-builder-left-panel-sub-header-description-link-anchor'

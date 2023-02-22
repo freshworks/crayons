@@ -235,6 +235,7 @@
       "showFieldLabelInDeleteModalTitle": true,
       "defaultTagKey": "",
       "defaultTagLabel": "",
+      "dropdownFieldWithoutChoicesKey": "",
       "freePlanFieldAddDisabledHeader": "",
       "freePlanFieldAddDisabledMessage": "",
       "freePlanFieldAddDisabledButton": ""
@@ -407,6 +408,7 @@
       "showFieldLabelInDeleteModalTitle": false,
       "defaultTagKey": "custom",
       "defaultTagLabel": "nonCustomDefaultFieldTag",
+      "dropdownFieldWithoutChoicesKey": "field_options.reference",
       "freePlanFieldAddDisabledHeader": "freePlanFieldAddDisabledHeader",
       "freePlanFieldAddDisabledMessage": "freePlanFieldAddDisabledMessage",
       "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton"
@@ -442,7 +444,7 @@
         "message": "maximumLimits.maxCharsWarning"
       },
       "maxInternalNameChars": {
-        "count": 50,
+        "count": 47,
         "message": "maximumLimits.maxCharsWarning"
       },
       "maxDropdownChoices": {
