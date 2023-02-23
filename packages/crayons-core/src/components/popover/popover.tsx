@@ -9,7 +9,7 @@ import {
   Prop,
   h,
 } from '@stencil/core';
-import { createPopper, Instance } from '@popperjs/core';
+import { createPopper, Instance } from 'popperjs-core';
 import { PopoverPlacementType, PopoverTriggerType } from '../../utils/types';
 import { popperModifierRTL } from '../../utils';
 

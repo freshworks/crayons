@@ -105,11 +105,11 @@
   "license": "MIT",
   "dependencies": {
     "@freshworks/crayons-i18n": "^4.2.0-beta.1",
-    "@popperjs/core": "^2.10.2",
     "@stencil/core": "2.17.4",
     "date-fns": "^2.28.0",
     "libphonenumber-js": "^1.10.8",
-    "multi-nprogress": "0.3.5"
+    "multi-nprogress": "0.3.5",
+    "popperjs-core": "^1.0.0"
   },
   "peerDependencies": {
     "yup": "^0.32.11"
