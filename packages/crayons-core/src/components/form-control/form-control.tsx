@@ -450,6 +450,7 @@ export class FormControl {
   /**
    * Set Value on the slotted control field on fw-form-control.
    * Useful for setting initialValues on the slotted control field
+   * Assumes that the slotted control field has a prop named `value`
    */
   private setSlotElementValue() {
     if (this.slotElement) {
