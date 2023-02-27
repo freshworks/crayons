@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.1...@freshworks/crayons@4.2.0-beta.2) (2023-02-27)
+
+
+### Bug Fixes
+
+* disable caret when disabled in fw-select ([f7672b2](https://github.com/freshworks/crayons/commit/f7672b27f653b737166b687dc8d27c4dbee5862c))
+
+
+### Features
+
+* add kebab menu component, modify row actions in datatable ([2353d66](https://github.com/freshworks/crayons/commit/2353d66cf868ddc5df643573e0ae57da779215b8))
+* **form:** support passing initialValues and validation for static form ([#804](https://github.com/freshworks/crayons/issues/804)) ([cc25b62](https://github.com/freshworks/crayons/commit/cc25b62ace511a11396ca76b7dc6820688f54490))
+* refactor kebab menu, add UT ([902b793](https://github.com/freshworks/crayons/commit/902b793afb0efa14b4a17633e4871204dc7dac0d))
+* update documentation, add graphicsProps to kebab menu, update prop decorators ([27b15bd](https://github.com/freshworks/crayons/commit/27b15bdd77d52dc5d2c51c5a4b22aa5fcfe783e4))
+
+
+
+
+
 ## [4.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0...@freshworks/crayons@4.2.0-beta.0) (2023-02-06)
 
 ### Features
