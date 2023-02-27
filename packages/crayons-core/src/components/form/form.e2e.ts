@@ -867,6 +867,8 @@ describe('fw-form', () => {
 
     await formRef.callMethod('setFieldChoices', 'order_status', newChoices);
 
+    await page.waitForChanges();
+
     const formElemShadow = await page.find('fw-form >>> :first-child');
     // const formElemShadow = await document.querySelector('fw-form').shadowRoot;
 
