@@ -60,6 +60,7 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
         placeholder: 'Enter…',
         hint: 'Please provide a text of at max 100 characters',
         choices: [],
+        maxlength: 10, // pass any crayons input control related properties
       },
 
       {
@@ -1121,6 +1122,9 @@ You can pass `initialValues` to the form. Wrap all the form controls with `form-
 For `Crayons` controls just pass the `type`, `name`, `placeholder`,`required`, `label` properties to `fw-form-control`.
 
 For `custom` input controls, pass the custom input as `slot` to `fw-form-control`. You can pass the `type`, `name`, `required`, `label` properties to `fw-form-control`. For setting its value in the form, use the method like `handleCustomInput` shown in the below example.
+
+You can use `fieldProps` to pass any crayons input control related properties.
+Set `fieldProps: { maxlength: 5 }` to `fw-form-control`
 
 ```html live
 <div id="static-form-container">

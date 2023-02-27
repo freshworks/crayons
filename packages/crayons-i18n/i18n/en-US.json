@@ -124,7 +124,7 @@
     "headerFields": "Fields",
     "fieldTypesDragDrop": "Drag and drop from here",
     "headerProductConvProps": "Conversation properties",
-    "subHeaderProductConvProps": "Categorize and keep track of conversations. Create category and add multiple sub-category for your conversations. ",
+    "subHeaderProductConvProps": "Categorize and keep track of conversations.",
     "subHeaderProductConvPropsLinkLabel": "Learn more",
     "fieldTypesDragDropConvProps": "Drag and drop to create properties",
     "behaviour": "Behavior for agents",

@@ -222,6 +222,7 @@
             ],
             field_options: {
               required_on_closure: true,
+              reference: 'true',
             },
             hint: '',
             default_value: null,
@@ -746,7 +747,7 @@
 
           // Set the below 2 lines for resetting the position
           // fb.formValues = objPrePositionSource;
-          // fb.renderFields();
+          // fb.forceRenderFields();
         } catch (error) {
           console.error('Error in repositioning field ' + error);
         }
