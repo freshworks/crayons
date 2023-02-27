@@ -520,10 +520,10 @@ export class Form {
 
     this.values = { ...this.values, [field]: value };
 
-    this.fwFormValueChanged.emit({
-      field,
-      value,
-    });
+    // this.fwFormValueChanged.emit({
+    //   field,
+    //   value,
+    // });
 
     if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
@@ -580,12 +580,12 @@ export class Form {
     };
 
     this.touched = { ...this.touched, [field]: false };
-    this.values = { ...this.values, [field]: undefined };
+    // this.values = { ...this.values, [field]: undefined };
 
-    this.fwFormValueChanged.emit({
-      field: field,
-      value: undefined,
-    });
+    // this.fwFormValueChanged.emit({
+    //   field: field,
+    //   value: undefined,
+    // });
   }
 
   /**
