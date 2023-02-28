@@ -873,6 +873,10 @@ export namespace Components {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP';
+        /**
+          * Value of the slotted custom field on fw-form-control
+         */
+        "value": any;
     }
     interface FwFormatDate {
         /**
@@ -3714,6 +3718,10 @@ declare namespace LocalJSX {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP';
+        /**
+          * Value of the slotted custom field on fw-form-control
+         */
+        "value"?: any;
     }
     interface FwFormatDate {
         /**
