@@ -121,11 +121,11 @@ export class Datepicker {
   /**
    *   Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
    */
-  @Prop() minDate: string;
+  @Prop({ mutable: true }) minDate: string;
   /**
    *   Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
    */
-  @Prop() maxDate: string;
+  @Prop({ mutable: true }) maxDate: string;
   /**
    *   Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
    */
@@ -170,12 +170,12 @@ export class Datepicker {
   /**
    * Minimum year that needs to be displayed in the year dropdown.
    */
-  @Prop() minYear = 1970;
+  @Prop({ mutable: true }) minYear = 1970;
 
   /**
    * Maximum year that needs to be displayed in the year dropdown.
    */
-  @Prop() maxYear = new Date().getFullYear();
+  @Prop({ mutable: true }) maxYear = new Date().getFullYear();
 
   /**
    *   Locale for which datepicker needs to be shown. Defaults to browser's current locale.
@@ -231,11 +231,20 @@ export class Datepicker {
   /**
    * Debounce timer for date input.
    */
-  @Prop() debounceTimer = 300;
+  @Prop() debounceTimer = 500;
   /**
-   * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is false.
+   * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
    */
-  @Prop() showErrorOnInvalidDate = false;
+  @Prop() showErrorOnInvalidDate = true;
+  /**
+   * Error text displayed on the tooltip for invalid date inputs.
+   */
+  @Prop() tooltipErrorText;
+  /**
+   * Option to prevent the tooltip from being clipped when the component is placed inside a container with
+   * `overflow: auto|hidden|scroll`.
+   */
+  @Prop() hoistTooltip = true;
   /**
    *   Triggered when the update button clicked
    */
@@ -257,8 +266,8 @@ export class Datepicker {
   private isDisplayFormatSet = false;
   private isPlaceholderSet = false;
   private langChangRemoveListener;
-  private isMaxYearRestricted = false;
-  private isMinYearRestricted = false;
+  private isNextMonthRestricted = false;
+  private isPrevMonthRestricted = false;
   private isDateInvalid = false;
   private initState = this.state;
   private isDateWithinMinDate = true;
@@ -417,12 +426,9 @@ export class Datepicker {
 
   @Listen('fwClick')
   handleButtonClick(e) {
-    const isUpdateRange = e
-      .composedPath()[0]
-      .classList.value.includes('update-range-value');
-    const isUpdateDate = e
-      .composedPath()[0]
-      .classList.value.includes('update-date-value');
+    const target = e.composedPath()[0];
+    const isUpdateRange = target.classList.value.includes('update-range-value');
+    const isUpdateDate = target.classList.value.includes('update-date-value');
     const cancelText =
       this.cancelText || TranslationController.t('datepicker.cancel');
     const updateText =
@@ -440,7 +446,7 @@ export class Datepicker {
         this.updateValueAndEmitEvent(e);
       }
     }
-    if (e.composedPath()[0].innerText === cancelText && !this.value) {
+    if (target.innerText === cancelText && !this.value) {
       if (this.mode === 'range') {
         this.startDate = this.endDate = undefined;
       } else {
@@ -448,16 +454,13 @@ export class Datepicker {
       }
     }
 
-    if (e.composedPath()[0].innerText === cancelText) {
+    if (target.innerText === cancelText) {
       this.handlePopoverClose(e);
     }
 
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
-    if (
-      e.composedPath()[0].innerText === updateText ||
-      e.composedPath()[0].innerText === cancelText
-    ) {
+    if (target.innerText === updateText || target.innerText === cancelText) {
       this.showDatePicker = false;
       this.host.shadowRoot.querySelector('fw-popover').hide();
     }
@@ -581,26 +584,26 @@ export class Datepicker {
         const parsedDate = parse(val, this.displayFormat, new Date(), {
           locale: this.langModule,
         });
-
         const year = getYear(
           parse(val, this.displayFormat, new Date(), {
             locale: this.langModule,
           })
         );
-
         if (
           year < this.minYear ||
           year > this.maxYear ||
           !isValid(parsedDate) ||
           !isMatch(val, this.displayFormat, {
             locale: this.langModule,
-          })
+          }) ||
+          !this.isDateWithinMinMaxDate(parsedDate.valueOf(), false)
         ) {
           this.isDateInvalid = val && true;
           this.state =
             this.showErrorOnInvalidDate && this.isDateInvalid
               ? 'error'
               : this.initState;
+          this.value = val;
           return;
         }
 
@@ -648,6 +651,7 @@ export class Datepicker {
       // this.timeValue = newValue;
       this.selectedTime = newValue;
     }
+    this.selectedDay = undefined;
     this.checkYearRestriction();
   }
 
@@ -808,6 +812,7 @@ export class Datepicker {
         this.year = getYear(today);
         this.month = getMonth(today);
         this.selectedDay = getDate(today);
+        this.value = undefined;
       } else {
         const date = new Date(this.value);
         this.year = this.value ? getYear(date) : getYear(today);
@@ -822,6 +827,19 @@ export class Datepicker {
         }
       }
     }
+    this.minDate =
+      parseISO(this.minDate).valueOf() > parseISO(this.maxDate).valueOf()
+        ? undefined
+        : this.minDate;
+    this.maxYear = this.maxDate
+      ? getYear(new Date(this.maxDate))
+      : this.maxYear;
+    this.minYear =
+      this.maxYear > this.minYear
+        ? this.minDate
+          ? getYear(new Date(this.minDate))
+          : this.minYear
+        : 1970;
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
       this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
@@ -832,7 +850,16 @@ export class Datepicker {
     this.shortMonthNames = monthNames.shortMonthNames;
     this.longMonthNames = monthNames.longMonthNames;
     this.weekDays = getWeekDays(this.langModule);
-
+    if (this.value) {
+      const parsedDate = parseISO(this.value).valueOf();
+      this.isDateInvalid = this.isDateWithinMinMaxDate(parsedDate.valueOf())
+        ? false
+        : true;
+      this.state =
+        this.showErrorOnInvalidDate && this.isDateInvalid
+          ? 'error'
+          : this.initState;
+    }
     this.value = this.value
       ? format(new Date(this.value), this.displayFormat, {
           locale: this.langModule,
@@ -884,22 +911,6 @@ export class Datepicker {
       );
       this.value = `${formattedFromDate} to ${formattedToDate}`;
     }
-    if (
-      (this.maxYear && Number(this.year) > this.maxYear) ||
-      (this.minYear && Number(this.year) < this.minYear)
-    ) {
-      if (this.value) {
-        this.value = undefined;
-        // if minYear & maxYear specified and the value provided falls outside of the specified year range, print a warning msg
-        // and reset the value to undefined and the year to minYear value and month to JAN.
-        console.warn(
-          'The value provided falls outside of the minYear and maxYear specified. Please check !'
-        );
-      }
-      this.year = this.minYear;
-      this.month = 0;
-      this.selectedDay = '1';
-    }
   }
 
   @Watch('value')
@@ -919,7 +930,7 @@ export class Datepicker {
         date.setMonth(this.month, 1);
         date.setFullYear(this.year);
         date.setDate(this.selectedDay);
-        this.value = this.formatDateTime();
+        this.value = !this.isDateInvalid ? this.formatDateTime() : this.value;
       } else {
         const formattedFromDate = format(
           new Date(this.startDate),
@@ -959,25 +970,37 @@ export class Datepicker {
     if (this.showTimePicker) {
       return !!(this.selectedDay && this.timeValue);
     }
-    const parsedDate = parse(
-      this.formatDateTime(),
-      this.displayFormat,
-      new Date(),
-      {
-        locale: this.langModule,
-      }
-    ).valueOf();
-    this.isDateWithinMinDate =
-      this.minDate && !(parseISO(this.minDate).valueOf() <= parsedDate)
-        ? false
-        : true;
-    this.isDateWithinMaxDate =
-      this.maxDate && !(parsedDate <= parseISO(this.maxDate).valueOf())
-        ? false
-        : true;
-    return (
-      this.selectedDay && this.isDateWithinMinDate && this.isDateWithinMaxDate
-    );
+    if (this.value) {
+      const parsedDate = parse(
+        this.value || this.formatDateTime(),
+        this.displayFormat,
+        new Date(),
+        {
+          locale: this.langModule,
+        }
+      ).valueOf();
+      const dateNodes =
+        this.host.shadowRoot.querySelectorAll('.c-day-container');
+      // To check if user has selected any date and clicked update, since this.selectedDay will be set if any previous date value already exists.
+      const isDateSelected =
+        dateNodes.length > 0 &&
+        Object.values(dateNodes).some((node) => {
+          return true && node.classList.contains('highlight-blue');
+        });
+      // to check if the month is not disabled
+      const dateDetails =
+        this.selectedDay &&
+        this.monthDetails.find((item) => {
+          return item && item.date === this.selectedDay;
+        });
+      return (
+        this.selectedDay &&
+        isDateSelected &&
+        this.isDateWithinMinMaxDate(parsedDate) &&
+        dateDetails?.month !== -1
+      );
+    }
+    return this.selectedDay;
   };
 
   formatDateTime = (): string => {
@@ -1025,7 +1048,7 @@ export class Datepicker {
   };
 
   private _getValidDateInMonth(date, args) {
-    if (date < 0) {
+    if (date < 0 || args.year > this.maxYear || this.minYear > args.year) {
       return -1;
     }
     if (this.minDate !== undefined && this.maxDate !== undefined) {
@@ -1090,19 +1113,36 @@ export class Datepicker {
     return monthArray;
   };
 
+  isDateWithinMinMaxDate(date, checkYear = true) {
+    this.isDateWithinMaxDate =
+      this.maxDate && !(date <= parseISO(this.maxDate).valueOf())
+        ? false
+        : true;
+    this.isDateWithinMinDate =
+      this.minDate && !(parseISO(this.minDate).valueOf() <= date)
+        ? false
+        : true;
+    if (checkYear)
+      return (
+        this.isDateWithinMaxDate &&
+        this.isDateWithinMinDate &&
+        this.year <= this.maxYear &&
+        this.minYear <= this.year
+      );
+    else return this.isDateWithinMaxDate && this.isDateWithinMinDate;
+  }
+
   checkYearRestriction() {
-    if (this.maxYear)
-      this.isMaxYearRestricted =
-        Number(this.year) >= this.maxYear && this.month === 11 ? true : false;
-    if (this.minYear)
-      this.isMinYearRestricted =
-        Number(this.year) <= this.minYear && this.month === 0 ? true : false;
+    this.isNextMonthRestricted =
+      Number(this.year) >= this.maxYear && this.month === 11 ? true : false;
+    this.isPrevMonthRestricted =
+      Number(this.year) <= this.minYear && this.month === 0 ? true : false;
   }
 
   setMonth = (offset) => {
     if (
-      (offset === 1 && this.isMaxYearRestricted) ||
-      (offset === -1 && this.isMinYearRestricted)
+      (offset === 1 && this.isNextMonthRestricted) ||
+      (offset === -1 && this.isPrevMonthRestricted)
     )
       return;
 
@@ -1125,6 +1165,7 @@ export class Datepicker {
       this.month === 11
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
+    this.selectedDay = undefined;
     this.checkYearRestriction();
   };
 
@@ -1266,6 +1307,10 @@ export class Datepicker {
   onDateClick = (e, { date, timestamp }) => {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
+      // set the value as the user clicks on any date
+      this.value = this.formatDateTime();
+      this.isDateInvalid = false;
+      this.state = this.initState;
       if (!this.showFooter) {
         this.updateValueAndEmitEvent(e);
         this.showDatePicker = false;
@@ -1362,7 +1407,14 @@ export class Datepicker {
   renderInvalidAlert() {
     return (
       <div class='invalid-alert' slot='input-suffix'>
-        <fw-tooltip content='Please enter a valid date or format' hoist>
+        <fw-tooltip
+          distance='13'
+          content={
+            this.tooltipErrorText ||
+            TranslationController.t('datepicker.tooltipErrorText')
+          }
+          hoist={this.hoistTooltip}
+        >
           <fw-icon name='alert' size={14} color='#d72d30'></fw-icon>
         </fw-tooltip>
       </div>
@@ -1493,7 +1545,7 @@ export class Datepicker {
           <div
             role='button'
             tabindex='0'
-            class={`mdpchb-inner ${this.isMinYearRestricted && 'disabled'}`}
+            class={`mdpchb-inner ${this.isPrevMonthRestricted && 'disabled'}`}
             onClick={() => this.setMonth(-1)}
             onKeyDown={handleKeyDown(() => this.setMonth(-1))}
           >
@@ -1504,7 +1556,7 @@ export class Datepicker {
           <div
             role='button'
             tabindex='0'
-            class={`mdpchb-inner ${this.isMaxYearRestricted && 'disabled'}`}
+            class={`mdpchb-inner ${this.isNextMonthRestricted && 'disabled'}`}
             onClick={() => this.setMonth(1)}
             onKeyDown={handleKeyDown(() => this.setMonth(1))}
           >

@@ -4,7 +4,8 @@
     "update": "Update",
     "to": "to",
     "date": "Date",
-    "time": "Time"
+    "time": "Time",
+    "tooltipErrorText": "Please enter a valid date or format"
   },
   "dropdown": {
     "add": "Add",
