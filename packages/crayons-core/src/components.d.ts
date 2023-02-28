@@ -383,6 +383,10 @@ export namespace Components {
          */
         "hintText": string;
         /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoistTooltip": boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label": string;
@@ -431,7 +435,7 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
-          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is false.
+          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
          */
         "showErrorOnInvalidDate": boolean;
         /**
@@ -458,6 +462,10 @@ export namespace Components {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
+        /**
+          * Error text displayed on the tooltip for invalid date inputs.
+         */
+        "tooltipErrorText": any;
         "updateText": string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
@@ -3272,6 +3280,10 @@ declare namespace LocalJSX {
          */
         "hintText"?: string;
         /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoistTooltip"?: boolean;
+        /**
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
@@ -3328,7 +3340,7 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
-          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is false.
+          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
          */
         "showErrorOnInvalidDate"?: boolean;
         /**
@@ -3355,6 +3367,10 @@ declare namespace LocalJSX {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
+        /**
+          * Error text displayed on the tooltip for invalid date inputs.
+         */
+        "tooltipErrorText"?: any;
         "updateText"?: string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
