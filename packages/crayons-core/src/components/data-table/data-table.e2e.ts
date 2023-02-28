@@ -511,6 +511,7 @@ describe('fw-data-table', () => {
     );
     expect(actionMenu).toBeTruthy();
     actionMenu.click();
+    await page.waitForChanges();
     const rowActions = await page.find(
       'fw-data-table >>> tbody > tr > td.row-actions'
     );
