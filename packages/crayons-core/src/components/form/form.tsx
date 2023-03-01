@@ -657,12 +657,15 @@ export class Form {
           if (f.name === field) {
             return {
               ...f,
-              required: required,
+              required: !!required,
             };
           }
           return f;
         }) ?? [],
     };
+    if (!required) {
+      this.errors = { ...this.errors, [field]: undefined };
+    }
 
     this.formValidationSchema =
       generateDynamicValidationSchema(

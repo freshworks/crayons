@@ -12,7 +12,7 @@ describe('fw-form', () => {
           label: 'First Name',
           type: 'TEXT',
           position: 1,
-          required: true,
+          required: false,
           editable: false,
           visible: true,
           deleted: false,
@@ -592,7 +592,7 @@ describe('fw-form', () => {
       (elm: any, { formSchema }) => {
         elm.formSchema = formSchema;
         elm.initialValues = {
-          first_name: '',
+          first_name: 'name',
           is_indian_citizen: false,
           gender: '',
           order_status: '',
@@ -607,7 +607,6 @@ describe('fw-form', () => {
     const element = await page.find('fw-form');
     const result = await element.callMethod('doSubmit');
 
-    expect(result.errors['first_name']).toEqual('First Name is required');
     expect(result.errors['is_indian_citizen']).toEqual(
       'Indian Citizen? is required'
     );
@@ -976,5 +975,49 @@ describe('fw-form', () => {
     const isDisabled = await input.getProperty('disabled');
 
     await expect(isDisabled).toEqual(true);
+  });
+
+  it('should add required property to the field when setFieldRequired method is called', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const formElemShadow = await page.find('fw-form >>> :first-child');
+    const formControlShadow = await formElemShadow.find(
+      "fw-form-control[name='first_name'] >>> :first-child"
+    );
+
+    const input = await formControlShadow.find('fw-input');
+    const isRequired = await input.getProperty('required');
+
+    await expect(isRequired).toEqual(false);
+
+    const element = await page.find('fw-form');
+
+    await element.callMethod('setFieldRequired', 'first_name', true);
+
+    await page.waitForChanges();
+
+    const newIsRequired = await input.getProperty('required');
+
+    await expect(newIsRequired).toEqual(true);
+
+    await element.callMethod('setFieldRequired', 'first_name', false);
+
+    await page.waitForChanges();
+
+    const newIsRequired1 = await input.getProperty('required');
+
+    await expect(newIsRequired1).toEqual(false);
   });
 });
