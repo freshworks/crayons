@@ -969,6 +969,7 @@
 | `actionParams`                 | --                                 | actionParams - additional information to send to server other than the file.                                                                  | `{ [prop: string]: any; }`                | `{}`                                                                         |
 | `actionURL`                    | `action-u-r-l`                     | actionURL - URL to make server call.                                                                                                          | `string`                                  | `''`                                                                         |
 | `description`                  | `description`                      | description - file uploader description.                                                                                                      | `any`                                     | `undefined`                                                                  |
+| `errors`                       | `errors`                           | errors - errors collection. Mutable as this can be set from form control too based on form validations.                                       | `any`                                     | `[]`                                                                         |
 | `fileUploadError`              | `file-upload-error`                | fileUploadError - Error message when a file upload fails.                                                                                     | `any`                                     | `undefined`                                                                  |
 | `filesLimit`                   | `files-limit`                      | Max files allowed to upload.                                                                                                                  | `number`                                  | `10`                                                                         |
 | `hideLabel`                    | `hide-label`                       | Use this prop to show the label on the component.                                                                                             | `boolean`                                 | `true`                                                                       |
@@ -1063,6 +1064,10 @@ fileUploadPromise
 
 ## Dependencies
 
+### Used by
+
+ - [fw-form-control](../form-control)
+
 ### Depends on
 
 - [fw-file-2](file-2)
@@ -1078,6 +1083,7 @@ graph TD;
   fw-file-2 --> fw-spinner
   fw-tooltip --> fw-popover
   fw-inline-message --> fw-icon
+  fw-form-control --> fw-file-uploader-2
   style fw-file-uploader-2 fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

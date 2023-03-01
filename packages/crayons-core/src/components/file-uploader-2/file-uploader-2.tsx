@@ -158,8 +158,9 @@ export class FileUploader {
 
   /**
    * errors - errors collection.
+   * Mutable as this can be set from form control too based on form validations.
    */
-  @State() errors: any = [];
+  @Prop({ mutable: true }) errors: any = [];
 
   /**
    * files - files collection.

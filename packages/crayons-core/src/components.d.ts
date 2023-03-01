@@ -637,6 +637,10 @@ export namespace Components {
          */
         "description": any;
         /**
+          * errors - errors collection. Mutable as this can be set from form control too based on form validations.
+         */
+        "errors": any;
+        /**
           * fileUploadError - Error message when a file upload fails.
          */
         "fileUploadError": any;
@@ -877,7 +881,8 @@ export namespace Components {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP';
+    | 'RELATIONSHIP'
+    | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
          */
@@ -3510,6 +3515,10 @@ declare namespace LocalJSX {
          */
         "description"?: any;
         /**
+          * errors - errors collection. Mutable as this can be set from form control too based on form validations.
+         */
+        "errors"?: any;
+        /**
           * fileUploadError - Error message when a file upload fails.
          */
         "fileUploadError"?: any;
@@ -3722,7 +3731,8 @@ declare namespace LocalJSX {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP';
+    | 'RELATIONSHIP'
+    | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
          */
