@@ -797,6 +797,12 @@ export namespace Components {
          */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         /**
+          * Method to set if the field is required or not
+          * @param field - name of the form field
+          * @param required - should mark the field as required or not
+         */
+        "setFieldRequired": (field: string, required: boolean) => Promise<void>;
+        /**
           * Method to filter the display of fields in the form based on the passed text.
           * @param text
          */

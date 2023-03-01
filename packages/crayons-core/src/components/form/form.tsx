@@ -642,6 +642,35 @@ export class Form {
     this.fieldSearchText = text;
   }
 
+  /**
+   * Method to set if the field is required or not
+   *
+   * @param field - name of the form field
+   * @param required - should mark the field as required or not
+   */
+  @Method()
+  async setFieldRequired(field: string, required: boolean): Promise<void> {
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (f.name === field) {
+            return {
+              ...f,
+              required: required,
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.formValidationSchema =
+      generateDynamicValidationSchema(
+        this.formSchemaState,
+        this.validationSchema
+      ) || {};
+  }
+
   render() {
     const utils: FormUtils = this.composedUtils();
 

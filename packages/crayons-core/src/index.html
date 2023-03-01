@@ -16,8 +16,8 @@
 
     <!-- start of form examples dynamic and static forms -->
 
-    <!-- <div style="display: flex; justify-content: space-around"> -->
-    <!-- <div id="dynamic-form-container">
+    <div style="display: flex; justify-content: space-around">
+    <div id="dynamic-form-container">
         <h3>Dynamic form via `formSchema`</h3>
         <fw-input
           search
@@ -359,7 +359,7 @@
                 label: 'First Name',
                 type: 1,
                 position: 3,
-                required: true,
+                required: false,
                 placeholder: 'Enter…',
                 hint: 'Please provide a text of at max 100 characters',
                 choices: [],
@@ -386,6 +386,10 @@
                 required: true,
                 placeholder: 'Enter…',
                 hint: 'Select one or more values',
+                field_options:{
+                  option_label_path:'value',
+                  option_value_path:'id'
+                },
                 choices: [
                   {
                     id: 1,
@@ -514,6 +518,10 @@
                 required: true,
                 placeholder: 'Enter…',
                 hint: 'Select a value',
+                field_options:{
+                  option_label_path:'value',
+                  option_value_path:'id'
+                },
                 choices: [
                   {
                     id: 1,
@@ -616,7 +624,7 @@
 
           form.initialValues = initialValues;
         </script>
-      </div> -->
+      </div>
     <!-- <div id="static-form-container">
         <h3>Static form via `fw-form-control` slots</h3>
         <fw-input
