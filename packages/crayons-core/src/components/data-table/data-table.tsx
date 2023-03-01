@@ -10,7 +10,7 @@ import {
   h,
   Method,
 } from '@stencil/core';
-import { createPopper, Instance } from '@popperjs/core';
+import { createPopper, Instance } from 'popperjs-core';
 import { TranslationController } from '../../global/Translation';
 import {
   DataTableColumn,
