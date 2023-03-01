@@ -209,3 +209,37 @@ export function removeFirstOccurrence(strWhole, charRemove) {
   }
   return strWhole;
 }
+
+// function to validate the permissions for the assigned property and return boolean value
+export function hasPermission(strRole, objPermission, strProperty) {
+  if (objPermission) {
+    if (strRole === 'trial' || !objPermission.view) {
+      return false;
+    } else {
+      switch (strProperty) {
+        case 'CREATE':
+          if (
+            hasCustomProperty(objPermission, 'create') &&
+            objPermission.create
+          ) {
+            return true;
+          }
+          break;
+        case 'EDIT':
+          if (hasCustomProperty(objPermission, 'edit') && objPermission.edit) {
+            return true;
+          }
+          break;
+        case 'DELETE':
+          if (
+            hasCustomProperty(objPermission, 'delete') &&
+            objPermission.delete
+          ) {
+            return true;
+          }
+          break;
+      }
+    }
+  }
+  return false;
+}

@@ -18,6 +18,7 @@ import {
   getMappedCustomFieldType,
   getMaximumLimitsConfig,
   hasCustomProperty,
+  hasPermission,
   i18nText,
   isPrimaryFieldType,
   isUniqueField,
@@ -448,6 +449,15 @@ export class FormBuilder {
 
     // New field type element dropped inside the container
     if (objDetail.dragFromId !== objDetail.dropToId) {
+      const boolCreationAllowed = hasPermission(
+        this.role,
+        this.permission,
+        'CREATE'
+      );
+      if (!boolCreationAllowed) {
+        return;
+      }
+
       this.composeNewField(
         elFieldType.dataProvider.type,
         { ...elFieldType.dataProvider },
@@ -472,6 +482,17 @@ export class FormBuilder {
   };
 
   private addNewFieldTypeHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    const boolCreationAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'CREATE'
+    );
+    if (!boolCreationAllowed) {
+      return;
+    }
+
     // Observer added to scroll to the bottom on new field addition by click of the + button
     this.resizeObserver = new ResizeObserver(() => {
       this.removeResizeObserver();
@@ -733,6 +754,60 @@ export class FormBuilder {
     );
   }
 
+  private renderDisableFieldCreateByRole(
+    objProductPresetConfig,
+    strBaseClassName
+  ) {
+    if (this.role === 'trial') {
+      return (
+        <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
+          <fw-icon name='lock' size='30'></fw-icon>
+          <label class={`${strBaseClassName}-left-panel-list-disabled-header`}>
+            {i18nText(objProductPresetConfig?.freePlanFieldAddDisabledHeader)}
+          </label>
+          <label class={`${strBaseClassName}-left-panel-list-disabled-message`}>
+            {i18nText(objProductPresetConfig?.freePlanFieldAddDisabledMessage)}
+          </label>
+          <fw-button
+            color='primary'
+            onFwClick={this.explorePlanHandler}
+            class={`${strBaseClassName}-left-panel-list-disabled-button`}
+          >
+            {i18nText(objProductPresetConfig?.freePlanFieldAddDisabledButton)}
+          </fw-button>
+        </div>
+      );
+    }
+  }
+
+  private renderDisableFieldCreateByPermission(
+    objProductPresetConfig,
+    strBaseClassName
+  ) {
+    const boolCreationAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'CREATE'
+    );
+    if (!boolCreationAllowed) {
+      return (
+        <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
+          <fw-icon name='lock' size='30'></fw-icon>
+          <label class={`${strBaseClassName}-left-panel-list-disabled-header`}>
+            {i18nText(
+              objProductPresetConfig?.noCreatePermissionFieldAddDisabledHeader
+            )}
+          </label>
+          <label class={`${strBaseClassName}-left-panel-list-disabled-message`}>
+            {i18nText(
+              objProductPresetConfig?.noCreatePermissionFieldAddDisabledMessage
+            )}
+          </label>
+        </div>
+      );
+    }
+  }
+
   private renderFieldTypeElement(
     key,
     presetFieldTypes,
@@ -888,6 +963,8 @@ export class FormBuilder {
         pinned={isPrimaryField ? 'top' : ''}
         disabled={boolFieldEditingState}
         disabledSort={this.searching}
+        permission={this.permission}
+        role={this.role}
         enableUnique={this.enableUnique}
         enableFilterable={this.enableFilterable}
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}
@@ -1051,33 +1128,13 @@ export class FormBuilder {
               >
                 {fieldTypeElements}
               </fw-drag-container>
-              {this.role === 'trial' && (
-                <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
-                  <fw-icon name='lock' size='30'></fw-icon>
-                  <label
-                    class={`${strBaseClassName}-left-panel-list-disabled-header`}
-                  >
-                    {i18nText(
-                      objProductPresetConfig?.freePlanFieldAddDisabledHeader
-                    )}
-                  </label>
-                  <label
-                    class={`${strBaseClassName}-left-panel-list-disabled-message`}
-                  >
-                    {i18nText(
-                      objProductPresetConfig?.freePlanFieldAddDisabledMessage
-                    )}
-                  </label>
-                  <fw-button
-                    color='primary'
-                    onFwClick={this.explorePlanHandler}
-                    class={`${strBaseClassName}-left-panel-list-disabled-button`}
-                  >
-                    {i18nText(
-                      objProductPresetConfig?.freePlanFieldAddDisabledButton
-                    )}
-                  </fw-button>
-                </div>
+              {this.renderDisableFieldCreateByRole(
+                objProductPresetConfig,
+                strBaseClassName
+              )}
+              {this.renderDisableFieldCreateByPermission(
+                objProductPresetConfig,
+                strBaseClassName
               )}
             </div>
           </div>

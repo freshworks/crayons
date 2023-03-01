@@ -439,11 +439,12 @@
 
       var tabProducts = document.getElementById('tabProducts');
       var fb = document.getElementById('formBuilder');
-      // fb.userPlan = 'trial';
       fb.productName = productName;
       fb.formValues = formValuesConvProps;
       fb.lookupTargetObjects = lookupTargets;
       // fb.formValues = formValues;
+      // fb.role = 'trial';
+      // fb.permission = { view: true, create: false, delete: true, edit: false };
 
       function create_UUID() {
         var dt = new Date().getTime();
