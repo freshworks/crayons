@@ -70,6 +70,10 @@ export class FormControl {
    */
   @Prop() shouldRender = true;
   /**
+   * Value of the slotted custom field on fw-form-control
+   */
+  @Prop() value;
+  /**
    * Disable the field from being editable
    */
   @Prop()
@@ -418,8 +422,8 @@ export class FormControl {
     return cmp;
   }
 
-  componentWillLoad(): void {
-    this.handleSlotChange();
+  componentWillUpdate(): void {
+    this.setSlotElementValue();
   }
 
   /**
@@ -439,6 +443,27 @@ export class FormControl {
     this.slotElement = [...this.el.querySelectorAll('*')].filter((el: any) => {
       return NATIVE_CONTROLS.includes(el?.tagName?.toLowerCase());
     })?.[0];
+
+    this.setSlotElementValue();
+  }
+
+  /**
+   * Set Value on the slotted control field on fw-form-control.
+   * Useful for setting initialValues on the slotted control field
+   * Assumes that the slotted control field has a prop named `value`
+   */
+  private setSlotElementValue() {
+    if (this.slotElement) {
+      setTimeout(() => {
+        switch (this.type) {
+          case 'CHECKBOX':
+            this.slotElement.checked = this.value ?? false;
+            break;
+          default:
+            this.slotElement.value = this.value ?? '';
+        }
+      }, 100);
+    }
   }
 
   render(): JSX.Element {

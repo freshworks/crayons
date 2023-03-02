@@ -1148,8 +1148,15 @@ Set `fieldProps: { maxlength: 5 }` to `fw-form-control`
     ></fw-form-control>
 
     <fw-form-control name="cin" type="TEXT" required label="Custom native in">
-      <input name="cin" id="cin" placeholder="custom input" autocomplete="off"
-    /></fw-form-control>
+      <!-- slotted custom field control -->
+      <input
+        name="cin"
+        id="cin"
+        placeholder="custom input"
+        autocomplete="off"
+        style="width:100%"
+      />
+    </fw-form-control>
   </fw-form>
   <fw-button id="submit-static-form">Submit</fw-button>
   <fw-button id="reset-static-form">Reset</fw-button>
@@ -1185,6 +1192,7 @@ Set `fieldProps: { maxlength: 5 }` to `fw-form-control`
 
   var initialValues = {
     first_name: 'John',
+    cin: 'set custom slotted input initial value', // support for setting initialValues for custom slotted control. assumes the custom field control as a prop named `value`.
   };
   formStatic.initialValues = initialValues;
 
