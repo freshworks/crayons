@@ -797,12 +797,6 @@ export namespace Components {
          */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         /**
-          * Method to set if the field is required or not
-          * @param field - name of the form field
-          * @param required - should mark the field as required or not
-         */
-        "setFieldRequired": (field: string, required: boolean) => Promise<void>;
-        /**
           * Method to filter the display of fields in the form based on the passed text.
           * @param text
          */
@@ -814,6 +808,11 @@ export namespace Components {
           * @param shouldValidate - should this form field be validated with the updated value
          */
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Method to set required status on form fields
+          * @param fieldsReqStatusObj - Object with key as form field name and value denoting if the field should be marked as required or not example: `{ first_name: true, last_name: false }`
+         */
+        "setFieldsRequiredStatus": (fieldsReqStatusObj: { [x: number]: boolean; toString?: boolean; charAt?: boolean; charCodeAt?: boolean; concat?: boolean; indexOf?: boolean; lastIndexOf?: boolean; localeCompare?: boolean; match?: boolean; replace?: boolean; search?: boolean; slice?: boolean; split?: boolean; substring?: boolean; toLowerCase?: boolean; toLocaleLowerCase?: boolean; toUpperCase?: boolean; toLocaleUpperCase?: boolean; trim?: boolean; readonly length?: boolean; substr?: boolean; valueOf?: boolean; codePointAt?: boolean; includes?: boolean; endsWith?: boolean; normalize?: boolean; repeat?: boolean; startsWith?: boolean; anchor?: boolean; big?: boolean; blink?: boolean; bold?: boolean; fixed?: boolean; fontcolor?: boolean; fontsize?: boolean; italics?: boolean; link?: boolean; small?: boolean; strike?: boolean; sub?: boolean; sup?: boolean; padStart?: boolean; padEnd?: boolean; trimEnd?: boolean; trimStart?: boolean; trimLeft?: boolean; trimRight?: boolean; matchAll?: boolean; [Symbol.iterator]?: boolean; }) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */

@@ -643,29 +643,34 @@ export class Form {
   }
 
   /**
-   * Method to set if the field is required or not
+   * Method to set required status on form fields
    *
-   * @param field - name of the form field
-   * @param required - should mark the field as required or not
+   * @param requiredStatusObj - Object with key as form field name and value denoting if the field should be marked
+   * as required or not
+   * example: `{ first_name: true, last_name: false }`
    */
   @Method()
-  async setFieldRequired(field: string, required: boolean): Promise<void> {
+  async setFieldsRequiredStatus(requiredStatusObj: {
+    [K in keyof string]?: boolean;
+  }): Promise<void> {
+    let errorsObj = { ...this.errors };
     this.formSchemaState = {
       ...this.formSchemaState,
       fields:
         this.formSchemaState?.fields?.map((f) => {
-          if (f.name === field) {
+          if (Object.prototype.hasOwnProperty.call(requiredStatusObj, f.name)) {
+            const isRequired = !!requiredStatusObj?.[f.name];
+            if (!isRequired) errorsObj = { ...errorsObj, [f.name]: undefined };
             return {
               ...f,
-              required: !!required,
+              required: isRequired,
             };
           }
           return f;
         }) ?? [],
     };
-    if (!required) {
-      this.errors = { ...this.errors, [field]: undefined };
-    }
+
+    this.errors = { ...errorsObj };
 
     this.formValidationSchema =
       generateDynamicValidationSchema(

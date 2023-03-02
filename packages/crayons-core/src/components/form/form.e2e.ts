@@ -977,7 +977,7 @@ describe('fw-form', () => {
     await expect(isDisabled).toEqual(true);
   });
 
-  it('should add required property to the field when setFieldRequired method is called', async () => {
+  it('should add required property to the form fields when setFieldsRequiredStatus method is called', async () => {
     const page = await newE2EPage();
 
     await page.setContent(`<fw-form></fw-form>`);
@@ -992,6 +992,8 @@ describe('fw-form', () => {
 
     await page.waitForChanges();
 
+    const element = await page.find('fw-form');
+
     const formElemShadow = await page.find('fw-form >>> :first-child');
     const formControlShadow = await formElemShadow.find(
       "fw-form-control[name='first_name'] >>> :first-child"
@@ -1002,9 +1004,7 @@ describe('fw-form', () => {
 
     await expect(isRequired).toEqual(false);
 
-    const element = await page.find('fw-form');
-
-    await element.callMethod('setFieldRequired', 'first_name', true);
+    await element.callMethod('setFieldsRequiredStatus', { first_name: true });
 
     await page.waitForChanges();
 
@@ -1012,7 +1012,7 @@ describe('fw-form', () => {
 
     await expect(newIsRequired).toEqual(true);
 
-    await element.callMethod('setFieldRequired', 'first_name', false);
+    await element.callMethod('setFieldsRequiredStatus', { first_name: false });
 
     await page.waitForChanges();
 
