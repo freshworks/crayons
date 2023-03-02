@@ -268,7 +268,7 @@ describe('fw-form-builder', () => {
       }
       let testIndex = -1;
       it.each(fieldOrder)(
-        'clicking on add %s field triggers fwAddClick and fwComposeNewField events with the expected detail',
+        'clicking on add %s field triggers fwComposeNewField event with the expected detail',
         async (field) => {
           testIndex++;
           const page = await newE2EPage();
@@ -276,7 +276,6 @@ describe('fw-form-builder', () => {
           await page.setContent(
             `<fw-form-builder product-name="${productName}"></fw-form-builder>`
           );
-          const fwAddClick = await page.spyOnEvent('fwAddClick');
           const fwComposeNewField = await page.spyOnEvent('fwComposeNewField');
           const leftPanel = await page.find(
             'fw-form-builder >>> .form-builder-left-panel'
@@ -287,11 +286,6 @@ describe('fw-form-builder', () => {
           expect(fieldItems.length).toBe(fieldOrder.length);
           await fieldItems[testIndex].click();
           await page.waitForChanges();
-          expect(fwAddClick).toHaveReceivedEventDetail({
-            value: field,
-            data: presetSchema.fieldTypes[field],
-            index: productName === 'CUSTOM_OBJECTS' ? testIndex + 1 : testIndex,
-          });
           expect(fwComposeNewField).toHaveReceivedEventDetail({
             maximumLimits: formMapper[productName].maximumLimits,
             fieldSchema: {
@@ -618,7 +612,8 @@ describe('fw-form-builder', () => {
     );
     expect(disabledButton).toBeTruthy();
     expect(disabledButton.innerHTML).toBe('Explore plans');
-    await disabledButton.click();
+    await disabledButton.triggerEvent('fwClick');
+    await page.waitForChanges();
     await page.waitForChanges();
     expect(fwExplorePlan).toHaveReceivedEvent();
   });

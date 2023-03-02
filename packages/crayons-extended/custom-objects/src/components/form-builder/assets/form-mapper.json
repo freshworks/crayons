@@ -238,7 +238,9 @@
       "dropdownFieldWithoutChoicesKey": "",
       "freePlanFieldAddDisabledHeader": "",
       "freePlanFieldAddDisabledMessage": "",
-      "freePlanFieldAddDisabledButton": ""
+      "freePlanFieldAddDisabledButton": "",
+      "noCreatePermissionFieldAddDisabledHeader": "",
+      "noCreatePermissionFieldAddDisabledMessage": ""
     },
     "labels": {
       "headerProduct": "",
@@ -411,7 +413,9 @@
       "dropdownFieldWithoutChoicesKey": "field_options.reference",
       "freePlanFieldAddDisabledHeader": "freePlanFieldAddDisabledHeader",
       "freePlanFieldAddDisabledMessage": "freePlanFieldAddDisabledMessage",
-      "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton"
+      "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton",
+      "noCreatePermissionFieldAddDisabledHeader": "noCreatePermissionFieldAddDisabledHeader",
+      "noCreatePermissionFieldAddDisabledMessage": "noCreatePermissionFieldAddDisabledMessage"
     },
     "labels": {
       "headerProduct": "headerProductConvProps",
