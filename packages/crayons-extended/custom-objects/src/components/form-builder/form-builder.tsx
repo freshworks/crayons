@@ -789,7 +789,7 @@ export class FormBuilder {
       this.permission,
       'CREATE'
     );
-    if (!boolCreationAllowed) {
+    if (!boolCreationAllowed && this.role !== 'trial') {
       return (
         <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
           <fw-icon name='lock' size='30'></fw-icon>
