@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.2...@freshworks/crayons@4.2.0-beta.3) (2023-03-02)
+
+**Note:** Version bump only for package @freshworks/crayons
+
+
+
+
+
 ## [4.2.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.1...@freshworks/crayons@4.2.0-beta.2) (2023-02-27)
 
 ### Bug Fixes

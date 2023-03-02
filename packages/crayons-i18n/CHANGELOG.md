@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.0-beta.2...@freshworks/crayons-i18n@4.2.0-beta.3) (2023-03-02)
+
+
+### Features
+
+* **fb-permission:** Integrated functionality to restrict features in form builder based on role and permission ([#812](https://github.com/freshworks/crayons/issues/812)) ([7694f67](https://github.com/freshworks/crayons/commit/7694f67f2c99af05f62d28e284ba5b6172d24e7b))
+
+
+
+
+
 ## [4.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.1.0...@freshworks/crayons-i18n@4.2.0-beta.0) (2023-02-06)
 
 ### Features
