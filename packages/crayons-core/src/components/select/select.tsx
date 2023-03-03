@@ -402,6 +402,7 @@ export class Select {
 
   @Watch('dataSource')
   optionsChangedHandler() {
+    console.log('data source changed');
     this.renderInput();
   }
 
@@ -411,19 +412,23 @@ export class Select {
     // If selected key is available in options schema use it
     // Or check for the value
     if (selectedValues?.length > 0) {
-      this.dataSource = newValue;
+      console.log('selected value', selectedValues);
       this.selectedOptionsState = selectedValues;
       this.value = this.multiple
         ? this.selectedOptionsState.map((x) => x[this.optionValuePath])
         : this.selectedOptionsState[0]?.[this.optionValuePath];
-    } else if (this.valueExists()) {
-      this.dataSource = newValue?.map((option) => {
-        return { ...option, selected: this.isValueEqual(this.value, option) };
-      });
-    } else {
       this.dataSource = newValue;
+    } else if (this.valueExists()) {
+      // this.dataSource = newValue?.map((option) => {
+      //   return { ...option, selected: this.isValueEqual(this.value, option) };
+      // });
+      this.dataSource = newValue;
+      // match value and selectedOptionsState with the updated options when value is already provided
+      this.matchValueWithOptions();
+    } else {
       this.value = this.multiple ? [] : '';
       this.selectedOptionsState = [];
+      this.dataSource = newValue;
     }
   }
 
@@ -440,6 +445,7 @@ export class Select {
 
   @Method()
   async setSelectedValues(values: string | string[]): Promise<any> {
+    console.log('value setter', values);
     this.fwListOptions?.setSelectedValues(values);
     this.renderInput();
   }
@@ -455,6 +461,47 @@ export class Select {
     this.hasFocus = true;
     this.selectInput?.focus();
   }
+
+  matchValueWithOptions = () => {
+    console.log('match value', this.dataSource);
+    if (this.dataSource?.length > 0) {
+      // Check whether the selected data in the this.dataSource  matches the value
+      const selectedDataSource = this.dataSource.filter((option) =>
+        this.isValueEqual(this.value, option)
+      );
+      const selectedDataSourceValues = selectedDataSource.map(
+        (option) => option[this.optionValuePath]
+      );
+      const selected = this.multiple
+        ? selectedDataSourceValues
+        : selectedDataSourceValues[0];
+      console.log(
+        'match value inside',
+        selected,
+        selectedDataSource?.length,
+        selectedDataSourceValues?.length,
+        this.selectedOptionsState?.length
+      );
+      if (JSON.stringify(this.value) !== JSON.stringify(selected)) {
+        console.log('this value change', this.value, selected);
+        if (selected) {
+          this.value = selected;
+        } else {
+          this.value = this.multiple ? [] : '';
+        }
+      }
+      if (
+        JSON.stringify(this.selectedOptionsState) !==
+        JSON.stringify(selectedDataSource)
+      ) {
+        console.log('changing selected options', selectedDataSource);
+        this.selectedOptionsState = selectedDataSource;
+      }
+    } else {
+      this.setSelectedValues(this.multiple ? [] : '');
+    }
+    this.renderInput();
+  };
 
   tagContainerKeyDown = (ev) => {
     if (this.changeEmittable()) {
@@ -889,6 +936,12 @@ export class Select {
       ...(this.variant === 'mail' ? {} : { max: this.max }),
     };
 
+    console.log(
+      'this is selected options state',
+      this.value,
+      this.selectedOptionsState
+    );
+
     return (
       <FieldControl
         inputId={this.name}
@@ -1021,7 +1074,7 @@ export class Select {
                   TranslationController.t('search.noDataAvailable')
                 }
                 search={this.search}
-                selectedOptions={this.selectedOptions}
+                selectedOptions={this.selectedOptionsState}
                 variant={this.optionsVariant}
                 filter-text={this.searchValue}
                 options={this.dataSource}

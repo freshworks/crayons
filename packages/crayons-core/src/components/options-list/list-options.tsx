@@ -194,7 +194,6 @@ export class ListOptions {
           )
         : [];
     }
-    this.isInternalValueChange = true;
     this.setValue(this.selectedOptionsState);
   }
 
@@ -256,11 +255,11 @@ export class ListOptions {
    */
   @Method()
   async setSelectedValues(values: any): Promise<any> {
+    console.log('value setter', values);
     if (this.options) {
       this.selectedOptionsState = this.options?.filter((option) =>
         this.isValueEqual(values, option)
       );
-      this.isInternalValueChange = true;
       this.setValue(this.selectedOptionsState);
     }
   }
@@ -268,7 +267,6 @@ export class ListOptions {
   @Method()
   async setSelectedOptions(options: any[]): Promise<any> {
     this.selectedOptionsState = options;
-    this.isInternalValueChange = true;
     this.setValue(options);
   }
 
@@ -301,6 +299,12 @@ export class ListOptions {
 
   @Watch('value')
   onValueChange(newValue, oldValue) {
+    console.log(
+      'value change out',
+      newValue,
+      oldValue,
+      this.isInternalValueChange
+    );
     if (!isEqual(newValue, oldValue)) {
       if (newValue) {
         this.validateValue(newValue);
@@ -311,9 +315,16 @@ export class ListOptions {
         option.selected = this.isValueEqual(newValue, option);
         return option;
       });
+      console.log(
+        'value change',
+        newValue,
+        oldValue,
+        this.isInternalValueChange
+      );
       // Warning: Before mutating this.value inside this file set the  isInternalValueChange to true.
       // This is to prevent triggering the below code which is executed whenever there is a change in the prop this.value
       if (!this.isInternalValueChange) {
+        console.log('value change inside', newValue, oldValue);
         // source might change during dynamic select
         const source =
           this.options?.length > 0 ? this.options : this.selectedOptionsState;
@@ -332,6 +343,11 @@ export class ListOptions {
   @Watch('filterText')
   onFilterTextChange(newValue) {
     this.handleSearchWithDebounce(newValue);
+  }
+
+  @Watch('selectedOptions')
+  onSelectedOptionsChange(newValue) {
+    this.setSelectedOptions(newValue);
   }
 
   valueExists() {
@@ -471,12 +487,17 @@ export class ListOptions {
   }
 
   setValue(options) {
+    let finalValue;
     if (options?.length > 0) {
-      this.value = this.multiple
+      finalValue = this.multiple
         ? options.map((option) => option[this.optionValuePath])
         : options[0][this.optionValuePath];
     } else {
-      this.value = this.multiple ? [] : '';
+      finalValue = this.multiple ? [] : '';
+    }
+    if (!isEqual(this.value, finalValue)) {
+      this.isInternalValueChange = true;
+      this.value = finalValue;
     }
   }
 
@@ -554,6 +575,11 @@ export class ListOptions {
   }
 
   render() {
+    console.log(
+      'list options this is selected options',
+      this.selectedOptionsState,
+      this.value
+    );
     return (
       <div
         class='container'
