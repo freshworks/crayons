@@ -13,7 +13,12 @@ import {
   Fragment,
 } from '@stencil/core';
 import { range, uniq } from 'lodash-es';
-import { handleKeyDown, renderHiddenField, hasSlot } from '../../utils';
+import {
+  handleKeyDown,
+  renderHiddenField,
+  hasSlot,
+  isEqual,
+} from '../../utils';
 import FieldControl from '../../function-components/field-control';
 
 import {
@@ -468,7 +473,7 @@ export class Select {
       const selected = this.multiple
         ? selectedDataSourceValues
         : selectedDataSourceValues[0];
-      if (JSON.stringify(this.value) !== JSON.stringify(selected)) {
+      if (!isEqual(this.value, selected)) {
         if (selected) {
           this.value = selected;
         } else {
