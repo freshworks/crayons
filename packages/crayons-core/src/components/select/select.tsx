@@ -402,7 +402,6 @@ export class Select {
 
   @Watch('dataSource')
   optionsChangedHandler() {
-    console.log('data source changed');
     this.renderInput();
   }
 
@@ -412,16 +411,12 @@ export class Select {
     // If selected key is available in options schema use it
     // Or check for the value
     if (selectedValues?.length > 0) {
-      console.log('selected value', selectedValues);
       this.selectedOptionsState = selectedValues;
       this.value = this.multiple
         ? this.selectedOptionsState.map((x) => x[this.optionValuePath])
         : this.selectedOptionsState[0]?.[this.optionValuePath];
       this.dataSource = newValue;
     } else if (this.valueExists()) {
-      // this.dataSource = newValue?.map((option) => {
-      //   return { ...option, selected: this.isValueEqual(this.value, option) };
-      // });
       this.dataSource = newValue;
       // match value and selectedOptionsState with the updated options when value is already provided
       this.matchValueWithOptions();
@@ -445,7 +440,6 @@ export class Select {
 
   @Method()
   async setSelectedValues(values: string | string[]): Promise<any> {
-    console.log('value setter', values);
     this.fwListOptions?.setSelectedValues(values);
     this.renderInput();
   }
@@ -463,7 +457,6 @@ export class Select {
   }
 
   matchValueWithOptions = () => {
-    console.log('match value', this.dataSource);
     if (this.dataSource?.length > 0) {
       // Check whether the selected data in the this.dataSource  matches the value
       const selectedDataSource = this.dataSource.filter((option) =>
@@ -475,15 +468,7 @@ export class Select {
       const selected = this.multiple
         ? selectedDataSourceValues
         : selectedDataSourceValues[0];
-      console.log(
-        'match value inside',
-        selected,
-        selectedDataSource?.length,
-        selectedDataSourceValues?.length,
-        this.selectedOptionsState?.length
-      );
       if (JSON.stringify(this.value) !== JSON.stringify(selected)) {
-        console.log('this value change', this.value, selected);
         if (selected) {
           this.value = selected;
         } else {
@@ -494,11 +479,10 @@ export class Select {
         JSON.stringify(this.selectedOptionsState) !==
         JSON.stringify(selectedDataSource)
       ) {
-        console.log('changing selected options', selectedDataSource);
         this.selectedOptionsState = selectedDataSource;
       }
     } else {
-      this.setSelectedValues(this.multiple ? [] : '');
+      this.value = this.multiple ? [] : '';
     }
     this.renderInput();
   };
@@ -935,12 +919,6 @@ export class Select {
       ...this.creatableProps,
       ...(this.variant === 'mail' ? {} : { max: this.max }),
     };
-
-    console.log(
-      'this is selected options state',
-      this.value,
-      this.selectedOptionsState
-    );
 
     return (
       <FieldControl

@@ -255,7 +255,6 @@ export class ListOptions {
    */
   @Method()
   async setSelectedValues(values: any): Promise<any> {
-    console.log('value setter', values);
     if (this.options) {
       this.selectedOptionsState = this.options?.filter((option) =>
         this.isValueEqual(values, option)
@@ -299,12 +298,6 @@ export class ListOptions {
 
   @Watch('value')
   onValueChange(newValue, oldValue) {
-    console.log(
-      'value change out',
-      newValue,
-      oldValue,
-      this.isInternalValueChange
-    );
     if (!isEqual(newValue, oldValue)) {
       if (newValue) {
         this.validateValue(newValue);
@@ -315,16 +308,9 @@ export class ListOptions {
         option.selected = this.isValueEqual(newValue, option);
         return option;
       });
-      console.log(
-        'value change',
-        newValue,
-        oldValue,
-        this.isInternalValueChange
-      );
       // Warning: Before mutating this.value inside this file set the  isInternalValueChange to true.
       // This is to prevent triggering the below code which is executed whenever there is a change in the prop this.value
       if (!this.isInternalValueChange) {
-        console.log('value change inside', newValue, oldValue);
         // source might change during dynamic select
         const source =
           this.options?.length > 0 ? this.options : this.selectedOptionsState;
@@ -575,11 +561,6 @@ export class ListOptions {
   }
 
   render() {
-    console.log(
-      'list options this is selected options',
-      this.selectedOptionsState,
-      this.value
-    );
     return (
       <div
         class='container'

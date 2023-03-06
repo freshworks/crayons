@@ -506,4 +506,287 @@ describe('fw-select', () => {
       },
     });
   });
+
+  it('displays the correct value when value is already present and options are dynamically passed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select value="angela.smith@gmail.com">
+                            </fw-select>`);
+    await page.waitForChanges();
+    const element = await page.find('fw-select');
+    let popover = await page.find('fw-select >>> fw-popover');
+    let options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    let selectInput = await page.find('fw-select >>> input');
+    let inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    popover = await page.find('fw-select >>> fw-popover');
+    options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    selectInput = await page.find('fw-select >>> input');
+    inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('Angela Smith');
+    expect(options[0]).toHaveAttribute('selected');
+    const selectedValues = await element.callMethod('getSelectedItem');
+    expect(selectedValues.length).toBe(1);
+    expect(selectedValues[0].value).toBe('angela.smith@gmail.com');
+  });
+
+  it('displays nothing when value is already present but does not match with the options which are dynamically passed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select value="rihan@gmail.com">
+                            </fw-select>`);
+    const element = await page.find('fw-select');
+    await page.waitForChanges();
+    let popover = await page.find('fw-select >>> fw-popover');
+    let options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    let selectInput = await page.find('fw-select >>> input');
+    let inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    popover = await page.find('fw-select >>> fw-popover');
+    options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    selectInput = await page.find('fw-select >>> input');
+    inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    const selectedValues = await element.callMethod('getSelectedItem');
+    expect(selectedValues.length).toBe(0);
+  });
+
+  it('displays nothing when value is already present but options are dynamically passed as empty', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select value="angela.smith@gmail.com">
+                            </fw-select>`);
+    const element = await page.find('fw-select');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+      },
+      props
+    );
+    await page.waitForChanges();
+    let popover = await page.find('fw-select >>> fw-popover');
+    let options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    let selectInput = await page.find('fw-select >>> input');
+    let inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('Angela Smith');
+    await page.$eval(
+      'fw-select',
+      (elm: any) => {
+        elm.options = [];
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    popover = await page.find('fw-select >>> fw-popover');
+    options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    selectInput = await page.find('fw-select >>> input');
+    inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    const selectedValues = await element.callMethod('getSelectedItem');
+    expect(selectedValues.length).toBe(0);
+  });
+
+  it('displays nothing when value is already present but options which are dynamically passed does not contain the value already present', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select value="angela.smith@gmail.com">
+                            </fw-select>`);
+    const element = await page.find('fw-select');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+      },
+      props
+    );
+    await page.waitForChanges();
+    let popover = await page.find('fw-select >>> fw-popover');
+    let options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    let selectInput = await page.find('fw-select >>> input');
+    let inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('Angela Smith');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = [options[2], options[1]];
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    popover = await page.find('fw-select >>> fw-popover');
+    options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(2);
+    selectInput = await page.find('fw-select >>> input');
+    inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    const selectedValues = await element.callMethod('getSelectedItem');
+    expect(selectedValues.length).toBe(0);
+  });
+
+  it('displays the value when the options which are dynamically passed contain the selected key', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select>
+                            </fw-select>`);
+    const element = await page.find('fw-select');
+    await page.waitForChanges();
+    let popover = await page.find('fw-select >>> fw-popover');
+    let options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    let selectInput = await page.find('fw-select >>> input');
+    let inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = [{ ...options[0], selected: true }, ...options.slice(1)];
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    popover = await page.find('fw-select >>> fw-popover');
+    options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    selectInput = await page.find('fw-select >>> input');
+    inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('Angela Smith');
+    expect(options[0]).toHaveAttribute('selected');
+    const selectedValues = await element.callMethod('getSelectedItem');
+    expect(selectedValues.length).toBe(1);
+    expect(selectedValues[0].value).toBe('angela.smith@gmail.com');
+  });
+
+  it('displays the value of selected options when the options which are dynamically passed contain the selected key even if there is a value passed', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select value="angela@freshdesk.in">
+                            </fw-select>`);
+    const element = await page.find('fw-select');
+    await page.waitForChanges();
+    let popover = await page.find('fw-select >>> fw-popover');
+    let options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    let selectInput = await page.find('fw-select >>> input');
+    let inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = [{ ...options[0], selected: true }, ...options.slice(1)];
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    popover = await page.find('fw-select >>> fw-popover');
+    options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    selectInput = await page.find('fw-select >>> input');
+    inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('Angela Smith');
+    expect(options[0]).toHaveAttribute('selected');
+    const selectedValues = await element.callMethod('getSelectedItem');
+    expect(selectedValues.length).toBe(1);
+    expect(selectedValues[0].value).toBe('angela.smith@gmail.com');
+  });
+
+  it('displays the correct value when options are dynamically passed and value is set using prop', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select>
+                            </fw-select>`);
+    await page.waitForChanges();
+    const element = await page.find('fw-select');
+    let popover = await page.find('fw-select >>> fw-popover');
+    let options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    let selectInput = await page.find('fw-select >>> input');
+    let inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+        elm.value = 'angela.smith@gmail.com';
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    popover = await page.find('fw-select >>> fw-popover');
+    options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    selectInput = await page.find('fw-select >>> input');
+    inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('Angela Smith');
+    expect(options[0]).toHaveAttribute('selected');
+    const selectedValues = await element.callMethod('getSelectedItem');
+    expect(selectedValues.length).toBe(1);
+    expect(selectedValues[0].value).toBe('angela.smith@gmail.com');
+  });
+
+  it('displays the correct value when options are dynamically passed and value is set using setSelectedValues method', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select>
+                            </fw-select>`);
+    await page.waitForChanges();
+    const element = await page.find('fw-select');
+    let popover = await page.find('fw-select >>> fw-popover');
+    let options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    let selectInput = await page.find('fw-select >>> input');
+    let inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('');
+    await page.$eval(
+      'fw-select',
+      (elm: any, { options }) => {
+        elm.options = options;
+      },
+      props
+    );
+    await page.waitForChanges();
+    await element.callMethod('setSelectedValues', 'angela.smith@gmail.com');
+    await page.waitForChanges();
+    await page.waitForChanges();
+    popover = await page.find('fw-select >>> fw-popover');
+    options = await popover.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    selectInput = await page.find('fw-select >>> input');
+    inputValue = await selectInput.getProperty('value');
+    expect(inputValue).toBe('Angela Smith');
+    expect(options[0]).toHaveAttribute('selected');
+    const selectedValues = await element.callMethod('getSelectedItem');
+    expect(selectedValues.length).toBe(1);
+    expect(selectedValues[0].value).toBe('angela.smith@gmail.com');
+  });
 });
