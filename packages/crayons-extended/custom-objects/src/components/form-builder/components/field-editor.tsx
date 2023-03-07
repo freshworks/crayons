@@ -444,7 +444,7 @@ export class FieldEditor {
           this.internalNameErrorMessage = i18nText('errors.fieldNameExists');
           return false;
         } else {
-          const regexAlphaNumChars = /^[A-Z0-9_\s]+$/i;
+          const regexAlphaNumChars = /^[A-Z0-9_]*$/i;
           if (!regexAlphaNumChars.test(strInputValue)) {
             this.internalNameErrorMessage = i18nText(
               'errors.useOnlyEnglishChars'

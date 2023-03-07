@@ -772,19 +772,25 @@ describe('fw-form-builder', () => {
       );
       expect(checkboxLabel).toBeTruthy();
       expect(checkboxLabel.innerText).toBe('Behavior for agents');
-      if (field.type !== '6') {
-        const requiredCheckbox = await fieldEditors[fieldIndex].find(
-          'fw-checkbox'
+      const formattedType =
+        formMapper.CONVERSATION_PROPERTIES.reverseMappedFieldTypes[field.type];
+      const fieldProps =
+        formMapper.CONVERSATION_PROPERTIES.fieldProps[formattedType];
+      if (fieldProps.checkboxes.length) {
+        const requiredProp = fieldProps.checkboxes.find(
+          (checkbox) => checkbox.key === 'required'
         );
-        expect(requiredCheckbox).toBeTruthy();
-        expect(requiredCheckbox.innerHTML).toBe(
-          'Required when resolving the conversation'
-        );
-      } else {
-        const requiredCheckbox = await fieldEditors[fieldIndex].find(
-          'fw-checkbox'
-        );
-        expect(requiredCheckbox).toBeFalsy();
+        if (requiredProp) {
+          const requiredCheckbox = await fieldEditors[fieldIndex].find(
+            'fw-checkbox'
+          );
+          expect(requiredCheckbox).toBeTruthy();
+          const expectedText =
+            requiredProp.display_label === 'fieldRequiredResolveConv'
+              ? 'Required when resolving the conversation'
+              : 'Required when submitting the form';
+          expect(requiredCheckbox.innerHTML).toBe(expectedText);
+        }
       }
       const labelInput = await fieldEditors[fieldIndex].find(
         '.fw-field-editor-content-required-input'
