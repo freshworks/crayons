@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.3...@freshworks/crayons@4.2.0-beta.4) (2023-03-07)
+
+
+### Bug Fixes
+
+* add tests for the fix ([d16feb4](https://github.com/freshworks/crayons/commit/d16feb4e1d02cb0c4141b218868281196bf10d8c))
+* fix re-render value on options change ([f2a1409](https://github.com/freshworks/crayons/commit/f2a14094e17f6ef18712b9b58b7963e3a46f950a))
+* replace equality fn ([6cfefbd](https://github.com/freshworks/crayons/commit/6cfefbdb34079886e66e10051b8bd87a5ec48ea1))
+
+
+
+
+
 ## [4.2.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.1...@freshworks/crayons@4.2.0-beta.2) (2023-02-27)
 
 ### Bug Fixes
