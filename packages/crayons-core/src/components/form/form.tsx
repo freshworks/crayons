@@ -520,13 +520,44 @@ export class Form {
 
     this.values = { ...this.values, [field]: value };
 
-    // this.fwFormValueChanged.emit({
-    //   field,
-    //   value,
-    // });
-
     if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
+      await this.handleValidation();
+    }
+  }
+
+  /**
+   * Method to set values on the form fields.
+   *
+   * @param valuesObj - Object with key as form field name and value as the updated value for the field
+   * example: `{ first_name: "new name", last_name: "new last name" }`
+   * @param shouldValidate - should this form be validated with the updated values
+   */
+  @Method()
+  async setFieldsValue(
+    valuesObj: FormValues,
+    shouldValidate = true
+  ): Promise<void> {
+    if (!valuesObj) return;
+
+    let newValues = { ...this.values };
+    let newTouchedFields = { ...this.touched };
+
+    Object.keys(valuesObj).forEach((field) => {
+      // Don't set value if the field is disabled
+      const isDisabledField = this.isDisabledField(this.fields?.[field]);
+      if (!isDisabledField) {
+        newValues = { ...newValues, [field]: valuesObj[field] };
+        if (shouldValidate) {
+          newTouchedFields = { ...newTouchedFields, [field]: true };
+        }
+      }
+    });
+
+    this.values = { ...newValues };
+    this.touched = { ...newTouchedFields };
+
+    if (shouldValidate) {
       await this.handleValidation();
     }
   }
@@ -581,11 +612,6 @@ export class Form {
 
     this.touched = { ...this.touched, [field]: false };
     // this.values = { ...this.values, [field]: undefined };
-
-    // this.fwFormValueChanged.emit({
-    //   field: field,
-    //   value: undefined,
-    // });
   }
 
   /**

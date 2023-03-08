@@ -279,6 +279,7 @@ fields: [ // Each item in this array corresponds to a crayons input component.
     type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME
     position: 3, // Order of the component in the form.
     required: true, // Required while submitting the form.
+    editable: false // setting this to false, will disable the field.
     placeholder: 'Enter…', // placeholder for the input
     hint: 'Please provide a text of at max 100 characters', // Hint text to be displayed below.
     choices: [], // List of options for DROPDOWN/MULTI_SELECT types. Each option should be of below structure:
@@ -2760,6 +2761,26 @@ Type: `Promise<void>`
 ### `setFieldValue(field: string, value: any, shouldValidate?: boolean) => Promise<void>`
 
 Method to set value on the form field.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFieldsRequiredStatus(requiredStatusObj: { [x: number]: boolean; toString?: boolean; charAt?: boolean; charCodeAt?: boolean; concat?: boolean; indexOf?: boolean; lastIndexOf?: boolean; localeCompare?: boolean; match?: boolean; replace?: boolean; search?: boolean; slice?: boolean; split?: boolean; substring?: boolean; toLowerCase?: boolean; toLocaleLowerCase?: boolean; toUpperCase?: boolean; toLocaleUpperCase?: boolean; trim?: boolean; readonly length?: boolean; substr?: boolean; valueOf?: boolean; codePointAt?: boolean; includes?: boolean; endsWith?: boolean; normalize?: boolean; repeat?: boolean; startsWith?: boolean; anchor?: boolean; big?: boolean; blink?: boolean; bold?: boolean; fixed?: boolean; fontcolor?: boolean; fontsize?: boolean; italics?: boolean; link?: boolean; small?: boolean; strike?: boolean; sub?: boolean; sup?: boolean; padStart?: boolean; padEnd?: boolean; trimEnd?: boolean; trimStart?: boolean; trimLeft?: boolean; trimRight?: boolean; matchAll?: boolean; [Symbol.iterator]?: boolean; }) => Promise<void>`
+
+Method to set required status on form fields
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFieldsValue(valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>`
+
+Method to set values on the form fields.
 
 #### Returns
 
