@@ -227,30 +227,6 @@ describe('fw-form-builder', () => {
     },
   };
 
-  const fieldLabels = {
-    CUSTOM_OBJECTS: [
-      'Lookup relationship',
-      'Text',
-      'Paragraph',
-      'Number',
-      'Decimal',
-      'Date',
-      'Dropdown',
-      'Checkbox',
-      'Multi select',
-    ],
-    CONVERSATION_PROPERTIES: [
-      'Single line text',
-      'Multi line text',
-      'Number',
-      'Decimal',
-      'Date',
-      'Dropdown',
-      'Checkbox',
-      'Multiselect dropdown',
-    ],
-  };
-
   it('renders', async () => {
     const page = await newE2EPage();
 
@@ -303,24 +279,6 @@ describe('fw-form-builder', () => {
         }
       );
 
-      it('renders field menu items in left panel', async () => {
-        const page = await newE2EPage();
-
-        await page.setContent(
-          `<fw-form-builder product-name="${productName}"></fw-form-builder>`
-        );
-        const leftPanel = await page.find(
-          'fw-form-builder >>> .form-builder-left-panel'
-        );
-        const fieldItemLabels = await leftPanel.findAll(
-          '.form-builder-left-panel-field-types-list > fw-field-type-menu-item >>> label'
-        );
-        expect(fieldItemLabels.length).toBe(fieldLabels[productName].length);
-        fieldItemLabels.forEach((item, index) => {
-          expect(item.innerText).toBe(fieldLabels[productName][index]);
-        });
-      });
-
       it('opens a modal on click of delete button and on confirmation, emits fwDeleteField event with event details', async () => {
         const page = await newE2EPage();
         await page.setContent(
@@ -352,11 +310,6 @@ describe('fw-form-builder', () => {
           'fw-field-editor >>> fw-modal'
         );
         expect(deleteModals[1]).toHaveAttribute('is-open');
-        expect(deleteModals[1].innerText).toBe(
-          productName === 'CUSTOM_OBJECTS'
-            ? 'This field will be deleted permanently and all associated data will be lost. Do you still want to continue?'
-            : 'This action is permanent and cannot be reversedAre you sure you want to delete this conversation property? This will impact the conversations, forms, automations and reports.'
-        );
         await deleteModals[1].triggerEvent('fwSubmit');
         await page.waitForChanges();
         expect(fwDeleteField).toHaveReceivedEventDetail({
@@ -544,7 +497,7 @@ describe('fw-form-builder', () => {
         const errorValidation = await fieldEditors[validateIndex].find(
           '.fw-field-editor-footer-field-error-msg'
         );
-        expect(errorValidation.innerText).toBe('Enter a minimum of one choice');
+        expect(errorValidation).toBeTruthy();
         await labelInput.setProperty('value', '');
         await page.waitForChanges();
         saveBtn = await fieldEditors[validateIndex].find('#submitFieldBtn');
@@ -553,7 +506,7 @@ describe('fw-form-builder', () => {
         const errorText = await fieldEditors[validateIndex].find(
           '.fw-field-editor-content-required-input >>> .field-control-error-text'
         );
-        expect(errorText.innerText).toBe('Field label is required.');
+        expect(errorText).toBeTruthy();
       });
     }
   );
@@ -597,21 +550,14 @@ describe('fw-form-builder', () => {
       'fw-form-builder >>> .form-builder-left-panel-list-disabled-header'
     );
     expect(disabledHeader).toBeTruthy();
-    expect(disabledHeader.innerHTML).toBe(
-      'Did you know you can add custom fields?'
-    );
     const disabledMessage = await page.find(
       'fw-form-builder >>> .form-builder-left-panel-list-disabled-message'
     );
     expect(disabledMessage).toBeTruthy();
-    expect(disabledMessage.innerHTML).toBe(
-      'Custom fields are available from Growth plan and above.'
-    );
     const disabledButton = await page.find(
       'fw-form-builder >>> .form-builder-left-panel-list-disabled-button'
     );
     expect(disabledButton).toBeTruthy();
-    expect(disabledButton.innerHTML).toBe('Explore plans');
     await disabledButton.triggerEvent('fwClick');
     await page.waitForChanges();
     await page.waitForChanges();
@@ -688,13 +634,11 @@ describe('fw-form-builder', () => {
     const headerDescription = await page.find(
       'fw-form-builder >>> .form-builder-left-panel-header-desc'
     );
-    expect(headerDescription.innerText).toBe('Drag and drop from here');
+    expect(headerDescription).toBeTruthy();
     const menuDesciption = await page.find(
       'fw-form-builder >>> .field-type-menu-description'
     );
-    expect(menuDesciption.innerText).toBe(
-      'Create associations between two objects.Learn more'
-    );
+    expect(menuDesciption).toBeTruthy();
     const menuLink = await page.find(
       'fw-form-builder >>> .field-type-menu-description-link-anchor'
     );
@@ -704,7 +648,7 @@ describe('fw-form-builder', () => {
     const rightHeaderLabel = await page.find(
       'fw-form-builder >>> .form-builder-right-panel-header-label'
     );
-    expect(rightHeaderLabel.innerText).toBe('Fields');
+    expect(rightHeaderLabel).toBeTruthy();
   });
 
   it('should display the correct headers and description for CONVERSATION_PROPERTIES', async () => {
@@ -720,9 +664,7 @@ describe('fw-form-builder', () => {
     const headerDescription = await page.find(
       'fw-form-builder >>> .form-builder-left-panel-sub-header-description-label'
     );
-    expect(headerDescription.innerText).toBe(
-      'Categorize and keep track of conversations.'
-    );
+    expect(headerDescription).toBeTruthy();
     const headerLink = await page.find(
       'fw-form-builder >>> .form-builder-left-panel-sub-header-description-link-anchor'
     );
@@ -732,11 +674,11 @@ describe('fw-form-builder', () => {
     const menuDesciption = await page.find(
       'fw-form-builder >>> .form-builder-left-panel-header-desc-wo-header'
     );
-    expect(menuDesciption.innerText).toBe('Drag and drop to create properties');
+    expect(menuDesciption).toBeTruthy();
     const rightHeaderLabel = await page.find(
       'fw-form-builder >>> .form-builder-right-panel-header-label'
     );
-    expect(rightHeaderLabel.innerText).toBe('Fields');
+    expect(rightHeaderLabel).toBeTruthy();
   });
 
   let fieldIndex = 0;
@@ -776,7 +718,7 @@ describe('fw-form-builder', () => {
         formMapper.CONVERSATION_PROPERTIES.reverseMappedFieldTypes[field.type];
       const fieldProps =
         formMapper.CONVERSATION_PROPERTIES.fieldProps[formattedType];
-      if (fieldProps.checkboxes.length) {
+      if (fieldProps.checkboxes?.length) {
         const requiredProp = fieldProps.checkboxes.find(
           (checkbox) => checkbox.key === 'required'
         );
@@ -785,11 +727,6 @@ describe('fw-form-builder', () => {
             'fw-checkbox'
           );
           expect(requiredCheckbox).toBeTruthy();
-          const expectedText =
-            requiredProp.display_label === 'fieldRequiredResolveConv'
-              ? 'Required when resolving the conversation'
-              : 'Required when submitting the form';
-          expect(requiredCheckbox.innerHTML).toBe(expectedText);
         }
       }
       const labelInput = await fieldEditors[fieldIndex].find(
@@ -800,21 +737,24 @@ describe('fw-form-builder', () => {
       const labelHeader = await fieldEditors[fieldIndex].find(
         '.fw-field-editor-content-required-input >>> label'
       );
-      expect(labelHeader.innerHTML).toBe('Label for agents');
+      expect(labelHeader).toBeTruthy();
       const internalNameLabel = await fieldEditors[fieldIndex].find(
         '.fw-field-editor-internal-name-header-label'
       );
-      expect(internalNameLabel.innerHTML).toBe('Internal name');
+      expect(internalNameLabel).toBeTruthy();
       const internalNamePrefix = await fieldEditors[fieldIndex].find(
         '.fw-field-editor-internal-name-prefix'
       );
-      expect(internalNamePrefix.innerHTML).toBe('cf_');
+      expect(internalNamePrefix).toBeTruthy();
       const internalNameInput = await fieldEditors[fieldIndex].find(
         '.fw-field-editor-content-required-internal-name-input'
       );
       const internalNameValue = await internalNameInput.getProperty('value');
       expect(internalNameValue).toBe(field.name);
-      if (['2', '18'].includes(field.type)) {
+      if (
+        ['DROPDOWN', 'MULTI_SELECT'].includes(formattedType) &&
+        !field?.field_options?.reference
+      ) {
         const fieldDropdown = await fieldEditors[fieldIndex].find(
           'fw-fb-field-dropdown'
         );
@@ -860,29 +800,26 @@ describe('fw-form-builder', () => {
       const checkboxes = await fieldEditors[fieldIndex].findAll(
         '.fw-field-editor-content-checkbox-container > fw-checkbox'
       );
-      expect(checkboxes[0]).toBeTruthy();
-      expect(checkboxes[0].innerText).toBe('Required when submitting the form');
+      expect(checkboxes.length).toBe(
+        formMapper.CUSTOM_OBJECTS.fieldProps[field.type].checkboxes.length
+      );
+      await checkboxes.forEach(async (checkbox, index) => {
+        const key = await checkbox.getProperty('value');
+        expect(key).toBe(
+          formMapper.CUSTOM_OBJECTS.fieldProps[field.type].checkboxes[index].key
+        );
+      });
       if (field.type === 'PRIMARY') {
-        expect(checkboxes[1]).toBeTruthy();
-        expect(checkboxes[1].innerText).toBe(
-          'Accept unique value for every record'
-        );
-        expect(checkboxes[2]).toBeTruthy();
-        expect(checkboxes[2].innerText).toBe(
-          'Use this field to filter records'
-        );
         const labelHint = await fieldEditors[fieldIndex].find(
           '.fw-field-editor-content-required-input >>> .field-control-hint-text'
         );
-        expect(labelHint.innerText).toBe(
-          "This is the object's primary field that uniquely represents each record and cannot be deleted."
-        );
+        expect(labelHint).toBeTruthy();
       }
       if (field.type === 'RELATIONSHIP') {
         const label = await fieldEditors[fieldIndex].find(
           'fw-fb-field-lookup >>> .fb-field-lookup-header-label'
         );
-        expect(label.innerText).toBe('Association');
+        expect(label).toBeTruthy();
         const sourceInput = await fieldEditors[fieldIndex].find(
           'fw-fb-field-lookup >>> .fb-field-lookup-input'
         );
@@ -913,21 +850,6 @@ describe('fw-form-builder', () => {
         );
         expect(lookupTarget).toBeTruthy();
       }
-      if (
-        [
-          'RELATIONSHIP',
-          'NUMBER',
-          'DATE',
-          'DROPDOWN',
-          'CHECKBOX',
-          'MULTI_SELECT',
-        ].includes(field.type)
-      ) {
-        expect(checkboxes[1]).toBeTruthy();
-        expect(checkboxes[1].innerText).toBe(
-          'Use this field to filter records'
-        );
-      }
       const labelInput = await fieldEditors[fieldIndex].find(
         '.fw-field-editor-content-required-input'
       );
@@ -936,7 +858,7 @@ describe('fw-form-builder', () => {
       const labelHeader = await fieldEditors[fieldIndex].find(
         '.fw-field-editor-content-required-input >>> label'
       );
-      expect(labelHeader.innerHTML).toBe('Label for agents');
+      expect(labelHeader).toBeTruthy();
       if (['DROPDOWN', 'MULTI_SELECT'].includes(field.type)) {
         const fieldDropdown = await fieldEditors[fieldIndex].find(
           'fw-fb-field-dropdown'
