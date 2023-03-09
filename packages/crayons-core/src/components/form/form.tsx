@@ -19,6 +19,7 @@ import {
   FormUtils,
   FormProps,
   FormSubmit,
+  FormRequired,
 } from './form-declaration';
 import {
   validateYupSchema,
@@ -527,42 +528,6 @@ export class Form {
   }
 
   /**
-   * Method to set values on the form fields.
-   *
-   * @param valuesObj - Object with key as form field name and value as the updated value for the field
-   * example: `{ first_name: "new name", last_name: "new last name" }`
-   * @param shouldValidate - should this form be validated with the updated values
-   */
-  @Method()
-  async setFieldsValue(
-    valuesObj: FormValues,
-    shouldValidate = true
-  ): Promise<void> {
-    if (!valuesObj) return;
-
-    let newValues = { ...this.values };
-    let newTouchedFields = { ...this.touched };
-
-    Object.keys(valuesObj).forEach((field) => {
-      // Don't set value if the field is disabled
-      const isDisabledField = this.isDisabledField(this.fields?.[field]);
-      if (!isDisabledField) {
-        newValues = { ...newValues, [field]: valuesObj[field] };
-        if (shouldValidate) {
-          newTouchedFields = { ...newTouchedFields, [field]: true };
-        }
-      }
-    });
-
-    this.values = { ...newValues };
-    this.touched = { ...newTouchedFields };
-
-    if (shouldValidate) {
-      await this.handleValidation();
-    }
-  }
-
-  /**
    * Method to set errors on the form fields.
    *
    * @param errorObj - key value pair of [fieldName]: ErrorMessage
@@ -676,9 +641,9 @@ export class Form {
    * example: `{ first_name: true, last_name: false }`
    */
   @Method()
-  async setFieldsRequiredStatus(requiredStatusObj: {
-    [K in keyof string]?: boolean;
-  }): Promise<void> {
+  async setFieldsRequiredStatus(
+    requiredStatusObj: FormRequired<FormValues>
+  ): Promise<void> {
     let errorsObj = { ...this.errors };
     this.formSchemaState = {
       ...this.formSchemaState,

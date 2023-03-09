@@ -9,7 +9,7 @@ import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
 import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
 import { InitialUploaderFile, UploaderFile } from "./components/file-uploader-2/file-uploader2-util";
-import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
+import { FormErrors, FormRequired, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -812,13 +812,7 @@ export namespace Components {
           * Method to set required status on form fields
           * @param requiredStatusObj - Object with key as form field name and value denoting if the field should be marked as required or not example: `{ first_name: true, last_name: false }`
          */
-        "setFieldsRequiredStatus": (requiredStatusObj: { [x: number]: boolean; toString?: boolean; charAt?: boolean; charCodeAt?: boolean; concat?: boolean; indexOf?: boolean; lastIndexOf?: boolean; localeCompare?: boolean; match?: boolean; replace?: boolean; search?: boolean; slice?: boolean; split?: boolean; substring?: boolean; toLowerCase?: boolean; toLocaleLowerCase?: boolean; toUpperCase?: boolean; toLocaleUpperCase?: boolean; trim?: boolean; readonly length?: boolean; substr?: boolean; valueOf?: boolean; codePointAt?: boolean; includes?: boolean; endsWith?: boolean; normalize?: boolean; repeat?: boolean; startsWith?: boolean; anchor?: boolean; big?: boolean; blink?: boolean; bold?: boolean; fixed?: boolean; fontcolor?: boolean; fontsize?: boolean; italics?: boolean; link?: boolean; small?: boolean; strike?: boolean; sub?: boolean; sup?: boolean; padStart?: boolean; padEnd?: boolean; trimEnd?: boolean; trimStart?: boolean; trimLeft?: boolean; trimRight?: boolean; matchAll?: boolean; [Symbol.iterator]?: boolean; }) => Promise<void>;
-        /**
-          * Method to set values on the form fields.
-          * @param valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }`
-          * @param shouldValidate - should this form be validated with the updated values
-         */
-        "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
+        "setFieldsRequiredStatus": (requiredStatusObj: FormRequired<FormValues>) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
