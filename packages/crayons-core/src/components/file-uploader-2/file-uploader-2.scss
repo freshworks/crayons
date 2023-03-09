@@ -35,6 +35,11 @@
         color: $color-elephant-900;
         flex-grow: 0;
 
+        &--uniform {
+          font-size: 12px;
+          color: $color-smoke-700;
+        }
+
         &.required::after {
           content: '*';
           position: relative;
@@ -74,6 +79,10 @@
     background: $color-milk;
     justify-content: center;
     border-radius: 8px;
+
+    &--uniform {
+      margin-block-start: -12px;
+    }
 
     &--hide {
       display: none;

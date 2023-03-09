@@ -422,14 +422,12 @@ export class FormControl {
       case 'FILES':
         {
           const multiple = this.fieldProps?.multiple ? true : false;
-          const errors =
+          const errorText =
             this.touched && this.error
-              ? [
-                  TranslationController.t(this.error, {
-                    field: this.label || this.name,
-                  }),
-                ]
-              : [];
+              ? TranslationController.t(this.error, {
+                  field: this.label || this.name,
+                })
+              : '';
           const controlProps = this.controlProps?.fileProps(
             this.name,
             multiple
@@ -438,10 +436,11 @@ export class FormControl {
             ...this.fieldProps,
             name: this.name,
             description: this.placeholder,
-            infoText: this.hint,
             required: this.required,
             isBatchUpload: true,
-            errors: errors,
+            smallerUniformLabel: true,
+            hintText: this.hint,
+            errorText: errorText,
           };
           if (controlProps?.value) {
             componentProps.initialFiles = controlProps.value;

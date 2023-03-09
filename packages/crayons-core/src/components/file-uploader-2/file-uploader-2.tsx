@@ -43,8 +43,11 @@ export class FileUploader {
   @Prop()
   description;
 
+  /**
+   * Inline information text, hint text.
+   */
   @Prop()
-  infoText = '';
+  hintText = '';
 
   /**
    * accept - comma separated string. tells us what file formats file uploader should accept.
@@ -157,10 +160,15 @@ export class FileUploader {
   @Prop() required = false;
 
   /**
-   * errors - errors collection.
+   * To maintain the same label styling as other form elements.
+   */
+  @Prop() smallerUniformLabel = false;
+
+  /**
+   * errorText - errorText collection.
    * Mutable as this can be set from form control too based on form validations.
    */
-  @Prop({ mutable: true }) errors: any = [];
+  @Prop({ mutable: true }) errorText = '';
 
   /**
    * files - files collection.
@@ -305,7 +313,7 @@ export class FileUploader {
       this.fileInputElement.value = '';
     }
     if (resetErrors) {
-      this.errors = [];
+      this.errorText = '';
     }
   }
 
@@ -330,16 +338,16 @@ export class FileUploader {
       (acc: number, obj: File) => acc + obj.size,
       0
     );
-    this.errors = [];
+    this.errorText = '';
 
     if (totalFiles.length > this.filesLimit) {
-      this.errors = [this.maxFilesLimitError];
+      this.errorText = this.maxFilesLimitError;
       passed = false;
     } else if (
       this.totalFileSizeAllowed !== 0 &&
       totalSize > this.totalFileSizeAllowed * 1024 * 1024
     ) {
-      this.errors = [this.totalFileSizeAllowedError];
+      this.errorText = this.totalFileSizeAllowedError;
       passed = false;
     } else {
       for (let index = 0; index < files.length; index++) {
@@ -380,7 +388,7 @@ export class FileUploader {
         errors.push(this.maxFileSizeError);
       }
     }
-    this.errors = [...this.errors, ...errors];
+    this.errorText = errors.length ? errors[0] : '';
     return isPassed;
   }
 
@@ -621,6 +629,10 @@ export class FileUploader {
     }
   }
 
+  /**
+   * retryFileUpload
+   * @param fileId file ID to retry uploading to server
+   */
   retryFileUpload(fileId) {
     this.updateFileInFiles(fileId, { error: '' });
     const uploadPromise = this.uploadFile(fileId);
@@ -694,7 +706,7 @@ export class FileUploader {
           'file-uploader__body__dropzone': true,
           'file-uploader__body__dropzone--disabled':
             this.isBatchUploadInProgress,
-          'file-uploader__body__dropzone--error': !!this.errors.length,
+          'file-uploader__body__dropzone--error': !!this.errorText.length,
         }}
         key='dropzone'
         tabIndex={0}
@@ -716,7 +728,7 @@ export class FileUploader {
         <div class='file-uploader__body__dropzone__center'>
           <div class='file-uploader__body__dropzone__center__clickable'>
             <div class='file-uploader__body__dropzone__center__clickable__icon'>
-              {!this.errors.length ? (
+              {!this.errorText.length ? (
                 <div
                   innerHTML={
                     new DOMParser().parseFromString(fileDragSVG, 'text/html')
@@ -732,7 +744,7 @@ export class FileUploader {
                 ></div>
               )}
             </div>
-            {!this.errors.length ? (
+            {!this.errorText.length ? (
               <div
                 class='file-uploader__body__dropzone__center__clickable__text'
                 innerHTML={
@@ -741,7 +753,7 @@ export class FileUploader {
               ></div>
             ) : (
               <div class='file-uploader__body__dropzone__center__clickable__error'>
-                {this.errors[0]}.{' '}
+                {this.errorText}.{' '}
                 <span class='highlight'>
                   {TranslationController.t('fileUploader2.retry')}
                 </span>
@@ -807,13 +819,15 @@ export class FileUploader {
     renderHiddenField(this.host, this.name, null, this._getFilesList());
     return (
       <div class='file-uploader'>
-        {(this.infoText.trim() !== '' || !this.hideLabel || this.required) && (
+        {(this.hintText.trim() !== '' || !this.hideLabel || this.required) && (
           <div class='file-uploader__header'>
             <div class='file-uploader__header__block'>
               {(!this.hideLabel || this.required) && (
                 <div
                   class={{
                     'file-uploader__header__block__title': true,
+                    'file-uploader__header__block__title--uniform':
+                      this.smallerUniformLabel,
                     'required': this.required,
                   }}
                 >
@@ -838,9 +852,9 @@ export class FileUploader {
                 )}
               </div>
             </div>
-            {this.infoText.trim() !== '' ? (
+            {this.hintText.trim() !== '' ? (
               <fw-inline-message open type='info'>
-                {this.infoText}
+                {this.hintText}
               </fw-inline-message>
             ) : null}
           </div>
@@ -849,7 +863,8 @@ export class FileUploader {
           <div
             class={{
               'file-uploader__body': true,
-              'file-uploader__body--error': !!this.errors.length,
+              'file-uploader__body--uniform': this.smallerUniformLabel,
+              'file-uploader__body--error': !!this.errorText.length,
               'file-uploader__body--hide': this.showSimpleInterface(),
             }}
             onDragOver={(ev: DragEvent) => {
