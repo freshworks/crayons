@@ -355,13 +355,14 @@ export class Select {
           break;
         case 'Delete':
         case 'Backspace':
-          this.deleteFocusedTags();
-          if (
-            this.focusedValues.length === 0 &&
-            this.multiple &&
-            this.selectInput?.value === ''
-          ) {
-            this.focusOnTagContainer();
+          if (!this.readonly && this.multiple) {
+            this.deleteFocusedTags();
+            if (
+              this.focusedValues.length === 0 &&
+              this.selectInput?.value === ''
+            ) {
+              this.focusOnTagContainer();
+            }
           }
           break;
         case 'Escape':
@@ -375,6 +376,8 @@ export class Select {
         case 'a':
         case 'A':
           if (
+            !this.readonly &&
+            this.multiple &&
             (ev.ctrlKey || ev.metaKey) &&
             (!this.searchValue || this.focusedValues.length > 0)
           ) {
