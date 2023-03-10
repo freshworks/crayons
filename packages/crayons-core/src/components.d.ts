@@ -637,9 +637,9 @@ export namespace Components {
          */
         "description": any;
         /**
-          * errors - errors collection. Mutable as this can be set from form control too based on form validations.
+          * errorText - errorText collection. Mutable as this can be set from form control too based on form validations.
          */
-        "errors": any;
+        "errorText": string;
         /**
           * fileUploadError - Error message when a file upload fails.
          */
@@ -658,7 +658,10 @@ export namespace Components {
           * Use this prop to show the label on the component.
          */
         "hideLabel": boolean;
-        "infoText": string;
+        /**
+          * Inline information text, hint text.
+         */
+        "hintText": string;
         /**
           * to load default values in file uploader component.
          */
@@ -710,6 +713,10 @@ export namespace Components {
           * Use a simple interface for the single file mode.
          */
         "simpleInterfaceForSingleMode": boolean;
+        /**
+          * To maintain the same label styling as other form elements.
+         */
+        "smallerUniformLabel": boolean;
         /**
           * text - file uploader text.
          */
@@ -3515,9 +3522,9 @@ declare namespace LocalJSX {
          */
         "description"?: any;
         /**
-          * errors - errors collection. Mutable as this can be set from form control too based on form validations.
+          * errorText - errorText collection. Mutable as this can be set from form control too based on form validations.
          */
-        "errors"?: any;
+        "errorText"?: string;
         /**
           * fileUploadError - Error message when a file upload fails.
          */
@@ -3530,7 +3537,10 @@ declare namespace LocalJSX {
           * Use this prop to show the label on the component.
          */
         "hideLabel"?: boolean;
-        "infoText"?: string;
+        /**
+          * Inline information text, hint text.
+         */
+        "hintText"?: string;
         /**
           * to load default values in file uploader component.
          */
@@ -3566,21 +3576,25 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Event that triggers when uploading is in progress, completed or failed.
+          * Triggered whenever files change.
          */
         "onFwChange"?: (event: FwFileUploader2CustomEvent<any>) => void;
+        /**
+          * Triggered for a particular file change.
+         */
+        "onFwFileChange"?: (event: FwFileUploader2CustomEvent<any>) => void;
         /**
           * Triggered during a file reupload.
          */
         "onFwFileReuploaded"?: (event: FwFileUploader2CustomEvent<any>) => void;
         /**
-          * Triggered during batch upload, when all files are uploaded.
+          * Triggered after file upload if not a batch upload.
+         */
+        "onFwFileUploaded"?: (event: FwFileUploader2CustomEvent<any>) => void;
+        /**
+          * Triggered after batch upload, when all files are uploaded.
          */
         "onFwFilesUploaded"?: (event: FwFileUploader2CustomEvent<any>) => void;
-        /**
-          * Event that triggers when removing a file from the file uploader.
-         */
-        "onFwRemove"?: (event: FwFileUploader2CustomEvent<any>) => void;
         /**
           * field acts as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
@@ -3593,6 +3607,10 @@ declare namespace LocalJSX {
           * Use a simple interface for the single file mode.
          */
         "simpleInterfaceForSingleMode"?: boolean;
+        /**
+          * To maintain the same label styling as other form elements.
+         */
+        "smallerUniformLabel"?: boolean;
         /**
           * text - file uploader text.
          */

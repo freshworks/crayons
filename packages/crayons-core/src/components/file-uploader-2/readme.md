@@ -969,11 +969,11 @@
 | `actionParams`                 | --                                 | actionParams - additional information to send to server other than the file.                                                                  | `{ [prop: string]: any; }`                | `{}`                                                                         |
 | `actionURL`                    | `action-u-r-l`                     | actionURL - URL to make server call.                                                                                                          | `string`                                  | `''`                                                                         |
 | `description`                  | `description`                      | description - file uploader description.                                                                                                      | `any`                                     | `undefined`                                                                  |
-| `errors`                       | `errors`                           | errors - errors collection. Mutable as this can be set from form control too based on form validations.                                       | `any`                                     | `[]`                                                                         |
+| `errorText`                    | `error-text`                       | errorText - errorText collection. Mutable as this can be set from form control too based on form validations.                                 | `string`                                  | `''`                                                                         |
 | `fileUploadError`              | `file-upload-error`                | fileUploadError - Error message when a file upload fails.                                                                                     | `any`                                     | `undefined`                                                                  |
 | `filesLimit`                   | `files-limit`                      | Max files allowed to upload.                                                                                                                  | `number`                                  | `10`                                                                         |
 | `hideLabel`                    | `hide-label`                       | Use this prop to show the label on the component.                                                                                             | `boolean`                                 | `true`                                                                       |
-| `infoText`                     | `info-text`                        |                                                                                                                                               | `string`                                  | `''`                                                                         |
+| `hintText`                     | `hint-text`                        | Inline information text, hint text.                                                                                                           | `string`                                  | `''`                                                                         |
 | `initialFiles`                 | --                                 | to load default values in file uploader component.                                                                                            | `InitialUploaderFile[]`                   | `[]`                                                                         |
 | `isBatchUpload`                | `is-batch-upload`                  | Upload all files in one single shot                                                                                                           | `boolean`                                 | `false`                                                                      |
 | `maxFileSize`                  | `max-file-size`                    | maxFileSize - maximum file size the file uploader must accept.                                                                                | `number`                                  | `0`                                                                          |
@@ -993,12 +993,13 @@
 
 ## Events
 
-| Event              | Description                                                             | Type               |
-| ------------------ | ----------------------------------------------------------------------- | ------------------ |
-| `fwChange`         | Event that triggers when uploading is in progress, completed or failed. | `CustomEvent<any>` |
-| `fwFileReuploaded` | Triggered during a file reupload.                                       | `CustomEvent<any>` |
-| `fwFilesUploaded`  | Triggered during batch upload, when all files are uploaded.             | `CustomEvent<any>` |
-| `fwRemove`         | Event that triggers when removing a file from the file uploader.        | `CustomEvent<any>` |
+| Event              | Description                                                | Type               |
+| ------------------ | ---------------------------------------------------------- | ------------------ |
+| `fwChange`         | Triggered whenever files change.                           | `CustomEvent<any>` |
+| `fwFileChange`     | Triggered for a particular file change.                    | `CustomEvent<any>` |
+| `fwFileReuploaded` | Triggered during a file reupload.                          | `CustomEvent<any>` |
+| `fwFilesUploaded`  | Triggered after batch upload, when all files are uploaded. | `CustomEvent<any>` |
+| `fwFileUploaded`   | Triggered after file upload if not a batch upload.         | `CustomEvent<any>` |
 
 
 ## Methods

@@ -176,24 +176,29 @@ export class FileUploader {
   @State() files: UploaderFile[] = [];
 
   /**
-   * Triggered during batch upload, when all files are uploaded.
+   * Triggered whenever files change.
+   */
+  @Event() fwChange: EventEmitter;
+
+  /**
+   * Triggered for a particular file change.
+   */
+  @Event() fwFileChange: EventEmitter;
+
+  /**
+   * Triggered after batch upload, when all files are uploaded.
    */
   @Event() fwFilesUploaded: EventEmitter;
+
+  /**
+   * Triggered after file upload if not a batch upload.
+   */
+  @Event() fwFileUploaded: EventEmitter;
 
   /**
    * Triggered during a file reupload.
    */
   @Event() fwFileReuploaded: EventEmitter;
-
-  /**
-   * Event that triggers when uploading is in progress, completed or failed.
-   */
-  @Event() fwChange: EventEmitter;
-
-  /**
-   * Event that triggers when removing a file from the file uploader.
-   */
-  @Event() fwRemove: EventEmitter;
 
   /**
    * private
@@ -223,7 +228,26 @@ export class FileUploader {
    * private
    * isBatchUploadInProgress
    */
-  isBatchUploadInProgress = false;
+  isBatchUploadInProgress = false; /**
+
+  * private
+  * isInitialFilesChange Denotes if this is initial files change. 
+  */
+  isInitialFilesChange = false;
+
+  /**
+   * watcher filesChangeHandler
+   * @param files files modified
+   */
+  @Watch('files')
+  filesChangeHandler(files) {
+    if (!this.isInitialFilesChange) {
+      this.fwChange.emit({
+        name: this.name,
+        files: files,
+      });
+    }
+  }
 
   /**
    * componentWillLoad life cycle event
@@ -234,6 +258,7 @@ export class FileUploader {
 
   @Watch('initialFiles')
   handleInitialFilesChange(changedFiles) {
+    this.isInitialFilesChange = true;
     this._reset(false, false);
 
     if (this.multiple) {
@@ -243,6 +268,7 @@ export class FileUploader {
         this.setLocalFile(changedFiles[0]);
       }
     }
+    this.isInitialFilesChange = false;
   }
 
   setLocalFile(initialFile) {
@@ -470,7 +496,7 @@ export class FileUploader {
    * private
    * updateFileInFiles - update the file object in the files state
    */
-  updateFileInFiles(fileId: number, updateObject) {
+  updateFileInFiles(fileId: number, updateObject, updateAction) {
     const fileIndex = this.findFileIndex(fileId);
     if (fileIndex >= 0) {
       this.files = [
@@ -479,6 +505,13 @@ export class FileUploader {
         ...this.files.slice(fileIndex + 1, this.files.length),
       ];
     }
+    this.fwFileChange.emit({
+      name: this.name,
+      file: this.files[fileId],
+      action: updateAction ? updateAction : 'unknown',
+      files: this._getFiles(),
+      fileList: this._getFilesList(),
+    });
   }
 
   /**
@@ -490,7 +523,7 @@ export class FileUploader {
   uploadFileLocally(file: File) {
     const localFile = this.addFileToFiles(file);
     this.addFileToFormDataCollection(file);
-    this.fwChange.emit({
+    this.fwFileChange.emit({
       name: this.name,
       file: localFile,
       action: 'local-upload',
@@ -508,21 +541,25 @@ export class FileUploader {
   removeFileLocally(fileId: number) {
     const removedFile = this.removeFileFromFiles(fileId);
     this.removeFileFromFormDataCollection(fileId);
-    this.fwRemove.emit({
-      name: this.name,
-      fileId: fileId,
-      fileList: this._getFilesList(),
-    });
-    this.fwChange.emit({
+    if (this.files.length === 0) {
+      this._reset();
+    }
+    return removedFile;
+  }
+
+  /**
+   * removeFileByUser remove file action is taken by the user
+   * @param fileId file ID to remove from files collection
+   */
+  removeFileLocallyByUser(fileId: number) {
+    const removedFile = this.removeFileLocally(fileId);
+    this.fwFileChange.emit({
       name: this.name,
       file: removedFile,
       action: 'local-remove',
       files: this._getFiles(),
       fileList: this._getFilesList(),
     });
-    if (this.files.length === 0) {
-      this._reset();
-    }
   }
 
   /**
@@ -533,7 +570,7 @@ export class FileUploader {
    */
   uploadFile(fileId) {
     const formData = this.formDataCollection[fileId];
-    this.updateFileInFiles(fileId, { progress: 1 });
+    this.updateFileInFiles(fileId, { progress: 1 }, 'remote-upload-progress');
     // adding extra information to formData before uploading
     for (const key in this.actionParams) {
       if (Object.prototype.hasOwnProperty.call(this.actionParams, key)) {
@@ -545,9 +582,13 @@ export class FileUploader {
     xhr.upload.addEventListener(
       'progress',
       (event) =>
-        this.updateFileInFiles(fileId, {
-          progress: (event.loaded / event.total) * 100,
-        }),
+        this.updateFileInFiles(
+          fileId,
+          {
+            progress: (event.loaded / event.total) * 100,
+          },
+          'remote-upload-progress'
+        ),
       false
     );
     const fileUploadPromise = new Promise((resolve: any, reject: any) => {
@@ -559,26 +600,22 @@ export class FileUploader {
             fileId,
           };
           if (xhr.status === 200) {
-            this.updateFileInFiles(fileId, { serverResponse });
+            this.updateFileInFiles(fileId, { serverResponse }, 'remote-upload');
             resolve(serverResponse);
           } else {
-            this.updateFileInFiles(fileId, {
-              error:
-                this.fileUploadError ||
-                TranslationController.t('fileUploader2.fileUploadError'),
-              progress: -1,
-              serverResponse,
-            });
+            this.updateFileInFiles(
+              fileId,
+              {
+                error:
+                  this.fileUploadError ||
+                  TranslationController.t('fileUploader2.fileUploadError'),
+                progress: -1,
+                serverResponse,
+              },
+              'remote-upload'
+            );
             reject(serverResponse);
           }
-
-          this.fwChange.emit({
-            name: this.name,
-            file: this.files[fileId],
-            action: 'remote-upload',
-            files: this._getFiles(),
-            fileList: this._getFilesList(),
-          });
         }
       };
     });
@@ -595,7 +632,11 @@ export class FileUploader {
    */
   @Method()
   async uploadFiles() {
-    if (this.files.length && !this.isBatchUploadInProgress) {
+    if (
+      this.files.length &&
+      this.isBatchAllow() &&
+      !this.isBatchUploadInProgress
+    ) {
       this.isBatchUploadInProgress = true;
       for (const fileId in this.formDataCollection) {
         if (
@@ -626,6 +667,8 @@ export class FileUploader {
           }
         }
       );
+    } else {
+      console.log('uploadFiles is for batch upload');
     }
   }
 
@@ -634,7 +677,7 @@ export class FileUploader {
    * @param fileId file ID to retry uploading to server
    */
   retryFileUpload(fileId) {
-    this.updateFileInFiles(fileId, { error: '' });
+    this.updateFileInFiles(fileId, { error: '' }, 'remote-retry');
     const uploadPromise = this.uploadFile(fileId);
     uploadPromise.then((serverResponse) => {
       if (this.isBatchAllow()) {
@@ -669,8 +712,9 @@ export class FileUploader {
           const localFile = this.uploadFileLocally(file);
 
           if (!this.isBatchAllow()) {
-            const filePromise = this.uploadFile(localFile.id);
-            this.fileUploadPromises[localFile.id] = filePromise;
+            this.uploadFile(localFile.id).then((serverResponse) => {
+              this.fwFileUploaded.emit(serverResponse);
+            });
           }
         }
       }
@@ -795,7 +839,7 @@ export class FileUploader {
                   errorMessage={file.error}
                   onFwDelete={(event) => {
                     event.stopPropagation();
-                    this.removeFileLocally(event.detail.index);
+                    this.removeFileLocallyByUser(event.detail.index);
                   }}
                   onFwReupload={(event) => {
                     event.stopPropagation();

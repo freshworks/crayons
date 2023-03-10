@@ -55,7 +55,7 @@ describe('fw-file-uploader-2', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('should add a file to fileList and call fwChange event', async () => {
+  it('should add a file to fileList and call fwChange & fwFileUploaded event', async () => {
     const page = await newE2EPage();
     await page.setContent(`
       <fw-file-uploader-2 
@@ -66,7 +66,10 @@ describe('fw-file-uploader-2', () => {
     `);
     await setupMockServer(page);
     const futureFileChooser = page.waitForFileChooser();
+    const fileChangedEvent = await page.spyOnEvent('fwFileChange');
     const filesChangedEvent = await page.spyOnEvent('fwChange');
+    const fileUploadedEvent = await page.spyOnEvent('fwFileUploaded');
+    const filesUploadedEvent = await page.spyOnEvent('fwFilesUploaded');
     // some button that triggers file selection
     const dropzone = await page.find(
       'fw-file-uploader-2 >>> .file-uploader__body__dropzone'
@@ -79,7 +82,16 @@ describe('fw-file-uploader-2', () => {
     await page.waitForChanges();
     await destroyMockServer(page);
     expect(files.length).toEqual(1);
+    expect(fileChangedEvent).toHaveReceivedEvent();
     expect(filesChangedEvent).toHaveReceivedEvent();
+    expect(fileUploadedEvent).toHaveReceivedEventTimes(1);
+    expect(filesUploadedEvent).not.toHaveReceivedEvent();
+    expect(
+      fileChangedEvent.events.map((event) => event.detail.action)
+    ).toContain('local-upload');
+    expect(
+      fileChangedEvent.events.map((event) => event.detail.action)
+    ).toContain('remote-upload');
   });
 
   it('should be able to set files using initialFiles prop', async () => {
@@ -213,7 +225,7 @@ describe('fw-file-uploader-2', () => {
       ];
     });
     await page.waitForChanges();
-    const fileRemoveEvent = await page.spyOnEvent('fwRemove');
+    const fileRemoveEvent = await page.spyOnEvent('fwFileChange');
     const fileUploaderShadow = await page.find(
       'fw-file-uploader-2 >>> :first-child'
     );
@@ -224,7 +236,9 @@ describe('fw-file-uploader-2', () => {
     await page.waitForChanges();
     const files = await page.findAll('fw-file-uploader-2 >>> fw-file-2');
     expect(files.length).toEqual(0);
-    expect(fileRemoveEvent).toHaveReceivedEventTimes(1);
+    expect(
+      fileRemoveEvent.events.map((event) => event.detail.action)
+    ).toContain('local-remove');
   });
 
   it('should be able to append files', async () => {
@@ -237,6 +251,7 @@ describe('fw-file-uploader-2', () => {
       </fw-file-uploader-2>
     `);
     await setupMockServer(page);
+    const fileUploadedEvent = await page.spyOnEvent('fwFileUploaded');
     const futureFileChooser = page.waitForFileChooser();
     // some button that triggers file selection
     const dropzone = await page.find(
@@ -255,6 +270,7 @@ describe('fw-file-uploader-2', () => {
     await page.waitForChanges();
     await destroyMockServer(page);
     expect(files.length).toEqual(2);
+    expect(fileUploadedEvent).toHaveReceivedEventTimes(2);
   });
 
   it('should replace old file when new file is added when multiple is false', async () => {
@@ -335,6 +351,7 @@ describe('fw-file-uploader-2', () => {
     `);
     await setupMockServer(page);
     const fileUploader = await page.find('fw-file-uploader-2');
+    const fileUploadedEvent = await page.spyOnEvent('fwFileUploaded');
     const filesUploadedEvent = await page.spyOnEvent('fwFilesUploaded');
     page.on('request', (request) => {
       if (request.url().includes('/echo') && request.method() !== 'OPTIONS') {
@@ -357,6 +374,7 @@ describe('fw-file-uploader-2', () => {
     await destroyMockServer(page);
     expect(files.length).toEqual(0); // once file is sent. It will be cleared from queue.
     expect(networkRequestCount).toEqual(1);
+    expect(fileUploadedEvent).not.toHaveReceivedEvent();
     expect(filesUploadedEvent).toHaveReceivedEvent();
   });
 });
