@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.4...@freshworks/crayons@4.2.0-beta.5) (2023-03-10)
+
+
+### Bug Fixes
+
+* fix deletion when readonly is set to true ([5ab6fee](https://github.com/freshworks/crayons/commit/5ab6fee0e419721d365a1f757794a5c75508a6f2))
+
+
+### Features
+
+* **form:** setFieldsRequiredStatus method to dynamically set required status on form fields ([#817](https://github.com/freshworks/crayons/issues/817)) ([e470930](https://github.com/freshworks/crayons/commit/e470930c937e3ab4865003e61cc24c3fee6499a0))
+
+
+
+
+
 ## [4.2.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.3...@freshworks/crayons@4.2.0-beta.4) (2023-03-07)
 
 ### Bug Fixes
