@@ -19,6 +19,7 @@ import {
   FormUtils,
   FormProps,
   FormSubmit,
+  FormRequired,
 } from './form-declaration';
 import {
   validateYupSchema,
@@ -520,11 +521,6 @@ export class Form {
 
     this.values = { ...this.values, [field]: value };
 
-    // this.fwFormValueChanged.emit({
-    //   field,
-    //   value,
-    // });
-
     if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
       await this.handleValidation();
@@ -581,11 +577,6 @@ export class Form {
 
     this.touched = { ...this.touched, [field]: false };
     // this.values = { ...this.values, [field]: undefined };
-
-    // this.fwFormValueChanged.emit({
-    //   field: field,
-    //   value: undefined,
-    // });
   }
 
   /**
@@ -640,6 +631,43 @@ export class Form {
   @Method()
   async setFieldSearchText(text: string) {
     this.fieldSearchText = text;
+  }
+
+  /**
+   * Method to set required status on form fields
+   *
+   * @param requiredStatusObj - Object with key as form field name and value denoting if the field should be marked
+   * as required or not
+   * example: `{ first_name: true, last_name: false }`
+   */
+  @Method()
+  async setFieldsRequiredStatus(
+    requiredStatusObj: FormRequired<FormValues>
+  ): Promise<void> {
+    let errorsObj = { ...this.errors };
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (Object.prototype.hasOwnProperty.call(requiredStatusObj, f.name)) {
+            const isRequired = !!requiredStatusObj?.[f.name];
+            if (!isRequired) errorsObj = { ...errorsObj, [f.name]: undefined };
+            return {
+              ...f,
+              required: isRequired,
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.errors = { ...errorsObj };
+
+    this.formValidationSchema =
+      generateDynamicValidationSchema(
+        this.formSchemaState,
+        this.validationSchema
+      ) || {};
   }
 
   render() {

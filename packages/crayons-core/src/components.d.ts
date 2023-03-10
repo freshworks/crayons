@@ -9,7 +9,7 @@ import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
 import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
 import { InitialUploaderFile, UploaderFile } from "./components/file-uploader-2/file-uploader2-util";
-import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
+import { FormErrors, FormRequired, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -808,6 +808,11 @@ export namespace Components {
           * @param shouldValidate - should this form field be validated with the updated value
          */
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Method to set required status on form fields
+          * @param requiredStatusObj - Object with key as form field name and value denoting if the field should be marked as required or not example: `{ first_name: true, last_name: false }`
+         */
+        "setFieldsRequiredStatus": (requiredStatusObj: FormRequired<FormValues>) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
