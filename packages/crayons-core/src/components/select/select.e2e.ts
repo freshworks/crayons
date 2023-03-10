@@ -789,4 +789,29 @@ describe('fw-select', () => {
     expect(selectedValues.length).toBe(1);
     expect(selectedValues[0].value).toBe('angela.smith@gmail.com');
   });
+
+  it('should not clear the value when select all and delete is pressed if readonly is set to true', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select readonly label="Select the house" required="true" value="starks">
+                                <fw-select-option value="starks">Starks</fw-select-option>
+                                <fw-select-option value="lannisters">Lannisters</fw-select-option>
+                            </fw-select>`);
+
+    const element = await page.find('fw-select');
+    let value = await element.getProperty('value');
+    expect(value).toBe('starks');
+    await page.waitForChanges();
+    const input = await page.find('fw-select >>> input');
+    await input.click();
+    await page.waitForChanges();
+    await page.keyboard.down('Meta');
+    await page.keyboard.press('a');
+    await page.keyboard.up('Meta');
+    await page.waitForChanges();
+    await input.press('Delete');
+    await page.waitForChanges();
+    value = await element.getProperty('value');
+    expect(value).toBe('starks');
+  });
 });
