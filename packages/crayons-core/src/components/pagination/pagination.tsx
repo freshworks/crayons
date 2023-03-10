@@ -19,6 +19,7 @@ export class Pagination {
   private end;
   private start;
   private formattedPerPageOptions;
+  private lastPage;
   private popoverRef;
 
   /**
@@ -73,14 +74,14 @@ export class Pagination {
   @Prop() variant: 'mini' | 'standard' = 'mini';
 
   /**
-   * represents the min number of page buttons to be shown on each side of the current page button. Defaults to 1.
-   */
-  @Prop() siblingCount = 1;
-
-  /**
    * hides page numbers in standard pagination variant. Defaults to false.
    */
   @Prop() hidePageNumbers = false;
+
+  /**
+   * represents the min number of page buttons to be shown on each side of the current page button. Defaults to 1.
+   */
+  @Prop({ mutable: true }) siblingCount = 4;
 
   /**
    * Triggered when either previous or next button is clicked.
@@ -118,14 +119,20 @@ export class Pagination {
 
   @Watch('page')
   handlePage(page) {
-    if (page > this.getLastPage()) return;
+    if (page > this.lastPage) return;
     this.start = this.getStartRecord();
     this.end = this.getEndRecord();
+  }
+
+  @Watch('perPage')
+  handlePerPage() {
+    this.lastPage = this.getLastPage();
   }
 
   @Watch('total')
   handleTotal() {
     this.end = this.getEndRecord();
+    this.lastPage = this.getLastPage();
   }
 
   @Watch('perPageOptions')
@@ -186,7 +193,7 @@ export class Pagination {
 
         // Start ellipsis
         ...(siblingsStart > 3
-          ? ['start-ellipsis']
+          ? ['ellipsis']
           : totalPageCount - 1 > 2
           ? [2]
           : []),
@@ -196,7 +203,7 @@ export class Pagination {
 
         // End ellipsis
         ...(siblingsEnd < totalPageCount - 2
-          ? ['end-ellipsis']
+          ? ['ellipsis']
           : totalPageCount - 1 > 1
           ? [totalPageCount - 1]
           : []),
@@ -280,19 +287,7 @@ export class Pagination {
     );
   };
 
-  renderEllipsis = (type) => (
-    <li class='ellipsis'>
-      <button
-        class='page-pill'
-        tabIndex={0}
-        aria-label={type}
-        onClick={() => this.handleEllipsisClick(type)}
-        disabled={this.isLoading}
-      >
-        ...
-      </button>
-    </li>
-  );
+  renderEllipsis = () => <li class='ellipsis'>...</li>;
 
   renderDivider = () => {
     return <div class='divider'></div>;
@@ -330,9 +325,8 @@ export class Pagination {
 
   onPerPageChange = (ev) => {
     if (ev?.detail?.value) {
-      const lastPage = this.getLastPage();
-      if (this.page > lastPage) {
-        this.goToPage(lastPage);
+      if (this.page > this.lastPage) {
+        this.goToPage(this.lastPage);
       }
       this.perPage = ev.detail.value;
       this.popoverRef.hide();
@@ -356,7 +350,7 @@ export class Pagination {
       this.goToPage(newPage);
     } else {
       const newPage = Math.min(
-        this.getLastPage(),
+        this.lastPage,
         this.page + this.siblingCount * 2 + 1
       );
       this.goToPage(newPage);
@@ -364,9 +358,13 @@ export class Pagination {
   };
 
   componentWillLoad() {
-    this.page = Math.min(this.page, this.getLastPage());
+    this.lastPage = this.getLastPage();
+    this.page = Math.min(this.page, this.lastPage);
     this.start = this.getStartRecord();
     this.end = this.getEndRecord();
+  }
+
+  componentDidLoad() {
     this.formatPerPageOptions();
   }
 
@@ -378,14 +376,14 @@ export class Pagination {
   }
 
   private goToNext() {
-    this.page = Math.min(this.getLastPage(), this.page + 1);
+    this.page = Math.min(this.lastPage, this.page + 1);
     this.fwChange.emit({
       page: this.page,
     });
   }
 
   private goToPage(page) {
-    if (this.page !== page && page >= 1 && page <= this.getLastPage()) {
+    if (this.page !== page && page >= 1 && page <= this.lastPage) {
       this.page = page;
       this.fwChange.emit({
         page: this.page,
@@ -408,8 +406,8 @@ export class Pagination {
                   this.siblingCount,
                   this.page
                 ).map((item) => {
-                  if (['start-ellipsis', 'end-ellipsis'].includes(item)) {
-                    return this.renderEllipsis(item);
+                  if (item === 'ellipsis') {
+                    return this.renderEllipsis();
                   } else {
                     return this.renderPill(item);
                   }
