@@ -49,6 +49,10 @@ export class FbFieldDropdown {
    */
   @Prop({ mutable: true }) showErrors = false;
   /**
+   * Disables all the options which can't be edited, reordered or deleted if set to true.
+   */
+  @Prop() disabled = false;
+  /**
    * variable to store the selected relationship type
    */
   @State() selectedRelationshipValue = '';
@@ -144,6 +148,9 @@ export class FbFieldDropdown {
   private relationshipChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
     this.dataResponse.relationship = event.detail.value;
     this.selectedRelationshipValue = event.detail.value;
     this.fwChange.emit({ value: deepCloneObject(this.dataResponse) });
@@ -152,6 +159,9 @@ export class FbFieldDropdown {
   private targetObjectChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
     this.updateIsNativeObject(event.detail.value);
     this.dataResponse.target = event.detail.value;
     this.selectedTargetValue = event.detail.value;
@@ -213,7 +223,7 @@ export class FbFieldDropdown {
                 placeholder={i18nText('lookupRelationshipPlaceholder')}
                 label={i18nText('lookupRelationshipLabel')}
                 errorText={i18nText('errors.emptyRelationshipType')}
-                disabled={!boolNewField}
+                disabled={!boolNewField || this.disabled}
                 options={this.i18RelationshipType}
                 value={this.selectedRelationshipValue}
                 onFwChange={this.relationshipChangeHandler}
@@ -227,7 +237,7 @@ export class FbFieldDropdown {
                 placeholder={i18nText('lookupTargetPlaceholder')}
                 label={i18nText('lookupTargetLabel')}
                 errorText={i18nText('errors.emptyTargetObject')}
-                disabled={!boolNewField}
+                disabled={!boolNewField || this.disabled}
                 value={this.selectedTargetValue}
                 options={this.targetObjects}
                 onFwChange={this.targetObjectChangeHandler}

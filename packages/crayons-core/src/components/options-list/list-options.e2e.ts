@@ -286,4 +286,66 @@ describe('fw-list-options', () => {
     );
     expect(getInnerNode(options[2], '.select-option')).toHaveClass('disabled');
   });
+
+  it('should change the value when setSelectedValues is called', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-list-options>
+                            </fw-list-options>`);
+    const element = await page.find('fw-list-options');
+    await page.$eval(
+      'fw-list-options',
+      (elm: any, { options, optionLabelPath, optionValuePath }) => {
+        elm.options = options;
+        elm.optionLabelPath = optionLabelPath;
+        elm.optionValuePath = optionValuePath;
+        elm.value = 'angela.smith@gmail.com';
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    const options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    await page.waitForChanges();
+    let selectedOptions = await element.callMethod('getSelectedOptions');
+    expect(selectedOptions.length).toBe(1);
+    expect(selectedOptions[0].email).toBe('angela.smith@gmail.com');
+    await element.callMethod('setSelectedValues', 'angela@freshdesk.in');
+    await page.waitForChanges();
+    selectedOptions = await element.callMethod('getSelectedOptions');
+    expect(selectedOptions.length).toBe(1);
+    expect(selectedOptions[0].email).toBe('angela@freshdesk.in');
+  });
+
+  it('should change the value when setSelectedOptions is called', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-list-options>
+                            </fw-list-options>`);
+    const element = await page.find('fw-list-options');
+    await page.$eval(
+      'fw-list-options',
+      (elm: any, { options, optionLabelPath, optionValuePath }) => {
+        elm.options = options;
+        elm.optionLabelPath = optionLabelPath;
+        elm.optionValuePath = optionValuePath;
+        elm.value = 'angela.smith@gmail.com';
+      },
+      props
+    );
+    await page.waitForChanges();
+    await page.waitForChanges();
+    const options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    await page.waitForChanges();
+    let selectedOptions = await element.callMethod('getSelectedOptions');
+    expect(selectedOptions.length).toBe(1);
+    expect(selectedOptions[0].email).toBe('angela.smith@gmail.com');
+    await element.callMethod('setSelectedOptions', [props.options[2]]);
+    await page.waitForChanges();
+    selectedOptions = await element.callMethod('getSelectedOptions');
+    expect(selectedOptions.length).toBe(1);
+    expect(selectedOptions[0].email).toBe('angela@freshdesk.in');
+  });
 });

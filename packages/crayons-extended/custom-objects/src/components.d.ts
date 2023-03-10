@@ -104,6 +104,10 @@ export namespace Components {
          */
         "dataResponse": any;
         /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled": boolean;
+        /**
           * variable to store form values
          */
         "formValues": any;
@@ -178,6 +182,15 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission": {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
         "pinned": 'top' | 'bottom' | '';
@@ -185,6 +198,10 @@ export namespace Components {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName": string;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role": 'trial' | 'admin';
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -809,6 +826,10 @@ declare namespace LocalJSX {
          */
         "dataResponse"?: any;
         /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled"?: boolean;
+        /**
           * variable to store form values
          */
         "formValues"?: any;
@@ -903,6 +924,15 @@ declare namespace LocalJSX {
          */
         "onFwUpdate"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission"?: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
         "pinned"?: 'top' | 'bottom' | '';
@@ -910,6 +940,10 @@ declare namespace LocalJSX {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName"?: string;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role"?: 'trial' | 'admin';
     }
     interface FwFieldTypeMenuItem {
         /**

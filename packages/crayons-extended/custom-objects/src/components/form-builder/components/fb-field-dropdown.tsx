@@ -11,6 +11,7 @@ import {
   State,
 } from '@stencil/core';
 import {
+  createUUID,
   deepCloneObject,
   getMaxLimitProperty,
   hasCustomProperty,
@@ -211,9 +212,10 @@ export class FbFieldDropdown {
       arrFields.splice(intDroppedIndex, 0, objField);
       const intLength = arrFields.length;
       for (let i1 = intDroppedIndex; i1 < intLength; i1++) {
-        arrFields[i1].id = i1 + 1;
+        // Fix for drag container to re-render on drop to change the key
+        arrFields[i1].repositionKey = createUUID();
       }
-      this.dataProvider = arrFields;
+      this.dataProvider = [...arrFields];
       this.fwChange.emit({
         type: 'REPOSITION',
         errorType: this.errorType,
@@ -223,12 +225,15 @@ export class FbFieldDropdown {
   };
 
   private renderNameEditorElement(dataItem, intIndex) {
+    const hasRepositionIndex = hasCustomProperty(dataItem, 'repositionKey');
     const boolNewChoice = !hasCustomProperty(dataItem, 'id');
-    const itemId = !boolNewChoice ? dataItem.id : intIndex;
+    const itemKey = hasRepositionIndex
+      ? dataItem.repositionKey
+      : `new_choice_${intIndex + 1}`;
 
     return (
       <fw-fb-field-dropdown-item
-        key={itemId}
+        key={itemKey}
         index={intIndex}
         dataProvider={dataItem}
         isNewChoice={boolNewChoice}
