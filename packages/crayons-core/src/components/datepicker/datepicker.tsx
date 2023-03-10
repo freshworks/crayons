@@ -441,8 +441,7 @@ export class Datepicker {
     } else if (isUpdateDate) {
       this.timeValue = this.selectedTime;
       if (this.isValidDateTime()) {
-        this.isDateInvalid = false;
-        this.state = this.initState;
+        this.setDateAndErrorState();
         this.updateValueAndEmitEvent(e);
       }
     }
@@ -580,54 +579,7 @@ export class Datepicker {
         if (!val) {
           this.value = undefined;
         }
-
-        const parsedDate = parse(val, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        });
-        const year = getYear(
-          parse(val, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        if (
-          year < this.minYear ||
-          year > this.maxYear ||
-          !isValid(parsedDate) ||
-          !isMatch(val, this.displayFormat, {
-            locale: this.langModule,
-          }) ||
-          !this.isDateWithinMinMaxDate(parsedDate.valueOf(), false)
-        ) {
-          this.isDateInvalid = val && true;
-          this.state =
-            this.showErrorOnInvalidDate && this.isDateInvalid
-              ? 'error'
-              : this.initState;
-          this.value = val;
-          return;
-        }
-
-        this.year = year;
-
-        this.month = getMonth(
-          parse(val, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        this.selectedDay = getDate(
-          parse(val, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        this.value = format(
-          new Date(this.year, this.month, this.selectedDay),
-          this.displayFormat,
-          {
-            locale: this.langModule,
-          }
-        );
-        this.isDateInvalid = false;
-        this.state = this.initState;
+        this.processValueChange(val);
       }
     },
     this,
@@ -651,7 +603,6 @@ export class Datepicker {
       // this.timeValue = newValue;
       this.selectedTime = newValue;
     }
-    this.selectedDay = undefined;
     this.checkYearRestriction();
   }
 
@@ -806,40 +757,9 @@ export class Datepicker {
         this.month = this.fromDate ? getMonth(fromDate) : getMonth(today);
       }
     } else {
-      const today = new Date();
-      if (this.value && !isValid(parseISO(this.value))) {
-        // Show current date if invalid date is provided
-        this.year = getYear(today);
-        this.month = getMonth(today);
-        this.selectedDay = getDate(today);
-        this.value = undefined;
-      } else {
-        const date = new Date(this.value);
-        this.year = this.value ? getYear(date) : getYear(today);
-        this.month = this.value ? getMonth(date) : getMonth(today);
-        this.selectedDay = this.value && getDate(date);
-        if (this.value) {
-          // The value of the timepicker will always be the format of HH:mm
-          this.timeValue = format(getTime(date), 'HH:mm', {
-            locale: this.langModule,
-          });
-          this.selectedTime = this.timeValue;
-        }
-      }
+      this.processInitDateValue();
     }
-    this.minDate =
-      parseISO(this.minDate).valueOf() > parseISO(this.maxDate).valueOf()
-        ? undefined
-        : this.minDate;
-    this.maxYear = this.maxDate
-      ? getYear(new Date(this.maxDate))
-      : this.maxYear;
-    this.minYear =
-      this.maxYear > this.minYear
-        ? this.minDate
-          ? getYear(new Date(this.minDate))
-          : this.minYear
-        : 1970;
+    this.setMinMaxYearAndDateValues();
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
       this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
@@ -851,20 +771,11 @@ export class Datepicker {
     this.longMonthNames = monthNames.longMonthNames;
     this.weekDays = getWeekDays(this.langModule);
     if (this.value) {
-      const parsedDate = parseISO(this.value).valueOf();
-      this.isDateInvalid = this.isDateWithinMinMaxDate(parsedDate.valueOf())
-        ? false
-        : true;
-      this.state =
-        this.showErrorOnInvalidDate && this.isDateInvalid
-          ? 'error'
-          : this.initState;
+      this.setDateAndErrorState(true);
+      this.value = format(new Date(this.value), this.displayFormat, {
+        locale: this.langModule,
+      });
     }
-    this.value = this.value
-      ? format(new Date(this.value), this.displayFormat, {
-          locale: this.langModule,
-        })
-      : this.value;
     this.setInitialValues();
     this.checkYearRestriction();
   }
@@ -913,6 +824,114 @@ export class Datepicker {
     }
   }
 
+  setDateAndErrorState(checkDate = false) {
+    this.isDateInvalid =
+      checkDate && !this.isDateWithinMinMaxDate(parseISO(this.value).valueOf())
+        ? true
+        : false;
+    this.state =
+      this.showErrorOnInvalidDate && this.isDateInvalid
+        ? 'error'
+        : this.initState;
+  }
+
+  setMinMaxYearAndDateValues() {
+    if (this.minDate && this.maxDate)
+      this.minDate =
+        parseISO(this.minDate).valueOf() > parseISO(this.maxDate).valueOf()
+          ? undefined
+          : this.minDate;
+    this.maxYear = this.maxDate
+      ? getYear(new Date(this.maxDate))
+      : this.maxYear;
+    this.minYear =
+      this.maxYear > this.minYear
+        ? this.minDate
+          ? getYear(new Date(this.minDate))
+          : this.minYear
+        : 1970;
+  }
+
+  processInitDateValue() {
+    const today = new Date();
+    if (!this.value) {
+      this.year = getYear(today);
+      this.month = getMonth(today);
+    } else {
+      if (!isValid(parseISO(this.value))) {
+        // Show current date if invalid date is provided
+        this.year = getYear(today);
+        this.month = getMonth(today);
+        this.selectedDay = getDate(today);
+        this.value = undefined;
+      } else {
+        const date = new Date(this.value);
+        this.year = getYear(date);
+        this.month = getMonth(date);
+        this.selectedDay = getDate(date);
+        this.timeValue = format(getTime(date), 'HH:mm', {
+          locale: this.langModule,
+        });
+        this.selectedTime = this.timeValue;
+      }
+    }
+  }
+
+  processValueChange(val, emitChange = false) {
+    // throw error if not ISO format and not display format
+    const parsedDate = parse(val, this.displayFormat, new Date(), {
+      locale: this.langModule,
+    });
+    const year = getYear(
+      parse(val, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    if (
+      year < this.minYear ||
+      year > this.maxYear ||
+      !isValid(parsedDate) ||
+      !isMatch(val, this.displayFormat, {
+        locale: this.langModule,
+      }) ||
+      !this.isDateWithinMinMaxDate(parsedDate.valueOf(), false)
+    ) {
+      this.isDateInvalid = val && true;
+      this.state =
+        this.showErrorOnInvalidDate && this.isDateInvalid
+          ? 'error'
+          : this.initState;
+      this.selectedDay = undefined;
+      if (!emitChange) this.value = val;
+      return;
+    }
+
+    this.year = year;
+
+    this.month = getMonth(
+      parse(val, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    this.selectedDay = getDate(
+      parse(val, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    this.value = format(
+      new Date(this.year, this.month, this.selectedDay),
+      this.displayFormat,
+      {
+        locale: this.langModule,
+      }
+    );
+    this.setDateAndErrorState();
+    emitChange &&
+      this.fwChange.emit({
+        value: val,
+      });
+  }
+
   @Watch('value')
   watchValueChanged(value) {
     if (!value) {
@@ -926,11 +945,17 @@ export class Datepicker {
       this.monthDetails = this.getMonthDetails(this.year, this.month);
     } else {
       if (this.mode !== 'range') {
-        const date = new Date();
-        date.setMonth(this.month, 1);
-        date.setFullYear(this.year);
-        date.setDate(this.selectedDay);
-        this.value = !this.isDateInvalid ? this.formatDateTime() : this.value;
+        // If ISO format, format it to display format and validate
+        try {
+          if (isValid(parseISO(value)))
+            value = format(new Date(value), this.displayFormat, {
+              locale: this.langModule,
+            });
+          this.processValueChange(value, true);
+          this.checkYearRestriction();
+        } catch (e) {
+          console.log('Invalid date provided !', e);
+        }
       } else {
         const formattedFromDate = format(
           new Date(this.startDate),
@@ -987,7 +1012,7 @@ export class Datepicker {
         Object.values(dateNodes).some((node) => {
           return true && node.classList.contains('highlight-blue');
         });
-      // to check if the month is not disabled
+      // to check if the month is not disabled when update btn is clicked
       const dateDetails =
         this.selectedDay &&
         this.monthDetails.find((item) => {
@@ -1165,7 +1190,6 @@ export class Datepicker {
       this.month === 11
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
-    this.selectedDay = undefined;
     this.checkYearRestriction();
   };
 
@@ -1309,8 +1333,7 @@ export class Datepicker {
       this.selectedDay = date;
       // set the value as the user clicks on any date
       this.value = this.formatDateTime();
-      this.isDateInvalid = false;
-      this.state = this.initState;
+      this.setDateAndErrorState();
       if (!this.showFooter) {
         this.updateValueAndEmitEvent(e);
         this.showDatePicker = false;
