@@ -276,7 +276,7 @@ fields: [ // Each item in this array corresponds to a crayons input component.
     id: '2978f820-704b-46c7-9f88-110e14e34a8c', // ID of the input control
     name: 'first_name', // Will be used while serializing form.
     label: 'First Name', // Label to display.
-    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME
+    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME
     position: 3, // Order of the component in the form.
     required: true, // Required while submitting the form.
     editable: false // setting this to false, will disable the field.
@@ -292,6 +292,11 @@ fields: [ // Each item in this array corresponds to a crayons input component.
 ]
 }
 ```
+
+### Disable form fields
+
+In a `Dynamic form` To disable any form field set `editable` to `false` in the form schema. You will not be able to set a value dynamically to the disabled form field. Set the value via `initialValues`.
+In a `Static form` set `disabled` attribute on the `fw-form-control` to disable the form field.
 
 ## Usage Dynamic Form
 
@@ -2570,6 +2575,24 @@ Invoke `setFieldChoices` method on the `form` passing the `name` of the field an
 </script>
 ```
 
+## Set Required Status on the Form Fields
+
+Use `setFieldsRequiredStatus` method to set required status on the form fields dynamically.
+
+param: **requiredStatusObj** - Object with key as form `field name` and value denoting if the field should be marked as required or not
+
+Example: `setFieldsRequiredStatus({ first_name: true, last_name: true })`
+
+## Set Value on the Form Fields Dynamically
+
+Use `setFieldsValue` method to set values on the form fields dynamically.
+
+param: **valuesObj** - Object with key as form `field name` and value as the `updated value` for the field.
+
+**shouldValidate** - should this form be validated with the updated values. Default to `true`
+
+Example: `setFieldsValue({ first_name: "new name", last_name: "new last name" }, true)`
+
 ## Validations
 
 Validation can be done using [Yup](https://github.com/jquense/yup#yup) based `validationSchema` or `validate` function prop.
@@ -2748,6 +2771,9 @@ Type: `Promise<void>`
 
 Method to set errors on the form fields.
 
+param: errorObj - key value pair of [fieldName]: ErrorMessage
+example: `{ first_name: 'firstname is required' }`
+
 #### Returns
 
 Type: `Promise<void>`
@@ -2770,6 +2796,10 @@ Type: `Promise<void>`
 
 Method to set value on the form field.
 
+param: field - name of the form field
+param: value - value of the form field
+param: shouldValidate - should this form field be validated with the updated value. Default to true.
+
 #### Returns
 
 Type: `Promise<void>`
@@ -2779,6 +2809,24 @@ Type: `Promise<void>`
 ### `setFieldsRequiredStatus(requiredStatusObj: FormRequired<FormValues>) => Promise<void>`
 
 Method to set required status on form fields
+
+param: requiredStatusObj - Object with key as form field name and value denoting if the field should be marked
+as required or not
+example: `{ first_name: true, last_name: false }`
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFieldsValue(valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>`
+
+Method to set values on the form fields.
+
+param: valuesObj - Object with key as form field name and value as the updated value for the field
+example: `{ first_name: "new name", last_name: "new last name" }`
+param: shouldValidate - should this form be validated with the updated values. Default to true.
 
 #### Returns
 
