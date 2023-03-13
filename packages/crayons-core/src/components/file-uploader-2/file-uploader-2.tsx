@@ -11,7 +11,11 @@ import {
 } from '@stencil/core';
 import { TranslationController } from '../../global/Translation';
 import { renderHiddenField } from '../../utils';
-import { InitialUploaderFile, UploaderFile } from './file-uploader2-util';
+import {
+  FileServerResponse,
+  InitialUploaderFile,
+  UploaderFile,
+} from './file-uploader2-util';
 import { fileDragSVG, fileErrorSVG } from '../../utils/assets';
 
 let fileCount = 0;
@@ -462,7 +466,7 @@ export class FileUploader {
   addFileToFiles(
     file: File,
     progress?: number,
-    lastServerResponse?: any,
+    lastServerResponse?: FileServerResponse,
     error?: string
   ) {
     const uploaderFile = new UploaderFile(
@@ -597,11 +601,14 @@ export class FileUploader {
           const serverResponse = {
             uploadStatus: xhr.status,
             response: xhr.response,
-            fileId,
           };
           if (xhr.status === 200) {
-            this.updateFileInFiles(fileId, { serverResponse }, 'remote-upload');
-            resolve(serverResponse);
+            this.updateFileInFiles(
+              fileId,
+              { lastServerResponse: serverResponse },
+              'remote-upload'
+            );
+            resolve({ ...serverResponse, fileId: fileId });
           } else {
             this.updateFileInFiles(
               fileId,
@@ -610,11 +617,11 @@ export class FileUploader {
                   this.fileUploadError ||
                   TranslationController.t('fileUploader2.fileUploadError'),
                 progress: -1,
-                serverResponse,
+                lastServerResponse: serverResponse,
               },
               'remote-upload'
             );
-            reject(serverResponse);
+            reject({ ...serverResponse, fileId: fileId });
           }
         }
       };

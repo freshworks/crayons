@@ -60,6 +60,28 @@
 
 ### File uploader with initial values set
 
+Expected format for initial file upload:
+
+```
+  const lastServerResponse = {
+    uploadStatus: 200,
+    response: `{ 
+      "headers": {
+        "host": "**",
+        ..
+      } 
+    }`
+  };
+
+  // progress, error and lastServerResponse are optional in the below object.
+  const InitialFiles: [{
+    "file": File, // File object
+    "progress": 100, // Can we any value ranging from 0 to 100. Set -1 for error state.
+    "error": "", // Error text to display when progress is -1. Must be empty for successful state.
+    "lastServerResponse": lastServerResponse, // Just a reference placeholder for storing any response from last server call.
+  }];
+```
+
 ```html live
   <div class="fw-flex fw-flex-column fw-justify-center">
     <fw-file-uploader-2 
@@ -88,7 +110,6 @@
         137,80,78,71,13])
       )], 'file2.png', {type: 'png', lastModified: Date.now()}),
       progress: 20,
-      error: 'Failed to upload file'
     }, {
       file: new File([new Blob(new Uint8Array([
         137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,8,0,0,
