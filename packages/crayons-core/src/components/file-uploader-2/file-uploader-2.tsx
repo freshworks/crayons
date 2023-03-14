@@ -166,7 +166,7 @@ export class FileUploader {
   /**
    * To maintain the same label styling as other form elements.
    */
-  @Prop() smallerUniformLabel = false;
+  @Prop() isFormLabel = false;
 
   /**
    * errorText - errorText collection.
@@ -878,7 +878,7 @@ export class FileUploader {
                   class={{
                     'file-uploader__header__block__title': true,
                     'file-uploader__header__block__title--uniform':
-                      this.smallerUniformLabel,
+                      this.isFormLabel,
                     'required': this.required,
                   }}
                 >
@@ -914,7 +914,7 @@ export class FileUploader {
           <div
             class={{
               'file-uploader__body': true,
-              'file-uploader__body--uniform': this.smallerUniformLabel,
+              'file-uploader__body--uniform': this.isFormLabel,
               'file-uploader__body--error': !!this.errorText.length,
               'file-uploader__body--hide': this.showSimpleInterface(),
             }}

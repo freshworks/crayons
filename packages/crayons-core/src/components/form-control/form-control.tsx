@@ -438,7 +438,7 @@ export class FormControl {
             description: this.placeholder,
             required: this.required,
             isBatchUpload: true,
-            smallerUniformLabel: true,
+            isFormLabel: true,
             hintText: this.hint,
             errorText: errorText,
           };

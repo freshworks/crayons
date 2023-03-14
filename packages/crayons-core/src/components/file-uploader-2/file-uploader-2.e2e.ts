@@ -107,7 +107,11 @@ describe('fw-file-uploader-2', () => {
       elm.initialFiles = [
         {
           file: new File(
-            [new Blob(new Uint8Array([137, 80, 78, 71, 13]))],
+            [
+              new Blob(
+                new Uint8Array([137, 80, 78, 71, 13]) as unknown as BlobPart[]
+              ),
+            ],
             'file1.png',
             { type: 'png', lastModified: Date.now() }
           ),
@@ -162,7 +166,11 @@ describe('fw-file-uploader-2', () => {
       elm.initialFiles = [
         {
           file: new File(
-            [new Blob(new Uint8Array([137, 80, 78, 71, 13]))],
+            [
+              new Blob(
+                new Uint8Array([137, 80, 78, 71, 13]) as unknown as BlobPart[]
+              ),
+            ],
             'file1.png',
             { type: 'png', lastModified: Date.now() }
           ),
@@ -189,7 +197,11 @@ describe('fw-file-uploader-2', () => {
       elm.initialFiles = [
         {
           file: new File(
-            [new Blob(new Uint8Array([137, 80, 78, 71, 13]))],
+            [
+              new Blob(
+                new Uint8Array([137, 80, 78, 71, 13]) as unknown as BlobPart[]
+              ),
+            ],
             'file1.png',
             { type: 'png', lastModified: Date.now() }
           ),
@@ -217,7 +229,11 @@ describe('fw-file-uploader-2', () => {
       elm.initialFiles = [
         {
           file: new File(
-            [new Blob(new Uint8Array([137, 80, 78, 71, 13]))],
+            [
+              new Blob(
+                new Uint8Array([137, 80, 78, 71, 13]) as unknown as BlobPart[]
+              ),
+            ],
             'file1.png',
             { type: 'png', lastModified: Date.now() }
           ),

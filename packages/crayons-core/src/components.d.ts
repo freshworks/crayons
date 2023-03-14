@@ -671,6 +671,10 @@ export namespace Components {
          */
         "isBatchUpload": boolean;
         /**
+          * To maintain the same label styling as other form elements.
+         */
+        "isFormLabel": boolean;
+        /**
           * maxFileSize - maximum file size the file uploader must accept.
          */
         "maxFileSize": number;
@@ -713,10 +717,6 @@ export namespace Components {
           * Use a simple interface for the single file mode.
          */
         "simpleInterfaceForSingleMode": boolean;
-        /**
-          * To maintain the same label styling as other form elements.
-         */
-        "smallerUniformLabel": boolean;
         /**
           * text - file uploader text.
          */
@@ -3550,6 +3550,10 @@ declare namespace LocalJSX {
          */
         "isBatchUpload"?: boolean;
         /**
+          * To maintain the same label styling as other form elements.
+         */
+        "isFormLabel"?: boolean;
+        /**
           * maxFileSize - maximum file size the file uploader must accept.
          */
         "maxFileSize"?: number;
@@ -3607,10 +3611,6 @@ declare namespace LocalJSX {
           * Use a simple interface for the single file mode.
          */
         "simpleInterfaceForSingleMode"?: boolean;
-        /**
-          * To maintain the same label styling as other form elements.
-         */
-        "smallerUniformLabel"?: boolean;
         /**
           * text - file uploader text.
          */
