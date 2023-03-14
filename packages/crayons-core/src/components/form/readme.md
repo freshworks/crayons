@@ -233,6 +233,17 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
         hint: 'Please enter the amount paid',
         choices: [],
       },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'profile_pic',
+        label: 'Profile picture',
+        type: 'FILES',
+        position: 11,
+        required: true,
+        placeholder: '',
+        multiple: true
+      },
     ],
   };
   var initialValues = {
@@ -276,7 +287,7 @@ fields: [ // Each item in this array corresponds to a crayons input component.
     id: '2978f820-704b-46c7-9f88-110e14e34a8c', // ID of the input control
     name: 'first_name', // Will be used while serializing form.
     label: 'First Name', // Label to display.
-    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME
+    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME/FILES
     position: 3, // Order of the component in the form.
     required: true, // Required while submitting the form.
     editable: false // setting this to false, will disable the field.
@@ -524,6 +535,17 @@ fields: [ // Each item in this array corresponds to a crayons input component.
         hint: 'Please enter the amount paid',
         choices: [],
       },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'profile_pic',
+        label: 'Profile picture',
+        type: 'FILES',
+        position: 11,
+        required: true,
+        placeholder: '',
+        multiple: true
+      },
     ],
 
 };
@@ -763,6 +785,17 @@ function App() {
         Placeholder: 'Enter…',
         hint: 'Please enter the amount paid',
         choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'profile_pic',
+        label: 'Profile picture',
+        type: 'FILES',
+        position: 11,
+        required: true,
+        placeholder: '',
+        multiple: true
       },
     ],
 
@@ -2805,6 +2838,7 @@ graph TD;
   fw-form-control --> fw-radio
   fw-form-control --> fw-select
   fw-form-control --> fw-timepicker
+  fw-form-control --> fw-file-uploader-2
   fw-input --> fw-icon
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
@@ -2833,6 +2867,12 @@ graph TD;
   fw-tooltip --> fw-popover
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-file-uploader-2 --> fw-file-2
+  fw-file-uploader-2 --> fw-inline-message
+  fw-file-2 --> fw-icon
+  fw-file-2 --> fw-tooltip
+  fw-file-2 --> fw-spinner
+  fw-inline-message --> fw-icon
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

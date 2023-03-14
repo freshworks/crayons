@@ -36,7 +36,8 @@ export class FormControl {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP' = 'TEXT';
+    | 'RELATIONSHIP'
+    | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
   @Prop()
@@ -415,6 +416,40 @@ export class FormControl {
               {...componentProps}
               ref={(el) => (this.crayonsControlRef = el)}
             ></fw-timepicker>
+          );
+        }
+        break;
+      case 'FILES':
+        {
+          const multiple = this.fieldProps?.multiple ? true : false;
+          const errorText =
+            this.touched && this.error
+              ? TranslationController.t(this.error, {
+                  field: this.label || this.name,
+                })
+              : '';
+          const controlProps = this.controlProps?.fileProps(
+            this.name,
+            multiple
+          );
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            description: this.placeholder,
+            required: this.required,
+            isBatchUpload: true,
+            isFormLabel: true,
+            hintText: this.hint,
+            errorText: errorText,
+          };
+          if (controlProps?.value) {
+            componentProps.initialFiles = controlProps.value;
+          }
+          cmp = (
+            <fw-file-uploader-2
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-file-uploader-2>
           );
         }
         break;
