@@ -66,6 +66,13 @@ export class FbFieldDropdown {
 
   componentWillLoad(): void {
     this.validate();
+    if (this.errorType && this.errorType !== '') {
+      this.fwChange.emit({
+        type: 'VALUE_CHANGE',
+        errorType: this.errorType,
+        value: [...this.dataProvider],
+      });
+    }
   }
 
   private validate = () => {

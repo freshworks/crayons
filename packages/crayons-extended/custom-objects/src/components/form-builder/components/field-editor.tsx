@@ -598,6 +598,7 @@ export class FieldEditor {
       this.dictInteractiveElements = {};
       this.expanded = false;
       this.internalNameErrorMessage = '';
+      this.labelWarningMessage = '';
       this.labelErrorMessage = '';
       this.formErrorMessage = '';
       this.showErrors = false;
