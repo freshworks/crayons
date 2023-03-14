@@ -11,7 +11,11 @@ import {
 } from '@stencil/core';
 import { TranslationController } from '../../global/Translation';
 import { renderHiddenField } from '../../utils';
-import { InitialUploaderFile, UploaderFile } from './file-uploader2-util';
+import {
+  FileServerResponse,
+  InitialUploaderFile,
+  UploaderFile,
+} from './file-uploader2-util';
 import { fileDragSVG, fileErrorSVG } from '../../utils/assets';
 
 let fileCount = 0;
@@ -43,8 +47,11 @@ export class FileUploader {
   @Prop()
   description;
 
+  /**
+   * Inline information text, hint text.
+   */
   @Prop()
-  infoText = '';
+  hintText = '';
 
   /**
    * accept - comma separated string. tells us what file formats file uploader should accept.
@@ -157,9 +164,15 @@ export class FileUploader {
   @Prop() required = false;
 
   /**
-   * errors - errors collection.
+   * To maintain the same label styling as other form elements.
    */
-  @State() errors: any = [];
+  @Prop() isFormLabel = false;
+
+  /**
+   * errorText - errorText collection.
+   * Mutable as this can be set from form control too based on form validations.
+   */
+  @Prop({ mutable: true }) errorText = '';
 
   /**
    * files - files collection.
@@ -167,24 +180,29 @@ export class FileUploader {
   @State() files: UploaderFile[] = [];
 
   /**
-   * Triggered during batch upload, when all files are uploaded.
+   * Triggered whenever files change.
+   */
+  @Event() fwChange: EventEmitter;
+
+  /**
+   * Triggered for a particular file change.
+   */
+  @Event() fwFileChange: EventEmitter;
+
+  /**
+   * Triggered after batch upload, when all files are uploaded.
    */
   @Event() fwFilesUploaded: EventEmitter;
+
+  /**
+   * Triggered after file upload if not a batch upload.
+   */
+  @Event() fwFileUploaded: EventEmitter;
 
   /**
    * Triggered during a file reupload.
    */
   @Event() fwFileReuploaded: EventEmitter;
-
-  /**
-   * Event that triggers when uploading is in progress, completed or failed.
-   */
-  @Event() fwChange: EventEmitter;
-
-  /**
-   * Event that triggers when removing a file from the file uploader.
-   */
-  @Event() fwRemove: EventEmitter;
 
   /**
    * private
@@ -214,7 +232,26 @@ export class FileUploader {
    * private
    * isBatchUploadInProgress
    */
-  isBatchUploadInProgress = false;
+  isBatchUploadInProgress = false; /**
+
+  * private
+  * isInitialFilesChange Denotes if this is initial files change. 
+  */
+  isInitialFilesChange = false;
+
+  /**
+   * watcher filesChangeHandler
+   * @param files files modified
+   */
+  @Watch('files')
+  filesChangeHandler(files) {
+    if (!this.isInitialFilesChange) {
+      this.fwChange.emit({
+        name: this.name,
+        files: files,
+      });
+    }
+  }
 
   /**
    * componentWillLoad life cycle event
@@ -225,6 +262,7 @@ export class FileUploader {
 
   @Watch('initialFiles')
   handleInitialFilesChange(changedFiles) {
+    this.isInitialFilesChange = true;
     this._reset(false, false);
 
     if (this.multiple) {
@@ -234,6 +272,7 @@ export class FileUploader {
         this.setLocalFile(changedFiles[0]);
       }
     }
+    this.isInitialFilesChange = false;
   }
 
   setLocalFile(initialFile) {
@@ -304,7 +343,7 @@ export class FileUploader {
       this.fileInputElement.value = '';
     }
     if (resetErrors) {
-      this.errors = [];
+      this.errorText = '';
     }
   }
 
@@ -329,16 +368,16 @@ export class FileUploader {
       (acc: number, obj: File) => acc + obj.size,
       0
     );
-    this.errors = [];
+    this.errorText = '';
 
     if (totalFiles.length > this.filesLimit) {
-      this.errors = [this.maxFilesLimitError];
+      this.errorText = this.maxFilesLimitError;
       passed = false;
     } else if (
       this.totalFileSizeAllowed !== 0 &&
       totalSize > this.totalFileSizeAllowed * 1024 * 1024
     ) {
-      this.errors = [this.totalFileSizeAllowedError];
+      this.errorText = this.totalFileSizeAllowedError;
       passed = false;
     } else {
       for (let index = 0; index < files.length; index++) {
@@ -379,7 +418,7 @@ export class FileUploader {
         errors.push(this.maxFileSizeError);
       }
     }
-    this.errors = [...this.errors, ...errors];
+    this.errorText = errors.length ? errors[0] : '';
     return isPassed;
   }
 
@@ -427,7 +466,7 @@ export class FileUploader {
   addFileToFiles(
     file: File,
     progress?: number,
-    lastServerResponse?: any,
+    lastServerResponse?: FileServerResponse,
     error?: string
   ) {
     const uploaderFile = new UploaderFile(
@@ -461,7 +500,7 @@ export class FileUploader {
    * private
    * updateFileInFiles - update the file object in the files state
    */
-  updateFileInFiles(fileId: number, updateObject) {
+  updateFileInFiles(fileId: number, updateObject, updateAction) {
     const fileIndex = this.findFileIndex(fileId);
     if (fileIndex >= 0) {
       this.files = [
@@ -470,6 +509,13 @@ export class FileUploader {
         ...this.files.slice(fileIndex + 1, this.files.length),
       ];
     }
+    this.fwFileChange.emit({
+      name: this.name,
+      file: this.files[fileId],
+      action: updateAction ? updateAction : 'unknown',
+      files: this._getFiles(),
+      fileList: this._getFilesList(),
+    });
   }
 
   /**
@@ -481,7 +527,7 @@ export class FileUploader {
   uploadFileLocally(file: File) {
     const localFile = this.addFileToFiles(file);
     this.addFileToFormDataCollection(file);
-    this.fwChange.emit({
+    this.fwFileChange.emit({
       name: this.name,
       file: localFile,
       action: 'local-upload',
@@ -499,21 +545,25 @@ export class FileUploader {
   removeFileLocally(fileId: number) {
     const removedFile = this.removeFileFromFiles(fileId);
     this.removeFileFromFormDataCollection(fileId);
-    this.fwRemove.emit({
-      name: this.name,
-      fileId: fileId,
-      fileList: this._getFilesList(),
-    });
-    this.fwChange.emit({
+    if (this.files.length === 0) {
+      this._reset();
+    }
+    return removedFile;
+  }
+
+  /**
+   * removeFileByUser remove file action is taken by the user
+   * @param fileId file ID to remove from files collection
+   */
+  removeFileLocallyByUser(fileId: number) {
+    const removedFile = this.removeFileLocally(fileId);
+    this.fwFileChange.emit({
       name: this.name,
       file: removedFile,
       action: 'local-remove',
       files: this._getFiles(),
       fileList: this._getFilesList(),
     });
-    if (this.files.length === 0) {
-      this._reset();
-    }
   }
 
   /**
@@ -524,7 +574,7 @@ export class FileUploader {
    */
   uploadFile(fileId) {
     const formData = this.formDataCollection[fileId];
-    this.updateFileInFiles(fileId, { progress: 1 });
+    this.updateFileInFiles(fileId, { progress: 1 }, 'remote-upload-progress');
     // adding extra information to formData before uploading
     for (const key in this.actionParams) {
       if (Object.prototype.hasOwnProperty.call(this.actionParams, key)) {
@@ -536,9 +586,13 @@ export class FileUploader {
     xhr.upload.addEventListener(
       'progress',
       (event) =>
-        this.updateFileInFiles(fileId, {
-          progress: (event.loaded / event.total) * 100,
-        }),
+        this.updateFileInFiles(
+          fileId,
+          {
+            progress: (event.loaded / event.total) * 100,
+          },
+          'remote-upload-progress'
+        ),
       false
     );
     const fileUploadPromise = new Promise((resolve: any, reject: any) => {
@@ -547,29 +601,28 @@ export class FileUploader {
           const serverResponse = {
             uploadStatus: xhr.status,
             response: xhr.response,
-            fileId,
           };
           if (xhr.status === 200) {
-            this.updateFileInFiles(fileId, { serverResponse });
-            resolve(serverResponse);
+            this.updateFileInFiles(
+              fileId,
+              { lastServerResponse: serverResponse },
+              'remote-upload'
+            );
+            resolve({ ...serverResponse, fileId: fileId });
           } else {
-            this.updateFileInFiles(fileId, {
-              error:
-                this.fileUploadError ||
-                TranslationController.t('fileUploader2.fileUploadError'),
-              progress: -1,
-              serverResponse,
-            });
-            reject(serverResponse);
+            this.updateFileInFiles(
+              fileId,
+              {
+                error:
+                  this.fileUploadError ||
+                  TranslationController.t('fileUploader2.fileUploadError'),
+                progress: -1,
+                lastServerResponse: serverResponse,
+              },
+              'remote-upload'
+            );
+            reject({ ...serverResponse, fileId: fileId });
           }
-
-          this.fwChange.emit({
-            name: this.name,
-            file: this.files[fileId],
-            action: 'remote-upload',
-            files: this._getFiles(),
-            fileList: this._getFilesList(),
-          });
         }
       };
     });
@@ -586,7 +639,11 @@ export class FileUploader {
    */
   @Method()
   async uploadFiles() {
-    if (this.files.length && !this.isBatchUploadInProgress) {
+    if (
+      this.files.length &&
+      this.isBatchAllow() &&
+      !this.isBatchUploadInProgress
+    ) {
       this.isBatchUploadInProgress = true;
       for (const fileId in this.formDataCollection) {
         if (
@@ -617,11 +674,17 @@ export class FileUploader {
           }
         }
       );
+    } else {
+      console.log('uploadFiles is for batch upload');
     }
   }
 
+  /**
+   * retryFileUpload
+   * @param fileId file ID to retry uploading to server
+   */
   retryFileUpload(fileId) {
-    this.updateFileInFiles(fileId, { error: '' });
+    this.updateFileInFiles(fileId, { error: '' }, 'remote-retry');
     const uploadPromise = this.uploadFile(fileId);
     uploadPromise.then((serverResponse) => {
       if (this.isBatchAllow()) {
@@ -656,8 +719,9 @@ export class FileUploader {
           const localFile = this.uploadFileLocally(file);
 
           if (!this.isBatchAllow()) {
-            const filePromise = this.uploadFile(localFile.id);
-            this.fileUploadPromises[localFile.id] = filePromise;
+            this.uploadFile(localFile.id).then((serverResponse) => {
+              this.fwFileUploaded.emit(serverResponse);
+            });
           }
         }
       }
@@ -693,7 +757,7 @@ export class FileUploader {
           'file-uploader__body__dropzone': true,
           'file-uploader__body__dropzone--disabled':
             this.isBatchUploadInProgress,
-          'file-uploader__body__dropzone--error': !!this.errors.length,
+          'file-uploader__body__dropzone--error': !!this.errorText.length,
         }}
         key='dropzone'
         tabIndex={0}
@@ -715,7 +779,7 @@ export class FileUploader {
         <div class='file-uploader__body__dropzone__center'>
           <div class='file-uploader__body__dropzone__center__clickable'>
             <div class='file-uploader__body__dropzone__center__clickable__icon'>
-              {!this.errors.length ? (
+              {!this.errorText.length ? (
                 <div
                   innerHTML={
                     new DOMParser().parseFromString(fileDragSVG, 'text/html')
@@ -731,7 +795,7 @@ export class FileUploader {
                 ></div>
               )}
             </div>
-            {!this.errors.length ? (
+            {!this.errorText.length ? (
               <div
                 class='file-uploader__body__dropzone__center__clickable__text'
                 innerHTML={
@@ -740,7 +804,7 @@ export class FileUploader {
               ></div>
             ) : (
               <div class='file-uploader__body__dropzone__center__clickable__error'>
-                {this.errors[0]}.{' '}
+                {this.errorText}.{' '}
                 <span class='highlight'>
                   {TranslationController.t('fileUploader2.retry')}
                 </span>
@@ -782,7 +846,7 @@ export class FileUploader {
                   errorMessage={file.error}
                   onFwDelete={(event) => {
                     event.stopPropagation();
-                    this.removeFileLocally(event.detail.index);
+                    this.removeFileLocallyByUser(event.detail.index);
                   }}
                   onFwReupload={(event) => {
                     event.stopPropagation();
@@ -806,13 +870,15 @@ export class FileUploader {
     renderHiddenField(this.host, this.name, null, this._getFilesList());
     return (
       <div class='file-uploader'>
-        {(this.infoText.trim() !== '' || !this.hideLabel || this.required) && (
+        {(this.hintText.trim() !== '' || !this.hideLabel || this.required) && (
           <div class='file-uploader__header'>
             <div class='file-uploader__header__block'>
               {(!this.hideLabel || this.required) && (
                 <div
                   class={{
                     'file-uploader__header__block__title': true,
+                    'file-uploader__header__block__title--uniform':
+                      this.isFormLabel,
                     'required': this.required,
                   }}
                 >
@@ -837,9 +903,9 @@ export class FileUploader {
                 )}
               </div>
             </div>
-            {this.infoText.trim() !== '' ? (
+            {this.hintText.trim() !== '' ? (
               <fw-inline-message open type='info'>
-                {this.infoText}
+                {this.hintText}
               </fw-inline-message>
             ) : null}
           </div>
@@ -848,7 +914,8 @@ export class FileUploader {
           <div
             class={{
               'file-uploader__body': true,
-              'file-uploader__body--error': !!this.errors.length,
+              'file-uploader__body--uniform': this.isFormLabel,
+              'file-uploader__body--error': !!this.errorText.length,
               'file-uploader__body--hide': this.showSimpleInterface(),
             }}
             onDragOver={(ev: DragEvent) => {

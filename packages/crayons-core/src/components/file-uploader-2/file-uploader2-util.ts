@@ -1,8 +1,13 @@
+export type FileServerResponse = {
+  uploadStatus: number;
+  response: any;
+};
+
 export type InitialUploaderFile = {
   progress: number;
   error: string;
   file: File;
-  lastServerResponse: any;
+  lastServerResponse: FileServerResponse;
 };
 
 export class UploaderFile {
@@ -13,14 +18,14 @@ export class UploaderFile {
   size: number;
   type: string;
   file: File;
-  lastServerResponse: any;
+  lastServerResponse: FileServerResponse;
 
   constructor(
     id: number,
     file: File,
-    progress = 0,
-    lastServerResponse: any = null,
-    error = ''
+    progress?: number,
+    lastServerResponse?: FileServerResponse,
+    error?: string
   ) {
     this.id = id;
     this.name = file.name;

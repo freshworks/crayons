@@ -60,6 +60,28 @@
 
 ### File uploader with initial values set
 
+Expected format for initial file upload:
+
+```
+  const lastServerResponse = {
+    uploadStatus: 200,
+    response: `{ 
+      "headers": {
+        "host": "**",
+        ..
+      } 
+    }`
+  };
+
+  // progress, error and lastServerResponse are optional in the below object.
+  const InitialFiles: [{
+    "file": File, // File object
+    "progress": 100, // Can we any value ranging from 0 to 100. Set -1 for error state.
+    "error": "", // Error text to display when progress is -1. Must be empty for successful state.
+    "lastServerResponse": lastServerResponse, // Just a reference placeholder for storing any response from last server call.
+  }];
+```
+
 ```html live
   <div class="fw-flex fw-flex-column fw-justify-center">
     <fw-file-uploader-2 
@@ -88,7 +110,6 @@
         137,80,78,71,13])
       )], 'file2.png', {type: 'png', lastModified: Date.now()}),
       progress: 20,
-      error: 'Failed to upload file'
     }, {
       file: new File([new Blob(new Uint8Array([
         137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,8,0,0,
@@ -969,12 +990,14 @@
 | `actionParams`                 | --                                 | actionParams - additional information to send to server other than the file.                                                                  | `{ [prop: string]: any; }`                | `{}`                                                                         |
 | `actionURL`                    | `action-u-r-l`                     | actionURL - URL to make server call.                                                                                                          | `string`                                  | `''`                                                                         |
 | `description`                  | `description`                      | description - file uploader description.                                                                                                      | `any`                                     | `undefined`                                                                  |
+| `errorText`                    | `error-text`                       | errorText - errorText collection. Mutable as this can be set from form control too based on form validations.                                 | `string`                                  | `''`                                                                         |
 | `fileUploadError`              | `file-upload-error`                | fileUploadError - Error message when a file upload fails.                                                                                     | `any`                                     | `undefined`                                                                  |
 | `filesLimit`                   | `files-limit`                      | Max files allowed to upload.                                                                                                                  | `number`                                  | `10`                                                                         |
 | `hideLabel`                    | `hide-label`                       | Use this prop to show the label on the component.                                                                                             | `boolean`                                 | `true`                                                                       |
-| `infoText`                     | `info-text`                        |                                                                                                                                               | `string`                                  | `''`                                                                         |
+| `hintText`                     | `hint-text`                        | Inline information text, hint text.                                                                                                           | `string`                                  | `''`                                                                         |
 | `initialFiles`                 | --                                 | to load default values in file uploader component.                                                                                            | `InitialUploaderFile[]`                   | `[]`                                                                         |
 | `isBatchUpload`                | `is-batch-upload`                  | Upload all files in one single shot                                                                                                           | `boolean`                                 | `false`                                                                      |
+| `isFormLabel`                  | `is-form-label`                    | To maintain the same label styling as other form elements.                                                                                    | `boolean`                                 | `false`                                                                      |
 | `maxFileSize`                  | `max-file-size`                    | maxFileSize - maximum file size the file uploader must accept.                                                                                | `number`                                  | `0`                                                                          |
 | `maxFileSizeError`             | `max-file-size-error`              | maxFileSizeError - Error message to display when file size exceeds limit                                                                      | `any`                                     | `TranslationController.t('fileUploader2.maxFileSizeError')`                  |
 | `maxFilesLimitError`           | `max-files-limit-error`            | maxFilesLimitError - Error message when going beyond files limit.                                                                             | `any`                                     | `TranslationController.t(     'fileUploader2.maxFilesLimitError'   )`        |
@@ -991,12 +1014,13 @@
 
 ## Events
 
-| Event              | Description                                                             | Type               |
-| ------------------ | ----------------------------------------------------------------------- | ------------------ |
-| `fwChange`         | Event that triggers when uploading is in progress, completed or failed. | `CustomEvent<any>` |
-| `fwFileReuploaded` | Triggered during a file reupload.                                       | `CustomEvent<any>` |
-| `fwFilesUploaded`  | Triggered during batch upload, when all files are uploaded.             | `CustomEvent<any>` |
-| `fwRemove`         | Event that triggers when removing a file from the file uploader.        | `CustomEvent<any>` |
+| Event              | Description                                                | Type               |
+| ------------------ | ---------------------------------------------------------- | ------------------ |
+| `fwChange`         | Triggered whenever files change.                           | `CustomEvent<any>` |
+| `fwFileChange`     | Triggered for a particular file change.                    | `CustomEvent<any>` |
+| `fwFileReuploaded` | Triggered during a file reupload.                          | `CustomEvent<any>` |
+| `fwFilesUploaded`  | Triggered after batch upload, when all files are uploaded. | `CustomEvent<any>` |
+| `fwFileUploaded`   | Triggered after file upload if not a batch upload.         | `CustomEvent<any>` |
 
 
 ## Methods
@@ -1063,6 +1087,10 @@ fileUploadPromise
 
 ## Dependencies
 
+### Used by
+
+ - [fw-form-control](../form-control)
+
 ### Depends on
 
 - [fw-file-2](file-2)
@@ -1078,6 +1106,7 @@ graph TD;
   fw-file-2 --> fw-spinner
   fw-tooltip --> fw-popover
   fw-inline-message --> fw-icon
+  fw-form-control --> fw-file-uploader-2
   style fw-file-uploader-2 fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
