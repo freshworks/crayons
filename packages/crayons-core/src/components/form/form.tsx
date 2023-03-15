@@ -597,7 +597,7 @@ export class Form {
     };
 
     this.touched = { ...this.touched, [field]: false };
-    // this.values = { ...this.values, [field]: undefined };
+    this.values = { ...this.values, [field]: undefined };
   }
 
   /**
