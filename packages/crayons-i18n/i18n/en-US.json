@@ -157,6 +157,8 @@
     "freePlanFieldAddDisabledHeader": "Did you know you can add custom fields?",
     "freePlanFieldAddDisabledMessage": "Custom fields are available from Growth plan and above.",
     "freePlanFieldAddDisabledButton": "Explore plans",
+    "noCreatePermissionFieldAddDisabledHeader": "You do not have permission to create new properties",
+    "noCreatePermissionFieldAddDisabledMessage": "Please reach out to your admin for more details.",
     "errors": {
       "emptyFieldName": "Field label is required.",
       "emptyRelationshipType": "Relationship type is required.",

@@ -19,6 +19,7 @@ import {
   FormUtils,
   FormProps,
   FormSubmit,
+  FormRequired,
 } from './form-declaration';
 import {
   validateYupSchema,
@@ -29,9 +30,10 @@ import {
   serializeForm,
   translateErrors,
   getMappedSchema,
+  getValueForField,
   LEGO,
 } from './form-util';
-import { debounce } from '../../utils';
+import { debounce, hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-form',
@@ -85,21 +87,21 @@ export class Form {
   @Prop() mapperType: 'LEGO' | 'FORMSERV' | 'CUSTOM' = LEGO;
 
   /**
-      * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
-      * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.
-      * In the example below, `1` is the type of a field in your schema
-      * that needs to correspond to `TEXT` type.
-      * Please pass include the mapper for all the field types that you want to support.
-      * Example typeMapper object : {
-             'CUSTOM_TEXT': { type: 'TEXT' },
-             'SELECT': { type: 'DROPDOWN' },
-             'TEL': { type: 'PHONE_NUMBER' },
-             'CHECKBOX': { type: 'CHECKBOX' },
-             'TEXTAREA': { type: 'PARAGRAPH' },
-             'DATETIME': { type: 'DATE_TIME' },
-             'INTEGER': { type: 'NUMBER' },
-           }
-      */
+   * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
+   * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.
+   * In the example below, `1` is the type of a field in your schema
+   * that needs to correspond to `TEXT` type.
+   * Please pass include the mapper for all the field types that you want to support.
+   * Example typeMapper object : {
+          'CUSTOM_TEXT': { type: 'TEXT' },
+          'SELECT': { type: 'DROPDOWN' },
+          'TEL': { type: 'PHONE_NUMBER' },
+          'CHECKBOX': { type: 'CHECKBOX' },
+          'TEXTAREA': { type: 'PARAGRAPH' },
+          'DATETIME': { type: 'DATE_TIME' },
+          'INTEGER': { type: 'NUMBER' },
+        }
+   */
   @Prop() customTypeMapper: any = {};
 
   @State() values: FormValues = {} as any;
@@ -110,6 +112,7 @@ export class Form {
   @State() formInitialValues;
 
   @State() formSchemaState = this.formSchema;
+  @State() hasSlot = false;
 
   @State() fieldSearchText;
 
@@ -159,10 +162,13 @@ export class Form {
 
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
-    await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
-      initialValues
-    );
+    let schema = this.formSchemaState;
+
+    if (this.hasSlot) {
+      // for static form get the schema from slots
+      schema = this.getFormSchemaFromSlots();
+    }
+    await this.handleFormSchemaAndInitialValuesChange(schema, initialValues);
   }
 
   @Watch('values')
@@ -213,7 +219,7 @@ export class Form {
   // get Form Controls and pass props to children
   componentDidLoad() {
     this.controls = this.getFormControls();
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
     // adding a timeout since this lifecycle method is called before its child in React apps.
     // Bug with react wrapper.
     setTimeout(() => {
@@ -226,11 +232,21 @@ export class Form {
     if (!this.controls || !this.controls.length) {
       this.controls = this.getFormControls();
     }
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
   }
 
   handleSlotChange() {
+    this.hasSlot = hasSlot(this.el);
     this.controls = this.getFormControls();
+
+    /** Create implicit validation rules based
+     *  on slotted form-controls for static form
+     */
+    // setup initialValues and validation rules
+    this.handleFormSchemaAndInitialValuesChange(
+      this.getFormSchemaFromSlots(),
+      this.initialValues
+    );
   }
 
   disconnectedCallback() {
@@ -333,18 +349,26 @@ export class Form {
   handleInput = async (event: Event) => {
     const details = (event as any).detail;
     if (!details || !details.name) return;
-    const { name, value, meta } = details;
+    const { name, value, meta, files } = details;
 
-    const val = meta && 'checked' in meta ? meta.checked : value;
+    let componentValue;
+
+    if (meta && 'checked' in meta) {
+      componentValue = meta.checked;
+    } else if (files) {
+      componentValue = files;
+    } else {
+      componentValue = value;
+    }
 
     this.values = {
       ...this.values,
-      [name]: val,
+      [name]: componentValue,
     };
 
     this.fwFormValueChanged.emit({
       field: name,
-      value: val,
+      value: componentValue,
     });
 
     if (meta && meta.shouldValidate === false) {
@@ -413,6 +437,7 @@ export class Form {
     control.error = error ?? '';
     control.touched = touched || false;
     control.shouldRender = this.shouldRenderFormControl(control);
+    control.value = getValueForField(this.values, control);
   }
 
   private composedUtils = (): FormUtils => {
@@ -435,6 +460,18 @@ export class Form {
           : this.values[field] ?? '',
     });
 
+    const fileProps = (field: string, multiple: boolean) => {
+      let value: any = [];
+      if (this.values[field]) {
+        if (multiple) {
+          value = this.values[field];
+        } else {
+          value = this.values[field][0] ? [this.values[field][0]] : [];
+        }
+      }
+      return { value };
+    };
+
     const formProps: FormProps = {
       action: 'javascript:void(0);',
       onSubmit: this.handleSubmit,
@@ -446,6 +483,7 @@ export class Form {
       selectProps,
       checkboxProps,
       radioProps,
+      fileProps,
       formProps,
     };
   };
@@ -461,6 +499,16 @@ export class Form {
         : true
       : false;
     return shouldRender;
+  };
+
+  private getFormSchemaFromSlots = () => {
+    const fields = this.controls.map((control) => ({
+      type: control.type,
+      name: control.name,
+      required: control.required,
+    }));
+
+    return { fields };
   };
 
   /** Return if a field is disabled or not
@@ -493,11 +541,6 @@ export class Form {
     if (isDisabledField) return;
 
     this.values = { ...this.values, [field]: value };
-
-    this.fwFormValueChanged.emit({
-      field,
-      value,
-    });
 
     if (shouldValidate) {
       this.touched = { ...this.touched, [field]: true };
@@ -555,11 +598,6 @@ export class Form {
 
     this.touched = { ...this.touched, [field]: false };
     this.values = { ...this.values, [field]: undefined };
-
-    this.fwFormValueChanged.emit({
-      field: field,
-      value: undefined,
-    });
   }
 
   /**
@@ -616,6 +654,43 @@ export class Form {
     this.fieldSearchText = text;
   }
 
+  /**
+   * Method to set required status on form fields
+   *
+   * @param requiredStatusObj - Object with key as form field name and value denoting if the field should be marked
+   * as required or not
+   * example: `{ first_name: true, last_name: false }`
+   */
+  @Method()
+  async setFieldsRequiredStatus(
+    requiredStatusObj: FormRequired<FormValues>
+  ): Promise<void> {
+    let errorsObj = { ...this.errors };
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (Object.prototype.hasOwnProperty.call(requiredStatusObj, f.name)) {
+            const isRequired = !!requiredStatusObj?.[f.name];
+            if (!isRequired) errorsObj = { ...errorsObj, [f.name]: undefined };
+            return {
+              ...f,
+              required: isRequired,
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.errors = { ...errorsObj };
+
+    this.formValidationSchema =
+      generateDynamicValidationSchema(
+        this.formSchemaState,
+        this.validationSchema
+      ) || {};
+  }
+
   render() {
     const utils: FormUtils = this.composedUtils();
 
@@ -636,10 +711,12 @@ export class Form {
                     required={field.required}
                     hint={field.hint}
                     placeholder={field.placeholder}
+                    error={this.errors[field.name]}
+                    touched={this.touched[field.name]}
+                    disabled={this.isDisabledField(field)}
                     choices={field.choices}
                     fieldProps={field}
                     controlProps={utils}
-                    disabled={this.isDisabledField(field)}
                   ></fw-form-control>
                 )
               );

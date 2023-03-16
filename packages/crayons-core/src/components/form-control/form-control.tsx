@@ -36,7 +36,8 @@ export class FormControl {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP' = 'TEXT';
+    | 'RELATIONSHIP'
+    | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
   @Prop()
@@ -69,6 +70,10 @@ export class FormControl {
    * Default to true.
    */
   @Prop() shouldRender = true;
+  /**
+   * Value of the slotted custom field on fw-form-control
+   */
+  @Prop() value;
   /**
    * Disable the field from being editable
    */
@@ -414,12 +419,46 @@ export class FormControl {
           );
         }
         break;
+      case 'FILES':
+        {
+          const multiple = this.fieldProps?.multiple ? true : false;
+          const errorText =
+            this.touched && this.error
+              ? TranslationController.t(this.error, {
+                  field: this.label || this.name,
+                })
+              : '';
+          const controlProps = this.controlProps?.fileProps(
+            this.name,
+            multiple
+          );
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            description: this.placeholder,
+            required: this.required,
+            isBatchUpload: true,
+            isFormLabel: true,
+            hintText: this.hint,
+            errorText: errorText,
+          };
+          if (controlProps?.value) {
+            componentProps.initialFiles = controlProps.value;
+          }
+          cmp = (
+            <fw-file-uploader-2
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-file-uploader-2>
+          );
+        }
+        break;
     }
     return cmp;
   }
 
-  componentWillLoad(): void {
-    this.handleSlotChange();
+  componentWillUpdate(): void {
+    this.setSlotElementValue();
   }
 
   /**
@@ -439,6 +478,27 @@ export class FormControl {
     this.slotElement = [...this.el.querySelectorAll('*')].filter((el: any) => {
       return NATIVE_CONTROLS.includes(el?.tagName?.toLowerCase());
     })?.[0];
+
+    this.setSlotElementValue();
+  }
+
+  /**
+   * Set Value on the slotted control field on fw-form-control.
+   * Useful for setting initialValues on the slotted control field
+   * Assumes that the slotted control field has a prop named `value`
+   */
+  private setSlotElementValue() {
+    if (this.slotElement) {
+      setTimeout(() => {
+        switch (this.type) {
+          case 'CHECKBOX':
+            this.slotElement.checked = this.value ?? false;
+            break;
+          default:
+            this.slotElement.value = this.value ?? '';
+        }
+      }, 100);
+    }
   }
 
   render(): JSX.Element {

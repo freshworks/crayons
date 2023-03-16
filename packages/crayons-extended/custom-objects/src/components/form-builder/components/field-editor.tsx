@@ -21,6 +21,7 @@ import {
   getMaxLimitProperty,
   getMaximumLimitsConfig,
   deriveInternalNameFromLabel,
+  hasPermission,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -107,6 +108,22 @@ export class FieldEditor {
    * Name of the component, saved as part of the form data.
    */
   @Prop() name = '';
+  /**
+   * Disable features for the users with free trial plan
+   */
+  @Prop() role: 'trial' | 'admin' = 'admin';
+  /**
+   * Permission object to restrict features based on permissions
+   * "view" needs to be set to true for the rest of the permissions to be applicable
+   * By default, all the permissions are set to true to give access to all the features
+   * Example permission object : { view: true, create: true, edit: true, delete: true }
+   */
+  @Prop() permission: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  } = { view: true, create: true, edit: true, delete: true };
   /**
    * State to check if the values have been changed and enable the save button
    */
@@ -427,7 +444,7 @@ export class FieldEditor {
           this.internalNameErrorMessage = i18nText('errors.fieldNameExists');
           return false;
         } else {
-          const regexAlphaNumChars = /^[A-Z0-9_\s]+$/i;
+          const regexAlphaNumChars = /^[A-Z0-9_]*$/i;
           if (!regexAlphaNumChars.test(strInputValue)) {
             this.internalNameErrorMessage = i18nText(
               'errors.useOnlyEnglishChars'
@@ -581,6 +598,7 @@ export class FieldEditor {
       this.dictInteractiveElements = {};
       this.expanded = false;
       this.internalNameErrorMessage = '';
+      this.labelWarningMessage = '';
       this.labelErrorMessage = '';
       this.formErrorMessage = '';
       this.showErrors = false;
@@ -625,7 +643,14 @@ export class FieldEditor {
   private deleteFieldClickHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
-    this.modalConfirmDelete?.open();
+    const boolDeleteAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'DELETE'
+    );
+    if (boolDeleteAllowed) {
+      this.modalConfirmDelete?.open();
+    }
   };
 
   private confirmDeleteFieldHandler = () => {
@@ -855,7 +880,8 @@ export class FieldEditor {
     );
   }
 
-  private renderCheckboxField(dataCheckbox) {
+  private renderCheckboxField(dataCheckbox, boolEditAllowed) {
+    const boolDisableCheckbox = !boolEditAllowed || !dataCheckbox.enabled;
     const strBaseClassName = 'fw-field-editor';
     const strKey = dataCheckbox.key;
 
@@ -883,7 +909,7 @@ export class FieldEditor {
           ref={(el) => (this.dictInteractiveElements[strKey] = el)}
           key={strKey}
           value={strKey}
-          disabled={!dataCheckbox.enabled}
+          disabled={boolDisableCheckbox}
           checked={dataCheckbox.selected}
           onFwChange={this.checkboxSelectionChangeHandler}
         >
@@ -922,7 +948,7 @@ export class FieldEditor {
     );
   }
 
-  private renderLookup() {
+  private renderLookup(boolDisableLookup) {
     const objFormValue = this.dataProvider;
 
     return (
@@ -931,6 +957,7 @@ export class FieldEditor {
         targetObjects={this.lookupTargetObjects}
         sourceObjectName={this.entityName}
         showErrors={this.showErrors}
+        disabled={boolDisableLookup}
         onFwChange={this.lookupChangeHandler}
         formValues={objFormValue}
       ></fw-fb-field-lookup>
@@ -940,7 +967,8 @@ export class FieldEditor {
   private renderInternalName(
     objProductConfig,
     objMaxLimits,
-    isDefaultNonCustomField
+    isDefaultNonCustomField,
+    boolEditAllowed
   ) {
     const boolSupportInternalName = objProductConfig.editInternalName;
     if (!boolSupportInternalName || !this.expanded) {
@@ -997,7 +1025,7 @@ export class FieldEditor {
             value={strInputInternalName}
             errorText={strInputError}
             warningText={strInputWarning}
-            disabled={!this.isNewField}
+            disabled={!this.isNewField || !boolEditAllowed}
             state={
               boolShowNameError
                 ? 'error'
@@ -1013,7 +1041,11 @@ export class FieldEditor {
     );
   }
 
-  private renderContent(objProductConfig, isDefaultNonCustomField) {
+  private renderContent(
+    objProductConfig,
+    isDefaultNonCustomField,
+    boolEditAllowed
+  ) {
     if (!this.expanded) {
       return null;
     }
@@ -1025,15 +1057,17 @@ export class FieldEditor {
     const strInputLabel = hasCustomProperty(objFieldBuilder, 'label')
       ? objFieldBuilder.label
       : '';
-    const boolDIsableInputLabel = isDefaultNonCustomField;
-    const boolDisableDropdowns = isDefaultNonCustomField;
+    const boolDIsableInputLabel = isDefaultNonCustomField || !boolEditAllowed;
+    const boolDisableDropdowns = isDefaultNonCustomField || !boolEditAllowed;
 
     const arrCheckboxes = hasCustomProperty(objFieldBuilder, 'checkboxes')
       ? objFieldBuilder.checkboxes
       : null;
     const checkboxItems =
       arrCheckboxes && arrCheckboxes.length > 0
-        ? arrCheckboxes.map((dataItem) => this.renderCheckboxField(dataItem))
+        ? arrCheckboxes.map((dataItem) =>
+            this.renderCheckboxField(dataItem, boolEditAllowed)
+          )
         : null;
 
     const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
@@ -1065,7 +1099,9 @@ export class FieldEditor {
         : null;
 
     const isLookupType = strFieldType === 'RELATIONSHIP';
-    const elementRelationship = isLookupType ? this.renderLookup() : null;
+    const elementRelationship = isLookupType
+      ? this.renderLookup(boolDisableDropdowns)
+      : null;
 
     const boolShowLabelError =
       this.showErrors && this.labelErrorMessage && this.labelErrorMessage !== ''
@@ -1125,7 +1161,8 @@ export class FieldEditor {
           this.renderInternalName(
             objProductConfig,
             objMaxLimits,
-            isDefaultNonCustomField
+            isDefaultNonCustomField,
+            boolEditAllowed
           )}
         {isDropdownType && (
           <div class={`${strBaseClassName}-content-dropdown`}>
@@ -1166,6 +1203,15 @@ export class FieldEditor {
       objProductConfig.defaultTagKey !== '' &&
       hasCustomProperty(objFormValue, objProductConfig.defaultTagKey) &&
       !objFormValue[objProductConfig.defaultTagKey];
+
+    const boolEditAllowed =
+      this.isNewField || hasPermission(this.role, this.permission, 'EDIT');
+    const boolDeleteAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'DELETE'
+    );
+    const boolDisableDelete = !boolDeleteAllowed;
 
     const boolShowDeleteModalInlineMsg =
       objProductConfig?.showDeleteModalInlineMessage;
@@ -1329,6 +1375,7 @@ export class FieldEditor {
                   part='delete-field-btn'
                   size='icon'
                   color='secondary'
+                  disabled={boolDisableDelete}
                   class={`${strBaseClassName}-delete-button`}
                   onFwClick={this.deleteFieldClickHandler}
                 >
@@ -1351,7 +1398,11 @@ export class FieldEditor {
           {this.expanded && (
             <div class={`${strBaseClassName}-body`}>
               <div class={`${strBaseClassName}-content`}>
-                {this.renderContent(objProductConfig, isDefaultNonCustomField)}
+                {this.renderContent(
+                  objProductConfig,
+                  isDefaultNonCustomField,
+                  boolEditAllowed
+                )}
               </div>
               <div class={strFooterClassName}>
                 {boolShowFieldValidationError && (

@@ -178,6 +178,7 @@ function createYupSchema(schema: any, config: any) {
       break;
     case 'MULTI_SELECT':
     case 'RELATIONSHIP':
+    case 'FILES':
       yupType = 'array';
       break;
     case 'NUMBER':
@@ -219,6 +220,20 @@ function createYupSchema(schema: any, config: any) {
   )
     validator = validator.min(1, `form.required`);
 
+  if (type === 'FILES' && required)
+    validator = validator
+      .transform((_value) => {
+        return _value.filter(
+          (file) =>
+            !file.progress ||
+            (file.progress &&
+              file.progress !== -1 &&
+              file.progress >= 0 &&
+              file.progress < 100)
+        );
+      })
+      .min(1, `form.required`);
+
   if (type === 'RELATIONSHIP')
     validator = validator.transform((_value, originalVal) => {
       return Array.isArray(originalVal)
@@ -253,6 +268,20 @@ export const generateDynamicInitialValues = (
   formSchema: any,
   initialValues: FormValues = {}
 ): FormValues => {
+  const getInitialValueFromType = (type) => {
+    let initialValue;
+    switch (type) {
+      case 'CHECKBOX':
+        initialValue = false;
+        break;
+      case 'FILES':
+        initialValue = [];
+        break;
+      default:
+        break;
+    }
+    return initialValue;
+  };
   const dynamicInitialValues =
     formSchema?.fields?.reduce((acc: any, field: any) => {
       if (!field?.type) {
@@ -260,7 +289,7 @@ export const generateDynamicInitialValues = (
       }
       return {
         ...acc,
-        [field.name]: field.type === 'CHECKBOX' ? false : undefined,
+        [field.name]: getInitialValueFromType(field.type),
       };
     }, {}) || {};
   const formInitialValues = { ...dynamicInitialValues, ...initialValues };
@@ -305,7 +334,12 @@ export const serializeForm = (
         }
 
         return { ...acc, [key]: val };
-
+      case 'FILES':
+        const data = new DataTransfer();
+        val.forEach((uploaderFile) => {
+          data.items.add(uploaderFile.file);
+        });
+        return { ...acc, [key]: data.files };
       default:
         return { ...acc, [key]: val };
     }
@@ -394,4 +428,23 @@ export function getMappedSchema({
     const newSchema = { ...schema, fields: newFields };
     return newSchema;
   }
+}
+
+export function getValueForField(values, field) {
+  let value;
+  const type = field?.type?.toUpperCase() ?? 'TEXT';
+  switch (type) {
+    case 'CHECKBOX':
+      value = !!values[field.name];
+      break;
+    case 'MULTI_SELECT':
+      value = values[field.name] ?? [];
+      break;
+    case 'DROPDOWN':
+      value = values[field.name] ?? '';
+      break;
+    default:
+      value = values[field.name];
+  }
+  return value;
 }

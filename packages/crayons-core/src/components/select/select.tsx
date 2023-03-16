@@ -13,7 +13,12 @@ import {
   Fragment,
 } from '@stencil/core';
 import { range, uniq } from 'lodash-es';
-import { handleKeyDown, renderHiddenField, hasSlot } from '../../utils';
+import {
+  handleKeyDown,
+  renderHiddenField,
+  hasSlot,
+  isEqual,
+} from '../../utils';
 import FieldControl from '../../function-components/field-control';
 
 import {
@@ -260,6 +265,11 @@ export class Select {
    */
   @Prop() optionValuePath = 'value';
 
+  /**
+   *  Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded
+   */
+  @Prop() maxHeight = 'none';
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -350,13 +360,14 @@ export class Select {
           break;
         case 'Delete':
         case 'Backspace':
-          this.deleteFocusedTags();
-          if (
-            this.focusedValues.length === 0 &&
-            this.multiple &&
-            this.selectInput?.value === ''
-          ) {
-            this.focusOnTagContainer();
+          if (!this.readonly && this.multiple) {
+            this.deleteFocusedTags();
+            if (
+              this.focusedValues.length === 0 &&
+              this.selectInput?.value === ''
+            ) {
+              this.focusOnTagContainer();
+            }
           }
           break;
         case 'Escape':
@@ -370,6 +381,8 @@ export class Select {
         case 'a':
         case 'A':
           if (
+            !this.readonly &&
+            this.multiple &&
             (ev.ctrlKey || ev.metaKey) &&
             (!this.searchValue || this.focusedValues.length > 0)
           ) {
@@ -411,19 +424,19 @@ export class Select {
     // If selected key is available in options schema use it
     // Or check for the value
     if (selectedValues?.length > 0) {
-      this.dataSource = newValue;
       this.selectedOptionsState = selectedValues;
       this.value = this.multiple
         ? this.selectedOptionsState.map((x) => x[this.optionValuePath])
         : this.selectedOptionsState[0]?.[this.optionValuePath];
-    } else if (this.valueExists()) {
-      this.dataSource = newValue?.map((option) => {
-        return { ...option, selected: this.isValueEqual(this.value, option) };
-      });
-    } else {
       this.dataSource = newValue;
+    } else if (this.valueExists()) {
+      this.dataSource = newValue;
+      // match value and selectedOptionsState with the updated options when value is already provided
+      this.matchValueWithOptions();
+    } else {
       this.value = this.multiple ? [] : '';
       this.selectedOptionsState = [];
+      this.dataSource = newValue;
     }
   }
 
@@ -455,6 +468,37 @@ export class Select {
     this.hasFocus = true;
     this.selectInput?.focus();
   }
+
+  matchValueWithOptions = () => {
+    if (this.dataSource?.length > 0) {
+      // Check whether the selected data in the this.dataSource  matches the value
+      const selectedDataSource = this.dataSource.filter((option) =>
+        this.isValueEqual(this.value, option)
+      );
+      const selectedDataSourceValues = selectedDataSource.map(
+        (option) => option[this.optionValuePath]
+      );
+      const selected = this.multiple
+        ? selectedDataSourceValues
+        : selectedDataSourceValues[0];
+      if (!isEqual(this.value, selected)) {
+        if (selected) {
+          this.value = selected;
+        } else {
+          this.value = this.multiple ? [] : '';
+        }
+      }
+      if (
+        JSON.stringify(this.selectedOptionsState) !==
+        JSON.stringify(selectedDataSource)
+      ) {
+        this.selectedOptionsState = selectedDataSource;
+      }
+    } else {
+      this.value = this.multiple ? [] : '';
+    }
+    this.renderInput();
+  };
 
   tagContainerKeyDown = (ev) => {
     if (this.changeEmittable()) {
@@ -976,6 +1020,9 @@ export class Select {
                           }
                           onKeyDown={this.tagContainerKeyDown}
                           tabIndex={-1}
+                          style={{
+                            'max-height': this.maxHeight,
+                          }}
                         >
                           {this.renderTags()}
                           {this.renderSelectInput()}
@@ -1021,7 +1068,7 @@ export class Select {
                   TranslationController.t('search.noDataAvailable')
                 }
                 search={this.search}
-                selectedOptions={this.selectedOptions}
+                selectedOptions={this.selectedOptionsState}
                 variant={this.optionsVariant}
                 filter-text={this.searchValue}
                 options={this.dataSource}

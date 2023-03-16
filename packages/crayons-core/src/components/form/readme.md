@@ -233,6 +233,17 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
         hint: 'Please enter the amount paid',
         choices: [],
       },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'profile_pic',
+        label: 'Profile picture',
+        type: 'FILES',
+        position: 11,
+        required: true,
+        placeholder: '',
+        multiple: true
+      },
     ],
   };
   var initialValues = {
@@ -276,9 +287,10 @@ fields: [ // Each item in this array corresponds to a crayons input component.
     id: '2978f820-704b-46c7-9f88-110e14e34a8c', // ID of the input control
     name: 'first_name', // Will be used while serializing form.
     label: 'First Name', // Label to display.
-    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME
+    type: '', // Type of the crayons input component. Possible values are TEXT/NUMBER/DECIMAL/DROPDOWN/MULTI_SELECT/RADIO/CHECKBOX/ DATE/PARAGRAPH/EMAIL/TIME/DATE_TIME/FILES
     position: 3, // Order of the component in the form.
     required: true, // Required while submitting the form.
+    editable: false // setting this to false, will disable the field.
     placeholder: 'Enter…', // placeholder for the input
     hint: 'Please provide a text of at max 100 characters', // Hint text to be displayed below.
     choices: [], // List of options for DROPDOWN/MULTI_SELECT types. Each option should be of below structure:
@@ -523,6 +535,17 @@ fields: [ // Each item in this array corresponds to a crayons input component.
         hint: 'Please enter the amount paid',
         choices: [],
       },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'profile_pic',
+        label: 'Profile picture',
+        type: 'FILES',
+        position: 11,
+        required: true,
+        placeholder: '',
+        multiple: true
+      },
     ],
 
 };
@@ -762,6 +785,17 @@ function App() {
         Placeholder: 'Enter…',
         hint: 'Please enter the amount paid',
         choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'profile_pic',
+        label: 'Profile picture',
+        type: 'FILES',
+        position: 11,
+        required: true,
+        placeholder: '',
+        multiple: true
       },
     ],
 
@@ -1148,8 +1182,15 @@ Set `fieldProps: { maxlength: 5 }` to `fw-form-control`
     ></fw-form-control>
 
     <fw-form-control name="cin" type="TEXT" required label="Custom native in">
-      <input name="cin" id="cin" placeholder="custom input" autocomplete="off"
-    /></fw-form-control>
+      <!-- slotted custom field control -->
+      <input
+        name="cin"
+        id="cin"
+        placeholder="custom input"
+        autocomplete="off"
+        style="width:100%"
+      />
+    </fw-form-control>
   </fw-form>
   <fw-button id="submit-static-form">Submit</fw-button>
   <fw-button id="reset-static-form">Reset</fw-button>
@@ -1185,6 +1226,7 @@ Set `fieldProps: { maxlength: 5 }` to `fw-form-control`
 
   var initialValues = {
     first_name: 'John',
+    cin: 'set custom slotted input initial value', // support for setting initialValues for custom slotted control. assumes the custom field control as a prop named `value`.
   };
   formStatic.initialValues = initialValues;
 
@@ -2621,6 +2663,14 @@ type FormErrors = {
 };
 ```
 
+### FormRequired
+
+```javascript
+type FormRequired = {
+  [K in keyof FormValues]?: boolean;
+};
+```
+
 ### Form Value Change Event
 
 `fwFormValueChanged` event gets emitted whenever there is a change in the value of any of the form field.
@@ -2759,6 +2809,16 @@ Type: `Promise<void>`
 
 
 
+### `setFieldsRequiredStatus(requiredStatusObj: FormRequired<FormValues>) => Promise<void>`
+
+Method to set required status on form fields
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -2778,6 +2838,7 @@ graph TD;
   fw-form-control --> fw-radio
   fw-form-control --> fw-select
   fw-form-control --> fw-timepicker
+  fw-form-control --> fw-file-uploader-2
   fw-input --> fw-icon
   fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
@@ -2806,6 +2867,12 @@ graph TD;
   fw-tooltip --> fw-popover
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-file-uploader-2 --> fw-file-2
+  fw-file-uploader-2 --> fw-inline-message
+  fw-file-2 --> fw-icon
+  fw-file-2 --> fw-tooltip
+  fw-file-2 --> fw-spinner
+  fw-inline-message --> fw-icon
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

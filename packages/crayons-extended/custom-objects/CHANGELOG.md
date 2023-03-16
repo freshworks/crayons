@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.3...@freshworks/crayons-custom-objects@1.3.0-beta.4) (2023-03-16)
+
+### Bug Fixes
+
+- **fchat-fixes-1403:** fix for label warning message retain and blank dropdown choices been added ([#819](https://github.com/freshworks/crayons/issues/819)) ([0db591c](https://github.com/freshworks/crayons/commit/0db591c42c1f354e2f4aad73a2c53106982d51d0))
+
+## [1.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.1-beta.2...@freshworks/crayons-custom-objects@1.3.0-beta.0) (2023-03-02)
+
+### Features
+
+- **fb-permission:** Integrated functionality to restrict features in form builder based on role and permission ([#812](https://github.com/freshworks/crayons/issues/812)) ([7694f67](https://github.com/freshworks/crayons/commit/7694f67f2c99af05f62d28e284ba5b6172d24e7b))
+
 ## [1.2.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.0-beta.8...@freshworks/crayons-custom-objects@1.2.0-beta.9) (2023-01-23)
 
 ### Features

@@ -12,7 +12,7 @@ describe('fw-form', () => {
           label: 'First Name',
           type: 'TEXT',
           position: 1,
-          required: true,
+          required: false,
           editable: false,
           visible: true,
           deleted: false,
@@ -156,6 +156,17 @@ describe('fw-form', () => {
           searchable: true,
           parent_id: null,
           choices: [],
+        },
+        {
+          id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+          name: 'profile_pic',
+          label: 'Profile picture',
+          type: 'FILES',
+          position: 7,
+          required: true,
+          placeholder: '',
+          hint: 'Accepts only PNG',
+          multiple: true,
         },
       ],
     },
@@ -485,7 +496,7 @@ describe('fw-form', () => {
     const element = await page.find('fw-form');
     expect(
       element.shadowRoot.querySelectorAll('fw-form-control').length
-    ).toEqual(6);
+    ).toEqual(7);
   });
 
   it('should render correct crayons controls based on the field name', async () => {
@@ -496,6 +507,7 @@ describe('fw-form', () => {
       DROPDOWN: 'fw-select',
       NUMBER: 'fw-input',
       DECIMAL: 'fw-input',
+      FILES: 'fw-file-uploader-2',
     };
     const page = await newE2EPage();
 
@@ -503,7 +515,7 @@ describe('fw-form', () => {
 
     await page.$eval(
       'fw-form',
-      (elm: any, { formSchema }) => {
+      (elm: any, { formSchema }: any) => {
         elm.formSchema = formSchema;
       },
       props
@@ -520,6 +532,7 @@ describe('fw-form', () => {
       formControl[3].shadowRoot.querySelector('fw-radio-group');
     const dropdown = formControl[4].shadowRoot.querySelector('fw-select');
     const decimal = formControl[5].shadowRoot.querySelector('fw-input');
+    const files = formControl[6].shadowRoot.querySelector('fw-file-uploader-2');
 
     expect(input).not.toBeNull();
     expect(props.formSchema.fields[0].id).toEqual(input.id);
@@ -547,6 +560,10 @@ describe('fw-form', () => {
     expect(map[props.formSchema.fields[5].type]).toEqual(
       decimal.tagName.toLowerCase()
     );
+    expect(files).not.toBeNull();
+    expect(map[props.formSchema.fields[6].type]).toEqual(
+      files.tagName.toLowerCase()
+    );
   });
 
   it('should return entered values upon form submit', async () => {
@@ -556,7 +573,7 @@ describe('fw-form', () => {
 
     await page.$eval(
       'fw-form',
-      (elm: any, { formSchema }) => {
+      (elm: any, { formSchema }: any) => {
         elm.formSchema = formSchema;
         elm.initialValues = {
           first_name: 'Test',
@@ -565,6 +582,24 @@ describe('fw-form', () => {
           pincode: 123345,
           order_status: 'closed',
           amount_paid: 10,
+          profile_pic: [
+            {
+              file: new File(
+                [
+                  new Blob(
+                    new Uint8Array([
+                      137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68,
+                      82, 0, 0, 0, 8, 0, 0, 0, 8, 8, 2, 0, 0, 0, 75, 109, 41,
+                      220, 0, 0, 0, 34, 73, 68, 65, 84, 8, 215, 99, 120, 173,
+                      168, 135, 21, 49,
+                    ])
+                  ),
+                ],
+                'file1.png',
+                { type: 'png', lastModified: Date.now() }
+              ),
+            },
+          ],
         };
       },
       props
@@ -580,6 +615,8 @@ describe('fw-form', () => {
     expect(result.values['pincode']).toEqual(123345);
     expect(result.values['order_status']).toEqual('closed');
     expect(result.values['amount_paid']).toEqual(10);
+    // TODO: fileList is being received as object, need to understand reason.
+    expect(Object.keys(result.values['profile_pic']).length).toEqual(1);
   });
 
   it('should set errors if required field is passed as empty string', async () => {
@@ -589,14 +626,15 @@ describe('fw-form', () => {
 
     await page.$eval(
       'fw-form',
-      (elm: any, { formSchema }) => {
+      (elm: any, { formSchema }: any) => {
         elm.formSchema = formSchema;
         elm.initialValues = {
-          first_name: '',
+          first_name: 'name',
           is_indian_citizen: false,
           gender: '',
           order_status: '',
           amount_paid: '',
+          profile_pic: [],
         };
       },
       props
@@ -607,13 +645,13 @@ describe('fw-form', () => {
     const element = await page.find('fw-form');
     const result = await element.callMethod('doSubmit');
 
-    expect(result.errors['first_name']).toEqual('First Name is required');
     expect(result.errors['is_indian_citizen']).toEqual(
       'Indian Citizen? is required'
     );
     expect(result.errors['gender']).toEqual('Gender is required');
     expect(result.errors['order_status']).toEqual('Order Status is required');
     expect(result.errors['amount_paid']).toEqual('Amount Paid is required');
+    expect(result.errors['profile_pic']).toEqual('Profile picture is required');
   });
 
   it('Should return number for decimal and number field type', async () => {
@@ -867,6 +905,8 @@ describe('fw-form', () => {
 
     await formRef.callMethod('setFieldChoices', 'order_status', newChoices);
 
+    await page.waitForChanges();
+
     const formElemShadow = await page.find('fw-form >>> :first-child');
     // const formElemShadow = await document.querySelector('fw-form').shadowRoot;
 
@@ -899,7 +939,7 @@ describe('fw-form', () => {
 
     await page.$eval(
       'fw-form',
-      (elm: any, { formSchema }) => {
+      (elm: any, { formSchema }: any) => {
         elm.formSchema = formSchema;
         elm.initialValues = {
           pincode: 123345,
@@ -928,7 +968,7 @@ describe('fw-form', () => {
 
     await page.$eval(
       'fw-form',
-      (elm: any, { formSchema }) => {
+      (elm: any, { formSchema }: any) => {
         elm.formSchema = formSchema;
         elm.initialValues = {
           pincode: 123345,
@@ -947,7 +987,7 @@ describe('fw-form', () => {
     await page.waitForChanges();
     expect(
       element.shadowRoot.querySelectorAll('fw-form-control').length
-    ).toEqual(6);
+    ).toEqual(7);
   });
 
   it('should disabled the fields for which the editable property is set to false in form schema', async () => {
@@ -957,7 +997,7 @@ describe('fw-form', () => {
 
     await page.$eval(
       'fw-form',
-      (elm: any, { formSchema }) => {
+      (elm: any, { formSchema }: any) => {
         elm.formSchema = formSchema;
       },
       props
@@ -974,5 +1014,49 @@ describe('fw-form', () => {
     const isDisabled = await input.getProperty('disabled');
 
     await expect(isDisabled).toEqual(true);
+  });
+
+  it('should add required property to the form fields when setFieldsRequiredStatus method is called', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form');
+
+    const formElemShadow = await page.find('fw-form >>> :first-child');
+    const formControlShadow = await formElemShadow.find(
+      "fw-form-control[name='first_name'] >>> :first-child"
+    );
+
+    const input = await formControlShadow.find('fw-input');
+    const isRequired = await input.getProperty('required');
+
+    await expect(isRequired).toEqual(false);
+
+    await element.callMethod('setFieldsRequiredStatus', { first_name: true });
+
+    await page.waitForChanges();
+
+    const newIsRequired = await input.getProperty('required');
+
+    await expect(newIsRequired).toEqual(true);
+
+    await element.callMethod('setFieldsRequiredStatus', { first_name: false });
+
+    await page.waitForChanges();
+
+    const newIsRequired1 = await input.getProperty('required');
+
+    await expect(newIsRequired1).toEqual(false);
   });
 });

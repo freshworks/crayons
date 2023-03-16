@@ -194,7 +194,6 @@ export class ListOptions {
           )
         : [];
     }
-    this.isInternalValueChange = true;
     this.setValue(this.selectedOptionsState);
   }
 
@@ -260,7 +259,6 @@ export class ListOptions {
       this.selectedOptionsState = this.options?.filter((option) =>
         this.isValueEqual(values, option)
       );
-      this.isInternalValueChange = true;
       this.setValue(this.selectedOptionsState);
     }
   }
@@ -268,7 +266,6 @@ export class ListOptions {
   @Method()
   async setSelectedOptions(options: any[]): Promise<any> {
     this.selectedOptionsState = options;
-    this.isInternalValueChange = true;
     this.setValue(options);
   }
 
@@ -332,6 +329,11 @@ export class ListOptions {
   @Watch('filterText')
   onFilterTextChange(newValue) {
     this.handleSearchWithDebounce(newValue);
+  }
+
+  @Watch('selectedOptions')
+  onSelectedOptionsChange(newValue) {
+    this.setSelectedOptions(newValue);
   }
 
   valueExists() {
@@ -471,12 +473,17 @@ export class ListOptions {
   }
 
   setValue(options) {
+    let finalValue;
     if (options?.length > 0) {
-      this.value = this.multiple
+      finalValue = this.multiple
         ? options.map((option) => option[this.optionValuePath])
         : options[0][this.optionValuePath];
     } else {
-      this.value = this.multiple ? [] : '';
+      finalValue = this.multiple ? [] : '';
+    }
+    if (!isEqual(this.value, finalValue)) {
+      this.isInternalValueChange = true;
+      this.value = finalValue;
     }
   }
 
