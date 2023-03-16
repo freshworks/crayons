@@ -792,7 +792,7 @@ export namespace Components {
          */
         "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
         /**
-          * Method to set errors on the form fields.  param: errorObj - key value pair of [fieldName]: ErrorMessage example: `{ first_name: 'firstname is required' }`
+          * Method to set errors on the form fields.  If you use `setErrors`, your errors will be wiped out by next `validate` or `validationSchema` call which can be triggered by the user typing (a change event) or blurring an input (a blur event). Note: this assumed you have not manually set `validateOnInput` and `validateOnBlur` props to `false` (they are `true` by default).  param: errorObj - key value pair of [fieldName]: ErrorMessage example: `{ first_name: 'firstname is required' }`
          */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         /**
