@@ -1391,6 +1391,93 @@ export default Select;
 </code-block>
 </code-group>
 
+### Using maxHeight property
+
+`maxHeight` property can be used to set the maximum height of select when there are multiple choices selected. If the content overflows the specified height, it adds a scroll bar.
+
+```html live
+<fw-select
+  id="maxHeightSelect"
+  multiple
+  max-height='100px'
+>
+</fw-select>
+
+<script type="application/javascript">
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Item ${i + 1}`,
+    value: i
+  }));
+  var maxHeightSelect = document.getElementById('maxHeightSelect');
+  maxHeightSelect.selectedOptions = selectedOptions;
+  maxHeightSelect.creatableProps = {
+    isCreatable: true,
+  };
+  maxHeightSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+### Usage for max-height property
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-select
+  id="maxHeightSelect"
+  multiple
+  max-height='100px'
+>
+</fw-select>
+
+<script type="application/javascript">
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Item ${i + 1}`,
+    value: i
+  }));
+  var maxHeightSelect = document.getElementById('maxHeightSelect');
+  maxHeightSelect.selectedOptions = selectedOptions;
+  maxHeightSelect.creatableProps = {
+    isCreatable: true,
+  };
+  maxHeightSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { FwSelect } from '@freshworks/crayons/react';
+function App() {
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Item ${i + 1}`,
+    value: i
+  }));
+
+  return (
+    <div>
+      <FwSelect
+        id="maxHeightSelect"
+        multiple
+        selectedOptions={selectedOptions}
+        maxHeight='100px'
+      ></FwSelect>
+    </div>
+  );
+}
+```
+
+</code-block>
+</code-group>
+
 ## Styling
 
 Refer the css variables in fw-popover to control the height and width of the select popup.
@@ -1417,6 +1504,7 @@ Refer the [css variables](#css-custom-properties) for modifying the appearance o
 | `label`            | `label`             | Label displayed on the interface, for the component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `string`                                                                                                                                                             | `''`                                                                                                                               |
 | `labelledBy`       | `labelled-by`       | If the default label prop is not used, then use this prop to pass the id of the label.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                                                                                                             | `''`                                                                                                                               |
 | `max`              | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `number`                                                                                                                                                             | `Number.MAX_VALUE`                                                                                                                 |
+| `maxHeight`        | `max-height`        | Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `string`                                                                                                                                                             | `'none'`                                                                                                                           |
 | `multiple`         | `multiple`          | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
 | `name`             | `name`              | Name of the component, saved as part of form data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `string`                                                                                                                                                             | `''`                                                                                                                               |
 | `noDataText`       | `no-data-text`      | Text to be displayed when there is no data available in the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `string`                                                                                                                                                             | `''`                                                                                                                               |

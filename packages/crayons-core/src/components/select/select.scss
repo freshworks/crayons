@@ -86,6 +86,7 @@ $disabled-color: $input-disabled-color;
       flex-wrap: wrap;
       min-width: inherit;
       flex-grow: 1;
+      overflow-y: auto;
 
       &.avatar {
         min-height: 40px;

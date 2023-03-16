@@ -265,6 +265,11 @@ export class Select {
    */
   @Prop() optionValuePath = 'value';
 
+  /**
+   *  Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded
+   */
+  @Prop() maxHeight = 'none';
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -1015,6 +1020,9 @@ export class Select {
                           }
                           onKeyDown={this.tagContainerKeyDown}
                           tabIndex={-1}
+                          style={{
+                            'max-height': this.maxHeight,
+                          }}
                         >
                           {this.renderTags()}
                           {this.renderSelectInput()}

@@ -1689,6 +1689,10 @@ export namespace Components {
          */
         "max": number;
         /**
+          * Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded
+         */
+        "maxHeight": string;
+        /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
         "multiple": boolean;
@@ -4573,6 +4577,10 @@ declare namespace LocalJSX {
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
+        /**
+          * Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded
+         */
+        "maxHeight"?: string;
         /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
