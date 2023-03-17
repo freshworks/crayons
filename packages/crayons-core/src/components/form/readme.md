@@ -304,9 +304,9 @@ fields: [ // Each item in this array corresponds to a crayons input component.
 }
 ```
 
-### Disable form fields
+## Disable form fields
 
-In a `Dynamic form` To disable any form field set `editable` to `false` in the form schema. You will not be able to set a value dynamically to the disabled form field. Set the value via `initialValues`.
+In a `Dynamic form` To disable any form field set `editable` to `false` in the form schema. You will not be able to set a value dynamically to the disabled form field. Instead set the value via `initialValues`.
 In a `Static form` set `disabled` attribute on the `fw-form-control` to disable the form field.
 
 ## Usage Dynamic Form
@@ -2628,11 +2628,11 @@ Example: `setFieldsValue({ first_name: "new name", last_name: "new last name" },
 
 ## Validations
 
-Validation can be done using [Yup](https://github.com/jquense/yup#yup) based `validationSchema` or `validate` function prop.
+Validation can be done using [Yup](https://github.com/jquense/yup/tree/pre-v1) based `validationSchema` or `validate` function prop.
 
 ### Validations Usage
 
-You can use `validationSchema` prop to do `Yup` based validation.
+You can use `validationSchema` prop to do `Yup` based validation. Please use `0.32` version of `Yup`.
 
 ```js
 const validationSchema = Yup.object().shape({
@@ -2644,7 +2644,7 @@ const validationSchema = Yup.object().shape({
 // get reference to fw-form and set validationSchema prop.
 ```
 
-You can also use `validate` async funciton prop to do any custom validation.
+You can also use `validate` async function prop to do any custom validation.
 
 ```js
 const validate = async (values: any) => {
@@ -2657,6 +2657,291 @@ const validate = async (values: any) => {
 ```
 
 Both `validationSchema` and `validate` prop can be used together.
+
+## Validation using `Yup` schema
+
+Install `Yup` via CDN as below:
+
+```js
+import * as Yup from 'https://cdn.skypack.dev/yup@0.32';
+window.Yup = Yup;
+```
+
+```html live
+<!-- Uncomment the below to import Yup via CDN in your code
+
+<script type="module">
+  import * as Yup from 'https://cdn.skypack.dev/yup@0.32';
+  window.Yup = Yup;
+</script>
+-->
+<div id="form-container-validation">
+  <fw-button id="submit-validation">Submit</fw-button>
+  <fw-button id="reset-validation">Reset</fw-button>
+</div>
+<script type="application/javascript">
+  var formvalidation = document.createElement('fw-form');
+  var formContainervalidation = document.querySelector(
+    '#form-container-validation'
+  );
+
+  document
+    .querySelector('#submit-validation')
+    .addEventListener('click', async (e) => {
+      const { values, isValid } = await formvalidation.doSubmit(e);
+      console.log({ values, isValid });
+
+      if (isValid) {
+        // make ajax post end point with values
+        // fetch("/post",values);
+
+        // if error from backend , set Errors - passing key value pair
+        formvalidation.setFieldErrors({
+          first_name: 'First Name must be unique <<Server Error>>',
+        });
+
+        // reset the form if required if success
+        // formRef.current.doReset(e);
+      }
+    });
+  document.querySelector('#reset-validation').addEventListener('click', (e) => {
+    formvalidation.doReset(e);
+  });
+  const validationSchema = Yup.object().shape({
+    first_name: Yup.string()
+      .required('First name is required')
+      .min(5, 'min 5 char')
+      .nullable(),
+  });
+  var formSchemavalidation = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: '2978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '3978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide a text of at max 100 characters',
+        choices: [],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'languages_known',
+        label: 'Languages Known',
+        type: 'MULTI_SELECT',
+        position: 13,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select one or more values',
+        choices: [
+          {
+            id: 1,
+            value: 'English',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Hindi',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'Tamil',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '6978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'email',
+        label: 'Email',
+        type: 'EMAIL',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide an email Id',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 11,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'landmark',
+        label: 'Landmark',
+        type: 'PARAGRAPH',
+        position: 7,
+        required: true,
+        Placeholder: 'Enter some text…',
+        hint: 'Please enter the nearest landmark',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'is_indian_citizen',
+        label: 'Indian Citizen?',
+        type: 'CHECKBOX',
+        position: 7,
+        required: true,
+        placeholder: null,
+        hint: 'Check or Uncheck the box',
+        choices: [],
+      },
+
+      {
+        id: '8978f820-704b-46c7-9f88-110e14e34a8c',
+        name: 'phone_number',
+        label: 'Phone number',
+        type: 'TEXT',
+        position: 3,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Please provide your phone number',
+        choices: [],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'pincode',
+        label: 'Pincode',
+        type: 'NUMBER',
+        position: 8,
+        required: false,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your Pincode',
+        choices: [],
+      },
+
+      {
+        id: 'ba53775e-2948-4065-8a59-d99d4494e845',
+        name: 'gender',
+        label: 'Gender',
+        type: 'RADIO',
+        position: 5,
+        required: true,
+        placeholder: null,
+        hint: 'Please specify your gender',
+        choices: [
+          {
+            id: 1,
+            value: 'Female',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'Male',
+            position: 2,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: '42aecb8f-25cf-47ce-89c6-5410fe3d4315',
+        name: 'order_status',
+        label: 'Order Status',
+        type: 'DROPDOWN',
+        position: 4,
+        required: true,
+        placeholder: 'Enter…',
+        hint: 'Select a value',
+        choices: [
+          {
+            id: 1,
+            value: 'open',
+            position: 1,
+            dependent_ids: {},
+          },
+          {
+            id: 2,
+            value: 'pending',
+            position: 2,
+            dependent_ids: {},
+          },
+          {
+            id: 3,
+            value: 'closed',
+            position: 3,
+            dependent_ids: {},
+          },
+        ],
+      },
+
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'amount_paid',
+        label: 'Amount Paid',
+        type: 'DECIMAL',
+        position: 10,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter the amount paid',
+        choices: [],
+      },
+    ],
+  };
+  var initialValues = {
+    is_indian_citizen: true,
+  };
+  formContainervalidation.prepend(formvalidation);
+  // do any customisation on the field schema to match the props of crayons components.
+  var fieldsvalidation = formSchemavalidation.fields.map((field) => {
+    // select expects `text` and `value` prop
+    if (field.type === 'DROPDOWN' || field.type === 'MULTI_SELECT') {
+      return {
+        ...field,
+        choices: field.choices?.map((f) => {
+          return {
+            ...f,
+            text: f.value,
+            value: f.id,
+          };
+        }),
+      };
+    } else return field;
+  });
+
+  var formSchemavalidation1 = {
+    ...formSchemavalidation,
+    fields: fieldsvalidation,
+  };
+  formvalidation.formSchema = formSchemavalidation1;
+  formvalidation.initialValues = initialValues;
+  formvalidation.validationSchema = validationSchema;
+</script>
+```
 
 ## Interfaces
 

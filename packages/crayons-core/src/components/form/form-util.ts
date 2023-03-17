@@ -252,16 +252,22 @@ export const generateDynamicValidationSchema = (
   formSchema: any = {},
   validationSchema: any = {}
 ): any => {
-  const yupSchema = formSchema?.fields?.reduce(createYupSchema, {});
-  const dynamicValidationSchema =
-    yupSchema && Yup.object().shape(yupSchema as any);
-  const formValidationSchema = mergeSchema(
-    dynamicValidationSchema || Yup.object(),
-    validationSchema && Object.keys(validationSchema).length
-      ? validationSchema
-      : Yup.object()
-  );
-  return formValidationSchema;
+  try {
+    const yupSchema = formSchema?.fields?.reduce(createYupSchema, {});
+    const dynamicValidationSchema =
+      yupSchema && Yup.object().shape(yupSchema as any);
+
+    const formValidationSchema = mergeSchema(
+      dynamicValidationSchema || Yup.object(),
+      validationSchema && Object.keys(validationSchema).length
+        ? validationSchema
+        : Yup.object()
+    );
+    return formValidationSchema;
+  } catch (err) {
+    console.error('Error in generating DynamicValidationSchema ', err.message);
+    return Yup.object();
+  }
 };
 
 export const generateDynamicInitialValues = (
