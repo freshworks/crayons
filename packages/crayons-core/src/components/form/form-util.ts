@@ -6,6 +6,7 @@ import toPath from 'lodash/toPath';
 import * as Yup from 'yup';
 import { FormValues } from './form-declaration';
 import { TranslationController } from '../../global/Translation';
+
 export const isSelectType = (type: string): boolean =>
   !!type && type === 'select';
 
@@ -248,20 +249,33 @@ function createYupSchema(schema: any, config: any) {
   schema[name] = validator;
   return schema;
 }
+
 export const generateDynamicValidationSchema = (
   formSchema: any = {},
   validationSchema: any = {}
 ): any => {
-  const yupSchema = formSchema?.fields?.reduce(createYupSchema, {});
-  const dynamicValidationSchema =
-    yupSchema && Yup.object().shape(yupSchema as any);
-  const formValidationSchema = mergeSchema(
-    dynamicValidationSchema || Yup.object(),
-    validationSchema && Object.keys(validationSchema).length
-      ? validationSchema
-      : Yup.object()
-  );
-  return formValidationSchema;
+  let dynamicValidationSchema = Yup.object();
+  try {
+    const yupSchema = formSchema?.fields?.reduce(createYupSchema, {});
+
+    // form the implicit validation schema based on the fields in formSchema
+    dynamicValidationSchema =
+      (yupSchema && Yup.object().shape(yupSchema as any)) ?? Yup.object();
+
+    const formValidationSchema = mergeSchema(
+      dynamicValidationSchema || Yup.object(),
+      validationSchema && Object.keys(validationSchema).length
+        ? validationSchema
+        : Yup.object()
+    );
+    return formValidationSchema;
+  } catch (err) {
+    console.error(
+      'Error in merging validationSchema with implicit validation rules. Please check if you are using `0.32` version of `Yup` for `validationSchema` ',
+      err.message
+    );
+    return dynamicValidationSchema;
+  }
 };
 
 export const generateDynamicInitialValues = (
