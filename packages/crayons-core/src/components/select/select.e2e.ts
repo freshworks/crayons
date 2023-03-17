@@ -814,4 +814,26 @@ describe('fw-select', () => {
     value = await element.getProperty('value');
     expect(value).toBe('starks');
   });
+
+  it('should set max-height when maxHeight prop is provided', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select multiple max-height='200px'>
+                            </fw-select>`);
+    const tagContainer = await page.find('fw-select >>> .tag-container');
+    const styles = await tagContainer.getComputedStyle();
+    expect(styles.overflowY).toBe('auto');
+    expect(styles.maxHeight).toBe('200px');
+  });
+
+  it('should set max-height as none when maxHeight prop is not provided', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select multiple>
+                            </fw-select>`);
+    const tagContainer = await page.find('fw-select >>> .tag-container');
+    const styles = await tagContainer.getComputedStyle();
+    expect(styles.overflowY).toBe('auto');
+    expect(styles.maxHeight).toBe('none');
+  });
 });

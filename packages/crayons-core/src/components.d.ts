@@ -637,6 +637,10 @@ export namespace Components {
          */
         "description": any;
         /**
+          * errorText - errorText collection. Mutable as this can be set from form control too based on form validations.
+         */
+        "errorText": string;
+        /**
           * fileUploadError - Error message when a file upload fails.
          */
         "fileUploadError": any;
@@ -654,7 +658,10 @@ export namespace Components {
           * Use this prop to show the label on the component.
          */
         "hideLabel": boolean;
-        "infoText": string;
+        /**
+          * Inline information text, hint text.
+         */
+        "hintText": string;
         /**
           * to load default values in file uploader component.
          */
@@ -663,6 +670,10 @@ export namespace Components {
           * Upload all files in one single shot
          */
         "isBatchUpload": boolean;
+        /**
+          * To maintain the same label styling as other form elements.
+         */
+        "isFormLabel": boolean;
         /**
           * maxFileSize - maximum file size the file uploader must accept.
          */
@@ -876,7 +887,8 @@ export namespace Components {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP';
+    | 'RELATIONSHIP'
+    | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
          */
@@ -1675,6 +1687,10 @@ export namespace Components {
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max": number;
+        /**
+          * Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded
+         */
+        "maxHeight": string;
         /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
@@ -3509,6 +3525,10 @@ declare namespace LocalJSX {
          */
         "description"?: any;
         /**
+          * errorText - errorText collection. Mutable as this can be set from form control too based on form validations.
+         */
+        "errorText"?: string;
+        /**
           * fileUploadError - Error message when a file upload fails.
          */
         "fileUploadError"?: any;
@@ -3520,7 +3540,10 @@ declare namespace LocalJSX {
           * Use this prop to show the label on the component.
          */
         "hideLabel"?: boolean;
-        "infoText"?: string;
+        /**
+          * Inline information text, hint text.
+         */
+        "hintText"?: string;
         /**
           * to load default values in file uploader component.
          */
@@ -3529,6 +3552,10 @@ declare namespace LocalJSX {
           * Upload all files in one single shot
          */
         "isBatchUpload"?: boolean;
+        /**
+          * To maintain the same label styling as other form elements.
+         */
+        "isFormLabel"?: boolean;
         /**
           * maxFileSize - maximum file size the file uploader must accept.
          */
@@ -3556,21 +3583,25 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Event that triggers when uploading is in progress, completed or failed.
+          * Triggered whenever files change.
          */
         "onFwChange"?: (event: FwFileUploader2CustomEvent<any>) => void;
+        /**
+          * Triggered for a particular file change.
+         */
+        "onFwFileChange"?: (event: FwFileUploader2CustomEvent<any>) => void;
         /**
           * Triggered during a file reupload.
          */
         "onFwFileReuploaded"?: (event: FwFileUploader2CustomEvent<any>) => void;
         /**
-          * Triggered during batch upload, when all files are uploaded.
+          * Triggered after file upload if not a batch upload.
+         */
+        "onFwFileUploaded"?: (event: FwFileUploader2CustomEvent<any>) => void;
+        /**
+          * Triggered after batch upload, when all files are uploaded.
          */
         "onFwFilesUploaded"?: (event: FwFileUploader2CustomEvent<any>) => void;
-        /**
-          * Event that triggers when removing a file from the file uploader.
-         */
-        "onFwRemove"?: (event: FwFileUploader2CustomEvent<any>) => void;
         /**
           * field acts as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
@@ -3721,7 +3752,8 @@ declare namespace LocalJSX {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP';
+    | 'RELATIONSHIP'
+    | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
          */
@@ -4544,6 +4576,10 @@ declare namespace LocalJSX {
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
+        /**
+          * Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded
+         */
+        "maxHeight"?: string;
         /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */

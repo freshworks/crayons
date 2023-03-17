@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.5...@freshworks/crayons@4.2.0-beta.6) (2023-03-16)
+
+### Bug Fixes
+
+- **form:** reset the value of the form field when setFieldChoices is called ([#821](https://github.com/freshworks/crayons/issues/821)) ([a83284a](https://github.com/freshworks/crayons/commit/a83284a19227a7cd21fe6e972e0b0031bec4c960))
+
+### Features
+
+- add components.d.ts ([5631c66](https://github.com/freshworks/crayons/commit/5631c66a7ce0f05e8b174aaeead77d99f2711c79))
+- add max height prop for select ([dfaaf2b](https://github.com/freshworks/crayons/commit/dfaaf2b5f6bd608480ecdb50c81af80ac8cfb5c3))
+- **file-uploader-2:** file uploader as part of form ([#810](https://github.com/freshworks/crayons/issues/810)) ([befbc62](https://github.com/freshworks/crayons/commit/befbc62f5f7e7eacf0c9063d8eb1fad55eb0de7b))
+
 ## [4.2.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.4...@freshworks/crayons@4.2.0-beta.5) (2023-03-10)
 
 ### Bug Fixes
