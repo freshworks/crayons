@@ -17,6 +17,10 @@
     }
   }
 
+  .disabled {
+    cursor: not-allowed !important;
+  }
+
   .pagination-list {
     display: flex;
     overflow: hidden;
@@ -86,8 +90,8 @@
       min-height: 24px;
       min-width: 24px;
 
-      &:hover,
-      &:focus {
+      &:hover:not([disabled], .active),
+      &:focus:not([disabled], .active) {
         background-color: $color-smoke-50;
       }
 
@@ -95,6 +99,10 @@
         background-color: $app-link;
         color: $app-text-light;
         font-weight: $font-weight-600;
+
+        &.disabled {
+          opacity: 0.5;
+        }
       }
     }
 

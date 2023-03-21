@@ -79,9 +79,14 @@ export class Pagination {
   @Prop() hidePageNumbers = false;
 
   /**
-   * represents the min number of page buttons to be shown on each side of the current page button. Defaults to 1.
+   * represents the range of pages to be shown. Defaults to 4.
    */
-  @Prop({ mutable: true }) siblingCount = 4;
+  @Prop({ mutable: true }) pageRangeDisplayed = 4;
+
+  /**
+   * represents the number of pages to be shown on both the margins. Defaults to 1.
+   */
+  @Prop({ mutable: true }) marginPagesDisplayed = 1;
 
   /**
    * Triggered when either previous or next button is clicked.
@@ -127,6 +132,10 @@ export class Pagination {
   @Watch('perPage')
   handlePerPage() {
     this.lastPage = this.getLastPage();
+    // if the current page is greater than the last page, set current page as the last page
+    if (this.page > this.lastPage) {
+      this.goToPage(this.lastPage);
+    }
   }
 
   @Watch('total')
@@ -156,66 +165,126 @@ export class Pagination {
   };
 
   getPaginationRange = memoize(
-    (total, perPage, siblingCount, page) => {
+    (total = 0, perPage, pageRangeDisplayed, marginPagesDisplayed, page) => {
+      const currentPageIndex = page - 1;
       const totalPageCount = Math.ceil(total / perPage);
+      const items = [];
 
-      // boundary pages that are always visible at the beginning and end
-      const startPages = [1];
-      const endPages = [totalPageCount];
+      if (totalPageCount <= pageRangeDisplayed) {
+        for (let index = 0; index < totalPageCount; index++) {
+          items.push(index + 1);
+        }
+      } else {
+        let leftSide = pageRangeDisplayed / 2;
+        let rightSide = pageRangeDisplayed - leftSide;
 
-      const siblingsStart = Math.max(
-        Math.min(
-          // Natural start
-          page - siblingCount,
-          // Lower boundary when page is high
-          totalPageCount - 1 - siblingCount * 2 - 1
-        ),
-        // Greater than startPages (minimum start value)
-        3
-      );
+        // If the selected page index is on the default right side of the pagination,
+        // we consider that the new right side is made up of it (= only one break element).
+        // If the selected page index is on the default left side of the pagination,
+        // we consider that the new left side is made up of it (= only one break element).
+        if (currentPageIndex > totalPageCount - pageRangeDisplayed / 2) {
+          rightSide = totalPageCount - currentPageIndex;
+          leftSide = pageRangeDisplayed - rightSide;
+        } else if (currentPageIndex < pageRangeDisplayed / 2) {
+          leftSide = currentPageIndex;
+          rightSide = pageRangeDisplayed - leftSide;
+        }
 
-      const siblingsEnd = Math.min(
-        Math.max(
-          // Natural end
-          page + siblingCount,
-          // Upper boundary when page is low
-          1 + siblingCount * 2 + 2
-        ),
-        // Less than endPages
-        endPages.length > 0 ? endPages[0] - 2 : totalPageCount - 1
-      );
+        let index;
 
-      // Basic list of items to render
-      // [startPages, start-ellipsis, current page along with siblings, end-ellipsis, endPages]
-      // e.g. itemList = [1, 'start-ellipsis', 4, 5, 6, 'end-ellipsis', 10]
-      const itemList = [
-        ...startPages,
+        // First pass: process the pages or breaks to display (or not).
+        const pagesBreaking = [];
+        for (index = 0; index < totalPageCount; index++) {
+          const page = index + 1;
 
-        // Start ellipsis
-        ...(siblingsStart > 3
-          ? ['ellipsis']
-          : totalPageCount - 1 > 2
-          ? [2]
-          : []),
+          // If the page index is lower than the margin defined,
+          // the page has to be displayed on the left side of
+          // the pagination.
+          if (page <= marginPagesDisplayed) {
+            pagesBreaking.push(index + 1);
+            continue;
+          }
 
-        // Sibling pages
-        ...this.range(siblingsStart, siblingsEnd),
+          // If the page index is greater than the page count
+          // minus the margin defined, the page has to be
+          // displayed on the right side of the pagination.
+          if (page > totalPageCount - marginPagesDisplayed) {
+            pagesBreaking.push(index + 1);
+            continue;
+          }
 
-        // End ellipsis
-        ...(siblingsEnd < totalPageCount - 2
-          ? ['ellipsis']
-          : totalPageCount - 1 > 1
-          ? [totalPageCount - 1]
-          : []),
+          // If it is the first element of the array the rightSide need to be adjusted,
+          //  otherwise an extra element will be rendered
+          const adjustedRightSide =
+            currentPageIndex === 0 && pageRangeDisplayed > 1
+              ? rightSide - 1
+              : rightSide;
 
-        ...endPages,
-      ];
+          // If the page index is near the selected page index
+          // and inside the defined range (pageRangeDisplayed)
+          // we have to display it (it will create the center
+          // part of the pagination).
+          if (
+            index >= currentPageIndex - leftSide &&
+            index <= currentPageIndex + adjustedRightSide
+          ) {
+            pagesBreaking.push(index + 1);
+            continue;
+          }
 
-      return itemList;
+          // If the page index doesn't meet any of the conditions above,
+          // we check if the last item of the current "items" array
+          // is a break element. If not, we add a break element, else,
+          // we do nothing (because we don't want to display the page).
+          if (
+            pagesBreaking.length > 0 &&
+            pagesBreaking[pagesBreaking.length - 1] !== 'ellipsis' &&
+            // We do not show break if only one active page is displayed.
+            (pageRangeDisplayed > 0 || marginPagesDisplayed > 0)
+          ) {
+            pagesBreaking.push('ellipsis');
+          }
+        }
+        // Second pass: we remove breaks containing one page to the actual page.
+        pagesBreaking.forEach((pageElement, i) => {
+          let actualPageElement = pageElement;
+          // 1 2 3 4 5 6 7 ... 9 10
+          //         |
+          // 1 2 ... 4 5 6 7 8 9 10
+          //             |
+          // The break should be replaced by the page.
+          if (
+            pageElement === 'ellipsis' &&
+            pagesBreaking[i - 1] &&
+            pagesBreaking[i - 1] !== 'ellipsis' &&
+            pagesBreaking[i + 1] &&
+            pagesBreaking[i + 1] !== 'ellipsis' &&
+            pagesBreaking[i + 1] - 1 - pagesBreaking[i - 1] - 1 <= 2
+          ) {
+            actualPageElement = pageElement;
+          }
+          // We add the displayed elements in the same pass, to avoid another iteration.
+          items.push(actualPageElement);
+        });
+      }
+
+      return items;
     },
-    (total, perPage, siblingCount, page) =>
-      JSON.stringify([total, perPage, siblingCount, page])
+    (total, perPage, pageRangeDisplayed, marginPagesDisplayed, page) =>
+      JSON.stringify([
+        total,
+        perPage,
+        pageRangeDisplayed,
+        marginPagesDisplayed,
+        page,
+      ])
   );
+
+  handlePerPageDropdownClick = () => {
+    if (!this.isLoading) {
+      this.popoverRef.show();
+    }
+  };
 
   renderPrevious = () => {
     return (
@@ -272,6 +341,7 @@ export class Pagination {
           class={{
             'page-pill': true,
             'active': page === this.page,
+            'disabled': this.isLoading,
           }}
           tabIndex={0}
           aria-label={TranslationController.t('pagination.pagePillLabel', {
@@ -296,15 +366,23 @@ export class Pagination {
   renderSizeChanger = () => {
     return (
       <fw-popover
+        class='per-page-dropdown'
+        distance='8'
         ref={(ref) => (this.popoverRef = ref)}
+        trigger='manual'
         hoist
         autoFocusOnContent
       >
         <fw-button
+          class={{
+            disabled: this.isLoading,
+          }}
           size='small'
           color='text'
           showCaretIcon
           slot='popover-trigger'
+          disabled={this.isLoading}
+          onClick={this.handlePerPageDropdownClick}
         >
           <span
             class='per-page-verbiage'
@@ -314,10 +392,12 @@ export class Pagination {
           ></span>
         </fw-button>
         <fw-list-options
+          class='per-page-list'
           slot='popover-content'
           options={this.formattedPerPageOptions}
           value={this.perPage}
           onFwChange={this.onPerPageChange}
+          allowDeselect={false}
         ></fw-list-options>
       </fw-popover>
     );
@@ -325,9 +405,6 @@ export class Pagination {
 
   onPerPageChange = (ev) => {
     if (ev?.detail?.value) {
-      if (this.page > this.lastPage) {
-        this.goToPage(this.lastPage);
-      }
       this.perPage = ev.detail.value;
       this.popoverRef.hide();
     }
@@ -341,19 +418,6 @@ export class Pagination {
         }),
         value,
       }));
-    }
-  };
-
-  handleEllipsisClick = (type) => {
-    if (type === 'start-ellipsis') {
-      const newPage = Math.max(1, this.page - this.siblingCount * 2 + 1);
-      this.goToPage(newPage);
-    } else {
-      const newPage = Math.min(
-        this.lastPage,
-        this.page + this.siblingCount * 2 + 1
-      );
-      this.goToPage(newPage);
     }
   };
 
@@ -403,7 +467,8 @@ export class Pagination {
                 this.getPaginationRange(
                   this.total,
                   this.perPage,
-                  this.siblingCount,
+                  this.pageRangeDisplayed,
+                  this.marginPagesDisplayed,
                   this.page
                 ).map((item) => {
                   if (item === 'ellipsis') {
@@ -412,7 +477,9 @@ export class Pagination {
                     return this.renderPill(item);
                   }
                 })}
-              {!this.hidePageNumbers && this.renderDivider()}
+              {!this.hidePageNumbers && this.total
+                ? this.renderDivider()
+                : null}
               {this.renderNext()}
             </ul>
             {this.renderSizeChanger()}
