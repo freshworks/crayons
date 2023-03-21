@@ -254,9 +254,6 @@ export class FormBuilder {
         ? objProductConfig.defaultTagKey
         : '';
 
-      hasCustomProperty(objFormValue, objProductConfig.defaultTagKey) &&
-        !objFormValue[objProductConfig.defaultTagKey];
-
       // Maximum limits validation
       if (arrFields && arrFields.length > 0) {
         let intValidActiveFieldCount = 0;
