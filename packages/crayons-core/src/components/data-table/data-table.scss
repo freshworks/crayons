@@ -95,6 +95,11 @@ div.fw-data-table-container {
           th.hidden {
             display: none;
           }
+
+          th.row-actions {
+            white-space: nowrap;
+            width: 1px;
+          }
         }
       }
 

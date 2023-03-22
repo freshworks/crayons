@@ -13,6 +13,7 @@ import {
 import { createPopper, Instance } from '@popperjs/core';
 import { TranslationController } from '../../global/Translation';
 import {
+  WidthStyles,
   DataTableColumn,
   DataTableRow,
   DataTableAction,
@@ -101,6 +102,12 @@ export class DataTable {
    * The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
    */
   @Prop() rowActionsMenuVariant: 'standard' | 'icon' = 'standard';
+
+  /**
+   * Ability to add width related properties to rowActions.
+   * Helps solve settings icon overlap with actions label.
+   */
+  @Prop() rowActionsWidthProperties: null | WidthStyles = null;
 
   /**
    * Rows Array of objects to be displayed in the table.
@@ -1309,6 +1316,7 @@ export class DataTable {
                 ? this.orderedColumns.length + 2
                 : this.orderedColumns.length + 1
             }
+            style={this.rowActionsWidthProperties}
           >
             {!this.rowActionsHeaderLabel && this.rowActionsHeaderLabel !== ''
               ? TranslationController.t('datatable.actions')
