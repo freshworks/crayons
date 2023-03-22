@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.4...@freshworks/crayons-custom-objects@1.3.0-beta.5) (2023-03-22)
+
+
+### Features
+
+* **fb-max-limits:** exclude default fields from max limits feature implemented ([#822](https://github.com/freshworks/crayons/issues/822)) ([98fd48a](https://github.com/freshworks/crayons/commit/98fd48a20677e9163a81849e647776323066955b))
+
+
+
+
+
 ## [1.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.3...@freshworks/crayons-custom-objects@1.3.0-beta.4) (2023-03-16)
 
 ### Bug Fixes
