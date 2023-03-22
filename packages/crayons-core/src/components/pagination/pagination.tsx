@@ -7,6 +7,7 @@ import {
   EventEmitter,
   Method,
   Watch,
+  State,
 } from '@stencil/core';
 import { TranslationController } from '../../global/Translation';
 import memoize from 'lodash/memoize';
@@ -18,7 +19,6 @@ import memoize from 'lodash/memoize';
 export class Pagination {
   private end;
   private start;
-  private formattedPerPageOptions;
   private lastPage;
   private popoverRef;
 
@@ -35,7 +35,7 @@ export class Pagination {
    */
   @Prop({ mutable: true }) perPage = 10;
   /**
-   * Specify the perPage options to be shown.
+   * Specify the perPage options to be shown. Works only with `standard` variant.
    */
   @Prop() perPageOptions = [10, 20, 30, 40, 50];
 
@@ -74,25 +74,36 @@ export class Pagination {
   @Prop() variant: 'mini' | 'standard' = 'mini';
 
   /**
-   * hides page numbers in standard pagination variant. Defaults to false.
+   * hides page numbers in standard pagination variant. Defaults to false. Works only with `standard` variant.
    */
   @Prop() hidePageNumbers = false;
 
   /**
-   * represents the range of pages to be shown. Defaults to 4.
+   * represents the range of pages to be shown. Defaults to 4. Works only with `standard` variant.
    */
   @Prop({ mutable: true }) pageRangeDisplayed = 4;
 
   /**
-   * represents the number of pages to be shown on both the margins. Defaults to 1.
+   * represents the number of pages to be shown on both the margins. Defaults to 1. Works only with `standard` variant.
    */
   @Prop({ mutable: true }) marginPagesDisplayed = 1;
 
   /**
-   * Triggered when either previous or next button is clicked.
+   * Formatted per page options
+   */
+  @State() formattedPerPageOptions = [];
+
+  /**
+   * Triggered when previous, next or page button is clicked.
    */
   @Event()
   fwChange: EventEmitter;
+
+  /**
+   * Triggered when per page is changed from the dropdown. Works only with `standard` variant.
+   */
+  @Event()
+  fwPerPageChange: EventEmitter;
 
   /**
    * Navigates to previous set of records if available.
@@ -280,12 +291,6 @@ export class Pagination {
       ])
   );
 
-  handlePerPageDropdownClick = () => {
-    if (!this.isLoading) {
-      this.popoverRef.show();
-    }
-  };
-
   renderPrevious = () => {
     return (
       <li>
@@ -406,7 +411,16 @@ export class Pagination {
   onPerPageChange = (ev) => {
     if (ev?.detail?.value) {
       this.perPage = ev.detail.value;
+      this.fwPerPageChange.emit({
+        perPage: this.perPage,
+      });
       this.popoverRef.hide();
+    }
+  };
+
+  handlePerPageDropdownClick = () => {
+    if (!this.isLoading) {
+      this.popoverRef.show();
     }
   };
 

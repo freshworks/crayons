@@ -170,8 +170,6 @@ describe('fw-pagination', () => {
         'fw-pagination >>> .standard-pagination'
       );
       expect(standardPagination).toBeTruthy();
-      await page.waitForTimeout(2000);
-      await page.waitForChanges();
       const perPageDropdown = await page.find(
         'fw-pagination >>> .per-page-list'
       );
@@ -265,12 +263,12 @@ describe('fw-pagination', () => {
       await page.setContent(
         '<fw-pagination total="1000" variant="standard"></fw-pagination>'
       );
+      const fwPerPageChange = await page.spyOnEvent('fwPerPageChange');
+
       const standardPagination = await page.find(
         'fw-pagination >>> .standard-pagination'
       );
       expect(standardPagination).toBeTruthy();
-      await page.waitForTimeout(2000);
-      await page.waitForChanges();
       const perPageDropdownBtn = await page.find(
         'fw-pagination >>> .per-page-dropdown fw-button'
       );
@@ -284,6 +282,9 @@ describe('fw-pagination', () => {
       expect(options.length).toBe(5);
       await options[2].click();
       await page.waitForChanges();
+      expect(fwPerPageChange).toHaveReceivedEventDetail({
+        perPage: 30,
+      });
       const perPageSelected = await page.find(
         'fw-pagination >>> .per-page-dropdown '
       );
@@ -297,12 +298,12 @@ describe('fw-pagination', () => {
       await page.setContent(
         '<fw-pagination page="50" total="1000" variant="standard"></fw-pagination>'
       );
+      const fwPerPageChange = await page.spyOnEvent('fwPerPageChange');
+
       const standardPagination = await page.find(
         'fw-pagination >>> .standard-pagination'
       );
       expect(standardPagination).toBeTruthy();
-      await page.waitForTimeout(2000);
-      await page.waitForChanges();
       let activePage = await page.find('fw-pagination >>> .active');
       expect(activePage.innerText).toBe('50');
       const perPageDropdownBtn = await page.find(
@@ -319,6 +320,9 @@ describe('fw-pagination', () => {
       await options[4].click();
       await page.waitForChanges();
       await page.waitForChanges();
+      expect(fwPerPageChange).toHaveReceivedEventDetail({
+        perPage: 50,
+      });
       const perPageSelected = await page.find(
         'fw-pagination >>> .per-page-dropdown '
       );
@@ -472,13 +476,12 @@ describe('fw-pagination', () => {
           '<fw-pagination total="1000" variant="standard"></fw-pagination>'
         );
         const fwChange = await page.spyOnEvent('fwChange');
-        const element = await page.find('fw-pagination');
         let activePage = await page.find('fw-pagination >>> .active');
         expect(activePage.innerText).toBe('1');
         const pagePills = await page.findAll('fw-pagination >>> .page-pill');
         await pagePills[3].click();
         await page.waitForChanges();
-        element.waitForEvent('fwChange');
+        await page.waitForChanges();
         expect(fwChange).toHaveReceivedEventDetail({
           page: 4,
         });
@@ -773,6 +776,17 @@ describe('fw-pagination', () => {
       expect(activePage.innerText).toBe('1');
       const ellipsis = await page.findAll('fw-pagination >>> .ellipsis');
       expect(ellipsis.length).toBe(0);
+    });
+
+    it('hides page numbers when hidePageNumbers is true', async () => {
+      const page = await newE2EPage();
+
+      await page.setContent(
+        '<fw-pagination hide-page-numbers total="100" variant="standard" page-range-displayed="0" margin-pages-displayed="0"></fw-pagination>'
+      );
+
+      const pagePills = await page.findAll('fw-pagination >>> .page-pill');
+      expect(pagePills.length).toBe(0);
     });
   });
 });
