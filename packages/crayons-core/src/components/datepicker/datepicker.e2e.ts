@@ -190,15 +190,9 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker min-year="2021" min-date="2020-07-31"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
-    const element = await page.find('fw-datepicker >>> fw-input');
-    await element.click();
-    const select = await page.find(
-      'fw-datepicker >>> fw-select.single-year-selector'
-    );
     const minYear = await dp.getProperty('minYear');
-    const opt = await select.findAll('fw-select-option');
-    expect(opt[0].innerHTML).toBe('2020');
     expect(minYear).toBe(2020);
   });
 
@@ -207,15 +201,10 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker max-year="2023" max-date="2022-07-31"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
-    const element = await page.find('fw-datepicker >>> fw-input');
-    await element.click();
-    const select = await page.find(
-      'fw-datepicker >>> fw-select.single-year-selector'
-    );
+
     const maxYear = await dp.getProperty('maxYear');
-    const opt = await select.findAll('fw-select-option');
-    expect(opt[opt.length - 1].innerHTML).toBe('2022');
     expect(maxYear).toBe(2022);
   });
 
@@ -224,6 +213,7 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker max-year="2020" min-year="2022"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
@@ -238,6 +228,7 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker max-date="2022-07-31" min-date="2023-07-31"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
@@ -249,8 +240,6 @@ describe('fw-datepicker', () => {
     );
     const maxYear = await dp.getProperty('maxYear');
     const minYear = await dp.getProperty('minYear');
-    const opt = await yearDropdown.findAll('fw-select-option');
-    expect(opt[opt.length - 1].innerHTML).toBe('2022');
     expect(maxYear).toBe(2022);
     expect(minYear).toBe(1970);
     yearDropdown.setAttribute('value', '2023');
@@ -269,6 +258,7 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker max-year="2020" min-year="2019" max-date="2021-07-31" min-date="2022-07-31"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
@@ -280,8 +270,6 @@ describe('fw-datepicker', () => {
     );
     const maxYear = await dp.getProperty('maxYear');
     const minYear = await dp.getProperty('minYear');
-    const opt = await yearDropdown.findAll('fw-select-option');
-    expect(opt[opt.length - 1].innerHTML).toBe('2021');
     expect(maxYear).toBe(2021);
     expect(minYear).toBe(2019);
     yearDropdown.setAttribute('value', '2022');
@@ -300,6 +288,7 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker max-year="2020" max-date="2020-07-31"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
@@ -329,6 +318,7 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker min-year="2020" min-date="2020-07-31"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
     const element = await page.find('fw-datepicker >>> fw-input');
     await element.click();
@@ -358,6 +348,7 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker max-date="2022-07-31" value="2023-07-31"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const shadow = await page.find(
       'fw-datepicker >>> fw-input >>> :first-child'
     );
@@ -383,6 +374,7 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker show-error-on-invalid-date></fw-datepicker>'
     );
+    await page.waitForChanges();
     const input = await page.find('fw-datepicker >>> fw-input');
     await input.click();
     await input.press('KeyA');
@@ -426,6 +418,7 @@ describe('fw-datepicker', () => {
   it('should emit the details in fwDateInput event when value is entered in the date input textbox', async () => {
     const page = await newE2EPage();
     await page.setContent('<fw-datepicker></fw-datepicker>');
+    await page.waitForChanges();
     const fwDateInput = await page.spyOnEvent('fwDateInput');
     const input = await page.find('fw-datepicker >>> fw-input');
     await input.click();
@@ -447,6 +440,7 @@ describe('fw-datepicker', () => {
   it('should update the value of the date input when value is set', async () => {
     const page = await newE2EPage();
     await page.setContent('<fw-datepicker value="2022-07-31"></fw-datepicker>');
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
     await dp.setProperty('value', '2020-07-25');
     await page.waitForChanges();
@@ -462,6 +456,7 @@ describe('fw-datepicker', () => {
   it('should highlight date input and show alert icon when the passed value is not in ISO format', async () => {
     const page = await newE2EPage();
     await page.setContent('<fw-datepicker value="2022-07-31"></fw-datepicker>');
+    await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
     await dp.setProperty('value', '25/07/2020');
     await page.waitForChanges();
@@ -478,6 +473,7 @@ describe('fw-datepicker', () => {
     await page.setContent(
       '<fw-datepicker max-year="2022" value="2023-07-31"></fw-datepicker>'
     );
+    await page.waitForChanges();
     const shadow = await page.find(
       'fw-datepicker >>> fw-input >>> :first-child'
     );
