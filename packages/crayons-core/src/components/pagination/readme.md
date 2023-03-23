@@ -43,6 +43,122 @@ function App() {
 </code-block>
 </code-group>
 
+### Demo of standard variant
+
+`hidePageNumbers` property can be used to hide the page numbers in standard variant.
+
+`pageRangeDisplayed` property can be set to the range of pages to be shown in the UI.
+
+`marginPagesDisplayed` property can be set to the number of pages to be shown on either margins.
+
+`perPageOptions` property is used to modify the options provided in the per page dropdown.
+
+`fwChange` event is triggered when a page is changed by clicking previous or next or the desired page buttons.
+
+`fwPerPageChange` event is triggered when per page is changed using the dropdown provided in the UI.
+
+```html live
+<fw-label value="Standard Variant" color="blue"></fw-label><br /><br />
+<fw-pagination per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination page="10" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination page="100" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+
+<fw-label value="Hide Page Numbers" color="blue"></fw-label><br /><br />
+<fw-pagination hide-page-numbers per-page="10" total="1000" variant="standard"></fw-pagination><br />
+
+<fw-label value="Modifying pageRangeDisplayed and marginPagesDisplayed Properties" color="blue"></fw-label><br /><br />
+<fw-pagination total="1000" per-page="20" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination><br />
+
+<fw-label value="Modifying perPageOptions property" color="blue"></fw-label><br /><br />
+<fw-pagination id="perPageOptions" total="1000" per-page="60" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination>
+
+<script type="application/javascript">
+  var pagination = document.getElementById('perPageOptions');
+  pagination.perPageOptions = [20, 40, 60, 80 , 100];
+</script>
+
+```
+
+### Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-label value="Standard Variant" color="blue"></fw-label><br /><br />
+<fw-pagination per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination page="10" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination page="100" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+
+<fw-label value="Hide Page Numbers" color="blue"></fw-label><br /><br />
+<fw-pagination hide-page-numbers per-page="10" total="1000" variant="standard"></fw-pagination><br />
+
+<fw-label value="Modifying pageRangeDisplayed and marginPagesDisplayed Properties" color="blue"></fw-label><br /><br />
+<fw-pagination total="1000" per-page="20" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination><br />
+
+<fw-label value="Modifying perPageOptions property" color="blue"></fw-label><br /><br />
+<fw-pagination id="perPageOptions" total="1000" per-page="60" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination>
+
+<script type="application/javascript">
+  var pagination = document.getElementById('perPageOptions');
+  pagination.perPageOptions = [20, 40, 60, 80 , 100];
+</script>
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwPagination } from "@freshworks/crayons/react";
+function App() {
+  return (<div>
+      <FwPagination
+        per-page="10"
+        total={1000}
+        variant="standard"
+      ></FwPagination>
+      <br />
+      <FwPagination
+        page={10}
+        per-page="10"
+        total={1000}
+        variant="standard"
+      ></FwPagination>
+      <br />
+      <FwPagination
+        page={100}
+        per-page="10"
+        total={1000}
+        variant="standard"
+      ></FwPagination>
+      // hide page numbers
+      <FwPagination
+        hidePageNumbers
+        per-page="40"
+        total={1000}
+        variant="standard"
+      ></FwPagination>
+      // modifying pageRangeDisplayed and marginPagesDisplayed
+      <FwPagination
+        total={1000}
+        per-page="20"
+        variant="standard"
+        page-range-displayed="5"
+        margin-pages-displayed="4"
+      ></FwPagination>
+      // modifying perPageOptions
+      <FwPagination
+        total={1000}
+        per-page="20"
+        variant="standard"
+        perPageOptions={[20, 40, 60, 80, 100]}
+      ></FwPagination>
+  </div>)
+}
+```
+</code-block>
+</code-group>
+
 <!-- Auto Generated Below -->
 
 
