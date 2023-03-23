@@ -200,15 +200,6 @@ describe('fw-datepicker', () => {
     const opt = await select.findAll('fw-select-option');
     expect(opt[0].innerHTML).toBe('2020');
     expect(minYear).toBe(2020);
-    // const popover = await page.find('fw-datepicker >>> fw-popover');
-    // const options = await popover.findAll(
-    //   'fw-list-options >>> fw-select-option'
-    // );
-    // const minYear = await yearOptions[0].shadowRoot.querySelector(
-    //   '.select-option'
-    // );
-    // const maxYearVal = await maxYear.getProperty('value');
-    // expect(maxYearVal).toBe('2020');
   });
 
   it('should ignore maxYear value and set maxYear as per max-date when max-year and max-date contradict', async () => {
