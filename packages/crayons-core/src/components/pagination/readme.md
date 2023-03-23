@@ -1,6 +1,6 @@
 # Pagination (fw-pagination)
 
-fw-pagination displays pagination. The component displays starting and ending record numbers against total number of records.
+fw-pagination displays pagination. The component displays starting and ending record numbers against total number of records. This component has two variants namely, `mini` and `standard`.
 
 ## Demo
 
@@ -59,22 +59,34 @@ function App() {
 
 ```html live
 <fw-label value="Standard Variant" color="blue"></fw-label><br /><br />
-<fw-pagination per-page="10" total="1000" variant="standard"></fw-pagination><br />
-<fw-pagination page="10" per-page="10" total="1000" variant="standard"></fw-pagination><br />
-<fw-pagination page="100" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination id="pagination1" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination id="pagination2" page="10" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination id="pagination3" page="100" per-page="10" total="1000" variant="standard"></fw-pagination><br />
 
 <fw-label value="Hide Page Numbers" color="blue"></fw-label><br /><br />
-<fw-pagination hide-page-numbers per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination id="pagination4" hide-page-numbers per-page="10" total="1000" variant="standard"></fw-pagination><br />
 
 <fw-label value="Modifying pageRangeDisplayed and marginPagesDisplayed Properties" color="blue"></fw-label><br /><br />
-<fw-pagination total="1000" per-page="20" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination><br />
+<fw-pagination id="pagination5" total="1000" per-page="20" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination><br />
 
 <fw-label value="Modifying perPageOptions property" color="blue"></fw-label><br /><br />
 <fw-pagination id="perPageOptions" total="1000" per-page="60" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination>
 
 <script type="application/javascript">
-  var pagination = document.getElementById('perPageOptions');
-  pagination.perPageOptions = [20, 40, 60, 80 , 100];
+  var pagination6 = document.getElementById('perPageOptions');
+  pagination6.perPageOptions = [20, 40, 60, 80 , 100];
+  pagination6.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  pagination6.addEventListener('fwPerPageChange', (ev) => console.log('per page is changed', ev.detail.perPage));
+  var pagination1 = document.getElementById('pagination1');
+  pagination1.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  var pagination2 = document.getElementById('pagination2');
+  pagination2.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  var pagination3 = document.getElementById('pagination3');
+  pagination3.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  var pagination4 = document.getElementById('pagination4');
+  pagination4.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  var pagination5 = document.getElementById('pagination5');
+  pagination5.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
 </script>
 
 ```
@@ -85,22 +97,34 @@ function App() {
 <code-block title="HTML">
 ```html
 <fw-label value="Standard Variant" color="blue"></fw-label><br /><br />
-<fw-pagination per-page="10" total="1000" variant="standard"></fw-pagination><br />
-<fw-pagination page="10" per-page="10" total="1000" variant="standard"></fw-pagination><br />
-<fw-pagination page="100" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination id="pagination1" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination id="pagination2" page="10" per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination id="pagination3" page="100" per-page="10" total="1000" variant="standard"></fw-pagination><br />
 
 <fw-label value="Hide Page Numbers" color="blue"></fw-label><br /><br />
-<fw-pagination hide-page-numbers per-page="10" total="1000" variant="standard"></fw-pagination><br />
+<fw-pagination id="pagination4" hide-page-numbers per-page="10" total="1000" variant="standard"></fw-pagination><br />
 
 <fw-label value="Modifying pageRangeDisplayed and marginPagesDisplayed Properties" color="blue"></fw-label><br /><br />
-<fw-pagination total="1000" per-page="20" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination><br />
+<fw-pagination id="pagination5" total="1000" per-page="20" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination><br />
 
 <fw-label value="Modifying perPageOptions property" color="blue"></fw-label><br /><br />
 <fw-pagination id="perPageOptions" total="1000" per-page="60" variant="standard" page-range-displayed="5" margin-pages-displayed="4"></fw-pagination>
 
 <script type="application/javascript">
-  var pagination = document.getElementById('perPageOptions');
-  pagination.perPageOptions = [20, 40, 60, 80 , 100];
+  var pagination6 = document.getElementById('perPageOptions');
+  pagination6.perPageOptions = [20, 40, 60, 80 , 100];
+  pagination6.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  pagination6.addEventListener('fwPerPageChange', (ev) => console.log('per page is changed', ev.detail.perPage));
+  var pagination1 = document.getElementById('pagination1');
+  pagination1.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  var pagination2 = document.getElementById('pagination2');
+  pagination2.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  var pagination3 = document.getElementById('pagination3');
+  pagination3.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  var pagination4 = document.getElementById('pagination4');
+  pagination4.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
+  var pagination5 = document.getElementById('pagination5');
+  pagination5.addEventListener('fwChange', (ev) => console.log('page is changed', ev.detail.page));
 </script>
 ```
 </code-block>

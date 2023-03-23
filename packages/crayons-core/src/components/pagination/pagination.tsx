@@ -409,6 +409,7 @@ export class Pagination {
   };
 
   onPerPageChange = (ev) => {
+    ev.stopPropagation();
     if (ev?.detail?.value) {
       this.perPage = ev.detail.value;
       this.fwPerPageChange.emit({
