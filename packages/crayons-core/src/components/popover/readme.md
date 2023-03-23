@@ -648,6 +648,7 @@ Type: `Promise<void>`
 
  - [fw-datepicker](../datepicker)
  - [fw-kebab-menu](../kebab-menu)
+ - [fw-pagination](../pagination)
  - [fw-select](../select)
  - [fw-tooltip](../tooltip)
 
@@ -656,6 +657,7 @@ Type: `Promise<void>`
 graph TD;
   fw-datepicker --> fw-popover
   fw-kebab-menu --> fw-popover
+  fw-pagination --> fw-popover
   fw-select --> fw-popover
   fw-tooltip --> fw-popover
   style fw-popover fill:#f9f,stroke:#333,stroke-width:4px
