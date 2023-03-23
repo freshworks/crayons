@@ -241,11 +241,22 @@ export class FormBuilder {
 
     if (this.localFormValues) {
       const arrFields = this.localFormValues?.fields;
-      const mappedFieldTypes =
-        formMapper[this.productName]['reverseMappedFieldTypes'];
+      const objMapper = formMapper[this.productName];
+      const mappedFieldTypes = objMapper['reverseMappedFieldTypes'];
+      const objProductConfig = objMapper.config;
+      const boolSupportsDefaultField =
+        objProductConfig?.showDefaultTag &&
+        objProductConfig?.defaultTagKey &&
+        objProductConfig.defaultTagKey !== ''
+          ? true
+          : false;
+      const strDefaultFieldKey = boolSupportsDefaultField
+        ? objProductConfig.defaultTagKey
+        : '';
 
       // Maximum limits validation
       if (arrFields && arrFields.length > 0) {
+        let intValidActiveFieldCount = 0;
         const intFieldCount = arrFields.length;
 
         for (let i1 = 0; i1 < intFieldCount; i1++) {
@@ -288,10 +299,22 @@ export class FormBuilder {
             }
             this.fieldTypesCount[strParsedFieldType]++;
           }
+
+          if (!boolSupportsDefaultField) {
+            intValidActiveFieldCount++;
+          } else if (
+            strDefaultFieldKey &&
+            strDefaultFieldKey !== '' &&
+            hasCustomProperty(objField, strDefaultFieldKey) &&
+            objField[strDefaultFieldKey]
+          ) {
+            intValidActiveFieldCount++;
+          }
         }
 
         const objMaxLimits = getMaximumLimitsConfig(this.productName);
-        this.enableFieldType = intFieldCount < objMaxLimits.fields.count;
+        this.enableFieldType =
+          intValidActiveFieldCount < objMaxLimits.fields.count;
         this.enableFilterable =
           objMaxLimitCount.filterable < objMaxLimits.filterable.count;
         this.enableUnique = objMaxLimitCount.unique < objMaxLimits.unique.count;
