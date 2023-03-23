@@ -125,7 +125,7 @@ export class Datepicker {
   /**
    *   Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
    */
-  @Prop({ mutable: true }) maxDate: string;
+  @Prop() maxDate: string;
   /**
    *   Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
    */
@@ -246,17 +246,17 @@ export class Datepicker {
    */
   @Prop() hoistTooltip = true;
   /**
-   *   Triggered when the update button clicked
+   * Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
 
   /**
-   *   Triggered when the input box loses focus.
+   * Triggered when the input box loses focus.
    */
   @Event() fwBlur: EventEmitter;
 
   /**
-   *   Triggered when text is entered in  input box.
+   * Triggered when text is entered in  input box.
    */
   @Event() fwDateInput: EventEmitter;
 
@@ -1590,12 +1590,13 @@ export class Datepicker {
     );
   }
 
-  renderSupportedYears(): JSX.Element {
-    return this.supportedYears.map((year, i) => (
-      <fw-select-option value={year} key={i} selected={+year === +this.year}>
-        {year}
-      </fw-select-option>
-    ));
+  renderSupportedYears() {
+    return this.supportedYears.map((year, i) => ({
+      value: year,
+      key: i,
+      selected: +year === +this.year,
+      text: year,
+    }));
   }
 
   renderFooter(): JSX.Element {
@@ -1762,11 +1763,10 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom-start'
                         variant='button'
+                        options={this.renderSupportedYears()}
                         allow-deselect='false'
                         boundary={this.popoverContentElement}
-                      >
-                        {this.renderSupportedYears()}
-                      </fw-select>
+                      ></fw-select>
                     </span>
                   </div>
                   {this.renderNavButtons()}
@@ -1818,10 +1818,9 @@ export class Datepicker {
                         options-placement='bottom-start'
                         variant='button'
                         allow-deselect='false'
+                        options={this.renderSupportedYears()}
                         boundary={this.popoverContentElement}
-                      >
-                        {this.renderSupportedYears()}
-                      </fw-select>
+                      ></fw-select>
                     </span>
                   </div>
                   <div class='mdpch-container-right'>
@@ -1849,11 +1848,10 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom-start'
                         variant='button'
+                        options={this.renderSupportedYears()}
                         allow-deselect='false'
                         boundary={this.popoverContentElement}
-                      >
-                        {this.renderSupportedYears()}
-                      </fw-select>
+                      ></fw-select>
                     </span>
                   </div>
                   {this.renderNavButtons()}
