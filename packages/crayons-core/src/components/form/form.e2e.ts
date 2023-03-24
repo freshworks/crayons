@@ -1116,4 +1116,90 @@ describe('fw-form', () => {
     expect(result.values['pincode']).toEqual(56000);
     expect(result.values['amount_paid']).toEqual(5000);
   });
+
+  it('should disable/enable the form fields when setDisabledFields method is called', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }) => {
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form');
+
+    const formElemShadow = await page.find('fw-form >>> :first-child');
+    const formControlShadow = await formElemShadow.find(
+      "fw-form-control[name='pincode'] >>> :first-child"
+    );
+
+    const input = await formControlShadow.find('fw-input');
+    const isDisabled = await input.getProperty('disabled');
+
+    await expect(isDisabled).toEqual(false);
+
+    // disable field
+    await element.callMethod('setDisabledFields', { pincode: true });
+
+    await page.waitForChanges();
+
+    const newIsDisabled = await input.getProperty('disabled');
+
+    await expect(newIsDisabled).toEqual(true);
+
+    // enable field
+    await element.callMethod('setDisabledFields', { pincode: false });
+
+    await page.waitForChanges();
+
+    const newIsDisabled1 = await input.getProperty('disabled');
+
+    await expect(newIsDisabled1).toEqual(false);
+  });
+
+  it('should hide/show the form fields on calling setHiddenFields method on the form', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-form></fw-form>`);
+
+    await page.$eval(
+      'fw-form',
+      (elm: any, { formSchema }: any) => {
+        elm.formSchema = formSchema;
+      },
+      props
+    );
+
+    await page.waitForChanges();
+
+    const element = await page.find('fw-form');
+
+    // hide 2 fields
+    await element.callMethod('setHiddenFields', {
+      first_name: true,
+      pincode: true,
+    });
+
+    await page.waitForChanges();
+    expect(
+      element.shadowRoot.querySelectorAll('fw-form-control').length
+    ).toEqual(5);
+
+    // unhide 2 fields
+    await element.callMethod('setHiddenFields', {
+      first_name: false,
+      pincode: false,
+    });
+
+    await page.waitForChanges();
+    expect(
+      element.shadowRoot.querySelectorAll('fw-form-control').length
+    ).toEqual(7);
+  });
 });

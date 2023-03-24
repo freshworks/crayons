@@ -306,8 +306,9 @@ fields: [ // Each item in this array corresponds to a crayons input component.
 
 ## Disable form fields
 
-In a `Dynamic form`, to disable any form field set `editable` to `false` in the form schema. You will not be able to set a value dynamically to the disabled form field. Instead set the value via `initialValues`.
+In a `Dynamic form`, to disable any form field set `editable` to `false` in the `form schema`.
 In a `Static form` set `disabled` attribute on the `fw-form-control` to disable the form field.
+You will not be able to `dynamically` set a `value` to the disabled form field. Instead set the value via `initialValues`.
 
 ## Usage Dynamic Form
 
@@ -2625,6 +2626,22 @@ param: **valuesObj** - Object with key as form `field name` and value as the `up
 **shouldValidate** - should this form be validated with the updated values. Default to `true`
 
 Example: `setFieldsValue({ first_name: "new name", last_name: "new last name" }, true)`
+
+## Disable/Enable Form Fields
+
+Use `setDisabledFields` method to set disable/enable the form fields dynamically.
+
+param: **disableFieldsObj** - Object with key as form `field name` and value as `true` to `disable` the field and `false` to `enable` the field.
+
+Example: `setDisabledFields({ first_name: true, last_name: true })`
+
+## Hide/Show Form Fields
+
+Use `setHiddenFields` method to set hide/show the form fields dynamically.
+
+param: **hiddenFieldsObj** - Object with key as form `field name` and value as `true` to `hide` the field and `false` to `show` the field
+
+Example: `setHiddenFields({ first_name: true, last_name: true })`
 
 ## Validations
 
