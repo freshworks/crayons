@@ -164,6 +164,14 @@ function mergeSchema(first: any = {}, second: any = {}) {
 
 function createYupSchema(schema: any, config: any) {
   const { type, required, name } = config;
+
+  // do not validate invisible fields
+  if (
+    Object.prototype.hasOwnProperty.call(config, 'visible') &&
+    config.visible === false
+  )
+    return schema;
+
   let yupType;
   switch (type) {
     case 'TEXT':

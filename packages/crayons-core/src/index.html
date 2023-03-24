@@ -35,8 +35,8 @@
           document
             .querySelector('#submit')
             .addEventListener('click', async (e) => {
-              const { values, isValid } = await form.doSubmit(e);
-              console.log({ values, isValid });
+              const { values, isValid, errors } = await form.doSubmit(e);
+              console.log({ values, isValid, errors });
               if (isValid) {
                 // make ajax post end point with values
                 // fetch("/post",values);
@@ -1687,7 +1687,7 @@
     warning-text="Please use numbers for user ID"
     state="normal"
   ></fw-country-phone> -->
-  <!-- <div>
+    <!-- <div>
     <fw-file-uploader-2
         name="sample"
         id="file-uploader-1"
@@ -1710,7 +1710,7 @@
       });
     </script>
   </div> -->
-  <!-- File uploader as part of form
+    <!-- File uploader as part of form
   <div id="form-container">
     <fw-button id="submit">Submit</fw-button>
     <fw-button id="reset">Reset</fw-button>

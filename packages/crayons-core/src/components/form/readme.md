@@ -2979,6 +2979,22 @@ type FormRequired = {
 };
 ```
 
+### FormDisabled
+
+```javascript
+type FormDisabled = {
+  [K in keyof FormValues]?: boolean;
+};
+```
+
+### FormHidden
+
+```javascript
+type FormHidden = {
+  [K in keyof FormValues]?: boolean;
+};
+```
+
 ### Form Value Change Event
 
 `fwFormValueChanged` event gets emitted whenever there is a change in the value of any of the form field.

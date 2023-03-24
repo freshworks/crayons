@@ -9,7 +9,7 @@ import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
 import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant, WidthStyles } from "./utils/types";
 import { InitialUploaderFile, UploaderFile } from "./components/file-uploader-2/file-uploader2-util";
-import { FormErrors, FormRequired, FormSubmit, FormValues } from "./components/form/form-declaration";
+import { FormDisabled, FormErrors, FormHidden, FormRequired, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -803,6 +803,10 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * Method to disable/enable the form fields.  param: disableFieldsObj - Object with key as form field name and value as `true` to disable the field and `false` to enable the field. example: `{ first_name: true, last_name: true }`
+         */
+        "setDisabledFields": (disableFieldsObj: FormDisabled<FormValues>) => Promise<void>;
+        /**
           * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }]. fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path. option_label_path refers to the key used for displaying the text. option_value_path refers to the key which corresponds to the value of item.
          */
         "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
@@ -816,7 +820,7 @@ export namespace Components {
          */
         "setFieldSearchText": (text: string) => Promise<void>;
         /**
-          * Method to set value on the form field.  param: field - name of the form field param: value - value of the form field param: shouldValidate - should this form field be validated with the updated value. Default to true.
+          * Method to set value on the form field.  param: field - name of the form field param: value - value of the form field param: shouldValidate - should this form field be validated with the updated value. Default to true. This method will not update the value of disabled fields.
          */
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
@@ -824,9 +828,13 @@ export namespace Components {
          */
         "setFieldsRequiredStatus": (requiredStatusObj: FormRequired<FormValues>) => Promise<void>;
         /**
-          * Method to set values on the form fields.  param: valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }` param: shouldValidate - should this form be validated with the updated values. Default to true.
+          * Method to set values on the form fields.  param: valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }` param: shouldValidate - should this form be validated with the updated values. Default to true. This method will not update the value of disabled fields.
          */
         "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Method to hide/show the form fields.  param: hiddenFieldsObj - Object with key as form field name and value as `true` to hide the field and `false` to show the field example: `{ first_name: true, last_name: true }`
+         */
+        "setHiddenFields": (hiddenFieldsObj: FormHidden<FormValues>) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */

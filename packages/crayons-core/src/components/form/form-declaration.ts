@@ -24,6 +24,22 @@ export type FormRequired<Values> = {
 };
 
 /**
+ * An object containing disabled field status whose keys correspond to FormValues.
+ * Should be always be an object like { [string]: boolean } or empty object
+ */
+export type FormDisabled<Values> = {
+  [K in keyof Values]?: boolean;
+};
+
+/**
+ * An object containing hidden field status whose keys correspond to FormValues.
+ * Should be always be an object like { [string]: boolean } or empty object
+ */
+export type FormHidden<Values> = {
+  [K in keyof Values]?: boolean;
+};
+
+/**
  * An object containing touched state of the form whose keys correspond to FormValues.
  */
 export type FormTouched<Values> = {

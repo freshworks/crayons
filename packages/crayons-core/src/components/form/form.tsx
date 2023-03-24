@@ -20,6 +20,8 @@ import {
   FormProps,
   FormSubmit,
   FormRequired,
+  FormDisabled,
+  FormHidden,
 } from './form-declaration';
 import {
   validateYupSchema,
@@ -490,7 +492,14 @@ export class Form {
 
   private shouldRenderFormControl = (control) => {
     const type = control?.type;
+    const isFieldInVisible =
+      Object.prototype.hasOwnProperty.call(control, 'visible') &&
+      control.visible === false;
+
     const isValidType = type !== '' && type !== null && type !== undefined;
+
+    if (isFieldInVisible) return false;
+
     const shouldRender = isValidType
       ? this.fieldSearchText
         ? control.label
@@ -529,6 +538,7 @@ export class Form {
    * param: field - name of the form field
    * param: value - value of the form field
    * param: shouldValidate - should this form field be validated with the updated value. Default to true.
+   * This method will not update the value of disabled fields.
    */
   @Method()
   async setFieldValue(
@@ -554,6 +564,7 @@ export class Form {
    * param: valuesObj - Object with key as form field name and value as the updated value for the field
    * example: `{ first_name: "new name", last_name: "new last name" }`
    * param: shouldValidate - should this form be validated with the updated values. Default to true.
+   * This method will not update the value of disabled fields.
    */
   @Method()
   async setFieldsValue(
@@ -724,6 +735,63 @@ export class Form {
 
     this.errors = { ...errorsObj };
 
+    this.formValidationSchema =
+      generateDynamicValidationSchema(
+        this.formSchemaState,
+        this.validationSchema
+      ) || {};
+  }
+
+  /**
+   * Method to disable/enable the form fields.
+   *
+   * param: disableFieldsObj - Object with key as form field name and value as `true` to disable the field and `false` to enable the field.
+   * example: `{ first_name: true, last_name: true }`
+   */
+  @Method()
+  async setDisabledFields(
+    disableFieldsObj: FormDisabled<FormValues>
+  ): Promise<void> {
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (Object.prototype.hasOwnProperty.call(disableFieldsObj, f.name)) {
+            const isDisabled = !!disableFieldsObj?.[f.name];
+            return {
+              ...f,
+              editable: !isDisabled, // editable should be set to `false` to disable the field
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+  }
+
+  /**
+   * Method to hide/show the form fields.
+   *
+   * param: hiddenFieldsObj - Object with key as form field name and value as `true` to hide the field and `false` to show the field
+   * example: `{ first_name: true, last_name: true }`
+   */
+  @Method()
+  async setHiddenFields(
+    hiddenFieldsObj: FormHidden<FormValues>
+  ): Promise<void> {
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (Object.prototype.hasOwnProperty.call(hiddenFieldsObj, f.name)) {
+            const isHidden = !!hiddenFieldsObj?.[f.name];
+            return {
+              ...f,
+              visible: !isHidden, // visible should be set to `false` to hide the field
+            };
+          }
+          return f;
+        }) ?? [],
+    };
     this.formValidationSchema =
       generateDynamicValidationSchema(
         this.formSchemaState,
