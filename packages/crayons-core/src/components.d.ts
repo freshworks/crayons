@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
-import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
+import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant, WidthStyles } from "./utils/types";
 import { InitialUploaderFile, UploaderFile } from "./components/file-uploader-2/file-uploader2-util";
 import { FormErrors, FormRequired, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
@@ -313,6 +313,10 @@ export namespace Components {
           * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
          */
         "rowActionsMenuVariant": 'standard' | 'icon';
+        /**
+          * Ability to add width related properties to rowActions. Helps solve settings icon overlap with actions label.
+         */
+        "rowActionsWidthProperties": null | WidthStyles;
         /**
           * Rows Array of objects to be displayed in the table.
          */
@@ -3200,6 +3204,10 @@ declare namespace LocalJSX {
           * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
          */
         "rowActionsMenuVariant"?: 'standard' | 'icon';
+        /**
+          * Ability to add width related properties to rowActions. Helps solve settings icon overlap with actions label.
+         */
+        "rowActionsWidthProperties"?: null | WidthStyles;
         /**
           * Rows Array of objects to be displayed in the table.
          */

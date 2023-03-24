@@ -60,6 +60,8 @@ for (const wwwBuild of wwwBuilds) {
     { nomodule: '', src: `/scripts/${wwwBuild}/build/${wwwBuild}.js` },
   ]);
 }
+
+headScripts.push(['script', { type: 'module', src: `/global/header.esm.js` }]);
 headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
 
 const getUtils = () =>
@@ -90,18 +92,19 @@ const getTags = () => [
 const getComponents = () => {
   const componentMap = {};
   coreComponents.forEach((item) => {
-    const key = item.split("/")[2];
+    const key = item.split('/')[2];
     if (componentMap[key]) {
       if (componentMap[key].children) componentMap[key].children.push(item);
-      else componentMap[key] = {
+      else
+        componentMap[key] = {
           type: 'group',
           title: key[0].toUpperCase() + key.slice(1),
-          children: [`components/core/${key}/`, item]
-        } 
+          children: [`components/core/${key}/`, item],
+        };
     } else componentMap[key] = item;
   });
   return Object.values(componentMap);
-}
+};
 
 const websiteUrl = 'https://crayons.freshworks.com';
 

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.6...@freshworks/crayons@4.2.0-beta.7) (2023-03-22)
+
+### Bug Fixes
+
+- **data-table:** adding widthProperties capability for actions column ([#823](https://github.com/freshworks/crayons/issues/823)) ([81b18dc](https://github.com/freshworks/crayons/commit/81b18dcf1be4d92486a62c98eed0a27afb1dd825))
+
 ## [4.2.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.5...@freshworks/crayons@4.2.0-beta.6) (2023-03-16)
 
 ### Bug Fixes
