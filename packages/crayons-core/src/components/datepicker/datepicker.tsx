@@ -1434,7 +1434,7 @@ export class Datepicker {
           distance='13'
           content={
             this.tooltipErrorText ||
-            TranslationController.t('datepicker.tooltipErrorText')
+            TranslationController.t('datepicker.tooltipError')
           }
           hoist={this.hoistTooltip}
         >
@@ -1591,6 +1591,20 @@ export class Datepicker {
   }
 
   renderSupportedYears() {
+    // The if/else block adds the year value to the year dropdown if its not present, i.e for invalid dates, we will add and remove it once the user moves to a valid month calendar
+    // this is to overcome the issue of year dropdown select value disappearing, if the year value is not present and selected in the dropdown
+    // https://github.com/freshworks/crayons/issues/826
+    const isChosenYearPresent = this.supportedYears.find((year) => {
+      return +year === +this.year;
+    });
+    if (!isChosenYearPresent) {
+      this.supportedYears.push(this.year.toString());
+      this.supportedYears.sort();
+    } else {
+      +this.supportedYears[this.supportedYears.length - 1] !== +this.maxYear &&
+        +this.supportedYears[this.supportedYears.length - 1] !== +this.year &&
+        this.supportedYears.pop(); // to avoid re rendering array.pop is used rather than filtering and destructuring
+    }
     return this.supportedYears.map((year, i) => ({
       value: year,
       key: i,
