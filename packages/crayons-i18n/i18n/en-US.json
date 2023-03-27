@@ -5,7 +5,7 @@
     "to": "to",
     "date": "Date",
     "time": "Time",
-    "tooltipErrorText": "Please enter a valid date or format"
+    "tooltipError": "Please enter a valid date or format"
   },
   "dropdown": {
     "add": "Add",

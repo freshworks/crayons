@@ -3132,17 +3132,12 @@ graph TD;
   fw-input --> fw-icon
   fw-datepicker --> fw-tooltip
   fw-datepicker --> fw-icon
-  fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
   fw-datepicker --> fw-input
   fw-datepicker --> fw-timepicker
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-select
   fw-tooltip --> fw-popover
-  fw-select-option --> fw-icon
-  fw-select-option --> fw-checkbox
-  fw-select-option --> fw-avatar
-  fw-checkbox --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-timepicker --> fw-select
@@ -3158,6 +3153,10 @@ graph TD;
   fw-tag --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-file-uploader-2 --> fw-file-2
   fw-file-uploader-2 --> fw-inline-message
   fw-file-2 --> fw-icon

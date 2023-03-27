@@ -151,7 +151,6 @@ Type: `Promise<any>`
 ### Used by
 
  - [fw-country-phone](../country-phone)
- - [fw-datepicker](../datepicker)
  - [fw-list-options](../options-list)
  - [fw-timepicker](../timepicker)
 
@@ -169,7 +168,6 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-country-phone --> fw-select-option
-  fw-datepicker --> fw-select-option
   fw-list-options --> fw-select-option
   fw-timepicker --> fw-select-option
   style fw-select-option fill:#f9f,stroke:#333,stroke-width:4px
