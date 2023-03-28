@@ -1664,7 +1664,6 @@ describe('fw-form-builder', () => {
           { formValues: formValues.CUSTOM_OBJECTS }
         );
         await page.waitForChanges();
-        await page.waitForChanges();
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
@@ -1701,7 +1700,6 @@ describe('fw-form-builder', () => {
           },
           { formValues: formValues[productName] }
         );
-        await page.waitForChanges();
         await page.waitForChanges();
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
@@ -1751,7 +1749,6 @@ describe('fw-form-builder', () => {
           { formValues: formValues[productName] }
         );
         await page.waitForChanges();
-        await page.waitForChanges();
         const search = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-header-search-input'
         );
@@ -1792,7 +1789,6 @@ describe('fw-form-builder', () => {
             expandedFieldIndex: 2,
           }
         );
-        await page.waitForChanges();
         await page.waitForChanges();
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
@@ -1847,7 +1843,6 @@ describe('fw-form-builder', () => {
             expandedFieldIndex: validateIndex,
           }
         );
-        await page.waitForChanges();
         await page.waitForChanges();
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
@@ -1930,7 +1925,6 @@ describe('fw-form-builder', () => {
     expect(disabledButton).toBeTruthy();
     await disabledButton.triggerEvent('fwClick');
     await page.waitForChanges();
-    await page.waitForChanges();
     expect(fwExplorePlan).toHaveReceivedEvent();
   });
 
@@ -1946,7 +1940,6 @@ describe('fw-form-builder', () => {
       },
       { formValues: formValues.CUSTOM_OBJECTS }
     );
-    await page.waitForChanges();
     await page.waitForChanges();
     const rightPanel = await page.find(
       'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
@@ -1976,7 +1969,6 @@ describe('fw-form-builder', () => {
       },
       { formValues: formValues.CUSTOM_OBJECTS, expandedFieldIndex: 1 }
     );
-    await page.waitForChanges();
     await page.waitForChanges();
     const rightPanel = await page.find(
       'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
@@ -2263,15 +2255,23 @@ describe('fw-form-builder', () => {
         { formValues: formValues.CONV_MAX }
       );
       await page.waitForChanges();
-      await page.waitForChanges();
       const leftPanel = await page.find(
         'fw-form-builder >>> .form-builder-left-panel'
       );
       const fieldItems = await leftPanel.findAll(
         '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
       );
+      const rightPanel = await page.find(
+        'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
+      );
+      const fieldEditors = await rightPanel.findAll(
+        'fw-field-editor >>> .fw-field-editor'
+      );
       // total fields
-      expect(formValues.CONV_MAX.fields.length).toBe(50);
+      expect(formValues.CONV_MAX.fields.length).toBe(fieldEditors.length);
+      expect(formValues.CONV_MAX.fields.length).toBeGreaterThanOrEqual(
+        formMapper.CONVERSATION_PROPERTIES.maximumLimits.fields.count
+      );
       // total active fields
       const activeFields = formValues.CONV_MAX.fields.filter(
         (field) => field.custom
@@ -2327,15 +2327,23 @@ describe('fw-form-builder', () => {
         { formValues: updatedFormValues }
       );
       await page.waitForChanges();
-      await page.waitForChanges();
       const leftPanel = await page.find(
         'fw-form-builder >>> .form-builder-left-panel'
       );
       const fieldItems = await leftPanel.findAll(
         '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
       );
+      const rightPanel = await page.find(
+        'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
+      );
+      const fieldEditors = await rightPanel.findAll(
+        'fw-field-editor >>> .fw-field-editor'
+      );
       // total fields
-      expect(updatedFormValues.fields.length).toBe(54);
+      expect(updatedFormValues.fields.length).toBe(fieldEditors.length);
+      expect(updatedFormValues.fields.length).toBeGreaterThanOrEqual(
+        formMapper.CONVERSATION_PROPERTIES.maximumLimits.fields.count
+      );
       // total active fields
       const activeFields = updatedFormValues.fields.filter(
         (field) => field.custom
@@ -2432,7 +2440,6 @@ describe('fw-form-builder', () => {
           }
         );
         await page.waitForChanges();
-        await page.waitForChanges();
         const disabledPanel = await page.find(
           'fw-form-builder >>> .form-builder-left-panel-list-disabled-div'
         );
@@ -2486,7 +2493,6 @@ describe('fw-form-builder', () => {
           const fieldEditors = await rightPanel.findAll(
             'fw-field-editor >>> .fw-field-editor'
           );
-          console.log('field editors', fieldEditors.length);
           const formattedType =
             formMapper.CONVERSATION_PROPERTIES.reverseMappedFieldTypes[
               field.type
