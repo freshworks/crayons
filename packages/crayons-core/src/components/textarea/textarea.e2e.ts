@@ -81,4 +81,17 @@ describe('fw-textarea', () => {
 
     expect(fwChange).not.toHaveReceivedEvent();
   });
+
+  it('it does not call addListeners function if maxRows props not added', async () => {
+    const addListeners = jest.fn();
+    const page = await newE2EPage();
+    await page.exposeFunction('addListeners', () => {
+      addListeners();
+    });
+    await page.setContent('<fw-textarea rows="4"> </fw-textarea>');
+    const element = await page.find('fw-textarea');
+    element.setProperty('value', '1\n2\n3\n4\n5\n6');
+    await page.waitForChanges();
+    expect(addListeners).not.toHaveBeenCalled();
+  });
 });
