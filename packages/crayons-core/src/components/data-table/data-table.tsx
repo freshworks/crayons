@@ -333,8 +333,53 @@ export class DataTable {
    * @param newColumns recent datatable columns value
    */
   @Watch('columns')
-  columnsChangeHandler(newColumns: DataTableColumn[]) {
+  async columnsChangeHandler(newColumns: DataTableColumn[]) {
+    let hasStructuralChanges = false;
+    const existingColumnSettings = await this.getTableSettings();
     this.columnOrdering(newColumns);
+    const currentColumnSettings = await this.getTableSettings();
+
+    // Observe for structural changes
+    for (const currentColumn in currentColumnSettings) {
+      if (
+        Object.prototype.hasOwnProperty.call(
+          currentColumnSettings,
+          currentColumn
+        )
+      ) {
+        const currentColumnSetting = currentColumnSettings[currentColumn];
+        const oldColumnSetting = existingColumnSettings[currentColumn];
+
+        if (currentColumnSetting && oldColumnSetting) {
+          if (oldColumnSetting.lock !== currentColumnSetting.lock) {
+            hasStructuralChanges = true;
+          }
+        } else {
+          hasStructuralChanges = true;
+        }
+      }
+    }
+
+    if (!hasStructuralChanges) {
+      await this.setTableSettings(existingColumnSettings);
+    } else {
+      if (localStorage && this.autoSaveSettings) {
+        try {
+          const tableId = this.el.id ? `-${this.el.id}` : null;
+          if (tableId) {
+            localStorage.setItem(
+              `fw-table${tableId}`,
+              JSON.stringify(currentColumnSettings)
+            );
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+      console.warn(
+        'Table structural change. Old table settings removed, saved new settings.'
+      );
+    }
   }
 
   /**
