@@ -45,11 +45,11 @@ export class Textarea {
    */
   @Prop() rows?: number;
   /**
-   * Max Number of rows the textarea can create when user writes content greater than regular rows.
+   * Max number of rows the textarea can create when user writes content greater than regular rows.
    */
   @Prop() maxRows?: number;
   /**
-   * Debounce Timer For Setting Rows Dynamically based on user input and maxRows. Default is 200ms
+   * Debounce timer for setting rows dynamically based on user input and maxRows, default is 200ms.
    */
   @Prop() maxRowsDebounceTimer?: number;
   /**
