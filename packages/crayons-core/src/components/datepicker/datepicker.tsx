@@ -231,7 +231,7 @@ export class Datepicker {
   /**
    * Debounce timer for date input.
    */
-  @Prop() debounceTimer = 500;
+  @Prop() debounceTimer = 1000;
   /**
    * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
    */
@@ -826,9 +826,7 @@ export class Datepicker {
 
   setDateAndErrorState(checkDate = false) {
     this.isDateInvalid =
-      checkDate && !this.isDateWithinMinMaxDate(parseISO(this.value).valueOf())
-        ? true
-        : false;
+      checkDate && !this.isDateWithinMinMaxDate(parseISO(this.value).valueOf());
     this.state =
       this.showErrorOnInvalidDate && this.isDateInvalid
         ? 'error'
@@ -878,7 +876,7 @@ export class Datepicker {
   }
 
   processValueChange(val, emitChange = false) {
-    // throw error if not ISO format and not display format
+    // show error if not ISO format and not display format
     const parsedDate = parse(val, this.displayFormat, new Date(), {
       locale: this.langModule,
     });
@@ -1010,7 +1008,7 @@ export class Datepicker {
       const isDateSelected =
         dateNodes.length > 0 &&
         Object.values(dateNodes).some((node) => {
-          return true && node.classList.contains('highlight-blue');
+          return node.classList.contains('highlight-blue');
         });
       // to check if the month is not disabled when update btn is clicked
       const dateDetails =
