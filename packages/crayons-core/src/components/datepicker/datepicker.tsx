@@ -882,11 +882,27 @@ export class Datepicker {
     this.year = year;
     this.fromDate = fromDate;
     this.toDate = toDate;
-    this.month = getMonth(
+    const chosenFromMonth = getMonth(
       parse(fromDate, this.displayFormat, new Date(), {
         locale: this.langModule,
       })
     );
+    const chosenToMonth = getMonth(
+      parse(toDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    if (chosenFromMonth === chosenToMonth && this.toMonth === chosenFromMonth) {
+      this.toMonth = chosenFromMonth;
+      this.month = this.toMonth - 1;
+    } else {
+      this.month = getMonth(
+        parse(fromDate, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        })
+      );
+      this.toMonth = this.month === 11 ? 0 : this.month + 1;
+    }
     this.startDate = parse(fromDate, this.displayFormat, new Date(), {
       locale: this.langModule,
     }).valueOf();
@@ -894,8 +910,6 @@ export class Datepicker {
     this.endDate = parse(toDate, this.displayFormat, new Date(), {
       locale: this.langModule,
     }).valueOf();
-
-    this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
       this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
     this.isDateInvalid = false;
@@ -1215,21 +1229,21 @@ export class Datepicker {
       return (
         parseISO(this.minDate).valueOf() <= toDate &&
         parseISO(this.minDate).valueOf() <= fromDate &&
-        fromDate < toDate
+        fromDate <= toDate
       );
     if (this.maxDate && !this.minDate)
       return (
         toDate <= parseISO(this.maxDate).valueOf() &&
         fromDate <= parseISO(this.maxDate).valueOf() &&
-        fromDate < toDate
+        fromDate <= toDate
       );
     if (this.maxDate && this.minDate)
       return (
         toDate <= parseISO(this.maxDate).valueOf() &&
         parseISO(this.minDate).valueOf() <= fromDate &&
-        fromDate < toDate
+        fromDate <= toDate
       );
-    else return fromDate < toDate;
+    else return fromDate <= toDate;
   }
 
   checkYearRestriction() {
@@ -1314,21 +1328,21 @@ export class Datepicker {
       ) {
         // Range Container
         this.onDateClick(e, day);
-        this.startDateFormatted = format(
-          new Date(this.startDate),
-          this.displayFormat,
-          {
-            locale: this.langModule,
-          }
-        );
-        this.endDateFormatted = format(
-          new Date(this.endDate),
-          this.displayFormat,
-          {
-            locale: this.langModule,
-          }
-        );
         if (this.startDate && this.endDate) {
+          this.startDateFormatted = format(
+            new Date(this.startDate),
+            this.displayFormat,
+            {
+              locale: this.langModule,
+            }
+          );
+          this.endDateFormatted = format(
+            new Date(this.endDate),
+            this.displayFormat,
+            {
+              locale: this.langModule,
+            }
+          );
           this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
           this.emitEvent(e, {
             fromDate: this.formatDate(this.startDateFormatted),
