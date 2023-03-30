@@ -194,7 +194,9 @@
     "checkBoxNoValue": "No",
     "widgetSectionHeader": "{{fieldLabel}} is {{contextLabel}}",
     "linkModalLoadingText": "Fetching details...",
-    "relatedWidgetAccordionHeader": "Related {{schema}}"
+    "relatedWidgetAccordionHeader": "Related {{schema}}",
+    "widgetRecordLinkSuccessMessage": "Record updated successfully",
+    "widgetRecordLinkErrorMessage": "Unable to update the record"
   },
   "filters": {
     "addFilter": "+ Add another condition",
