@@ -210,7 +210,7 @@ function App() {
         <FwModalContent>
           <div>Content text</div>
         </FwModalContent>
-      </fw-modal>
+      </FwModal>
  </div>);
 }
 ```
