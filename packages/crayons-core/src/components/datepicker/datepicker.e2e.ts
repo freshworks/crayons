@@ -381,9 +381,7 @@ describe('fw-datepicker', () => {
     await page.waitForChanges();
     await input.press('KeyB');
     await page.waitForChanges();
-    await page.waitForChanges();
-    await page.waitForChanges();
-    await page.waitForChanges();
+    await page.waitForTimeout(2500);
     const shadow = await page.find(
       'fw-datepicker >>> fw-input >>> :first-child'
     );
@@ -426,9 +424,7 @@ describe('fw-datepicker', () => {
     await page.waitForChanges();
     await input.press('KeyB');
     await page.waitForChanges();
-    await page.waitForChanges();
-    await page.waitForChanges();
-    await page.waitForChanges();
+    await page.waitForTimeout(2500);
     expect(fwDateInput).toHaveReceivedEvent();
     expect(fwDateInput).toHaveReceivedEventDetail({
       event: { isTrusted: false },
