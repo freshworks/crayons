@@ -210,7 +210,7 @@ Date time picker is currently supported only on single date picker.
 | ------------------------ | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
 | `cancelText`             | `cancel-text`                |                                                                                                                                                                | `string`                           | `''`                       |
 | `clearInput`             | `clear-input`                | Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`                                                                     | `boolean`                          | `false`                    |
-| `debounceTimer`          | `debounce-timer`             | Debounce timer for date input.                                                                                                                                 | `number`                           | `500`                      |
+| `debounceTimer`          | `debounce-timer`             | Debounce timer for date input.                                                                                                                                 | `number`                           | `1000`                     |
 | `disabled`               | `disabled`                   | Make the datepicker box as disabled. Default `false`                                                                                                           | `boolean`                          | `false`                    |
 | `displayFormat`          | `display-format`             | Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.                       | `string`                           | `undefined`                |
 | `errorText`              | `error-text`                 | Error text displayed below the text box.                                                                                                                       | `string`                           | `''`                       |
@@ -303,7 +303,6 @@ Type: `Promise<void>`
 
 - [fw-tooltip](../tooltip)
 - [fw-icon](../icon)
-- [fw-select-option](../select-option)
 - [fw-button](../button)
 - [fw-input](../input)
 - [fw-timepicker](../timepicker)
@@ -315,17 +314,12 @@ Type: `Promise<void>`
 graph TD;
   fw-datepicker --> fw-tooltip
   fw-datepicker --> fw-icon
-  fw-datepicker --> fw-select-option
   fw-datepicker --> fw-button
   fw-datepicker --> fw-input
   fw-datepicker --> fw-timepicker
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-select
   fw-tooltip --> fw-popover
-  fw-select-option --> fw-icon
-  fw-select-option --> fw-checkbox
-  fw-select-option --> fw-avatar
-  fw-checkbox --> fw-icon
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-input --> fw-icon
@@ -342,6 +336,10 @@ graph TD;
   fw-tag --> fw-icon
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-form-control --> fw-datepicker
   style fw-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```
