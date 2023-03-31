@@ -9,7 +9,7 @@ import {
   Prop,
   h,
 } from '@stencil/core';
-import { createPopper, Instance } from '@popperjs/core';
+import { createPopper, Instance } from 'popperjs-core';
 import { PopoverPlacementType, PopoverTriggerType } from '../../utils/types';
 import { popperModifierRTL } from '../../utils';
 
@@ -96,6 +96,10 @@ export class Popover {
    */
   @Prop() hideAfter = 0;
   /**
+   * Determines if the overlay should block scroll
+   */
+  @Prop() shouldBlockScroll = false;
+  /**
    * Triggered whenever the popover contents is open/displayed.
    */
   @Event() fwShow: EventEmitter;
@@ -138,7 +142,7 @@ export class Popover {
         ],
       }));
       this.popperInstance.update();
-      if (this.trigger !== 'hover') {
+      if (this.trigger !== 'hover' && this.shouldBlockScroll) {
         this.overlay.style.display = 'block';
       }
       this.isOpen = !this.isOpen;
@@ -168,7 +172,7 @@ export class Popover {
           { name: 'eventListeners', enabled: false },
         ],
       }));
-      if (this.trigger !== 'hover') {
+      if (this.trigger !== 'hover' && this.shouldBlockScroll) {
         this.overlay.style.display = 'none';
       }
       this.isOpen = !this.isOpen;
@@ -250,6 +254,28 @@ export class Popover {
         popperModifierRTL,
       ],
     };
+
+    if (!this.shouldBlockScroll) {
+      document.addEventListener(
+        'click',
+        this.handleDocumentClick.bind(this),
+        true
+      );
+      document.addEventListener(
+        'focusin',
+        this.handleDocumentClick.bind(this),
+        true
+      );
+    }
+  }
+
+  private handleDocumentClick(event: MouseEvent) {
+    // Close when clicking outside of the content
+    const path = event.composedPath();
+    if (this.isOpen && !path.includes(this.popperDiv)) {
+      event.stopPropagation();
+      this.hide();
+    }
   }
 
   private async delay(ms: number) {
@@ -276,12 +302,26 @@ export class Popover {
     this.removeResizeObserver();
     this.popperInstance?.destroy();
     clearTimeout(this.timerId);
+    this.removeListeners();
   }
 
   private removeResizeObserver = () => {
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
       this.resizeObserver = null;
+    }
+  };
+
+  private removeListeners = () => {
+    if (this.shouldBlockScroll) {
+      document.removeEventListener(
+        'click',
+        this.handleDocumentClick.bind(this)
+      );
+      document.removeEventListener(
+        'focusin',
+        this.handleDocumentClick.bind(this)
+      );
     }
   };
 
@@ -307,7 +347,7 @@ export class Popover {
       >
         <slot name='popover-content' />
       </div>,
-      this.trigger !== 'hover' && (
+      this.trigger !== 'hover' && this.shouldBlockScroll && (
         <div
           aria-hidden='true'
           class='overlay'
