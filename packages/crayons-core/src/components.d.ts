@@ -807,8 +807,7 @@ export namespace Components {
          */
         "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
         /**
-          * Method to set errors on the form fields.
-          * @param errorObj - key value pair of [fieldName]: ErrorMessage
+          * Method to set errors on the form fields.  If you use `setErrors`, your errors will be wiped out by next `validate` or `validationSchema` call which can be triggered by the user typing (a change event) or blurring an input (a blur event). Note: this assumed you have not manually set `validateOnInput` and `validateOnBlur` props to `false` (they are `true` by default).  param: errorObj - key value pair of [fieldName]: ErrorMessage example: `{ first_name: 'firstname is required' }`
          */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         /**
@@ -817,17 +816,17 @@ export namespace Components {
          */
         "setFieldSearchText": (text: string) => Promise<void>;
         /**
-          * Method to set value on the form field.
-          * @param field - name of the form field
-          * @param value - value of the form field
-          * @param shouldValidate - should this form field be validated with the updated value
+          * Method to set value on the form field.  param: field - name of the form field param: value - value of the form field param: shouldValidate - should this form field be validated with the updated value. Default to true.
          */
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
         /**
-          * Method to set required status on form fields
-          * @param requiredStatusObj - Object with key as form field name and value denoting if the field should be marked as required or not example: `{ first_name: true, last_name: false }`
+          * Method to set required status on form fields  param: requiredStatusObj - Object with key as form field name and value denoting if the field should be marked as required or not example: `{ first_name: true, last_name: false }`
          */
         "setFieldsRequiredStatus": (requiredStatusObj: FormRequired<FormValues>) => Promise<void>;
+        /**
+          * Method to set values on the form fields.  param: valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }` param: shouldValidate - should this form be validated with the updated values. Default to true.
+         */
+        "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */

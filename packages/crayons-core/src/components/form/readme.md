@@ -2608,6 +2608,24 @@ Invoke `setFieldChoices` method on the `form` passing the `name` of the field an
 </script>
 ```
 
+## Set Required Status on the Form Fields
+
+Use `setFieldsRequiredStatus` method to set required status on the form fields dynamically.
+
+param: **requiredStatusObj** - Object with key as form `field name` and value denoting if the field should be marked as required or not
+
+Example: `setFieldsRequiredStatus({ first_name: true, last_name: true })`
+
+## Set Value on the Form Fields Dynamically
+
+Use `setFieldsValue` method to set values on the form fields dynamically.
+
+param: **valuesObj** - Object with key as form `field name` and value as the `updated value` for the field.
+
+**shouldValidate** - should this form be validated with the updated values. Default to `true`
+
+Example: `setFieldsValue({ first_name: "new name", last_name: "new last name" }, true)`
+
 ## Validations
 
 Validation can be done using [Yup](https://github.com/jquense/yup/tree/pre-v1) based `validationSchema` or `validate` function prop.
@@ -2986,22 +3004,20 @@ form.addEventListener('fwFormValuesChanged', (e) => {
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
-| Property           | Attribute            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Type                               | Default     |
-| ------------------ | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
-| `customTypeMapper` | `custom-type-mapper` | A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : {      'CUSTOM_TEXT': { type: 'TEXT' },      'SELECT': { type: 'DROPDOWN' },      'TEL': { type: 'PHONE_NUMBER' },      'CHECKBOX': { type: 'CHECKBOX' },      'TEXTAREA': { type: 'PARAGRAPH' },      'DATETIME': { type: 'DATE_TIME' },      'INTEGER': { type: 'NUMBER' },    } | `any`                              | `{}`        |
-| `formId`           | `form-id`            | Id to uniquely identify the Form. If not set, a random Id will be generated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `any`                              | `uuidv4()`  |
-| `formSchema`       | `form-schema`        | Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `any`                              | `{}`        |
-| `initialValues`    | `initial-values`     | Initial field values of the form. It is an object with keys pointing to field name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `any`                              | `{}`        |
-| `mapperType`       | `mapper-type`        | Mapper Type - LEGO \| FORMSERV \| CUSTOM. Defaults to `LEGO`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `"CUSTOM" \| "FORMSERV" \| "LEGO"` | `LEGO`      |
-| `validate`         | `validate`           | Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `any`                              | `undefined` |
-| `validateOnBlur`   | `validate-on-blur`   | Tells Form to validate the form on each input's onBlur event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `boolean`                          | `true`      |
-| `validateOnInput`  | `validate-on-input`  | Tells Form to validate the form on each input's onInput event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `boolean`                          | `true`      |
-| `validationSchema` | `validation-schema`  | YUP based validation schema for handling validation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `any`                              | `{}`        |
-| `wait`             | `wait`               | The number of milliseconds to delay before doing validation on Input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `number`                           | `200`       |
-
+| Property           | Attribute            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Type                               | Default     |
+| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `customTypeMapper` | `custom-type-mapper` | A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types. Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc. In the example below, `1` is the type of a field in your schema that needs to correspond to `TEXT` type. Please pass include the mapper for all the field types that you want to support. Example typeMapper object : { 'CUSTOM_TEXT': { type: 'TEXT' }, 'SELECT': { type: 'DROPDOWN' }, 'TEL': { type: 'PHONE_NUMBER' }, 'CHECKBOX': { type: 'CHECKBOX' }, 'TEXTAREA': { type: 'PARAGRAPH' }, 'DATETIME': { type: 'DATE_TIME' }, 'INTEGER': { type: 'NUMBER' }, } | `any`                              | `{}`        |
+| `formId`           | `form-id`            | Id to uniquely identify the Form. If not set, a random Id will be generated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `any`                              | `uuidv4()`  |
+| `formSchema`       | `form-schema`        | Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `any`                              | `{}`        |
+| `initialValues`    | `initial-values`     | Initial field values of the form. It is an object with keys pointing to field name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `any`                              | `{}`        |
+| `mapperType`       | `mapper-type`        | Mapper Type - LEGO \| FORMSERV \| CUSTOM. Defaults to `LEGO`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `"CUSTOM" \| "FORMSERV" \| "LEGO"` | `LEGO`      |
+| `validate`         | `validate`           | Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `any`                              | `undefined` |
+| `validateOnBlur`   | `validate-on-blur`   | Tells Form to validate the form on each input's onBlur event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                          | `true`      |
+| `validateOnInput`  | `validate-on-input`  | Tells Form to validate the form on each input's onInput event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `boolean`                          | `true`      |
+| `validationSchema` | `validation-schema`  | YUP based validation schema for handling validation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `any`                              | `{}`        |
+| `wait`             | `wait`               | The number of milliseconds to delay before doing validation on Input                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `number`                           | `200`       |
 
 ## Events
 
@@ -3010,28 +3026,19 @@ form.addEventListener('fwFormValuesChanged', (e) => {
 | `fwFormValueChanged`  | fwFormValueChanged - event that gets emitted when value in a form field changes. | `CustomEvent<any>` |
 | `fwFormValuesChanged` | fwFormValuesChanged - event that gets emitted when values change.                | `CustomEvent<any>` |
 
-
 ## Methods
 
 ### `doReset(event?: any) => Promise<void>`
-
-
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
 ### `doSubmit(event?: any) => Promise<FormSubmit>`
-
-
 
 #### Returns
 
 Type: `Promise<FormSubmit>`
-
-
 
 ### `getValues() => Promise<{ values: FormValues; serializedValues: FormValues; }>`
 
@@ -3043,6 +3050,7 @@ Type: `Promise<{ values: FormValues; serializedValues: FormValues; }>`
 
 An Object containing values and serializedValues.
 serializedValues are those that contains the transformed values based on field type.
+
 1. For Number and Decimal: returns floating point number of value or undefined.
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
@@ -3052,10 +3060,10 @@ serializedValues are those that contains the transformed values based on field t
 setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema.
 choices must be in the form of array with the below format:
 [{
- id: 1,
- value: 'open',
- position: 1,
- dependent_ids: {},
+id: 1,
+value: 'open',
+position: 1,
+dependent_ids: {},
 }].
 fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path.
 option_label_path refers to the key used for displaying the text.
@@ -3065,20 +3073,21 @@ option_value_path refers to the key which corresponds to the value of item.
 
 Type: `Promise<void>`
 
-
-
 ### `setFieldErrors(errorObj: FormErrors<FormValues>) => Promise<void>`
 
 Method to set errors on the form fields.
+
+If you use `setErrors`, your errors will be wiped out by next `validate` or `validationSchema` call which can be triggered by the user typing (a change event) or blurring an input (a blur event).
+Note: this assumed you have not manually set `validateOnInput` and `validateOnBlur` props to `false` (they are `true` by default).
+
+param: errorObj - key value pair of [fieldName]: ErrorMessage
+example: `{ first_name: 'firstname is required' }`
 
 #### Returns
 
 Type: `Promise<void>`
 
-
-
 ### `setFieldSearchText(text: string) => Promise<void>`
-
 
 Method to filter the display of fields in the form based
 on the passed text.
@@ -3087,28 +3096,41 @@ on the passed text.
 
 Type: `Promise<void>`
 
-
-
 ### `setFieldValue(field: string, value: any, shouldValidate?: boolean) => Promise<void>`
 
 Method to set value on the form field.
 
+param: field - name of the form field
+param: value - value of the form field
+param: shouldValidate - should this form field be validated with the updated value. Default to true.
+
 #### Returns
 
 Type: `Promise<void>`
-
-
 
 ### `setFieldsRequiredStatus(requiredStatusObj: FormRequired<FormValues>) => Promise<void>`
 
 Method to set required status on form fields
 
+param: requiredStatusObj - Object with key as form field name and value denoting if the field should be marked
+as required or not
+example: `{ first_name: true, last_name: false }`
+
 #### Returns
 
 Type: `Promise<void>`
 
+### `setFieldsValue(valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>`
 
+Method to set values on the form fields.
 
+param: valuesObj - Object with key as form field name and value as the updated value for the field
+example: `{ first_name: "new name", last_name: "new last name" }`
+param: shouldValidate - should this form be validated with the updated values. Default to true.
+
+#### Returns
+
+Type: `Promise<void>`
 
 ## Dependencies
 
@@ -3117,6 +3139,7 @@ Type: `Promise<void>`
 - [fw-form-control](../form-control)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-form --> fw-form-control
@@ -3166,6 +3189,6 @@ graph TD;
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks

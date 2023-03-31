@@ -526,9 +526,9 @@ export class Form {
   /**
    * Method to set value on the form field.
    *
-   * @param field - name of the form field
-   * @param value - value of the form field
-   * @param shouldValidate - should this form field be validated with the updated value
+   * param: field - name of the form field
+   * param: value - value of the form field
+   * param: shouldValidate - should this form field be validated with the updated value. Default to true.
    */
   @Method()
   async setFieldValue(
@@ -549,9 +549,49 @@ export class Form {
   }
 
   /**
+   * Method to set values on the form fields.
+   *
+   * param: valuesObj - Object with key as form field name and value as the updated value for the field
+   * example: `{ first_name: "new name", last_name: "new last name" }`
+   * param: shouldValidate - should this form be validated with the updated values. Default to true.
+   */
+  @Method()
+  async setFieldsValue(
+    valuesObj: FormValues,
+    shouldValidate = true
+  ): Promise<void> {
+    if (!valuesObj) return;
+
+    let newValues = { ...this.values };
+    let newTouchedFields = { ...this.touched };
+
+    Object.keys(valuesObj).forEach((field) => {
+      // Don't set value if the field is disabled
+      const isDisabledField = this.isDisabledField(this.fields?.[field]);
+      if (!isDisabledField) {
+        newValues = { ...newValues, [field]: valuesObj[field] };
+        if (shouldValidate) {
+          newTouchedFields = { ...newTouchedFields, [field]: true };
+        }
+      }
+    });
+
+    this.values = { ...newValues };
+    this.touched = { ...newTouchedFields };
+
+    if (shouldValidate) {
+      await this.handleValidation();
+    }
+  }
+
+  /**
    * Method to set errors on the form fields.
    *
-   * @param errorObj - key value pair of [fieldName]: ErrorMessage
+   * If you use `setErrors`, your errors will be wiped out by next `validate` or `validationSchema` call which can be triggered by the user typing (a change event) or blurring an input (a blur event).
+   * Note: this assumed you have not manually set `validateOnInput` and `validateOnBlur` props to `false` (they are `true` by default).
+   *
+   * param: errorObj - key value pair of [fieldName]: ErrorMessage
+   * example: `{ first_name: 'firstname is required' }`
    */
   @Method()
   async setFieldErrors(errorObj: FormErrors<FormValues>): Promise<void> {
@@ -657,7 +697,7 @@ export class Form {
   /**
    * Method to set required status on form fields
    *
-   * @param requiredStatusObj - Object with key as form field name and value denoting if the field should be marked
+   * param: requiredStatusObj - Object with key as form field name and value denoting if the field should be marked
    * as required or not
    * example: `{ first_name: true, last_name: false }`
    */
