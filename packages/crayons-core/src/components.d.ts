@@ -2018,6 +2018,14 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Max number of rows the textarea can create when user writes content greater than regular rows.
+         */
+        "maxRows"?: number;
+        /**
+          * Debounce timer for setting rows dynamically based on user input and maxRows, default is 200ms.
+         */
+        "maxRowsDebounceTimer"?: number;
+        /**
           * Maximum number of characters a user can enter in the input box.
          */
         "maxlength"?: number;
@@ -4937,6 +4945,14 @@ declare namespace LocalJSX {
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
+        /**
+          * Max number of rows the textarea can create when user writes content greater than regular rows.
+         */
+        "maxRows"?: number;
+        /**
+          * Debounce timer for setting rows dynamically based on user input and maxRows, default is 200ms.
+         */
+        "maxRowsDebounceTimer"?: number;
         /**
           * Maximum number of characters a user can enter in the input box.
          */

@@ -943,4 +943,64 @@ describe('fw-data-table', () => {
     );
     expect(checkboxes.length).toBe(1);
   });
+
+  it('should apply saved settings if text of column is changed', async () => {
+    const currentData = {
+      ...manyColumnData,
+      showSettings: true,
+      autoSaveSettings: true,
+    };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const dataTable = await page.find('fw-data-table');
+    dataTable.setProperty('id', 'best-1');
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const firstCheckbox = await page.find('fw-data-table >>> fw-checkbox');
+    const applySettings = await page.find('fw-data-table >>> #apply-settings');
+    firstCheckbox.click();
+    await page.waitForChanges();
+    applySettings.click();
+    await page.waitForChanges();
+    const modifiedColumn = currentData.columns.map((column: any) =>
+      Object.assign({}, column, { text: column.text + '-1' })
+    );
+    dataTable.setProperty('columns', modifiedColumn);
+    await page.waitForChanges();
+    const columns = await page.findAll('fw-data-table >>> th:not(.hidden)');
+    expect(columns.length).toBe(1);
+  });
+
+  it('should not apply saved settings if structural definition of column is changed', async () => {
+    const currentData = {
+      ...manyColumnData,
+      showSettings: true,
+      autoSaveSettings: true,
+    };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const dataTable = await page.find('fw-data-table');
+    dataTable.setProperty('id', 'best-2');
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const firstCheckbox = await page.find('fw-data-table >>> fw-checkbox');
+    const applySettings = await page.find('fw-data-table >>> #apply-settings');
+    firstCheckbox.click();
+    await page.waitForChanges();
+    applySettings.click();
+    await page.waitForChanges();
+    const modifiedColumn = currentData.columns.map((column: any) =>
+      Object.assign({}, column, { text: column.text + '-1', lock: true })
+    );
+    dataTable.setProperty('columns', modifiedColumn);
+    await page.waitForChanges();
+    const columns = await page.findAll('fw-data-table >>> th:not(.hidden)');
+    expect(columns.length).toBe(2);
+  });
 });
