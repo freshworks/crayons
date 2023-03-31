@@ -4,12 +4,13 @@ import {
   Event,
   EventEmitter,
   Method,
+  Watch,
   Prop,
   State,
   h,
 } from '@stencil/core';
 
-import { renderHiddenField, hasSlot } from '../../utils';
+import { renderHiddenField, hasSlot, debounce } from '../../utils';
 
 import FieldControl from '../../function-components/field-control';
 
@@ -43,6 +44,14 @@ export class Textarea {
    * Height of the input box, specified as number of rows.
    */
   @Prop() rows?: number;
+  /**
+   * Max number of rows the textarea can create when user writes content greater than regular rows.
+   */
+  @Prop() maxRows?: number;
+  /**
+   * Debounce timer for setting rows dynamically based on user input and maxRows, default is 200ms.
+   */
+  @Prop() maxRowsDebounceTimer?: number;
   /**
    * Maximum number of characters a user can enter in the input box.
    */
@@ -152,6 +161,20 @@ export class Textarea {
     }
   }
 
+  @Watch('rows')
+  rowsChangeHandler() {
+    if (this.maxRows) {
+      this.removeListeners();
+      this.addListeners();
+    }
+  }
+
+  @Watch('maxRows')
+  maxRowsChangeHandler() {
+    this.removeListeners();
+    this.addListeners();
+  }
+
   componentWillLoad() {
     this.checkSlotContent();
   }
@@ -168,6 +191,48 @@ export class Textarea {
     else if (this.state === 'warning') return `warning-${this.name}`;
     return null;
   }
+
+  componentDidLoad(): void {
+    if (this.maxRows) {
+      this.addListeners();
+    }
+  }
+
+  private addListeners() {
+    this.nativeInput.addEventListener('change', this.debouncedResizeTextArea);
+    this.nativeInput.addEventListener('keydown', this.debouncedResizeTextArea);
+  }
+
+  private removeListeners() {
+    this.nativeInput.removeEventListener(
+      'change',
+      this.debouncedResizeTextArea
+    );
+    this.nativeInput.removeEventListener(
+      'keydown',
+      this.debouncedResizeTextArea
+    );
+  }
+
+  debouncedResizeTextArea = debounce(
+    (_e: Event) => {
+      const lineBreaksCount = this.nativeInput.value.split('\n').length + 1;
+      const rows = this.rows ? this.rows : 2;
+      const isLineBreakBetweenRange =
+        lineBreaksCount >= rows && lineBreaksCount <= this.maxRows;
+      if (isLineBreakBetweenRange) {
+        this.nativeInput.rows = lineBreaksCount;
+      }
+      if (lineBreaksCount <= rows) {
+        this.nativeInput.rows = rows;
+      }
+      if (lineBreaksCount > this.maxRows) {
+        this.nativeInput.rows = this.maxRows;
+      }
+    },
+    this,
+    this.maxRowsDebounceTimer ? this.maxRowsDebounceTimer : 200
+  );
 
   render() {
     const { host, name, value } = this;
@@ -224,6 +289,7 @@ export class Textarea {
                 onBlur={this.onBlur}
                 onFocus={this.onFocus}
                 rows={this.rows}
+                data-max-rows={this.maxRows}
                 cols={this.cols}
                 wrap={this.wrap}
                 id={this.name}

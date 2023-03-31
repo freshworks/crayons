@@ -45,6 +45,21 @@ fw-textarea displays an input box on the user interface and enables assigning mu
   state="normal"
 >
 </fw-textarea>
+<fw-textarea
+  cols="75"
+  rows="4"
+  max-rows="10"
+  label="Description"
+>
+</fw-textarea>
+<fw-textarea
+  cols="75"
+  rows="4"
+  max-rows="10"
+  max-rows-debounce-timer="300"
+  label="Description"
+>
+</fw-textarea>
 ```
 
 ## Usage
@@ -133,6 +148,8 @@ function App() {
 | `hintText`    | `hint-text`    | Hint text displayed below the text box.                                                                                                                                                                                                                           | `string`                                         | `''`        |
 | `label`       | `label`        | Label displayed on the interface, for the component.                                                                                                                                                                                                              | `string`                                         | `''`        |
 | `maxlength`   | `maxlength`    | Maximum number of characters a user can enter in the input box.                                                                                                                                                                                                   | `number`                                         | `undefined` |
+| `maxRows`        | `max-rows`         | Max Number of rows the textarea can create when user writes content greater than regular rows. | `Number`                               | `undefined`    |
+| `maxRowsDebounceTimer`        | `max-rows-debounce-timer`         |  Debounce Timer For Setting Rows Dynamically based on user input and maxRows. Default is 200 | `Number`                               | `200`    |
 | `minlength`   | `minlength`    | Minimum number of characters a user must enter in the input box for the value to be valid.                                                                                                                                                                        | `number`                                         | `undefined` |
 | `name`        | `name`         | Name of the component, saved as part of form data.                                                                                                                                                                                                                | `string`                                         | `''`        |
 | `placeholder` | `placeholder`  | Text displayed in the input box before a user enters a value.                                                                                                                                                                                                     | `string`                                         | `undefined` |
