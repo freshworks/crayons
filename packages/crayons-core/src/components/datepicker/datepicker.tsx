@@ -854,6 +854,11 @@ export class Datepicker {
         locale: this.langModule,
       })
     );
+    const toYear = getYear(
+      parse(toDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
     if (
       !isValidFromDate ||
       !isValidToDate ||
@@ -865,6 +870,8 @@ export class Datepicker {
       }) ||
       year < this.minYear ||
       year > this.maxYear ||
+      toYear < this.minYear ||
+      toYear > this.maxYear ||
       !this.isDatewithinRange(parsedFromDate.valueOf(), parsedToDate.valueOf())
     ) {
       // Invalid date format
