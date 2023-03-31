@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.7...@freshworks/crayons@4.2.0-beta.8) (2023-03-31)
+
+
+### Bug Fixes
+
+* **data-table:** saved settings reset only on structural change ([#831](https://github.com/freshworks/crayons/issues/831)) ([60edac2](https://github.com/freshworks/crayons/commit/60edac2b87f0f8f9212cfc62e078f365b135ce14))
+
+
+### Features
+
+* **form:** setFieldsValue method to dynamically set values in form fields ([#833](https://github.com/freshworks/crayons/issues/833)) ([18e31fb](https://github.com/freshworks/crayons/commit/18e31fbc0eb6ddf365dbfc022569874caf1b8dc8))
+* **fw-textarea:** added maxRows to fw-textarea for dynamic Resizing ([#830](https://github.com/freshworks/crayons/issues/830)) ([df9334f](https://github.com/freshworks/crayons/commit/df9334f6541c61b75f78d4556e12342a6c36e494))
+
+
+
+
+
 ## [4.2.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.6...@freshworks/crayons@4.2.0-beta.7) (2023-03-22)
 
 ### Bug Fixes
