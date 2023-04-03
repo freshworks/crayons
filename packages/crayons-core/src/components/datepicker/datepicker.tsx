@@ -231,7 +231,7 @@ export class Datepicker {
   /**
    * Debounce timer for date input.
    */
-  @Prop() debounceTimer = 1000;
+  @Prop() debounceTimer = 800;
   /**
    * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
    */
@@ -272,6 +272,7 @@ export class Datepicker {
   private initState = this.state;
   private isDateWithinMinDate = true;
   private isDateWithinMaxDate = true;
+  private clickedDateValue;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -875,14 +876,14 @@ export class Datepicker {
       !this.isDatewithinRange(parsedFromDate.valueOf(), parsedToDate.valueOf())
     ) {
       // Invalid date format
-      this.isDateInvalid = val && true;
+      this.isDateInvalid = !!val && true;
       this.state =
         this.showErrorOnInvalidDate && this.isDateInvalid
           ? 'error'
           : this.initState;
-      if (!emitChange) this.value = val;
       this.startDate = this.endDate = undefined;
       this.fromDate = this.toDate = undefined;
+      if (!emitChange) this.value = val;
       return;
     }
 
@@ -919,6 +920,17 @@ export class Datepicker {
     }).valueOf();
     this.toYear =
       this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
+    const formattedFromDate = format(
+      new Date(this.startDate),
+      this.displayFormat,
+      {
+        locale: this.langModule,
+      }
+    );
+    const formattedToDate = format(new Date(this.endDate), this.displayFormat, {
+      locale: this.langModule,
+    });
+    this.value = `${formattedFromDate} to ${formattedToDate}`;
     this.isDateInvalid = false;
     this.state =
       this.showErrorOnInvalidDate && this.isDateInvalid
@@ -949,13 +961,13 @@ export class Datepicker {
       }) ||
       !this.isDateWithinMinMaxDate(parsedDate.valueOf(), false)
     ) {
-      this.isDateInvalid = val && true;
+      this.isDateInvalid = !!val && true;
       this.state =
         this.showErrorOnInvalidDate && this.isDateInvalid
           ? 'error'
           : this.initState;
       this.selectedDay = undefined;
-      if (!emitChange) this.value = val;
+      if (!emitChange) this.value = this.clickedDateValue = val;
       return;
     }
 
@@ -978,6 +990,7 @@ export class Datepicker {
         locale: this.langModule,
       }
     );
+    this.clickedDateValue = this.value;
     this.setDateAndErrorState();
     emitChange &&
       this.fwChange.emit({
@@ -1028,21 +1041,6 @@ export class Datepicker {
             value = `${fromDate} to ${toDate}`;
           }
           this.processRangeValueChange(value, true);
-          const formattedFromDate = format(
-            new Date(this.startDate),
-            this.displayFormat,
-            {
-              locale: this.langModule,
-            }
-          );
-          const formattedToDate = format(
-            new Date(this.endDate),
-            this.displayFormat,
-            {
-              locale: this.langModule,
-            }
-          );
-          this.value = `${formattedFromDate} to ${formattedToDate}`;
         } catch (e) {
           console.log('Invalid date provided !', e);
         }
@@ -1069,9 +1067,9 @@ export class Datepicker {
     if (this.showTimePicker) {
       return !!(this.selectedDay && this.timeValue);
     }
-    if (this.value) {
+    if (this.clickedDateValue || this.value) {
       const parsedDate = parse(
-        this.value || this.formatDateTime(),
+        this.clickedDateValue || this.value || this.formatDateTime(),
         this.displayFormat,
         new Date(),
         {
@@ -1086,17 +1084,10 @@ export class Datepicker {
         Object.values(dateNodes).some((node) => {
           return node.classList.contains('highlight-blue');
         });
-      // to check if the month is not disabled when update btn is clicked
-      const dateDetails =
-        this.selectedDay &&
-        this.monthDetails.find((item) => {
-          return item && item.date === this.selectedDay;
-        });
       return (
         this.selectedDay &&
         isDateSelected &&
-        this.isDateWithinMinMaxDate(parsedDate) &&
-        dateDetails?.month !== -1
+        this.isDateWithinMinMaxDate(parsedDate)
       );
     }
     return this.selectedDay;
@@ -1295,9 +1286,14 @@ export class Datepicker {
 
   isSelectedDay = ({ date, timestamp }) => {
     if (this.mode !== 'range') {
-      const parsedDate = parse(this.value, this.displayFormat, new Date(), {
-        locale: this.langModule,
-      });
+      const parsedDate = parse(
+        this.clickedDateValue || this.value,
+        this.displayFormat,
+        new Date(),
+        {
+          locale: this.langModule,
+        }
+      );
       const isValidDate = isValid(parsedDate);
       return isValidDate
         ? date === this.selectedDay &&
@@ -1427,9 +1423,7 @@ export class Datepicker {
   onDateClick = (e, { date, timestamp }) => {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
-      // set the value as the user clicks on any date
-      this.value = this.formatDateTime();
-      this.setDateAndErrorState();
+      this.clickedDateValue = this.formatDateTime();
       if (!this.showFooter) {
         this.updateValueAndEmitEvent(e);
         this.showDatePicker = false;
@@ -1437,8 +1431,6 @@ export class Datepicker {
       }
     } else if (this.showDateRangePicker()) {
       this.handleRangeSelection(timestamp);
-      this.startDate && this.endDate && this.updateValueAndEmitEvent(e);
-      this.setDateAndErrorState();
       if (!this.showFooter) {
         if (this.startDate && this.endDate) {
           this.updateValueAndEmitEvent(e);
@@ -1478,45 +1470,40 @@ export class Datepicker {
           this.value?.split(TranslationController.t('datepicker.to')) || [];
         fromDateStr = fromDateStr?.trim();
         toDateStr = toDateStr?.trim();
-        const startDate = getDate(new Date(this.startDate));
-        const endDate = getDate(new Date(this.endDate));
-
-        const fromDate = getDate(
-          parse(fromDateStr, this.displayFormat, new Date(), {
+        const parsedFromDate = parse(
+          fromDateStr,
+          this.displayFormat,
+          new Date(),
+          {
             locale: this.langModule,
-          })
-        );
-        const toDate = getDate(
-          parse(toDateStr, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        if (startDate !== fromDate) {
-          this.startDate = parse(fromDateStr, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          }).valueOf();
+          }
+        ).valueOf();
+        const parsedToDate = parse(toDateStr, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        }).valueOf();
+        if (this.startDate !== parsedFromDate) {
+          this.startDate = parsedFromDate;
         }
-        if (endDate !== toDate) {
-          this.endDate = parse(toDateStr, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          }).valueOf();
+        if (this.endDate !== parsedToDate) {
+          this.endDate = parsedToDate;
         }
-      } else if (!this.startDate && !this.endDate) {
+      } else if ((!this.startDate && !this.endDate) || this.isDateInvalid) {
         this.startDate = this.endDate = undefined;
       }
     } else {
       // handle resetting of selectedDay on clicking cancel
       if (this.value) {
-        const date = getDate(
-          parse(this.value, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        if (this.selectedDay !== date) {
-          this.selectedDay = date;
+        this.clickedDateValue = this.value;
+        const parsedDate = parse(this.value, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        });
+        const date = getDate(parsedDate);
+        if (!this.isDateInvalid) {
+          if (this.selectedDay !== date) this.selectedDay = date;
+        } else {
+          this.selectedDay = this.clickedDateValue = undefined;
         }
       } else this.selectedDay = undefined;
-
       if (this.timeValue) {
         if (this.selectedTime !== this.timeValue) {
           this.selectedTime = this.timeValue;
