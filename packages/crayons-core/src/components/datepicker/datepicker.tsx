@@ -876,7 +876,7 @@ export class Datepicker {
       !this.isDatewithinRange(parsedFromDate.valueOf(), parsedToDate.valueOf())
     ) {
       // Invalid date format
-      this.isDateInvalid = !!val && true;
+      this.isDateInvalid = !!val;
       this.state =
         this.showErrorOnInvalidDate && this.isDateInvalid
           ? 'error'
@@ -961,7 +961,7 @@ export class Datepicker {
       }) ||
       !this.isDateWithinMinMaxDate(parsedDate.valueOf(), false)
     ) {
-      this.isDateInvalid = !!val && true;
+      this.isDateInvalid = !!val;
       this.state =
         this.showErrorOnInvalidDate && this.isDateInvalid
           ? 'error'
