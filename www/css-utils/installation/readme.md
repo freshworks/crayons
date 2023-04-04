@@ -16,6 +16,6 @@ Since version `v3`, `Crayons` provides a set of CSS utilities to help with appli
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@freshworks/crayons@v4/css/crayons-min.css"
+  href="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/css/crayons-min.css"
 />
 ```
