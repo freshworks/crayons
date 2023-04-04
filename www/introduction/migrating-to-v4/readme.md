@@ -41,11 +41,11 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"
+  src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"
 ></script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.js"
+  src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.js"
 ></script>
 ```
 
@@ -57,7 +57,7 @@ You can now use the Crayons components just like how you would use any other htm
 >
 ```
 
-You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
+You can use [jsDelivr](https://jsdelivr.com/) to query specific versions in your app.
 
 #### Usage via Node Modules
 
