@@ -25,7 +25,7 @@ You can also import Crayons Icons as an esm Module.
   <head>
     <script
       type="module"
-      src="https://unpkg.com/@freshworks/crayons@v3/dist/crayons/crayons.esm.js"
+      src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v3/dist/crayons/crayons.esm.js"
     ></script>
     <script type="module">
       import { header, add_contact } from '@freshworks/crayons-icon';
