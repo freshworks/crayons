@@ -28,11 +28,11 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"
+  src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"
 ></script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.js"
+  src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.js"
 ></script>
 ```
 
@@ -44,7 +44,7 @@ You can now use the Crayons components just like how you would use any other htm
 >
 ```
 
-You can use [UNPKG](https://unpkg.com/) to query specific versions in your app. Documentation of all crayons versions can be found [here](/versions/) .
+You can use [jsDelivr](https://www.jsdelivr.com/) to query specific versions in your app. Documentation of all crayons versions can be found [here](/versions/) .
 
 #### Usage via Node Modules
 
@@ -103,7 +103,7 @@ Since version `v3`, `Crayons` provides a set of CSS utilities to help with appli
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@freshworks/crayons@v4/css/crayons-min.css"
+  href="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/css/crayons-min.css"
 />
 ```
 
