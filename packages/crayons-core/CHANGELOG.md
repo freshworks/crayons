@@ -3,28 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.8...@freshworks/crayons@4.2.0-beta.9) (2023-04-05)
-
+## [4.2.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.8...@freshworks/crayons@4.2.0-beta.9) (2023-04-05)
 
 ### Bug Fixes
 
-* **datepicker:** fix min/max issue and add error validation for invalid input ([4434ed2](https://github.com/freshworks/crayons/commit/4434ed22fe6feabf5321cc18b46491ab588c7098))
-* **datepicker:** fix value not being update don input field when it is updtaed ([79f7868](https://github.com/freshworks/crayons/commit/79f7868270438efdf1c6a08758a4325c72558f9f))
-* **datepicker:** fox comments ([d59ec1d](https://github.com/freshworks/crayons/commit/d59ec1df12e1d9262902b8acdce51dfcbb4e6193))
-* **datepicker:** handle clear input scenario for invalid inputs ([518cbb9](https://github.com/freshworks/crayons/commit/518cbb9430ebfd495557306012833ca7c3ad42c4))
-* **daterangepicker:** add toYear check to input validations ([95b224b](https://github.com/freshworks/crayons/commit/95b224b180c3deff9ed7e3238d360aee6815d99a))
-* **datetimepicker:** fix value not being updated dynamically for date time picker ([6f5b4eb](https://github.com/freshworks/crayons/commit/6f5b4eb8318f79fbad1884716b3cb58d6d44443e))
-* **fw-datepicker:** fix comments ([4aaab60](https://github.com/freshworks/crayons/commit/4aaab60e92abe8b3cbfb738dc0992e3034a77f69))
-* **fw-datepicker:** fix datepicker validation issues ([b3915a3](https://github.com/freshworks/crayons/commit/b3915a3d1ddc8935b7e5d61c0f1d91597dd014ba))
-* **fw-datepicker:** fix value disappearing when year value is not presnt in the dropdown ([3720f85](https://github.com/freshworks/crayons/commit/3720f8533359acc60abfe37388137129bb6da8ec))
-* **fw-datepicker:** fix year value disappearing issue ([44e4be5](https://github.com/freshworks/crayons/commit/44e4be5ef5d6d9e7464d7081d729e694250344fe))
-* **fw-datepicker:** handle cancel scenario for single and date range picker ([8df612d](https://github.com/freshworks/crayons/commit/8df612d4715be213db029e63a83d8f391c4ec624))
-* **fw-dateranepicker:** fix error validations ([00fc391](https://github.com/freshworks/crayons/commit/00fc391768c9c26021fe2cc1b66cb2e929db6a52))
-* **fw-daterangepicker:** add input validations for date range picker ([d2882ad](https://github.com/freshworks/crayons/commit/d2882ad6b6cf83c138aa0830918a7894417b8117))
-
-
-
-
+- **datepicker:** fix min/max issue and add error validation for invalid input ([4434ed2](https://github.com/freshworks/crayons/commit/4434ed22fe6feabf5321cc18b46491ab588c7098))
+- **datepicker:** fix value not being update don input field when it is updtaed ([79f7868](https://github.com/freshworks/crayons/commit/79f7868270438efdf1c6a08758a4325c72558f9f))
+- **datepicker:** fox comments ([d59ec1d](https://github.com/freshworks/crayons/commit/d59ec1df12e1d9262902b8acdce51dfcbb4e6193))
+- **datepicker:** handle clear input scenario for invalid inputs ([518cbb9](https://github.com/freshworks/crayons/commit/518cbb9430ebfd495557306012833ca7c3ad42c4))
+- **daterangepicker:** add toYear check to input validations ([95b224b](https://github.com/freshworks/crayons/commit/95b224b180c3deff9ed7e3238d360aee6815d99a))
+- **datetimepicker:** fix value not being updated dynamically for date time picker ([6f5b4eb](https://github.com/freshworks/crayons/commit/6f5b4eb8318f79fbad1884716b3cb58d6d44443e))
+- **fw-datepicker:** fix comments ([4aaab60](https://github.com/freshworks/crayons/commit/4aaab60e92abe8b3cbfb738dc0992e3034a77f69))
+- **fw-datepicker:** fix datepicker validation issues ([b3915a3](https://github.com/freshworks/crayons/commit/b3915a3d1ddc8935b7e5d61c0f1d91597dd014ba))
+- **fw-datepicker:** fix value disappearing when year value is not presnt in the dropdown ([3720f85](https://github.com/freshworks/crayons/commit/3720f8533359acc60abfe37388137129bb6da8ec))
+- **fw-datepicker:** fix year value disappearing issue ([44e4be5](https://github.com/freshworks/crayons/commit/44e4be5ef5d6d9e7464d7081d729e694250344fe))
+- **fw-datepicker:** handle cancel scenario for single and date range picker ([8df612d](https://github.com/freshworks/crayons/commit/8df612d4715be213db029e63a83d8f391c4ec624))
+- **fw-dateranepicker:** fix error validations ([00fc391](https://github.com/freshworks/crayons/commit/00fc391768c9c26021fe2cc1b66cb2e929db6a52))
+- **fw-daterangepicker:** add input validations for date range picker ([d2882ad](https://github.com/freshworks/crayons/commit/d2882ad6b6cf83c138aa0830918a7894417b8117))
 
 ## [4.2.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.7...@freshworks/crayons@4.2.0-beta.8) (2023-03-31)
 
