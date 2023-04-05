@@ -7,37 +7,248 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 ## Demo
 
 ```html live
-<fw-label value="Single date picker" color="yellow"></fw-label><br />
-<fw-datepicker
-  id="date1"
-  value="2021-12-02"
-  display-format="dd-MM-yyyy"
-></fw-datepicker>
-<fw-label value="A date range picker" color="yellow"></fw-label><br />
-<fw-datepicker
-  mode="range"
-  from-date="2022-01-02"
-  to-date="2022-01-04"
-  display-format="dd-MM-yyyy"
-></fw-datepicker>
-<fw-label value="Date picker with readonly attribute" color="yellow"></fw-label
-><br />
-<fw-datepicker readonly></fw-datepicker>
-<fw-label
-  value="Date picker with show-footer and clear-input attributes"
-  color="yellow"
-></fw-label
-><br />
-<fw-datepicker show-footer="false" clear-input></fw-datepicker>
-<fw-label value="Date picker with locale" color="yellow"></fw-label><br />
-<fw-datepicker locale="fr"></fw-datepicker>
-<script type="text/javascript">
-  // Get the selected date using fwChange listener.
-  document
-    .querySelector('#date1')
-    .addEventListener('fwChange', (e) => console.log(e.detail.value));
-</script>
+<div style="padding:60px">
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Datepicker with min-year, invalid value and clear-input prop set</h4>
+      <fw-datepicker
+        min-year="2021"
+        value="2020-07-31"
+        clear-input
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Min date '2020-07-31' and min year as '2021'</h4>
+      <fw-datepicker
+        min-year="2021"
+        min-date="2020-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">With Max date as '2021-07-31' and no value explicitly set</h4>
+      <fw-datepicker
+        id="date1"
+        display-format="dd/MM/yyyy"
+        max-date="2021-07-31"
+      ></fw-datepicker>
+      <br/>
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max date '2022-07-31' and invalid value explicitly set as '2023-07-31"</h4>
+      <fw-datepicker
+        value="2023-07-31"
+        max-date="2022-07-31"
+      ></fw-datepicker>
+      <br/>
+
+      <h4 style="margin-bottom:5px; margin-top: 0">With Min date as '2020-07-31' and no value explicitly set</h4>
+      <fw-datepicker
+        min-date="2020-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max date '2022-07-31' and Max year as '2023'</h4>
+      <fw-datepicker
+        max-year="2023"
+        max-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Min date '2022-07-31' and invalid value explicitly set as '2020-07-31"</h4>
+      <fw-datepicker
+        value="2020-07-31"
+        min-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Contradicting Max date '2022-07-31' and Min date as '2023-07-31"</h4>
+      <fw-datepicker
+        min-date="2023-07-31"
+        max-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Contradicting max-year '2020' and min-year '2022'</h4>
+      <fw-datepicker
+        min-year="2022"
+        max-year="2020"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2022' and invalid value explicitly set as '2023-07-31"</h4>
+      <fw-datepicker
+        value="2023-07-31"
+        max-year="2022"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Min year as '2020' and invalid value explicitly set as '2019-07-31"</h4>
+      <fw-datepicker
+        value="2019-07-31"
+        min-year="2020"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2020' Min-year as '2019' and Max-date as '2022-07-31'</h4>
+      <fw-datepicker
+        min-year="2019"
+        max-year="2020"
+        max-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2020' Min-year as '2019' and Max-date as '2021-07-31' and Min-date as '2022-07-31'</h4>
+      <fw-datepicker
+        min-year="2019"
+        max-year="2020"
+        max-date="2021-07-31"
+        min-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">showErrorOnInvalidDate set to false and Min date '2020-07-31' min year as '2021' </h4>
+      <fw-datepicker
+        show-error-on-invalid-date="false"
+        min-year="2021"
+        min-date="2020-07-31"
+      ></fw-datepicker>
+      <br />
+
+    </div>
 ```
+
+# Date Range picker 
+Enables user to select a range of dates.
+
+## Demo
+```html live
+<div style="padding:60px">
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Min date '2020-07-31' and min year as '2021'</h4>
+    <fw-datepicker
+      mode="range"
+      min-year="2021"
+      min-date="2020-07-31"
+      value="2022-08-12 to 2022-08-21"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">With Max date as '2021-07-31' and no value explicitly set</h4>
+    <fw-datepicker
+      mode="range"
+      id="date1"
+      display-format="dd/MM/yyyy"
+      max-date="2021-07-31"
+    ></fw-datepicker>
+    <br/>
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Max date '2022-07-31' and invalid value explicitly set as '2023-07-30 to 2023-07-31"</h4>
+    <fw-datepicker
+      mode="range"
+      value="2023-07-30 to 2023-07-31"
+      max-date="2022-07-31"
+    ></fw-datepicker>
+    <br/>
+
+    <h4 style="margin-bottom:5px; margin-top: 0">With Min date as '2020-07-31' and no value explicitly set</h4>
+    <fw-datepicker
+      mode="range"
+      min-date="2020-07-31"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Max date '2022-07-31' and Max year as '2023'</h4>
+    <fw-datepicker
+      mode="range"
+      max-year="2023"
+      max-date="2022-07-31"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Min date '2022-07-31' and invalid value explicitly set as '2020-07-30 to 2020-07-31"</h4>
+    <fw-datepicker
+      mode="range"
+      value="2020-07-30 to 2020-07-31"
+      min-date="2022-07-31"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Contradicting Max date '2022-07-31' and Min date as '2023-07-31"</h4>
+    <fw-datepicker
+      mode="range"
+      min-date="2023-07-31"
+      max-date="2022-07-31"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Contradicting max-year '2020' and min-year '2022'</h4>
+    <fw-datepicker
+      mode="range"
+      min-year="2022"
+      max-year="2020"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2022' and invalid value explicitly set as '2023-07-30 to 2023-07-31"</h4>
+    <fw-datepicker
+      mode="range"
+      value="2023-07-30 to 2023-07-31"
+      max-year="2022"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Min year as '2020' and invalid value explicitly set as '2019-07-30 to 2019-07-31"</h4>
+    <fw-datepicker
+      mode="range"
+      value="2019-07-30 to 2019-07-31"
+      min-year="2020"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2020' Min-year as '2019' and Max-date as '2022-07-31'</h4>
+    <fw-datepicker
+      mode="range"
+      min-year="2019"
+      max-year="2020"
+      max-date="2022-07-31"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2020' Min-year as '2019' and Max-date as '2021-07-31' and Min-date as '2022-07-31'</h4>
+    <fw-datepicker
+      mode="range"
+      min-year="2019"
+      max-year="2020"
+      max-date="2021-07-31"
+      min-date="2022-07-31"
+    ></fw-datepicker>
+    <br />
+
+    <h4 style="margin-bottom:5px; margin-top: 0">showErrorOnInvalidDate set to false and Min date '2020-07-31' min year as '2021'</h4>
+    <fw-datepicker
+      mode="range"
+      show-error-on-invalid-date="false"
+      min-year="2021"
+      min-date="2020-07-31"
+    ></fw-datepicker>
+    <br />
+    <h4 style="margin-bottom:5px; margin-top: 0">Update value after timeout</h4>
+    <fw-datepicker
+      id="dp1"
+      mode="range"
+      value="2022-01-02 to 2022-01-04"
+    ></fw-datepicker>
+    <br />
+
+  </div>
+  <script type="application/javascript">
+    var a = document.querySelector('#dp1');
+    setTimeout(() => {
+      a.value = "2020-08-12 to 2020-08-21"
+    }, 3000)
+  </script>
+
+```
+
+
 
 ## Usage
 
@@ -137,6 +348,19 @@ Date time picker is currently supported only on single date picker.
   value="2022-07-22T06:00:00.000Z"
 ></fw-datepicker>
 <br />
+<fw-label value="Date time picker with value updated dynamically" color="yellow"></fw-label><br />
+
+<fw-datepicker
+    id="dtp"
+      show-time-picker
+      value="2022-07-22T06:00:00.000Z"
+    ></fw-datepicker>
+    <script type="application/javascript">
+      var a = document.querySelector('#dtp');
+      setTimeout(() => {
+        a.value = "2022-01-01T12:00:00Z"
+      }, 3000)
+    </script>
 <script type="application/javascript">
   var timePicker = document.getElementById('time-range');
   timePicker.timeProps = {
@@ -210,7 +434,7 @@ Date time picker is currently supported only on single date picker.
 | ------------------------ | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- |
 | `cancelText`             | `cancel-text`                |                                                                                                                                                                | `string`                           | `''`                       |
 | `clearInput`             | `clear-input`                | Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`                                                                     | `boolean`                          | `false`                    |
-| `debounceTimer`          | `debounce-timer`             | Debounce timer for date input.                                                                                                                                 | `number`                           | `1000`                     |
+| `debounceTimer`          | `debounce-timer`             | Debounce timer for date input.                                                                                                                                 | `number`                           | `800`                      |
 | `disabled`               | `disabled`                   | Make the datepicker box as disabled. Default `false`                                                                                                           | `boolean`                          | `false`                    |
 | `displayFormat`          | `display-format`             | Format in which the date values selected in the calendar are populated in the input box. Defaults to the locale specific display format.                       | `string`                           | `undefined`                |
 | `errorText`              | `error-text`                 | Error text displayed below the text box.                                                                                                                       | `string`                           | `''`                       |
