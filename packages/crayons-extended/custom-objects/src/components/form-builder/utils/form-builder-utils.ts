@@ -211,9 +211,16 @@ export function removeFirstOccurrence(strWhole, charRemove) {
 }
 
 // function to validate the permissions for the assigned property and return boolean value
-export function hasPermission(strRole, objPermission, strProperty) {
+export function hasPermission(
+  strRole,
+  objPermission,
+  strProperty,
+  boolEditCheckbox = false
+) {
   if (objPermission) {
-    if (strRole === 'trial' || !objPermission.view) {
+    if (strRole === 'trial' && strProperty === 'EDIT' && boolEditCheckbox) {
+      return true;
+    } else if (strRole === 'trial' || !objPermission.view) {
       return false;
     } else {
       switch (strProperty) {
