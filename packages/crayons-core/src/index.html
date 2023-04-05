@@ -12,6 +12,125 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
+    <fw-timepicker interval="45" id="tp" value="12:00" format="hh:mm a"></fw-timepicker>
+    <script type="application/javascript">
+      var a = document.querySelector("#tp");
+      setTimeout(() => {
+      alert('timout');
+        a.value="01:30"
+      }, 3000);
+    </script>
+    <fw-datepicker
+    id="dtp"
+      show-time-picker
+      value="2022-07-22T06:00:00.000Z"
+    ></fw-datepicker>
+    <script type="text/javascript">
+      var a = document.querySelector('#dtp');
+      setTimeout(() => {
+        a.value = "2022-01-01T12:00:00Z"
+      }, 3000)
+    </script>
+    <br />
+    <br />
+    <div style="padding:60px">
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Min date '2020-07-31' and min year as '2021'</h4>
+      <fw-datepicker
+        min-year="2021"
+        min-date="2020-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">With Max date as '2021-07-31' and no value explicitly set</h4>
+      <fw-datepicker
+        id="date1"
+        display-format="dd/MM/yyyy"
+        max-date="2021-07-31"
+      ></fw-datepicker>
+      <br/>
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max date '2022-07-31' and invalid value explicitly set as '2023-07-31"</h4>
+      <fw-datepicker
+        value="2023-07-31"
+        max-date="2022-07-31"
+      ></fw-datepicker>
+      <br/>
+
+      <h4 style="margin-bottom:5px; margin-top: 0">With Min date as '2020-07-31' and no value explicitly set</h4>
+      <fw-datepicker
+        min-date="2020-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max date '2022-07-31' and Max year as '2023'</h4>
+      <fw-datepicker
+        max-year="2023"
+        max-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Min date '2022-07-31' and invalid value explicitly set as '2020-07-31"</h4>
+      <fw-datepicker
+        value="2020-07-31"
+        min-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Contradicting Max date '2022-07-31' and Min date as '2023-07-31"</h4>
+      <fw-datepicker
+        min-date="2023-07-31"
+        max-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Contradicting max-year '2020' and min-year '2022'</h4>
+      <fw-datepicker
+        min-year="2022"
+        max-year="2020"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2022' and invalid value explicitly set as '2023-07-31"</h4>
+      <fw-datepicker
+        value="2023-07-31"
+        max-year="2022"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Min year as '2020' and invalid value explicitly set as '2019-07-31"</h4>
+      <fw-datepicker
+        value="2019-07-31"
+        min-year="2020"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2020' Min-year as '2019' and Max-date as '2022-07-31'</h4>
+      <fw-datepicker
+        min-year="2019"
+        max-year="2020"
+        max-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">Max year as '2020' Min-year as '2019' and Max-date as '2021-07-31' and Min-date as '2022-07-31'</h4>
+      <fw-datepicker
+        min-year="2019"
+        max-year="2020"
+        max-date="2021-07-31"
+        min-date="2022-07-31"
+      ></fw-datepicker>
+      <br />
+
+      <h4 style="margin-bottom:5px; margin-top: 0">showErrorOnInvalidDate set to false and Min date '2020-07-31' min year as '2021' and invalid value set as 2019-07-31</h4>
+      <fw-datepicker
+        show-error-on-invalid-date="false"
+        min-year="2021"
+        min-date="2020-07-31"
+      ></fw-datepicker>
+      <br />
+
+    </div>
     <!-- <fw-button expand color="primary">Primary Button</fw-button> -->
 
     <!-- start of form examples dynamic and static forms -->
@@ -846,7 +965,7 @@
       <div id="child" style="display: none;">
         <input name="ccc" id="ccc" placeholder="ccc"
         autocomplete="off"
-        ></input>  
+        ></input>
       </div> -->
     <!-- <br /> -->
 
@@ -878,7 +997,7 @@
       >
       <input name="ccc" id="ccc" placeholder="ccc"
       autocomplete="off"
-      ></input>  
+      ></input>
     </fw-form>
 
     <br /><br />
@@ -1270,7 +1389,7 @@
       //   form.querySelector("fw-form-control#last_name").prepend(formControl)
 
       form.initialValues = initialValues;
-    
+
       // no required for Pattern 1 since implicit validation is in place.
       form.validate = async function (values) {
         console.log('validate method called with ', values);
@@ -1297,7 +1416,7 @@
       <fw-form-control>
         <fw-input></fw-input>
       </fw-form-control>
-      <fw-form-text>Text hint</fw-form-text> 
+      <fw-form-text>Text hint</fw-form-text>
       <br />
       <fw-form-control-feedback>negative </fw-form-control-feedback>
     </fw-form-group> -->
@@ -1325,7 +1444,7 @@
       label="Select App type"
       placeholder="Choose app type"
       value="2"
-      
+
       >
           <fw-select-option value="1" html option-text="LLL">
                 <div style="color: red; padding: 10px;">Lannister </div class="cls">
@@ -1336,14 +1455,14 @@
           </fw-select-option>
   </fw-select>
   <fw-textarea cols=75 rows=5 value="qwertyuiop asdfghjk zxcvbnm" ></fw-textarea>
-  
+
   <fw-timepicker min-time="11:25 AM" max-time="03:45 PM" value="11:25" interval=45> </fw-timepicker>
   <fw-timepicker min-time="01:39 AM" interval=55> </fw-timepicker>
   <div style="float:left;width:100%;">
     <fw-datepicker style="float:left;"></fw-datepicker>
     <fw-datepicker mode="range" style="float:left;margin-left:250px"></fw-datepicker>
   </div>
-  
+
   <br><br>
   <fw-dropdown-button label="Click me" split color="danger" placeholder="efwewe">
     <div slot="dropdown-options">
@@ -1361,14 +1480,14 @@
       <option id="12" value="Yifi torrents">Yifi torrents</option>
     </div>
   </fw-dropdown-button>
-  
+
   <fw-label color="red" value="wfwefwe" style="--label-padding-vertical: 10px; --label-padding-horizontal:20px" />
   <br>
-  
-  <fw-toast id="left" position="top-left" content="Conversation #3255 - 💬 Festive offers adasdds conversation has been Restored" type="error"></fw-toast> 
-  <fw-toast id="right" position="top-right" timeout=1000></fw-toast> 
-  <fw-toast id="center" timeout=10000></fw-toast> 
-  <fw-toast id="center1"></fw-toast> 
+
+  <fw-toast id="left" position="top-left" content="Conversation #3255 - 💬 Festive offers adasdds conversation has been Restored" type="error"></fw-toast>
+  <fw-toast id="right" position="top-right" timeout=1000></fw-toast>
+  <fw-toast id="center" timeout=10000></fw-toast>
+  <fw-toast id="center1"></fw-toast>
 
 
   <fw-toast-message type='success' id="custom-toast" timeout="1000000">
@@ -1477,10 +1596,10 @@
     });
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionsAdd', (e) => console.log('Selected values are ', e.detail.value))
-  
+
     document.querySelector('fw-dropdown-button')
       .addEventListener('fwOptionClick', (e) => console.log('Selected values are ', e.detail.value))
-  </script> 
+  </script>
 -->
 
     <!-- <div style="display: flex; align-items: center; justify-content: center;">
@@ -1659,7 +1778,7 @@
     datatable1.rows = data1.rows;
   </script> -->
 
-    <!-- <fw-file-uploader 
+    <!-- <fw-file-uploader
       text="Upload CSV"
       description="or drag and drop your csv file here"
       hint="File size must be within 5MB"
@@ -1702,7 +1821,7 @@
         style="--max-attachment-block-height: 80px;"
       >
     </fw-file-uploader-2>
-  
+
     <script type="application/javascript">
       const fileUploader1 = document.querySelector('#file-uploader-1');
       fileUploader1.addEventListener('fwFilesUploaded', (event) => {
