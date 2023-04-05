@@ -1453,6 +1453,8 @@ export class Datepicker {
       }
     }
     this.value = undefined;
+    this.isDateInvalid = false;
+    this.state = this.initState;
   }
 
   handleInputClear = (e: any) => {
