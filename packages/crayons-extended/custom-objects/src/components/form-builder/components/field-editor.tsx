@@ -880,8 +880,12 @@ export class FieldEditor {
     );
   }
 
-  private renderCheckboxField(dataCheckbox, boolEditAllowed) {
-    const boolDisableCheckbox = !boolEditAllowed || !dataCheckbox.enabled;
+  private renderCheckboxField(dataCheckbox) {
+    const boolEditCheckboxAllowed =
+      this.isNewField ||
+      hasPermission(this.role, this.permission, 'EDIT', true);
+    const boolDisableCheckbox =
+      !boolEditCheckboxAllowed || !dataCheckbox.enabled;
     const strBaseClassName = 'fw-field-editor';
     const strKey = dataCheckbox.key;
 
@@ -1065,9 +1069,7 @@ export class FieldEditor {
       : null;
     const checkboxItems =
       arrCheckboxes && arrCheckboxes.length > 0
-        ? arrCheckboxes.map((dataItem) =>
-            this.renderCheckboxField(dataItem, boolEditAllowed)
-          )
+        ? arrCheckboxes.map((dataItem) => this.renderCheckboxField(dataItem))
         : null;
 
     const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
