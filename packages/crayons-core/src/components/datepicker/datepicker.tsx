@@ -983,13 +983,14 @@ export class Datepicker {
         locale: this.langModule,
       })
     );
-    this.value = format(
-      new Date(this.year, this.month, this.selectedDay),
-      this.displayFormat,
-      {
+    if (this.showTimePicker) {
+      this.timeValue = format(getTime(new Date(val)), 'HH:mm', {
         locale: this.langModule,
-      }
-    );
+      });
+      this.selectedTime = this.timeValue;
+    }
+    this.value = this.formatDateTime();
+
     this.clickedDateValue = this.value;
     this.setDateAndErrorState();
     emitChange &&
