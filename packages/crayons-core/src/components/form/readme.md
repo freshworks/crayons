@@ -276,6 +276,34 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
 </script>
 ```
 
+### FormSchema with field type 'DATE' 
+
+Datepicker by default will be highlighted and alert icon will be displayed when invalid value is entered in the date input field. To switch it off, set the property 'showErrorOnInvalidDate' to false.
+
+showErrorOnInvalidDate - Setting the prop to false will not highlight the datepicker in error state when user enters invalid input and will not display the error msg in the tooltip. However, the invalid value will not be submitted to backend on clicking 'Update' button. 
+
+Example form schema,
+
+```javascript
+var formSchema = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 11,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+        showErrorOnInvalidDate: false,
+      }
+    ],
+  };
+```  
+
 ### FormSchema with field type 'DATE' to occupy full width of the container
 
 Datepicker by default will not occupy full width of the container. To make the datepicker occupy full width, set 'fullWidth' prop as true in the form schema.

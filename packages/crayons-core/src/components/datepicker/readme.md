@@ -6,9 +6,144 @@ All the date formats passed as attribute's values must be valid [ISO Date format
 
 ## Demo
 
-```html live
-<div style="padding:60px">
+### Single Datepicker with no props passed
+The datepicker will have the default display format as MM/dd/yyyy, maxYear set as the current year and minYear as 1970. By default the Cancel and Update buttons will be displayed, which can be removed by passing the props, 'showFooter' as 'false'. On selecting a date and clicking the Update button, the date will be updated in the input field. When Cancel button is clicked after selecting a date, the selected date will not be updated.
 
+```html live
+<fw-datepicker
+  id="date1"
+></fw-datepicker>
+```
+
+### with value
+The value should be of the ISO format and it will be as MM/dd/yyyy (default format).
+
+```html live
+<fw-datepicker
+  value="2022-07-31"
+></fw-datepicker>
+```
+
+### with value and displayFormat
+
+```html live
+<fw-datepicker
+  value="2022-07-31"
+  display-format="dd-MM-yyyy"
+></fw-datepicker>
+```
+
+### with showFooter set as false
+When the showFooter prop is set as false, the Update and Cancel buttons will not be displayed. When user clicks any date, it will be updated in the input box.
+
+```html live
+<fw-datepicker
+  value="2022-07-31"
+  show-footer="false"
+></fw-datepicker>
+```
+
+### with clearInput
+When clearInput prop is passed, the date input textbox will have a cross icon to clear the input value. The icon will appear as soon as the user starts typing.
+
+```html live
+<fw-datepicker
+  value="2022-07-31"
+  clear-input
+></fw-datepicker>
+```
+
+### with readOnly
+
+```html live
+<fw-datepicker
+  value="2022-07-31"
+  read-only
+></fw-datepicker>
+```
+
+### with locale
+
+```html live
+<fw-datepicker
+  locale="fr"
+></fw-datepicker>
+```
+
+### with maxYear and minYear
+maxYear specifies the year upto which the user can select dates and the minYear specifies the year from which the user can select the dates. The year dropdown contains the year values from  minYear to maxYear. The default value of minYear is '1970' and maxYear is currentYear.
+
+```html live
+<fw-datepicker
+  max-year="2020"
+  min-year="2010"
+  value="2020-01-04"
+></fw-datepicker>
+```
+
+### with maxDate and minDate
+maxDate specifies the maximal selectable date in the calender and the minDate specifies the minimal selectable date. The minYear and maxYear values will be set as per the minDate and the maxDate when they are specified. The dates that fall beyond the minDate and maxDate will be disabled in the calender.
+
+```html live
+<fw-datepicker
+  max-date="2020-07-31"
+  min-date="2020-01-05"
+  value="2020-06-06"
+></fw-datepicker>
+```
+
+## prop precendence 
+among the 4 props maxYear, minYear, minDate and maxDate, the prop maxdate has the highest precedence over the other three. The precedence is of the following order, maxdate > minDate > maxYear > minYear
+
+For eg, if a datepicker component has the props maxDate and minDate specified and if they contradict with each other, the minDate gets ignored and the maxYear will be set as per the maxDate specified, minYear as the default value '1970' and minDate as undefined.
+In the below example, minyear will be reset to '1970', maxYear as '2020', minDate as 'undefined' and maxDate as specified, i.e '2020-07-31'
+
+```html live
+<fw-datepicker
+  max-date="2020-07-31"
+  min-date="2022-08-31"
+  value="2020-06-06"
+></fw-datepicker>
+```
+
+ maxYear and minYear specified and if they contradict with each other, the minYear value gets ignored and reset as default value '1970', maxYear will be set as specified. 
+ In the below example, minyear will be reset to '1970'. The dates that fall beyond the minYear and maxYear will be disabled in the calender.
+
+```html live
+<fw-datepicker
+  max-year="2020"
+  min-year="2022"
+  value="2020-06-06"
+></fw-datepicker>
+```
+
+maxYear and maxDate specified and if they contradict with each other, the maxYear value gets ignored and reset as per the maxDate. In the below example, the maxYear will be reset as '2022'. The dates that fall beyond the maxDate will be disabled in the calender.
+
+```html live
+<fw-datepicker
+  max-year="2020"
+  max-date="2022-07-21"
+  value="2022-04-06"
+></fw-datepicker>
+```
+
+minYear and minDate specified and if they contradict with each other, the minYear value gets ignored and reset as per the minDate. In the below example, the minYear will be reset as '2019'. The dates that fall beyond the minDate will be disabled in the calender.
+
+```html live
+<fw-datepicker
+  min-year="2020"
+  min-date="2019-07-21"
+  value="2020-06-06"
+></fw-datepicker>
+```
+
+## validations
+
+If invalid value/invalid date format is entered  in the date input textbox  or passed to the value props, the datepicker will be highlighted in error state and a error tooltip will be displayed next to the value. The invalid value will not submitted to backend if update button is clicked. 
+
+The below examples depict various invalid value and contradicting props scenarios.
+
+```html live
       <h4 style="margin-bottom:5px; margin-top: 0">Datepicker with min-year, invalid value and clear-input prop set</h4>
       <fw-datepicker
         min-year="2021"
@@ -104,21 +239,73 @@ All the date formats passed as attribute's values must be valid [ISO Date format
       ></fw-datepicker>
       <br />
 
-      <h4 style="margin-bottom:5px; margin-top: 0">showErrorOnInvalidDate set to false and Min date '2020-07-31' min year as '2021' </h4>
+      <h4 style="margin-bottom:5px; margin-top: 0">showErrorOnInvalidDate set to false and Min date '2020-07-31' invalid value set as '2019-07-31' </h4>
       <fw-datepicker
         show-error-on-invalid-date="false"
-        min-year="2021"
+        value="2019-07-31"
         min-date="2020-07-31"
       ></fw-datepicker>
       <br />
+```
 
-    </div>
+### with tooltipErrorText
+This  can be used to pass custom error message in the tooltip for error scenarios. On hovering over the alert icon next to teh invalid value, this custom error msg will be displayed.
+
+```html live
+<fw-datepicker
+  tooltip-error-text="Invalid value provided !"
+  max-year="2020"
+  value="2022-01-02"
+></fw-datepicker>
+```
+
+### with showErrorOnInvalidDate
+Setting the prop to false will not highlight the datepicker in error state and will not display the error msg in the tooltip. However, the invalid value will not be submitted to backend on clicking 'Update' button.
+
+```html live
+<fw-datepicker
+  show-error-on-invalid-date="false"
+></fw-datepicker>
 ```
 
 # Date Range picker 
-Enables user to select a range of dates.
+Enables user to select a range of dates. The prop 'mode' has to be set as 'range' for date range picker.
 
 ## Demo
+
+```html live
+  <fw-datepicker
+    mode="range"
+  ></fw-datepicker>
+```
+
+### with value
+The value should contain the start date and end date and should be of ISO format.
+
+```html live
+  <fw-datepicker
+    mode="range"
+    value="2023-07-25 to 2023-07-31"
+  ></fw-datepicker>
+```
+
+### with fromDate and toDate
+Should be of ISO format. When specified, the value will be displayed as per the fromDate and toDate.
+
+```html live
+  <fw-datepicker
+    mode="range"
+    from-date="2022-01-02"
+    to-date="2022-01-04"
+  ></fw-datepicker>
+```
+
+## Input Validations
+
+If invalid value/invalid date format is entered  in the date input textbox  or passed to the value props, the datepicker will be highlighted in error state and a error tooltip will be displayed next to the value. The invalid value will not submitted to backend if update button is clicked. 
+
+The below examples depict various invalid value and contradicting props scenarios.
+
 ```html live
 <div style="padding:60px">
 
@@ -222,29 +409,13 @@ Enables user to select a range of dates.
     ></fw-datepicker>
     <br />
 
-    <h4 style="margin-bottom:5px; margin-top: 0">showErrorOnInvalidDate set to false and Min date '2020-07-31' min year as '2021'</h4>
+    <h4 style="margin-bottom:5px; margin-top: 0">showErrorOnInvalidDate set to false</h4>
     <fw-datepicker
       mode="range"
       show-error-on-invalid-date="false"
-      min-year="2021"
-      min-date="2020-07-31"
     ></fw-datepicker>
     <br />
-    <h4 style="margin-bottom:5px; margin-top: 0">Update value after timeout</h4>
-    <fw-datepicker
-      id="dp1"
-      mode="range"
-      value="2022-01-02 to 2022-01-04"
-    ></fw-datepicker>
-    <br />
-
   </div>
-  <script type="application/javascript">
-    var a = document.querySelector('#dp1');
-    setTimeout(() => {
-      a.value = "2020-08-12 to 2020-08-21"
-    }, 3000)
-  </script>
 
 ```
 
