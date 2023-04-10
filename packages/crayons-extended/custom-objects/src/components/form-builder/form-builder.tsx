@@ -1043,9 +1043,13 @@ export class FormBuilder {
     const objFieldTypes = presetSchema.fieldTypes;
     const objProductPreset = formMapper[this.productName];
     const objProductPresetConfig = objProductPreset?.config;
+    const objLabelsDb = objProductPreset?.labels;
     const arrFieldOrder = objProductPreset?.fieldOrder;
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
+    const strFieldEditHeader = hasCustomProperty(objLabelsDb, 'fieldsHeader')
+      ? objLabelsDb.fieldsHeader
+      : '';
 
     const fieldTypeElements =
       arrFieldOrder && arrFieldOrder.length > 0
@@ -1166,7 +1170,7 @@ export class FormBuilder {
               <div class={`${strBaseClassName}-right-panel-header-content`}>
                 {!boolHasFilterByFieldTypes && (
                   <label class={`${strBaseClassName}-right-panel-header-label`}>
-                    {i18nText('headerFields')}
+                    {i18nText(strFieldEditHeader)}
                   </label>
                 )}
                 {boolHasFilterByFieldTypes && (

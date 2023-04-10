@@ -431,7 +431,7 @@
       "subHeaderProduct": "subHeaderProductConvProps",
       "dragDropFieldTypes": "fieldTypesDragDropConvProps",
       "fieldTypesHeader": "",
-      "fieldsHeader": "headerFields",
+      "fieldsHeader": "headerProperties",
       "subHeaderProductLink": {
         "label": "subHeaderProductConvPropsLinkLabel",
         "href": "https://crmsupport.freshworks.com/en/support/solutions/articles/50000005665?cloud=freshchat"
