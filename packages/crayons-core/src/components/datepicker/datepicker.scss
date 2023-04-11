@@ -286,10 +286,6 @@
   pointer-events: none;
 }
 
-.date-input {
-  width: 200px;
-}
-
 .invalid-alert {
   position: relative;
   display: inline-block;
@@ -325,10 +321,6 @@
   align-items: center;
   justify-content: center;
   background-color: $color-smoke-50;
-}
-
-.range-date-input {
-  width: 235px;
 }
 
 .c-day-container.disabled .cdc-day span {
