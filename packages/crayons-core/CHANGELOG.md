@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.9...@freshworks/crayons@4.2.0-beta.10) (2023-04-12)
-
+## [4.2.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.9...@freshworks/crayons@4.2.0-beta.10) (2023-04-12)
 
 ### Features
 
-* **datepicker:** add a prop to make the datepicker occupy full width ([444fcd7](https://github.com/freshworks/crayons/commit/444fcd71e7eff1abec9ec9ad3c30dd750b450bd0))
-
-
-
-
+- **datepicker:** add a prop to make the datepicker occupy full width ([444fcd7](https://github.com/freshworks/crayons/commit/444fcd71e7eff1abec9ec9ad3c30dd750b450bd0))
 
 ## [4.2.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.8...@freshworks/crayons@4.2.0-beta.9) (2023-04-05)
 
