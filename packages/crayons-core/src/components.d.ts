@@ -375,6 +375,10 @@ export namespace Components {
          */
         "fromDate": string;
         /**
+          * To make the datepicker occupy full width of the container. Default value is false.
+         */
+        "fullWidth": boolean;
+        /**
           * Returns the date value in ISO format.
          */
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
@@ -3275,6 +3279,10 @@ declare namespace LocalJSX {
           * Starting date of the date range that is preselected in the calendar, if mode is range. Must be a date later than the min-date value and valid ISO date format.
          */
         "fromDate"?: string;
+        /**
+          * To make the datepicker occupy full width of the container. Default value is false.
+         */
+        "fullWidth"?: boolean;
         /**
           * Hint text displayed below the text box.
          */

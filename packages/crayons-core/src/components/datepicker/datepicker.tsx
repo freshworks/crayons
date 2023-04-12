@@ -241,6 +241,10 @@ export class Datepicker {
    */
   @Prop() tooltipErrorText;
   /**
+   * To make the datepicker occupy full width of the container. Default value is false.
+   */
+  @Prop() fullWidth = false;
+  /**
    * Option to prevent the tooltip from being clipped when the component is placed inside a container with
    * `overflow: auto|hidden|scroll`.
    */
@@ -507,7 +511,7 @@ export class Datepicker {
         name: this.name,
         value: target[0].value,
       });
-      if (target[0].classList.value.includes('range-date-input')) {
+      if (this.mode === 'range') {
         // Range input
         const val = target[0].value;
 
@@ -1795,14 +1799,13 @@ export class Datepicker {
             onKeyUp={() => !this.disabled && (this.showDatePicker = true)}
             slot='popover-trigger'
             style={{
-              display: 'inline-flex',
+              display: this.fullWidth ? 'block' : 'inline-flex',
               alignItems: 'center',
             }}
           >
             <fw-input
               value={this.value}
               name={this.name}
-              class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
               disabled={this.disabled}
               placeholder={this.placeholder}
               required={this.required}
@@ -1812,6 +1815,13 @@ export class Datepicker {
               readonly={this.showTimePicker || this.readonly}
               clearInput={this.clearInput}
               onFwInputClear={this.handleInputClear}
+              style={{
+                width: this.fullWidth
+                  ? '100%'
+                  : this.mode === 'range'
+                  ? '235px'
+                  : '200px',
+              }}
             >
               {this.isDateInvalid &&
                 this.showErrorOnInvalidDate &&

@@ -276,6 +276,32 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
 </script>
 ```
 
+### FormSchema with field type 'DATE' to occupy full width of the container
+
+Datepicker by default will not occupy full width of the container. To make the datepicker occupy full width, set 'fullWidth' prop as true in the form schema.
+
+Example form schema,
+
+```javascript
+var formSchema = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: 'gt19f86f-1b6a-49cb-b4b6-cf487be97899',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 1,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+        fullWidth: true,
+      }
+    ],
+  };
+```  
+
 ## form schema
 
 form schema should follow the below structure:
