@@ -58,7 +58,7 @@ When clearInput prop is passed, the date input textbox will have a cross icon to
 ```html live
 <fw-datepicker
   value="2022-07-31"
-  read-only
+  readonly
 ></fw-datepicker>
 ```
 
@@ -92,10 +92,11 @@ maxDate specifies the maximal selectable date in the calender and the minDate sp
 ></fw-datepicker>
 ```
 
-## prop precendence 
-among the 4 props maxYear, minYear, minDate and maxDate, the prop maxdate has the highest precedence over the other three. The precedence is of the following order, maxdate > minDate > maxYear > minYear
+## Prop precedence 
+Among the 4 props maxYear, minYear, minDate and maxDate, the prop maxdate has the highest precedence over the other three. The precedence is of the following order, maxdate > minDate > maxYear > minYear
 
-For eg, if a datepicker component has the props maxDate and minDate specified and if they contradict with each other, the minDate gets ignored and the maxYear will be set as per the maxDate specified, minYear as the default value '1970' and minDate as undefined.
+### Example 1
+If a datepicker component has the props maxDate and minDate specified and if they contradict with each other, the minDate gets ignored and the maxYear will be set as per the maxDate specified, minYear as the default value '1970' and minDate as undefined.
 In the below example, minyear will be reset to '1970', maxYear as '2020', minDate as 'undefined' and maxDate as specified, i.e '2020-07-31'
 
 ```html live
@@ -106,8 +107,9 @@ In the below example, minyear will be reset to '1970', maxYear as '2020', minDat
 ></fw-datepicker>
 ```
 
- maxYear and minYear specified and if they contradict with each other, the minYear value gets ignored and reset as default value '1970', maxYear will be set as specified. 
- In the below example, minyear will be reset to '1970'. The dates that fall beyond the minYear and maxYear will be disabled in the calender.
+### Example 2
+If maxYear and minYear specified and they contradict with each other, the minYear value gets ignored and reset as default value '1970', maxYear will be set as specified. 
+In the below example, minyear will be reset to '1970'. The dates that fall beyond the minYear and maxYear will be disabled in the calender.
 
 ```html live
 <fw-datepicker
@@ -117,7 +119,8 @@ In the below example, minyear will be reset to '1970', maxYear as '2020', minDat
 ></fw-datepicker>
 ```
 
-maxYear and maxDate specified and if they contradict with each other, the maxYear value gets ignored and reset as per the maxDate. In the below example, the maxYear will be reset as '2022'. The dates that fall beyond the maxDate will be disabled in the calender.
+### Example 3
+If maxYear and maxDate specified and if they contradict with each other, the maxYear value gets ignored and reset as per the maxDate. In the below example, the maxYear will be reset as '2022'. The dates that fall beyond the maxDate will be disabled in the calender.
 
 ```html live
 <fw-datepicker
@@ -127,7 +130,8 @@ maxYear and maxDate specified and if they contradict with each other, the maxYea
 ></fw-datepicker>
 ```
 
-minYear and minDate specified and if they contradict with each other, the minYear value gets ignored and reset as per the minDate. In the below example, the minYear will be reset as '2019'. The dates that fall beyond the minDate will be disabled in the calender.
+### Example 4
+If minYear and minDate specified and if they contradict with each other, the minYear value gets ignored and reset as per the minDate. In the below example, the minYear will be reset as '2019'. The dates that fall beyond the minDate will be disabled in the calender.
 
 ```html live
 <fw-datepicker
@@ -137,7 +141,7 @@ minYear and minDate specified and if they contradict with each other, the minYea
 ></fw-datepicker>
 ```
 
-## validations
+## Validations
 
 If invalid value/invalid date format is entered  in the date input textbox  or passed to the value props, the datepicker will be highlighted in error state and a error tooltip will be displayed next to the value. The invalid value will not submitted to backend if update button is clicked. 
 
