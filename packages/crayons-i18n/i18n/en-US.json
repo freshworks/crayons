@@ -198,7 +198,11 @@
     "linkModalLoadingText": "Fetching details...",
     "relatedWidgetAccordionHeader": "Related {{schema}}",
     "widgetRecordLinkSuccessMessage": "Record updated successfully",
-    "widgetRecordLinkErrorMessage": "Unable to update the record"
+    "widgetRecordLinkErrorMessage": "Unable to update the record",
+    "addRecordSuccess": "Record Added Successfully",
+    "addRecord": "Add Record",
+    "addNewRecord": "Add New Record",
+    "saveAndLink": "Save and Link"
   },
   "filters": {
     "addFilter": "+ Add another condition",
