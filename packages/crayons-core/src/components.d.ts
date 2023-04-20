@@ -4065,6 +4065,10 @@ declare namespace LocalJSX {
          */
         "onFwInputClear"?: (event: FwInputCustomEvent<any>) => void;
         /**
+          * Triggered on key down in the input box.
+         */
+        "onFwInputKeyDown"?: (event: FwInputCustomEvent<any>) => void;
+        /**
           * Text displayed in the text box before a user enters a value.
          */
         "placeholder"?: string | null;
