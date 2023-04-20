@@ -171,4 +171,18 @@ describe('fw-input', () => {
       name: 'max',
     });
   });
+
+  it('emits fwInputKeyDown when a key is pressed down in the input box', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-input> </fw-input>');
+    const fwInputKeyDown = await page.spyOnEvent('fwInputKeyDown');
+    const element = await page.find('fw-input');
+
+    await element.click();
+    await element.press('Enter');
+
+    await page.waitForChanges();
+    expect(fwInputKeyDown).toHaveReceivedEvent();
+  });
 });
