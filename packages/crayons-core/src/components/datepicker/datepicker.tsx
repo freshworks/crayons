@@ -341,7 +341,7 @@ export class Datepicker {
             locale: this.langModule,
           })
         )
-      : formatISO(new Date(value));
+      : formatISO(new Date(this.handleUserTimeZoneOffset(value)));
   }
 
   /**
@@ -638,6 +638,12 @@ export class Datepicker {
       (this.nextMonthDetails = this.getMonthDetails(this.toYear, this.toMonth));
   }
 
+  handleUserTimeZoneOffset(date) {
+    return (
+      new Date(date).valueOf() + new Date(date).getTimezoneOffset() * 60 * 1000
+    );
+  }
+
   async componentWillLoad() {
     if (this.mode === 'range' && this.showTimePicker) {
       throw Error('Time picker not supported in Date Range');
@@ -707,7 +713,7 @@ export class Datepicker {
         this.year = getYear(today);
         this.month = getMonth(today);
       } else {
-        const fromDate = new Date(this.fromDate);
+        const fromDate = new Date(this.handleUserTimeZoneOffset(this.fromDate));
         this.year = this.fromDate ? getYear(fromDate) : getYear(today);
         this.month = this.fromDate ? getMonth(fromDate) : getMonth(today);
       }
@@ -727,9 +733,17 @@ export class Datepicker {
     this.weekDays = getWeekDays(this.langModule);
     if (this.value && this.mode !== 'range') {
       this.setDateAndErrorState(true);
-      this.value = format(new Date(this.value), this.displayFormat, {
-        locale: this.langModule,
-      });
+      this.value = this.showTimePicker
+        ? format(new Date(this.value), this.displayFormat, {
+            locale: this.langModule,
+          })
+        : format(
+            new Date(this.handleUserTimeZoneOffset(this.value)),
+            this.displayFormat,
+            {
+              locale: this.langModule,
+            }
+          );
     }
     this.setInitialValues();
     this.checkYearRestriction();
@@ -802,12 +816,12 @@ export class Datepicker {
           ? undefined
           : this.minDate;
     this.maxYear = this.maxDate
-      ? getYear(new Date(this.maxDate))
+      ? getYear(new Date(this.handleUserTimeZoneOffset(this.maxDate)))
       : this.maxYear;
     this.minYear =
       this.maxYear > this.minYear
         ? this.minDate
-          ? getYear(new Date(this.minDate))
+          ? getYear(new Date(this.handleUserTimeZoneOffset(this.minDate)))
           : this.minYear
         : 1970;
   }
@@ -825,7 +839,9 @@ export class Datepicker {
         this.selectedDay = getDate(today);
         this.value = undefined;
       } else {
-        const date = new Date(this.value);
+        const date = this.showTimePicker
+          ? new Date(this.value)
+          : new Date(this.handleUserTimeZoneOffset(this.value));
         this.year = getYear(date);
         this.month = getMonth(date);
         this.selectedDay = getDate(date);
@@ -1019,9 +1035,17 @@ export class Datepicker {
         // If ISO format, format it to display format and validate
         try {
           if (isValid(parseISO(value)))
-            value = format(new Date(value), this.displayFormat, {
-              locale: this.langModule,
-            });
+            value = this.showTimePicker
+              ? format(new Date(value), this.displayFormat, {
+                  locale: this.langModule,
+                })
+              : format(
+                  new Date(this.handleUserTimeZoneOffset(value)),
+                  this.displayFormat,
+                  {
+                    locale: this.langModule,
+                  }
+                );
           this.processValueChange(value, true);
           this.checkYearRestriction();
         } catch (e) {
@@ -1037,12 +1061,20 @@ export class Datepicker {
           if (isValid(parseISO(fromDate)) && isValid(parseISO(toDate))) {
             this.fromDate = fromDate;
             this.toDate = toDate;
-            fromDate = format(new Date(this.fromDate), this.displayFormat, {
-              locale: this.langModule,
-            });
-            toDate = format(new Date(this.toDate), this.displayFormat, {
-              locale: this.langModule,
-            });
+            fromDate = format(
+              new Date(this.handleUserTimeZoneOffset(this.fromDate)),
+              this.displayFormat,
+              {
+                locale: this.langModule,
+              }
+            );
+            toDate = format(
+              new Date(this.handleUserTimeZoneOffset(this.toDate)),
+              this.displayFormat,
+              {
+                locale: this.langModule,
+              }
+            );
             value = `${fromDate} to ${toDate}`;
           }
           this.processRangeValueChange(value, true);
