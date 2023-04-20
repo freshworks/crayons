@@ -3,21 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-beta.11](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.10...@freshworks/crayons@4.2.0-beta.11) (2023-04-20)
-
+## [4.2.0-beta.11](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.10...@freshworks/crayons@4.2.0-beta.11) (2023-04-20)
 
 ### Bug Fixes
 
-* **datepicker:** handle user timezone offset ([0175e7f](https://github.com/freshworks/crayons/commit/0175e7f27e135e64482cc0254fe10b539bb6c8ce))
-
+- **datepicker:** handle user timezone offset ([0175e7f](https://github.com/freshworks/crayons/commit/0175e7f27e135e64482cc0254fe10b539bb6c8ce))
 
 ### Features
 
-* add keydown event in input component ([20554bc](https://github.com/freshworks/crayons/commit/20554bc5a0e037d847ef00dc63d4259f68f98228))
-
-
-
-
+- add keydown event in input component ([20554bc](https://github.com/freshworks/crayons/commit/20554bc5a0e037d847ef00dc63d4259f68f98228))
 
 ## [4.2.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.9...@freshworks/crayons@4.2.0-beta.10) (2023-04-12)
 
