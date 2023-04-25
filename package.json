@@ -28,7 +28,7 @@
     "lint:ts": "eslint .",
     "lint:ts:fix": "eslint . --fix",
     "lint-staged": "lint-staged",
-    "preinstall": "npm run requirements-check",
+    "preinstall": "npm run requirements-check && npx force-resolutions",
     "release-next": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag next && npm run update-lock:next",
     "release-next:ci": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --no-verify-access --dist-tag next --yes && npm run update-lock:next",
     "release-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna publish from-package --no-commit-hooks --dist-tag v4 && npm run update-lock:latest",
@@ -87,6 +87,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.18.0",
+    "fsevents": "^2.3.2",
     "html-to-react": "1.4.5",
     "husky": "^4.2.3",
     "kill-port": "^1.6.1",
@@ -135,5 +136,8 @@
     "*.{js,ts,tsx,jsx}": [
       "eslint --fix"
     ]
+  },
+  "resolutions": {
+    "fsevents": "2.3.2"
   }
 }
