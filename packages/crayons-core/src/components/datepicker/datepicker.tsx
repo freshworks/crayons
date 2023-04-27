@@ -1135,7 +1135,8 @@ export class Datepicker {
   };
 
   formatDateTime = (): string => {
-    if (this.showTimePicker && this.timeValue) {
+    if (this.showTimePicker) {
+      if (!this.timeValue) return;
       const [hour, minute] = this.timeValue.split(':');
       return format(
         new Date(
