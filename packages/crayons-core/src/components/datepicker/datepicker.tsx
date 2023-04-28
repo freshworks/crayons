@@ -745,7 +745,7 @@ export class Datepicker {
             }
           );
     }
-    this.showTimePicker && this.getDate();
+    this.showTimePicker && this.setTimepickerDate();
     this.setInitialValues();
     this.checkYearRestriction();
   }
@@ -1010,7 +1010,7 @@ export class Datepicker {
       });
       this.selectedTime = this.timeValue;
       // set the date value in date field
-      this.getDate();
+      this.setTimepickerDate();
     }
     this.value = this.formatDateTime();
 
@@ -1090,7 +1090,7 @@ export class Datepicker {
     }
   }
 
-  getDate = (): string => {
+  setTimepickerDate = (): string => {
     try {
       const date = format(
         new Date(this.year, this.month, this.selectedDay),
@@ -1441,7 +1441,7 @@ export class Datepicker {
   updateValueAndEmitEvent(e) {
     if (this.showSingleDatePicker()) {
       this.value = this.formatDateTime();
-      this.showTimePicker && this.getDate();
+      this.showTimePicker && this.setTimepickerDate();
       this.emitEvent(e, this.formatDate(this.value));
     } else if (this.showDateRangePicker()) {
       this.startDateFormatted = format(this.startDate, this.displayFormat, {
@@ -1467,7 +1467,7 @@ export class Datepicker {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
       this.clickedDateValue = this.formatDateTime();
-      this.showTimePicker && this.getDate();
+      this.showTimePicker && this.setTimepickerDate();
       if (!this.showFooter) {
         if (this.showTimePicker) this.timeValue = this.selectedTime;
         this.updateValueAndEmitEvent(e);
