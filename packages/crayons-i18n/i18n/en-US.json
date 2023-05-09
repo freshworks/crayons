@@ -182,7 +182,7 @@
   "platformCouiWidgets": {
     "viewAllWidgetRecords": "View all records",
     "noRecordsLinked": "No records linked",
-    "linkWidgetButton": "Link a new record",
+    "linkWidgetButton": "Link record",
     "linkModalHeader": "Link a new record",
     "linkModalSelectSearchHeader": "Search by {{fieldName}}",
     "linkModalSelectSearchPlaceholder": "Search...",
@@ -198,7 +198,17 @@
     "linkModalLoadingText": "Fetching details...",
     "relatedWidgetAccordionHeader": "Related {{schema}}",
     "widgetRecordLinkSuccessMessage": "Record updated successfully",
-    "widgetRecordLinkErrorMessage": "Unable to update the record"
+    "widgetRecordLinkErrorMessage": "Unable to update the record",
+    "addRecordSuccess": "Record added successfully",
+    "addRecord": "Add record",
+    "addNewRecord": "Add new record",
+    "saveAndLink": "Save and link",
+    "primaryFieldMinSizeError": "Enter a minimum of {{minSize}} characters",
+    "placeholders": {
+      "enterDetails": "Enter details",
+      "clickToSelect": "Click to select",
+      "enterValue": "Enter value"
+    }
   },
   "filters": {
     "addFilter": "+ Add another condition",
