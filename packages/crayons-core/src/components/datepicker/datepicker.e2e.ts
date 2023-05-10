@@ -796,4 +796,20 @@ describe('fw-datepicker', () => {
     const alertElement = await shadow.find('.invalid-alert');
     expect(alertElement).toBeTruthy();
   });
+
+  it('should not update the date value when the arrow keys are clicked in date time picker', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-datepicker show-time-picker value="2022-07-22T06:00:00.000Z"></fw-datepicker>'
+    );
+    const input = await page.find('fw-datepicker >>> fw-input');
+    await input.click();
+    const dateEle = await page.findAll('fw-datepicker >>> .mdpchb-inner');
+    await dateEle[0].click();
+    const timeContainer = await page.find('fw-datepicker >>> .time-container');
+    const dateInput = await timeContainer.find('fw-input input');
+    const dateVal = await dateInput.getAttribute('value');
+    expect(dateVal).toBe('07/22/2022');
+  });
 });

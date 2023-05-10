@@ -497,56 +497,83 @@ color="yellow"
 
 Date time picker is currently supported only on single date picker.
 
-```html live
-<fw-label value="Default date time picker" color="yellow"></fw-label><br />
-<fw-datepicker show-time-picker></fw-datepicker>
-<br />
-<fw-label value="Date time picker with custom format" color="yellow"></fw-label
-><br />
-<fw-datepicker
-  show-time-picker
-  display-format="dd-MM-yyyy"
-  time-format="hh:mm"
-></fw-datepicker>
-<br />
-<fw-label value="Date time picker with locale support" color="yellow"></fw-label
-><br />
-<fw-datepicker show-time-picker locale="ar"></fw-datepicker>
-<br />
-<fw-label value="Date time picker with time range" color="yellow"></fw-label
-><br />
-<fw-datepicker show-time-picker id="time-range" locale="es"></fw-datepicker>
-<br />
-<fw-label value="Date time picker with value" color="yellow"></fw-label><br />
-<fw-datepicker
-  show-time-picker
-  value="2022-07-22T06:00:00.000Z"
-></fw-datepicker>
-<br />
-<fw-label value="Date time picker with value updated dynamically" color="yellow"></fw-label><br />
+### Date time picker with no props passed
+The date timepicker will have the default display format as MM/dd/yyyy. By default the Cancel and Update buttons will be displayed, which can be removed by passing the props, 'showFooter' as 'false'. On selecting a date and time value and clicking the Update button, the date and time  will be updated in the input field. When Cancel button is clicked after selecting a date and time, the selected date and time will not be updated.
 
-<fw-datepicker
+Note: Selecting only either one of them, i.e either date or time value and clicking update button will not update the value. Both time and date value has to be selected.
+
+```html live
+  <fw-datepicker show-time-picker></fw-datepicker>
+```
+### Date time picker with custom display format
+
+```html live
+  <fw-datepicker
+    show-time-picker
+    display-format="dd-MM-yyyy"
+    time-format="hh:mm"
+  ></fw-datepicker>
+```
+
+### Date time picker with locale support
+
+```html live
+  <fw-datepicker show-time-picker locale="ar"></fw-datepicker>
+```
+
+### Date time picker with time range
+
+```html live
+  <fw-datepicker show-time-picker id="time-range" locale="es"></fw-datepicker>
+  <script type="application/javascript">
+    var timePicker = document.getElementById('time-range');
+    timePicker.timeProps = {
+      minTime: '10:00',
+      maxTime: '18:00',
+      interval: 60,
+    };
+    timePicker.addEventListener('fwChange', (e) => {
+      console.log(e.detail);
+    });
+  </script>
+```
+
+### Date time picker with value
+The value should be of the ISO format. Example: '2022-07-22T06:00:00.000Z'.
+
+```html live
+  <fw-datepicker
+    show-time-picker
+    value="2022-07-22T06:00:00.000Z"
+  ></fw-datepicker>
+```
+
+### Date time picker with value updated dynamically
+
+```html live
+  <fw-datepicker
     id="dtp"
-      show-time-picker
-      value="2022-07-22T06:00:00.000Z"
-    ></fw-datepicker>
-    <script type="application/javascript">
-      var a = document.querySelector('#dtp');
-      setTimeout(() => {
-        a.value = "2022-01-01T12:00:00Z"
-      }, 3000)
-    </script>
-<script type="application/javascript">
-  var timePicker = document.getElementById('time-range');
-  timePicker.timeProps = {
-    minTime: '10:00',
-    maxTime: '18:00',
-    interval: 60,
-  };
-  timePicker.addEventListener('fwChange', (e) => {
-    console.log(e.detail);
-  });
-</script>
+    show-time-picker
+    value="2022-07-22T06:00:00.000Z"
+  ></fw-datepicker>
+  <script type="application/javascript">
+    var a = document.querySelector('#dtp');
+    setTimeout(() => {
+      a.value = "2022-01-01T12:00:00Z"
+    }, 3000)
+  </script>
+```
+
+### Date time picker with showFooter set as false
+When the showFooter prop is set as false, the Update and Cancel buttons will not be displayed. When user selects the time and clicks any date, it will be updated in the input box.
+
+Note: As soon as the user clicks on any date the dropdown will close. If the time value is not selected, then the date value will not be updated. 
+
+```html live
+  <fw-datepicker
+    show-time-picker
+    show-footer="false"
+  ></fw-datepicker>
 ```
 
 <code-group>

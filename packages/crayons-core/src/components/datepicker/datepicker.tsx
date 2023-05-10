@@ -111,6 +111,7 @@ export class Datepicker {
   @State() timeValue = '';
   @State() dateFormat = '';
   @State() selectedTime: any;
+  @State() timepickerDate;
 
   @Element() host: HTMLElement;
 
@@ -547,8 +548,7 @@ export class Datepicker {
     } else if (isYearUpdate) {
       this.year = newValue;
     } else if (isTimeUpdate) {
-      // this.timeValue = newValue;
-      this.selectedTime = newValue;
+      this.timeValue = this.selectedTime = newValue;
     }
     this.checkYearRestriction();
   }
@@ -745,6 +745,7 @@ export class Datepicker {
             }
           );
     }
+    this.showTimePicker && this.setTimepickerDate();
     this.setInitialValues();
     this.checkYearRestriction();
   }
@@ -1008,6 +1009,8 @@ export class Datepicker {
         locale: this.langModule,
       });
       this.selectedTime = this.timeValue;
+      // set the date value in date field
+      this.setTimepickerDate();
     }
     this.value = this.formatDateTime();
 
@@ -1030,6 +1033,8 @@ export class Datepicker {
       this.year = getYear(date);
       this.month = getMonth(date);
       this.monthDetails = this.getMonthDetails(this.year, this.month);
+      this.timepickerDate = this.selectedTime = undefined;
+      this.timeValue = '';
     } else {
       if (this.mode !== 'range') {
         // If ISO format, format it to display format and validate
@@ -1085,7 +1090,7 @@ export class Datepicker {
     }
   }
 
-  getDate = (): string => {
+  setTimepickerDate = (): string => {
     try {
       const date = format(
         new Date(this.year, this.month, this.selectedDay),
@@ -1094,15 +1099,22 @@ export class Datepicker {
           locale: this.langModule,
         }
       );
-      return date ?? '';
+      this.timepickerDate = date ?? '';
     } catch (error) {
       return '';
     }
   };
 
   isValidDateTime = (): boolean => {
+    const dateNodes = this.host.shadowRoot.querySelectorAll('.c-day-container');
+    // To check if user has selected any date and clicked update, since this.selectedDay will be set if any previous date value already exists.
+    const isDateSelected =
+      dateNodes?.length > 0 &&
+      Object.values(dateNodes).some((node) => {
+        return node.classList.contains('highlight-blue');
+      });
     if (this.showTimePicker) {
-      return !!(this.selectedDay && this.timeValue);
+      return !!(isDateSelected && this.selectedDay && this.timeValue);
     }
     if (this.clickedDateValue || this.value) {
       const parsedDate = parse(
@@ -1113,14 +1125,6 @@ export class Datepicker {
           locale: this.langModule,
         }
       ).valueOf();
-      const dateNodes =
-        this.host.shadowRoot.querySelectorAll('.c-day-container');
-      // To check if user has selected any date and clicked update, since this.selectedDay will be set if any previous date value already exists.
-      const isDateSelected =
-        dateNodes.length > 0 &&
-        Object.values(dateNodes).some((node) => {
-          return node.classList.contains('highlight-blue');
-        });
       return (
         this.selectedDay &&
         isDateSelected &&
@@ -1132,6 +1136,7 @@ export class Datepicker {
 
   formatDateTime = (): string => {
     if (this.showTimePicker) {
+      if (!this.timeValue) return;
       const [hour, minute] = this.timeValue.split(':');
       return format(
         new Date(
@@ -1436,6 +1441,7 @@ export class Datepicker {
   updateValueAndEmitEvent(e) {
     if (this.showSingleDatePicker()) {
       this.value = this.formatDateTime();
+      this.showTimePicker && this.setTimepickerDate();
       this.emitEvent(e, this.formatDate(this.value));
     } else if (this.showDateRangePicker()) {
       this.startDateFormatted = format(this.startDate, this.displayFormat, {
@@ -1461,7 +1467,9 @@ export class Datepicker {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
       this.clickedDateValue = this.formatDateTime();
+      this.showTimePicker && this.setTimepickerDate();
       if (!this.showFooter) {
+        if (this.showTimePicker) this.timeValue = this.selectedTime;
         this.updateValueAndEmitEvent(e);
         this.showDatePicker = false;
         this.host.shadowRoot.querySelector('fw-popover').hide();
@@ -1542,12 +1550,26 @@ export class Datepicker {
         } else {
           this.selectedDay = this.clickedDateValue = undefined;
         }
-      } else this.selectedDay = undefined;
+        if (this.showTimePicker) {
+          this.timeValue = format(getTime(new Date(this.value)), 'HH:mm', {
+            locale: this.langModule,
+          });
+          this.timepickerDate = format(new Date(this.value), this.dateFormat, {
+            locale: this.langModule,
+          });
+        }
+      } else {
+        this.selectedDay = undefined;
+        if (this.showTimePicker) {
+          this.timepickerDate = undefined;
+          this.timeValue = '';
+        }
+      }
       if (this.timeValue) {
         if (this.selectedTime !== this.timeValue) {
           this.selectedTime = this.timeValue;
         }
-      } else this.selectedTime = undefined;
+      } else this.selectedTime = this.timepickerDate = undefined;
     }
   };
 
@@ -1769,7 +1791,7 @@ export class Datepicker {
           <span>{TranslationController.t('datepicker.date')}</span>
           <fw-input
             placeholder={this.dateFormat}
-            value={this.getDate()}
+            value={this.timepickerDate}
             readonly
           ></fw-input>
         </div>
