@@ -513,6 +513,7 @@ export class ListOptions {
         option.disabled ||
         (!this.allowDeselect && option.selected) ||
         (this.multiple && !option.selected && this.value?.length >= this.max);
+      const checkbox = this.checkbox || option.checkbox;
       return (
         <fw-select-option
           id={`${this.host.id}-option-${option[this.optionValuePath]}`}
@@ -522,6 +523,7 @@ export class ListOptions {
           text={option[this.optionLabelPath]}
           value={option[this.optionValuePath]}
           disabled={isDisabled}
+          checkbox={checkbox}
         ></fw-select-option>
       );
     });
