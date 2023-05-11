@@ -238,7 +238,8 @@ export class SelectOption {
           (this.html
             ? ''
             : (this.subText ? 'multi-line ' : 'single-line ') +
-              (this.variant + ' ' + 'select-center'))
+              (this.variant + ' ' + 'select-center')) +
+          (this.checkbox ? ' has-checkbox' : '')
         }
         onMouseDown={() => this.onOptionSelected()}
         onFocus={() => this.fwFocus.emit({ id: this.host.id })}

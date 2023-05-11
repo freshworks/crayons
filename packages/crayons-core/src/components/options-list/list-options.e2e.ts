@@ -348,4 +348,38 @@ describe('fw-list-options', () => {
     expect(selectedOptions.length).toBe(1);
     expect(selectedOptions[0].email).toBe('angela@freshdesk.in');
   });
+
+  it('should dynamically render options with checkbox', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-list-options>
+                            </fw-list-options>`);
+    await page.$eval(
+      'fw-list-options',
+      (elm: any, { options, optionLabelPath, optionValuePath }) => {
+        elm.options = options;
+        elm.optionLabelPath = optionLabelPath;
+        elm.optionValuePath = optionValuePath;
+      },
+      props
+    );
+    await page.waitForChanges();
+    let options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    await options.forEach(async (option) => {
+      const hasCheckbox = await option.getProperty('checkbox');
+      expect(hasCheckbox).toBeFalsy();
+    });
+    await page.$eval('fw-list-options', (elm: any) => {
+      elm.checkbox = true;
+      elm.hideTick = true;
+    });
+    await page.waitForChanges();
+    options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(3);
+    await options.forEach(async (option) => {
+      const hasCheckbox = await option.getProperty('checkbox');
+      expect(hasCheckbox).toBeTruthy();
+    });
+  });
 });
