@@ -1692,6 +1692,10 @@ export namespace Components {
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
         /**
+          * Hides the dropdown panel
+         */
+        "hideDropdown": () => Promise<any>;
+        /**
           * Hint text displayed below the text box.
          */
         "hintText": string;
@@ -1782,6 +1786,10 @@ export namespace Components {
         "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string | string[]) => Promise<any>;
+        /**
+          * Shows the dropdown panel
+         */
+        "showDropdown": () => Promise<any>;
         /**
           * Theme based on which the list box is styled.
          */

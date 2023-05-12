@@ -836,4 +836,32 @@ describe('fw-select', () => {
     expect(styles.overflowY).toBe('auto');
     expect(styles.maxHeight).toBe('none');
   });
+
+  it('showDropdown method should open the dropdown and hideDropdown method should close the dropdown', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select readonly label="Select the house" required="true" value="starks">
+                                <fw-select-option value="starks">Starks</fw-select-option>
+                                <fw-select-option value="lannisters">Lannisters</fw-select-option>
+                            </fw-select>`);
+
+    const element = await page.find('fw-select');
+    const selectContainer = await page.find('fw-select >>> .select-container');
+    let popoverContent = await selectContainer.find(
+      'fw-popover >>> .popper-content'
+    );
+    expect(popoverContent).not.toHaveAttribute('data-show');
+    await element.callMethod('showDropdown');
+    await page.waitForChanges();
+    popoverContent = await selectContainer.find(
+      'fw-popover >>> .popper-content'
+    );
+    expect(popoverContent).toHaveAttribute('data-show');
+    await element.callMethod('hideDropdown');
+    await page.waitForChanges();
+    popoverContent = await selectContainer.find(
+      'fw-popover >>> .popper-content'
+    );
+    expect(popoverContent).not.toHaveAttribute('data-show');
+  });
 });
