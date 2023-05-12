@@ -3,18 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.12...@freshworks/crayons@4.2.0-beta.13) (2023-05-12)
-
+## [4.2.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.12...@freshworks/crayons@4.2.0-beta.13) (2023-05-12)
 
 ### Bug Fixes
 
-* fix styling of checkbox in select option, dynamically change checkbox property ([e043a71](https://github.com/freshworks/crayons/commit/e043a7152a321ec76443f82d88e8bb9ceea0fadf))
-* **timepicker:** fix review comments ([5c911ef](https://github.com/freshworks/crayons/commit/5c911ef13fce0fc233ca1649d9c2c2fccc0dbaca))
-* **timepicker:** fix timepicker issues ([d3848bd](https://github.com/freshworks/crayons/commit/d3848bdfb787408ba610de0e17dfdba2325e5512))
-
-
-
-
+- fix styling of checkbox in select option, dynamically change checkbox property ([e043a71](https://github.com/freshworks/crayons/commit/e043a7152a321ec76443f82d88e8bb9ceea0fadf))
+- **timepicker:** fix review comments ([5c911ef](https://github.com/freshworks/crayons/commit/5c911ef13fce0fc233ca1649d9c2c2fccc0dbaca))
+- **timepicker:** fix timepicker issues ([d3848bd](https://github.com/freshworks/crayons/commit/d3848bdfb787408ba610de0e17dfdba2325e5512))
 
 ## [4.2.0-beta.11](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.10...@freshworks/crayons@4.2.0-beta.11) (2023-04-20)
 
