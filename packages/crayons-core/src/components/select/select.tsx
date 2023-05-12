@@ -469,6 +469,22 @@ export class Select {
     this.selectInput?.focus();
   }
 
+  /**
+   * Shows the dropdown panel
+   */
+  @Method()
+  async showDropdown(): Promise<any> {
+    this.openDropdown();
+  }
+
+  /**
+   * Hides the dropdown panel
+   */
+  @Method()
+  async hideDropdown(): Promise<any> {
+    this.closeDropdown();
+  }
+
   matchValueWithOptions = () => {
     if (this.dataSource?.length > 0) {
       // Check whether the selected data in the this.dataSource  matches the value

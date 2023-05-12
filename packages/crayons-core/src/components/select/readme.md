@@ -1478,6 +1478,123 @@ function App() {
 </code-block>
 </code-group>
 
+### Using showDropdown and hideDropdown methods
+
+The dropdown panel can be manually shown using `showDropdown` method and can be manually hidden using `hideDropdown` method
+
+```html live
+<div>
+  <fw-button id="show-dropdown">Show Dropdown</fw-button>
+  <fw-button id="hide-dropdown">Hide Dropdown</fw-button>
+  <br />
+  <br />
+  <fw-select
+    id="manualSelect"
+    label="House Name"
+    required="true"
+    value="1"
+    placeholder="Your choice"
+    hint-text="Select singluar option"
+  >
+    <fw-select-option value="1">Starks</fw-select-option>
+    <fw-select-option value="2">Lannisters</fw-select-option>
+  </fw-select>
+</div>
+
+<script type="application/javascript">
+  var manualSelect = document.getElementById('manualSelect');
+  var showBtn = document.getElementById('show-dropdown');
+  var hideBtn = document.getElementById('hide-dropdown');
+  showBtn.addEventListener('fwClick', () => {
+    manualSelect.showDropdown();
+  });
+  hideBtn.addEventListener('fwClick', () => {
+    manualSelect.hideDropdown();
+  });
+</script>
+```
+
+### Usage for showDropdown and hideDropdown methods
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<div>
+  <fw-button id="show-dropdown">Show Dropdown</fw-button>
+  <fw-button id="hide-dropdown">Hide Dropdown</fw-button>
+  <br />
+  <br />
+  <fw-select
+    id="manualSelect"
+    label="House Name"
+    required="true"
+    value="1"
+    placeholder="Your choice"
+    hint-text="Select singluar option"
+  >
+    <fw-select-option value="1">Starks</fw-select-option>
+    <fw-select-option value="2">Lannisters</fw-select-option>
+  </fw-select>
+</div>
+
+<script type="application/javascript">
+  var manualSelect = document.getElementById('manualSelect');
+  var showBtn = document.getElementById('show-dropdown');
+  var hideBtn = document.getElementById('hide-dropdown');
+  showBtn.addEventListener('fwClick', () => {
+    manualSelect.showDropdown();
+  });
+  hideBtn.addEventListener('fwClick', () => {
+    manualSelect.hideDropdown();
+  });
+</script>
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { FwButton, FwSelect, FwSelectOption } from '@freshworks/crayons/react';
+
+function App() {
+
+  const selectRef = React.useRef();
+
+  const handleShow = () => {
+    selectRef.current.showDropdown();
+  };
+
+  const handleHide = () => {
+    selectRef.current.hideDropdown();
+  };
+
+  return (
+    <div>
+      <FwButton onFwClick={handleShow}>Show Dropdown</FwButton>
+      <FwButton onFwClick={handleHide}>Hide Dropdown</FwButton>
+      <FwSelect
+        ref={selectRef}
+        label='House Name'
+        required
+        value='1'
+        placeholder='Your choice'
+        hintText='Select singluar option'
+      >
+        <FwSelectOption value='1'>Starks</FwSelectOption>
+        <FwSelectOption value='2'>Lannisters</FwSelectOption>
+      </FwSelect>
+    </div>
+  );
+}
+```
+
+</code-block>
+</code-group>
+
 ## Styling
 
 Refer the css variables in fw-popover to control the height and width of the select popup.
@@ -1550,6 +1667,16 @@ Type: `Promise<any>`
 
 
 
+### `hideDropdown() => Promise<any>`
+
+Hides the dropdown panel
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
 ### `setFocus() => Promise<any>`
 
 
@@ -1573,6 +1700,16 @@ Type: `Promise<any>`
 ### `setSelectedValues(values: string | string[]) => Promise<any>`
 
 
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+### `showDropdown() => Promise<any>`
+
+Shows the dropdown panel
 
 #### Returns
 
