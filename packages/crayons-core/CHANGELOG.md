@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.13...@freshworks/crayons@4.2.0-beta.14) (2023-05-15)
-
+## [4.2.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.13...@freshworks/crayons@4.2.0-beta.14) (2023-05-15)
 
 ### Features
 
-* **fw-select:** add methods to show/hide the dropdown ([954ad1a](https://github.com/freshworks/crayons/commit/954ad1a5bf1f5d7b7be24d365226952b62044f31))
-
-
-
-
+- **fw-select:** add methods to show/hide the dropdown ([954ad1a](https://github.com/freshworks/crayons/commit/954ad1a5bf1f5d7b7be24d365226952b62044f31))
 
 ## [4.2.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.12...@freshworks/crayons@4.2.0-beta.13) (2023-05-12)
 
