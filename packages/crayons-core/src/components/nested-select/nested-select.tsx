@@ -6,52 +6,27 @@ import { Component, Prop, State, Listen, h, Watch } from '@stencil/core';
   shadow: true,
 })
 export class NestedSelect {
-  private selectRef: HTMLFwSelectElement;
-  @State() selectedOption = null;
   @Prop() options = [];
-  @Prop() level = 0;
-  @Watch('options')
-  optionsChanged() {
-    this.selectedOption = null;
-    this.selectRef.setSelectedValues('');
-  }
+  private selections = [];
   @Listen('fwChange')
   changed(event) {
-    console.log('IN CHANGE in Level' + this.level, event.target.level);
-    if (event.detail.meta.selectedOptions[0]?.choices) {
-      this.selectedOption = event.detail.meta.selectedOptions[0];
+    this.selections[event.detail.level] = event.detail.meta.selectedOptions[0];
+
+    const itemsToRemove = this.selections.length - (event.detail.level + 1);
+    console.log(
+      'SPLICE VALS ARE ' +
+        this.selections.length +
+        ':::' +
+        event.detail.level +
+        ':::' +
+        itemsToRemove
+    );
+    if (itemsToRemove > 0) {
+      this.selections = this.selections.slice(0, event.detail.level + 1);
     }
-    event.stopPropagation();
-  }
-  private getFirstlevelNestedSelect() {
-    return this.selectedOption ? (
-      <div class='nest_indent'>
-        <fw-nested-select
-          options={this.selectedOption.choices}
-          level={this.level + 1}
-        ></fw-nested-select>
-      </div>
-    ) : null;
-  }
-  private getNestedSelect() {
-    return this.selectedOption ? (
-      <fw-nested-select
-        options={this.selectedOption.choices}
-        level={this.level + 1}
-      ></fw-nested-select>
-    ) : null;
+    console.log(this.selections, this.selections.length + 1);
   }
   render() {
-    return (
-      <div class='nest'>
-        <fw-select
-          options={this.options}
-          ref={(select) => (this.selectRef = select)}
-        ></fw-select>
-        {this.level == 0
-          ? this.getFirstlevelNestedSelect()
-          : this.getNestedSelect()}
-      </div>
-    );
+    return <fw-nested-node options={this.options}></fw-nested-node>;
   }
 }

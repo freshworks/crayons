@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="4px" height="16px" viewBox="0 0 4 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/more-vertical</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Icons-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons" transform="translate(-414.000000, -1597.000000)" fill="currentColor">
+            <g id="icon/more-vertical" transform="translate(414.000000, 1597.000000)">
+                <g id="more-vertical" transform="translate(0.000000, -1.000000)">
+                    <path d="M2,4.09 C1.37217632,4.08998693 0.806367712,3.71125041 0.567054909,3.13082647 C0.327742105,2.55040253 0.462196703,1.88294264 0.907569444,1.44044327 C1.35294218,0.997943903 2.02125834,0.867812205 2.60012119,1.11087675 C3.17898404,1.35394129 3.55405048,1.92218939 3.55,2.55 C3.54450225,3.40213354 2.85215128,4.09001773 2,4.09 Z M2,17 C1.14395864,17 0.45,16.3060414 0.45,15.45 C0.45,14.5939586 1.14395864,13.9 2,13.9 C2.85604136,13.9 3.55,14.5939586 3.55,15.45 C3.55,16.3060414 2.85604136,17 2,17 Z M2,10.55 C1.14395864,10.55 0.45,9.85604136 0.45,9 C0.45,8.14395864 1.14395864,7.45 2,7.45 C2.85604136,7.45 3.55,8.14395864 3.55,9 C3.54454443,9.85377138 2.85377138,10.5445444 2,10.55 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -12,8 +12,203 @@
     <script nomodule src="/build/crayons.js"></script>
   </head>
   <body>
-    <fw-button expand color="primary">Primary Button</fw-button>
+    
+    <div style="width:200px; height:1000px;">
+      <fw-nested-select id="#nest"></fw-nested-select>
+    </div>
+    
+   
+    
+    <script>
+      const inputProp = {
+  choices: [
+    {
+      text: 'category 011',
+      value: 'category 011',
+      field1:"dfdf",
+      field2:"dfgfgf",
+      choices: [
+        {
+          text: 'subcategory 011',
+          value: 'subcategory 011',
+          choices: [
+            {
+              text: 'item 1.1',
+              value: 'item 1.1',
+              choices: [
+                {
+                  text: 'item 1.1.1',
+                  value: 'item 1.1.1',
+                },
+                {
+                  text: 'item 1.1.2',
+                  value: 'item 1.1.2',
+                },
+                {
+                  text: 'item 1.1.3',
+                  value: 'item 1.1.3',
+                },
+              ],
+              choice_id: 13688,
+            },
+            {
+              text: 'item 1.2',
+              value: 'item 1.2',
+              choices: [
+                {
+                  text: 'item 1.2.1',
+                  value: 'item 1.2.1',
+                },
+                {
+                  text: 'item 1.2.2',
+                  value: 'item 1.2.2',
+                },
+                {
+                  text: 'item 1.2.3',
+                  value: 'item 1.2.3',
+                },
+              ],
+              choice_id: 13689,
+            },
+          ],
+        },
+        {
+          text: 'subcategory 012',
+          value: 'subcategory 012',
+          choices: [
+            {
+              text: 'item 1.2.0.1',
+              value: 'item 1.2.0.1',
+              choices: [
+                {
+                  text: 'item 1.2.1',
+                  value: 'item 1.2.1',
+                },
+                {
+                  text: 'item 1.1.2',
+                  value: 'item 1.1.2',
+                },
+                {
+                  text: 'item 1.1.3',
+                  value: 'item 1.1.3',
+                },
+              ],
+              choice_id: 13688,
+            },
+            {
+              text: 'item 1.2.0.2',
+              value: 'item 1.2.0.2',
+              choices: [
+                {
+                  text: 'item 1.2.1',
+                  value: 'item 1.2.1',
+                },
+                {
+                  text: 'item 1.2.2',
+                  value: 'item 1.2.2',
+                },
+                {
+                  text: 'item 1.2.3',
+                  value: 'item 1.2.3',
+                },
+              ],
+              choice_id: 13689,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: 'category 021',
+      value: 'category 021',
+      choices: [
+        {
+          text: 'subcategory 2',
+          value: 'subcategory 2',
+          choices: [
+            {
+              text: 'item 2.1',
+              value: 'item 2.1',
+              choices: [
+                {
+                  text: 'item 2.1.1',
+                  value: 'item 2.1.1',
+                },
+                {
+                  text: 'item 2.1.2',
+                  value: 'item 2.1.2',
+                },
+                {
+                  text: 'item 2.1.3',
+                  value: 'item 2.1.3',
+                },
+              ],
+              choice_id: 13688,
+            },
+            {
+              text: 'item 2.2',
+              value: 'item 2.2',
+              choices: [
+                {
+                  text: 'item 2.2.1',
+                  value: 'item 2.2.1',
+                },
+                {
+                  text: 'item 2.2.2',
+                  value: 'item 2.2.2',
+                },
+                {
+                  text: 'item 2.2.3',
+                  value: 'item 2.2.3',
+                },
+              ],
+              choice_id: 13689,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
 
+const iconDataSource = [
+  {
+    value: '1',
+    text: 'Luffy',
+    subText: 'Pirate King',
+    graphicsProps: { name: 'verified' },
+    choices: [
+      {
+        text: 'item 2.2.1',
+        value: 'item 2.2.1',
+      },
+      {
+        text: 'item 2.2.2',
+        value: 'item 2.2.2',
+      },
+      {
+        text: 'item 2.2.3',
+        value: 'item 2.2.3',
+      },
+    ],
+  },
+  {
+    value: '2',
+    text: 'Zorro',
+    subText: 'Best Swordsman',
+    graphicsProps: { name: 'magic-wand' },
+  },
+  {
+    value: '3',
+    text: 'Sanji',
+    subText: 'Best Chef',
+    graphicsProps: { name: 'ecommerce' },
+  },
+];
+var nest = document.getElementById('#nest');
+    nest.options=inputProp.choices
+    
+    </script>
     <!-- start of form examples dynamic and static forms -->
 
     <!-- <div style="display: flex; justify-content: space-around">

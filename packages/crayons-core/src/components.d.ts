@@ -1183,10 +1183,10 @@ export namespace Components {
         "titleText": string;
     }
     interface FwNestedNode {
+        "level": number;
         "options": any[];
     }
     interface FwNestedSelect {
-        "level": number;
         "options": any[];
     }
     interface FwPagination {
@@ -3833,10 +3833,10 @@ declare namespace LocalJSX {
         "titleText"?: string;
     }
     interface FwNestedNode {
+        "level"?: number;
         "options"?: any[];
     }
     interface FwNestedSelect {
-        "level"?: number;
         "options"?: any[];
     }
     interface FwPagination {
