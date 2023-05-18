@@ -1116,4 +1116,24 @@ describe('fw-form', () => {
     expect(result.values['pincode']).toEqual(56000);
     expect(result.values['amount_paid']).toEqual(5000);
   });
+
+  it('should render the right date in datepicker which user has passed/selected', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    await page.$eval(
+      'fw-form',
+      (ele: any, { formSchema }) => {
+        ele.formSchema = formSchema;
+      },
+      fieldOptionsData
+    );
+
+    await page.waitForChanges();
+    const element = await page.find('fw-form');
+    await element.callMethod('setFieldsValue', {
+      date_of_birth: '2023-05-10',
+    });
+    const result = await element.callMethod('doSubmit');
+    expect(result.values['date_of_birth']).toEqual('2023-05-10');
+  });
 });
