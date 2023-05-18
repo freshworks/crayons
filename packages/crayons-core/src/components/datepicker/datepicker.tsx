@@ -1394,7 +1394,10 @@ export class Datepicker {
             }
           );
           this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
-          this.emitEvent(e, this.value);
+          this.emitEvent(e, {
+            fromDate: this.formatDate(this.startDateFormatted),
+            toDate: this.formatDate(this.endDateFormatted),
+          });
           this.showDatePicker = false;
           this.host.shadowRoot.querySelector('fw-popover').hide();
         }
@@ -1458,7 +1461,10 @@ export class Datepicker {
       this.toDate = this.endDateFormatted;
 
       this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
-      this.emitEvent(e, this.value);
+      this.emitEvent(e, {
+        fromDate: this.formatDate(this.startDateFormatted),
+        toDate: this.formatDate(this.endDateFormatted),
+      });
     }
   }
 
