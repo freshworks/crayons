@@ -342,7 +342,7 @@ export class Datepicker {
             locale: this.langModule,
           })
         )
-      : formatISO(new Date(this.handleUserTimeZoneOffset(value)));
+      : formatISO(new Date(value));
   }
 
   /**
@@ -1037,20 +1037,25 @@ export class Datepicker {
       this.timeValue = '';
     } else {
       if (this.mode !== 'range') {
+        // if the value is of the ISO UTC time format, timezone offset need not be calculated
+        // when datepicker is used in form component, the value will be passed to form in UTC ISO format, hence skipping.
+        const utcTimeRegex =
+          /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[+-](\d{2}):(\d{2})/;
         // If ISO format, format it to display format and validate
         try {
           if (isValid(parseISO(value)))
-            value = this.showTimePicker
-              ? format(new Date(value), this.displayFormat, {
-                  locale: this.langModule,
-                })
-              : format(
-                  new Date(this.handleUserTimeZoneOffset(value)),
-                  this.displayFormat,
-                  {
+            value =
+              this.showTimePicker || utcTimeRegex.test(value)
+                ? format(new Date(value), this.displayFormat, {
                     locale: this.langModule,
-                  }
-                );
+                  })
+                : format(
+                    new Date(this.handleUserTimeZoneOffset(value)),
+                    this.displayFormat,
+                    {
+                      locale: this.langModule,
+                    }
+                  );
           this.processValueChange(value, true);
           this.checkYearRestriction();
         } catch (e) {
