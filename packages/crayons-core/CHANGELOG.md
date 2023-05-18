@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.14...@freshworks/crayons@4.2.0-beta.15) (2023-05-18)
+
+
+### Bug Fixes
+
+* **datepicker:** fix timezone offset issue for datepicker in form ([a621fa1](https://github.com/freshworks/crayons/commit/a621fa1ab694f45474ab9071b9f67f376e07d052))
+* **datepicker:** restore date range emitted value format ([730339b](https://github.com/freshworks/crayons/commit/730339bb63c50906feeeef3c90962d698b5c2211))
+
+
+
+
+
 ## [4.2.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.13...@freshworks/crayons@4.2.0-beta.14) (2023-05-15)
 
 ### Features
