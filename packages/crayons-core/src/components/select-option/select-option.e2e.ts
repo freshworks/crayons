@@ -57,4 +57,23 @@ describe('fw-select-option', () => {
     checkbox = await page.find('fw-select-option >>> fw-checkbox');
     expect(checkbox).toBeTruthy();
   });
+
+  it('disables the checkbox when disabled property is true', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-select-option text="This is a select option" disabled></fw-select-option>'
+    );
+    let checkbox = await page.find('fw-select-option >>> fw-checkbox');
+    expect(checkbox).toBeFalsy();
+
+    await page.$eval('fw-select-option', (elm: any) => {
+      elm.checkbox = true;
+    });
+
+    await page.waitForChanges();
+    checkbox = await page.find('fw-select-option >>> fw-checkbox');
+    expect(checkbox).toBeTruthy();
+    expect(await checkbox.getProperty('disabled')).toBeTruthy();
+  });
 });

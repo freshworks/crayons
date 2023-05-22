@@ -215,7 +215,10 @@ export class SelectOption {
   createCheckbox() {
     return (
       <div class='checkbox-wrapper' key={`${this.host.id}-${this.selected}`}>
-        <fw-checkbox checked={this.selected}></fw-checkbox>
+        <fw-checkbox
+          checked={this.selected}
+          disabled={this.disabled}
+        ></fw-checkbox>
       </div>
     );
   }

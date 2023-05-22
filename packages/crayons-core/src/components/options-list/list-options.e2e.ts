@@ -382,4 +382,28 @@ describe('fw-list-options', () => {
       expect(hasCheckbox).toBeTruthy();
     });
   });
+
+  it('should not render default options with checkbox', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-list-options searchable hideTick not-found-text="Cannot find item" no-data-text="No options available">
+                            </fw-list-options>`);
+    await page.$eval('fw-list-options', (elm: any) => {
+      elm.checkbox = true;
+    });
+    await page.waitForChanges();
+    let options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    expect(await options[0].getProperty('text')).toBe('No options available');
+    expect(await options[0].getProperty('checkbox')).toBeFalsy();
+    const searchInput = await page.find('fw-list-options >>> .input-search');
+    searchInput.setProperty('value', 'some');
+    await searchInput.triggerEvent('input');
+    await page.waitForChanges();
+    await page.waitForTimeout(1000);
+    options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBe(1);
+    expect(await options[0].getProperty('checkbox')).toBeFalsy();
+    expect(await options[0].getProperty('text')).toBe('Cannot find item');
+  });
 });

@@ -513,7 +513,13 @@ export class ListOptions {
         option.disabled ||
         (!this.allowDeselect && option.selected) ||
         (this.multiple && !option.selected && this.value?.length >= this.max);
-      const checkbox = this.checkbox || option.checkbox;
+      const isDefaultOption = [
+        this.noDataText,
+        TranslationController.t('search.noDataAvailable'),
+        this.notFoundText,
+        TranslationController.t('search.noItemsFound'),
+      ].includes(option[this.optionLabelPath]);
+      const checkbox = !isDefaultOption && (this.checkbox || option.checkbox);
       return (
         <fw-select-option
           id={`${this.host.id}-option-${option[this.optionValuePath]}`}
