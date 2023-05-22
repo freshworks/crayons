@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-beta.16](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.15...@freshworks/crayons@4.2.0-beta.16) (2023-05-22)
-
+## [4.2.0-beta.16](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.15...@freshworks/crayons@4.2.0-beta.16) (2023-05-22)
 
 ### Bug Fixes
 
-* **fw-list-options:** remove checkbox for default options ([ebeebc6](https://github.com/freshworks/crayons/commit/ebeebc65f1c8e21690e5366af4b5705c2d70fa52))
-
-
-
-
+- **fw-list-options:** remove checkbox for default options ([ebeebc6](https://github.com/freshworks/crayons/commit/ebeebc65f1c8e21690e5366af4b5705c2d70fa52))
 
 ## [4.2.0-beta.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.14...@freshworks/crayons@4.2.0-beta.15) (2023-05-18)
 
