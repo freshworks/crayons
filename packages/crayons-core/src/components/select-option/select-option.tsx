@@ -181,7 +181,13 @@ export class SelectOption {
           </Fragment>
         );
       default:
-        break;
+        return (
+          <Fragment>
+            {checkbox}
+            {description}
+            {selectedIconContainer}
+          </Fragment>
+        );
     }
   }
 
