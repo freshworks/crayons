@@ -733,17 +733,20 @@ export class Datepicker {
     this.weekDays = getWeekDays(this.langModule);
     if (this.value && this.mode !== 'range') {
       this.setDateAndErrorState(true);
-      this.value = this.showTimePicker
-        ? format(new Date(this.value), this.displayFormat, {
-            locale: this.langModule,
-          })
-        : format(
-            new Date(this.handleUserTimeZoneOffset(this.value)),
-            this.displayFormat,
-            {
+      const utcTimeRegex =
+        /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[+-](\d{2}):(\d{2})/;
+      this.value =
+        this.showTimePicker || utcTimeRegex.test(this.value)
+          ? format(new Date(this.value), this.displayFormat, {
               locale: this.langModule,
-            }
-          );
+            })
+          : format(
+              new Date(this.handleUserTimeZoneOffset(this.value)),
+              this.displayFormat,
+              {
+                locale: this.langModule,
+              }
+            );
     }
     this.showTimePicker && this.setTimepickerDate();
     this.setInitialValues();
@@ -840,9 +843,12 @@ export class Datepicker {
         this.selectedDay = getDate(today);
         this.value = undefined;
       } else {
-        const date = this.showTimePicker
-          ? new Date(this.value)
-          : new Date(this.handleUserTimeZoneOffset(this.value));
+        const utcTimeRegex =
+          /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[+-](\d{2}):(\d{2})/;
+        const date =
+          this.showTimePicker || utcTimeRegex.test(this.value)
+            ? new Date(this.value)
+            : new Date(this.handleUserTimeZoneOffset(this.value));
         this.year = getYear(date);
         this.month = getMonth(date);
         this.selectedDay = getDate(date);
