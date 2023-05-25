@@ -43,6 +43,8 @@ export class FormControl {
   @Prop()
   label: any;
   @Prop()
+  hidden = false;
+  @Prop()
   required = false;
   @Prop()
   hint = '';
@@ -504,7 +506,7 @@ export class FormControl {
   render(): JSX.Element {
     return (
       this.shouldRender && (
-        <div class='form-control-container'>
+        <div class={`form-control-container ${this.hidden ? 'd-none' : ''}`}>
           {this.renderControl()}
           {this.hasSlot && (
             <label

@@ -1136,4 +1136,86 @@ describe('fw-form', () => {
     const result = await element.callMethod('doSubmit');
     expect(result.values['date_of_birth']).toEqual('2023-05-10');
   });
+
+  it('should remove the hidden form fields from DOM on invoking setHiddenFields method', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    await page.$eval(
+      'fw-form',
+      (ele: any, { formSchema }: any) => {
+        ele.formSchema = formSchema;
+        ele.removeElementFromDomOnHide = true;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-form');
+    await element.callMethod('setHiddenFields', {
+      pincode: true,
+    });
+    await page.waitForChanges();
+    const pincodeFormControl = await page.find(
+      'fw-form >>> fw-form-control[name="pincode"]'
+    );
+    expect(pincodeFormControl).toBeNull();
+  });
+
+  it('should hide the form fields using CSS on invoking setHiddenFields method', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    await page.$eval(
+      'fw-form',
+      (ele: any, { formSchema }: any) => {
+        ele.formSchema = formSchema;
+        ele.removeElementFromDomOnHide = false;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-form');
+    await element.callMethod('setHiddenFields', {
+      pincode: true,
+    });
+    await page.waitForChanges();
+    const pincodeFormControl = await page.find(
+      'fw-form >>> fw-form-control[name="pincode"]'
+    );
+    expect(pincodeFormControl).not.toBeNull();
+    const container = pincodeFormControl.shadowRoot.querySelector(
+      '.form-control-container'
+    );
+    expect(container).toHaveClass('d-none');
+  });
+
+  it('should disable form fields on invoking setDisabledFields method', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    await page.$eval(
+      'fw-form',
+      (ele: any, { formSchema }: any) => {
+        ele.formSchema = formSchema;
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-form');
+    await element.callMethod('setDisabledFields', { pincode: true });
+    await page.waitForChanges();
+    const formElement = await page.find('fw-form >>> :first-child');
+    let pincodeFormControl = await formElement.find(
+      'fw-form-control[name="pincode"] >>> :first-child'
+    );
+    let input = await pincodeFormControl.find('fw-input');
+    let isDisabled = await input.getProperty('disabled');
+    expect(isDisabled).toBeTruthy();
+
+    await element.callMethod('setDisabledFields', { pincode: false });
+    await page.waitForChanges();
+    pincodeFormControl = await formElement.find(
+      'fw-form-control[name="pincode"] >>> :first-child'
+    );
+    input = await pincodeFormControl.find('fw-input');
+    isDisabled = await input.getProperty('disabled');
+    expect(isDisabled).toBeFalsy();
+  });
 });

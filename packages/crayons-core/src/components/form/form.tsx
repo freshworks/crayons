@@ -104,6 +104,12 @@ export class Form {
    */
   @Prop() customTypeMapper: any = {};
 
+  /**
+   * To check if hidden fields must be removed from DOM.
+   * Defaults to false.
+   */
+  @Prop({ mutable: true }) removeElementFromDomOnHide = false;
+
   @State() values: FormValues = {} as any;
   @State() touched: FormTouched<FormValues> = {} as any;
   @State() errors: FormErrors<FormValues> = {} as any;
@@ -641,6 +647,68 @@ export class Form {
   }
 
   /**
+   * Method to set hidden fields on the form dynamically.
+   *
+   * Note: You must always pass all the fields you wanting to hide
+   *
+   * param: hiddenFields - key value pair of [fieldName]: true | false
+   * param: removeElementFromDomOnHide - boolean to decide whether to remove hidden fields from DOM or to hide the elements using CSS[display: none]
+   * example: `setHiddenFields({ first_name: true, last_name: false }, false)`
+   */
+  @Method()
+  async setHiddenFields(
+    hiddenFields: any,
+    removeElementFromDomOnHide: boolean = this.removeElementFromDomOnHide
+  ): Promise<void> {
+    this.removeElementFromDomOnHide = removeElementFromDomOnHide;
+    return this._handleFieldModifier('hidden', hiddenFields);
+  }
+
+  /**
+   * Method to set disabled fields on the form dynamically.
+   *
+   * Note: You must always pass all the fields you wanting to disable
+   *
+   * param: disabledFields - key value pair of [fieldName]: true | false
+   * example: `setDisabledFields({ first_name: true, last_name: false })`
+   */
+  @Method()
+  async setDisabledFields(disabledFields: any): Promise<void> {
+    return this._handleFieldModifier('editable', disabledFields, true);
+  }
+
+  private _handleFieldModifier(
+    key: string,
+    fieldsObj: any = {},
+    negate = false
+  ) {
+    let errorsObj = { ...this.errors };
+    let touchedObj = { ...this.touched };
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f: any) => {
+          if (Object.prototype.hasOwnProperty.call(fieldsObj, f.name)) {
+            let isModified = Boolean(fieldsObj[f.name]);
+            if (negate) isModified = !isModified;
+            if (isModified) {
+              errorsObj = { ...errorsObj, [f.name]: undefined };
+              touchedObj = { ...this.touched, [f.name]: false };
+            }
+            return {
+              ...f,
+              [key]: isModified,
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.errors = { ...errorsObj };
+    this.touched = { ...touchedObj };
+  }
+
+  /**
    * getValues
    * @returns An Object containing values and serializedValues.
    * serializedValues are those that contains the transformed values based on field type.
@@ -731,15 +799,30 @@ export class Form {
       ) || {};
   }
 
+  private _getVisibleFields = (): any[] => {
+    let fields = [];
+    if (
+      this.formSchemaState &&
+      Object.keys(this.formSchemaState).length > 0 &&
+      Array.isArray(this.formSchemaState.fields)
+    ) {
+      fields = this.formSchemaState.fields.filter(
+        (field: any) => !this.removeElementFromDomOnHide || !field.hidden
+      );
+    }
+
+    return fields;
+  };
+
   render() {
     const utils: FormUtils = this.composedUtils();
+    const fields: any[] = this._getVisibleFields();
 
     return (
       <form id={`form-${this.formId}`} {...utils.formProps}>
-        {this.formSchemaState &&
-        Object.keys(this.formSchemaState).length > 0 ? (
-          this.formSchemaState?.fields
-            ?.sort((a, b) => a.position - b.position)
+        {fields.length ? (
+          fields
+            .sort((a, b) => a.position - b.position)
             .map((field) => {
               return (
                 this.shouldRenderFormControl(field) && (
@@ -751,6 +834,7 @@ export class Form {
                     required={field.required}
                     hint={field.hint}
                     placeholder={field.placeholder}
+                    hidden={field.hidden}
                     error={this.errors[field.name]}
                     touched={this.touched[field.name]}
                     disabled={this.isDisabledField(field)}

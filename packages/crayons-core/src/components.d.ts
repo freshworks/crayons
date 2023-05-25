@@ -823,6 +823,14 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * To check if hidden fields must be removed from DOM. Defaults to false.
+         */
+        "removeElementFromDomOnHide": boolean;
+        /**
+          * Method to set disabled fields on the form dynamically.  Note: You must always pass all the fields you wanting to disable  param: disabledFields - key value pair of [fieldName]: true | false example: `setDisabledFields({ first_name: true, last_name: false })`
+         */
+        "setDisabledFields": (disabledFields: any) => Promise<void>;
+        /**
           * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }]. fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path. option_label_path refers to the key used for displaying the text. option_value_path refers to the key which corresponds to the value of item.
          */
         "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
@@ -847,6 +855,10 @@ export namespace Components {
           * Method to set values on the form fields.  param: valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }` param: shouldValidate - should this form be validated with the updated values. Default to true.
          */
         "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields you wanting to hide  param: hiddenFields - key value pair of [fieldName]: true | false param: removeElementFromDomOnHide - boolean to decide whether to remove hidden fields from DOM or to hide the elements using CSS[display: none] example: `setHiddenFields({ first_name: true, last_name: false }, false)`
+         */
+        "setHiddenFields": (hiddenFields: any, removeElementFromDomOnHide?: boolean) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
@@ -883,6 +895,7 @@ export namespace Components {
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
          */
         "fieldProps"?: any;
+        "hidden": boolean;
         "hint": string;
         "label": any;
         "name": any;
@@ -3761,6 +3774,10 @@ declare namespace LocalJSX {
          */
         "onFwFormValuesChanged"?: (event: FwFormCustomEvent<any>) => void;
         /**
+          * To check if hidden fields must be removed from DOM. Defaults to false.
+         */
+        "removeElementFromDomOnHide"?: boolean;
+        /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
         "validate"?: any;
@@ -3796,6 +3813,7 @@ declare namespace LocalJSX {
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
          */
         "fieldProps"?: any;
+        "hidden"?: boolean;
         "hint"?: string;
         "label"?: any;
         "name"?: any;
