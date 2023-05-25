@@ -76,4 +76,26 @@ describe('fw-select-option', () => {
     expect(checkbox).toBeTruthy();
     expect(await checkbox.getProperty('disabled')).toBeTruthy();
   });
+
+  it('should render text when variant is undefined', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-select-option text="This is a select option"></fw-select-option>'
+    );
+
+    await page.$eval('fw-select-option', (elm: any) => {
+      elm.variant = 'icon';
+    });
+    await page.waitForChanges();
+
+    await page.$eval('fw-select-option', (elm: any) => {
+      elm.variant = undefined;
+    });
+    await page.waitForChanges();
+
+    const text = await page.find('fw-select-option >>> .description');
+    expect(text).toBeTruthy();
+    expect(text.innerText).toBe('This is a select option');
+  });
 });
