@@ -856,7 +856,7 @@ export namespace Components {
          */
         "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
         /**
-          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields you wanting to hide  param: hiddenFields - key value pair of [fieldName]: true | false param: removeElementFromDomOnHide - boolean to decide whether to remove hidden fields from DOM or to hide the elements using CSS[display: none] example: `setHiddenFields({ first_name: true, last_name: false }, false)`
+          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields you wanting to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false param: removeElementFromDomOnHide - boolean to decide whether to remove hidden fields from DOM or to hide the elements using CSS[display: none] example: `setHiddenFields({ first_name: true, last_name: false }, false)`
          */
         "setHiddenFields": (hiddenFields: any, removeElementFromDomOnHide?: boolean) => Promise<void>;
         /**

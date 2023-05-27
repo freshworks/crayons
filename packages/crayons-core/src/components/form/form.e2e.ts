@@ -1187,6 +1187,45 @@ describe('fw-form', () => {
     expect(container).toHaveClass('d-none');
   });
 
+  it('should skip validation for hidden fields', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    await page.$eval(
+      'fw-form',
+      (ele: any, { formSchema }: any) => {
+        ele.formSchema = formSchema;
+        ele.removeElementFromDomOnHide = false;
+        ele.initialValues = {
+          first_name: 'Test',
+          is_indian_citizen: true,
+          gender: 'Male',
+          pincode: 123345,
+          order_status: 'closed',
+          profile_pic: [
+            {
+              file: new File([new Blob()], 'file1.png', {
+                type: 'png',
+                lastModified: Date.now(),
+              }),
+            },
+          ],
+        };
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-form');
+    let result = await element.callMethod('doSubmit');
+    expect(result.isValid).toBeFalsy();
+    expect(result.errors.amount_paid).toBe('Amount Paid is required');
+    await element.callMethod('setHiddenFields', {
+      amount_paid: true,
+    });
+    await page.waitForChanges();
+    result = await element.callMethod('doSubmit');
+    expect(result.isValid).toBeTruthy();
+  });
+
   it('should disable form fields on invoking setDisabledFields method', async () => {
     const page = await newE2EPage();
     await page.setContent('<fw-form></fw-form>');
