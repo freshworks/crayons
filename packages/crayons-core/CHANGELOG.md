@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.0-beta.17](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.16...@freshworks/crayons@4.2.0-beta.17) (2023-05-25)
+
+### Bug Fixes
+
+- **form:** handle timezone for datepicker when serializing form values ([#859](https://github.com/freshworks/crayons/issues/859)) ([d3fceaa](https://github.com/freshworks/crayons/commit/d3fceaa15d479142bf1daf4e08e24d70f105a1c7))
+
+### Features
+
+- (fw-select-option): Add default case for select-option ([892d1fe](https://github.com/freshworks/crayons/commit/892d1feb42fe71a201c842eedf1ade4503dec0b1))
+
 ## [4.2.0-beta.16](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.15...@freshworks/crayons@4.2.0-beta.16) (2023-05-22)
 
 ### Bug Fixes
