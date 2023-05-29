@@ -41,6 +41,10 @@
       "type": "MULTI_SELECT",
       "icon": { "name": "multiselect", "bg_color": "#E5F2FE" },
       "choices": [{ "value": "" }, { "value": "" }]
+    },
+    "LOOKUP_FIELD": {
+      "type": "LOOKUP_FIELD",
+      "icon": { "name": "search", "bg_color": "#FEF1E1" }
     }
   },
   "relationshipTypes": [

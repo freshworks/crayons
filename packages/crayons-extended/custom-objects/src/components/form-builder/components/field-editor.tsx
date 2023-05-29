@@ -952,14 +952,14 @@ export class FieldEditor {
     );
   }
 
-  private renderLookup(boolDisableLookup) {
+  private renderLookup(boolDisableLookup, sourceObjectName= '') {
     const objFormValue = this.dataProvider;
 
     return (
       <fw-fb-field-lookup
         ref={(el) => (this.dictInteractiveElements['relationship'] = el)}
         targetObjects={this.lookupTargetObjects}
-        sourceObjectName={this.entityName}
+        sourceObjectName={sourceObjectName|| this.entityName}
         showErrors={this.showErrors}
         disabled={boolDisableLookup}
         onFwChange={this.lookupChangeHandler}
@@ -1105,6 +1105,8 @@ export class FieldEditor {
       ? this.renderLookup(boolDisableDropdowns)
       : null;
 
+    const isLookupFieldType = strFieldType === 'LOOKUP_FIELD';
+    const elementLookupField = isLookupFieldType ? this.renderLookup(boolDisableDropdowns, 'Conversation') : null;
     const boolShowLabelError =
       this.showErrors && this.labelErrorMessage && this.labelErrorMessage !== ''
         ? true
@@ -1169,6 +1171,11 @@ export class FieldEditor {
         {isDropdownType && (
           <div class={`${strBaseClassName}-content-dropdown`}>
             {elementDropdown}
+          </div>
+        )}
+        {isLookupFieldType && (
+          <div class={`${strBaseClassName}-content-lookup`}>
+            {elementLookupField}
           </div>
         )}
       </div>

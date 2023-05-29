@@ -78,6 +78,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) lookupTargetObjects = null;
   /**
+   * flag to show lookupField for CONVERSATION_PROPERTIES
+   */
+  @Prop({ mutable: true }) showLookupField = false;
+  /**
    * variable to store customize widget fields
    */
   @Prop({ mutable: true }) customizeWidgetFields = null;
@@ -221,8 +225,11 @@ export class FormBuilder {
       'DATE',
       'DROPDOWN',
       'RELATIONSHIP',
-      'MULTI_SELECT',
+      'MULTI_SELECT'
     ];
+    if(this.showLookupField) {
+      this.supportedFieldTypes.push('LOOKUP_FIELD');
+    }
   }
 
   disconnectedCallback(): void {

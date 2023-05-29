@@ -288,7 +288,8 @@
       "DATE": 17,
       "DROPDOWN": 2,
       "CHECKBOX": 5,
-      "MULTI_SELECT": 18
+      "MULTI_SELECT": 18,
+      "LOOKUP_FIELD": 16
     },
     "reverseMappedFieldTypes": {
       "1": "TEXT",
@@ -298,7 +299,8 @@
       "17": "DATE",
       "2": "DROPDOWN",
       "5": "CHECKBOX",
-      "18": "MULTI_SELECT"
+      "18": "MULTI_SELECT",
+      "16": "LOOKUP_FIELD"
     },
     "fieldOrder": [
       "TEXT",
@@ -308,7 +310,8 @@
       "DATE",
       "DROPDOWN",
       "CHECKBOX",
-      "MULTI_SELECT"
+      "MULTI_SELECT",
+      "LOOKUP_FIELD"
     ],
     "fieldProps": {
       "TEXT": {
@@ -406,6 +409,18 @@
             "selected": false
           }
         ]
+      },
+      "LOOKUP_FIELD": {
+        "display_label": "fieldTypeLookupField",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequiredResolveConv",
+            "enabled": true,
+            "selected": false
+          }
+        ]
       }
     },
     "config": {
@@ -463,7 +478,8 @@
       "maxDropdownChoices": {
         "count": 2000,
         "message": "maximumLimits.maxChoiceOptionsWarning"
-      }
+      },
+      "LOOKUP_FIELD":  { "count": 5, "message": "maximumLimits.fields" }
     }
   }
 }
