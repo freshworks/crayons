@@ -823,9 +823,9 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
-          * Method to set disabled fields on the form dynamically.  Note: You must always pass all the fields you wanting to disable  param: disabledFields - key value pair of [fieldName]: true | false example: `setDisabledFields({ first_name: true, last_name: false })`
+          * Method to set disabled fields on the form dynamically.  Note: You must always pass all the fields that you want to disable  param: disabledFields - key value pair of [fieldName]: true | false example: `setDisabledFields({ first_name: true, last_name: false })`
          */
-        "setDisabledFields": (disabledFields: any) => Promise<void>;
+        "setDisabledFields": (disabledFields?: any) => Promise<void>;
         /**
           * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }]. fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path. option_label_path refers to the key used for displaying the text. option_value_path refers to the key which corresponds to the value of item.
          */
@@ -852,9 +852,9 @@ export namespace Components {
          */
         "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
         /**
-          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields you wanting to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false example: `setHiddenFields({ first_name: true, last_name: false })`
+          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false example: `setHiddenFields({ first_name: true, last_name: false })`
          */
-        "setHiddenFields": (hiddenFields: any) => Promise<void>;
+        "setHiddenFields": (hiddenFields?: any) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */

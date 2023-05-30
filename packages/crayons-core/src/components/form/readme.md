@@ -3119,11 +3119,11 @@ serializedValues are those that contains the transformed values based on field t
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
 
-### `setDisabledFields(disabledFields: any) => Promise<void>`
+### `setDisabledFields(disabledFields?: any) => Promise<void>`
 
 Method to set disabled fields on the form dynamically.
 
-Note: You must always pass all the fields you wanting to disable
+Note: You must always pass all the fields that you want to disable
 
 param: disabledFields - key value pair of [fieldName]: true | false
 example: `setDisabledFields({ first_name: true, last_name: false })`
@@ -3224,11 +3224,11 @@ Type: `Promise<void>`
 
 
 
-### `setHiddenFields(hiddenFields: any) => Promise<void>`
+### `setHiddenFields(hiddenFields?: any) => Promise<void>`
 
 Method to set hidden fields on the form dynamically.
 
-Note: You must always pass all the fields you wanting to hide. Also, note that the validation for hidden fields will be skipped.
+Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.
 
 param: hiddenFields - key value pair of [fieldName]: true | false
 example: `setHiddenFields({ first_name: true, last_name: false })`

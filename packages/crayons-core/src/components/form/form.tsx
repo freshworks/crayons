@@ -643,7 +643,7 @@ export class Form {
   /**
    * Method to set hidden fields on the form dynamically.
    *
-   * Note: You must always pass all the fields you wanting to hide. Also, note that the validation for hidden fields will be skipped.
+   * Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.
    *
    * param: hiddenFields - key value pair of [fieldName]: true | false
    * example: `setHiddenFields({ first_name: true, last_name: false })`
@@ -656,26 +656,18 @@ export class Form {
   /**
    * Method to set disabled fields on the form dynamically.
    *
-   * Note: You must always pass all the fields you wanting to disable
+   * Note: You must always pass all the fields that you want to disable
    *
    * param: disabledFields - key value pair of [fieldName]: true | false
    * example: `setDisabledFields({ first_name: true, last_name: false })`
    */
   @Method()
   async setDisabledFields(disabledFields: any = {}): Promise<void> {
-    // Transforming disabled to editable
-    const editableFields = Object.keys(disabledFields).reduce(
-      (fields: any = {}, key: string) => {
-        fields[key] = !disabledFields[key];
-        return fields;
-      },
-      {}
-    );
-    return this._handleFieldModifier('editable', editableFields);
+    return this._handleFieldModifier('editable', disabledFields);
   }
 
   private _handleFieldModifier(
-    key: string | 'editable' | 'hidden',
+    key: 'editable' | 'hidden',
     fieldsObj: any = {}
   ) {
     let errorsObj = { ...this.errors };
@@ -691,7 +683,11 @@ export class Form {
             touchedObj = { ...this.touched, [f.name]: false };
             return {
               ...f,
-              [key]: Boolean(fieldsObj[f.name]),
+              // inverting the value if key is editable
+              [key]:
+                key === 'editable'
+                  ? !fieldsObj[f.name]
+                  : Boolean(fieldsObj[f.name]),
             };
           }
           return f;
