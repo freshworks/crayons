@@ -104,12 +104,6 @@ export class Form {
    */
   @Prop() customTypeMapper: any = {};
 
-  /**
-   * To check if hidden fields must be removed from DOM.
-   * Defaults to false.
-   */
-  @Prop({ mutable: true }) removeElementFromDomOnHide = false;
-
   @State() values: FormValues = {} as any;
   @State() touched: FormTouched<FormValues> = {} as any;
   @State() errors: FormErrors<FormValues> = {} as any;
@@ -652,22 +646,11 @@ export class Form {
    * Note: You must always pass all the fields you wanting to hide. Also, note that the validation for hidden fields will be skipped.
    *
    * param: hiddenFields - key value pair of [fieldName]: true | false
-   * param: removeElementFromDomOnHide - boolean to decide whether to remove hidden fields from DOM or to hide the elements using CSS[display: none]
-   * example: `setHiddenFields({ first_name: true, last_name: false }, false)`
+   * example: `setHiddenFields({ first_name: true, last_name: false })`
    */
   @Method()
-  async setHiddenFields(
-    hiddenFields: any,
-    removeElementFromDomOnHide: boolean = this.removeElementFromDomOnHide
-  ): Promise<void> {
-    this.removeElementFromDomOnHide = removeElementFromDomOnHide;
-    this._handleFieldModifier('hidden', hiddenFields);
-    // Skip hidden field from validation schema
-    this.formValidationSchema =
-      generateDynamicValidationSchema(
-        this.formSchemaState,
-        this.validationSchema
-      ) || {};
+  async setHiddenFields(hiddenFields: any): Promise<void> {
+    return this._handleFieldModifier('hidden', hiddenFields);
   }
 
   /**
@@ -680,13 +663,20 @@ export class Form {
    */
   @Method()
   async setDisabledFields(disabledFields: any): Promise<void> {
-    this._handleFieldModifier('editable', disabledFields, true);
+    // Transforming disabled to editable
+    const editableFields = Object.keys(disabledFields).reduce(
+      (fields: any = {}, key: string) => {
+        fields[key] = !disabledFields[key];
+        return fields;
+      },
+      {}
+    );
+    return this._handleFieldModifier('editable', editableFields);
   }
 
   private _handleFieldModifier(
-    key: string,
-    fieldsObj: any = {},
-    negate = false
+    key: string | 'editable' | 'hidden',
+    fieldsObj: any = {}
   ) {
     let errorsObj = { ...this.errors };
     let touchedObj = { ...this.touched };
@@ -695,15 +685,13 @@ export class Form {
       fields:
         this.formSchemaState?.fields?.map((f: any) => {
           if (Object.prototype.hasOwnProperty.call(fieldsObj, f.name)) {
-            let isModified = Boolean(fieldsObj[f.name]);
-            if (negate) isModified = !isModified;
-            if (isModified) {
-              errorsObj = { ...errorsObj, [f.name]: undefined };
-              touchedObj = { ...this.touched, [f.name]: false };
-            }
+            // Whenever a hidden/disabled state of a field changes,
+            // we will in reset the error state and touched state of the field.
+            errorsObj = { ...errorsObj, [f.name]: undefined };
+            touchedObj = { ...this.touched, [f.name]: false };
             return {
               ...f,
-              [key]: isModified,
+              [key]: Boolean(fieldsObj[f.name]),
             };
           }
           return f;
@@ -712,6 +700,12 @@ export class Form {
 
     this.errors = { ...errorsObj };
     this.touched = { ...touchedObj };
+    // Skip disabled/hidden field from validation schema
+    this.formValidationSchema =
+      generateDynamicValidationSchema(
+        this.formSchemaState,
+        this.validationSchema
+      ) || {};
   }
 
   /**
@@ -805,30 +799,15 @@ export class Form {
       ) || {};
   }
 
-  private _getVisibleFields = (): any[] => {
-    let fields = [];
-    if (
-      this.formSchemaState &&
-      Object.keys(this.formSchemaState).length > 0 &&
-      Array.isArray(this.formSchemaState.fields)
-    ) {
-      fields = this.formSchemaState.fields.filter(
-        (field: any) => !this.removeElementFromDomOnHide || !field.hidden
-      );
-    }
-
-    return fields;
-  };
-
   render() {
     const utils: FormUtils = this.composedUtils();
-    const fields: any[] = this._getVisibleFields();
 
     return (
       <form id={`form-${this.formId}`} {...utils.formProps}>
-        {fields.length ? (
-          fields
-            .sort((a, b) => a.position - b.position)
+        {this.formSchemaState &&
+        Object.keys(this.formSchemaState).length > 0 ? (
+          this.formSchemaState?.fields
+            ?.sort((a, b) => a.position - b.position)
             .map((field) => {
               return (
                 this.shouldRenderFormControl(field) && (

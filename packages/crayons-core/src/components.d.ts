@@ -823,10 +823,6 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
-          * To check if hidden fields must be removed from DOM. Defaults to false.
-         */
-        "removeElementFromDomOnHide": boolean;
-        /**
           * Method to set disabled fields on the form dynamically.  Note: You must always pass all the fields you wanting to disable  param: disabledFields - key value pair of [fieldName]: true | false example: `setDisabledFields({ first_name: true, last_name: false })`
          */
         "setDisabledFields": (disabledFields: any) => Promise<void>;
@@ -856,9 +852,9 @@ export namespace Components {
          */
         "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
         /**
-          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields you wanting to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false param: removeElementFromDomOnHide - boolean to decide whether to remove hidden fields from DOM or to hide the elements using CSS[display: none] example: `setHiddenFields({ first_name: true, last_name: false }, false)`
+          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields you wanting to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false example: `setHiddenFields({ first_name: true, last_name: false })`
          */
-        "setHiddenFields": (hiddenFields: any, removeElementFromDomOnHide?: boolean) => Promise<void>;
+        "setHiddenFields": (hiddenFields: any) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
@@ -3773,10 +3769,6 @@ declare namespace LocalJSX {
           * fwFormValuesChanged - event that gets emitted when values change.
          */
         "onFwFormValuesChanged"?: (event: FwFormCustomEvent<any>) => void;
-        /**
-          * To check if hidden fields must be removed from DOM. Defaults to false.
-         */
-        "removeElementFromDomOnHide"?: boolean;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */

@@ -164,6 +164,7 @@ describe('fw-form', () => {
           type: 'FILES',
           position: 7,
           required: true,
+          editable: true,
           placeholder: '',
           hint: 'Accepts only PNG',
           multiple: true,
@@ -1137,37 +1138,13 @@ describe('fw-form', () => {
     expect(result.values['date_of_birth']).toEqual('2023-05-10');
   });
 
-  it('should remove the hidden form fields from DOM on invoking setHiddenFields method', async () => {
+  it('should hide form fields on invoking setHiddenFields method', async () => {
     const page = await newE2EPage();
     await page.setContent('<fw-form></fw-form>');
     await page.$eval(
       'fw-form',
       (ele: any, { formSchema }: any) => {
         ele.formSchema = formSchema;
-        ele.removeElementFromDomOnHide = true;
-      },
-      props
-    );
-    await page.waitForChanges();
-    const element = await page.find('fw-form');
-    await element.callMethod('setHiddenFields', {
-      pincode: true,
-    });
-    await page.waitForChanges();
-    const pincodeFormControl = await page.find(
-      'fw-form >>> fw-form-control[name="pincode"]'
-    );
-    expect(pincodeFormControl).toBeNull();
-  });
-
-  it('should hide the form fields using CSS on invoking setHiddenFields method', async () => {
-    const page = await newE2EPage();
-    await page.setContent('<fw-form></fw-form>');
-    await page.$eval(
-      'fw-form',
-      (ele: any, { formSchema }: any) => {
-        ele.formSchema = formSchema;
-        ele.removeElementFromDomOnHide = false;
       },
       props
     );
@@ -1194,7 +1171,6 @@ describe('fw-form', () => {
       'fw-form',
       (ele: any, { formSchema }: any) => {
         ele.formSchema = formSchema;
-        ele.removeElementFromDomOnHide = false;
         ele.initialValues = {
           first_name: 'Test',
           is_indian_citizen: true,
@@ -1256,5 +1232,43 @@ describe('fw-form', () => {
     input = await pincodeFormControl.find('fw-input');
     isDisabled = await input.getProperty('disabled');
     expect(isDisabled).toBeFalsy();
+  });
+
+  it('should skip validation for disabled fields', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-form></fw-form>');
+    await page.$eval(
+      'fw-form',
+      (ele: any, { formSchema }: any) => {
+        ele.formSchema = formSchema;
+        ele.initialValues = {
+          first_name: 'Test',
+          is_indian_citizen: true,
+          gender: 'Male',
+          pincode: 123345,
+          order_status: 'closed',
+          profile_pic: [
+            {
+              file: new File([new Blob()], 'file1.png', {
+                type: 'png',
+                lastModified: Date.now(),
+              }),
+            },
+          ],
+        };
+      },
+      props
+    );
+    await page.waitForChanges();
+    const element = await page.find('fw-form');
+    let result = await element.callMethod('doSubmit');
+    expect(result.isValid).toBeFalsy();
+    expect(result.errors.amount_paid).toBe('Amount Paid is required');
+    await element.callMethod('setDisabledFields', {
+      amount_paid: true,
+    });
+    await page.waitForChanges();
+    result = await element.callMethod('doSubmit');
+    expect(result.isValid).toBeTruthy();
   });
 });
