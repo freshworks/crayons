@@ -649,7 +649,7 @@ export class Form {
    * example: `setHiddenFields({ first_name: true, last_name: false })`
    */
   @Method()
-  async setHiddenFields(hiddenFields: any): Promise<void> {
+  async setHiddenFields(hiddenFields: any = {}): Promise<void> {
     return this._handleFieldModifier('hidden', hiddenFields);
   }
 
@@ -662,7 +662,7 @@ export class Form {
    * example: `setDisabledFields({ first_name: true, last_name: false })`
    */
   @Method()
-  async setDisabledFields(disabledFields: any): Promise<void> {
+  async setDisabledFields(disabledFields: any = {}): Promise<void> {
     // Transforming disabled to editable
     const editableFields = Object.keys(disabledFields).reduce(
       (fields: any = {}, key: string) => {
@@ -686,7 +686,7 @@ export class Form {
         this.formSchemaState?.fields?.map((f: any) => {
           if (Object.prototype.hasOwnProperty.call(fieldsObj, f.name)) {
             // Whenever a hidden/disabled state of a field changes,
-            // we will in reset the error state and touched state of the field.
+            // we will reset the error state and touched state of the field.
             errorsObj = { ...errorsObj, [f.name]: undefined };
             touchedObj = { ...this.touched, [f.name]: false };
             return {

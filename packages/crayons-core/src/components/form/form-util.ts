@@ -256,9 +256,6 @@ export const generateDynamicValidationSchema = (
 ): any => {
   let dynamicValidationSchema = Yup.object();
   try {
-    // Removing the hidden fields
-    // const formFields =
-    //   formSchema?.fields?.filter((field: any) => !field.hidden) ?? [];
     const yupSchema = formSchema?.fields?.reduce(createYupSchema, {});
 
     // form the implicit validation schema based on the fields in formSchema
