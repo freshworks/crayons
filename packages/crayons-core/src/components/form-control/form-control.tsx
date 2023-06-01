@@ -37,6 +37,7 @@ export class FormControl {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'LOOKUP_FIELD'
     | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
@@ -290,6 +291,7 @@ export class FormControl {
 
       case 'DROPDOWN':
       case 'MULTI_SELECT':
+      case 'LOOKUP_FIELD':
         {
           const controlProps = this.controlProps?.selectProps(
             this.name,
@@ -312,6 +314,12 @@ export class FormControl {
               field: this.label || this.name,
             }),
           };
+
+          if(this.type === 'LOOKUP_FIELD') {
+            componentProps.search = this.fieldProps?.searchFn;
+            componentProps.variant = this.fieldProps?.variant;
+            componentProps.field_options_meta_data = fieldOptions;
+          }
 
           componentProps = {
             ...componentProps,

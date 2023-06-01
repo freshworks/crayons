@@ -1271,6 +1271,10 @@ export namespace Components {
          */
         "search": (text: string, dataSource: any[]) => Promise<any[]>;
         /**
+         *  field_options_meta_data which would be passed as param in search callback so it could be used to make respective api call
+        */
+        "field_options_meta_data": {};
+        /**
           * Placeholder to placed on the search text box.
          */
         "searchText": string;
@@ -1775,6 +1779,10 @@ export namespace Components {
           * Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.
          */
         "search": any;
+        /**
+         *  field_options_meta_data which would be passed as param in search callback so it could be used to make respective api call
+         */
+        "field_options_meta_data": {};
         /**
           * Allow to search for value. Default is true.
          */

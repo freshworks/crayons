@@ -33,7 +33,8 @@ export class ListOptions {
   private optionRefs = [];
   private defaultSearchFunction = (
     text: string,
-    dataSource: any[]
+    dataSource: any[],
+    _field_options_meta_data: {}
   ): Promise<any[]> => {
     return new Promise((resolve) => {
       const value = text.toLowerCase();
@@ -108,6 +109,11 @@ export class ListOptions {
    * The returned promise should contain the array of options to be displayed.
    */
   @Prop() search = this.defaultSearchFunction;
+
+  /**
+   *  field_options_meta_data which would be passed as param in search callback so it could be used to make respective api call
+   */
+  @Prop() field_options_meta_data;
   /**
    * Placeholder to placed on the search text box.
    */
@@ -362,7 +368,7 @@ export class ListOptions {
       this.fwLoading.emit({ isLoading: this.isLoading });
       const sanitisedText = filterText.trim();
       if (sanitisedText) {
-        this.search(sanitisedText, this.selectOptions).then((options) => {
+        this.search(sanitisedText, this.selectOptions, this.field_options_meta_data).then((options) => {
           this.filteredOptions =
             options?.length > 0
               ? this.serializeData(options)

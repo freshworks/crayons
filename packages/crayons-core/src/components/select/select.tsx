@@ -184,6 +184,10 @@ export class Select {
    */
   @Prop() search;
   /**
+   *  field_options_meta_data which would be passed as param in search callback so it could be used to make respective api call
+   */
+  @Prop() field_options_meta_data;
+  /**
    * Text to be displayed when there is no data available in the select.
    */
   // @i18n({ keyName: 'search.noDataAvailable' })
@@ -1084,6 +1088,7 @@ export class Select {
                   TranslationController.t('search.noDataAvailable')
                 }
                 search={this.search}
+                field_options_meta_data={this.field_options_meta_data}
                 selectedOptions={this.selectedOptionsState}
                 variant={this.optionsVariant}
                 filter-text={this.searchValue}
