@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.17...@freshworks/crayons@4.2.0-beta.18) (2023-06-05)
+
+
+### Features
+
+* **component:** to support hide and disable form fields dynamically by invoking form methods ([74605c9](https://github.com/freshworks/crayons/commit/74605c960c3095fa812acb0e5d72eada6a40d257))
+
+
+
+
+
 ## [4.2.0-beta.17](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.16...@freshworks/crayons@4.2.0-beta.17) (2023-05-25)
 
 ### Bug Fixes
