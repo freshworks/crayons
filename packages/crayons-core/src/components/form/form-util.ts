@@ -163,7 +163,7 @@ function mergeSchema(first: any = {}, second: any = {}) {
 }
 
 function createYupSchema(schema: any, config: any) {
-  const { type, required, name } = config;
+  const { type, required, name, hidden, editable } = config;
   let yupType;
   switch (type) {
     case 'TEXT':
@@ -192,7 +192,7 @@ function createYupSchema(schema: any, config: any) {
     default:
       yupType = 'string';
   }
-  if (!type) return schema;
+  if (!type || !editable || hidden) return schema;
   if (!Yup[yupType as keyof typeof Yup]) {
     return schema;
   }
