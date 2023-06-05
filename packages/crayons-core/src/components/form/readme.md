@@ -3119,6 +3119,21 @@ serializedValues are those that contains the transformed values based on field t
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
 
+### `setDisabledFields(disabledFields?: any) => Promise<void>`
+
+Method to set disabled fields on the form dynamically.
+
+Note: You must always pass all the fields that you want to disable
+
+param: disabledFields - key value pair of [fieldName]: true | false
+example: `setDisabledFields({ first_name: true, last_name: false })`
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFieldChoices(field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>`
 
 setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema.
@@ -3202,6 +3217,21 @@ Method to set values on the form fields.
 param: valuesObj - Object with key as form field name and value as the updated value for the field
 example: `{ first_name: "new name", last_name: "new last name" }`
 param: shouldValidate - should this form be validated with the updated values. Default to true.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setHiddenFields(hiddenFields?: any) => Promise<void>`
+
+Method to set hidden fields on the form dynamically.
+
+Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.
+
+param: hiddenFields - key value pair of [fieldName]: true | false
+example: `setHiddenFields({ first_name: true, last_name: false })`
 
 #### Returns
 
