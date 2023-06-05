@@ -358,6 +358,10 @@ export namespace Components {
          */
         "role": 'trial' | 'admin';
         /**
+          * flag to show lookupField for CONVERSATION_PROPERTIES or not
+         */
+        "showLookupField": boolean;
+        /**
           * Show explore plans and disable features for user having free-plan
          */
         "userPlan": 'trial' | 'admin';
@@ -1135,6 +1139,10 @@ declare namespace LocalJSX {
           * Show explore plans button and disable features for free-plan users
          */
         "role"?: 'trial' | 'admin';
+        /**
+          * flag to show lookupField for CONVERSATION_PROPERTIES or not
+         */
+        "showLookupField"?: boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */

@@ -201,6 +201,9 @@ export class FbFieldDropdown {
     const boolShowDescription =
       strDescription && strDescription !== '' ? true : false;
 
+    const boolShowRelationshipTypeSelect =
+      this.sourceObjectName !== 'Conversation Form';
+
     return (
       <Host tabIndex='-1'>
         <div class={`${strBaseClassName}-root`}>
@@ -215,19 +218,21 @@ export class FbFieldDropdown {
               disabled
             ></fw-input>
             <div class={`${strBaseClassName}-relationship-select-container`}>
-              <fw-select
-                readonly={true}
-                required={true}
-                state={strRelationshipState}
-                class={`${strBaseClassName}-relationship-select`}
-                placeholder={i18nText('lookupRelationshipPlaceholder')}
-                label={i18nText('lookupRelationshipLabel')}
-                errorText={i18nText('errors.emptyRelationshipType')}
-                disabled={!boolNewField || this.disabled}
-                options={this.i18RelationshipType}
-                value={this.selectedRelationshipValue}
-                onFwChange={this.relationshipChangeHandler}
-              ></fw-select>
+              {boolShowRelationshipTypeSelect && (
+                <fw-select
+                  readonly={true}
+                  required={true}
+                  state={strRelationshipState}
+                  class={`${strBaseClassName}-relationship-select`}
+                  placeholder={i18nText('lookupRelationshipPlaceholder')}
+                  label={i18nText('lookupRelationshipLabel')}
+                  errorText={i18nText('errors.emptyRelationshipType')}
+                  disabled={!boolNewField || this.disabled}
+                  options={this.i18RelationshipType}
+                  value={this.selectedRelationshipValue}
+                  onFwChange={this.relationshipChangeHandler}
+                ></fw-select>
+              )}
             </div>
             <div class={`${strBaseClassName}-target-select-container`}>
               <fw-select
