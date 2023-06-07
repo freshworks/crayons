@@ -37,6 +37,7 @@ export class FormControl {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
@@ -338,6 +339,7 @@ export class FormControl {
         break;
 
       case 'RELATIONSHIP':
+      case 'AUTO_COMPLETE':
         {
           const controlProps = this.controlProps?.selectProps(
             this.name,
