@@ -365,7 +365,7 @@ export class FormControl {
           };
 
           if (
-            Array.isArray(controlProps.value) &&
+            Array.isArray(controlProps?.value) &&
             typeof controlProps.value[0] === 'object'
             // handle multi_select, select [{}] initialValues
           ) {
@@ -376,7 +376,7 @@ export class FormControl {
             this.crayonsControlRef?.setSelectedOptions(
               componentProps.selectedOptions
             );
-          } else if (!controlProps.value) {
+          } else if (!controlProps?.value) {
             this.crayonsControlRef?.setSelectedOptions([]);
           }
           componentProps.noDataText =
