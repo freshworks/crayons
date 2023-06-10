@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.18...@freshworks/crayons@4.2.0-beta.19) (2023-06-10)
+
+
+### Bug Fixes
+
+* **select, kebab-menu:** modify popover attribute name to avoid attribute conflict ([8cb9bbe](https://github.com/freshworks/crayons/commit/8cb9bbe209ef0db2f48b5aa5389d80df604e94a0))
+
+
+
+
+
 ## [4.2.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.17...@freshworks/crayons@4.2.0-beta.18) (2023-06-05)
 
 ### Features
