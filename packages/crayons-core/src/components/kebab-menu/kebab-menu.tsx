@@ -5,7 +5,7 @@ import { Component, Prop, h, Listen, Event, EventEmitter } from '@stencil/core';
   shadow: true,
 })
 export class KebabMenu {
-  private popover?: HTMLFwPopoverElement;
+  private popoverRef?: HTMLFwPopoverElement;
 
   /**
    * The data for the kebab menu component, the options will be of type array of fw-select-options.
@@ -41,14 +41,14 @@ export class KebabMenu {
    * closeDropdown
    */
   private closeDropdown = () => {
-    this.popover.hide();
+    this.popoverRef.hide();
   };
 
   render() {
     if (this.options?.length) {
       return (
         <fw-popover
-          ref={(popover) => (this.popover = popover)}
+          ref={(popoverRef) => (this.popoverRef = popoverRef)}
           sameWidth={false}
           placement='bottom-end'
           hoist

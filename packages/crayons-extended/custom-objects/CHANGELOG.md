@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.17...@freshworks/crayons-custom-objects@1.3.0-beta.18) (2023-06-10)
+
+### Bug Fixes
+
+- **filter-condition:** avoid passing value to date picker when mode is range ([#867](https://github.com/freshworks/crayons/issues/867)) ([7a6f372](https://github.com/freshworks/crayons/commit/7a6f37266a78e53b8a6b820748fc00b599c1fb16))
+
 ## [1.3.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.4...@freshworks/crayons-custom-objects@1.3.0-beta.5) (2023-03-22)
 
 ### Features
