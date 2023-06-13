@@ -217,8 +217,8 @@ export class FbFieldDropdown {
               value={this.sourceObjectName}
               disabled
             ></fw-input>
-            <div class={`${strBaseClassName}-relationship-select-container`}>
-              {boolShowRelationshipTypeSelect && (
+            {boolShowRelationshipTypeSelect ? (
+              <div class={`${strBaseClassName}-relationship-select-container`}>
                 <fw-select
                   readonly={true}
                   required={true}
@@ -232,8 +232,10 @@ export class FbFieldDropdown {
                   value={this.selectedRelationshipValue}
                   onFwChange={this.relationshipChangeHandler}
                 ></fw-select>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div></div>
+            )}
             <div class={`${strBaseClassName}-target-select-container`}>
               <fw-select
                 required={true}
