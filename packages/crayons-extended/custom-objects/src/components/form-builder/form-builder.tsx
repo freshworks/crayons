@@ -227,13 +227,6 @@ export class FormBuilder {
       'RELATIONSHIP',
       'MULTI_SELECT',
     ];
-
-    if (!this.showLookupField) {
-      this.supportedFieldTypes.splice(
-        this.supportedFieldTypes.indexOf('RELATIONSHIP'),
-        1
-      );
-    }
   }
 
   disconnectedCallback(): void {
@@ -1056,6 +1049,9 @@ export class FormBuilder {
     const objProductPresetConfig = objProductPreset?.config;
     const objLabelsDb = objProductPreset?.labels;
     const arrFieldOrder = objProductPreset?.fieldOrder;
+    if (!this.showLookupField) {
+      arrFieldOrder.splice(arrFieldOrder.indexOf('RELATIONSHIP'), 1);
+    }
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
     const strFieldEditHeader = hasCustomProperty(objLabelsDb, 'fieldsHeader')

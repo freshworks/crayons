@@ -16,6 +16,7 @@ import {
   isUniqueField,
 } from '../utils/form-builder-utils';
 import presetSchema from '../assets/form-builder-preset.json';
+import formMapper from '../assets/form-mapper.json';
 
 @Component({
   tag: 'fw-fb-field-lookup',
@@ -28,6 +29,10 @@ export class FbFieldDropdown {
   private targetObjectLabel = '';
   private isNativeTargetObject = false;
 
+  /**
+   * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+   */
+  @Prop() productName = 'CUSTOM_OBJECTS';
   /**
    * variable to store form values
    */
@@ -201,8 +206,10 @@ export class FbFieldDropdown {
     const boolShowDescription =
       strDescription && strDescription !== '' ? true : false;
 
+    const objProductPreset = formMapper[this.productName];
+    const objProductPresetConfig = objProductPreset?.config;
     const boolShowRelationshipTypeSelect =
-      this.sourceObjectName !== 'Conversation Form';
+      objProductPresetConfig?.boolShowRelationshipTypeSelect;
 
     return (
       <Host tabIndex='-1'>

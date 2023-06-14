@@ -240,7 +240,8 @@
       "freePlanFieldAddDisabledMessage": "",
       "freePlanFieldAddDisabledButton": "",
       "noCreatePermissionFieldAddDisabledHeader": "",
-      "noCreatePermissionFieldAddDisabledMessage": ""
+      "noCreatePermissionFieldAddDisabledMessage": "",
+      "boolShowRelationshipTypeSelect": true
     },
     "labels": {
       "headerProduct": "",
@@ -440,7 +441,8 @@
       "freePlanFieldAddDisabledMessage": "freePlanFieldAddDisabledMessage",
       "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton",
       "noCreatePermissionFieldAddDisabledHeader": "noCreatePermissionFieldAddDisabledHeader",
-      "noCreatePermissionFieldAddDisabledMessage": "noCreatePermissionFieldAddDisabledMessage"
+      "noCreatePermissionFieldAddDisabledMessage": "noCreatePermissionFieldAddDisabledMessage",
+      "boolShowRelationshipTypeSelect": false
     },
     "labels": {
       "headerProduct": "headerProductConvProps",
