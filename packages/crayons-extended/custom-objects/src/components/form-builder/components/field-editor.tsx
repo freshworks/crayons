@@ -1158,7 +1158,7 @@ export class FieldEditor {
       : null;
 
     const elementDropdown =
-      isDropdownType && !boolIgnoreDropdownChoices && !isStatusType
+      isDropdownType && !boolIgnoreDropdownChoices
         ? this.renderDropdown(boolDisableDropdowns)
         : null;
 
