@@ -37,7 +37,7 @@ export class Select {
   @Element() host: HTMLElement;
   private selectInput?: HTMLInputElement;
   private fwListOptions?: HTMLFwListOptionsElement;
-  private popover?: HTMLFwPopoverElement;
+  private popoverRef?: HTMLFwPopoverElement;
   private tagContainer: HTMLElement;
   private tagArrowKeyCounter = 0;
   private hostId;
@@ -76,13 +76,13 @@ export class Select {
 
   private openDropdown = () => {
     if (!this.isExpanded && this.changeEmittable()) {
-      this.popover.show();
+      this.popoverRef.show();
     }
   };
 
   private closeDropdown = () => {
     if (this.isExpanded && this.changeEmittable()) {
-      this.popover.hide();
+      this.popoverRef.hide();
     }
   };
 
@@ -989,7 +989,7 @@ export class Select {
               id='select-popover'
               distance='8'
               trigger='manual'
-              ref={(popover) => (this.popover = popover)}
+              ref={(popoverRef) => (this.popoverRef = popoverRef)}
               same-width={this.sameWidth}
               placement={this.optionsPlacement}
               boundary={this.boundary}
