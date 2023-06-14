@@ -571,6 +571,10 @@ export class FieldEditor {
       }
     }
 
+    if (this.dataProvider.name === 'status') {
+      objValues['choices'] = this.dataProvider.choices;
+    }
+
     if (boolValidForm) {
       if (!this.isNewField) {
         objValues[this.KEY_INTERNAL_NAME] = this.dataProvider.name;
@@ -678,6 +682,14 @@ export class FieldEditor {
       default:
         break;
     }
+  };
+
+  private statusToggleHandler = (event: CustomEvent) => {
+    this.isValuesChanged = true;
+    const objPayload = this.dataProvider;
+    const id = (event.target as HTMLInputElement).id;
+    const choice = objPayload.choices.find((item) => item.id === id);
+    choice.choice_options.resolution_timer = event.detail.checked;
   };
 
   private lookupChangeHandler = (event: CustomEvent) => {
@@ -952,6 +964,49 @@ export class FieldEditor {
     );
   }
 
+  private renderStatusToggle(objFormValue) {
+    const strBaseClassName = 'fw-field-editor';
+    const choices = objFormValue.choices;
+    return (
+      <div class={`${strBaseClassName}-status-toggle`}>
+        <div class={`${strBaseClassName}-status-toggle-item header`}>
+          <span>{i18nText('fieldLabel')}</span>
+          <span>{i18nText('ertText')}</span>
+        </div>
+        {choices.map((dataItem) => {
+          let toggle = null;
+          if (
+            dataItem?.choice_options &&
+            Object.keys(dataItem?.choice_options).length
+          ) {
+            toggle = (
+              <fw-toggle
+                id={dataItem.id}
+                size='medium'
+                checked={dataItem?.choice_options.resolution_timer}
+                onFwChange={this.statusToggleHandler}
+              ></fw-toggle>
+            );
+          }
+          return (
+            <div class={`${strBaseClassName}-status-toggle-item`}>
+              <span>
+                <div class={`${strBaseClassName}-input-container`}>
+                  <fw-input
+                    class={`${strBaseClassName}-content-required-input`}
+                    value={dataItem.value}
+                    disabled='true'
+                  ></fw-input>
+                </div>
+              </span>
+              <span>{toggle}</span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   private renderLookup(boolDisableLookup) {
     const objFormValue = this.dataProvider;
 
@@ -1058,6 +1113,9 @@ export class FieldEditor {
     const boolSupportInternalName = objProductConfig.editInternalName;
     const strBaseClassName = 'fw-field-editor';
     const objFieldBuilder = this.fieldBuilderOptions;
+
+    /** Adding extra check for status type */
+    const isStatusType = objFormValue.name === 'status';
     const strInputLabel = hasCustomProperty(objFieldBuilder, 'label')
       ? objFieldBuilder.label
       : '';
@@ -1095,8 +1153,12 @@ export class FieldEditor {
       }
     }
 
+    const elementStatusToggle = isStatusType
+      ? this.renderStatusToggle(objFormValue)
+      : null;
+
     const elementDropdown =
-      isDropdownType && !boolIgnoreDropdownChoices
+      isDropdownType && !boolIgnoreDropdownChoices && !isStatusType
         ? this.renderDropdown(boolDisableDropdowns)
         : null;
 
@@ -1166,6 +1228,7 @@ export class FieldEditor {
             isDefaultNonCustomField,
             boolEditAllowed
           )}
+        {elementStatusToggle}
         {isDropdownType && (
           <div class={`${strBaseClassName}-content-dropdown`}>
             {elementDropdown}

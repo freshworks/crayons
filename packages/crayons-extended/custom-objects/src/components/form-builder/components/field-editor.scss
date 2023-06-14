@@ -262,6 +262,28 @@
           height: auto;
           box-sizing: border-box;
         }
+
+        .fw-field-editor-status-toggle {
+          border: 1px solid #cfd7df;
+
+          .fw-field-editor-status-toggle-item {
+            display: grid;
+            font-size: 14px;
+            font-weight: 600;
+            grid-template-columns: 1fr 1fr;
+            padding-inline-start: 20px;
+            padding-block-end: 8px;
+            padding-inline-end: 0;
+            padding-block-start: 8px;
+
+            &.header {
+              background: #ebeff3;
+              border: 1px solid #cfd7df;
+              border-width: 0 1px 1px 1px;
+              font-size: 12px;
+            }
+          }
+        }
       }
     }
 
