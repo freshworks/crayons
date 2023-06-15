@@ -1050,7 +1050,10 @@ export class FormBuilder {
     const objLabelsDb = objProductPreset?.labels;
     const arrFieldOrder = objProductPreset?.fieldOrder;
     if (!this.showLookupField) {
-      arrFieldOrder.splice(arrFieldOrder.indexOf('RELATIONSHIP'), 1);
+      const relationshipIndex = arrFieldOrder.indexOf('RELATIONSHIP');
+      if (relationshipIndex > -1) {
+        arrFieldOrder.splice(relationshipIndex, 1);
+      }
     }
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
