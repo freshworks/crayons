@@ -99,6 +99,7 @@
     "fieldTypeSingleLineText": "Single line text",
     "fieldTypeMultiLineText": "Multi line text",
     "fieldTypeMultiSelectDropdown": "Multiselect dropdown",
+    "fieldTypeLookupField": "Lookup field",
     "fieldTypeDependent": "Dependent field",
     "filterFields": "Filter :",
     "filterOptionAllFields": "All fields",

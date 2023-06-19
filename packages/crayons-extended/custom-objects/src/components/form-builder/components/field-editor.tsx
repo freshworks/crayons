@@ -964,6 +964,7 @@ export class FieldEditor {
         disabled={boolDisableLookup}
         onFwChange={this.lookupChangeHandler}
         formValues={objFormValue}
+        productName={this.productName}
       ></fw-fb-field-lookup>
     );
   }
