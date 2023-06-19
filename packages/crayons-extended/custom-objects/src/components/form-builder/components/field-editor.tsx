@@ -980,12 +980,14 @@ export class FieldEditor {
             Object.keys(dataItem?.choice_options).length
           ) {
             toggle = (
-              <fw-toggle
-                id={dataItem.id}
-                size='medium'
-                checked={dataItem?.choice_options.resolution_timer}
-                onFwChange={this.statusToggleHandler}
-              ></fw-toggle>
+              <span>
+                <fw-toggle
+                  id={dataItem.id}
+                  size='medium'
+                  checked={dataItem?.choice_options.resolution_timer}
+                  onFwChange={this.statusToggleHandler}
+                ></fw-toggle>
+              </span>
             );
           }
           return (
@@ -999,7 +1001,7 @@ export class FieldEditor {
                   ></fw-input>
                 </div>
               </span>
-              <span>{toggle}</span>
+              {toggle}
             </div>
           );
         })}

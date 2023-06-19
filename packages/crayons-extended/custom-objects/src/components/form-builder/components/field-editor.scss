@@ -264,23 +264,23 @@
         }
 
         .fw-field-editor-status-toggle {
-          border: 1px solid #cfd7df;
+          border: 1px solid $color-smoke-100;
 
           .fw-field-editor-status-toggle-item {
             display: grid;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: $font-size-14;
+            font-weight: $font-weight-600;
             grid-template-columns: 1fr 1fr;
-            padding-inline-start: 20px;
+            padding-inline-start: $font-size-20;
             padding-block-end: 8px;
             padding-inline-end: 0;
             padding-block-start: 8px;
 
             &.header {
-              background: #ebeff3;
-              border: 1px solid #cfd7df;
+              background: $color-smoke-50;
+              border: 1px solid $color-smoke-100;
               border-width: 0 1px 1px 1px;
-              font-size: 12px;
+              font-size: $font-size-12;
             }
           }
         }
