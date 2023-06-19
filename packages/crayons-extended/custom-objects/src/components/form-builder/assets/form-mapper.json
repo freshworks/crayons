@@ -240,7 +240,8 @@
       "freePlanFieldAddDisabledMessage": "",
       "freePlanFieldAddDisabledButton": "",
       "noCreatePermissionFieldAddDisabledHeader": "",
-      "noCreatePermissionFieldAddDisabledMessage": ""
+      "noCreatePermissionFieldAddDisabledMessage": "",
+      "boolShowRelationshipTypeSelect": true
     },
     "labels": {
       "headerProduct": "",
@@ -288,7 +289,8 @@
       "DATE": 17,
       "DROPDOWN": 2,
       "CHECKBOX": 5,
-      "MULTI_SELECT": 18
+      "MULTI_SELECT": 18,
+      "RELATIONSHIP": 16
     },
     "reverseMappedFieldTypes": {
       "1": "TEXT",
@@ -298,7 +300,8 @@
       "17": "DATE",
       "2": "DROPDOWN",
       "5": "CHECKBOX",
-      "18": "MULTI_SELECT"
+      "18": "MULTI_SELECT",
+      "16": "RELATIONSHIP"
     },
     "fieldOrder": [
       "TEXT",
@@ -308,7 +311,8 @@
       "DATE",
       "DROPDOWN",
       "CHECKBOX",
-      "MULTI_SELECT"
+      "MULTI_SELECT",
+      "RELATIONSHIP"
     ],
     "fieldProps": {
       "TEXT": {
@@ -406,6 +410,19 @@
             "selected": false
           }
         ]
+      },
+      "RELATIONSHIP": {
+        "display_label": "fieldTypeLookupField",
+        "has_bottom_border": true,
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          }
+        ]
       }
     },
     "config": {
@@ -424,7 +441,8 @@
       "freePlanFieldAddDisabledMessage": "freePlanFieldAddDisabledMessage",
       "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton",
       "noCreatePermissionFieldAddDisabledHeader": "noCreatePermissionFieldAddDisabledHeader",
-      "noCreatePermissionFieldAddDisabledMessage": "noCreatePermissionFieldAddDisabledMessage"
+      "noCreatePermissionFieldAddDisabledMessage": "noCreatePermissionFieldAddDisabledMessage",
+      "boolShowRelationshipTypeSelect": false
     },
     "labels": {
       "headerProduct": "headerProductConvProps",
@@ -463,7 +481,8 @@
       "maxDropdownChoices": {
         "count": 2000,
         "message": "maximumLimits.maxChoiceOptionsWarning"
-      }
+      },
+      "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" }
     }
   }
 }

@@ -228,6 +228,22 @@ describe('fw-form-builder', () => {
           searchable: false,
         },
         {
+          id: 'eea9ed82-af63-43b2-aef0-a7e8de0f8607',
+          name: 'location',
+          label: 'Location',
+          type: '16',
+          required: false,
+          field_options: {
+            _analytic: 'true',
+            unique: 'false',
+          },
+          filterable: true,
+          searchable: false,
+          related_entity_id: 3,
+          relationship_name: 'location',
+          child_relationship_name: 'location_1659004707038',
+        },
+        {
           id: '128ce74f-07f9-406a-bd18-bef23a5306a1',
           name: 'people',
           label: 'People',
@@ -1906,6 +1922,24 @@ describe('fw-form-builder', () => {
     expect(element).toBeFalsy();
   });
 
+  it('RELATIONSHIP field should not be shown when showLookupField is false', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder show-lookup-field=false product-name="CONVERSATION_PROPERTIES"></fw-form-builder>`
+    );
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    expect(fieldItems.length).toEqual(
+      Object.keys(formMapper.CONVERSATION_PROPERTIES.fieldProps).length - 1
+    );
+  });
+
   it('disables left panel and displays message and button when role is trial, clicking on Explore plan button triggers fwExplorePlan event', async () => {
     const page = await newE2EPage();
 
@@ -2099,6 +2133,25 @@ describe('fw-form-builder', () => {
           expect(requiredCheckbox).toBeTruthy();
         }
       }
+      if (field.type === 'RELATIONSHIP') {
+        const label = await fieldEditors[fieldIndex].find(
+          'fw-fb-field-lookup >>> .fb-field-lookup-header-label'
+        );
+        expect(label).toBeTruthy();
+        const sourceInput = await fieldEditors[fieldIndex].find(
+          'fw-fb-field-lookup >>> .fb-field-lookup-input'
+        );
+        const sourceValue = await sourceInput.getProperty('value');
+        expect(sourceValue).toBe(formValues.CONVERSATION_PROPERTIES.name);
+        const relationshipType = await fieldEditors[fieldIndex].find(
+          'fw-fb-field-lookup >>> .fb-field-lookup-relationship-select'
+        );
+        expect(relationshipType).toBeFalsy();
+        const lookupTarget = await fieldEditors[fieldIndex].find(
+          'fw-fb-field-lookup >>> .fb-field-lookup-target-select'
+        );
+        expect(lookupTarget).toBeTruthy();
+      }
       const labelInput = await fieldEditors[fieldIndex].find(
         '.fw-field-editor-content-required-input'
       );
@@ -2268,6 +2321,9 @@ describe('fw-form-builder', () => {
       );
       const fieldItems = await leftPanel.findAll(
         '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+      );
+      expect(fieldItems.length).toEqual(
+        Object.keys(formMapper.CONVERSATION_PROPERTIES.fieldProps).length
       );
       const rightPanel = await page.find(
         'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
@@ -2518,6 +2574,23 @@ describe('fw-form-builder', () => {
               expect(requiredCheckbox).toBeTruthy();
               expect(await requiredCheckbox.getProperty('disabled')).toBe(true);
             }
+          }
+          if (field.type === 'RELATIONSHIP') {
+            const sourceInput = await fieldEditors[fieldIndex].find(
+              'fw-fb-field-lookup >>> .fb-field-lookup-input'
+            );
+            const sourceValue = await sourceInput.getProperty('value');
+            expect(sourceValue).toBe(formValues.CONVERSATION_PROPERTIES.name);
+            expect(await sourceInput.getProperty('disabled')).toBe(true);
+            const relationshipType = await fieldEditors[fieldIndex].find(
+              'fw-fb-field-lookup >>> .fb-field-lookup-relationship-select'
+            );
+            expect(relationshipType).toBeFalsy();
+            const lookupTarget = await fieldEditors[fieldIndex].find(
+              'fw-fb-field-lookup >>> .fb-field-lookup-target-select'
+            );
+            expect(lookupTarget).toBeTruthy();
+            expect(await lookupTarget.getProperty('disabled')).toBe(true);
           }
           const labelInput = await fieldEditors[fieldIndex].find(
             '.fw-field-editor-content-required-input'

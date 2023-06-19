@@ -921,6 +921,7 @@ export namespace Components {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -3831,6 +3832,7 @@ declare namespace LocalJSX {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control

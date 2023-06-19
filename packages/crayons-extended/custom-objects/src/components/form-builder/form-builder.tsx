@@ -78,6 +78,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) lookupTargetObjects = null;
   /**
+   * flag to show lookupField for CONVERSATION_PROPERTIES or not
+   */
+  @Prop({ mutable: true }) showLookupField = true;
+  /**
    * variable to store customize widget fields
    */
   @Prop({ mutable: true }) customizeWidgetFields = null;
@@ -1045,6 +1049,12 @@ export class FormBuilder {
     const objProductPresetConfig = objProductPreset?.config;
     const objLabelsDb = objProductPreset?.labels;
     const arrFieldOrder = objProductPreset?.fieldOrder;
+    if (!this.showLookupField) {
+      const relationshipIndex = arrFieldOrder.indexOf('RELATIONSHIP');
+      if (relationshipIndex > -1) {
+        arrFieldOrder.splice(relationshipIndex, 1);
+      }
+    }
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
     const strFieldEditHeader = hasCustomProperty(objLabelsDb, 'fieldsHeader')
