@@ -1697,6 +1697,10 @@ export namespace Components {
          */
         "errorText": string;
         /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements": [PopoverPlacementType];
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
@@ -4636,6 +4640,10 @@ declare namespace LocalJSX {
           * Error text displayed below the text box.
          */
         "errorText"?: string;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements"?: [PopoverPlacementType];
         /**
           * If true, the user must select a value. The default value is not displayed.
          */
