@@ -571,8 +571,8 @@ export class FieldEditor {
       }
     }
 
-    if (this.dataProvider.name === 'status') {
-      objValues['choices'] = this.dataProvider.choices;
+    if (this.dataProvider.type === 'CUSTOM_TOGGLE') {
+      objValues['choices'] = [...this.dataProvider.choices];
     }
 
     if (boolValidForm) {
@@ -1117,8 +1117,6 @@ export class FieldEditor {
     const strBaseClassName = 'fw-field-editor';
     const objFieldBuilder = this.fieldBuilderOptions;
 
-    /** Adding extra check for status type */
-    const isStatusType = objFormValue.name === 'status';
     const strInputLabel = hasCustomProperty(objFieldBuilder, 'label')
       ? objFieldBuilder.label
       : '';
@@ -1136,6 +1134,9 @@ export class FieldEditor {
     const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
       ? objFieldBuilder.type
       : '';
+
+    /** Adding extra check for status type */
+    const isStatusType = strFieldType === 'CUSTOM_TOGGLE';
 
     const isDropdownType =
       strFieldType === 'DROPDOWN' || strFieldType === 'MULTI_SELECT'

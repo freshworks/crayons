@@ -41,6 +41,11 @@
       "type": "MULTI_SELECT",
       "icon": { "name": "multiselect", "bg_color": "#E5F2FE" },
       "choices": [{ "value": "" }, { "value": "" }]
+    },
+    "CUSTOM_TOGGLE": {
+      "type": "CUSTOM_TOGGLE",
+      "icon": { "name": "dropdown", "bg_color": "#E5F2FE" },
+      "choices": [{ "value": "" }, { "value": "" }]
     }
   },
   "relationshipTypes": [

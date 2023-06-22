@@ -226,6 +226,7 @@ export class FormBuilder {
       'DROPDOWN',
       'RELATIONSHIP',
       'MULTI_SELECT',
+      'CUSTOM_TOGGLE',
     ];
   }
 
