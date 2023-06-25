@@ -265,7 +265,10 @@ export function createUUID() {
   return uuid;
 }
 
-export function checkIfCustomField(productName = 'CUSTOM_OBJECTS', fieldName) {
+export function checkIfCustomToggleField(
+  productName = 'CUSTOM_OBJECTS',
+  fieldName
+) {
   const dbConfig = formMapper[productName];
   return (
     dbConfig?.config?.boolShowCustomToggle &&

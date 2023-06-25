@@ -22,7 +22,7 @@ import {
   getMaximumLimitsConfig,
   deriveInternalNameFromLabel,
   hasPermission,
-  checkIfCustomField,
+  checkIfCustomToggleField,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -572,7 +572,7 @@ export class FieldEditor {
       }
     }
 
-    if (checkIfCustomField(this.productName, this.dataProvider.name)) {
+    if (checkIfCustomToggleField(this.productName, this.dataProvider.name)) {
       objValues['choices'] = [...this.dataProvider.choices];
     }
 
@@ -1119,7 +1119,7 @@ export class FieldEditor {
     const objFieldBuilder = this.fieldBuilderOptions;
 
     /** Adding extra check for status type */
-    const isStatusType = checkIfCustomField(
+    const isStatusType = checkIfCustomToggleField(
       this.productName,
       objFormValue.name
     );
