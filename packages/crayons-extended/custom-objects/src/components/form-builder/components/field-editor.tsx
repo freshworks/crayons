@@ -22,6 +22,7 @@ import {
   getMaximumLimitsConfig,
   deriveInternalNameFromLabel,
   hasPermission,
+  checkIfCustomField,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -571,7 +572,7 @@ export class FieldEditor {
       }
     }
 
-    if (this.dataProvider.name === 'status') {
+    if (checkIfCustomField(this.productName, this.dataProvider.name)) {
       objValues['choices'] = this.dataProvider.choices;
     }
 
@@ -1118,7 +1119,10 @@ export class FieldEditor {
     const objFieldBuilder = this.fieldBuilderOptions;
 
     /** Adding extra check for status type */
-    const isStatusType = objFormValue.name === 'status';
+    const isStatusType = checkIfCustomField(
+      this.productName,
+      objFormValue.name
+    );
     const strInputLabel = hasCustomProperty(objFieldBuilder, 'label')
       ? objFieldBuilder.label
       : '';
@@ -1161,7 +1165,7 @@ export class FieldEditor {
       : null;
 
     const elementDropdown =
-      isDropdownType && !boolIgnoreDropdownChoices
+      isDropdownType && !boolIgnoreDropdownChoices && !isStatusType
         ? this.renderDropdown(boolDisableDropdowns)
         : null;
 
