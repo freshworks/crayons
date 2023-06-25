@@ -573,7 +573,7 @@ export class FieldEditor {
     }
 
     if (checkIfCustomField(this.productName, this.dataProvider.name)) {
-      objValues['choices'] = this.dataProvider.choices;
+      objValues['choices'] = [...this.dataProvider.choices];
     }
 
     if (boolValidForm) {
