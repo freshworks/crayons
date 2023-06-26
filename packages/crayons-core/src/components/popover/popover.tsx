@@ -8,6 +8,7 @@ import {
   Method,
   Prop,
   h,
+  Watch,
 } from '@stencil/core';
 import { createPopper, Instance } from '@popperjs/core';
 import { PopoverPlacementType, PopoverTriggerType } from '../../utils/types';
@@ -184,6 +185,44 @@ export class Popover {
     }
   }
 
+  @Watch('boundary')
+  @Watch('placement')
+  @Watch('fallbackPlacements')
+  handlePlacementChange(): void {
+    this.popperInstance?.destroy();
+    this.popperInstance = null;
+    this.setPopperOptions();
+    this.updatePopper();
+  }
+
+  setPopperOptions() {
+    this.popperOptions = {
+      placement: this.placement,
+      strategy: this.hoist ? 'fixed' : 'absolute',
+      modifiers: [
+        {
+          name: 'flip',
+          options: {
+            fallbackPlacements: this.fallbackPlacements,
+          },
+        },
+        {
+          name: 'preventOverflow',
+          options: {
+            boundary: this.boundary || 'clippingParents',
+          },
+        },
+        {
+          name: 'offset',
+          options: {
+            offset: [Number(this.skidding), Number(this.distance)],
+          },
+        },
+        popperModifierRTL,
+      ],
+    };
+  }
+
   componentWillLoad() {
     this.contentRef = this.host.querySelector('[slot="popover-content"]');
     this.triggerRef = this.host.querySelector('[slot="popover-trigger"]');
@@ -225,31 +264,7 @@ export class Popover {
         }
       });
     }
-    this.popperOptions = {
-      placement: this.placement,
-      strategy: this.hoist ? 'fixed' : 'absolute',
-      modifiers: [
-        {
-          name: 'flip',
-          options: {
-            fallbackPlacements: this.fallbackPlacements,
-          },
-        },
-        {
-          name: 'preventOverflow',
-          options: {
-            boundary: this.boundary || 'clippingParents',
-          },
-        },
-        {
-          name: 'offset',
-          options: {
-            offset: [Number(this.skidding), Number(this.distance)],
-          },
-        },
-        popperModifierRTL,
-      ],
-    };
+    this.setPopperOptions();
   }
 
   private async delay(ms: number) {

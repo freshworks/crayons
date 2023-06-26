@@ -208,7 +208,7 @@ export class Select {
   /**
    * Alternative placement for popover if the default placement is not possible.
    */
-  @Prop() fallbackPlacements: [PopoverPlacementType] = ['bottom'];
+  @Prop() fallbackPlacements: [PopoverPlacementType] = ['top'];
   /**
    * The variant of tag to be used.
    */
@@ -994,7 +994,7 @@ export class Select {
               distance='8'
               trigger='manual'
               ref={(popoverRef) => (this.popoverRef = popoverRef)}
-              same-width={this.sameWidth}
+              sameWidth={this.sameWidth}
               placement={this.optionsPlacement}
               fallbackPlacements={this.fallbackPlacements}
               boundary={this.boundary}
