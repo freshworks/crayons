@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-beta.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.19...@freshworks/crayons@4.2.0-beta.20) (2023-06-27)
+
+
+### Features
+
+* **component:** lookupField added for CONVERSATION_PROPERTIES form ([#866](https://github.com/freshworks/crayons/issues/866)) ([63c90f0](https://github.com/freshworks/crayons/commit/63c90f01488fdb41db2b1bb29334e73e0703a1be))
+
+
+
+
+
 ## [4.2.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.18...@freshworks/crayons@4.2.0-beta.19) (2023-06-10)
 
 ### Bug Fixes
