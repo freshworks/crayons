@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.3.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.18...@freshworks/crayons-custom-objects@1.3.0-beta.19) (2023-06-27)
-
+## [1.3.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.18...@freshworks/crayons-custom-objects@1.3.0-beta.19) (2023-06-27)
 
 ### Features
 
-* **component:** lookupField added for CONVERSATION_PROPERTIES form ([#866](https://github.com/freshworks/crayons/issues/866)) ([63c90f0](https://github.com/freshworks/crayons/commit/63c90f01488fdb41db2b1bb29334e73e0703a1be))
-
-
-
-
+- **component:** lookupField added for CONVERSATION_PROPERTIES form ([#866](https://github.com/freshworks/crayons/issues/866)) ([63c90f0](https://github.com/freshworks/crayons/commit/63c90f01488fdb41db2b1bb29334e73e0703a1be))
 
 ## [1.3.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.17...@freshworks/crayons-custom-objects@1.3.0-beta.18) (2023-06-10)
 
