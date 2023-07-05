@@ -137,6 +137,11 @@ export class Input {
    */
   @Event() fwInputClear: EventEmitter;
 
+  /**
+   * Triggered on key down in the input box.
+   */
+  @Event() fwInputKeyDown: EventEmitter;
+
   private onInput = (ev: Event) => {
     const input = ev.target as HTMLInputElement | null;
     this.value = input.value || '';
@@ -157,6 +162,12 @@ export class Input {
     this.fwBlur.emit({
       event: ev,
       name: this.name,
+    });
+  };
+
+  private onKeyDown = (ev: Event) => {
+    this.fwInputKeyDown.emit({
+      event: ev,
     });
   };
 
@@ -310,6 +321,7 @@ export class Input {
                     onInput={this.onInput}
                     onBlur={this.onBlur}
                     onFocus={this.onFocus}
+                    onKeyDown={this.onKeyDown}
                     aria-invalid={this.state === 'error'}
                     aria-describedby={this.getAriaDescribedBy()}
                   />

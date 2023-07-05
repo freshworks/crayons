@@ -163,7 +163,7 @@ function mergeSchema(first: any = {}, second: any = {}) {
 }
 
 function createYupSchema(schema: any, config: any) {
-  const { type, required, name } = config;
+  const { type, required, name, hidden, editable } = config;
   let yupType;
   switch (type) {
     case 'TEXT':
@@ -192,7 +192,7 @@ function createYupSchema(schema: any, config: any) {
     default:
       yupType = 'string';
   }
-  if (!type) return schema;
+  if (!type || !editable || hidden) return schema;
   if (!Yup[yupType as keyof typeof Yup]) {
     return schema;
   }
@@ -325,7 +325,20 @@ export const serializeForm = (
         return { ...acc, [key]: isNaN(parsed) ? undefined : parsed };
       case 'DATE':
         if (!val) return { ...acc, [key]: undefined };
-        const date = new Date(val);
+        // if the value is of the ISO UTC time format, timezone offset need not be calculated
+        // when datepicker is used in form component, the value will be passed to form in UTC ISO format, hence skipping.
+        const utcTimeRegex =
+          /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[+-](\d{2}):(\d{2})/;
+        // If ISO format, format it to display format and validate
+
+        let date;
+
+        if (utcTimeRegex.test(val)) {
+          date = new Date(val);
+        } else {
+          date = new Date(handleUserTimeZoneOffset(val));
+        }
+
         if (date.toString() === 'Invalid Date') {
           return { ...acc, [key]: undefined };
         }
@@ -462,3 +475,9 @@ export function getValueForField(values, field) {
   }
   return value;
 }
+
+const handleUserTimeZoneOffset = (date) => {
+  return (
+    new Date(date).valueOf() + new Date(date).getTimezoneOffset() * 60 * 1000
+  );
+};

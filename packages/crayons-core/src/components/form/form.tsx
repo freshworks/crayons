@@ -641,6 +641,70 @@ export class Form {
   }
 
   /**
+   * Method to set hidden fields on the form dynamically.
+   *
+   * Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.
+   *
+   * param: hiddenFields - key value pair of [fieldName]: true | false
+   * example: `setHiddenFields({ first_name: true, last_name: false })`
+   */
+  @Method()
+  async setHiddenFields(hiddenFields: any = {}): Promise<void> {
+    return this._handleFieldModifier('hidden', hiddenFields);
+  }
+
+  /**
+   * Method to set disabled fields on the form dynamically.
+   *
+   * Note: You must always pass all the fields that you want to disable
+   *
+   * param: disabledFields - key value pair of [fieldName]: true | false
+   * example: `setDisabledFields({ first_name: true, last_name: false })`
+   */
+  @Method()
+  async setDisabledFields(disabledFields: any = {}): Promise<void> {
+    return this._handleFieldModifier('editable', disabledFields);
+  }
+
+  private _handleFieldModifier(
+    key: 'editable' | 'hidden',
+    fieldsObj: any = {}
+  ) {
+    let errorsObj = { ...this.errors };
+    let touchedObj = { ...this.touched };
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f: any) => {
+          if (Object.prototype.hasOwnProperty.call(fieldsObj, f.name)) {
+            // Whenever a hidden/disabled state of a field changes,
+            // we will reset the error state and touched state of the field.
+            errorsObj = { ...errorsObj, [f.name]: undefined };
+            touchedObj = { ...this.touched, [f.name]: false };
+            return {
+              ...f,
+              // inverting the value if key is editable
+              [key]:
+                key === 'editable'
+                  ? !fieldsObj[f.name]
+                  : Boolean(fieldsObj[f.name]),
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.errors = { ...errorsObj };
+    this.touched = { ...touchedObj };
+    // Skip disabled/hidden field from validation schema
+    this.formValidationSchema =
+      generateDynamicValidationSchema(
+        this.formSchemaState,
+        this.validationSchema
+      ) || {};
+  }
+
+  /**
    * getValues
    * @returns An Object containing values and serializedValues.
    * serializedValues are those that contains the transformed values based on field type.
@@ -751,6 +815,7 @@ export class Form {
                     required={field.required}
                     hint={field.hint}
                     placeholder={field.placeholder}
+                    hidden={field.hidden}
                     error={this.errors[field.name]}
                     touched={this.touched[field.name]}
                     disabled={this.isDisabledField(field)}

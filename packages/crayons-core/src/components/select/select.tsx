@@ -37,7 +37,7 @@ export class Select {
   @Element() host: HTMLElement;
   private selectInput?: HTMLInputElement;
   private fwListOptions?: HTMLFwListOptionsElement;
-  private popover?: HTMLFwPopoverElement;
+  private popoverRef?: HTMLFwPopoverElement;
   private tagContainer: HTMLElement;
   private tagArrowKeyCounter = 0;
   private hostId;
@@ -76,13 +76,13 @@ export class Select {
 
   private openDropdown = () => {
     if (!this.isExpanded && this.changeEmittable()) {
-      this.popover.show();
+      this.popoverRef.show();
     }
   };
 
   private closeDropdown = () => {
     if (this.isExpanded && this.changeEmittable()) {
-      this.popover.hide();
+      this.popoverRef.hide();
     }
   };
 
@@ -205,6 +205,10 @@ export class Select {
    * Placement of the options list with respect to select.
    */
   @Prop() optionsPlacement: PopoverPlacementType = 'bottom';
+  /**
+   * Alternative placement for popover if the default placement is not possible.
+   */
+  @Prop() fallbackPlacements: [PopoverPlacementType] = ['top'];
   /**
    * The variant of tag to be used.
    */
@@ -467,6 +471,22 @@ export class Select {
   async setFocus(): Promise<any> {
     this.hasFocus = true;
     this.selectInput?.focus();
+  }
+
+  /**
+   * Shows the dropdown panel
+   */
+  @Method()
+  async showDropdown(): Promise<any> {
+    this.openDropdown();
+  }
+
+  /**
+   * Hides the dropdown panel
+   */
+  @Method()
+  async hideDropdown(): Promise<any> {
+    this.closeDropdown();
   }
 
   matchValueWithOptions = () => {
@@ -973,9 +993,10 @@ export class Select {
               id='select-popover'
               distance='8'
               trigger='manual'
-              ref={(popover) => (this.popover = popover)}
-              same-width={this.sameWidth}
+              ref={(popoverRef) => (this.popoverRef = popoverRef)}
+              sameWidth={this.sameWidth}
               placement={this.optionsPlacement}
+              fallbackPlacements={this.fallbackPlacements}
               boundary={this.boundary}
               hoist={this.hoist}
             >

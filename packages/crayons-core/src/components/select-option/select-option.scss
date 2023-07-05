@@ -35,6 +35,10 @@ $bg-color-disabled: $color-smoke-25;
 
   &.standard {
     padding-inline-start: 0px;
+
+    &.has-checkbox {
+      padding-inline-start: 10px;
+    }
   }
 
   &.icon {

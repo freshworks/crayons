@@ -276,6 +276,60 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
 </script>
 ```
 
+### FormSchema with field type 'DATE' 
+
+Datepicker by default will be highlighted and alert icon will be displayed when invalid value is entered in the date input field. To switch it off, set the property 'showErrorOnInvalidDate' to false.
+
+showErrorOnInvalidDate - Setting the prop to false will not highlight the datepicker in error state when user enters invalid input and will not display the error msg in the tooltip. However, the invalid value will not be submitted to backend on clicking 'Update' button. 
+
+Example form schema,
+
+```javascript
+var formSchema = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf487be94595',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 11,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+        showErrorOnInvalidDate: false,
+      }
+    ],
+  };
+```  
+
+### FormSchema with field type 'DATE' to occupy full width of the container
+
+Datepicker by default will not occupy full width of the container. To make the datepicker occupy full width, set 'fullWidth' prop as true in the form schema.
+
+Example form schema,
+
+```javascript
+var formSchema = {
+    name: 'Test Form',
+    fields: [
+      {
+        id: 'gt19f86f-1b6a-49cb-b4b6-cf487be97899',
+        name: 'date_of_birth',
+        label: 'Date Of Birth',
+        type: 'DATE',
+        position: 1,
+        required: true,
+        Placeholder: 'Enter…',
+        hint: 'Please enter your date of birth',
+        choices: [],
+        fullWidth: true,
+      }
+    ],
+  };
+```  
+
 ## form schema
 
 form schema should follow the below structure:
@@ -3065,6 +3119,21 @@ serializedValues are those that contains the transformed values based on field t
 2. For Date: returns value as ${year}-${month}-${date} or undefined.
 3. For Relationship : returns an array of values or value.
 
+### `setDisabledFields(disabledFields?: any) => Promise<void>`
+
+Method to set disabled fields on the form dynamically.
+
+Note: You must always pass all the fields that you want to disable
+
+param: disabledFields - key value pair of [fieldName]: true | false
+example: `setDisabledFields({ first_name: true, last_name: false })`
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFieldChoices(field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>`
 
 setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema.
@@ -3155,6 +3224,21 @@ Type: `Promise<void>`
 
 
 
+### `setHiddenFields(hiddenFields?: any) => Promise<void>`
+
+Method to set hidden fields on the form dynamically.
+
+Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.
+
+param: hiddenFields - key value pair of [fieldName]: true | false
+example: `setHiddenFields({ first_name: true, last_name: false })`
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -3176,17 +3260,14 @@ graph TD;
   fw-form-control --> fw-timepicker
   fw-form-control --> fw-file-uploader-2
   fw-input --> fw-icon
-  fw-datepicker --> fw-select-option
+  fw-datepicker --> fw-tooltip
+  fw-datepicker --> fw-icon
   fw-datepicker --> fw-button
   fw-datepicker --> fw-input
   fw-datepicker --> fw-timepicker
   fw-datepicker --> fw-popover
-  fw-datepicker --> fw-icon
   fw-datepicker --> fw-select
-  fw-select-option --> fw-icon
-  fw-select-option --> fw-checkbox
-  fw-select-option --> fw-avatar
-  fw-checkbox --> fw-icon
+  fw-tooltip --> fw-popover
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-timepicker --> fw-select
@@ -3200,9 +3281,12 @@ graph TD;
   fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
-  fw-tooltip --> fw-popover
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
   fw-file-uploader-2 --> fw-file-2
   fw-file-uploader-2 --> fw-inline-message
   fw-file-2 --> fw-icon

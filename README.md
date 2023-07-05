@@ -14,7 +14,7 @@
 
 ### Installation
 
-Please refer to the usage guidelines [here](https://crayons.freshworks.com/components).
+Please refer to the usage guidelines [here](https://crayons.freshworks.com/introduction/#installation).
 
 ### Documentation
 

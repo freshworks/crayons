@@ -112,6 +112,10 @@ export namespace Components {
          */
         "formValues": any;
         /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
+        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors": boolean;
@@ -357,6 +361,10 @@ export namespace Components {
           * Show explore plans button and disable features for free-plan users
          */
         "role": 'trial' | 'admin';
+        /**
+          * flag to show lookupField for CONVERSATION_PROPERTIES or not
+         */
+        "showLookupField": boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -838,6 +846,10 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: FwFbFieldLookupCustomEvent<any>) => void;
         /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
+        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors"?: boolean;
@@ -1135,6 +1147,10 @@ declare namespace LocalJSX {
           * Show explore plans button and disable features for free-plan users
          */
         "role"?: 'trial' | 'admin';
+        /**
+          * flag to show lookupField for CONVERSATION_PROPERTIES or not
+         */
+        "showLookupField"?: boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */

@@ -37,11 +37,14 @@ export class FormControl {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
   @Prop()
   label: any;
+  @Prop()
+  hidden = false;
   @Prop()
   required = false;
   @Prop()
@@ -338,6 +341,7 @@ export class FormControl {
         break;
 
       case 'RELATIONSHIP':
+      case 'AUTO_COMPLETE':
         {
           const controlProps = this.controlProps?.selectProps(
             this.name,
@@ -361,7 +365,7 @@ export class FormControl {
           };
 
           if (
-            Array.isArray(controlProps.value) &&
+            Array.isArray(controlProps?.value) &&
             typeof controlProps.value[0] === 'object'
             // handle multi_select, select [{}] initialValues
           ) {
@@ -372,7 +376,7 @@ export class FormControl {
             this.crayonsControlRef?.setSelectedOptions(
               componentProps.selectedOptions
             );
-          } else if (!controlProps.value) {
+          } else if (!controlProps?.value) {
             this.crayonsControlRef?.setSelectedOptions([]);
           }
           componentProps.noDataText =
@@ -504,7 +508,7 @@ export class FormControl {
   render(): JSX.Element {
     return (
       this.shouldRender && (
-        <div class='form-control-container'>
+        <div class={`form-control-container ${this.hidden ? 'd-none' : ''}`}>
           {this.renderControl()}
           {this.hasSlot && (
             <label

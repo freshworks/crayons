@@ -355,6 +355,10 @@ export namespace Components {
          */
         "clearValue": () => Promise<void>;
         /**
+          * Debounce timer for date input.
+         */
+        "debounceTimer": number;
+        /**
           * Make the datepicker box as disabled. Default `false`
          */
         "disabled": boolean;
@@ -371,6 +375,10 @@ export namespace Components {
          */
         "fromDate": string;
         /**
+          * To make the datepicker occupy full width of the container. Default value is false.
+         */
+        "fullWidth": boolean;
+        /**
           * Returns the date value in ISO format.
          */
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
@@ -378,6 +386,10 @@ export namespace Components {
           * Hint text displayed below the text box.
          */
         "hintText": string;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoistTooltip": boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -427,6 +439,10 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
+         */
+        "showErrorOnInvalidDate": boolean;
+        /**
           * Indicates if footer needs to be shown. Default `true`.
          */
         "showFooter": boolean;
@@ -450,6 +466,10 @@ export namespace Components {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
+        /**
+          * Error text displayed on the tooltip for invalid date inputs.
+         */
+        "tooltipErrorText": any;
         "updateText": string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
@@ -803,6 +823,10 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * Method to set disabled fields on the form dynamically.  Note: You must always pass all the fields that you want to disable  param: disabledFields - key value pair of [fieldName]: true | false example: `setDisabledFields({ first_name: true, last_name: false })`
+         */
+        "setDisabledFields": (disabledFields?: any) => Promise<void>;
+        /**
           * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }]. fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path. option_label_path refers to the key used for displaying the text. option_value_path refers to the key which corresponds to the value of item.
          */
         "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
@@ -827,6 +851,10 @@ export namespace Components {
           * Method to set values on the form fields.  param: valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }` param: shouldValidate - should this form be validated with the updated values. Default to true.
          */
         "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false example: `setHiddenFields({ first_name: true, last_name: false })`
+         */
+        "setHiddenFields": (hiddenFields?: any) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
@@ -863,6 +891,7 @@ export namespace Components {
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
          */
         "fieldProps"?: any;
+        "hidden": boolean;
         "hint": string;
         "label": any;
         "name": any;
@@ -892,6 +921,7 @@ export namespace Components {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -1667,10 +1697,18 @@ export namespace Components {
          */
         "errorText": string;
         /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements": [PopoverPlacementType];
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
+        /**
+          * Hides the dropdown panel
+         */
+        "hideDropdown": () => Promise<any>;
         /**
           * Hint text displayed below the text box.
          */
@@ -1762,6 +1800,10 @@ export namespace Components {
         "setFocus": () => Promise<any>;
         "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string | string[]) => Promise<any>;
+        /**
+          * Shows the dropdown panel
+         */
+        "showDropdown": () => Promise<any>;
         /**
           * Theme based on which the list box is styled.
          */
@@ -3240,6 +3282,10 @@ declare namespace LocalJSX {
          */
         "clearInput"?: boolean;
         /**
+          * Debounce timer for date input.
+         */
+        "debounceTimer"?: number;
+        /**
           * Make the datepicker box as disabled. Default `false`
          */
         "disabled"?: boolean;
@@ -3256,9 +3302,17 @@ declare namespace LocalJSX {
          */
         "fromDate"?: string;
         /**
+          * To make the datepicker occupy full width of the container. Default value is false.
+         */
+        "fullWidth"?: boolean;
+        /**
           * Hint text displayed below the text box.
          */
         "hintText"?: string;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoistTooltip"?: boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -3300,6 +3354,10 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: FwDatepickerCustomEvent<any>) => void;
         /**
+          * Triggered when text is entered in  input box.
+         */
+        "onFwDateInput"?: (event: FwDatepickerCustomEvent<any>) => void;
+        /**
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
@@ -3311,6 +3369,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
+         */
+        "showErrorOnInvalidDate"?: boolean;
         /**
           * Indicates if footer needs to be shown. Default `true`.
          */
@@ -3335,6 +3397,10 @@ declare namespace LocalJSX {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
+        /**
+          * Error text displayed on the tooltip for invalid date inputs.
+         */
+        "tooltipErrorText"?: any;
         "updateText"?: string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
@@ -3744,6 +3810,7 @@ declare namespace LocalJSX {
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
          */
         "fieldProps"?: any;
+        "hidden"?: boolean;
         "hint"?: string;
         "label"?: any;
         "name"?: any;
@@ -3769,6 +3836,7 @@ declare namespace LocalJSX {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -4020,6 +4088,10 @@ declare namespace LocalJSX {
           * Triggered when clear icon is clicked.
          */
         "onFwInputClear"?: (event: FwInputCustomEvent<any>) => void;
+        /**
+          * Triggered on key down in the input box.
+         */
+        "onFwInputKeyDown"?: (event: FwInputCustomEvent<any>) => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -4568,6 +4640,10 @@ declare namespace LocalJSX {
           * Error text displayed below the text box.
          */
         "errorText"?: string;
+        /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements"?: [PopoverPlacementType];
         /**
           * If true, the user must select a value. The default value is not displayed.
          */
