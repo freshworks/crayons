@@ -96,7 +96,7 @@
     "mustache": "^4.2.0",
     "prepend-file": "^2.0.0",
     "prettier": "^2.4.1",
-    "stylelint": "^13.13.1",
+    "stylelint": "^15.10.1",
     "stylelint-a11y": "^1.2.3",
     "stylelint-config-recommended": "^5.0.0",
     "stylelint-prettier": "^1.2.0",
