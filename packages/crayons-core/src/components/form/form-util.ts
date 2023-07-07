@@ -179,6 +179,7 @@ function createYupSchema(schema: any, config: any) {
       break;
     case 'MULTI_SELECT':
     case 'RELATIONSHIP':
+    case 'AUTO_COMPLETE':
     case 'FILES':
       yupType = 'array';
       break;
@@ -216,6 +217,7 @@ function createYupSchema(schema: any, config: any) {
   if (
     (type === 'DROPDOWN' ||
       type === 'MULTI_SELECT' ||
+      type === 'AUTO_COMPLETE' ||
       type === 'RELATIONSHIP') &&
     required
   )
@@ -235,7 +237,7 @@ function createYupSchema(schema: any, config: any) {
       })
       .min(1, `form.required`);
 
-  if (type === 'RELATIONSHIP')
+  if (type === 'RELATIONSHIP' || type === 'AUTO_COMPLETE')
     validator = validator.transform((_value, originalVal) => {
       return Array.isArray(originalVal)
         ? originalVal
@@ -352,6 +354,7 @@ export const serializeForm = (
 
         return { ...acc, [key]: `${year}-${month}-${dt}` };
       case 'RELATIONSHIP':
+      case 'AUTO_COMPLETE':
         if (Array.isArray(val) && typeof val[0] === 'object') {
           if (val.length > 1) {
             // multiselect
