@@ -265,8 +265,10 @@ export class ListOptions {
 
   @Method()
   async setSelectedOptions(options: any[]): Promise<any> {
-    this.selectedOptionsState = options;
-    this.setValue(options);
+    if (options) {
+      this.selectedOptionsState = options;
+      this.setValue(options);
+    }
   }
 
   @Method()
