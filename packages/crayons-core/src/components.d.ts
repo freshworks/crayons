@@ -1809,6 +1809,10 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
+          * Props to be passed for fw-tag components displayed in multi-select.
+         */
+        "tagProps": {};
+        /**
           * The variant of tag to be used.
          */
         "tagVariant": TagVariant;
@@ -4752,6 +4756,10 @@ declare namespace LocalJSX {
           * Theme based on which the list box is styled.
          */
         "state"?: 'normal' | 'warning' | 'error';
+        /**
+          * Props to be passed for fw-tag components displayed in multi-select.
+         */
+        "tagProps"?: {};
         /**
           * The variant of tag to be used.
          */

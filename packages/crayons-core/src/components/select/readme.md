@@ -1595,6 +1595,105 @@ function App() {
 </code-block>
 </code-group>
 
+### Using tagProps property
+
+`tagProps` property can be used to set the properties of fw-tag component when there are multiple choices selected.
+
+```html live
+<fw-select
+  id="tagPropsSelect"
+  multiple
+  max-height='100px'
+>
+</fw-select>
+
+<script type="application/javascript">
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Selected Item No: ${i + 1}`,
+    value: i
+  }));
+  var maxHeightSelect = document.getElementById('tagPropsSelect');
+  maxHeightSelect.selectedOptions = selectedOptions;
+  maxHeightSelect.creatableProps = {
+    isCreatable: true,
+  };
+  maxHeightSelect.tagProps={
+    showEllipsisOnOverflow: true,
+    closable: false
+  };
+  maxHeightSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+### Usage for tagProps property
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-select
+  id="tagPropsSelect"
+  multiple
+  max-height='100px'
+>
+</fw-select>
+
+<script type="application/javascript">
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Selected Item No: ${i + 1}`,
+    value: i
+  }));
+  var maxHeightSelect = document.getElementById('tagPropsSelect');
+  maxHeightSelect.selectedOptions = selectedOptions;
+  maxHeightSelect.creatableProps = {
+    isCreatable: true,
+  };
+  maxHeightSelect.tagProps={
+    showEllipsisOnOverflow: true,
+    closable: false
+  };
+  maxHeightSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { FwSelect } from '@freshworks/crayons/react';
+function App() {
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Selcted Item No: ${i + 1}`,
+    value: i
+  }));
+
+  return (
+    <div>
+      <FwSelect
+        id="maxHeightSelect"
+        multiple
+        selectedOptions={selectedOptions}
+        maxHeight='100px'
+        tagProps={{
+          showEllipsisOnOverflow: true,
+          closable: false
+        }}
+      ></FwSelect>
+    </div>
+  );
+}
+```
+
+</code-block>
+</code-group>
+
 ## Styling
 
 Refer the css variables in fw-popover to control the height and width of the select popup.
@@ -1640,6 +1739,7 @@ Refer the [css variables](#css-custom-properties) for modifying the appearance o
 | `searchable`         | `searchable`        | Allow to search for value. Default is true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
 | `selectedOptions`    | --                  | Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.                                                                                                                                                                                                                                                                                                                                                                                                                                           | `any[]`                                                                                                                                                              | `[]`                                                                                                                               |
 | `state`              | `state`             | Theme based on which the list box is styled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `"error" \| "normal" \| "warning"`                                                                                                                                   | `'normal'`                                                                                                                         |
+| `tagProps`           | --                  | Props to be passed for fw-tag components displayed in multi-select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `{}`                                                                                                                                                                 | `{}`                                                                                                                               |
 | `tagVariant`         | `tag-variant`       | The variant of tag to be used.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `"avatar" \| "standard"`                                                                                                                                             | `'standard'`                                                                                                                       |
 | `type`               | `type`              | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `"number" \| "text"`                                                                                                                                                 | `'text'`                                                                                                                           |
 | `value`              | `value`             | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                                                                                                                                                                                                                                                                                                                                                                                             | `any`                                                                                                                                                                | `undefined`                                                                                                                        |

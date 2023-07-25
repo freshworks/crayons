@@ -274,6 +274,11 @@ export class Select {
    */
   @Prop() maxHeight = 'none';
 
+  /**
+   *  Props to be passed for fw-tag components displayed in multi-select.
+   */
+  @Prop() tagProps = {};
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -587,6 +592,12 @@ export class Select {
     if (!this.selectedOptionsState[index]?.disabled) {
       this.focusedValues = [index];
       this.tagContainer.focus();
+      const tags = this.tagContainer.querySelectorAll('fw-tag');
+      [...tags][index].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start',
+      });
     }
   }
 
@@ -631,6 +642,11 @@ export class Select {
     if (this.changeEmittable()) {
       e.stopPropagation();
       this.tagContainer.focus();
+      e.currentTarget.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start',
+      });
       if (!this.selectedOptionsState[index]?.disabled) {
         const focusedIndex = this.focusedValues.indexOf(index);
         if (focusedIndex === -1) {
@@ -698,6 +714,7 @@ export class Select {
               isFocused={this.focusedValues.includes(index)}
               onClick={(e) => this.onClickTag(e, index)}
               {...displayAttributes}
+              {...this.tagProps}
             />
           );
         }
