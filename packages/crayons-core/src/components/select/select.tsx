@@ -57,7 +57,7 @@ export class Select {
       this.setFocus();
       // Select the whole text in case of single select
       this.multiple || this.selectInput?.select?.();
-      if (this.variant !== 'mail') {
+      if (!['search', 'mail'].includes(this.variant)) {
         this.openDropdown();
       }
       this.focusedValues = [];
@@ -153,7 +153,7 @@ export class Select {
   /**
    * The UI variant of the select to be used.
    */
-  @Prop() variant: 'button' | 'standard' | 'mail' = 'standard';
+  @Prop() variant: 'button' | 'standard' | 'mail' | 'search' = 'standard';
   /**
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
@@ -312,7 +312,7 @@ export class Select {
   @Listen('fwLoading')
   onLoading(event) {
     this.isLoading = event.detail.isLoading;
-    if (this.variant === 'mail' && !this.isLoading) {
+    if (['search', 'mail'].includes(this.variant) && !this.isLoading) {
       this.selectInput?.value?.trim() && this.openDropdown();
     }
   }
@@ -323,7 +323,7 @@ export class Select {
       this.selectedOptionsState = selectedItem.detail?.meta?.selectedOptions;
       this.value = selectedItem.detail.value;
       this.renderInput();
-      if (!this.multiple || this.variant === 'mail') {
+      if (!this.multiple || ['search', 'mail'].includes(this.variant)) {
         this.closeDropdown();
       }
       selectedItem.stopImmediatePropagation();
@@ -550,6 +550,8 @@ export class Select {
           } else {
             this.tagArrowKeyCounter = 0;
           }
+          ev.preventDefault();
+          ev.stopPropagation();
           ev.stopImmediatePropagation();
           break;
         case 'ArrowRight':
@@ -559,6 +561,8 @@ export class Select {
             this.tagArrowKeyCounter++;
             this.focusOnTag(this.tagArrowKeyCounter);
           }
+          ev.preventDefault();
+          ev.stopPropagation();
           ev.stopImmediatePropagation();
           break;
       }
@@ -596,7 +600,6 @@ export class Select {
       [...tags][index].scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
-        inline: 'start',
       });
     }
   }
@@ -628,11 +631,11 @@ export class Select {
     if (this.changeEmittable()) {
       this.searchValue = this.selectInput?.value;
       if (this.selectInput?.value) {
-        this.variant !== 'mail' && this.openDropdown();
+        !['search', 'mail'].includes(this.variant) && this.openDropdown();
       } else {
         // Clear selected value in case of single select.
         this.multiple || this.setSelectedValues('');
-        this.variant === 'mail' && this.closeDropdown();
+        ['search', 'mail'].includes(this.variant) && this.closeDropdown();
       }
       this.focusedValues = [];
     }
@@ -645,7 +648,6 @@ export class Select {
       e.currentTarget.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
-        inline: 'start',
       });
       if (!this.selectedOptionsState[index]?.disabled) {
         const focusedIndex = this.focusedValues.indexOf(index);

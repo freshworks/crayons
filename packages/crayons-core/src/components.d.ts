@@ -1827,7 +1827,7 @@ export namespace Components {
         /**
           * The UI variant of the select to be used.
          */
-        "variant": 'button' | 'standard' | 'mail';
+        "variant": 'button' | 'standard' | 'mail' | 'search';
         /**
           * Warning text displayed below the text box.
          */
@@ -4775,7 +4775,7 @@ declare namespace LocalJSX {
         /**
           * The UI variant of the select to be used.
          */
-        "variant"?: 'button' | 'standard' | 'mail';
+        "variant"?: 'button' | 'standard' | 'mail' | 'search';
         /**
           * Warning text displayed below the text box.
          */

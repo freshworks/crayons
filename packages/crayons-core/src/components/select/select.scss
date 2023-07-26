@@ -106,6 +106,7 @@ $disabled-color: $input-disabled-color;
         margin-block-start: 4px;
         display: flex;
         min-width: inherit;
+        --fw-popover-min-width: 0;
       }
     }
 
