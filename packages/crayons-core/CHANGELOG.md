@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.1-beta.0...@freshworks/crayons@4.3.0-beta.0) (2023-07-25)
+
+### Features
+
+- **fw-select:** fix styling for tag container, focus on tags on click/key press, tagProps ([445c3a0](https://github.com/freshworks/crayons/commit/445c3a040679f33e08d7e02f4d8a3144d4517f9e))
+
 ## [4.2.0-beta.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.19...@freshworks/crayons@4.2.0-beta.20) (2023-06-27)
 
 ### Features
