@@ -1694,6 +1694,169 @@ function App() {
 </code-block>
 </code-group>
 
+### Demo with search variant
+
+```html live
+<fw-select
+  id="search"
+  label="Rick & Morty Characters"
+  no-data-text="Type to search.."
+  not-found-text="Not available in this universe"
+  placeholder="Your choices"
+  hint-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
+  multiple
+  caret="false"
+  variant="search"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var searchVariant = document.getElementById('search');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      text: 'Rick Sanchez',
+      subText: 'Human',
+      value: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            text: x.name,
+            subText: x.type,
+            value: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+### Usage of search variant
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-select
+  id="search"
+  label="Rick & Morty Characters"
+  no-data-text="Type to search.."
+  not-found-text="Not available in this universe"
+  placeholder="Your choices"
+  hint-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
+  multiple
+  caret="false"
+  variant="search"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var searchVariant = document.getElementById('search');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      text: 'Rick Sanchez',
+      subText: 'Human',
+      value: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            text: x.name,
+            subText: x.type,
+            value: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+</code-block>
+<code-block title="React">
+
+```jsx
+function Select() {
+  var baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  const searchFn = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            text: x.name,
+            subText: x.type,
+            value: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+  return (
+    <FwSelect
+      id='search'
+      label={'Rick & Morty Characters'}
+      notFoundText='Not available in this universe'
+      placeholder='Your choices'
+      hintText='Select multiple options'
+      optionsVariant='avatar'
+      tagVariant='avatar'
+      search={searchFn}
+      multiple
+      selectedOptions={[
+        {
+          text: 'Rick Sanchez',
+          subText: 'Human',
+          value: '1',
+          graphicsProps: {
+            image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+          },
+        },
+      ]}
+      variant="search"
+      caret={false}
+    ></FwSelect>
+  );
+}
+export default Select;
+```
+
+</code-block>
+</code-group>
+
 ## Styling
 
 Refer the css variables in fw-popover to control the height and width of the select popup.
@@ -1743,7 +1906,7 @@ Refer the [css variables](#css-custom-properties) for modifying the appearance o
 | `tagVariant`         | `tag-variant`       | The variant of tag to be used.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `"avatar" \| "standard"`                                                                                                                                             | `'standard'`                                                                                                                       |
 | `type`               | `type`              | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `"number" \| "text"`                                                                                                                                                 | `'text'`                                                                                                                           |
 | `value`              | `value`             | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                                                                                                                                                                                                                                                                                                                                                                                             | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
-| `variant`            | `variant`           | The UI variant of the select to be used.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `"button" \| "mail" \| "standard"`                                                                                                                                   | `'standard'`                                                                                                                       |
+| `variant`            | `variant`           | The UI variant of the select to be used.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `"button" \| "mail" \| "search" \| "standard"`                                                                                                                       | `'standard'`                                                                                                                       |
 | `warningText`        | `warning-text`      | Warning text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `string`                                                                                                                                                             | `''`                                                                                                                               |
 
 
