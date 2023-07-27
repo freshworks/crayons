@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.0...@freshworks/crayons@4.3.0-beta.1) (2023-07-27)
-
+## [4.3.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.0...@freshworks/crayons@4.3.0-beta.1) (2023-07-27)
 
 ### Features
 
-* **fw-select:** add search variant ([d184338](https://github.com/freshworks/crayons/commit/d18433873cce8d66d46f7a2e28d5941b07ae1fb4))
-
-
-
-
+- **fw-select:** add search variant ([d184338](https://github.com/freshworks/crayons/commit/d18433873cce8d66d46f7a2e28d5941b07ae1fb4))
 
 ## [4.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.1-beta.0...@freshworks/crayons@4.3.0-beta.0) (2023-07-25)
 
