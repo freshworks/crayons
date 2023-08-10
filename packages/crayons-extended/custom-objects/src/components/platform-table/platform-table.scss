@@ -41,6 +41,8 @@
 }
 
 .table {
+  height: var(--fw-platform-table-width, 100%);
+  width: var(--fw-platform-table-height, 100%);
   border: 1px solid rgba(207, 215, 223, 0.4);
   border-end-start-radius: 0px;
   border-end-end-radius: 0px;

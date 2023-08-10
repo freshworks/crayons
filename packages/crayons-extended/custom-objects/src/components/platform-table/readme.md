@@ -1116,7 +1116,9 @@ export default Table
 | `showError`       | `show-error`    | When set true the error state slot will be shown. | `boolean` | `false`     |
 | `sortableColumns` | --              | The sortable columns object.                      | `{}`      | `{}`        |
 | `tableProps`      | --              | Props for the fw-pagination component             | `{}`      | `{}`        |
-
+| `tableHeight`     | `table-height`  | Height of the data-table ex. 100vh, 100%, auto    | `string`  | `null`      |
+| `tableWidth`      | `table-width`   | Width of the data-table ex. 100vw, 100%, auto     | `string`  | `null`      |
+| `customStyles`    | `custom-styles` | Custom css styles (background/width/height etc.)  | `string \| { [key: string]: string; }` | `{}`      |
 ## Events
 
 | Event          | Description                                | Type               |
