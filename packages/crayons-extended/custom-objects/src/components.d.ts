@@ -412,6 +412,11 @@ export namespace Components {
          */
         "clearTableSelection": () => Promise<void>;
         /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles": { [key: string]: string } | string;
+        /**
           * Whether the checkbox should be visible.
          */
         "isSelectable": boolean;
@@ -440,9 +445,17 @@ export namespace Components {
          */
         "sortableColumns": {};
         /**
+          * Height of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableHeight": string;
+        /**
           * Props for the fw-pagination component
          */
         "tableProps": {};
+        /**
+          * Width of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableWidth": string;
     }
     interface FwSearchDropdown {
         /**
@@ -1194,6 +1207,11 @@ declare namespace LocalJSX {
     }
     interface FwPlatformTable {
         /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles"?: { [key: string]: string } | string;
+        /**
           * Whether the checkbox should be visible.
          */
         "isSelectable"?: boolean;
@@ -1230,9 +1248,17 @@ declare namespace LocalJSX {
          */
         "sortableColumns"?: {};
         /**
+          * Height of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableHeight"?: string;
+        /**
           * Props for the fw-pagination component
          */
         "tableProps"?: {};
+        /**
+          * Width of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableWidth"?: string;
     }
     interface FwSearchDropdown {
         /**

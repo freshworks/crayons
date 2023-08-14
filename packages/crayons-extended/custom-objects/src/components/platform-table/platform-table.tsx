@@ -36,6 +36,24 @@ export class PlatformTable {
    * Props for the fw-pagination component
    */
   @Prop() paginationProps = {};
+
+  /**
+   * Custom css styles (background/margins/width/height etc.)
+   *
+   * @type {({[k: string]: string} | string)}
+   */
+  @Prop() customStyles: { [key: string]: string } | string = {};
+
+  /**
+   * Width of the data-table ex. 100vh, 100%, auto etc.
+   */
+  @Prop() tableWidth: string = null;
+
+  /**
+   * Height of the data-table ex. 100vh, 100%, auto etc.
+   */
+  @Prop() tableHeight: string = null;
+
   /**
    * The sort by column key.
    */
@@ -95,6 +113,29 @@ export class PlatformTable {
     e.stopImmediatePropagation();
     e.stopPropagation();
     e.preventDefault();
+  }
+
+  get style(): any {
+    const dimensionsStyles: {
+      width?: string;
+      height?: string;
+    } = {
+      width: null,
+      height: null,
+    };
+
+    if (this.tableWidth) {
+      dimensionsStyles.width = this.tableWidth;
+    }
+
+    if (this.tableHeight) {
+      dimensionsStyles.height = this.tableHeight;
+    }
+
+    const styles =
+      typeof this.customStyles === 'object' ? this.customStyles : {};
+
+    return { ...dimensionsStyles, ...styles };
   }
 
   /**
@@ -192,6 +233,7 @@ export class PlatformTable {
           <slot name='error-state'></slot>
         ) : (
           <fw-data-table
+            style={this.style}
             {...this.defaultProps}
             {...this.tableProps}
             class='table'
