@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.1-beta.2...@freshworks/crayons-custom-objects@1.4.0-beta.0) (2023-08-14)
+
+
+### Features
+
+* **fw-platform-table:** [Enhancement] - Ability to modify CSS or (change height or width) of fw-data-table of FwPlatformTable ([#886](https://github.com/freshworks/crayons/issues/886)) ([1eaf33a](https://github.com/freshworks/crayons/commit/1eaf33a73561747ef8cd074d90c39e8f7b5cfcc4))
+
+
+
+
+
 ## [1.3.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.18...@freshworks/crayons-custom-objects@1.3.0-beta.19) (2023-06-27)
 
 ### Features
