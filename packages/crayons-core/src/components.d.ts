@@ -2219,6 +2219,10 @@ export namespace Components {
          */
         "position": 'top-center' | 'top-left' | 'top-right';
         /**
+          * Prevent rendering the duplicate toasters at the same time
+         */
+        "shouldPreventDuplicates": boolean;
+        /**
           * won't close automatically
          */
         "sticky": boolean;
@@ -5191,6 +5195,10 @@ declare namespace LocalJSX {
           * position of the toast notification in screen
          */
         "position"?: 'top-center' | 'top-left' | 'top-right';
+        /**
+          * Prevent rendering the duplicate toasters at the same time
+         */
+        "shouldPreventDuplicates"?: boolean;
         /**
           * won't close automatically
          */
