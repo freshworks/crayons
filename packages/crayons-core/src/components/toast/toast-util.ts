@@ -36,6 +36,11 @@ export interface ToastOptions {
    *  position of the toast notification in screen
    */
   position?: 'top-center' | 'top-left' | 'top-right';
+
+  /**
+   * To prevent the duplicate toaster
+   */
+  shouldPreventDuplicates?: boolean;
 }
 export type ToastResult = {
   trigger: any;
@@ -91,6 +96,25 @@ export function createToastNotification(
   });
 
   containerElem.appendChild(toastElem);
+}
+
+export function preventDuplicates(
+  toasteContainerCollection: HTMLCollection,
+  newToasterOption: ToastOptions
+): boolean {
+  let hasDuplicates = false;
+  Array.from(toasteContainerCollection).map((existingToast) => {
+    if (!newToasterOption.shouldPreventDuplicates) return;
+    if (
+      existingToast.attributes.getNamedItem('content').value ===
+        newToasterOption.content &&
+      existingToast.attributes.getNamedItem('type').value ===
+        newToasterOption.type
+    ) {
+      hasDuplicates = true;
+    }
+  });
+  return hasDuplicates;
 }
 
 function getStylePosition(position) {

@@ -4,6 +4,7 @@ import {
   ToastOptions,
   createToastStack,
   createToastNotification,
+  preventDuplicates,
 } from './toast-util';
 
 @Component({
@@ -49,13 +50,21 @@ export class Toast {
    */
   @Prop() pauseOnHover: boolean;
 
+  /**
+   * Prevent rendering the duplicate toasters at the same time
+   */
+  @Prop() shouldPreventDuplicates: boolean;
+
   componentWillLoad(): void {
     this.toastContainer = createToastStack(this);
   }
 
   @Method()
   async trigger(opts: ToastOptions): Promise<void> {
-    createToastNotification(opts, this.toastContainer, this);
+    const hasDuplicates = preventDuplicates(this.toastContainer.children, opts);
+    if (!hasDuplicates) {
+      createToastNotification(opts, this.toastContainer, this);
+    }
   }
 
   render(): JSX.Element {
