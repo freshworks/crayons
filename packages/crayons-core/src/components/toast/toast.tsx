@@ -61,7 +61,10 @@ export class Toast {
 
   @Method()
   async trigger(opts: ToastOptions): Promise<void> {
-    const hasDuplicates = preventDuplicates(this.toastContainer.children, opts);
+    const hasDuplicates = opts.shouldPreventDuplicates
+      ? preventDuplicates(this.toastContainer.children, opts)
+      : false;
+
     if (!hasDuplicates) {
       createToastNotification(opts, this.toastContainer, this);
     }
