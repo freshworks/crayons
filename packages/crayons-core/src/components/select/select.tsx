@@ -37,7 +37,7 @@ export class Select {
   @Element() host: HTMLElement;
   private selectInput?: HTMLInputElement;
   private fwListOptions?: HTMLFwListOptionsElement;
-  private popover?: HTMLFwPopoverElement;
+  private popoverRef?: HTMLFwPopoverElement;
   private tagContainer: HTMLElement;
   private tagArrowKeyCounter = 0;
   private hostId;
@@ -57,7 +57,7 @@ export class Select {
       this.setFocus();
       // Select the whole text in case of single select
       this.multiple || this.selectInput?.select?.();
-      if (this.variant !== 'mail') {
+      if (!['search', 'mail'].includes(this.variant)) {
         this.openDropdown();
       }
       this.focusedValues = [];
@@ -76,13 +76,13 @@ export class Select {
 
   private openDropdown = () => {
     if (!this.isExpanded && this.changeEmittable()) {
-      this.popover.show();
+      this.popoverRef.show();
     }
   };
 
   private closeDropdown = () => {
     if (this.isExpanded && this.changeEmittable()) {
-      this.popover.hide();
+      this.popoverRef.hide();
     }
   };
 
@@ -153,7 +153,7 @@ export class Select {
   /**
    * The UI variant of the select to be used.
    */
-  @Prop() variant: 'button' | 'standard' | 'mail' = 'standard';
+  @Prop() variant: 'button' | 'standard' | 'mail' | 'search' = 'standard';
   /**
    * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row.
    * The props for the icon or avatar are passed as an object via the graphicsProps.
@@ -205,6 +205,10 @@ export class Select {
    * Placement of the options list with respect to select.
    */
   @Prop() optionsPlacement: PopoverPlacementType = 'bottom';
+  /**
+   * Alternative placement for popover if the default placement is not possible.
+   */
+  @Prop() fallbackPlacements: [PopoverPlacementType] = ['top'];
   /**
    * The variant of tag to be used.
    */
@@ -270,6 +274,11 @@ export class Select {
    */
   @Prop() maxHeight = 'none';
 
+  /**
+   *  Props to be passed for fw-tag components displayed in multi-select.
+   */
+  @Prop() tagProps = {};
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -303,7 +312,7 @@ export class Select {
   @Listen('fwLoading')
   onLoading(event) {
     this.isLoading = event.detail.isLoading;
-    if (this.variant === 'mail' && !this.isLoading) {
+    if (['search', 'mail'].includes(this.variant) && !this.isLoading) {
       this.selectInput?.value?.trim() && this.openDropdown();
     }
   }
@@ -314,7 +323,7 @@ export class Select {
       this.selectedOptionsState = selectedItem.detail?.meta?.selectedOptions;
       this.value = selectedItem.detail.value;
       this.renderInput();
-      if (!this.multiple || this.variant === 'mail') {
+      if (!this.multiple || ['search', 'mail'].includes(this.variant)) {
         this.closeDropdown();
       }
       selectedItem.stopImmediatePropagation();
@@ -541,6 +550,8 @@ export class Select {
           } else {
             this.tagArrowKeyCounter = 0;
           }
+          ev.preventDefault();
+          ev.stopPropagation();
           ev.stopImmediatePropagation();
           break;
         case 'ArrowRight':
@@ -550,6 +561,8 @@ export class Select {
             this.tagArrowKeyCounter++;
             this.focusOnTag(this.tagArrowKeyCounter);
           }
+          ev.preventDefault();
+          ev.stopPropagation();
           ev.stopImmediatePropagation();
           break;
       }
@@ -583,6 +596,11 @@ export class Select {
     if (!this.selectedOptionsState[index]?.disabled) {
       this.focusedValues = [index];
       this.tagContainer.focus();
+      const tags = this.tagContainer.querySelectorAll('fw-tag');
+      [...tags][index].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
     }
   }
 
@@ -613,11 +631,11 @@ export class Select {
     if (this.changeEmittable()) {
       this.searchValue = this.selectInput?.value;
       if (this.selectInput?.value) {
-        this.variant !== 'mail' && this.openDropdown();
+        !['search', 'mail'].includes(this.variant) && this.openDropdown();
       } else {
         // Clear selected value in case of single select.
         this.multiple || this.setSelectedValues('');
-        this.variant === 'mail' && this.closeDropdown();
+        ['search', 'mail'].includes(this.variant) && this.closeDropdown();
       }
       this.focusedValues = [];
     }
@@ -627,6 +645,10 @@ export class Select {
     if (this.changeEmittable()) {
       e.stopPropagation();
       this.tagContainer.focus();
+      e.currentTarget.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
       if (!this.selectedOptionsState[index]?.disabled) {
         const focusedIndex = this.focusedValues.indexOf(index);
         if (focusedIndex === -1) {
@@ -694,6 +716,7 @@ export class Select {
               isFocused={this.focusedValues.includes(index)}
               onClick={(e) => this.onClickTag(e, index)}
               {...displayAttributes}
+              {...this.tagProps}
             />
           );
         }
@@ -989,9 +1012,10 @@ export class Select {
               id='select-popover'
               distance='8'
               trigger='manual'
-              ref={(popover) => (this.popover = popover)}
-              same-width={this.sameWidth}
+              ref={(popoverRef) => (this.popoverRef = popoverRef)}
+              sameWidth={this.sameWidth}
               placement={this.optionsPlacement}
+              fallbackPlacements={this.fallbackPlacements}
               boundary={this.boundary}
               hoist={this.hoist}
             >

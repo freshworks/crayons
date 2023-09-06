@@ -921,6 +921,7 @@ export namespace Components {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -1696,6 +1697,10 @@ export namespace Components {
          */
         "errorText": string;
         /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements": [PopoverPlacementType];
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
@@ -1804,6 +1809,10 @@ export namespace Components {
          */
         "state": 'normal' | 'warning' | 'error';
         /**
+          * Props to be passed for fw-tag components displayed in multi-select.
+         */
+        "tagProps": {};
+        /**
           * The variant of tag to be used.
          */
         "tagVariant": TagVariant;
@@ -1818,7 +1827,7 @@ export namespace Components {
         /**
           * The UI variant of the select to be used.
          */
-        "variant": 'button' | 'standard' | 'mail';
+        "variant": 'button' | 'standard' | 'mail' | 'search';
         /**
           * Warning text displayed below the text box.
          */
@@ -3835,6 +3844,7 @@ declare namespace LocalJSX {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -4639,6 +4649,10 @@ declare namespace LocalJSX {
          */
         "errorText"?: string;
         /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements"?: [PopoverPlacementType];
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
@@ -4747,6 +4761,10 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
+          * Props to be passed for fw-tag components displayed in multi-select.
+         */
+        "tagProps"?: {};
+        /**
           * The variant of tag to be used.
          */
         "tagVariant"?: TagVariant;
@@ -4761,7 +4779,7 @@ declare namespace LocalJSX {
         /**
           * The UI variant of the select to be used.
          */
-        "variant"?: 'button' | 'standard' | 'mail';
+        "variant"?: 'button' | 'standard' | 'mail' | 'search';
         /**
           * Warning text displayed below the text box.
          */

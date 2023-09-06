@@ -112,6 +112,10 @@ export namespace Components {
          */
         "formValues": any;
         /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
+        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors": boolean;
@@ -358,6 +362,10 @@ export namespace Components {
          */
         "role": 'trial' | 'admin';
         /**
+          * flag to show lookupField for CONVERSATION_PROPERTIES or not
+         */
+        "showLookupField": boolean;
+        /**
           * Show explore plans and disable features for user having free-plan
          */
         "userPlan": 'trial' | 'admin';
@@ -404,6 +412,11 @@ export namespace Components {
          */
         "clearTableSelection": () => Promise<void>;
         /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles": { [key: string]: string } | string;
+        /**
           * Whether the checkbox should be visible.
          */
         "isSelectable": boolean;
@@ -432,9 +445,17 @@ export namespace Components {
          */
         "sortableColumns": {};
         /**
+          * Height of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableHeight": string;
+        /**
           * Props for the fw-pagination component
          */
         "tableProps": {};
+        /**
+          * Width of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableWidth": string;
     }
     interface FwSearchDropdown {
         /**
@@ -838,6 +859,10 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: FwFbFieldLookupCustomEvent<any>) => void;
         /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
+        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors"?: boolean;
@@ -1136,6 +1161,10 @@ declare namespace LocalJSX {
          */
         "role"?: 'trial' | 'admin';
         /**
+          * flag to show lookupField for CONVERSATION_PROPERTIES or not
+         */
+        "showLookupField"?: boolean;
+        /**
           * Show explore plans and disable features for user having free-plan
          */
         "userPlan"?: 'trial' | 'admin';
@@ -1178,6 +1207,11 @@ declare namespace LocalJSX {
     }
     interface FwPlatformTable {
         /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles"?: { [key: string]: string } | string;
+        /**
           * Whether the checkbox should be visible.
          */
         "isSelectable"?: boolean;
@@ -1214,9 +1248,17 @@ declare namespace LocalJSX {
          */
         "sortableColumns"?: {};
         /**
+          * Height of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableHeight"?: string;
+        /**
           * Props for the fw-pagination component
          */
         "tableProps"?: {};
+        /**
+          * Width of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableWidth"?: string;
     }
     interface FwSearchDropdown {
         /**

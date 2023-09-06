@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.0...@freshworks/crayons@4.3.0-beta.1) (2023-07-27)
+
+### Features
+
+- **fw-select:** add search variant ([d184338](https://github.com/freshworks/crayons/commit/d18433873cce8d66d46f7a2e28d5941b07ae1fb4))
+
+## [4.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.1-beta.0...@freshworks/crayons@4.3.0-beta.0) (2023-07-25)
+
+### Features
+
+- **fw-select:** fix styling for tag container, focus on tags on click/key press, tagProps ([445c3a0](https://github.com/freshworks/crayons/commit/445c3a040679f33e08d7e02f4d8a3144d4517f9e))
+
+## [4.2.0-beta.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.19...@freshworks/crayons@4.2.0-beta.20) (2023-06-27)
+
+### Features
+
+- **component:** lookupField added for CONVERSATION_PROPERTIES form ([#866](https://github.com/freshworks/crayons/issues/866)) ([63c90f0](https://github.com/freshworks/crayons/commit/63c90f01488fdb41db2b1bb29334e73e0703a1be))
+
+## [4.2.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.18...@freshworks/crayons@4.2.0-beta.19) (2023-06-10)
+
+### Bug Fixes
+
+- **select, kebab-menu:** modify popover attribute name to avoid attribute conflict ([8cb9bbe](https://github.com/freshworks/crayons/commit/8cb9bbe209ef0db2f48b5aa5389d80df604e94a0))
+
 ## [4.2.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.17...@freshworks/crayons@4.2.0-beta.18) (2023-06-05)
 
 ### Features

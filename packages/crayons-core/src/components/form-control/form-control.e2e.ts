@@ -131,4 +131,31 @@ describe('fw-form-control', () => {
       ).toBe(props.choices[i]['value']);
     });
   });
+
+  it.each(['RELATIONSHIP', 'AUTO_COMPLETE'])(
+    'should render fw-popover',
+    async (key) => {
+      const props = {
+        type: key,
+        name: `${key} field test`,
+      };
+      const page = await newE2EPage();
+
+      await page.setContent('<fw-form-control></fw-form-control>');
+
+      await page.$eval(
+        'fw-form-control',
+        (elm: any, { type, name }) => {
+          elm.type = type;
+          elm.name = name;
+        },
+        props
+      );
+      await page.waitForChanges();
+      const select = await page.find('fw-form-control >>> :first-child');
+      const popover = await select.find('fw-select >>> fw-popover');
+      expect(popover).not.toBeNull();
+      expect(popover.tagName.toLowerCase()).toEqual('fw-popover');
+    }
+  );
 });

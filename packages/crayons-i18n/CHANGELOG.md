@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.0-beta.7...@freshworks/crayons-i18n@4.2.0-beta.8) (2023-06-27)
+
+### Features
+
+- **component:** lookupField added for CONVERSATION_PROPERTIES form ([#866](https://github.com/freshworks/crayons/issues/866)) ([63c90f0](https://github.com/freshworks/crayons/commit/63c90f01488fdb41db2b1bb29334e73e0703a1be))
+
 ## [4.2.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.0-beta.4...@freshworks/crayons-i18n@4.2.0-beta.5) (2023-04-05)
 
 ### Bug Fixes

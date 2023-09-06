@@ -191,7 +191,7 @@ export class FilterCondition {
           const { from: fromDate, to: toDate } = this.value;
           if (fromDate && toDate) {
             const value = { fromDate, toDate };
-            props = { ...props, ...value, value };
+            props = { ...props, ...value };
           }
         }
         return (

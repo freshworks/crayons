@@ -37,6 +37,7 @@ export class FormControl {
     | 'TIME'
     | 'DATE_TIME'
     | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
     | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
@@ -340,6 +341,7 @@ export class FormControl {
         break;
 
       case 'RELATIONSHIP':
+      case 'AUTO_COMPLETE':
         {
           const controlProps = this.controlProps?.selectProps(
             this.name,
@@ -363,7 +365,7 @@ export class FormControl {
           };
 
           if (
-            Array.isArray(controlProps.value) &&
+            Array.isArray(controlProps?.value) &&
             typeof controlProps.value[0] === 'object'
             // handle multi_select, select [{}] initialValues
           ) {
@@ -374,7 +376,7 @@ export class FormControl {
             this.crayonsControlRef?.setSelectedOptions(
               componentProps.selectedOptions
             );
-          } else if (!controlProps.value) {
+          } else if (!controlProps?.value) {
             this.crayonsControlRef?.setSelectedOptions([]);
           }
           componentProps.noDataText =

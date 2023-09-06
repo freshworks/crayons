@@ -99,6 +99,7 @@
     "fieldTypeSingleLineText": "Single line text",
     "fieldTypeMultiLineText": "Multi line text",
     "fieldTypeMultiSelectDropdown": "Multiselect dropdown",
+    "fieldTypeLookupField": "Lookup field",
     "fieldTypeDependent": "Dependent field",
     "filterFields": "Filter :",
     "filterOptionAllFields": "All fields",
@@ -158,6 +159,7 @@
     "freePlanFieldAddDisabledButton": "Explore plans",
     "noCreatePermissionFieldAddDisabledHeader": "You do not have permission to create new properties",
     "noCreatePermissionFieldAddDisabledMessage": "Please reach out to your admin for more details.",
+    "ertText": "Effective resolution timer",
     "errors": {
       "emptyFieldName": "Field label is required.",
       "emptyRelationshipType": "Relationship type is required.",
