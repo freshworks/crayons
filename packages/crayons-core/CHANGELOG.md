@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.1...@freshworks/crayons@4.3.0-beta.2) (2023-09-06)
+
+
+### Features
+
+* **fw-toast:** Handles prevent rendering the duplicate toaster multiple times with in the timeout period ([#888](https://github.com/freshworks/crayons/issues/888)) ([8fd296a](https://github.com/freshworks/crayons/commit/8fd296a9452531b846b1dccadba0166b5a300660))
+
+
+
+
+
 ## [4.3.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.0...@freshworks/crayons@4.3.0-beta.1) (2023-07-27)
 
 ### Features
