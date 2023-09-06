@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.2...@freshworks/crayons@4.3.0-beta.3) (2023-09-06)
-
+## [4.3.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.2...@freshworks/crayons@4.3.0-beta.3) (2023-09-06)
 
 ### Features
 
-* handles the prevention for toastercontroller approach as well ([#890](https://github.com/freshworks/crayons/issues/890)) ([6419e94](https://github.com/freshworks/crayons/commit/6419e9417c92a1655318368d6703a536f9ec54ae))
-
-
-
-
+- handles the prevention for toastercontroller approach as well ([#890](https://github.com/freshworks/crayons/issues/890)) ([6419e94](https://github.com/freshworks/crayons/commit/6419e9417c92a1655318368d6703a536f9ec54ae))
 
 ## [4.3.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.1...@freshworks/crayons@4.3.0-beta.2) (2023-09-06)
 
