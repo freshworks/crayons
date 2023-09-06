@@ -104,7 +104,6 @@ export function preventDuplicates(
 ): boolean {
   let hasDuplicates = false;
   Array.from(toasteContainerCollection).forEach((existingToast) => {
-    if (!newToasterOption.shouldPreventDuplicates) return;
     if (
       existingToast.attributes.getNamedItem('content').value ===
         newToasterOption.content &&
