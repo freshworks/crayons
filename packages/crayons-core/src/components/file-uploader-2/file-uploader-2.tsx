@@ -777,7 +777,10 @@ export class FileUploader {
         role='button'
       >
         <div class='file-uploader__body__dropzone__center'>
-          <div class='file-uploader__body__dropzone__center__clickable'>
+          <div
+            class='file-uploader__body__dropzone__center__clickable'
+            part='fw-file-uploader-clickable'
+          >
             <div class='file-uploader__body__dropzone__center__clickable__icon'>
               {!this.errorText.length ? (
                 <div
@@ -798,12 +801,16 @@ export class FileUploader {
             {!this.errorText.length ? (
               <div
                 class='file-uploader__body__dropzone__center__clickable__text'
+                part='fw-file-uploader-text'
                 innerHTML={
                   this.text || TranslationController.t('fileUploader2.text')
                 }
               ></div>
             ) : (
-              <div class='file-uploader__body__dropzone__center__clickable__error'>
+              <div
+                class='file-uploader__body__dropzone__center__clickable__error'
+                part='fw-file-uploader-error'
+              >
                 {this.errorText}.{' '}
                 <span class='highlight'>
                   {TranslationController.t('fileUploader2.retry')}
@@ -811,7 +818,10 @@ export class FileUploader {
               </div>
             )}
             {this.description && (
-              <div class='file-uploader__body__dropzone__center__clickable__description'>
+              <div
+                class='file-uploader__body__dropzone__center__clickable__description'
+                part='fw-file-uploader-desc'
+              >
                 <span>{this.description}</span>
               </div>
             )}
