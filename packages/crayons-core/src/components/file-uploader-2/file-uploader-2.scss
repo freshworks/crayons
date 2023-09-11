@@ -144,6 +144,8 @@
           margin-block: auto;
           padding-block-start: 28px;
           padding-block-end: 32px;
+          padding-left: var(--fw-file-uploader-center-pd-l, 0);
+          padding-right: var(--fw-file-uploader-center-pd-r, 0);
 
           &__icon {
             margin-block-end: 7px;
@@ -170,6 +172,7 @@
 
           &__error {
             color: $color-persimmon-900;
+            font-size: var(--fw-file-uploader-error-font, 14px);
           }
 
           &__description {
