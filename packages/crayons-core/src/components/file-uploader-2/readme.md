@@ -1076,6 +1076,16 @@ Type: `Promise<void>`
 fileUploadPromise
 
 
+## Shadow Parts
+
+| Part                           | Description |
+| ------------------------------ | ----------- |
+| `"fw-file-uploader-clickable"` | The center area |
+| `"fw-file-uploader-desc"`      | The hint message |
+| `"fw-file-uploader-error"`     | The error message displayed |
+| `"fw-file-uploader-text"`      | The title message |
+
+
 ## CSS Custom Properties
 
 | Name                        | Description                         |
