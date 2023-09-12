@@ -1080,10 +1080,10 @@ fileUploadPromise
 
 | Part                           | Description |
 | ------------------------------ | ----------- |
-| `"fw-file-uploader-clickable"` | The center area |
-| `"fw-file-uploader-desc"`      | The hint message |
-| `"fw-file-uploader-error"`     | The error message displayed |
-| `"fw-file-uploader-text"`      | The title message |
+| `"fw-file-uploader-clickable"` |             |
+| `"fw-file-uploader-desc"`      |             |
+| `"fw-file-uploader-error"`     |             |
+| `"fw-file-uploader-text"`      |             |
 
 
 ## CSS Custom Properties
