@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.3...@freshworks/crayons@4.3.0-beta.4) (2023-09-12)
+
+
+### Features
+
+* **file-uploader-2:** adding part support of file uploader component ([#892](https://github.com/freshworks/crayons/issues/892)) ([32c0e66](https://github.com/freshworks/crayons/commit/32c0e661cb506bd4b3a6a5aded2a1e988b73317f))
+
+
+
+
+
 ## [4.3.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.2...@freshworks/crayons@4.3.0-beta.3) (2023-09-06)
 
 ### Features
