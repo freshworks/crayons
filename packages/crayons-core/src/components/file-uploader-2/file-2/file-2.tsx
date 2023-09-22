@@ -15,6 +15,7 @@ import {
   iconAddLibrary,
 } from '../../../utils/assets';
 import { TranslationController } from '../../../global/Translation';
+import { KB_TO_BYTE } from '../../../constants';
 
 @Component({
   tag: 'fw-file-2',
@@ -151,7 +152,7 @@ export class File2 {
       return ' (0 B)';
     }
 
-    const k = 1024;
+    const k = KB_TO_BYTE;
     const dm = 2;
     const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));

@@ -17,6 +17,7 @@ import {
   UploaderFile,
 } from './file-uploader2-util';
 import { fileDragSVG, fileErrorSVG } from '../../utils/assets';
+import { MB_TO_KB, KB_TO_BYTE } from '../../constants';
 
 let fileCount = 0;
 
@@ -375,7 +376,7 @@ export class FileUploader {
       passed = false;
     } else if (
       this.totalFileSizeAllowed !== 0 &&
-      totalSize > this.totalFileSizeAllowed * 1024 * 1024
+      totalSize > this.totalFileSizeAllowed * MB_TO_KB * KB_TO_BYTE
     ) {
       this.errorText = this.totalFileSizeAllowedError;
       passed = false;
@@ -413,7 +414,7 @@ export class FileUploader {
       }
     }
     if (this.maxFileSize !== 0) {
-      if (fileSize > this.maxFileSize * 1024 * 1024) {
+      if (fileSize > this.maxFileSize * MB_TO_KB * KB_TO_BYTE) {
         isPassed = false;
         errors.push(this.maxFileSizeError);
       }
