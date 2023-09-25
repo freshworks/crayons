@@ -10,8 +10,8 @@ import {
   Method,
 } from '@stencil/core';
 import { TranslationController } from '../../global/Translation';
-
 import { renderHiddenField } from '../../utils';
+import { MB_TO_KB, KB_TO_BYTE } from '../../constants';
 
 let fileCount = 1;
 
@@ -349,7 +349,7 @@ export class FileUploader {
       }
     }
     if (this.maxFileSize !== 0) {
-      if (fileSize > this.maxFileSize * 1024 * 1024) {
+      if (fileSize > this.maxFileSize * MB_TO_KB * KB_TO_BYTE) {
         isPassed = false;
         errors.push(
           this.maxFileSizeError ||
