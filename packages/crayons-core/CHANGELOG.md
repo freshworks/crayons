@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.4...@freshworks/crayons@4.3.0-beta.5) (2023-09-26)
-
+## [4.3.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.4...@freshworks/crayons@4.3.0-beta.5) (2023-09-26)
 
 ### Bug Fixes
 
-* **file-uploader:** correcting MB to KB conversion formula ([#893](https://github.com/freshworks/crayons/issues/893)) ([ef33ea2](https://github.com/freshworks/crayons/commit/ef33ea244a736060050830ffccc01f1eb9a39a4e))
-
-
-
-
+- **file-uploader:** correcting MB to KB conversion formula ([#893](https://github.com/freshworks/crayons/issues/893)) ([ef33ea2](https://github.com/freshworks/crayons/commit/ef33ea244a736060050830ffccc01f1eb9a39a4e))
 
 ## [4.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.3...@freshworks/crayons@4.3.0-beta.4) (2023-09-12)
 
